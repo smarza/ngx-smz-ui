@@ -1,0 +1,168 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "ngx-smz-ui": {
+      "projectType": "library",
+      "root": "projects/ngx-smz-ui",
+      "sourceRoot": "projects/ngx-smz-ui/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ngx-smz-ui/tsconfig.lib.json",
+            "project": "projects/ngx-smz-ui/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ngx-smz-ui/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-smz-ui/src/test.ts",
+            "tsConfig": "projects/ngx-smz-ui/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-smz-ui/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-smz-ui/tsconfig.lib.json",
+              "projects/ngx-smz-ui/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "ngx-smz-ui-demo": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/ngx-smz-ui-demo",
+      "sourceRoot": "projects/ngx-smz-ui-demo/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/ngx-smz-ui-demo",
+            "index": "projects/ngx-smz-ui-demo/src/index.html",
+            "main": "projects/ngx-smz-ui-demo/src/main.ts",
+            "polyfills": "projects/ngx-smz-ui-demo/src/polyfills.ts",
+            "tsConfig": "projects/ngx-smz-ui-demo/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/ngx-smz-ui-demo/src/favicon.ico",
+              "projects/ngx-smz-ui-demo/src/assets"
+            ],
+            "styles": [
+              "projects/ngx-smz-ui-demo/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/ngx-smz-ui-demo/src/environments/environment.ts",
+                  "with": "projects/ngx-smz-ui-demo/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "ngx-smz-ui-demo:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "ngx-smz-ui-demo:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "ngx-smz-ui-demo:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-smz-ui-demo/src/test.ts",
+            "polyfills": "projects/ngx-smz-ui-demo/src/polyfills.ts",
+            "tsConfig": "projects/ngx-smz-ui-demo/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-smz-ui-demo/karma.conf.js",
+            "assets": [
+              "projects/ngx-smz-ui-demo/src/favicon.ico",
+              "projects/ngx-smz-ui-demo/src/assets"
+            ],
+            "styles": [
+              "projects/ngx-smz-ui-demo/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-smz-ui-demo/tsconfig.app.json",
+              "projects/ngx-smz-ui-demo/tsconfig.spec.json",
+              "projects/ngx-smz-ui-demo/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/ngx-smz-ui-demo/e2e/protractor.conf.js",
+            "devServerTarget": "ngx-smz-ui-demo:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "ngx-smz-ui-demo:serve:production"
+            }
+          }
+        }
+      }
+    }},
+  "defaultProject": "ngx-smz-ui"
+}

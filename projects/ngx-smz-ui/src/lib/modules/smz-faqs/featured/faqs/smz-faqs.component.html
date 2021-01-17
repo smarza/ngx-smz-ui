@@ -1,0 +1,21 @@
+<ng-container *ngIf="activated">
+    <div *ngIf="expanded" class="layout-dimmer" (click)="expanded = false"></div>
+
+    <div class="layout-config" [ngClass]="{ 'layout-config-active': expanded }">
+        <div class="layout-config-content-wrapper">
+            <a class="layout-config-button" tabindex="0" [ngStyle]="{ top: manager.config.layouts.positions[verticalPosition] }" (click)="toggle()">
+                <i class="far fa-question-circle"></i>
+            </a>
+            <a class="layout-config-close hvr-grow" tabindex="0" (click)="expanded = false">
+                <i class="fas fa-times"></i>
+            </a>
+            <div class="layout-config-content">
+                <ng-container *ngIf="expanded">
+                    <ng-container *ngIf="manager.dbData$ | async as dbData">
+                        <smz-faqs-content [items]="dbData.items"></smz-faqs-content>
+                    </ng-container>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</ng-container>
