@@ -1,15 +1,14 @@
 import { FaqDetails } from '../models/faqs';
 import { FaqsForms } from './faqs.forms';
-import { FormGroupDialogResponse, IDialogData, FormGroupInputData, IDialogActionButton } from 'ngx-smz';
 
 
 export namespace FaqsDialogs
 {
 
-    export function getDialog(data: FaqDetails, callback: (data: FormGroupDialogResponse) => void): Partial<IDialogData>
+    export function getDialog(data: FaqDetails, callback: (data: any) => void): Partial<any>
     {
 
-        const inputs: FormGroupInputData[] = [];
+        const inputs: any[] = [];
 
         inputs.push(...FaqsForms.getInputs(data));
 
@@ -26,19 +25,19 @@ export namespace FaqsDialogs
 
     }
 
-    export function getCancel(): IDialogActionButton
+    export function getCancel(): any
     {
         return {
             validationRequired: false, closeDialogAfterClicked: true, icon: '', iconPos: '', label: 'CANCELAR', style: 'secondary', styleClass: '', visible: true,
-            onClick: (response: FormGroupDialogResponse) => { },
+            onClick: (response: any) => { },
         };
     }
 
-    export function getConfirm(callback: (response: FormGroupDialogResponse) => void): IDialogActionButton
+    export function getConfirm(callback: (response: any) => void): any
     {
         return {
             validationRequired: true, closeDialogAfterClicked: true, icon: '', iconPos: '', label: 'CONFIRMAR', style: 'primary', styleClass: '', visible: true,
-            onClick: (response: FormGroupDialogResponse) => callback(response),
+            onClick: (response: any) => callback(response),
         };
     }
 

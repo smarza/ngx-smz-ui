@@ -1,12 +1,11 @@
 import { Validators } from '@angular/forms';
 import { FaqDetails } from '../models/faqs';
-import { FormGroupConfig, FormGroupInputData } from 'ngx-smz'
 
 export namespace FaqsForms
 {
-    export function getForm(data: FaqDetails = null): FormGroupConfig
+    export function getForm(data: FaqDetails = null): any
     {
-        const inputs: FormGroupInputData[] = [];
+        const inputs: any[] = [];
 
         inputs.push(...getInputs(data));
 
@@ -16,9 +15,9 @@ export namespace FaqsForms
             avoidFocusOnLoad: true
         };
     }
-    export function getInputs(data: FaqDetails = null): FormGroupInputData[]
+    export function getInputs(data: FaqDetails = null): any[]
     {
-        const response: FormGroupInputData[] = [];
+        const response: any[] = [];
 
         const question = data != null ? data.question : null;
         const answer = data != null ? data.answer : null;

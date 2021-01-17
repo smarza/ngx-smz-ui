@@ -6,8 +6,8 @@ import { FaqsDbActions } from './faqs.actions';
 import { isWithinTime, deepClone, } from 'ngx-rbk-utils';
 import { DbData, FaqDetails } from '../models/faqs';
 import { FaqsApiService } from '../services/faqs-api.service';
-import { replaceItem } from 'ngx-smz';
 import { SmzFaqsConfig } from '../smz-faqs.config';
+import { replaceItem } from 'ngx-smz-dialogs';
 
 
 export interface FaqsDbStateModel
