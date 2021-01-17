@@ -7,7 +7,7 @@
       "projectType": "library",
       "root": "projects/ngx-smz-ui",
       "sourceRoot": "projects/ngx-smz-ui/src",
-      "prefix": "lib",
+      "prefix": "smz-ui",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",

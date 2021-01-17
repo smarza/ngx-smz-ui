@@ -6,6 +6,6 @@ import { Injectable } from '@angular/core';
 export class NgxSmzUiService {
 
   constructor() {
-      console.log('NgxSmzUiService constructor');
+      console.log('NgxSmzUiService constructor 2');
   }
 }
