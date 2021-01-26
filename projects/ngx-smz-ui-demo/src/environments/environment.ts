@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  version: 'development_v.3.3.19',
+  databaseCacheTimeout: 2,
+  backend: 'https://dev.varejofacil.tk',
 };
 
 /*

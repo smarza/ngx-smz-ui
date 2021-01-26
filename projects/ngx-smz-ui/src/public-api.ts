@@ -2,7 +2,6 @@
  * Public API Surface of ngx-smz-ui
  */
 
-export * from './lib/ngx-smz-ui.service';
 export * from './lib/ngx-smz-ui.component';
 export * from './lib/ngx-smz-ui.module';
 
