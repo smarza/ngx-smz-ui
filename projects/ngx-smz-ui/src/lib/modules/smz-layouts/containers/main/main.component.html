@@ -1,9 +1,23 @@
-<p-menubar [model]="menu">
-  <ng-template pTemplate="start">
-      <img [src]="config.logoPath" height="40" class="p-mr-2">
-  </ng-template>
-  <ng-template pTemplate="end">
+<smz-ui-outlet [menu]="menu">
+
+  <ng-container header>
     <ng-content select="[header]"></ng-content>
-  </ng-template>
-</p-menubar>
-<router-outlet></router-outlet>
+  </ng-container>
+
+  <ng-container header-extras>
+    <ng-content select="[header-extras]"></ng-content>
+  </ng-container>
+
+  <ng-container left-side>
+    <ng-content select="[left-side]"></ng-content>
+  </ng-container>
+
+  <ng-container right-side>
+    <ng-content select="[right-side]"></ng-content>
+  </ng-container>
+
+  <ng-container footer>
+    <ng-content select="[footer]"></ng-content>
+  </ng-container>
+
+</smz-ui-outlet>

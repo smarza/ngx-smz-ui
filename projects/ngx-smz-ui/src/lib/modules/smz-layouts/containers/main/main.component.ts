@@ -12,7 +12,7 @@ export class MainComponent implements OnInit
 {
   @Input() public menu: MenuItem[];
 
-  constructor(public readonly config: SmzLayoutsConfig, private routerDataListenerService: RouterDataListenerService) { }
+  constructor(public readonly config: SmzLayoutsConfig, public readonly routerListener: RouterDataListenerService) { }
 
   ngOnInit(): void
   {

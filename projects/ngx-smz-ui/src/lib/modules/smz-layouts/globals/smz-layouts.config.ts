@@ -1,5 +1,3 @@
-import { NgxRbkUtilsConfig } from 'ngx-rbk-utils';
-
 export class SmzLayoutsConfig
 {
     debugMode?: boolean;
@@ -15,8 +13,6 @@ export class SmzLayoutsConfig
     };
 
     applicationActions?: {
-        useLogs: boolean;
+        registerLogs: boolean;
     };
-
-    // rbkConfig?: NgxRbkUtilsConfig;
 }

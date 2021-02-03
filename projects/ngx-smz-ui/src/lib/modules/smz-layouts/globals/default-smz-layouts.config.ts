@@ -12,6 +12,6 @@ export const defaultSmzLayoutsConfig: SmzLayoutsConfig = {
         closeAllAfterNavigate: true,
     },
     applicationActions: {
-        useLogs: true,
+        registerLogs: true,
     }
 }

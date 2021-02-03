@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SmzLayoutsModule } from 'ngx-smz-ui';
+import { NgxSmzLayoutsModule } from 'ngx-smz-ui';
 
 import { smzLayoutsConfig } from '../globals/smz-layouts.config';
 import { CommonModule } from '@angular/common';
@@ -31,7 +31,7 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
     NgxsModule.forRoot(buildState(), { developmentMode: !environment.production }),
     NgxsRouterPluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot(),
-    SmzLayoutsModule.forRoot(smzLayoutsConfig),
+    NgxSmzLayoutsModule.forRoot(smzLayoutsConfig),
 
   ],
   providers: [],

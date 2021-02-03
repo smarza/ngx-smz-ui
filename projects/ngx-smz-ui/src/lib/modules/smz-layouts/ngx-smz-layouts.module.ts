@@ -4,29 +4,29 @@ import { MainComponent } from './containers/main/main.component';
 import { SmzLayoutsConfig } from './globals/smz-layouts.config';
 import { defaultSmzLayoutsConfig } from './globals/default-smz-layouts.config';
 
-import { MenubarModule } from 'primeng/menubar';
-import { SharedModule as PrimeSharedModule } from 'primeng/api';
 import { mergeClone } from '../../common/utils/deep-merge';
+import { NgxSmzLayoutsRoutingModule } from './ngx-smz-layouts-routing.module';
+import { OutletModule } from './features/outlet/outlet.module';
 
 @NgModule({
     declarations: [
-        MainComponent
+        MainComponent,
     ],
     imports: [
         CommonModule,
-        MenubarModule,
-        PrimeSharedModule,
+        OutletModule,
+        NgxSmzLayoutsRoutingModule
     ],
     exports: [
         MainComponent
     ],
 })
-export class SmzLayoutsModule
+export class NgxSmzLayoutsModule
 {
-    public static forRoot(configuration: SmzLayoutsConfig): ModuleWithProviders<SmzLayoutsModule>
+    public static forRoot(configuration: SmzLayoutsConfig): ModuleWithProviders<NgxSmzLayoutsModule>
     {
         return {
-            ngModule: SmzLayoutsModule,
+            ngModule: NgxSmzLayoutsModule,
             providers: [
                 {
                     provide: SmzLayoutsConfig,

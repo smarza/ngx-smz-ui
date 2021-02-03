@@ -22,7 +22,7 @@ import { NgxRbkUtilsConfig } from 'ngx-rbk-utils';
 //
 
 export const rbkConfig: NgxRbkUtilsConfig = {
-    debugMode: false,
+    debugMode: true,
     applicationName: environment.production ? 'VF' : 'TREINAMENTO',
     useTitleService: true,
     routes: {
@@ -42,8 +42,8 @@ export const rbkConfig: NgxRbkUtilsConfig = {
         }
     },
     diagnostics: {
-        url: `${environment.backend}/api/diagnostics`
-        // url: null
+        // url: `${environment.backend}/api/diagnostics`
+        url: null
     },
     authentication: {
         login: {

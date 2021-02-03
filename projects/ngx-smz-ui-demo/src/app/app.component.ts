@@ -14,7 +14,7 @@ export class AppComponent
   {
     this.menu = [
       {
-        label: 'Navigation',
+        label: 'App Navigation',
         items: [
           {
             label: 'No Auth', items: [
@@ -30,13 +30,15 @@ export class AppComponent
         ]
       },
       {
-        label: 'Edit',
-        icon: 'pi pi-fw pi-pencil',
+        label: 'Lib Navigation',
         items: [
-          { label: 'Delete', icon: 'pi pi-fw pi-trash' },
-          { label: 'Refresh', icon: 'pi pi-fw pi-refresh' }
+          {
+            label: 'No Auth', items: [
+              { label: 'Login', routerLink: ['login'] },
+            ]
+          },
         ]
-      }
+      },
     ];
   }
 }

@@ -1,0 +1,41 @@
+<ng-container [ngSwitch]="routerListener.data?.layout?.mode">
+
+  <!-- LAYOUT SIMPLES -->
+  <ng-container *ngSwitchCase="'single'">
+    <div>single</div>
+    <router-outlet></router-outlet>
+  </ng-container>
+
+  <!-- LAYOUT COMPLETO -->
+  <ng-container *ngSwitchCase="'full'">
+
+    <!-- MENU SUPERIOR -->
+    <p-menubar [model]="menu">
+      <ng-template pTemplate="start">
+        <img [src]="config.logoPath" height="40" class="p-mr-2">
+      </ng-template>
+      <ng-template pTemplate="end">
+        <ng-content select="[header-extras]"></ng-content>
+      </ng-template>
+    </p-menubar>
+
+    <!-- CONTEÚDO -->
+    <router-outlet></router-outlet>
+
+  </ng-container>
+
+  <ng-container *ngSwitchCase="'custom'">
+    <div class="p-grid">
+      <ng-content select="[header]"></ng-content>
+      <ng-content select="[left-side]"></ng-content>
+      <ng-content select="[right-side]"></ng-content>
+      <router-outlet></router-outlet>
+      <ng-content select="[footer]"></ng-content>
+    </div>
+  </ng-container>
+
+  <ng-container *ngSwitchDefault>
+    Nenhum tipo de layout foi encontrado.
+  </ng-container>
+
+</ng-container>

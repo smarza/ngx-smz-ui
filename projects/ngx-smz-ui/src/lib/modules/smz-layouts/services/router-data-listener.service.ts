@@ -5,14 +5,16 @@ import { ApplicationActions } from 'ngx-rbk-utils';
 import { SmzDialogsService } from 'ngx-smz-dialogs';
 import { filter, map, mergeMap, tap } from 'rxjs/operators';
 import { SmzLayoutsConfig } from '../globals/smz-layouts.config';
+import { RouteLayoutData, SmzRouteData } from '../models/route-layout-data';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RouterDataListenerService
 {
+  public data: SmzRouteData = null;
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private readonly config: SmzLayoutsConfig, private dialogs: SmzDialogsService,  private store: Store)
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private readonly config: SmzLayoutsConfig, private dialogs: SmzDialogsService, private store: Store)
   {
     if (this.config.debugMode) console.log('>> RouterDataListenerService constructor');
     if (this.config.debugMode) console.log('>> configuration', config);
@@ -25,7 +27,7 @@ export class RouterDataListenerService
           if (this.config.debugMode) console.log('\n##########');
           if (this.config.debugMode) console.log('>> NavigationEnd');
 
-          if (this.config.applicationActions.useLogs)
+          if (this.config.applicationActions.registerLogs)
           {
             if (this.config.debugMode) console.log('ApplicationActions.SetLogExtraData > urlAfterRedirects', event.urlAfterRedirects);
             this.store.dispatch(new ApplicationActions.SetLogExtraData(event.urlAfterRedirects));
@@ -40,9 +42,11 @@ export class RouterDataListenerService
         filter((event) => event.route.outlet === 'primary'),
         mergeMap((x) => x.route.data),
       )
-      .subscribe((data) =>
+      .subscribe((data: SmzRouteData) =>
       {
-        if (this.config.applicationActions.useLogs)
+        this.data = data;
+
+        if (this.config.applicationActions.registerLogs)
         {
           if (this.config.debugMode) console.log('ApplicationActions.SetLogApplicatinArea > appArea', data.appArea);
           this.store.dispatch(new ApplicationActions.SetLogApplicatinArea(data.appArea));

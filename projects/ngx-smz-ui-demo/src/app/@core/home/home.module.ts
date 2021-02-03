@@ -1,13 +1,23 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
+import { SmzRouteData } from 'ngx-smz-ui';
+
+const data: SmzRouteData = {
+  layout: {
+    mode: 'full'
+  },
+  title: 'Home',
+  appArea: 'home',
+  clearReusableRoutes: true
+};
 
 const routes: Routes = [
   {
     path: '',
     canActivate: [],
     component: HomeComponent,
-    data: {},
+    data
   },
 ];
 
