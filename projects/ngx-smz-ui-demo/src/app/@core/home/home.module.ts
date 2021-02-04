@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { SmzRouteData } from 'ngx-smz-ui';
+import { ButtonModule } from 'primeng/button';
 
 const data: SmzRouteData = {
   layout: {
@@ -26,7 +27,8 @@ const routes: Routes = [
     HomeComponent
   ],
   imports: [
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    ButtonModule
   ],
   providers: [],
   bootstrap: [HomeComponent]

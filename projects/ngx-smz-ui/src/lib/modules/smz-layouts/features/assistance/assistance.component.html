@@ -1,0 +1,8 @@
+<ng-container *ngIf="assistance$ | async as assistance">
+  <p-sidebar [(visible)]="isVisible" [position]="assistance.sidebarData.position" (onHide)="onHide()" (onShow)="onShow()">
+
+    <h5>Menu</h5>
+    <p-selectButton [options]="menuTypes" [(ngModel)]="menuType" (onChange)="onMenuTypeChange()" optionLabel="label" optionValue="value"></p-selectButton>
+
+  </p-sidebar>
+</ng-container>

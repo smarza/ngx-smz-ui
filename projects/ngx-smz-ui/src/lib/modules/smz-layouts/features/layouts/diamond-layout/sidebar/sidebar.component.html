@@ -1,10 +1,46 @@
 <ng-container *ngIf="state$ | async as state">
 
     <div class="layout-sidebar">
+
+        <!-- LOGO DA APLICAÇÃO -->
         <a class="logo" href="#/">
             <img id="app-logo" [src]="config.logoWhite" class="logo-image">
             <span class="app-name">DIAMOND</span>
         </a>
+
+        <!-- INICIO DO MENU -->
+        <div class="layout-menu-container">
+            <ul class="layout-menu">
+
+                <!-- PRIMEIRO NÍVEL -->
+                <li app-menuitem="" class="layout-root-menuitem">
+
+                    <!-- LABEL -->
+                    <div class="layout-menuitem-root-text">Favorites</div>
+
+                    <!-- COM MENU COLAPSADO -->
+                    <a pripple="" class="p-ripple" tabindex="0">
+                        <i class="layout-menuitem-icon pi pi-home"></i>
+                        <span class="layout-menuitem-text">Favorites</span>
+                        <i class="pi pi-fw pi-chevron-down layout-submenu-toggler"></i>
+                        <span class="p-ink"></span>
+                    </a>
+
+                    <!--  COM MENU ABERTO -->
+                    <ul role="menu" class="" style="z-index: 100;">
+
+                        <!-- ITEM -->
+                        <li app-menuitem="" class="active-menuitem" style="">
+                            <a routerlinkactive="active-route" pripple="" class="p-ripple active-route" tabindex="0" href="#/">
+                                <i class="layout-menuitem-icon pi pi-fw pi-home"></i><span
+                                    class="layout-menuitem-text">Dashboard</span>
+                                <span class="p-ink"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
     </div>
 
 </ng-container>

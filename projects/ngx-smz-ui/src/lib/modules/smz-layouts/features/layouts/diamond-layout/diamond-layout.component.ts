@@ -41,5 +41,11 @@ export class DiamondLayoutComponent implements OnInit, AfterContentInit
     });
   }
 
+  public showAssistance(): void
+  {
+    console.log('showAssistance');
+    this.store.dispatch(new UiManagerActions.ShowConfigAssistance);
+  }
+
 
 }

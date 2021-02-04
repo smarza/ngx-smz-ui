@@ -30,6 +30,7 @@
     "@ngxs/devtools-plugin": "^3.7.1",
     "@ngxs/router-plugin": "^3.7.1",
     "@ngxs/store": "^3.7.1",
+    "lodash-es": "^4.17.20",
     "ngx-device-detector": "^2.0.5",
     "ngx-rbk-utils": "^1.2.14",
     "ngx-smz-dialogs": "^1.0.3",

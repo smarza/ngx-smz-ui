@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Store } from '@ngxs/store';
 
 @Component({
   selector: 'app-home',
@@ -8,8 +9,9 @@ import { Component } from '@angular/core';
 export class HomeComponent
 {
 
-  constructor()
+  constructor(private store: Store)
   {
 
   }
+
 }
