@@ -1,6 +1,11 @@
 {
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
   "dest": "../../dist/ngx-smz-ui",
+  "assets": [
+    "./resources/scss/*.*",
+    "./resources/fonts/*.*",
+    "./resources/images/pages/*.*"
+],
   "lib": {
     "entryFile": "src/public-api.ts"
   }

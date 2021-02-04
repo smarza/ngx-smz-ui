@@ -1,6 +1,7 @@
-export * from './ngx-smz-layouts.module';
 export * from './globals/smz-layouts.config';
+export * from './core/models/route-layout-data';
 
-export * from './models/route-layout-data';
+export * from './ngx-smz-layouts.module';
 
-export * from './containers/main/main.component';
+export * from './features/layouts/diamond-layout/diamond-layout.module';
+export * from './features/layouts/diamond-layout/diamond-layout.component';

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';import { SmzLayoutsConfig } from '../../globals/smz-layouts.config';
-import { RouterDataListenerService } from '../../services/router-data-listener.service';
+import { RouterDataListenerService } from '../../core/services/router-data-listener.service';
 import { Navigate } from '@ngxs/router-plugin';
 
 @Component({

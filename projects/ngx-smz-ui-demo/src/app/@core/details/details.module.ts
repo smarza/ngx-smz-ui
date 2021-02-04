@@ -5,7 +5,7 @@ import { SmzRouteData } from 'ngx-smz-ui';
 
 const data: SmzRouteData = {
   layout: {
-    mode: 'full'
+    mode: 'layout'
   },
   title: 'Details',
   appArea: 'details',

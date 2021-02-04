@@ -1,0 +1,17 @@
+
+<ng-container *ngIf="state$ | async as state">
+
+    <div class="layout-topbar">
+        <div class="topbar-left">
+            <a tabindex="0" class="menu-button" (click)="toggle()">
+                <i class="pi pi-chevron-left"></i>
+            </a>
+            <span class="topbar-separator"></span>
+            <span class="viewname ng-star-inserted" style="text-transform: uppercase;">Dashboard</span>
+            <img id="logo-mobile" alt="diamond-layout" class="mobile-logo" [src]="config.logoDark">
+        </div>
+    </div>
+
+</ng-container>
+
+<!-- <ng-container *ngTemplateOutlet="headerExtrasTemplate"></ng-container> -->

@@ -1,0 +1,35 @@
+<smz-ui-outlet>
+
+  <ng-template pTemplate="layout">
+
+    <ng-container *ngIf="state$ | async as state">
+      <div class="layout-wrapper layout-sidebar-darkgray" [ngClass]="state.wrapperClass">
+
+        <div class="layout-content-wrapper">
+
+          <!-- MENU SUPERIOR -->
+          <smz-ui-topbar>
+            <ng-template pTemplate="headerExtras">
+              <ng-container *ngTemplateOutlet="headerExtrasTemplate"></ng-container>
+            </ng-template>
+          </smz-ui-topbar>
+
+          <!-- CONTEÚDO -->
+          <div class="layout-content">
+            <router-outlet></router-outlet>
+          </div>
+
+          <!-- FOOTER -->
+          <smz-ui-footer></smz-ui-footer>
+
+          <!-- BARRA LATERAL -->
+          <smz-ui-sidebar></smz-ui-sidebar>
+
+        </div>
+
+      </div>
+    </ng-container>
+
+  </ng-template>
+</smz-ui-outlet>
+

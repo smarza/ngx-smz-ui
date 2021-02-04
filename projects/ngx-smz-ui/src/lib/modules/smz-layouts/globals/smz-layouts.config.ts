@@ -1,7 +1,8 @@
 export class SmzLayoutsConfig
 {
     debugMode?: boolean;
-    logoPath?: string;
+    logoDark?: string;
+    logoWhite?: string;
 
     uiLayouts?: {
         topBar: 'none';

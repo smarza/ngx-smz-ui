@@ -1,25 +1,23 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MainComponent } from './containers/main/main.component';
 import { SmzLayoutsConfig } from './globals/smz-layouts.config';
 import { defaultSmzLayoutsConfig } from './globals/default-smz-layouts.config';
 
 import { mergeClone } from '../../common/utils/deep-merge';
 import { NgxSmzLayoutsRoutingModule } from './ngx-smz-layouts-routing.module';
-import { OutletModule } from './features/outlet/outlet.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxsModule } from '@ngxs/store';
+import { UiManagerState } from './core/state/ui-manager/ui-manager.state';
 
 @NgModule({
-    declarations: [
-        MainComponent,
-    ],
+    declarations: [],
     imports: [
+        BrowserAnimationsModule,
         CommonModule,
-        OutletModule,
-        NgxSmzLayoutsRoutingModule
+        NgxSmzLayoutsRoutingModule,
+        NgxsModule.forFeature([UiManagerState])
     ],
-    exports: [
-        MainComponent
-    ],
+    exports: [],
 })
 export class NgxSmzLayoutsModule
 {

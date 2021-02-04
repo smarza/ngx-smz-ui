@@ -3,7 +3,8 @@ import { SmzLayoutsConfig } from './smz-layouts.config';
 export const defaultSmzLayoutsConfig: SmzLayoutsConfig = {
 
     debugMode: true,
-    logoPath: '',
+    logoDark: '',
+    logoWhite: '',
     uiLayouts: {
         topBar: 'none',
         sideBar: 'none',
