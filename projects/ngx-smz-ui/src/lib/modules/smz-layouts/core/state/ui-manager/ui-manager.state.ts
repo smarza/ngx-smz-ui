@@ -18,7 +18,8 @@ export const getInitialState = (): UiManagerStateModel => ({
   assistance: null,
   config: null,
   state: {
-    wrapperClass: ''
+    wrapperClass: '',
+    isOverlayVisible: false
   }
 });
 
@@ -80,7 +81,6 @@ export class UiManagerState
   @Action(UiManagerActions.ShowConfigAssistance)
   public onShowConfigAssistance(ctx: StateContext<UiManagerStateModel>): void
   {
-    console.log('ShowConfigAssistance');
     const assistance = cloneDeep(ctx.getState().assistance);
     ctx.patchState({ assistance: { ...assistance, isVisible: true } });
   }

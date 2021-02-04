@@ -10,4 +10,5 @@ export interface LayoutConfig {
 
 export interface LayoutState {
     wrapperClass: string;
+    isOverlayVisible: boolean;
 }

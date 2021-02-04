@@ -2,10 +2,11 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LandingComponent } from './components/landing/landing.component';
 import { SmzRouteData } from 'ngx-smz-ui';
+import { ButtonModule } from 'primeng/button';
 
 const data: SmzRouteData = {
   layout: {
-    mode: 'single'
+    mode: 'none'
   },
   title: 'Landing',
   appArea: 'landing',
@@ -26,7 +27,8 @@ const routes: Routes = [
     LandingComponent
   ],
   imports: [
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    ButtonModule
   ],
   providers: [],
   bootstrap: [LandingComponent]

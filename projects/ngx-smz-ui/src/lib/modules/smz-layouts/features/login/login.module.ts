@@ -7,7 +7,7 @@ import { LoginComponent } from './login.component';
 
 const data: SmzRouteData = {
   layout: {
-    mode: 'single'
+    mode: 'none'
   },
   title: 'Login',
   appArea: 'login',

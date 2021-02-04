@@ -16,25 +16,23 @@ export class AppComponent
       {
         label: 'App Navigation',
         items: [
-          {
-            label: 'No Auth', items: [
-              { label: 'Landing', routerLink: ['landing'] },
-            ]
-          },
-          {
-            label: 'Auth', items: [
-              { label: 'Home', routerLink: ['home'] },
-              { label: 'Details', routerLink: ['details'] },
-            ]
-          },
+          { label: 'Landing', icon: 'pi-home', routerLink: ['landing'] },
+          { label: 'Home', icon: 'pi-home', routerLink: ['home'] },
+          { label: 'Details', icon: 'pi-home', routerLink: ['details'] },
         ]
       },
       {
         label: 'Lib Navigation',
         items: [
+          { label: 'Login', icon: 'pi-home', routerLink: ['login'] },
+        ]
+      },
+      {
+        label: 'Hierarchy',
+        items: [
           {
-            label: 'No Auth', items: [
-              { label: 'Login', routerLink: ['login'] },
+            label: 'No Auth', icon: 'pi-home', items: [
+              { label: 'Login', icon: 'pi-home', routerLink: ['login'] },
             ]
           },
         ]

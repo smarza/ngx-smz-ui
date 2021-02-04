@@ -16,14 +16,15 @@
 
           <!-- CONTEÚDO -->
           <div class="layout-content">
-            <router-outlet></router-outlet>
+            <div *ngIf="state.isOverlayVisible" class="p-component-overlay clear-overlay" (click)="hideMenu()"></div>
+            <ng-container *ngTemplateOutlet="content"></ng-container>
           </div>
 
           <!-- FOOTER -->
           <smz-ui-footer></smz-ui-footer>
 
           <!-- BARRA LATERAL -->
-          <smz-ui-sidebar></smz-ui-sidebar>
+          <smz-ui-sidebar [menu]="menu"></smz-ui-sidebar>
 
         </div>
 
@@ -33,5 +34,10 @@
     </ng-container>
 
   </ng-template>
+
+  <ng-template #content pTemplate="content">
+    <ng-content></ng-content>
+  </ng-template>
+
 </smz-ui-outlet>
 

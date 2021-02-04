@@ -8,5 +8,5 @@ export interface SmzRouteData
 
 export interface RouteLayoutData
 {
-  mode: 'layout' | 'single'
+  mode: 'layout' | 'none'
 }

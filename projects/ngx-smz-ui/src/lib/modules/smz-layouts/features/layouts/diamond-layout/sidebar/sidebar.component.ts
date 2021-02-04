@@ -1,7 +1,7 @@
 import { AfterContentInit, Component, ContentChildren, Input, OnInit, QueryList, TemplateRef } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { PrimeTemplate } from 'primeng/api';
+import { MenuItem, PrimeTemplate } from 'primeng/api';
 import { SmzLayoutsConfig } from '../../../../public-api';
 import { Observable } from 'rxjs';
 import { UiManagerSelectors } from '../../../../core/state/ui-manager/ui-manager.selectors';
@@ -19,6 +19,7 @@ export class SidebarComponent implements OnInit, AfterContentInit
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
   @Select(UiManagerSelectors.layoutState) public state$: Observable<LayoutState>;
   public headerExtrasTemplate: TemplateRef<any>;
+  @Input() public menu: MenuItem[];
   constructor(public readonly config: SmzLayoutsConfig, private store: Store) { }
 
   ngOnInit(): void
