@@ -10,12 +10,13 @@ export class UiManagerSelectors
     @Selector([UiManagerState])
     public static layoutState(state: UiManagerStateModel): LayoutState
     {
+        const themeClass = `layout-sidebar-${state.config.theme}`;
         const layoutClass = `layout-${state.config.menuType}`;
         const sidebarClass = `${layoutClass}-${state.config.sidebarState}`;
         const isOverlayVisible = state.config.menuType === SmzMenuType.OVERLAY && state.config.sidebarState === SmzSidebarState.ACTIVE;
 
         const layout: LayoutState = {
-            wrapperClass: `${layoutClass} ${sidebarClass}`,
+            wrapperClass: `${themeClass} ${layoutClass} ${sidebarClass}`,
             isOverlayVisible
         };
 

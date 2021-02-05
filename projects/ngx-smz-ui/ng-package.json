@@ -3,6 +3,8 @@
   "dest": "../../dist/ngx-smz-ui",
   "assets": [
     "./resources/scss/*.*",
+    "./resources/scss/layouts/*.*",
+    "./resources/scss/contents/*.*",
     "./resources/fonts/*.*",
     "./resources/images/pages/*.*"
 ],

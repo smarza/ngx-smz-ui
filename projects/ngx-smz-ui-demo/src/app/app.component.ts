@@ -31,9 +31,20 @@ export class AppComponent
         label: 'Hierarchy',
         items: [
           {
-            label: 'No Auth', icon: 'pi-home', items: [
-              { label: 'Login', icon: 'pi-home', routerLink: ['login'] },
+            label: 'Multi-level 1', icon: 'pi-home', items: [
+              { label: 'Login 1', icon: 'pi-home', routerLink: ['login'] },
+              { label: 'Home', icon: 'pi-home', routerLink: ['home'] },
+              { label: 'Details', icon: 'pi-home', routerLink: ['details'] },
+              {
+                label: 'Multi-level 2', icon: 'pi-home', items: [
+                  { label: 'Login 1', icon: 'pi-home', routerLink: ['login'] },
+                  { label: 'Login 2', icon: 'pi-home', routerLink: ['login'] },
+                ]
+              },
             ]
+          },
+          {
+            label: 'Single', icon: 'pi-home'
           },
         ]
       },

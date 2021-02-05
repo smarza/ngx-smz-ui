@@ -48,7 +48,14 @@ export class UiManagerState
   public onSetMenuType(ctx: StateContext<UiManagerStateModel>, action: UiManagerActions.SetMenuType): void
   {
     const config = ctx.getState().config;
-    ctx.patchState({ config: { ...config, menuType: action.type } });
+    ctx.patchState({ config: { ...config, menuType: action.data } });
+  }
+
+  @Action(UiManagerActions.SetTheme)
+  public onSetTheme(ctx: StateContext<UiManagerStateModel>, action: UiManagerActions.SetTheme): void
+  {
+    const config = ctx.getState().config;
+    ctx.patchState({ config: { ...config, theme: action.data } });
   }
 
   @Action(UiManagerActions.ShowSidebar)

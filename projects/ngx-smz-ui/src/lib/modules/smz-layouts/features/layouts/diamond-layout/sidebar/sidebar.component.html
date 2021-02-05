@@ -1,5 +1,5 @@
 <ng-container *ngIf="state$ | async as state">
-
+<ng-container *ngIf="(currentRoute$ | async) as route">
     <div class="layout-sidebar">
 
         <!-- LOGO DA APLICAÇÃO -->
@@ -12,173 +12,31 @@
         <div class="layout-menu-container">
             <ul class="layout-menu">
 
-                <!-- PRIMEIRO NÍVEL -->
-                <ng-container *ngFor="let item of menu">
+                <!-- NÍVEL 1 -->
+                <li class="layout-root-menuitem" *ngFor="let item of menu">
 
-                    <li class="layout-root-menuitem">
+                    <!-- CABEÇALHO DO NÍVEL 1 -->
+                    <div class="layout-menuitem-root-text">{{ item.label }}</div>
 
-                        <!-- LABEL -->
-                        <div class="layout-menuitem-root-text">{{ item.label }}</div>
+                    <!-- ITENS PARA O MENU COLAPSADO -->
+                    <ng-container *ngFor="let subItem of item.items">
+                        <a class="p-ripple" tabindex="0" [routerLink]="subItem.routerLink">
+                            <i class="layout-menuitem-icon pi" [ngClass]="subItem.icon"></i>
+                            <span class="layout-menuitem-text">{{ subItem.label }}</span>
+                            <i class="pi pi-fw pi-chevron-down layout-submenu-toggler"></i>
+                            <span class="p-ink"></span>
+                        </a>
+                    </ng-container>
 
-                        <ng-container *ngFor="let subItem of item.items">
-                            <!-- COM MENU COLAPSADO -->
-                            <a class="p-ripple" tabindex="0" [routerLink]="subItem.routerLink">
-                                <i class="layout-menuitem-icon pi" [ngClass]="subItem.icon"></i>
-                                <span class="layout-menuitem-text">{{ subItem.label }}</span>
-                                <i class="pi pi-fw pi-chevron-down layout-submenu-toggler"></i>
-                                <span class="p-ink"></span>
-                            </a>
-                        </ng-container>
+                    <smz-ui-menu-node [item]="item" [currentUrl]="route.url"></smz-ui-menu-node>
 
-
-                        <ng-container [ngSwitch]="item | hierarchy">
-
-                            <ng-container *ngSwitchCase="false">
-                                <!--  COM MENU ABERTO -->
-                                <ul role="menu" class="" style="z-index: 100;">
-
-                                    <ng-container *ngFor="let subItem of item.items">
-                                        <!-- ITEM -->
-                                        <li class="1active-menuitem">
-                                            <a class="p-ripple" tabindex="0" [routerLink]="subItem.routerLink">
-                                                <i class="layout-menuitem-icon pi pi-fw" [ngClass]="subItem.icon"></i>
-                                                <span class="layout-menuitem-text">{{ subItem.label }}</span>
-                                                <span class="p-ink"></span>
-                                            </a>
-                                        </li>
-                                    </ng-container>
-
-                                    <li *ngIf="item.items?.length > 0" class="menu-separator"></li>
-
-                                </ul>
-                            </ng-container>
-
-                            <ng-container *ngSwitchCase="true">
-                                <ul role="menu" class="" style="z-index: 100;">
-                                    <li app-menuitem="" class="ng-tns-c180-46 ng-tns-c180-45 ng-star-inserted active-menuitem" style="">
-                                        <a pripple="" class="ng-tns-c180-46 p-ripple ng-star-inserted" tabindex="0">
-                                            <i class="layout-menuitem-icon ng-tns-c180-46 pi pi-fw pi-align-left"></i>
-                                            <span class="layout-menuitem-text ng-tns-c180-46">Submenu 1</span>
-                                            <i class="pi pi-fw pi-chevron-down layout-submenu-toggler ng-tns-c180-46 ng-star-inserted"></i>
-                                            <span class="p-ink"></span>
-                                        </a>
-                                        <ul role="menu" class="ng-tns-c180-46 ng-trigger ng-trigger-children ng-star-inserted" style="">
-                                            <li app-menuitem="" class="ng-tns-c180-48 ng-tns-c180-46 ng-star-inserted" style="">
-                                                <a pripple="" class="ng-tns-c180-48 p-ripple ng-star-inserted" tabindex="0">
-                                                    <i class="layout-menuitem-icon ng-tns-c180-48 pi pi-fw pi-align-left"></i>
-                                                    <span class="layout-menuitem-text ng-tns-c180-48">Submenu 1.1</span>
-                                                    <i class="pi pi-fw pi-chevron-down layout-submenu-toggler ng-tns-c180-48 ng-star-inserted"></i>
-                                                    <span class="p-ink"></span>
-                                                </a>
-                                                <ul role="menu" class="ng-tns-c180-48 ng-trigger ng-trigger-children ng-star-inserted" style="height: 0px;">
-                                                    <li app-menuitem="" class="ng-tns-c180-50 ng-tns-c180-48 ng-star-inserted" style="">
-                                                        <a pripple="" class="ng-tns-c180-50 p-ripple ng-star-inserted" tabindex="0">
-                                                            <i class="layout-menuitem-icon ng-tns-c180-50 pi pi-fw pi-align-left"></i>
-                                                            <span class="layout-menuitem-text ng-tns-c180-50">Submenu 1.1.1</span>
-                                                            <span class="p-ink"></span>
-                                                        </a>
-                                                    </li>
-                                                    <li app-menuitem="" class="ng-tns-c180-51 ng-tns-c180-48 ng-star-inserted" style="">
-                                                        <a pripple="" class="ng-tns-c180-51 p-ripple ng-star-inserted" tabindex="0">
-                                                            <i class="layout-menuitem-icon ng-tns-c180-51 pi pi-fw pi-align-left"></i>
-                                                            <span class="layout-menuitem-text ng-tns-c180-51">Submenu 1.1.2</span>
-                                                            <span class="p-ink"></span>
-                                                        </a>
-                                                    </li>
-                                                    <li app-menuitem="" class="ng-tns-c180-52 ng-tns-c180-48 ng-star-inserted" style="">
-                                                        <a pripple="" class="ng-tns-c180-52 p-ripple ng-star-inserted" tabindex="0">
-                                                            <i class="layout-menuitem-icon ng-tns-c180-52 pi pi-fw pi-align-left"></i>
-                                                            <span class="layout-menuitem-text ng-tns-c180-52">Submenu 1.1.3</span>
-                                                            <span class="p-ink"></span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li app-menuitem="" class="ng-tns-c180-49 ng-tns-c180-46 ng-star-inserted" style="">
-                                                <a pripple="" class="ng-tns-c180-49 p-ripple ng-star-inserted" tabindex="0">
-                                                    <i class="layout-menuitem-icon ng-tns-c180-49 pi pi-fw pi-align-left"></i>
-                                                    <span class="layout-menuitem-text ng-tns-c180-49">Submenu 1.2</span>
-                                                    <i class="pi pi-fw pi-chevron-down layout-submenu-toggler ng-tns-c180-49 ng-star-inserted"></i>
-                                                    <span class="p-ink"></span>
-                                                </a>
-                                                <ul role="menu" class="ng-tns-c180-49 ng-trigger ng-trigger-children ng-star-inserted" style="height: 0px;">
-                                                    <li app-menuitem="" class="ng-tns-c180-53 ng-tns-c180-49 ng-star-inserted" style="">
-                                                        <a pripple="" class="ng-tns-c180-53 p-ripple ng-star-inserted" tabindex="0">
-                                                            <i class="layout-menuitem-icon ng-tns-c180-53 pi pi-fw pi-align-left"></i>
-                                                            <span class="layout-menuitem-text ng-tns-c180-53">Submenu 1.2.1</span>
-                                                            <span class="p-ink"></span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li app-menuitem="" class="ng-tns-c180-47 ng-tns-c180-45 ng-star-inserted" style="">
-                                        <a pripple="" class="ng-tns-c180-47 p-ripple ng-star-inserted" tabindex="0">
-                                            <i class="layout-menuitem-icon ng-tns-c180-47 pi pi-fw pi-align-left"></i>
-                                            <span class="layout-menuitem-text ng-tns-c180-47">Submenu 2</span>
-                                            <i class="pi pi-fw pi-chevron-down layout-submenu-toggler ng-tns-c180-47 ng-star-inserted"></i>
-                                            <span class="p-ink"></span>
-                                        </a>
-                                        <ul role="menu" class="ng-tns-c180-47 ng-trigger ng-trigger-children ng-star-inserted" style="height: 0px;">
-                                            <li app-menuitem="" class="ng-tns-c180-54 ng-tns-c180-47 ng-star-inserted" style="">
-                                                <a pripple="" class="ng-tns-c180-54 p-ripple ng-star-inserted" tabindex="0">
-                                                    <i class="layout-menuitem-icon ng-tns-c180-54 pi pi-fw pi-align-left"></i>
-                                                    <span class="layout-menuitem-text ng-tns-c180-54">Submenu 2.1</span>
-                                                    <i class="pi pi-fw pi-chevron-down layout-submenu-toggler ng-tns-c180-54 ng-star-inserted"></i>
-                                                    <span class="p-ink"></span>
-                                                </a>
-                                                <ul role="menu" class="ng-tns-c180-54 ng-trigger ng-trigger-children ng-star-inserted" style="height: 0px;">
-                                                    <li app-menuitem="" class="ng-tns-c180-56 ng-tns-c180-54 ng-star-inserted" style="">
-                                                        <a pripple="" class="ng-tns-c180-56 p-ripple ng-star-inserted" tabindex="0">
-                                                            <i class="layout-menuitem-icon ng-tns-c180-56 pi pi-fw pi-align-left"></i>
-                                                            <span class="layout-menuitem-text ng-tns-c180-56">Submenu 2.1.1</span>
-                                                            <span class="p-ink"></span>
-                                                        </a>
-                                                    </li>
-                                                    <li app-menuitem="" class="ng-tns-c180-57 ng-tns-c180-54 ng-star-inserted" style="">
-                                                        <a pripple="" class="ng-tns-c180-57 p-ripple ng-star-inserted" tabindex="0">
-                                                            <i class="layout-menuitem-icon ng-tns-c180-57 pi pi-fw pi-align-left"></i>
-                                                            <span class="layout-menuitem-text ng-tns-c180-57">Submenu 2.1.2</span>
-                                                            <span class="p-ink"></span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li app-menuitem="" class="ng-tns-c180-55 ng-tns-c180-47 ng-star-inserted" style="">
-                                                <a pripple="" class="ng-tns-c180-55 p-ripple ng-star-inserted" tabindex="0">
-                                                    <i class="layout-menuitem-icon ng-tns-c180-55 pi pi-fw pi-align-left"></i>
-                                                    <span class="layout-menuitem-text ng-tns-c180-55">Submenu 2.2</span>
-                                                    <i class="pi pi-fw pi-chevron-down layout-submenu-toggler ng-tns-c180-55 ng-star-inserted"></i>
-                                                    <span class="p-ink"></span>
-                                                </a>
-                                                <ul role="menu" class="ng-tns-c180-55 ng-trigger ng-trigger-children ng-star-inserted" style="height: 0px;">
-                                                    <li app-menuitem="" class="ng-tns-c180-58 ng-tns-c180-55 ng-star-inserted" style="">
-                                                        <a pripple="" class="ng-tns-c180-58 p-ripple ng-star-inserted" tabindex="0">
-                                                            <i class="layout-menuitem-icon ng-tns-c180-58 pi pi-fw pi-align-left"></i>
-                                                            <span class="layout-menuitem-text ng-tns-c180-58">Submenu 2.2.1</span>
-                                                            <span class="p-ink"></span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </ng-container>
-
-                        </ng-container>
-
-
-
-                    </li>
-
-                </ng-container>
+                </li>
 
             </ul>
         </div>
     </div>
 
+</ng-container>
 </ng-container>
 
 <!-- <ng-container *ngTemplateOutlet="headerExtrasTemplate"></ng-container> -->

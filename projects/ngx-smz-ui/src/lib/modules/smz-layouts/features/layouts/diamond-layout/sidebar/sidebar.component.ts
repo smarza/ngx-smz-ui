@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { UiManagerSelectors } from '../../../../core/state/ui-manager/ui-manager.selectors';
 import { UiManagerActions } from '../../../../core/state/ui-manager/ui-manager.actions';
 import { LayoutState } from '../../../../core/models/layout';
+import { RouterState } from '@ngxs/router-plugin';
 
 @UntilDestroy()
 @Component({
@@ -18,6 +19,7 @@ export class SidebarComponent implements OnInit, AfterContentInit
 {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
   @Select(UiManagerSelectors.layoutState) public state$: Observable<LayoutState>;
+  @Select(RouterState.state) public currentRoute$: Observable<any>;
   public headerExtrasTemplate: TemplateRef<any>;
   @Input() public menu: MenuItem[];
   constructor(public readonly config: SmzLayoutsConfig, private store: Store) { }
@@ -26,9 +28,12 @@ export class SidebarComponent implements OnInit, AfterContentInit
   {
 
   }
+  public test(event): void
+  {
+    console.log(event);
+  }
   public ngAfterContentInit()
   {
-    console.log(this.templates);
     this.templates.forEach((item) =>
     {
       switch (item.getType())

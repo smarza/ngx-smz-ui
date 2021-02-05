@@ -4,5 +4,20 @@
     <h5>Menu</h5>
     <p-selectButton [options]="menuTypes" [(ngModel)]="menuType" (onChange)="onMenuTypeChange()" optionLabel="label" optionValue="value"></p-selectButton>
 
+    <h5>Themes</h5>
+    <button pButton pRipple type="button" label="Blue" class="p-button-outlined" (click)="onSetTheme(themes.BLUE)"></button>
+    <button pButton pRipple type="button" label="Blue Gray" class="p-button-outlined" (click)="onSetTheme(themes.BLUEGRAY)"></button>
+    <button pButton pRipple type="button" label="Brown" class="p-button-outlined" (click)="onSetTheme(themes.BROWN)"></button>
+    <button pButton pRipple type="button" label="Cyan" class="p-button-outlined" (click)="onSetTheme(themes.CYAN)"></button>
+    <button pButton pRipple type="button" label="Dark Gray" class="p-button-outlined" (click)="onSetTheme(themes.DARKGRAY)"></button>
+    <button pButton pRipple type="button" label="Deep Purple" class="p-button-outlined" (click)="onSetTheme(themes.DEEPPURPLE)"></button>
+    <button pButton pRipple type="button" label="Green" class="p-button-outlined" (click)="onSetTheme(themes.GREEN)"></button>
+    <button pButton pRipple type="button" label="Indigo" class="p-button-outlined" (click)="onSetTheme(themes.INDIGO)"></button>
+    <button pButton pRipple type="button" label="Orange" class="p-button-outlined" (click)="onSetTheme(themes.ORANGE)"></button>
+    <button pButton pRipple type="button" label="Pink" class="p-button-outlined" (click)="onSetTheme(themes.PINK)"></button>
+    <button pButton pRipple type="button" label="Purple" class="p-button-outlined" (click)="onSetTheme(themes.PURPLE)"></button>
+    <button pButton pRipple type="button" label="Teal" class="p-button-outlined" (click)="onSetTheme(themes.TEAL)"></button>
+    <button pButton pRipple type="button" label="White" class="p-button-outlined" (click)="onSetTheme(themes.WHITE)"></button>
+
   </p-sidebar>
 </ng-container>
