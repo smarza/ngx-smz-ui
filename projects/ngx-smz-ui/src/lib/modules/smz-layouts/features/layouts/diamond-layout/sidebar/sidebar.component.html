@@ -14,24 +14,26 @@
             <ul class="layout-menu">
 
                 <!-- NÍVEL 1 -->
-                <li class="layout-root-menuitem" *ngFor="let item of menu">
+                <ng-container *ngFor="let item of menu; let last = last;">
+                    <li class="layout-root-menuitem">
 
-                    <!-- CABEÇALHO DO NÍVEL 1 -->
-                    <div class="layout-menuitem-root-text">{{ item.label }}</div>
+                        <!-- CABEÇALHO DO NÍVEL 1 -->
+                        <div class="layout-menuitem-root-text">{{ item.label }}</div>
 
-                    <!-- ITENS PARA O MENU COLAPSADO -->
-                    <ng-container *ngFor="let subItem of item.items">
-                        <a class="p-ripple" tabindex="0" [routerLink]="subItem.routerLink">
-                            <i class="layout-menuitem-icon pi" [ngClass]="subItem.icon"></i>
-                            <span class="layout-menuitem-text">{{ subItem.label }}</span>
+                        <!-- ITENS PARA O MENU COLAPSADO -->
+                        <a class="p-ripple" tabindex="0" [routerLink]="item.routerLink">
+                            <i class="layout-menuitem-icon pi" [ngClass]="item.icon"></i>
+                            <span class="layout-menuitem-text">{{ item.label }}</span>
                             <i class="pi pi-fw pi-chevron-down layout-submenu-toggler"></i>
                             <span class="p-ink"></span>
                         </a>
-                    </ng-container>
 
-                    <smz-ui-menu-node [item]="item" [currentUrl]="route.url"></smz-ui-menu-node>
+                        <smz-ui-menu-node [item]="item" [currentUrl]="route.url"></smz-ui-menu-node>
 
-                </li>
+                    </li>
+
+                    <li *ngIf="!last" class="menu-separator"></li>
+                </ng-container>
 
             </ul>
         </div>

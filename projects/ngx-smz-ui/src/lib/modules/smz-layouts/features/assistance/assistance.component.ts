@@ -29,10 +29,16 @@ export class AssistanceComponent implements OnInit
   public contentThemes = SmzContentThemes;
   public layoutThemes = SmzLayoutThemes;
   public loaders = SmzLoaders;
-  constructor(public readonly config: SmzLayoutsConfig, private store: Store, private cdr: ChangeDetectorRef) { }
-
-  ngOnInit(): void
+  constructor(public readonly config: SmzLayoutsConfig, private store: Store, private cdr: ChangeDetectorRef)
   {
+    this.store
+      .select(UiManagerSelectors.config)
+      .pipe(untilDestroyed(this))
+      .subscribe(config =>
+      {
+        this.menuType = config.menuType;
+      });
+
     this.store
       .select(UiManagerSelectors.assistance)
       .pipe(untilDestroyed(this))
@@ -54,6 +60,10 @@ export class AssistanceComponent implements OnInit
       });
 
     this.setupData();
+  }
+
+  ngOnInit(): void
+  {
   }
 
   public setupData(): void

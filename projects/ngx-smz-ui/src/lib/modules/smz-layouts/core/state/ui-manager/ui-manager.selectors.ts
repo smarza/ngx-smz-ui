@@ -49,4 +49,10 @@ export class UiManagerSelectors
     {
         return state.assistance;
     }
+
+    @Selector([UiManagerState])
+    public static config(state: UiManagerStateModel): LayoutConfig
+    {
+        return state.config;
+    }
 }

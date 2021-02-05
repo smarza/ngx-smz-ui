@@ -15,6 +15,7 @@ export class AppComponent
     this.menu = [
       {
         label: 'App Navigation',
+        icon: 'pi-home',
         items: [
           { label: 'Landing', icon: 'pi-home', routerLink: ['landing'] },
           { label: 'Home', icon: 'pi-home', routerLink: ['home'] },
@@ -23,12 +24,14 @@ export class AppComponent
       },
       {
         label: 'Lib Navigation',
+        icon: 'pi-star',
         items: [
           { label: 'Login', icon: 'pi-home', routerLink: ['login'] },
         ]
       },
       {
         label: 'Hierarchy',
+        icon: 'pi-align-left',
         items: [
           {
             label: 'Multi-level 1', icon: 'pi-home', items: [

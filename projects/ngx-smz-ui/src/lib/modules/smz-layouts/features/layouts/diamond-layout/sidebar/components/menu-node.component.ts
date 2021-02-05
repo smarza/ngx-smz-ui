@@ -22,7 +22,6 @@ import { MenuItem } from 'primeng/api';
 
           </ng-container>
 
-          <li *ngIf="item.items?.length > 0" class="menu-separator"></li>
       </ul>
   `
 })
