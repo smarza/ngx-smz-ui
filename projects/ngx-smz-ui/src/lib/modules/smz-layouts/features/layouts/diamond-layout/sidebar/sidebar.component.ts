@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, ContentChildren, Input, OnInit, QueryList, TemplateRef } from '@angular/core';
+import { AfterContentInit, Component, ContentChildren, HostListener, Input, OnInit, QueryList, TemplateRef } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { MenuItem, PrimeTemplate } from 'primeng/api';
@@ -22,9 +22,10 @@ export class SidebarComponent implements OnInit, AfterContentInit
   @Select(RouterState.state) public currentRoute$: Observable<any>;
   public headerExtrasTemplate: TemplateRef<any>;
   @Input() public menu: MenuItem[];
+  public isAnyMenuExpanded = false;
   constructor(public readonly config: SmzLayoutsConfig, private store: Store) { }
 
-  ngOnInit(): void
+  public ngOnInit(): void
   {
 
   }
@@ -39,6 +40,28 @@ export class SidebarComponent implements OnInit, AfterContentInit
           break;
       }
     });
+  }
+
+  public toogleOnly(item: MenuItem, menu: MenuItem[]): void
+  {
+    this.collapseAll(menu);
+
+    item.expanded = !item.expanded;
+    this.isAnyMenuExpanded = item.expanded;
+  }
+
+  public collapseAll(menu: MenuItem[]): void
+  {
+    menu.forEach(x =>
+    {
+      x.expanded = false;
+      if (x.items != null && x.items.length > 0)
+      {
+        this.collapseAll(x.items);
+      }
+    });
+
+    this.isAnyMenuExpanded = false;
   }
 
   public show(): void
