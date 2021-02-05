@@ -14,13 +14,9 @@ export class HasChildPipe implements PipeTransform
     }
     public transform(item: MenuItem): boolean
     {
-        let result = true;
+        if (item.items == null || item.items.length === 0) return false;
 
-        if (item.items == null || item.items.length === 0) result = false;
-
-        console.log('hasChild ?', item, result);
-
-        return result;
+        return true;
     }
 
 }

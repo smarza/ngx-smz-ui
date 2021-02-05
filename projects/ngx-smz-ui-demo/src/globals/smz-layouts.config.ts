@@ -1,4 +1,4 @@
-import { SmzLayoutsConfig, SmzMenuType, SmzSidebarState, SmzTheme } from 'ngx-smz-ui';
+import { SmzLayoutsConfig, SmzMenuType, SmzSidebarState, SmzLayoutTheme, SmzContentTheme } from 'ngx-smz-ui';
 
 export const smzLayoutsConfig: SmzLayoutsConfig = {
     logoDark: 'assets/layout/images/logo-dark.svg',
@@ -6,6 +6,7 @@ export const smzLayoutsConfig: SmzLayoutsConfig = {
     layout: {
         menuType: SmzMenuType.STATIC,
         sidebarState: SmzSidebarState.ACTIVE,
-        theme: SmzTheme.DARKGRAY
+        layoutTheme: SmzLayoutTheme.DARKGRAY,
+        contentTheme: SmzContentTheme.PRIMEONE_LIGHT
     },
 }

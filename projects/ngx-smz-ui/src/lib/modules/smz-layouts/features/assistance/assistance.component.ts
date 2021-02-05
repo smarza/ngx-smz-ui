@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
@@ -7,13 +7,14 @@ import { SmzMenuType } from '../../core/models/menu-types';
 import { UiManagerActions } from '../../core/state/ui-manager/ui-manager.actions';
 import { UiManagerSelectors } from '../../core/state/ui-manager/ui-manager.selectors';
 import { SmzLayoutsConfig } from '../../globals/smz-layouts.config';
-import { SmzTheme } from '../../public-api';
+import { SmzContentTheme, SmzContentThemes, SmzLayoutTheme, SmzLayoutThemes } from '../../public-api';
 
 @UntilDestroy()
 @Component({
   selector: 'smz-ui-assistance',
   templateUrl: './assistance.component.html',
-  styleUrls: ['./assistance.component.scss']
+  styleUrls: ['./assistance.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class AssistanceComponent implements OnInit
 {
@@ -21,7 +22,9 @@ export class AssistanceComponent implements OnInit
   public isVisible = false;
   public menuTypes = [];
   public menuType: SmzMenuType = SmzMenuType.STATIC;
-  public themes = SmzTheme;
+
+  public contentThemes = SmzContentThemes;
+  public layoutThemes = SmzLayoutThemes;
   constructor(public readonly config: SmzLayoutsConfig, private store: Store) { }
 
   ngOnInit(): void
@@ -71,9 +74,14 @@ export class AssistanceComponent implements OnInit
     this.store.dispatch(new UiManagerActions.HideSidebar);
   }
 
-  public onSetTheme(theme: SmzTheme): void
+  public onSetLayoutTheme(theme: SmzLayoutTheme): void
   {
-    this.store.dispatch(new UiManagerActions.SetTheme(theme));
+    this.store.dispatch(new UiManagerActions.SetLayoutTheme(theme));
+  }
+
+  public onSetContentTheme(theme: SmzContentTheme): void
+  {
+    this.store.dispatch(new UiManagerActions.SetContentTheme(theme));
   }
 
 }

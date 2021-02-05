@@ -51,11 +51,18 @@ export class UiManagerState
     ctx.patchState({ config: { ...config, menuType: action.data } });
   }
 
-  @Action(UiManagerActions.SetTheme)
-  public onSetTheme(ctx: StateContext<UiManagerStateModel>, action: UiManagerActions.SetTheme): void
+  @Action(UiManagerActions.SetLayoutTheme)
+  public onSetTheme(ctx: StateContext<UiManagerStateModel>, action: UiManagerActions.SetLayoutTheme): void
   {
     const config = ctx.getState().config;
-    ctx.patchState({ config: { ...config, theme: action.data } });
+    ctx.patchState({ config: { ...config, layoutTheme: action.data } });
+  }
+
+  @Action(UiManagerActions.SetContentTheme)
+  public onSetContentTheme(ctx: StateContext<UiManagerStateModel>, action: UiManagerActions.SetContentTheme): void
+  {
+    const config = ctx.getState().config;
+    ctx.patchState({ config: { ...config, contentTheme: action.data } });
   }
 
   @Action(UiManagerActions.ShowSidebar)

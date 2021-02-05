@@ -1,5 +1,5 @@
 import { SmzMenuType } from '../../models/menu-types';
-import { SmzTheme } from '../../models/themes';
+import { SmzContentTheme, SmzLayoutTheme } from '../../models/themes';
 
 export namespace UiManagerActions
 {
@@ -15,10 +15,16 @@ export namespace UiManagerActions
         constructor(public data: SmzMenuType) {}
     }
 
-    export class SetTheme
+    export class SetLayoutTheme
     {
-        public static readonly type = '[UI Manager] Set Theme';
-        constructor(public data: SmzTheme) {}
+        public static readonly type = '[UI Manager] Set Layout Theme';
+        constructor(public data: SmzLayoutTheme) {}
+    }
+
+    export class SetContentTheme
+    {
+        public static readonly type = '[UI Manager] Set Content Theme';
+        constructor(public data: SmzContentTheme) {}
     }
 
     export class ShowSidebar

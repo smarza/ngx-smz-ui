@@ -1,9 +1,10 @@
 import { SmzMenuTypes } from './menu-types';
 import { SmzSidebarStates } from './sidebar-states';
-import { SmzThemeTypes } from './themes';
+import { SmzContentTheme, SmzLayoutTheme } from './themes';
 
 export interface LayoutConfig {
-    theme: SmzThemeTypes | string;
+    layoutTheme: SmzLayoutTheme | string;
+    contentTheme: SmzContentTheme;
     menuType: SmzMenuTypes;
     sidebarState: SmzSidebarStates;
 }

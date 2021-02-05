@@ -65,7 +65,12 @@
             "aot": true,
             "assets": [
               "projects/ngx-smz-ui-demo/src/favicon.ico",
-              "projects/ngx-smz-ui-demo/src/assets"
+              "projects/ngx-smz-ui-demo/src/assets",
+              {
+                "glob": "**/*",
+                "input": "node_modules/ngx-smz-ui/resources/scss/contents",
+                "output": "/assets/"
+              }
             ],
             "styles": [
               "projects/ngx-smz-ui-demo/src/styles.scss"

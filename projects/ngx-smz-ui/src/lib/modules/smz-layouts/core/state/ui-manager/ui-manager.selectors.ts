@@ -4,13 +4,14 @@ import { LayoutState } from '../../models/layout';
 import { Assistance } from '../../models/assistance';
 import { SmzMenuType } from '../../models/menu-types';
 import { SmzSidebarState } from '../../../public-api';
+import { SmzContentTheme } from '../../models/themes';
 export class UiManagerSelectors
 {
 
     @Selector([UiManagerState])
     public static layoutState(state: UiManagerStateModel): LayoutState
     {
-        const themeClass = `layout-sidebar-${state.config.theme}`;
+        const themeClass = `layout-sidebar-${state.config.layoutTheme}`;
         const layoutClass = `layout-${state.config.menuType}`;
         const sidebarClass = `${layoutClass}-${state.config.sidebarState}`;
         const isOverlayVisible = state.config.menuType === SmzMenuType.OVERLAY && state.config.sidebarState === SmzSidebarState.ACTIVE;
@@ -21,6 +22,12 @@ export class UiManagerSelectors
         };
 
         return layout;
+    }
+
+    @Selector([UiManagerState])
+    public static contentTheme(state: UiManagerStateModel): string
+    {
+        return `/assets/${state.config.contentTheme}`;
     }
 
     @Selector([UiManagerState])
