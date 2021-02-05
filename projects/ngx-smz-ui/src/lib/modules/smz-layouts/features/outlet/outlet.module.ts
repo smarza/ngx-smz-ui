@@ -4,6 +4,7 @@ import { OutletComponent } from './outlet.component';
 import { SharedModule as PrimeSharedModule } from 'primeng/api';
 import { AssistanceModule } from '../assistance/assistance.module';
 import { SmzThemeManagerModule } from '../theme-manager/theme-manager.module';
+import { GlobalLoaderModule } from '../global-loader/global-loader.module';
 
 @NgModule({
   declarations: [OutletComponent],
@@ -11,7 +12,8 @@ import { SmzThemeManagerModule } from '../theme-manager/theme-manager.module';
     CommonModule,
     PrimeSharedModule,
     AssistanceModule,
-    SmzThemeManagerModule
+    SmzThemeManagerModule,
+    GlobalLoaderModule
   ],
   exports: [OutletComponent]
 })

@@ -12,8 +12,8 @@ import { NgxsModule } from '@ngxs/store';
 import { FaqsDbState } from './state/faqs.state';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { SmzFaqsConfig } from './smz-faqs.config';
-import { SmzMessagesModule } from '../smz-messages/public-api';
 import { NgxSmzFormsModule } from 'ngx-smz-dialogs';
+import { SmzMessagesModule } from '../smz-messages/smz-messages.module';
 
 const initial: SmzFaqsConfig =
 {
@@ -39,6 +39,8 @@ const initial: SmzFaqsConfig =
     }
 }
 
+export const ngxsModuleForFeatureFaqsDbState = NgxsModule.forFeature([FaqsDbState]);
+
 @NgModule({
     declarations: [
         SmzFaqsComponent,
@@ -55,7 +57,7 @@ const initial: SmzFaqsConfig =
         AccordionModule,
         InputTextModule,
         FormsModule,
-        NgxsModule.forFeature([FaqsDbState])
+        ngxsModuleForFeatureFaqsDbState
     ],
     exports: [
         SmzFaqsComponent

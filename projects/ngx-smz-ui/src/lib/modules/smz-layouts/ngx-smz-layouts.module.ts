@@ -9,13 +9,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxsModule } from '@ngxs/store';
 import { UiManagerState } from './core/state/ui-manager/ui-manager.state';
 
+export const ngxsModuleForFeatureUiManagerState = NgxsModule.forFeature([UiManagerState]);
+
 @NgModule({
     declarations: [],
     imports: [
         BrowserAnimationsModule,
         CommonModule,
         NgxSmzLayoutsRoutingModule,
-        NgxsModule.forFeature([UiManagerState])
+        ngxsModuleForFeatureUiManagerState
     ],
     exports: [],
 })

@@ -23,11 +23,13 @@ const routes: Routes = [
   },
 ];
 
+export const routerModuleForChildLoginModule = RouterModule.forChild(routes);
+
 @NgModule({
   declarations: [LoginComponent],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes),
+    routerModuleForChildLoginModule,
     ButtonModule
   ],
   exports: []

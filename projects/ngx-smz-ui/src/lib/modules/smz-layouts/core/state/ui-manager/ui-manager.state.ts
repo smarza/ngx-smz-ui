@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { State, Action, StateContext } from '@ngxs/store';
-import { SmzLayoutsConfig } from '../../../public-api';
 import { Assistance } from '../../models/assistance';
 import { LayoutConfig, LayoutState } from '../../models/layout';
 import { SmzSidebarState } from '../../models/sidebar-states';
 import { UiManagerActions } from './ui-manager.actions';
 import cloneDeep from 'lodash-es/cloneDeep';
+import { SmzLayoutsConfig } from '../../../globals/smz-layouts.config';
 
 export interface UiManagerStateModel
 {
@@ -19,10 +19,14 @@ export const getInitialState = (): UiManagerStateModel => ({
   config: null,
   state: {
     wrapperClass: '',
-    isOverlayVisible: false
+    isOverlayVisible: false,
+    topbarTitle: '',
+    appName: '',
+    footerText: ''
   }
 });
 
+// @dynamic
 @State<UiManagerStateModel>({
   name: 'uiManager',
   defaults: getInitialState()
@@ -37,11 +41,25 @@ export class UiManagerState
   @Action(UiManagerActions.Initialize)
   public onInitialize(ctx: StateContext<UiManagerStateModel>): void
   {
+    const state = ctx.getState().state;
+
     ctx.patchState(
       {
         assistance: this.config.assistance,
-        config: this.config.layout
+        config: this.config.layout,
+        state: {
+          ...state,
+          appName: this.config.appName,
+          footerText: this.config.footerText
+        }
       });
+  }
+
+  @Action(UiManagerActions.SetTopbarTitle)
+  public onSetTopbarTitle(ctx: StateContext<UiManagerStateModel>, action: UiManagerActions.SetTopbarTitle): void
+  {
+    const state = ctx.getState().state;
+    ctx.patchState({ state: { ...state, topbarTitle: action.data } });
   }
 
   @Action(UiManagerActions.SetMenuType)
@@ -63,6 +81,14 @@ export class UiManagerState
   {
     const config = ctx.getState().config;
     ctx.patchState({ config: { ...config, contentTheme: action.data } });
+  }
+
+  @Action(UiManagerActions.SetGlobalLoader)
+  public onSetGlobalLoader(ctx: StateContext<UiManagerStateModel>, action: UiManagerActions.SetGlobalLoader): void
+  {
+    const config = ctx.getState().config;
+    const loader = ctx.getState().config.loader;
+    ctx.patchState({ config: { ...config, loader: { ...loader, type: action.data } } });
   }
 
   @Action(UiManagerActions.ShowSidebar)

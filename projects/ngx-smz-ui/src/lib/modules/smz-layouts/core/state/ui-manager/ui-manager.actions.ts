@@ -1,3 +1,4 @@
+import { SmzLoader } from '../../models/loaders';
 import { SmzMenuType } from '../../models/menu-types';
 import { SmzContentTheme, SmzLayoutTheme } from '../../models/themes';
 
@@ -27,6 +28,12 @@ export namespace UiManagerActions
         constructor(public data: SmzContentTheme) {}
     }
 
+    export class SetGlobalLoader
+    {
+        public static readonly type = '[UI Manager] Set Global Loader';
+        constructor(public data: SmzLoader) {}
+    }
+
     export class ShowSidebar
     {
         public static readonly type = '[UI Manager] Show Sidebar';
@@ -46,6 +53,12 @@ export namespace UiManagerActions
     export class HideConfigAssistance
     {
         public static readonly type = '[UI Manager] Hide Config Assistance';
+    }
+
+    export class SetTopbarTitle
+    {
+        public static readonly type = '[UI Manager] Set Topbar Title';
+        constructor(public data: string) {}
     }
 
 }

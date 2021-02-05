@@ -1,10 +1,7 @@
-<smz-ui-theme-manager></smz-ui-theme-manager>
-
 <ng-container [ngSwitch]="routerListener.data?.layout?.mode">
 
   <!-- LAYOUT SIMPLES -->
   <ng-container *ngSwitchCase="'none'">
-    <div>none</div>
     <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
   </ng-container>
 
@@ -28,3 +25,5 @@
 </ng-container>
 
 <smz-ui-assistance></smz-ui-assistance>
+<smz-ui-theme-manager></smz-ui-theme-manager>
+<smz-ui-global-loader></smz-ui-global-loader>

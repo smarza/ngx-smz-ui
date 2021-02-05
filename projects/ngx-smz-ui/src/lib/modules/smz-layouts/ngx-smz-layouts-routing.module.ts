@@ -14,8 +14,10 @@ const routes: Routes = [
   }
 ];
 
+export const routerModuleForRootNgxSmzLayoutsModule = RouterModule.forRoot(routes);
+
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [routerModuleForRootNgxSmzLayoutsModule],
   exports: [RouterModule]
 })
 export class NgxSmzLayoutsRoutingModule { }

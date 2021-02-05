@@ -6,6 +6,7 @@ import { SmzDialogsService } from 'ngx-smz-dialogs';
 import { filter, map, mergeMap, tap } from 'rxjs/operators';
 import { SmzLayoutsConfig } from '../../globals/smz-layouts.config';
 import { RouteLayoutData, SmzRouteData } from '../models/route-layout-data';
+import { UiManagerActions } from '../state/ui-manager/ui-manager.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -59,6 +60,8 @@ export class RouterDataListenerService
         }
 
         if (this.config.debugMode) console.log('\n');
+
+        this.store.dispatch(new UiManagerActions.SetTopbarTitle(data.title));
 
       });
 

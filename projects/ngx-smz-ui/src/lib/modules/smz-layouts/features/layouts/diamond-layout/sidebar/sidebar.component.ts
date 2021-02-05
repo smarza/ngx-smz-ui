@@ -1,13 +1,13 @@
 import { AfterContentInit, Component, ContentChildren, Input, OnInit, QueryList, TemplateRef } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { MenuItem, PrimeTemplate } from 'primeng/api';
-import { SmzLayoutsConfig } from '../../../../public-api';
 import { Observable } from 'rxjs';
 import { UiManagerSelectors } from '../../../../core/state/ui-manager/ui-manager.selectors';
 import { UiManagerActions } from '../../../../core/state/ui-manager/ui-manager.actions';
 import { LayoutState } from '../../../../core/models/layout';
 import { RouterState } from '@ngxs/router-plugin';
+import { SmzLayoutsConfig } from '../../../../globals/smz-layouts.config';
 
 @UntilDestroy()
 @Component({
@@ -18,7 +18,7 @@ import { RouterState } from '@ngxs/router-plugin';
 export class SidebarComponent implements OnInit, AfterContentInit
 {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
-  @Select(UiManagerSelectors.layoutState) public state$: Observable<LayoutState>;
+  @Select(UiManagerSelectors.state) public state$: Observable<LayoutState>;
   @Select(RouterState.state) public currentRoute$: Observable<any>;
   public headerExtrasTemplate: TemplateRef<any>;
   @Input() public menu: MenuItem[];
@@ -27,10 +27,6 @@ export class SidebarComponent implements OnInit, AfterContentInit
   ngOnInit(): void
   {
 
-  }
-  public test(event): void
-  {
-    console.log(event);
   }
   public ngAfterContentInit()
   {

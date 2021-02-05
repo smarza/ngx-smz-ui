@@ -2,7 +2,7 @@ import { SidebarViewdata } from '../../features/assistance/sidebar-data';
 
 export interface Assistance
 {
-    isEnabled?: boolean;
+    isEnabled: boolean;
     isVisible?: boolean;
-    sidebarData: SidebarViewdata;
+    sidebarData?: SidebarViewdata;
 }

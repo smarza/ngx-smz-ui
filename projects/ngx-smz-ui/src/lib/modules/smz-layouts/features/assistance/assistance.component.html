@@ -1,20 +1,35 @@
 <ng-container *ngIf="assistance$ | async as assistance">
   <p-sidebar [(visible)]="isVisible" [position]="assistance.sidebarData.position" styleClass="assistence_sidebar" (onHide)="onHide()" (onShow)="onShow()">
 
-    <h5>Menu</h5>
-    <p-selectButton [options]="menuTypes" [(ngModel)]="menuType" (onChange)="onMenuTypeChange()" optionLabel="label" optionValue="value"></p-selectButton>
+    <div class="p-grid p-flex-column p-align-start p-justify-start p-p-2 p-nogutter">
+      <h5>Menu</h5>
+      <p-selectButton [options]="menuTypes" [(ngModel)]="menuType" (onChange)="onMenuTypeChange()" optionLabel="label" optionValue="value"></p-selectButton>
 
-    <h5>Layout Themes</h5>
-    <button
-      *ngFor="let layout of layoutThemes"
-      pButton pRipple type="button" [label]="layout.name" class="p-button-outlined p-mr-2 p-mb-2" (click)="onSetLayoutTheme(layout.id)">
-    </button>
+      <h5>Global Loading <span *ngIf="timer != null">{{ timer }}</span></h5>
+      <div class="p-grid">
+        <p-inputSwitch class="p-col-12" [(ngModel)]="globalIsLoading" (onChange)="changeGlobalLoading($event)"></p-inputSwitch>
+        <button
+          *ngFor="let loader of loaders"
+          pButton pRipple type="button" [label]="loader.name" class="p-button-outlined p-mr-2 p-mb-2" (click)="onSetGlobalLoader(loader.id)">
+        </button>
+      </div>
 
-    <h5>Content Themes</h5>
-    <button
-      *ngFor="let content of contentThemes"
-      pButton pRipple type="button" [label]="content.name" class="p-button-outlined p-mr-2 p-mb-2" (click)="onSetContentTheme(content.id)">
-    </button>
+      <h5>Layout Themes</h5>
+      <div class="p-grid">
+        <button
+          *ngFor="let layout of layoutThemes"
+          pButton pRipple type="button" [label]="layout.name" class="p-button-outlined p-mr-2 p-mb-2" (click)="onSetLayoutTheme(layout.id)">
+        </button>
+      </div>
+
+      <h5>Content Themes</h5>
+      <div class="p-grid">
+        <button
+          *ngFor="let content of contentThemes"
+          pButton pRipple type="button" [label]="content.name" class="p-button-outlined p-mr-2 p-mb-2" (click)="onSetContentTheme(content.id)">
+        </button>
+      </div>
+    </div>
 
   </p-sidebar>
 </ng-container>

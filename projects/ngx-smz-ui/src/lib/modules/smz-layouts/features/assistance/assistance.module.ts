@@ -6,6 +6,7 @@ import { SidebarModule } from 'primeng/sidebar';
 import { ButtonModule } from 'primeng/button';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { FormsModule } from '@angular/forms';
+import { InputSwitchModule } from 'primeng/inputswitch';
 
 @NgModule({
   declarations: [AssistanceComponent],
@@ -15,7 +16,8 @@ import { FormsModule } from '@angular/forms';
     PrimeSharedModule,
     SidebarModule,
     ButtonModule,
-    SelectButtonModule
+    SelectButtonModule,
+    InputSwitchModule
   ],
   exports: [AssistanceComponent]
 })

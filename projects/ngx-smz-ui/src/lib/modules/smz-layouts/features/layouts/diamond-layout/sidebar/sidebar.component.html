@@ -1,11 +1,12 @@
 <ng-container *ngIf="state$ | async as state">
 <ng-container *ngIf="(currentRoute$ | async) as route">
+
     <div class="layout-sidebar">
 
         <!-- LOGO DA APLICAÇÃO -->
         <a class="logo" href="#/">
             <img id="app-logo" [src]="config.logoWhite" class="logo-image">
-            <span class="app-name">DIAMOND</span>
+            <span class="app-name">{{ state.appName }}</span>
         </a>
 
         <!-- INICIO DO MENU -->

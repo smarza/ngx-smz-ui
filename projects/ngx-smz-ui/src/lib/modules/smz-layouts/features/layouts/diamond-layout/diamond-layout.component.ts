@@ -19,7 +19,7 @@ import { SmzLayoutsConfig } from '../../../globals/smz-layouts.config';
 export class DiamondLayoutComponent implements OnInit, AfterContentInit
 {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
-  @Select(UiManagerSelectors.layoutState) public state$: Observable<LayoutState>;
+  @Select(UiManagerSelectors.state) public state$: Observable<LayoutState>;
   @Select(UiManagerSelectors.assistance) public assistance$: Observable<Assistance>;
   @Input() public menu: MenuItem[];
   public headerExtrasTemplate: TemplateRef<any>;

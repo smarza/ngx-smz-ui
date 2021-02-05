@@ -3,9 +3,9 @@
     <div class="layout-footer">
         <div class="footer-logo-container">
             <img id="footer-logo" alt="diamond-layout" [src]="config.logoDark">
-            <span class="app-name">DIAMOND</span>
+            <span class="app-name">{{ state.appName }}</span>
         </div>
-        <span class="copyright">© Your Organization - 2020</span>
+        <span class="copyright">{{ state.footerText }}</span>
     </div>
 
 </ng-container>
