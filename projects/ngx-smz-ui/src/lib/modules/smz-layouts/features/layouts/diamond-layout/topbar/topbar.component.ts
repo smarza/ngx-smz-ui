@@ -27,7 +27,6 @@ export class TopbarComponent implements OnInit, AfterContentInit
   }
   public ngAfterContentInit()
   {
-    console.log(this.templates);
     this.templates.forEach((item) =>
     {
       switch (item.getType())
