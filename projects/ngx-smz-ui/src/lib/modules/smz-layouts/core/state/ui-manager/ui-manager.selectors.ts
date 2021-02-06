@@ -55,4 +55,5 @@ export class UiManagerSelectors
     {
         return state.config;
     }
+
 }

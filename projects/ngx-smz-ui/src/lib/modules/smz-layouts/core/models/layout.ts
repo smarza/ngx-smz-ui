@@ -9,6 +9,8 @@ export interface LayoutConfig {
     menuType: SmzMenuTypes;
     sidebarState: SmzSidebarStates;
     loader: LoaderData;
+    sidebarWidth: string;
+    sidebarSlimWidth: string;
 }
 
 export interface LayoutState {

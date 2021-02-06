@@ -15,7 +15,9 @@ export const smzLayoutsConfig: SmzLayoutsConfig = {
             type: SmzLoader.CUBE,
             title: 'Carregando...',
             message: 'Aguarde por favor'
-        }
+        },
+        sidebarWidth: '16rem',
+        sidebarSlimWidth: '6rem'
     },
     assistance: {
         isEnabled: true,

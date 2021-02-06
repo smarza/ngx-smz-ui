@@ -53,7 +53,33 @@ export class UiManagerState
           footerText: this.config.footerText
         }
       });
+
+      ctx.dispatch(new UiManagerActions.SetSidebarWidth(this.config.layout.sidebarWidth));
+      ctx.dispatch(new UiManagerActions.SetSidebarSlimWidth(this.config.layout.sidebarSlimWidth));
+
   }
+
+
+  @Action(UiManagerActions.SetSidebarWidth)
+  public onSetSidebarWidth(ctx: StateContext<UiManagerStateModel>, action: UiManagerActions.SetSidebarWidth): void
+  {
+    const config = ctx.getState().config;
+
+    ctx.patchState({ config: { ...config, sidebarWidth: action.regular } });
+
+    document.documentElement.style.setProperty('--sidebar-width', action.regular);
+  }
+
+  @Action(UiManagerActions.SetSidebarSlimWidth)
+  public onSetSidebarSlimWidth(ctx: StateContext<UiManagerStateModel>, action: UiManagerActions.SetSidebarSlimWidth): void
+  {
+    const config = ctx.getState().config;
+
+    ctx.patchState({ config: { ...config, sidebarSlimWidth: action.slim } });
+
+    document.documentElement.style.setProperty('--sidebar-slim-width', action.slim);
+  }
+
 
   @Action(UiManagerActions.SetTopbarTitle)
   public onSetTopbarTitle(ctx: StateContext<UiManagerStateModel>, action: UiManagerActions.SetTopbarTitle): void

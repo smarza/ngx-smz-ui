@@ -4,12 +4,15 @@ import { Select, Store } from '@ngxs/store';
 import { ApplicationActions, ApplicationSelectors } from 'ngx-rbk-utils';
 import { Observable } from 'rxjs';
 import { Assistance } from '../../core/models/assistance';
+import { LayoutConfig } from '../../core/models/layout';
 import { SmzLoader, SmzLoaders } from '../../core/models/loaders';
 import { SmzMenuType } from '../../core/models/menu-types';
 import { SmzContentTheme, SmzContentThemes, SmzLayoutTheme, SmzLayoutThemes } from '../../core/models/themes';
 import { UiManagerActions } from '../../core/state/ui-manager/ui-manager.actions';
 import { UiManagerSelectors } from '../../core/state/ui-manager/ui-manager.selectors';
 import { SmzLayoutsConfig } from '../../globals/smz-layouts.config';
+import cloneDeep from 'lodash-es/cloneDeep';
+import { InputChangeData } from 'projects/ngx-smz-ui/src/lib/common/input-detection/input-detection.directive';
 
 @UntilDestroy()
 @Component({
@@ -21,6 +24,7 @@ import { SmzLayoutsConfig } from '../../globals/smz-layouts.config';
 export class AssistanceComponent implements OnInit
 {
   @Select(UiManagerSelectors.assistance) public assistance$: Observable<Assistance>;
+  @Select(UiManagerSelectors.config) public config$: Observable<LayoutConfig>;
   public globalIsLoading: boolean;
   public timer: number;
   public isVisible = false;
@@ -29,6 +33,7 @@ export class AssistanceComponent implements OnInit
   public contentThemes = SmzContentThemes;
   public layoutThemes = SmzLayoutThemes;
   public loaders = SmzLoaders;
+  public layout: LayoutConfig;
   constructor(public readonly config: SmzLayoutsConfig, private store: Store, private cdr: ChangeDetectorRef)
   {
     this.store
@@ -36,6 +41,7 @@ export class AssistanceComponent implements OnInit
       .pipe(untilDestroyed(this))
       .subscribe(config =>
       {
+        this.layout = cloneDeep(config);
         this.menuType = config.menuType;
       });
 
@@ -62,8 +68,18 @@ export class AssistanceComponent implements OnInit
     this.setupData();
   }
 
-  ngOnInit(): void
+  public ngOnInit(): void
   {
+  }
+
+  public setSidebarWidth(event: InputChangeData): void
+  {
+    this.store.dispatch(new UiManagerActions.SetSidebarWidth(event.new));
+  }
+
+  public setSidebarSlimWidth(event: InputChangeData): void
+  {
+    this.store.dispatch(new UiManagerActions.SetSidebarSlimWidth(event.new));
   }
 
   public setupData(): void

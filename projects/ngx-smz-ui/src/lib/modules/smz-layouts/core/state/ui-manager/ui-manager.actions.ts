@@ -34,6 +34,18 @@ export namespace UiManagerActions
         constructor(public data: SmzLoader) {}
     }
 
+    export class SetSidebarWidth
+    {
+        public static readonly type = '[UI Manager] Set Sidebar Width';
+        constructor(public regular: string) {}
+    }
+
+    export class SetSidebarSlimWidth
+    {
+        public static readonly type = '[UI Manager] Set Sidebar Slim Width';
+        constructor(public slim: string) {}
+    }
+
     export class ShowSidebar
     {
         public static readonly type = '[UI Manager] Show Sidebar';

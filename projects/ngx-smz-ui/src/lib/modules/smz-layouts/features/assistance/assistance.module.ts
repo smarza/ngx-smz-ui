@@ -7,6 +7,8 @@ import { ButtonModule } from 'primeng/button';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { FormsModule } from '@angular/forms';
 import { InputSwitchModule } from 'primeng/inputswitch';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputBlurDetectionModule } from 'projects/ngx-smz-ui/src/lib/common/input-detection/input-detection.module';
 
 @NgModule({
   declarations: [AssistanceComponent],
@@ -17,7 +19,9 @@ import { InputSwitchModule } from 'primeng/inputswitch';
     SidebarModule,
     ButtonModule,
     SelectButtonModule,
-    InputSwitchModule
+    InputSwitchModule,
+    InputTextModule,
+    InputBlurDetectionModule
   ],
   exports: [AssistanceComponent]
 })

@@ -21,6 +21,9 @@
   src: local("Nunito Bold"), local("Nunito-Bold"), url("../fonts/nunito-v12-latin-ext_latin-700.woff2") format("woff2"), url("../fonts/nunito-v12-latin-ext_latin-700.woff") format("woff");
   /* Modern Browsers */
 }
+
+@import "./variables.scss";
+
 /* Utils */
 .clearfix:after {
   content: " ";
@@ -571,7 +574,7 @@ a {
 }
 
 .layout-sidebar {
-  width: 16rem;
+  width: var(--sidebar-width);
   height: 100%;
   position: fixed;
   left: 0;
@@ -701,7 +704,7 @@ a {
     display: none;
   }
   .layout-wrapper.layout-slim .layout-sidebar {
-    width: 6rem;
+    width: var(--sidebar-slim-width);
     overflow: visible;
     z-index: 999;
   }
@@ -715,7 +718,7 @@ a {
     overflow: visible;
   }
   .layout-wrapper.layout-slim .layout-content-wrapper {
-    margin-left: 6rem;
+    margin-left: var(--sidebar-slim-width);
   }
   .layout-wrapper.layout-slim .layout-menu ul {
     display: none;
@@ -765,11 +768,8 @@ a {
   }
 }
 
-
-
-
 .layout-sidebar-right {
-  width: 16rem;
+  width: var(--sidebar-width);
   height: 100%;
   position: fixed;
   right: 0;
@@ -857,7 +857,7 @@ a {
 
 @media screen and (min-width: 992px) {
   .layout-wrapper.layout-static .layout-content-wrapper {
-    margin-left: 16rem;
+    margin-left: var(--sidebar-width);
   }
   .layout-wrapper.layout-static-inactive .layout-topbar .menu-button i:before {
     content: "";
@@ -1870,7 +1870,7 @@ a {
   }
 }
 .layout-config {
-  width: 16rem;
+  width: var(--sidebar-width);
   height: 100%;
   position: fixed;
   right: 0;
