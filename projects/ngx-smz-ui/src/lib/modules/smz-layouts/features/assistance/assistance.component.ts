@@ -12,7 +12,7 @@ import { UiManagerActions } from '../../core/state/ui-manager/ui-manager.actions
 import { UiManagerSelectors } from '../../core/state/ui-manager/ui-manager.selectors';
 import { SmzLayoutsConfig } from '../../globals/smz-layouts.config';
 import cloneDeep from 'lodash-es/cloneDeep';
-import { InputChangeData } from 'projects/ngx-smz-ui/src/lib/common/input-detection/input-detection.directive';
+import { InputChangeData } from '../../../../common/input-detection/input-detection.directive';
 
 @UntilDestroy()
 @Component({
