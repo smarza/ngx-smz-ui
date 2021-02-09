@@ -1,13 +1,23 @@
+<ng-container *ngIf="config$ | async as layout">
 <ng-container *ngIf="state$ | async as state">
 <ng-container *ngIf="(currentRoute$ | async) as route">
 
     <div class="layout-sidebar" (mouseleave)="collapseAll(menu)">
 
-        <!-- LOGO DA APLICAÇÃO -->
-        <a class="logo" href="#/">
-            <img id="app-logo" [src]="config.logoWhite" class="logo-image">
-            <span class="app-name">{{ state.appName }}</span>
-        </a>
+        <!-- LOGO EM FORMATO DE ICONE -->
+        <ng-container *ngIf="layout.menuType === menuType.SLIM; else elseHeaderTemplate">
+            <a class="logo" href="#/">
+                <img id="app-logo" [src]="config.appLogo.icon.dark" class="logo-image">
+                <span class="app-name">{{ state.appName }}</span>
+            </a>
+        </ng-container>
+
+        <!-- LOGO COMPLETA -->
+        <ng-template #elseHeaderTemplate>
+            <a class="logo" href="#/">
+                <img id="app-logo" [src]="config.appLogo.horizontal.dark" class="p-pl-4 p-pr-4" width="100%">
+            </a>
+        </ng-template>
 
         <!-- INICIO DO MENU -->
         <div class="layout-menu-container">
@@ -43,6 +53,7 @@
         </div>
     </div>
 
+</ng-container>
 </ng-container>
 </ng-container>
 

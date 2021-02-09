@@ -41,7 +41,7 @@ export class UiManagerSelectors
     @Selector([UiManagerState])
     public static contentTheme(state: UiManagerStateModel): string
     {
-        return `/assets/${state.config.contentTheme}`;
+        return `/assets/scss/contents/${state.config.contentTheme}`;
     }
 
     @Selector([UiManagerState])

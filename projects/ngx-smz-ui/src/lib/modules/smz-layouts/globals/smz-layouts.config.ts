@@ -1,11 +1,11 @@
 import { Assistance } from '../core/models/assistance';
 import { LayoutConfig } from '../core/models/layout';
+import { LogoResource } from '../core/models/logo';
 
 export class SmzLayoutsConfig
 {
     debugMode?: boolean;
-    logoDark?: string;
-    logoWhite?: string;
+    appLogo: LogoResource;
     appName?: string;
     footerText?: string;
     layout?: LayoutConfig;

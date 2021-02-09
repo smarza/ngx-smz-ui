@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { NgxSmzFormsModule } from 'ngx-smz-dialogs';
 import { ButtonModule } from 'primeng/button';
 import { SmzRouteData } from '../../core/models/route-layout-data';
 import { LoginComponent } from './login.component';
@@ -30,7 +31,8 @@ export const routerModuleForChildLoginModule = RouterModule.forChild(routes);
   imports: [
     CommonModule,
     routerModuleForChildLoginModule,
-    ButtonModule
+    ButtonModule,
+    NgxSmzFormsModule,
   ],
   exports: []
 })

@@ -2,8 +2,24 @@ import { SmzLayoutsConfig, SmzMenuType, SmzSidebarState, SmzLayoutTheme, SmzCont
 
 export const smzLayoutsConfig: SmzLayoutsConfig = {
     debugMode: false,
-    logoDark: 'assets/layout/images/logo-dark.svg',
-    logoWhite: 'assets/layout/images/logo-white.svg',
+    appLogo: {
+        horizontal: {
+            dark: 'assets/layout/images/horizontal-dark.svg',
+            light: 'assets/layout/images/horizontal-light.svg'
+        },
+        vertical: {
+            dark: 'assets/layout/images/vertical-dark.svg',
+            light: 'assets/layout/images/vertical-light.svg'
+        },
+        typo: {
+            dark: 'assets/layout/images/typo-dark.svg',
+            light: 'assets/layout/images/typo-light.svg'
+        },
+        icon: {
+            dark: 'assets/layout/images/icon-dark.svg',
+            light: 'assets/layout/images/icon-light.svg'
+        },
+    },
     appName: 'Demo App',
     footerText: '© Your Organization - 2021',
     layout: {

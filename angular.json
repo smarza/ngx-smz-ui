@@ -68,7 +68,7 @@
               "projects/ngx-smz-ui-demo/src/assets",
               {
                 "glob": "**/*",
-                "input": "node_modules/ngx-smz-ui/resources/scss/contents",
+                "input": "node_modules/ngx-smz-ui/resources",
                 "output": "/assets/"
               }
             ],

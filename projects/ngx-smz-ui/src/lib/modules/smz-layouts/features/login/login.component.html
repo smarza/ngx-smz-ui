@@ -1,2 +1,15 @@
-<p>Login Works</p>
-<button type="button" pButton icon="pi pi-bars" label="LOGAR" (click)="submit()"></button>
+<div class="main-container p-d-flex p-ai-center p-jc-center">
+  <div>
+    <div class="p-d-flex p-flex-column">
+      <div class="card-container">
+        <div class="p-d-flex p-flex-column login-container">
+          <img class="logo" alt="" [src]="config.appLogo.vertical.light" />
+          <p class="g-mb-2">Entre com as suas credenciais:</p>
+          <smz-form-group #formComponent [config]="form"></smz-form-group>
+          <a class="link g-mb-2 g-mt-1">Esqueceu a senha?</a>
+          <button pButton type="button" label="ENTRAR" (click)="login(formComponent)"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -8,8 +8,8 @@ import { NgxSmzLayoutsModule, DiamondLayoutModule } from 'ngx-smz-ui';
 import { smzLayoutsConfig } from '../globals/smz-layouts.config';
 import { CommonModule } from '@angular/common';
 import { NgxSmzDialogsModule } from 'ngx-smz-dialogs';
-import { buildState, NgxRbkUtilsModule } from 'ngx-rbk-utils';
-import { NgxsModule } from '@ngxs/store';
+import { ApplicationActions, buildState, NgxRbkUtilsConfig, NgxRbkUtilsModule } from 'ngx-rbk-utils';
+import { NgxsModule, Store } from '@ngxs/store';
 import { environment } from '../environments/environment';
 import { rbkConfig } from '../globals/rbk-config';
 import { smzDialogsConfig } from '../globals/smz-config';
@@ -36,7 +36,11 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
     DiamondLayoutModule
 
   ],
-  providers: [],
+  providers: [{ provide: NgxRbkUtilsConfig, useValue: rbkConfig }],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(private store: Store) {
+    this.store.dispatch(new ApplicationActions.NgRxInitialized());
+  }
+}

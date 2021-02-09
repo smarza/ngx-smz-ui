@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { BoilerplateService } from 'ngx-rbk-utils';
 import { MenuItem } from 'primeng/api';
 
 @Component({
@@ -10,8 +11,10 @@ export class AppComponent
 {
   title = 'ngx-smz-ui-demo';
   public menu: MenuItem[];
-  constructor()
+  constructor(private boilerplateService: BoilerplateService)
   {
+    this.boilerplateService.init();
+
     this.menu = [
       {
         label: 'App Navigation',
