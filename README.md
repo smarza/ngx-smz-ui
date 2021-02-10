@@ -2,11 +2,15 @@
 
 * Install and setup all dependencies needed by the library
     * [primeng](https://www.npmjs.com/package/primeng)
+    * [primeflex](https://github.com/primefaces/primeflex#readme)
+    * [primeicons](https://github.com/primefaces/primeicons#readme)
     * [ngx-smz-dialogs](https://www.npmjs.com/package/ngx-smz-dialogs)
     * [ngx-rbk-utils](https://www.npmjs.com/package/ngx-rbk-utils)
     * [@ngxs/store](https://www.npmjs.com/package/@ngxs/store)
     * [@ngxs/router-plugin](https://www.npmjs.com/package/@ngxs/router-plugin)
     * [@auth0/angular-jwt](https://www.npmjs.com/package/@auth0/angular-jwt)
+    * [animate.css](https://animate.style/)
+    * [hover.css](https://github.com/IanLunn/Hover#readme)
 
 * Install the library
 
@@ -38,18 +42,8 @@
 * In your `styles.scss` add styles imports.
 
     ```scss
-    @import "~primeng/resources/primeng.min.css";
-    @import "~primeicons/primeicons.css";
-    @import "~primeflex/primeflex.css";
-
-    // BASE PARA UTILIZAR O TEMA DE CONTEÚDO
-    @import "~ngx-smz-ui/resources/scss/smz-contents.scss";
-
-    // LAYOUT
-    @import "~ngx-smz-ui/resources/scss/smz-layouts.scss";
-
-    // TEMAS DO LAYOUT
-    @import "~ngx-smz-ui/resources/scss/smz-all-themes.scss";
+    // SMZ-UI
+    @import "~ngx-smz-ui/resources/scss/smz-ui.scss";
     ```
 
 * Import the `NgxSmzLayoutsModule` in your `AppModule` and pass the initial configuration data. Also import the LayoutTheme Module of your choice (Ex. DiamondLayoutModule)

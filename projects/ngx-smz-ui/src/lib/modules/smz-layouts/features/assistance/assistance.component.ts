@@ -8,8 +8,8 @@ import { LayoutConfig } from '../../core/models/layout';
 import { SmzLoader, SmzLoaders } from '../../core/models/loaders';
 import { SmzMenuType } from '../../core/models/menu-types';
 import { SmzContentTheme, SmzContentThemes, SmzLayoutTheme, SmzLayoutThemes } from '../../core/models/themes';
-import { UiManagerActions } from '../../core/state/ui-manager/ui-manager.actions';
-import { UiManagerSelectors } from '../../core/state/ui-manager/ui-manager.selectors';
+import { UiActions } from '../../core/state/ui/ui.actions';
+import { UiSelectors } from '../../core/state/ui/ui.selectors';
 import { SmzLayoutsConfig } from '../../globals/smz-layouts.config';
 import cloneDeep from 'lodash-es/cloneDeep';
 import { InputChangeData } from '../../../../common/input-detection/input-detection.directive';
@@ -23,8 +23,8 @@ import { InputChangeData } from '../../../../common/input-detection/input-detect
 })
 export class AssistanceComponent implements OnInit
 {
-  @Select(UiManagerSelectors.assistance) public assistance$: Observable<Assistance>;
-  @Select(UiManagerSelectors.config) public config$: Observable<LayoutConfig>;
+  @Select(UiSelectors.assistance) public assistance$: Observable<Assistance>;
+  @Select(UiSelectors.config) public config$: Observable<LayoutConfig>;
   public globalIsLoading: boolean;
   public timer: number;
   public isVisible = false;
@@ -37,7 +37,7 @@ export class AssistanceComponent implements OnInit
   constructor(public readonly config: SmzLayoutsConfig, private store: Store, private cdr: ChangeDetectorRef)
   {
     this.store
-      .select(UiManagerSelectors.config)
+      .select(UiSelectors.config)
       .pipe(untilDestroyed(this))
       .subscribe(config =>
       {
@@ -46,7 +46,7 @@ export class AssistanceComponent implements OnInit
       });
 
     this.store
-      .select(UiManagerSelectors.assistance)
+      .select(UiSelectors.assistance)
       .pipe(untilDestroyed(this))
       .subscribe(assistance =>
       {
@@ -74,12 +74,12 @@ export class AssistanceComponent implements OnInit
 
   public setSidebarWidth(event: InputChangeData): void
   {
-    this.store.dispatch(new UiManagerActions.SetSidebarWidth(event.new));
+    this.store.dispatch(new UiActions.SetSidebarWidth(event.new));
   }
 
   public setSidebarSlimWidth(event: InputChangeData): void
   {
-    this.store.dispatch(new UiManagerActions.SetSidebarSlimWidth(event.new));
+    this.store.dispatch(new UiActions.SetSidebarSlimWidth(event.new));
   }
 
   public setupData(): void
@@ -93,37 +93,37 @@ export class AssistanceComponent implements OnInit
 
   public onMenuTypeChange(): void
   {
-    this.store.dispatch(new UiManagerActions.SetMenuType(this.menuType));
+    this.store.dispatch(new UiActions.SetMenuType(this.menuType));
   }
 
   public onHide(): void
   {
-    this.store.dispatch(new UiManagerActions.HideConfigAssistance);
+    this.store.dispatch(new UiActions.HideConfigAssistance);
   }
 
   public onShow(): void
   {
-    this.store.dispatch(new UiManagerActions.ShowConfigAssistance);
+    this.store.dispatch(new UiActions.ShowConfigAssistance);
   }
 
   public showMenu(): void
   {
-    this.store.dispatch(new UiManagerActions.ShowSidebar);
+    this.store.dispatch(new UiActions.ShowSidebar);
   }
 
   public hideMenu(): void
   {
-    this.store.dispatch(new UiManagerActions.HideSidebar);
+    this.store.dispatch(new UiActions.HideSidebar);
   }
 
   public onSetLayoutTheme(theme: SmzLayoutTheme): void
   {
-    this.store.dispatch(new UiManagerActions.SetLayoutTheme(theme));
+    this.store.dispatch(new UiActions.SetLayoutTheme(theme));
   }
 
   public onSetContentTheme(theme: SmzContentTheme): void
   {
-    this.store.dispatch(new UiManagerActions.SetContentTheme(theme));
+    this.store.dispatch(new UiActions.SetContentTheme(theme));
   }
 
   public changeGlobalLoading(event: { checked: boolean }): void
@@ -149,7 +149,7 @@ export class AssistanceComponent implements OnInit
 
   public onSetGlobalLoader(data: SmzLoader): void
   {
-    this.store.dispatch(new UiManagerActions.SetGlobalLoader(data));
+    this.store.dispatch(new UiActions.SetGlobalLoader(data));
   }
 
 }

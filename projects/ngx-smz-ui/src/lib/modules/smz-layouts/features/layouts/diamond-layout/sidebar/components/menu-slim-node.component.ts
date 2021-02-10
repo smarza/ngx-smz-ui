@@ -10,7 +10,7 @@ import { MenuItem } from 'primeng/api';
 
             <ng-container *ngSwitchCase="false">
                 <li [ngClass]="{ 'active-menuitem': currentUrl === '/' + subItem.routerLink }">
-                    <a class="p-ripple" [tabindex]="subItemIndex" [routerLink]="subItem.routerLink">
+                    <a class="p-ripple" [tabindex]="subItemIndex" menuItemAction [item]="subItem">
                         <i class="layout-menuitem-icon pi pi-fw" [ngClass]="subItem.icon"></i>
                         <span class="layout-menuitem-text">{{ subItem.label }}</span>
                         <span class="p-ink"></span>

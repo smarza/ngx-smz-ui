@@ -7,7 +7,7 @@ import { mergeClone } from '../../common/utils/deep-merge';
 import { NgxSmzLayoutsRoutingModule } from './ngx-smz-layouts-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxsModule } from '@ngxs/store';
-import { UiManagerState } from './core/state/ui-manager/ui-manager.state';
+import { UiManagerState } from './core/state/ui/ui.state';
 
 export const ngxsModuleForFeatureUiManagerState = NgxsModule.forFeature([UiManagerState]);
 

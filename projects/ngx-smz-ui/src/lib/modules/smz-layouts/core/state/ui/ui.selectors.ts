@@ -1,15 +1,15 @@
 import { Selector } from '@ngxs/store';
-import { UiManagerState, UiManagerStateModel } from './ui-manager.state';
+import { UiManagerState, UiStateModel } from './ui.state';
 import { LayoutConfig, LayoutState, LoaderData } from '../../models/layout';
 import { Assistance } from '../../models/assistance';
 import { SmzMenuType } from '../../models/menu-types';
 import { SmzSidebarState } from '../../models/sidebar-states';
 import { SmzAppLogo } from '../../models/logo';
-export class UiManagerSelectors
+export class UiSelectors
 {
 
     @Selector([UiManagerState])
-    public static state(state: UiManagerStateModel): LayoutState
+    public static state(state: UiStateModel): LayoutState
     {
         const themeClass = `layout-sidebar-${state.config.layoutTheme}`;
         const layoutClass = `layout-${state.config.menuType}`;
@@ -26,38 +26,38 @@ export class UiManagerSelectors
     }
 
     @Selector([UiManagerState])
-    public static topbarTitle(state: UiManagerStateModel): string
+    public static topbarTitle(state: UiStateModel): string
     {
         return state.state.topbarTitle;
     }
 
 
     @Selector([UiManagerState])
-    public static loader(state: UiManagerStateModel): LoaderData
+    public static loader(state: UiStateModel): LoaderData
     {
         return state.config.loader;
     }
 
     @Selector([UiManagerState])
-    public static contentTheme(state: UiManagerStateModel): string
+    public static contentTheme(state: UiStateModel): string
     {
         return `/assets/scss/contents/${state.config.contentTheme}`;
     }
 
     @Selector([UiManagerState])
-    public static assistance(state: UiManagerStateModel): Assistance
+    public static assistance(state: UiStateModel): Assistance
     {
         return state.assistance;
     }
 
     @Selector([UiManagerState])
-    public static config(state: UiManagerStateModel): LayoutConfig
+    public static config(state: UiStateModel): LayoutConfig
     {
         return state.config;
     }
 
     @Selector([UiManagerState])
-    public static appLogo(state: UiManagerStateModel): SmzAppLogo
+    public static appLogo(state: UiStateModel): SmzAppLogo
     {
         return {
             horizontal: state.appLogo.horizontal[state.state.themeTone],

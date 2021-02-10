@@ -35,6 +35,13 @@ export class AppComponent
         ]
       },
       {
+        label: 'Actions',
+        icon: 'pi-home',
+        items: [
+          { label: 'Console Log', icon: 'pi-home', command: () => console.log('Console Log') },
+        ]
+      },
+      {
         label: 'Hierarchy',
         icon: 'pi-align-left',
         items: [

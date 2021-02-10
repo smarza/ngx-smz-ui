@@ -23,7 +23,7 @@ export const smzLayoutsConfig: SmzLayoutsConfig = {
     appName: 'Demo App',
     footerText: '© Your Organization - 2021',
     layout: {
-        menuType: SmzMenuType.SLIM,
+        menuType: SmzMenuType.STATIC,
         sidebarState: SmzSidebarState.ACTIVE,
         layoutTheme: SmzLayoutTheme.DARKGRAY,
         contentTheme: SmzContentTheme.PRIMEONE_LIGHT,

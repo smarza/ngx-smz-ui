@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@
 import { Select, Store, } from '@ngxs/store';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
-import { UiManagerSelectors } from '../../core/state/ui-manager/ui-manager.selectors';
+import { UiSelectors } from '../../core/state/ui/ui.selectors';
 
 @Component({
   selector: 'smz-ui-theme-manager',
@@ -16,7 +16,7 @@ export class ThemeManagerComponent implements OnInit
   constructor(private store: Store, public sanitizer: DomSanitizer, private cdr: ChangeDetectorRef)
   {
     this.store
-      .select(UiManagerSelectors.contentTheme)
+      .select(UiSelectors.contentTheme)
       .pipe()
       .subscribe((newTheme) =>
       {

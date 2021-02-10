@@ -1,14 +1,2 @@
-/* You can add global styles to this file, and also import other style files */
-
-@import "~primeng/resources/primeng.min.css";
-@import "~primeicons/primeicons.css";
-@import "~primeflex/primeflex.css";
-
-// BASE PARA UTILIZAR O TEMA DE CONTEÚDO
-@import "~ngx-smz-ui/resources/scss/smz-contents.scss";
-
 // LAYOUT
-@import "~ngx-smz-ui/resources/scss/smz-layouts.scss";
-
-// TEMAS DO LAYOUT
-@import "~ngx-smz-ui/resources/scss/smz-all-themes.scss";
+@import "~ngx-smz-ui/resources/scss/smz-ui.scss";

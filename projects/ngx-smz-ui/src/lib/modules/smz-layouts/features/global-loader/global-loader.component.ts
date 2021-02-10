@@ -9,7 +9,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { filter } from 'rxjs/operators';
 import { LoaderData } from '../../core/models/layout';
 import { SmzLoader } from '../../core/models/loaders';
-import { UiManagerSelectors } from '../../core/state/ui-manager/ui-manager.selectors';
+import { UiSelectors } from '../../core/state/ui/ui.selectors';
 
 @UntilDestroy()
 @Component({
@@ -21,7 +21,7 @@ import { UiManagerSelectors } from '../../core/state/ui-manager/ui-manager.selec
 })
 export class GlobalLoaderComponent implements OnInit
 {
-  @Select(UiManagerSelectors.loader) public loader$: Observable<LoaderData>;
+  @Select(UiSelectors.loader) public loader$: Observable<LoaderData>;
   @Input() public template: TemplateRef<any>;
   public loaders = SmzLoader;
   public isLoading: boolean = false;

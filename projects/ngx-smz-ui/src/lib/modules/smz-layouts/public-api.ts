@@ -14,7 +14,7 @@ export * from './core/models/logo';
 export * from './ngx-smz-layouts.module';
 
 // STATE
-export * from './core/state/ui-manager/ui-manager.actions';
+export * from './core/state/ui/ui.actions';
 
 // DIAMOND LAYOUT MODULE
 export * from './features/layouts/diamond-layout/diamond-layout.module';

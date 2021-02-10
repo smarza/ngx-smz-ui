@@ -3,8 +3,8 @@ import { Select, Store } from '@ngxs/store';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { MenuItem, PrimeTemplate } from 'primeng/api';
 import { Observable } from 'rxjs';
-import { UiManagerSelectors } from '../../../../core/state/ui-manager/ui-manager.selectors';
-import { UiManagerActions } from '../../../../core/state/ui-manager/ui-manager.actions';
+import { UiSelectors } from '../../../../core/state/ui/ui.selectors';
+import { UiActions } from '../../../../core/state/ui/ui.actions';
 import { LayoutConfig, LayoutState } from '../../../../core/models/layout';
 import { RouterState } from '@ngxs/router-plugin';
 import { SmzLayoutsConfig } from '../../../../globals/smz-layouts.config';
@@ -19,8 +19,8 @@ import { SmzMenuType } from '../../../../core/models/menu-types';
 export class SidebarComponent implements OnInit, AfterContentInit
 {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
-  @Select(UiManagerSelectors.config) public config$: Observable<LayoutConfig>;
-  @Select(UiManagerSelectors.state) public state$: Observable<LayoutState>;
+  @Select(UiSelectors.config) public config$: Observable<LayoutConfig>;
+  @Select(UiSelectors.state) public state$: Observable<LayoutState>;
   @Select(RouterState.state) public currentRoute$: Observable<any>;
   public headerExtrasTemplate: TemplateRef<any>;
   @Input() public menu: MenuItem[];
@@ -69,17 +69,17 @@ export class SidebarComponent implements OnInit, AfterContentInit
 
   public show(): void
   {
-    this.store.dispatch(new UiManagerActions.ShowSidebar);
+    this.store.dispatch(new UiActions.ShowSidebar);
   }
 
   public hide(): void
   {
-    this.store.dispatch(new UiManagerActions.HideSidebar);
+    this.store.dispatch(new UiActions.HideSidebar);
   }
 
   public toggle(): void
   {
-    this.store.dispatch(new UiManagerActions.ToggleSidebar);
+    this.store.dispatch(new UiActions.ToggleSidebar);
   }
 
 }

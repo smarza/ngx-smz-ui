@@ -8,6 +8,7 @@ import { HasChildPipe } from './pipes/has-child.pipe';
 import { MenuExpandableItemComponent } from './components/menu-expandable-item.component';
 import { MenuNodeComponent } from './components/menu-node.component';
 import { MenuSlimNodeComponent } from './components/menu-slim-node.component';
+import { MenuItemActionsModule } from '../../../../../../common/menu-item-actions/menu-item-actions.module';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { MenuSlimNodeComponent } from './components/menu-slim-node.component';
     CommonModule,
     RouterModule,
     SidebarModule,
+    MenuItemActionsModule
   ],
   exports: [SidebarComponent]
 })

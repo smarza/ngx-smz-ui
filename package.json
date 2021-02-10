@@ -8,6 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
+    "install-lib": "npm install dist/ngx-smz-ui",
     "build-lib": "ng build ngx-smz-ui",
     "build-watch-lib": "ng build ngx-smz-ui --watch",
     "build-prod-lib": "ng build ngx-smz-ui --prod"
@@ -30,6 +31,8 @@
     "@ngxs/devtools-plugin": "^3.7.1",
     "@ngxs/router-plugin": "^3.7.1",
     "@ngxs/store": "^3.7.1",
+    "animate.css": "^4.1.1",
+    "hover.css": "^2.3.2",
     "lodash-es": "^4.17.20",
     "ngx-device-detector": "^2.0.5",
     "ngx-rbk-utils": "^1.2.14",
