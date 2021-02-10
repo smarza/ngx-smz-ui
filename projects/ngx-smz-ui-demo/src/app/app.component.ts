@@ -26,10 +26,12 @@ export class AppComponent
         ]
       },
       {
-        label: 'Lib Navigation',
+        label: 'Lib Pages',
         icon: 'pi-star',
         items: [
           { label: 'Login', icon: 'pi-home', routerLink: ['login'] },
+          { label: 'Error', icon: 'pi-home', routerLink: ['error'] },
+          { label: 'Not Found', icon: 'pi-home', routerLink: ['notfound'] },
         ]
       },
       {

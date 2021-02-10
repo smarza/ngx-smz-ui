@@ -4,7 +4,7 @@ import { SmzSidebarStates } from './sidebar-states';
 import { SmzContentTheme, SmzLayoutTheme } from './themes';
 
 export interface LayoutConfig {
-    layoutTheme: SmzLayoutTheme | string;
+    layoutTheme: SmzLayoutTheme;
     contentTheme: SmzContentTheme;
     menuType: SmzMenuTypes;
     sidebarState: SmzSidebarStates;
@@ -19,6 +19,7 @@ export interface LayoutState {
     topbarTitle: string;
     appName: string;
     footerText: string;
+    themeTone: 'light' | 'dark'
 }
 
 export interface LoaderData {

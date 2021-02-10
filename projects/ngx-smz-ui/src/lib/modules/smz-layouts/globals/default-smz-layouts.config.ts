@@ -28,6 +28,14 @@ export const defaultSmzLayoutsConfig: SmzLayoutsConfig = {
         sidebarWidth: '16rem',
         sidebarSlimWidth: '6rem'
     },
+    pages: {
+        errorTitle: 'Erro',
+        errorMessage: 'Ocorreu um erro com a sua solicitação. Caso persista, entre em contato com seu administrador de sistema.',
+        errorImagePath: 'assets/images/pages/bg-error.jpg',
+        notFoundTitle: 'Página não encontrada',
+        notFoundMessage: 'A rota solicitada não existe ou não se encontra disponível no momento.',
+        notFoundImagePath: 'assets/images/pages/bg-404.jpg',
+    },
     assistance: {
         isEnabled: true,
         sidebarData: {

@@ -4,36 +4,37 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgxSmzFormsModule } from 'ngx-smz-dialogs';
 import { ButtonModule } from 'primeng/button';
 import { SmzRouteData } from '../../core/models/route-layout-data';
-import { LoginComponent } from './login.component';
+import { NotFoundComponent } from './not-found.component';
 
 const data: SmzRouteData = {
   layout: {
     mode: 'none'
   },
-  title: 'Login',
-  appArea: 'login',
-  clearReusableRoutes: true
+  title: 'Rota não encontrada',
+  appArea: 'not-found',
+  clearReusableRoutes: true,
+  requiredStates: []
 };
 
 const routes: Routes = [
   {
     path: '',
     canActivate: [],
-    component: LoginComponent,
+    component: NotFoundComponent,
     data
   },
 ];
 
-export const routerModuleForChildLoginModule = RouterModule.forChild(routes);
+export const routerModuleForChildNotFoundModule = RouterModule.forChild(routes);
 
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [NotFoundComponent],
   imports: [
     CommonModule,
-    routerModuleForChildLoginModule,
+    routerModuleForChildNotFoundModule,
     ButtonModule,
     NgxSmzFormsModule,
   ],
   exports: []
 })
-export class LoginModule { }
+export class NotFoundModule { }

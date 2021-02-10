@@ -22,7 +22,11 @@
   /* Modern Browsers */
 }
 
-@import "./variables.scss";
+// VARIÁVEIS GLOBAIS
+@import "./variables/variables.scss";
+
+// PÁGINAS DE ERRO E NOTFOUND
+@import "./pages/app-exceptions";
 
 /* Utils */
 .clearfix:after {

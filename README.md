@@ -12,6 +12,46 @@
 
         `npm install ngx-smz-ui`
 
+
+* In your `angular.json` add the assets imports.
+
+    ```typscript
+      ...
+      "architect": {
+        "build": {
+          ...
+          "options": {
+            ...
+            "assets": [
+              ...
+              {
+                "glob": "**/*",
+                "input": "node_modules/ngx-smz-ui/resources",
+                "output": "/assets/"
+              }
+            ],
+            ...
+          },
+          ...
+    ```
+
+* In your `styles.scss` add styles imports.
+
+    ```scss
+    @import "~primeng/resources/primeng.min.css";
+    @import "~primeicons/primeicons.css";
+    @import "~primeflex/primeflex.css";
+
+    // BASE PARA UTILIZAR O TEMA DE CONTEÚDO
+    @import "~ngx-smz-ui/resources/scss/smz-contents.scss";
+
+    // LAYOUT
+    @import "~ngx-smz-ui/resources/scss/smz-layouts.scss";
+
+    // TEMAS DO LAYOUT
+    @import "~ngx-smz-ui/resources/scss/smz-all-themes.scss";
+    ```
+
 * Import the `NgxSmzLayoutsModule` in your `AppModule` and pass the initial configuration data. Also import the LayoutTheme Module of your choice (Ex. DiamondLayoutModule)
 
     Example:

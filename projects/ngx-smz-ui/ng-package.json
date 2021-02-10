@@ -5,6 +5,8 @@
     "./resources/scss/*.*",
     "./resources/scss/layouts/*.*",
     "./resources/scss/contents/*.*",
+    "./resources/scss/pages/*.*",
+    "./resources/scss/variables/*.*",
     "./resources/fonts/*.*",
     "./resources/images/pages/*.*"
 ],
@@ -15,6 +17,7 @@
       "@ngxs/router-plugin": "router-plugin",
       "@ngxs/store": "store",
       "lodash-es/cloneDeep": "cloneDeep",
+      "lodash-es/isEqual": "isEqual",
       "ngx-rbk-utils": "ngx-rbk-utils",
       "ngx-smz-dialogs": "ngx-smz-dialogs",
       "primeng/accordion": "accordion",

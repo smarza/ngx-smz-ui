@@ -14,3 +14,11 @@ export interface ThemeTone
     light: string;
 
 }
+
+export interface SmzAppLogo
+{
+    horizontal: string;
+    vertical: string;
+    typo: string;
+    icon: string;
+}

@@ -4,7 +4,7 @@ import { LayoutConfig, LayoutState, LoaderData } from '../../models/layout';
 import { Assistance } from '../../models/assistance';
 import { SmzMenuType } from '../../models/menu-types';
 import { SmzSidebarState } from '../../models/sidebar-states';
-import { SmzLoader } from '../../models/loaders';
+import { SmzAppLogo } from '../../models/logo';
 export class UiManagerSelectors
 {
 
@@ -56,4 +56,14 @@ export class UiManagerSelectors
         return state.config;
     }
 
+    @Selector([UiManagerState])
+    public static appLogo(state: UiManagerStateModel): SmzAppLogo
+    {
+        return {
+            horizontal: state.appLogo.horizontal[state.state.themeTone],
+            vertical: state.appLogo.vertical[state.state.themeTone],
+            icon: state.appLogo.icon[state.state.themeTone],
+            typo: state.appLogo.typo[state.state.themeTone]
+        };
+    }
 }

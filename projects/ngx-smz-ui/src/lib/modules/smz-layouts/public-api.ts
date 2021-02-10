@@ -8,6 +8,7 @@ export * from './core/models/route-layout-data';
 export * from './core/models/sidebar-states';
 export * from './core/models/themes';
 export * from './core/models/loaders';
+export * from './core/models/logo';
 
 // MODULES
 export * from './ngx-smz-layouts.module';

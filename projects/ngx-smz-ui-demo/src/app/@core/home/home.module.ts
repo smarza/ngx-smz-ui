@@ -10,7 +10,8 @@ const data: SmzRouteData = {
   },
   title: 'Home',
   appArea: 'home',
-  clearReusableRoutes: true
+  clearReusableRoutes: true,
+  requiredStates: []
 };
 
 const routes: Routes = [

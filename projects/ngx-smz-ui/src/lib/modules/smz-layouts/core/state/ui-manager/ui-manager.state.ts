@@ -6,12 +6,14 @@ import { SmzSidebarState } from '../../models/sidebar-states';
 import { UiManagerActions } from './ui-manager.actions';
 import cloneDeep from 'lodash-es/cloneDeep';
 import { SmzLayoutsConfig } from '../../../globals/smz-layouts.config';
+import { SmzContentThemes } from '../../models/themes';
+import { LogoResource } from '../../models/logo';
 
-export interface UiManagerStateModel
-{
+export interface UiManagerStateModel {
   assistance: Assistance;
   config: LayoutConfig;
   state: LayoutState;
+  appLogo: LogoResource;
 }
 
 export const getInitialState = (): UiManagerStateModel => ({
@@ -22,8 +24,10 @@ export const getInitialState = (): UiManagerStateModel => ({
     isOverlayVisible: false,
     topbarTitle: '',
     appName: '',
-    footerText: ''
-  }
+    footerText: '',
+    themeTone: 'light'
+  },
+  appLogo: null
 });
 
 // @dynamic
@@ -33,20 +37,19 @@ export const getInitialState = (): UiManagerStateModel => ({
 })
 
 @Injectable()
-export class UiManagerState
-{
+export class UiManagerState {
   constructor(public readonly config: SmzLayoutsConfig) { }
 
 
   @Action(UiManagerActions.Initialize)
-  public onInitialize(ctx: StateContext<UiManagerStateModel>): void
-  {
+  public onInitialize(ctx: StateContext<UiManagerStateModel>): void {
     const state = ctx.getState().state;
 
     ctx.patchState(
       {
         assistance: this.config.assistance,
         config: this.config.layout,
+        appLogo: this.config.appLogo,
         state: {
           ...state,
           appName: this.config.appName,
@@ -54,15 +57,16 @@ export class UiManagerState
         }
       });
 
-      ctx.dispatch(new UiManagerActions.SetSidebarWidth(this.config.layout.sidebarWidth));
-      ctx.dispatch(new UiManagerActions.SetSidebarSlimWidth(this.config.layout.sidebarSlimWidth));
+    ctx.dispatch(new UiManagerActions.SetSidebarWidth(this.config.layout.sidebarWidth));
+    ctx.dispatch(new UiManagerActions.SetSidebarSlimWidth(this.config.layout.sidebarSlimWidth));
+    ctx.dispatch(new UiManagerActions.SetLayoutTheme(this.config.layout.layoutTheme));
+    ctx.dispatch(new UiManagerActions.SetContentTheme(this.config.layout.contentTheme));
 
   }
 
 
   @Action(UiManagerActions.SetSidebarWidth)
-  public onSetSidebarWidth(ctx: StateContext<UiManagerStateModel>, action: UiManagerActions.SetSidebarWidth): void
-  {
+  public onSetSidebarWidth(ctx: StateContext<UiManagerStateModel>, action: UiManagerActions.SetSidebarWidth): void {
     const config = ctx.getState().config;
 
     ctx.patchState({ config: { ...config, sidebarWidth: action.regular } });
@@ -71,8 +75,7 @@ export class UiManagerState
   }
 
   @Action(UiManagerActions.SetSidebarSlimWidth)
-  public onSetSidebarSlimWidth(ctx: StateContext<UiManagerStateModel>, action: UiManagerActions.SetSidebarSlimWidth): void
-  {
+  public onSetSidebarSlimWidth(ctx: StateContext<UiManagerStateModel>, action: UiManagerActions.SetSidebarSlimWidth): void {
     const config = ctx.getState().config;
 
     ctx.patchState({ config: { ...config, sidebarSlimWidth: action.slim } });
@@ -82,59 +85,54 @@ export class UiManagerState
 
 
   @Action(UiManagerActions.SetTopbarTitle)
-  public onSetTopbarTitle(ctx: StateContext<UiManagerStateModel>, action: UiManagerActions.SetTopbarTitle): void
-  {
+  public onSetTopbarTitle(ctx: StateContext<UiManagerStateModel>, action: UiManagerActions.SetTopbarTitle): void {
     const state = ctx.getState().state;
     ctx.patchState({ state: { ...state, topbarTitle: action.data } });
   }
 
   @Action(UiManagerActions.SetMenuType)
-  public onSetMenuType(ctx: StateContext<UiManagerStateModel>, action: UiManagerActions.SetMenuType): void
-  {
+  public onSetMenuType(ctx: StateContext<UiManagerStateModel>, action: UiManagerActions.SetMenuType): void {
     const config = ctx.getState().config;
     ctx.patchState({ config: { ...config, menuType: action.data } });
   }
 
   @Action(UiManagerActions.SetLayoutTheme)
-  public onSetTheme(ctx: StateContext<UiManagerStateModel>, action: UiManagerActions.SetLayoutTheme): void
-  {
+  public onSetTheme(ctx: StateContext<UiManagerStateModel>, action: UiManagerActions.SetLayoutTheme): void {
     const config = ctx.getState().config;
     ctx.patchState({ config: { ...config, layoutTheme: action.data } });
   }
 
   @Action(UiManagerActions.SetContentTheme)
-  public onSetContentTheme(ctx: StateContext<UiManagerStateModel>, action: UiManagerActions.SetContentTheme): void
-  {
+  public onSetContentTheme(ctx: StateContext<UiManagerStateModel>, action: UiManagerActions.SetContentTheme): void {
     const config = ctx.getState().config;
-    ctx.patchState({ config: { ...config, contentTheme: action.data } });
+    const state = ctx.getState().state;
+    const contentTheme = SmzContentThemes.find(x => x.id === action.data);
+
+    ctx.patchState({ config: { ...config, contentTheme: action.data }, state: { ...state, themeTone: contentTheme.tone } });
   }
 
   @Action(UiManagerActions.SetGlobalLoader)
-  public onSetGlobalLoader(ctx: StateContext<UiManagerStateModel>, action: UiManagerActions.SetGlobalLoader): void
-  {
+  public onSetGlobalLoader(ctx: StateContext<UiManagerStateModel>, action: UiManagerActions.SetGlobalLoader): void {
     const config = ctx.getState().config;
     const loader = ctx.getState().config.loader;
     ctx.patchState({ config: { ...config, loader: { ...loader, type: action.data } } });
   }
 
   @Action(UiManagerActions.ShowSidebar)
-  public onShowSidebar(ctx: StateContext<UiManagerStateModel>): void
-  {
+  public onShowSidebar(ctx: StateContext<UiManagerStateModel>): void {
     const config = ctx.getState().config;
     ctx.patchState({ config: { ...config, sidebarState: SmzSidebarState.ACTIVE } });
   }
 
 
   @Action(UiManagerActions.HideSidebar)
-  public onHideSidebar(ctx: StateContext<UiManagerStateModel>): void
-  {
+  public onHideSidebar(ctx: StateContext<UiManagerStateModel>): void {
     const config = ctx.getState().config;
     ctx.patchState({ config: { ...config, sidebarState: SmzSidebarState.INACTIVE } });
   }
 
   @Action(UiManagerActions.ToggleSidebar)
-  public onToggleSidebar(ctx: StateContext<UiManagerStateModel>): void
-  {
+  public onToggleSidebar(ctx: StateContext<UiManagerStateModel>): void {
     const config = ctx.getState().config;
     ctx.patchState({
       config: {
@@ -145,15 +143,13 @@ export class UiManagerState
   }
 
   @Action(UiManagerActions.ShowConfigAssistance)
-  public onShowConfigAssistance(ctx: StateContext<UiManagerStateModel>): void
-  {
+  public onShowConfigAssistance(ctx: StateContext<UiManagerStateModel>): void {
     const assistance = cloneDeep(ctx.getState().assistance);
     ctx.patchState({ assistance: { ...assistance, isVisible: true } });
   }
 
   @Action(UiManagerActions.HideConfigAssistance)
-  public onHideConfigassistance(ctx: StateContext<UiManagerStateModel>): void
-  {
+  public onHideConfigassistance(ctx: StateContext<UiManagerStateModel>): void {
     const assistance = ctx.getState().assistance;
     ctx.patchState({ assistance: { ...assistance, isVisible: false } });
   }

@@ -45,14 +45,20 @@ export enum SmzContentTheme {
 
 }
 
-export const SmzContentThemes: SimpleNamedEntity[] = [
-    { id: SmzContentTheme.BOOTSTRAP_LIGHT, name: 'Bootstrap Light'},
-    { id: SmzContentTheme.FLUENT_LIGHT, name: 'Fluent Light'},
-    { id: SmzContentTheme.MATERIAL_DARK, name: 'Material Dark'},
-    { id: SmzContentTheme.MATERIAL_LIGHT, name: 'Material Light'},
-    { id: SmzContentTheme.PRIMEONE_DIM, name: 'Bootstrap Dark'},
-    { id: SmzContentTheme.PRIMEONE_DIM, name: 'PrimeOne Dim'},
-    { id: SmzContentTheme.PRIMEONE_LIGHT, name: 'PrimeOne Light'},
-    { id: SmzContentTheme.SOHO_DARK, name: 'Soho Dark'},
-    { id: SmzContentTheme.SOHO_LIGHT, name: 'Soho Light'},
+export const SmzContentThemes: ContentTheme[] = [
+    { id: SmzContentTheme.BOOTSTRAP_LIGHT, name: 'Bootstrap Light', tone: 'light'},
+    { id: SmzContentTheme.FLUENT_LIGHT, name: 'Fluent Light', tone: 'light'},
+    { id: SmzContentTheme.MATERIAL_DARK, name: 'Material Dark', tone: 'dark'},
+    { id: SmzContentTheme.MATERIAL_LIGHT, name: 'Material Light', tone: 'light'},
+    { id: SmzContentTheme.PRIMEONE_DIM, name: 'Bootstrap Dark', tone: 'dark'},
+    { id: SmzContentTheme.PRIMEONE_DIM, name: 'PrimeOne Dim', tone: 'light'},
+    { id: SmzContentTheme.PRIMEONE_LIGHT, name: 'PrimeOne Light', tone: 'light'},
+    { id: SmzContentTheme.SOHO_DARK, name: 'Soho Dark', tone: 'dark'},
+    { id: SmzContentTheme.SOHO_LIGHT, name: 'Soho Light', tone: 'light'},
 ];
+
+export interface ContentTheme {
+    id: SmzContentTheme,
+    name: string,
+    tone: 'dark' | 'light'
+}
