@@ -1,5 +1,5 @@
 import { Selector } from '@ngxs/store';
-import { UiManagerState, UiStateModel } from './ui.state';
+import { UiState, UiStateModel } from './ui.state';
 import { LayoutConfig, LayoutState, LoaderData } from '../../models/layout';
 import { Assistance } from '../../models/assistance';
 import { SmzMenuType } from '../../models/menu-types';
@@ -8,7 +8,7 @@ import { SmzAppLogo } from '../../models/logo';
 export class UiSelectors
 {
 
-    @Selector([UiManagerState])
+    @Selector([UiState])
     public static state(state: UiStateModel): LayoutState
     {
         const themeClass = `layout-sidebar-${state.config.layoutTheme}`;
@@ -25,38 +25,38 @@ export class UiSelectors
         return layout;
     }
 
-    @Selector([UiManagerState])
+    @Selector([UiState])
     public static topbarTitle(state: UiStateModel): string
     {
         return state.state.topbarTitle;
     }
 
 
-    @Selector([UiManagerState])
+    @Selector([UiState])
     public static loader(state: UiStateModel): LoaderData
     {
         return state.config.loader;
     }
 
-    @Selector([UiManagerState])
+    @Selector([UiState])
     public static contentTheme(state: UiStateModel): string
     {
-        return `/assets/scss/contents/${state.config.contentTheme}`;
+        return `assets/scss/contents/${state.config.contentTheme}`;
     }
 
-    @Selector([UiManagerState])
+    @Selector([UiState])
     public static assistance(state: UiStateModel): Assistance
     {
         return state.assistance;
     }
 
-    @Selector([UiManagerState])
+    @Selector([UiState])
     public static config(state: UiStateModel): LayoutConfig
     {
         return state.config;
     }
 
-    @Selector([UiManagerState])
+    @Selector([UiState])
     public static appLogo(state: UiStateModel): SmzAppLogo
     {
         return {

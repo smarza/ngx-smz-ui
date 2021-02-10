@@ -7,14 +7,15 @@ export * from './core/models/menu-types';
 export * from './core/models/route-layout-data';
 export * from './core/models/sidebar-states';
 export * from './core/models/themes';
-export * from './core/models/loaders';
 export * from './core/models/logo';
+export * from './core/models/loaders';
 
 // MODULES
 export * from './ngx-smz-layouts.module';
 
-// STATE
-export * from './core/state/ui/ui.actions';
+// STATES
+export { UiActions } from './core/state/ui/ui.actions';
+export { UiSelectors } from './core/state/ui/ui.selectors';
 
 // DIAMOND LAYOUT MODULE
 export * from './features/layouts/diamond-layout/diamond-layout.module';

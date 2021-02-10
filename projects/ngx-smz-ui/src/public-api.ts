@@ -11,6 +11,3 @@ export * from './lib/modules/smz-layouts/public-api';
 
 export * from './lib/common/input-detection/input-detection.module';
 export * from './lib/common/input-detection/input-detection.directive';
-
-export * from './lib/modules/smz-layouts/core/state/ui/ui.actions';
-export * from './lib/modules/smz-layouts/core/state/ui/ui.selectors';

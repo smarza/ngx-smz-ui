@@ -4,7 +4,7 @@ import { Assistance } from '../../models/assistance';
 import { LayoutConfig, LayoutState } from '../../models/layout';
 import { SmzSidebarState } from '../../models/sidebar-states';
 import { UiActions } from './ui.actions';
-import cloneDeep from 'lodash-es/cloneDeep';
+import { cloneDeep } from 'lodash-es';
 import { SmzLayoutsConfig } from '../../../globals/smz-layouts.config';
 import { SmzContentThemes } from '../../models/themes';
 import { LogoResource } from '../../models/logo';
@@ -32,12 +32,12 @@ export const getInitialState = (): UiStateModel => ({
 
 // @dynamic
 @State<UiStateModel>({
-  name: 'uiManager',
+  name: 'ui',
   defaults: getInitialState()
 })
 
 @Injectable()
-export class UiManagerState {
+export class UiState {
   constructor(public readonly config: SmzLayoutsConfig) { }
 
 

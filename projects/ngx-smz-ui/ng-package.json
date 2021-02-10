@@ -21,6 +21,7 @@
       "@ngneat/until-destroy": "until-destroy",
       "@ngxs/router-plugin": "router-plugin",
       "@ngxs/store": "store",
+      "lodash-es": "lodash-es",
       "lodash-es/cloneDeep": "cloneDeep",
       "lodash-es/isEqual": "isEqual",
       "ngx-rbk-utils": "ngx-rbk-utils",

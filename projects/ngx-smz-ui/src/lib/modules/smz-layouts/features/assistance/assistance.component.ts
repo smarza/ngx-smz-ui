@@ -11,7 +11,7 @@ import { SmzContentTheme, SmzContentThemes, SmzLayoutTheme, SmzLayoutThemes } fr
 import { UiActions } from '../../core/state/ui/ui.actions';
 import { UiSelectors } from '../../core/state/ui/ui.selectors';
 import { SmzLayoutsConfig } from '../../globals/smz-layouts.config';
-import cloneDeep from 'lodash-es/cloneDeep';
+import { cloneDeep } from 'lodash-es';
 import { InputChangeData } from '../../../../common/input-detection/input-detection.directive';
 
 @UntilDestroy()
