@@ -31,7 +31,14 @@
                         <div class="layout-menuitem-root-text">{{ item.label }}</div>
 
                         <!-- ITENS PARA O MENU COLAPSADO -->
-                        <a class="p-ripple" [tabindex]="itemIndex" (click)="toogleOnly(item, menu)" (mouseover)="toogleOnly(item, menu)">
+                        <a *ngIf="item.command == null && item.routerLink == null" class="p-ripple" [tabindex]="itemIndex" (click)="toogleOnly(item, menu)" (mouseover)="toogleOnly(item, menu)">
+                            <i class="layout-menuitem-icon pi" [ngClass]="item.icon"></i>
+                            <span class="layout-menuitem-text">{{ item.label }}</span>
+                            <i class="pi pi-fw pi-chevron-down layout-submenu-toggler"></i>
+                            <span class="p-ink"></span>
+                        </a>
+
+                        <a *ngIf="item.command != null || item.routerLink != null" class="p-ripple" [tabindex]="itemIndex" menuItemAction [item]="item" [ngClass]="{ 'active-first-route': route.url === '/' + item.routerLink }">
                             <i class="layout-menuitem-icon pi" [ngClass]="item.icon"></i>
                             <span class="layout-menuitem-text">{{ item.label }}</span>
                             <i class="pi pi-fw pi-chevron-down layout-submenu-toggler"></i>

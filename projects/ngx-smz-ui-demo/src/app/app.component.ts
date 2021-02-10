@@ -17,6 +17,14 @@ export class AppComponent
 
     this.menu = [
       {
+        label: 'Click me',
+        icon: 'fas fa-check-double',
+        routerLink: ['details'],
+        items: [
+          { label: 'Click me', icon: 'fas fa-check-double', routerLink: ['details'] },
+        ]
+      },
+      {
         label: 'App Navigation',
         icon: 'pi-home',
         items: [
