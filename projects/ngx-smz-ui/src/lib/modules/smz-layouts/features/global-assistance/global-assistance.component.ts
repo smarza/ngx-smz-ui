@@ -8,7 +8,7 @@ import { SmzLoader, SmzLoaders } from '../../core/models/loaders';
 import { SmzContentTheme, SmzContentThemes, SmzLayoutTheme, SmzLayoutThemes } from '../../core/models/themes';
 import { UiActions } from '../../core/state/ui/ui.actions';
 import { UiSelectors } from '../../core/state/ui/ui.selectors';
-import { SmzLayoutsConfig } from '../../globals/smz-layouts.config';
+import { SmzLayoutsConfig } from '../../core/globals/smz-layouts.config';
 import { SmzToast, SmzToastPositions, SmzToasts } from '../../core/models/toasts';
 import { EdgePositionType, LeftPositionType, RightPositionType, SidePositionType } from '../../core/models/positions';
 

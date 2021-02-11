@@ -4,7 +4,7 @@ import { Assistance } from '../../models/assistance';
 import { LayoutState, LoaderData } from '../../models/layout';
 import { UiActions } from './ui.actions';
 import { cloneDeep } from 'lodash-es';
-import { SmzLayoutsConfig } from '../../../globals/smz-layouts.config';
+import { SmzLayoutsConfig } from '../../globals/smz-layouts.config';
 import { SmzContentTheme, SmzContentThemes, SmzLayoutTheme, SmzLayoutThemes } from '../../models/themes';
 import { LogoResource } from '../../models/logo';
 import { SmzToastData } from '../../models/toasts';

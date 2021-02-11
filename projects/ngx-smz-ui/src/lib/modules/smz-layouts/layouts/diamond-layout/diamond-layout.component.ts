@@ -3,12 +3,12 @@ import { Select, Store } from '@ngxs/store';
 import { PrimeTemplate } from 'primeng/api';
 import { MenuItem } from 'primeng/api/menuitem';
 import { Observable } from 'rxjs/internal/Observable';
-import { Assistance } from '../../../core/models/assistance';
-import { LayoutState } from '../../../core/models/layout';
-import { RouterDataListenerService } from '../../../core/services/router-data-listener.service';
-import { UiActions } from '../../../core/state/ui/ui.actions';
-import { UiSelectors } from '../../../core/state/ui/ui.selectors';
-import { SmzLayoutsConfig } from '../../../globals/smz-layouts.config';
+import { Assistance } from '../../core/models/assistance';
+import { LayoutState } from '../../core/models/layout';
+import { RouterDataListenerService } from '../../core/services/router-data-listener.service';
+import { UiActions } from '../../core/state/ui/ui.actions';
+import { UiSelectors } from '../../core/state/ui/ui.selectors';
+import { SmzLayoutsConfig } from '../../core/globals/smz-layouts.config';
 import { UiLayoutActions } from './state/ui-layout/ui-layout.actions';
 import { UiLayoutSelectors } from './state/ui-layout/ui-layout.selectors';
 

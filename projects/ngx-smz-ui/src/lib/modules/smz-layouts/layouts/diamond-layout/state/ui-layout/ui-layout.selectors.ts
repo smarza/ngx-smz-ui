@@ -1,8 +1,8 @@
 import { Selector } from '@ngxs/store';
-import { DiamondLayout, LayoutState } from '../../../../../core/models/layout';
-import { DiamondMenuType } from '../../../../../core/models/menu-types';
-import { DiamondSidebarState } from '../../../../../core/models/sidebar-states';
-import { UiState, UiStateModel } from '../../../../../core/state/ui/ui.state';
+import { DiamondLayout, LayoutState } from '../../../../core/models/layout';
+import { DiamondMenuType } from '../../../../core/models/menu-types';
+import { DiamondSidebarState } from '../../../../core/models/sidebar-states';
+import { UiState, UiStateModel } from '../../../../core/state/ui/ui.state';
 import { UiLayoutState, UiLayoutStateModel } from './ui-layout.state';
 
 export class UiLayoutSelectors

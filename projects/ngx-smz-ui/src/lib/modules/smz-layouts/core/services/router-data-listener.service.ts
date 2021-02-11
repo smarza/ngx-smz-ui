@@ -4,7 +4,7 @@ import { Store } from '@ngxs/store';
 import { ApplicationActions } from 'ngx-rbk-utils';
 import { SmzDialogsService } from 'ngx-smz-dialogs';
 import { filter, map, mergeMap, tap } from 'rxjs/operators';
-import { SmzLayoutsConfig } from '../../globals/smz-layouts.config';
+import { SmzLayoutsConfig } from '../globals/smz-layouts.config';
 import { RouteLayoutData, SmzRouteData } from '../models/route-layout-data';
 import { UiActions } from '../state/ui/ui.actions';
 

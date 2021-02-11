@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Select, Store } from '@ngxs/store'; import { SmzLayoutsConfig } from '../../globals/smz-layouts.config';
+import { Select, Store } from '@ngxs/store'; import { SmzLayoutsConfig } from '../../core/globals/smz-layouts.config';
 import { SmzControlType, SmzForm, SmzFormsResponse, SmzPasswordControl, SmzTextControl } from 'ngx-smz-dialogs';
 import { AuthenticationActions } from 'ngx-rbk-utils';
 import { UiSelectors } from '../../core/state/ui/ui.selectors';

@@ -1,7 +1,7 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SmzLayoutsConfig } from './globals/smz-layouts.config';
-import { defaultSmzLayoutsConfig } from './globals/default-smz-layouts.config';
+import { SmzLayoutsConfig } from './core/globals/smz-layouts.config';
+import { defaultSmzLayoutsConfig } from './core/globals/default-smz-layouts.config';
 
 import { mergeClone } from '../../common/utils/deep-merge';
 import { NgxSmzLayoutsRoutingModule } from './ngx-smz-layouts-routing.module';

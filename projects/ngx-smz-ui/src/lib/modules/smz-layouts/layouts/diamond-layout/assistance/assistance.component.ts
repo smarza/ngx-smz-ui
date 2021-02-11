@@ -4,15 +4,15 @@ import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { cloneDeep } from 'lodash-es';
 import { UiLayoutSelectors } from '../state/ui-layout/ui-layout.selectors';
-import { UiSelectors } from '../../../../core/state/ui/ui.selectors';
-import { Assistance } from '../../../../core/models/assistance';
-import { DiamondMenuType } from '../../../../core/models/menu-types';
-import { DiamondLayout } from '../../../../core/models/layout';
-import { SmzLayoutsConfig } from '../../../../globals/smz-layouts.config';
-import { InputChangeData } from 'projects/ngx-smz-ui/src/lib/common/input-detection/input-detection.directive';
+import { UiSelectors } from '../../../core/state/ui/ui.selectors';
+import { Assistance } from '../../../core/models/assistance';
+import { DiamondMenuType } from '../../../core/models/menu-types';
+import { DiamondLayout } from '../../../core/models/layout';
+import { SmzLayoutsConfig } from '../../../core/globals/smz-layouts.config';
+import { InputChangeData } from '../../../../../common/input-detection/input-detection.directive';
 import { UiLayoutActions } from '../state/ui-layout/ui-layout.actions';
-import { UiActions } from '../../../../core/state/ui/ui.actions';
-import { SmzContentTheme, SmzLayoutTheme } from '../../../../core/models/themes';
+import { UiActions } from '../../../core/state/ui/ui.actions';
+import { SmzContentTheme, SmzLayoutTheme } from '../../../core/models/themes';
 
 @UntilDestroy()
 @Component({

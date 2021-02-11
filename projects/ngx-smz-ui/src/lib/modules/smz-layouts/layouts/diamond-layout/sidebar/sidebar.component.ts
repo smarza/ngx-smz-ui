@@ -3,13 +3,13 @@ import { Select, Store } from '@ngxs/store';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { MenuItem, PrimeTemplate } from 'primeng/api';
 import { Observable } from 'rxjs';
-import { UiSelectors } from '../../../../core/state/ui/ui.selectors';
-import { DiamondLayout } from '../../../../core/models/layout';
+import { UiSelectors } from '../../../core/state/ui/ui.selectors';
+import { DiamondLayout } from '../../../core/models/layout';
 import { RouterState } from '@ngxs/router-plugin';
-import { SmzLayoutsConfig } from '../../../../globals/smz-layouts.config';
-import { DiamondMenuType } from '../../../../core/models/menu-types';
+import { SmzLayoutsConfig } from '../../../core/globals/smz-layouts.config';
+import { DiamondMenuType } from '../../../core/models/menu-types';
 import { NgxRbkUtilsConfig } from 'ngx-rbk-utils';
-import { SmzAppLogo } from '../../../../core/models/logo';
+import { SmzAppLogo } from '../../../core/models/logo';
 import { UiLayoutSelectors } from '../state/ui-layout/ui-layout.selectors';
 import { UiLayoutActions } from '../state/ui-layout/ui-layout.actions';
 

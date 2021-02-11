@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { State, Action, StateContext } from '@ngxs/store';
-import { DiamondLayout, LayoutState } from '../../../../../core/models/layout';
-import { DiamondSidebarState } from '../../../../../core/models/sidebar-states';
-import { SmzLayoutsConfig } from '../../../../../globals/smz-layouts.config';
+import { DiamondLayout, LayoutState } from '../../../../core/models/layout';
+import { DiamondSidebarState } from '../../../../core/models/sidebar-states';
+import { SmzLayoutsConfig } from '../../../../core/globals/smz-layouts.config';
 import { UiLayoutActions } from './ui-layout.actions';
 
 export interface UiLayoutStateModel {

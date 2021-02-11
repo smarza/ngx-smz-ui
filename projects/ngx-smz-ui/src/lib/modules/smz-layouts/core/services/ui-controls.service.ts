@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SmzLayoutsConfig } from '../../globals/smz-layouts.config';
+import { SmzLayoutsConfig } from '../globals/smz-layouts.config';
 
 @Injectable({
   providedIn: 'root'

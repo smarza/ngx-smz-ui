@@ -1,7 +1,7 @@
-import { SmzLoader } from '../core/models/loaders';
-import { DiamondMenuType } from '../core/models/menu-types';
-import { DiamondSidebarState } from '../core/models/sidebar-states';
-import { SmzContentTheme, SmzLayoutTheme } from '../core/models/themes';
+import { SmzLoader } from '../models/loaders';
+import { DiamondMenuType } from '../models/menu-types';
+import { DiamondSidebarState } from '../models/sidebar-states';
+import { SmzContentTheme, SmzLayoutTheme } from '../models/themes';
 import { SmzLayoutsConfig } from './smz-layouts.config';
 
 export const defaultSmzLayoutsConfig: SmzLayoutsConfig = {

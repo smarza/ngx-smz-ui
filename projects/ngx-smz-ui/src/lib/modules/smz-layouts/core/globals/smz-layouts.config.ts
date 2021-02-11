@@ -1,9 +1,9 @@
-import { Assistance } from '../core/models/assistance';
-import { LoaderData, SmzLayout } from '../core/models/layout';
-import { LogoResource } from '../core/models/logo';
-import { PagesConfig } from '../core/models/pages';
-import { EdgePositionType } from '../core/models/positions';
-import { SmzContentTheme, SmzLayoutTheme } from '../core/models/themes';
+import { Assistance } from '../models/assistance';
+import { LoaderData, SmzLayout } from '../models/layout';
+import { LogoResource } from '../models/logo';
+import { PagesConfig } from '../models/pages';
+import { EdgePositionType } from '../models/positions';
+import { SmzContentTheme, SmzLayoutTheme } from '../models/themes';
 
 export class SmzLayoutsConfig {
     debugMode?: boolean;

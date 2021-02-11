@@ -1,4 +1,4 @@
-import { DiamondMenuType } from '../../../../../core/models/menu-types';
+import { DiamondMenuType } from '../../../../core/models/menu-types';
 
 export namespace UiLayoutActions
 {

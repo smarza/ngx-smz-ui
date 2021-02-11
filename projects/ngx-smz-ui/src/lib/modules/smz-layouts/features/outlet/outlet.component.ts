@@ -1,7 +1,7 @@
 import { AfterContentInit, Component, ContentChildren, Input, OnInit, QueryList, TemplateRef } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { MenuItem } from 'primeng/api/menuitem';
-import { SmzLayoutsConfig } from '../../globals/smz-layouts.config';
+import { SmzLayoutsConfig } from '../../core/globals/smz-layouts.config';
 import { RouterDataListenerService } from '../../core/services/router-data-listener.service';
 import { PrimeTemplate } from 'primeng/api';
 import { Observable } from 'rxjs';

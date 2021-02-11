@@ -1,5 +1,5 @@
 // CONFIG
-export * from './globals/smz-layouts.config';
+export * from './core/globals/smz-layouts.config';
 
 // MODELS
 export * from './core/models/layout';
@@ -19,5 +19,5 @@ export { UiActions } from './core/state/ui/ui.actions';
 export { UiSelectors } from './core/state/ui/ui.selectors';
 
 // DIAMOND LAYOUT MODULE
-export * from './features/layouts/diamond-layout/diamond-layout.module';
-export * from './features/layouts/diamond-layout/diamond-layout.component';
+export * from './layouts/diamond-layout/diamond-layout.module';
+export * from './layouts/diamond-layout/diamond-layout.component';
