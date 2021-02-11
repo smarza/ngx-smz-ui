@@ -26,7 +26,8 @@ export const defaultSmzLayoutsConfig: SmzLayoutsConfig = {
             message: 'Aguarde por favor'
         },
         sidebarWidth: '16rem',
-        sidebarSlimWidth: '6rem'
+        sidebarSlimWidth: '6rem',
+        toastPosition: 'bottom-right'
     },
     pages: {
         errorTitle: 'Erro',
@@ -40,7 +41,8 @@ export const defaultSmzLayoutsConfig: SmzLayoutsConfig = {
         isEnabled: true,
         sidebarData: {
             position: 'right'
-        }
+        },
+        buttonPosition: 'right-bottom'
     },
     dialogs: {
         closeAllAfterNavigate: true,

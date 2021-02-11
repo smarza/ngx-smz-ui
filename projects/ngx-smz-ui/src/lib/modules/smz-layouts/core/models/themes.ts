@@ -16,20 +16,20 @@ export enum SmzLayoutTheme {
     WHITE = 'white',
 }
 
-export const SmzLayoutThemes: SimpleNamedEntity[] = [
-    { id: SmzLayoutTheme.BLUE, name: 'Blue'},
-    { id: SmzLayoutTheme.BLUEGRAY, name: 'Blue Gray'},
-    { id: SmzLayoutTheme.BROWN, name: 'Brown'},
-    { id: SmzLayoutTheme.CYAN, name: 'Cyan'},
-    { id: SmzLayoutTheme.DARKGRAY, name: 'Dark Gray'},
-    { id: SmzLayoutTheme.DEEPPURPLE, name: 'Deep Purple'},
-    { id: SmzLayoutTheme.GREEN, name: 'Green'},
-    { id: SmzLayoutTheme.INDIGO, name: 'Indigo'},
-    { id: SmzLayoutTheme.ORANGE, name: 'Orange'},
-    { id: SmzLayoutTheme.PINK, name: 'Pink'},
-    { id: SmzLayoutTheme.PURPLE, name: 'Purple'},
-    { id: SmzLayoutTheme.TEAL, name: 'Teal'},
-    { id: SmzLayoutTheme.WHITE, name: 'White'},
+export const SmzLayoutThemes: LayoutTheme[] = [
+    { id: SmzLayoutTheme.BLUE, name: 'Blue', tone: 'dark'},
+    { id: SmzLayoutTheme.BLUEGRAY, name: 'Blue Gray', tone: 'dark'},
+    { id: SmzLayoutTheme.BROWN, name: 'Brown', tone: 'dark'},
+    { id: SmzLayoutTheme.CYAN, name: 'Cyan', tone: 'dark'},
+    { id: SmzLayoutTheme.DARKGRAY, name: 'Dark Gray', tone: 'dark'},
+    { id: SmzLayoutTheme.DEEPPURPLE, name: 'Deep Purple', tone: 'dark'},
+    { id: SmzLayoutTheme.GREEN, name: 'Green', tone: 'dark'},
+    { id: SmzLayoutTheme.INDIGO, name: 'Indigo', tone: 'dark'},
+    { id: SmzLayoutTheme.ORANGE, name: 'Orange', tone: 'dark'},
+    { id: SmzLayoutTheme.PINK, name: 'Pink', tone: 'dark'},
+    { id: SmzLayoutTheme.PURPLE, name: 'Purple', tone: 'dark'},
+    { id: SmzLayoutTheme.TEAL, name: 'Teal', tone: 'dark'},
+    { id: SmzLayoutTheme.WHITE, name: 'White', tone: 'light'},
 ];
 
 export enum SmzContentTheme {
@@ -59,6 +59,12 @@ export const SmzContentThemes: ContentTheme[] = [
 
 export interface ContentTheme {
     id: SmzContentTheme,
+    name: string,
+    tone: 'dark' | 'light'
+}
+
+export interface LayoutTheme {
+    id: SmzLayoutTheme,
     name: string,
     tone: 'dark' | 'light'
 }

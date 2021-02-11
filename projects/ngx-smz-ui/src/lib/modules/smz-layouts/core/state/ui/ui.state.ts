@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { State, Action, StateContext } from '@ngxs/store';
+import { State, Action, StateContext, actionMatcher } from '@ngxs/store';
 import { Assistance } from '../../models/assistance';
 import { LayoutConfig, LayoutState } from '../../models/layout';
 import { SmzSidebarState } from '../../models/sidebar-states';
 import { UiActions } from './ui.actions';
 import { cloneDeep } from 'lodash-es';
 import { SmzLayoutsConfig } from '../../../globals/smz-layouts.config';
-import { SmzContentThemes } from '../../models/themes';
+import { SmzContentThemes, SmzLayoutThemes } from '../../models/themes';
 import { LogoResource } from '../../models/logo';
 
 export interface UiStateModel {
@@ -25,7 +25,8 @@ export const getInitialState = (): UiStateModel => ({
     topbarTitle: '',
     appName: '',
     footerText: '',
-    themeTone: 'light'
+    contentTone: null,
+    layoutTone: null
   },
   appLogo: null
 });
@@ -99,7 +100,10 @@ export class UiState {
   @Action(UiActions.SetLayoutTheme)
   public onSetTheme(ctx: StateContext<UiStateModel>, action: UiActions.SetLayoutTheme): void {
     const config = ctx.getState().config;
-    ctx.patchState({ config: { ...config, layoutTheme: action.data } });
+    const state = ctx.getState().state;
+    const layoutTheme = SmzLayoutThemes.find(x => x.id === action.data);
+
+    ctx.patchState({ config: { ...config, layoutTheme: action.data }, state: { ...state, layoutTone: layoutTheme.tone } });
   }
 
   @Action(UiActions.SetContentTheme)
@@ -108,7 +112,7 @@ export class UiState {
     const state = ctx.getState().state;
     const contentTheme = SmzContentThemes.find(x => x.id === action.data);
 
-    ctx.patchState({ config: { ...config, contentTheme: action.data }, state: { ...state, themeTone: contentTheme.tone } });
+    ctx.patchState({ config: { ...config, contentTheme: action.data }, state: { ...state, contentTone: contentTheme.tone } });
   }
 
   @Action(UiActions.SetGlobalLoader)
@@ -152,6 +156,24 @@ export class UiState {
   public onHideConfigassistance(ctx: StateContext<UiStateModel>): void {
     const assistance = ctx.getState().assistance;
     ctx.patchState({ assistance: { ...assistance, isVisible: false } });
+  }
+
+  @Action(UiActions.SetAssistancePosition)
+  public onSetAssistancePosition(ctx: StateContext<UiStateModel>, action: UiActions.SetAssistancePosition): void {
+    const assistance = ctx.getState().assistance;
+    ctx.patchState({ assistance: { ...assistance, sidebarData: { ...assistance.sidebarData, position: action.data }} });
+  }
+
+  @Action(UiActions.SetAssistanceButtonPosition)
+  public onSetAssistanceButtonPosition(ctx: StateContext<UiStateModel>, action: UiActions.SetAssistanceButtonPosition): void {
+    const assistance = ctx.getState().assistance;
+    ctx.patchState({ assistance: { ...assistance, buttonPosition: action.data } });
+  }
+
+  @Action(UiActions.SetToastPosition)
+  public onSetToastPosition(ctx: StateContext<UiStateModel>, action: UiActions.SetToastPosition): void {
+    const config = ctx.getState().config;
+    ctx.patchState({ config: { ...config, toastPosition: action.data } });
   }
 
 }

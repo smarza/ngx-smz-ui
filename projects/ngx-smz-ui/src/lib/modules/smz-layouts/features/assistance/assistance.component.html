@@ -1,4 +1,7 @@
 <ng-container *ngIf="assistance$ | async as assistance">
+
+<a *ngIf="assistance.isEnabled" id="layout-config-button" class="layout-config-button" [ngClass]="assistance.buttonPosition" style="cursor: pointer;" (click)="showAssistance()"><i class="pi pi-cog"></i></a>
+
 <ng-container *ngIf="config$ | async as config">
   <p-sidebar [(visible)]="isVisible" [position]="assistance.sidebarData.position" styleClass="assistence_sidebar" (onHide)="onHide()" (onShow)="onShow()">
 
@@ -24,6 +27,38 @@
         <button
           *ngFor="let loader of loaders"
           pButton pRipple type="button" [label]="loader.name" class="p-button-outlined p-mr-2 p-mb-2" (click)="onSetGlobalLoader(loader.id)">
+        </button>
+      </div>
+
+      <h5>Toast Messages</h5>
+      <div class="p-grid">
+        <button
+          *ngFor="let toast of toasts"
+          pButton pRipple type="button" [label]="toast.name" class="p-button-outlined p-mr-2 p-mb-2" (click)="onShowToast(toast.id)">
+        </button>
+      </div>
+
+      <h5>Toast Positions</h5>
+      <div class="p-grid">
+        <button
+          *ngFor="let toastPosition of toastPositions"
+          pButton pRipple type="button" [label]="toastPosition.name" class="p-button-outlined p-mr-2 p-mb-2" (click)="onSetToastPosition(toastPosition.id)">
+        </button>
+      </div>
+
+      <h5>Assistance Positions</h5>
+      <div class="p-grid">
+        <button
+          *ngFor="let assistancePosition of assistancePositions"
+          pButton pRipple type="button" [label]="assistancePosition.name" class="p-button-outlined p-mr-2 p-mb-2" (click)="onSetAssistancePosition(assistancePosition.id)">
+        </button>
+      </div>
+
+      <h5>Assistance Button Positions</h5>
+      <div class="p-grid">
+        <button
+          *ngFor="let assistanceButtonPosition of assistanceButtonPositions"
+          pButton pRipple type="button" [label]="assistanceButtonPosition.name" class="p-button-outlined p-mr-2 p-mb-2" (click)="onSetAssistanceButtonPosition(assistanceButtonPosition.id)">
         </button>
       </div>
 

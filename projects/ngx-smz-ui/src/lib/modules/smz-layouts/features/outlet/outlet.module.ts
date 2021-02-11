@@ -5,6 +5,7 @@ import { SharedModule as PrimeSharedModule } from 'primeng/api';
 import { AssistanceModule } from '../assistance/assistance.module';
 import { SmzThemeManagerModule } from '../theme-manager/theme-manager.module';
 import { GlobalLoaderModule } from '../global-loader/global-loader.module';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [OutletComponent],
@@ -13,7 +14,8 @@ import { GlobalLoaderModule } from '../global-loader/global-loader.module';
     PrimeSharedModule,
     AssistanceModule,
     SmzThemeManagerModule,
-    GlobalLoaderModule
+    GlobalLoaderModule,
+    ToastModule
   ],
   exports: [OutletComponent]
 })

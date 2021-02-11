@@ -7,6 +7,7 @@ import { UiSelectors } from '../../../../core/state/ui/ui.selectors';
 import { UiActions } from '../../../../core/state/ui/ui.actions';
 import { LayoutState } from '../../../../core/models/layout';
 import { SmzLayoutsConfig } from '../../../../globals/smz-layouts.config';
+import { SmzAppLogo } from '../../../../core/models/logo';
 
 @UntilDestroy()
 @Component({
@@ -18,6 +19,7 @@ export class FooterComponent implements OnInit, AfterContentInit
 {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
   @Select(UiSelectors.state) public state$: Observable<LayoutState>;
+  @Select(UiSelectors.appLogo) public appLogo$: Observable<SmzAppLogo>;
   public headerExtrasTemplate: TemplateRef<any>;
   constructor(public readonly config: SmzLayoutsConfig, private store: Store) { }
 

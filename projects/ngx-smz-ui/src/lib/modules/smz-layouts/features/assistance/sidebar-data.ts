@@ -1,3 +1,6 @@
+import { SidePositionType } from '../../core/models/positions';
+
+
 export interface SidebarViewdata {
-    position: string;
+    position: SidePositionType;
 }

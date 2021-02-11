@@ -9,6 +9,8 @@ import { LayoutConfig, LayoutState } from '../../../../core/models/layout';
 import { RouterState } from '@ngxs/router-plugin';
 import { SmzLayoutsConfig } from '../../../../globals/smz-layouts.config';
 import { SmzMenuType } from '../../../../core/models/menu-types';
+import { NgxRbkUtilsConfig } from 'ngx-rbk-utils';
+import { SmzAppLogo } from '../../../../core/models/logo';
 
 @UntilDestroy()
 @Component({
@@ -22,11 +24,12 @@ export class SidebarComponent implements OnInit, AfterContentInit
   @Select(UiSelectors.config) public config$: Observable<LayoutConfig>;
   @Select(UiSelectors.state) public state$: Observable<LayoutState>;
   @Select(RouterState.state) public currentRoute$: Observable<any>;
+  @Select(UiSelectors.appLayoutLogo) public appLayoutLogo$: Observable<SmzAppLogo>;
   public headerExtrasTemplate: TemplateRef<any>;
   @Input() public menu: MenuItem[];
   public isAnyMenuExpanded = false;
   public menuType = SmzMenuType;
-  constructor(public readonly config: SmzLayoutsConfig, private store: Store) { }
+  constructor(public readonly rbkConfig: NgxRbkUtilsConfig, public readonly config: SmzLayoutsConfig, private store: Store) { }
 
   public ngOnInit(): void
   {

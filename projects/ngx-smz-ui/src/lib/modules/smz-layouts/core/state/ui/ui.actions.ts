@@ -1,5 +1,6 @@
 import { SmzLoader } from '../../models/loaders';
 import { SmzMenuType } from '../../models/menu-types';
+import { EdgePositionType, LeftPositionType, RightPositionType, SidePositionType } from '../../models/positions';
 import { SmzContentTheme, SmzLayoutTheme } from '../../models/themes';
 
 export namespace UiActions
@@ -66,11 +67,28 @@ export namespace UiActions
     {
         public static readonly type = '[UI] Hide Config Assistance';
     }
+    export class SetAssistancePosition
+    {
+        public static readonly type = '[UI] Set Assistance Position';
+        constructor(public data: SidePositionType) {}
+    }
+
+    export class SetAssistanceButtonPosition
+    {
+        public static readonly type = '[UI] Set Assistance Button Position';
+        constructor(public data: LeftPositionType | RightPositionType) {}
+    }
 
     export class SetTopbarTitle
     {
         public static readonly type = '[UI] Set Topbar Title';
         constructor(public data: string) {}
+    }
+
+    export class SetToastPosition
+    {
+        public static readonly type = '[UI] Set Toast Position';
+        constructor(public data: EdgePositionType) {}
     }
 
 }

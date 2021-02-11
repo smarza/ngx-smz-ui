@@ -1,6 +1,6 @@
 import { Selector } from '@ngxs/store';
 import { UiState, UiStateModel } from './ui.state';
-import { LayoutConfig, LayoutState, LoaderData } from '../../models/layout';
+import { LayoutConfig, LayoutState, LoaderData, ThemeToneType } from '../../models/layout';
 import { Assistance } from '../../models/assistance';
 import { SmzMenuType } from '../../models/menu-types';
 import { SmzSidebarState } from '../../models/sidebar-states';
@@ -60,10 +60,27 @@ export class UiSelectors
     public static appLogo(state: UiStateModel): SmzAppLogo
     {
         return {
-            horizontal: state.appLogo.horizontal[state.state.themeTone],
-            vertical: state.appLogo.vertical[state.state.themeTone],
-            icon: state.appLogo.icon[state.state.themeTone],
-            typo: state.appLogo.typo[state.state.themeTone]
+            horizontal: state.appLogo.horizontal[state.state.contentTone],
+            vertical: state.appLogo.vertical[state.state.contentTone],
+            icon: state.appLogo.icon[state.state.contentTone],
+            typo: state.appLogo.typo[state.state.contentTone]
         };
+    }
+
+    @Selector([UiState])
+    public static appLayoutLogo(state: UiStateModel): SmzAppLogo
+    {
+        return {
+            horizontal: state.appLogo.horizontal[state.state.layoutTone],
+            vertical: state.appLogo.vertical[state.state.layoutTone],
+            icon: state.appLogo.icon[state.state.layoutTone],
+            typo: state.appLogo.typo[state.state.layoutTone]
+        };
+    }
+
+    @Selector([UiState])
+    public static appThemeTone(state: UiStateModel): ThemeToneType
+    {
+        return state.state.contentTone;
     }
 }

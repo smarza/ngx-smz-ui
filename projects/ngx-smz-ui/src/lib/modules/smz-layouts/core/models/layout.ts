@@ -1,5 +1,6 @@
 import { SmzLoader } from './loaders';
 import { SmzMenuTypes } from './menu-types';
+import { EdgePositionType } from './positions';
 import { SmzSidebarStates } from './sidebar-states';
 import { SmzContentTheme, SmzLayoutTheme } from './themes';
 
@@ -11,6 +12,7 @@ export interface LayoutConfig {
     loader: LoaderData;
     sidebarWidth: string;
     sidebarSlimWidth: string;
+    toastPosition: EdgePositionType;
 }
 
 export interface LayoutState {
@@ -19,7 +21,8 @@ export interface LayoutState {
     topbarTitle: string;
     appName: string;
     footerText: string;
-    themeTone: 'light' | 'dark'
+    contentTone: ThemeToneType,
+    layoutTone: ThemeToneType
 }
 
 export interface LoaderData {
@@ -27,3 +30,5 @@ export interface LoaderData {
     title: string;
     message: string;
 }
+
+export type ThemeToneType = 'light' | 'dark';
