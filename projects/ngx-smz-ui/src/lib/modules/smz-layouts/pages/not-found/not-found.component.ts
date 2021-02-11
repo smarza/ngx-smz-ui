@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngxs/store'; import { SmzLayoutsConfig } from '../../core/globals/smz-layouts.config';
-import { RouterDataListenerService } from '../../core/services/router-data-listener.service';
+import { SmzLayoutsConfig } from '../../core/globals/smz-layouts.config';
 
-import { DatabaseActions, FeaturesActions, GlobalActions, NgxRbkUtilsConfig } from 'ngx-rbk-utils';
+import { NgxRbkUtilsConfig } from 'ngx-rbk-utils';
 
 @Component({
   selector: 'smz-ui-not-found',

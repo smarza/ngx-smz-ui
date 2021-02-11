@@ -1,4 +1,18 @@
-import { SmzLayoutsConfig, SmzLayoutTheme, SmzContentTheme, SmzLoader, DiamondMenuType, DiamondSidebarState } from 'ngx-smz-ui';
+import { SmzLayoutsConfig, SmzLayoutTheme, SmzContentTheme, SmzLoader, DiamondLayout, MenuType, SidebarState, ApolloLayout } from 'ngx-smz-ui';
+
+export const smzDiamondConfig: DiamondLayout = {
+    menu: MenuType.STATIC,
+    sidebarState: SidebarState.ACTIVE,
+    sidebarWidth: '16rem',
+    sidebarSlimWidth: '6rem',
+};
+
+export const smzApolloConfig: ApolloLayout = {
+    menu: MenuType.STATIC,
+    sidebarState: SidebarState.ACTIVE,
+    sidebarWidth: '16rem',
+    sidebarSlimWidth: '6rem',
+};
 
 export const smzLayoutsConfig: SmzLayoutsConfig = {
     debugMode: false,
@@ -22,12 +36,6 @@ export const smzLayoutsConfig: SmzLayoutsConfig = {
     },
     appName: 'Demo App',
     footerText: '© Your Organization - 2021',
-    layout: {
-        menu: DiamondMenuType.STATIC,
-        sidebarState: DiamondSidebarState.ACTIVE,
-        sidebarWidth: '16rem',
-        sidebarSlimWidth: '6rem',
-    },
     toast: {
         position: 'bottom-right'
     },

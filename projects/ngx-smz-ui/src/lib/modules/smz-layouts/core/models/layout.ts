@@ -1,16 +1,8 @@
+import { ApolloLayout } from '../../layouts/apollo/layout.config';
+import { DiamondLayout } from '../../layouts/diamond/layout.config';
 import { SmzLoader } from './loaders';
-import { DiamondMenuTypes } from './menu-types';
-import { DiamondSidebarStates } from './sidebar-states';
 
-export type SmzLayout = DiamondLayout;
-
-export interface DiamondLayout {
-    menu: DiamondMenuTypes;
-    sidebarState: DiamondSidebarStates;
-    sidebarWidth: string;
-    sidebarSlimWidth: string;
-
-}
+export type SmzLayout = DiamondLayout | ApolloLayout;
 
 export interface LayoutState {
     wrapperClass: string;

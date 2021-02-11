@@ -1,0 +1,15 @@
+<ng-container *ngIf="state$ | async as state">
+
+    <div class="layout-footer">
+        <div class="footer-logo-container">
+            <ng-container *ngIf="(appLogo$ | async) as appLogo">
+                <img id="footer-logo" alt="diamond-layout" [src]="appLogo.icon">
+                <span class="app-name">{{ state.appName }}</span>
+            </ng-container>
+        </div>
+        <span class="copyright">{{ state.footerText }}</span>
+    </div>
+
+</ng-container>
+
+<!-- <ng-container *ngTemplateOutlet="headerExtrasTemplate"></ng-container> -->

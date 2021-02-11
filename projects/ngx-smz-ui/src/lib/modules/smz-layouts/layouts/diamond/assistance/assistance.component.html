@@ -1,0 +1,27 @@
+<ng-container *ngIf="assistance$ | async as assistance">
+
+<a *ngIf="assistance.isEnabled" id="layout-config-button" class="layout-config-button" [ngClass]="assistance.buttonPosition" style="cursor: pointer;" (click)="showAssistance()"><i class="pi pi-cog"></i></a>
+
+  <p-sidebar [(visible)]="isVisible" [position]="assistance.sidebarData.position" styleClass="assistence_sidebar" (onHide)="onHide()" (onShow)="onShow()">
+
+    <div class="p-grid p-flex-column p-align-start p-justify-start p-p-2 p-nogutter">
+      <h5>Menu</h5>
+      <div class="p-grid p-nogutter">
+        <p-selectButton [options]="menuTypes" [(ngModel)]="menuType" (onChange)="onMenuTypeChange()" optionLabel="label" optionValue="value"></p-selectButton>
+
+        <div class="p-col-5 p-mt-2 p-mr-2">
+          <label for="sidebar-width">Sidebar Width</label>
+          <input id="sidebar-width" type="text" pInputText [(ngModel)]="layout.sidebarWidth" appInputChangeDetection (valueChanged)="setSidebarWidth($event)"/>
+        </div>
+
+        <div class="p-col p-mt-2">
+          <label for="sidebar-slim-width">Slim Width</label>
+          <input id="sidebar-slim-width" type="text" pInputText [(ngModel)]="layout.sidebarSlimWidth" appInputChangeDetection (valueChanged)="setSidebarSlimWidth($event)"/>
+        </div>
+      </div>
+
+      <smz-ui-global-assistance></smz-ui-global-assistance>
+    </div>
+
+  </p-sidebar>
+</ng-container>

@@ -1,7 +1,6 @@
-export type DiamondMenuTypes = DiamondMenuType.STATIC | DiamondMenuType.OVERLAY | DiamondMenuType.SLIM;
-
-export enum DiamondMenuType {
+export enum MenuType {
     STATIC = 'static',
     OVERLAY = 'overlay',
-    SLIM = 'slim'
+    SLIM = 'slim',
+    HORIZONTAL = 'horizontal'
 }

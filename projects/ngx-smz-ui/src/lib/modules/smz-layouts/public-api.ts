@@ -19,5 +19,11 @@ export { UiActions } from './core/state/ui/ui.actions';
 export { UiSelectors } from './core/state/ui/ui.selectors';
 
 // DIAMOND LAYOUT MODULE
-export * from './layouts/diamond-layout/diamond-layout.module';
-export * from './layouts/diamond-layout/diamond-layout.component';
+export * from './layouts/diamond/diamond-layout.module';
+export * from './layouts/diamond/diamond-layout.component';
+export * from './layouts/diamond/layout.config';
+
+// APOLLO LAYOUT MODULE
+export * from './layouts/apollo/apollo-layout.module';
+export * from './layouts/apollo/apollo-layout.component';
+export * from './layouts/apollo/layout.config';

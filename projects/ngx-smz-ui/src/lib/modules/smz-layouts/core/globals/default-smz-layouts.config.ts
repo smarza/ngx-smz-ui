@@ -1,6 +1,5 @@
 import { SmzLoader } from '../models/loaders';
-import { DiamondMenuType } from '../models/menu-types';
-import { DiamondSidebarState } from '../models/sidebar-states';
+import { SidebarState } from '../models/sidebar-states';
 import { SmzContentTheme, SmzLayoutTheme } from '../models/themes';
 import { SmzLayoutsConfig } from './smz-layouts.config';
 
@@ -15,12 +14,6 @@ export const defaultSmzLayoutsConfig: SmzLayoutsConfig = {
     },
     appName: '',
     footerText: '',
-    layout: {
-        menu: DiamondMenuType.STATIC,
-        sidebarState: DiamondSidebarState.ACTIVE,
-        sidebarWidth: '16rem',
-        sidebarSlimWidth: '6rem',
-    },
     toast: {
         position: 'bottom-right'
     },

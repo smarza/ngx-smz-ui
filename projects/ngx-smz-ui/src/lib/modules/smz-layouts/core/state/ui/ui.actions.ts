@@ -1,5 +1,4 @@
 import { SmzLoader } from '../../models/loaders';
-import { DiamondMenuType } from '../../models/menu-types';
 import { EdgePositionType, LeftPositionType, RightPositionType, SidePositionType } from '../../models/positions';
 import { SmzContentTheme, SmzLayoutTheme } from '../../models/themes';
 

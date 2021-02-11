@@ -1,5 +1,5 @@
 import { Assistance } from '../models/assistance';
-import { LoaderData, SmzLayout } from '../models/layout';
+import { LoaderData } from '../models/layout';
 import { LogoResource } from '../models/logo';
 import { PagesConfig } from '../models/pages';
 import { EdgePositionType } from '../models/positions';
@@ -10,7 +10,6 @@ export class SmzLayoutsConfig {
     appLogo: LogoResource;
     appName?: string;
     footerText?: string;
-    layout?: SmzLayout;
     themes: {
         layout: SmzLayoutTheme;
         content: SmzContentTheme;

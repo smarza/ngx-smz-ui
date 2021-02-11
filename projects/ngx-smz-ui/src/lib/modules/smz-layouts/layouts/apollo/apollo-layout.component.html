@@ -1,0 +1,43 @@
+<smz-ui-outlet>
+
+  <ng-template pTemplate="layout">
+
+    <ng-container *ngIf="state$ | async as state">
+
+      <div class="layout-wrapper" [ngClass]="state.wrapperClass">
+
+        <div class="layout-content-wrapper">
+
+          <!-- MENU SUPERIOR -->
+          <smz-ui-apollo-topbar>
+            <ng-template pTemplate="headerExtras">
+              <ng-container *ngTemplateOutlet="headerExtrasTemplate"></ng-container>
+            </ng-template>
+          </smz-ui-apollo-topbar>
+
+          <!-- CONTEÚDO -->
+          <div class="layout-content">
+            <div *ngIf="state.isOverlayVisible" class="p-component-overlay clear-overlay" (click)="hideMenu()"></div>
+            <ng-container *ngTemplateOutlet="content"></ng-container>
+          </div>
+
+          <!-- FOOTER -->
+          <smz-ui-apollo-footer></smz-ui-apollo-footer>
+
+          <!-- BARRA LATERAL -->
+          <smz-ui-apollo-sidebar [menu]="menu"></smz-ui-apollo-sidebar>
+
+        </div>
+
+      </div>
+    </ng-container>
+
+  </ng-template>
+
+  <ng-template #content pTemplate="content">
+    <ng-content></ng-content>
+  </ng-template>
+
+</smz-ui-outlet>
+
+<smz-ui-apollo-assistance></smz-ui-apollo-assistance>

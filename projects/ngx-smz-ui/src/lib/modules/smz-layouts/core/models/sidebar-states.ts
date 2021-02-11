@@ -1,6 +1,5 @@
-export type DiamondSidebarStates = DiamondSidebarState.ACTIVE | DiamondSidebarState.INACTIVE;
 
-export enum DiamondSidebarState {
+export enum SidebarState {
     ACTIVE = 'active',
     INACTIVE = 'inactive'
 }

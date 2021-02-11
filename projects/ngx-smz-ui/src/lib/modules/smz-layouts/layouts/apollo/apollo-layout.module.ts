@@ -1,0 +1,49 @@
+import { CommonModule } from '@angular/common';
+import { ModuleWithProviders, NgModule } from '@angular/core';
+import { MenubarModule } from 'primeng/menubar';
+import { SharedModule as PrimeSharedModule } from 'primeng/api';
+import { ApolloLayoutComponent } from './apollo-layout.component';
+import { OutletModule } from '../../features/outlet/outlet.module';
+import { SmzApolloTopbarModule } from './topbar/topbar.module';
+import { SmzApolloSidebarModule } from './sidebar/sidebar.module';
+import { SmzApolloFooterModule } from './footer/footer.module';
+import { NgxsModule } from '@ngxs/store';
+import { UiApolloState } from './state/ui-apollo/ui-apollo.state';
+import { ApolloAssistanceModule } from './assistance/assistance.module';
+import { ApolloLayout } from './layout.config';
+import { mergeClone } from '../../../../../lib/common/utils/deep-merge';
+import { defaultApolloConfig } from './default.config';
+
+export const ngxsModuleForFeatureUiApolloLayoutState = NgxsModule.forFeature([UiApolloState]);
+
+@NgModule({
+  declarations: [ApolloLayoutComponent],
+  imports: [
+    CommonModule,
+    PrimeSharedModule,
+    MenubarModule,
+    OutletModule,
+    SmzApolloTopbarModule,
+    SmzApolloSidebarModule,
+    SmzApolloFooterModule,
+    ApolloAssistanceModule,
+    ngxsModuleForFeatureUiApolloLayoutState
+  ],
+  exports: [ApolloLayoutComponent]
+})
+export class ApolloLayoutModule
+{
+  public static forRoot(configuration: ApolloLayout): ModuleWithProviders<ApolloLayoutModule>
+  {
+      return {
+          ngModule: ApolloLayoutModule,
+          providers: [
+              {
+                  provide: ApolloLayout,
+                  useValue: mergeClone(defaultApolloConfig, configuration)
+              }
+          ]
+      };
+  }
+}
+
