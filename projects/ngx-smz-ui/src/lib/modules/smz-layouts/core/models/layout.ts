@@ -1,18 +1,15 @@
 import { SmzLoader } from './loaders';
-import { SmzMenuTypes } from './menu-types';
-import { EdgePositionType } from './positions';
-import { SmzSidebarStates } from './sidebar-states';
-import { SmzContentTheme, SmzLayoutTheme } from './themes';
+import { DiamondMenuTypes } from './menu-types';
+import { DiamondSidebarStates } from './sidebar-states';
 
-export interface LayoutConfig {
-    layoutTheme: SmzLayoutTheme;
-    contentTheme: SmzContentTheme;
-    menuType: SmzMenuTypes;
-    sidebarState: SmzSidebarStates;
-    loader: LoaderData;
+export type SmzLayout = DiamondLayout;
+
+export interface DiamondLayout {
+    menu: DiamondMenuTypes;
+    sidebarState: DiamondSidebarStates;
     sidebarWidth: string;
     sidebarSlimWidth: string;
-    toastPosition: EdgePositionType;
+
 }
 
 export interface LayoutState {
@@ -21,8 +18,8 @@ export interface LayoutState {
     topbarTitle: string;
     appName: string;
     footerText: string;
-    contentTone: ThemeToneType,
-    layoutTone: ThemeToneType
+    contentTone: ThemeToneType;
+    layoutTone: ThemeToneType;
 }
 
 export interface LoaderData {

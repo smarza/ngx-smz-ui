@@ -1,5 +1,3 @@
-import { SidebarViewdata } from '../../features/assistance/sidebar-data';
-
 export interface LogoResource
 {
     horizontal: ThemeTone;

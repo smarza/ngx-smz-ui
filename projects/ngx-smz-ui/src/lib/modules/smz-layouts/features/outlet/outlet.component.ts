@@ -5,8 +5,8 @@ import { SmzLayoutsConfig } from '../../globals/smz-layouts.config';
 import { RouterDataListenerService } from '../../core/services/router-data-listener.service';
 import { PrimeTemplate } from 'primeng/api';
 import { Observable } from 'rxjs';
-import { LayoutConfig } from '../../core/models/layout';
 import { UiSelectors } from '../../core/state/ui/ui.selectors';
+import { SmzToastData } from '../../core/models/toasts';
 
 @Component({
   selector: 'smz-ui-outlet',
@@ -16,7 +16,7 @@ import { UiSelectors } from '../../core/state/ui/ui.selectors';
 export class OutletComponent implements OnInit, AfterContentInit
 {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
-  @Select(UiSelectors.config) public layout$: Observable<LayoutConfig>;
+  @Select(UiSelectors.toast) public toast$: Observable<SmzToastData>;
   @Input() public menu: MenuItem[];
   public layoutTemplate: TemplateRef<any>;
   public contentTemplate: TemplateRef<any>;

@@ -1,4 +1,4 @@
-import { SmzLayoutsConfig, SmzMenuType, SmzSidebarState, SmzLayoutTheme, SmzContentTheme, SmzLoader } from 'ngx-smz-ui';
+import { SmzLayoutsConfig, SmzLayoutTheme, SmzContentTheme, SmzLoader, DiamondMenuType, DiamondSidebarState } from 'ngx-smz-ui';
 
 export const smzLayoutsConfig: SmzLayoutsConfig = {
     debugMode: false,
@@ -23,18 +23,22 @@ export const smzLayoutsConfig: SmzLayoutsConfig = {
     appName: 'Demo App',
     footerText: '© Your Organization - 2021',
     layout: {
-        menuType: SmzMenuType.STATIC,
-        sidebarState: SmzSidebarState.ACTIVE,
-        layoutTheme: SmzLayoutTheme.DARKGRAY,
-        contentTheme: SmzContentTheme.PRIMEONE_LIGHT,
-        loader: {
-            type: SmzLoader.CUBE,
-            title: 'Carregando...',
-            message: 'Aguarde por favor'
-        },
+        menu: DiamondMenuType.STATIC,
+        sidebarState: DiamondSidebarState.ACTIVE,
         sidebarWidth: '16rem',
         sidebarSlimWidth: '6rem',
-        toastPosition: 'bottom-right'
+    },
+    toast: {
+        position: 'bottom-right'
+    },
+    themes: {
+        layout: SmzLayoutTheme.DARKGRAY,
+        content: SmzContentTheme.SOHO_DARK,
+    },
+    loader: {
+        type: SmzLoader.CUBE,
+        title: 'Carregando...',
+        message: 'Aguarde por favor'
     },
     pages: {
         errorTitle: 'Erro',

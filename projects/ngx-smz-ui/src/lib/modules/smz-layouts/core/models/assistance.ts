@@ -1,5 +1,4 @@
 import { SimpleEntity } from 'ngx-smz-dialogs';
-import { SidebarViewdata } from '../../features/assistance/sidebar-data';
 import { LeftPositionType, RightPositionType, SidePositionType } from './positions';
 
 export interface Assistance {
@@ -22,3 +21,7 @@ export const SmzAssistanceButtonPositions: SimpleEntity<LeftPositionType | Right
     { id: 'right-center', name: 'Right Center' },
     { id: 'right-top', name: 'Right Top' },
 ];
+
+export interface SidebarViewdata {
+    position: SidePositionType;
+}

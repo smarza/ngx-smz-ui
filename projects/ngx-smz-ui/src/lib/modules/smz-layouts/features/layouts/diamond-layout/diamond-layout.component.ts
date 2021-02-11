@@ -9,6 +9,8 @@ import { RouterDataListenerService } from '../../../core/services/router-data-li
 import { UiActions } from '../../../core/state/ui/ui.actions';
 import { UiSelectors } from '../../../core/state/ui/ui.selectors';
 import { SmzLayoutsConfig } from '../../../globals/smz-layouts.config';
+import { UiLayoutActions } from './state/ui-layout/ui-layout.actions';
+import { UiLayoutSelectors } from './state/ui-layout/ui-layout.selectors';
 
 @Component({
   selector: 'smz-ui-diamond-layout',
@@ -19,13 +21,14 @@ import { SmzLayoutsConfig } from '../../../globals/smz-layouts.config';
 export class DiamondLayoutComponent implements OnInit, AfterContentInit
 {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
-  @Select(UiSelectors.state) public state$: Observable<LayoutState>;
+  @Select(UiLayoutSelectors.state) public state$: Observable<LayoutState>;
   @Select(UiSelectors.assistance) public assistance$: Observable<Assistance>;
   @Input() public menu: MenuItem[];
   public headerExtrasTemplate: TemplateRef<any>;
   constructor(public readonly config: SmzLayoutsConfig, public readonly routerListener: RouterDataListenerService, private store: Store, public cdr: ChangeDetectorRef)
   {
     this.store.dispatch(new UiActions.Initialize());
+    this.store.dispatch(new UiLayoutActions.Initialize());
   }
 
   public ngOnInit(): void
@@ -47,7 +50,7 @@ export class DiamondLayoutComponent implements OnInit, AfterContentInit
 
   public hideMenu(): void
   {
-    this.store.dispatch(new UiActions.HideSidebar);
+    this.store.dispatch(new UiLayoutActions.HideSidebar);
   }
 
 

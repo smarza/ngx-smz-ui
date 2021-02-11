@@ -1,6 +1,6 @@
-export type SmzMenuTypes = SmzMenuType.STATIC | SmzMenuType.OVERLAY | SmzMenuType.SLIM;
+export type DiamondMenuTypes = DiamondMenuType.STATIC | DiamondMenuType.OVERLAY | DiamondMenuType.SLIM;
 
-export enum SmzMenuType {
+export enum DiamondMenuType {
     STATIC = 'static',
     OVERLAY = 'overlay',
     SLIM = 'slim'

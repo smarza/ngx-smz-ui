@@ -8,7 +8,8 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { FormsModule } from '@angular/forms';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputTextModule } from 'primeng/inputtext';
-import { InputBlurDetectionModule } from '../../../../common/input-detection/input-detection.module';
+import { InputBlurDetectionModule } from '../../../../../../common/input-detection/input-detection.module';
+import { GlobalAssistanceModule } from '../../../global-assistance/global-assistance.module';
 
 @NgModule({
   declarations: [AssistanceComponent],
@@ -21,7 +22,8 @@ import { InputBlurDetectionModule } from '../../../../common/input-detection/inp
     SelectButtonModule,
     InputSwitchModule,
     InputTextModule,
-    InputBlurDetectionModule
+    InputBlurDetectionModule,
+    GlobalAssistanceModule
   ],
   exports: [AssistanceComponent]
 })

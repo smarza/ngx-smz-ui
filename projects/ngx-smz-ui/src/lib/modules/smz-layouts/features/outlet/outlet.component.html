@@ -25,10 +25,9 @@
 
 </ng-container>
 
-<smz-ui-assistance></smz-ui-assistance>
 <smz-ui-theme-manager></smz-ui-theme-manager>
 <smz-ui-global-loader></smz-ui-global-loader>
 
-<ng-container *ngIf="layout$ | async as layout">
-  <p-toast [position]="layout.toastPosition"></p-toast>
+<ng-container *ngIf="toast$ | async as toast">
+  <p-toast [position]="toast.position"></p-toast>
 </ng-container>

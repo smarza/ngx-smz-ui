@@ -1,6 +1,6 @@
 import { SmzLoader } from '../core/models/loaders';
-import { SmzMenuType } from '../core/models/menu-types';
-import { SmzSidebarState } from '../core/models/sidebar-states';
+import { DiamondMenuType } from '../core/models/menu-types';
+import { DiamondSidebarState } from '../core/models/sidebar-states';
 import { SmzContentTheme, SmzLayoutTheme } from '../core/models/themes';
 import { SmzLayoutsConfig } from './smz-layouts.config';
 
@@ -16,18 +16,22 @@ export const defaultSmzLayoutsConfig: SmzLayoutsConfig = {
     appName: '',
     footerText: '',
     layout: {
-        menuType: SmzMenuType.STATIC,
-        sidebarState: SmzSidebarState.ACTIVE,
-        layoutTheme: SmzLayoutTheme.DARKGRAY,
-        contentTheme: SmzContentTheme.SOHO_DARK,
-        loader: {
-            type: SmzLoader.CUBE,
-            title: 'Carregando...',
-            message: 'Aguarde por favor'
-        },
+        menu: DiamondMenuType.STATIC,
+        sidebarState: DiamondSidebarState.ACTIVE,
         sidebarWidth: '16rem',
         sidebarSlimWidth: '6rem',
-        toastPosition: 'bottom-right'
+    },
+    toast: {
+        position: 'bottom-right'
+    },
+    themes: {
+        layout: SmzLayoutTheme.DARKGRAY,
+        content: SmzContentTheme.SOHO_DARK,
+    },
+    loader: {
+        type: SmzLoader.CUBE,
+        title: 'Carregando...',
+        message: 'Aguarde por favor'
     },
     pages: {
         errorTitle: 'Erro',

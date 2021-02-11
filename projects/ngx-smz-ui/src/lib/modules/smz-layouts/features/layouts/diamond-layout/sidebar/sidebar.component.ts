@@ -1,16 +1,17 @@
-import { AfterContentInit, Component, ContentChildren, HostListener, Input, OnInit, QueryList, TemplateRef } from '@angular/core';
+import { AfterContentInit, Component, ContentChildren, Input, OnInit, QueryList, TemplateRef } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { MenuItem, PrimeTemplate } from 'primeng/api';
 import { Observable } from 'rxjs';
 import { UiSelectors } from '../../../../core/state/ui/ui.selectors';
-import { UiActions } from '../../../../core/state/ui/ui.actions';
-import { LayoutConfig, LayoutState } from '../../../../core/models/layout';
+import { DiamondLayout } from '../../../../core/models/layout';
 import { RouterState } from '@ngxs/router-plugin';
 import { SmzLayoutsConfig } from '../../../../globals/smz-layouts.config';
-import { SmzMenuType } from '../../../../core/models/menu-types';
+import { DiamondMenuType } from '../../../../core/models/menu-types';
 import { NgxRbkUtilsConfig } from 'ngx-rbk-utils';
 import { SmzAppLogo } from '../../../../core/models/logo';
+import { UiLayoutSelectors } from '../state/ui-layout/ui-layout.selectors';
+import { UiLayoutActions } from '../state/ui-layout/ui-layout.actions';
 
 @UntilDestroy()
 @Component({
@@ -21,14 +22,14 @@ import { SmzAppLogo } from '../../../../core/models/logo';
 export class SidebarComponent implements OnInit, AfterContentInit
 {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
-  @Select(UiSelectors.config) public config$: Observable<LayoutConfig>;
-  @Select(UiSelectors.state) public state$: Observable<LayoutState>;
+  @Select(UiLayoutSelectors.layout) public layout$: Observable<DiamondLayout>;
+  @Select(UiSelectors.appName) public appName$: Observable<string>;
   @Select(RouterState.state) public currentRoute$: Observable<any>;
   @Select(UiSelectors.appLayoutLogo) public appLayoutLogo$: Observable<SmzAppLogo>;
   public headerExtrasTemplate: TemplateRef<any>;
   @Input() public menu: MenuItem[];
   public isAnyMenuExpanded = false;
-  public menuType = SmzMenuType;
+  public menuType = DiamondMenuType;
   constructor(public readonly rbkConfig: NgxRbkUtilsConfig, public readonly config: SmzLayoutsConfig, private store: Store) { }
 
   public ngOnInit(): void
@@ -72,17 +73,17 @@ export class SidebarComponent implements OnInit, AfterContentInit
 
   public show(): void
   {
-    this.store.dispatch(new UiActions.ShowSidebar);
+    this.store.dispatch(new UiLayoutActions.ShowSidebar);
   }
 
   public hide(): void
   {
-    this.store.dispatch(new UiActions.HideSidebar);
+    this.store.dispatch(new UiLayoutActions.HideSidebar);
   }
 
   public toggle(): void
   {
-    this.store.dispatch(new UiActions.ToggleSidebar);
+    this.store.dispatch(new UiLayoutActions.ToggleSidebar);
   }
 
 }

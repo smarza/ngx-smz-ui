@@ -1,24 +1,40 @@
 import { Injectable } from '@angular/core';
-import { State, Action, StateContext, actionMatcher } from '@ngxs/store';
+import { State, Action, StateContext } from '@ngxs/store';
 import { Assistance } from '../../models/assistance';
-import { LayoutConfig, LayoutState } from '../../models/layout';
-import { SmzSidebarState } from '../../models/sidebar-states';
+import { LayoutState, LoaderData } from '../../models/layout';
 import { UiActions } from './ui.actions';
 import { cloneDeep } from 'lodash-es';
 import { SmzLayoutsConfig } from '../../../globals/smz-layouts.config';
-import { SmzContentThemes, SmzLayoutThemes } from '../../models/themes';
+import { SmzContentTheme, SmzContentThemes, SmzLayoutTheme, SmzLayoutThemes } from '../../models/themes';
 import { LogoResource } from '../../models/logo';
+import { SmzToastData } from '../../models/toasts';
 
 export interface UiStateModel {
   assistance: Assistance;
-  config: LayoutConfig;
+  themes: {
+    layout: SmzLayoutTheme;
+    content: SmzContentTheme;
+  };
+  toast: SmzToastData;
+  loader: LoaderData;
   state: LayoutState;
   appLogo: LogoResource;
 }
 
 export const getInitialState = (): UiStateModel => ({
   assistance: null,
-  config: null,
+  themes: {
+    layout: null,
+    content: null,
+  },
+  toast: {
+    position: null,
+  },
+  loader: {
+    type: null,
+    title: '',
+    message: '',
+  },
   state: {
     wrapperClass: '',
     isOverlayVisible: false,
@@ -49,41 +65,23 @@ export class UiState {
     ctx.patchState(
       {
         assistance: this.config.assistance,
-        config: this.config.layout,
+        themes: {
+          layout: this.config.themes.layout,
+          content: this.config.themes.content,
+        },
         appLogo: this.config.appLogo,
         state: {
           ...state,
           appName: this.config.appName,
           footerText: this.config.footerText
-        }
+        },
+        toast: this.config.toast,
+        loader: this.config.loader,
       });
 
-    ctx.dispatch(new UiActions.SetSidebarWidth(this.config.layout.sidebarWidth));
-    ctx.dispatch(new UiActions.SetSidebarSlimWidth(this.config.layout.sidebarSlimWidth));
-    ctx.dispatch(new UiActions.SetLayoutTheme(this.config.layout.layoutTheme));
-    ctx.dispatch(new UiActions.SetContentTheme(this.config.layout.contentTheme));
-
+    ctx.dispatch(new UiActions.SetLayoutTheme(this.config.themes.layout));
+    ctx.dispatch(new UiActions.SetContentTheme(this.config.themes.content));
   }
-
-
-  @Action(UiActions.SetSidebarWidth)
-  public onSetSidebarWidth(ctx: StateContext<UiStateModel>, action: UiActions.SetSidebarWidth): void {
-    const config = ctx.getState().config;
-
-    ctx.patchState({ config: { ...config, sidebarWidth: action.regular } });
-
-    document.documentElement.style.setProperty('--sidebar-width', action.regular);
-  }
-
-  @Action(UiActions.SetSidebarSlimWidth)
-  public onSetSidebarSlimWidth(ctx: StateContext<UiStateModel>, action: UiActions.SetSidebarSlimWidth): void {
-    const config = ctx.getState().config;
-
-    ctx.patchState({ config: { ...config, sidebarSlimWidth: action.slim } });
-
-    document.documentElement.style.setProperty('--sidebar-slim-width', action.slim);
-  }
-
 
   @Action(UiActions.SetTopbarTitle)
   public onSetTopbarTitle(ctx: StateContext<UiStateModel>, action: UiActions.SetTopbarTitle): void {
@@ -91,59 +89,29 @@ export class UiState {
     ctx.patchState({ state: { ...state, topbarTitle: action.data } });
   }
 
-  @Action(UiActions.SetMenuType)
-  public onSetMenuType(ctx: StateContext<UiStateModel>, action: UiActions.SetMenuType): void {
-    const config = ctx.getState().config;
-    ctx.patchState({ config: { ...config, menuType: action.data } });
-  }
-
   @Action(UiActions.SetLayoutTheme)
   public onSetTheme(ctx: StateContext<UiStateModel>, action: UiActions.SetLayoutTheme): void {
-    const config = ctx.getState().config;
+    const themes = ctx.getState().themes;
     const state = ctx.getState().state;
     const layoutTheme = SmzLayoutThemes.find(x => x.id === action.data);
 
-    ctx.patchState({ config: { ...config, layoutTheme: action.data }, state: { ...state, layoutTone: layoutTheme.tone } });
+    ctx.patchState({ themes: { ...themes, layout: action.data }, state: { ...state, layoutTone: layoutTheme.tone } });
   }
 
   @Action(UiActions.SetContentTheme)
   public onSetContentTheme(ctx: StateContext<UiStateModel>, action: UiActions.SetContentTheme): void {
-    const config = ctx.getState().config;
+    const themes = ctx.getState().themes;
     const state = ctx.getState().state;
     const contentTheme = SmzContentThemes.find(x => x.id === action.data);
 
-    ctx.patchState({ config: { ...config, contentTheme: action.data }, state: { ...state, contentTone: contentTheme.tone } });
+    ctx.patchState({ themes: { ...themes, content: action.data }, state: { ...state, contentTone: contentTheme.tone } });
   }
 
   @Action(UiActions.SetGlobalLoader)
   public onSetGlobalLoader(ctx: StateContext<UiStateModel>, action: UiActions.SetGlobalLoader): void {
-    const config = ctx.getState().config;
-    const loader = ctx.getState().config.loader;
-    ctx.patchState({ config: { ...config, loader: { ...loader, type: action.data } } });
-  }
+    const loader = ctx.getState().loader;
 
-  @Action(UiActions.ShowSidebar)
-  public onShowSidebar(ctx: StateContext<UiStateModel>): void {
-    const config = ctx.getState().config;
-    ctx.patchState({ config: { ...config, sidebarState: SmzSidebarState.ACTIVE } });
-  }
-
-
-  @Action(UiActions.HideSidebar)
-  public onHideSidebar(ctx: StateContext<UiStateModel>): void {
-    const config = ctx.getState().config;
-    ctx.patchState({ config: { ...config, sidebarState: SmzSidebarState.INACTIVE } });
-  }
-
-  @Action(UiActions.ToggleSidebar)
-  public onToggleSidebar(ctx: StateContext<UiStateModel>): void {
-    const config = ctx.getState().config;
-    ctx.patchState({
-      config: {
-        ...config,
-        sidebarState: config.sidebarState === SmzSidebarState.ACTIVE ? SmzSidebarState.INACTIVE : SmzSidebarState.ACTIVE
-      }
-    });
+    ctx.patchState({ loader: { ...loader, type: action.data } });
   }
 
   @Action(UiActions.ShowConfigAssistance)
@@ -161,7 +129,7 @@ export class UiState {
   @Action(UiActions.SetAssistancePosition)
   public onSetAssistancePosition(ctx: StateContext<UiStateModel>, action: UiActions.SetAssistancePosition): void {
     const assistance = ctx.getState().assistance;
-    ctx.patchState({ assistance: { ...assistance, sidebarData: { ...assistance.sidebarData, position: action.data }} });
+    ctx.patchState({ assistance: { ...assistance, sidebarData: { ...assistance.sidebarData, position: action.data } } });
   }
 
   @Action(UiActions.SetAssistanceButtonPosition)
@@ -172,8 +140,8 @@ export class UiState {
 
   @Action(UiActions.SetToastPosition)
   public onSetToastPosition(ctx: StateContext<UiStateModel>, action: UiActions.SetToastPosition): void {
-    const config = ctx.getState().config;
-    ctx.patchState({ config: { ...config, toastPosition: action.data } });
+    const toast = ctx.getState().toast;
+    ctx.patchState({ toast: { ...toast, position: action.data } });
   }
 
 }

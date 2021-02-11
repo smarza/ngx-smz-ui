@@ -1,6 +1,6 @@
-export type SmzSidebarStates = SmzSidebarState.ACTIVE | SmzSidebarState.INACTIVE;
+export type DiamondSidebarStates = DiamondSidebarState.ACTIVE | DiamondSidebarState.INACTIVE;
 
-export enum SmzSidebarState {
+export enum DiamondSidebarState {
     ACTIVE = 'active',
     INACTIVE = 'inactive'
 }

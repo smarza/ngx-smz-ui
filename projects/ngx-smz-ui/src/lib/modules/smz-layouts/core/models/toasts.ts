@@ -26,3 +26,7 @@ export const SmzToastPositions: SimpleEntity<EdgePositionType>[] = [
   { id: 'top-left', name: 'Top Left' },
   { id: 'top-right', name: 'Top Right' },
 ];
+
+export interface SmzToastData {
+  position: EdgePositionType;
+}

@@ -7,6 +7,11 @@ import { OutletModule } from '../../outlet/outlet.module';
 import { SmzDiamontTopbarModule } from './topbar/topbar.module';
 import { SmzDiamontSidebarModule } from './sidebar/sidebar.module';
 import { SmzDiamontFooterModule } from './footer/footer.module';
+import { NgxsModule } from '@ngxs/store';
+import { UiLayoutState } from './state/ui-layout/ui-layout.state';
+import { AssistanceModule } from './assistance/assistance.module';
+
+export const ngxsModuleForFeatureUiLayoutState = NgxsModule.forFeature([UiLayoutState]);
 
 @NgModule({
   declarations: [DiamondLayoutComponent],
@@ -17,7 +22,9 @@ import { SmzDiamontFooterModule } from './footer/footer.module';
     OutletModule,
     SmzDiamontTopbarModule,
     SmzDiamontSidebarModule,
-    SmzDiamontFooterModule
+    SmzDiamontFooterModule,
+    AssistanceModule,
+    ngxsModuleForFeatureUiLayoutState
   ],
   exports: [DiamondLayoutComponent]
 })
