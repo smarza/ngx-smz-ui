@@ -3,12 +3,13 @@ export * from './core/globals/smz-layouts.config';
 
 // MODELS
 export * from './core/models/layout';
-export * from './core/models/loaders';
 export * from './core/models/logo';
 export * from './core/models/menu-types';
 export * from './core/models/positions';
 export * from './core/models/route-layout-data';
 export * from './core/models/sidebar-states';
+
+export { SmzLoader, SmzLoaders } from './core/models/loaders';
 export * from './core/models/themes';
 
 // MODULES

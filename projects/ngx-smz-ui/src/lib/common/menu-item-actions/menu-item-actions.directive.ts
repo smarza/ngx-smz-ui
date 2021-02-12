@@ -1,7 +1,7 @@
 import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 import { Navigate } from '@ngxs/router-plugin';
 import { Store } from '@ngxs/store';
-import { MenuItem } from 'primeng/api/menuitem';
+import { MenuItem } from 'primeng/api';
 
 @Directive({
     selector: '[menuItemAction]'

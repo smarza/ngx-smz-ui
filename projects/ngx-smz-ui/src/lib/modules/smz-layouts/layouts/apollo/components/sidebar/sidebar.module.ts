@@ -8,7 +8,7 @@ import { HasChildPipe } from './pipes/has-child.pipe';
 import { ApolloMenuExpandableItemComponent } from './components/menu-expandable-item.component';
 import { ApolloMenuNodeComponent } from './components/menu-node.component';
 import { ApolloMenuSlimNodeComponent } from './components/menu-slim-node.component';
-import { MenuItemActionsModule } from '../../../../../common/menu-item-actions/menu-item-actions.module';
+import { MenuItemActionsModule } from '../../../../../../common/menu-item-actions/menu-item-actions.module';
 
 @NgModule({
   declarations: [

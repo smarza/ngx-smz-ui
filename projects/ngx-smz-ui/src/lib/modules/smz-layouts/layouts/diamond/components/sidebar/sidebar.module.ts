@@ -8,7 +8,7 @@ import { HasChildPipe } from './pipes/has-child.pipe';
 import { DiamondMenuExpandableItemComponent } from './components/menu-expandable-item.component';
 import { DiamondMenuNodeComponent } from './components/menu-node.component';
 import { DiamondMenuSlimNodeComponent } from './components/menu-slim-node.component';
-import { MenuItemActionsModule } from '../../../../../common/menu-item-actions/menu-item-actions.module';
+import { MenuItemActionsModule } from '../../../../../../common/menu-item-actions/menu-item-actions.module';
 
 @NgModule({
   declarations: [

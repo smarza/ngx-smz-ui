@@ -1,8 +1,7 @@
 import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Input, OnInit, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
-import { PrimeTemplate } from 'primeng/api';
-import { MenuItem } from 'primeng/api/menuitem';
-import { Observable } from 'rxjs/internal/Observable';
+import { PrimeTemplate, MenuItem } from 'primeng/api';
+import { Observable } from 'rxjs';
 import { Assistance } from '../../core/models/assistance';
 import { LayoutState } from '../../core/models/layout';
 import { RouterDataListenerService } from '../../core/services/router-data-listener.service';

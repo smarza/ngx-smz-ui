@@ -3,7 +3,7 @@ import { Select, Store } from '@ngxs/store'; import { SmzLayoutsConfig } from '.
 import { SmzControlType, SmzForm, SmzFormsResponse, SmzPasswordControl, SmzTextControl } from 'ngx-smz-dialogs';
 import { AuthenticationActions } from 'ngx-rbk-utils';
 import { UiSelectors } from '../../core/state/ui/ui.selectors';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { SmzAppLogo } from '../../core/models/logo';
 import { SmzLoginData } from '../../core/models/login';
 

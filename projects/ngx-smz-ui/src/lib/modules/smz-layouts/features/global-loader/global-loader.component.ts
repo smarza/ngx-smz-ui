@@ -5,7 +5,7 @@ import { RouterEvent, RouteConfigLoadStart, RouteConfigLoadEnd, Router } from '@
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Select, Store } from '@ngxs/store';
 import { ApplicationSelectors } from 'ngx-rbk-utils';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { LoaderData } from '../../core/models/layout';
 import { SmzLoader } from '../../core/models/loaders';

@@ -3,34 +3,34 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { cloneDeep } from 'lodash-es';
-import { UiDiamondSelectors } from '../state/ui-diamond/ui-diamond.selectors';
-import { UiSelectors } from '../../../core/state/ui/ui.selectors';
-import { Assistance } from '../../../core/models/assistance';
-import { SmzLayoutsConfig } from '../../../core/globals/smz-layouts.config';
-import { InputChangeData } from '../../../../../common/input-detection/input-detection.directive';
-import { UiDiamondActions } from '../state/ui-diamond/ui-diamond.actions';
-import { UiActions } from '../../../core/state/ui/ui.actions';
-import { SmzContentTheme, SmzLayoutTheme } from '../../../core/models/themes';
-import { DiamondLayout, DiamondMenuTypes } from '../layout.config';
-import { MenuType } from '../../../core/models/menu-types';
+import { UiApolloSelectors } from '../../state/ui-apollo/ui-apollo.selectors';
+import { UiSelectors } from '../../../../core/state/ui/ui.selectors';
+import { Assistance } from '../../../../core/models/assistance';
+import { SmzLayoutsConfig } from '../../../../core/globals/smz-layouts.config';
+import { InputChangeData } from '../../../../../../common/input-detection/input-detection.directive';
+import { UiApolloActions } from '../../state/ui-apollo/ui-apollo.actions';
+import { UiActions } from '../../../../core/state/ui/ui.actions';
+import { SmzContentTheme, SmzLayoutTheme } from '../../../../core/models/themes';
+import { ApolloLayout, ApolloMenuTypes } from '../../layout.config';
+import { MenuType } from '../../../../core/models/menu-types';
 
 @UntilDestroy()
 @Component({
-  selector: 'smz-ui-diamond-assistance',
+  selector: 'smz-ui-apollo-assistance',
   templateUrl: './assistance.component.html',
   styleUrls: ['./assistance.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class DiamondAssistanceComponent implements OnInit {
+export class ApolloAssistanceComponent implements OnInit {
   @Select(UiSelectors.assistance) public assistance$: Observable<Assistance>;
   public isVisible = false;
   public menuTypes = [];
-  public menuType: DiamondMenuTypes = MenuType.STATIC;
-  public layout: DiamondLayout;
+  public menuType: ApolloMenuTypes = MenuType.STATIC;
+  public layout: ApolloLayout;
   constructor(public readonly config: SmzLayoutsConfig, private store: Store, private cdr: ChangeDetectorRef) {
 
     this.store
-      .select(UiDiamondSelectors.layout)
+      .select(UiApolloSelectors.layout)
       .pipe(untilDestroyed(this))
       .subscribe(config => {
         this.layout = cloneDeep(config);
@@ -51,11 +51,11 @@ export class DiamondAssistanceComponent implements OnInit {
   }
 
   public setSidebarWidth(event: InputChangeData): void {
-    this.store.dispatch(new UiDiamondActions.SetSidebarWidth(event.new));
+    this.store.dispatch(new UiApolloActions.SetSidebarWidth(event.new));
   }
 
   public setSidebarSlimWidth(event: InputChangeData): void {
-    this.store.dispatch(new UiDiamondActions.SetSidebarSlimWidth(event.new));
+    this.store.dispatch(new UiApolloActions.SetSidebarSlimWidth(event.new));
   }
 
   public setupData(): void {
@@ -63,11 +63,12 @@ export class DiamondAssistanceComponent implements OnInit {
       { label: 'Static', value: MenuType.STATIC },
       { label: 'Overlay', value: MenuType.OVERLAY },
       { label: 'Slim', value: MenuType.SLIM },
+      { label: 'Horizontal', value: MenuType.HORIZONTAL },
     ]
   }
 
   public onMenuTypeChange(): void {
-    this.store.dispatch(new UiDiamondActions.SetMenu(this.menuType));
+    this.store.dispatch(new UiApolloActions.SetMenu(this.menuType));
   }
 
   public onHide(): void {
@@ -79,11 +80,11 @@ export class DiamondAssistanceComponent implements OnInit {
   }
 
   public showMenu(): void {
-    this.store.dispatch(new UiDiamondActions.ShowSidebar);
+    this.store.dispatch(new UiApolloActions.ShowSidebar);
   }
 
   public hideMenu(): void {
-    this.store.dispatch(new UiDiamondActions.HideSidebar);
+    this.store.dispatch(new UiApolloActions.HideSidebar);
   }
 
   public onSetLayoutTheme(theme: SmzLayoutTheme): void {

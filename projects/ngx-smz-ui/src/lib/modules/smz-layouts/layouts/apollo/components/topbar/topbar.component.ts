@@ -3,24 +3,20 @@ import { Select, Store } from '@ngxs/store';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { PrimeTemplate } from 'primeng/api';
 import { Observable } from 'rxjs';
-import { UiSelectors } from '../../../core/state/ui/ui.selectors';
-import { LayoutState } from '../../../core/models/layout';
-import { SmzLayoutsConfig } from '../../../core/globals/smz-layouts.config';
-import { SmzAppLogo } from '../../../core/models/logo';
-import { UiApolloSelectors } from '../state/ui-apollo/ui-apollo.selectors';
-import { UiApolloActions } from '../state/ui-apollo/ui-apollo.actions';
+import { UiSelectors } from '../../../../core/state/ui/ui.selectors';
+import { SmzLayoutsConfig } from '../../../../core/globals/smz-layouts.config';
+import { UiApolloActions } from '../../state/ui-apollo/ui-apollo.actions';
 
 @UntilDestroy()
 @Component({
-  selector: 'smz-ui-apollo-footer',
-  templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.scss']
+  selector: 'smz-ui-apollo-topbar',
+  templateUrl: './topbar.component.html',
+  styleUrls: ['./topbar.component.scss']
 })
-export class ApolloFooterComponent implements OnInit, AfterContentInit
+export class ApolloTopbarComponent implements OnInit, AfterContentInit
 {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
-  @Select(UiApolloSelectors.state) public state$: Observable<LayoutState>;
-  @Select(UiSelectors.appLogo) public appLogo$: Observable<SmzAppLogo>;
+  @Select(UiSelectors.topbarTitle) public topbarTitle$: Observable<string>;
   public headerExtrasTemplate: TemplateRef<any>;
   constructor(public readonly config: SmzLayoutsConfig, private store: Store) { }
 

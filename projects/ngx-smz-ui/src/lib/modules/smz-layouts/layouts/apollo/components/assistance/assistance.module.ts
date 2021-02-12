@@ -8,8 +8,8 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { FormsModule } from '@angular/forms';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputTextModule } from 'primeng/inputtext';
-import { InputBlurDetectionModule } from '../../../../../common/input-detection/input-detection.module';
-import { GlobalAssistanceModule } from '../../../features/global-assistance/global-assistance.module';
+import { InputBlurDetectionModule } from '../../../../../../common/input-detection/input-detection.module';
+import { GlobalAssistanceModule } from '../../../../features/global-assistance/global-assistance.module';
 
 @NgModule({
   declarations: [ApolloAssistanceComponent],

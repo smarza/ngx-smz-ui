@@ -1,5 +1,3 @@
-import { SimpleNamedEntity } from 'ngx-smz-dialogs';
-
 export enum SmzLayoutTheme {
     BLUE = 'blue',
     BLUEGRAY = 'bluegray',

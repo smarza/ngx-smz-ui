@@ -6,7 +6,7 @@
     "./resources/scss/layouts/*.*",
     "./resources/scss/contents/*.*",
     "./resources/scss/pages/*.*",
-    "./resources/scss/variables/*.*",
+    "./resources/scss/extras/*.*",
     "./resources/scss/vendor/*.*",
     "./resources/scss/vendor/fontawesome-pro-5.9.0-web/*.*",
     "./resources/scss/vendor/fontawesome-pro-5.9.0-web/css/*.*",

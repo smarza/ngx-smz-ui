@@ -3,26 +3,26 @@ import { Select, Store } from '@ngxs/store';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { MenuItem, PrimeTemplate } from 'primeng/api';
 import { Observable } from 'rxjs';
-import { UiSelectors } from '../../../core/state/ui/ui.selectors';
+import { UiSelectors } from '../../../../core/state/ui/ui.selectors';
 import { RouterState } from '@ngxs/router-plugin';
-import { SmzLayoutsConfig } from '../../../core/globals/smz-layouts.config';
+import { SmzLayoutsConfig } from '../../../../core/globals/smz-layouts.config';
 import { NgxRbkUtilsConfig } from 'ngx-rbk-utils';
-import { SmzAppLogo } from '../../../core/models/logo';
-import { UiApolloSelectors } from '../state/ui-apollo/ui-apollo.selectors';
-import { UiApolloActions } from '../state/ui-apollo/ui-apollo.actions';
-import { ApolloLayout } from '../layout.config';
-import { MenuType } from '../../../core/models/menu-types';
+import { SmzAppLogo } from '../../../../core/models/logo';
+import { UiDiamondSelectors } from '../../state/ui-diamond/ui-diamond.selectors';
+import { UiDiamondActions } from '../../state/ui-diamond/ui-diamond.actions';
+import { DiamondLayout } from '../../layout.config';
+import { MenuType } from '../../../../core/models/menu-types';
 
 @UntilDestroy()
 @Component({
-  selector: 'smz-ui-apollo-sidebar',
+  selector: 'smz-ui-diamond-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
-export class ApolloSidebarComponent implements OnInit, AfterContentInit
+export class DiamondSidebarComponent implements OnInit, AfterContentInit
 {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
-  @Select(UiApolloSelectors.layout) public layout$: Observable<ApolloLayout>;
+  @Select(UiDiamondSelectors.layout) public layout$: Observable<DiamondLayout>;
   @Select(UiSelectors.appName) public appName$: Observable<string>;
   @Select(RouterState.state) public currentRoute$: Observable<any>;
   @Select(UiSelectors.appLayoutLogo) public appLayoutLogo$: Observable<SmzAppLogo>;
@@ -73,17 +73,17 @@ export class ApolloSidebarComponent implements OnInit, AfterContentInit
 
   public show(): void
   {
-    this.store.dispatch(new UiApolloActions.ShowSidebar);
+    this.store.dispatch(new UiDiamondActions.ShowSidebar);
   }
 
   public hide(): void
   {
-    this.store.dispatch(new UiApolloActions.HideSidebar);
+    this.store.dispatch(new UiDiamondActions.HideSidebar);
   }
 
   public toggle(): void
   {
-    this.store.dispatch(new UiApolloActions.ToggleSidebar);
+    this.store.dispatch(new UiDiamondActions.ToggleSidebar);
   }
 
 }
