@@ -1,4 +1,5 @@
 import { Assistance } from '../models/assistance';
+import { ColorSchemaDefinition } from '../models/color-schemas';
 import { LoaderData } from '../models/layout';
 import { LogoResource } from '../models/logo';
 import { PagesConfig } from '../models/pages';
@@ -13,6 +14,7 @@ export class SmzLayoutsConfig {
     themes: {
         layout: SmzLayoutTheme;
         content: SmzContentTheme;
+        schema: ColorSchemaDefinition;
     };
     toast: {
         position: EdgePositionType;

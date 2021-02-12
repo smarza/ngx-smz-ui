@@ -19,7 +19,8 @@ export const getInitialState = (): UiApolloStateModel => ({
     appName: '',
     footerText: '',
     contentTone: null,
-    layoutTone: null
+    layoutTone: null,
+    schemaTone: null,
   }
 });
 

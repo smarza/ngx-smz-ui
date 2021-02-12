@@ -57,4 +57,12 @@
     </button>
   </div>
 
+  <h5>Color Schemas</h5>
+  <div class="p-grid">
+    <button
+      *ngFor="let schema of colorSchemes"
+      pButton pRipple type="button" [label]="schema.name" class="p-button-outlined p-mr-2 p-mb-2" (click)="onSetColorSchema(schema.id)">
+    </button>
+  </div>
+
 </ng-container>

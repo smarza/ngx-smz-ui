@@ -38,7 +38,7 @@ export class UiSelectors
     }
 
     @Selector([UiState])
-    public static appLogo(state: UiStateModel): SmzAppLogo
+    public static appContentLogo(state: UiStateModel): SmzAppLogo
     {
         return {
             horizontal: state.appLogo.horizontal[state.state.contentTone],
@@ -52,10 +52,10 @@ export class UiSelectors
     public static appLayoutLogo(state: UiStateModel): SmzAppLogo
     {
         return {
-            horizontal: state.appLogo.horizontal[state.state.layoutTone],
-            vertical: state.appLogo.vertical[state.state.layoutTone],
-            icon: state.appLogo.icon[state.state.layoutTone],
-            typo: state.appLogo.typo[state.state.layoutTone]
+            horizontal: state.appLogo.horizontal[state.state.schemaTone],
+            vertical: state.appLogo.vertical[state.state.schemaTone],
+            icon: state.appLogo.icon[state.state.schemaTone],
+            typo: state.appLogo.typo[state.state.schemaTone]
         };
     }
 

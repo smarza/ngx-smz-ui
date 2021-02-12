@@ -1,5 +1,5 @@
+import { ColorSchemaDefinition } from '../models/color-schemas';
 import { SmzLoader } from '../models/loaders';
-import { SidebarState } from '../models/sidebar-states';
 import { SmzContentTheme, SmzLayoutTheme } from '../models/themes';
 import { SmzLayoutsConfig } from './smz-layouts.config';
 
@@ -20,6 +20,7 @@ export const defaultSmzLayoutsConfig: SmzLayoutsConfig = {
     themes: {
         layout: SmzLayoutTheme.DARKGRAY,
         content: SmzContentTheme.SOHO_DARK,
+        schema: ColorSchemaDefinition.CONVERSOR
     },
     loader: {
         type: SmzLoader.CUBE,

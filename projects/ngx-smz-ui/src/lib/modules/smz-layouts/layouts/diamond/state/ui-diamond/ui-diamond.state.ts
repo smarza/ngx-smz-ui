@@ -19,7 +19,8 @@ export const getInitialState = (): UiDiamondStateModel => ({
     appName: '',
     footerText: '',
     contentTone: null,
-    layoutTone: null
+    layoutTone: null,
+    schemaTone: null
   }
 });
 

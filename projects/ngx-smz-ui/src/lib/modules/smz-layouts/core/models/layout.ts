@@ -12,6 +12,7 @@ export interface LayoutState {
     footerText: string;
     contentTone: ThemeToneType;
     layoutTone: ThemeToneType;
+    schemaTone: ThemeToneType;
 }
 
 export interface LoaderData {

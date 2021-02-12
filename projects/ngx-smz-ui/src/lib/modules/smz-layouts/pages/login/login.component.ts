@@ -13,7 +13,7 @@ import { SmzLoginData } from '../../core/models/login';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  @Select(UiSelectors.appLogo) public appLogo$: Observable<SmzAppLogo>;
+  @Select(UiSelectors.appContentLogo) public appLogo$: Observable<SmzAppLogo>;
   public form: SmzForm<SmzLoginData>;
 
   constructor(public readonly config: SmzLayoutsConfig, private store: Store) {

@@ -8,6 +8,7 @@ export * from './core/models/menu-types';
 export * from './core/models/positions';
 export * from './core/models/route-layout-data';
 export * from './core/models/sidebar-states';
+export * from './core/models/color-schemas';
 
 export { SmzLoader, SmzLoaders } from './core/models/loaders';
 export * from './core/models/themes';

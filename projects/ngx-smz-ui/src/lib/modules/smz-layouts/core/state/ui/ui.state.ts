@@ -8,12 +8,14 @@ import { SmzLayoutsConfig } from '../../globals/smz-layouts.config';
 import { SmzContentTheme, SmzContentThemes, SmzLayoutTheme, SmzLayoutThemes } from '../../models/themes';
 import { LogoResource } from '../../models/logo';
 import { SmzToastData } from '../../models/toasts';
+import { ColorSchemaDefinition, SmzColorSchemas } from '../../models/color-schemas';
 
 export interface UiStateModel {
   assistance: Assistance;
   themes: {
     layout: SmzLayoutTheme;
     content: SmzContentTheme;
+    schema: ColorSchemaDefinition;
   };
   toast: SmzToastData;
   loader: LoaderData;
@@ -26,6 +28,7 @@ export const getInitialState = (): UiStateModel => ({
   themes: {
     layout: null,
     content: null,
+    schema: null,
   },
   toast: {
     position: null,
@@ -42,7 +45,8 @@ export const getInitialState = (): UiStateModel => ({
     appName: '',
     footerText: '',
     contentTone: null,
-    layoutTone: null
+    layoutTone: null,
+    schemaTone: null
   },
   appLogo: null
 });
@@ -68,6 +72,7 @@ export class UiState {
         themes: {
           layout: this.config.themes.layout,
           content: this.config.themes.content,
+          schema: this.config.themes.schema,
         },
         appLogo: this.config.appLogo,
         state: {
@@ -81,6 +86,7 @@ export class UiState {
 
     ctx.dispatch(new UiActions.SetLayoutTheme(this.config.themes.layout));
     ctx.dispatch(new UiActions.SetContentTheme(this.config.themes.content));
+    ctx.dispatch(new UiActions.SetColorSchema(this.config.themes.schema));
   }
 
   @Action(UiActions.SetTopbarTitle)
@@ -105,6 +111,19 @@ export class UiState {
     const contentTheme = SmzContentThemes.find(x => x.id === action.data);
 
     ctx.patchState({ themes: { ...themes, content: action.data }, state: { ...state, contentTone: contentTheme.tone } });
+  }
+
+  @Action(UiActions.SetColorSchema)
+  public onSetColorSchema(ctx: StateContext<UiStateModel>, action: UiActions.SetColorSchema): void {
+    const themes = ctx.getState().themes;
+    const state = ctx.getState().state;
+    const schema = SmzColorSchemas.find(x => x.id === action.data);
+
+    schema.schemas.forEach(x => {
+      document.documentElement.style.setProperty(x.id, x.name);
+    });
+
+    ctx.patchState({ themes: { ...themes, schema: action.data }, state: { ...state, schemaTone: schema.tone } });
   }
 
   @Action(UiActions.SetGlobalLoader)

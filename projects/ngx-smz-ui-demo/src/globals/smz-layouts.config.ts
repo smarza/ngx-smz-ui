@@ -1,4 +1,4 @@
-import { SmzLayoutsConfig, SmzLayoutTheme, SmzContentTheme, SmzLoader, DiamondLayout, MenuType, SidebarState, ApolloLayout } from 'ngx-smz-ui';
+import { SmzLayoutsConfig, SmzLayoutTheme, SmzContentTheme, SmzLoader, DiamondLayout, MenuType, SidebarState, ApolloLayout, ColorSchemaDefinition } from 'ngx-smz-ui';
 
 export const smzDiamondConfig: DiamondLayout = {
     menu: MenuType.STATIC,
@@ -42,7 +42,8 @@ export const smzLayoutsConfig: SmzLayoutsConfig = {
     },
     themes: {
         layout: SmzLayoutTheme.DARKGRAY,
-        content: SmzContentTheme.SOHO_DARK,
+        content: SmzContentTheme.PRIMEONE_LIGHT,
+        schema: ColorSchemaDefinition.CONVERSOR
     },
     loader: {
         type: SmzLoader.CUBE,

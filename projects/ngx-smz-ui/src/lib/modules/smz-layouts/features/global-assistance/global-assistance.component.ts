@@ -11,6 +11,7 @@ import { UiSelectors } from '../../core/state/ui/ui.selectors';
 import { SmzLayoutsConfig } from '../../core/globals/smz-layouts.config';
 import { SmzToast, SmzToastPositions, SmzToasts } from '../../core/models/toasts';
 import { EdgePositionType, LeftPositionType, RightPositionType, SidePositionType } from '../../core/models/positions';
+import { ColorSchemaDefinition, SmzColorSchemas } from '../../core/models/color-schemas';
 
 @UntilDestroy()
 @Component({
@@ -25,6 +26,7 @@ export class GlobalAssistanceComponent implements OnInit {
   public timer: number;
   public contentThemes = SmzContentThemes;
   public layoutThemes = SmzLayoutThemes;
+  public colorSchemes = SmzColorSchemas;
   public loaders = SmzLoaders;
   public toasts = SmzToasts;
   public toastPositions = SmzToastPositions;
@@ -55,12 +57,16 @@ export class GlobalAssistanceComponent implements OnInit {
     this.store.dispatch(new UiActions.ShowConfigAssistance);
   }
 
-  public onSetLayoutTheme(theme: SmzLayoutTheme): void {
-    this.store.dispatch(new UiActions.SetLayoutTheme(theme));
+  public onSetLayoutTheme(data: SmzLayoutTheme): void {
+    this.store.dispatch(new UiActions.SetLayoutTheme(data));
   }
 
-  public onSetContentTheme(theme: SmzContentTheme): void {
-    this.store.dispatch(new UiActions.SetContentTheme(theme));
+  public onSetContentTheme(data: SmzContentTheme): void {
+    this.store.dispatch(new UiActions.SetContentTheme(data));
+  }
+
+  public onSetColorSchema(data: ColorSchemaDefinition): void {
+    this.store.dispatch(new UiActions.SetColorSchema(data));
   }
 
   public changeGlobalLoading(event: { checked: boolean }): void {

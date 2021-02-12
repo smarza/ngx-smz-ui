@@ -1,3 +1,4 @@
+import { ColorSchemaDefinition } from '../../models/color-schemas';
 import { SmzLoader } from '../../models/loaders';
 import { EdgePositionType, LeftPositionType, RightPositionType, SidePositionType } from '../../models/positions';
 import { SmzContentTheme, SmzLayoutTheme } from '../../models/themes';
@@ -8,6 +9,12 @@ export namespace UiActions
     export class Initialize
     {
         public static readonly type = '[UI] Initialize';
+    }
+
+    export class SetColorSchema
+    {
+        public static readonly type = '[UI] Set Color Schema';
+        constructor(public data: ColorSchemaDefinition) {}
     }
 
     export class SetLayoutTheme

@@ -20,7 +20,7 @@ export class DiamondFooterComponent implements OnInit, AfterContentInit
 {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
   @Select(UiDiamondSelectors.state) public state$: Observable<LayoutState>;
-  @Select(UiSelectors.appLogo) public appLogo$: Observable<SmzAppLogo>;
+  @Select(UiSelectors.appContentLogo) public appLogo$: Observable<SmzAppLogo>;
   public headerExtrasTemplate: TemplateRef<any>;
   constructor(public readonly config: SmzLayoutsConfig, private store: Store) { }
 
