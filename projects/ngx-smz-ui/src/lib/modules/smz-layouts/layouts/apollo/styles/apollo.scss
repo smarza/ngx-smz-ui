@@ -217,7 +217,7 @@ body a {
   line-height: inherit;
 }
 .layout-wrapper .topbar #menu-button:hover {
-  background-color: #69b9f7;
+  background-color: rgba(0, 0, 0, 0.15);
 }
 .layout-wrapper .topbar .topbar-search {
   padding: 0;
@@ -230,7 +230,7 @@ body a {
   display: inline-block;
   border: 0 none;
   font-size: 14px;
-  background: #69b9f7;
+  background: rgba(0, 0, 0, 0.15);
   outline: 0 none;
   color: var(--primary-color-text);
   width: 175px;
@@ -360,7 +360,7 @@ body a {
   border-radius: 50%;
 }
 .layout-wrapper .topbar .topbar-menu > li a:hover {
-  background-color: #69b9f7;
+  background-color: rgba(0, 0, 0, 0.15);
 }
 .layout-wrapper .topbar .topbar-menu > li ul {
   list-style-type: none;

@@ -5,7 +5,7 @@ import { ApplicationActions, ApplicationSelectors, ToastActions } from 'ngx-rbk-
 import { Observable } from 'rxjs';
 import { Assistance, SmzAssistanceButtonPositions, SmzAssistancePositions } from '../../core/models/assistance';
 import { SmzLoader, SmzLoaders } from '../../core/models/loaders';
-import { SmzContentTheme, SmzContentThemes, SmzLayoutTheme, SmzLayoutThemes } from '../../core/models/themes';
+import { SmzContentTheme, SmzContentThemes } from '../../core/models/themes';
 import { UiActions } from '../../core/state/ui/ui.actions';
 import { UiSelectors } from '../../core/state/ui/ui.selectors';
 import { SmzLayoutsConfig } from '../../core/globals/smz-layouts.config';

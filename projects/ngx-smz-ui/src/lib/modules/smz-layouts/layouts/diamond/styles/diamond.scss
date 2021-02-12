@@ -1829,5 +1829,6 @@ a {
   transition: transform 1s;
 }
 .layout-config-button:hover {
-  background: #2083e4;
+  background: var(--primary-color);
+  filter: brightness(0.8);
 }

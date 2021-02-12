@@ -10,7 +10,6 @@ import { SmzLayoutsConfig } from '../../../../core/globals/smz-layouts.config';
 import { InputChangeData } from '../../../../../../common/input-detection/input-detection.directive';
 import { UiDiamondActions } from '../../state/ui-diamond/ui-diamond.actions';
 import { UiActions } from '../../../../core/state/ui/ui.actions';
-import { SmzContentTheme, SmzLayoutTheme, SmzLayoutThemes } from '../../../../core/models/themes';
 import { DiamondLayout, DiamondMenuTypes } from '../../layout.config';
 import { MenuType } from '../../../../core/models/menu-types';
 
@@ -26,7 +25,6 @@ export class DiamondAssistanceComponent implements OnInit {
   public isVisible = false;
   public menuTypes = [];
   public menuType: DiamondMenuTypes = MenuType.STATIC;
-  public layoutThemes = SmzLayoutThemes;
   public layout: DiamondLayout;
   constructor(public readonly config: SmzLayoutsConfig, private store: Store, private cdr: ChangeDetectorRef) {
 
@@ -85,10 +83,6 @@ export class DiamondAssistanceComponent implements OnInit {
 
   public hideMenu(): void {
     this.store.dispatch(new UiDiamondActions.HideSidebar);
-  }
-
-  public onSetLayoutTheme(theme: SmzLayoutTheme): void {
-    this.store.dispatch(new UiActions.SetLayoutTheme(theme));
   }
 
   public showAssistance(): void

@@ -5,7 +5,7 @@ import { LayoutState, LoaderData } from '../../models/layout';
 import { UiActions } from './ui.actions';
 import { cloneDeep } from 'lodash-es';
 import { SmzLayoutsConfig } from '../../globals/smz-layouts.config';
-import { SmzContentTheme, SmzContentThemes, SmzLayoutTheme, SmzLayoutThemes } from '../../models/themes';
+import { SmzContentTheme, SmzContentThemes } from '../../models/themes';
 import { LogoResource } from '../../models/logo';
 import { SmzToastData } from '../../models/toasts';
 import { ColorSchemaDefinition, SmzColorSchemas } from '../../models/color-schemas';
@@ -13,7 +13,6 @@ import { ColorSchemaDefinition, SmzColorSchemas } from '../../models/color-schem
 export interface UiStateModel {
   assistance: Assistance;
   themes: {
-    layout: SmzLayoutTheme;
     content: SmzContentTheme;
     schema: ColorSchemaDefinition;
   };
@@ -26,7 +25,6 @@ export interface UiStateModel {
 export const getInitialState = (): UiStateModel => ({
   assistance: null,
   themes: {
-    layout: null,
     content: null,
     schema: null,
   },
@@ -70,7 +68,6 @@ export class UiState {
       {
         assistance: this.config.assistance,
         themes: {
-          layout: this.config.themes.layout,
           content: this.config.themes.content,
           schema: this.config.themes.schema,
         },
@@ -84,7 +81,6 @@ export class UiState {
         loader: this.config.loader,
       });
 
-    ctx.dispatch(new UiActions.SetLayoutTheme(this.config.themes.layout));
     ctx.dispatch(new UiActions.SetContentTheme(this.config.themes.content));
     ctx.dispatch(new UiActions.SetColorSchema(this.config.themes.schema));
   }
@@ -93,15 +89,6 @@ export class UiState {
   public onSetTopbarTitle(ctx: StateContext<UiStateModel>, action: UiActions.SetTopbarTitle): void {
     const state = ctx.getState().state;
     ctx.patchState({ state: { ...state, topbarTitle: action.data } });
-  }
-
-  @Action(UiActions.SetLayoutTheme)
-  public onSetTheme(ctx: StateContext<UiStateModel>, action: UiActions.SetLayoutTheme): void {
-    const themes = ctx.getState().themes;
-    const state = ctx.getState().state;
-    const layoutTheme = SmzLayoutThemes.find(x => x.id === action.data);
-
-    ctx.patchState({ themes: { ...themes, layout: action.data }, state: { ...state, layoutTone: layoutTheme.tone } });
   }
 
   @Action(UiActions.SetContentTheme)

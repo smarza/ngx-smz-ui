@@ -12,7 +12,6 @@ export class UiApolloSelectors
     @Selector([UiApolloState, UiState])
     public static state(state: UiApolloStateModel, ui: UiStateModel): LayoutState
     {
-        const themeClass = `layout-sidebar-${ui.themes.layout}`;
         const layoutClass = `layout-${state.config.menu}`;
         const sidebarClass = `${layoutClass}-${state.config.sidebarState}`;
         const mobileSidebarClass = state.config.sidebarState === SidebarState.ACTIVE ? `layout-mobile-${state.config.sidebarState}` : '';
@@ -20,7 +19,7 @@ export class UiApolloSelectors
 
         const layout: LayoutState = {
             ...state.state,
-            wrapperClass: `${themeClass} ${layoutClass} ${sidebarClass} ${mobileSidebarClass}`,
+            wrapperClass: `${layoutClass} ${sidebarClass} ${mobileSidebarClass}`,
             isOverlayVisible,
         };
 

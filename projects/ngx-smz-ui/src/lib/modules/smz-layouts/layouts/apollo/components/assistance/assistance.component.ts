@@ -10,7 +10,7 @@ import { SmzLayoutsConfig } from '../../../../core/globals/smz-layouts.config';
 import { InputChangeData } from '../../../../../../common/input-detection/input-detection.directive';
 import { UiApolloActions } from '../../state/ui-apollo/ui-apollo.actions';
 import { UiActions } from '../../../../core/state/ui/ui.actions';
-import { SmzContentTheme, SmzLayoutTheme } from '../../../../core/models/themes';
+import { SmzContentTheme } from '../../../../core/models/themes';
 import { ApolloLayout, ApolloMenuTypes } from '../../layout.config';
 import { MenuType } from '../../../../core/models/menu-types';
 
@@ -85,10 +85,6 @@ export class ApolloAssistanceComponent implements OnInit {
 
   public hideMenu(): void {
     this.store.dispatch(new UiApolloActions.HideSidebar);
-  }
-
-  public onSetLayoutTheme(theme: SmzLayoutTheme): void {
-    this.store.dispatch(new UiActions.SetLayoutTheme(theme));
   }
 
   public onSetContentTheme(theme: SmzContentTheme): void {

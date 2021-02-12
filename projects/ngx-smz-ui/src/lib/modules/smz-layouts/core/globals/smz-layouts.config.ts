@@ -4,7 +4,7 @@ import { LoaderData } from '../models/layout';
 import { LogoResource } from '../models/logo';
 import { PagesConfig } from '../models/pages';
 import { EdgePositionType } from '../models/positions';
-import { SmzContentTheme, SmzLayoutTheme } from '../models/themes';
+import { SmzContentTheme } from '../models/themes';
 
 export class SmzLayoutsConfig {
     debugMode?: boolean;
@@ -12,7 +12,6 @@ export class SmzLayoutsConfig {
     appName?: string;
     footerText?: string;
     themes: {
-        layout: SmzLayoutTheme;
         content: SmzContentTheme;
         schema: ColorSchemaDefinition;
     };

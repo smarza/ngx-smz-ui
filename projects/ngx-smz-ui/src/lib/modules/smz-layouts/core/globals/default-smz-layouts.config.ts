@@ -1,6 +1,6 @@
 import { ColorSchemaDefinition } from '../models/color-schemas';
 import { SmzLoader } from '../models/loaders';
-import { SmzContentTheme, SmzLayoutTheme } from '../models/themes';
+import { SmzContentTheme } from '../models/themes';
 import { SmzLayoutsConfig } from './smz-layouts.config';
 
 export const defaultSmzLayoutsConfig: SmzLayoutsConfig = {
@@ -18,7 +18,6 @@ export const defaultSmzLayoutsConfig: SmzLayoutsConfig = {
         position: 'bottom-right'
     },
     themes: {
-        layout: SmzLayoutTheme.DARKGRAY,
         content: SmzContentTheme.SOHO_DARK,
         schema: ColorSchemaDefinition.CONVERSOR
     },
