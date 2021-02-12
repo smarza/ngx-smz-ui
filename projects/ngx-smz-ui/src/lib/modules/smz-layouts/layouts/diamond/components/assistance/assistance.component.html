@@ -20,6 +20,14 @@
         </div>
       </div>
 
+      <h5>Layout Themes</h5>
+      <div class="p-grid">
+        <button
+          *ngFor="let layout of layoutThemes"
+          pButton pRipple type="button" [label]="layout.name" class="p-button-outlined p-mr-2 p-mb-2" (click)="onSetLayoutTheme(layout.id)">
+        </button>
+      </div>
+
       <smz-ui-global-assistance></smz-ui-global-assistance>
     </div>
 

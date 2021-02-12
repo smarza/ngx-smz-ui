@@ -25,7 +25,6 @@ export class GlobalAssistanceComponent implements OnInit {
   public globalIsLoading: boolean;
   public timer: number;
   public contentThemes = SmzContentThemes;
-  public layoutThemes = SmzLayoutThemes;
   public colorSchemes = SmzColorSchemas;
   public loaders = SmzLoaders;
   public toasts = SmzToasts;
@@ -55,10 +54,6 @@ export class GlobalAssistanceComponent implements OnInit {
 
   public onShow(): void {
     this.store.dispatch(new UiActions.ShowConfigAssistance);
-  }
-
-  public onSetLayoutTheme(data: SmzLayoutTheme): void {
-    this.store.dispatch(new UiActions.SetLayoutTheme(data));
   }
 
   public onSetContentTheme(data: SmzContentTheme): void {

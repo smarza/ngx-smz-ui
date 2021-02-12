@@ -41,7 +41,7 @@ export const smzLayoutsConfig: SmzLayoutsConfig = {
         position: 'bottom-right'
     },
     themes: {
-        layout: SmzLayoutTheme.DARKGRAY,
+        layout: SmzLayoutTheme.SCHEMA,
         content: SmzContentTheme.PRIMEONE_LIGHT,
         schema: ColorSchemaDefinition.CONVERSOR
     },

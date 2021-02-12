@@ -12,6 +12,7 @@ export enum SmzLayoutTheme {
     PURPLE = 'purple',
     TEAL = 'teal',
     WHITE = 'white',
+    SCHEMA = 'schema'
 }
 
 export const SmzLayoutThemes: LayoutTheme[] = [
@@ -28,6 +29,7 @@ export const SmzLayoutThemes: LayoutTheme[] = [
     { id: SmzLayoutTheme.PURPLE, name: 'Purple', tone: 'dark'},
     { id: SmzLayoutTheme.TEAL, name: 'Teal', tone: 'dark'},
     { id: SmzLayoutTheme.WHITE, name: 'White', tone: 'light'},
+    { id: SmzLayoutTheme.SCHEMA, name: 'Schema', tone: null },
 ];
 
 export enum SmzContentTheme {
