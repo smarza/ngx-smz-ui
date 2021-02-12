@@ -4,6 +4,7 @@ import { SidebarState } from '../../core/models/sidebar-states';
 export class ApolloLayout {
     menu: ApolloMenuTypes;
     sidebarState: ApolloSidebarStates;
+    mobileSidebarState: ApolloSidebarStates;
     sidebarWidth: string;
     sidebarSlimWidth: string;
 

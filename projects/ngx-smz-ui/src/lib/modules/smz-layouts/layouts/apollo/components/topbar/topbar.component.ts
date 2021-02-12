@@ -6,6 +6,8 @@ import { Observable } from 'rxjs';
 import { UiSelectors } from '../../../../core/state/ui/ui.selectors';
 import { SmzLayoutsConfig } from '../../../../core/globals/smz-layouts.config';
 import { UiApolloActions } from '../../state/ui-apollo/ui-apollo.actions';
+import { SmzAppLogo } from '../../../../core/models/logo';
+import { NgxRbkUtilsConfig } from 'ngx-rbk-utils';
 
 @UntilDestroy()
 @Component({
@@ -17,8 +19,9 @@ export class ApolloTopbarComponent implements OnInit, AfterContentInit
 {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
   @Select(UiSelectors.topbarTitle) public topbarTitle$: Observable<string>;
+  @Select(UiSelectors.appLogo) public appLogo$: Observable<SmzAppLogo>;
   public headerExtrasTemplate: TemplateRef<any>;
-  constructor(public readonly config: SmzLayoutsConfig, private store: Store) { }
+  constructor(public readonly rbkConfig: NgxRbkUtilsConfig, public readonly config: SmzLayoutsConfig, private store: Store) { }
 
   ngOnInit(): void
   {

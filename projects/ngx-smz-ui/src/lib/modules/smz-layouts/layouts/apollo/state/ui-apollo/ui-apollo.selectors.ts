@@ -15,11 +15,12 @@ export class UiApolloSelectors
         const themeClass = `layout-sidebar-${ui.themes.layout}`;
         const layoutClass = `layout-${state.config.menu}`;
         const sidebarClass = `${layoutClass}-${state.config.sidebarState}`;
+        const mobileSidebarClass = state.config.sidebarState === SidebarState.ACTIVE ? `layout-mobile-${state.config.sidebarState}` : '';
         const isOverlayVisible = state.config.menu === MenuType.OVERLAY && state.config.sidebarState === SidebarState.ACTIVE;
 
         const layout: LayoutState = {
             ...state.state,
-            wrapperClass: `${themeClass} ${layoutClass} ${sidebarClass}`,
+            wrapperClass: `${themeClass} ${layoutClass} ${sidebarClass} ${mobileSidebarClass}`,
             isOverlayVisible,
         };
 

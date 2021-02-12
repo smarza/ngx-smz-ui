@@ -6,8 +6,6 @@
 
       <div class="layout-wrapper" [ngClass]="state.wrapperClass">
 
-        <div class="layout-content-wrapper">
-
           <!-- MENU SUPERIOR -->
           <smz-ui-apollo-topbar>
             <ng-template pTemplate="headerExtras">
@@ -15,21 +13,21 @@
             </ng-template>
           </smz-ui-apollo-topbar>
 
+          <smz-ui-apollo-horizontal-menu [menu]="menu"></smz-ui-apollo-horizontal-menu>
+
           <!-- CONTEÚDO -->
           <div class="layout-content">
             <div *ngIf="state.isOverlayVisible" class="p-component-overlay clear-overlay" (click)="hideMenu()"></div>
-            <ng-container *ngTemplateOutlet="content"></ng-container>
+            <div class="layout-content-container">
+              <ng-container *ngTemplateOutlet="content"></ng-container>
+            </div>
           </div>
 
           <!-- FOOTER -->
           <smz-ui-apollo-footer></smz-ui-apollo-footer>
 
-          <!-- BARRA LATERAL -->
-          <smz-ui-apollo-sidebar [menu]="menu"></smz-ui-apollo-sidebar>
-
         </div>
 
-      </div>
     </ng-container>
 
   </ng-template>

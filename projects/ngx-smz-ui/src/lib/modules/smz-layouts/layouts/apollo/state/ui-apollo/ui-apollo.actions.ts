@@ -44,4 +44,9 @@ export namespace UiApolloActions
         public static readonly type = '[UI Apollo] Toggle Sidebar';
     }
 
+    export class ToggleMobileSidebar
+    {
+        public static readonly type = '[UI Apollo] Toggle Mobile Sidebar';
+    }
+
 }

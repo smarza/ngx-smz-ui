@@ -8,8 +8,9 @@ export const smzDiamondConfig: DiamondLayout = {
 };
 
 export const smzApolloConfig: ApolloLayout = {
-    menu: MenuType.STATIC,
+    menu: MenuType.HORIZONTAL,
     sidebarState: SidebarState.ACTIVE,
+    mobileSidebarState: SidebarState.INACTIVE,
     sidebarWidth: '16rem',
     sidebarSlimWidth: '6rem',
 };

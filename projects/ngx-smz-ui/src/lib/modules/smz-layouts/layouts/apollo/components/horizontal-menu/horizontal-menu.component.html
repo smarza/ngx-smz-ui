@@ -1,0 +1,38 @@
+<ng-container *ngIf="layout$ | async as layout">
+    <ng-container *ngIf="appName$ | async as appName">
+        <ng-container *ngIf="(currentRoute$ | async) as route">
+
+            <div class="layout-menu-container">
+                <div class="layout-menu-content" (mouseleave)="collapseAll(menu)">
+
+                    <ul class="layout-menu">
+
+                        <!-- NÍVEL 1 -->
+                        <ng-container *ngFor="let item of menu; let last = last; let itemIndex = index;">
+
+                            <li class="layout-root-menuitem" [ngClass]="{ 'active-menuitem' : item.expanded }">
+                                <div class="layout-menuitem-root-text">{{ item.label }}</div>
+
+                                <a class="p-ripple" [tabindex]="itemIndex" (click)="toogleOnly(item, menu)"
+                                    (mouseover)="toogleOnly(item, menu)">
+                                    <i class="layout-menuitem-icon pi" [ngClass]="item.icon"></i>
+                                    <span>{{ item.label }}</span>
+                                    <i class="pi pi-fw pi-angle-down layout-menuitem-toggler"></i>
+
+                                    <span class="p-ink"></span>
+                                </a>
+
+                                <ul smz-ui-apollo-horizontal-menu-node [item]="item" [currentUrl]="route.url" role="menu" style="z-index: 100;"></ul>
+
+                            </li>
+
+                        </ng-container>
+
+                    </ul>
+
+                </div>
+            </div>
+
+        </ng-container>
+    </ng-container>
+</ng-container>

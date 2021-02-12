@@ -1,4 +1,4 @@
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Input, OnInit, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, ChangeDetectorRef, Component, ContentChildren, Input, OnInit, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { PrimeTemplate, MenuItem } from 'primeng/api';
 import { Observable } from 'rxjs';
@@ -16,7 +16,6 @@ import { ApolloLayout } from './layout.config';
   selector: 'smz-ui-apollo-layout',
   templateUrl: './apollo-layout.component.html',
   styleUrls: ['./apollo-layout.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
 export class ApolloLayoutComponent implements OnInit, AfterContentInit

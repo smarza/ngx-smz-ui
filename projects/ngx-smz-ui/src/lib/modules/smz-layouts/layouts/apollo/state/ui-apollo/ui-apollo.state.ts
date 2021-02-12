@@ -102,4 +102,15 @@ export class UiApolloState {
     });
   }
 
+  @Action(UiApolloActions.ToggleMobileSidebar)
+  public onToggleMobileSidebar(ctx: StateContext<UiApolloStateModel>): void {
+    const config = ctx.getState().config;
+    ctx.patchState({
+      config: {
+        ...config,
+        mobileSidebarState: config.mobileSidebarState === SidebarState.ACTIVE ? SidebarState.INACTIVE : SidebarState.ACTIVE
+      }
+    });
+  }
+
 }
