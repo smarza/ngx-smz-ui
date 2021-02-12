@@ -17,7 +17,8 @@ import { ApolloLayout } from './layout.config';
   selector: 'smz-ui-apollo-layout',
   templateUrl: './apollo-layout.component.html',
   styleUrls: ['./apollo-layout.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Default
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None
 })
 export class ApolloLayoutComponent implements OnInit, AfterContentInit
 {

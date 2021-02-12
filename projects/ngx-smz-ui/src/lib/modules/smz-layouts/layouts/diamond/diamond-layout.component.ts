@@ -1,4 +1,4 @@
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Input, OnInit, QueryList, TemplateRef } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Input, OnInit, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { PrimeTemplate } from 'primeng/api';
 import { MenuItem } from 'primeng/api/menuitem';
@@ -17,7 +17,8 @@ import { DiamondLayout } from './layout.config';
   selector: 'smz-ui-diamond-layout',
   templateUrl: './diamond-layout.component.html',
   styleUrls: ['./diamond-layout.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Default
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None
 })
 export class DiamondLayoutComponent implements OnInit, AfterContentInit
 {
