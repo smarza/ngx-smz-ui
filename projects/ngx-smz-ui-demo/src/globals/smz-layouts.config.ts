@@ -1,13 +1,13 @@
-import { SmzLayoutsConfig, SmzContentTheme, SmzLoader, DiamondLayout, MenuType, SidebarState, ApolloLayout, ColorSchemaDefinition } from 'ngx-smz-ui';
+import { SmzLayoutsConfig, SmzContentTheme, SmzLoader, HephaestusLayout, MenuType, SidebarState, AthenaLayout, ColorSchemaDefinition } from 'ngx-smz-ui';
 
-export const smzDiamondConfig: DiamondLayout = {
+export const smzHephaestusConfig: HephaestusLayout = {
     menu: MenuType.STATIC,
     sidebarState: SidebarState.ACTIVE,
     sidebarWidth: '16rem',
     sidebarSlimWidth: '6rem',
 };
 
-export const smzApolloConfig: ApolloLayout = {
+export const smzAthenaConfig: AthenaLayout = {
     menu: MenuType.HORIZONTAL,
     sidebarState: SidebarState.ACTIVE,
     mobileSidebarState: SidebarState.INACTIVE,

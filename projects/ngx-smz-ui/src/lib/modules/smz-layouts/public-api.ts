@@ -23,11 +23,11 @@ export { UiActions } from './core/state/ui/ui.actions';
 export { UiSelectors } from './core/state/ui/ui.selectors';
 
 // DIAMOND LAYOUT MODULE
-export * from './layouts/diamond/diamond-layout.module';
-export * from './layouts/diamond/diamond-layout.component';
-export * from './layouts/diamond/layout.config';
+export * from './layouts/hephaestus/layout.module';
+export * from './layouts/hephaestus/layout.component';
+export * from './layouts/hephaestus/layout.config';
 
 // APOLLO LAYOUT MODULE
-export * from './layouts/apollo/apollo-layout.module';
-export * from './layouts/apollo/apollo-layout.component';
-export * from './layouts/apollo/layout.config';
+export * from './layouts/athena/layout.module';
+export * from './layouts/athena/layout.component';
+export * from './layouts/athena/layout.config';

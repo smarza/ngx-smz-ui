@@ -1,0 +1,13 @@
+<div class="topbar clearfix" smz-ui-athena-profile-menu [profile]="profile" [notifications]="notifications">
+    <a [routerLink]="rbkConfig.routes.authenticatedRoot" class="topbar-logo">
+        <ng-container *ngIf="(appLogo$ | async) as appLogo">
+            <img routerlink="/" [src]="appLogo.horizontal" class="logo"
+            style="outline: none; cursor: pointer;" tabindex="0">
+        </ng-container>
+
+    </a>
+    <a id="menu-button" (click)="toggle()">
+        <i class="pi pi-align-left"></i>
+    </a>
+
+</div>

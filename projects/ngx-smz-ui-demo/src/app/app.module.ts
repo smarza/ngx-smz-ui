@@ -3,9 +3,9 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NgxSmzLayoutsModule, DiamondLayoutModule, ApolloLayoutModule } from 'ngx-smz-ui';
+import { NgxSmzLayoutsModule, HephaestusLayoutModule, AthenaLayoutModule } from 'ngx-smz-ui';
 
-import { smzApolloConfig, smzDiamondConfig, smzLayoutsConfig } from '../globals/smz-layouts.config';
+import { smzAthenaConfig, smzHephaestusConfig, smzLayoutsConfig } from '../globals/smz-layouts.config';
 import { CommonModule } from '@angular/common';
 import { NgxSmzDialogsModule } from 'ngx-smz-dialogs';
 import { ApplicationActions, buildState, NgxRbkUtilsConfig, NgxRbkUtilsModule } from 'ngx-rbk-utils';
@@ -33,8 +33,8 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxSmzLayoutsModule.forRoot(smzLayoutsConfig),
 
-    DiamondLayoutModule.forRoot(smzDiamondConfig),
-    // ApolloLayoutModule.forRoot(smzApolloConfig)
+    HephaestusLayoutModule.forRoot(smzHephaestusConfig),
+    // AthenaLayoutModule.forRoot(smzAthenaConfig)
 
   ],
   providers: [{ provide: NgxRbkUtilsConfig, useValue: rbkConfig }],

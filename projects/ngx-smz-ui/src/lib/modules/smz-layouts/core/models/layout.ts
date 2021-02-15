@@ -1,8 +1,8 @@
-import { ApolloLayout } from '../../layouts/apollo/layout.config';
-import { DiamondLayout } from '../../layouts/diamond/layout.config';
+import { AthenaLayout } from '../../layouts/athena/layout.config';
+import { HephaestusLayout } from '../../layouts/hephaestus/layout.config';
 import { SmzLoader } from './loaders';
 
-export type SmzLayout = DiamondLayout | ApolloLayout;
+export type SmzLayout = HephaestusLayout | AthenaLayout;
 
 export interface LayoutState {
     wrapperClass: string;
