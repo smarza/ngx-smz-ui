@@ -7,7 +7,7 @@ import { MenuItem } from 'primeng/api';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <li *ngFor="let item of items">
-      <a  menuItemAction [item]="item" [tabindex]="index">
+      <a menuItemAction [item]="item" [tabindex]="index">
       <i *ngIf="item.icon != null" class="pi" [ngClass]="item.icon"></i>
         <span>{{ item.label }}</span>
       </a>
