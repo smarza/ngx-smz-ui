@@ -13,7 +13,7 @@ export * from './core/models/notifications';
 export * from './core/models/action-link';
 
 export { SmzLoader, SmzLoaders } from './core/models/loaders';
-export * from './core/models/themes';
+export { SmzContentTheme, SmzContentThemes, ContentTheme } from './core/models/themes';
 
 // MODULES
 export * from './ngx-smz-layouts.module';
