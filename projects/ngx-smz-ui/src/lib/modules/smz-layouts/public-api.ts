@@ -9,6 +9,8 @@ export * from './core/models/positions';
 export * from './core/models/route-layout-data';
 export * from './core/models/sidebar-states';
 export * from './core/models/color-schemas';
+export * from './core/models/notifications';
+export * from './core/models/action-link';
 
 export { SmzLoader, SmzLoaders } from './core/models/loaders';
 export * from './core/models/themes';

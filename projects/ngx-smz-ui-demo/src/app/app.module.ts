@@ -33,8 +33,8 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxSmzLayoutsModule.forRoot(smzLayoutsConfig),
 
-    DiamondLayoutModule.forRoot(smzDiamondConfig),
-    // ApolloLayoutModule.forRoot(smzApolloConfig)
+    // DiamondLayoutModule.forRoot(smzDiamondConfig),
+    ApolloLayoutModule.forRoot(smzApolloConfig)
 
   ],
   providers: [{ provide: NgxRbkUtilsConfig, useValue: rbkConfig }],

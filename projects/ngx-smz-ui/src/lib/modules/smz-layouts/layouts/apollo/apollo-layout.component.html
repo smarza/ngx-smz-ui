@@ -7,7 +7,7 @@
       <div class="layout-wrapper" [ngClass]="state.wrapperClass">
 
           <!-- MENU SUPERIOR -->
-          <smz-ui-apollo-topbar>
+          <smz-ui-apollo-topbar [notifications]="notifications" [profile]="profile">
             <ng-template pTemplate="headerExtras">
               <ng-container *ngTemplateOutlet="headerExtrasTemplate"></ng-container>
             </ng-template>

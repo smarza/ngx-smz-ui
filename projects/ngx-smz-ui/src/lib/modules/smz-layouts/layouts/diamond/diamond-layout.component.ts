@@ -11,6 +11,7 @@ import { SmzLayoutsConfig } from '../../core/globals/smz-layouts.config';
 import { UiDiamondActions } from './state/ui-diamond/ui-diamond.actions';
 import { UiDiamondSelectors } from './state/ui-diamond/ui-diamond.selectors';
 import { DiamondLayout } from './layout.config';
+import { SmzNotification } from '../../core/models/notifications';
 
 @Component({
   selector: 'smz-ui-diamond-layout',
@@ -24,6 +25,8 @@ export class DiamondLayoutComponent implements OnInit, AfterContentInit
   @Select(UiDiamondSelectors.state) public state$: Observable<LayoutState>;
   @Select(UiSelectors.assistance) public assistance$: Observable<Assistance>;
   @Input() public menu: MenuItem[];
+  @Input() public profile: MenuItem[];
+  @Input() public notifications: SmzNotification[];
   public headerExtrasTemplate: TemplateRef<any>;
   constructor(public readonly config: SmzLayoutsConfig, public readonly layout: DiamondLayout, public readonly routerListener: RouterDataListenerService, private store: Store, public cdr: ChangeDetectorRef)
   {

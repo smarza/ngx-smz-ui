@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { BoilerplateService } from 'ngx-rbk-utils';
 import { MenuItem } from 'primeng/api';
+import { SmzNotification } from 'ngx-smz-ui';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +12,8 @@ export class AppComponent
 {
   title = 'ngx-smz-ui-demo';
   public menu: MenuItem[];
+  public profile: MenuItem[];
+  public notifications: SmzNotification[];
   constructor(private boilerplateService: BoilerplateService)
   {
     this.boilerplateService.init();
@@ -71,6 +74,39 @@ export class AppComponent
           },
         ]
       },
+    ];
+
+    this.profile = [
+      {
+        label: 'Profile',
+        icon: 'pi-user',
+        routerLink: ['/home'],
+      },
+      {
+        label: 'Settings',
+        icon: 'pi-cog',
+        routerLink: ['/details'],
+      },
+      {
+        label: 'Logout',
+        icon: 'pi-power-off',
+        routerLink: ['/login'],
+      },
+    ];
+
+    this.notifications = [
+      {
+        summary: 'New Order',
+        details: 'You have <strong>3</strong> new orders',
+        icon: 'pi-shopping-cart',
+        routerLink: ['/details'],
+      },
+      {
+        summary: 'Withdrawn Completed',
+        details: 'Funds are on their way',
+        icon: 'pi-check-square',
+        routerLink: ['/login'],
+      }
     ];
   }
 }

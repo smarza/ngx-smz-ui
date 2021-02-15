@@ -7,6 +7,15 @@
         <span class="viewname ng-star-inserted" style="text-transform: uppercase;">{{ topbarTitle$ | async }}</span>
         <img id="logo-mobile" alt="diamond-layout" class="mobile-logo" [src]="config.appLogo.icon.light">
     </div>
+
+    <div class="topbar-right">
+        <ul class="topbar-menu">
+            <!-- <li class="search-item"><a tabindex="0"><i class="pi pi-search"></i></a></li> -->
+            <li class="notifications-item" smz-ui-diamond-notifications [items]="notifications"></li>
+            <li class="profile-item" smz-ui-diamond-profile-menu [items]="profile"></li>
+            <!-- <li class="right-sidebar-item"><a href="#" tabindex="0"><i class="pi pi-align-right"></i></a></li> -->
+        </ul>
+    </div>
 </div>
 
 <!-- <ng-container *ngTemplateOutlet="headerExtrasTemplate"></ng-container> -->

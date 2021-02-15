@@ -13,6 +13,8 @@ import { DiamondAssistanceModule } from './components/assistance/assistance.modu
 import { DiamondLayout } from './layout.config';
 import { defaultDiamondConfig } from './default.config';
 import { mergeClone } from '../../../../../lib/common/utils/deep-merge';
+import { DiamondProfileMenuModule } from './components/profile-menu/profile-menu.module';
+import { DiamondNotificationsModule } from './components/notifications/notifications.module';
 
 export const ngxsModuleForFeatureUiDiamondLayoutState = NgxsModule.forFeature([UiDiamondState]);
 

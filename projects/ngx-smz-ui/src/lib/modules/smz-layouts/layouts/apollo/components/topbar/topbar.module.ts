@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { ApolloTopbarComponent } from './topbar.component';
 import { SidebarModule } from 'primeng/sidebar';
 import { RouterModule } from '@angular/router';
+import { ApolloProfileMenuModule } from '../profile-menu/profile-menu.module';
 
 @NgModule({
   declarations: [ApolloTopbarComponent],
@@ -10,6 +11,7 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     RouterModule,
     SidebarModule,
+    ApolloProfileMenuModule
   ],
   exports: [ApolloTopbarComponent]
 })

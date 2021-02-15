@@ -9,7 +9,7 @@
         <div class="layout-content-wrapper">
 
           <!-- MENU SUPERIOR -->
-          <smz-ui-diamond-topbar>
+          <smz-ui-diamond-topbar [notifications]="notifications" [profile]="profile">
             <ng-template pTemplate="headerExtras">
               <ng-container *ngTemplateOutlet="headerExtrasTemplate"></ng-container>
             </ng-template>

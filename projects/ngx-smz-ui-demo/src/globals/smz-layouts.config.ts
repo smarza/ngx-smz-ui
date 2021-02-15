@@ -36,6 +36,7 @@ export const smzLayoutsConfig: SmzLayoutsConfig = {
         },
     },
     appName: 'Demo App',
+    usernameProperty: 'username',
     footerText: '© Your Organization - 2021',
     toast: {
         position: 'bottom-right'

@@ -11,3 +11,8 @@ export * from './lib/modules/smz-layouts/public-api';
 
 export * from './lib/common/input-detection/input-detection.module';
 export * from './lib/common/input-detection/input-detection.directive';
+
+export { DataPipesModule } from './lib/common/data-pipes/data-pipes.module';
+export { ClonePipe } from './lib/common/data-pipes/pipes/clone.pipe';
+export { SafeHtmlPipe } from './lib/common/data-pipes/pipes/safe-html.pipe';
+export { SafeUrlPipe } from './lib/common/data-pipes/pipes/safe-url.pipe';

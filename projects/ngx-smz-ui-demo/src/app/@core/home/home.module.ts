@@ -4,6 +4,7 @@ import { HomeComponent } from './components/home/home.component';
 import { SmzRouteData } from 'ngx-smz-ui';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
+import { RbkAuthGuard } from 'ngx-rbk-utils';
 
 const data: SmzRouteData = {
   layout: {
@@ -18,7 +19,7 @@ const data: SmzRouteData = {
 const routes: Routes = [
   {
     path: '',
-    canActivate: [],
+    canActivate: [RbkAuthGuard],
     component: HomeComponent,
     data
   },

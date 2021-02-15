@@ -11,6 +11,7 @@ export class SmzLayoutsConfig {
     appLogo: LogoResource;
     appName?: string;
     footerText?: string;
+    usernameProperty: string;
     themes: {
         content: SmzContentTheme;
         schema: ColorSchemaDefinition;

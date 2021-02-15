@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store'; import { SmzLayoutsConfig } from '../../core/globals/smz-layouts.config';
 import { SmzControlType, SmzForm, SmzFormsResponse, SmzPasswordControl, SmzTextControl } from 'ngx-smz-dialogs';
-import { AuthenticationActions } from 'ngx-rbk-utils';
+import { AuthenticationActions, AuthenticationSelectors } from 'ngx-rbk-utils';
 import { UiSelectors } from '../../core/state/ui/ui.selectors';
 import { Observable } from 'rxjs';
 import { SmzAppLogo } from '../../core/models/logo';
@@ -21,8 +21,9 @@ export class LoginComponent implements OnInit {
   }
 
   public ngOnInit(): void {
+    const isAuthenticated = this.store.selectSnapshot(AuthenticationSelectors.isAuthenticated);
 
-
+    if (isAuthenticated) this.store.dispatch(new AuthenticationActions.Logout);
   }
 
   public createForm(): void {

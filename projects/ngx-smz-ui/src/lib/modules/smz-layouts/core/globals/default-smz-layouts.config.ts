@@ -14,6 +14,7 @@ export const defaultSmzLayoutsConfig: SmzLayoutsConfig = {
     },
     appName: '',
     footerText: '',
+    usernameProperty: 'username',
     toast: {
         position: 'bottom-right'
     },

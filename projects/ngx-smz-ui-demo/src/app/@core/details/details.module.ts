@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DetailsComponent } from './components/details/details.component';
 import { SmzRouteData } from 'ngx-smz-ui';
+import { RbkAuthGuard } from 'ngx-rbk-utils';
 
 const data: SmzRouteData = {
   layout: {
@@ -16,7 +17,7 @@ const data: SmzRouteData = {
 const routes: Routes = [
   {
     path: '',
-    canActivate: [],
+    canActivate: [RbkAuthGuard],
     component: DetailsComponent,
     data
   },

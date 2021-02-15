@@ -1,15 +1,15 @@
 import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 import { Navigate } from '@ngxs/router-plugin';
 import { Store } from '@ngxs/store';
-import { MenuItem } from 'primeng/api';
+import { ActionLink } from '../../modules/smz-layouts/core/models/action-link';
 
 @Directive({
     selector: '[menuItemAction]'
 })
 export class MenuItemActionsDirective {
-    @Input() public item: MenuItem;
+    @Input() public item: ActionLink;
 
-    constructor(private el: ElementRef, private store: Store) {
+    constructor(private store: Store) {
     }
 
     @HostListener('click', ['$event'])

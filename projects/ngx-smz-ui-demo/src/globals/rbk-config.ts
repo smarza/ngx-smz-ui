@@ -22,7 +22,7 @@ import { NgxRbkUtilsConfig } from 'ngx-rbk-utils';
 //
 
 export const rbkConfig: NgxRbkUtilsConfig = {
-    debugMode: true,
+    debugMode: false,
     applicationName: environment.production ? 'VF' : 'TREINAMENTO',
     useTitleService: true,
     routes: {
@@ -50,7 +50,7 @@ export const rbkConfig: NgxRbkUtilsConfig = {
             url: `${environment.backend}/api/auth/login`,
             errorHandlingType: 'toast',
             responsePropertyName: 'accessToken',
-            loadingBehavior: 'local',
+            loadingBehavior: 'global',
         },
         localStoragePrefix: 'vf',
         refreshToken: {
@@ -61,6 +61,8 @@ export const rbkConfig: NgxRbkUtilsConfig = {
         },
         accessTokenClaims: [
             { claimName: 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name', propertyName: 'username', type: 'string' },
+            { claimName: 'avatar', propertyName: 'avatar', type: 'string' },
+            { claimName: 'employeeName', propertyName: 'employeeName', type: 'string' },
         ]
     },
     state: {
