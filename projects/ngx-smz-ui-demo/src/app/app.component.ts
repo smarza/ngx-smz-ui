@@ -11,7 +11,7 @@ import { SmzNotification } from 'ngx-smz-ui';
 export class AppComponent
 {
   title = 'ngx-smz-ui-demo';
-  public menu: MenuItem[];
+  public menu: MenuItem[] = [];
   public profile: MenuItem[];
   public notifications: SmzNotification[];
   constructor(private boilerplateService: BoilerplateService)

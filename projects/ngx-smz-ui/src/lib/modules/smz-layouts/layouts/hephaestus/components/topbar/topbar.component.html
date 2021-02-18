@@ -11,8 +11,8 @@
     <div class="topbar-right">
         <ul class="topbar-menu">
             <!-- <li class="search-item"><a tabindex="0"><i class="pi pi-search"></i></a></li> -->
-            <li class="notifications-item" smz-ui-hephaestus-notifications [items]="notifications"></li>
-            <li class="profile-item" smz-ui-hephaestus-profile-menu [items]="profile"></li>
+            <li *ngIf="notifications?.length > 0" class="notifications-item" smz-ui-hephaestus-notifications [items]="notifications"></li>
+            <li *ngIf="profile?.length > 0" class="profile-item" smz-ui-hephaestus-profile-menu [items]="profile"></li>
             <!-- <li class="right-sidebar-item"><a href="#" tabindex="0"><i class="pi pi-align-right"></i></a></li> -->
         </ul>
     </div>

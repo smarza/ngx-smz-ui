@@ -1,17 +1,16 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, HostBinding, Input, OnInit } from "@angular/core";
+import { AfterViewInit, ChangeDetectionStrategy, Component, ContentChildren, ElementRef, HostBinding, Input, OnInit, QueryList } from "@angular/core";
 import { Select, Store } from '@ngxs/store';
-import { AuthenticationActions, AuthenticationSelectors } from 'ngx-rbk-utils';
-import { MenuItem } from 'primeng/api';
+import { AuthenticationSelectors } from 'ngx-rbk-utils';
+import { MenuItem, PrimeTemplate } from 'primeng/api';
 import { Observable } from 'rxjs';
 import { SmzLayoutsConfig } from '../../../../core/globals/smz-layouts.config';
-import { SmzNotification } from '../../../../core/models/notifications';
 
 @Component({
   selector: "[smz-ui-athena-profile-menu]",
   host: { "(document:click)": "collapse($event)" },
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-      <ng-content></ng-content>
+      <!-- <ng-content></ng-content> -->
       <a class="profile clickable" (click)="toggle()">
         <ng-container *ngIf="userData$ | async as userdata">
           <span class="username">{{ userdata[config.usernameProperty] }}</span>
@@ -19,12 +18,12 @@ import { SmzNotification } from '../../../../core/models/notifications';
           <i class="profile-submenu-icon pi pi-angle-down"></i>
         </ng-container>
       </a>
-      <ul *ngIf="isExpanded" class="topbar-menu fadeInDown topbar-menu-visible" smz-ui-athena-profile-menu-items [items]="items"></ul>
+      <ul *ngIf="isExpanded" class="topbar-menu fadeInDown topbar-menu-visible" smz-ui-athena-profile-menu-items [items]="profile"></ul>
   `,
 })
 export class AthenaProfileMenuComponent implements OnInit, AfterViewInit {
+  @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
   @Input() public profile: MenuItem[] = [];
-  @Input() public notifications: SmzNotification[] = [];
   @Select(AuthenticationSelectors.userdata) public userData$: Observable<{ name: string }>;
   public items: MenuItem[] = [];
   public isExpanded = false;
@@ -33,17 +32,6 @@ export class AthenaProfileMenuComponent implements OnInit, AfterViewInit {
   constructor(public readonly config: SmzLayoutsConfig, private _eref: ElementRef, private store: Store) {}
 
   public ngOnInit(): void {
-
-    if (this.profile != null && this.profile.length > 0) {
-      this.items.push({ label: 'Perfil', items: this.profile, icon: 'pi-user'});
-    }
-
-    if (this.profile != null && this.profile.length > 0) {
-      this.items.push({ label: 'Notificações', items: this.notifications.map(x => ({ ...x, label: `${x.summary}: ${x.details}`})), icon: 'pi-user', badge: this.notifications.length.toString() });
-    }
-
-    this.items.push({ label: 'Logout', icon: 'pi-sign-out', command: () => { this.store.dispatch(new AuthenticationActions.Logout) }});
-
   }
 
   @HostBinding("class") public get themeClass() {

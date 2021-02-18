@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { AthenaTopbarComponent } from './topbar.component';
 import { SidebarModule } from 'primeng/sidebar';
 import { RouterModule } from '@angular/router';
-import { AthenaProfileMenuModule } from '../profile-menu/profile-menu.module';
+import { AthenaTopbarActionsModule } from '../topbar-actions/topbar-actions.module';
 
 @NgModule({
   declarations: [AthenaTopbarComponent],
@@ -11,7 +11,7 @@ import { AthenaProfileMenuModule } from '../profile-menu/profile-menu.module';
     CommonModule,
     RouterModule,
     SidebarModule,
-    AthenaProfileMenuModule
+    AthenaTopbarActionsModule
   ],
   exports: [AthenaTopbarComponent]
 })
