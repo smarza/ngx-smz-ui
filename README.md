@@ -69,9 +69,9 @@
 * In your `AppComponent` add the layout component with the `<router-outlet></router-outlet>` tags to the html template.
 
     ```html
-    <smz-ui-diamond-layout [menu]="menu">
+    <smz-ui-hephaestus-layout [menu]="menu" [profile]="profile" [notifications]="notifications">
       <router-outlet></router-outlet>
-    </smz-ui-diamond-layout>
+    </smz-ui-hephaestus-layout>
     ```
 
 * In the `.forRoot()` method of the library you need to pass a configuration object. Please see the configuration section for the details.
