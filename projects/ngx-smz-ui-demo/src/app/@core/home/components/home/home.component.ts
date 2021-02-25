@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Select, Store } from '@ngxs/store';
+import { Select } from '@ngxs/store';
 import { UiSelectors, ThemeToneType } from 'ngx-smz-ui';
 import { Observable } from 'rxjs';
 
@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 export class HomeComponent
 {
   @Select(UiSelectors.appThemeTone) public appThemeTone$: Observable<ThemeToneType>;
-  constructor(private store: Store)
+  constructor()
   {
 
   }

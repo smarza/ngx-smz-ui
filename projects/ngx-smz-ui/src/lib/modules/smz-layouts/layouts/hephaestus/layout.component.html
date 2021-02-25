@@ -16,7 +16,7 @@
           </smz-ui-hephaestus-topbar>
 
           <!-- CONTEÚDO -->
-          <div class="layout-content">
+          <div class="layout-content" [ngStyle]="{ padding: routerListener.data.layout.contentPadding }">
             <div *ngIf="state.isOverlayVisible" class="p-component-overlay clear-overlay" (click)="hideMenu()"></div>
             <ng-container *ngTemplateOutlet="content"></ng-container>
           </div>

@@ -4,6 +4,7 @@ import { ThemeToneType } from './layout';
 export enum ColorSchemaDefinition {
   CONVERSOR = 'conversor',
   E_LIBRA = 'e-libra',
+  DIABLO = 'diablo',
 }
 
 export interface ColorSchema {
@@ -36,6 +37,17 @@ export const SmzColorSchemas: ColorSchema[] = [
     schemas: [
       { id: '--primary-color', name: '#1976D2' }, // topo
       { id: '--primary-color-text', name: '#ffffff' }, // texto on hover do menu
+    ]
+  },
+  {
+    id: ColorSchemaDefinition.DIABLO,
+    name: 'diablo',
+    tone: 'dark',
+    color: '#000000',
+    constrast: '#ffb300',
+    schemas: [
+      { id: '--primary-color', name: '#000000' }, // topo
+      { id: '--primary-color-text', name: '#ffb300' }, // texto on hover do menu
     ]
   },
 ];

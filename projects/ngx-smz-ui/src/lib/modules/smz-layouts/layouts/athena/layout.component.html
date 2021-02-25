@@ -18,7 +18,7 @@
           <!-- CONTEÚDO -->
           <div class="layout-content">
             <div *ngIf="state.isOverlayVisible" class="p-component-overlay clear-overlay" (click)="hideMenu()"></div>
-            <div class="layout-content-container">
+            <div class="layout-content-container" [ngStyle]="{ padding: routerListener.data.layout.contentPadding }">
               <ng-container *ngTemplateOutlet="content"></ng-container>
             </div>
           </div>

@@ -411,7 +411,7 @@ a {
 
 .layout-topbar {
   background: var(--surface-e);
-  height: 4rem;
+  height: var(--layout-topbar-height);
   padding: 0 2rem;
   border-bottom: 1px solid var(--surface-f);
   display: -ms-flexbox;
@@ -542,13 +542,13 @@ a {
   font-size: 0.714rem;
   border-radius: 50%;
   font-weight: 600;
-  background: #1976d2;
-  color: #ffffff;
+  background: var(--primary-color);
+  color: var(--primary-color-text);
 }
 .layout-topbar .topbar-menu > li > ul {
   display: none;
   position: absolute;
-  background: #ffffff;
+  background: var(--surface-a);
   list-style: none;
   margin: 0;
   padding: 1rem;
@@ -837,7 +837,6 @@ a {
 }
 
 .layout-content {
-  padding: 2rem;
   flex: 1 1 auto;
   -ms-flex: 1 1 auto;
   position: relative;
@@ -845,7 +844,7 @@ a {
 
 .layout-footer {
   background: var(--surface-e);
-  height: 4rem;
+  height: var(--layout-footer-height);
   border-top: 1px solid var(--surface-f);
   border-bottom: 1px solid var(--surface-f);
   color: var(--text-color);

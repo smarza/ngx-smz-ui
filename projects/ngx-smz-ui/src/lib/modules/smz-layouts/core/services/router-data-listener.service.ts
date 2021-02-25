@@ -5,7 +5,7 @@ import { ApplicationActions } from 'ngx-rbk-utils';
 import { SmzDialogsService } from 'ngx-smz-dialogs';
 import { filter, map, mergeMap, tap } from 'rxjs/operators';
 import { SmzLayoutsConfig } from '../globals/smz-layouts.config';
-import { SmzRouteData } from '../models/route-layout-data';
+import { RouteLayoutData, SmzRouteData } from '../models/route-layout-data';
 import { UiActions } from '../state/ui/ui.actions';
 
 @Injectable({
@@ -45,7 +45,8 @@ export class RouterDataListenerService
       )
       .subscribe((data: SmzRouteData) =>
       {
-        this.data = data;
+        this.data = this.normalizeLayoutData(data);
+        console.log(this.data);
 
         if (this.config.applicationActions.registerLogs)
         {
@@ -65,6 +66,17 @@ export class RouterDataListenerService
 
       });
 
+  }
+
+  private normalizeLayoutData(data: SmzRouteData): SmzRouteData
+  {
+    return {
+      ...data,
+      layout: {
+        mode: data.layout?.mode ? data.layout.mode : 'layout',
+        contentPadding: data.layout?.contentPadding ? data.layout.contentPadding : '2em',
+      }
+    }
   }
 
 }

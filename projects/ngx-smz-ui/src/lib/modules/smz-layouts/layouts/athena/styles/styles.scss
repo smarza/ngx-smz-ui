@@ -187,7 +187,7 @@ body a {
 .layout-wrapper .topbar {
   background-color: var(--primary-color);
   padding: 10px 16px;
-  height: 50px;
+  height: var(--layout-topbar-height);
   box-sizing: border-box;
   position: fixed;
   top: 0px;
@@ -1085,7 +1085,7 @@ body a {
     z-index: 100;
   }
   .layout-wrapper .layout-content {
-    padding: 50px 0px;
+    // padding: 50px 0px;
   }
 }
 
