@@ -16,12 +16,11 @@ export class SmzTableContextPipe implements PipeTransform {
 
     const fieldsToOverrideContent: string[] = [];
 
-    for (const column of inputConfig.columns) {
+    for (const column of inputConfig.columns.filter(c => c.isVisible)) {
 
       const contextColumn: SmzTableContextColumn = {
         ...column,
         width: column.width ?? 'auto'
-        // isSimpleNamed: isColumnSimpleNamed(column)
       };
 
       if (column.isGlobalFilterable) {

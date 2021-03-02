@@ -64,7 +64,8 @@ export class DemoTablesComponent implements OnInit {
           isSimpleNamed: false,
           overrideContent: false,
           showFilter: true,
-          width: '8em'
+          width: '8em',
+          isVisible: true,
         },
         {
           contentType: SmzControlType.TEXT,
@@ -76,7 +77,8 @@ export class DemoTablesComponent implements OnInit {
           isSimpleNamed: true,
           overrideContent: false,
           showFilter: true,
-          width: '8em'
+          width: '8em',
+          isVisible: true,
         },
         {
           contentType: SmzControlType.TEXT,
@@ -88,6 +90,7 @@ export class DemoTablesComponent implements OnInit {
           isSimpleNamed: true,
           overrideContent: false,
           showFilter: true,
+          isVisible: true,
         },
         {
           contentType: SmzControlType.TEXT,
@@ -99,6 +102,7 @@ export class DemoTablesComponent implements OnInit {
           isSimpleNamed: false,
           overrideContent: false,
           showFilter: true,
+          isVisible: true,
         },
         {
           contentType: SmzControlType.CURRENCY,
@@ -110,7 +114,8 @@ export class DemoTablesComponent implements OnInit {
           isSimpleNamed: false,
           overrideContent: false,
           showFilter: true,
-          width: '8em'
+          width: '8em',
+          isVisible: true,
         },
         {
           contentType: SmzControlType.CALENDAR,
@@ -122,7 +127,8 @@ export class DemoTablesComponent implements OnInit {
           isSimpleNamed: false,
           overrideContent: false,
           showFilter: true,
-          width: '8em'
+          width: '8em',
+          isVisible: true,
         },
       ]
     };

@@ -2,6 +2,7 @@ import { SmzControlType } from 'ngx-smz-dialogs';
 
 export interface SmzTableColumn {
   contentType: SmzControlType;
+  isVisible?: boolean;
   field: string;
   filterControlType?: SmzControlType;
   header: string;

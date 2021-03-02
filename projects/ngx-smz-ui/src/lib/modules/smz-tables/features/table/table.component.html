@@ -12,6 +12,12 @@
                 <input #inputGlobal pInputText type="text" (input)="dt.filterGlobal(inputGlobal.value, 'contains')" placeholder="Pesquisa global" />
             </span>
         </div>
+
+        <!-- <button type="button" pButton pRipple icon="pi pi-file-pdf" label="Exportar"
+            (click)="tableExporter.exportPdf(dt, context, dt.filteredValue != null ? dt.filteredValue : items, context.config.title != null ? context.config.title : 'Exportação')"
+            class="p-button-warning p-mr-2" pTooltip="Exportar para PDF" tooltipPosition="bottom">
+        </button> -->
+
     </ng-template>
 
     <ng-template pTemplate="header">

@@ -58,7 +58,8 @@
       "primeng/toast": "toast",
       "primeng/toolbar": "toolbar",
       "primeng/tooltip": "tooltip",
-      "lodash-es/uniqBy": "uniqBy"
+      "lodash-es/uniqBy": "uniqBy",
+      "primeng/ripple": "ripple"
   }
   }
 }
