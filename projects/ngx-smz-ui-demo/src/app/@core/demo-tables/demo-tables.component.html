@@ -1,5 +1,21 @@
-<smz-ui-table [items]="items" [config]="config">
+<smz-ui-table [items]="items$ | async" [config]="config" [loading]="loading" (selectionChange)="test($event)">
 
+  <!-- CONTEÚDOS COM OVERRIDE -->
+  <ng-template pTemplate="content" let-item let-col="col">
+
+    <ng-container [ngSwitch]="col.field">
+      <ng-container *ngSwitchCase="'description'">
+        >> {{ item.description }}
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'price'">
+        -- {{ item.price }}
+      </ng-container>
+    </ng-container>
+
+  </ng-template>
+
+  <!-- AÇÕES PERSONALIZADAS -->
   <ng-template pTemplate="actions" let-item>
     <button pButton type="button" class="p-button-secondary" icon="pi pi-cog" (click)="test(item)"></button>
   </ng-template>

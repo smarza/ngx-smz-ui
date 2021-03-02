@@ -18,6 +18,7 @@ export class PrimeConfigService {
 
     this.filterUtils.register('multiselectById', (value: string, filter: { id: string }[]): boolean => filter.findIndex(x => x.id === value) > -1);
     this.filterUtils.register('multiselectByValue', (value: string, filter: { value: string }[]): boolean => filter.findIndex(x => x.value === value) > -1);
+    this.filterUtils.register('dropdown', (value: string, filter: { value: string }[]): boolean => filter == null || Reflect.get(filter, 'id') === value );
   }
 
   private setFilterMatchModeOptions(): void {

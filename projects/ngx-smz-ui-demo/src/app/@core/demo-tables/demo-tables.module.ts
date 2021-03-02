@@ -1,4 +1,5 @@
-import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { RbkAuthGuard } from 'ngx-rbk-utils';
 import { NgxSmzTablesModule, SmzRouteData } from 'ngx-smz-ui';
@@ -26,6 +27,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
+    CommonModule,
     RouterModule.forChild(routes),
     ButtonModule,
     NgxSmzTablesModule
@@ -35,5 +37,6 @@ const routes: Routes = [
     DemoTablesComponent
   ],
   providers: [],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class DemoTablesModule { }

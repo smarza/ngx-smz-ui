@@ -8,36 +8,55 @@ import { SmzTableConfig, SmzTableContext } from '../models/table-config';
 })
 
 export class SmzTableContextPipe implements PipeTransform {
-  transform(config: SmzTableConfig): SmzTableContext {
-    if (config == null) return null;
+  transform(inputConfig: SmzTableConfig): SmzTableContext {
+    if (inputConfig == null) return null;
 
     const globalFilter: string[] = [];
     const columns: SmzTableContextColumn[] = [];
 
-    for (const column of config.columns) {
+    const fieldsToOverrideContent: string[] = [];
+
+    for (const column of inputConfig.columns) {
 
       const contextColumn: SmzTableContextColumn = {
         ...column,
-        isSimpleNamed: isColumnSimpleNamed(column)
+        width: column.width ?? 'auto'
+        // isSimpleNamed: isColumnSimpleNamed(column)
       };
 
       if (column.isGlobalFilterable) {
         globalFilter.push(contextColumn.isSimpleNamed ? `${column.field}.name` : column.field);
       }
 
+      if (column.overrideContent) {
+        fieldsToOverrideContent.push(column.field);
+      }
+
       columns.push(contextColumn);
 
     }
 
+    const config: SmzTableConfig = {
+      ...inputConfig,
+      useCustomActions: inputConfig.useCustomActions ?? false,
+      rows: inputConfig.rows ?? 10,
+      showCurrentPageReport: inputConfig.showCurrentPageReport ?? true,
+      rowsPerPageOptions: inputConfig.rowsPerPageOptions ?? [5, 10, 50, 100, 500],
+      currentPageReportTemplate: inputConfig.currentPageReportTemplate ?? 'Mostrando {first} a {last} de {totalRecords} itens',
+    };
+
     return {
       globalFilter,
-      columns
+      columns,
+      config,
+      useCustomContent: fieldsToOverrideContent.length > 0,
+      fieldsToOverrideContent
     };
   }
 }
 
 function isColumnSimpleNamed(column: SmzTableColumn): boolean {
-  switch (column.controlType) {
+  switch (column.filterControlType) {
     case
       SmzControlType.DROPDOWN:
       return true;

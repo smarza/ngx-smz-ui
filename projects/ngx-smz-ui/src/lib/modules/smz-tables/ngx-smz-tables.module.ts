@@ -10,6 +10,8 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { CalendarModule } from 'primeng/calendar';
 import { SmzTableContextPipe } from './pipes/table-context.pipe';
 import { SharedModule as PrimeSharedModule } from 'primeng/api';
+import { DropdownModule } from 'primeng/dropdown';
+import { SmzMenuModule } from './components/menu';
 
 @NgModule({
     declarations: [
@@ -24,7 +26,9 @@ import { SharedModule as PrimeSharedModule } from 'primeng/api';
         InputTextModule,
         DataPipesModule,
         MultiSelectModule,
+        DropdownModule,
         CalendarModule,
+        SmzMenuModule,
         FormsModule
     ],
     exports: [
