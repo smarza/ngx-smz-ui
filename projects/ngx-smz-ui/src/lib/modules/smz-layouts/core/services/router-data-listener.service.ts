@@ -46,7 +46,7 @@ export class RouterDataListenerService
       .subscribe((data: SmzRouteData) =>
       {
         this.data = this.normalizeLayoutData(data);
-        console.log(this.data);
+        // console.log(this.data);
 
         if (this.config.applicationActions.registerLogs)
         {

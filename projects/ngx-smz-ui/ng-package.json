@@ -57,7 +57,8 @@
       "primeng/table": "table",
       "primeng/toast": "toast",
       "primeng/toolbar": "toolbar",
-      "primeng/tooltip": "tooltip"
+      "primeng/tooltip": "tooltip",
+      "lodash-es/uniqBy": "uniqBy"
   }
   }
 }

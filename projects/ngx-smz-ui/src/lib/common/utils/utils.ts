@@ -411,3 +411,19 @@ export function removeElementFromArray(arr: any[], value: string, prop?: string)
         arr.splice(index, 1);
     }
 }
+
+export function sortArray<T>(data: T[], property: string, order = 1): T[]
+{
+  return data.sort((obj1, obj2) =>
+  {
+    if (Reflect.get(obj1 as Object, property) > Reflect.get(obj2 as Object, property))
+    {
+      return order;
+    }
+    if (Reflect.get(obj1 as Object, property) < Reflect.get(obj2 as Object, property))
+    {
+      return -order;
+    }
+    return 0;
+  });
+}

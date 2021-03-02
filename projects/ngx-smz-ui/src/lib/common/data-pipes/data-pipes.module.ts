@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
+import { UniqueFilterPipe } from './pipes/unique-filter.pipe';
 @NgModule({
     imports: [
         CommonModule
@@ -11,11 +12,13 @@ import { SafeUrlPipe } from './pipes/safe-url.pipe';
         ClonePipe,
         SafeHtmlPipe,
         SafeUrlPipe,
+        UniqueFilterPipe
     ],
     exports: [
         ClonePipe,
         SafeHtmlPipe,
-        SafeUrlPipe
+        SafeUrlPipe,
+        UniqueFilterPipe
     ],
 })
 export class DataPipesModule { }

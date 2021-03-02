@@ -1,0 +1,95 @@
+<ng-container *ngIf="config | tableContext as context">
+
+<p-table #dt [value]="items" [(selection)]="selectedItems" dataKey="id" styleClass="p-datatable-smz-ui-table" [rowHover]="true"
+    [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading"
+    [paginator]="true" currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} itens"
+    [filterDelay]="0" [globalFilterFields]="context.globalFilter">
+    <ng-template pTemplate="caption" *ngIf="config.showCaption">
+        <div class="p-grid p-nogutter p-justify-between p-align-center">
+            {{ config.title }}
+            <span *ngIf="config.showGlobalFilter" class="p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input #inputGlobal pInputText type="text" (input)="dt.filterGlobal(inputGlobal.value, 'contains')" placeholder="Pesquisa global" />
+            </span>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+
+            <th style="width: 3rem" *ngIf="config.isSelectable">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+
+            <ng-container *ngFor="let col of context.columns">
+
+                <ng-container *ngIf="col.isOrderable">
+                    <th [pSortableColumn]="col.field">
+                        <ng-container *ngTemplateOutlet="headerContent"></ng-container>
+                    </th>
+                </ng-container>
+
+                <ng-container *ngIf="!col.isOrderable">
+                    <th>
+                        <ng-container *ngTemplateOutlet="headerContent"></ng-container>
+                    </th>
+                </ng-container>
+
+                <ng-template #headerContent>
+                    <div class="p-d-flex p-jc-between p-ai-center">
+                        {{ col.header }}
+                        <p-sortIcon [field]="col.field" *ngIf="col.isOrderable"></p-sortIcon>
+
+                        <ng-container [ngSwitch]="col.controlType">
+
+                            <ng-container *ngSwitchDefault>
+                                <p-columnFilter type="text" [field]="col.field" display="menu" class="p-ml-auto"></p-columnFilter>
+                            </ng-container>
+
+                            <ng-container *ngSwitchCase="dropDownControlType">
+                                <p-columnFilter [field]="col.field" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="p-ml-auto">
+                                    <ng-template pTemplate="header">
+                                        <div class="p-px-3 p-pt-3 p-pb-0">
+                                            <span class="p-text-bold">{{ col.header }}</span>
+                                        </div>
+                                    </ng-template>
+                                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                        <p-multiSelect [ngModel]="value" [options]="items | uniqueFilter : col.field + '.id' : col.field" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" dataKey="id"></p-multiSelect>
+                                    </ng-template>
+                                </p-columnFilter>
+                            </ng-container>
+
+                        </ng-container>
+
+                    </div>
+                </ng-template>
+
+            </ng-container>
+
+            <th style="width: 8rem" *ngIf="config.showActions"></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item>
+        <tr class="p-selectable-row">
+            <td *ngIf="config.isSelectable">
+                <p-tableCheckbox [value]="item"></p-tableCheckbox>
+            </td>
+            <ng-container *ngFor="let col of context.columns">
+                <td>
+                    <span class="p-column-title">{{ col.header }}</span>
+                    {{ col.isSimpleNamed ? item[col.field].name : item[col.field] }}
+                </td>
+            </ng-container>
+            <td style="text-align: center" *ngIf="config.showActions">
+                <ng-container *ngTemplateOutlet="actionsTemplate; context: { $implicit: item }"></ng-container>
+                <!-- <button pButton type="button" class="p-button-secondary" icon="pi pi-cog"></button> -->
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td [attr.colspan]="context.columns.length + (config.showActions ? 1 : 0) + (config.isSelectable ? 1 : 0)">Nenhum dado encontrado.</td>
+        </tr>
+    </ng-template>
+</p-table>
+
+</ng-container>

@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, ContentChildren, Input, OnInit, QueryList, TemplateRef } from '@angular/core';
+import { AfterContentInit, Component, ContentChildren, forwardRef, Input, OnInit, QueryList, TemplateRef } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { SmzLayoutsConfig } from '../../core/globals/smz-layouts.config';
 import { RouterDataListenerService } from '../../core/services/router-data-listener.service';
@@ -6,15 +6,15 @@ import { PrimeTemplate, MenuItem } from 'primeng/api';
 import { Observable } from 'rxjs';
 import { UiSelectors } from '../../core/state/ui/ui.selectors';
 import { SmzToastData } from '../../core/models/toasts';
+import { PrimeConfigService } from '../../../../common/services/prime-config.service';
 
 @Component({
   selector: 'smz-ui-outlet',
   templateUrl: './outlet.component.html',
   styleUrls: ['./outlet.component.scss']
 })
-export class OutletComponent implements OnInit, AfterContentInit
-{
-  @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
+export class OutletComponent implements OnInit, AfterContentInit {
+  @ContentChildren(forwardRef(() => PrimeTemplate)) templates: QueryList<PrimeTemplate>;
   @Select(UiSelectors.toast) public toast$: Observable<SmzToastData>;
   @Input() public menu: MenuItem[];
   public layoutTemplate: TemplateRef<any>;
@@ -23,23 +23,17 @@ export class OutletComponent implements OnInit, AfterContentInit
   constructor(
     public readonly config: SmzLayoutsConfig,
     public readonly routerListener: RouterDataListenerService,
-    private store: Store)
-  {
-
+    private store: Store,
+    private primeConfig: PrimeConfigService) {
+    this.primeConfig.init();
   }
 
-  ngOnInit(): void
-  {
-
+  ngOnInit(): void {
   }
 
-
-  public ngAfterContentInit()
-  {
-    this.templates.forEach((item) =>
-    {
-      switch (item.getType())
-      {
+  public ngAfterContentInit() {
+    this.templates.forEach((item) => {
+      switch (item.getType()) {
         case 'layout':
           this.layoutTemplate = item.template;
           break;
@@ -49,8 +43,6 @@ export class OutletComponent implements OnInit, AfterContentInit
           break;
       }
     });
-
   }
-
 
 }

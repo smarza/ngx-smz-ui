@@ -32,6 +32,7 @@ export class AppComponent {
           { label: 'Landing', icon: 'pi-home', routerLink: ['landing'] },
           { label: 'Home', icon: 'pi-home', routerLink: ['home'] },
           { label: 'Details', icon: 'pi-home', routerLink: ['details'] },
+          { label: 'Tables', icon: 'pi-table', routerLink: ['tables'] },
         ]
       },
       {

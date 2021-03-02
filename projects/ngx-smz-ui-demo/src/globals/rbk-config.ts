@@ -32,7 +32,7 @@ export const rbkConfig: NgxRbkUtilsConfig = {
         error: '/error'
     },
     uiDefinitions: {
-        url: `${environment.backend}/api/ui-definitions`,
+        url: `${environment.domainApi}/api/ui-definitions`,
         httpBehavior: {
             authentication: false,
             compression: true,
@@ -42,27 +42,28 @@ export const rbkConfig: NgxRbkUtilsConfig = {
         }
     },
     diagnostics: {
-        // url: `${environment.backend}/api/diagnostics`
+        // url: `${environment.domainApi}/api/diagnostics`
         url: null
     },
     authentication: {
         login: {
-            url: `${environment.backend}/api/auth/login`,
+            url: `${environment.authenticationApi}/api/auth/login`,
             errorHandlingType: 'toast',
-            responsePropertyName: 'accessToken',
+            responsePropertyName: 'token',
             loadingBehavior: 'global',
         },
         localStoragePrefix: 'vf',
         refreshToken: {
-            url: `${environment.backend}/api/auth/refresh-token`,
+            url: `${environment.authenticationApi}/api/auth/refresh-token`,
             errorHandlingType: 'toast',
             responsePropertyName: 'refreshToken',
             loadingBehavior: 'global',
+            extraProperties: { username: '', applicationId: environment.applicationId }
         },
         accessTokenClaims: [
             { claimName: 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name', propertyName: 'username', type: 'string' },
-            { claimName: 'avatar', propertyName: 'avatar', type: 'string' },
-            { claimName: 'employeeName', propertyName: 'employeeName', type: 'string' },
+            { claimName: 'rol', propertyName: 'roles', type: 'array' },
+            { claimName: 'Picture', propertyName: 'picture', type: 'string' },
         ]
     },
     state: {

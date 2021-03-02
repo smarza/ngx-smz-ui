@@ -4,7 +4,7 @@
   "main": "main.js",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --port 4201",
+    "start": "ng serve --port 4102",
     "start:electron": "ng build ngx-smz-ui-demo --base-href ./ && electron .",
     "build": "ng build",
     "test": "ng test",
@@ -42,7 +42,7 @@
     "ngx-smz-ui": "file:dist/ngx-smz-ui",
     "primeflex": "^2.0.0",
     "primeicons": "^4.1.0",
-    "primeng": "^11.2.0",
+    "primeng": "^11.2.3",
     "rxjs": "~6.5.5",
     "stacktrace-js": "^2.0.2",
     "tslib": "^2.0.0",

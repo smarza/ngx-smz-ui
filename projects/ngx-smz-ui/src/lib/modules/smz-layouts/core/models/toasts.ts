@@ -9,7 +9,7 @@ export enum SmzToast {
   WARNING = 'warning',
 }
 
-export const SmzToasts: SimpleNamedEntity[] = [
+export const SmzToasts: SimpleEntity<SmzToast>[] = [
   { id: SmzToast.CUSTOM, name: 'Custom' },
   { id: SmzToast.ERROR, name: 'Error' },
   { id: SmzToast.INFO, name: 'Info' },

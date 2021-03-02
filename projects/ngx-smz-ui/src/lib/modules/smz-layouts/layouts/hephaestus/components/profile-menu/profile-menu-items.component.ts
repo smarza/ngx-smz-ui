@@ -6,7 +6,7 @@ import { MenuItem } from 'primeng/api';
   host: { "(document:click)": "collapse($event)" },
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <li *ngFor="let item of items">
+    <li *ngFor="let item of items; let index of index">
       <a menuItemAction [item]="item" [tabindex]="index">
       <i *ngIf="item.icon != null" class="pi" [ngClass]="item.icon"></i>
         <span>{{ item.label }}</span>

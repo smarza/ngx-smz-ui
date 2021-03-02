@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
   }
 
   public login(form: SmzFormsResponse<SmzLoginData>): void {
-    this.store.dispatch(new AuthenticationActions.RemoteLogin(form.data.username, form.data.password));
+    this.store.dispatch(new AuthenticationActions.RemoteLogin(form.data.username, form.data.password, { applicationId: 'LIBRA', domain: 'BUZIOS' }));
   }
 
 }

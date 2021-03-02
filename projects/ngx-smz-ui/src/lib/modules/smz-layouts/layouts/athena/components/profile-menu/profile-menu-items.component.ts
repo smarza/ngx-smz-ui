@@ -5,7 +5,7 @@ import { MenuItem } from 'primeng/api';
   selector: "[smz-ui-athena-profile-menu-items]",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <li *ngFor="let item of items" [ngClass]="{ 'menuitem-active' : item.expanded }">
+    <li *ngFor="let item of items; let index = index" [ngClass]="{ 'menuitem-active' : item.expanded }">
 
       <ng-container [ngSwitch]="item | hasChild">
 

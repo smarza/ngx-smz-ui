@@ -1,17 +1,16 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { DetailsComponent } from './components/details/details.component';
-import { NgxSmzTablesModule, SmzRouteData } from 'ngx-smz-ui';
+import { RouterModule, Routes } from '@angular/router';
 import { RbkAuthGuard } from 'ngx-rbk-utils';
-import { TableModule } from 'primeng/table';
+import { NgxSmzTablesModule, SmzRouteData } from 'ngx-smz-ui';
 import { ButtonModule } from 'primeng/button';
+import { DemoTablesComponent } from './demo-tables.components';
 
 const data: SmzRouteData = {
   layout: {
     mode: 'layout'
   },
-  title: 'Details',
-  appArea: 'details',
+  title: 'Demo Tables',
+  appArea: 'demo-table',
   clearReusableRoutes: true,
   requiredStates: []
 };
@@ -20,22 +19,21 @@ const routes: Routes = [
   {
     path: '',
     canActivate: [RbkAuthGuard],
-    component: DetailsComponent,
+    component: DemoTablesComponent,
     data
   },
 ];
 
 @NgModule({
-  declarations: [
-    DetailsComponent
-  ],
   imports: [
     RouterModule.forChild(routes),
-    TableModule,
     ButtonModule,
     NgxSmzTablesModule
   ],
+  exports: [],
+  declarations: [
+    DemoTablesComponent
+  ],
   providers: [],
-  bootstrap: [DetailsComponent]
 })
-export class DetailsModule { }
+export class DemoTablesModule { }
