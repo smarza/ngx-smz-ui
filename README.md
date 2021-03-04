@@ -224,6 +224,8 @@
     @import "~ngx-smz-ui/resources/scss/smz-tables.scss";
     ```
 
+# 2. Simple Use
+
 * In the HTML of your component, add the following tag.
 
     ```html
@@ -231,6 +233,92 @@
     ```
 
 * In the component, add the configuration for the table component.
+
+    ```typescript
+    export class ExampleComponent implements OnInit {
+      ...
+      public config: SmzTableConfig;
+
+      constructor() {
+        this.config = {
+          currentPageReportTemplate: 'Mostrando {first} a {last} de {totalRecords} itens',
+          isSelectable: true,
+          rowHover: true,
+          rows: 5,
+          rowsPerPageOptions: [5, 10, 50, 100, 500],
+          showActions: true,
+          showCaption: true,
+          showCurrentPageReport: true,
+          showGlobalFilter: true,
+          showPaginator: true,
+          showClearFilter: true,
+          title: 'Permissões de Trabalho',
+          useCustomActions: false,
+          customActionWidth: '5em',
+          menu: [
+            { label: 'Editar', icon: 'pi pi-fw pi-plus', command: (event) => this.test(event) },
+            { separator: true },
+            { label: 'Apagar', icon: 'pi pi-fw pi-download', command: (event) => this.test(event) },
+          ],
+          columns: [
+            {
+              field: 'number',
+              header: 'Número',
+            },
+            {
+              field: 'plant.name',
+              header: 'Planta',
+            },
+            {
+              field: 'campaign.name',
+              header: 'Campanha',
+            },
+            {
+              field: 'description',
+              header: 'Descrição',
+            },
+            {
+              contentType: SmzContentType.CALENDAR,
+              field: 'date',
+              header: 'Data',
+            },
+          ]
+        };
+      }
+    ```
+
+# 3. Advanced Use
+
+* To customize the cell content or the action cell, add the pTemplate="content" or pTemplate="actions" tag in the HTML of your component.
+
+    ```html
+      <smz-ui-table [items]="items$ | async" [config]="config" [loading]="loading" (selectionChange)="test($event)">
+
+        <!-- CONTEÚDOS COM OVERRIDE -->
+        <ng-template pTemplate="content" let-item let-col="col">
+
+          <ng-container [ngSwitch]="col.field">
+            <ng-container *ngSwitchCase="'description'">
+              >> {{ item.description }}
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'price'">
+              -- {{ item.price }}
+            </ng-container>
+          </ng-container>
+
+        </ng-template>
+
+        <!-- AÇÕES PERSONALIZADAS -->
+        <ng-template pTemplate="actions" let-item>
+          <button pButton type="button" class="p-button-secondary" icon="pi pi-cog" (click)="test(item)"></button>
+        </ng-template>
+
+      </smz-ui-table>
+    ```
+
+* In the component, add the configuration for the table component.
+The custom content is going to be called just to the columns with contentData.useTemplate set to true.
 
     ```typescript
     export class ExampleComponent implements OnInit {
@@ -315,6 +403,18 @@
               isGlobalFilterable: true,
               isOrderable: true,
               showFilter: true,
+              isVisible: true,
+            },
+            {
+              contentType: SmzContentType.CURRENCY,
+              contentData: { useTemplate: true },
+              field: 'price',
+              filterType: SmzFilterType.CURRENCY,
+              header: 'Preço',
+              isGlobalFilterable: true,
+              isOrderable: true,
+              showFilter: true,
+              width: '8em',
               isVisible: true,
             },
             {
