@@ -83,7 +83,7 @@
                                             </div>
                                         </ng-template>
                                         <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                            <p-dropdown [ngModel]="value" [options]="items | uniqueFilter : filterField + '.id' : filterField" placeholder="Todos" (onChange)="test($event); filter($event.value)" optionLabel="name" dataKey="id"></p-dropdown>
+                                            <p-dropdown [ngModel]="value" [options]="items | uniqueFilter : filterField + '.id' : filterField" placeholder="Todos" (onChange)="filter($event.value)" optionLabel="name" dataKey="id"></p-dropdown>
                                         </ng-template>
                                     </p-columnFilter>
                                 </ng-container>
@@ -98,7 +98,7 @@
                                             </div>
                                         </ng-template>
                                         <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                            <p-multiSelect [ngModel]="value" [options]="items | uniqueFilter : filterField + '.id' : filterField" placeholder="Todos" (onChange)="test($event); filter($event.value)" optionLabel="name" dataKey="id"></p-multiSelect>
+                                            <p-multiSelect [ngModel]="value" [options]="items | uniqueFilter : filterField + '.id' : filterField" placeholder="Todos" (onChange)="filter($event.value)" optionLabel="name" dataKey="id"></p-multiSelect>
                                         </ng-template>
                                     </p-columnFilter>
                                 </ng-container>

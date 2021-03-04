@@ -25,7 +25,7 @@ export class SmzTableContextPipe implements PipeTransform {
 
       switch (column.contentType) {
         case SmzContentType.CALENDAR:
-          if (!Reflect.has(column.contentData, 'format')){
+          if (column.contentData == null || !Reflect.has(column.contentData, 'format')) {
             Reflect.set(contextColumn.contentData, 'format', 'short');
           }
 
@@ -34,9 +34,9 @@ export class SmzTableContextPipe implements PipeTransform {
 
           break;
 
-          case SmzContentType.ICON:
+        case SmzContentType.ICON:
 
-            break;
+          break;
         default:
           break;
       }

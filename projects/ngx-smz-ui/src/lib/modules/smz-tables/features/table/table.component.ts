@@ -43,12 +43,6 @@ export class SmzTableComponent implements OnInit, AfterContentInit {
     // console.log('items', this.items);
   }
 
-  public test(event: any): void
-  {
-    console.log(event);
-  }
-
-
   public ngAfterContentInit() {
     // console.log('ngAfterContentInit', this.templates);
     this.templates.forEach((item) => {
