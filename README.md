@@ -433,3 +433,24 @@ The custom content is going to be called just to the columns with contentData.us
         };
       }
     ```
+
+# 4. Contents
+
+* To use the icon generation of the table, you have to provide some conditional configurations as below.
+
+    ```typescript
+      this.config = {
+        ...
+        columns: [
+          {
+            contentType: SmzContentType.ICON,
+            contentData: {
+              useTemplate: false,
+              matches: [
+                  { icon: 'fas fa-check', class: 'green-text darken-3', value: true },
+                  { icon: 'fas fa-times', class: 'red-text darken-2', value: false }
+                ] },
+            header: 'Situação',
+          },
+    ```
+
