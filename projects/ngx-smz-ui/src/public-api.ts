@@ -20,3 +20,6 @@ export { SafeUrlPipe } from './lib/common/data-pipes/pipes/safe-url.pipe';
 export { UniqueFilterPipe } from './lib/common/data-pipes/pipes/unique-filter.pipe';
 
 export { PrimeConfigService } from './lib/common/services/prime-config.service';
+
+export { SmzHtmlViewerModule } from './lib/modules/smz-html-viewer/smz-html-viewer.module';
+export { SmzHtmlViewerComponent } from './lib/modules/smz-html-viewer/smz-html-viewer.component';
