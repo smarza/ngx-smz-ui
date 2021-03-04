@@ -4,9 +4,11 @@
     [rows]="context.config.rows" [showCurrentPageReport]="context.config.showCurrentPageReport" [rowsPerPageOptions]="context.config.rowsPerPageOptions" [loading]="loading"
     [paginator]="context.config.showPaginator" [currentPageReportTemplate]="context.config.currentPageReportTemplate"
     [filterDelay]="0" [globalFilterFields]="context.globalFilter" (selectionChange)="selectionChange.emit($event)">
+
     <ng-template pTemplate="caption" *ngIf="context.config.showCaption">
-        <div class="p-grid p-nogutter p-justify-between p-align-center">
-            {{ config.title }}
+        <div class="p-grid p-nogutter p-justify-start p-align-center">
+            <span class="p-col p-mr-2">{{ config.title }}</span>
+            <button *ngIf="context.config.showClearFilter" pButton label="Limpar Filtro" class="p-button-outlined p-mr-2" icon="pi pi-filter-slash" (click)="dt.clear()"></button>
             <span *ngIf="context.config.showGlobalFilter" class="p-input-icon-left">
                 <i class="pi pi-search"></i>
                 <input #inputGlobal pInputText type="text" (input)="dt.filterGlobal(inputGlobal.value, 'contains')" placeholder="Pesquisa global" />
@@ -30,7 +32,7 @@
             <ng-container *ngFor="let col of context.columns">
 
                 <ng-container *ngIf="col.isOrderable">
-                    <th [pSortableColumn]="col.isSimpleNamed ? col.field + '.name' : col.field" [ngStyle]="{ width: col.width }">
+                    <th [pSortableColumn]="col.field" [ngStyle]="{ width: col.width }">
                         <ng-container *ngTemplateOutlet="headerContent"></ng-container>
                     </th>
                 </ng-container>
@@ -44,50 +46,62 @@
                 <ng-template #headerContent>
                     <div class="p-d-flex p-jc-between p-ai-center">
                         {{ col.header }}
-                        <p-sortIcon [field]="col.isSimpleNamed ? col.field + '.name' : col.field" *ngIf="col.isOrderable"></p-sortIcon>
+                        <p-sortIcon [field]="col.field" *ngIf="col.isOrderable"></p-sortIcon>
 
-                        <ng-container [ngSwitch]="col.filterControlType">
+                        <ng-container [ngSwitch]="col.filterType">
 
                             <ng-container *ngSwitchDefault>
                                 <p-columnFilter type="text" [field]="col.field" display="menu" class="p-ml-auto"></p-columnFilter>
                             </ng-container>
 
-                            <ng-container *ngSwitchCase="currencyControlType">
-                                <p-columnFilter type="numeric" currency="BRL" [field]="col.isSimpleNamed ? col.field + '.name' : col.field" display="menu" class="p-ml-auto"></p-columnFilter>
+                            <ng-container *ngSwitchCase="filterTypes.currency">
+                                <p-columnFilter type="numeric" currency="BRL" [field]="col.field" display="menu" class="p-ml-auto"></p-columnFilter>
                             </ng-container>
 
-                            <ng-container *ngSwitchCase="calendarControlType">
-                                <p-columnFilter type="date" [field]="col.isSimpleNamed ? col.field + '.name' : col.field" display="menu" class="p-ml-auto"></p-columnFilter>
+                            <ng-container *ngSwitchCase="filterTypes.numeric">
+                                <p-columnFilter type="numeric" [field]="col.field" display="menu" class="p-ml-auto"></p-columnFilter>
                             </ng-container>
 
-                            <ng-container *ngSwitchCase="textControlType">
-                                <p-columnFilter type="text" [field]="col.isSimpleNamed ? col.field + '.name' : col.field" display="menu" class="p-ml-auto"></p-columnFilter>
+                            <ng-container *ngSwitchCase="filterTypes.date">
+                                <p-columnFilter type="date" [field]="col.field" display="menu" class="p-ml-auto"></p-columnFilter>
                             </ng-container>
 
-                            <ng-container *ngSwitchCase="dropDownControlType">
-                                <p-columnFilter [field]="col.field + '.id'" matchMode="dropdown" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" display="menu" class="p-ml-auto">
-                                    <ng-template pTemplate="header">
-                                        <div class="p-px-3 p-pt-3 p-pb-0">
-                                            <span class="p-text-bold">{{ col.header }}</span>
-                                        </div>
-                                    </ng-template>
-                                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                        <p-dropdown [ngModel]="value" [options]="items | uniqueFilter : col.field + '.id' : col.field" placeholder="Todos" (onChange)="test($event); filter($event.value)" optionLabel="name" dataKey="id"></p-dropdown>
-                                    </ng-template>
-                                </p-columnFilter>
+                            <ng-container *ngSwitchCase="filterTypes.text">
+                                <p-columnFilter type="text" [field]="col.field" display="menu" class="p-ml-auto"></p-columnFilter>
                             </ng-container>
 
-                            <ng-container *ngSwitchCase="multiSelectControlType">
-                                <p-columnFilter [field]="col.field" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="p-ml-auto">
-                                    <ng-template pTemplate="header">
-                                        <div class="p-px-3 p-pt-3 p-pb-0">
-                                            <span class="p-text-bold">{{ col.header }}</span>
-                                        </div>
-                                    </ng-template>
-                                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                        <p-multiSelect [ngModel]="value" [options]="items | uniqueFilter : col.field + '.id' : col.field" placeholder="Todos" (onChange)="test($event); filter($event.value)" optionLabel="name" dataKey="id"></p-multiSelect>
-                                    </ng-template>
-                                </p-columnFilter>
+                            <ng-container *ngSwitchCase="filterTypes.boolean">
+                                <p-columnFilter type="boolean" [field]="col.field" display="menu" class="p-ml-auto"></p-columnFilter>
+                            </ng-container>
+
+                            <ng-container *ngSwitchCase="filterTypes.dropdown">
+                                <ng-container *ngIf="col.field | filterObject as filterField">
+                                    <p-columnFilter [field]="filterField + '.id'" matchMode="dropdown" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" display="menu" class="p-ml-auto">
+                                        <ng-template pTemplate="header">
+                                            <div class="p-px-3 p-pt-3 p-pb-0">
+                                                <span class="p-text-bold">{{ col.header }}</span>
+                                            </div>
+                                        </ng-template>
+                                        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                            <p-dropdown [ngModel]="value" [options]="items | uniqueFilter : filterField + '.id' : filterField" placeholder="Todos" (onChange)="test($event); filter($event.value)" optionLabel="name" dataKey="id"></p-dropdown>
+                                        </ng-template>
+                                    </p-columnFilter>
+                                </ng-container>
+                            </ng-container>
+
+                            <ng-container *ngSwitchCase="filterTypes.multiselect">
+                                <ng-container *ngIf="col.field | filterObject as filterField">
+                                    <p-columnFilter [field]="filterField" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="p-ml-auto">
+                                        <ng-template pTemplate="header">
+                                            <div class="p-px-3 p-pt-3 p-pb-0">
+                                                <span class="p-text-bold">{{ col.header }}</span>
+                                            </div>
+                                        </ng-template>
+                                        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                            <p-multiSelect [ngModel]="value" [options]="items | uniqueFilter : filterField + '.id' : filterField" placeholder="Todos" (onChange)="test($event); filter($event.value)" optionLabel="name" dataKey="id"></p-multiSelect>
+                                        </ng-template>
+                                    </p-columnFilter>
+                                </ng-container>
                             </ng-container>
 
                         </ng-container>
@@ -97,7 +111,7 @@
 
             </ng-container>
 
-            <th *ngIf="context.config.showActions" [ngStyle]="{ width: context.config.useCustomActions ? 'auto' : '63px' }"></th>
+            <th *ngIf="context.config.showActions" [ngStyle]="{ width: context.config.useCustomActions ? context.config.customActionWidth : '63px' }"></th>
         </tr>
     </ng-template>
 
@@ -109,33 +123,35 @@
 
             <ng-container *ngFor="let col of context.columns">
 
-                <td *ngIf="col.overrideContent">
+                <td *ngIf="col.contentData?.useTemplate">
                     <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: item, col: col }"></ng-container>
                 </td>
 
-                <td *ngIf="!col.overrideContent">
+                <td *ngIf="!col.contentData?.useTemplate">
                     <span class="p-column-title">{{ col.header }}</span>
 
                     <ng-container [ngSwitch]="col.contentType">
 
                         <ng-container *ngSwitchDefault>
-                            {{ col.isSimpleNamed ? item[col.field].name : item[col.field] }}
+                            {{ (item | tableContent : col.field) }}
                         </ng-container>
 
-                        <ng-container *ngSwitchCase="currencyControlType">
-                            R$ {{ col.isSimpleNamed ? item[col.field].name : item[col.field] }}
+                        <ng-container *ngSwitchCase="contentTypes.currency">
+                            R$ {{ (item | tableContent : col.field) }}
                         </ng-container>
 
-                        <ng-container *ngSwitchCase="calendarControlType">
-                            {{
-                                col.isSimpleNamed ?
-                                    (item[col.field].name | date: 'shortDate') :
-                                    (item[col.field] | date: 'shortDate')
-                            }}
+                        <ng-container *ngSwitchCase="contentTypes.calendar">
+                            {{ (item | tableContent : col.field) | date: col.contentData['format'] }}
                         </ng-container>
 
-                        <ng-container *ngSwitchCase="textControlType">
-                            {{ col.isSimpleNamed ? item[col.field].name : item[col.field] }}
+                        <ng-container *ngSwitchCase="contentTypes.text">
+                            {{ (item | tableContent : col.field) }}
+                        </ng-container>
+
+                        <ng-container *ngSwitchCase="contentTypes.icon">
+                            <ng-container *ngIf="(col.contentData['matches'] | contentIconMatches : (item | tableContent : col.field)) as match">
+                                <i *ngIf="match != null" [ngClass]="match.icon + ' ' + match.class"></i>
+                            </ng-container>
                         </ng-container>
 
                     </ng-container>
@@ -161,7 +177,7 @@
     </ng-template>
     <ng-template pTemplate="emptymessage">
         <tr>
-            <td [attr.colspan]="context.columns.length + (context.config.showActions ? 1 : 0) + (context.config.isSelectable ? 1 : 0)">Nenhum dado encontrado.</td>
+            <td [attr.colspan]="context.columns.length + (context.config.showActions ? 1 : 0) + (context.config.isSelectable ? 1 : 0)">{{ context.config.emptyMessage }}</td>
         </tr>
     </ng-template>
 </p-table>

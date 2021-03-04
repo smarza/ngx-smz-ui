@@ -16,12 +16,13 @@ export interface SmzTableConfig {
   showPaginator?: boolean;
   title?: string;
   useCustomActions?: boolean;
+  customActionWidth?: string;
+  showClearFilter?: boolean;
+  emptyMessage?: string;
 }
 
 export interface SmzTableContext {
   columns: SmzTableContextColumn[];
   config: SmzTableConfig;
-  fieldsToOverrideContent: string[];
   globalFilter: string[];
-  useCustomContent: boolean;
 }

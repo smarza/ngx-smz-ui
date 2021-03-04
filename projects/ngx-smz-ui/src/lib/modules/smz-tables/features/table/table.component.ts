@@ -1,6 +1,7 @@
-import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, EventEmitter, Input, OnInit, Output, QueryList, TemplateRef } from '@angular/core';
-import { SmzControlType } from 'ngx-smz-dialogs';
-import { MenuItem, PrimeTemplate } from 'primeng/api';
+import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, EventEmitter, Input, OnInit, Output, QueryList, TemplateRef } from '@angular/core'
+import { PrimeTemplate } from 'primeng/api';
+import { SmzContentType } from '../../models/content-types';
+import { SmzFilterType } from '../../models/filter-types';
 import { SmzTableConfig } from '../../models/table-config';
 
 @Component({
@@ -18,11 +19,21 @@ export class SmzTableComponent implements OnInit, AfterContentInit {
   public contentTemplate: TemplateRef<any>;
   public actionsTemplate: TemplateRef<any>;
   public selectedItems: any[];
-  public currencyControlType = `${SmzControlType.CURRENCY}`;
-  public calendarControlType = `${SmzControlType.CALENDAR}`;
-  public textControlType = `${SmzControlType.TEXT}`;
-  public dropDownControlType = `${SmzControlType.DROPDOWN}`;
-  public multiSelectControlType = `${SmzControlType.MULTI_SELECT}`;
+  public contentTypes = {
+    currency: `${SmzContentType.CURRENCY}`,
+    calendar: `${SmzContentType.CALENDAR}`,
+    icon: `${SmzContentType.ICON}`,
+    text: `${SmzContentType.TEXT}`,
+  }
+  public filterTypes = {
+    boolean: SmzFilterType.BOOLEAN,
+    date: SmzFilterType.DATE,
+    numeric: SmzFilterType.NUMERIC,
+    text: SmzFilterType.TEXT,
+    currency: SmzFilterType.CURRENCY,
+    dropdown: SmzFilterType.DROPDOWN,
+    multiselect: SmzFilterType.MULTI_SELECT
+  }
 
   constructor() {
 

@@ -12,11 +12,17 @@ import { SmzTableContextPipe } from './pipes/table-context.pipe';
 import { SharedModule as PrimeSharedModule } from 'primeng/api';
 import { DropdownModule } from 'primeng/dropdown';
 import { SmzMenuModule } from './components/menu';
+import { SmzTableContentPipe } from './pipes/table-content.pipe';
+import { SmzContentIconMatchesPipe } from './pipes/content-icon-matches.pipe';
+import { SmzFilterObjectPipe } from './pipes/filter-object.pipe';
 
 @NgModule({
     declarations: [
         SmzTableComponent,
-        SmzTableContextPipe
+        SmzTableContextPipe,
+        SmzTableContentPipe,
+        SmzFilterObjectPipe,
+        SmzContentIconMatchesPipe
     ],
     imports: [
         CommonModule,

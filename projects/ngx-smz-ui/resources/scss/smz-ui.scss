@@ -1,8 +1,14 @@
 // PRIME E ETC..
 @import "./smz-vendors.scss";
 
-// VARIÁVEIS
+// EXTRAS
 @import "./extras/extras.scss";
+
+// SMZ-TABLES
+@import "./smz-tables.scss";
+
+// COLORS
+@import "./extras/colors.scss";
 
 // PÁGINAS DE ERRO E NOTFOUND
 @import "./pages/app-exceptions";
