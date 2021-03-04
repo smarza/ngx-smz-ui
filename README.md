@@ -1,4 +1,3 @@
-# 1. Setup
 
 * Install and setup all dependencies needed by the library
     * [primeng](https://www.npmjs.com/package/primeng)
@@ -16,6 +15,9 @@
 
         `npm install ngx-smz-ui`
 
+# smz-layouts
+
+# 1. Setup
 
 * In your `angular.json` add the assets imports.
 
@@ -46,7 +48,7 @@
     @import "~ngx-smz-ui/resources/scss/smz-ui.scss";
     ```
 
-* Import the `NgxSmzLayoutsModule` in your `AppModule` and pass the initial configuration data. Also import the LayoutTheme Module of your choice (Ex. DiamondLayoutModule)
+* Import the `NgxSmzLayoutsModule` in your `AppModule` and pass the initial configuration data. Also import the LayoutTheme Module of your choice (Ex. HephaestusLayoutModule)
 
     Example:
     ```typescript
@@ -57,7 +59,7 @@
     imports: [
       ...
       NgxSmzLayoutsModule.forRoot(smzLayoutsConfig),
-      DiamondLayoutModule,
+      HephaestusLayoutModule,
       ...
     ],
     })
@@ -191,3 +193,143 @@
       }
     };
 ```
+
+# smz-tables
+
+# 1. Setup
+
+* Import the `NgxSmzTablesModule` in your `Module`.
+
+    Example:
+    ```typescript
+    @NgModule({
+    declarations: [
+      ...
+    ],
+    imports: [
+      ...
+      NgxSmzTablesModule,
+      ...
+    ],
+    })
+    export class AppModule {
+      ...
+    }
+    ```
+
+* If you are not already using smz-layouts in the project, you will going to need some table styles, to do so, in your `styles.scss` add styles imports.
+
+    ```scss
+    // SMZ-UI
+    @import "~ngx-smz-ui/resources/scss/smz-tables.scss";
+    ```
+
+* In the HTML of your component, add the following tag.
+
+    ```html
+    <smz-ui-table [items]="items$ | async" [config]="config">
+    ```
+
+* In the component, add the configuration for the table component.
+
+    ```typescript
+    export class ExampleComponent implements OnInit {
+      ...
+      public config: SmzTableConfig;
+
+      constructor() {
+        this.config = {
+          currentPageReportTemplate: 'Mostrando {first} a {last} de {totalRecords} itens',
+          isSelectable: true,
+          rowHover: true,
+          rows: 5,
+          rowsPerPageOptions: [5, 10, 50, 100, 500],
+          showActions: true,
+          showCaption: true,
+          showCurrentPageReport: true,
+          showGlobalFilter: true,
+          showPaginator: true,
+          showClearFilter: true,
+          title: 'Permissões de Trabalho',
+          useCustomActions: false,
+          customActionWidth: '5em',
+          menu: [
+            { label: 'Editar', icon: 'pi pi-fw pi-plus', command: (event) => this.test(event) },
+            { separator: true },
+            { label: 'Apagar', icon: 'pi pi-fw pi-download', command: (event) => this.test(event) },
+          ],
+          columns: [
+            {
+              contentType: SmzContentType.ICON,
+              contentData: { useTemplate: false, matches: [ { icon: 'fas fa-check', class: 'green-text darken-3', value: true }, { icon: 'fas fa-times', class: 'red-text darken-2', value: false } ] },
+              field: 'isActive',
+              filterType: SmzFilterType.BOOLEAN,
+              header: 'Situação',
+              isGlobalFilterable: false,
+              isOrderable: false,
+              showFilter: true,
+              width: '8em',
+              isVisible: true,
+            },
+            {
+              contentType: SmzContentType.TEXT,
+              contentData: { useTemplate: false },
+              field: 'number',
+              filterType: SmzFilterType.TEXT,
+              header: 'Número',
+              isGlobalFilterable: true,
+              isOrderable: false,
+              showFilter: true,
+              width: '8em',
+              isVisible: true,
+            },
+            {
+              contentType: SmzContentType.TEXT,
+              contentData: { useTemplate: false },
+              field: 'plant.name',
+              filterType: SmzFilterType.DROPDOWN,
+              header: 'Planta',
+              isGlobalFilterable: true,
+              isOrderable: true,
+              showFilter: true,
+              width: '8em',
+              isVisible: true,
+            },
+            {
+              contentType: SmzContentType.TEXT,
+              contentData: { useTemplate: false },
+              field: 'campaign.name',
+              filterType: SmzFilterType.MULTI_SELECT,
+              header: 'Campanha',
+              isGlobalFilterable: true,
+              isOrderable: true,
+              showFilter: true,
+              isVisible: true,
+            },
+            {
+              contentType: SmzContentType.TEXT,
+              contentData: { useTemplate: false },
+              field: 'description',
+              filterType: SmzFilterType.TEXT,
+              header: 'Descrição',
+              isGlobalFilterable: true,
+              isOrderable: true,
+              showFilter: true,
+              isVisible: true,
+            },
+            {
+              contentType: SmzContentType.CALENDAR,
+              contentData: { useTemplate: false, format: 'shortDate' },
+              field: 'date',
+              filterType: SmzFilterType.DATE,
+              header: 'Data',
+              isGlobalFilterable: true,
+              isOrderable: true,
+              showFilter: true,
+              width: '8em',
+              isVisible: true,
+            },
+          ]
+        };
+      }
+    ```
