@@ -1,185 +1,200 @@
 <ng-container *ngIf="config | tableContext as context">
 
-<p-table #dt [value]="items" [(selection)]="selectedItems" dataKey="id" styleClass="p-datatable-smz-ui-table" [rowHover]="context.config.rowHover"
-    [rows]="context.config.rows" [showCurrentPageReport]="context.config.showCurrentPageReport" [rowsPerPageOptions]="context.config.rowsPerPageOptions" [loading]="loading"
-    [paginator]="context.config.showPaginator" [currentPageReportTemplate]="context.config.currentPageReportTemplate"
-    [filterDelay]="0" [globalFilterFields]="context.globalFilter" (selectionChange)="selectionChange.emit($event)">
-
-    <ng-template pTemplate="caption" *ngIf="context.config.showCaption">
-        <div class="p-grid p-nogutter p-justify-start p-align-center">
-            <span class="p-col p-mr-2">{{ config.title }}</span>
-            <button *ngIf="context.config.showClearFilter" pButton label="Limpar Filtro" class="p-button-outlined p-mr-2" icon="pi pi-filter-slash" (click)="dt.clear()"></button>
-            <span *ngIf="context.config.showGlobalFilter" class="p-input-icon-left">
-                <i class="pi pi-search"></i>
-                <input #inputGlobal pInputText type="text" (input)="dt.filterGlobal(inputGlobal.value, 'contains')" placeholder="Pesquisa global" />
-            </span>
+    <ng-container *ngIf="context.config.customEmptyMessage != null && items?.length === 0; else tableTemplate">
+        <div class="app_center__section p-grid p-justify-center p-align-center animate__animated animate__fadeInDown">
+            <div class="p-col-10 p-md-6 p-lg-3">
+                <img *ngIf="context.config.customEmptyMessage.image != null && context.config.customEmptyMessage.image !== ''" [src]="context.config.customEmptyMessage.image" class="img-fluid" width="60%" />
+                <h2 class="mt-2">{{ context.config.customEmptyMessage.message }}</h2>
+                <p *ngIf="context.config.customEmptyMessage.callbackInfo != null" class="mb-2">{{ context.config.customEmptyMessage.callbackInfo }}</p>
+                <button *ngIf="context.config.customEmptyMessage.callback != null" pButton type="button" class="p-button p-button-info mt-2" [label]="context.config.customEmptyMessage.callbackLabel | uppercase"
+                    (click)="context.config.customEmptyMessage.callback()"></button>
+            </div>
         </div>
+    </ng-container>
 
-        <!-- <button type="button" pButton pRipple icon="pi pi-file-pdf" label="Exportar"
-            (click)="tableExporter.exportPdf(dt, context, dt.filteredValue != null ? dt.filteredValue : items, context.config.title != null ? context.config.title : 'Exportação')"
-            class="p-button-warning p-mr-2" pTooltip="Exportar para PDF" tooltipPosition="bottom">
-        </button> -->
+    <ng-template #tableTemplate>
 
-    </ng-template>
+        <p-table #dt [value]="items" [(selection)]="selectedItems" dataKey="id" styleClass="p-datatable-smz-ui-table" [rowHover]="context.config.rowHover"
+            [rows]="context.config.rows" [showCurrentPageReport]="context.config.showCurrentPageReport" [rowsPerPageOptions]="context.config.rowsPerPageOptions" [loading]="loading"
+            [paginator]="context.config.showPaginator" [currentPageReportTemplate]="context.config.currentPageReportTemplate"
+            [filterDelay]="0" [globalFilterFields]="context.globalFilter" (selectionChange)="selectionChange.emit($event)">
 
-    <ng-template pTemplate="header">
-        <tr>
+            <ng-template pTemplate="caption" *ngIf="context.config.showCaption">
+                <div class="p-grid p-nogutter p-justify-start p-align-center">
+                    <span class="p-col p-mr-2">{{ config.title }}</span>
+                    <button *ngIf="context.config.showClearFilter" pButton label="Limpar Filtro" class="p-button-outlined p-mr-2" icon="pi pi-filter-slash" (click)="dt.clear()"></button>
+                    <span *ngIf="context.config.showGlobalFilter" class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input #inputGlobal pInputText type="text" (input)="dt.filterGlobal(inputGlobal.value, 'contains')" placeholder="Pesquisa global" />
+                    </span>
+                </div>
 
-            <th style="width: 3rem" *ngIf="context.config.isSelectable">
-                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-            </th>
+                <!-- <button type="button" pButton pRipple icon="pi pi-file-pdf" label="Exportar"
+                    (click)="tableExporter.exportPdf(dt, context, dt.filteredValue != null ? dt.filteredValue : items, context.config.title != null ? context.config.title : 'Exportação')"
+                    class="p-button-warning p-mr-2" pTooltip="Exportar para PDF" tooltipPosition="bottom">
+                </button> -->
 
-            <ng-container *ngFor="let col of context.columns">
+            </ng-template>
 
-                <ng-container *ngIf="col.isOrderable">
-                    <th [pSortableColumn]="col.field" [ngStyle]="{ width: col.width }">
-                        <ng-container *ngTemplateOutlet="headerContent"></ng-container>
+            <ng-template pTemplate="header">
+                <tr>
+
+                    <th style="width: 3rem" *ngIf="context.config.isSelectable">
+                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                     </th>
-                </ng-container>
 
-                <ng-container *ngIf="!col.isOrderable">
-                    <th [ngStyle]="{ width: col.width }">
-                        <ng-container *ngTemplateOutlet="headerContent"></ng-container>
-                    </th>
-                </ng-container>
+                    <ng-container *ngFor="let col of context.columns">
 
-                <ng-template #headerContent>
-                    <div class="p-d-flex p-jc-between p-ai-center">
-                        {{ col.header }}
-                        <p-sortIcon [field]="col.field" *ngIf="col.isOrderable"></p-sortIcon>
+                        <ng-container *ngIf="col.isOrderable">
+                            <th [pSortableColumn]="col.field" [ngStyle]="{ width: col.width }">
+                                <ng-container *ngTemplateOutlet="headerContent"></ng-container>
+                            </th>
+                        </ng-container>
 
-                        <ng-container [ngSwitch]="col.filterType">
+                        <ng-container *ngIf="!col.isOrderable">
+                            <th [ngStyle]="{ width: col.width }">
+                                <ng-container *ngTemplateOutlet="headerContent"></ng-container>
+                            </th>
+                        </ng-container>
 
-                            <ng-container *ngSwitchDefault>
-                                <p-columnFilter type="text" [field]="col.field" display="menu" class="p-ml-auto"></p-columnFilter>
-                            </ng-container>
+                        <ng-template #headerContent>
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                {{ col.header }}
+                                <p-sortIcon [field]="col.field" *ngIf="col.isOrderable"></p-sortIcon>
 
-                            <ng-container *ngSwitchCase="filterTypes.currency">
-                                <p-columnFilter type="numeric" currency="BRL" [field]="col.field" display="menu" class="p-ml-auto"></p-columnFilter>
-                            </ng-container>
+                                <ng-container [ngSwitch]="col.filterType">
 
-                            <ng-container *ngSwitchCase="filterTypes.numeric">
-                                <p-columnFilter type="numeric" [field]="col.field" display="menu" class="p-ml-auto"></p-columnFilter>
-                            </ng-container>
+                                    <ng-container *ngSwitchDefault>
+                                        <p-columnFilter type="text" [field]="col.field" display="menu" class="p-ml-auto"></p-columnFilter>
+                                    </ng-container>
 
-                            <ng-container *ngSwitchCase="filterTypes.date">
-                                <p-columnFilter type="date" [field]="col.field" display="menu" class="p-ml-auto"></p-columnFilter>
-                            </ng-container>
+                                    <ng-container *ngSwitchCase="filterTypes.currency">
+                                        <p-columnFilter type="numeric" currency="BRL" [field]="col.field" display="menu" class="p-ml-auto"></p-columnFilter>
+                                    </ng-container>
 
-                            <ng-container *ngSwitchCase="filterTypes.text">
-                                <p-columnFilter type="text" [field]="col.field" display="menu" class="p-ml-auto"></p-columnFilter>
-                            </ng-container>
+                                    <ng-container *ngSwitchCase="filterTypes.numeric">
+                                        <p-columnFilter type="numeric" [field]="col.field" display="menu" class="p-ml-auto"></p-columnFilter>
+                                    </ng-container>
 
-                            <ng-container *ngSwitchCase="filterTypes.boolean">
-                                <p-columnFilter type="boolean" [field]="col.field" display="menu" class="p-ml-auto"></p-columnFilter>
-                            </ng-container>
+                                    <ng-container *ngSwitchCase="filterTypes.date">
+                                        <p-columnFilter type="date" [field]="col.field" display="menu" class="p-ml-auto"></p-columnFilter>
+                                    </ng-container>
 
-                            <ng-container *ngSwitchCase="filterTypes.dropdown">
-                                <ng-container *ngIf="col.field | filterObject as filterField">
-                                    <p-columnFilter [field]="filterField + '.id'" matchMode="dropdown" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" display="menu" class="p-ml-auto">
-                                        <ng-template pTemplate="header">
-                                            <div class="p-px-3 p-pt-3 p-pb-0">
-                                                <span class="p-text-bold">{{ col.header }}</span>
-                                            </div>
-                                        </ng-template>
-                                        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                            <p-dropdown [ngModel]="value" [options]="items | uniqueFilter : filterField + '.id' : filterField" placeholder="Todos" (onChange)="filter($event.value)" optionLabel="name" dataKey="id"></p-dropdown>
-                                        </ng-template>
-                                    </p-columnFilter>
+                                    <ng-container *ngSwitchCase="filterTypes.text">
+                                        <p-columnFilter type="text" [field]="col.field" display="menu" class="p-ml-auto"></p-columnFilter>
+                                    </ng-container>
+
+                                    <ng-container *ngSwitchCase="filterTypes.boolean">
+                                        <p-columnFilter type="boolean" [field]="col.field" display="menu" class="p-ml-auto"></p-columnFilter>
+                                    </ng-container>
+
+                                    <ng-container *ngSwitchCase="filterTypes.dropdown">
+                                        <ng-container *ngIf="col.field | filterObject as filterField">
+                                            <p-columnFilter [field]="filterField + '.id'" matchMode="dropdown" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" display="menu" class="p-ml-auto">
+                                                <ng-template pTemplate="header">
+                                                    <div class="p-px-3 p-pt-3 p-pb-0">
+                                                        <span class="p-text-bold">{{ col.header }}</span>
+                                                    </div>
+                                                </ng-template>
+                                                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                                    <p-dropdown [ngModel]="value" [options]="items | uniqueFilter : filterField + '.id' : filterField" placeholder="Todos" (onChange)="filter($event.value)" optionLabel="name" dataKey="id"></p-dropdown>
+                                                </ng-template>
+                                            </p-columnFilter>
+                                        </ng-container>
+                                    </ng-container>
+
+                                    <ng-container *ngSwitchCase="filterTypes.multiselect">
+                                        <ng-container *ngIf="col.field | filterObject as filterField">
+                                            <p-columnFilter [field]="filterField" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="p-ml-auto">
+                                                <ng-template pTemplate="header">
+                                                    <div class="p-px-3 p-pt-3 p-pb-0">
+                                                        <span class="p-text-bold">{{ col.header }}</span>
+                                                    </div>
+                                                </ng-template>
+                                                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                                    <p-multiSelect [ngModel]="value" [options]="items | uniqueFilter : filterField + '.id' : filterField" placeholder="Todos" (onChange)="filter($event.value)" optionLabel="name" dataKey="id"></p-multiSelect>
+                                                </ng-template>
+                                            </p-columnFilter>
+                                        </ng-container>
+                                    </ng-container>
+
                                 </ng-container>
-                            </ng-container>
 
-                            <ng-container *ngSwitchCase="filterTypes.multiselect">
-                                <ng-container *ngIf="col.field | filterObject as filterField">
-                                    <p-columnFilter [field]="filterField" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="p-ml-auto">
-                                        <ng-template pTemplate="header">
-                                            <div class="p-px-3 p-pt-3 p-pb-0">
-                                                <span class="p-text-bold">{{ col.header }}</span>
-                                            </div>
-                                        </ng-template>
-                                        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                            <p-multiSelect [ngModel]="value" [options]="items | uniqueFilter : filterField + '.id' : filterField" placeholder="Todos" (onChange)="filter($event.value)" optionLabel="name" dataKey="id"></p-multiSelect>
-                                        </ng-template>
-                                    </p-columnFilter>
-                                </ng-container>
-                            </ng-container>
-
-                        </ng-container>
-
-                    </div>
-                </ng-template>
-
-            </ng-container>
-
-            <th *ngIf="context.config.showActions" [ngStyle]="{ width: context.config.useCustomActions ? context.config.customActionWidth : '63px' }"></th>
-        </tr>
-    </ng-template>
-
-    <ng-template pTemplate="body" let-item>
-        <tr class="p-selectable-row">
-            <td *ngIf="context.config.isSelectable">
-                <p-tableCheckbox [value]="item"></p-tableCheckbox>
-            </td>
-
-            <ng-container *ngFor="let col of context.columns">
-
-                <td *ngIf="col.contentData?.useTemplate">
-                    <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: item, col: col }"></ng-container>
-                </td>
-
-                <td *ngIf="!col.contentData?.useTemplate">
-                    <span class="p-column-title">{{ col.header }}</span>
-
-                    <ng-container [ngSwitch]="col.contentType">
-
-                        <ng-container *ngSwitchDefault>
-                            {{ (item | tableContent : col.field) }}
-                        </ng-container>
-
-                        <ng-container *ngSwitchCase="contentTypes.currency">
-                            R$ {{ (item | tableContent : col.field) }}
-                        </ng-container>
-
-                        <ng-container *ngSwitchCase="contentTypes.calendar">
-                            {{ (item | tableContent : col.field) | date: col.contentData['format'] }}
-                        </ng-container>
-
-                        <ng-container *ngSwitchCase="contentTypes.text">
-                            {{ (item | tableContent : col.field) }}
-                        </ng-container>
-
-                        <ng-container *ngSwitchCase="contentTypes.icon">
-                            <ng-container *ngIf="(col.contentData['matches'] | contentIconMatches : (item | tableContent : col.field)) as match">
-                                <i *ngIf="match != null" [ngClass]="match.icon + ' ' + match.class"></i>
-                            </ng-container>
-                        </ng-container>
+                            </div>
+                        </ng-template>
 
                     </ng-container>
-                </td>
 
-            </ng-container>
+                    <th *ngIf="context.config.showActions" [ngStyle]="{ width: context.config.useCustomActions ? context.config.customActionWidth : '63px' }"></th>
+                </tr>
+            </ng-template>
 
-            <ng-container *ngIf="context.config.showActions">
+            <ng-template pTemplate="body" let-item>
+                <tr class="p-selectable-row" tableItemAction [isClickable]="context.config.isRowClickable" [callback]="context.config.rowClickCallback" [item]="item">
+                    <td *ngIf="context.config.isSelectable" furyClickStopPropagation>
+                        <p-tableCheckbox [value]="item"></p-tableCheckbox>
+                    </td>
 
-                <td *ngIf="context.config.useCustomActions">
-                    <ng-container *ngTemplateOutlet="actionsTemplate; context: { $implicit: item }"></ng-container>
-                </td>
+                    <ng-container *ngFor="let col of context.columns">
 
-                <td *ngIf="!context.config.useCustomActions">
-                    <p-menu #actionMenu [popup]="true" [model]="context.config.menu" appendTo="body"></p-menu>
-                    <button type="button" pButton icon="pi pi-bars" (click)="actionMenu.toggle($event, item)" furyClickStopPropagation></button>
-                </td>
+                        <td *ngIf="col.contentData?.useTemplate">
+                            <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: item, col: col }"></ng-container>
+                        </td>
 
-            </ng-container>
+                        <td *ngIf="!col.contentData?.useTemplate">
+                            <span class="p-column-title">{{ col.header }}</span>
+
+                            <ng-container [ngSwitch]="col.contentType">
+
+                                <ng-container *ngSwitchDefault>
+                                    {{ (item | tableContent : col.field) }}
+                                </ng-container>
+
+                                <ng-container *ngSwitchCase="contentTypes.currency">
+                                    R$ {{ (item | tableContent : col.field) }}
+                                </ng-container>
+
+                                <ng-container *ngSwitchCase="contentTypes.calendar">
+                                    {{ (item | tableContent : col.field) | date: col.contentData['format'] }}
+                                </ng-container>
+
+                                <ng-container *ngSwitchCase="contentTypes.text">
+                                    {{ (item | tableContent : col.field) }}
+                                </ng-container>
+
+                                <ng-container *ngSwitchCase="contentTypes.icon">
+                                    <ng-container *ngIf="(col.contentData['matches'] | contentIconMatches : (item | tableContent : col.field)) as match">
+                                        <i *ngIf="match != null" [ngClass]="match.icon + ' ' + match.class"></i>
+                                    </ng-container>
+                                </ng-container>
+
+                            </ng-container>
+                        </td>
+
+                    </ng-container>
+
+                    <ng-container *ngIf="context.config.showActions">
+
+                        <td *ngIf="context.config.useCustomActions">
+                            <ng-container *ngTemplateOutlet="actionsTemplate; context: { $implicit: item }"></ng-container>
+                        </td>
+
+                        <td *ngIf="!context.config.useCustomActions">
+                            <p-menu #actionMenu [popup]="true" [model]="context.config.menu" appendTo="body"></p-menu>
+                            <button type="button" pButton icon="pi pi-bars" (click)="actionMenu.toggle($event, item)" furyClickStopPropagation></button>
+                        </td>
+
+                    </ng-container>
 
 
-        </tr>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td [attr.colspan]="context.columns.length + (context.config.showActions ? 1 : 0) + (context.config.isSelectable ? 1 : 0)">{{ context.config.emptyMessage }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
     </ng-template>
-    <ng-template pTemplate="emptymessage">
-        <tr>
-            <td [attr.colspan]="context.columns.length + (context.config.showActions ? 1 : 0) + (context.config.isSelectable ? 1 : 0)">{{ context.config.emptyMessage }}</td>
-        </tr>
-    </ng-template>
-</p-table>
 
 </ng-container>

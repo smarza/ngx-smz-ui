@@ -15,6 +15,8 @@ import { SmzMenuModule } from './components/menu';
 import { SmzTableContentPipe } from './pipes/table-content.pipe';
 import { SmzContentIconMatchesPipe } from './pipes/content-icon-matches.pipe';
 import { SmzFilterObjectPipe } from './pipes/filter-object.pipe';
+import { TableItemActionsModule } from '../../common/table-item-actions/table-item-actions.module';
+import { ClickStopPropagationModule } from '../../common/stop-click-propagation/click-stop-propagation.module';
 
 @NgModule({
     declarations: [
@@ -35,7 +37,9 @@ import { SmzFilterObjectPipe } from './pipes/filter-object.pipe';
         DropdownModule,
         CalendarModule,
         SmzMenuModule,
-        FormsModule
+        FormsModule,
+        TableItemActionsModule,
+        ClickStopPropagationModule
     ],
     exports: [
         SmzTableComponent,

@@ -14,7 +14,8 @@
     "./resources/scss/vendor/fontawesome-pro-5.9.0-web/webfonts/*.*",
     "./resources/fonts/*.*",
     "./resources/images/pages/*.*",
-    "./resources/images/avatar/*.*"
+    "./resources/images/avatar/*.*",
+    "./resources/images/tables/*.*"
 ],
   "lib": {
     "entryFile": "src/public-api.ts",

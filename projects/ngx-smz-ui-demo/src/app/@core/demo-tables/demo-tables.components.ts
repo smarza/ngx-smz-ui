@@ -20,6 +20,7 @@ export class DemoTablesComponent implements OnInit {
   constructor(private dataService: DemoTableDataService) {
     const items = JSON.parse(jsonData);
     this.items$ = of([...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items]).pipe(fixDates());
+    // this.items$ = of([]);
   }
 
   ngOnInit() {
@@ -27,7 +28,7 @@ export class DemoTablesComponent implements OnInit {
   }
 
   public test(event: any): void {
-    console.log('test', event);
+    console.log('selection change', event);
   }
 
   public toogleIsSelectable(): void {
@@ -50,6 +51,16 @@ export class DemoTablesComponent implements OnInit {
       title: 'Permissões de Trabalho',
       useCustomActions: false,
       customActionWidth: '5em',
+      emptyMessage: 'Lista vazia',
+      customEmptyMessage: {
+        message: 'Lista vazia',
+        callbackLabel: 'Atualizar',
+        callbackInfo: 'Clique abaixo para carregar novos dados.',
+        callback: () => { console.log('atualizando...'); },
+        image: null,
+      },
+      isRowClickable: true,
+      rowClickCallback: (event) => { console.log('click...', event); },
       menu: [
         { label: 'Editar', icon: 'pi pi-fw pi-plus', command: (event) => this.test(event) },
         { separator: true },

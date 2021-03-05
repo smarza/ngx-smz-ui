@@ -59,7 +59,22 @@ export class SmzTableContextPipe implements PipeTransform {
       rowsPerPageOptions: inputConfig.rowsPerPageOptions ?? [5, 10, 50, 100, 500],
       currentPageReportTemplate: inputConfig.currentPageReportTemplate ?? 'Mostrando {first} a {last} de {totalRecords} itens',
       emptyMessage: inputConfig.emptyMessage ?? 'Lista Vazia',
+      customEmptyMessage: inputConfig.customEmptyMessage ?? null,
+      isRowClickable: inputConfig.isRowClickable ?? false,
+      rowClickCallback: inputConfig.rowClickCallback ?? null,
     };
+
+    if (config.customEmptyMessage != null) {
+
+      config.customEmptyMessage = {
+        message: inputConfig.customEmptyMessage.message ?? 'Lista Vazia',
+        callbackLabel: inputConfig.customEmptyMessage.callbackLabel ?? 'Ação',
+        callback: inputConfig.customEmptyMessage.callback ?? null,
+        callbackInfo: inputConfig.customEmptyMessage.callbackInfo ?? null,
+        image: inputConfig.customEmptyMessage.image ?? 'assets/images/tables/empty.svg',
+      };
+
+    }
 
     return {
       globalFilter,

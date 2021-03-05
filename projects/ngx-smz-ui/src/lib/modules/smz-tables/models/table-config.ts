@@ -19,10 +19,22 @@ export interface SmzTableConfig {
   customActionWidth?: string;
   showClearFilter?: boolean;
   emptyMessage?: string;
+  customEmptyMessage?: SmzCustomEmptyMessage;
+  isRowClickable: boolean,
+  rowClickCallback: (event) => void,
+
 }
 
 export interface SmzTableContext {
   columns: SmzTableContextColumn[];
   config: SmzTableConfig;
   globalFilter: string[];
+}
+
+export interface SmzCustomEmptyMessage {
+  message?: string;
+  callbackLabel?: string;
+  callbackInfo?: string;
+  callback?: () => void;
+  image?: string;
 }
