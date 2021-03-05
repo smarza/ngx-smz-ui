@@ -1,11 +1,13 @@
 <smz-ui-hephaestus-layout [menu]="menu" [notifications]="notifications" [profile]="profile">
+
   <router-outlet></router-outlet>
+
+  <ng-template pTemplate="headerExtras">
+    extras
+  </ng-template>
+
 </smz-ui-hephaestus-layout>
 
 <!-- <smz-ui-athena-layout [menu]="menu" [notifications]="notifications" [profile]="profile">
   <router-outlet></router-outlet>
 </smz-ui-athena-layout> -->
-
-<!-- <ng-template pTemplate="headerExtras">
-  extras
-</ng-template> -->

@@ -29,7 +29,10 @@ export const ngxsModuleForFeatureUiHephaestusLayoutState = NgxsModule.forFeature
     HephaestusAssistanceModule,
     ngxsModuleForFeatureUiHephaestusLayoutState
   ],
-  exports: [HephaestusLayoutComponent]
+  exports: [
+    HephaestusLayoutComponent,
+    PrimeSharedModule
+  ]
 })
 export class HephaestusLayoutModule
 {
