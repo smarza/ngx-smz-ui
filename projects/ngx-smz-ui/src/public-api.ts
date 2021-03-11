@@ -9,6 +9,8 @@ export * from './lib/modules/smz-messages/public-api';
 export * from './lib/modules/smz-faqs/public-api';
 export * from './lib/modules/smz-layouts/public-api';
 export * from './lib/modules/smz-tables/public-api';
+export * from './lib/modules/smz-html-viewer/public-api';
+export * from './lib/modules/smz-data-info/public-api';
 
 export * from './lib/common/input-detection/input-detection.module';
 export * from './lib/common/input-detection/input-detection.directive';
@@ -20,6 +22,3 @@ export { SafeUrlPipe } from './lib/common/data-pipes/pipes/safe-url.pipe';
 export { UniqueFilterPipe } from './lib/common/data-pipes/pipes/unique-filter.pipe';
 
 export { PrimeConfigService } from './lib/common/services/prime-config.service';
-
-export { SmzHtmlViewerModule } from './lib/modules/smz-html-viewer/smz-html-viewer.module';
-export { SmzHtmlViewerComponent } from './lib/modules/smz-html-viewer/smz-html-viewer.component';

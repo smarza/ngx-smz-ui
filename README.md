@@ -33,7 +33,7 @@
               {
                 "glob": "**/*",
                 "input": "node_modules/ngx-smz-ui/resources",
-                "output": "/assets/"
+                "output": "/"
               }
             ],
             ...
@@ -45,7 +45,7 @@
 
     ```scss
     // SMZ-UI
-    @import "~ngx-smz-ui/resources/scss/smz-ui.scss";
+    @import "~ngx-smz-ui/resources/assets/scss/smz-ui.scss";
     ```
 
 * Import the `NgxSmzLayoutsModule` in your `AppModule` and pass the initial configuration data. Also import the LayoutTheme Module of your choice (Ex. HephaestusLayoutModule)
@@ -69,10 +69,16 @@
     ```
 
 * In your `AppComponent` add the layout component with the `<router-outlet></router-outlet>` tags to the html template.
+* To customize the topbar content, you can use the ng-template tag `<ng-template pTemplate="headerExtras">Your code here.</ng-template>`.
 
     ```html
     <smz-ui-hephaestus-layout [menu]="menu" [profile]="profile" [notifications]="notifications">
       <router-outlet></router-outlet>
+
+      <ng-template pTemplate="headerExtras">
+        Your code here.
+      </ng-template>
+
     </smz-ui-hephaestus-layout>
     ```
 
@@ -221,7 +227,7 @@
 
     ```scss
     // SMZ-UI
-    @import "~ngx-smz-ui/resources/scss/smz-tables.scss";
+    @import "~ngx-smz-ui/resources/assets/scss/smz-tables.scss";
     ```
 
 # 2. Simple Use
@@ -454,3 +460,41 @@ The custom content is going to be called just to the columns with contentData.us
           },
     ```
 
+
+
+# smz-data-info
+
+# 1. Setup
+
+* Import the `NgxDataInfoModule` in the `Module` that you are going to use it.
+
+    Example:
+    ```typescript
+    @NgModule({
+    declarations: [
+      ...
+    ],
+    imports: [
+      ...
+      NgxDataInfoModule,
+      ...
+    ],
+    })
+    export class SomeModule {
+      ...
+    }
+    ```
+
+# 2. Simple Use
+
+* In the HTML of your component, add the following tag.
+
+    ```html
+        <smz-data-info
+            [image]="'assets/images/tables/empty.svg'"
+            [message]="'No data was found.'"
+            [callbackInfo]="'But you can update if you want.'"
+            [callbackLabel]="'UPDATE'"
+            (clicked)="someCallback()">
+        </smz-data-info>
+    ```

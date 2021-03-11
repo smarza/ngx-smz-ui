@@ -69,7 +69,7 @@
               {
                 "glob": "**/*",
                 "input": "node_modules/ngx-smz-ui/resources",
-                "output": "/assets/"
+                "output": "/"
               }
             ],
             "styles": [

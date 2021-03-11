@@ -17,6 +17,7 @@ import { SmzContentIconMatchesPipe } from './pipes/content-icon-matches.pipe';
 import { SmzFilterObjectPipe } from './pipes/filter-object.pipe';
 import { TableItemActionsModule } from '../../common/table-item-actions/table-item-actions.module';
 import { ClickStopPropagationModule } from '../../common/stop-click-propagation/click-stop-propagation.module';
+import { NgxSmzDataInfoModule } from '../smz-data-info/smz-data-info.module';
 
 @NgModule({
     declarations: [
@@ -39,7 +40,8 @@ import { ClickStopPropagationModule } from '../../common/stop-click-propagation/
         SmzMenuModule,
         FormsModule,
         TableItemActionsModule,
-        ClickStopPropagationModule
+        ClickStopPropagationModule,
+        NgxSmzDataInfoModule
     ],
     exports: [
         SmzTableComponent,

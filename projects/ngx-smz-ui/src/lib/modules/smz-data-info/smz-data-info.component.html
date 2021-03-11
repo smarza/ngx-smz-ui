@@ -1,0 +1,9 @@
+<div class="p-grid p-justify-center p-align-center p-p-4 p-m-0 h-full text-center animate__animated animate__fadeInDown">
+  <div class="p-col-10 p-md-6 p-lg-4">
+      <img *ngIf="image != null && image !== ''" [src]="image" class="img-fluid" width="60%" />
+      <h2 class="mt-2">{{ message }}</h2>
+      <p *ngIf="callbackInfo != null" class="mb-2">{{ callbackInfo }}</p>
+      <button *ngIf="callbackLabel != null" pButton type="button" class="p-button p-button-info mt-2" [label]="callbackLabel | uppercase"
+          (click)="clicked.emit()"></button>
+  </div>
+</div>

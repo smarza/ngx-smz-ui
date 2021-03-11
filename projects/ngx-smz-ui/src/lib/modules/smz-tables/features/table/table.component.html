@@ -1,15 +1,13 @@
 <ng-container *ngIf="config | tableContext as context">
 
     <ng-container *ngIf="context.config.customEmptyMessage != null && items?.length === 0; else tableTemplate">
-        <div class="app_center__section p-grid p-justify-center p-align-center animate__animated animate__fadeInDown">
-            <div class="p-col-10 p-md-6 p-lg-3">
-                <img *ngIf="context.config.customEmptyMessage.image != null && context.config.customEmptyMessage.image !== ''" [src]="context.config.customEmptyMessage.image" class="img-fluid" width="60%" />
-                <h2 class="mt-2">{{ context.config.customEmptyMessage.message }}</h2>
-                <p *ngIf="context.config.customEmptyMessage.callbackInfo != null" class="mb-2">{{ context.config.customEmptyMessage.callbackInfo }}</p>
-                <button *ngIf="context.config.customEmptyMessage.callback != null" pButton type="button" class="p-button p-button-info mt-2" [label]="context.config.customEmptyMessage.callbackLabel | uppercase"
-                    (click)="context.config.customEmptyMessage.callback()"></button>
-            </div>
-        </div>
+        <smz-data-info
+            [image]="context.config.customEmptyMessage.image"
+            [message]="context.config.customEmptyMessage.message"
+            [callbackInfo]="context.config.customEmptyMessage.callbackInfo"
+            [callbackLabel]="context.config.customEmptyMessage.callbackLabel"
+            (clicked)="context.config.customEmptyMessage.callback()">
+        </smz-data-info>
     </ng-container>
 
     <ng-template #tableTemplate>

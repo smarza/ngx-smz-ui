@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { Select, Store, } from '@ngxs/store';
+import { Store, } from '@ngxs/store';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Observable } from 'rxjs';
 import { UiSelectors } from '../../core/state/ui/ui.selectors';
 
 @Component({

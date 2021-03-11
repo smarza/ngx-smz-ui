@@ -46,7 +46,7 @@ export class DemoTablesComponent implements OnInit {
       showCaption: true,
       showCurrentPageReport: true,
       showGlobalFilter: true,
-      showPaginator: true,
+      showPaginator: false,
       showClearFilter: true,
       title: 'Permissões de Trabalho',
       useCustomActions: false,

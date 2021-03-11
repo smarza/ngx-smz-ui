@@ -169,7 +169,7 @@ html {
 
 /* Main Layout */
 body {
-  font-family: "Source Sans Pro", Arial, sans-serif;
+  font-family: var(--font-family);
   font-size: 14px;
   font-weight: normal;
   padding: 0;
