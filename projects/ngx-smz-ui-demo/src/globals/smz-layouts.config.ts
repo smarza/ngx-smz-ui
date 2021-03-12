@@ -43,7 +43,7 @@ export const smzLayoutsConfig: SmzLayoutsConfig = {
     },
     themes: {
         content: SmzContentTheme.PRIMEONE_LIGHT,
-        schema: ColorSchemaDefinition.E_LIBRA
+        schema: ColorSchemaDefinition.DEMO_PROJECT
     },
     loader: {
         type: SmzLoader.CUBE,

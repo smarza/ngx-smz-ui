@@ -5,6 +5,7 @@ export enum ColorSchemaDefinition {
   CONVERSOR = 'conversor',
   E_LIBRA = 'e-libra',
   DIABLO = 'diablo',
+  DEMO_PROJECT = 'demo-project',
 }
 
 export interface ColorSchema {
@@ -41,7 +42,7 @@ export const SmzColorSchemas: ColorSchema[] = [
   },
   {
     id: ColorSchemaDefinition.DIABLO,
-    name: 'diablo',
+    name: 'Diablo',
     tone: 'dark',
     color: '#000000',
     constrast: '#ffb300',
@@ -50,6 +51,15 @@ export const SmzColorSchemas: ColorSchema[] = [
       { id: '--primary-color-text', name: '#ffb300' }, // texto on hover do menu
     ]
   },
+  {
+    id: ColorSchemaDefinition.DEMO_PROJECT,
+    name: 'Demo Project',
+    tone: 'dark',
+    color: '#454764',
+    constrast: '#EA80FC',
+    schemas: [
+      { id: '--primary-color', name: '#454764' }, // topo
+      { id: '--primary-color-text', name: '#EA80FC' }, // texto on hover do menu
+    ]
+  },
 ];
-
-

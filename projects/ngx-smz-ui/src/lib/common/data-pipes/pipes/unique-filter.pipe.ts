@@ -1,5 +1,5 @@
 import { Injectable, Pipe, PipeTransform } from '@angular/core';
-import uniqBy from 'lodash-es/uniqBy';
+import uniqBy from 'lodash-es';
 import { sortArray } from '../../utils/utils';
 
 @Pipe({
