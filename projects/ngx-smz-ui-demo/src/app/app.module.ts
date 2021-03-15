@@ -33,8 +33,8 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxSmzLayoutsModule.forRoot(smzLayoutsConfig),
 
-    HephaestusLayoutModule.forRoot(smzHephaestusConfig),
-    // AthenaLayoutModule.forRoot(smzAthenaConfig)
+    // HephaestusLayoutModule.forRoot(smzHephaestusConfig),
+    AthenaLayoutModule.forRoot(smzAthenaConfig)
 
   ],
   providers: [

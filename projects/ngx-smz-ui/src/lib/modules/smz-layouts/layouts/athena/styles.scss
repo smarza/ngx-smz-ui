@@ -1,3 +1,6 @@
+// VARIÁVEIS GLOBAIS
+@import "./styles/variables";
+
 /* Add your variable customizations of layout here */
 /* source-sans-pro-300 - latin-ext_latin */
 @font-face {
@@ -186,7 +189,7 @@ body a {
 }
 .layout-wrapper .topbar {
   background-color: var(--primary-color);
-  padding: 10px 16px;
+  padding: 10px calc(var(--layout-topbar-height) / 2);
   height: var(--layout-topbar-height);
   box-sizing: border-box;
   position: fixed;
@@ -200,9 +203,9 @@ body a {
 .layout-wrapper .topbar #menu-button {
   display: none;
   vertical-align: top;
-  height: 50px;
-  width: 50px;
-  line-height: 50px;
+  height: var(--layout-topbar-height);
+  width: var(--layout-topbar-height);
+  line-height: var(--layout-topbar-height);
   text-align: center;
   margin-top: -10px;
   margin-left: 30px;
@@ -283,14 +286,15 @@ body a {
   height: 100%;
   width: 185px;
   display: inline-block;
+  margin-top: 1px;
 }
 .layout-wrapper .topbar .topbar-logo .logo {
-  height: 30px;
+  height: calc(var(--layout-topbar-height) * 0.6);
 }
 .layout-wrapper .topbar .profile {
   float: right;
   text-align: right;
-  margin-top: -5px;
+  margin-top: -1px;
   font-weight: 700;
 }
 .layout-wrapper .topbar .profile img {
@@ -312,7 +316,7 @@ body a {
   display: none;
   position: absolute;
   right: 0;
-  top: 50px;
+  top: var(--layout-topbar-height);
   width: 250px;
   list-style-type: none;
   padding: 0;
@@ -411,7 +415,8 @@ body a {
   background-color: var(--surface-a);
   position: fixed;
   z-index: 101;
-  top: 50px;
+  top: var(--layout-topbar-height);
+  height: var(--layout-menu-height);
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -611,9 +616,48 @@ body a {
   float: right;
   font-weight: 700;
 }
+.layout-wrapper.layout-horizontal .layout-content {
+  padding-top: var(--layout-topbar-height);
+}
+
+
+.layout-footer {
+  background: var(--surface-e);
+  height: var(--layout-footer-height);
+  border-top: 1px solid var(--surface-f);
+  border-bottom: 1px solid var(--surface-f);
+  color: var(--text-color);
+  padding: 0 2rem;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+.layout-footer .footer-logo-container {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.layout-footer .footer-logo-container img {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+.layout-footer .footer-logo-container .app-name {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  margin-left: 0.5rem;
+}
+.layout-footer .copyright {
+  font-size: 0.875rem;
+}
+
 @media (min-width: 1025px) {
   .layout-wrapper.layout-horizontal .layout-content {
-    padding-top: 100px;
+    padding-top: 105px;
   }
   .layout-wrapper.layout-horizontal .layout-menu-container {
     padding: 0 20px;
@@ -631,7 +675,8 @@ body a {
   }
   .layout-wrapper.layout-horizontal .layout-menu-container .layout-menu > li > a {
     padding: 12px;
-    height: 50px;
+    padding-top: 17px;
+    height: var(--layout-menu-height);
     margin-bottom: -4px;
     border-bottom: 2px solid transparent;
     -moz-transition: border-bottom-color 0.3s, background-color 0.3s;
@@ -968,6 +1013,7 @@ body a {
     box-shadow: 0 2px 4px 0px rgba(0, 0, 0, 0.3);
     -webkit-box-shadow: 0 2px 4px 0px rgba(0, 0, 0, 0.3);
     -moz-box-shadow: 0 1px 2px 4px rgba(0, 0, 0, 0.3);
+    padding: 10px calc(var(--layout-topbar-height) / 4);
   }
   .layout-wrapper .topbar .profile .username {
     display: none;

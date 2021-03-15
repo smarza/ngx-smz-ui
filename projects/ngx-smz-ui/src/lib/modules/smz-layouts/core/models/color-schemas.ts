@@ -22,10 +22,10 @@ export const SmzColorSchemas: ColorSchema[] = [
     id: ColorSchemaDefinition.CONVERSOR,
     name: 'Conversor',
     tone: 'dark',
-    color: '#6ebc3b',
+    color: '#009688',
     constrast: '#ffffff',
     schemas: [
-      { id: '--primary-color', name: '#6ebc3b' }, // topo
+      { id: '--primary-color', name: '#009688' }, // topo
       { id: '--primary-color-text', name: '#ffffff' }, // texto on hover do menu
     ]
   },

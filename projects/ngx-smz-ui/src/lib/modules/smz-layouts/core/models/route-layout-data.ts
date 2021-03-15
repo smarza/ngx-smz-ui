@@ -1,3 +1,5 @@
+import { ReusableRouteConfig } from 'ngx-rbk-utils';
+
 export interface SmzRouteData
 {
   layout?: RouteLayoutData;
@@ -5,6 +7,8 @@ export interface SmzRouteData
   title?: string;
   clearReusableRoutes?: boolean;
   requiredStates?: string[];
+  claim?: string;
+  cacheStrategy?: ReusableRouteConfig;
 }
 
 export interface RouteLayoutData
