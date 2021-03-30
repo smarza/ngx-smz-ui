@@ -67,6 +67,10 @@ export class SmzTableContextPipe implements PipeTransform {
       clearFilterCallback: inputConfig.clearFilterCallback ?? null,
       clearFilterLabel: inputConfig.clearFilterLabel ?? 'Limpar Filtro',
       toolbarAlignment: inputConfig.toolbarAlignment ?? 'start',
+      sortField: inputConfig.sortField ?? null,
+      sortMode: inputConfig.sortMode ?? 'single',
+      sortOrder: inputConfig.sortOrder ?? 1,
+      multiSortMeta: inputConfig.multiSortMeta ?? null,
     };
 
     if (config.customEmptyMessage != null) {

@@ -20,6 +20,8 @@
         <p-table #dt [value]="clonedItems" [(selection)]="selectedItems" dataKey="id" styleClass="p-datatable-smz-ui-table" [rowHover]="context.config.rowHover"
             [rows]="context.config.rows" [showCurrentPageReport]="context.config.showCurrentPageReport" [rowsPerPageOptions]="context.config.rowsPerPageOptions" [loading]="loading"
             [paginator]="context.config.showPaginator" [currentPageReportTemplate]="context.config.currentPageReportTemplate"
+            [sortField]="context.config.sortField" [sortMode]="context.config.sortMode"
+            [sortOrder]="context.config.sortOrder" [multiSortMeta]="context.config.multiSortMeta"
             [filterDelay]="0" [globalFilterFields]="context.globalFilter" (selectionChange)="selectionChange.emit($event)">
 
             <ng-template pTemplate="caption" *ngIf="context.config.showCaption">

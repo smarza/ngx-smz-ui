@@ -26,6 +26,10 @@ export interface SmzTableConfig {
   clearFilterCallback?: () => void,
   clearFilterLabel?: string;
   toolbarAlignment?: 'start' | 'end';
+  sortField?: string;
+  sortMode?: 'single' | 'multiple';
+  sortOrder?: 1 | -1;
+  multiSortMeta?: { field: string, order: 1 | -1 }[];
 
 }
 
