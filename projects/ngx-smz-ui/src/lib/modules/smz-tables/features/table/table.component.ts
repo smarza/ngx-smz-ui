@@ -22,6 +22,7 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
   public captionTemplate: TemplateRef<any>;
   public toolbarTemplate: TemplateRef<any>;
   public emptyActionsTemplate: TemplateRef<any>;
+  public emptyConfigTemplate: TemplateRef<any>;
   public selectedItems: any[];
   public clonedItems: any[] = [];
   public contentTypes = {
@@ -49,19 +50,38 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
   }
   public ngOnChanges(changes: SimpleChanges): void
   {
+
       if (changes.items != null)
       {
-        this.clonedItems = cloneDeep(changes.items.currentValue);
+        if (changes.items.currentValue != null)
+        {
+          this.clonedItems = cloneDeep(changes.items.currentValue);
+        }
+        else
+        {
+          this.clonedItems = [];
+        }
+
         this.cdr.markForCheck();
       }
 
       if (changes.config != null)
       {
+
         const config: SmzTableConfig = changes.config.currentValue;
 
-        if (!config.isSelectable) {
+        if (config != null)
+        {
+          if (!config.isSelectable) {
+            this.selectedItems = [];
+          }
+        }
+        else
+        {
           this.selectedItems = [];
         }
+
+        this.cdr.markForCheck();
       }
   }
   public ngAfterContentInit() {
@@ -87,6 +107,10 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
 
         case 'emptyActions':
           this.emptyActionsTemplate = item.template;
+          break;
+
+        case 'emptyConfig':
+          this.emptyConfigTemplate = item.template;
           break;
       }
     });

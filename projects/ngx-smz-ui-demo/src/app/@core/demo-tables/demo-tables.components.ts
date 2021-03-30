@@ -18,12 +18,19 @@ export class DemoTablesComponent implements OnInit {
   public loading = false;
   constructor(private dataService: DemoTableDataService) {
 
-    // this.loadItems();
-    this.items$ = of([]);
+    this.loadItems();
+    // this.items$ = of([]);
   }
 
   ngOnInit() {
     this.setupTableConfig();
+
+    // setTimeout(() => {
+    //   this.config = null;
+    //   setTimeout(() => {
+    //     this.setupTableConfig();
+    //   }, 2000);
+    // }, 2000);
   }
 
   public test(event: any): void {

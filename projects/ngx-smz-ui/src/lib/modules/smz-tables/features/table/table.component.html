@@ -1,4 +1,4 @@
-<ng-container *ngIf="config | tableContext as context">
+<ng-container *ngIf="config | tableContext as context; else noConfigTemplate">
 
     <ng-container *ngIf="context.config.customEmptyMessage != null && clonedItems?.length === 0; else tableTemplate">
         <smz-data-info
@@ -190,7 +190,7 @@
                             <ng-container *ngTemplateOutlet="actionsTemplate; context: { $implicit: item }"></ng-container>
                         </td>
 
-                        <td *ngIf="!context.config.useCustomActions">
+                        <td *ngIf="!context.config.useCustomActions" [ngStyle]="{ 'text-align': 'right' }">
                             <p-menu #actionMenu [popup]="true" [model]="context.config.menu" appendTo="body"></p-menu>
                             <button id="action-button" type="button" pButton icon="pi pi-bars" (click)="actionMenu.toggle($event, item)"></button>
                         </td>
@@ -208,3 +208,9 @@
     </ng-template>
 
 </ng-container>
+
+<ng-template #noConfigTemplate>
+    <ng-container *ngIf="emptyConfigTemplate != null">
+        <ng-container *ngTemplateOutlet="emptyConfigTemplate; context: { $implicit: {} }"></ng-container>
+    </ng-container>
+</ng-template>
