@@ -1,4 +1,5 @@
 import { ReusableRouteConfig } from 'ngx-rbk-utils';
+import { FaqsRouterConfig } from '../../../smz-faqs/models/faqs';
 
 export interface SmzRouteData
 {
@@ -9,6 +10,7 @@ export interface SmzRouteData
   requiredStates?: string[];
   claim?: string;
   cacheStrategy?: ReusableRouteConfig;
+  faqs?: FaqsRouterConfig;
 }
 
 export interface RouteLayoutData

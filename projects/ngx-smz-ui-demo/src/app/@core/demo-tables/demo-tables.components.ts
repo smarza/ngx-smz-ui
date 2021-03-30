@@ -33,6 +33,17 @@ export class DemoTablesComponent implements OnInit {
     // }, 2000);
   }
 
+  public toggleVisibility(field: string): void
+  {
+    const matchIndex = this.config.columns.findIndex(x => x.field === field);
+
+    if (matchIndex !== -1) {
+      this.config.columns[matchIndex].isVisible = !this.config.columns[matchIndex].isVisible;
+
+      this.config = { ...this.config };
+    }
+  }
+
   public test(event: any): void {
     console.log('selection change', event);
   }
@@ -77,6 +88,7 @@ export class DemoTablesComponent implements OnInit {
         { label: 'Editar', icon: 'pi pi-fw pi-plus', command: (event) => this.test(event) },
         { separator: true },
         { label: 'Apagar', icon: 'pi pi-fw pi-download', command: (event) => this.test(event) },
+        { label: 'Teste', command: (event) => { this.toggleVisibility('plant.name'); } }
       ],
       columns: [
         {

@@ -14,11 +14,12 @@ import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { SmzFaqsConfig } from './smz-faqs.config';
 import { NgxSmzFormsModule } from 'ngx-smz-dialogs';
 import { SmzMessagesModule } from '../smz-messages/smz-messages.module';
+import { RbkAccessControlModule } from 'ngx-rbk-utils';
 
 const initial: SmzFaqsConfig =
 {
     databaseCacheTimeout: 10,
-    isCreationEnabled: true,
+    creationClaim: 'CAN_CREATE_COMMENTS',
     endpoint: '',
     placeholders: {
         searchTitle: 'Como posso ajuda-lo ?',
@@ -34,7 +35,7 @@ const initial: SmzFaqsConfig =
         positions: {
             'top': '10%',
             'middle': '48%',
-            'bottom': '90%',
+            'bottom': '80%',
         }
     }
 }
@@ -57,18 +58,19 @@ export const ngxsModuleForFeatureFaqsDbState = NgxsModule.forFeature([FaqsDbStat
         AccordionModule,
         InputTextModule,
         FormsModule,
-        ngxsModuleForFeatureFaqsDbState
+        ngxsModuleForFeatureFaqsDbState,
+        RbkAccessControlModule
     ],
     exports: [
         SmzFaqsComponent
     ],
 })
-export class SmzFaqsModule {
+export class NgxSmzFaqsModule {
 
-    public static forRoot(configuration: SmzFaqsConfig): ModuleWithProviders<SmzFaqsModule>{
+    public static forRoot(configuration: SmzFaqsConfig): ModuleWithProviders<NgxSmzFaqsModule>{
         // console.log('configuration...', configuration);
         return {
-            ngModule: SmzFaqsModule,
+            ngModule: NgxSmzFaqsModule,
             providers: [
                 {
                     provide: SmzFaqsConfig,

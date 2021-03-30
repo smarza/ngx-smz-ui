@@ -49,10 +49,10 @@ export const rbkConfig: NgxRbkUtilsConfig = {
         login: {
             url: `${environment.authenticationApi}/api/auth/login`,
             errorHandlingType: 'toast',
-            responsePropertyName: 'token',
+            responsePropertyName: 'accessToken',
             loadingBehavior: 'global',
         },
-        localStoragePrefix: 'vf',
+        localStoragePrefix: 'dm',
         refreshToken: {
             url: `${environment.authenticationApi}/api/auth/refresh-token`,
             errorHandlingType: 'toast',

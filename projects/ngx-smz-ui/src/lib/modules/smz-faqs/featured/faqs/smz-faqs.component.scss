@@ -1,10 +1,10 @@
 smz-faqs {
     font-size: 14px;
 
-    --primary-color: #2196f3;
-    --primary-color-text: #ffffff;
-    --text-color: #495057;
-    --surface-f: #ffffff;
+    // --primary-color: #2196f3;
+    // --primary-color-text: #ffffff;
+    // --text-color: #495057;
+    // --surface-f: #ffffff;
 
     .layout-dimmer {
         position: fixed;
@@ -12,8 +12,9 @@ smz-faqs {
         right: 0;
         left: 0;
         bottom: 0;
-        background-color: rgba(0, 0, 0, 0.3);
+        background-color: rgba(0, 0, 0, 0.35);
         user-select: none;
+        z-index: 101;
     }
 
     .layout-config {

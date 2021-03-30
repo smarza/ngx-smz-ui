@@ -1,7 +1,7 @@
 export class SmzFaqsConfig
 {
     public databaseCacheTimeout: number;
-    public isCreationEnabled: boolean;
+    public creationClaim: string;
     public endpoint: string;
 
     public placeholders: {

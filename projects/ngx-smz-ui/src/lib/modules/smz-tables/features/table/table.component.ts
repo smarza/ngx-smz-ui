@@ -50,7 +50,7 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
   }
   public ngOnChanges(changes: SimpleChanges): void
   {
-
+      console.log(changes);
       if (changes.items != null)
       {
         if (changes.items.currentValue != null)

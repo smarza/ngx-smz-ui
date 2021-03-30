@@ -3,7 +3,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } fr
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NgxSmzLayoutsModule, HephaestusLayoutModule, AthenaLayoutModule } from 'ngx-smz-ui';
+import { NgxSmzLayoutsModule, HephaestusLayoutModule, AthenaLayoutModule, NgxSmzFaqsModule } from 'ngx-smz-ui';
 
 import { smzAthenaConfig, smzHephaestusConfig, smzLayoutsConfig } from '../globals/smz-layouts.config';
 import { CommonModule } from '@angular/common';
@@ -15,6 +15,7 @@ import { rbkConfig } from '../globals/rbk-config';
 import { smzDialogsConfig } from '../globals/smz-config';
 import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { smzFaqsConfig } from '../globals/smz-faqs.config';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
     NgxSmzLayoutsModule.forRoot(smzLayoutsConfig),
 
     // HephaestusLayoutModule.forRoot(smzHephaestusConfig),
-    AthenaLayoutModule.forRoot(smzAthenaConfig)
+    AthenaLayoutModule.forRoot(smzAthenaConfig),
+    NgxSmzFaqsModule.forRoot(smzFaqsConfig)
 
   ],
   providers: [

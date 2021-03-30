@@ -1,39 +1,65 @@
 import { Validators } from '@angular/forms';
+import { SmzControlType, SmzDialogFeature, SmzForm, SmzFormGroup, SmzTextAreaControl, SmzTextControl } from 'ngx-smz-dialogs';
 import { FaqDetails } from '../models/faqs';
 
 export namespace FaqsForms
 {
-    export function getForm(data: FaqDetails = null): any
+    export function getFormFeature(data: FaqDetails = null): SmzDialogFeature
     {
-        const inputs: any[] = [];
-
-        inputs.push(...getInputs(data));
+        const form: SmzForm<never> = {
+            formId: 'faqs-form',
+            behaviors: { flattenResponse: true, avoidFocusOnLoad: true },
+            groups: [
+                getFaqsFormGroup(data),
+            ],
+        }
 
         return {
-            components: [],
-            inputs,
-            avoidFocusOnLoad: true
+            type: 'form',
+            data: form,
         };
     }
-    export function getInputs(data: FaqDetails = null): any[]
-    {
-        const response: any[] = [];
 
+
+    export function getFaqsFormGroup(data: FaqDetails = null): SmzFormGroup
+    {
         const question = data != null ? data.question : null;
         const answer = data != null ? data.answer : null;
 
-        response.push({
-            type: 'text', placeholder: 'Escreva a pergunta', name: 'question', defaultValue: question,
-            validators: Validators.compose([Validators.required, Validators.minLength(5)]), validationMessages: [{ type: 'required', message: 'Campo obrigatório.' }, { type: 'minLength', message: 'Precisa ter ao menos 5 caracteres.'}],
-        });
+        const questionInput: SmzTextControl = {
+            propertyName: 'question', name: 'Escreva a pergunta', type: SmzControlType.TEXT,
+            defaultValue: question,
+            template: { large: { row: 'col-12' } },
+            validatorsPreset: { isRequired: true, minLength: 5 },
+            isDisabled: false,
+            advancedSettings: {
+                validationMessages: [
+                    { type: 'minlength', message: `Precisa ter ao menos 5 caracteres.` },
+                ]
+            }
+        };
 
-        response.push({
-            type: 'text-area', placeholder: 'Resposta...', name: 'answer', defaultValue: answer, textAreaRows: 10,
-            validators: Validators.compose([Validators.required, Validators.minLength(5)]), validationMessages: [{ type: 'required', message: 'Campo obrigatório.' }, { type: 'minLength', message: 'Precisa ter ao menos 5 caracteres.'}],
-        });
+        const answerInput: SmzTextAreaControl = {
+            propertyName: 'answer', name: 'Resposta...', type: SmzControlType.TEXT_AREA,
+            defaultValue: answer,
+            template: { large: { row: 'col-12' } },
+            validatorsPreset: { isRequired: true, minLength: 5 },
+            isDisabled: false,
+            textAreaRows: 10,
+            advancedSettings: {
+                validationMessages: [
+                    { type: 'minlength', message: `Precisa ter ao menos 5 caracteres.` },
+                ]
+            }
+        };
 
-        return response;
+
+        return {
+            name: '', showName: false,
+            children: [questionInput, answerInput],
+        };
     }
+
 }
 
 

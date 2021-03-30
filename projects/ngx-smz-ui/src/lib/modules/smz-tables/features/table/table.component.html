@@ -190,7 +190,7 @@
                             <ng-container *ngTemplateOutlet="actionsTemplate; context: { $implicit: item }"></ng-container>
                         </td>
 
-                        <td *ngIf="!context.config.useCustomActions" [ngStyle]="{ 'text-align': 'right' }">
+                        <td *ngIf="!context.config.useCustomActions" [ngStyle]="{ 'text-align': 'left' }">
                             <p-menu #actionMenu [popup]="true" [model]="context.config.menu" appendTo="body"></p-menu>
                             <button id="action-button" type="button" pButton icon="pi pi-bars" (click)="actionMenu.toggle($event, item)"></button>
                         </td>

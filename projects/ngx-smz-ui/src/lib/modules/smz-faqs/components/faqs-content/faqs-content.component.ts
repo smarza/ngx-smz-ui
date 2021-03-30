@@ -3,7 +3,7 @@ import { FaqDetails, FaqCreation, FaqUpdate } from '../../models/faqs';
 import { FaqsForms } from '../../functions/faqs.forms';
 import { FaqsDialogs } from '../../functions/faqs.dialogs';
 import { FaqsManagerService } from '../../services/faqs-manager.service';
-import { SmzDialogsService } from 'ngx-smz-dialogs';
+import { Confirmable, FormGroupComponent, SmzDialogsService, SmzForm } from 'ngx-smz-dialogs';
 
 @Component({
     selector: 'smz-faqs-content',
@@ -13,7 +13,7 @@ import { SmzDialogsService } from 'ngx-smz-dialogs';
 export class FaqsContentComponent implements OnInit
 {
     @Input() public items: FaqDetails[];
-    // public formConfig: FormGroupConfig;
+    public formConfig: SmzForm<never>;
     public hasUnsavedForm = false;
     public keywords: string = '';
     constructor(public manager: FaqsManagerService, private cdf: ChangeDetectorRef, public dialogs: SmzDialogsService) { }
@@ -25,54 +25,55 @@ export class FaqsContentComponent implements OnInit
 
     public setupForm(): void
     {
-        // this.formConfig = FaqsForms.getForm();
-        // this.hasUnsavedForm = false;
+        this.formConfig = {
+            formId: 'faqs-content-form',
+            behaviors: { flattenResponse: true, avoidFocusOnLoad: true },
+            groups: [
+                FaqsForms.getFaqsFormGroup()
+            ],
+          };
 
-        // this.cdf.markForCheck();
+        this.hasUnsavedForm = false;
+
+        this.cdf.markForCheck();
     }
 
 
-    public create(formComponent: any): void
+    @Confirmable('Confirma a criação desta pergunta/resposta ?', 'Aviso')
+    public create(formComponent: FormGroupComponent): void
     {
-        // const data = formComponent.form.value;
+        const data = formComponent.form.value;
 
-        // this.dialogs.showConfirmation('Confirma a criação deste comentário ?', () =>
-        // {
-        //     const creation: FaqCreation = {
-        //         tag: this.manager.currentTag,
-        //         question: data.question,
-        //         answer: data.answer
-        //     };
+        const creation: FaqCreation = {
+            tag: this.manager.currentTag,
+            question: data.question,
+            answer: data.answer
+        };
 
-        //     formComponent.clearFormValues();
+        formComponent.clearFormValues();
 
-        //     this.manager.create(creation);
-        // });
+        this.manager.create(creation);
     }
 
     public update(item: FaqDetails): void
     {
-        // this.dialogs.showFormGroup(FaqsDialogs.getDialog(item, (response: any) =>
-        // {
-        //     const data = response.data as any;
+        this.dialogs.open(FaqsDialogs.getDialog(item, (response: { question: string, answer: string }) =>
+        {
+            const update: FaqUpdate = {
+                id: item.id,
+                tag: this.manager.currentTag,
+                question: response.question,
+                answer: response.answer
+            };
 
-        //     const update: FaqUpdate = {
-        //         id: item.id,
-        //         tag: this.manager.currentTag,
-        //         question: data.question,
-        //         answer: data.answer
-        //     };
-
-        //     this.manager.update(update);
-        // }));
+            this.manager.update(update);
+        }));
     }
 
+    @Confirmable('Deseja realmente excluir esta pergunta/resposta ?', 'Exclusão', true)
     public delete(data: FaqDetails): void
     {
-        // this.dialogs.showConfirmation('Deseja realmente excluir esta pergunta ?', () =>
-        // {
-        //     this.manager.delete(data.id);
-        // });
+        this.manager.delete(data.id);
     }
 
 }

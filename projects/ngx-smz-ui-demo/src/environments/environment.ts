@@ -6,8 +6,8 @@ export const environment = {
   production: false,
   version: 'development_v.3.3.19',
   databaseCacheTimeout: 2,
-  domainApi: 'https://localhost:44376',
-  authenticationApi: 'https://localhost:44380',
+  domainApi: 'https://dev.varejofacil.tk',
+  authenticationApi: 'https://dev.varejofacil.tk',
   applicationId: 'LIBRA'
 };
 

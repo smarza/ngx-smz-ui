@@ -20,6 +20,10 @@ const routes: Routes = [
     loadChildren: () => import('./@core/demo-tables/demo-tables.module').then(m => m.DemoTablesModule),
   },
   {
+    path: 'faqs',
+    loadChildren: () => import('./@core/demo-faqs/demo-faqs.module').then(m => m.DemoFaqsModule),
+  },
+  {
     path: 'landing',
     loadChildren: () => import('./@core/landing/landing.module').then(m => m.LandingModule),
   },

@@ -8,7 +8,7 @@ import { DemoTablesComponent } from './demo-tables.components';
 
 const data: SmzRouteData = {
   layout: {
-    mode: 'layout'
+    mode: 'layout',
   },
   title: 'Demo Tables',
   appArea: 'demo-table',

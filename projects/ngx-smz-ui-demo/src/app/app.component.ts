@@ -23,6 +23,7 @@ export class AppComponent {
           { label: 'Details', routerLink: ['details'] },
           { label: 'Tables', icon: 'far fa-star', routerLink: ['tables'] },
           { label: 'Side Content', icon: 'far fa-star', routerLink: ['side-content'] },
+          { label: 'Faqs', icon: 'far fa-star', routerLink: ['faqs'] },
         ]
       },
       {
