@@ -5,7 +5,7 @@
         <div class="p-d-flex p-flex-column login-container p-align-center">
           <img class="login-logo" alt="" [src]="(appLogo$ | async).vertical" />
           <p class="g-mb-2">Entre com as suas credenciais:</p>
-          <smz-form-group #formComponent [config]="form"></smz-form-group>
+          <smz-form-group #formComponent (submit)="login($event)" [config]="form"></smz-form-group>
           <!-- <a class="link g-mb-2 g-mt-1">Esqueceu a senha?</a> -->
           <button pButton class="p-col-12" [disabled]="!formComponent.isValid" type="button" label="ENTRAR" (click)="login(formComponent.getData())"></button>
         </div>

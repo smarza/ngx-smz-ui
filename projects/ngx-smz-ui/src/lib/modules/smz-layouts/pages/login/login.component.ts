@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
 
     this.form = {
       formId: 'smz-ui-login-form',
-      behaviors: { flattenResponse: false },
+      behaviors: { flattenResponse: false, submitOnEnter: true },
       groups: [
         {
           name: null,
