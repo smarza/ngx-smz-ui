@@ -19,40 +19,38 @@ import { SmzNotification } from '../../core/models/notifications';
   styleUrls: ['./layout.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class HephaestusLayoutComponent implements OnInit, AfterContentInit
-{
+export class HephaestusLayoutComponent implements OnInit, AfterContentInit {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
   @Select(UiHephaestusSelectors.state) public state$: Observable<LayoutState>;
   @Select(UiSelectors.assistance) public assistance$: Observable<Assistance>;
+  @Select(UiSelectors.contentClass) public contentClass$: Observable<string>;
   @Input() public menu: MenuItem[];
   @Input() public profile: MenuItem[];
   @Input() public notifications: SmzNotification[];
   public headerExtrasTemplate: TemplateRef<any>;
-  constructor(public readonly config: SmzLayoutsConfig, public readonly layout: HephaestusLayout, public readonly routerListener: RouterDataListenerService, private store: Store, public cdr: ChangeDetectorRef)
-  {
+  public footerExtrasTemplate: TemplateRef<any>;
+  constructor(public readonly config: SmzLayoutsConfig, public readonly layout: HephaestusLayout, public readonly routerListener: RouterDataListenerService, private store: Store, public cdr: ChangeDetectorRef) {
     this.store.dispatch(new UiActions.Initialize());
     this.store.dispatch(new UiHephaestusActions.Initialize(config, layout));
   }
 
-  public ngOnInit(): void
-  {
+  public ngOnInit(): void {
   }
 
-  public ngAfterContentInit()
-  {
-    this.templates.forEach((item) =>
-    {
-      switch (item.getType())
-      {
+  public ngAfterContentInit() {
+    this.templates.forEach((item) => {
+      switch (item.getType()) {
         case 'headerExtras':
           this.headerExtrasTemplate = item.template;
+          break;
+        case 'footerExtras':
+          this.footerExtrasTemplate = item.template;
           break;
       }
     });
   }
 
-  public hideMenu(): void
-  {
+  public hideMenu(): void {
     this.store.dispatch(new UiHephaestusActions.HideSidebar);
   }
 

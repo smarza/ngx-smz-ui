@@ -5,6 +5,7 @@ export interface SmzTableConfig {
   columns: SmzTableColumn[];
   currentPageReportTemplate?: string;
   isSelectable?: boolean;
+  selectBoxWidth?: string;
   menu?: MenuItem[];
   rowHover?: boolean;
   rows?: number;
@@ -20,8 +21,11 @@ export interface SmzTableConfig {
   showClearFilter?: boolean;
   emptyMessage?: string;
   customEmptyMessage?: SmzCustomEmptyMessage;
-  isRowClickable: boolean,
-  rowClickCallback: (event) => void,
+  isRowClickable?: boolean,
+  rowClickCallback?: (event) => void,
+  clearFilterCallback?: () => void,
+  clearFilterLabel?: string;
+  toolbarAlignment?: 'start' | 'end';
 
 }
 

@@ -1,5 +1,13 @@
 <smz-ui-table [items]="items$ | async" [config]="config" [loading]="loading" (selectionChange)="test($event)">
 
+  <ng-template pTemplate="emptyActions">
+    <button pButton label="Criar" class="p-mr-2" (click)="loadItems()"></button>
+  </ng-template>
+
+  <ng-template pTemplate="caption">
+    <button pButton label="Seleção" (click)="toogleIsSelectable()"></button>
+  </ng-template>
+
   <!-- CONTEÚDOS COM OVERRIDE -->
   <ng-template pTemplate="content" let-item let-col="col">
 

@@ -1,16 +1,17 @@
-import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, EventEmitter, Input, OnInit, Output, QueryList, TemplateRef } from '@angular/core'
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, TemplateRef } from '@angular/core'
 import { PrimeTemplate } from 'primeng/api';
 import { SmzContentType } from '../../models/content-types';
 import { SmzFilterType } from '../../models/filter-types';
-import { SmzTableConfig } from '../../models/table-config';
+import { SmzTableConfig, SmzTableContext } from '../../models/table-config';
+import { cloneDeep } from 'lodash-es';
 
 @Component({
   selector: 'smz-ui-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Default
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SmzTableComponent implements OnInit, AfterContentInit {
+export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
   @Input() public items: any[] = [];
   @Input() public config: SmzTableConfig;
@@ -18,7 +19,11 @@ export class SmzTableComponent implements OnInit, AfterContentInit {
   @Output() public selectionChange: EventEmitter<any> = new EventEmitter<any>();
   public contentTemplate: TemplateRef<any>;
   public actionsTemplate: TemplateRef<any>;
+  public captionTemplate: TemplateRef<any>;
+  public toolbarTemplate: TemplateRef<any>;
+  public emptyActionsTemplate: TemplateRef<any>;
   public selectedItems: any[];
+  public clonedItems: any[] = [];
   public contentTypes = {
     currency: `${SmzContentType.CURRENCY}`,
     calendar: `${SmzContentType.CALENDAR}`,
@@ -35,16 +40,32 @@ export class SmzTableComponent implements OnInit, AfterContentInit {
     multiselect: SmzFilterType.MULTI_SELECT
   }
 
-  constructor() {
+  constructor(public cdr: ChangeDetectorRef) {
 
   }
 
-  ngOnInit(): void {
-    // console.log('items', this.items);
-  }
+  public ngOnInit(): void {
 
+  }
+  public ngOnChanges(changes: SimpleChanges): void
+  {
+      if (changes.items != null)
+      {
+        this.clonedItems = cloneDeep(changes.items.currentValue);
+        this.cdr.markForCheck();
+      }
+
+      if (changes.config != null)
+      {
+        const config: SmzTableConfig = changes.config.currentValue;
+
+        if (!config.isSelectable) {
+          this.selectedItems = [];
+        }
+      }
+  }
   public ngAfterContentInit() {
-    // console.log('ngAfterContentInit', this.templates);
+
     this.templates.forEach((item) => {
       switch (item.getType()) {
 
@@ -55,9 +76,29 @@ export class SmzTableComponent implements OnInit, AfterContentInit {
         case 'actions':
           this.actionsTemplate = item.template;
           break;
+
+        case 'caption':
+          this.captionTemplate = item.template;
+          break;
+
+        case 'toolbar':
+          this.toolbarTemplate = item.template;
+          break;
+
+        case 'emptyActions':
+          this.emptyActionsTemplate = item.template;
+          break;
       }
     });
 
+  }
+
+  public clear(dt: any, context: SmzTableContext): void {
+    dt.clear();
+
+    if (context.config.clearFilterCallback != null) {
+      context.config.clearFilterCallback();
+    }
   }
 
 }

@@ -1,5 +1,5 @@
 import { Injectable, Pipe, PipeTransform } from '@angular/core';
-import uniqBy from 'lodash-es';
+import { uniqBy } from 'lodash-es';
 import { sortArray } from '../../utils/utils';
 
 @Pipe({
@@ -27,10 +27,10 @@ export class UniqueFilterPipe implements PipeTransform
             // retorna a lista contendo apenas a propriedade solicitada
 
             const results = uniques.map(u => (Reflect.get(u, reMap)));
-
+            // console.log('results', results);
             const afterSort = sortBy != null ? sortArray(results, sortBy) : results;
             // console.log('afterSort', afterSort);
-            // console.log('result', initial != null ? [initial, ...afterSort] : afterSort);
+            // console.log('result 1', initial != null ? [initial, ...afterSort] : afterSort);
             return initial != null ? [initial, ...afterSort] : afterSort;
         }
         else
@@ -39,7 +39,7 @@ export class UniqueFilterPipe implements PipeTransform
 
             const results = uniqBy(items, args);
             const afterSort = sortBy != null ? sortArray(results, sortBy) : results;
-            // console.log('result', initial != null ? [initial, ...afterSort] : afterSort);
+            // console.log('result 2', initial != null ? [initial, ...afterSort] : afterSort);
             return initial != null ? [initial, ...afterSort] : afterSort;
         }
     }

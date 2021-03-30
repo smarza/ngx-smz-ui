@@ -11,7 +11,7 @@ import { MenuItem } from 'primeng/api';
             <span class="p-ink"></span>
         </a>
 
-        <ng-container *ngFor="let subItem of item.items">
+        <ng-container *ngFor="let subItem of item.items | isVisible">
           <smz-ui-hephaestus-menu-node [item]="subItem" [currentUrl]="currentUrl"></smz-ui-hephaestus-menu-node>
         </ng-container>
 

@@ -1,5 +1,6 @@
 import { Assistance } from '../models/assistance';
 import { ColorSchemaDefinition } from '../models/color-schemas';
+import { SmzFooter } from '../models/footer';
 import { LoaderData } from '../models/layout';
 import { LogoResource } from '../models/logo';
 import { PagesConfig } from '../models/pages';
@@ -10,8 +11,11 @@ export class SmzLayoutsConfig {
     debugMode?: boolean;
     appLogo: LogoResource;
     appName?: string;
-    footerText?: string;
+    footer: SmzFooter;
     usernameProperty: string;
+    useAvatar?: boolean;
+    avatarProperty?: string;
+    profileMessage?: string;
     themes: {
         content: SmzContentTheme;
         schema: ColorSchemaDefinition;

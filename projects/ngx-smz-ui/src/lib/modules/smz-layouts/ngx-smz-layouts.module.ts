@@ -9,9 +9,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxsModule } from '@ngxs/store';
 import { UiState } from './core/state/ui/ui.state';
 
-// Register the localization
+import localePt from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
-import('@angular/common/locales/pt').then(lang => registerLocaleData(lang.default, 'pt-BR'));
+
+// Register the localization
+registerLocaleData(localePt, 'pt-BR');
 
 export const ngxsModuleForFeatureUiState = NgxsModule.forFeature([UiState]);
 

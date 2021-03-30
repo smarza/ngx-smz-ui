@@ -8,7 +8,8 @@ import { ButtonModule } from 'primeng/button';
 
 const data: SmzRouteData = {
   layout: {
-    mode: 'layout'
+    mode: 'layout',
+    contentPadding: '0px'
   },
   title: 'Details',
   appArea: 'details',

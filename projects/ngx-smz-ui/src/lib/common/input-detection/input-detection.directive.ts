@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Output, EventEmitter, HostListener } from '@angular/core';
-import isEqual from 'lodash-es';
+import { isEqual } from 'lodash-es';
 export interface InputChangeData {
     old: string;
     new: string;

@@ -4,7 +4,7 @@ import { MenuItem } from 'primeng/api';
 @Component({
   selector: '[smz-ui-hephaestus-menu-slim-node]',
   template: `
-    <ng-container *ngFor="let subItem of item.items; let last = last; let subItemIndex = index;">
+    <ng-container *ngFor="let subItem of item.items | isVisible; let last = last; let subItemIndex = index;">
 
         <ng-container [ngSwitch]="subItem | hasChild">
 

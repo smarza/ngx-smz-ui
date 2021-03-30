@@ -13,8 +13,17 @@ export const defaultSmzLayoutsConfig: SmzLayoutsConfig = {
         icon: { dark: '', light: '' },
     },
     appName: '',
-    footerText: '',
-    usernameProperty: 'username',
+    footer: {
+        leftSideText: '',
+        rightSideImages: [],
+        rightSideText: '',
+        showAppName: true,
+        showLogo: true,
+    },
+    usernameProperty: 'displayName',
+    useAvatar: false,
+    avatarProperty: 'avatar',
+    profileMessage: 'Olá, ',
     toast: {
         position: 'bottom-right'
     },

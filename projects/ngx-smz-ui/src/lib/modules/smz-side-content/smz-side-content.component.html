@@ -1,0 +1,18 @@
+<p-sidebar
+  [(visible)]="visible"
+  (onHide)="onHide.emit()"
+  [position]="position != null ? position : 'right'"
+  [fullScreen]="config.fullScreen != null ? config.fullScreen : defaultConfig.fullScreen"
+  [styleClass]="config.styleClass != null ? config.styleClass : defaultConfig.styleClass + ' sidebar-content-custom-width'"
+  [style]="config.style != null ? config.style : defaultConfig.style"
+  [blockScroll]="config.blockScroll != null ? config.blockScroll : defaultConfig.blockScroll"
+  [dismissible]="config.dismissible != null ? config.dismissible : defaultConfig.dismissible"
+  [modal]="config.modal != null ? config.modal : defaultConfig.modal"
+  [showCloseIcon]="config.showCloseIcon != null ? config.showCloseIcon : defaultConfig.showCloseIcon"
+  [ariaCloseLabel]="config.ariaCloseLabel != null ? config.ariaCloseLabel : defaultConfig.ariaCloseLabel"
+  [closeOnEscape]="config.closeOnEscape != null ? config.closeOnEscape : defaultConfig.closeOnEscape"
+  appendTo="body">
+  <ng-container *ngIf="contentTemplate != null">
+    <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+  </ng-container>
+</p-sidebar>

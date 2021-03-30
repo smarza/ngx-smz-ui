@@ -4,7 +4,7 @@ import { SmzTableComponent } from './features/table/table.component';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-import { DataPipesModule } from '../../common/data-pipes/data-pipes.module';
+import { NgxSmzDataPipesModule } from '../../common/data-pipes/data-pipes.module';
 import { FormsModule } from '@angular/forms';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { CalendarModule } from 'primeng/calendar';
@@ -18,6 +18,7 @@ import { SmzFilterObjectPipe } from './pipes/filter-object.pipe';
 import { TableItemActionsModule } from '../../common/table-item-actions/table-item-actions.module';
 import { ClickStopPropagationModule } from '../../common/stop-click-propagation/click-stop-propagation.module';
 import { NgxSmzDataInfoModule } from '../smz-data-info/smz-data-info.module';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
     declarations: [
@@ -33,7 +34,7 @@ import { NgxSmzDataInfoModule } from '../smz-data-info/smz-data-info.module';
         TableModule,
         ButtonModule,
         InputTextModule,
-        DataPipesModule,
+        NgxSmzDataPipesModule,
         MultiSelectModule,
         DropdownModule,
         CalendarModule,
@@ -41,7 +42,8 @@ import { NgxSmzDataInfoModule } from '../smz-data-info/smz-data-info.module';
         FormsModule,
         TableItemActionsModule,
         ClickStopPropagationModule,
-        NgxSmzDataInfoModule
+        NgxSmzDataInfoModule,
+        TooltipModule
     ],
     exports: [
         SmzTableComponent,

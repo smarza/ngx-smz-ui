@@ -29,7 +29,7 @@
             <ul class="layout-menu">
 
                 <!-- NÍVEL 1 -->
-                <ng-container *ngFor="let item of menu; let last = last; let itemIndex = index;">
+                <ng-container *ngFor="let item of menu | isVisible; let last = last; let itemIndex = index;">
                     <li class="layout-root-menuitem" [ngClass]="{ 'active-menuitem' : item.expanded }">
 
                         <!-- CABEÇALHO DO NÍVEL 1 -->

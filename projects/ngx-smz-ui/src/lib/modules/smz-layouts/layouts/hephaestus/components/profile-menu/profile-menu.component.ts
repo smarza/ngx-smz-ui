@@ -11,7 +11,7 @@ import { SmzLayoutsConfig } from '../../../../core/globals/smz-layouts.config';
   template: `
     <a (click)="toggle()">
       <ng-container *ngIf="userData$ | async as userdata">
-        <img [src]="avatar | safeUrl" class="profile-image" />
+        <img [src]="(userdata[config.avatarProperty] ) | safeUrl" class="profile-image" />
         <span class="profile-name">{{ userdata[config.usernameProperty] }}</span>
       </ng-container>
     </a>
@@ -20,9 +20,9 @@ import { SmzLayoutsConfig } from '../../../../core/globals/smz-layouts.config';
 })
 export class HephaestusProfileMenuComponent implements OnInit {
   @Input() public items: MenuItem[] = [];
-  @Select(AuthenticationSelectors.userdata) public userData$: Observable<{ name: string }>;
+  @Select(AuthenticationSelectors.userdata) public userData$: Observable<never>;
   public isExpanded = false;
-  public avatar = 'data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTYgMjU2Ij4KICA8cmVjdCB3aWR0aD0iMjU2IiBoZWlnaHQ9IjI1NiIgc3R5bGU9ImZpbGw6ICMzZmE5ZjUiLz4KICA8ZyBpZD0ibUZEQVB4LnRpZiI+CiAgICA8Zz4KICAgICAgPHBhdGggZD0iTTEyNy45MiwxOThoLTU1Yy00LjExLDAtNy45MS0uODUtMTAuOTMtMy44OWExMi44NiwxMi44NiwwLDAsMS00LTkuMjdjLS4wNS00LjUyLS4xLTksMS4xMy0xMy40NWEzNC43OCwzNC43OCwwLDAsMSwxOS42OS0yMy4wOSwzMy44NywzMy44NywwLDAsMSwxNC43Mi0zYy43NCwwLDEuNDksMCwyLjIzLDBhNTcuNjUsNTcuNjUsMCwwLDEsMjAuMzEsMi41OWMxMC4xNCwzLjE3LDIwLjM4LDIuMTIsMzAuMjItMmE2LDYsMCwwLDEsMi40Ni0uNTZjNC45NCwwLDkuODgtLjA2LDE0LjgyLDBhMzQuNzksMzQuNzksMCwwLDEsMzMuOTIsMzAuNDZjLjUyLDQuMzcuODgsOC44LS4zNywxMy4xM2ExMywxMywwLDAsMS0xMC44OSw4LjgyYy0yLC4xOC0zLjkyLjI0LTUuODkuMjRaIiBzdHlsZT0iZmlsbDogI2ZmZiIvPgogICAgICA8cGF0aCBkPSJNODguNjUsOTcuNTJhMzkuMywzOS4zLDAsMSwxLDM5LjA5LDM5LjI2QzEwNiwxMzYuNzEsODguMzgsMTE4LjY5LDg4LjY1LDk3LjUyWiIgc3R5bGU9ImZpbGw6ICNmZmYiLz4KICAgIDwvZz4KICA8L2c+Cjwvc3ZnPgo=';
+  // public avatar = 'data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTYgMjU2Ij4KICA8cmVjdCB3aWR0aD0iMjU2IiBoZWlnaHQ9IjI1NiIgc3R5bGU9ImZpbGw6ICMzZmE5ZjUiLz4KICA8ZyBpZD0ibUZEQVB4LnRpZiI+CiAgICA8Zz4KICAgICAgPHBhdGggZD0iTTEyNy45MiwxOThoLTU1Yy00LjExLDAtNy45MS0uODUtMTAuOTMtMy44OWExMi44NiwxMi44NiwwLDAsMS00LTkuMjdjLS4wNS00LjUyLS4xLTksMS4xMy0xMy40NWEzNC43OCwzNC43OCwwLDAsMSwxOS42OS0yMy4wOSwzMy44NywzMy44NywwLDAsMSwxNC43Mi0zYy43NCwwLDEuNDksMCwyLjIzLDBhNTcuNjUsNTcuNjUsMCwwLDEsMjAuMzEsMi41OWMxMC4xNCwzLjE3LDIwLjM4LDIuMTIsMzAuMjItMmE2LDYsMCwwLDEsMi40Ni0uNTZjNC45NCwwLDkuODgtLjA2LDE0LjgyLDBhMzQuNzksMzQuNzksMCwwLDEsMzMuOTIsMzAuNDZjLjUyLDQuMzcuODgsOC44LS4zNywxMy4xM2ExMywxMywwLDAsMS0xMC44OSw4LjgyYy0yLC4xOC0zLjkyLjI0LTUuODkuMjRaIiBzdHlsZT0iZmlsbDogI2ZmZiIvPgogICAgICA8cGF0aCBkPSJNODguNjUsOTcuNTJhMzkuMywzOS4zLDAsMSwxLDM5LjA5LDM5LjI2QzEwNiwxMzYuNzEsODguMzgsMTE4LjY5LDg4LjY1LDk3LjUyWiIgc3R5bGU9ImZpbGw6ICNmZmYiLz4KICAgIDwvZz4KICA8L2c+Cjwvc3ZnPgo=';
   constructor(public readonly config: SmzLayoutsConfig) {}
 
   public ngOnInit(): void {}

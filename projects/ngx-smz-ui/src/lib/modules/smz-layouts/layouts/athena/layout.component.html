@@ -8,7 +8,7 @@
 
           <!-- MENU SUPERIOR -->
           <smz-ui-athena-topbar [notifications]="notifications" [profile]="profile">
-            <ng-template pTemplate="headerExtras">
+            <ng-template *ngIf="headerExtrasTemplate != null" pTemplate="headerExtras">
               <ng-container *ngTemplateOutlet="headerExtrasTemplate"></ng-container>
             </ng-template>
           </smz-ui-athena-topbar>
@@ -18,13 +18,17 @@
           <!-- CONTEÚDO -->
           <div class="layout-content">
             <div *ngIf="state.isOverlayVisible" class="p-component-overlay clear-overlay" (click)="hideMenu()"></div>
-            <div class="layout-content-container" [ngStyle]="{ padding: routerListener.data.layout.contentPadding }">
+            <div class="layout-content-container" [ngStyle]="{ padding: routerListener.data.layout.contentPadding }" [ngClass]="contentClass$ | async">
               <ng-container *ngTemplateOutlet="content"></ng-container>
             </div>
           </div>
 
           <!-- FOOTER -->
-          <smz-ui-athena-footer></smz-ui-athena-footer>
+          <smz-ui-athena-footer>
+            <ng-template *ngIf="footerExtrasTemplate != null" pTemplate="footerExtras">
+              <ng-container *ngTemplateOutlet="footerExtrasTemplate"></ng-container>
+            </ng-template>
+          </smz-ui-athena-footer>
 
         </div>
 

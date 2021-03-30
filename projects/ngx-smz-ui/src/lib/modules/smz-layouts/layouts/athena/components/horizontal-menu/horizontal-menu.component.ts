@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, ContentChildren, Input, OnInit, QueryList, TemplateRef } from '@angular/core';
+import { AfterContentInit, Component, ContentChildren, ElementRef, Input, OnInit, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { MenuItem, PrimeTemplate } from 'primeng/api';
@@ -16,7 +16,9 @@ import { RouterState } from '@ngxs/router-plugin';
 @Component({
   selector: 'smz-ui-athena-horizontal-menu',
   templateUrl: './horizontal-menu.component.html',
-  styleUrls: ['./horizontal-menu.component.scss']
+  styleUrls: ['./horizontal-menu.component.scss'],
+  host: { "(document:click)": "collapseFromOutside($event)" },
+  encapsulation: ViewEncapsulation.None
 })
 export class AthenaHorizontalMenuComponent implements OnInit, AfterContentInit
 {
@@ -31,7 +33,7 @@ export class AthenaHorizontalMenuComponent implements OnInit, AfterContentInit
   public isAnyMenuExpanded = false;
   public menuType = MenuType;
   public headerExtrasTemplate: TemplateRef<any>;
-  constructor(public readonly rbkConfig: NgxRbkUtilsConfig, public readonly config: SmzLayoutsConfig, private store: Store) { }
+  constructor(public readonly rbkConfig: NgxRbkUtilsConfig, public readonly config: SmzLayoutsConfig, private store: Store, private _eref: ElementRef) { }
 
   ngOnInit(): void
   {
@@ -73,5 +75,10 @@ export class AthenaHorizontalMenuComponent implements OnInit, AfterContentInit
     this.isAnyMenuExpanded = false;
   }
 
+  public collapseFromOutside(event: any): void {
+    if (!this._eref.nativeElement.contains(event.target)){
+      this.collapseAll(this.menu);
+    }
+  }
 
 }

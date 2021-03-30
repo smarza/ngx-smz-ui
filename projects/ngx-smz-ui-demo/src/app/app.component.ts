@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { BoilerplateService } from 'ngx-rbk-utils';
-import { MenuItem } from 'primeng/api';
-import { SmzNotification } from 'ngx-smz-ui';
+import { MenuHelperService } from 'ngx-smz-ui';
 
 @Component({
   selector: 'app-root',
@@ -10,38 +9,29 @@ import { SmzNotification } from 'ngx-smz-ui';
 })
 export class AppComponent {
   title = 'ngx-smz-ui-demo';
-  public menu: MenuItem[] = [];
-  public profile: MenuItem[];
-  public notifications: SmzNotification[];
-  constructor(private boilerplateService: BoilerplateService) {
+  constructor(private boilerplateService: BoilerplateService, public menuService: MenuHelperService) {
     this.boilerplateService.init();
 
-    this.menu = [
+    this.menuService.setMenu([
+      { label: 'Click me', icon: 'fas fa-check-double', routerLink: ['details'] },
       {
-        label: 'Click me',
-        icon: 'fas fa-check-double',
-        routerLink: ['details'],
-        items: [
-          { label: 'Click me', icon: 'fas fa-check-double', routerLink: ['details'] },
-        ]
-      },
-      {
-        label: 'App Navigation',
+        label: 'Demo',
         icon: 'pi-home',
         items: [
-          { label: 'Landing', icon: 'pi-home', routerLink: ['landing'] },
-          { label: 'Home', icon: 'pi-home', routerLink: ['home'] },
-          { label: 'Details', icon: 'pi-home', routerLink: ['details'] },
-          { label: 'Tables', icon: 'pi-table', routerLink: ['tables'] },
+          { label: 'Landing', routerLink: ['landing'] },
+          { label: 'Home', routerLink: ['home'] },
+          { label: 'Details', routerLink: ['details'] },
+          { label: 'Tables', icon: 'far fa-star', routerLink: ['tables'] },
+          { label: 'Side Content', icon: 'far fa-star', routerLink: ['side-content'] },
         ]
       },
       {
         label: 'Lib Pages',
         icon: 'pi-star',
         items: [
-          { label: 'Login', icon: 'pi-home', routerLink: ['login'] },
-          { label: 'Error', icon: 'pi-home', routerLink: ['error'] },
-          { label: 'Not Found', icon: 'pi-home', routerLink: ['notfound'] },
+          { label: 'Login', routerLink: ['login'] },
+          { label: 'Error', routerLink: ['error'] },
+          { label: 'Not Found', routerLink: ['notfound'] },
         ]
       },
       {
@@ -73,9 +63,9 @@ export class AppComponent {
           },
         ]
       },
-    ];
+    ]);
 
-    this.profile = [
+    this.menuService.setProfile([
       {
         label: 'Profile',
         icon: 'pi-user',
@@ -91,9 +81,9 @@ export class AppComponent {
         icon: 'pi-power-off',
         routerLink: ['/login'],
       },
-    ];
+    ]);
 
-    this.notifications = [
+    this.menuService.setNotifications([
       {
         summary: 'New Order',
         details: 'You have <strong>3</strong> new orders',
@@ -106,6 +96,8 @@ export class AppComponent {
         icon: 'pi-check-square',
         routerLink: ['/login'],
       }
-    ];
+    ]);
+
   }
+
 }

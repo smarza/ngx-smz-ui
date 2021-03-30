@@ -1,4 +1,4 @@
-<div class="topbar clearfix" smz-ui-athena-topbar-actions [profile]="profile" [notifications]="notifications">
+<div class="topbar clearfix" smz-ui-athena-topbar-actions [headerExtrasTemplate]="headerExtrasTemplate" [profile]="profile" [notifications]="notifications">
 
     <a [routerLink]="rbkConfig.routes.authenticatedRoot" class="topbar-logo">
         <ng-container *ngIf="(appLogo$ | async) as appLogo">

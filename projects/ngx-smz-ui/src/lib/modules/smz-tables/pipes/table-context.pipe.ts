@@ -52,7 +52,7 @@ export class SmzTableContextPipe implements PipeTransform {
     const config: SmzTableConfig = {
       ...inputConfig,
       useCustomActions: inputConfig.useCustomActions ?? false,
-      customActionWidth: inputConfig.customActionWidth ?? 'auto',
+      customActionWidth: inputConfig.customActionWidth ?? '63px',
       showClearFilter: inputConfig.showClearFilter ?? true,
       rows: inputConfig.rows ?? 10,
       showCurrentPageReport: inputConfig.showCurrentPageReport ?? true,
@@ -60,8 +60,13 @@ export class SmzTableContextPipe implements PipeTransform {
       currentPageReportTemplate: inputConfig.currentPageReportTemplate ?? 'Mostrando {first} a {last} de {totalRecords} itens',
       emptyMessage: inputConfig.emptyMessage ?? 'Lista Vazia',
       customEmptyMessage: inputConfig.customEmptyMessage ?? null,
+      isSelectable: inputConfig.isSelectable ?? false,
+      selectBoxWidth: inputConfig.selectBoxWidth ?? '3em',
       isRowClickable: inputConfig.isRowClickable ?? false,
       rowClickCallback: inputConfig.rowClickCallback ?? null,
+      clearFilterCallback: inputConfig.clearFilterCallback ?? null,
+      clearFilterLabel: inputConfig.clearFilterLabel ?? 'Limpar Filtro',
+      toolbarAlignment: inputConfig.toolbarAlignment ?? 'start',
     };
 
     if (config.customEmptyMessage != null) {

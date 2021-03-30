@@ -11,11 +11,13 @@ export class SmzFilterObjectPipe implements PipeTransform {
     const properties = field.split('.');
 
     if(properties.length === 1){
+      // console.log(field);
       return field;
     }
     else
     {
       properties.pop();
+      // console.log(properties.join('.'));
       return properties.join('.');
     }
 

@@ -1,34 +1,45 @@
 <ng-container *ngIf="config | tableContext as context">
 
-    <ng-container *ngIf="context.config.customEmptyMessage != null && items?.length === 0; else tableTemplate">
+    <ng-container *ngIf="context.config.customEmptyMessage != null && clonedItems?.length === 0; else tableTemplate">
         <smz-data-info
             [image]="context.config.customEmptyMessage.image"
             [message]="context.config.customEmptyMessage.message"
             [callbackInfo]="context.config.customEmptyMessage.callbackInfo"
             [callbackLabel]="context.config.customEmptyMessage.callbackLabel"
             (clicked)="context.config.customEmptyMessage.callback()">
+
+            <ng-template pTemplate="actions">
+                <ng-container *ngTemplateOutlet="emptyActionsTemplate; context: { $implicit: {} }"></ng-container>
+            </ng-template>
+
         </smz-data-info>
     </ng-container>
 
     <ng-template #tableTemplate>
 
-        <p-table #dt [value]="items" [(selection)]="selectedItems" dataKey="id" styleClass="p-datatable-smz-ui-table" [rowHover]="context.config.rowHover"
+        <p-table #dt [value]="clonedItems" [(selection)]="selectedItems" dataKey="id" styleClass="p-datatable-smz-ui-table" [rowHover]="context.config.rowHover"
             [rows]="context.config.rows" [showCurrentPageReport]="context.config.showCurrentPageReport" [rowsPerPageOptions]="context.config.rowsPerPageOptions" [loading]="loading"
             [paginator]="context.config.showPaginator" [currentPageReportTemplate]="context.config.currentPageReportTemplate"
             [filterDelay]="0" [globalFilterFields]="context.globalFilter" (selectionChange)="selectionChange.emit($event)">
 
             <ng-template pTemplate="caption" *ngIf="context.config.showCaption">
+
                 <div class="p-grid p-nogutter p-justify-start p-align-center">
                     <span class="p-col p-mr-2">{{ config.title }}</span>
-                    <button *ngIf="context.config.showClearFilter" pButton label="Limpar Filtro" class="p-button-outlined p-mr-2" icon="pi pi-filter-slash" (click)="dt.clear()"></button>
-                    <span *ngIf="context.config.showGlobalFilter" class="p-input-icon-left">
+                    <button *ngIf="context.config.showClearFilter" pButton [label]="context.config.clearFilterLabel" class="p-button-outlined p-mr-2" icon="pi pi-filter-slash" (click)="clear(dt, context)"></button>
+                    <span *ngIf="context.config.showGlobalFilter" class="p-input-icon-left p-col-12 p-md-2" [ngClass]="{ 'p-mr-2': captionTemplate != null }">
                         <i class="pi pi-search"></i>
                         <input #inputGlobal pInputText type="text" (input)="dt.filterGlobal(inputGlobal.value, 'contains')" placeholder="Pesquisa global" />
                     </span>
+                    <ng-container *ngTemplateOutlet="captionTemplate; context: { $implicit: dt }"></ng-container>
+                </div>
+
+                <div *ngIf="toolbarTemplate != null" class="p-grid p-nogutter p-align-center p-mt-2" [ngClass]="'p-justify-' + context.config.toolbarAlignment">
+                    <ng-container *ngTemplateOutlet="toolbarTemplate; context: { $implicit: dt }"></ng-container>
                 </div>
 
                 <!-- <button type="button" pButton pRipple icon="pi pi-file-pdf" label="Exportar"
-                    (click)="tableExporter.exportPdf(dt, context, dt.filteredValue != null ? dt.filteredValue : items, context.config.title != null ? context.config.title : 'Exportação')"
+                    (click)="tableExporter.exportPdf(dt, context, dt.filteredValue != null ? dt.filteredValue : clonedItems, context.config.title != null ? context.config.title : 'Exportação')"
                     class="p-button-warning p-mr-2" pTooltip="Exportar para PDF" tooltipPosition="bottom">
                 </button> -->
 
@@ -37,7 +48,7 @@
             <ng-template pTemplate="header">
                 <tr>
 
-                    <th style="width: 3rem" *ngIf="context.config.isSelectable">
+                    <th [ngStyle]="{ width: context.config.selectBoxWidth }" *ngIf="context.config.isSelectable">
                         <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                     </th>
 
@@ -95,7 +106,7 @@
                                                     </div>
                                                 </ng-template>
                                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                                    <p-dropdown [ngModel]="value" [options]="items | uniqueFilter : filterField + '.id' : filterField" placeholder="Todos" (onChange)="filter($event.value)" optionLabel="name" dataKey="id"></p-dropdown>
+                                                    <p-dropdown [ngModel]="value" [options]="clonedItems | uniqueFilter : filterField + '.id' : filterField" placeholder="Todos" (onChange)="filter($event.value)" optionLabel="name" dataKey="id"></p-dropdown>
                                                 </ng-template>
                                             </p-columnFilter>
                                         </ng-container>
@@ -110,7 +121,7 @@
                                                     </div>
                                                 </ng-template>
                                                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                                    <p-multiSelect [ngModel]="value" [options]="items | uniqueFilter : filterField + '.id' : filterField" placeholder="Todos" (onChange)="filter($event.value)" optionLabel="name" dataKey="id"></p-multiSelect>
+                                                    <p-multiSelect [ngModel]="value" [options]="clonedItems | uniqueFilter : filterField + '.id' : filterField" placeholder="Todos" (onChange)="filter($event.value)" optionLabel="name" dataKey="id"></p-multiSelect>
                                                 </ng-template>
                                             </p-columnFilter>
                                         </ng-container>
@@ -162,7 +173,7 @@
 
                                 <ng-container *ngSwitchCase="contentTypes.icon">
                                     <ng-container *ngIf="(col.contentData['matches'] | contentIconMatches : (item | tableContent : col.field)) as match">
-                                        <i *ngIf="match != null" [ngClass]="match.icon + ' ' + match.class"></i>
+                                        <i *ngIf="match != null" [ngClass]="match.icon + ' ' + match.class" [pTooltip]="match.tooltip"></i>
                                     </ng-container>
                                 </ng-container>
 
@@ -179,11 +190,10 @@
 
                         <td *ngIf="!context.config.useCustomActions">
                             <p-menu #actionMenu [popup]="true" [model]="context.config.menu" appendTo="body"></p-menu>
-                            <button type="button" pButton icon="pi pi-bars" (click)="actionMenu.toggle($event, item)" furyClickStopPropagation></button>
+                            <button id="action-button" type="button" pButton icon="pi pi-bars" (click)="actionMenu.toggle($event, item)"></button>
                         </td>
 
                     </ng-container>
-
 
                 </tr>
             </ng-template>

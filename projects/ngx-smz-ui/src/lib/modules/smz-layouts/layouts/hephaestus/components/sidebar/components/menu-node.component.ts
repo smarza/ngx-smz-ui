@@ -6,7 +6,7 @@ import { MenuItem } from 'primeng/api';
   template: `
       <ul role="menu" style="z-index: 100;">
 
-          <ng-container *ngFor="let subItem of item.items; let subItemIndex = index;">
+          <ng-container *ngFor="let subItem of item.items | isVisible; let subItemIndex = index;">
 
               <ng-container [ngSwitch]="subItem | hasChild">
 

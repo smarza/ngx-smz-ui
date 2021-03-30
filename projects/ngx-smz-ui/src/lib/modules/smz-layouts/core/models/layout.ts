@@ -6,6 +6,7 @@ export type SmzLayout = HephaestusLayout | AthenaLayout;
 
 export interface LayoutState {
     wrapperClass: string;
+    contentClass: string;
     isOverlayVisible: boolean;
     topbarTitle: string;
     appName: string;

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { SmzNotification } from '../../../../core/models/notifications';
 
@@ -13,14 +13,21 @@ import { SmzNotification } from '../../../../core/models/notifications';
 
       <span class="notification-container" *ngIf="notifications?.length > 0" smz-ui-athena-notifications [items]="notifications"></span>
 
+      <span *ngIf="headerExtrasTemplate != null" class="extras-container p-mr-3">
+          <ng-container *ngTemplateOutlet="headerExtrasTemplate"></ng-container>
+      </span>
+
   `,
 })
 export class AthenaTopbarActionsComponent implements OnInit {
+
   @Input() public profile: MenuItem[] = [];
   @Input() public notifications: SmzNotification[] = [];
+  @Input() public headerExtrasTemplate: TemplateRef<any>;
 
   constructor() {}
 
-  public ngOnInit(): void {}
+  public ngOnInit(): void {
+  }
 
 }

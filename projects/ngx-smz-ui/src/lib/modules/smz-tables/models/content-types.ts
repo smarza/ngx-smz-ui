@@ -44,5 +44,6 @@ export interface SmzIconContentMatch {
   icon: string;
   class: string;
   value: any;
+  tooltip?: string;
 
 }

@@ -4,6 +4,9 @@ import { NgModule } from '@angular/core';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
 import { UniqueFilterPipe } from './pipes/unique-filter.pipe';
+import { DescribeSimpleNamedPipe } from './pipes/describe-simple-named.pipe';
+import { DescribeArrayPipe } from './pipes/describe-array.pipe';
+
 @NgModule({
     imports: [
         CommonModule
@@ -12,13 +15,17 @@ import { UniqueFilterPipe } from './pipes/unique-filter.pipe';
         ClonePipe,
         SafeHtmlPipe,
         SafeUrlPipe,
-        UniqueFilterPipe
+        UniqueFilterPipe,
+        DescribeSimpleNamedPipe,
+        DescribeArrayPipe
     ],
     exports: [
         ClonePipe,
         SafeHtmlPipe,
         SafeUrlPipe,
-        UniqueFilterPipe
+        UniqueFilterPipe,
+        DescribeSimpleNamedPipe,
+        DescribeArrayPipe
     ],
 })
-export class DataPipesModule { }
+export class NgxSmzDataPipesModule { }

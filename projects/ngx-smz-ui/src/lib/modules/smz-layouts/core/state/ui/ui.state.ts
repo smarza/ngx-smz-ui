@@ -38,6 +38,7 @@ export const getInitialState = (): UiStateModel => ({
   },
   state: {
     wrapperClass: '',
+    contentClass: '',
     isOverlayVisible: false,
     topbarTitle: '',
     appName: '',
@@ -75,7 +76,6 @@ export class UiState {
         state: {
           ...state,
           appName: this.config.appName,
-          footerText: this.config.footerText
         },
         toast: this.config.toast,
         loader: this.config.loader,
@@ -148,6 +148,24 @@ export class UiState {
   public onSetToastPosition(ctx: StateContext<UiStateModel>, action: UiActions.SetToastPosition): void {
     const toast = ctx.getState().toast;
     ctx.patchState({ toast: { ...toast, position: action.data } });
+  }
+
+
+  @Action(UiActions.MoveLayout)
+  public onMoveLayout(ctx: StateContext<UiStateModel>, action: UiActions.MoveLayout): void {
+    const state = ctx.getState().state;
+
+    ctx.patchState({ state: { ...state, contentClass: action.data }});
+
+  }
+
+
+  @Action(UiActions.RestoreLayoutPosition)
+  public onRestoreLayoutPosition(ctx: StateContext<UiStateModel>, action: UiActions.RestoreLayoutPosition): void {
+    const state = ctx.getState().state;
+
+    ctx.patchState({ state: { ...state, contentClass: '' }});
+
   }
 
 }

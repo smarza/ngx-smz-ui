@@ -29,7 +29,10 @@ export const ngxsModuleForFeatureUiAthenaLayoutState = NgxsModule.forFeature([Ui
     SmzAthenaHorizontalMenuModule,
     ngxsModuleForFeatureUiAthenaLayoutState
   ],
-  exports: [AthenaLayoutComponent]
+  exports: [
+    AthenaLayoutComponent,
+    PrimeSharedModule
+  ]
 })
 export class AthenaLayoutModule
 {

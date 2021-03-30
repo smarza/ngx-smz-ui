@@ -16,13 +16,17 @@
           </smz-ui-hephaestus-topbar>
 
           <!-- CONTEÚDO -->
-          <div class="layout-content" [ngStyle]="{ padding: routerListener.data.layout.contentPadding }">
+          <div class="layout-content" [ngStyle]="{ padding: routerListener.data.layout.contentPadding }" [ngClass]="contentClass$ | async">
             <div *ngIf="state.isOverlayVisible" class="p-component-overlay clear-overlay" (click)="hideMenu()"></div>
             <ng-container *ngTemplateOutlet="content"></ng-container>
           </div>
 
           <!-- FOOTER -->
-          <smz-ui-hephaestus-footer></smz-ui-hephaestus-footer>
+          <smz-ui-hephaestus-footer>
+            <ng-template *ngIf="footerExtrasTemplate != null" pTemplate="footerExtras">
+              <ng-container *ngTemplateOutlet="footerExtrasTemplate"></ng-container>
+            </ng-template>
+          </smz-ui-hephaestus-footer>
 
           <!-- BARRA LATERAL -->
           <smz-ui-hephaestus-sidebar [menu]="menu"></smz-ui-hephaestus-sidebar>

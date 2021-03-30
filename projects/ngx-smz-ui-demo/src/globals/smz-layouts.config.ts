@@ -36,8 +36,17 @@ export const smzLayoutsConfig: SmzLayoutsConfig = {
         },
     },
     appName: 'Demo App',
-    usernameProperty: 'username',
-    footerText: '© Your Organization - 2021',
+    usernameProperty: 'displayName',
+    useAvatar: true,
+    avatarProperty: 'avatar',
+    profileMessage: 'Olá, ',
+    footer: {
+        leftSideText: 'Left Message',
+        rightSideImages: ['assets/layout/images/typo-light.svg', 'assets/layout/images/typo-light.svg'],
+        rightSideText: '© Your Organization - 2021',
+        showAppName: true,
+        showLogo: true,
+    },
     toast: {
         position: 'bottom-right'
     },

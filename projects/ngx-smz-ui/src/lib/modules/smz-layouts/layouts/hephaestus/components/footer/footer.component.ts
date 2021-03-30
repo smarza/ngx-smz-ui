@@ -21,7 +21,7 @@ export class HephaestusFooterComponent implements OnInit, AfterContentInit
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
   @Select(UiHephaestusSelectors.state) public state$: Observable<LayoutState>;
   @Select(UiSelectors.appContentLogo) public appLogo$: Observable<SmzAppLogo>;
-  public headerExtrasTemplate: TemplateRef<any>;
+  public footerExtrasTemplate: TemplateRef<any>;
   constructor(public readonly config: SmzLayoutsConfig, private store: Store) { }
 
   ngOnInit(): void
@@ -34,8 +34,8 @@ export class HephaestusFooterComponent implements OnInit, AfterContentInit
     {
       switch (item.getType())
       {
-        case 'headerExtras':
-          this.headerExtrasTemplate = item.template;
+        case 'footerExtras':
+          this.footerExtrasTemplate = item.template;
           break;
       }
     });

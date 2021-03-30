@@ -19,10 +19,12 @@ export class TableItemActionsDirective implements OnInit {
 
     @HostListener('click', ['$event'])
     public onClick(event: any): void {
+        const isMenu = event.srcElement?.id === 'action-button' || event.target?.parentElement?.id === 'action-button' ;
 
-        if (this.isClickable && this.callback != null) {
+        if (!isMenu && this.isClickable && this.callback != null) {
             this.callback(this.item);
         }
 
     }
+
 }

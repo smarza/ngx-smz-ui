@@ -24,8 +24,8 @@ export class PrimeConfigService {
   private setFilterMatchModeOptions(): void {
     this.config.filterMatchModeOptions = {
       text: [
-        FilterMatchMode.STARTS_WITH,
         FilterMatchMode.CONTAINS,
+        FilterMatchMode.STARTS_WITH,
         FilterMatchMode.NOT_CONTAINS,
         FilterMatchMode.ENDS_WITH,
         FilterMatchMode.EQUALS,
@@ -49,6 +49,7 @@ export class PrimeConfigService {
   }
 
   private setTranslation(): void {
+
     this.config.setTranslation({
       accept: 'Sim',
       addRule: 'Adicionar Regra',

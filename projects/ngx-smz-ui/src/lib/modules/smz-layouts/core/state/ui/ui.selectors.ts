@@ -32,6 +32,12 @@ export class UiSelectors
     }
 
     @Selector([UiState])
+    public static contentClass(state: UiStateModel): string
+    {
+        return state.state.contentClass;
+    }
+
+    @Selector([UiState])
     public static assistance(state: UiStateModel): Assistance
     {
         return state.assistance;

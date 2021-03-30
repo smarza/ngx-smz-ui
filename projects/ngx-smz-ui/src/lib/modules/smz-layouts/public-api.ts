@@ -11,12 +11,16 @@ export * from './core/models/sidebar-states';
 export * from './core/models/color-schemas';
 export * from './core/models/notifications';
 export * from './core/models/action-link';
+export * from './core/models/menu-creation';
 
 export { SmzLoader, SmzLoaders } from './core/models/loaders';
 export { SmzContentTheme, SmzContentThemes, ContentTheme } from './core/models/themes';
 
 // MODULES
 export * from './ngx-smz-layouts.module';
+
+// SERVICES
+export * from './core/services/menu-helper-service';
 
 // STATES
 export { UiActions } from './core/state/ui/ui.actions';

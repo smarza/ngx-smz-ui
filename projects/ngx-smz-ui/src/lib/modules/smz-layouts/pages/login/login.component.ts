@@ -36,6 +36,14 @@ export class LoginComponent implements OnInit {
 
     const password: SmzPasswordControl = {
       propertyName: 'password', type: SmzControlType.PASSWORD, name: 'Senha',
+      feedback: false,
+      toggleMask: false,
+      promptLabel: 'Digite a senha',
+      weakLabel: 'Fraca',
+      mediumLabel: 'Moderada',
+      strongLabel: 'Forte',
+      mediumRegex: '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})',
+      strongRegex: '^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,}).',
       validatorsPreset: { isRequired: true },
       template: { extraSmall: { row: 'col-12' } }
     };

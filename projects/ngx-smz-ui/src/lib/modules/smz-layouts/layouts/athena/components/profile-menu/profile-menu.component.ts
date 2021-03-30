@@ -11,24 +11,25 @@ import { SmzLayoutsConfig } from '../../../../core/globals/smz-layouts.config';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
       <!-- <ng-content></ng-content> -->
-      <a class="profile clickable" (click)="toggle()">
+      <a class="profile clickable" [ngClass]="{ 'profile-with-icon': !config.useAvatar }" (click)="toggle()">
         <ng-container *ngIf="userData$ | async as userdata">
-          <span class="username">{{ userdata[config.usernameProperty] }}</span>
-          <img [src]="avatar | safeUrl">
+          <span class="username">{{ config.profileMessage }}{{ userdata[config.usernameProperty] }}</span>
+          <img *ngIf="config.useAvatar" [src]="(userdata[config.avatarProperty] ) | safeUrl" class="profile-image">
+          <i *ngIf="!config.useAvatar" class="fas fa-user-circle profile-image profile-icon-menu"></i>
           <i class="profile-submenu-icon pi pi-angle-down"></i>
         </ng-container>
       </a>
-      <ul *ngIf="isExpanded" class="topbar-menu fadeInDown topbar-menu-visible" smz-ui-athena-profile-menu-items [items]="profile"></ul>
+      <ul *ngIf="isExpanded" class="topbar-menu fadeInDown topbar-menu-visible" smz-ui-athena-profile-menu-items [items]="profile" (collapse)="isExpanded = false"></ul>
   `,
 })
 export class AthenaProfileMenuComponent implements OnInit, AfterViewInit {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
   @Input() public profile: MenuItem[] = [];
-  @Select(AuthenticationSelectors.userdata) public userData$: Observable<{ name: string }>;
+  @Select(AuthenticationSelectors.userdata) public userData$: Observable<never>;
   public items: MenuItem[] = [];
   public isExpanded = false;
   private isLoaded = false;
-  public avatar = 'data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTYgMjU2Ij4KICA8cmVjdCB3aWR0aD0iMjU2IiBoZWlnaHQ9IjI1NiIgc3R5bGU9ImZpbGw6ICMzZmE5ZjUiLz4KICA8dGV4dCB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0OSAxODEuMzcpIiBzdHlsZT0iZm9udC1zaXplOiAxNTguMDAzNDAyNzA5OTYwOTRweDtmaWxsOiAjZmZmO2ZvbnQtZmFtaWx5OiBBcmlhbE1ULCBBcmlhbCI+Ukk8L3RleHQ+Cjwvc3ZnPgo=';
+  // public avatar = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNTZweCIgaGVpZ2h0PSIyNTZweCI+PHJlY3Qgd2lkdGg9IjI1NiIgaGVpZ2h0PSIyNTYiIHN0eWxlPSJmaWxsOiM2NDk1ZWQiLz48dGV4dCB4PSI1MCUiIHk9IjE0Mi41cHgiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIHN0eWxlPSJmb250LXNpemU6MTYwcHg7ZmlsbDojZmZmO2ZvbnQtZmFtaWx5OkFyaWFsTVQsIEFyaWFsIj5CPC90ZXh0Pjwvc3ZnPg==';
   constructor(public readonly config: SmzLayoutsConfig, private _eref: ElementRef, private store: Store) {}
 
   public ngOnInit(): void {
@@ -44,7 +45,7 @@ export class AthenaProfileMenuComponent implements OnInit, AfterViewInit {
     }, 0);
   }
 
-  public collapse(): void {
+  public collapse(event: any): void {
     if (this.isLoaded && !this._eref.nativeElement.contains(event.target)){
       this.isExpanded = false;
     }

@@ -9,6 +9,7 @@ import { HephaestusMenuExpandableItemComponent } from './components/menu-expanda
 import { HephaestusMenuNodeComponent } from './components/menu-node.component';
 import { HephaestusMenuSlimNodeComponent } from './components/menu-slim-node.component';
 import { MenuItemActionsModule } from '../../../../../../common/menu-item-actions/menu-item-actions.module';
+import { IsVisiblePipeModule } from '../../../../../../common/is-visible-pipe/is-visible.pipe';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { MenuItemActionsModule } from '../../../../../../common/menu-item-action
     CommonModule,
     RouterModule,
     SidebarModule,
-    MenuItemActionsModule
+    MenuItemActionsModule,
+    IsVisiblePipeModule
   ],
   exports: [HephaestusSidebarComponent]
 })

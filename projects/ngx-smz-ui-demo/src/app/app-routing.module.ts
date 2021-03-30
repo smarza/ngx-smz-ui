@@ -23,6 +23,10 @@ const routes: Routes = [
     path: 'landing',
     loadChildren: () => import('./@core/landing/landing.module').then(m => m.LandingModule),
   },
+  {
+    path: 'side-content',
+    loadChildren: () => import('./@core/side-content/side-content.module').then(m => m.SideContentModule),
+  },
 ];
 
 @NgModule({

@@ -61,4 +61,15 @@ export namespace UiActions
         constructor(public data: EdgePositionType) {}
     }
 
+    export class MoveLayout
+    {
+        public static readonly type = '[UI] Move Layout';
+        constructor(public data: string) {}
+    }
+
+    export class RestoreLayoutPosition
+    {
+        public static readonly type = '[UI] Restore Layout Position';
+    }
+
 }

@@ -14,6 +14,7 @@ export const getInitialState = (): UiAthenaStateModel => ({
   config: null,
   state: {
     wrapperClass: '',
+    contentClass: '',
     isOverlayVisible: false,
     topbarTitle: '',
     appName: '',
@@ -45,7 +46,6 @@ export class UiAthenaState {
         state: {
           ...state,
           appName: action.config.appName,
-          footerText: action.config.footerText
         }
       });
 

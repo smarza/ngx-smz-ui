@@ -13,7 +13,7 @@ import { MenuItem } from 'primeng/api';
               <span class="p-ink"></span>
           </a>
 
-          <ng-container *ngFor="let subItem of item.items; let subItemIndex = index;">
+          <ng-container *ngFor="let subItem of item.items | isVisible; let subItemIndex = index;">
 
             <ul role="menu" style="z-index: 100;" [ngStyle]="{ height: item.expanded ? 'unset' : 0 }">
               <ng-container [ngSwitch]="subItem | hasChild">

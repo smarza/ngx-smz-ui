@@ -16,11 +16,13 @@ export class UiAthenaSelectors
         const sidebarClass = `${layoutClass}-${state.config.sidebarState}`;
         const mobileSidebarClass = state.config.sidebarState === SidebarState.ACTIVE ? `layout-mobile-${state.config.sidebarState}` : '';
         const isOverlayVisible = state.config.menu === MenuType.OVERLAY && state.config.sidebarState === SidebarState.ACTIVE;
+        const contentClass = '';
 
         const layout: LayoutState = {
             ...state.state,
             wrapperClass: `${layoutClass} ${sidebarClass} ${mobileSidebarClass}`,
             isOverlayVisible,
+            contentClass
         };
 
         return layout;
