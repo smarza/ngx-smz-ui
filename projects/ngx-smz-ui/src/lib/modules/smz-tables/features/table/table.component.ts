@@ -4,6 +4,7 @@ import { SmzContentType } from '../../models/content-types';
 import { SmzFilterType } from '../../models/filter-types';
 import { SmzTableConfig, SmzTableContext } from '../../models/table-config';
 import { cloneDeep } from 'lodash-es';
+import { SmzTableColumn } from '../../models/table-column';
 
 @Component({
   selector: 'smz-ui-table',
@@ -25,6 +26,7 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
   public emptyConfigTemplate: TemplateRef<any>;
   public selectedItems: any[];
   public clonedItems: any[] = [];
+  public selectedColumns: SmzTableColumn[];
   public contentTypes = {
     currency: `${SmzContentType.CURRENCY}`,
     calendar: `${SmzContentType.CALENDAR}`,
@@ -48,42 +50,48 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
   public ngOnInit(): void {
 
   }
-  public ngOnChanges(changes: SimpleChanges): void
-  {
-      console.log(changes);
-      if (changes.items != null)
-      {
-        if (changes.items.currentValue != null)
-        {
-          this.clonedItems = cloneDeep(changes.items.currentValue);
-        }
-        else
-        {
-          this.clonedItems = [];
-        }
 
-        this.cdr.markForCheck();
+  public updateColumnsVisibility(): void {
+    // console.log('selectedColumns', this.selectedColumns);
+    // console.log('config', this.config);
+    this.config.columns.forEach(x => {
+      x.isVisible = this.selectedColumns?.findIndex(c => c.field === x.field) !== -1;
+    });
+
+    this.config = { ...this.config };
+  }
+  public ngOnChanges(changes: SimpleChanges): void {
+    // console.log(changes);
+    if (changes.items != null) {
+      if (changes.items.currentValue != null) {
+        this.clonedItems = cloneDeep(changes.items.currentValue);
+      }
+      else {
+        this.clonedItems = [];
       }
 
-      if (changes.config != null)
-      {
+      this.cdr.markForCheck();
+    }
 
-        const config: SmzTableConfig = changes.config.currentValue;
+    if (changes.config != null) {
 
-        if (config != null)
-        {
-          if (!config.isSelectable) {
-            this.selectedItems = [];
-          }
-        }
-        else
-        {
+      const newConfig: SmzTableConfig = changes.config.currentValue;
+
+      if (newConfig != null) {
+        if (!newConfig.isSelectable) {
           this.selectedItems = [];
         }
-
-        this.cdr.markForCheck();
       }
+      else {
+        this.selectedItems = [];
+      }
+
+      this.populateColumnVisibility(newConfig);
+
+      this.cdr.markForCheck();
+    }
   }
+
   public ngAfterContentInit() {
 
     this.templates.forEach((item) => {
@@ -115,6 +123,9 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
       }
     });
 
+  }
+  public populateColumnVisibility(newConfig: SmzTableConfig): void {
+    this.selectedColumns = newConfig?.columns.filter(x => x.isVisible) ?? [];
   }
 
   public clear(dt: any, context: SmzTableContext): void {

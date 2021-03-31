@@ -71,6 +71,7 @@ export class SmzTableContextPipe implements PipeTransform {
       sortMode: inputConfig.sortMode ?? 'single',
       sortOrder: inputConfig.sortOrder ?? 1,
       multiSortMeta: inputConfig.multiSortMeta ?? null,
+      showColumnVisibility: inputConfig.showColumnVisibility ?? false
     };
 
     if (config.customEmptyMessage != null) {

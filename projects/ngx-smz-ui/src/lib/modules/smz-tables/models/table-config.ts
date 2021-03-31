@@ -2,34 +2,35 @@ import { MenuItem } from 'primeng/api';
 import { SmzTableColumn, SmzTableContextColumn } from './table-column';
 
 export interface SmzTableConfig {
+  clearFilterCallback?: () => void,
+  clearFilterLabel?: string;
   columns: SmzTableColumn[];
   currentPageReportTemplate?: string;
+  customActionWidth?: string;
+  customEmptyMessage?: SmzCustomEmptyMessage;
+  emptyMessage?: string;
+  isRowClickable?: boolean,
   isSelectable?: boolean;
-  selectBoxWidth?: string;
   menu?: MenuItem[];
+  multiSortMeta?: { field: string, order: 1 | -1 }[];
+  rowClickCallback?: (event) => void,
   rowHover?: boolean;
   rows?: number;
   rowsPerPageOptions?: number[];
+  selectBoxWidth?: string;
   showActions?: boolean;
   showCaption?: boolean;
+  showClearFilter?: boolean;
+  showColumnVisibility? : boolean;
   showCurrentPageReport?: boolean;
   showGlobalFilter?: boolean;
   showPaginator?: boolean;
-  title?: string;
-  useCustomActions?: boolean;
-  customActionWidth?: string;
-  showClearFilter?: boolean;
-  emptyMessage?: string;
-  customEmptyMessage?: SmzCustomEmptyMessage;
-  isRowClickable?: boolean,
-  rowClickCallback?: (event) => void,
-  clearFilterCallback?: () => void,
-  clearFilterLabel?: string;
-  toolbarAlignment?: 'start' | 'end';
   sortField?: string;
   sortMode?: 'single' | 'multiple';
   sortOrder?: 1 | -1;
-  multiSortMeta?: { field: string, order: 1 | -1 }[];
+  title?: string;
+  toolbarAlignment?: 'start' | 'end';
+  useCustomActions?: boolean;
 
 }
 

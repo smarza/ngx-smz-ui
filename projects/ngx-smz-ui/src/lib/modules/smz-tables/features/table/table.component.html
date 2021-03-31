@@ -28,6 +28,21 @@
 
                 <div class="p-grid p-nogutter p-justify-start p-align-center">
                     <span class="p-col p-mr-2">{{ config.title }}</span>
+                    <p-multiSelect
+                        *ngIf="context.config.showColumnVisibility"
+                        class="p-mr-2 p-col-12 p-md-2"
+                        styleClass="w-full"
+                        [options]="config.columns"
+                        [(ngModel)]="selectedColumns"
+                        placeholder="Colunas"
+                        [selectedItemsLabel]="'{0} colunas visíveis'"
+                        optionLabel="name"
+                        dataKey="field"
+                        optionLabel="header"
+                        [filter]="false"
+                        (onChange)="updateColumnsVisibility()"
+                        pTooltip="Escolha as colunas que deseja visualizar na tabela.">
+                    </p-multiSelect>
                     <button *ngIf="context.config.showClearFilter" pButton [label]="context.config.clearFilterLabel" class="p-button-outlined p-mr-2" icon="pi pi-filter-slash" (click)="clear(dt, context)"></button>
                     <span *ngIf="context.config.showGlobalFilter" class="p-input-icon-left p-col-12 p-md-2" [ngClass]="{ 'p-mr-2': captionTemplate != null }">
                         <i class="pi pi-search"></i>
