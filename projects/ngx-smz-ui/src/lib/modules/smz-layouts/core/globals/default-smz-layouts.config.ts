@@ -56,5 +56,6 @@ export const defaultSmzLayoutsConfig: SmzLayoutsConfig = {
     },
     applicationActions: {
         registerLogs: true,
-    }
+    },
+    monitoreMouseEvents: false
 }

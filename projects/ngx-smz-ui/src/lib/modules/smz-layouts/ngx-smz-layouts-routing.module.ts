@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { ErrorModule } from './pages/error/error.module';
 import { LoginModule } from './pages/login/login.module';
 import { NotFoundModule } from './pages/not-found/not-found.module';
-
 export function getLoginModule() { return LoginModule }
 export function getErrorModule() { return ErrorModule }
 export function getNotFoundModule() { return NotFoundModule }

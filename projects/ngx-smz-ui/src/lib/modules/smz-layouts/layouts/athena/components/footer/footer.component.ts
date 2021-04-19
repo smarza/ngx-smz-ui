@@ -14,7 +14,8 @@ import { UiAthenaActions } from '../../state/ui-layout.actions';
 @Component({
   selector: 'smz-ui-athena-footer',
   templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.scss']
+  styleUrls: ['./footer.component.scss'],
+  host: { 'class': 'z-10' }
 })
 export class AthenaFooterComponent implements OnInit, AfterContentInit
 {

@@ -151,7 +151,7 @@
 
                     </ng-container>
 
-                    <th *ngIf="context.config.showActions" [ngStyle]="{ width: context.config.useCustomActions ? context.config.customActionWidth : '63px' }"></th>
+                    <th *ngIf="context.config.showActions" [ngStyle]="{ width: context.config.customActionWidth }"></th>
                 </tr>
             </ng-template>
 
@@ -201,13 +201,14 @@
 
                     <ng-container *ngIf="context.config.showActions">
 
-                        <td *ngIf="context.config.useCustomActions">
-                            <ng-container *ngTemplateOutlet="actionsTemplate; context: { $implicit: item }"></ng-container>
-                        </td>
-
-                        <td *ngIf="!context.config.useCustomActions" [ngStyle]="{ 'text-align': 'left' }">
-                            <p-menu #actionMenu [popup]="true" [model]="context.config.menu" appendTo="body"></p-menu>
-                            <button id="action-button" type="button" pButton icon="pi pi-bars" (click)="actionMenu.toggle($event, item)"></button>
+                        <td [ngStyle]="{ 'text-align': 'left' }">
+                            <ng-container *ngIf="context.config.useCustomActions">
+                                <ng-container *ngTemplateOutlet="actionsTemplate; context: { $implicit: item }"></ng-container>
+                            </ng-container>
+                            <ng-container *ngIf="(context.config.menu | tableMenu : item) as itemMenu">
+                                <p-menu #actionMenu [popup]="true" [model]="itemMenu" appendTo="body"></p-menu>
+                                <button id="action-button" type="button" pButton icon="pi pi-bars" (click)="actionMenu.toggle($event, item)"></button>
+                            </ng-container>
                         </td>
 
                     </ng-container>

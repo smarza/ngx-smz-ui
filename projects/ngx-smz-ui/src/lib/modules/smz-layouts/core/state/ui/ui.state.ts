@@ -20,6 +20,7 @@ export interface UiStateModel {
   loader: LoaderData;
   state: LayoutState;
   appLogo: LogoResource;
+  lastUserMouseEvent: 'mouseenter' | 'mouseleave';
 }
 
 export const getInitialState = (): UiStateModel => ({
@@ -47,7 +48,8 @@ export const getInitialState = (): UiStateModel => ({
     layoutTone: null,
     schemaTone: null
   },
-  appLogo: null
+  appLogo: null,
+  lastUserMouseEvent: 'mouseenter'
 });
 
 // @dynamic
@@ -165,6 +167,14 @@ export class UiState {
     const state = ctx.getState().state;
 
     ctx.patchState({ state: { ...state, contentClass: '' }});
+
+  }
+
+  @Action(UiActions.SetLastUserMouseEvent)
+  public onSetLastUserMouseEvent(ctx: StateContext<UiStateModel>, action: UiActions.SetLastUserMouseEvent): void {
+    const state = ctx.getState().state;
+
+    ctx.patchState({ lastUserMouseEvent: action.data });
 
   }
 

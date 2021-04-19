@@ -1,7 +1,7 @@
 import { SmzLayoutsConfig, SmzContentTheme, SmzLoader, HephaestusLayout, MenuType, SidebarState, AthenaLayout, ColorSchemaDefinition } from 'ngx-smz-ui';
 
 export const smzHephaestusConfig: HephaestusLayout = {
-    menu: MenuType.STATIC,
+    menu: MenuType.SLIM,
     sidebarState: SidebarState.ACTIVE,
     sidebarWidth: '16rem',
     sidebarSlimWidth: '6rem',
@@ -79,5 +79,6 @@ export const smzLayoutsConfig: SmzLayoutsConfig = {
     },
     applicationActions: {
         registerLogs: true,
-    }
+    },
+    monitoreMouseEvents: true
 }

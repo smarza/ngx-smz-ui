@@ -83,13 +83,42 @@ export class DemoTablesComponent implements OnInit {
         callback: () => { console.log('atualizando...'); },
         image: null,
       },
-      isRowClickable: true,
-      rowClickCallback: (event) => { console.log('click...', event); },
+      isRowClickable: false,
+      // rowClickCallback: (event) => { console.log('click...', event); },
       menu: [
-        { label: 'Editar', icon: 'pi pi-fw pi-plus', command: (event) => this.test(event) },
-        { separator: true },
-        { label: 'Apagar', icon: 'pi pi-fw pi-download', command: (event) => this.test(event) },
-        { label: 'Teste', command: (event) => { this.toggleVisibility('plant.name'); } }
+        {
+          conditional: { condition: (item: any) => (item.plant.name === 'P-76'), property: 'visible' },
+          label: 'Básico',
+          items: [
+            {
+              label: 'Estado',
+              // conditional: { condition: (item: any) => (item.isActive), property: 'visible' },
+              transforms: [
+                (item: any) => (item.isActive ?
+                  { icon: 'fas fa-lightbulb green-text', command: (event) => { console.log('Desabilitar', event); } } :
+                  { icon: 'far fa-lightbulb grey-text', command: (event) => { console.log('Habilitar', event); } })
+              ],
+            },
+            { label: 'Editar', icon: 'fas fa-biohazard', command: (event) => this.test(event) },
+            { label: 'Apagar', icon: 'fas fa-candy-cane', command: (event) => this.test(event) },
+            { label: 'Teste', icon: 'fab fa-cloudversify', command: (event) => { this.toggleVisibility('plant.name'); } },
+          ]
+        },
+        {
+          label: 'Avançado',
+          items: [
+            { label: 'Avançado 1', icon: 'fas fa-charging-station', command: (event) => { console.log('Avançado 1'); } },
+            {
+              label: 'Avançado (P-74)',
+              conditional: { condition: (item: any) => (item.plant.name !== 'P-74'), property: 'disabled' },
+              command: (event) => { console.log('Condicional 3', event); },
+              transforms: [
+                (item: any) => (item.plant.name !== 'P-74' ?
+                  { icon: 'far fa-angry' } :
+                  { icon: 'fal fa-grin-tongue-wink' })
+              ],},
+          ]
+        },
       ],
       columns: [
         {

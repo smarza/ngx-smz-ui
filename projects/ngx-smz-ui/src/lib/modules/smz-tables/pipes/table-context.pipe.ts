@@ -53,6 +53,7 @@ export class SmzTableContextPipe implements PipeTransform {
       ...inputConfig,
       useCustomActions: inputConfig.useCustomActions ?? false,
       customActionWidth: inputConfig.customActionWidth ?? '63px',
+      showActions: inputConfig.showActions != null ? inputConfig.showActions : (inputConfig.useCustomActions || inputConfig.menu?.length > 0),
       showClearFilter: inputConfig.showClearFilter ?? true,
       rows: inputConfig.rows ?? 10,
       showCurrentPageReport: inputConfig.showCurrentPageReport ?? true,

@@ -2,7 +2,6 @@
 <ng-container *ngIf="appName$ | async as appName">
 <ng-container *ngIf="(currentRoute$ | async) as route">
 
-
     <div class="layout-sidebar" (mouseleave)="collapseAll(menu)">
 
         <ng-container *ngIf="(appLayoutLogo$ | async) as appLayoutLogo">

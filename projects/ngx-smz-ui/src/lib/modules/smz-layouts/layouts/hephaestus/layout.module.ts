@@ -13,7 +13,6 @@ import { HephaestusAssistanceModule } from './components/assistance/assistance.m
 import { HephaestusLayout } from './layout.config';
 import { defaultHephaestusConfig } from './default.config';
 import { mergeClone } from '../../../../common/utils/deep-merge';
-
 export const ngxsModuleForFeatureUiHephaestusLayoutState = NgxsModule.forFeature([UiHephaestusState]);
 
 @NgModule({

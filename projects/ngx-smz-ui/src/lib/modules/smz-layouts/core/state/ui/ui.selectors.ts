@@ -76,4 +76,10 @@ export class UiSelectors
     {
         return state.toast;
     }
+
+    @Selector([UiState])
+    public static isMouseInApp(state: UiStateModel): boolean
+    {
+        return state.lastUserMouseEvent === 'mouseenter';
+    }
 }

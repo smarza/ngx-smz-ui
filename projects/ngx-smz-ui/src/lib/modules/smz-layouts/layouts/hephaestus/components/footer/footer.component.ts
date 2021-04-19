@@ -14,7 +14,8 @@ import { UiHephaestusActions } from '../../state/ui-layout.actions';
 @Component({
   selector: 'smz-ui-hephaestus-footer',
   templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.scss']
+  styleUrls: ['./footer.component.scss'],
+  host: { 'class': 'z-10' }
 })
 export class HephaestusFooterComponent implements OnInit, AfterContentInit
 {

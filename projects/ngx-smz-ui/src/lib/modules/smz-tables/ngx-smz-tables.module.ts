@@ -19,6 +19,7 @@ import { TableItemActionsModule } from '../../common/table-item-actions/table-it
 import { ClickStopPropagationModule } from '../../common/stop-click-propagation/click-stop-propagation.module';
 import { NgxSmzDataInfoModule } from '../smz-data-info/smz-data-info.module';
 import { TooltipModule } from 'primeng/tooltip';
+import { SmzTableMenuPipe } from './pipes/table-menu.pipe';
 
 @NgModule({
     declarations: [
@@ -26,7 +27,8 @@ import { TooltipModule } from 'primeng/tooltip';
         SmzTableContextPipe,
         SmzTableContentPipe,
         SmzFilterObjectPipe,
-        SmzContentIconMatchesPipe
+        SmzContentIconMatchesPipe,
+        SmzTableMenuPipe
     ],
     imports: [
         CommonModule,

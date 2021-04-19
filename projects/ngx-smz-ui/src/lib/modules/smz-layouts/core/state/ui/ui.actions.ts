@@ -72,4 +72,10 @@ export namespace UiActions
         public static readonly type = '[UI] Restore Layout Position';
     }
 
+    export class SetLastUserMouseEvent
+    {
+        public static readonly type = '[UI] Set Last User Mouse Event';
+        constructor(public data: 'mouseenter' | 'mouseleave') {}
+    }
+
 }

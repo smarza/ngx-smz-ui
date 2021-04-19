@@ -1,4 +1,4 @@
-import { MenuItem } from 'primeng/api';
+import { SmzMenuItem } from './conditional-menu-item';
 import { SmzTableColumn, SmzTableContextColumn } from './table-column';
 
 export interface SmzTableConfig {
@@ -11,7 +11,7 @@ export interface SmzTableConfig {
   emptyMessage?: string;
   isRowClickable?: boolean,
   isSelectable?: boolean;
-  menu?: MenuItem[];
+  menu?: SmzMenuItem[];
   multiSortMeta?: { field: string, order: 1 | -1 }[];
   rowClickCallback?: (event) => void,
   rowHover?: boolean;
