@@ -10,7 +10,7 @@
 // import isDate from "lodash-es/isDate";
 // import * as moment from "moment";
 // import { SmzControlType } from 'ngx-smz-dialogs';
-// import { SmzTableContext } from '../models/table-config';
+// import { SmzTableContext } from '../models/table-state';
 
 // // @UntilDestroy()
 // @Injectable({

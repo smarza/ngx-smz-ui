@@ -2,7 +2,7 @@ import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component
 import { PrimeTemplate } from 'primeng/api';
 import { SmzContentType } from '../../models/content-types';
 import { SmzFilterType } from '../../models/filter-types';
-import { SmzTableConfig, SmzTableContext } from '../../models/table-config';
+import { SmzTableState, SmzTableContext } from '../../models/table-state';
 import { cloneDeep } from 'lodash-es';
 import { SmzTableColumn } from '../../models/table-column';
 import { Table } from 'primeng/table';
@@ -17,7 +17,7 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
   @ViewChild(Table) public primeTable: Table;
   @Input() public items: any[] = [];
-  @Input() public config: SmzTableConfig;
+  @Input() public state: SmzTableState;
   @Input() public loading: boolean = false;
   @Output() public selectionChange: EventEmitter<any> = new EventEmitter<any>();
   public contentTemplate: TemplateRef<any>;
@@ -50,20 +50,17 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
   }
 
   public ngOnInit(): void {
-
   }
 
   public updateColumnsVisibility(): void {
-    // console.log('selectedColumns', this.selectedColumns);
-    // console.log('config', this.config);
-    this.config.columns.forEach(x => {
+    this.state.columns.forEach(x => {
       x.isVisible = this.selectedColumns?.findIndex(c => c.field === x.field) !== -1;
     });
 
-    this.config = { ...this.config };
+    this.state = { ...this.state };
   }
   public ngOnChanges(changes: SimpleChanges): void {
-    // console.log(changes);
+
     if (changes.items != null) {
       if (changes.items.currentValue != null) {
         this.clonedItems = cloneDeep(changes.items.currentValue);
@@ -75,12 +72,12 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
       this.cdr.markForCheck();
     }
 
-    if (changes.config != null) {
+    if (changes.state != null) {
 
-      const newConfig: SmzTableConfig = changes.config.currentValue;
+      const newConfig: SmzTableState = changes.state.currentValue;
 
       if (newConfig != null) {
-        if (!newConfig.isSelectable) {
+        if (!newConfig.caption.rowSelection.isButtonVisible) {
           this.selectedItems = [];
         }
       }
@@ -126,15 +123,23 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
     });
 
   }
-  public populateColumnVisibility(newConfig: SmzTableConfig): void {
+  public populateColumnVisibility(newConfig: SmzTableState): void {
     this.selectedColumns = newConfig?.columns.filter(x => x.isVisible) ?? [];
   }
 
   public clear(dt: any, context: SmzTableContext): void {
     dt.clear();
 
-    if (context.config.clearFilterCallback != null) {
-      context.config.clearFilterCallback();
+    if (context.state.caption?.clearFilters?.callback != null) {
+      context.state.caption.clearFilters.callback();
+    }
+  }
+
+  public onRowSelection(context: SmzTableContext): void {
+    context.state.caption.rowSelection.isEnabled = !context.state.caption.rowSelection.isEnabled;
+
+    if (context.state.caption.rowSelection.callback != null) {
+      context.state.caption.rowSelection.callback();
     }
   }
 

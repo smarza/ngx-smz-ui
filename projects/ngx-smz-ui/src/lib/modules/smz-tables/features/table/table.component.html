@@ -1,12 +1,12 @@
-<ng-container *ngIf="config | tableContext as context; else noConfigTemplate">
+<ng-container *ngIf="state | tableContext as context; else noConfigTemplate">
 
-    <ng-container *ngIf="context.config.customEmptyMessage != null && clonedItems?.length === 0; else tableTemplate">
+    <ng-container *ngIf="context.state.emptyMessage != null && clonedItems?.length === 0; else tableTemplate">
         <smz-data-info
-            [image]="context.config.customEmptyMessage.image"
-            [message]="context.config.customEmptyMessage.message"
-            [callbackInfo]="context.config.customEmptyMessage.callbackInfo"
-            [callbackLabel]="context.config.customEmptyMessage.callbackLabel"
-            (clicked)="context.config.customEmptyMessage.callback()">
+            [image]="context.state.emptyMessage.image"
+            [message]="context.state.emptyMessage.message"
+            [callbackInfo]="context.state.emptyMessage.callbackInfo"
+            [callbackLabel]="context.state.emptyMessage.callbackLabel"
+            (clicked)="context.state.emptyMessage.callback()">
 
             <ng-template pTemplate="actions">
                 <ng-container *ngTemplateOutlet="emptyActionsTemplate; context: { $implicit: {} }"></ng-container>
@@ -17,22 +17,22 @@
 
     <ng-template #tableTemplate>
 
-        <p-table #dt [value]="clonedItems" [(selection)]="selectedItems" dataKey="id" styleClass="p-datatable-smz-ui-table" [rowHover]="context.config.rowHover"
-            [rows]="context.config.rows" [showCurrentPageReport]="context.config.showCurrentPageReport" [rowsPerPageOptions]="context.config.rowsPerPageOptions" [loading]="loading"
-            [paginator]="context.config.showPaginator" [currentPageReportTemplate]="context.config.currentPageReportTemplate"
-            [sortField]="context.config.sortField" [sortMode]="context.config.sortMode"
-            [sortOrder]="context.config.sortOrder" [multiSortMeta]="context.config.multiSortMeta"
+        <p-table #dt [value]="clonedItems" [(selection)]="selectedItems" dataKey="id" styleClass="p-datatable-smz-ui-table" [rowHover]="context.state.actions.rowBehavior.hoverable"
+            [rows]="context.state.pagination.rows" [showCurrentPageReport]="context.state.pagination.pageReport.isVisible" [rowsPerPageOptions]="context.state.pagination.rowsPerPageOptions" [loading]="loading"
+            [paginator]="context.state.pagination.isVisible" [currentPageReportTemplate]="context.state.pagination.pageReport.template"
+            [sortField]="context.state.sort.field" [sortMode]="context.state.sort.mode"
+            [sortOrder]="context.state.sort.order" [multiSortMeta]="context.state.sort.multiSortMeta"
             [filterDelay]="0" [globalFilterFields]="context.globalFilter" (selectionChange)="selectionChange.emit($event)">
 
-            <ng-template pTemplate="caption" *ngIf="context.config.showCaption">
+            <ng-template pTemplate="caption" *ngIf="context.state.caption.isVisible">
 
                 <div class="p-grid p-nogutter p-justify-start p-align-center">
-                    <span class="p-col p-mr-2">{{ config.title }}</span>
+                    <span class="p-col p-mr-2">{{ state.caption.title }}</span>
                     <p-multiSelect
-                        *ngIf="context.config.showColumnVisibility"
+                        *ngIf="context.state.caption.columnVisibility.showButton"
                         class="p-mr-2 p-col-12 p-md-2"
                         styleClass="w-full"
-                        [options]="config.columns"
+                        [options]="state.columns"
                         [(ngModel)]="selectedColumns"
                         placeholder="Colunas"
                         [selectedItemsLabel]="'{0} colunas visíveis'"
@@ -43,20 +43,21 @@
                         (onChange)="updateColumnsVisibility()"
                         pTooltip="Escolha as colunas que deseja visualizar na tabela.">
                     </p-multiSelect>
-                    <button *ngIf="context.config.showClearFilter" pButton [label]="context.config.clearFilterLabel" class="p-button-outlined p-mr-2" icon="pi pi-filter-slash" (click)="clear(dt, context)"></button>
-                    <span *ngIf="context.config.showGlobalFilter" class="p-input-icon-left p-col-12 p-md-2" [ngClass]="{ 'p-mr-2': captionTemplate != null }">
+                    <button *ngIf="context.state.caption.rowSelection.isButtonVisible" pButton [label]="context.state.caption.rowSelection.label" class="p-button-outlined p-mr-2" icon="pi pi-filter-slash" (click)="onRowSelection(context)"></button>
+                    <button *ngIf="context.state.caption.clearFilters.isButtonVisible" pButton [label]="context.state.caption.clearFilters.label" class="p-button-outlined p-mr-2" icon="pi pi-filter-slash" (click)="clear(dt, context)"></button>
+                    <span *ngIf="context.state.caption.globalFilter.isVisible" class="p-input-icon-left p-col-12 p-md-2" [ngClass]="{ 'p-mr-2': captionTemplate != null }">
                         <i class="pi pi-search"></i>
                         <input #inputGlobal pInputText type="text" (input)="dt.filterGlobal(inputGlobal.value, 'contains')" placeholder="Pesquisa global" />
                     </span>
                     <ng-container *ngTemplateOutlet="captionTemplate; context: { $implicit: dt }"></ng-container>
                 </div>
 
-                <div *ngIf="toolbarTemplate != null" class="p-grid p-nogutter p-align-center p-mt-2" [ngClass]="'p-justify-' + context.config.toolbarAlignment">
+                <div *ngIf="toolbarTemplate != null" class="p-grid p-nogutter p-align-center p-mt-2" [ngClass]="'p-justify-' + context.state.caption.toolbarAlignment">
                     <ng-container *ngTemplateOutlet="toolbarTemplate; context: { $implicit: dt }"></ng-container>
                 </div>
 
                 <!-- <button type="button" pButton pRipple icon="pi pi-file-pdf" label="Exportar"
-                    (click)="tableExporter.exportPdf(dt, context, dt.filteredValue != null ? dt.filteredValue : clonedItems, context.config.title != null ? context.config.title : 'Exportação')"
+                    (click)="tableExporter.exportPdf(dt, context, dt.filteredValue != null ? dt.filteredValue : clonedItems, context.state.title != null ? context.state.title : 'Exportação')"
                     class="p-button-warning p-mr-2" pTooltip="Exportar para PDF" tooltipPosition="bottom">
                 </button> -->
 
@@ -65,7 +66,7 @@
             <ng-template pTemplate="header">
                 <tr>
 
-                    <th [ngStyle]="{ width: context.config.selectBoxWidth }" *ngIf="context.config.isSelectable">
+                    <th [ngStyle]="{ width: context.state.caption.rowSelection.columnWidth }" *ngIf="context.state.caption.rowSelection.isEnabled">
                         <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                     </th>
 
@@ -153,13 +154,13 @@
 
                     </ng-container>
 
-                    <th *ngIf="context.config.showActions" [ngStyle]="{ width: context.config.customActionWidth }"></th>
+                    <th *ngIf="context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible" [ngStyle]="{ width: context.state.actions.customActions.columnWidth }"></th>
                 </tr>
             </ng-template>
 
             <ng-template pTemplate="body" let-item>
-                <tr class="p-selectable-row" tableItemAction [isClickable]="context.config.isRowClickable" [callback]="context.config.rowClickCallback" [item]="item">
-                    <td *ngIf="context.config.isSelectable" furyClickStopPropagation>
+                <tr class="p-selectable-row" tableItemAction [isClickable]="context.state.actions.rowBehavior.isClickable" [callback]="context.state.actions.rowBehavior.clickCallback" [item]="item">
+                    <td *ngIf="context.state.caption.rowSelection.isEnabled" furyClickStopPropagation>
                         <p-tableCheckbox [value]="item"></p-tableCheckbox>
                     </td>
 
@@ -201,15 +202,21 @@
 
                     </ng-container>
 
-                    <ng-container *ngIf="context.config.showActions">
+                    <ng-container *ngIf="context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible">
 
                         <td [ngStyle]="{ 'text-align': 'left' }">
-                            <ng-container *ngIf="context.config.useCustomActions">
+
+                            <!-- CUSTOM MENU -->
+                            <ng-container *ngIf="context.state.actions.customActions.isVisible">
                                 <ng-container *ngTemplateOutlet="actionsTemplate; context: { $implicit: item }"></ng-container>
                             </ng-container>
-                            <ng-container *ngIf="(context.config.menu | tableMenu : item) as itemMenu">
-                                <p-menu #actionMenu [popup]="true" [model]="itemMenu" appendTo="body"></p-menu>
-                                <button id="action-button" type="button" pButton icon="pi pi-bars" (click)="actionMenu.toggle($event, item)"></button>
+
+                            <!-- MENU -->
+                            <ng-container *ngIf="context.state.actions.menu.isVisible">
+                                <ng-container *ngIf="(context.state.actions.menu.items | tableMenu : item) as itemMenu">
+                                    <p-menu #actionMenu [popup]="true" [model]="itemMenu" appendTo="body"></p-menu>
+                                    <button id="action-button" type="button" pButton icon="pi pi-bars" (click)="actionMenu.toggle($event, item)"></button>
+                                </ng-container>
                             </ng-container>
                         </td>
 
@@ -219,7 +226,7 @@
             </ng-template>
             <ng-template pTemplate="emptymessage">
                 <tr>
-                    <td [attr.colspan]="context.columns.length + (context.config.showActions ? 1 : 0) + (context.config.isSelectable ? 1 : 0)">{{ context.config.emptyMessage }}</td>
+                    <td [attr.colspan]="context.columns.length + ((context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible) ? 1 : 0) + (context.state.caption.rowSelection.isEnabled ? 1 : 0)">{{ context.state.emptyMessage }}</td>
                 </tr>
             </ng-template>
         </p-table>

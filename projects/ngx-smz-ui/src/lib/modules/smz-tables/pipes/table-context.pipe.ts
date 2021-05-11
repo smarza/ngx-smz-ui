@@ -1,20 +1,22 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { mergeDeep } from '../../../common/utils/deep-merge';
 import { SmzContentType } from '../models/content-types';
 import { SmzTableContextColumn } from '../models/table-column';
-import { SmzTableConfig, SmzTableContext } from '../models/table-config';
+import { SmzTableState, SmzTableContext } from '../models/table-state';
 
 @Pipe({
   name: 'tableContext'
 })
 
 export class SmzTableContextPipe implements PipeTransform {
-  transform(inputConfig: SmzTableConfig): SmzTableContext {
-    if (inputConfig == null) return null;
+  transform(inputState: SmzTableState): SmzTableContext {
+
+    if (inputState == null) return null;
 
     const globalFilter: string[] = [];
     const columns: SmzTableContextColumn[] = [];
 
-    for (const column of inputConfig.columns.filter(c => c.isVisible)) {
+    for (const column of inputState.columns.filter(c => c.isVisible)) {
 
       const contextColumn: SmzTableContextColumn = {
         ...column,
@@ -49,48 +51,74 @@ export class SmzTableContextPipe implements PipeTransform {
 
     }
 
-    const config: SmzTableConfig = {
-      ...inputConfig,
-      useCustomActions: inputConfig.useCustomActions ?? false,
-      customActionWidth: inputConfig.customActionWidth ?? '63px',
-      showActions: inputConfig.showActions != null ? inputConfig.showActions : (inputConfig.useCustomActions || inputConfig.menu?.length > 0),
-      showClearFilter: inputConfig.showClearFilter ?? true,
-      rows: inputConfig.rows ?? 10,
-      showCurrentPageReport: inputConfig.showCurrentPageReport ?? true,
-      rowsPerPageOptions: inputConfig.rowsPerPageOptions ?? [5, 10, 50, 100, 500],
-      currentPageReportTemplate: inputConfig.currentPageReportTemplate ?? 'Mostrando {first} a {last} de {totalRecords} itens',
-      emptyMessage: inputConfig.emptyMessage ?? 'Lista Vazia',
-      customEmptyMessage: inputConfig.customEmptyMessage ?? null,
-      isSelectable: inputConfig.isSelectable ?? false,
-      selectBoxWidth: inputConfig.selectBoxWidth ?? '3em',
-      isRowClickable: inputConfig.isRowClickable ?? false,
-      rowClickCallback: inputConfig.rowClickCallback ?? null,
-      clearFilterCallback: inputConfig.clearFilterCallback ?? null,
-      clearFilterLabel: inputConfig.clearFilterLabel ?? 'Limpar Filtro',
-      toolbarAlignment: inputConfig.toolbarAlignment ?? 'start',
-      sortField: inputConfig.sortField ?? null,
-      sortMode: inputConfig.sortMode ?? 'single',
-      sortOrder: inputConfig.sortOrder ?? 1,
-      multiSortMeta: inputConfig.multiSortMeta ?? null,
-      showColumnVisibility: inputConfig.showColumnVisibility ?? false
+    const state: SmzTableState = {
+      actions: {
+        customActions: {
+          isVisible: false,
+          columnWidth: '63px',
+        },
+        menu: {
+          isVisible: false,
+          items: []
+        },
+        rowBehavior: {
+          isClickable: false,
+          clickCallback: null,
+          hoverable: false,
+        }
+      },
+      caption: {
+        isVisible: false,
+        title: '',
+        toolbarAlignment: 'start',
+        clearFilters: {
+          isButtonVisible: true,
+          callback: null,
+          label: 'Limpar Filtro',
+        },
+        columnVisibility: {
+          showButton: false,
+        },
+        globalFilter: {
+          isVisible: true,
+        },
+        rowSelection: {
+          isButtonVisible: true,
+          columnWidth: '3em',
+          callback: null,
+          isEnabled: false,
+          label: 'Seleção'
+        },
+      },
+      columns: [],
+      emptyMessage: {
+        message: 'Lista Vazia',
+        callbackLabel: 'Ação',
+        callbackInfo: null,
+        callback: null,
+        image: 'assets/images/tables/empty.svg',
+      },
+      pagination: {
+        isVisible: true,
+        rows: 10,
+        rowsPerPageOptions: [5, 10, 50, 100, 500],
+        pageReport: {
+          isVisible: true,
+          template: 'Mostrando {first} a {last} de {totalRecords} itens'
+        }
+      },
+      sort: {
+        field: null,
+        mode: 'single',
+        order: 1,
+        multiSortMeta: null
+      }
     };
-
-    if (config.customEmptyMessage != null) {
-
-      config.customEmptyMessage = {
-        message: inputConfig.customEmptyMessage.message ?? 'Lista Vazia',
-        callbackLabel: inputConfig.customEmptyMessage.callbackLabel ?? 'Ação',
-        callback: inputConfig.customEmptyMessage.callback ?? null,
-        callbackInfo: inputConfig.customEmptyMessage.callbackInfo ?? null,
-        image: inputConfig.customEmptyMessage.image ?? 'assets/images/tables/empty.svg',
-      };
-
-    }
 
     return {
       globalFilter,
       columns,
-      config,
+      state: mergeDeep(state, inputState)
     };
   }
 }

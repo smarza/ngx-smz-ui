@@ -55,6 +55,7 @@ export class SmzTableMenuPipe implements PipeTransform {
     if (item.transforms?.length > 0) {
 
       item.transforms.forEach(transform => {
+
         const results = transform(data);
 
         Reflect.ownKeys(results).forEach(property => {
