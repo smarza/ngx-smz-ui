@@ -84,66 +84,68 @@
                         </ng-container>
 
                         <ng-template #headerContent>
-                            <div class="p-d-flex p-jc-between p-ai-center">
+                            <div class="p-d-flex p-jc-start p-ai-center">
                                 {{ col.header }}
                                 <p-sortIcon [field]="col.field" *ngIf="col.isOrderable"></p-sortIcon>
 
-                                <ng-container [ngSwitch]="col.filterType">
+                                <ng-container *ngIf="col.showFilter">
+                                    <ng-container [ngSwitch]="col.filterType">
 
-                                    <ng-container *ngSwitchDefault>
-                                        <p-columnFilter type="text" [field]="col.field" display="menu" class="p-ml-auto"></p-columnFilter>
-                                    </ng-container>
-
-                                    <ng-container *ngSwitchCase="filterTypes.currency">
-                                        <p-columnFilter type="numeric" currency="BRL" [field]="col.field" display="menu" class="p-ml-auto"></p-columnFilter>
-                                    </ng-container>
-
-                                    <ng-container *ngSwitchCase="filterTypes.numeric">
-                                        <p-columnFilter type="numeric" [field]="col.field" display="menu" class="p-ml-auto"></p-columnFilter>
-                                    </ng-container>
-
-                                    <ng-container *ngSwitchCase="filterTypes.date">
-                                        <p-columnFilter type="date" [field]="col.field" display="menu" class="p-ml-auto"></p-columnFilter>
-                                    </ng-container>
-
-                                    <ng-container *ngSwitchCase="filterTypes.text">
-                                        <p-columnFilter type="text" [field]="col.field" display="menu" class="p-ml-auto"></p-columnFilter>
-                                    </ng-container>
-
-                                    <ng-container *ngSwitchCase="filterTypes.boolean">
-                                        <p-columnFilter type="boolean" [field]="col.field" display="menu" class="p-ml-auto"></p-columnFilter>
-                                    </ng-container>
-
-                                    <ng-container *ngSwitchCase="filterTypes.dropdown">
-                                        <ng-container *ngIf="col.field | filterObject as filterField">
-                                            <p-columnFilter [field]="filterField + '.id'" matchMode="dropdown" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" display="menu" class="p-ml-auto">
-                                                <ng-template pTemplate="header">
-                                                    <div class="p-px-3 p-pt-3 p-pb-0">
-                                                        <span class="p-text-bold">{{ col.header }}</span>
-                                                    </div>
-                                                </ng-template>
-                                                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                                    <p-dropdown [ngModel]="value" [options]="clonedItems | uniqueFilter : filterField + '.id' : filterField" placeholder="Todos" (onChange)="filter($event.value)" optionLabel="name" dataKey="id"></p-dropdown>
-                                                </ng-template>
-                                            </p-columnFilter>
+                                        <ng-container *ngSwitchDefault>
+                                            <p-columnFilter type="text" [field]="col.field" display="menu"></p-columnFilter>
                                         </ng-container>
-                                    </ng-container>
 
-                                    <ng-container *ngSwitchCase="filterTypes.multiselect">
-                                        <ng-container *ngIf="col.field | filterObject as filterField">
-                                            <p-columnFilter [field]="filterField" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="p-ml-auto">
-                                                <ng-template pTemplate="header">
-                                                    <div class="p-px-3 p-pt-3 p-pb-0">
-                                                        <span class="p-text-bold">{{ col.header }}</span>
-                                                    </div>
-                                                </ng-template>
-                                                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                                    <p-multiSelect [ngModel]="value" [options]="clonedItems | uniqueFilter : filterField + '.id' : filterField" placeholder="Todos" (onChange)="filter($event.value)" optionLabel="name" dataKey="id"></p-multiSelect>
-                                                </ng-template>
-                                            </p-columnFilter>
+                                        <ng-container *ngSwitchCase="filterTypes.currency">
+                                            <p-columnFilter type="numeric" currency="BRL" [field]="col.field" display="menu"></p-columnFilter>
                                         </ng-container>
-                                    </ng-container>
 
+                                        <ng-container *ngSwitchCase="filterTypes.numeric">
+                                            <p-columnFilter type="numeric" [field]="col.field" display="menu"></p-columnFilter>
+                                        </ng-container>
+
+                                        <ng-container *ngSwitchCase="filterTypes.date">
+                                            <p-columnFilter type="date" [field]="col.field" display="menu"></p-columnFilter>
+                                        </ng-container>
+
+                                        <ng-container *ngSwitchCase="filterTypes.text">
+                                            <p-columnFilter type="text" [field]="col.field" display="menu"></p-columnFilter>
+                                        </ng-container>
+
+                                        <ng-container *ngSwitchCase="filterTypes.boolean">
+                                            <p-columnFilter type="boolean" [field]="col.field" display="menu"></p-columnFilter>
+                                        </ng-container>
+
+                                        <ng-container *ngSwitchCase="filterTypes.dropdown">
+                                            <ng-container *ngIf="col.field | filterObject as filterField">
+                                                <p-columnFilter [field]="filterField + '.id'" matchMode="dropdown" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" display="menu">
+                                                    <ng-template pTemplate="header">
+                                                        <div class="p-px-3 p-pt-3 p-pb-0">
+                                                            <span class="p-text-bold">{{ col.header }}</span>
+                                                        </div>
+                                                    </ng-template>
+                                                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                                        <p-dropdown [ngModel]="value" [options]="clonedItems | uniqueFilter : filterField + '.id' : filterField" placeholder="Todos" (onChange)="filter($event.value)" optionLabel="name" dataKey="id"></p-dropdown>
+                                                    </ng-template>
+                                                </p-columnFilter>
+                                            </ng-container>
+                                        </ng-container>
+
+                                        <ng-container *ngSwitchCase="filterTypes.multiselect">
+                                            <ng-container *ngIf="col.field | filterObject as filterField">
+                                                <p-columnFilter [field]="filterField" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                                                    <ng-template pTemplate="header">
+                                                        <div class="p-px-3 p-pt-3 p-pb-0">
+                                                            <span class="p-text-bold">{{ col.header }}</span>
+                                                        </div>
+                                                    </ng-template>
+                                                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                                        <p-multiSelect [ngModel]="value" [options]="clonedItems | uniqueFilter : filterField + '.id' : filterField" placeholder="Todos" (onChange)="filter($event.value)" optionLabel="name" dataKey="id"></p-multiSelect>
+                                                    </ng-template>
+                                                </p-columnFilter>
+                                            </ng-container>
+                                        </ng-container>
+
+                                    </ng-container>
                                 </ng-container>
 
                             </div>

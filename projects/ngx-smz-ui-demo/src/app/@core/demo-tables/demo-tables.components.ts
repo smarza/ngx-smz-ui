@@ -173,7 +173,7 @@ export class DemoTablesComponent implements OnInit {
           header: 'Situação',
           isGlobalFilterable: false,
           isOrderable: false,
-          showFilter: true,
+          showFilter: false,
           width: '8em',
           isVisible: true,
         },
