@@ -69,7 +69,7 @@ export class DemoTablesComponent implements OnInit {
       actions: {
         customActions: {
           isVisible: true,
-          columnWidth: '3em',
+          columnWidth: '8em',
         },
         menu: {
           isVisible: true,

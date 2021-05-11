@@ -204,7 +204,7 @@
 
                     <ng-container *ngIf="context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible">
 
-                        <td [ngStyle]="{ 'text-align': 'left' }">
+                        <td [ngStyle]="{ 'text-align': 'left' }" class="p-grid p-nogutter p-align-center p-justify-start">
 
                             <!-- CUSTOM MENU -->
                             <ng-container *ngIf="context.state.actions.customActions.isVisible">
@@ -214,7 +214,7 @@
                             <!-- MENU -->
                             <ng-container *ngIf="context.state.actions.menu.isVisible">
                                 <ng-container *ngIf="(context.state.actions.menu.items | tableMenu : item) as itemMenu">
-                                    <p-menu #actionMenu [popup]="true" [model]="itemMenu" appendTo="body"></p-menu>
+                                    <p-menu #actionMenu [popup]="true" [model]="itemMenu" appendTo="body" [ngClass]="{ 'p-ml-2': context.state.actions.customActions.isVisible }"></p-menu>
                                     <button id="action-button" type="button" pButton icon="pi pi-bars" (click)="actionMenu.toggle($event, item)"></button>
                                 </ng-container>
                             </ng-container>
