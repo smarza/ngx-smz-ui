@@ -25,7 +25,7 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
   public captionTemplate: TemplateRef<any>;
   public toolbarTemplate: TemplateRef<any>;
   public emptyActionsTemplate: TemplateRef<any>;
-  public emptyConfigTemplate: TemplateRef<any>;
+  public emptyStateTemplate: TemplateRef<any>;
   public selectedItems: any[];
   public clonedItems: any[] = [];
   public selectedColumns: SmzTableColumn[];
@@ -74,10 +74,10 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
 
     if (changes.state != null) {
 
-      const newConfig: SmzTableState = changes.state.currentValue;
+      const newState: SmzTableState = changes.state.currentValue;
 
-      if (newConfig != null) {
-        if (!newConfig.caption.rowSelection.isButtonVisible) {
+      if (newState != null) {
+        if (!newState.caption.rowSelection.isButtonVisible) {
           this.selectedItems = [];
         }
       }
@@ -85,7 +85,7 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
         this.selectedItems = [];
       }
 
-      this.populateColumnVisibility(newConfig);
+      this.populateColumnVisibility(newState);
 
       this.cdr.markForCheck();
     }
@@ -116,15 +116,15 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
           this.emptyActionsTemplate = item.template;
           break;
 
-        case 'emptyConfig':
-          this.emptyConfigTemplate = item.template;
+        case 'emptyState':
+          this.emptyStateTemplate = item.template;
           break;
       }
     });
 
   }
-  public populateColumnVisibility(newConfig: SmzTableState): void {
-    this.selectedColumns = newConfig?.columns.filter(x => x.isVisible) ?? [];
+  public populateColumnVisibility(newState: SmzTableState): void {
+    this.selectedColumns = newState?.columns.filter(x => x.isVisible) ?? [];
   }
 
   public clear(dt: any, context: SmzTableContext): void {

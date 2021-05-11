@@ -1,4 +1,4 @@
-<ng-container *ngIf="state | tableContext as context; else noConfigTemplate">
+<ng-container *ngIf="state | tableContext as context; else noStateTemplate">
 
     <ng-container *ngIf="context.state.emptyMessage != null && clonedItems?.length === 0; else tableTemplate">
         <smz-data-info
@@ -234,8 +234,8 @@
 
 </ng-container>
 
-<ng-template #noConfigTemplate>
-    <ng-container *ngIf="emptyConfigTemplate != null">
-        <ng-container *ngTemplateOutlet="emptyConfigTemplate; context: { $implicit: {} }"></ng-container>
+<ng-template #noStateTemplate>
+    <ng-container *ngIf="emptyStateTemplate != null">
+        <ng-container *ngTemplateOutlet="emptyStateTemplate; context: { $implicit: {} }"></ng-container>
     </ng-container>
 </ng-template>

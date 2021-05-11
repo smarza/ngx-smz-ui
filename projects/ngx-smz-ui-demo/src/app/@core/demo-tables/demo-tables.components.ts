@@ -15,19 +15,19 @@ export class DemoTablesComponent implements OnInit {
   public items$: Observable<any[]>;
   public tableState: SmzTableState;
   public loading = false;
-  constructor(private dataService: DemoTableDataService, private clipboard: SmzClipboardService) {
+  constructor(private clipboard: SmzClipboardService) {
 
     this.loadItems();
     // this.items$ = of([]);
   }
 
   ngOnInit() {
-    this.setupTableConfig();
+    this.setupTable();
 
     // setTimeout(() => {
-    //   this.config = null;
+    //   this.tableState = null;
     //   setTimeout(() => {
-    //     this.setupTableConfig();
+    //     this.setupTable();
     //   }, 2000);
     // }, 2000);
   }
@@ -63,7 +63,7 @@ export class DemoTablesComponent implements OnInit {
     this.items$ = of([...items]);
   }
 
-  public setupTableConfig(): void {
+  public setupTable(): void {
 
     const state: SmzTableState = {
       actions: {
