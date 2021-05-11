@@ -1,7 +1,7 @@
 import { SmzLayoutsConfig, SmzContentTheme, SmzLoader, HephaestusLayout, MenuType, SidebarState, AthenaLayout, ColorSchemaDefinition } from 'ngx-smz-ui';
 
 export const smzHephaestusConfig: HephaestusLayout = {
-    menu: MenuType.SLIM,
+    menu: MenuType.STATIC,
     sidebarState: SidebarState.ACTIVE,
     sidebarWidth: '16rem',
     sidebarSlimWidth: '6rem',
@@ -57,7 +57,8 @@ export const smzLayoutsConfig: SmzLayoutsConfig = {
     loader: {
         type: SmzLoader.CUBE,
         title: 'Carregando...',
-        message: 'Aguarde por favor'
+        // message: 'Aguarde por favor',
+        message: 'Please wait, we\'re preparing your data',
     },
     pages: {
         errorTitle: 'Erro',

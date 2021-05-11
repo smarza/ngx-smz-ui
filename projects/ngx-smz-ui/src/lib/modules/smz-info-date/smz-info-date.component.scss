@@ -1,0 +1,30 @@
+.date_alert_container {
+    // text-align: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    // justify-content: center;
+    align-items: center;
+    user-select: none;
+}
+
+.date_input {
+    margin: 0px 4px;
+}
+
+.date_alert {
+    padding: 2px 10px;
+    border-radius: 2px;
+    font-size: 11px;
+    margin-top: 2px;
+
+    &.due {
+        background: red;
+        color: #fff;
+    }
+
+    &.new {
+        background: #03a9f4;
+        color: #fff;
+    }
+}

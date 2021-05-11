@@ -12,6 +12,7 @@ export * from './lib/modules/smz-tables/public-api';
 export * from './lib/modules/smz-html-viewer/public-api';
 export * from './lib/modules/smz-data-info/public-api';
 export * from './lib/modules/smz-side-content/public-api';
+export * from './lib/modules/smz-info-date/public-api';
 
 export * from './lib/common/input-detection/input-detection.module';
 export * from './lib/common/input-detection/input-detection.directive';
@@ -23,8 +24,18 @@ export { SafeUrlPipe } from './lib/common/data-pipes/pipes/safe-url.pipe';
 export { UniqueFilterPipe } from './lib/common/data-pipes/pipes/unique-filter.pipe';
 export { DescribeArrayPipe } from './lib/common/data-pipes/pipes/describe-array.pipe';
 export { DescribeSimpleNamedPipe } from './lib/common/data-pipes/pipes/describe-simple-named.pipe';
+export { UrlCheckerPipeModule } from './lib/common/url-checker/url-checker.pipe';
+export { UrlCheckerPipe } from './lib/common/url-checker/url-checker.pipe';
 
 export { IsVisiblePipeModule, IsVisiblePipe } from './lib/common/is-visible-pipe/is-visible.pipe';
 export { MergeClonePipeModule, MergeClonePipe } from './lib/common/merge-clone-pipe/merge-clone.pipe';
 
 export { PrimeConfigService } from './lib/common/services/prime-config.service';
+export { SmzClipboardService } from './lib/common/services/smz-clipboard.service';
+
+// DIRECTIVES
+export * from './lib/common/directives/tooltip-touch-support/tooltip-touch-support.module';
+export * from './lib/common/directives/tooltip-touch-support/tooltip-touch-support.directive';
+
+export * from './lib/common/directives/action-dispatch/action-dispatch.module';
+export * from './lib/common/directives/action-dispatch/action-dispatch.directive';

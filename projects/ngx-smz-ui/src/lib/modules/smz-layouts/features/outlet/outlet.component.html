@@ -5,8 +5,15 @@
     <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
   </ng-container>
 
-  <!-- LAYOUT: DIAMOND -->
-  <ng-container *ngSwitchCase="'layout'">
+  <!-- LAYOUT COMPLETO -->
+  <ng-container *ngSwitchCase="'full'">
+    <ng-container *ngTemplateOutlet="layoutTemplate">
+      <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+    </ng-container>
+  </ng-container>
+
+  <!-- LAYOUT COMPLETO -->
+  <ng-container *ngSwitchCase="'menu-only'">
     <ng-container *ngTemplateOutlet="layoutTemplate">
       <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
     </ng-container>
@@ -22,7 +29,6 @@
     <!-- Nenhum tipo de layout foi encontrado. -->
     <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
   </ng-container>
-
 </ng-container>
 
 <smz-ui-theme-manager></smz-ui-theme-manager>

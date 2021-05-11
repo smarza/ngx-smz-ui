@@ -1,0 +1,16 @@
+<ng-container *ngIf="date | smzInfoDate : daysCount as alert">
+
+    <div class="date_alert_container">
+        <div class="date_input" [pTooltip]="date | date : 'medium'">{{ date | date : format }}</div>
+
+        <div *ngIf="alert.isPast && checkForDue" class="date_input date_alert due">
+            ATRASADO
+        </div>
+
+        <div *ngIf="alert.isBetween && checkForNew" class="date_input date_alert new">
+            NOVO
+        </div>
+    </div>
+
+</ng-container>
+

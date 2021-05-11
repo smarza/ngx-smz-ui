@@ -13,57 +13,58 @@ export class AppComponent {
     this.boilerplateService.init();
 
     this.menuService.setMenu([
-      { label: 'Click me', icon: 'fas fa-check-double', routerLink: ['details'] },
+      { label: 'Click me', icon: 'fas fa-check-double', routerLink: ['details', 'again'] },
       {
         label: 'Demo',
         icon: 'pi-home',
         items: [
-          { label: 'Landing', routerLink: ['landing'] },
+          // { label: 'Landing', routerLink: ['landing'] },
           { label: 'Home', routerLink: ['home'] },
-          { label: 'Details', routerLink: ['details'] },
-          { label: 'Tables', icon: 'far fa-star', routerLink: ['tables'] },
-          { label: 'Side Content', icon: 'far fa-star', routerLink: ['side-content'] },
-          { label: 'Faqs', icon: 'far fa-star', routerLink: ['faqs'] },
+          { label: 'Details 1', routerLink: ['details'] },
+          { label: 'Details 2', routerLink: ['details', 'again'] },
+          // { label: 'Tables', icon: 'far fa-star', routerLink: ['tables'] },
+          // { label: 'Side Content', icon: 'far fa-star', routerLink: ['side-content'] },
+          // { label: 'Faqs', icon: 'far fa-star', routerLink: ['faqs'] },
         ]
       },
-      {
-        label: 'Lib Pages',
-        icon: 'pi-star',
-        items: [
-          { label: 'Login', routerLink: ['login'] },
-          { label: 'Error', routerLink: ['error'] },
-          { label: 'Not Found', routerLink: ['notfound'] },
-        ]
-      },
-      {
-        label: 'Actions',
-        icon: 'pi-home',
-        items: [
-          { label: 'Console Log', icon: 'pi-home', command: () => console.log('Console Log') },
-        ]
-      },
-      {
-        label: 'Hierarchy',
-        icon: 'pi-align-left',
-        items: [
-          {
-            label: 'Multi-level 1', icon: 'pi-home', items: [
-              { label: 'Login 1', icon: 'pi-home', routerLink: ['login'] },
-              { label: 'Home', icon: 'pi-home', routerLink: ['home'] },
-              { label: 'Details', icon: 'pi-home', routerLink: ['details'] },
-              {
-                label: 'Multi-level 2', icon: 'pi-home', items: [
-                  { label: 'Login 1', icon: 'pi-home', routerLink: ['login'] },
-                  { label: 'Login 2', icon: 'pi-home', routerLink: ['login'] },
-                ]
-              },
-            ]
-          },
-          {
-            label: 'Single', icon: 'pi-home'
-          },
-        ]
-      },
+      // {
+      //   label: 'Lib Pages',
+      //   icon: 'pi-star',
+      //   items: [
+      //     { label: 'Login', routerLink: ['login'] },
+      //     { label: 'Error', routerLink: ['error'] },
+      //     { label: 'Not Found', routerLink: ['notfound'] },
+      //   ]
+      // },
+      // {
+      //   label: 'Actions',
+      //   icon: 'pi-home',
+      //   items: [
+      //     { label: 'Console Log', icon: 'pi-home', command: () => console.log('Console Log') },
+      //   ]
+      // },
+      // {
+      //   label: 'Hierarchy',
+      //   icon: 'pi-align-left',
+      //   items: [
+      //     {
+      //       label: 'Multi-level 1', icon: 'pi-home', items: [
+      //         { label: 'Login 1', icon: 'pi-home', routerLink: ['login'] },
+      //         { label: 'Home', icon: 'pi-home', routerLink: ['home'] },
+      //         { label: 'Details', icon: 'pi-home', routerLink: ['details'] },
+      //         {
+      //           label: 'Multi-level 2', icon: 'pi-home', items: [
+      //             { label: 'Login 1', icon: 'pi-home', routerLink: ['login'] },
+      //             { label: 'Login 2', icon: 'pi-home', routerLink: ['login'] },
+      //           ]
+      //         },
+      //       ]
+      //     },
+      //     {
+      //       label: 'Single', icon: 'pi-home'
+      //     },
+      //   ]
+      // },
     ]);
 
     this.menuService.setProfile([

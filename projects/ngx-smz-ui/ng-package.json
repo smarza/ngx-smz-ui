@@ -62,7 +62,8 @@
       "primeng/tooltip": "tooltip",
       "lodash-es/uniqBy": "uniqBy",
       "primeng/ripple": "ripple",
-      "primeng/utils": "utils"
+      "primeng/utils": "utils",
+      "moment": "moment"
   }
   }
 }

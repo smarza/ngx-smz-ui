@@ -10,6 +10,7 @@ import { HephaestusMenuNodeComponent } from './components/menu-node.component';
 import { HephaestusMenuSlimNodeComponent } from './components/menu-slim-node.component';
 import { MenuItemActionsModule } from '../../../../../../common/menu-item-actions/menu-item-actions.module';
 import { IsVisiblePipeModule } from '../../../../../../common/is-visible-pipe/is-visible.pipe';
+import { UrlCheckerPipeModule } from '../../../../../../common/url-checker/url-checker.pipe';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { IsVisiblePipeModule } from '../../../../../../common/is-visible-pipe/is
     RouterModule,
     SidebarModule,
     MenuItemActionsModule,
-    IsVisiblePipeModule
+    IsVisiblePipeModule,
+    UrlCheckerPipeModule
   ],
   exports: [HephaestusSidebarComponent]
 })

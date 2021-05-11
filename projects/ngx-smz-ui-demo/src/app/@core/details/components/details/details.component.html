@@ -1,1 +1,74 @@
 <p>Details Works!!</p>
+
+<button pButton pRipple uiActionDispatch [method]="'onClick'" type="button" icon="fas fa-angle-left" class="p-button-rounded p-button-text p-button-plain" ></button>
+<!--
+<div class="p-grid p-nogutter p-align-start p-justify-start">
+  <div class="p-col-2 p-mb-2 p-ml-1 p-mr-1">
+    <smz-tag-message severity="success" text="Success" [grow]="false" class="p-mb-2"></smz-tag-message>
+  </div>
+  <div class="p-col-2 p-mb-2 p-ml-1 p-mr-1">
+    <smz-tag-message severity="demo" text="Demo"  [grow]="false" class="p-mb-2"></smz-tag-message>
+  </div>
+  <div class="p-col-2 p-mb-2 p-ml-1 p-mr-1">
+    <smz-tag-message severity="demo-local" text="Demo Local" icon="fas fa-truck-monster" [grow]="false" class="p-mb-2"></smz-tag-message>
+  </div>
+  <div class="p-col-2 p-mb-2 p-ml-1 p-mr-1">
+    <smz-tag-message severity="demo-1" text="Demo 1" icon="fab fa-accessible-icon" [grow]="true" class="p-mb-2"></smz-tag-message>
+  </div>
+  <div class="p-col-2 p-mb-2 p-ml-1 p-mr-1">
+    <smz-tag-message severity="demo-2" text="Demo 2" icon="fas fa-anchor" [grow]="true" class="p-mb-2"></smz-tag-message>
+  </div>
+  <div class="p-col-2 p-mb-2 p-ml-1 p-mr-1">
+    <smz-tag-message severity="demo-3" text="Demo 3" icon="fas fa-blender" [grow]="false" class="p-mb-2"></smz-tag-message>
+  </div>
+  <div class="p-col-2 p-mb-2 p-ml-1 p-mr-1">
+    <smz-tag-message severity="demo-4" text="Demo 4" icon="fas fa-cat" [grow]="false" class="p-mb-2"></smz-tag-message>
+  </div>
+  <div class="p-col-2 p-mb-2 p-ml-1 p-mr-1">
+    <smz-tag-message severity="demo-5" text="Demo 5" icon="fas fa-cog" [grow]="false" class="p-mb-2"></smz-tag-message>
+  </div>
+  <div class="p-col-2 p-mb-2 p-ml-1 p-mr-1">
+    <smz-tag-message severity="demo-6" text="Demo 6" icon="fas fa-comments-dollar" [grow]="false" class="p-mb-2"></smz-tag-message>
+  </div>
+</div> -->
+
+<div class="p-grid p-nogutter p-col6 p-m-5">
+  <div class="p-grid p-nogutter p-flex-column p-col3 p-pr-4">
+    <h2>Estados de Conversão</h2>
+    <smz-tag-message severity="viewer-0" text="Em Espera" [grow]="true" class="p-mb-2"></smz-tag-message>
+    <smz-tag-message severity="viewer-10" text="Na Fila" [grow]="true" class="p-mb-2"></smz-tag-message>
+    <smz-tag-message severity="viewer-20" text="Aguardando Licença" [grow]="true" class="p-mb-2"></smz-tag-message>
+    <smz-tag-message severity="viewer-30" text="Licença em Uso" [grow]="true" class="p-mb-2"></smz-tag-message>
+    <smz-tag-message severity="viewer-40" text="Convertendo" [grow]="true" class="p-mb-2"></smz-tag-message>
+    <smz-tag-message severity="viewer-50" text="Convertido" [grow]="true" class="p-mb-2"></smz-tag-message>
+    <smz-tag-message severity="viewer-60" text="Cancelado" [grow]="true" class="p-mb-2"></smz-tag-message>
+    <smz-tag-message severity="viewer-70" text="Erro" [grow]="true" class="p-mb-2"></smz-tag-message>
+  </div>
+
+  <div class="p-grid p-nogutter p-flex-column p-col3 p-pr-4">
+    <h2>Estados de Publicação</h2>
+    <smz-tag-message severity="publish-0" text="Impublicável" [grow]="true" class="p-mb-2"></smz-tag-message>
+    <smz-tag-message severity="publish-1" text="Não publicado" [grow]="true" class="p-mb-2"></smz-tag-message>
+    <smz-tag-message severity="publish-3" text="Publicado" [grow]="true" class="p-mb-2"></smz-tag-message>
+    <smz-tag-message severity="publish-2" text="Desatualizado" [grow]="true" class="p-mb-2"></smz-tag-message>
+    <smz-tag-message severity="publish-4" text="Erro" [grow]="true" class="p-mb-2"></smz-tag-message>
+    <smz-tag-message severity="publish-5" text="Publicando" [grow]="true" class="p-mb-2"></smz-tag-message>
+  </div>
+
+  <div class="p-grid p-nogutter p-flex-column p-col3 p-pr-4">
+    <h2>Estados de Tarefa</h2>
+    <smz-tag-message severity="task-0" text="Válida" [grow]="true" class="p-mb-2"></smz-tag-message>
+    <smz-tag-message severity="task-1" text="Inválida" [grow]="true" class="p-mb-2"></smz-tag-message>
+    <smz-tag-message severity="task-2" text="Erro" [grow]="true" class="p-mb-2"></smz-tag-message>
+  </div>
+
+  <div class="p-grid p-nogutter p-flex-column p-col3 p-pr-4">
+    <h2>Estados de Histórico</h2>
+    <smz-tag-message severity="history-20" text="Aguardando Licença" [grow]="true" class="p-mb-2"></smz-tag-message>
+    <smz-tag-message severity="history-50" text="Convertido" [grow]="true" class="p-mb-2"></smz-tag-message>
+    <smz-tag-message severity="history-51" text="Publicado" [grow]="true" class="p-mb-2"></smz-tag-message>
+    <smz-tag-message severity="history-60" text="Cancelado" [grow]="true" class="p-mb-2"></smz-tag-message>
+    <smz-tag-message severity="history-70" text="Erro" [grow]="true" class="p-mb-2"></smz-tag-message>
+  </div>
+
+</div>

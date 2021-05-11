@@ -7,11 +7,13 @@
       <div class="layout-wrapper" [ngClass]="state.wrapperClass">
 
           <!-- MENU SUPERIOR -->
-          <smz-ui-athena-topbar [notifications]="notifications" [profile]="profile">
-            <ng-template *ngIf="headerExtrasTemplate != null" pTemplate="headerExtras">
-              <ng-container *ngTemplateOutlet="headerExtrasTemplate"></ng-container>
-            </ng-template>
-          </smz-ui-athena-topbar>
+          <ng-container *ngIf="routerListener.data.layout.mode === 'full'">
+            <smz-ui-athena-topbar [notifications]="notifications" [profile]="profile">
+              <ng-template *ngIf="headerExtrasTemplate != null" pTemplate="headerExtras">
+                <ng-container *ngTemplateOutlet="headerExtrasTemplate"></ng-container>
+              </ng-template>
+            </smz-ui-athena-topbar>
+          </ng-container>
 
           <smz-ui-athena-horizontal-menu [menu]="menu"></smz-ui-athena-horizontal-menu>
 
@@ -24,11 +26,13 @@
           </div>
 
           <!-- FOOTER -->
-          <smz-ui-athena-footer>
-            <ng-template *ngIf="footerExtrasTemplate != null" pTemplate="footerExtras">
-              <ng-container *ngTemplateOutlet="footerExtrasTemplate"></ng-container>
-            </ng-template>
-          </smz-ui-athena-footer>
+          <ng-container *ngIf="routerListener.data.layout.mode === 'full'">
+            <smz-ui-athena-footer>
+              <ng-template *ngIf="footerExtrasTemplate != null" pTemplate="footerExtras">
+                <ng-container *ngTemplateOutlet="footerExtrasTemplate"></ng-container>
+              </ng-template>
+            </smz-ui-athena-footer>
+          </ng-container>
 
         </div>
 

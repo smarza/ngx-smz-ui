@@ -12,6 +12,7 @@ import { UiHephaestusSelectors } from '../../state/ui-layout.selectors';
 import { UiHephaestusActions } from '../../state/ui-layout.actions';
 import { HephaestusLayout } from '../../layout.config';
 import { MenuType } from '../../../../core/models/menu-types';
+import { RouterStateSnapshot } from '@angular/router';
 
 @UntilDestroy()
 @Component({
@@ -84,6 +85,13 @@ export class HephaestusSidebarComponent implements OnInit, AfterContentInit
   public toggle(): void
   {
     this.store.dispatch(new UiHephaestusActions.ToggleSidebar);
+  }
+
+  public isCurrentRoute(routerUrl: string, routerLink: string[]): boolean {
+
+    const currentPath = (routerLink as string[]).join('/');
+    return `/${currentPath}` == routerUrl;
+
   }
 
 }

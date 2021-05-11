@@ -78,4 +78,9 @@ export namespace UiActions
         constructor(public data: 'mouseenter' | 'mouseleave') {}
     }
 
+    export class NavigateBack
+    {
+        public static readonly type = '[UI] Navigate Back';
+    }
+
 }

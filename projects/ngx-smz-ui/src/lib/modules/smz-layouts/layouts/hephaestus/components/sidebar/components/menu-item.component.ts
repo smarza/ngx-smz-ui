@@ -4,8 +4,8 @@ import { MenuItem } from 'primeng/api';
 @Component({
   selector: 'smz-ui-hephaestus-menu-item',
   template: `
-      <li [ngClass]="{ 'active-menuitem': currentUrl === '/' + item.routerLink }">
-        <a class="p-ripple" [ngClass]="{ 'active-route': currentUrl === '/' + item.routerLink }" menuItemAction [item]="item" [tabindex]="index">
+      <li [ngClass]="{ 'active-menuitem': currentUrl | urlChecker : item.routerLink }">
+        <a class="p-ripple" [ngClass]="{ 'active-route': currentUrl | urlChecker : item.routerLink }" menuItemAction [item]="item" [tabindex]="index">
             <i class="layout-menuitem-icon pi pi-fw" [ngClass]="item.icon"></i>
             <span class="layout-menuitem-text">{{ item.label }}</span>
             <span class="p-ink"></span>

@@ -11,7 +11,6 @@ export class SmzTableMenuPipe implements PipeTransform {
     if (menu == null || menu.length === 0) return null;
 
     const result: MenuItem[] = [];
-
     this.loop(result, menu, data);
 
     return result;
@@ -26,9 +25,10 @@ export class SmzTableMenuPipe implements PipeTransform {
         this.applyMenuTransforms(itemResult, data);
 
         if (item.items?.length > 0) {
+          if (itemResult.items == null) itemResult.items = [];
+
           this.loop(itemResult.items, item.items, data);
         }
-
         result.push(itemResult);
 
       }
@@ -42,10 +42,10 @@ export class SmzTableMenuPipe implements PipeTransform {
         const condition = item.conditional.condition(data);
         Reflect.set(item, item.conditional.property ?? 'visible', condition);
 
-        return { ...item, items: []};
+        return { ...item, items: [] };
     }
     else {
-      return { ...item, items: []};
+      return { ...item, items: undefined };
     }
 
   }

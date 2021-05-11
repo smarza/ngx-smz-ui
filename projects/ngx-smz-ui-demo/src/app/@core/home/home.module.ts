@@ -8,7 +8,7 @@ import { RbkAuthGuard } from 'ngx-rbk-utils';
 
 const data: SmzRouteData = {
   layout: {
-    mode: 'layout',
+    mode: 'full',
   },
   title: 'Home',
   appArea: 'home',

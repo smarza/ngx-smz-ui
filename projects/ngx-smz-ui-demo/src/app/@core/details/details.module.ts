@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DetailsComponent } from './components/details/details.component';
-import { NgxSmzTablesModule, SmzRouteData } from 'ngx-smz-ui';
+import { NgxSmzTablesModule, SmzActionDispatchModule, SmzRouteData, SmzMessagesModule } from 'ngx-smz-ui';
 import { RbkAuthGuard } from 'ngx-rbk-utils';
 import { TableModule } from 'primeng/table';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'primeng/button'
 
 const data: SmzRouteData = {
   layout: {
-    mode: 'layout',
+    mode: 'full',
     contentPadding: '0px'
   },
   title: 'Details',
@@ -24,6 +24,12 @@ const routes: Routes = [
     component: DetailsComponent,
     data
   },
+  {
+    path: 'again',
+    canActivate: [RbkAuthGuard],
+    component: DetailsComponent,
+    data
+  },
 ];
 
 @NgModule({
@@ -34,7 +40,9 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     TableModule,
     ButtonModule,
-    NgxSmzTablesModule
+    NgxSmzTablesModule,
+    SmzActionDispatchModule,
+    SmzMessagesModule
   ],
   providers: [],
   bootstrap: [DetailsComponent]

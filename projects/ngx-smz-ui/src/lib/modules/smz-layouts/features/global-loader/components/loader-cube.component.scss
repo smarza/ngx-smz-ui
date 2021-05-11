@@ -10,7 +10,8 @@
 }
 
 .loading-container {
-    width: 230px;
+    min-width: 230px;
+    max-width: 500px;
     height: 80px;
     background: white;
     border-radius: 60px;
@@ -41,19 +42,20 @@
 }
 
 .text-container {
-    vertical-align: middle;
 
     h3 {
         font-size: 18px;
         color: #424242;
-        margin-top: 8px;
+        margin-top: 16px;
+        margin-bottom: 0;
     }
 
     p {
         color: #424242;
         margin: 0px;
         font-size: 12px;
-        margin-top: -18px;
+        line-height: 15px;
+        margin-top: 2px;
     }
 }
 

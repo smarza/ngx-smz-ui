@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Location } from '@angular/common';
 import { State, Action, StateContext } from '@ngxs/store';
 import { Assistance } from '../../models/assistance';
 import { LayoutState, LoaderData } from '../../models/layout';
@@ -60,7 +61,7 @@ export const getInitialState = (): UiStateModel => ({
 
 @Injectable()
 export class UiState {
-  constructor(public readonly config: SmzLayoutsConfig) { }
+  constructor(public readonly config: SmzLayoutsConfig, private location: Location) { }
 
 
   @Action(UiActions.Initialize)
@@ -163,7 +164,7 @@ export class UiState {
 
 
   @Action(UiActions.RestoreLayoutPosition)
-  public onRestoreLayoutPosition(ctx: StateContext<UiStateModel>, action: UiActions.RestoreLayoutPosition): void {
+  public onRestoreLayoutPosition(ctx: StateContext<UiStateModel>): void {
     const state = ctx.getState().state;
 
     ctx.patchState({ state: { ...state, contentClass: '' }});
@@ -175,6 +176,12 @@ export class UiState {
     const state = ctx.getState().state;
 
     ctx.patchState({ lastUserMouseEvent: action.data });
+
+  }
+
+  @Action(UiActions.NavigateBack)
+  public onNavigateBack(ctx: StateContext<UiStateModel>): void {
+    this.location.back();
 
   }
 

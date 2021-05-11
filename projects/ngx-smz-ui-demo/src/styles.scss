@@ -1,2 +1,105 @@
 // LAYOUT
 @import "~ngx-smz-ui/resources/assets/scss/smz-ui.scss";
+
+.p-inline-message.p-inline-message-demo-local {
+  background: #F3E5F5;
+  border: solid #AB47BC;
+  border-width: 0px;
+  color: #8E24AA;
+}
+.p-inline-message.p-inline-message-demo-local .p-inline-message-icon {
+  color: #8E24AA;
+}
+
+.p-inline-message.p-inline-message-demo-1 {
+  background: #F3E5F5;
+  border: solid #AB47BC;
+  border-width: 0px;
+  color: #8E24AA;
+}
+.p-inline-message.p-inline-message-demo-1 .p-inline-message-icon {
+  color: #8E24AA;
+}
+
+.p-inline-message.p-inline-message-demo-2 {
+  background: #ffebee;
+  border: solid #f44336;
+  border-width: 0px;
+  color: #f44336;
+}
+.p-inline-message.p-inline-message-demo-2 .p-inline-message-icon {
+  color: #c62828;
+}
+
+.p-inline-message.p-inline-message-demo-3 {
+  background: #F3E5F5;
+  border: solid #3F51B5;
+  border-width: 0px;
+  color: #3F51B5;
+}
+.p-inline-message.p-inline-message-demo-3 .p-inline-message-icon {
+  color: #283593;
+}
+
+.p-inline-message.p-inline-message-demo-4 {
+  background: #E0F7FA;
+  border: solid #00BCD4;
+  border-width: 0px;
+  color: #00BCD4;
+}
+.p-inline-message.p-inline-message-demo-4 .p-inline-message-icon {
+  color: #00838F;
+}
+
+.p-inline-message.p-inline-message-demo-5 {
+  background: #F9FBE7;
+  border: solid #CDDC39;
+  border-width: 0px;
+  color: #CDDC39;
+}
+.p-inline-message.p-inline-message-demo-5 .p-inline-message-icon {
+  color: #9E9D24;
+}
+
+// .p-inline-message.p-inline-message-demo-6 {
+//   background: #C6FF00;
+//   border: solid #33691E;
+//   border-width: 0px;
+//   color: #33691E;
+// }
+// .p-inline-message.p-inline-message-demo-6 .p-inline-message-icon {
+//   color: #558B2F;
+// }
+
+@include setNewTagMessage("demo-6", #d0c3ff, #9202a5, red);
+
+
+// ConverterViewerStatus
+@include setNewTagMessage("viewer-0", #F5F5F5, #212121);  // Idle
+@include setNewTagMessage("viewer-10", #CFD8DC, #263238); // Queue
+@include setNewTagMessage("viewer-20", #FFF9C4, #F57F17); // WaitingForLicense
+@include setNewTagMessage("viewer-30", #B2EBF2, #006064); // LicenseInUse
+@include setNewTagMessage("viewer-40", #90CAF9, #01579B); // Converting
+@include setNewTagMessage("viewer-50", #C8E6C9, #1B5E20); // Converted
+@include setNewTagMessage("viewer-60", #424242, #F5F5F5); // Cancelled
+@include setNewTagMessage("viewer-70", #ef9a9a, #b71c1c); // Error
+
+// PublishStatus
+@include setNewTagMessage("publish-0", #D7CCC8, #3E2723); // Unpublishable
+@include setNewTagMessage("publish-1", #7E57C2, white); // Unpublished
+@include setNewTagMessage("publish-3", #B2DFDB, #004D40); // Published
+@include setNewTagMessage("publish-2", #FFE0B2, #E65100); // Outdated
+@include setNewTagMessage("publish-4", #ef9a9a, #b71c1c); // Error
+@include setNewTagMessage("publish-5", #E3F2FD, #0D47A1); // Publishing
+
+// ConverterTaskStatus
+@include setNewTagMessage("task-0", #C8E6C9, #1B5E20);  // Valid
+@include setNewTagMessage("task-1", #FFE0B2, #E65100);  // Invalid
+@include setNewTagMessage("task-2", #ef9a9a, #b71c1c);  // Error
+
+// HistoryStatus
+@include setNewTagMessage("history-20", #FFF9C4, #F57F17); // WaitingForLicense
+@include setNewTagMessage("history-50", #C8E6C9, #1B5E20);  // Converted
+@include setNewTagMessage("history-51", #B2DFDB, #004D40);  // Published
+@include setNewTagMessage("history-60", #424242, #F5F5F5);  // Cancelled
+@include setNewTagMessage("history-70", #ef9a9a, #b71c1c);  // Error

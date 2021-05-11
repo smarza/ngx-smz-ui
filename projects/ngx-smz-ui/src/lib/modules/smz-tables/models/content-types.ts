@@ -4,7 +4,8 @@ export type SmzContentTypes =
   SmzTextContent |
   SmzCalendarContent |
   SmzIconContent |
-  SmzCurrencyContent;
+  SmzCurrencyContent |
+  SmzMaskContent;
 
 export enum SmzContentType {
   TEXT = 12,
@@ -38,6 +39,10 @@ export interface SmzIconContent extends SmzBaseContent {
 
 export interface SmzCurrencyContent extends SmzBaseContent {
 
+}
+
+export interface SmzMaskContent extends SmzBaseContent {
+  mask: string;
 }
 
 export interface SmzIconContentMatch {

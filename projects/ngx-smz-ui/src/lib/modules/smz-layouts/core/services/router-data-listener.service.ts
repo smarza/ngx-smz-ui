@@ -73,7 +73,7 @@ export class RouterDataListenerService
     return {
       ...data,
       layout: {
-        mode: data.layout?.mode ? data.layout.mode : 'layout',
+        mode: data.layout?.mode ? data.layout.mode : 'full',
         contentPadding: data.layout?.contentPadding ? data.layout.contentPadding : '2em'
       }
     }

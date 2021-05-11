@@ -1,14 +1,21 @@
-<div class="topbar clearfix" smz-ui-athena-topbar-actions [headerExtrasTemplate]="headerExtrasTemplate" [profile]="profile" [notifications]="notifications">
+<ng-container *ngIf="layout$ | async as layout">
 
-    <a [routerLink]="rbkConfig.routes.authenticatedRoot" class="topbar-logo">
-        <ng-container *ngIf="(appLogo$ | async) as appLogo">
-            <img routerlink="/" [src]="appLogo.horizontal" class="logo"
-            style="outline: none; cursor: pointer;" tabindex="0">
-        </ng-container>
-    </a>
+    <div class="topbar clearfix" smz-ui-athena-topbar-actions [headerExtrasTemplate]="headerExtrasTemplate" [profile]="profile" [notifications]="notifications">
 
-    <a id="menu-button" class="clickable" (click)="toggle()">
-        <i class="pi pi-align-left"></i>
-    </a>
+        <a [routerLink]="rbkConfig.routes.authenticatedRoot" class="topbar-logo">
+            <ng-container *ngIf="(appLogo$ | async) as appLogo">
+                <img routerlink="/" [src]="appLogo.horizontal" class="logo"
+                style="outline: none; cursor: pointer;" tabindex="0">
+            </ng-container>
+        </a>
 
-</div>
+        <a id="menu-button" class="clickable" (click)="toggle()">
+            <i class="pi pi-align-left"></i>
+        </a>
+
+        <!-- <a *ngIf="layout.menu === horizontalMenuType" class="clickable" (click)="toggle()">
+            <i class="pi pi-align-left text-red"></i>
+        </a> -->
+    </div>
+
+</ng-container>

@@ -15,6 +15,6 @@ export interface SmzRouteData
 
 export interface RouteLayoutData
 {
-  mode?: 'layout' | 'none';
+  mode?: 'full' | 'menu-only' | 'none';
   contentPadding?: '0px' | '1em' | '2em';
 }

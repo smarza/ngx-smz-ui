@@ -1,5 +1,5 @@
 <div class="loading-page-container">
-    <div class="loading-container">
+    <div class="loading-container" [ngStyle]="{ 'width': width }">
         <div class="spinner-container">
             <div class="sk-cube-grid">
                 <div class="sk-cube sk-cube1"></div>
@@ -13,7 +13,7 @@
                 <div class="sk-cube sk-cube9"></div>
             </div>
         </div>
-        <div class="text-container p-grid p-align-center p-justify-start">
+        <div class="text-container p-grid p-flex-column p-align-start p-justify-middle">
             <h3>{{ title }}</h3>
             <p>{{ message }}</p>
         </div>

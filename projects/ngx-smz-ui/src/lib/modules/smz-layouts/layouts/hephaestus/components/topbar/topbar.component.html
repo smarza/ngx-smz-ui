@@ -3,6 +3,7 @@
         <a tabindex="0" class="menu-button" (click)="toggle()">
             <i class="pi pi-chevron-left"></i>
         </a>
+        <!-- <button pButton pRipple type="button" label="Voltar" icon="fas fa-angle-left" class="p-button-rounded p-button-text p-button-plain" (click)="navigateBack()"></button> -->
         <span class="topbar-separator"></span>
         <span class="viewname ng-star-inserted" style="text-transform: uppercase;">{{ topbarTitle$ | async }}</span>
         <img id="logo-mobile" alt="hephaestus-layout" class="mobile-logo" [src]="config.appLogo.icon.light">

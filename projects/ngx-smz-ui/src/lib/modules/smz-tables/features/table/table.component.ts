@@ -1,10 +1,11 @@
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, TemplateRef } from '@angular/core'
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewChild } from '@angular/core'
 import { PrimeTemplate } from 'primeng/api';
 import { SmzContentType } from '../../models/content-types';
 import { SmzFilterType } from '../../models/filter-types';
 import { SmzTableConfig, SmzTableContext } from '../../models/table-config';
 import { cloneDeep } from 'lodash-es';
 import { SmzTableColumn } from '../../models/table-column';
+import { Table } from 'primeng/table';
 
 @Component({
   selector: 'smz-ui-table',
@@ -14,6 +15,7 @@ import { SmzTableColumn } from '../../models/table-column';
 })
 export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
+  @ViewChild(Table) public primeTable: Table;
   @Input() public items: any[] = [];
   @Input() public config: SmzTableConfig;
   @Input() public loading: boolean = false;
