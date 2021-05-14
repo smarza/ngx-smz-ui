@@ -30,10 +30,13 @@ It's a full featured table containing:
   import { NgxSmzTablesModule } from 'ngx-smz-ui';
   ```
 
-## Basic usage
+## Getting started
+
+### Basic use
+  Insert the `smz-ui-table` in the html and bind the `state` property to your state object in the code.
 
   ```html
-  <smz-ui-table [items]="my-data" [config]="config">
+  <smz-ui-table [items]="my-data" [state]="tableState">
   ```
 
   ```typescript
@@ -42,56 +45,125 @@ It's a full featured table containing:
     public tableState: SmzTableState;
 
     constructor() {
-      this.tableState = {
-        currentPageReportTemplate: 'Mostrando {first} a {last} de {totalRecords} itens',
-        isSelectable: true,
-        rowHover: true,
-        rows: 5,
-        rowsPerPageOptions: [5, 10, 50, 100, 500],
-        showActions: true,
-        showCaption: true,
-        showCurrentPageReport: true,
-        showGlobalFilter: true,
-        showPaginator: true,
-        showClearFilter: true,
-        title: 'Permissões de Trabalho',
-        useCustomActions: false,
-        customActionWidth: '5em',
-        menu: [
-          { label: 'Editar', icon: 'pi pi-fw pi-plus', command: (event) => this.test(event) },
-          { separator: true },
-          { label: 'Apagar', icon: 'pi pi-fw pi-download', command: (event) => this.test(event) },
-        ],
-        columns: [
-          {
-            field: 'number',
-            header: 'Número',
-          },
-          {
-            field: 'plant.name',
-            header: 'Planta',
-          },
-          {
-            field: 'campaign.name',
-            header: 'Campanha',
-          },
-          {
-            field: 'description',
-            header: 'Descrição',
-          },
-          {
-            contentType: SmzContentType.CALENDAR,
-            field: 'date',
-            header: 'Data',
-          },
-        ]
-      };
-    }
+    this.tableState = SmzTableState = {
+       columns: [
+        ...
+      ],
+    };
+  }
   ```
 
-# 3. Advanced Use
+## Caption area
 
-* To customize the cell content or the action cell, add the pTemplate="content" or pTemplate="actions" tag in the HTML of your component.
+It's the area above the table header, in which the Global Filter is located. Thia area can be customized through the `caption` in `SmzTableState`. Following is the configuration object for that section:
+
+```typescript
+caption?: {
+  /**
+   * Controls de visibility of the entire caption area
+   */
+  isVisible?: boolean;
+  /**
+   * Text of the title presented in the caption area
+   */
+  title?: string;
+  /**
+   *
+   */
+  toolbarAlignment?: "start" | "end";
+  /**
+   * Allows the end user to manually filter which columns are visible or not
+   */
+  columnVisibility?: {
+    /**
+     * Controls the visibility of the inputs for this feature
+     */
+    showButton: boolean;
+  };
+  /**
+   * Options for the global filter
+   */
+  globalFilter?: {
+    /**
+     * Controsl wheter the global filter is visible or not
+     */
+    isVisible: boolean;
+  };
+  /**
+   * Allows the end user to manually clear table filters
+   */
+  clearFilters?: {
+    /**
+     * Controls whether the clear filter button should be visible or not
+     */
+    isButtonVisible?: boolean;
+    /**
+     * Label of the button
+     */
+    label?: string;
+    /**
+     * callback to be called when the Clear Filter button is clicked
+     */
+    callback?: () => void;
+  };
+  /**
+   * Allows the user to control the behavior of the row selection
+   */
+  rowSelection: {
+    /**
+     * Controls the visibility of the button that alternates between
+     * no selection and multi selection
+     */
+    isButtonVisible: boolean;
+    /**
+     * Label of the button
+     */
+    label?: string;
+    /**
+     * Width of the column that will host the checkboxes for each row,
+     * indicating which isones are selected
+     */
+    columnWidth?: string;
+    /**
+     * This callback is executed when you enable/disable the selection
+     * This can be used, for instance, in the case you want to open a
+     * side bar when the multi selection is activated
+     */
+    callback?: () => void;
+    /**
+     * Controls whether the multi selection is enabled or not
+     * Use this when you want to control this through the code instead
+     * of letting the user activate it with the dedicated button
+     */
+    isEnabled: boolean;
+  };
+};
+```
+
+## Empty feedback
+
+Controls the behavior of the empty feedback for th user, when the table has no data.
+If only the `message` property is used, the table will show a simple text message with it.
+If the other properties are used, the feedback will be more complete.
+
+
+```typescript
+emptyMessage?: {
+  message?: string;
+  callbackLabel?: string;
+  callbackInfo?: string;
+  callback?: () => void;
+  image?: string;
+};
+```
+
+
+
+
+
+
+
+
 
     ```html
       <smz-ui-table [items]="items$ | async" [config]="config" [loading]="loading" (selectionChange)="test($event)">

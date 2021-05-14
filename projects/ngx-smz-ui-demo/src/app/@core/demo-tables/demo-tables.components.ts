@@ -14,6 +14,8 @@ const jsonData = '[{"id":"6eaed794-e6ba-4d61-9c2c-08d8da43305f","number":"PT-000
 export class DemoTablesComponent implements OnInit {
   public items$: Observable<any[]>;
   public tableState: SmzTableState;
+  public emptyData = [];
+  public emptyTableState: SmzTableState;
   public loading = false;
   constructor(private clipboard: SmzClipboardService) {
 
@@ -65,7 +67,7 @@ export class DemoTablesComponent implements OnInit {
 
   public setupTable(): void {
 
-    const state: SmzTableState = {
+    this.tableState = {
       actions: {
         customActions: {
           isVisible: true,
@@ -152,7 +154,7 @@ export class DemoTablesComponent implements OnInit {
       caption: {
         isVisible: true,
         title: 'Título da Tabela de Demo',
-        toolbarAlignment: 'start',
+        toolbarAlignment: 'end',
         clearFilters: {
           isButtonVisible: true,
           callback: null,
@@ -167,7 +169,7 @@ export class DemoTablesComponent implements OnInit {
         rowSelection: {
           isButtonVisible: true,
           columnWidth: '3em',
-          callback: null,
+          callback: () => console.log('test'),
           isEnabled: false,
           label: 'Seleção'
         },
@@ -280,7 +282,28 @@ export class DemoTablesComponent implements OnInit {
       ],
     };
 
-    this.tableState = state;
+    this.emptyTableState = {
+      emptyMessage: {
+        message: 'Lista Vazia',
+        callbackLabel: 'Ação',
+        callbackInfo: null,
+        callback: null,
+        image: 'assets/images/tables/empty.svg',
+      },
+      columns: [
+        {
+          contentType: SmzContentType.TEXT,
+          contentData: { useTemplate: false },
+          field: 'name',
+          filterType: SmzFilterType.TEXT,
+          header: 'Name',
+          isGlobalFilterable: true,
+          isOrderable: true,
+          showFilter: true,
+          isVisible: true,
+        },
+      ],
+    };
 
   }
 

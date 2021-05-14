@@ -74,6 +74,7 @@ export const rbkConfig: NgxRbkUtilsConfig = {
     },
     httpBehaviors: {
         defaultParameters: {
+            ignoreErrorHandling: false,
             compression: true,
             authentication: true,
             needToRefreshToken: true,

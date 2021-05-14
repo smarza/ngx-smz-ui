@@ -168,6 +168,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "ngx-smz-ui"
+    }
+  },
+  "defaultProject": "ngx-smz-ui",
+  "cli": {
+    "analytics": false
+  }
 }
