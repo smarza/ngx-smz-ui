@@ -77,7 +77,7 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
       const newState: SmzTableState = changes.state.currentValue;
 
       if (newState != null) {
-        if (!newState.caption.rowSelection.isButtonVisible) {
+        if (!newState.caption?.rowSelection?.isButtonVisible) {
           this.selectedItems = [];
         }
       }
