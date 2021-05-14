@@ -1,6 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { mergeDeep } from '../../../common/utils/deep-merge';
 import { SmzContentType } from '../models/content-types';
+import { SmzFilterType } from '../models/filter-types';
 import { SmzTableContextColumn } from '../models/table-column';
 import { SmzTableState, SmzTableContext } from '../models/table-state';
 
@@ -21,29 +22,31 @@ export class SmzTableContextPipe implements PipeTransform {
       const contextColumn: SmzTableContextColumn = {
         ...column,
         width: column.width ?? 'auto',
-        contentType: column.contentType ?? SmzContentType.TEXT,
-        contentData: column.contentData ?? { useTemplate: false }
+        content: column.content ?? { type: SmzContentType.TEXT, data: { } },
+        filter: column.filter ?? { type: SmzFilterType.NONE, isGlobalFilterable: false }
       };
 
-      switch (column.contentType) {
-        case SmzContentType.CALENDAR:
-          if (column.contentData == null || !Reflect.has(column.contentData, 'format')) {
-            Reflect.set(contextColumn.contentData, 'format', 'short');
-          }
+      if (column.content != null) {
+        switch (column.content.type) {
+          case SmzContentType.CALENDAR:
+            if (column.content.data == null || !Reflect.has(column.content.data, 'format')) {
+              Reflect.set(contextColumn.content.data, 'format', 'short');
+            }
 
-          break;
-        case SmzContentType.CURRENCY:
+            break;
+          case SmzContentType.CURRENCY:
 
-          break;
+            break;
 
-        case SmzContentType.ICON:
+          case SmzContentType.ICON:
 
-          break;
-        default:
-          break;
+            break;
+          default:
+            break;
+        }
       }
 
-      if (column.isGlobalFilterable) {
+      if (column.filter.isGlobalFilterable) {
         globalFilter.push(column.field);
       }
 

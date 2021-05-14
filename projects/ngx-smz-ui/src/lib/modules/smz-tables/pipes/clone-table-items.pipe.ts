@@ -1,6 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { SmzTableContext } from '../models/table-state';
 import { cloneDeep } from 'lodash-es';
+import { fixDate } from 'ngx-rbk-utils';
 
 @Pipe({
   name: 'cloneTableItems'

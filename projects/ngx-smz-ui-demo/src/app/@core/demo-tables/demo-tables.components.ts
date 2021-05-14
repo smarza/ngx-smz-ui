@@ -19,13 +19,15 @@ export class DemoTablesComponent implements OnInit {
   public loading = false;
   constructor(private clipboard: SmzClipboardService) {
 
-    // this.loadItems();
-    this.items$ = of(null);
+    this.loadItems();
 
-    setTimeout(() => {
-      this.loadItems();
-      // this.items$ = of([]);
-    }, 5000);
+
+    // this.items$ = of(null);
+
+    // setTimeout(() => {
+    //   this.loadItems();
+    //   // this.items$ = of([]);
+    // }, 2000);
   }
 
   ngOnInit() {
@@ -67,7 +69,7 @@ export class DemoTablesComponent implements OnInit {
 
   public loadItems(): void {
     const items = JSON.parse(jsonData);
-    this.items$ = of([...items]);
+    this.items$ = of([...items.map(x => ({ ...x, date: new Date(x.date)}) )]);
   }
 
   public setupTable(): void {
@@ -205,86 +207,88 @@ export class DemoTablesComponent implements OnInit {
       },
       columns: [
         {
-          contentType: SmzContentType.ICON,
-          contentData: { useTemplate: false, matches: [ { icon: 'fas fa-check', class: 'green-text darken-3', value: true }, { icon: 'fas fa-times', class: 'red-text darken-2', value: false } ] },
           field: 'isActive',
-          filterType: SmzFilterType.BOOLEAN,
           header: 'Situação',
-          isGlobalFilterable: false,
           isOrderable: false,
-          showFilter: false,
           width: '8em',
           isVisible: true,
+          content: {
+            type: SmzContentType.ICON,
+            data: { matches: [ { icon: 'fas fa-check', class: 'green-text darken-3', value: true }, { icon: 'fas fa-times', class: 'red-text darken-2', value: false } ] }
+          },
+          filter: {
+            type: SmzFilterType.BOOLEAN,
+            isGlobalFilterable: false
+          },
         },
         {
-          contentType: SmzContentType.TEXT,
-          contentData: { useTemplate: false },
           field: 'number',
-          filterType: SmzFilterType.TEXT,
           header: 'Número',
-          isGlobalFilterable: true,
           isOrderable: false,
-          showFilter: true,
           width: '8em',
           isVisible: true,
+          content: {
+            type: SmzContentType.TEXT,
+          },
+          filter: {
+            type: SmzFilterType.TEXT,
+            isGlobalFilterable: true
+          },
         },
         {
-          contentType: SmzContentType.TEXT,
-          contentData: { useTemplate: false },
           field: 'plant.name',
-          filterType: SmzFilterType.DROPDOWN,
           header: 'Planta',
-          isGlobalFilterable: true,
           isOrderable: true,
-          showFilter: true,
           width: '8em',
           isVisible: true,
+          content: {
+            type: SmzContentType.TEXT,
+          },
+          filter: {
+            type: SmzFilterType.DROPDOWN,
+            isGlobalFilterable: true
+          },
         },
         {
-          contentType: SmzContentType.TEXT,
-          contentData: { useTemplate: false },
           field: 'campaign.name',
-          filterType: SmzFilterType.MULTI_SELECT,
           header: 'Campanha',
-          isGlobalFilterable: true,
           isOrderable: true,
-          showFilter: true,
           isVisible: true,
+          content: {
+            type: SmzContentType.TEXT,
+          },
+          filter: {
+            type: SmzFilterType.MULTI_SELECT,
+            isGlobalFilterable: true
+          },
         },
         {
-          contentType: SmzContentType.TEXT,
-          contentData: { useTemplate: false },
           field: 'description',
-          filterType: SmzFilterType.TEXT,
           header: 'Descrição',
-          isGlobalFilterable: true,
           isOrderable: true,
-          showFilter: true,
           isVisible: true,
+          content: {
+            type: SmzContentType.TEXT,
+          },
+          filter: {
+            type: SmzFilterType.NONE,
+            isGlobalFilterable: true
+          },
         },
-        // {
-        //   contentType: SmzContentType.CURRENCY,
-        //   contentData: { useTemplate: true },
-        //   field: 'price',
-        //   filterType: SmzFilterType.CURRENCY,
-        //   header: 'Preço',
-        //   isGlobalFilterable: true,
-        //   isOrderable: true,
-        //   showFilter: true,
-        //   width: '8em',
-        //   isVisible: true,
-        // },
         {
-          contentType: SmzContentType.CALENDAR,
-          contentData: { useTemplate: false, format: 'shortDate' },
           field: 'date',
-          filterType: SmzFilterType.DATE,
           header: 'Data',
-          isGlobalFilterable: true,
           isOrderable: true,
-          showFilter: true,
           width: '8em',
           isVisible: true,
+          content: {
+            type: SmzContentType.CALENDAR,
+            data: { format: 'shortDate' }
+          },
+          filter: {
+            type: SmzFilterType.DATE,
+            isGlobalFilterable: true
+          },
         },
       ],
     };

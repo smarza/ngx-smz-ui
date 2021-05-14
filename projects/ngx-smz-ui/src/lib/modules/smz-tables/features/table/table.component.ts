@@ -29,10 +29,11 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
   public selectedColumns: SmzTableColumn[];
   public showSkeleton = false;
   public contentTypes = {
-    currency: `${SmzContentType.CURRENCY}`,
-    calendar: `${SmzContentType.CALENDAR}`,
-    icon: `${SmzContentType.ICON}`,
-    text: `${SmzContentType.TEXT}`,
+    currency: SmzContentType.CURRENCY,
+    calendar: SmzContentType.CALENDAR,
+    icon: SmzContentType.ICON,
+    text: SmzContentType.TEXT,
+    custom: SmzContentType.CUSTOM
   }
   public filterTypes = {
     boolean: SmzFilterType.BOOLEAN,
@@ -43,9 +44,7 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
     dropdown: SmzFilterType.DROPDOWN,
     multiselect: SmzFilterType.MULTI_SELECT
   }
-
   constructor(public cdr: ChangeDetectorRef) {
-
   }
 
   public ngOnInit(): void {
@@ -77,7 +76,6 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
 
       this.cdr.markForCheck();
     }
-
 
   }
 
