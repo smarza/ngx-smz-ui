@@ -174,11 +174,13 @@ export class DemoTablesComponent implements OnInit {
           label: 'Seleção'
         },
       },
-      emptyMessage: {
+      emptyFeedback: {
         message: 'Lista Vazia',
-        callbackLabel: 'Ação',
-        callbackInfo: null,
-        callback: null,
+        extraInfo: 'extraInfo',
+        actionButton: {
+          label: 'Ação',
+          callback: () => { console.log('ação'); }
+        },
         image: 'assets/images/tables/empty.svg',
       },
       pagination: {
@@ -283,11 +285,13 @@ export class DemoTablesComponent implements OnInit {
     };
 
     this.emptyTableState = {
-      emptyMessage: {
+      emptyFeedback: {
         message: 'Lista Vazia',
-        callbackLabel: 'Ação',
-        callbackInfo: null,
-        callback: null,
+        extraInfo: 'extraInfo',
+        actionButton: {
+          label: 'Ação',
+          callback: () => { console.log('ação'); }
+        },
         image: 'assets/images/tables/empty.svg',
       },
       columns: [

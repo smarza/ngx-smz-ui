@@ -1,12 +1,12 @@
 <ng-container *ngIf="state | tableContext as context; else noStateTemplate">
 
-    <ng-container *ngIf="context.state.emptyMessage != null && clonedItems?.length === 0; else tableTemplate">
+    <ng-container *ngIf="(context.state.emptyFeedback != null && (context.state.emptyFeedback.extraInfo || context.state.emptyFeedback.image || context.state.emptyFeedback.actionButton)) && clonedItems?.length === 0; else tableTemplate">
         <smz-data-info
-            [image]="context.state.emptyMessage.image"
-            [message]="context.state.emptyMessage.message"
-            [callbackInfo]="context.state.emptyMessage.callbackInfo"
-            [callbackLabel]="context.state.emptyMessage.callbackLabel"
-            (clicked)="context.state.emptyMessage.callback()">
+            [image]="context.state.emptyFeedback.image"
+            [message]="context.state.emptyFeedback.message"
+            [callbackInfo]="context.state.emptyFeedback.extraInfo"
+            [callbackLabel]="context.state.emptyFeedback.actionButton?.label"
+            (clicked)="context.state.emptyFeedback.actionButton?.callback()">
 
             <ng-template pTemplate="actions">
                 <ng-container *ngTemplateOutlet="emptyActionsTemplate; context: { $implicit: {} }"></ng-container>
@@ -226,7 +226,7 @@
             </ng-template>
             <ng-template pTemplate="emptymessage">
                 <tr>
-                    <td [attr.colspan]="context.columns.length + ((context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible) ? 1 : 0) + (context.state.caption.rowSelection.isEnabled ? 1 : 0)">{{ context.state.emptyMessage }}</td>
+                    <td [attr.colspan]="context.columns.length + ((context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible) ? 1 : 0) + (context.state.caption.rowSelection.isEnabled ? 1 : 0)" [ngStyle]="{ 'text-align': 'center' }">{{ context.state.emptyFeedback.message }}</td>
                 </tr>
             </ng-template>
         </p-table>
