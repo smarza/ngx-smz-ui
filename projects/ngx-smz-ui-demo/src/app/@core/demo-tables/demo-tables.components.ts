@@ -154,7 +154,7 @@ export class DemoTablesComponent implements OnInit {
       caption: {
         isVisible: true,
         title: 'Título da Tabela de Demo',
-        toolbarAlignment: 'end',
+        toolbarAlignment: 'start',
         clearFilters: {
           isButtonVisible: true,
           callback: null,
@@ -284,27 +284,16 @@ export class DemoTablesComponent implements OnInit {
 
     this.emptyTableState = {
       emptyMessage: {
-        message: 'Lista Vazia',
-        callbackLabel: 'Ação',
-        callbackInfo: null,
-        callback: null,
+        message: 'No itens to display',
+        callbackLabel: 'Create',
+        callbackInfo: 'A',
+        callback: () => console.log('Create item'),
         image: 'assets/images/tables/empty.svg',
       },
       columns: [
-        {
-          contentType: SmzContentType.TEXT,
-          contentData: { useTemplate: false },
-          field: 'name',
-          filterType: SmzFilterType.TEXT,
-          header: 'Name',
-          isGlobalFilterable: true,
-          isOrderable: true,
-          showFilter: true,
-          isVisible: true,
-        },
+
       ],
     };
-
   }
 
 }

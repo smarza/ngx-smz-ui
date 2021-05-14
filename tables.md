@@ -68,7 +68,7 @@ caption?: {
    */
   title?: string;
   /**
-   *
+   * Controls if the toolbar contents will be aligned to the left or to the right
    */
   toolbarAlignment?: "start" | "end";
   /**
@@ -140,6 +140,7 @@ caption?: {
 };
 ```
 
+
 ## Empty feedback
 
 Controls the behavior of the empty feedback for th user, when the table has no data.
@@ -157,11 +158,35 @@ emptyMessage?: {
 };
 ```
 
+## Pagination
+
+
+
+## Sort
+
+
+
+## Actions
+
+
+## Columns
 
 
 
 
 
+
+
+
+
+
+# Templates
+
+### Toolbar
+
+The toolbar is an area between the caption area and the table itself:
+
+![image](https://user-images.githubusercontent.com/10734059/118309717-0aa35c80-b4c4-11eb-933d-9542098af84a.png)
 
 
 
