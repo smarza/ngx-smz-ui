@@ -52,6 +52,7 @@ export interface SmzTableState {
       hoverable?: boolean;
     };
   };
+
   /**
    * Behavior of everything that is hosted in the caption area of the table
    */
@@ -135,15 +136,25 @@ export interface SmzTableState {
       isEnabled: boolean;
     };
   };
+
   columns: SmzTableColumn[];
+
   /**
-   * Behavior of the empty feedback
+   * Behavior of the initial state of the table, when the data is still not
+   * loaded, i.e. the `items` property is null. This is different from the
+   * case when there is no data to display, i.e. the data came as an empty
+   * array from the API
    */
   initialState?:{
     skeleton?: {
+      isEnabled?: boolean;
       rows?: number;
     };
   };
+
+  /**
+   * Behavior of the empty feedback
+   */
   emptyFeedback?: {
     /**
      * Message displayed when the table has no data
@@ -169,6 +180,7 @@ export interface SmzTableState {
     }
     image?: string;
   };
+
   /**
    * Behavior the pagination of the table
    */
