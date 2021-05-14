@@ -30,9 +30,7 @@ It's a full featured table containing:
   import { NgxSmzTablesModule } from 'ngx-smz-ui';
   ```
 
-## Getting started
-
-### Basic use
+## Basic use
   Insert the `smz-ui-table` in the html and bind the `state` property to your state object in the code.
 
   ```html
@@ -149,25 +147,156 @@ If the other properties are used, the feedback will be more complete.
 
 
 ```typescript
-emptyMessage?: {
-  message?: string;
-  callbackLabel?: string;
-  callbackInfo?: string;
-  callback?: () => void;
-  image?: string;
-};
+  /**
+   * Controls the behavior of the empty feedback
+   */
+  emptyFeedback?: {
+    /**
+     * Message displayed when the table has no data
+     */
+    message?: string;
+    /**
+     * Extra information to be shown below the main message
+     */
+    extraInfo?: string;
+    /**
+     * Controls the behavior the opnional action button. If nothing
+     * is specified, no button is shown
+     */
+    actionButton?: {
+      /**
+       * Button label
+       */
+      label?: string;
+      /**
+       * Callback to be executed on the button is clicked
+       */
+      callback?: () => void;
+    }
+    image?: string;
+  };
 ```
 
+### Example
+
+![image](https://user-images.githubusercontent.com/10734059/118314361-6a9d0180-b4ca-11eb-83a5-f6464e0ccaf0.png)
+
+```typescript
+this.emptyTableState = {
+  emptyFeedback: {
+    message: 'No itens to display',
+    extraInfo: 'The database is empty, if you like, you could use the button bellow to start creating new items',
+    image: 'assets/images/tables/empty.svg',
+    actionButton: {
+      label: 'New Foo',
+      callback: () => { console.log('create new foo') }
+    },
+  },
+  columns: [
+    ...
+  ],
+};
+```
 ## Pagination
 
+Controls the behavior of the pagination of the table
+
+```typescript
+pagination?: {
+  /**
+   * If the pagination area is visible or not
+   */
+  isVisible?: boolean;
+  /**
+   * How many rows of data will be displayed in the table by default
+   */
+  rows?: number;
+  /**
+   * Options to be displayed in the page size dropdown
+   */
+  rowsPerPageOptions?: number[];
+  /**
+   * Configurations for the page report summary, that displays the current
+   * page number, maximum number of the pages, and so on
+   */
+  pageReport?: {
+    /**
+     * Text template, i.e: Showing items {first} to {last} from a total of {totalRecords}
+     */
+    template?: string;
+    /**
+     * Controls whether the summary is visible or not
+     */
+    isVisible?: boolean;
+  }
+};
+```
 
 
 ## Sort
 
 
+## Menu
 
 ## Actions
 
+The options for this section controls the behavior of the actions column of the table.
+
+This column can have a meno to open/close the popup menu and/or other extra action buttons.
+
+Ideally you set only the menu or the custom actions area to be visible, since they both use the same column and also have intersecting functionality.
+
+The menu is defined in the code and the
+
+```typescript
+actions?: {
+  /**
+   * Configuration of the popup menu of the rows
+   */
+  menu?: {
+    /**
+     * Controls the visibility of the button menu of the rows
+     */
+    isVisible: boolean;
+    /**
+     * Items for the popup menu
+     */
+    items: SmzMenuItem[];
+  };
+
+  /**
+   * Custom actions for all rows
+   */
+  customActions?: {
+    /**
+     * Controls the visibility of the custom action buttons
+     */
+    isVisible: boolean;
+    /**
+     * Width of the column containing the custom actions
+     */
+    columnWidth: string;
+  };
+
+  /**
+   * Interaction behaviors for the rows
+   */
+  rowBehavior?: {
+    /**
+     * Controls if the rows are clickable or not
+     */
+    isClickable?: boolean;
+    /**
+     * Callback to be executed when the row is clicked
+     */
+    clickCallback?: (event) => void;
+    /**
+     * Controls hover effect on the rows
+     */
+    hoverable?: boolean;
+  };
+};
+```
 
 ## Columns
 

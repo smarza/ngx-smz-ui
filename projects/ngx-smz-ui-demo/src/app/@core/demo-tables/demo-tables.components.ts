@@ -189,7 +189,7 @@ export class DemoTablesComponent implements OnInit {
         rowsPerPageOptions: [5, 10, 50, 100, 500],
         pageReport: {
           isVisible: true,
-          template: 'Mostrando {first} a {last} de {totalRecords} itens'
+          template: 'Showing items {first} to {last} of a total of {totalRecords} items'
         }
       },
       sort: {
@@ -285,16 +285,16 @@ export class DemoTablesComponent implements OnInit {
     };
 
     this.emptyTableState = {
-      emptyMessage: {
+      emptyFeedback: {
         message: 'No itens to display',
-        callbackLabel: 'Create',
-        callbackInfo: 'A',
-        callback: () => console.log('Create item'),
+        extraInfo: 'The database is empty, if you like, you could use the button bellow to start creating new items',
         image: 'assets/images/tables/empty.svg',
+        actionButton: {
+          label: 'New Foo',
+          callback: () => { console.log('create new foo'); }
+        },
       },
-      columns: [
-
-      ],
+      columns: [],
     };
   }
 

@@ -2,20 +2,53 @@ import { SmzMenuItem } from "./conditional-menu-item";
 import { SmzTableColumn, SmzTableContextColumn } from "./table-column";
 
 export interface SmzTableState {
+  /**
+   * Custom actions
+   */
   actions?: {
+    /**
+     * Configuration of the popup menu of the rows
+     */
     menu?: {
+      /**
+       * Controls the visibility of the button menu of the rows
+       */
       isVisible: boolean;
+      /**
+       * Items for the popup menu
+       */
       items: SmzMenuItem[];
     };
 
+    /**
+     * Custom actions for all rows
+     */
     customActions?: {
+      /**
+       * Controls the visibility of the custom action buttons
+       */
       isVisible: boolean;
+      /**
+       * Width of the column containing the custom actions
+       */
       columnWidth: string;
     };
 
+    /**
+     * Interaction behaviors for the rows
+     */
     rowBehavior?: {
+      /**
+       * Controls if the rows are clickable or not
+       */
       isClickable?: boolean;
+      /**
+       * Callback to be executed when the row is clicked
+       */
       clickCallback?: (event) => void;
+      /**
+       * Controls hover effect on the rows
+       */
       hoverable?: boolean;
     };
   };
@@ -32,7 +65,7 @@ export interface SmzTableState {
      */
     title?: string;
     /**
-     *
+     * Defines if the toolbar is aligned to the left or to the right
      */
     toolbarAlignment?: "start" | "end";
     /**
@@ -104,35 +137,89 @@ export interface SmzTableState {
   };
   columns: SmzTableColumn[];
   /**
-   * Controls the behavior of the empty feedback
+   * Behavior of the empty feedback
    */
+  initialState?:{
+    skeleton?: {
+      rows?: number;
+    };
+  };
   emptyFeedback?: {
     /**
-     * Message displayed when the table has no data, if no other properties
-     * are set in this object, only a text message is displayed.
+     * Message displayed when the table has no data
      */
     message?: string;
+    /**
+     * Extra information to be shown below the main message
+     */
     extraInfo?: string;
+    /**
+     * Controls the behavior the opnional action button. If nothing
+     * is specified, no button is shown
+     */
     actionButton?: {
+      /**
+       * Button label
+       */
       label?: string;
+      /**
+       * Callback to be executed on the button is clicked
+       */
       callback?: () => void;
     }
     image?: string;
   };
+  /**
+   * Behavior the pagination of the table
+   */
   pagination?: {
+    /**
+     * If the pagination area is visible or not
+     */
     isVisible?: boolean;
+    /**
+     * How many rows of data will be displayed in the table by default
+     */
     rows?: number;
+    /**
+     * Options to be displayed in the page size dropdown
+     */
     rowsPerPageOptions?: number[];
+    /**
+     * Configurations for the page report summary, that displays the current
+     * page number, maximum number of the pages, and so on
+     */
     pageReport?: {
+      /**
+       * Text template, i.e: Showing items {first} to {last} from a total of {totalRecords}
+       */
       template?: string;
+      /**
+       * Controls whether the summary is visible or not
+       */
       isVisible?: boolean;
     }
   };
 
+  /**
+   * Sorting behavior of the table
+   */
   sort?: {
+    /**
+     *
+     */
     field?: string;
+    /**
+     *
+     */
     mode?: "single" | "multiple";
+    /**
+     *
+     */
     order?: 1 | -1;
+    /**
+     *
+     */
     multiSortMeta?: { field: string; order: 1 | -1 }[];
   };
 }
