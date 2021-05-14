@@ -28,6 +28,9 @@ export interface SmzTableColumn {
    */
   isVisible?: boolean;
 
+  /**
+   * Cell data template
+   */
   content?: {
     /**
      * Type of data that will be rendered in the cell
