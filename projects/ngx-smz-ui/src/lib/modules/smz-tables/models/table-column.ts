@@ -28,11 +28,11 @@ export interface SmzTableColumn {
    */
   isVisible?: boolean;
 
-  content: {
+  content?: {
     /**
      * Type of data that will be rendered in the cell
      */
-    type?: SmzContentType;
+    type: SmzContentType;
     /**
      * Extra data needed for the selected content type
      */
