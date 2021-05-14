@@ -106,15 +106,17 @@ export interface SmzTableState {
   /**
    * Controls the behavior of the empty feedback
    */
-  emptyMessage?: {
+  emptyFeedback?: {
     /**
      * Message displayed when the table has no data, if no other properties
      * are set in this object, only a text message is displayed.
      */
     message?: string;
-    callbackLabel?: string;
-    callbackInfo?: string;
-    callback?: () => void;
+    extraInfo?: string;
+    actionButton?: {
+      label?: string;
+      callback?: () => void;
+    }
     image?: string;
   };
   pagination?: {
