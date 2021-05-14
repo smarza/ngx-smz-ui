@@ -30,6 +30,7 @@
 
                 <div class="p-grid p-nogutter p-justify-start p-align-center">
                     <span class="p-col p-mr-2">{{ state.caption.title }}</span>
+                    <ng-container *ngTemplateOutlet="captionTemplate; context: { $implicit: dt }"></ng-container>
                     <p-multiSelect
                         *ngIf="context.state.caption.columnVisibility.showButton"
                         class="p-mr-2 p-col-12 p-md-2"
@@ -51,7 +52,6 @@
                         <i class="pi pi-search"></i>
                         <input #inputGlobal pInputText type="text" (input)="dt.filterGlobal(inputGlobal.value, 'contains')"  [disabled]="clonedData.showSkeleton" placeholder="Pesquisa global" />
                     </span>
-                    <ng-container *ngTemplateOutlet="captionTemplate; context: { $implicit: dt }"></ng-container>
                 </div>
 
                 <div *ngIf="toolbarTemplate != null" class="p-grid p-nogutter p-align-center p-mt-2" [ngClass]="'p-justify-' + context.state.caption.toolbarAlignment">
@@ -91,12 +91,8 @@
                                 {{ col.header }}
                                 <p-sortIcon [field]="col.field" *ngIf="!clonedData.showSkeleton && col.isOrderable"></p-sortIcon>
 
-                                <ng-container *ngIf="!clonedData.showSkeleton && col.showFilter">
-                                    <ng-container [ngSwitch]="col.filterType">
-
-                                        <ng-container *ngSwitchDefault>
-                                            <p-columnFilter type="text" [field]="col.field" display="menu"></p-columnFilter>
-                                        </ng-container>
+                                <ng-container *ngIf="!clonedData.showSkeleton">
+                                    <ng-container [ngSwitch]="col.filter.type">
 
                                         <ng-container *ngSwitchCase="filterTypes.currency">
                                             <p-columnFilter type="numeric" currency="BRL" [field]="col.field" display="menu"></p-columnFilter>
@@ -127,7 +123,7 @@
                                                         </div>
                                                     </ng-template>
                                                     <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                                        <p-dropdown [ngModel]="value" [options]="clonedData.items != null ? clonedData.items : [] | uniqueFilter : filterField + '.id' : filterField" placeholder="Todos" (onChange)="filter($event.value)" optionLabel="name" dataKey="id"></p-dropdown>
+                                                        <p-dropdown [ngModel]="value" [options]="(clonedData.items != null ? clonedData.items : []) | uniqueFilter : filterField + '.id' : filterField" placeholder="Todos" (onChange)="filter($event.value)" optionLabel="name" dataKey="id"></p-dropdown>
                                                     </ng-template>
                                                 </p-columnFilter>
                                             </ng-container>
@@ -142,7 +138,7 @@
                                                         </div>
                                                     </ng-template>
                                                     <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                                        <p-multiSelect [ngModel]="value" [options]="clonedData.items != null ? clonedData.items : [] | uniqueFilter : filterField + '.id' : filterField" placeholder="Todos" (onChange)="filter($event.value)" optionLabel="name" dataKey="id"></p-multiSelect>
+                                                        <p-multiSelect [ngModel]="value" [options]="(clonedData.items != null ? clonedData.items : []) | uniqueFilter : filterField + '.id' : filterField" placeholder="Todos" (onChange)="filter($event.value)" optionLabel="name" dataKey="id"></p-multiSelect>
                                                     </ng-template>
                                                 </p-columnFilter>
                                             </ng-container>
@@ -174,17 +170,13 @@
 
                         <ng-template #dataTemplate>
 
-                            <td *ngIf="col.contentData?.useTemplate">
-                                <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: item, col: col }"></ng-container>
-                            </td>
-
-                            <td *ngIf="!col.contentData?.useTemplate">
+                            <td>
                                 <span class="p-column-title">{{ col.header }}</span>
 
-                                <ng-container [ngSwitch]="col.contentType">
+                                <ng-container [ngSwitch]="col.content.type">
 
-                                    <ng-container *ngSwitchDefault>
-                                        {{ (item | tableContent : col.field) }}
+                                    <ng-container *ngSwitchCase="contentTypes.custom">
+                                        <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: item, col: col }"></ng-container>
                                     </ng-container>
 
                                     <ng-container *ngSwitchCase="contentTypes.currency">
@@ -192,7 +184,7 @@
                                     </ng-container>
 
                                     <ng-container *ngSwitchCase="contentTypes.calendar">
-                                        {{ (item | tableContent : col.field) | date: col.contentData['format'] }}
+                                        {{ (item | tableContent : col.field) | date: col.content.data['format'] }}
                                     </ng-container>
 
                                     <ng-container *ngSwitchCase="contentTypes.text">
@@ -200,7 +192,7 @@
                                     </ng-container>
 
                                     <ng-container *ngSwitchCase="contentTypes.icon">
-                                        <ng-container *ngIf="(col.contentData['matches'] | contentIconMatches : (item | tableContent : col.field)) as match">
+                                        <ng-container *ngIf="(col.content.data['matches'] | contentIconMatches : (item | tableContent : col.field)) as match">
                                             <i *ngIf="match != null" [ngClass]="match.icon + ' ' + match.class" [pTooltip]="match.tooltip"></i>
                                         </ng-container>
                                     </ng-container>
