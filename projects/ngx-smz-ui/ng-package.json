@@ -63,6 +63,7 @@
       "lodash-es/uniqBy": "uniqBy",
       "primeng/ripple": "ripple",
       "primeng/utils": "utils",
+      "primeng/skeleton": "skeleton",
       "moment": "moment"
   }
   }

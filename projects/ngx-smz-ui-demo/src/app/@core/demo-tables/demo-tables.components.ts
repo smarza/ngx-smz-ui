@@ -19,8 +19,13 @@ export class DemoTablesComponent implements OnInit {
   public loading = false;
   constructor(private clipboard: SmzClipboardService) {
 
-    this.loadItems();
-    // this.items$ = of([]);
+    // this.loadItems();
+    this.items$ = of(null);
+
+    setTimeout(() => {
+      this.loadItems();
+      // this.items$ = of([]);
+    }, 5000);
   }
 
   ngOnInit() {

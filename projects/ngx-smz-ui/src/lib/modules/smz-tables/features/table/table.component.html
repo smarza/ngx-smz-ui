@@ -1,6 +1,6 @@
 <ng-container *ngIf="state | tableContext as context; else noStateTemplate">
 
-    <ng-container *ngIf="(context.state.emptyFeedback != null && (context.state.emptyFeedback.extraInfo || context.state.emptyFeedback.image || context.state.emptyFeedback.actionButton)) && clonedItems?.length === 0; else tableTemplate">
+    <ng-container *ngIf="(context.state.emptyFeedback != null && (context.state.emptyFeedback.extraInfo || context.state.emptyFeedback.image || context.state.emptyFeedback.actionButton)) && (items != null && items.length === 0); else tableTemplate">
         <smz-data-info
             [image]="context.state.emptyFeedback.image"
             [message]="context.state.emptyFeedback.message"
@@ -17,7 +17,9 @@
 
     <ng-template #tableTemplate>
 
-        <p-table #dt [value]="clonedItems" [(selection)]="selectedItems" dataKey="id" styleClass="p-datatable-smz-ui-table" [rowHover]="context.state.actions.rowBehavior.hoverable"
+        <ng-container *ngIf="(items | cloneTableItems : context) as clonedData">
+
+        <p-table #dt [value]="clonedData.items" [(selection)]="selectedItems" dataKey="id" styleClass="p-datatable-smz-ui-table" [rowHover]="context.state.actions.rowBehavior.hoverable"
             [rows]="context.state.pagination.rows" [showCurrentPageReport]="context.state.pagination.pageReport.isVisible" [rowsPerPageOptions]="context.state.pagination.rowsPerPageOptions" [loading]="loading"
             [paginator]="context.state.pagination.isVisible" [currentPageReportTemplate]="context.state.pagination.pageReport.template"
             [sortField]="context.state.sort.field" [sortMode]="context.state.sort.mode"
@@ -43,11 +45,11 @@
                         (onChange)="updateColumnsVisibility()"
                         pTooltip="Escolha as colunas que deseja visualizar na tabela.">
                     </p-multiSelect>
-                    <button *ngIf="context.state.caption.rowSelection.isButtonVisible" pButton [label]="context.state.caption.rowSelection.label" class="p-button-outlined p-mr-2" icon="pi pi-filter-slash" (click)="onRowSelection(context)"></button>
-                    <button *ngIf="context.state.caption.clearFilters.isButtonVisible" pButton [label]="context.state.caption.clearFilters.label" class="p-button-outlined p-mr-2" icon="pi pi-filter-slash" (click)="clear(dt, context)"></button>
+                    <button *ngIf="context.state.caption.rowSelection.isButtonVisible" pButton [label]="context.state.caption.rowSelection.label" class="p-button-outlined p-mr-2" icon="pi pi-filter-slash" (click)="onRowSelection(context)" [disabled]="clonedData.showSkeleton"></button>
+                    <button *ngIf="context.state.caption.clearFilters.isButtonVisible" pButton [label]="context.state.caption.clearFilters.label" class="p-button-outlined p-mr-2" icon="pi pi-filter-slash" (click)="clear(dt, context)" [disabled]="clonedData.showSkeleton"></button>
                     <span *ngIf="context.state.caption.globalFilter.isVisible" class="p-input-icon-left p-col-12 p-md-2" [ngClass]="{ 'p-mr-2': captionTemplate != null }">
                         <i class="pi pi-search"></i>
-                        <input #inputGlobal pInputText type="text" (input)="dt.filterGlobal(inputGlobal.value, 'contains')" placeholder="Pesquisa global" />
+                        <input #inputGlobal pInputText type="text" (input)="dt.filterGlobal(inputGlobal.value, 'contains')"  [disabled]="clonedData.showSkeleton" placeholder="Pesquisa global" />
                     </span>
                     <ng-container *ngTemplateOutlet="captionTemplate; context: { $implicit: dt }"></ng-container>
                 </div>
@@ -57,7 +59,7 @@
                 </div>
 
                 <!-- <button type="button" pButton pRipple icon="pi pi-file-pdf" label="Exportar"
-                    (click)="tableExporter.exportPdf(dt, context, dt.filteredValue != null ? dt.filteredValue : clonedItems, context.state.title != null ? context.state.title : 'Exportação')"
+                    (click)="tableExporter.exportPdf(dt, context, dt.filteredValue != null ? dt.filteredValue : clonedData.items, context.state.title != null ? context.state.title : 'Exportação')"
                     class="p-button-warning p-mr-2" pTooltip="Exportar para PDF" tooltipPosition="bottom">
                 </button> -->
 
@@ -87,9 +89,9 @@
                         <ng-template #headerContent>
                             <div class="p-d-flex p-jc-start p-ai-center">
                                 {{ col.header }}
-                                <p-sortIcon [field]="col.field" *ngIf="col.isOrderable"></p-sortIcon>
+                                <p-sortIcon [field]="col.field" *ngIf="!clonedData.showSkeleton && col.isOrderable"></p-sortIcon>
 
-                                <ng-container *ngIf="col.showFilter">
+                                <ng-container *ngIf="!clonedData.showSkeleton && col.showFilter">
                                     <ng-container [ngSwitch]="col.filterType">
 
                                         <ng-container *ngSwitchDefault>
@@ -125,7 +127,7 @@
                                                         </div>
                                                     </ng-template>
                                                     <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                                        <p-dropdown [ngModel]="value" [options]="clonedItems | uniqueFilter : filterField + '.id' : filterField" placeholder="Todos" (onChange)="filter($event.value)" optionLabel="name" dataKey="id"></p-dropdown>
+                                                        <p-dropdown [ngModel]="value" [options]="clonedData.items != null ? clonedData.items : [] | uniqueFilter : filterField + '.id' : filterField" placeholder="Todos" (onChange)="filter($event.value)" optionLabel="name" dataKey="id"></p-dropdown>
                                                     </ng-template>
                                                 </p-columnFilter>
                                             </ng-container>
@@ -140,7 +142,7 @@
                                                         </div>
                                                     </ng-template>
                                                     <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                                        <p-multiSelect [ngModel]="value" [options]="clonedItems | uniqueFilter : filterField + '.id' : filterField" placeholder="Todos" (onChange)="filter($event.value)" optionLabel="name" dataKey="id"></p-multiSelect>
+                                                        <p-multiSelect [ngModel]="value" [options]="clonedData.items != null ? clonedData.items : [] | uniqueFilter : filterField + '.id' : filterField" placeholder="Todos" (onChange)="filter($event.value)" optionLabel="name" dataKey="id"></p-multiSelect>
                                                     </ng-template>
                                                 </p-columnFilter>
                                             </ng-container>
@@ -166,39 +168,47 @@
 
                     <ng-container *ngFor="let col of context.columns">
 
-                        <td *ngIf="col.contentData?.useTemplate">
-                            <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: item, col: col }"></ng-container>
-                        </td>
+                        <ng-container *ngIf="clonedData.showSkeleton; else dataTemplate">
+                            <td><p-skeleton width="100%" height="1rem"></p-skeleton></td>
+                        </ng-container>
 
-                        <td *ngIf="!col.contentData?.useTemplate">
-                            <span class="p-column-title">{{ col.header }}</span>
+                        <ng-template #dataTemplate>
 
-                            <ng-container [ngSwitch]="col.contentType">
+                            <td *ngIf="col.contentData?.useTemplate">
+                                <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: item, col: col }"></ng-container>
+                            </td>
 
-                                <ng-container *ngSwitchDefault>
-                                    {{ (item | tableContent : col.field) }}
-                                </ng-container>
+                            <td *ngIf="!col.contentData?.useTemplate">
+                                <span class="p-column-title">{{ col.header }}</span>
 
-                                <ng-container *ngSwitchCase="contentTypes.currency">
-                                    R$ {{ (item | tableContent : col.field) }}
-                                </ng-container>
+                                <ng-container [ngSwitch]="col.contentType">
 
-                                <ng-container *ngSwitchCase="contentTypes.calendar">
-                                    {{ (item | tableContent : col.field) | date: col.contentData['format'] }}
-                                </ng-container>
-
-                                <ng-container *ngSwitchCase="contentTypes.text">
-                                    {{ (item | tableContent : col.field) }}
-                                </ng-container>
-
-                                <ng-container *ngSwitchCase="contentTypes.icon">
-                                    <ng-container *ngIf="(col.contentData['matches'] | contentIconMatches : (item | tableContent : col.field)) as match">
-                                        <i *ngIf="match != null" [ngClass]="match.icon + ' ' + match.class" [pTooltip]="match.tooltip"></i>
+                                    <ng-container *ngSwitchDefault>
+                                        {{ (item | tableContent : col.field) }}
                                     </ng-container>
-                                </ng-container>
 
-                            </ng-container>
-                        </td>
+                                    <ng-container *ngSwitchCase="contentTypes.currency">
+                                        R$ {{ (item | tableContent : col.field) }}
+                                    </ng-container>
+
+                                    <ng-container *ngSwitchCase="contentTypes.calendar">
+                                        {{ (item | tableContent : col.field) | date: col.contentData['format'] }}
+                                    </ng-container>
+
+                                    <ng-container *ngSwitchCase="contentTypes.text">
+                                        {{ (item | tableContent : col.field) }}
+                                    </ng-container>
+
+                                    <ng-container *ngSwitchCase="contentTypes.icon">
+                                        <ng-container *ngIf="(col.contentData['matches'] | contentIconMatches : (item | tableContent : col.field)) as match">
+                                            <i *ngIf="match != null" [ngClass]="match.icon + ' ' + match.class" [pTooltip]="match.tooltip"></i>
+                                        </ng-container>
+                                    </ng-container>
+
+                                </ng-container>
+                            </td>
+
+                        </ng-template>
 
                     </ng-container>
 
@@ -206,18 +216,27 @@
 
                         <td [ngStyle]="{ 'text-align': 'left' }" class="p-grid p-nogutter p-align-center p-justify-start">
 
-                            <!-- CUSTOM MENU -->
-                            <ng-container *ngIf="context.state.actions.customActions.isVisible">
-                                <ng-container *ngTemplateOutlet="actionsTemplate; context: { $implicit: item }"></ng-container>
+                            <ng-container *ngIf="clonedData.showSkeleton; else menuTemplate">
+                                <div class="w-full">
+                                    <p-skeleton width="100%" height="1rem"></p-skeleton>
+                                </div>
                             </ng-container>
 
-                            <!-- MENU -->
-                            <ng-container *ngIf="context.state.actions.menu.isVisible">
-                                <ng-container *ngIf="(context.state.actions.menu.items | tableMenu : item) as itemMenu">
-                                    <p-menu #actionMenu [popup]="true" [model]="itemMenu" appendTo="body" [ngClass]="{ 'p-ml-2': context.state.actions.customActions.isVisible }"></p-menu>
-                                    <button id="action-button" type="button" pButton icon="pi pi-bars" (click)="actionMenu.toggle($event, item)"></button>
+                            <ng-template #menuTemplate>
+                                <!-- CUSTOM MENU -->
+                                <ng-container *ngIf="context.state.actions.customActions.isVisible">
+                                    <ng-container *ngTemplateOutlet="actionsTemplate; context: { $implicit: item }"></ng-container>
                                 </ng-container>
-                            </ng-container>
+
+                                <!-- MENU -->
+                                <ng-container *ngIf="context.state.actions.menu.isVisible">
+                                    <ng-container *ngIf="(context.state.actions.menu.items | tableMenu : item) as itemMenu">
+                                        <p-menu #actionMenu [popup]="true" [model]="itemMenu" appendTo="body" [ngClass]="{ 'p-ml-2': context.state.actions.customActions.isVisible }"></p-menu>
+                                        <button id="action-button" type="button" pButton icon="pi pi-bars" (click)="actionMenu.toggle($event, item)"></button>
+                                    </ng-container>
+                                </ng-container>
+                            </ng-template>
+
                         </td>
 
                     </ng-container>
@@ -230,6 +249,8 @@
                 </tr>
             </ng-template>
         </p-table>
+
+        </ng-container>
     </ng-template>
 
 </ng-container>

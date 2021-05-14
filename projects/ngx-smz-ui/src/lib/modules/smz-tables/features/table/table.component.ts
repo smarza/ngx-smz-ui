@@ -3,7 +3,6 @@ import { PrimeTemplate } from 'primeng/api';
 import { SmzContentType } from '../../models/content-types';
 import { SmzFilterType } from '../../models/filter-types';
 import { SmzTableState, SmzTableContext } from '../../models/table-state';
-import { cloneDeep } from 'lodash-es';
 import { SmzTableColumn } from '../../models/table-column';
 import { Table } from 'primeng/table';
 
@@ -16,8 +15,8 @@ import { Table } from 'primeng/table';
 export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
   @ViewChild(Table) public primeTable: Table;
-  @Input() public items: any[] = [];
   @Input() public state: SmzTableState;
+  @Input() public items: any[] = [];
   @Input() public loading: boolean = false;
   @Output() public selectionChange: EventEmitter<any> = new EventEmitter<any>();
   public contentTemplate: TemplateRef<any>;
@@ -27,8 +26,8 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
   public emptyActionsTemplate: TemplateRef<any>;
   public emptyStateTemplate: TemplateRef<any>;
   public selectedItems: any[];
-  public clonedItems: any[] = [];
   public selectedColumns: SmzTableColumn[];
+  public showSkeleton = false;
   public contentTypes = {
     currency: `${SmzContentType.CURRENCY}`,
     calendar: `${SmzContentType.CALENDAR}`,
@@ -61,17 +60,6 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
   }
   public ngOnChanges(changes: SimpleChanges): void {
 
-    if (changes.items != null) {
-      if (changes.items.currentValue != null) {
-        this.clonedItems = cloneDeep(changes.items.currentValue);
-      }
-      else {
-        this.clonedItems = [];
-      }
-
-      this.cdr.markForCheck();
-    }
-
     if (changes.state != null) {
 
       const newState: SmzTableState = changes.state.currentValue;
@@ -89,6 +77,8 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
 
       this.cdr.markForCheck();
     }
+
+
   }
 
   public ngAfterContentInit() {

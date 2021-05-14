@@ -111,6 +111,12 @@ export class SmzTableContextPipe implements PipeTransform {
         mode: 'single',
         order: 1,
         multiSortMeta: null
+      },
+      initialState: {
+        skeleton: {
+          isEnabled: true,
+          rows: 10
+        }
       }
     };
 

@@ -20,6 +20,8 @@ import { ClickStopPropagationModule } from '../../common/stop-click-propagation/
 import { NgxSmzDataInfoModule } from '../smz-data-info/smz-data-info.module';
 import { TooltipModule } from 'primeng/tooltip';
 import { SmzTableMenuPipe } from './pipes/table-menu.pipe';
+import { SmzCloneTableItemsPipe } from './pipes/clone-table-items.pipe';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @NgModule({
     declarations: [
@@ -28,7 +30,8 @@ import { SmzTableMenuPipe } from './pipes/table-menu.pipe';
         SmzTableContentPipe,
         SmzFilterObjectPipe,
         SmzContentIconMatchesPipe,
-        SmzTableMenuPipe
+        SmzTableMenuPipe,
+        SmzCloneTableItemsPipe
     ],
     imports: [
         CommonModule,
@@ -45,7 +48,8 @@ import { SmzTableMenuPipe } from './pipes/table-menu.pipe';
         TableItemActionsModule,
         ClickStopPropagationModule,
         NgxSmzDataInfoModule,
-        TooltipModule
+        TooltipModule,
+        SkeletonModule
     ],
     exports: [
         SmzTableComponent,
