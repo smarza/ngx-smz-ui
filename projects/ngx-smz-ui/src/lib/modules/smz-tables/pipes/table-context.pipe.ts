@@ -91,7 +91,7 @@ export class SmzTableContextPipe implements PipeTransform {
         },
       },
       columns: [],
-      emptyMessage: {
+      emptyMessage: inputState.emptyMessage ?? {
         message: 'Lista Vazia',
         callbackLabel: 'Ação',
         callbackInfo: null,
