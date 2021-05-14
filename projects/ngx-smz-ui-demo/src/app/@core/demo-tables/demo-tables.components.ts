@@ -168,7 +168,7 @@ export class DemoTablesComponent implements OnInit {
           label: 'Limpar Filtro',
         },
         columnVisibility: {
-          showButton: false,
+          showButton: true,
         },
         globalFilter: {
           isVisible: true,
@@ -283,7 +283,7 @@ export class DemoTablesComponent implements OnInit {
           isVisible: true,
           content: {
             type: SmzContentType.CALENDAR,
-            data: { format: 'shortDate' }
+            data: { format: 'shortTime' }
           },
           filter: {
             type: SmzFilterType.DATE,

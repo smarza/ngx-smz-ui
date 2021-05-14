@@ -17,7 +17,7 @@
 
 # smz-layouts
 
-# 1. Setup
+## Setup
 
 * In your `angular.json` add the assets imports.
 
@@ -145,7 +145,7 @@
     export class HomeModule { }
     ```
 
-# 2. Configuration file
+## Configuration file
 
 ```typescript
     import { SmzLayoutsConfig, SmzMenuType, SmzSidebarState, SmzLayoutTheme, SmzContentTheme, SmzLoader } from 'ngx-smz-ui';
@@ -202,7 +202,7 @@
 
 # smz-data-info
 
-# 1. Setup
+## Setup
 
 * Import the `NgxDataInfoModule` in the `Module` that you are going to use it.
 
@@ -223,7 +223,7 @@
     }
     ```
 
-# 2. Simple Use
+## Simple Use
 
 * In the HTML of your component, add the following tag.
 
@@ -236,3 +236,7 @@
             (clicked)="someCallback()">
         </smz-data-info>
     ```
+
+# smz-ui-table
+
+See the `smz-ui-table` [documentation](tables.md).
