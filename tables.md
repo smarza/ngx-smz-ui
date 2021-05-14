@@ -320,18 +320,67 @@ actions?: {
 > TODO: Explain the new menu behavior
 ## Columns
 
-This section is where you setup the table columns
+This section is where you setup the table columns. It's an array of the following interface:
 
+```typescript
+export interface SmzTableColumn {
+  /**
+   * Property name, nested properties can be used, i.e. person.name
+   */
+  field: string;
+  /**
+   * Title of the column
+   */
+  header: string;
+  /**
+   * Constrols the visibility of the sort icon the column header
+   */
+  isOrderable?: boolean;
 
+  /**
+   * Width of the column, always use the value and the unit, ie. '100px' or '6em'
+   */
+  width?: string;
 
+  /**
+   * Controls the column visibility. If the column visible is set the false
+   * and the isGlobalFilterable is set to true, the column will be created
+   * in the DOM, but will not be visible. If both properties are set to false
+   * the column won't even be created in the DOM
+   */
+  isVisible?: boolean;
 
+  /**
+   * Cell configuration
+   */
+  content?: {
+    /**
+     * Type of data that will be rendered in the cell
+     */
+    type: SmzContentType;
+    /**
+     * Extra data needed for the selected content type
+     */
+    data?: SmzContentTypes;
+  };
 
+  /**
+   * Filter behavior
+   */
+  filter: {
+    /**
+     * Filter template type
+     */
+    type?: SmzFilterType; // TODO: criar um none
+    /**
+     * Controls whether the field should be filterable using the global filter
+     */
+    isGlobalFilterable?: boolean;
+  };
 
-
-
-
+}
+```
 # Templates
-
 ## Toolbar
 
 The toolbar is an area between the caption area and the table itself:
@@ -344,7 +393,7 @@ The toolbar is an area between the caption area and the table itself:
 
   ...
 
-  <ng-template pTemplate="toolbar" let-item>
+  <ng-template pTemplate="toolbar" let-table>
     <button pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded p-button-text"></button>
     <button pButton pRipple type="button" icon="pi pi-bookmark" class="p-button-rounded p-button-secondary p-button-text"></button>
     <button pButton pRipple type="button" icon="pi pi-filter" class="p-button-rounded p-button-text p-button-plain"></button>
@@ -352,6 +401,9 @@ The toolbar is an area between the caption area and the table itself:
 
 </smz-ui-table>
 ```
+
+The context of this area, can be accessed by using `let-primeTable` in the `ng-tempalte` tag, and the original `p-table` component is in it.
+
 ## Custom action buttons
 These are controls to be displayed in the last column of the table. They must be enabled in the [state object](##actions), and buttons should be added in the HTML template:
 
@@ -361,9 +413,11 @@ These are controls to be displayed in the last column of the table. They must be
 </ng-template>
 ```
 
+The context of this area, can be accessed by using `let-item` in the `ng-tempalte` tag, and the original data item is in it.
+
 ## Cell templates
 
-Each cell can use some of the basic pre defined data templates, or have it's own customized template. For that you need to set the `content.data.useTemplate` to `true`. Then in the HTML template create a `ngSwitchCase` for each column you want to customize:
+Each cell can use some of the basic pre defined data templates, or have it's own customized template. For that you need to set the `content.type` to `true`. Then in the HTML template create a `ngSwitchCase` for each column you want to customize:
 
 ```html
 <ng-template pTemplate="content" let-item let-col="col">
@@ -380,6 +434,23 @@ Each cell can use some of the basic pre defined data templates, or have it's own
 
 </ng-template>
 ```
+The context of this area, can be accessed by using `let-item` in the `ng-tempalte` tag, and the original data item is in it.
+
+## Caption area
+
+Besides the features that you can enable through the table state object in the code, you can also add extra controls in the caption area, by setting a template for it:
+
+```html
+<ng-template pTemplate="caption" let-primeTable>
+  <button pButton type="button" class="p-button-secondary" icon="pi pi-cog"></button>
+  <button pButton type="button" class="p-button-secondary" icon="pi pi-user"></button>
+</ng-template>
+```
+The extra controls are inserted on the right of the global filter.
+
+The context of this area, can be accessed by using `let-primeTable` in the `ng-tempalte` tag, and the original `p-table` component is in it.
+
+The column state object can also be acessed from the context, by using `let-col` in the `ng-tempalte` tag.
 
 
 
