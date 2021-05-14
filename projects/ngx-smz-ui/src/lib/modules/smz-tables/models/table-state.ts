@@ -140,14 +140,22 @@ export interface SmzTableState {
   columns: SmzTableColumn[];
 
   /**
-   * Behavior of the initial state of the table, when the data is still not
-   * loaded, i.e. the `items` property is null. This is different from the
-   * case when there is no data to display, i.e. the data came as an empty
-   * array from the API
+   * Behavior of the initial state of the table
    */
   initialState?:{
+    /**
+     * Setup behavior when the data is still not loaded, i.e. the `items`
+     * property is null. This is different from the case when there is no
+     * data to display, i.e. the data came as an empty array from the API
+     */
     skeleton?: {
+      /**
+       * enables or disables the skeleton behavior
+       */
       isEnabled?: boolean;
+      /**
+       * How many rows to display in while in the skeleton state
+       */
       rows?: number;
     };
   };
