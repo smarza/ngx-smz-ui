@@ -1,52 +1,56 @@
-import { SmzControlType } from 'ngx-smz-dialogs';
 import { SmzContentType, SmzContentTypes } from './content-types';
 import { SmzFilterType } from './filter-types';
 
 export interface SmzTableColumn {
   /**
-  * Nome da propriedade. Pode usar concatenando: ex: person.name
-  */
+   * Property name, nested properties can be used, i.e. person.name
+   */
   field: string;
   /**
-  * Texto visível no header e na versão responsiva
-  */
+   * Title of the column
+   */
   header: string;
   /**
-  * Tipo do conteúdo que será aplicado automaticamente na célula.
-  */
-  contentType?: SmzContentType;
-
-  /**
-  * Configurações para o conteúdo da célula
-  */
-  contentData?: SmzContentTypes;
-
-  /**
-  * Define se uma coluna estará visível
-  */
-  isVisible?: boolean;
-  /**
-  * Tipo do Filtro
-  */
-  filterType?: SmzFilterType;
-  /**
-  * Define se a coluna estará disponível na busca global
-  */
-  isGlobalFilterable?: boolean;
-  /**
-  * Define se coluna poderá ser ordenada
-  */
+   * Constrols the visibility of the sort icon the column header
+   */
   isOrderable?: boolean;
 
   /**
-  * Define se o filtro da coluna estará visível
-  */
-  showFilter?: boolean;
+   * Width of the column, always use the value and the unit, ie. '100px' or '6em'
+   */
+  width?: string;
 
   /**
-  * Define a largura da coluna. Favor informar número com medida (ex. '100px' ou '6em').
-  */
-  width?: string;
+   * Controls the column visibility. If the column visible is set the false
+   * and the isGlobalFilterable is set to true, the column will be created
+   * in the DOM, but will not be visible. If both properties are set to false
+   * the column won't even be created in the DOM
+   */
+  isVisible?: boolean;
+
+  content: {
+    /**
+     * Type of data that will be rendered in the cell
+     */
+    type?: SmzContentType;
+    /**
+     * Extra data needed for the selected content type
+     */
+    data?: SmzContentTypes;
+  };
+
+
+  filter: {
+    /**
+     * Filter template type
+     */
+    type?: SmzFilterType; // TODO: criar um none
+    /**
+     * Controls whether the field should be filterable using the global filter
+     */
+    isGlobalFilterable?: boolean;
+  };
+
 }
 
 export interface SmzTableContextColumn extends SmzTableColumn {

@@ -29,7 +29,6 @@ It's a full featured table containing:
   ```typescript
   import { NgxSmzTablesModule } from 'ngx-smz-ui';
   ```
-
 ## Basic use
   Insert the `smz-ui-table` in the html and bind the `state` property to your state object in the code.
 
@@ -50,7 +49,6 @@ It's a full featured table containing:
     };
   }
   ```
-
 ## Caption area
 
 It's the area above the table header, in which the Global Filter is located. Thia area can be customized through the `caption` in `SmzTableState`. Following is the configuration object for that section:
@@ -137,8 +135,6 @@ caption?: {
   };
 };
 ```
-
-
 ## Empty feedback
 
 Controls the behavior of the empty feedback for th user, when the table has no data.
@@ -231,13 +227,36 @@ pagination?: {
   }
 };
 ```
-
-
 ## Sort
 
+Controls the initial sorting of the table. This object is sent directly to PrimeNG. Please refer to the `p-table` [documentation](https://www.primefaces.org/primeng/showcase/#/table/sort)
+## Initial behavior
 
-## Menu
+This section controls the initial state of the table.
 
+The `skeleton` property controls the behavior when there is no data loaded yet, showing a table skeleton when there is no data available yet.
+
+For this to work, you need to have a `null` initial value for the `items` property. While the value is `null`, the skeleton will be visible. When the data arrives from the API the skeleton will be exhanged by the actual data. In the case there are no items to display, the data must arrive as an empty array, and then it will be handled by the [Empty feedback behavior](##empty-feedback).
+
+```typescript
+initialState?:{
+  /**
+   * Setup behavior when the data is still not loaded, i.e. the `items`
+   * property is null. This is different from the case when there is no
+   * data to display, i.e. the data came as an empty array from the API
+   */
+  skeleton?: {
+    /**
+     * enables or disables the skeleton behavior
+     */
+    isEnabled?: boolean;
+    /**
+     * How many rows to display in while in the skeleton state
+     */
+    rows?: number;
+  };
+};
+```
 ## Actions
 
 The options for this section controls the behavior of the actions column of the table.
@@ -298,8 +317,10 @@ actions?: {
 };
 ```
 
+> TODO: Explain the new menu behavior
 ## Columns
 
+This section is where you setup the table columns
 
 
 
@@ -311,39 +332,73 @@ actions?: {
 
 # Templates
 
-### Toolbar
+## Toolbar
 
 The toolbar is an area between the caption area and the table itself:
 
 ![image](https://user-images.githubusercontent.com/10734059/118309717-0aa35c80-b4c4-11eb-933d-9542098af84a.png)
 
 
+```html
+<smz-ui-table [items]="items$ | async" [state]="tableState">
 
-    ```html
-      <smz-ui-table [items]="items$ | async" [config]="config" [loading]="loading" (selectionChange)="test($event)">
+  ...
 
-        <!-- CONTEÚDOS COM OVERRIDE -->
-        <ng-template pTemplate="content" let-item let-col="col">
+  <ng-template pTemplate="toolbar" let-item>
+    <button pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded p-button-text"></button>
+    <button pButton pRipple type="button" icon="pi pi-bookmark" class="p-button-rounded p-button-secondary p-button-text"></button>
+    <button pButton pRipple type="button" icon="pi pi-filter" class="p-button-rounded p-button-text p-button-plain"></button>
+  </ng-template>
 
-          <ng-container [ngSwitch]="col.field">
-            <ng-container *ngSwitchCase="'description'">
-              >> {{ item.description }}
-            </ng-container>
+</smz-ui-table>
+```
+## Custom action buttons
+These are controls to be displayed in the last column of the table. They must be enabled in the [state object](##actions), and buttons should be added in the HTML template:
 
-            <ng-container *ngSwitchCase="'price'">
-              -- {{ item.price }}
-            </ng-container>
-          </ng-container>
+```html
+<ng-template pTemplate="actions" let-item>
+  <button pButton type="button" class="p-button-secondary" icon="pi pi-cog" (click)="test(item)"></button>
+</ng-template>
+```
 
-        </ng-template>
+## Cell templates
 
-        <!-- AÇÕES PERSONALIZADAS -->
-        <ng-template pTemplate="actions" let-item>
-          <button pButton type="button" class="p-button-secondary" icon="pi pi-cog" (click)="test(item)"></button>
-        </ng-template>
+Each cell can use some of the basic pre defined data templates, or have it's own customized template. For that you need to set the `content.data.useTemplate` to `true`. Then in the HTML template create a `ngSwitchCase` for each column you want to customize:
 
-      </smz-ui-table>
-    ```
+```html
+<ng-template pTemplate="content" let-item let-col="col">
+
+  <ng-container [ngSwitch]="col.field">
+    <ng-container *ngSwitchCase="'description'">
+      >> {{ item.description }}
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'price'">
+      -- {{ item.price }}
+    </ng-container>
+  </ng-container>
+
+</ng-template>
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 * In the component, add the configuration for the table component.
 The custom content is going to be called just to the columns with contentData.useTemplate set to true.
@@ -486,10 +541,4 @@ The custom content is going to be called just to the columns with contentData.us
 
 
 
-## Toggleable multi selection
-
-## Customizable caption lane
-## User customizable column visilibity
-## Custom menus and actions
-## Multiple cell data templates
 ## Original `p-table` exposure

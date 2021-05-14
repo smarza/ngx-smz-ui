@@ -1,4 +1,5 @@
 export enum SmzFilterType {
+  NONE = 0,
   TEXT = 1,
   NUMERIC = 2,
   BOOLEAN = 3,
