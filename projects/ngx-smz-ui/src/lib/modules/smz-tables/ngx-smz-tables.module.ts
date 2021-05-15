@@ -22,6 +22,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { SmzTableMenuPipe } from './pipes/table-menu.pipe';
 import { SmzCloneTableItemsPipe } from './pipes/clone-table-items.pipe';
 import { SkeletonModule } from 'primeng/skeleton';
+import { SmzColumnFilterComponent } from './components/smz-filter-column.component';
 
 @NgModule({
     declarations: [
@@ -31,7 +32,8 @@ import { SkeletonModule } from 'primeng/skeleton';
         SmzFilterObjectPipe,
         SmzContentIconMatchesPipe,
         SmzTableMenuPipe,
-        SmzCloneTableItemsPipe
+        SmzCloneTableItemsPipe,
+        SmzColumnFilterComponent
     ],
     imports: [
         CommonModule,

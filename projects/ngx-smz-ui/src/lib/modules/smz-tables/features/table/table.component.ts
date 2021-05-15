@@ -4,7 +4,6 @@ import { SmzContentType } from '../../models/content-types';
 import { SmzFilterType } from '../../models/filter-types';
 import { SmzTableState, SmzTableContext } from '../../models/table-state';
 import { SmzTableColumn } from '../../models/table-column';
-import { Table } from 'primeng/table';
 
 @Component({
   selector: 'smz-ui-table',
@@ -14,7 +13,6 @@ import { Table } from 'primeng/table';
 })
 export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
-  @ViewChild(Table) public primeTable: Table;
   @Input() public state: SmzTableState;
   @Input() public items: any[] = [];
   @Input() public loading: boolean = false;
@@ -28,6 +26,7 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
   public selectedItems: any[];
   public selectedColumns: SmzTableColumn[];
   public showSkeleton = false;
+  public documentClickListener = null;
   public contentTypes = {
     currency: SmzContentType.CURRENCY,
     calendar: SmzContentType.CALENDAR,
@@ -48,6 +47,10 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
   }
 
   public ngOnInit(): void {
+
+  }
+
+  public bind(): void {
   }
 
   public updateColumnsVisibility(): void {
@@ -109,8 +112,8 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
           break;
       }
     });
-
   }
+
   public populateColumnVisibility(newState: SmzTableState): void {
     this.selectedColumns = newState?.columns.filter(x => x.isVisible) ?? [];
   }

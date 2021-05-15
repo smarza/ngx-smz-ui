@@ -4,6 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { RbkAuthGuard } from 'ngx-rbk-utils';
 import { NgxSmzTablesModule, SmzRouteData } from 'ngx-smz-ui';
 import { ButtonModule } from 'primeng/button';
+import { TableModule } from 'primeng/table';
+import { DemoPrimeComponent } from './demo-prime/demo-prime.component';
 import { DemoTablesComponent } from './demo-tables.components';
 
 const data: SmzRouteData = {
@@ -23,6 +25,12 @@ const routes: Routes = [
     component: DemoTablesComponent,
     data
   },
+  {
+    path: 'prime',
+    canActivate: [RbkAuthGuard],
+    component: DemoPrimeComponent,
+    data
+  },
 ];
 
 @NgModule({
@@ -30,11 +38,13 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     ButtonModule,
-    NgxSmzTablesModule
+    NgxSmzTablesModule,
+    TableModule
   ],
   exports: [],
   declarations: [
-    DemoTablesComponent
+    DemoTablesComponent,
+    DemoPrimeComponent
   ],
   providers: [],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]

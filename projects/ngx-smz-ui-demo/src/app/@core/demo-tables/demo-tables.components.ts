@@ -21,7 +21,6 @@ export class DemoTablesComponent implements OnInit {
 
     this.loadItems();
 
-
     // this.items$ = of(null);
 
     // setTimeout(() => {
