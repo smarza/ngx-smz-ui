@@ -6,12 +6,11 @@ The `smz-ui-table` is an extension of the `p-table` from `PrimeNG`.
 
 It's a full featured table containing:
 
-* [Toggleable multi selection](##multi-selection)
-* [Customizable caption lane](##caption-customization)
-* [User customizable column visilibity](##user-customizable-column-visilibity)
-* [Custom menus and actions](##custom-menus-and-actions)
-* [Multiple cell data templates](##multiple-cell-data-templates)
-* [Original `p-table` exposure](##original-`p-table`-exposure)
+* [Toggleable multi selection](##caption-area)
+* [Customizable caption lane](##caption-area)
+* [User customizable column visilibity](##caption-area)
+* [Custom menus and actions](##custom-action-buttons)
+* [Multiple cell data templates](###-column-types)
 
 
 # Getting started
@@ -135,6 +134,9 @@ caption?: {
   };
 };
 ```
+When the `columnVisibility` is enbaled a dropdown will be shown in the caption area allowing the user to show or hide any column in the table:
+
+![image](https://user-images.githubusercontent.com/10734059/118338045-9381be80-b4eb-11eb-85ff-601f3278b65a.png)
 ## Empty feedback
 
 Controls the behavior of the empty feedback for th user, when the table has no data.
@@ -265,7 +267,7 @@ This column can have a meno to open/close the popup menu and/or other extra acti
 
 Ideally you set only the menu or the custom actions area to be visible, since they both use the same column and also have intersecting functionality.
 
-The menu is defined in the code and the
+The menu is defined in the code and the contents are defined in the HTML template, see [Custom action buttons](##custom-action-buttons)
 
 ```typescript
 actions?: {
@@ -320,18 +322,112 @@ actions?: {
 > TODO: Explain the new menu behavior
 ## Columns
 
-This section is where you setup the table columns
+This section is where you setup the table columns. It's an array of the following interface:
 
+```typescript
+export interface SmzTableColumn {
+  /**
+   * Property name, nested properties can be used, i.e. person.name
+   */
+  field: string;
+  /**
+   * Title of the column
+   */
+  header: string;
+  /**
+   * Constrols the visibility of the sort icon the column header
+   */
+  isOrderable?: boolean;
 
+  /**
+   * Width of the column, always use the value and the unit, ie. '100px' or '6em'
+   */
+  width?: string;
 
+  /**
+   * Controls the column visibility. If the column visible is set the false
+   * and the isGlobalFilterable is set to true, the column will be created
+   * in the DOM, but will not be visible. If both properties are set to false
+   * the column won't even be created in the DOM
+   */
+  isVisible?: boolean;
 
+  /**
+   * Cell configuration
+   */
+  content?: {
+    /**
+     * Type of data that will be rendered in the cell
+     */
+    type: SmzContentType;
+    /**
+     * Extra data needed for the selected content type
+     */
+    data?: SmzContentTypes;
+  };
 
+  /**
+   * Filter behavior
+   */
+  filter: {
+    /**
+     * Filter template type
+     */
+    type?: SmzFilterType; // TODO: criar um none
+    /**
+     * Controls whether the field should be filterable using the global filter
+     */
+    isGlobalFilterable?: boolean;
+  };
 
+}
+```
+### Column types
 
+For column data templates, these are the values that can be set in the `content.type` property, some of them require an extra data, which is passed through the `content.data` property.
 
+#### SmzContentType.TEXT
+It's the default template when none is specified. It renders the cell contents as is, without any changes.
+#### SmzContentType.CALENDAR
+Formats any `Date` column accordingly to the following values passed in the `content.data`
 
+* short: 02/03/2021 10:35
+* shortDate: 02/03/2021
+* medium: 2 de mar. de 2021 10:35:49
+* mediumDate: 2 de mar. de 2021
+* long: 20 de abril de 2021 10:35:49 GMT-3
+* longDate: 2 de março de 2021
+* shortTime: 10:35
+
+Usage example:
+
+```typescript
+...
+content: {
+  type: SmzContentType.CALENDAR,
+  data: { format: 'shortDate' }
+},
+...
+```
+#### SmzContentType.CURRENCY
+Formats the value as currency, using R$
+#### SmzContentType.ICON
+This template can be used to render icons based on user defined rules:
+```typescript
+...
+content: {
+  type: SmzContentType.ICON,
+  data: { matches: [
+    { icon: 'fas fa-check', class: 'green-text darken-3', value: true, tooltip: 'My tooltip 1' },
+    { icon: 'fas fa-times', class: 'red-text darken-2', value: false, tooltip: 'My tooltip 2' }
+  ] }
+},
+...
+```
+In the above sample, the rules are defined in the `matches` property. Each entry can set the icon, class and tooltip for the icon. The `value` property informs the value in the original data item that should be converted in the icon.
+#### SmzContentType.CUSTOM
+When none of the above templates are enough, you can create your own by setting the `content.type` to `CUSTOM`. This way you can create your own template in the HTML template. See the [Cell templates](##cell-templates) section for more details.
 # Templates
-
 ## Toolbar
 
 The toolbar is an area between the caption area and the table itself:
@@ -344,7 +440,7 @@ The toolbar is an area between the caption area and the table itself:
 
   ...
 
-  <ng-template pTemplate="toolbar" let-item>
+  <ng-template pTemplate="toolbar" let-table>
     <button pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded p-button-text"></button>
     <button pButton pRipple type="button" icon="pi pi-bookmark" class="p-button-rounded p-button-secondary p-button-text"></button>
     <button pButton pRipple type="button" icon="pi pi-filter" class="p-button-rounded p-button-text p-button-plain"></button>
@@ -352,6 +448,9 @@ The toolbar is an area between the caption area and the table itself:
 
 </smz-ui-table>
 ```
+
+The context of this area, can be accessed by using `let-primeTable` in the `ng-template` tag, and the original `p-table` component is in it.
+
 ## Custom action buttons
 These are controls to be displayed in the last column of the table. They must be enabled in the [state object](##actions), and buttons should be added in the HTML template:
 
@@ -361,9 +460,15 @@ These are controls to be displayed in the last column of the table. They must be
 </ng-template>
 ```
 
+The context of this area, can be accessed by using `let-item` in the `ng-template` tag, and the original data item is in it.
+
+The extra action controls will be inserted between the title and the native table inputs:
+
+![image](https://user-images.githubusercontent.com/10734059/118338346-4e11c100-b4ec-11eb-8089-d87520e35316.png)
+
 ## Cell templates
 
-Each cell can use some of the basic pre defined data templates, or have it's own customized template. For that you need to set the `content.data.useTemplate` to `true`. Then in the HTML template create a `ngSwitchCase` for each column you want to customize:
+Each cell can use some of the basic pre defined data templates, or have it's own customized template. For that you need to set the `content.type` to `true`. Then in the HTML template create a `ngSwitchCase` for each column you want to customize:
 
 ```html
 <ng-template pTemplate="content" let-item let-col="col">
@@ -380,6 +485,23 @@ Each cell can use some of the basic pre defined data templates, or have it's own
 
 </ng-template>
 ```
+The context of this area, can be accessed by using `let-item` in the `ng-template` tag, and the original data item is in it.
+
+## Caption area
+
+Besides the features that you can enable through the table state object in the code, you can also add extra controls in the caption area, by setting a template for it:
+
+```html
+<ng-template pTemplate="caption" let-primeTable>
+  <button pButton type="button" class="p-button-secondary" icon="pi pi-cog"></button>
+  <button pButton type="button" class="p-button-secondary" icon="pi pi-user"></button>
+</ng-template>
+```
+The extra controls are inserted on the right of the global filter.
+
+The context of this area, can be accessed by using `let-primeTable` in the `ng-template` tag, and the original `p-table` component is in it.
+
+The column state object can also be acessed from the context, by using `let-col` in the `ng-template` tag.
 
 
 
@@ -400,145 +522,7 @@ Each cell can use some of the basic pre defined data templates, or have it's own
 
 
 
-* In the component, add the configuration for the table component.
-The custom content is going to be called just to the columns with contentData.useTemplate set to true.
-
-    ```typescript
-    export class ExampleComponent implements OnInit {
-      ...
-      public config: SmzTableConfig;
-
-      constructor() {
-        this.config = {
-          currentPageReportTemplate: 'Mostrando {first} a {last} de {totalRecords} itens',
-          isSelectable: true,
-          rowHover: true,
-          rows: 5,
-          rowsPerPageOptions: [5, 10, 50, 100, 500],
-          showActions: true,
-          showCaption: true,
-          showCurrentPageReport: true,
-          showGlobalFilter: true,
-          showPaginator: true,
-          showClearFilter: true,
-          title: 'Permissões de Trabalho',
-          useCustomActions: false,
-          customActionWidth: '5em',
-          menu: [
-            { label: 'Editar', icon: 'pi pi-fw pi-plus', command: (event) => this.test(event) },
-            { separator: true },
-            { label: 'Apagar', icon: 'pi pi-fw pi-download', command: (event) => this.test(event) },
-          ],
-          columns: [
-            {
-              contentType: SmzContentType.ICON,
-              contentData: { useTemplate: false, matches: [ { icon: 'fas fa-check', class: 'green-text darken-3', value: true }, { icon: 'fas fa-times', class: 'red-text darken-2', value: false } ] },
-              field: 'isActive',
-              filterType: SmzFilterType.BOOLEAN,
-              header: 'Situação',
-              isGlobalFilterable: false,
-              isOrderable: false,
-              showFilter: true,
-              width: '8em',
-              isVisible: true,
-            },
-            {
-              contentType: SmzContentType.TEXT,
-              contentData: { useTemplate: false },
-              field: 'number',
-              filterType: SmzFilterType.TEXT,
-              header: 'Número',
-              isGlobalFilterable: true,
-              isOrderable: false,
-              showFilter: true,
-              width: '8em',
-              isVisible: true,
-            },
-            {
-              contentType: SmzContentType.TEXT,
-              contentData: { useTemplate: false },
-              field: 'plant.name',
-              filterType: SmzFilterType.DROPDOWN,
-              header: 'Planta',
-              isGlobalFilterable: true,
-              isOrderable: true,
-              showFilter: true,
-              width: '8em',
-              isVisible: true,
-            },
-            {
-              contentType: SmzContentType.TEXT,
-              contentData: { useTemplate: false },
-              field: 'campaign.name',
-              filterType: SmzFilterType.MULTI_SELECT,
-              header: 'Campanha',
-              isGlobalFilterable: true,
-              isOrderable: true,
-              showFilter: true,
-              isVisible: true,
-            },
-            {
-              contentType: SmzContentType.TEXT,
-              contentData: { useTemplate: false },
-              field: 'description',
-              filterType: SmzFilterType.TEXT,
-              header: 'Descrição',
-              isGlobalFilterable: true,
-              isOrderable: true,
-              showFilter: true,
-              isVisible: true,
-            },
-            {
-              contentType: SmzContentType.CURRENCY,
-              contentData: { useTemplate: true },
-              field: 'price',
-              filterType: SmzFilterType.CURRENCY,
-              header: 'Preço',
-              isGlobalFilterable: true,
-              isOrderable: true,
-              showFilter: true,
-              width: '8em',
-              isVisible: true,
-            },
-            {
-              contentType: SmzContentType.CALENDAR,
-              contentData: { useTemplate: false, format: 'shortDate' },
-              field: 'date',
-              filterType: SmzFilterType.DATE,
-              header: 'Data',
-              isGlobalFilterable: true,
-              isOrderable: true,
-              showFilter: true,
-              width: '8em',
-              isVisible: true,
-            },
-          ]
-        };
-      }
-    ```
-
-# 4. Contents
-
-* To use the icon generation of the table, you have to provide some conditional configurations as below.
-
-    ```typescript
-      this.config = {
-        ...
-        columns: [
-          {
-            contentType: SmzContentType.ICON,
-            contentData: {
-              useTemplate: false,
-              matches: [
-                  { icon: 'fas fa-check', class: 'green-text darken-3', value: true },
-                  { icon: 'fas fa-times', class: 'red-text darken-2', value: false }
-                ] },
-            header: 'Situação',
-          },
-    ```
 
 
 
 
-
-## Original `p-table` exposure
