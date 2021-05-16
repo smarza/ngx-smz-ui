@@ -17,7 +17,7 @@ export class SmzTableContextPipe implements PipeTransform {
     const globalFilter: string[] = [];
     const columns: SmzTableContextColumn[] = [];
 
-    for (const column of inputState.columns.filter(c => c.isVisible)) {
+    for (const column of inputState.columns.filter(c => c.isVisible || c.filter?.isGlobalFilterable)) {
 
       const contextColumn: SmzTableContextColumn = {
         ...column,
@@ -50,7 +50,9 @@ export class SmzTableContextPipe implements PipeTransform {
         globalFilter.push(column.field);
       }
 
-      columns.push(contextColumn);
+      if (column.isVisible) {
+        columns.push(contextColumn);
+      }
 
     }
 

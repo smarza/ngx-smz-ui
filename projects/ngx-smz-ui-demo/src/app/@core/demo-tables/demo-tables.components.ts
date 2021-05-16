@@ -265,7 +265,7 @@ export class DemoTablesComponent implements OnInit {
           field: 'description',
           header: 'Descrição',
           isOrderable: true,
-          isVisible: true,
+          isVisible: false,
           content: {
             type: SmzContentType.TEXT,
           },
