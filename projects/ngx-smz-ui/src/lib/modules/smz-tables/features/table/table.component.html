@@ -19,7 +19,7 @@
 
         <ng-container *ngIf="(items | cloneTableItems : context) as clonedData">
 
-        <p-table #dt [value]="clonedData.items" [(selection)]="selectedItems" dataKey="id" styleClass="p-datatable-smz-ui-table" [rowHover]="context.state.actions.rowBehavior.hoverable"
+        <p-table #dt [value]="clonedData.items" [(selection)]="selectedItems" dataKey="id" [styleClass]="'p-datatable-smz-ui-table' + (context.state.styles.striped ? ' p-datatable-striped' : '')" [rowHover]="context.state.actions.rowBehavior.hoverable"
             [rows]="context.state.pagination.rows" [showCurrentPageReport]="context.state.pagination.pageReport.isVisible" [rowsPerPageOptions]="context.state.pagination.rowsPerPageOptions" [loading]="loading"
             [paginator]="context.state.pagination.isVisible" [currentPageReportTemplate]="context.state.pagination.pageReport.template"
             [sortField]="context.state.sort.field" [sortMode]="context.state.sort.mode"
@@ -33,7 +33,7 @@
                     <ng-container *ngTemplateOutlet="captionTemplate; context: { $implicit: dt }"></ng-container>
                     <p-multiSelect
                         *ngIf="context.state.caption.columnVisibility.showButton"
-                        class="p-mr-2 p-col-12 p-md-2"
+                        class="p-ml-2 p-mr-2 p-col-12 p-md-2"
                         styleClass="w-full"
                         [options]="state.columns"
                         [(ngModel)]="selectedColumns"
@@ -207,28 +207,30 @@
 
                     <ng-container *ngIf="context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible">
 
-                        <td [ngStyle]="{ 'text-align': 'left' }" class="p-grid p-nogutter p-align-center p-justify-start">
+                        <td [ngStyle]="{ 'text-align': 'left' }">
 
-                            <ng-container *ngIf="clonedData.showSkeleton; else menuTemplate">
-                                <div class="w-full">
-                                    <p-skeleton width="100%" height="1rem"></p-skeleton>
-                                </div>
-                            </ng-container>
-
-                            <ng-template #menuTemplate>
-                                <!-- CUSTOM MENU -->
-                                <ng-container *ngIf="context.state.actions.customActions.isVisible">
-                                    <ng-container *ngTemplateOutlet="actionsTemplate; context: { $implicit: item }"></ng-container>
+                            <div  class="p-grid p-nogutter p-align-center p-justify-start">
+                                <ng-container *ngIf="clonedData.showSkeleton; else menuTemplate">
+                                    <div class="w-full">
+                                        <p-skeleton width="100%" height="1rem"></p-skeleton>
+                                    </div>
                                 </ng-container>
 
-                                <!-- MENU -->
-                                <ng-container *ngIf="context.state.actions.menu.isVisible">
-                                    <ng-container *ngIf="(context.state.actions.menu.items | tableMenu : item) as itemMenu">
-                                        <p-menu #actionMenu [popup]="true" [model]="itemMenu" appendTo="body" [ngClass]="{ 'p-ml-2': context.state.actions.customActions.isVisible }"></p-menu>
-                                        <button id="action-button" type="button" pButton icon="pi pi-bars" (click)="actionMenu.toggle($event, item)"></button>
+                                <ng-template #menuTemplate>
+                                    <!-- CUSTOM MENU -->
+                                    <ng-container *ngIf="context.state.actions.customActions.isVisible">
+                                        <ng-container *ngTemplateOutlet="actionsTemplate; context: { $implicit: item }"></ng-container>
                                     </ng-container>
-                                </ng-container>
-                            </ng-template>
+
+                                    <!-- MENU -->
+                                    <ng-container *ngIf="context.state.actions.menu.isVisible">
+                                        <ng-container *ngIf="(context.state.actions.menu.items | tableMenu : item) as itemMenu">
+                                            <p-menu #actionMenu [popup]="true" [model]="itemMenu" appendTo="body" [ngClass]="{ 'p-ml-2': context.state.actions.customActions.isVisible }"></p-menu>
+                                            <button id="action-button" type="button" pButton icon="pi pi-bars" (click)="actionMenu.toggle($event, item)"></button>
+                                        </ng-container>
+                                    </ng-container>
+                                </ng-template>
+                            </div>
 
                         </td>
 

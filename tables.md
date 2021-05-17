@@ -232,6 +232,20 @@ pagination?: {
 ## Sort
 
 Controls the initial sorting of the table. This object is sent directly to PrimeNG. Please refer to the `p-table` [documentation](https://www.primefaces.org/primeng/showcase/#/table/sort)
+
+## Styles
+
+Represents all the customizable styles of the table
+
+```typescript
+  styles?: {
+    /**
+     * Use striped to add zebra-striping to the row's styles
+     */
+    striped?: boolean
+};
+```
+
 ## Initial behavior
 
 This section controls the initial state of the table.

@@ -204,6 +204,9 @@ export class DemoTablesComponent implements OnInit {
         order: 1,
         multiSortMeta: null
       },
+      styles: {
+        striped: true
+      },
       columns: [
         {
           field: 'isActive',
@@ -265,7 +268,7 @@ export class DemoTablesComponent implements OnInit {
           field: 'description',
           header: 'Descrição',
           isOrderable: true,
-          isVisible: false,
+          isVisible: true,
           content: {
             type: SmzContentType.TEXT,
           },

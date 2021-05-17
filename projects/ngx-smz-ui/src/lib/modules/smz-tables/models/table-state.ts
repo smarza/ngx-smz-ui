@@ -242,6 +242,16 @@ export interface SmzTableState {
      */
     multiSortMeta?: { field: string; order: 1 | -1 }[];
   };
+
+  /**
+   * Styles of the table
+   */
+  styles?: {
+    /**
+     * Use striped to add zebra-striping to the row's styles
+     */
+    striped?: boolean
+  }
 }
 
 export interface SmzTableContext {

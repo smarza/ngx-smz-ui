@@ -96,11 +96,16 @@ export class SmzTableContextPipe implements PipeTransform {
         },
       },
       columns: [],
-      emptyFeedback: inputState.emptyFeedback ?? {
+      emptyFeedback: inputState.emptyFeedback == null ? {
         message: 'Lista Vazia',
         extraInfo: null,
         actionButton: null,
         image: 'assets/images/tables/empty.svg',
+      } : {
+        message: inputState.emptyFeedback.message ?? 'Lista Vazia',
+        extraInfo: inputState.emptyFeedback.message,
+        actionButton: inputState.emptyFeedback.actionButton,
+        image: inputState.emptyFeedback.image == null ? 'assets/images/tables/empty.svg' : inputState.emptyFeedback.image === '' ? null : inputState.emptyFeedback.image,
       },
       pagination: {
         isVisible: true,
@@ -122,6 +127,9 @@ export class SmzTableContextPipe implements PipeTransform {
           isEnabled: true,
           rows: 10
         }
+      },
+      styles: inputState.styles ?? {
+        striped: false
       }
     };
 
