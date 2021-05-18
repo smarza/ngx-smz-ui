@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { SmzContentType, SmzTableState, SmzClipboardService, SmzFilterType } from 'ngx-smz-ui';
+import { SmzContentType, SmzTableState, SmzClipboardService, SmzFilterType, SmzTableBuilder } from 'ngx-smz-ui';
 import { DemoTableDataService } from './data-service/demo-tables-data-service';
 
 const jsonData = '[{"id":"6eaed794-e6ba-4d61-9c2c-08d8da43305f","number":"PT-0001","isActive":true,"description":"Permissão de trabalho de exemplo 1","plant":{"id":"2d164cb8-c7e2-4aba-2433-08d8da432fcf","name":"P-76"},"campaign":{"id":"f2f9690a-198d-4209-613f-08d8da433018","name":"Parada de Produção de P76"},"price":1923.23,"date":"2021-03-02T13:35:49.278Z"},{"id":"80d2a15a-d3e9-4fde-9c2e-08d8da43305f","number":"PT-0002","isActive":false,"description":"Permissão de trabalho de exemplo 2","plant":{"id":"2d164cb8-c7e2-4aba-2433-08d8da432fcf","name":"P-76"},"campaign":{"id":"f2f9690a-198d-4209-613f-08d8da433018","name":"Parada de Produção de P76"},"price":2000.1,"date":"2021-02-15T13:35:49.278Z"},{"id":"6eaed794-e6ba-4d61-9c2c-08d8da433058","number":"PT-0003","isActive":false,"description":"Permissão de trabalho de exemplo 3","plant":{"id":"2d164cb8-c7e2-4aba-2433-08d8da432fcy","name":"P-74"},"campaign":{"id":"f2f9690a-198d-4209-613f-08d8da433016","name":"Parada de Produção de P74"},"price":23467.92,"date":"2021-04-20T13:35:49.278Z"}]';

@@ -9,7 +9,6 @@ export interface UiAthenaStateModel {
   config: AthenaLayout;
   state: LayoutState;
 }
-
 export const getInitialState = (): UiAthenaStateModel => ({
   config: null,
   state: {
@@ -34,7 +33,6 @@ export const getInitialState = (): UiAthenaStateModel => ({
 @Injectable()
 export class UiAthenaState {
   constructor() { }
-
 
   @Action(UiAthenaActions.Initialize)
   public onInitialize(ctx: StateContext<UiAthenaStateModel>, action: UiAthenaActions.Initialize): void {
