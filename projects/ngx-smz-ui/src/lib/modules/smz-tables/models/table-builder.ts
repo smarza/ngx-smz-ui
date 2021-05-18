@@ -362,7 +362,7 @@ export class SmzIconColumnBuilder extends SmzBaseColumnBuilder {
     super(_table, _parent, SmzContentType.ICON, field, header, width);
   }
 
-  public addIconConfiguration(icon: string, value: any, styleClass: string = null, tooltip: string = null): SmzBaseColumnBuilder {
+  public addIconConfiguration(icon: string, value: any, styleClass: string = null, tooltip: string = null): SmzIconColumnBuilder {
     if (this._column.content.type !== SmzContentType.ICON) throw new Error('You can use this option for Icon columns only');
     (this._column.content.data as SmzIconContent).matches.push({ icon, value, class: styleClass, tooltip });
     return this;
@@ -406,7 +406,7 @@ export class SmzMenuBuilder {
 
   public item(label: string, icon: string = null): SmzMenuItemBuilder {
     this._tableBuilder._state.actions.menu.isVisible = true;
-    const item: SmzMenuItem = { label, icon, transforms: [] };
+    const item: SmzMenuItem = { label, icon, transforms: [], visible: true, disabled: false };
     this._tableBuilder._state.actions.menu.items.push(item);
     return new SmzMenuItemBuilder(this, null, item);
   }
@@ -454,6 +454,16 @@ export class SmzMenuItemBuilder {
 
   public setActivationRule<T>(callback: (item: T) => boolean): SmzMenuItemBuilder {
     this._item.conditional = { condition: callback, property: 'disabled' };
+    return this;
+  }
+
+  public hide(): SmzMenuItemBuilder {
+    this._item.visible = false;
+    return this;
+  }
+
+  public disable(): SmzMenuItemBuilder {
+    this._item.disabled = true;
     return this;
   }
 
