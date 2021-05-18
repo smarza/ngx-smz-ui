@@ -295,6 +295,8 @@ export abstract class SmzBaseColumnBuilder {
       isVisible: true,
       width: width
     };
+
+    this._table._state.columns.push(this._column);
   }
 
   public disableSort(): SmzBaseColumnBuilder {
