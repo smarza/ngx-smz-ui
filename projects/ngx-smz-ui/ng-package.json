@@ -63,6 +63,8 @@
       "primeng/tree": "tree",
       "primeng/contextmenu": "contextmenu",
       "lodash-es/uniqBy": "uniqBy",
+      "lodash-es/isEmpty": "isEmpty",
+      "lodash-es/isNumber": "isNumber",
       "primeng/ripple": "ripple",
       "primeng/utils": "utils",
       "primeng/skeleton": "skeleton",
