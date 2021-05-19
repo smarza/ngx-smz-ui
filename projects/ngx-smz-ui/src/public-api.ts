@@ -9,6 +9,7 @@ export * from './lib/modules/smz-messages/public-api';
 export * from './lib/modules/smz-faqs/public-api';
 export * from './lib/modules/smz-layouts/public-api';
 export * from './lib/modules/smz-tables/public-api';
+export * from './lib/modules/smz-trees/public-api';
 export * from './lib/modules/smz-html-viewer/public-api';
 export * from './lib/modules/smz-data-info/public-api';
 export * from './lib/modules/smz-side-content/public-api';

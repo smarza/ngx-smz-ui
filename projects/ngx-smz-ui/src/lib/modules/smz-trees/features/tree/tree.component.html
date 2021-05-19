@@ -1,0 +1,100 @@
+<ng-container *ngIf="state; else noStateTemplate">
+
+    <ng-container
+        *ngIf="(state.emptyFeedback != null && (state.emptyFeedback.extraInfo || state.emptyFeedback.image || state.emptyFeedback.actionButton)) && (items != null && items.length === 0); else treeTemplate">
+        <!-- <smz-data-info
+            [image]="context.state.emptyFeedback.image"
+            [message]="context.state.emptyFeedback.message"
+            [callbackInfo]="context.state.emptyFeedback.extraInfo"
+            [callbackLabel]="context.state.emptyFeedback.actionButton?.label"
+            (clicked)="context.state.emptyFeedback.actionButton?.callback()">
+
+            <ng-template pTemplate="actions">
+                <ng-container *ngTemplateOutlet="emptyActionsTemplate; context: { $implicit: {} }"></ng-container>
+            </ng-template>
+
+        </smz-data-info> -->
+    </ng-container>
+
+    <ng-template #treeTemplate>
+
+        <ng-container *ngIf="items">
+            <div class="fixed inset-0 w-0 h-0">
+                <p-contextMenu #cm [model]="menuItems"></p-contextMenu>
+            </div>
+            <p-tree #dt [value]="items"
+                scrollHeight="flex"
+                [contextMenu]="cm"
+                [selectionMode]="state.selection.mode"
+                [(selection)]="selection"
+                layout="vertical"
+                [style]="state.styles.inlineStyle"
+                [styleClass]="state.styles.styleClass"
+                [propagateSelectionUp]="state.selection.propagateUp"
+                [propagateSelectionDown]="state.selection.propagateDown"
+                [loading]="state.loading.isLoading"
+                [loadingIcon]="state.loading.icon"
+                [filter]="state.filter.show"
+                [filterMode]="state.filter.mode"
+                [filterPlaceholder]="state.filter.textPlaceholder"
+                [draggableNodes]="state.dragAndDrop.draggable"
+                [droppableNodes]="state.dragAndDrop.droppable"
+                [validateDrop]="state.dragAndDrop.validateDrop"
+                (onNodeContextMenuSelect)="onContextMenuOpen($event)"
+                (onNodeSelect)="onSelected($event)"
+                (onNodeUnselect)="onUnselected($event)"
+                (onNodeExpand)="onExpanded($event)"
+                (onNodeCollapse)="onCollapsed($event)"
+                (onNodeDrop)="onDropped($event)"
+                (onFilter)="onFiltered($event)">
+
+                <ng-template pTemplate="header" *ngIf="state.header.isVisible">
+
+                    <ng-container *ngIf="state.header.toolbar as toolbar">
+                        <div class="p-d-flex p-jc-between p-mb-2">
+                            <h3 *ngIf="state.header.title != null" class="p-m-2">{{state.header.title}}</h3>
+                            <div>
+                                <ng-container *ngFor="let button of state.header.toolbar.items; let i=index">
+                                    <button
+                                        pButton
+                                        pRipple
+                                        type="button"
+                                        [ngClass]="{ 'p-ml-1' : i !== 0, 'p-button-text': toolbar.buttonType.endsWith('borderless'), 'p-button-outlined': toolbar.buttonType.endsWith('outlined'), 'p-button-rounded': toolbar.buttonType.startsWith('rounded'), 'p-button-secondary': button.color === 'secondary', 'p-button-success': button.color === 'success', 'p-button-info': button.color === 'info', 'p-button-warning': button.color === 'warning', 'p-button-help': button.color === 'help', 'p-button-danger': button.color === 'danger' }"
+                                        [label]="button.label"
+                                        [icon]="button.icon"
+                                        [pTooltip]="button.tooltip"></button>
+                                </ng-container>
+                            </div>
+                        </div>
+
+                        <div *ngIf="toolbarTemplate != null" class="p-grid p-nogutter p-align-center p-mt-2"
+                            [ngClass]="'p-justify-' + state.header.toolbar.alignment">
+                            <ng-container *ngTemplateOutlet="toolbarTemplate; context: { $implicit: dt }"></ng-container>
+                        </div>
+                    </ng-container>
+                </ng-template>
+
+                <ng-template pTemplate="footer" *ngIf="state.footer.isVisible">
+                    <div class="p-grid p-nogutter p-justify-start p-align-center">
+                        <span class="p-col p-mr-2">FOOTER</span>
+                    </div>
+                </ng-template>
+
+                <ng-template pTemplate="empty">
+                    <tr>
+                        <!-- <td [attr.colspan]="context.columns.length + ((context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible) ? 1 : 0) + (context.state.caption.rowSelection.isEnabled ? 1 : 0)"
+                        [ngStyle]="{ 'text-align': 'center' }">{{ context.state.emptyFeedback.message }}</td> -->
+                    </tr>
+                </ng-template>
+            </p-tree>
+
+        </ng-container>
+    </ng-template>
+
+</ng-container>
+
+<ng-template #noStateTemplate>
+    <!-- <ng-container *ngIf="emptyStateTemplate != null">
+        <ng-container *ngTemplateOutlet="emptyStateTemplate; context: { $implicit: {} }"></ng-container>
+    </ng-container> -->
+</ng-template>

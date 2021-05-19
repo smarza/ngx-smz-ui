@@ -24,6 +24,7 @@ export class AppComponent {
           { label: 'Details 2', routerLink: ['details', 'again'] },
           { label: 'Tables', icon: 'far fa-star', routerLink: ['tables'] },
           { label: 'Prime Tables', icon: 'far fa-star', routerLink: ['tables', 'prime'] },
+          { label: 'Trees', icon: 'far fa-tree', routerLink: ['trees'] },
           { label: 'Side Content', icon: 'far fa-star', routerLink: ['side-content'] },
           { label: 'Faqs', icon: 'far fa-star', routerLink: ['faqs'] },
         ]

@@ -60,6 +60,8 @@
       "primeng/toast": "toast",
       "primeng/toolbar": "toolbar",
       "primeng/tooltip": "tooltip",
+      "primeng/tree": "tree",
+      "primeng/contextmenu": "contextmenu",
       "lodash-es/uniqBy": "uniqBy",
       "primeng/ripple": "ripple",
       "primeng/utils": "utils",
