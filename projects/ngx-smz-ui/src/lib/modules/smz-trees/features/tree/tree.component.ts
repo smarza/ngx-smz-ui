@@ -148,7 +148,6 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
   }
 
   public onContextMenuOpen(event: { originalEvent: MouseEvent, node: TreeNode }): void {
-    console.log('POPUP: ', event);
     if (this.state.menu.isVisible) {
       this.menuItems = this.convertMenu(this.state.menu.items, event.node);
     }
@@ -257,7 +256,6 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
   }
 
   public onFiltered(event: {filter: any, filteredValue: any}): void {
-    console.log('FILTER: ', event);
   }
 
   private expandRecursive(node: TreeNode, isExpand: boolean): void {

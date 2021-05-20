@@ -34,6 +34,7 @@ import { ContextMenuModule } from 'primeng/contextmenu';
         ContextMenuModule,
         TreeModule,
         TooltipModule,
+        InputTextModule,
         SkeletonModule
     ],
     exports: [
