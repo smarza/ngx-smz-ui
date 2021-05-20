@@ -277,7 +277,7 @@ initialState?:{
 
 The options for this section controls the behavior of the actions column of the table.
 
-This column can have a meno to open/close the popup menu and/or other extra action buttons.
+This column can have a menu to open/close the popup menu and/or other extra action buttons.
 
 Ideally you set only the menu or the custom actions area to be visible, since they both use the same column and also have intersecting functionality.
 
