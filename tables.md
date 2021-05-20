@@ -158,7 +158,7 @@ If the other properties are used, the feedback will be more complete.
      */
     extraInfo?: string;
     /**
-     * Controls the behavior the opnional action button. If nothing
+     * Controls the behavior the optional action button. If nothing
      * is specified, no button is shown
      */
     actionButton?: {
