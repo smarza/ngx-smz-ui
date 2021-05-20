@@ -470,7 +470,7 @@ These are controls to be displayed in the last column of the table. They must be
 
 ```html
 <ng-template pTemplate="actions" let-item>
-  <button pButton type="button" class="p-button-secondary" icon="pi pi-cog" (click)="test(item)"></button>
+  <button pButton type="button" class="p-button-secondary" icon="pi pi-check" (click)="test(item)"></button>
 </ng-template>
 ```
 
