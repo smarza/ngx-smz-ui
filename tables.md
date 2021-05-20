@@ -139,7 +139,7 @@ When the `columnVisibility` is enbaled a dropdown will be shown in the caption a
 ![image](https://user-images.githubusercontent.com/10734059/118338045-9381be80-b4eb-11eb-85ff-601f3278b65a.png)
 ## Empty feedback
 
-Controls the behavior of the empty feedback for th user, when the table has no data.
+Controls the behavior of the empty feedback for the user, when the table has no data.
 If only the `message` property is used, the table will show a simple text message with it.
 If the other properties are used, the feedback will be more complete.
 
