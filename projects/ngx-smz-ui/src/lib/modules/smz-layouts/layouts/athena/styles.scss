@@ -219,11 +219,8 @@ body a {
 .layout-wrapper .topbar #menu-button {
   display: none;
   vertical-align: top;
-  height: var(--layout-topbar-height);
   width: var(--layout-topbar-height);
-  line-height: var(--layout-topbar-height);
   text-align: center;
-  margin-top: -10px;
   margin-left: 30px;
   color: var(--primary-color-text);
   -moz-transition: background-color 0.3s;
@@ -302,15 +299,12 @@ body a {
   height: 100%;
   width: 185px;
   display: inline-block;
-  margin-top: 1px;
 }
 .layout-wrapper .topbar .topbar-logo .logo {
   height: calc(var(--layout-topbar-height) * 0.6);
 }
 .layout-wrapper .topbar .profile {
-  float: right;
   text-align: right;
-  margin-top: -1px;
   font-weight: 700;
 }
 .layout-wrapper .topbar .profile-with-icon {
@@ -346,10 +340,12 @@ body a {
   padding: 0;
   margin: 0;
   background-color: var(--primary-color);
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-top: 1px solid var(--primary-color);
   -webkit-animation-duration: 0.3s;
   -moz-animation-duration: 0.3s;
   animation-duration: 0.3s;
+  box-shadow: 0 4.1px 2.4px rgba(0, 0, 0, 0.028), 0 10.3px 6px rgba(0, 0, 0, 0.04), 0 21.1px 12.2px rgba(0, 0, 0, 0.05),
+    0 43.4px 25.2px rgba(0, 0, 0, 0.062), 0 119px 69px rgba(0, 0, 0, 0.09);
 }
 .layout-wrapper .topbar .topbar-menu.topbar-menu-visible {
   display: block;
@@ -438,7 +434,7 @@ body a {
   display: none;
 }
 .layout-wrapper .layout-menu-container {
-  background-color: var(--surface-a);
+  background-color: var(--primary-color-menu-bg);
   position: fixed;
   z-index: 101;
   top: var(--layout-topbar-height);
@@ -460,13 +456,13 @@ body a {
   text-transform: uppercase;
   font-weight: 500;
   padding: 1.5rem 0 0.5rem 1.5rem;
-  color: var(--text-color);
+  color: var(--primary-color-menu-text);
 }
 .layout-wrapper .layout-menu-container .layout-menu li.layout-root-menuitem > a {
   display: none;
 }
 .layout-wrapper .layout-menu-container .layout-menu li > a {
-  color: var(--text-color);
+  color: var(--primary-color-menu-text);
   display: block;
   cursor: pointer;
   outline: none;
@@ -717,11 +713,11 @@ body a {
   }
   .layout-wrapper.layout-horizontal .layout-menu-container .layout-menu > li > a:hover {
     border-bottom-color: var(--primary-color);
-    color: var(--primary-color);
+    color: var(--primary-color-menu-text);
   }
   .layout-wrapper.layout-horizontal .layout-menu-container .layout-menu > li.active-menuitem > a {
-    background-color: var(--primary-color);
-    color: var(--primary-color-text);
+    background-color: var(--primary-color-menu-bg);
+    color: var(--primary-color-menu-active);
   }
   .layout-wrapper.layout-horizontal .layout-menu-container .layout-menu > li.active-menuitem > ul {
     top: 50px;
@@ -743,7 +739,7 @@ body a {
     margin: 0;
     padding: 0;
     list-style-type: none;
-    background-color: var(--surface-a);
+    background-color: var(--primary-color-menu-bg);
   }
   .layout-wrapper.layout-horizontal .layout-menu-container .layout-menu > li ul li a {
     padding: 8px 12px;
@@ -758,14 +754,14 @@ body a {
     margin-top: 4px;
   }
   .layout-wrapper.layout-horizontal .layout-menu-container .layout-menu > li ul li a:hover {
-    background-color: var(--primary-color);
-    color: var(--primary-color-text);
+    background-color: var(--primary-color-menu-bg-hover);
+    color: var(--primary-color-menu-text-hover);
   }
   .layout-wrapper.layout-horizontal .layout-menu-container .layout-menu > li ul li.active-menuitem > a {
-    color: var(--primary-color);
+    color: var(--primary-color-menu-active);
   }
   .layout-wrapper.layout-horizontal .layout-menu-container .layout-menu > li ul li.active-menuitem > a:hover {
-    color: var(--primary-color-text);
+    color: var(--primary-color-menu-text-hover);
   }
   .layout-wrapper.layout-horizontal .layout-menu-container .layout-menu > li ul li.active-menuitem > ul {
     display: block;
@@ -835,8 +831,8 @@ body a {
   }
   .layout-wrapper.layout-overlay .layout-menu-container .layout-menu li a:hover,
   .layout-wrapper.layout-static .layout-menu-container .layout-menu li a:hover {
-    background-color: var(--primary-color);
-    color: var(--primary-color-text);
+    background-color: var(--primary-color-menu-bg-hover);
+    color: var(--primary-color-menu-text-hover);
   }
   .layout-wrapper.layout-overlay .layout-menu-container .layout-menu li a i:first-child,
   .layout-wrapper.layout-static .layout-menu-container .layout-menu li a i:first-child {
@@ -858,13 +854,13 @@ body a {
   }
   .layout-wrapper.layout-overlay .layout-menu-container .layout-menu li.active-menuitem > a,
   .layout-wrapper.layout-static .layout-menu-container .layout-menu li.active-menuitem > a {
-    background-color: var(--surface-a);
-    color: var(--primary-color);
+    background-color: var(--primary-color-menu-bg);
+    color: var(--primary-color-menu-active);
   }
   .layout-wrapper.layout-overlay .layout-menu-container .layout-menu li.active-menuitem > a:hover,
   .layout-wrapper.layout-static .layout-menu-container .layout-menu li.active-menuitem > a:hover {
-    background-color: var(--primary-color);
-    color: var(--primary-color-text);
+    background-color: var(--primary-color-menu-bg-hover);
+    color: var(--primary-color-menu-text-hover);
   }
   .layout-wrapper.layout-overlay .layout-menu-container .layout-menu li.active-menuitem > ul,
   .layout-wrapper.layout-static .layout-menu-container .layout-menu li.active-menuitem > ul {
@@ -872,7 +868,7 @@ body a {
   }
   .layout-wrapper.layout-overlay .layout-menu-container .layout-menu > li ul,
   .layout-wrapper.layout-static .layout-menu-container .layout-menu > li ul {
-    background: var(--surface-a);
+    background: var(--primary-color-menu-bg);
   }
   .layout-wrapper.layout-overlay .layout-menu-container .layout-menu > li ul li a,
   .layout-wrapper.layout-static .layout-menu-container .layout-menu > li ul li a {
@@ -990,14 +986,14 @@ body a {
     display: block;
   }
   .layout-wrapper.layout-slim .layout-menu-container .layout-menu > li > a:hover {
-    background-color: var(--primary-color);
-    color: var(--primary-color-text);
+    background-color: var(--primary-color-menu-bg-hover);
+    color: var(--primary-color-menu-text-hover);
   }
   .layout-wrapper.layout-slim .layout-menu-container .layout-menu > li > ul {
     box-shadow: 0 2px 4px 0px rgba(0, 0, 0, 0.3);
     -webkit-box-shadow: 0 2px 4px 0px rgba(0, 0, 0, 0.3);
     -moz-box-shadow: 0 1px 2px 4px rgba(0, 0, 0, 0.3);
-    background-color: var(--surface-a);
+    background-color: var(--primary-color-menu-bg);
     position: absolute;
     top: 0;
     left: 60px;
@@ -1017,14 +1013,14 @@ body a {
     margin-top: 4px;
   }
   .layout-wrapper.layout-slim .layout-menu-container .layout-menu > li > ul li a:hover {
-    background-color: var(--primary-color);
-    color: var(--primary-color-text);
+    background-color: var(--primary-color-menu-bg-hover);
+    color: var(--primary-color-menu-text-hover);
   }
   .layout-wrapper.layout-slim .layout-menu-container .layout-menu > li > ul li.active-menuitem > a {
-    color: var(--primary-color);
+    color: var(--primary-color-menu-active);
   }
   .layout-wrapper.layout-slim .layout-menu-container .layout-menu > li > ul li.active-menuitem > a:hover {
-    color: var(--primary-color-text);
+    color: var(--primary-color-menu-text-hover);
   }
   .layout-wrapper.layout-slim .layout-menu-container .layout-menu > li > ul li.active-menuitem > ul {
     display: block;
@@ -1051,12 +1047,12 @@ body a {
     padding-left: 72px;
   }
   .layout-wrapper.layout-slim .layout-menu-container .layout-menu > li.active-menuitem > a {
-    background-color: var(--surface-a);
-    color: var(--primary-color);
+    background-color: var(--primary-color-menu-bg);
+    color: var(--primary-color-menu-active);
   }
   .layout-wrapper.layout-slim .layout-menu-container .layout-menu > li.active-menuitem > a:hover {
-    background-color: var(--primary-color);
-    color: var(--primary-color-text);
+    background-color: var(--primary-color-menu-bg-hover);
+    color: var(--primary-color-menu-text-hover);
   }
   .layout-wrapper.layout-slim
     .layout-menu-container
@@ -1111,8 +1107,8 @@ body a {
     display: block;
   }
   .layout-wrapper .layout-menu-container .layout-menu li a:hover {
-    background-color: var(--primary-color);
-    color: var(--primary-color-text);
+    background-color: var(--primary-color-menu-bg-hover);
+    color: var(--primary-color-menu-text-hover);
   }
   .layout-wrapper .layout-menu-container .layout-menu li a i:first-child {
     font-size: 18px;
@@ -1130,18 +1126,18 @@ body a {
     margin-left: 6px;
   }
   .layout-wrapper .layout-menu-container .layout-menu li.active-menuitem > a {
-    background-color: var(--surface-a);
-    color: var(--primary-color);
+    background-color: var(--primary-color-menu-bg);
+    color: var(--primary-color-menu-active);
   }
   .layout-wrapper .layout-menu-container .layout-menu li.active-menuitem > a:hover {
-    background-color: var(--primary-color);
-    color: var(--primary-color-text);
+    background-color: var(--primary-color-menu-bg-hover);
+    color: var(--primary-color-menu-text-hover);
   }
   .layout-wrapper .layout-menu-container .layout-menu > li:first-child {
     margin-top: 8px;
   }
   .layout-wrapper .layout-menu-container .layout-menu > li ul {
-    background: var(--surface-a);
+    background: var(--primary-color-menu-bg);
   }
   .layout-wrapper .layout-menu-container .layout-menu > li ul li a {
     padding-left: 24px;

@@ -60,7 +60,7 @@ export class GlobalAssistanceComponent implements OnInit {
     this.store.dispatch(new UiActions.SetContentTheme(data));
   }
 
-  public onSetColorSchema(data: ColorSchemaDefinition): void {
+  public onSetColorSchema(data: ColorSchemaDefinition | string): void {
     this.store.dispatch(new UiActions.SetColorSchema(data));
   }
 

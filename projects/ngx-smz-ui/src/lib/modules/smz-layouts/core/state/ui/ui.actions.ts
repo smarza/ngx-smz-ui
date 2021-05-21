@@ -14,7 +14,7 @@ export namespace UiActions
     export class SetColorSchema
     {
         public static readonly type = '[UI] Set Color Schema';
-        constructor(public data: ColorSchemaDefinition) {}
+        constructor(public data: ColorSchemaDefinition | string) {}
     }
 
     export class SetContentTheme

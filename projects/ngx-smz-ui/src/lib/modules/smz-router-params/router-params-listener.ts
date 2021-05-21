@@ -2,8 +2,6 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { RouterParamsActions } from './state/router-params/router-params.actions';
 import { Store } from '@ngxs/store';
 
-import isEmpty from 'lodash-es/isEmpty';
-import isNumber from 'lodash-es/isNumber';
 import { GlobalInjector } from '../../common/services/global-injector';
 
 export function routerParamsListener(key: string, route: ActivatedRoute, callback?: (data) => void): void
@@ -12,7 +10,7 @@ export function routerParamsListener(key: string, route: ActivatedRoute, callbac
         {
             const data = mapParamsToObject<any>(params);
 
-            if (!isEmpty(key))
+            if (key != null && key !== '')
             {
                 if (callback != null) callback(data);
 
@@ -56,7 +54,7 @@ export function mapParamsToObject<T>(params: ParamMap): T
       // is array
       const values = value.split(',');
 
-      result[key] = values.map(x => isNumber(Number(x)) ? Number(x) : x);
+      result[key] = values.map(x => (typeof Number(x) === 'number') ? Number(x) : x);
     }
     else if (value === 'null')
     {

@@ -52,7 +52,23 @@ export const smzLayoutsConfig: SmzLayoutsConfig = {
     },
     themes: {
         content: SmzContentTheme.PRIMEONE_LIGHT,
-        schema: ColorSchemaDefinition.DEMO_PROJECT
+        schema: ColorSchemaDefinition.E_LIBRA,
+        // custom: {
+        //     id: 'teste',
+        //     name: 'Teste',
+        //     tone: 'light',
+        //     color: '#F5F5F5',
+        //     constrast: 'yellow',
+        //     schemas: [
+        //         { id: '--primary-color', name: '#F5F5F5' }, // topo
+        //         { id: '--primary-color-text', name: '#383838' }, // texto on hover do menu
+        //         { id: '--primary-color-menu-bg', name: 'yellow' },
+        //         { id: '--primary-color-menu-bg-hover', name: '#CFC100' },
+        //         { id: '--primary-color-menu-text', name: 'blue' },
+        //         { id: '--primary-color-menu-text-hover', name: '#0006AC' },
+        //         { id: '--primary-color-menu-active', name: '#FFAE00' },
+        //     ]
+        // },
     },
     loader: {
         type: SmzLoader.CUBE,

@@ -9,7 +9,7 @@ export enum ColorSchemaDefinition {
 }
 
 export interface ColorSchema {
-  id: ColorSchemaDefinition;
+  id: ColorSchemaDefinition | string;
   name: string;
   schemas: SimpleNamedEntity[];
   tone: ThemeToneType;
@@ -25,8 +25,15 @@ export const SmzColorSchemas: ColorSchema[] = [
     color: '#009688',
     constrast: '#ffffff',
     schemas: [
-      { id: '--primary-color', name: '#009688' }, // topo
-      { id: '--primary-color-text', name: '#ffffff' }, // texto on hover do menu
+      { id: '--primary-color', name: '#009688' },
+      { id: '--primary-color-text', name: '#ffffff' },
+      { id: '--primary-color-menu-bg', name: '#ffffff' },
+      { id: '--primary-color-menu-bg-hover', name: '#F5F5F5' },
+      { id: '--primary-color-menu-text', name: '#212121' },
+      { id: '--primary-color-menu-text-hover', name: '#000000' },
+      { id: '--primary-color-menu-active', name: '#009688' },
+      { id: '--primary-color-loading', name: '#ffffff' },
+      { id: '--primary-color-loading-bg', name: '#009688' }
     ]
   },
   {
@@ -36,8 +43,15 @@ export const SmzColorSchemas: ColorSchema[] = [
     color: '#1976D2',
     constrast: '#ffffff',
     schemas: [
-      { id: '--primary-color', name: '#1976D2' }, // topo
-      { id: '--primary-color-text', name: '#ffffff' }, // texto on hover do menu
+      { id: '--primary-color', name: '#1976D2' },
+      { id: '--primary-color-text', name: '#ffffff' },
+      { id: '--primary-color-menu-bg', name: '#1976D2' },
+      { id: '--primary-color-menu-bg-hover', name: '#0000001c' },
+      { id: '--primary-color-menu-text', name: '#FFFFFFE7' },
+      { id: '--primary-color-menu-text-hover', name: '#FAFAFA' },
+      { id: '--primary-color-menu-active', name: '#ffffffcf' },
+      { id: '--primary-color-loading', name: '#ffffff' },
+      { id: '--primary-color-loading-bg', name: '#1976D2' }
     ]
   },
   {
@@ -47,8 +61,15 @@ export const SmzColorSchemas: ColorSchema[] = [
     color: '#000000',
     constrast: '#ffb300',
     schemas: [
-      { id: '--primary-color', name: '#000000' }, // topo
-      { id: '--primary-color-text', name: '#ffb300' }, // texto on hover do menu
+      { id: '--primary-color', name: '#000000' },
+      { id: '--primary-color-text', name: '#ffb300' },
+      { id: '--primary-color-menu-bg', name: '#ffffff' },
+      { id: '--primary-color-menu-bg-hover', name: '#F5F5F5' },
+      { id: '--primary-color-menu-text', name: '#212121' },
+      { id: '--primary-color-menu-text-hover', name: '#000000' },
+      { id: '--primary-color-menu-active', name: '#ffb300' },
+      { id: '--primary-color-loading', name: '#000000' },
+      { id: '--primary-color-loading-bg', name: '#ffb300' }
     ]
   },
   {
@@ -58,8 +79,15 @@ export const SmzColorSchemas: ColorSchema[] = [
     color: '#454764',
     constrast: '#EA80FC',
     schemas: [
-      { id: '--primary-color', name: '#454764' }, // topo
-      { id: '--primary-color-text', name: '#EA80FC' }, // texto on hover do menu
+      { id: '--primary-color', name: '#454764' },
+      { id: '--primary-color-text', name: '#EA80FC' },
+      { id: '--primary-color-menu-bg', name: '#ffffff' },
+      { id: '--primary-color-menu-bg-hover', name: '#F5F5F5' },
+      { id: '--primary-color-menu-text', name: '#212121' },
+      { id: '--primary-color-menu-text-hover', name: '#000000' },
+      { id: '--primary-color-menu-active', name: '#454764' },
+      { id: '--primary-color-loading', name: '#F5F5F5' },
+      { id: '--primary-color-loading-bg', name: '#454764' }
     ]
   },
 ];

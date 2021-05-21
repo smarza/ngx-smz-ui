@@ -1,51 +1,51 @@
 .layout-sidebar-schema .layout-sidebar .layout-menu .layout-root-menuitem {
   li.active-menuitem {
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--primary-color-menu-bg);
   }
 }
 
 .layout-sidebar-schema .layout-sidebar {
-  background: var(--primary-color);
+  background: var(--primary-color-menu-bg);
   border-right: 0 none;
-  background-image: linear-gradient(180deg, var(--primary-color) 10%, var(--primary-color) 100%);
+  background-image: linear-gradient(180deg, var(--primary-color-menu-bg) 10%, var(--primary-color-menu-bg) 100%);
 }
 .layout-sidebar-schema .layout-sidebar .logo {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid var(--primary-color-menu-text);
 }
 .layout-sidebar-schema .layout-sidebar .logo:focus {
-  box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.1);
+  // box-shadow: 0 0 0 0.2rem var(--primary-color-menu-text);
 }
 .layout-sidebar-schema .layout-sidebar .app-name {
-  color: var(--primary-color-text);
+  color: var(--primary-color-menu-text)
 }
 .layout-sidebar-schema .layout-sidebar .layout-menu .menu-separator {
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-top: 1px solid var(--primary-color-menu-text);
 }
 .layout-sidebar-schema .layout-sidebar .layout-menu li.active-menuitem > a {
-  color: var(--primary-color-text);
+  color: var(--primary-color-menu-active);
 }
 .layout-sidebar-schema .layout-sidebar .layout-menu li a {
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--primary-color-menu-text);
 }
 .layout-sidebar-schema .layout-sidebar .layout-menu li a:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--primary-color-menu-bg-hover);
 }
 .layout-sidebar-schema .layout-sidebar .layout-menu li a:focus {
-  box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 0 0.2rem var(--primary-color-menu-bg);
 }
 .layout-sidebar-schema .layout-sidebar .layout-menu .layout-root-menuitem .layout-menuitem-root-text {
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--primary-color-menu-text);
 }
 .layout-sidebar-schema .layout-sidebar .layout-menu .layout-root-menuitem.active-menuitem {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--primary-color-menu-bg);
 }
 .layout-sidebar-schema .layout-sidebar .layout-menu .layout-root-menuitem > ul > li.active-menuitem {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--primary-color-menu-bg);
 }
 @media screen and (min-width: 992px) {
   .layout-sidebar-schema.layout-slim .layout-sidebar .layout-menu .layout-root-menuitem > ul {
-    background: var(--primary-color);
-    background-image: linear-gradient(180deg, var(--primary-color) 10%, var(--primary-color) 100%);
+    background: var(--primary-color-menu-bg);
+    background-image: linear-gradient(180deg, var(--primary-color-menu-bg) 10%, var(--primary-color-menu-bg) 100%);
   }
 }
 @media screen and (max-width: 992px) {

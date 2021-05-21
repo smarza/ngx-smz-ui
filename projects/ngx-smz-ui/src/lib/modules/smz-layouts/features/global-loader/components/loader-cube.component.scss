@@ -37,7 +37,7 @@
     --aspect-ratio: 1/1;
     height: 60px;
     width: 60px;
-    background: var(--primary-color);
+    background: var(--primary-color-loading-bg);
     border-radius: 60px;
 }
 
@@ -75,7 +75,7 @@
   .sk-cube-grid .sk-cube {
     width: 33%;
     height: 33%;
-    background-color: #fff;
+    background-color: var(--primary-color-loading);
     float: left;
     -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
             animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;

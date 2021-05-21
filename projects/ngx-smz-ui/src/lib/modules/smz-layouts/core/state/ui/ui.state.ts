@@ -15,7 +15,7 @@ export interface UiStateModel {
   assistance: Assistance;
   themes: {
     content: SmzContentTheme;
-    schema: ColorSchemaDefinition;
+    schema: ColorSchemaDefinition | string;
   };
   toast: SmzToastData;
   loader: LoaderData;
@@ -68,12 +68,18 @@ export class UiState {
   public onInitialize(ctx: StateContext<UiStateModel>): void {
     const state = ctx.getState().state;
 
+    if (this.config.themes.custom) {
+      SmzColorSchemas.push(this.config.themes.custom);
+    }
+
+    const schema = this.config.themes.custom ? this.config.themes.custom.id : this.config.themes.schema;
+
     ctx.patchState(
       {
         assistance: this.config.assistance,
         themes: {
           content: this.config.themes.content,
-          schema: this.config.themes.schema,
+          schema,
         },
         appLogo: this.config.appLogo,
         state: {
@@ -85,7 +91,7 @@ export class UiState {
       });
 
     ctx.dispatch(new UiActions.SetContentTheme(this.config.themes.content));
-    ctx.dispatch(new UiActions.SetColorSchema(this.config.themes.schema));
+    ctx.dispatch(new UiActions.SetColorSchema(schema));
   }
 
   @Action(UiActions.SetTopbarTitle)

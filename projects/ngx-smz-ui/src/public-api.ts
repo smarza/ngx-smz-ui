@@ -15,6 +15,7 @@ export * from './lib/modules/smz-data-info/public-api';
 export * from './lib/modules/smz-side-content/public-api';
 export * from './lib/modules/smz-info-date/public-api';
 export * from './lib/modules/smz-router-params/public-api';
+export * from './lib/modules/smz-viewport/public-api';
 
 export * from './lib/common/input-detection/input-detection.module';
 export * from './lib/common/input-detection/input-detection.directive';

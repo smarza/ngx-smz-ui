@@ -20,8 +20,7 @@ import { RouterState } from '@ngxs/router-plugin';
   host: { "(document:click)": "collapseFromOutside($event)" },
   encapsulation: ViewEncapsulation.None
 })
-export class AthenaHorizontalMenuComponent implements OnInit, AfterContentInit
-{
+export class AthenaHorizontalMenuComponent implements OnInit, AfterContentInit {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
   @Select(UiSelectors.topbarTitle) public topbarTitle$: Observable<string>;
   @Select(UiSelectors.appContentLogo) public appLogo$: Observable<SmzAppLogo>;
@@ -35,16 +34,12 @@ export class AthenaHorizontalMenuComponent implements OnInit, AfterContentInit
   public headerExtrasTemplate: TemplateRef<any>;
   constructor(public readonly rbkConfig: NgxRbkUtilsConfig, public readonly config: SmzLayoutsConfig, private store: Store, private _eref: ElementRef) { }
 
-  ngOnInit(): void
-  {
+  ngOnInit(): void {
 
   }
-  public ngAfterContentInit()
-  {
-    this.templates.forEach((item) =>
-    {
-      switch (item.getType())
-      {
+  public ngAfterContentInit() {
+    this.templates.forEach((item) => {
+      switch (item.getType()) {
         case 'headerExtras':
           this.headerExtrasTemplate = item.template;
           break;
@@ -53,21 +48,17 @@ export class AthenaHorizontalMenuComponent implements OnInit, AfterContentInit
   }
 
 
-  public toogleOnly(item: MenuItem, menu: MenuItem[]): void
-  {
+  public toogleOnly(item: MenuItem, menu: MenuItem[]): void {
     this.collapseAll(menu);
 
     item.expanded = !item.expanded;
     this.isAnyMenuExpanded = item.expanded;
   }
 
-  public collapseAll(menu: MenuItem[]): void
-  {
-    menu.forEach(x =>
-    {
+  public collapseAll(menu: MenuItem[]): void {
+    menu.forEach(x => {
       x.expanded = false;
-      if (x.items != null && x.items.length > 0)
-      {
+      if (x.items != null && x.items.length > 0) {
         this.collapseAll(x.items);
       }
     });
@@ -76,9 +67,13 @@ export class AthenaHorizontalMenuComponent implements OnInit, AfterContentInit
   }
 
   public collapseFromOutside(event: any): void {
-    if (!this._eref.nativeElement.contains(event.target)){
+
+    const target: HTMLElement = event.target;
+
+    if (target.className === 'layout-menu' || !this._eref.nativeElement.contains(target)) {
       this.collapseAll(this.menu);
     }
+
   }
 
 }

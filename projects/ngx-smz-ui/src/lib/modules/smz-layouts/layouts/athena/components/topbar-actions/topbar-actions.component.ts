@@ -9,13 +9,13 @@ import { SmzNotification } from '../../../../core/models/notifications';
   template: `
       <ng-content></ng-content>
 
-      <span *ngIf="profile?.length > 0" smz-ui-athena-profile-menu [profile]="profile"></span>
-
-      <span class="notification-container" *ngIf="notifications?.length > 0" smz-ui-athena-notifications [items]="notifications"></span>
-
       <span *ngIf="headerExtrasTemplate != null" class="extras-container p-mr-3">
           <ng-container *ngTemplateOutlet="headerExtrasTemplate"></ng-container>
       </span>
+
+      <span class="notification-container" *ngIf="notifications?.length > 0" smz-ui-athena-notifications [items]="notifications"></span>
+
+      <span *ngIf="profile?.length > 0" smz-ui-athena-profile-menu [profile]="profile"></span>
 
   `,
 })

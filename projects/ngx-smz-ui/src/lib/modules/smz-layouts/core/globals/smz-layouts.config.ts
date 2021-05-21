@@ -1,5 +1,5 @@
 import { Assistance } from '../models/assistance';
-import { ColorSchemaDefinition } from '../models/color-schemas';
+import { ColorSchema, ColorSchemaDefinition } from '../models/color-schemas';
 import { SmzFooter } from '../models/footer';
 import { LoaderData } from '../models/layout';
 import { LogoResource } from '../models/logo';
@@ -18,7 +18,8 @@ export class SmzLayoutsConfig {
     profileMessage?: string;
     themes: {
         content: SmzContentTheme;
-        schema: ColorSchemaDefinition;
+        schema?: ColorSchemaDefinition | string;
+        custom?: ColorSchema;
     };
     toast: {
         position: EdgePositionType;
