@@ -167,7 +167,7 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
         visible: item.visible,
         disabled: item.disabled,
         separator: item.separator,
-        command: () => item.callback != null ? item.callback(context) : null,
+        command: item.callback != null ? () => item.callback(context) : null,
         items: this.convertMenu(item.items, context),
       };
 
