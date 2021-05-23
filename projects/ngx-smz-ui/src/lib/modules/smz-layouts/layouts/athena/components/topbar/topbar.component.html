@@ -2,7 +2,7 @@
 
     <div class="topbar clearfix">
 
-        <div class="w-full h-full p-grid p-nogutter p-align-center p-justify-start" smz-ui-athena-topbar-actions [headerExtrasTemplate]="headerExtrasTemplate" [profile]="profile" [notifications]="notifications">
+        <div class="w-full h-full p-grid p-nogutter p-align-center p-justify-start p-flex-nowrap" smz-ui-athena-topbar-actions [headerExtrasTemplate]="headerExtrasTemplate" [profile]="profile" [notifications]="notifications">
 
             <a class="topbar-logo p-col">
                 <ng-container *ngIf="(appLogo$ | async) as appLogo">
