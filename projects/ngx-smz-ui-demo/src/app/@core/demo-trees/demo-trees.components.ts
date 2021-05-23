@@ -17,7 +17,7 @@ export class DemoTreesComponent implements OnInit {
   public loading = false;
   constructor(private http: HttpClient) {
 
-    this.items$ = this.http.get<{data: TreeNode[]}>('assets/files.json').pipe(map(x => x.data));
+    this.items$ = this.http.get<{data: TreeNode}>('assets/files.json').pipe(map(x => [x.data]));
   }
 
   ngOnInit() {
@@ -55,9 +55,11 @@ export class DemoTreesComponent implements OnInit {
           .menu
         .tree
       .enableFilter()
-      .toolbar()
+      .toolbar('rounded-outlined')
         .setAlignment('end')
-        .buttons('rounded-outlined')
+        .useTreeExpandButtons()
+        .useNodeExpandButtons()
+        .buttons()
           .button('', 'fas fa-coffee')
             .setCallback((data, node) => console.log('Button 1'))
             .setTooltip('Button 1 awesome tooltip')
@@ -74,6 +76,10 @@ export class DemoTreesComponent implements OnInit {
             .setColor('success')
             .buttons
           .toolbar
+        .tree
+        .dragAndDrop()
+          .canDrag('file').into('folder')
+          .canDrag('folder').into('folder')
         .tree
       .build();
   }

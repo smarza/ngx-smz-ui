@@ -1,6 +1,10 @@
 // LAYOUT
 @import "~ngx-smz-ui/resources/assets/scss/smz-ui.scss";
 
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
 .p-inline-message.p-inline-message-demo-local {
   background: #F3E5F5;
   border: solid #AB47BC;

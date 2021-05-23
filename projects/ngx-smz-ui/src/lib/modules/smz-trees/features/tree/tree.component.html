@@ -19,9 +19,7 @@
     <ng-template #treeTemplate>
 
         <ng-container *ngIf="items">
-            <div class="fixed inset-0 w-0 h-0">
-                <p-contextMenu #cm [model]="menuItems"></p-contextMenu>
-            </div>
+            <p-contextMenu #cm [model]="menuItems" appendTo="body"></p-contextMenu>
             <p-tree #dt [value]="items"
                 scrollHeight="flex"
                 [contextMenu]="cm"
@@ -64,6 +62,44 @@
                                         [icon]="button.icon"
                                         [pTooltip]="button.tooltip"></button>
                                 </ng-container>
+
+                                <button *ngIf="toolbar.nodeExpandButtons.isVisible === true"
+                                    pButton
+                                    pRipple
+                                    type="button"
+                                    [ngClass]="{ 'p-ml-1' : toolbar.items != null && toolbar.items.length > 0, 'p-button-text': toolbar.buttonType.endsWith('borderless'), 'p-button-outlined': toolbar.buttonType.endsWith('outlined'), 'p-button-rounded': toolbar.buttonType.startsWith('rounded'), 'p-button-secondary': true }"
+                                    [label]="toolbar.nodeExpandButtons.expandLabel"
+                                    icon="fas fa-angle-down"
+                                    (click)="expandNode()"
+                                    [pTooltip]=""></button>
+                                <button *ngIf="toolbar.nodeExpandButtons.isVisible === true"
+                                    pButton
+                                    pRipple
+                                    type="button"
+                                    [ngClass]="{ 'p-ml-1' : true, 'p-button-text': toolbar.buttonType.endsWith('borderless'), 'p-button-outlined': toolbar.buttonType.endsWith('outlined'), 'p-button-rounded': toolbar.buttonType.startsWith('rounded'), 'p-button-secondary': true }"
+                                    [label]="toolbar.nodeExpandButtons.collapseLabel"
+                                    icon="fas fa-angle-up"
+                                    (click)="collapseNode()"
+                                    [pTooltip]=""></button>
+
+                                <button *ngIf="toolbar.treeExpandButtons.isVisible === true"
+                                    pButton
+                                    pRipple
+                                    type="button"
+                                    [ngClass]="{ 'p-ml-1' : toolbar.items != null && toolbar.items.length > 0 || toolbar.nodeExpandButtons.isVisible === false, 'p-button-text': toolbar.buttonType.endsWith('borderless'), 'p-button-outlined': toolbar.buttonType.endsWith('outlined'), 'p-button-rounded': toolbar.buttonType.startsWith('rounded'), 'p-button-secondary': true }"
+                                    [label]="toolbar.treeExpandButtons.expandLabel"
+                                    icon="fas fa-angle-double-down"
+                                    (click)="expandAll()"
+                                    [pTooltip]=""></button>
+                                <button *ngIf="toolbar.treeExpandButtons.isVisible === true"
+                                    pButton
+                                    pRipple
+                                    type="button"
+                                    [ngClass]="{ 'p-ml-1' : true, 'p-button-text': toolbar.buttonType.endsWith('borderless'), 'p-button-outlined': toolbar.buttonType.endsWith('outlined'), 'p-button-rounded': toolbar.buttonType.startsWith('rounded'), 'p-button-secondary': true }"
+                                    [label]="toolbar.treeExpandButtons.collapseLabel"
+                                    icon="fas fa-angle-double-up"
+                                    (click)="collapseAll()"
+                                    [pTooltip]=""></button>
                             </div>
                             <span *ngIf="state.filter.show" class="p-input-icon-left p-col-12 p-md-4" [ngClass]="{ 'p-ml-2': state.header.toolbar.isVisible }">
                                 <i class="pi pi-search"></i>

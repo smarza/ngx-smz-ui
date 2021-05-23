@@ -12,6 +12,16 @@ export interface SmzTreeState {
       alignment?: 'start' | 'end';
       source?: 'state' | 'template';
       buttonType?: 'rounded-outlined' | 'rounded-filled' | 'rounded-borderless' | 'square-outlined' | 'square-filled' | 'square-borderless';
+      treeExpandButtons?: {
+        isVisible?: boolean,
+        expandLabel?: string;
+        collapseLabel?: string;
+      };
+      nodeExpandButtons?: {
+        isVisible?: boolean,
+        expandLabel?: string;
+        collapseLabel?: string;
+      };
       items?: SmzTreeToolbarButton[]
     }
   };
@@ -79,6 +89,7 @@ export interface SmzTreeState {
     draggable?: boolean;
     droppable?: boolean;
     validateDrop?: boolean;
+    configuration?: { dragType: string, dropType: string }[];
   }
 }
 

@@ -18,7 +18,17 @@ export class SmzTreeBuilder {
         alignment: 'start',
         buttonType: 'square-filled',
         items: [],
-        source: 'state'
+        source: 'state',
+        treeExpandButtons: {
+          isVisible: false,
+          collapseLabel: '',
+          expandLabel: ''
+        },
+        nodeExpandButtons: {
+          isVisible: false,
+          collapseLabel: '',
+          expandLabel: ''
+        },
       },
     },
     footer: {
@@ -37,6 +47,7 @@ export class SmzTreeBuilder {
       draggable: false,
       droppable: false,
       validateDrop: false,
+      configuration: []
     },
     filter: {
       filterBy: ['label'],
@@ -74,8 +85,9 @@ export class SmzTreeBuilder {
     return this;
   }
 
-  public toolbar(): SmzTreeToolbarBuilder {
+  public toolbar(type: 'rounded-outlined' | 'rounded-filled' | 'rounded-borderless' | 'square-outlined' | 'square-filled' | 'square-borderless'): SmzTreeToolbarBuilder {
     this._state.header.toolbar.isVisible = true;
+    this._state.header.toolbar.buttonType = type;
     return new SmzTreeToolbarBuilder(this);
   }
 
@@ -84,6 +96,8 @@ export class SmzTreeBuilder {
   }
 
   public dragAndDrop(): SmzTreeDragAndDropBuilder {
+    this._state.dragAndDrop.draggable = true;
+    this._state.dragAndDrop.droppable = true;
     return new SmzTreeDragAndDropBuilder(this);
   }
 
@@ -134,9 +148,26 @@ export class SmzTreeToolbarBuilder {
     return this;
   }
 
-  public buttons(type: 'rounded-outlined' | 'rounded-filled' | 'rounded-borderless' | 'square-outlined' | 'square-filled' | 'square-borderless'): SmzTreeToolbarButtonCollectionBuilder {
+  public useTreeExpandButtons(expandLabel: string = '', collapseLabel: string = ''): SmzTreeToolbarBuilder {
+    this._treeBuilder._state.header.toolbar.treeExpandButtons = {
+      isVisible: true,
+      collapseLabel: collapseLabel,
+      expandLabel: expandLabel
+    };
+    return this;
+  }
+
+  public useNodeExpandButtons(expandLabel: string = '', collapseLabel: string = ''): SmzTreeToolbarBuilder {
+    this._treeBuilder._state.header.toolbar.nodeExpandButtons = {
+      isVisible: true,
+      collapseLabel: collapseLabel,
+      expandLabel: expandLabel
+    };
+    return this;
+  }
+
+  public buttons(): SmzTreeToolbarButtonCollectionBuilder {
     this._treeBuilder._state.header.toolbar.items = [];
-    this._treeBuilder._state.header.toolbar.buttonType = type;
 
     return new SmzTreeToolbarButtonCollectionBuilder(this);
   }
@@ -230,19 +261,10 @@ export class SmzTreeDragAndDropBuilder {
 
   }
 
-  public enableDrag(): SmzTreeDragAndDropBuilder {
-    this._treeBuilder._state.dragAndDrop.draggable = true;
-    return this;
-  }
-
-  public enableDrop(): SmzTreeDragAndDropBuilder {
-    this._treeBuilder._state.dragAndDrop.droppable = true;
-    return this;
-  }
-
-  public validateDrop(): SmzTreeDragAndDropBuilder {
+  public canDrag(type: string): SmzTreeDropBuilder {
     this._treeBuilder._state.dragAndDrop.validateDrop = true;
-    return this;
+
+    return new SmzTreeDropBuilder(type, this);
   }
 
   public get tree(): SmzTreeBuilder {
@@ -318,5 +340,22 @@ export class SmzTreeMenuItemBuilder {
 
   public get menu(): SmzTreeMenuBuilder {
     return this._menuBuilder;
+  }
+}
+
+export class SmzTreeDropBuilder {
+  constructor(private _type: string, private _parentBuilder: SmzTreeDragAndDropBuilder) {
+
+  }
+
+  public into(...types: string[]): SmzTreeDragAndDropBuilder {
+    this._parentBuilder._treeBuilder._state.dragAndDrop.validateDrop = true;
+    types.forEach(x => {
+      if (this._parentBuilder._treeBuilder._state.dragAndDrop.configuration == null) {
+        this._parentBuilder._treeBuilder._state.dragAndDrop.configuration = [];
+      }
+      this._parentBuilder._treeBuilder._state.dragAndDrop.configuration.push({ dragType: this._type, dropType: x});
+    });
+    return this._parentBuilder;
   }
 }

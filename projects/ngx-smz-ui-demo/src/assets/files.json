@@ -1,122 +1,166 @@
 {
-    "data": [
-        {
-            "label": "Documents",
-            "type": "folder",
-            "data": "Documents Folder",
-            "expandedIcon": "pi pi-folder-open",
-            "collapsedIcon": "pi pi-folder",
-            "children": [
-                {
-                    "label": "Work",
-                    "data": "Work Folder",
-                    "type": "folder",
-                    "expandedIcon": "pi pi-folder-open",
-                    "collapsedIcon": "pi pi-folder",
-                    "children": [
-                        {
-                            "label": "Expenses.doc",
-                            "type": "file",
-                            "icon": "pi pi-file",
-                            "data": "Expenses Document"
-                        },
-                        {
-                            "label": "Resume.doc",
-                            "icon": "pi pi-file",
-                            "type": "file",
-                            "data": "Resume Document"
-                        }
-                    ]
-                },
-                {
-                    "label": "Home",
-                    "data": "Home Folder",
-                    "type": "folder",
-                    "expandedIcon": "pi pi-folder-open",
-                    "collapsedIcon": "pi pi-folder",
-                    "children": [
-                        {
-                            "label": "Invoices.txt",
-                            "icon": "pi pi-file",
-                            "data": "Invoices for this month"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "label": "Pictures",
-            "data": "Pictures Folder",
-            "expandedIcon": "pi pi-folder-open",
-            "type": "folder",
-            "collapsedIcon": "pi pi-folder",
-            "children": [
-                {
-                    "label": "barcelona.jpg",
-                    "icon": "pi pi-image",
-                    "type": "file",
-                    "data": "Barcelona Photo"
-                },
-                {
-                    "label": "logo.jpg",
-                    "icon": "pi pi-image",
-                    "type": "file",
-                    "data": "PrimeFaces Logo"
-                },
-                {
-                    "label": "primeui.png",
-                    "icon": "pi pi-image",
-                    "type": "file",
-                    "data": "PrimeUI Logo"
-                }
-            ]
-        },
-        {
-            "label": "Movies",
-            "data": "Movies Folder",
-            "type": "folder",
-            "expandedIcon": "pi pi-folder-open",
-            "collapsedIcon": "pi pi-folder",
-            "children": [
-                {
-                    "label": "Al Pacino",
-                    "data": "Pacino Movies",
-                    "type": "folder",
-                    "children": [
-                        {
-                            "label": "Scarface",
-                            "icon": "pi pi-video",
-                            "type": "file",
-                            "data": "Scarface Movie"
-                        },
-                        {
-                            "label": "Serpico",
-                            "icon": "pi pi-video",
-                            "type": "file",
-                            "data": "Serpico Movie"
-                        }
-                    ]
-                },
-                {
-                    "label": "Robert De Niro",
-                    "data": "De Niro Movies",
-                    "type": "folder",
-                    "children": [
-                        {
-                            "label": "Goodfellas",
-                            "icon": "pi pi-video",
-                            "type": "file",
-                            "data": "Goodfellas Movie"
-                        },
-                        {
-                            "label": "Untouchables",
-                            "type": "file",
-                            "icon": "pi pi-video",
-                            "data": "Untouchables Movie"
-                        }
-                    ]
-                }
-            ]
-        }
-    ]
+    "data": {
+        "label": "C:",
+        "type": "disk",
+        "data": {},
+        "icon": "far fa-hdd",
+        "collapsedIcon": "pi pi-folder",
+        "expanded": true,
+        "draggable": true,
+        "droppable": true,
+        "children": [
+            {
+                "label": "Documents",
+                "type": "folder",
+                "data": {},
+                "expandedIcon": "pi pi-folder-open",
+                "collapsedIcon": "pi pi-folder",
+                "draggable": true,
+                "droppable": true,
+                "children": [
+                    {
+                        "label": "Work",
+                        "data": {},
+                        "type": "folder",
+                        "expandedIcon": "pi pi-folder-open",
+                        "collapsedIcon": "pi pi-folder",
+                        "draggable": true,
+                        "droppable": true,
+                        "children": [
+                            {
+                                "label": "Expenses.doc",
+                                "type": "file",
+                                "icon": "pi pi-file",
+                                "data": {},
+                                "draggable": true,
+                                "droppable": true
+                            },
+                            {
+                                "label": "Resume.doc",
+                                "icon": "pi pi-file",
+                                "type": "file",
+                                "data": {},
+                                "draggable": true,
+                                "droppable": true
+                            }
+                        ]
+                    },
+                    {
+                        "label": "Home",
+                        "data": {},
+                        "type": "folder",
+                        "draggable": true,
+                        "droppable": true,
+                        "expandedIcon": "pi pi-folder-open",
+                        "collapsedIcon": "pi pi-folder",
+                        "children": [
+                            {
+                                "label": "Invoices.txt",
+                                "icon": "pi pi-file",
+                                "draggable": true,
+                                "droppable": true,
+                                "data": {}
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "label": "Pictures",
+                "data": {},
+                "expandedIcon": "pi pi-folder-open",
+                "type": "folder",
+                "draggable": true,
+                "droppable": true,
+                "collapsedIcon": "pi pi-folder",
+                "children": [
+                    {
+                        "label": "barcelona.jpg",
+                        "icon": "pi pi-image",
+                        "type": "file",
+                        "draggable": true,
+                        "droppable": true,
+                        "data": {}
+                    },
+                    {
+                        "label": "logo.jpg",
+                        "icon": "pi pi-image",
+                        "type": "file",
+                        "draggable": true,
+                        "droppable": true,
+                        "data": {}
+                    },
+                    {
+                        "label": "primeui.png",
+                        "icon": "pi pi-image",
+                        "type": "file",
+                        "draggable": true,
+                        "droppable": true,
+                        "data": {}
+                    }
+                ]
+            },
+            {
+                "label": "Movies",
+                "data": {},
+                "type": "folder",
+                "draggable": true,
+                "droppable": true,
+                "expandedIcon": "pi pi-folder-open",
+                "collapsedIcon": "pi pi-folder",
+                "children": [
+                    {
+                        "label": "Al Pacino",
+                        "data": {},
+                        "type": "folder",
+                        "draggable": true,
+                        "droppable": true,
+                        "children": [
+                            {
+                                "label": "Scarface",
+                                "icon": "pi pi-video",
+                                "type": "file",
+                                "draggable": true,
+                                "droppable": true,
+                                "data": {}
+                            },
+                            {
+                                "label": "Serpico",
+                                "icon": "pi pi-video",
+                                "type": "file",
+                                "draggable": true,
+                                "droppable": true,
+                                "data": {}
+                            }
+                        ]
+                    },
+                    {
+                        "label": "Robert De Niro",
+                        "data": {},
+                        "type": "folder",
+                        "draggable": true,
+                        "droppable": true,
+                        "children": [
+                            {
+                                "label": "Goodfellas",
+                                "icon": "pi pi-video",
+                                "type": "file",
+                                "draggable": true,
+                                "droppable": true,
+                                "data": "Goodfellas Movie"
+                            },
+                            {
+                                "label": "Untouchables",
+                                "type": "file",
+                                "icon": "pi pi-video",
+                                "draggable": true,
+                                "droppable": true,
+                                "data": "Untouchables Movie"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
 }
