@@ -17,6 +17,7 @@ export class SmzSideContentComponent implements OnInit, AfterContentInit, OnChan
   @Input() public visible: boolean = false;
   @Input() public position: 'left' | 'right';
   @Input() public overlay: boolean;
+  @Input() public appendToBody: boolean = false;
   @Output() public clicked: EventEmitter<void> = new EventEmitter<void>();
   @Output() public onHide: EventEmitter<void> = new EventEmitter<void>();
   public defaultConfig = SmzSideContentDefault;

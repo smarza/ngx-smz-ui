@@ -1,6 +1,6 @@
 {
   "name": "ngx-smz-ui",
-  "version": "2.0.23",
+  "version": "2.0.26",
   "peerDependencies": {
     "@angular/common": "^10.0.0 || ^11.0.0",
     "@angular/core": "^^10.0.0 || ^11.0.0",
@@ -17,7 +17,8 @@
     "primeicons": "^4.0.0",
     "primeng": "^11.4.2",
     "hover.css": "^2.0.0",
-    "moment": "^2.24.0"
+    "moment": "^2.24.0",
+    "tailwindcss": "^2.0.0"
   },
   "dependencies": {
     "tslib": "^2.0.0"
