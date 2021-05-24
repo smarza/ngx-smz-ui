@@ -34,8 +34,8 @@ import { smzFaqsConfig } from '../globals/smz-faqs.config';
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxSmzLayoutsModule.forRoot(smzLayoutsConfig),
 
-    // HephaestusLayoutModule.forRoot(smzHephaestusConfig),
-    AthenaLayoutModule.forRoot(smzAthenaConfig),
+    HephaestusLayoutModule.forRoot(smzHephaestusConfig),
+    // AthenaLayoutModule.forRoot(smzAthenaConfig),
     NgxSmzFaqsModule.forRoot(smzFaqsConfig)
 
   ],

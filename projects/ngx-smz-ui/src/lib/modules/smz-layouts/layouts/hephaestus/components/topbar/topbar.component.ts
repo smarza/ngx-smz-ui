@@ -7,6 +7,8 @@ import { UiSelectors } from '../../../../core/state/ui/ui.selectors';
 import { SmzLayoutsConfig } from '../../../../core/globals/smz-layouts.config';
 import { UiHephaestusActions } from '../../state/ui-layout.actions';
 import { SmzNotification } from '../../../../core/models/notifications';
+import { UiHephaestusSelectors } from '../../state/ui-layout.selectors';
+import { MenuType } from '../../../../core/models/menu-types';
 
 @UntilDestroy()
 @Component({
@@ -52,7 +54,17 @@ export class HephaestusTopbarComponent implements OnInit, AfterContentInit
 
   public toggle(): void
   {
-    this.store.dispatch(new UiHephaestusActions.ToggleSidebar);
+    const layout = this.store.selectSnapshot(UiHephaestusSelectors.layout);
+
+    if (layout.menu === MenuType.SLIM)
+    {
+      this.store.dispatch(new UiHephaestusActions.ToggleMobileSidebar);
+    }
+    else {
+      this.store.dispatch(new UiHephaestusActions.ToggleSidebar);
+      this.store.dispatch(new UiHephaestusActions.ToggleMobileSidebar);
+    }
+
   }
 
 }

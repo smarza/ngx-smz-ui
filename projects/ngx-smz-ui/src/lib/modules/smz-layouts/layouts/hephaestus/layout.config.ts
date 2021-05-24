@@ -4,6 +4,7 @@ import { SidebarState } from '../../core/models/sidebar-states';
 export class HephaestusLayout {
     menu: HephaestusMenuTypes;
     sidebarState: HephaestusSidebarStates;
+    mobileSidebarState: HephaestusSidebarStates;
     sidebarWidth: string;
     sidebarSlimWidth: string;
 
@@ -12,3 +13,4 @@ export class HephaestusLayout {
 export type HephaestusMenuTypes = MenuType.STATIC | MenuType.OVERLAY | MenuType.SLIM;
 
 export type HephaestusSidebarStates = SidebarState.ACTIVE | SidebarState.INACTIVE;
+

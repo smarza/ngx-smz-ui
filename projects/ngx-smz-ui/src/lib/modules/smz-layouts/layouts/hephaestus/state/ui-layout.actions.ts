@@ -44,4 +44,9 @@ export namespace UiHephaestusActions
         public static readonly type = '[UI Hephaestus] Toggle Sidebar';
     }
 
+    export class ToggleMobileSidebar
+    {
+        public static readonly type = '[UI Hephaestus] Toggle Mobile Sidebar';
+    }
+
 }

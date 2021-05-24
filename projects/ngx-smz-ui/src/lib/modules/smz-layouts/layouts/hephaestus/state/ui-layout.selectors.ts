@@ -14,11 +14,13 @@ export class UiHephaestusSelectors
     {
         const layoutClass = `layout-${state.config.menu}`;
         const sidebarClass = `${layoutClass}-${state.config.sidebarState}`;
-        const isOverlayVisible = state.config.menu === MenuType.OVERLAY && state.config.sidebarState === SidebarState.ACTIVE;
+        const mobileSidebarClass = state.config.mobileSidebarState === SidebarState.ACTIVE ? `layout-mobile-${state.config.mobileSidebarState}` : '';
+        const isOverlayVisible = (state.config.menu === MenuType.OVERLAY && state.config.sidebarState === SidebarState.ACTIVE) ||
+                                 (state.config.menu === MenuType.SLIM && state.config.mobileSidebarState === SidebarState.ACTIVE);
 
         const layout: LayoutState = {
             ...state.state,
-            wrapperClass: `${layoutClass} ${sidebarClass}`,
+            wrapperClass: `${layoutClass} ${sidebarClass} ${mobileSidebarClass}`,
             isOverlayVisible,
         };
 

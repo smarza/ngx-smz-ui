@@ -89,7 +89,7 @@ export class UiHephaestusState {
   @Action(UiHephaestusActions.HideSidebar)
   public onHideSidebar(ctx: StateContext<UiHephaestusStateModel>): void {
     const config = ctx.getState().config;
-    ctx.patchState({ config: { ...config, sidebarState: SidebarState.INACTIVE } });
+    ctx.patchState({ config: { ...config, sidebarState: SidebarState.INACTIVE, mobileSidebarState: SidebarState.INACTIVE } });
   }
 
   @Action(UiHephaestusActions.ToggleSidebar)
@@ -99,6 +99,17 @@ export class UiHephaestusState {
       config: {
         ...config,
         sidebarState: config.sidebarState === SidebarState.ACTIVE ? SidebarState.INACTIVE : SidebarState.ACTIVE
+      }
+    });
+  }
+
+  @Action(UiHephaestusActions.ToggleMobileSidebar)
+  public onToggleMobileSidebar(ctx: StateContext<UiHephaestusStateModel>): void {
+    const config = ctx.getState().config;
+    ctx.patchState({
+      config: {
+        ...config,
+        mobileSidebarState: config.mobileSidebarState === SidebarState.ACTIVE ? SidebarState.INACTIVE : SidebarState.ACTIVE
       }
     });
   }

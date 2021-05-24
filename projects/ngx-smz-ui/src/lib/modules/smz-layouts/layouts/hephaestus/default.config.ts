@@ -6,6 +6,7 @@ export const defaultHephaestusConfig: HephaestusLayout = {
 
     menu: MenuType.STATIC,
     sidebarState: SidebarState.ACTIVE,
+    mobileSidebarState: SidebarState.INACTIVE,
     sidebarWidth: '16rem',
     sidebarSlimWidth: '6rem',
 }

@@ -1,6 +1,6 @@
 {
   "name": "ngx-smz-ui",
-  "version": "2.0.27",
+  "version": "2.0.29",
   "peerDependencies": {
     "@angular/common": "^10.0.0 || ^11.0.0",
     "@angular/core": "^^10.0.0 || ^11.0.0",

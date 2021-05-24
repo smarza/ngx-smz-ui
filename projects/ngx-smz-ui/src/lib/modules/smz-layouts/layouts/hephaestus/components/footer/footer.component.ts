@@ -42,19 +42,5 @@ export class HephaestusFooterComponent implements OnInit, AfterContentInit
     });
   }
 
-  public show(): void
-  {
-    this.store.dispatch(new UiHephaestusActions.ShowSidebar);
-  }
-
-  public hide(): void
-  {
-    this.store.dispatch(new UiHephaestusActions.HideSidebar);
-  }
-
-  public toggle(): void
-  {
-    this.store.dispatch(new UiHephaestusActions.ToggleSidebar);
-  }
 
 }

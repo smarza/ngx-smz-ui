@@ -3,5 +3,33 @@
 
 .clear-overlay {
     background-color: unset;
-    z-index: 500;
+    z-index: 998;
+}
+
+.layout-wrapper.layout-slim .layout-content-wrapper .p-component-overlay {
+    display: none;
+}
+
+.layout-wrapper.layout-static .layout-content-wrapper .p-component-overlay {
+    display: none;
+}
+
+.layout-wrapper.layout-overlay.layout-overlay-inactive .layout-content-wrapper .p-component-overlay {
+    display: none;
+}
+
+.layout-wrapper.layout-overlay.layout-overlay-active .layout-content-wrapper .p-component-overlay {
+    display: block;
+}
+
+@media screen and (max-width: 991px) {
+
+    .layout-wrapper.layout-slim.layout-mobile-active .layout-content-wrapper .p-component-overlay {
+        display: block;
+    }
+
+    .layout-wrapper.layout-static.layout-mobile-active .layout-content-wrapper .p-component-overlay {
+        display: block;
+    }
+
 }

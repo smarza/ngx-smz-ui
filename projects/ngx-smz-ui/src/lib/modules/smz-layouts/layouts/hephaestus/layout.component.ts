@@ -12,6 +12,7 @@ import { UiHephaestusActions } from './state/ui-layout.actions';
 import { UiHephaestusSelectors } from './state/ui-layout.selectors';
 import { HephaestusLayout } from './layout.config';
 import { SmzNotification } from '../../core/models/notifications';
+import { SidebarState } from '../../core/models/sidebar-states';
 
 @Component({
   selector: 'smz-ui-hephaestus-layout',
@@ -29,6 +30,9 @@ export class HephaestusLayoutComponent implements OnInit, AfterContentInit {
   @Input() public notifications: SmzNotification[];
   public headerExtrasTemplate: TemplateRef<any>;
   public footerExtrasTemplate: TemplateRef<any>;
+
+  public sideBarStateActive = SidebarState.ACTIVE;
+
   constructor(public readonly config: SmzLayoutsConfig, public readonly layout: HephaestusLayout, public readonly routerListener: RouterDataListenerService, private store: Store, public cdr: ChangeDetectorRef) {
     this.store.dispatch(new UiActions.Initialize());
     this.store.dispatch(new UiHephaestusActions.Initialize(config, layout));
