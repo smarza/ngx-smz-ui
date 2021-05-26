@@ -11,7 +11,7 @@
   [showCloseIcon]="config.showCloseIcon != null ? config.showCloseIcon : defaultConfig.showCloseIcon"
   [ariaCloseLabel]="config.ariaCloseLabel != null ? config.ariaCloseLabel : defaultConfig.ariaCloseLabel"
   [closeOnEscape]="config.closeOnEscape != null ? config.closeOnEscape : defaultConfig.closeOnEscape"
-  [appendTo]="appendToBody ? 'body' : null">
+  [appendTo]="appendToBody === true ? 'body' : null">
   <ng-container *ngIf="contentTemplate != null">
     <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
   </ng-container>

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { UiActions } from 'projects/ngx-smz-ui/src/public-api';
+import { SmzSmartTagConfig, SmzSmartTagOptions } from '../../smart-tag.directive';
 
 @Component({
   selector: 'app-details',
@@ -9,7 +11,37 @@ import { UiActions } from 'projects/ngx-smz-ui/src/public-api';
 export class DetailsComponent implements OnInit {
 
   public action = new UiActions.ShowConfigAssistance();
+
+  public config: SmzSmartTagConfig;
+
+  public inputControl = new FormControl('Início_==_fim.');
   constructor() {
+
+    this.config = {
+      tagCharacteres: {
+        open: '[',
+        close: ']'
+      },
+      options: [
+        {
+          key: '#',
+          data: [
+            { key: 'Pinheirinho', value: '<rbk>'},
+            { key: 'Rio de Janeiro', value: '<rj>'},
+            { key: 'São Paulo', value: '<sp>'},
+          ]
+        },
+        {
+          key: '/user',
+          data: [
+            { key: 'Eduardo', value: '@dudu.abrao'},
+            { key: 'Filip', value: '@filip.duarte'},
+            { key: 'Ricardo', value: '@ricardo.igreja'},
+            { key: 'Rodrigo', value: '@rodrigo.basniak'},
+          ]
+        }
+      ]
+    };
   }
 
   public ngOnInit(): void {

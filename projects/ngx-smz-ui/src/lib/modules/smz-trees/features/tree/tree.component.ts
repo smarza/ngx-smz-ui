@@ -17,6 +17,8 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
   @Input() public state: SmzTreeState;
   @Input() public items: TreeNode[] = [];
   @Input() public loading: boolean = false;
+  @Input() public styleClass = '';
+  @Input() public inlineStyle = '';
 
     // Evento emitido quando um nó da árvore é selecionado ou é clicado com o botão direito do mouse
     @Output() public selectionChange = new EventEmitter<TreeNode>();

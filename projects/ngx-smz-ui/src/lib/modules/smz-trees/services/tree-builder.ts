@@ -1,6 +1,4 @@
 import { TreeNode } from 'primeng/api';
-import { Tree } from 'primeng/tree';
-import { SmzMenuBuilder } from '../../smz-tables/models/table-builder';
 import { SmzTreeMenuItem } from '../models/tree-menu-item';
 import { SmzTreeState } from '../models/tree-state';
 import { SmzTreeToolbarButton } from '../models/tree-toolbar-button';
@@ -59,10 +57,6 @@ export class SmzTreeBuilder {
       icon: 'fas fa-circle-notch fa-spin',
       isLoading: false,
     },
-    styles: {
-      inlineStyle: null,
-      styleClass: null,
-    },
     selection: {
       mode: 'single',
       propagateDown: true,
@@ -120,16 +114,6 @@ export class SmzTreeBuilder {
 
   public setFilterPlaceholder(text: string): SmzTreeBuilder {
     this._state.filter.textPlaceholder = text;
-    return this;
-  }
-
-  public setInlineStyle(value: string): SmzTreeBuilder {
-    this._state.styles.inlineStyle = value;
-    return this;
-  }
-
-  public setStyleClass(styleClass: string): SmzTreeBuilder {
-    this._state.styles.inlineStyle = styleClass;
     return this;
   }
 

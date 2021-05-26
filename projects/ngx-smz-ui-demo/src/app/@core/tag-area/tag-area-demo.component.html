@@ -1,0 +1,5 @@
+<smz-form-group #formComponent [config]="formConfig"></smz-form-group>
+
+<h2></h2>
+<button pButton label="DATA" (click)="log(formComponent)" class="p-button-info mr-2"></button>
+<button pButton label="VALID" (click)="log(formComponent)" [disabled]="!formComponent.isValid" class="p-button-success mr-2"></button>

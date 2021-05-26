@@ -66,10 +66,6 @@ export interface SmzTreeState {
     }
     image?: string;
   };
-  styles?: {
-    inlineStyle?: string;
-    styleClass?: string;
-  }
   selection?: {
     mode?: 'single' | 'multiple' | 'checkbox';
     propagateUp?: boolean;

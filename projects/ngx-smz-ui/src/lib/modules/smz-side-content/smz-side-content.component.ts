@@ -29,6 +29,7 @@ export class SmzSideContentComponent implements OnInit, AfterContentInit, OnChan
 
   public ngOnChanges(changes: SimpleChanges): void {
     if (changes.visible?.isFirstChange()) {
+      this.appendToBody = changes.visible.currentValue;
       this.store.dispatch(new UiActions.RestoreLayoutPosition());
       return;
     }
@@ -54,6 +55,8 @@ export class SmzSideContentComponent implements OnInit, AfterContentInit, OnChan
     else if (changes.visible != null) {
       const visible: boolean = changes.visible.currentValue;
 
+      this.appendToBody = visible;
+
       if (!visible || this.overlay) {
         this.store.dispatch(new UiActions.RestoreLayoutPosition());
       }
@@ -70,7 +73,6 @@ export class SmzSideContentComponent implements OnInit, AfterContentInit, OnChan
       }
     }
     else if (changes.position != null) {
-
       if (!this.visible || this.overlay) {
         this.store.dispatch(new UiActions.RestoreLayoutPosition());
       }
