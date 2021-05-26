@@ -16,8 +16,9 @@ export interface SmzTreeDragNode {
 export interface SmzTreeDragResult {
   isAllowed: boolean;
   operationType: string;
-  node: SmzTreeDragNode;
-  parentNode: SmzTreeDragNode;
-  childrenIds: string[];
-  event: SmzTreeDragEvent;
+  dragNode: TreeNode;
+  dropNode: TreeNode;
+  dropIndex: number;
+  originalEvent: any;
+  dropPlace: string;
 }
