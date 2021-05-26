@@ -129,8 +129,8 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public allowUserMultiSelection(label: string = 'Seleção'): SmzTableBuilder {
-    this._state.caption.rowSelection.isEnabled = true;
+  public allowUserMultiSelection(label: string = 'Seleção', initialState: 'enabled' | 'disabled' = 'enabled'): SmzTableBuilder {
+    this._state.caption.rowSelection.isEnabled = initialState === 'enabled';
     this._state.caption.rowSelection.isButtonVisible = true;
     this._state.caption.rowSelection.label = label;
     this._state.caption.rowSelection.columnWidth = '3em';
@@ -279,7 +279,7 @@ export abstract class SmzBaseColumnBuilder {
 
   protected _column: SmzTableColumn = null;
 
-  constructor(protected _table: SmzTableBuilder, protected _parent: SmzColumnCollectionBuilder, type: SmzContentType, field: string, header: string, width: string = 'auto') {
+  constructor(protected _table: SmzTableBuilder, protected _parent: SmzColumnCollectionBuilder, type: SmzContentType, filterType: SmzFilterType, field: string, header: string, width: string = 'auto') {
     this._column = {
       field: field,
       header: header,
@@ -290,7 +290,7 @@ export abstract class SmzBaseColumnBuilder {
       isOrderable: true,
       filter: {
         isGlobalFilterable: true,
-        type: SmzFilterType.TEXT
+        type: filterType
       },
       isVisible: true,
       width: width
@@ -319,11 +319,6 @@ export abstract class SmzBaseColumnBuilder {
     return this;
   }
 
-  public setFilter(type: SmzFilterType): SmzBaseColumnBuilder {
-    this._column.filter.type = type;
-    return this;
-  }
-
   public get columns(): SmzColumnCollectionBuilder {
     return this._parent;
   }
@@ -331,7 +326,7 @@ export abstract class SmzBaseColumnBuilder {
 
 export class SmzDateColumnBuilder extends SmzBaseColumnBuilder {
   constructor(protected _table: SmzTableBuilder, protected _parent: SmzColumnCollectionBuilder, field: string, header: string, width: string = 'auto') {
-    super(_table, _parent, SmzContentType.CALENDAR, field, header, width);
+    super(_table, _parent, SmzContentType.CALENDAR, SmzFilterType.DATE, field, header, width);
   }
 
   public setDateFormat(format: 'shortDate' | 'short' | 'medium' | 'long' | 'mediumDate' | 'longDate' | 'shortTime'): SmzBaseColumnBuilder {
@@ -339,34 +334,52 @@ export class SmzDateColumnBuilder extends SmzBaseColumnBuilder {
     this._column.content.data = { format };
     return this;
   }
+  public setFilter(type: SmzFilterType): SmzBaseColumnBuilder {
+    this._column.filter.type = type;
+    return this;
+  }
 }
 
 export class SmzCurrencyColumnBuilder extends SmzBaseColumnBuilder {
   constructor(protected _table: SmzTableBuilder, protected _parent: SmzColumnCollectionBuilder, field: string, header: string, width: string = 'auto') {
-    super(_table, _parent, SmzContentType.CURRENCY, field, header, width);
+    super(_table, _parent, SmzContentType.CURRENCY, SmzFilterType.TEXT, field, header, width);
   }
 }
 
 export class SmzTextColumnBuilder extends SmzBaseColumnBuilder {
   constructor(protected _table: SmzTableBuilder, protected _parent: SmzColumnCollectionBuilder, field: string, header: string, width: string = 'auto') {
-    super(_table, _parent, SmzContentType.TEXT, field, header, width);
+    super(_table, _parent, SmzContentType.TEXT, SmzFilterType.TEXT, field, header, width);
+  }
+
+  public setFilter(type: SmzFilterType): SmzBaseColumnBuilder {
+    this._column.filter.type = type;
+    return this;
   }
 }
 
 export class SmzCustomColumnBuilder extends SmzBaseColumnBuilder {
   constructor(protected _table: SmzTableBuilder, protected _parent: SmzColumnCollectionBuilder, field: string, header: string, width: string = 'auto') {
-    super(_table, _parent, SmzContentType.CUSTOM, field, header, width);
+    super(_table, _parent, SmzContentType.CUSTOM, SmzFilterType.TEXT, field, header, width);
+  }
+
+  public setFilter(type: SmzFilterType): SmzBaseColumnBuilder {
+    this._column.filter.type = type;
+    return this;
   }
 }
 
 export class SmzIconColumnBuilder extends SmzBaseColumnBuilder {
   constructor(protected _table: SmzTableBuilder, protected _parent: SmzColumnCollectionBuilder, field: string, header: string, width: string = 'auto') {
-    super(_table, _parent, SmzContentType.ICON, field, header, width);
+    super(_table, _parent, SmzContentType.ICON, SmzFilterType.NONE, field, header, width);
   }
 
   public addIconConfiguration(icon: string, value: any, styleClass: string = null, tooltip: string = null): SmzIconColumnBuilder {
     if (this._column.content.type !== SmzContentType.ICON) throw new Error('You can use this option for Icon columns only');
     (this._column.content.data as SmzIconContent).matches.push({ icon, value, class: styleClass, tooltip });
+    return this;
+  }
+  public setFilter(type: SmzFilterType): SmzBaseColumnBuilder {
+    this._column.filter.type = type;
     return this;
   }
 }

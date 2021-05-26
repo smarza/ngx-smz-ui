@@ -35,6 +35,10 @@ const routes: Routes = [
     path: 'side-content',
     loadChildren: () => import('./@core/side-content/side-content.module').then(m => m.SideContentModule),
   },
+  {
+    path: 'tag-area',
+    loadChildren: () => import('./@core/tag-area/tag-area-demo.module').then(m => m.TagAreaDemoModule),
+  },
 ];
 
 @NgModule({

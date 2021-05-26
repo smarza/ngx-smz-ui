@@ -5,6 +5,9 @@ import { NgxSmzTablesModule, SmzActionDispatchModule, SmzRouteData, SmzMessagesM
 import { RbkAuthGuard } from 'ngx-rbk-utils';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button'
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SmzInputTagAreaModule } from './input-tag-area.component';
 
 const data: SmzRouteData = {
   layout: {
@@ -42,7 +45,11 @@ const routes: Routes = [
     ButtonModule,
     NgxSmzTablesModule,
     SmzActionDispatchModule,
-    SmzMessagesModule
+    SmzMessagesModule,
+    InputTextareaModule,
+    FormsModule,
+    SmzInputTagAreaModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [DetailsComponent]

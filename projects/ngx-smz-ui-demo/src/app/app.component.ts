@@ -25,6 +25,7 @@ export class AppComponent {
           { label: 'Tables', icon: 'far fa-star', routerLink: ['tables'] },
           { label: 'Prime Tables', icon: 'far fa-star', routerLink: ['tables', 'prime'] },
           { label: 'Trees', icon: 'far fa-tree', routerLink: ['trees'] },
+          { label: 'Tag Area', icon: 'far fa-tree', routerLink: ['tag-area'] },
           { label: 'Side Content', icon: 'far fa-star', routerLink: ['side-content'] },
           { label: 'Faqs', icon: 'far fa-star', routerLink: ['faqs'] },
         ]
