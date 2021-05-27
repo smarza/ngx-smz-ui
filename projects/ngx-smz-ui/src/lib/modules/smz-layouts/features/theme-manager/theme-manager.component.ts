@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store, } from '@ngxs/store';
-import { DomSanitizer } from '@angular/platform-browser';
 import { UiSelectors } from '../../core/state/ui/ui.selectors';
+import { ThemeManagerService } from './theme-manager.service';
 
 @Component({
   selector: 'smz-ui-theme-manager',
@@ -11,26 +11,37 @@ import { UiSelectors } from '../../core/state/ui/ui.selectors';
 export class ThemeManagerComponent implements OnInit
 {
   public currentContentTheme: string;
+  public contentLink: HTMLLinkElement;
 
-  constructor(private store: Store, public sanitizer: DomSanitizer, private cdr: ChangeDetectorRef)
+  constructor(private store: Store, private themeManagerService: ThemeManagerService)
   {
+    this.contentLink = this.themeManagerService._document.createElement('link');
+    this.contentLink.setAttribute('rel', 'stylesheet');
+    this.contentLink.setAttribute('type', 'text/css');
+    this.contentLink.setAttribute('href', '');
+
     this.store
       .select(UiSelectors.contentTheme)
-      .pipe()
       .subscribe((newTheme) =>
       {
         if (newTheme !== this.currentContentTheme)
         {
+          this.contentLink.setAttribute('href', newTheme);
           this.currentContentTheme = newTheme;
-          this.cdr.markForCheck();
+
+          // Adicioar estilos de content da lib
+          this.themeManagerService._document.head.appendChild(this.contentLink);
+
+          // Adicionar estilos prioritários do projeto client
+          this.themeManagerService.propagate();
+
+          // console.log(this.themeManagerService._document.styleSheets);
         }
       });
   }
 
   ngOnInit(): void
   {
-
   }
-
 
 }

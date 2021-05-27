@@ -21,6 +21,7 @@ export * from './ngx-smz-layouts.module';
 
 // SERVICES
 export * from './core/services/menu-helper-service';
+export * from './features/theme-manager/theme-manager.service';
 
 // STATES
 export { UiActions } from './core/state/ui/ui.actions';

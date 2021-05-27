@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { BoilerplateService } from 'ngx-rbk-utils';
-import { MenuHelperService } from 'ngx-smz-ui';
+import { MenuHelperService, ThemeManagerService } from 'ngx-smz-ui';
 
 @Component({
   selector: 'app-root',
@@ -9,8 +9,10 @@ import { MenuHelperService } from 'ngx-smz-ui';
 })
 export class AppComponent {
   title = 'ngx-smz-ui-demo';
-  constructor(private boilerplateService: BoilerplateService, public menuService: MenuHelperService) {
+  constructor(private boilerplateService: BoilerplateService, public menuService: MenuHelperService, private themeManager: ThemeManagerService) {
     this.boilerplateService.init();
+
+    this.themeManager.createCss('assets/priority-styles.css');
 
     this.menuService.setMenu([
       { label: 'Click me', icon: 'fas fa-check-double', routerLink: ['details', 'again'] },
@@ -61,6 +63,20 @@ export class AppComponent {
                   { label: 'Login 2', icon: 'pi-home', routerLink: ['login'] },
                 ]
               },
+            ]
+          },
+          {
+            label: 'Single', icon: 'pi-home'
+          },
+        ]
+      },
+      {
+        label: 'Hierarchy 2',
+        items: [
+          {
+            label: 'Multi-level 1', items: [
+              { label: 'Login 1', routerLink: ['login'] },
+              { label: 'Home',  routerLink: ['home'] },
             ]
           },
           {

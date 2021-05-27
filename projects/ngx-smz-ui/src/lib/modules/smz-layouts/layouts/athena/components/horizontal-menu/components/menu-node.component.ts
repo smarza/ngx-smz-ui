@@ -21,9 +21,9 @@ import { MenuItem } from 'primeng/api';
             <ng-container *ngSwitchCase="true">
                 <li [ngClass]="{ 'active-menuitem' : subItem.expanded }">
                     <a class="p-ripple" [tabindex]="subItemIndex" (click)="toogleOnly(subItem, subItem.items)">
-                        <i class="layout-menuitem-icon pi pi-fw" [ngClass]="subItem.icon"></i>
+                        <i *ngIf="subItem.icon" class="layout-menuitem-icon pi pi-fw" [ngClass]="subItem.icon"></i>
                         <span>{{ subItem.label }}</span>
-                        <i *ngIf="subItem.icon" class="pi pi-fw pi-angle-down layout-menuitem-toggler"></i>
+                        <i class="pi pi-fw pi-angle-down layout-menuitem-toggler"></i>
                         <span class="p-ink"></span>
                     </a>
 
