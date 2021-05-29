@@ -42,7 +42,7 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
     @Output() public treeExpanded = new EventEmitter();
 
     // Evento emitido quando toda a árvore é colapsada
-    @Output() public treeCollapsed = new EventEmitter();
+    @Output() public nodeDropped = new EventEmitter<SmzTreeDragResult>();
   public headerTemplate: TemplateRef<any>;
   public footerTemplate: TemplateRef<any>;
   public toolbarTemplate: TemplateRef<any>;
@@ -77,14 +77,6 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
-
-    if (changes.state != null) {
-
-      const newState: SmzTreeState = changes.state.currentValue;
-      console.log(newState);
-      this.cdr.markForCheck();
-    }
-
   }
 
   public ngAfterContentInit() {
@@ -146,7 +138,6 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
 
   public onSelected(event: { originalEvent: MouseEvent, node: TreeNode }): void {
     this.selectionChange.emit(event.node);
-console.log(event.node);
     if (!event.node.expanded) {
       event.node.expanded = true;
       this.nodeExpanded.emit({ node: event.node });
@@ -286,13 +277,14 @@ console.log(event.node);
             event: result.originalEvent
           });
         }
-        console.log('DRAG RESULT: ', result);
+        // console.log('DRAG RESULT: ', result);
+        this.nodeDropped.emit(this.operationResult);
       }, 250);
     }
     else {
       const result = this.getOperationDetails();
       this.blockedDrop.emit({ blockedEvent: result.originalEvent });
-      console.log('DRAG RESULT: ', result);
+      // console.log('DRAG RESULT: ', result);
     }
   }
 
@@ -385,7 +377,7 @@ console.log(event.node);
           // this.operationType = event.index != null ? 'move' : 'reorder';
           this.dragNode = event.dragNode;
           this.dropNode = dropNode;
-          this.dropIndex = event.index
+          this.dropIndex = event.index;
           this.dropPlace = dropPlace;
 
           // console.log('D&D: Allow by operation type');
@@ -398,7 +390,7 @@ console.log(event.node);
       this.dropPlace = '';
       this.dragNode = null;
       this.dropNode = null;
-      this.dropIndex = -1
+      this.dropIndex = -1;
       // console.log('D&D: Block because why not?');
       return false;
     }
