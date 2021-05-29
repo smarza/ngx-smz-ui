@@ -223,7 +223,7 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
     this.items.forEach(node => {
       this.expandRecursive(node, false);
     });
-    this.treeCollapsed.emit();
+    this.nodeCollapsed.emit(null);
   }
 
   public expandNode(): void {
@@ -278,7 +278,7 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
           });
         }
         // console.log('DRAG RESULT: ', result);
-        this.nodeDropped.emit(this.operationResult);
+        this.nodeDropped.emit(this.getOperationDetails());
       }, 250);
     }
     else {
