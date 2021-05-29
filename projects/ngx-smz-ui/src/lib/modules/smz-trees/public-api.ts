@@ -12,3 +12,6 @@ export * from './models/tree-menu-item';
 
 // SERVICES
 export * from './services/tree-builder';
+
+// UTILS
+export * from './utils/tree-helpers';
