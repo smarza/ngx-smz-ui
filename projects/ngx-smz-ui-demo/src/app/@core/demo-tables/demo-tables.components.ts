@@ -352,7 +352,7 @@ export class DemoTablesComponent implements OnInit {
         .table
       .build();
 
-      console.log(this.tableState2);
+      // console.log(this.tableState2);
   }
 
 }
