@@ -63,7 +63,8 @@
                                         [pTooltip]="button.tooltip"></button>
                                 </ng-container>
 
-                                <button *ngIf="toolbar.nodeExpandButtons.isVisible === true"
+                                <div [pTooltip]="selection != null ? toolbar.nodeExpandButtons.expandTooltip : toolbar.nodeExpandButtons.disabledTooltip">
+                                    <button *ngIf="toolbar.nodeExpandButtons.isVisible === true"
                                     pButton
                                     pRipple
                                     type="button"
@@ -71,7 +72,10 @@
                                     [label]="toolbar.nodeExpandButtons.expandLabel"
                                     icon="fas fa-angle-down"
                                     (click)="expandNode()"
-                                    [pTooltip]=""></button>
+                                    [disabled]="selection == null"></button>
+                                </div>
+
+                                <div [pTooltip]="selection != null ? toolbar.nodeExpandButtons.collapseTooltip : toolbar.nodeExpandButtons.disabledTooltip">
                                 <button *ngIf="toolbar.nodeExpandButtons.isVisible === true"
                                     pButton
                                     pRipple
@@ -80,7 +84,8 @@
                                     [label]="toolbar.nodeExpandButtons.collapseLabel"
                                     icon="fas fa-angle-up"
                                     (click)="collapseNode()"
-                                    [pTooltip]=""></button>
+                                    [disabled]="selection == null"></button>
+                                </div>
 
                                 <button *ngIf="toolbar.treeExpandButtons.isVisible === true"
                                     pButton

@@ -14,13 +14,16 @@ export interface SmzTreeState {
       buttonType?: 'rounded-outlined' | 'rounded-filled' | 'rounded-borderless' | 'square-outlined' | 'square-filled' | 'square-borderless';
       treeExpandButtons?: {
         isVisible?: boolean,
-        expandLabel?: string;
-        collapseLabel?: string;
+        expandLabel?: string,
+        collapseLabel?: string
       };
       nodeExpandButtons?: {
         isVisible?: boolean,
-        expandLabel?: string;
-        collapseLabel?: string;
+        expandLabel?: string,
+        collapseLabel?: string,
+        expandTooltip?: string,
+        collapseTooltip?: string,
+        disabledTooltip?: string
       };
       items?: SmzTreeToolbarButton[]
     }

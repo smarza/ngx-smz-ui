@@ -216,27 +216,37 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
     this.items.forEach(node => {
       this.expandRecursive(node, true);
     });
-    this.treeExpanded.emit();
+
+    setTimeout(() => {
+      this.treeExpanded.emit();
+    }, 200);
   }
 
   public collapseAll(): void {
     this.items.forEach(node => {
       this.expandRecursive(node, false);
     });
-    this.nodeCollapsed.emit(null);
+
+    setTimeout(() => {
+      this.nodeCollapsed.emit(null);
+    }, 200);
   }
 
   public expandNode(): void {
     if (this.selection != null) {
       this.expandRecursive(this.selection, true);
-      this.nodeExpanded.emit({node: this.selection});
+      setTimeout(() => {
+        this.nodeExpanded.emit({node: this.selection});
+      }, 200);
     }
   }
 
   public collapseNode(): void {
     if (this.selection != null) {
       this.expandRecursive(this.selection, false);
-      this.nodeCollapsed.emit({node: this.selection});
+      setTimeout(() => {
+        this.nodeCollapsed.emit({node: this.selection});
+      }, 200);
     }
   }
 

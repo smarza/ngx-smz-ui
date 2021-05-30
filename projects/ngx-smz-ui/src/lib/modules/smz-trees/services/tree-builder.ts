@@ -141,11 +141,16 @@ export class SmzTreeToolbarBuilder {
     return this;
   }
 
-  public useNodeExpandButtons(expandLabel: string = '', collapseLabel: string = ''): SmzTreeToolbarBuilder {
+  public useNodeExpandButtons(expandLabel: string = '', collapseLabel: string = '',
+     expandTooltip: string = 'Expandir nó selecionado', collapseTooltip: string = 'Colapsar nó selecionado',
+     disabledTooltip: string = 'Selecione um nó da árvore'): SmzTreeToolbarBuilder {
     this._treeBuilder._state.header.toolbar.nodeExpandButtons = {
       isVisible: true,
       collapseLabel: collapseLabel,
-      expandLabel: expandLabel
+      expandLabel: expandLabel,
+      expandTooltip: expandTooltip,
+      collapseTooltip: collapseTooltip,
+      disabledTooltip: disabledTooltip
     };
     return this;
   }
