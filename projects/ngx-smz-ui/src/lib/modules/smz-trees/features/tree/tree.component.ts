@@ -379,7 +379,7 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
       if (event.originalEvent.path[0].className.indexOf('droppoint') > -1) {
         dropType = (event?.dropNode?.parent?.type) ?? 'ROOT';
         dropNode = event?.dropNode?.parent;
-        dropPlace = 'beetween';
+        dropPlace = 'between';
       }
 
       for (const allowedOperation of this.state.dragAndDrop.configuration) {
