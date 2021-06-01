@@ -1,5 +1,4 @@
 .blur-page {
-    //   animation-delay: 50ms;
       animation-duration: 300ms;
       animation-fill-mode: forwards;
       animation-name: page_blur;
@@ -7,21 +6,10 @@
     }
 
     .blur-page:after{
-
         position: absolute; content: ''; display: block; top: 0; left: 0; height: 100%; width: 100%;
         background: radial-gradient(ellipse at center,rgba(0, 0, 0, 0.26) 0%, rgba(0, 0, 0, 0.42) 100%);
         mix-blend-mode: multiply;
-
     }
-
-
-
-    // .unblur-page {
-    //   animation-delay: 100ms;
-    //   animation-duration: 200ms;
-    //   animation-fill-mode: backwards;
-    //   animation-name: page_blur;
-    // }
 
     @-webkit-keyframes page_blur {
       0% {
@@ -34,7 +22,6 @@
 
     .layout-container {
       height: 100%;
-    //   z-index: 9999999;
     }
 
     .layout-page-container {

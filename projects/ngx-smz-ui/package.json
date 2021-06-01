@@ -1,9 +1,9 @@
 {
   "name": "ngx-smz-ui",
-  "version": "2.0.44",
+  "version": "2.0.52",
   "peerDependencies": {
-    "@angular/common": "^10.0.0 || ^11.0.0",
-    "@angular/core": "^^10.0.0 || ^11.0.0",
+    "@angular/common": "^11.0.0 || ^12.0.0",
+    "@angular/core": "^11.0.0 || ^12.0.0",
     "@auth0/angular-jwt": "^5.0.0",
     "@ngneat/until-destroy": "^8.0.0",
     "@ngxs/router-plugin": "^3.0.0",
