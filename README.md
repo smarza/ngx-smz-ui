@@ -1,3 +1,22 @@
+# MIGRATION GUIDE
+
+## Packages.json
+* npm i tailwindcss
+* npm i @fortawesome/fontawesome-free
+
+## Angular.json
+```typscript
+...
+"styles": [
+    "projects/ngx-smz-demo/src/styles.scss",
+    "node_modules/primeng/resources/primeng.min.css",
+    "node_modules/primeicons/primeicons.css",
+    "node_modules/primeflex/primeflex.min.css",
+    "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
+  ],
+...
+```
+
 
 * Install and setup all dependencies needed by the library
     * [primeng](https://www.npmjs.com/package/primeng)
