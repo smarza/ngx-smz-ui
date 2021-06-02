@@ -433,5 +433,9 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
       };
     }
 
-
+  public onToolbarButtonClick(button: any): void {
+    if(button.callback != null) {
+      button.callback(this.items, null);
+    }
+  }
 }
