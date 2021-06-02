@@ -1,7 +1,5 @@
 main.ts
 polyfills.ts
-test.ts
-karma.conf.js
 app.breadcrumb.component.ts
 app.breadcrumb.service.ts
 app.component.ts

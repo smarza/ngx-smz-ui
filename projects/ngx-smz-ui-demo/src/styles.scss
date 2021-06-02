@@ -1,10 +1,8 @@
 /* LAYOUT */
-@import "~ngx-smz-ui/resources/assets/scss/smz-ui.scss";
+@import "ngx-smz-ui/resources/assets/scss/smz-ui.scss";
 
-/* PRIME */
-@import "primeng/resources/primeng.min.css";
-@import "primeicons/primeicons.css";
-@import "primeflex/primeflex.scss";
+/* DIALOGS */
+@import "ngx-smz-dialogs/scss/smz-dialogs.scss";
 
 /* ANIMATIONS */
 @import "hover.css/css/hover-min.css";
@@ -12,9 +10,6 @@
 
 /* TAILWIND */
 @import 'tailwindcss/utilities';
-
-/* FONTAWESOME */
-@import '@fortawesome/fontawesome-free/css/all.min.css';
 
 .p-inline-message.p-inline-message-demo-local {
   background: #F3E5F5;

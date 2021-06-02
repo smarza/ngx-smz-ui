@@ -10,7 +10,7 @@
       "prefix": "smz-ui",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "projects/ngx-smz-ui/tsconfig.lib.json",
             "project": "projects/ngx-smz-ui/ng-package.json"
@@ -21,20 +21,11 @@
             }
           }
         },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/ngx-smz-ui/src/test.ts",
-            "tsConfig": "projects/ngx-smz-ui/tsconfig.spec.json",
-            "karmaConfig": "projects/ngx-smz-ui/karma.conf.js"
-          }
-        },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/ngx-smz-ui/tsconfig.lib.json",
-              "projects/ngx-smz-ui/tsconfig.spec.json"
+              "projects/ngx-smz-ui/tsconfig.lib.json"
             ],
             "exclude": [
               "**/node_modules/**"
@@ -73,11 +64,26 @@
               }
             ],
             "styles": [
-              "projects/ngx-smz-ui-demo/src/styles.scss"
+              "projects/ngx-smz-ui-demo/src/styles.scss",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/primeflex/primeflex.min.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
             ],
             "scripts": []
           },
           "configurations": {
+            "development": {
+              "optimization": {
+                "scripts": true,
+                "styles": {
+                  "minify": true,
+                  "inlineCritical": true
+                },
+                "fonts": true
+              },
+              "buildOptimizer": true
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -114,6 +120,9 @@
             "browserTarget": "ngx-smz-ui-demo:build"
           },
           "configurations": {
+            "development": {
+              "browserTarget": "ngx-smz-ui-demo:build:development"
+            },
             "production": {
               "browserTarget": "ngx-smz-ui-demo:build:production"
             }
@@ -125,46 +134,15 @@
             "browserTarget": "ngx-smz-ui-demo:build"
           }
         },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/ngx-smz-ui-demo/src/test.ts",
-            "polyfills": "projects/ngx-smz-ui-demo/src/polyfills.ts",
-            "tsConfig": "projects/ngx-smz-ui-demo/tsconfig.spec.json",
-            "karmaConfig": "projects/ngx-smz-ui-demo/karma.conf.js",
-            "assets": [
-              "projects/ngx-smz-ui-demo/src/favicon.ico",
-              "projects/ngx-smz-ui-demo/src/assets"
-            ],
-            "styles": [
-              "projects/ngx-smz-ui-demo/src/styles.scss"
-            ],
-            "scripts": []
-          }
-        },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/ngx-smz-ui-demo/tsconfig.app.json",
-              "projects/ngx-smz-ui-demo/tsconfig.spec.json",
-              "projects/ngx-smz-ui-demo/e2e/tsconfig.json"
+              "projects/ngx-smz-ui-demo/tsconfig.app.json"
             ],
             "exclude": [
               "**/node_modules/**"
             ]
-          }
-        },
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "projects/ngx-smz-ui-demo/e2e/protractor.conf.js",
-            "devServerTarget": "ngx-smz-ui-demo:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "ngx-smz-ui-demo:serve:production"
-            }
           }
         }
       }
