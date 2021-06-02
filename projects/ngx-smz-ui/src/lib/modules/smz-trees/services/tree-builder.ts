@@ -190,7 +190,7 @@ export class SmzTreeToolbarButtonBuilder {
 
   }
 
-  public setCallback(callback: (items: TreeNode[], node: TreeNode) => void): SmzTreeToolbarButtonBuilder {
+  public setCallback(callback: (event: MouseEvent, items: TreeNode[], node: TreeNode) => void): SmzTreeToolbarButtonBuilder {
     this._button.callback = callback;
     return this;
   }

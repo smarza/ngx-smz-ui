@@ -61,17 +61,17 @@ export class DemoTreesComponent implements OnInit {
         .useNodeExpandButtons()
         .buttons()
           .button('', 'fas fa-coffee')
-            .setCallback((data, node) => console.log('Button 1'))
+            .setCallback((event, data, node) => console.log(event))
             .setTooltip('Button 1 awesome tooltip')
             .setColor('danger')
             .buttons
           .button('', 'fas fa-hamburger')
-            .setCallback((data, node) => console.log('Button 2'))
+            .setCallback((event, data, node) => console.log('Button 2'))
             .setTooltip('Button 2 awesome tooltip')
             .setColor('warning')
             .buttons
           .button('', 'fas fa-pizza-slice')
-            .setCallback((data, node) => console.log('Button 3'))
+            .setCallback((event, data, node) => console.log('Button 3'))
             .setTooltip('Button 3 awesome tooltip')
             .setColor('success')
             .buttons

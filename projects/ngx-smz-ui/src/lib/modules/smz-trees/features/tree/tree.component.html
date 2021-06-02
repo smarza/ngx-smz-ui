@@ -60,7 +60,7 @@
                                         [ngClass]="{ 'p-ml-1' : i !== 0, 'p-button-text': toolbar.buttonType.endsWith('borderless'), 'p-button-outlined': toolbar.buttonType.endsWith('outlined'), 'p-button-rounded': toolbar.buttonType.startsWith('rounded'), 'p-button-secondary': button.color === 'secondary', 'p-button-success': button.color === 'success', 'p-button-info': button.color === 'info', 'p-button-warning': button.color === 'warning', 'p-button-help': button.color === 'help', 'p-button-danger': button.color === 'danger' }"
                                         [label]="button.label"
                                         [icon]="button.icon"
-                                        (click)="onToolbarButtonClick(button)"
+                                        (click)="onToolbarButtonClick($event, button)"
                                         [pTooltip]="button.tooltip"></button>
                                 </ng-container>
 
