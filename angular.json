@@ -59,12 +59,13 @@
               "projects/ngx-smz-ui-demo/src/assets",
               {
                 "glob": "**/*",
-                "input": "node_modules/ngx-smz-ui/resources",
+                "input": "dist/ngx-smz-ui/resources",
                 "output": "/"
               }
             ],
             "styles": [
               "projects/ngx-smz-ui-demo/src/styles.scss",
+              "dist/ngx-smz-ui/resources/assets/scss/smz-ui.scss",
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeicons/primeicons.css",
               "node_modules/primeflex/primeflex.min.css",
@@ -75,14 +76,14 @@
           "configurations": {
             "development": {
               "optimization": {
-                "scripts": true,
+                "scripts": false,
                 "styles": {
-                  "minify": true,
-                  "inlineCritical": true
+                  "minify": false,
+                  "inlineCritical": false
                 },
-                "fonts": true
+                "fonts": false
               },
-              "buildOptimizer": true
+              "buildOptimizer": false
             },
             "production": {
               "fileReplacements": [

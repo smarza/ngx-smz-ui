@@ -2,16 +2,10 @@
   "name": "ngx-smz-ui",
   "version": "2.0.57",
   "peerDependencies": {
-    "@angular/common": "^11.0.0 || ^12.0.0",
-    "@angular/core": "^11.0.0 || ^12.0.0",
     "animate.css": "^4.0.0",
-    "lodash-es": "^4.0.0",
     "ngx-device-detector": "^2.0.0",
     "ngx-rbk-utils": "^1.0.0",
     "ngx-smz-dialogs": "^1.0.0",
-    "primeflex": "^2.0.0",
-    "primeicons": "^4.0.0",
-    "primeng": "^11.0.0 || ^12.0.0 || ^12.0.0-rc.1",
     "hover.css": "^2.0.0",
     "moment": "^2.24.0",
     "tailwindcss": "^2.0.0"
