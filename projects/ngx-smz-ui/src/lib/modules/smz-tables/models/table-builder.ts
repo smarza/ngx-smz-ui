@@ -1,6 +1,8 @@
 import { MenuItem } from 'primeng/api';
 import { SmzMenuItem } from './conditional-menu-item';
 import { SmzContentType, SmzIconContent } from './content-types';
+import { EditableChangeTrack } from './editable-model';
+import { SmzEditableType, SmzEditableTypes } from './editable-types';
 import { SmzFilterType } from './filter-types';
 import { SmzTableColumn } from './table-column';
 import { SmzTableState } from './table-state';
@@ -10,17 +12,22 @@ export class SmzTableBuilder {
     columns: [],
     actions: {
       customActions: {
-        columnWidth: '63px',
+        columnWidth: 63,
         isVisible: false,
       },
       menu: {
         isVisible: false,
         items: []
       },
+      editable: {
+        isEnabled: false,
+        actions: {}
+      },
       rowBehavior: {
         clickCallback: null,
         hoverable: true,
         isClickable: false,
+        highlights: { ids: [] }
       }
     },
     caption: {
@@ -238,9 +245,9 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public useCustomActions(columnWidth: string): SmzTableBuilder {
+  public useCustomActions(columnWidthPixels: number): SmzTableBuilder {
     this._state.actions.customActions.isVisible = true;
-    this._state.actions.customActions.columnWidth = columnWidth;
+    this._state.actions.customActions.columnWidth += columnWidthPixels;
     return this;
   }
 
@@ -255,6 +262,11 @@ export class SmzTableBuilder {
     return this;
   }
 
+  public setHighlightedRows(ids: string[]): SmzTableBuilder {
+    this._state.actions.rowBehavior.highlights.ids = ids;
+    return this;
+  }
+
   public menu(items: SmzMenuItem[] = null): SmzMenuBuilder {
     const menuBuilder = new SmzMenuBuilder(this);
 
@@ -266,6 +278,37 @@ export class SmzTableBuilder {
     return menuBuilder;
   }
 
+  public useEditable(): SmzTableBuilder {
+    this._state.actions.editable.saveMethod = 'event';
+    this._state.actions.editable.isEnabled = true;
+    this._state.actions.customActions.columnWidth += 60;
+    this._state.actions.editable.actions['outputEvent'] = {
+        action: null,
+        mapResults: (data) => data
+    };
+
+    return this;
+  }
+
+  public customizeEditableEventResults<T>(customizeResults: (data: T, change: EditableChangeTrack<T>) => any): SmzTableBuilder {
+    this._state.actions.editable.saveMethod = 'event';
+    this._state.actions.editable.isEnabled = true;
+
+    this._state.actions.editable.actions['outputEvent'] =  { action: null, mapResults: customizeResults };
+
+    return this;
+  }
+
+  public addEditableDispatchAction<T>(key: string, action: any, customizeResults?: (data: T, change: EditableChangeTrack<T>) => any): SmzTableBuilder {
+
+    const defaultMapResults = (data): any => data;
+
+    this._state.actions.editable.isEnabled = true;
+    this._state.actions.editable.saveMethod = 'dispatch';
+    this._state.actions.editable.actions[key] = { action, mapResults: customizeResults ?? defaultMapResults };
+    return this;
+  }
+
   public columns(): SmzColumnCollectionBuilder {
     return new SmzColumnCollectionBuilder(this);
   }
@@ -275,7 +318,7 @@ export class SmzTableBuilder {
   }
 }
 
-export abstract class SmzBaseColumnBuilder {
+export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T>> {
 
   protected _column: SmzTableColumn = null;
 
@@ -286,6 +329,13 @@ export abstract class SmzBaseColumnBuilder {
       content: {
         type: type,
         data: { matches: [] }
+      },
+      editable: {
+        type: SmzEditableType.NONE,
+        data: {
+          rows: 5,
+          options: []
+        }
       },
       isOrderable: true,
       filter: {
@@ -299,22 +349,22 @@ export abstract class SmzBaseColumnBuilder {
     this._table._state.columns.push(this._column);
   }
 
-  public disableSort(): SmzBaseColumnBuilder {
+  public disableSort(): SmzBaseColumnBuilder<T> {
     this._column.isOrderable = false;
     return this;
   }
 
-  public hide(): SmzBaseColumnBuilder {
+  public hide(): SmzBaseColumnBuilder<T> {
     this._column.isVisible = false;
     return this;
   }
 
-  public ignoreOnGlobalFilter(): SmzBaseColumnBuilder {
+  public ignoreOnGlobalFilter(): SmzBaseColumnBuilder<T> {
     this._column.filter.isGlobalFilterable = false;
     return this;
   }
 
-  public disableFilter(): SmzBaseColumnBuilder {
+  public disableFilter(): SmzBaseColumnBuilder<T> {
     this._column.filter.type = SmzFilterType.NONE;
     return this;
   }
@@ -324,51 +374,79 @@ export abstract class SmzBaseColumnBuilder {
   }
 }
 
-export class SmzDateColumnBuilder extends SmzBaseColumnBuilder {
+export class SmzDateColumnBuilder extends SmzBaseColumnBuilder<SmzDateColumnBuilder> {
   constructor(protected _table: SmzTableBuilder, protected _parent: SmzColumnCollectionBuilder, field: string, header: string, width: string = 'auto') {
     super(_table, _parent, SmzContentType.CALENDAR, SmzFilterType.DATE, field, header, width);
   }
 
-  public setDateFormat(format: 'shortDate' | 'short' | 'medium' | 'long' | 'mediumDate' | 'longDate' | 'shortTime'): SmzBaseColumnBuilder {
+  public setDateFormat(format: 'shortDate' | 'short' | 'medium' | 'long' | 'mediumDate' | 'longDate' | 'shortTime'): SmzDateColumnBuilder {
     if (this._column.content.type !== SmzContentType.CALENDAR) throw new Error('You can set the date for Calendar columns only');
     this._column.content.data = { format };
     return this;
   }
-  public setFilter(type: SmzFilterType): SmzBaseColumnBuilder {
+  public setFilter(type: SmzFilterType): SmzDateColumnBuilder {
     this._column.filter.type = type;
     return this;
   }
+
 }
 
-export class SmzCurrencyColumnBuilder extends SmzBaseColumnBuilder {
+export class SmzCurrencyColumnBuilder extends SmzBaseColumnBuilder<SmzCurrencyColumnBuilder> {
   constructor(protected _table: SmzTableBuilder, protected _parent: SmzColumnCollectionBuilder, field: string, header: string, width: string = 'auto') {
     super(_table, _parent, SmzContentType.CURRENCY, SmzFilterType.TEXT, field, header, width);
   }
+
+  public makeEditable(types?: SmzEditableType, data?: SmzEditableTypes, property?: string, actionLink: string = 'outputEvent'): SmzCurrencyColumnBuilder {
+    this._column.editable.type = types ?? SmzEditableType.TEXT;
+    this._column.editable.data = data ?? {};
+    this._column.editable.actionLink = actionLink;
+    this._column.editable.property = property ?? this._column.field;
+    return this;
+  }
+
 }
 
-export class SmzTextColumnBuilder extends SmzBaseColumnBuilder {
+export class SmzTextColumnBuilder extends SmzBaseColumnBuilder<SmzTextColumnBuilder> {
   constructor(protected _table: SmzTableBuilder, protected _parent: SmzColumnCollectionBuilder, field: string, header: string, width: string = 'auto') {
     super(_table, _parent, SmzContentType.TEXT, SmzFilterType.TEXT, field, header, width);
   }
 
-  public setFilter(type: SmzFilterType): SmzBaseColumnBuilder {
+  public setFilter(type: SmzFilterType): SmzTextColumnBuilder {
     this._column.filter.type = type;
     return this;
   }
+
+  public makeEditable(types?: SmzEditableType, data?: SmzEditableTypes, property?: string, actionLink: string = 'outputEvent'): SmzTextColumnBuilder {
+    this._column.editable.type = types ?? SmzEditableType.TEXT;
+    this._column.editable.data = data ?? {};
+    this._column.editable.actionLink = actionLink;
+    this._column.editable.property = property ?? this._column.field;
+    return this;
+  }
+
 }
 
-export class SmzCustomColumnBuilder extends SmzBaseColumnBuilder {
+export class SmzCustomColumnBuilder extends SmzBaseColumnBuilder<SmzCustomColumnBuilder> {
   constructor(protected _table: SmzTableBuilder, protected _parent: SmzColumnCollectionBuilder, field: string, header: string, width: string = 'auto') {
     super(_table, _parent, SmzContentType.CUSTOM, SmzFilterType.TEXT, field, header, width);
   }
 
-  public setFilter(type: SmzFilterType): SmzBaseColumnBuilder {
+  public setFilter(type: SmzFilterType): SmzCustomColumnBuilder {
     this._column.filter.type = type;
     return this;
   }
+
+  public makeEditable(types?: SmzEditableType, data?: SmzEditableTypes, property?: string, actionLink: string = 'outputEvent'): SmzCustomColumnBuilder {
+    this._column.editable.type = types ?? SmzEditableType.CUSTOM;
+    this._column.editable.data = data ?? {};
+    this._column.editable.actionLink = actionLink;
+    this._column.editable.property = property ?? this._column.field;
+    return this;
+  }
+
 }
 
-export class SmzIconColumnBuilder extends SmzBaseColumnBuilder {
+export class SmzIconColumnBuilder extends SmzBaseColumnBuilder<SmzIconColumnBuilder> {
   constructor(protected _table: SmzTableBuilder, protected _parent: SmzColumnCollectionBuilder, field: string, header: string, width: string = 'auto') {
     super(_table, _parent, SmzContentType.ICON, SmzFilterType.NONE, field, header, width);
   }
@@ -378,10 +456,11 @@ export class SmzIconColumnBuilder extends SmzBaseColumnBuilder {
     (this._column.content.data as SmzIconContent).matches.push({ icon, value, class: styleClass, tooltip });
     return this;
   }
-  public setFilter(type: SmzFilterType): SmzBaseColumnBuilder {
+  public setFilter(type: SmzFilterType): SmzIconColumnBuilder {
     this._column.filter.type = type;
     return this;
   }
+
 }
 
 export class SmzColumnCollectionBuilder {

@@ -18,7 +18,7 @@ export class DemoTablesComponent implements OnInit {
   public emptyTableState: SmzTableState;
   public loading = false;
 
-  public tableState2;
+  public tableState2: SmzTableState;
   constructor(private clipboard: SmzClipboardService) {
 
     this.loadItems();
@@ -79,7 +79,7 @@ export class DemoTablesComponent implements OnInit {
       actions: {
         customActions: {
           isVisible: true,
-          columnWidth: '8em',
+          columnWidth: 60,
         },
         menu: {
           isVisible: true,

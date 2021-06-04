@@ -60,7 +60,7 @@ export class SmzTableContextPipe implements PipeTransform {
       actions: {
         customActions: {
           isVisible: false,
-          columnWidth: '63px',
+          columnWidth: 63,
         },
         menu: {
           isVisible: false,

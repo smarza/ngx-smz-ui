@@ -1,5 +1,6 @@
-import { SmzContentType, SmzContentTypes } from './content-types';
-import { SmzFilterType } from './filter-types';
+import { SmzContentType, SmzContentTypes } from "./content-types";
+import { SmzEditableType, SmzEditableTypes } from "./editable-types";
+import { SmzFilterType } from "./filter-types";
 
 export interface SmzTableColumn {
   /**
@@ -43,6 +44,28 @@ export interface SmzTableColumn {
   };
 
   /**
+   * Cell editable template
+   */
+  editable?: {
+    /**
+     * Type of editable input that will be rendered in the cell
+     */
+    type: SmzEditableType;
+    /**
+     * Extra data needed for the selected editable type
+     */
+    data?: SmzEditableTypes;
+    /**
+     * Associate this column with a actions dispatch
+     */
+    actionLink?: string;
+    /**
+     * Property of the object
+     */
+    property?: string;
+  };
+
+  /**
    *  Filter behavior
    */
   filter: {
@@ -55,9 +78,6 @@ export interface SmzTableColumn {
      */
     isGlobalFilterable?: boolean;
   };
-
 }
 
-export interface SmzTableContextColumn extends SmzTableColumn {
-
-}
+export interface SmzTableContextColumn extends SmzTableColumn {}

@@ -1,4 +1,5 @@
 import { SmzMenuItem } from "./conditional-menu-item";
+import { EditableSaveActions } from './editable-model';
 import { SmzTableColumn, SmzTableContextColumn } from "./table-column";
 
 export interface SmzTableState {
@@ -29,9 +30,9 @@ export interface SmzTableState {
        */
       isVisible: boolean;
       /**
-       * Width of the column containing the custom actions
+       * Width of pixels the column containing the custom actions
        */
-      columnWidth: string;
+      columnWidth: number;
     };
 
     /**
@@ -50,7 +51,21 @@ export interface SmzTableState {
        * Controls hover effect on the rows
        */
       hoverable?: boolean;
+      /**
+       * Highlight a row based on the item id
+       */
+      highlights?: { ids: string[] };
     };
+
+    /**
+     * Configuration of the actions to dispatch editable saves
+     */
+    editable?: {
+      isEnabled?: boolean;
+      saveMethod?: 'event' | 'dispatch';
+      actions?: EditableSaveActions<any>;
+    }
+
   };
 
   /**

@@ -20,6 +20,10 @@ const routes: Routes = [
     loadChildren: () => import('./@core/demo-tables/demo-tables.module').then(m => m.DemoTablesModule),
   },
   {
+    path: 'editable-table',
+    loadChildren: () => import('./@core/demo-editable-table/demo-editable-table.module').then(m => m.DemoEditableTableModule),
+  },
+  {
     path: 'trees',
     loadChildren: () => import('./@core/demo-trees/demo-trees.module').then(m => m.DemoTreesModule),
   },

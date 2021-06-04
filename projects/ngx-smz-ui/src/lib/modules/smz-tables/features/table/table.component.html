@@ -24,6 +24,7 @@
             [paginator]="context.state.pagination.isVisible" [currentPageReportTemplate]="context.state.pagination.pageReport.template"
             [sortField]="context.state.sort.field" [sortMode]="context.state.sort.mode"
             [sortOrder]="context.state.sort.order" [multiSortMeta]="context.state.sort.multiSortMeta"
+            editMode="row"
             [filterDelay]="0" [globalFilterFields]="context.globalFilter" (selectionChange)="selectionChange.emit($event)">
 
             <ng-template pTemplate="caption" *ngIf="context.state.caption.isVisible">
@@ -153,12 +154,12 @@
 
                     </ng-container>
 
-                    <th *ngIf="context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible" [ngStyle]="{ width: context.state.actions.customActions.columnWidth }"></th>
+                    <th *ngIf="context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible" [ngStyle]="{ width: context.state.actions.customActions.columnWidth + 'px' }"></th>
                 </tr>
             </ng-template>
 
-            <ng-template pTemplate="body" let-item>
-                <tr class="p-selectable-row" tableItemAction [isClickable]="context.state.actions.rowBehavior.isClickable" [callback]="context.state.actions.rowBehavior.clickCallback" [item]="item">
+            <ng-template pTemplate="body" let-item let-editing="editing" let-rowIndex="rowIndex">
+                <tr [pEditableRow]="item" class="p-selectable-row" tableItemAction [isClickable]="context.state.actions.rowBehavior.isClickable" [callback]="context.state.actions.rowBehavior.clickCallback" [item]="item" [ngClass]="{ 'highlight-row': item.id === state.actions.rowBehavior.highlights }">
                     <td *ngIf="context.state.caption.rowSelection.isEnabled" furyClickStopPropagation>
                         <p-tableCheckbox [value]="item"></p-tableCheckbox>
                     </td>
@@ -174,31 +175,65 @@
                             <td>
                                 <span class="p-column-title">{{ col.header }}</span>
 
-                                <ng-container [ngSwitch]="col.content.type">
+                                <p-cellEditor>
 
-                                    <ng-container *ngSwitchCase="contentTypes.custom">
-                                        <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: item, col: col }"></ng-container>
-                                    </ng-container>
+                                    <!-- CELULAR COM EDITOR -->
+                                    <ng-template pTemplate="input">
+                                        <ng-container [ngSwitch]="col.editable.type">
+                                            <ng-container *ngSwitchCase="editableTypes.none">
+                                            </ng-container>
 
-                                    <ng-container *ngSwitchCase="contentTypes.currency">
-                                        R$ {{ (item | tableContent : col.field) }}
-                                    </ng-container>
+                                            <ng-container *ngSwitchCase="editableTypes.custom">
+                                                <ng-container *ngTemplateOutlet="editableTemplate; context: { $implicit: item, col: col }"></ng-container>
+                                            </ng-container>
 
-                                    <ng-container *ngSwitchCase="contentTypes.calendar">
-                                        {{ (item | tableContent : col.field) | date: col.content.data['format'] }}
-                                    </ng-container>
+                                            <ng-container *ngSwitchCase="editableTypes.text">
+                                                <input pInputText type="text" [(ngModel)]="editableService.editingCache[item.id][col.editable.property]" required style="width: 100%;">
+                                            </ng-container>
 
-                                    <ng-container *ngSwitchCase="contentTypes.text">
-                                        {{ (item | tableContent : col.field) }}
-                                    </ng-container>
+                                            <ng-container *ngSwitchCase="editableTypes.area">
+                                                <textarea pInputTextarea type="text" [(ngModel)]="editableService.editingCache[item.id][col.editable.property]" [rows]="col.editable.data['rows']" required style="width: 100%;"></textarea>
+                                            </ng-container>
 
-                                    <ng-container *ngSwitchCase="contentTypes.icon">
-                                        <ng-container *ngIf="(col.content.data['matches'] | contentIconMatches : (item | tableContent : col.field)) as match">
-                                            <i *ngIf="match != null" [ngClass]="match.icon + ' ' + match.class" [pTooltip]="match.tooltip"></i>
+                                            <ng-container *ngSwitchCase="editableTypes.dropdown">
+                                                <p-dropdown [(ngModel)]="editableService.editingCache[item.id][col.editable.property]" styleClass="w-full" [options]="col.editable.data['options'] != null ? col.editable.data['options'] : ((clonedData.items != null ? clonedData.items : []) | uniqueFilter : col.editable.property + '.id' : col.editable.property)" optionLabel="name" dataKey="id"></p-dropdown>
+                                            </ng-container>
+
+                                            <ng-container *ngSwitchCase="editableTypes.calendar">
+                                                calendar
+                                            </ng-container>
                                         </ng-container>
-                                    </ng-container>
+                                    </ng-template>
 
-                                </ng-container>
+                                    <!-- CELULAR COM CONTEÚDO -->
+                                    <ng-template pTemplate="output">
+                                        <ng-container [ngSwitch]="col.content.type">
+                                            <ng-container *ngSwitchCase="contentTypes.custom">
+                                                <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: item, col: col }"></ng-container>
+                                            </ng-container>
+
+                                            <ng-container *ngSwitchCase="contentTypes.currency">
+                                                R$ {{ (item | tableContent : col.field) }}
+                                            </ng-container>
+
+                                            <ng-container *ngSwitchCase="contentTypes.calendar">
+                                                {{ (item | tableContent : col.field) | date: col.content.data['format'] }}
+                                            </ng-container>
+
+                                            <ng-container *ngSwitchCase="contentTypes.text">
+                                                {{ (item | tableContent : col.field) }}
+                                            </ng-container>
+
+                                            <ng-container *ngSwitchCase="contentTypes.icon">
+                                                <ng-container *ngIf="(col.content.data['matches'] | contentIconMatches : (item | tableContent : col.field)) as match">
+                                                    <i *ngIf="match != null" [ngClass]="match.icon + ' ' + match.class" [pTooltip]="match.tooltip"></i>
+                                                </ng-container>
+                                            </ng-container>
+                                        </ng-container>
+
+                                    </ng-template>
+                                </p-cellEditor>
+
                             </td>
 
                         </ng-template>
@@ -217,13 +252,21 @@
                                 </ng-container>
 
                                 <ng-template #menuTemplate>
+
+                                    <!-- EDITABLE MENU -->
+                                    <ng-container>
+                                        <button *ngIf="context.state.actions.editable.isEnabled && !editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="editableService.onRowEditInit(item)" class="p-button-rounded p-button-text p-mx-2"></button>
+                                        <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="editableService.onRowEditSave(item)" class="p-button-rounded p-button-text p-button-success p-mr-2"></button>
+                                        <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="editableService.onRowEditCancel(item, rowIndex, clonedData.items)" class="p-button-rounded p-button-text p-button-danger"></button>
+                                    </ng-container>
+
                                     <!-- CUSTOM MENU -->
-                                    <ng-container *ngIf="context.state.actions.customActions.isVisible">
+                                    <ng-container *ngIf="context.state.actions.customActions.isVisible && !editing">
                                         <ng-container *ngTemplateOutlet="actionsTemplate; context: { $implicit: item }"></ng-container>
                                     </ng-container>
 
                                     <!-- MENU -->
-                                    <ng-container *ngIf="context.state.actions.menu.isVisible">
+                                    <ng-container *ngIf="context.state.actions.menu.isVisible && !editing">
                                         <ng-container *ngIf="(context.state.actions.menu.items | tableMenu : item) as itemMenu">
                                             <p-menu #actionMenu [popup]="true" [model]="itemMenu" appendTo="body" [ngClass]="{ 'p-ml-2': context.state.actions.customActions.isVisible }"></p-menu>
                                             <button id="action-button" type="button" pButton icon="pi pi-bars" (click)="actionMenu.toggle($event, item)"></button>

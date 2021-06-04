@@ -4,11 +4,15 @@ import { SmzContentType } from '../../models/content-types';
 import { SmzFilterType } from '../../models/filter-types';
 import { SmzTableState, SmzTableContext } from '../../models/table-state';
 import { SmzTableColumn } from '../../models/table-column';
+import { SmzEditableType } from '../../models/editable-types';
+import { TableEditableService } from '../../services/table-editable.service';
+import { EditableChangeTrack } from '../../models/editable-model';
 
 @Component({
   selector: 'smz-ui-table',
   templateUrl: './table.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [TableEditableService]
 })
 export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
@@ -16,7 +20,9 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
   @Input() public items: any[] = [];
   @Input() public loading: boolean = false;
   @Output() public selectionChange: EventEmitter<any> = new EventEmitter<any>();
+  @Output() public save: EventEmitter<any> = new EventEmitter<any>();
   public contentTemplate: TemplateRef<any>;
+  public editableTemplate: TemplateRef<any>;
   public actionsTemplate: TemplateRef<any>;
   public captionTemplate: TemplateRef<any>;
   public toolbarTemplate: TemplateRef<any>;
@@ -33,6 +39,14 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
     text: SmzContentType.TEXT,
     custom: SmzContentType.CUSTOM
   }
+  public editableTypes = {
+    none: SmzEditableType.NONE,
+    custom: SmzEditableType.CUSTOM,
+    calendar: SmzEditableType.CALENDAR,
+    text: SmzEditableType.TEXT,
+    area: SmzEditableType.AREA,
+    dropdown: SmzEditableType.DROPDOWN,
+  }
   public filterTypes = {
     boolean: SmzFilterType.BOOLEAN,
     date: SmzFilterType.DATE,
@@ -42,11 +56,10 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
     dropdown: SmzFilterType.DROPDOWN,
     multiselect: SmzFilterType.MULTI_SELECT
   }
-  constructor(public cdr: ChangeDetectorRef) {
+  constructor(public cdr: ChangeDetectorRef, public editableService: TableEditableService) {
   }
 
   public ngOnInit(): void {
-
   }
 
   public bind(): void {
@@ -76,6 +89,9 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
 
       this.populateColumnVisibility(newState);
 
+      this.editableService.state = this.state;
+      this.editableService.saveEvent = this.save;
+
       this.cdr.markForCheck();
     }
 
@@ -88,6 +104,10 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
 
         case 'content':
           this.contentTemplate = item.template;
+          break;
+
+        case 'editable':
+          this.editableTemplate = item.template;
           break;
 
         case 'actions':

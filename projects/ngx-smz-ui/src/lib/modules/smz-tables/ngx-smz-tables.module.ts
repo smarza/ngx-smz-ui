@@ -24,6 +24,7 @@ import { SmzCloneTableItemsPipe } from './pipes/clone-table-items.pipe';
 import { SkeletonModule } from 'primeng/skeleton';
 import { SmzColumnFilterComponent } from './components/smz-filter-column.component';
 import { SmzColumnFilter2Component } from './components/smz-filter-column-2.component';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 @NgModule({
     declarations: [
@@ -53,7 +54,8 @@ import { SmzColumnFilter2Component } from './components/smz-filter-column-2.comp
         ClickStopPropagationModule,
         NgxSmzDataInfoModule,
         TooltipModule,
-        SkeletonModule
+        SkeletonModule,
+        InputTextareaModule
     ],
     exports: [
         SmzTableComponent,

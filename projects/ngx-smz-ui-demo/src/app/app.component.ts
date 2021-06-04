@@ -17,10 +17,28 @@ export class AppComponent {
     this.menuService.setMenu([
       { label: 'Click me', icon: 'fas fa-check-double', routerLink: ['details', 'again'] },
       {
-        label: 'Demo',
+        label: 'Demos',
         icon: 'pi-home',
         items: [
           { label: 'Charts', icon: 'far fa-chart', routerLink: ['charts'] },
+          { label: 'Tag Area', icon: 'far fa-tree', routerLink: ['tag-area'] },
+          { label: 'Trees', icon: 'far fa-tree', routerLink: ['trees'] },
+          { label: 'Side Content', icon: 'far fa-star', routerLink: ['side-content'] },
+          { label: 'Tag Area', icon: 'far fa-tree', routerLink: ['tag-area'] },
+        ]
+      },
+      {
+        label: 'Tables',
+        icon: 'pi-home',
+        items: [
+          { label: 'Table', icon: 'far fa-star', routerLink: ['tables'] },
+          { label: 'Editable Table', icon: 'far fa-star', routerLink: ['editable-table'] },
+        ]
+      },
+      {
+        label: 'Extras',
+        icon: 'pi-home',
+        items: [
           { label: 'Details 1', routerLink: ['details'] },
           { label: 'Details 2', routerLink: ['details', 'again'] },
           { label: 'Faqs', icon: 'far fa-star', routerLink: ['faqs'] },
@@ -28,10 +46,6 @@ export class AppComponent {
           { label: 'Landing', routerLink: ['landing'] },
           { label: 'Ng Dom', icon: 'far fa-star', routerLink: ['ng-dom'] },
           { label: 'Prime Tables', icon: 'far fa-star', routerLink: ['tables', 'prime'] },
-          { label: 'Side Content', icon: 'far fa-star', routerLink: ['side-content'] },
-          { label: 'Tables', icon: 'far fa-star', routerLink: ['tables'] },
-          { label: 'Tag Area', icon: 'far fa-tree', routerLink: ['tag-area'] },
-          { label: 'Trees', icon: 'far fa-tree', routerLink: ['trees'] },
         ]
       },
       {

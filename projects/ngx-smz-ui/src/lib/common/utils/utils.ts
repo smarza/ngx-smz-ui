@@ -1,3 +1,5 @@
+import { SimpleNamedEntity } from 'ngx-smz-dialogs';
+
 export type CollectionPredicate = (item?: any, index?: number, collection?: any[]) => boolean;
 
 export function isUndefined(value: any): value is undefined
@@ -427,3 +429,23 @@ export function sortArray<T>(data: T[], property: string, order = 1): T[]
     return 0;
   });
 }
+
+export function isSimpleNamedEntity(obj: SimpleNamedEntity): boolean
+{
+  if (obj == null) return false;
+
+  return (obj.id != null && obj.name != null);
+}
+
+export function setNestedObject(obj, path, value) {
+    var schema = obj;  // a moving reference to internal objects within obj
+    var pList = path.split('.');
+    var len = pList.length;
+    for(var i = 0; i < len-1; i++) {
+        var elem = pList[i];
+        if( !schema[elem] ) schema[elem] = {}
+        schema = schema[elem];
+    }
+
+    schema[pList[len-1]] = value;
+  }

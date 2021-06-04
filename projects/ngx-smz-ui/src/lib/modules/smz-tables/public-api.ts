@@ -10,4 +10,5 @@ export * from './models/table-state';
 export * from './models/table-builder';
 export * from './models/content-types';
 export * from './models/filter-types';
+export * from './models/editable-types';
 export * from './models/conditional-menu-item';

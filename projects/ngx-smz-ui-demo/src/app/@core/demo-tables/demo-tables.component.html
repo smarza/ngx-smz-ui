@@ -1,5 +1,5 @@
 <h2>Sample table</h2>
-<smz-ui-table #smzTable [items]="items$ | async" [state]="tableState" [loading]="loading" (selectionChange)="test($event)">
+<smz-ui-table #smzTable [items]="items$ | async" [state]="tableState2" [loading]="loading" (selectionChange)="test($event)">
 
   <ng-template pTemplate="emptyActions">
     <button pButton label="Criar" class="p-mr-2" (click)="loadItems()"></button>
