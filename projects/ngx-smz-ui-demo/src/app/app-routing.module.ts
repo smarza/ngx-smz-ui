@@ -28,6 +28,10 @@ const routes: Routes = [
     loadChildren: () => import('./@core/demo-ng-dom/demo-ng-dom.module').then(m => m.DemoNgDomModule),
   },
   {
+    path: 'charts',
+    loadChildren: () => import('./@core/demo-charts/demo-charts.module').then(m => m.DemoChartsModule),
+  },
+  {
     path: 'faqs',
     loadChildren: () => import('./@core/demo-faqs/demo-faqs.module').then(m => m.DemoFaqsModule),
   },
