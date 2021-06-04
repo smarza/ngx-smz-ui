@@ -62,7 +62,10 @@
       "primeng/ripple": "ripple",
       "primeng/utils": "utils",
       "primeng/skeleton": "skeleton",
-      "moment": "moment"
+      "moment": "moment",
+      "primeng/api/public_api": "primeng/api",
+      "chart.js/auto": "chart",
+      "chart.js/helpers": "charthelpers"
   }
   }
 }
