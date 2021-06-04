@@ -9,6 +9,8 @@ import { SmzNotification } from '../../../../core/models/notifications';
   template: `
       <ng-content></ng-content>
 
+      <div id="smz-ui-athena-topbar"></div>
+
       <span *ngIf="headerExtrasTemplate != null" class="extras-container p-mr-3">
           <ng-container *ngTemplateOutlet="headerExtrasTemplate"></ng-container>
       </span>
