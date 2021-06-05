@@ -44,7 +44,7 @@ export class SmzTransactionsService {
     else {
 
       setTimeout(() => {
-        const isSuccess = false; // (Math.random() > 0.5) ? 1 : 0;
+        const isSuccess = (Math.random() > 0.5) ? 1 : 0;
 
         if (isSuccess) {
           this.dismissWithSuccess(transactionId);
