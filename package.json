@@ -27,6 +27,7 @@
     "@ngxs/devtools-plugin": "^3.7.2",
     "@ngxs/router-plugin": "^3.7.2",
     "@ngxs/store": "^3.7.2",
+    "angular2-uuid": "^1.1.1",
     "animate.css": "^4.1.1",
     "chart.js": "^3.3.2",
     "hover.css": "^2.3.2",

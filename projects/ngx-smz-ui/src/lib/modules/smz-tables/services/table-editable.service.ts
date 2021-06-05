@@ -2,15 +2,14 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { ObjectUtils } from 'primeng/utils';
 import { isSimpleNamedEntity, setNestedObject } from '../../../common/utils/utils';
-import { EditableDispatch, EditableChanges, EditableSaveEvent } from '../models/editable-model';
+import { EditableChanges, EditableRowContext } from '../models/editable-model';
 import { SmzEditableType } from '../models/editable-types';
 import { SmzTableState } from '../models/table-state';
+import { UUID } from 'angular2-uuid';
 
 @Injectable()
 export class TableEditableService {
-    public originalCache: { [s: string]: any; } = {};
-    public editingCache: { [s: string]: any; } = {};
-    public hasChangedTracking: { [s: string]: boolean; } = {};
+    public context: { [k: string]: EditableRowContext } = {};
     public state: SmzTableState;
     public saveEvent: EventEmitter<any>;
 
@@ -18,35 +17,44 @@ export class TableEditableService {
     }
 
     public onRowEditInit(row: any): void {
-        this.originalCache[row.id] = {};
-        this.editingCache[row.id] = {};
+        const context = {
+            transactionId: UUID.UUID(),
+            rowId: row.id,
+            editing: {},
+            original: {},
+            hasChanged: false,
+            errors: [],
+            hasErrors: false,
+            isLoading: false,
+        };
 
         this.state.columns
             .filter(c => c.editable.type !== SmzEditableType.NONE)
             .forEach(col => {
-                this.originalCache[row.id][col.editable.property] = ObjectUtils.resolveFieldData(row, col.editable.property);
-                this.editingCache[row.id][col.editable.property] = ObjectUtils.resolveFieldData(row, col.editable.property);
-                this.hasChangedTracking[row.id] = false;
+                context.original[col.editable.property] = ObjectUtils.resolveFieldData(row, col.editable.property);
+                context.editing[col.editable.property] = ObjectUtils.resolveFieldData(row, col.editable.property);
             });
+
+        this.context[row.id] = context;
     }
 
     public onChanges(row: any): void {
-        const before = this.originalCache[row.id];
-        const after = this.editingCache[row.id];
+        const before = this.context[row.id].original;
+        const after = this.context[row.id].editing;
         const changes = this.getChanges(before, after);
 
         if (changes != null && Object.keys(changes).length === 0) {
-            this.hasChangedTracking[row.id] = false;
+            this.context[row.id].hasChanged = false;
         }
         else {
-            this.hasChangedTracking[row.id] = true;
+            this.context[row.id].hasChanged = true;
         }
     }
 
     public onRowEditSave(row: any): void {
 
-        const before = this.originalCache[row.id];
-        const after = this.editingCache[row.id];
+        const before = this.context[row.id].original;
+        const after = this.context[row.id].editing;
 
         // console.log('before', before);
         // console.log('after', after);
@@ -82,8 +90,7 @@ export class TableEditableService {
             this.saveEvent.emit(params);
         }
 
-        delete this.originalCache[row.id];
-        delete this.editingCache[row.id];
+        delete this.context[row.id];
     }
 
     public onRowEditCancel(row: any, index: number, items: any[]): void {
@@ -94,15 +101,13 @@ export class TableEditableService {
         // console.log('item', items[index]);
         // console.log('editCache', this.originalCache[row.id]);
 
-        const before = this.originalCache[row.id];
-        const after = this.editingCache[row.id];
+        // const before = this.context[row.id].original;
+        // const after = this.context[row.id].editing;
 
         // console.log('before', before);
         // console.log('after', after);
 
-        delete this.originalCache[row.id];
-        delete this.editingCache[row.id];
-        delete this.hasChangedTracking[row.id];
+        delete this.context[row.id];
     }
 
     private getChanges(before: any, after: any): EditableChanges<any> {

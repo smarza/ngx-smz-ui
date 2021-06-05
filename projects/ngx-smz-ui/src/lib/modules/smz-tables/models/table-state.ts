@@ -1,5 +1,5 @@
 import { SmzMenuItem } from "./conditional-menu-item";
-import { EditableChangeTrack, EditableSaveActions } from './editable-model';
+import { EditableChangeTrack } from './editable-model';
 import { SmzTableColumn, SmzTableContextColumn } from "./table-column";
 
 export interface SmzTableState {

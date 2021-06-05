@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { SmzEditableType } from 'ngx-smz-ui';
 import { SimpleNamedEntity } from 'ngx-smz-dialogs';
 import { SmzFilterType, SmzTableBuilder, SmzTableState } from 'ngx-smz-ui';
 import { EditableSaveEvent } from 'projects/ngx-smz-ui/src/lib/modules/smz-tables/models/editable-model';
 import { Observable } from 'rxjs';
-import { take, tap } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 import { DemoTableDataService } from '../demo-tables/data-service/demo-tables-data-service';
 
 @Component({
