@@ -1,4 +1,5 @@
 import { isSimpleNamedEntity } from '../../../common/utils/utils';
+import { FormGroup, AbstractControl } from '@angular/forms';
 
 export interface EditableRowContext {
     transactionId: string;
@@ -9,6 +10,7 @@ export interface EditableRowContext {
     isLoading: boolean;
     hasErrors: boolean;
     errors: string[];
+    form: FormGroup;
  }
 
 export interface EditableChanges<T>

@@ -5,7 +5,7 @@ import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { NgxSmzDataPipesModule } from '../../common/data-pipes/data-pipes.module';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { CalendarModule } from 'primeng/calendar';
 import { SmzTableContextPipe } from './pipes/table-context.pipe';
@@ -61,7 +61,8 @@ import { SmzContentErrorsPipe } from './pipes/content-errors.pipe';
         TooltipModule,
         SkeletonModule,
         InputTextareaModule,
-        OverlayPanelModule
+        OverlayPanelModule,
+        ReactiveFormsModule
     ],
     exports: [
         SmzTableComponent,

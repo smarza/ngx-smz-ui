@@ -6,6 +6,8 @@ import { SmzEditableType } from '../models/editable-types';
 import { SmzTableState } from '../models/table-state';
 import { Table } from 'primeng/table';
 import { SmzTransactionsService } from './smz-transactions.service';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { takeWhile } from 'rxjs/operators';
 
 // SERVIÇO COM INSTANCIAS DIFERENTES POR TABELA
 @Injectable()
@@ -22,12 +24,12 @@ export class TableEditableService {
     // BINDING DA INJEÇÃO DE DETECÇÃO DA TABELA
     public cdr: ChangeDetectorRef;
 
-    constructor(private transactions: SmzTransactionsService) {}
+    constructor(private transactions: SmzTransactionsService, private fb: FormBuilder) { }
 
     public onRowEditInit(row: any): void {
 
         // INICIAR UM NOVO CONTEXTO DE EDIÇÃO
-        const context = {
+        const context: EditableRowContext = {
             transactionId: null,
             rowId: row.id,
             editing: {},
@@ -36,6 +38,7 @@ export class TableEditableService {
             errors: [],
             hasErrors: false,
             isLoading: false,
+            form: this.createForm(row)
         };
 
         // COPIAR PROPRIEDADES EDITÁVEL NO CONTEXTO ORIGINAL E EDIÇÃO
@@ -46,18 +49,48 @@ export class TableEditableService {
                 context.editing[col.editable.property] = ObjectUtils.resolveFieldData(row, col.editable.property);
             });
 
+        context.form.valueChanges
+            .pipe(takeWhile(() => this.context[row.id] != null))
+            .subscribe((event) => {
+
+                for (let property of Object.keys(event)) {
+                    // SETAR DADO MODIFICADO NA EDITING
+                    setNestedObject(context.editing, property, event[property]);
+                };
+
+                this.onChanges(row.id);
+            });
+
         // GUARDAR CONTEXTO CRIADO
         this.context[row.id] = context;
     }
 
-    public onChanges(row: any): void {
+    private createForm(row: any): FormGroup {
+        const form: FormGroup = new FormGroup({});
+
+        // PERCORRER COLUNAS EDITÁVEIS
+        this.state.columns
+            .filter(c => c.editable.type !== SmzEditableType.NONE)
+            .forEach(col => {
+
+                // VALOR
+                const value = ObjectUtils.resolveFieldData(row, col.editable.property);
+
+                // CRIAR CONTROL
+                form.addControl(col.editable.property, new FormControl(value, Validators.required));
+            });
+
+        return form;
+    }
+
+    public onChanges(rowId: string): void {
         // PEGAR CONTEXTO ATUAL
-        const context = this.context[row.id];
+        const context = this.context[rowId];
 
         // DADOS ORIGINAIS
         const before = context.original;
 
-        // DADOS MDIFICADOS
+        // DADOS MODIFICADOS
         const after = context.editing;
 
         // DESCOBRIR O QUE MUDOU
@@ -66,12 +99,12 @@ export class TableEditableService {
         if (changes != null && Object.keys(changes).length === 0) {
 
             // PROPAGAR QUE OS DADOS MUDARAM
-            this.context[row.id].hasChanged = false;
+            this.context[rowId].hasChanged = false;
         }
         else {
 
             // PROPAGAR QUE NÃO TIVERAM MUDANÇAS
-            this.context[row.id].hasChanged = true;
+            this.context[rowId].hasChanged = true;
         }
     }
 

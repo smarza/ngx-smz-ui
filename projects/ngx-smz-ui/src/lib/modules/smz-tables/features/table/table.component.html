@@ -197,19 +197,47 @@
                                             </ng-container>
 
                                             <ng-container *ngSwitchCase="editableTypes.text">
-                                                <input pInputText type="text" [(ngModel)]="editableService.context[item.id].editing[col.editable.property]" (ngModelChange)="editableService.onChanges(item)" required style="width: 100%;">
+                                                <ng-container *ngIf="editableService.context[item.id].form.controls[col.editable.property] as control">
+                                                    <div class="relative w-full">
+                                                        <input pInputText type="text" [formControl]="control" style="width: 100%;" [ngClass]="{ 'p-pl-5': !control.valid }">
+                                                        <div *ngIf="!control.valid" class="absolute -inset-y-0 left-3 p-grid p-nogutter p-align-center p-justify-start">
+                                                            <i class="fas fa-asterisk text-xs animate-pulse transform scale-75 text-red-500 clickable" [pTooltip]="'Campo com problemas.... ainda não implementado'"></i>
+                                                        </div>
+                                                    </div>
+                                                </ng-container>
                                             </ng-container>
 
                                             <ng-container *ngSwitchCase="editableTypes.area">
-                                                <textarea pInputTextarea type="text" [(ngModel)]="editableService.context[item.id].editing[col.editable.property]" (ngModelChange)="editableService.onChanges(item)" [rows]="col.editable.data['rows']" required style="width: 100%;"></textarea>
+                                                <ng-container *ngIf="editableService.context[item.id].form.controls[col.editable.property] as control">
+                                                    <div class="relative w-full">
+                                                        <textarea pInputTextarea type="text" [formControl]="control" [rows]="col.editable.data['rows']" required style="width: 100%;" [ngClass]="{ 'p-pl-5': !control.valid }"></textarea>
+                                                        <div *ngIf="!control.valid" class="absolute -inset-y-0 left-3 p-grid p-nogutter p-align-center p-justify-start">
+                                                            <i class="fas fa-asterisk text-xs animate-pulse transform scale-75 text-red-500 clickable" [pTooltip]="'Campo com problemas.... ainda não implementado'"></i>
+                                                        </div>
+                                                    </div>
+                                                </ng-container>
                                             </ng-container>
 
                                             <ng-container *ngSwitchCase="editableTypes.dropdown">
-                                                <p-dropdown [(ngModel)]="editableService.context[item.id].editing[col.editable.property]" styleClass="w-full" [options]="col.editable.data | editableSource" (onChange)="editableService.onChanges(item)" optionLabel="name" dataKey="id"></p-dropdown>
+                                                <ng-container *ngIf="editableService.context[item.id].form.controls[col.editable.property] as control">
+                                                    <div class="relative w-full">
+                                                        <p-dropdown [formControl]="control" styleClass="w-full" [options]="col.editable.data | editableSource" optionLabel="name" dataKey="id" [ngClass]="{ 'p-pl-5': !control.valid }"></p-dropdown>
+                                                        <div *ngIf="!control.valid" class="absolute -inset-y-0 left-3 p-grid p-nogutter p-align-center p-justify-start">
+                                                            <i class="fas fa-asterisk text-xs animate-pulse transform scale-75 text-red-500 clickable" [pTooltip]="'Campo com problemas.... ainda não implementado'"></i>
+                                                        </div>
+                                                    </div>
+                                                </ng-container>
                                             </ng-container>
 
                                             <ng-container *ngSwitchCase="editableTypes.calendar">
-                                                <p-calendar [(ngModel)]="editableService.context[item.id].editing[col.editable.property]" styleClass="w-full" (onChange)="editableService.onChanges(item)"></p-calendar>
+                                                <ng-container *ngIf="editableService.context[item.id].form.controls[col.editable.property] as control">
+                                                    <div class="relative w-full">
+                                                        <p-calendar [formControl]="control" styleClass="w-full" [ngClass]="{ 'p-pl-5': !control.valid }"></p-calendar>
+                                                        <div *ngIf="!control.valid" class="absolute -inset-y-0 left-3 p-grid p-nogutter p-align-center p-justify-start">
+                                                            <i class="fas fa-asterisk text-xs animate-pulse transform scale-75 text-red-500 clickable" [pTooltip]="'Campo com problemas.... ainda não implementado'"></i>
+                                                        </div>
+                                                    </div>
+                                                </ng-container>
                                             </ng-container>
                                         </ng-container>
                                     </ng-template>
@@ -284,7 +312,7 @@
 
                                                     <!-- EDITANDO -->
                                                     <ng-container *ngIf="!editableContext.hasErrors">
-                                                        <button pButton pRipple type="button" icon="pi pi-check" (click)="editableService.onRowEditSave($event, dt, editableRowElement, item)" [disabled]="!editableContext.hasChanged" class="p-button-rounded p-button-text p-button-success p-mr-2"></button>
+                                                        <button pButton pRipple type="button" icon="pi pi-check" (click)="editableService.onRowEditSave($event, dt, editableRowElement, item)" [disabled]="!editableContext.hasChanged || !editableService.context[item.id].form.valid" class="p-button-rounded p-button-text p-button-success p-mr-2"></button>
                                                         <button pButton pRipple type="button" icon="pi pi-times" (click)="editableService.onRowEditCancel($event, dt, item)" class="p-button-rounded p-button-text p-button-danger"></button>
                                                     </ng-container>
 
