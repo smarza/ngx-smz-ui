@@ -45,24 +45,24 @@ export class DemoEditableTableComponent implements OnInit {
         .table
       .columns()
         .text('name', 'Name', '20em')
+          .editable()
+            .column
           .disableFilter()
           .disableSort()
-            .editable()
-            .editable
           .columns
         .text('company', 'Company', '20em')
           .disableFilter()
           .disableSort()
-            .editable()
-            .editable
+          .editable()
+            .column
           .columns
         .text('country.name', 'Country', '20em')
           .setFilter(SmzFilterType.MULTI_SELECT)
           .disableSort()
-            .editable()
+          .editable()
             .dropdown('country')
               .setOptions(this.countries)
-              .editable
+            .column
           .columns
         .table
       .build();

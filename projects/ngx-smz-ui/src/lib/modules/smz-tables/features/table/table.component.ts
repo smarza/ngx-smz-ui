@@ -6,7 +6,6 @@ import { SmzTableState, SmzTableContext } from '../../models/table-state';
 import { SmzTableColumn } from '../../models/table-column';
 import { SmzEditableType } from '../../models/editable-types';
 import { TableEditableService } from '../../services/table-editable.service';
-import { EditableChangeTrack } from '../../models/editable-model';
 
 @Component({
   selector: 'smz-ui-table',
@@ -57,6 +56,8 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
     multiselect: SmzFilterType.MULTI_SELECT
   }
   constructor(public cdr: ChangeDetectorRef, public editableService: TableEditableService) {
+    this.editableService.cdr = this.cdr;
+    this.editableService.saveEvent = this.save;
   }
 
   public ngOnInit(): void {
@@ -90,7 +91,6 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
       this.populateColumnVisibility(newState);
 
       this.editableService.state = this.state;
-      this.editableService.saveEvent = this.save;
 
       this.cdr.markForCheck();
     }

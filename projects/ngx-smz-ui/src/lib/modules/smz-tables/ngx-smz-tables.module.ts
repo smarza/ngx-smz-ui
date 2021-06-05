@@ -26,6 +26,8 @@ import { SmzColumnFilterComponent } from './components/smz-filter-column.compone
 import { SmzColumnFilter2Component } from './components/smz-filter-column-2.component';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { SmzEditableSourcePipe } from './pipes/editable-source.pipe';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { SmzContentErrorsPipe } from './pipes/content-errors.pipe';
 
 @NgModule({
     declarations: [
@@ -38,7 +40,8 @@ import { SmzEditableSourcePipe } from './pipes/editable-source.pipe';
         SmzCloneTableItemsPipe,
         SmzColumnFilterComponent,
         SmzColumnFilter2Component,
-        SmzEditableSourcePipe
+        SmzEditableSourcePipe,
+        SmzContentErrorsPipe
     ],
     imports: [
         CommonModule,
@@ -57,7 +60,8 @@ import { SmzEditableSourcePipe } from './pipes/editable-source.pipe';
         NgxSmzDataInfoModule,
         TooltipModule,
         SkeletonModule,
-        InputTextareaModule
+        InputTextareaModule,
+        OverlayPanelModule
     ],
     exports: [
         SmzTableComponent,

@@ -159,8 +159,17 @@
             </ng-template>
 
             <ng-template pTemplate="body" let-item let-editing="editing" let-rowIndex="rowIndex">
-                <tr [pEditableRow]="item" class="p-selectable-row" tableItemAction [isClickable]="context.state.actions.rowBehavior.isClickable" [callback]="context.state.actions.rowBehavior.clickCallback" [item]="item" [ngClass]="{ 'highlight-row': item.id === state.actions.rowBehavior.highlights }">
-                    <td *ngIf="context.state.caption.rowSelection.isEnabled" furyClickStopPropagation>
+                <tr #editableRowElement
+                    [pEditableRow]="item"
+                    tableItemAction
+                    [isClickable]="context.state.actions.rowBehavior.isClickable"
+                    [callback]="context.state.actions.rowBehavior.clickCallback"
+                    [item]="item"
+                    class="p-selectable-row"
+                    [ngClass]="{ 'highlight-row': item.id === state.actions.rowBehavior.highlights }"
+                    >
+
+                    <td *ngIf="context.state.caption.rowSelection.isEnabled" furyClickStopPropagation [ngClass]="{ 'opacity-50 pointer-events-none': editableService.context[item.id]?.hasErrors || editableService.context[item.id]?.isLoading }">
                         <p-tableCheckbox [value]="item"></p-tableCheckbox>
                     </td>
 
@@ -172,7 +181,7 @@
 
                         <ng-template #dataTemplate>
 
-                            <td>
+                            <td [ngClass]="{ 'opacity-50 pointer-events-none': editableService.context[item.id]?.hasErrors || editableService.context[item.id]?.isLoading }">
                                 <span class="p-column-title">{{ col.header }}</span>
 
                                 <p-cellEditor>
@@ -254,10 +263,46 @@
                                 <ng-template #menuTemplate>
 
                                     <!-- EDITABLE MENU -->
-                                    <ng-container>
-                                        <button *ngIf="context.state.editable.isEditable && !editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="editableService.onRowEditInit(item)" class="p-button-rounded p-button-text p-mx-2"></button>
-                                        <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="editableService.onRowEditSave(item)" [disabled]="!editableService.context[item.id].hasChanged" class="p-button-rounded p-button-text p-button-success p-mr-2"></button>
-                                        <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="editableService.onRowEditCancel(item, rowIndex, clonedData.items)" class="p-button-rounded p-button-text p-button-danger"></button>
+                                    <ng-container *ngIf="context.state.editable.isEditable">
+
+                                        <!-- SEM EDITAR -->
+                                        <ng-container *ngIf="!editing">
+                                            <button pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="editableService.onRowEditInit(item)" class="p-button-rounded p-button-text p-mx-2"></button>
+                                        </ng-container>
+
+                                        <!-- EDITANDO -->
+                                        <ng-container *ngIf="editing">
+
+                                            <ng-container *ngIf="editableService.context[item.id] as editableContext">
+                                                <!-- COM LOADING -->
+                                                <ng-container *ngIf="editableContext.isLoading">
+                                                    <button pButton pRipple type="button" icon="fas fa-sync fa-spin" [disabled]="true" class="p-button-rounded p-button-text p-button-info p-mr-2"></button>
+                                                </ng-container>
+
+                                                <!-- SEM LOADING -->
+                                                <ng-container *ngIf="!editableContext.isLoading">
+
+                                                    <!-- EDITANDO -->
+                                                    <ng-container *ngIf="!editableContext.hasErrors">
+                                                        <button pButton pRipple type="button" icon="pi pi-check" (click)="editableService.onRowEditSave($event, dt, editableRowElement, item)" [disabled]="!editableContext.hasChanged" class="p-button-rounded p-button-text p-button-success p-mr-2"></button>
+                                                        <button pButton pRipple type="button" icon="pi pi-times" (click)="editableService.onRowEditCancel($event, dt, item)" class="p-button-rounded p-button-text p-button-danger"></button>
+                                                    </ng-container>
+
+                                                    <!-- COM ERRORS -->
+                                                    <ng-container *ngIf="editableContext.hasErrors">
+                                                        <p-overlayPanel #errorsOverlay appendTo="body" [style]="{ width: '450px' }">
+                                                            <ng-template pTemplate>
+                                                                <div [innerHtml]="editableContext.errors | contentErrors"></div>
+                                                            </ng-template>
+                                                        </p-overlayPanel>
+                                                        <button pButton pRipple type="button" icon="fas fa-exclamation-triangle" [disabled]="false" class="p-button-rounded p-button-text p-button-danger p-mr-2" (click)="errorsOverlay.toggle($event)"></button>
+                                                        <button pButton pRipple type="button" icon="pi pi-times" (click)="editableService.onRowEditCancel($event, dt, item)" class="p-button-rounded p-button-text p-button-danger"></button>
+                                                    </ng-container>
+                                                </ng-container>
+                                            </ng-container>
+
+                                        </ng-container>
+
                                     </ng-container>
 
                                     <!-- CUSTOM MENU -->

@@ -1,24 +1,34 @@
-import { EventEmitter, Injectable } from '@angular/core';
-import { Store } from '@ngxs/store';
+import { ChangeDetectorRef, EventEmitter, Injectable } from '@angular/core';
 import { ObjectUtils } from 'primeng/utils';
 import { isSimpleNamedEntity, setNestedObject } from '../../../common/utils/utils';
 import { EditableChanges, EditableRowContext } from '../models/editable-model';
 import { SmzEditableType } from '../models/editable-types';
 import { SmzTableState } from '../models/table-state';
-import { UUID } from 'angular2-uuid';
+import { Table } from 'primeng/table';
+import { SmzTransactionsService } from './smz-transactions.service';
 
+// SERVIÇO COM INSTANCIAS DIFERENTES POR TABELA
 @Injectable()
 export class TableEditableService {
+    // CONTEXTO EDITÁVEL POR ROW
     public context: { [k: string]: EditableRowContext } = {};
+
+    // BINDING DO STATE ORIGINAL DA TABELA
     public state: SmzTableState;
+
+    // BINDING DO OUTPUT DE SALVAR DA TABELA
     public saveEvent: EventEmitter<any>;
 
-    constructor(private store: Store) {
-    }
+    // BINDING DA INJEÇÃO DE DETECÇÃO DA TABELA
+    public cdr: ChangeDetectorRef;
+
+    constructor(private transactions: SmzTransactionsService) {}
 
     public onRowEditInit(row: any): void {
+
+        // INICIAR UM NOVO CONTEXTO DE EDIÇÃO
         const context = {
-            transactionId: UUID.UUID(),
+            transactionId: null,
             rowId: row.id,
             editing: {},
             original: {},
@@ -28,6 +38,7 @@ export class TableEditableService {
             isLoading: false,
         };
 
+        // COPIAR PROPRIEDADES EDITÁVEL NO CONTEXTO ORIGINAL E EDIÇÃO
         this.state.columns
             .filter(c => c.editable.type !== SmzEditableType.NONE)
             .forEach(col => {
@@ -35,92 +46,177 @@ export class TableEditableService {
                 context.editing[col.editable.property] = ObjectUtils.resolveFieldData(row, col.editable.property);
             });
 
+        // GUARDAR CONTEXTO CRIADO
         this.context[row.id] = context;
     }
 
     public onChanges(row: any): void {
-        const before = this.context[row.id].original;
-        const after = this.context[row.id].editing;
+        // PEGAR CONTEXTO ATUAL
+        const context = this.context[row.id];
+
+        // DADOS ORIGINAIS
+        const before = context.original;
+
+        // DADOS MDIFICADOS
+        const after = context.editing;
+
+        // DESCOBRIR O QUE MUDOU
         const changes = this.getChanges(before, after);
 
         if (changes != null && Object.keys(changes).length === 0) {
+
+            // PROPAGAR QUE OS DADOS MUDARAM
             this.context[row.id].hasChanged = false;
         }
         else {
+
+            // PROPAGAR QUE NÃO TIVERAM MUDANÇAS
             this.context[row.id].hasChanged = true;
         }
     }
 
-    public onRowEditSave(row: any): void {
+    public onRowEditSave(event: MouseEvent, table: Table, editableRowElement: any, row: any): void {
 
-        const before = this.context[row.id].original;
-        const after = this.context[row.id].editing;
+        // PEGAR CONTEXTO ATUAL
+        const context = this.context[row.id];
 
-        // console.log('before', before);
-        // console.log('after', after);
+        // ATIVAR LOADING DA ROW
+        context.isLoading = true;
 
+        // PROVOCAR ANGULAR CHANGE DETECTION
+        this.cdr.markForCheck();
+
+        // DADOS ORIGINAIS
+        const before = context.original;
+
+        // DADOS MDIFICADOS
+        const after = context.editing;
+
+        // DESCOBRIR O QUE MUDOU
         const changes = this.getChanges(before, after);
 
         let dispatchData = null;
         let params = null;
 
-        console.log('changes', changes);
-
+        // PERCORRER AS PROPRIEDADES QUE MUDARAM
         for (let changeKey of Object.keys(changes)) {
 
-                const change = changes[changeKey];
-                const action = this.state.editable.dispatch;
+            const change = changes[changeKey];
+            const action = this.state.editable.dispatch;
 
-                for (let afterDataKey of Object.keys(change.after.data)) {
-                    setNestedObject(row, afterDataKey, change.after.data[afterDataKey]);
-                };
+            for (let afterDataKey of Object.keys(change.after.data)) {
+                // SETAR DADO MODIFICADO NA ROW
+                setNestedObject(row, afterDataKey, change.after.data[afterDataKey]);
+            };
 
-                params = action.mapResults(row, change);
-                if (action.action != null) dispatchData = new action.action(params);
+            // MAPEAR PARAMETROS PARA A ACTION
+            params = action.mapResults(row, change);
+
+            // SE HABILITADO, CRIAR ACTION PARA DISPATCH NA STORE
+            if (action.action != null) dispatchData = new action.action(params);
         }
 
-        // console.log('-----------');
-        // console.log('dispatchs', dispatchs);
-        // console.log('saveEvents', saveEvents);
+        // PUBLICAR EVENTO DE OUTPUT SAVE DA TABELA
+        this.saveEvent.emit(params);
 
-        if (this.state.editable.dispatch.action != null) {
-            this.store.dispatch(dispatchData);
-        }
-        else {
-            this.saveEvent.emit(params);
-        }
+        // INICIAR TRANSAÇÃO PARA SALVAR OS DADOS
+        context.transactionId = this.transactions.add(
+            dispatchData,
+            () => {
 
-        delete this.context[row.id];
+                // SUCCESS
+
+                // DESATIVAR LOADING
+                context.isLoading = false;
+
+                // SALVAR EDIÇÃO DA TABELA DO PRIME
+                table.saveRowEdit(row, editableRowElement);
+
+                // EVITAR PROPAGAÇÃO DO CLICK PARA OUTROS EVENTOS.
+                event.stopPropagation();
+
+                // PROVOCAR ANGULAR CHANGE DETECTION
+                this.cdr.markForCheck();
+
+                // REMOVER CONTEXTO DE EDIÇÃO PARA ESSA ROW
+                delete this.context[row.id];
+            },
+            (errors: string[]) => {
+
+                // FAILURE
+
+                // DESATIVAR LOADING
+                context.isLoading = false;
+
+                // ATIVAR E PUBLICAR OS ERROS
+                context.hasErrors = true;
+                context.errors = errors;
+
+                // PROVOCAR ANGULAR CHANGE DETECTION
+                this.cdr.markForCheck();
+            });
+
     }
 
-    public onRowEditCancel(row: any, index: number, items: any[]): void {
-        // console.log('onRowEditCancel');
-        // console.log('row', row);
-        // console.log('index', index);
-        // console.log('items', items);
-        // console.log('item', items[index]);
-        // console.log('editCache', this.originalCache[row.id]);
+    public onRowEditCancel(event: MouseEvent, table: Table, row: any): void {
+        const context = this.context[row.id];
 
-        // const before = this.context[row.id].original;
-        // const after = this.context[row.id].editing;
+        // DADOS ORIGINAIS
+        const before = context.original;
 
-        // console.log('before', before);
-        // console.log('after', after);
+        // DADOS MDIFICADOS
+        const after = context.editing;
 
+        // DESCOBRIR O QUE MUDOU
+        const changes = this.getChanges(before, after);
+
+        // PERCORRER AS PROPRIEDADES QUE MUDARAM
+        for (let changeKey of Object.keys(changes)) {
+
+            const change = changes[changeKey];
+
+            for (let beforeDataKey of Object.keys(change.before.data)) {
+                // SETAR DADO ORIGINAL NA ROW
+                setNestedObject(row, beforeDataKey, change.before.data[beforeDataKey]);
+            };
+
+        }
+
+        // CANCELAR EDIÇÃO DA TABELA DO PRIME
+        table.cancelRowEdit(row);
+
+        // EVITAR PROPAGAÇÃO DO CLICK PARA OUTROS EVENTOS.
+        event.stopPropagation();
+
+        // PROVOCAR ANGULAR CHANGE DETECTION
+        this.cdr.markForCheck();
+
+        // REMOVER CONTEXTO DE EDIÇÃO PARA ESSA ROW
         delete this.context[row.id];
     }
 
     private getChanges(before: any, after: any): EditableChanges<any> {
-        let changes: EditableChanges<any> = {};
 
+        // CRIAR RESULTADO (SEM MUDANÇAS)
+        let results: EditableChanges<any> = {};
+
+        // PERCORRER PROPRIEDADES
         for (let key of Object.keys(before)) {
+
+            // DEFINIR SE O OBJECTO É SIMPLENAMED
             const isSimpleNamed = isSimpleNamedEntity(before[key]) || isSimpleNamedEntity(after[key]);
 
+            // VALOR ORIGINAL
             const beforeValue = isSimpleNamed ? before[key].id : before[key];
+
+            // VALOR ATUAL
             const afterValue = isSimpleNamed ? after[key].id : after[key];
 
+            // SE OS VALORES MUDARAM
             if (beforeValue !== afterValue) {
-                changes[key] = {
+
+                // REGISTRAR MUDANÇA NO RESULTADO
+                results[key] = {
                     before: {
                         data: before,
                         propertyData: before[key],
@@ -135,7 +231,7 @@ export class TableEditableService {
             }
         }
 
-        return changes;
+        return results;
     }
 
 }

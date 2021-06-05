@@ -22,7 +22,7 @@ export abstract class SmzBaseEditableBuilder<T extends SmzBaseEditableBuilder<T>
     this._parent._column.editable = this._editable;
   }
 
-  public get editable(): SmzBaseColumnBuilder<any> {
+  public get column(): SmzBaseColumnBuilder<any> {
     return this._parent;
   }
 }
@@ -37,7 +37,7 @@ export class SmzEditableCollectionBuilder {
     return new SmzDropdownEditableBuilder(this._table, this._parent, property);
   }
 
-  public get editable(): SmzBaseColumnBuilder<any> {
+  public get column(): SmzBaseColumnBuilder<any> {
     return this._parent;
   }
 }
