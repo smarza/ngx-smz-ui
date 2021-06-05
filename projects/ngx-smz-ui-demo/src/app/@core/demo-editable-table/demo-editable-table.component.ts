@@ -39,18 +39,6 @@ export class DemoEditableTableComponent implements OnInit {
   public setupTableState(): void {
     this.tableState = new SmzTableBuilder()
       .setTitle('Demo Editable Table')
-      // .customizeEditableEventResults((data: any, change) => {
-
-      //   console.log('data', data);
-      //   console.log('before', change.before);
-      //   console.log('after', change.after);
-
-      //   return {
-      //     name: data.name,
-      //     company: data.company,
-      //     countryId: data.country.id,
-      //   };
-      // })
       .menu()
       .item('Log State')
         .setCallback((): void => console.log(this.tableState))
@@ -58,19 +46,24 @@ export class DemoEditableTableComponent implements OnInit {
         .table
       .columns()
         .text('name', 'Name', '20em')
-          .makeEditable()
           .disableFilter()
           .disableSort()
+            .editable()
+            .editable
           .columns
         .text('company', 'Company', '20em')
-          .makeEditable()
           .disableFilter()
           .disableSort()
+            .editable()
+            .editable
           .columns
         .text('country.name', 'Country', '20em')
-          .makeEditable(SmzEditableType.DROPDOWN, null, 'country')
           .setFilter(SmzFilterType.MULTI_SELECT)
           .disableSort()
+            .editable()
+            .dropdown('country')
+              .setOptions(this.countries)
+              .editable
           .columns
         .table
       .build();

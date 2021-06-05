@@ -188,15 +188,15 @@
                                             </ng-container>
 
                                             <ng-container *ngSwitchCase="editableTypes.text">
-                                                <input pInputText type="text" [(ngModel)]="editableService.editingCache[item.id][col.editable.property]" required style="width: 100%;">
+                                                <input pInputText type="text" [(ngModel)]="editableService.editingCache[item.id][col.editable.property]" (ngModelChange)="editableService.onChanges(item)" required style="width: 100%;">
                                             </ng-container>
 
                                             <ng-container *ngSwitchCase="editableTypes.area">
-                                                <textarea pInputTextarea type="text" [(ngModel)]="editableService.editingCache[item.id][col.editable.property]" [rows]="col.editable.data['rows']" required style="width: 100%;"></textarea>
+                                                <textarea pInputTextarea type="text" [(ngModel)]="editableService.editingCache[item.id][col.editable.property]" (ngModelChange)="editableService.onChanges(item)" [rows]="col.editable.data['rows']" required style="width: 100%;"></textarea>
                                             </ng-container>
 
                                             <ng-container *ngSwitchCase="editableTypes.dropdown">
-                                                <p-dropdown [(ngModel)]="editableService.editingCache[item.id][col.editable.property]" styleClass="w-full" [options]="col.editable.data['options'] != null ? col.editable.data['options'] : ((clonedData.items != null ? clonedData.items : []) | uniqueFilter : col.editable.property + '.id' : col.editable.property)" optionLabel="name" dataKey="id"></p-dropdown>
+                                                <p-dropdown [(ngModel)]="editableService.editingCache[item.id][col.editable.property]" styleClass="w-full" [options]="col.editable.data | editableSource" (onChange)="editableService.onChanges(item)" optionLabel="name" dataKey="id"></p-dropdown>
                                             </ng-container>
 
                                             <ng-container *ngSwitchCase="editableTypes.calendar">
@@ -255,8 +255,8 @@
 
                                     <!-- EDITABLE MENU -->
                                     <ng-container>
-                                        <button *ngIf="context.state.actions.editable.isEnabled && !editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="editableService.onRowEditInit(item)" class="p-button-rounded p-button-text p-mx-2"></button>
-                                        <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="editableService.onRowEditSave(item)" class="p-button-rounded p-button-text p-button-success p-mr-2"></button>
+                                        <button *ngIf="context.state.editable.isEditable && !editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="editableService.onRowEditInit(item)" class="p-button-rounded p-button-text p-mx-2"></button>
+                                        <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="editableService.onRowEditSave(item)" [disabled]="!editableService.hasChangedTracking[item.id]" class="p-button-rounded p-button-text p-button-success p-mr-2"></button>
                                         <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="editableService.onRowEditCancel(item, rowIndex, clonedData.items)" class="p-button-rounded p-button-text p-button-danger"></button>
                                     </ng-container>
 

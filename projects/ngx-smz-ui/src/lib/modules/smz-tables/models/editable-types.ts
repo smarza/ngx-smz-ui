@@ -32,15 +32,4 @@ export interface SmzDropdownEditable {
   sourceData: any;
 }
 
-
-export type SmzSourceTypes =
-  SmzSource |
-  SmzCalendarEditable |
-  SmzAreaEditable |
-  SmzDropdownEditable;
-export type SmzSourceType = 'items' | 'model' | 'selector';
-
-export interface SmzDropdownEditable {
-  sourceType: SmzSourceType;
-  sourceData: any;
-}
+export type SmzSourceType = 'object' | 'selector';

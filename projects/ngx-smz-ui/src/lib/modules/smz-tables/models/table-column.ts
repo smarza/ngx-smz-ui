@@ -56,10 +56,6 @@ export interface SmzTableColumn {
      */
     data?: SmzEditableTypes;
     /**
-     * Associate this column with a actions dispatch
-     */
-    actionLink?: string;
-    /**
      * Property of the object
      */
     property?: string;
@@ -80,4 +76,20 @@ export interface SmzTableColumn {
   };
 }
 
-export interface SmzTableContextColumn extends SmzTableColumn {}
+export interface SmzTableContextColumn extends SmzTableColumn { }
+
+
+export interface SmzTableEditableColumn {
+  /**
+  * Type of editable input that will be rendered in the cell
+  */
+  type: SmzEditableType;
+  /**
+   * Extra data needed for the selected editable type
+   */
+  data?: SmzEditableTypes;
+  /**
+   * Property of the object
+   */
+  property?: string;
+}

@@ -25,6 +25,7 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { SmzColumnFilterComponent } from './components/smz-filter-column.component';
 import { SmzColumnFilter2Component } from './components/smz-filter-column-2.component';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { SmzEditableSourcePipe } from './pipes/editable-source.pipe';
 
 @NgModule({
     declarations: [
@@ -36,7 +37,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
         SmzTableMenuPipe,
         SmzCloneTableItemsPipe,
         SmzColumnFilterComponent,
-        SmzColumnFilter2Component
+        SmzColumnFilter2Component,
+        SmzEditableSourcePipe
     ],
     imports: [
         CommonModule,

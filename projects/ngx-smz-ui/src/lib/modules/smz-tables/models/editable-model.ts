@@ -1,3 +1,4 @@
+import { isSimpleNamedEntity } from '../../../common/utils/utils';
 
 export interface EditableChanges<T>
 {
@@ -38,3 +39,30 @@ export interface EditableSaveEvent
     key: string;
     data: any;
 }
+
+export function defaultMapResults(data: any, change: EditableChangeTrack<any>) {
+
+    // console.log('defaultMapResults');
+    // console.log('data', data);
+    // console.log('change', change);
+
+    const result = {};
+
+    const after = change.after.data;
+
+    for (let key of Object.keys(after))
+    {
+
+        const isSimpleNamed = isSimpleNamedEntity(after[key]);
+
+        if (isSimpleNamed) {
+            result[`${key}Id`] = after[key].id;
+        }
+        else {
+            result[key] = after[key];
+        }
+
+    }
+
+    return result;
+};

@@ -10,6 +10,7 @@ import { SmzTableState } from '../models/table-state';
 export class TableEditableService {
     public originalCache: { [s: string]: any; } = {};
     public editingCache: { [s: string]: any; } = {};
+    public hasChangedTracking: { [s: string]: boolean; } = {};
     public state: SmzTableState;
     public saveEvent: EventEmitter<any>;
 
@@ -25,12 +26,24 @@ export class TableEditableService {
             .forEach(col => {
                 this.originalCache[row.id][col.editable.property] = ObjectUtils.resolveFieldData(row, col.editable.property);
                 this.editingCache[row.id][col.editable.property] = ObjectUtils.resolveFieldData(row, col.editable.property);
+                this.hasChangedTracking[row.id] = false;
             });
     }
 
-    public onRowEditSave(row: any): void {
+    public onChanges(row: any): void {
+        const before = this.originalCache[row.id];
+        const after = this.editingCache[row.id];
+        const changes = this.getChanges(before, after);
 
-        const actions = this.state.actions.editable.actions;
+        if (changes != null && Object.keys(changes).length === 0) {
+            this.hasChangedTracking[row.id] = false;
+        }
+        else {
+            this.hasChangedTracking[row.id] = true;
+        }
+    }
+
+    public onRowEditSave(row: any): void {
 
         const before = this.originalCache[row.id];
         const after = this.editingCache[row.id];
@@ -40,72 +53,37 @@ export class TableEditableService {
 
         const changes = this.getChanges(before, after);
 
-        const dispatchs: EditableDispatch[] = [];
-        const saveEvents: EditableSaveEvent[] = [];
+        let dispatchData = null;
+        let params = null;
+
+        console.log('changes', changes);
 
         for (let changeKey of Object.keys(changes)) {
-            const actionLink = this.state.columns.find(x => x.editable.type !== SmzEditableType.NONE && x.field === changeKey)?.editable.actionLink;
-
-            if (actionLink != null) {
 
                 const change = changes[changeKey];
-                const action = actions[actionLink];
+                const action = this.state.editable.dispatch;
 
                 for (let afterDataKey of Object.keys(change.after.data)) {
                     setNestedObject(row, afterDataKey, change.after.data[afterDataKey]);
                 };
 
-                const params = action.mapResults(row, change);
-
-                if (this.state.actions.editable.saveMethod == 'dispatch') {
-
-                    if (action != null) {
-
-                        const matchIndex = dispatchs.findIndex(x => x.key === actionLink);
-
-                        if (matchIndex !== -1) {
-                            // REPLACE DISPATCH
-                            dispatchs[matchIndex] = { key: actionLink, dispatchAction: new action.action(params) };
-                        }
-                        else {
-                            // ADD NEW DISPATCH
-                            dispatchs.push({ key: actionLink, dispatchAction: new action.action(params) });
-                        }
-
-                    }
-                }
-                else {
-
-                    const matchIndex = saveEvents.findIndex(x => x.key === actionLink);
-
-                    if (matchIndex !== -1) {
-                        // REPLACE DISPATCH
-                        saveEvents[matchIndex] = { key: actionLink, data: params };
-                    }
-                    else {
-                        // ADD NEW DISPATCH
-                        saveEvents.push({ key: actionLink, data: params });
-                    }
-
-                }
-
-            }
+                params = action.mapResults(row, change);
+                if (action.action != null) dispatchData = new action.action(params);
         }
 
         // console.log('-----------');
         // console.log('dispatchs', dispatchs);
         // console.log('saveEvents', saveEvents);
 
-        if (this.state.actions.editable.saveMethod == 'dispatch') {
-            for (let dispatch of dispatchs) {
-                this.store.dispatch(dispatch.dispatchAction);
-            }
+        if (this.state.editable.dispatch.action != null) {
+            this.store.dispatch(dispatchData);
         }
         else {
-            this.saveEvent.emit(saveEvents.length > 0 ? saveEvents[0].data : {});
+            this.saveEvent.emit(params);
         }
 
         delete this.originalCache[row.id];
+        delete this.editingCache[row.id];
     }
 
     public onRowEditCancel(row: any, index: number, items: any[]): void {
@@ -124,6 +102,7 @@ export class TableEditableService {
 
         delete this.originalCache[row.id];
         delete this.editingCache[row.id];
+        delete this.hasChangedTracking[row.id];
     }
 
     private getChanges(before: any, after: any): EditableChanges<any> {

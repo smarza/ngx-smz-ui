@@ -1,5 +1,5 @@
 import { SmzMenuItem } from "./conditional-menu-item";
-import { EditableSaveActions } from './editable-model';
+import { EditableChangeTrack, EditableSaveActions } from './editable-model';
 import { SmzTableColumn, SmzTableContextColumn } from "./table-column";
 
 export interface SmzTableState {
@@ -56,17 +56,15 @@ export interface SmzTableState {
        */
       highlights?: { ids: string[] };
     };
-
-    /**
-     * Configuration of the actions to dispatch editable saves
-     */
-    editable?: {
-      isEnabled?: boolean;
-      saveMethod?: 'event' | 'dispatch';
-      actions?: EditableSaveActions<any>;
-    }
-
   };
+
+  /**
+   * Configuration of the actions to dispatch editable saves
+   */
+  editable?: {
+    isEditable?: boolean;
+    dispatch: { action: any, mapResults: (data: any, change: EditableChangeTrack<any>) => any }
+  }
 
   /**
    * Behavior of everything that is hosted in the caption area of the table
