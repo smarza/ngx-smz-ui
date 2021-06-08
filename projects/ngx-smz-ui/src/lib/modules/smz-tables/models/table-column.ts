@@ -48,17 +48,25 @@ export interface SmzTableColumn {
    */
   editable?: {
     /**
-     * Type of editable input that will be rendered in the cell
-     */
-    type: SmzEditableType;
-    /**
-     * Extra data needed for the selected editable type
-     */
-    data?: SmzEditableTypes;
-    /**
      * Property of the object
      */
-    property?: string;
+    property: string;
+    /**
+    * Type of editable input that will be rendered in the cell
+    */
+    type: SmzEditableType;
+    /**
+   * Extra data needed for the selected editable type
+   */
+    data?: SmzEditableTypes;
+    /**
+    * Controls if the field can be use in update form
+    */
+    isUpdatable: boolean;
+    /**
+    * Controls if the field can be use in creation form
+    */
+    isCreatable: boolean;
   };
 
   /**
@@ -81,15 +89,23 @@ export interface SmzTableContextColumn extends SmzTableColumn { }
 
 export interface SmzTableEditableColumn {
   /**
+   * Property of the object
+   */
+  property: string;
+  /**
   * Type of editable input that will be rendered in the cell
   */
   type: SmzEditableType;
   /**
-   * Extra data needed for the selected editable type
-   */
+ * Extra data needed for the selected editable type
+ */
   data?: SmzEditableTypes;
   /**
-   * Property of the object
-   */
-  property?: string;
+  * Controls if the field can be use in update form
+  */
+  isUpdatable: boolean;
+  /**
+  * Controls if the field can be use in creation form
+  */
+  isCreatable: boolean;
 }

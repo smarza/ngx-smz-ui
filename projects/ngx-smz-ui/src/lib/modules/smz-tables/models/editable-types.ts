@@ -30,6 +30,7 @@ export interface SmzAreaEditable {
 export interface SmzDropdownEditable {
   sourceType: SmzSourceType;
   sourceData: any;
+  placeholder: string;
 }
 
 export type SmzSourceType = 'object' | 'selector';

@@ -8,6 +8,9 @@ import { Table } from 'primeng/table';
 import { SmzTransactionsService } from './smz-transactions.service';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { takeWhile } from 'rxjs/operators';
+import { UUID } from 'angular2-uuid';
+import { removeElementFromArray } from 'ngx-smz-dialogs';
+import { cloneDeep } from 'lodash-es';
 
 // SERVIÇO COM INSTANCIAS DIFERENTES POR TABELA
 @Injectable()
@@ -26,7 +29,24 @@ export class TableEditableService {
 
     constructor(private transactions: SmzTransactionsService, private fb: FormBuilder) { }
 
-    public onRowEditInit(row: any): void {
+    public onRowCreateInit(table: Table, tableItems: any[]): void {
+
+        tableItems.unshift({ id: UUID.UUID() });
+
+        this.cdr.markForCheck();
+
+        setTimeout(() => {
+            table.initRowEdit(tableItems[0]);
+
+            this.onRowEditInit(tableItems[0], false);
+
+            this.cdr.markForCheck();
+        }, 0);
+    }
+
+    public onRowEditInit(row: any, isUpdating = true): void {
+
+        row['_context'] = { isUpdating, isCreating: !isUpdating };
 
         // INICIAR UM NOVO CONTEXTO DE EDIÇÃO
         const context: EditableRowContext = {
@@ -63,6 +83,7 @@ export class TableEditableService {
 
         // GUARDAR CONTEXTO CRIADO
         this.context[row.id] = context;
+
     }
 
     private createForm(row: any): FormGroup {
@@ -84,6 +105,7 @@ export class TableEditableService {
     }
 
     public onChanges(rowId: string): void {
+
         // PEGAR CONTEXTO ATUAL
         const context = this.context[rowId];
 
@@ -135,7 +157,7 @@ export class TableEditableService {
         for (let changeKey of Object.keys(changes)) {
 
             const change = changes[changeKey];
-            const action = this.state.editable.dispatch;
+            const action = this.state.editable.dispatchs;
 
             for (let afterDataKey of Object.keys(change.after.data)) {
                 // SETAR DADO MODIFICADO NA ROW
@@ -146,7 +168,7 @@ export class TableEditableService {
             params = action.mapResults(row, change);
 
             // SE HABILITADO, CRIAR ACTION PARA DISPATCH NA STORE
-            if (action.action != null) dispatchData = new action.action(params);
+            if (action.updateAction != null) dispatchData = new action.updateAction(params);
         }
 
         // PUBLICAR EVENTO DE OUTPUT SAVE DA TABELA
@@ -173,6 +195,95 @@ export class TableEditableService {
 
                 // REMOVER CONTEXTO DE EDIÇÃO PARA ESSA ROW
                 delete this.context[row.id];
+
+                // REMOVER CONTEXTO DA ROW
+                delete row['_context'];
+            },
+            (errors: string[]) => {
+
+                // FAILURE
+
+                // DESATIVAR LOADING
+                context.isLoading = false;
+
+                // ATIVAR E PUBLICAR OS ERROS
+                context.hasErrors = true;
+                context.errors = errors;
+
+                // PROVOCAR ANGULAR CHANGE DETECTION
+                this.cdr.markForCheck();
+            });
+
+    }
+
+    public onRowCreateSave(event: MouseEvent, table: Table, editableRowElement: any, row: any): void {
+
+        // PEGAR CONTEXTO ATUAL
+        const context = this.context[row.id];
+
+        // ATIVAR LOADING DA ROW
+        context.isLoading = true;
+
+        // PROVOCAR ANGULAR CHANGE DETECTION
+        this.cdr.markForCheck();
+
+        // DADOS ORIGINAIS
+        const before = context.original;
+
+        // DADOS MDIFICADOS
+        const after = context.editing;
+
+        // DESCOBRIR O QUE MUDOU
+        const changes = this.getChanges(before, after);
+
+        let dispatchData = null;
+        let params = null;
+
+        // PERCORRER AS PROPRIEDADES QUE MUDARAM
+        for (let changeKey of Object.keys(changes)) {
+
+            const change = changes[changeKey];
+            const action = this.state.editable.dispatchs;
+
+            for (let afterDataKey of Object.keys(change.after.data)) {
+                // SETAR DADO MODIFICADO NA ROW
+                setNestedObject(row, afterDataKey, change.after.data[afterDataKey]);
+            };
+
+            // MAPEAR PARAMETROS PARA A ACTION
+            params = action.mapResults(row, change);
+
+            // SE HABILITADO, CRIAR ACTION PARA DISPATCH NA STORE
+            if (action.creationAction != null) dispatchData = new action.creationAction(params);
+        }
+
+        // PUBLICAR EVENTO DE OUTPUT SAVE DA TABELA
+        this.saveEvent.emit(params);
+
+        // INICIAR TRANSAÇÃO PARA SALVAR OS DADOS
+        context.transactionId = this.transactions.add(
+            dispatchData,
+            () => {
+
+                // SUCCESS
+
+                // DESATIVAR LOADING
+                context.isLoading = false;
+
+                // SALVAR EDIÇÃO DA TABELA DO PRIME
+                table.saveRowEdit(row, editableRowElement);
+
+                // EVITAR PROPAGAÇÃO DO CLICK PARA OUTROS EVENTOS.
+                event.stopPropagation();
+
+                // PROVOCAR ANGULAR CHANGE DETECTION
+                this.cdr.markForCheck();
+
+                // REMOVER CONTEXTO DE EDIÇÃO PARA ESSA ROW
+                delete this.context[row.id];
+
+                // REMOVER CONTEXTO DA ROW
+                delete row['_context'];
             },
             (errors: string[]) => {
 
@@ -192,6 +303,7 @@ export class TableEditableService {
     }
 
     public onRowEditCancel(event: MouseEvent, table: Table, row: any): void {
+
         const context = this.context[row.id];
 
         // DADOS ORIGINAIS
@@ -226,8 +338,25 @@ export class TableEditableService {
 
         // REMOVER CONTEXTO DE EDIÇÃO PARA ESSA ROW
         delete this.context[row.id];
+
+        // REMOVER CONTEXTO DA ROW
+        delete row['_context'];
     }
 
+    public onRowCreateCancel(event: MouseEvent, table: Table, row: any, tableItems: any[]): void {
+
+        // REMOVER ITEM DE CRIAÇÃO DA LISTA DA TABELA
+        removeElementFromArray(tableItems, row.id);
+
+        // EVITAR PROPAGAÇÃO DO CLICK PARA OUTROS EVENTOS.
+        event.stopPropagation();
+
+        // PROVOCAR ANGULAR CHANGE DETECTION
+        this.cdr.markForCheck();
+
+        // REMOVER CONTEXTO DE EDIÇÃO PARA ESSA ROW
+        delete this.context[row.id];
+    }
     private getChanges(before: any, after: any): EditableChanges<any> {
 
         // CRIAR RESULTADO (SEM MUDANÇAS)
@@ -240,7 +369,7 @@ export class TableEditableService {
             const isSimpleNamed = isSimpleNamedEntity(before[key]) || isSimpleNamedEntity(after[key]);
 
             // VALOR ORIGINAL
-            const beforeValue = isSimpleNamed ? before[key].id : before[key];
+            const beforeValue = isSimpleNamed ? before[key]?.id : before[key];
 
             // VALOR ATUAL
             const afterValue = isSimpleNamed ? after[key].id : after[key];

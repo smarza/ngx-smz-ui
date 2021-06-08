@@ -23,7 +23,10 @@ export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T>> {
         data: {
           rows: 5,
           options: []
-        }
+        },
+        isUpdatable: false,
+        isCreatable: false,
+        property: null
       },
       isOrderable: true,
       filter: {

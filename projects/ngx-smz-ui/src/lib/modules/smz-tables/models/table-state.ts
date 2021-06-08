@@ -62,8 +62,18 @@ export interface SmzTableState {
    * Configuration of the actions to dispatch editable saves
    */
   editable?: {
-    isEditable?: boolean;
-    dispatch: { action: any, mapResults: (data: any, change: EditableChangeTrack<any>) => any }
+    update:{
+      isButtonVisible: boolean;
+    };
+    creation: {
+      isButtonVisible: boolean;
+      buttonLabel: string;
+    };
+    dispatchs: {
+      updateAction: any,
+      creationAction: any,
+      mapResults: (data: any, change: EditableChangeTrack<any>) => any
+    };
   }
 
   /**

@@ -11,15 +11,34 @@ export abstract class SmzBaseEditableBuilder<T extends SmzBaseEditableBuilder<T>
 
   constructor(protected _table: SmzTableBuilder, protected _parent: SmzBaseColumnBuilder<any>, type: SmzEditableType, property: string, data: any) {
     this._editable = {
+      property,
       type,
       data,
-      property
+      isUpdatable: true,
+      isCreatable: true
     };
 
-    if (!this._table._state.editable.isEditable) this._table._state.actions.customActions.columnWidth += 50;
+    if (!this._table._state.editable.update.isButtonVisible) this._table._state.actions.customActions.columnWidth += 50;
 
-    this._table._state.editable.isEditable = true;
+    this._table._state.editable.update.isButtonVisible = true;
+    this._table._state.editable.creation.isButtonVisible = true;
     this._parent._column.editable = this._editable;
+  }
+
+  public disableUpdate(): SmzBaseEditableBuilder<T> {
+
+    this._editable.isUpdatable = false;
+    this._table._state.editable.creation.isButtonVisible = this._table._state.columns.some(x => x.editable.isUpdatable);
+
+    return this;
+  }
+
+  public disableCreation(): SmzBaseEditableBuilder<T> {
+
+    this._editable.isCreatable = false;
+    this._table._state.editable.creation.isButtonVisible = this._table._state.columns.some(x => x.editable.isCreatable);
+
+    return this;
   }
 
   public get column(): SmzBaseColumnBuilder<any> {
@@ -49,8 +68,10 @@ export class SmzTextEditableBuilder extends SmzBaseEditableBuilder<SmzTextEditab
 }
 
 export class SmzDropdownEditableBuilder extends SmzBaseEditableBuilder<SmzDropdownEditableBuilder> {
-  constructor(protected _table: SmzTableBuilder, protected _parent: SmzBaseColumnBuilder<any>, property: string) {
+  constructor(protected _table: SmzTableBuilder, protected _parent: SmzBaseColumnBuilder<any>, property: string, placeholder = 'Selecione uma opção') {
     super(_table, _parent, SmzEditableType.DROPDOWN, property, {});
+
+    (this._editable.data as SmzDropdownEditable).placeholder = placeholder;
   }
 
   public setOptions(options: any[]): SmzDropdownEditableBuilder {

@@ -48,7 +48,6 @@ export class DemoEditableTableComponent implements OnInit {
           .editable()
             .column
           .disableFilter()
-          .disableSort()
           .columns
         .text('company', 'Company', '20em')
           .disableFilter()

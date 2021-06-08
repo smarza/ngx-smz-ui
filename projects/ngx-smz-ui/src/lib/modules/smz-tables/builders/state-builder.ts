@@ -24,8 +24,19 @@ export class SmzTableBuilder {
       }
     },
     editable: {
-      isEditable: false,
-      dispatch: { action: null, mapResults: (data, change: EditableChangeTrack<any>) => defaultMapResults(data, change) }
+      update: {
+        isButtonVisible: false
+      },
+      creation: {
+        isButtonVisible: false,
+        buttonLabel: 'Criar'
+      },
+      dispatchs:
+      {
+        updateAction: null,
+        creationAction: null,
+        mapResults: (data, change: EditableChangeTrack<any>) => defaultMapResults(data, change)
+      }
     },
     caption: {
       rowSelection: {
@@ -276,13 +287,19 @@ export class SmzTableBuilder {
   }
 
   public customizeEditableResults<T>(mapFunction: (data: T, change: EditableChangeTrack<T>) => any): SmzTableBuilder {
-    this._state.editable.dispatch.mapResults = mapFunction;
+    this._state.editable.dispatchs.mapResults = mapFunction;
 
     return this;
   }
 
-  public setEditableDispatch(action: any): SmzTableBuilder {
-    this._state.editable.dispatch.action = action;
+  public setUpdateDispatch(action: any): SmzTableBuilder {
+    this._state.editable.dispatchs.updateAction = action;
+
+    return this;
+  }
+
+  public setCreationDispatch(action: any): SmzTableBuilder {
+    this._state.editable.dispatchs.creationAction = action;
 
     return this;
   }
