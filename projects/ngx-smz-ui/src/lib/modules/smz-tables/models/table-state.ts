@@ -69,6 +69,9 @@ export interface SmzTableState {
       isButtonVisible: boolean;
       buttonLabel: string;
     };
+    remove:{
+      isButtonVisible: boolean;
+    };
     dispatchs: {
       updateAction: any,
       creationAction: any,

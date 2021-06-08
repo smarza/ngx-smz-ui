@@ -8,7 +8,7 @@ import { SmzTransaction } from '../models/editable-transaction';
 export class SmzTransactionsService {
   private transactions: { [k: string]: SmzTransaction } = {};
   private concludedTransactions: { [k: string]: SmzTransaction } = {};
-  private isDebug = true;
+  private isDebug = false;
   constructor(private store: Store) { }
 
   public add(dispatchAction: any, success: () => void, failure: (errors: string[]) => void): string {

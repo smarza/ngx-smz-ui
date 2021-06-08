@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { Select, Store } from '@ngxs/store';
 import { SimpleNamedEntity } from 'ngx-smz-dialogs';
 import { SmzFilterType, SmzTableBuilder, SmzTableState } from 'ngx-smz-ui';
 import { EditableSaveEvent } from 'projects/ngx-smz-ui/src/lib/modules/smz-tables/models/editable-model';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { DemoItem } from '../../models/demo';
+import { DemoFeatureActions } from '../../state/demo/demo.actions';
+import { DemoFeatureSelectors } from '../../state/demo/demo.selectors';
 import { DemoTableDataService } from '../demo-tables/data-service/demo-tables-data-service';
 
 @Component({
@@ -13,22 +17,18 @@ import { DemoTableDataService } from '../demo-tables/data-service/demo-tables-da
 })
 
 export class DemoEditableTableComponent implements OnInit {
-  public items$: Observable<any>;
+  @Select(DemoFeatureSelectors.all) public items$: Observable<DemoItem[]>;
   public tableState: SmzTableState;
-  public countries: SimpleNamedEntity[] = [];
-  constructor(private dataService: DemoTableDataService) {
-    this.items$ = this.dataService.getCustomersLarge();
-
-    this.dataService
-      .getCustomersLarge()
-      .pipe(take(1))
-      .subscribe((x: any[]) => {
-        this.countries = x.map(item => item.country);
-        this.setupTableState();
-      });
+  constructor(private dataService: DemoTableDataService, private store: Store) {
+    this.store.dispatch(new DemoFeatureActions.LoadAll());
   }
 
   ngOnInit() {
+    this.setupTableState();
+  }
+
+  test(event: any) {
+    console.log(event);
   }
 
   public save(event: EditableSaveEvent[]): void {
@@ -37,6 +37,9 @@ export class DemoEditableTableComponent implements OnInit {
 
   public setupTableState(): void {
     this.tableState = new SmzTableBuilder()
+      .allowRemove()
+      .setUpdateDispatch(DemoFeatureActions.Update)
+      .setCreationDispatch(DemoFeatureActions.Create)
       .setTitle('Demo Editable Table')
       .menu()
       .item('Log State')
@@ -60,7 +63,7 @@ export class DemoEditableTableComponent implements OnInit {
           .disableSort()
           .editable()
             .dropdown('country')
-              .setOptions(this.countries)
+              .setSelector(DemoFeatureSelectors.countries)
             .column
           .columns
         .table

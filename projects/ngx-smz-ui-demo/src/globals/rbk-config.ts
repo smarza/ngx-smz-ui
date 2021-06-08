@@ -1,5 +1,6 @@
 import { environment } from '../environments/environment';
 import { NgxRbkUtilsConfig } from 'ngx-rbk-utils';
+import { DemoFeatureName, DemoFeatureState, getInitialState as getFtDemoInitialState } from '../app/state/demo/demo.state';
 
 // ------------------------------------------
 // DATABASE STATES
@@ -70,6 +71,10 @@ export const rbkConfig: NgxRbkUtilsConfig = {
         database: {
         },
         feature: {
+            [DemoFeatureName]: {
+                state: DemoFeatureState,
+                clearFunction: getFtDemoInitialState
+            },
         },
     },
     httpBehaviors: {

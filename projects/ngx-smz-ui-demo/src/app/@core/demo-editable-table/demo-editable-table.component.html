@@ -1,26 +1,30 @@
 <h2>Demo Editable table</h2>
-<smz-ui-table #smzTable [items]="items$ | async" [state]="tableState" (save)="save($event)">
+<ng-container *ngIf="items$ | async as items">
 
-  <!-- CONTEÚDOS COM OVERRIDE -->
-  <ng-template pTemplate="content" let-item let-col="col">
+  <smz-ui-table #smzTable [items]="items" [state]="tableState" (save)="save($event)">
 
-  </ng-template>
+    <!-- CONTEÚDOS COM OVERRIDE -->
+    <ng-template pTemplate="content" let-item let-col="col">
 
-  <!-- AÇÕES PERSONALIZADAS -->
-  <ng-template pTemplate="actions" let-item>
+    </ng-template>
 
-  </ng-template>
+    <!-- AÇÕES PERSONALIZADAS -->
+    <ng-template pTemplate="actions" let-item>
 
-  <!-- SEM STATE -->
-  <ng-template pTemplate="emptyState" let-item>
-    Nenhum state encontrado.
-  </ng-template>
+    </ng-template>
 
-  <!-- TOOLBAR -->
-  <ng-template pTemplate="toolbar" let-item>
-    <button pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded p-button-text"></button>
-    <button pButton pRipple type="button" icon="pi pi-bookmark" class="p-button-rounded p-button-secondary p-button-text"></button>
-    <button pButton pRipple type="button" icon="pi pi-filter" class="p-button-rounded p-button-text p-button-plain"></button>
-  </ng-template>
+    <!-- SEM STATE -->
+    <ng-template pTemplate="emptyState" let-item>
+      Nenhum state encontrado.
+    </ng-template>
 
-</smz-ui-table>
+    <!-- TOOLBAR -->
+    <ng-template pTemplate="toolbar" let-item>
+      <button pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded p-button-text"></button>
+      <button pButton pRipple type="button" icon="pi pi-bookmark" class="p-button-rounded p-button-secondary p-button-text"></button>
+      <button pButton pRipple type="button" icon="pi pi-filter" class="p-button-rounded p-button-text p-button-plain"></button>
+    </ng-template>
+
+  </smz-ui-table>
+
+</ng-container>

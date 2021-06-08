@@ -49,7 +49,7 @@
                     </p-multiSelect>
                     <button *ngIf="context.state.caption.rowSelection.isButtonVisible" pButton [label]="context.state.caption.rowSelection.label" class="p-button-outlined p-mr-2" icon="fas fa-check-double" (click)="onRowSelection(context)" [disabled]="clonedData.showSkeleton"></button>
                     <button *ngIf="context.state.caption.clearFilters.isButtonVisible" pButton [label]="context.state.caption.clearFilters.label" class="p-button-outlined p-mr-2" icon="pi pi-filter-slash" (click)="clear(dt, context)" [disabled]="clonedData.showSkeleton"></button>
-                    <button *ngIf="context.state.editable.creation.isButtonVisible" pButton [label]="context.state.editable.creation.buttonLabel" class="p-button-outlined p-mr-2" icon="fas fa-plus" (click)="editableService.onRowCreateInit(dt, clonedData.items)" [disabled]="clonedData.showSkeleton"></button>
+                    <button *ngIf="context.state.editable.creation.isButtonVisible" pButton [label]="context.state.editable.creation.buttonLabel" class="p-button-outlined p-mr-2" icon="fas fa-plus" (click)="editableService.onRowCreateInit(dt)" [disabled]="clonedData.showSkeleton"></button>
                     <span *ngIf="context.state.caption.globalFilter.isVisible" class="p-input-icon-left p-col-12 p-md-2" [ngClass]="{ 'p-mr-2': captionTemplate != null }">
                         <i class="pi pi-search"></i>
                         <input #inputGlobal pInputText type="text" (input)="dt.filterGlobal(inputGlobal.value, 'contains')"  [disabled]="clonedData.showSkeleton" placeholder="Pesquisa global" />
@@ -198,7 +198,7 @@
                                             </ng-container>
 
                                             <ng-container *ngSwitchCase="editableTypes.text">
-                                                <ng-container *ngIf="editableService.context[item.id].form.controls[col.editable.property] as control">
+                                                <ng-container *ngIf="editableService.context[item.id]?.form.controls[col.editable.property] as control">
                                                     <div class="relative w-full">
                                                         <input pInputText type="text" [formControl]="$any(control)" style="width: 100%;" [ngClass]="{ 'p-pl-5': !control.valid }">
                                                         <div *ngIf="!control.valid" class="absolute -inset-y-0 left-3 p-grid p-nogutter p-align-center p-justify-start">
@@ -209,7 +209,7 @@
                                             </ng-container>
 
                                             <ng-container *ngSwitchCase="editableTypes.area">
-                                                <ng-container *ngIf="editableService.context[item.id].form.controls[col.editable.property] as control">
+                                                <ng-container *ngIf="editableService.context[item.id]?.form.controls[col.editable.property] as control">
                                                     <div class="relative w-full">
                                                         <textarea pInputTextarea type="text" [formControl]="$any(control)" [rows]="col.editable.data['rows']" required style="width: 100%;" [ngClass]="{ 'p-pl-5': !control.valid }"></textarea>
                                                         <div *ngIf="!control.valid" class="absolute -inset-y-0 left-3 p-grid p-nogutter p-align-center p-justify-start">
@@ -220,7 +220,7 @@
                                             </ng-container>
 
                                             <ng-container *ngSwitchCase="editableTypes.dropdown">
-                                                <ng-container *ngIf="editableService.context[item.id].form.controls[col.editable.property] as control">
+                                                <ng-container *ngIf="editableService.context[item.id]?.form.controls[col.editable.property] as control">
                                                     <div class="relative w-full">
                                                         <p-dropdown [formControl]="$any(control)" styleClass="w-full" [options]="col.editable.data | editableSource" optionLabel="name" dataKey="id" [placeholder]="$any(col.editable.data).placeholder" [ngClass]="{ 'p-pl-5': !control.valid }"></p-dropdown>
                                                         <div *ngIf="!control.valid" class="absolute -inset-y-0 left-3 p-grid p-nogutter p-align-center p-justify-start">
@@ -231,7 +231,7 @@
                                             </ng-container>
 
                                             <ng-container *ngSwitchCase="editableTypes.calendar">
-                                                <ng-container *ngIf="editableService.context[item.id].form.controls[col.editable.property] as control">
+                                                <ng-container *ngIf="editableService.context[item.id]?.form.controls[col.editable.property] as control">
                                                     <div class="relative w-full">
                                                         <p-calendar [formControl]="$any(control)" styleClass="w-full" [ngClass]="{ 'p-pl-5': !control.valid }"></p-calendar>
                                                         <div *ngIf="!control.valid" class="absolute -inset-y-0 left-3 p-grid p-nogutter p-align-center p-justify-start">
@@ -294,6 +294,7 @@
                                     <!-- SEM EDITAR -->
                                     <ng-container *ngIf="!editing">
                                         <button *ngIf="context.state.editable.update.isButtonVisible" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="editableService.onRowEditInit(item)" class="p-button-rounded p-button-text p-mx-2"></button>
+                                        <button *ngIf="context.state.editable.remove.isButtonVisible" pButton pRipple type="button" icon="pi pi-times" (click)="editableService.onRowRemove(item)" class="p-button-rounded p-button-text p-button-danger"></button>
                                     </ng-container>
 
                                     <!-- EDITANDO -->
@@ -313,13 +314,13 @@
 
                                                     <!-- CRIANDO -->
                                                     <ng-container *ngIf="item._context?.isCreating">
-                                                        <button pButton pRipple type="button" icon="pi pi-check" (click)="editableService.onRowCreateSave($event, dt, editableRowElement, item)" [disabled]="!editableContext.hasChanged || !editableService.context[item.id].form.valid" class="p-button-rounded p-button-text p-button-success p-mr-2"></button>
-                                                        <button pButton pRipple type="button" icon="pi pi-times" (click)="editableService.onRowCreateCancel($event, dt, item, clonedData.items)" class="p-button-rounded p-button-text p-button-danger"></button>
+                                                        <button pButton pRipple type="button" icon="pi pi-check" (click)="editableService.onRowCreateSave($event, dt, editableRowElement, item)" [disabled]="!editableContext.hasChanged || !editableService.context[item.id]?.form.valid" class="p-button-rounded p-button-text p-button-success p-mr-2"></button>
+                                                        <button pButton pRipple type="button" icon="pi pi-times" (click)="editableService.onRowCreateCancel($event, dt, item)" class="p-button-rounded p-button-text p-button-danger"></button>
                                                     </ng-container>
 
                                                     <!-- ATUALIZANDO -->
                                                     <ng-container *ngIf="item._context?.isUpdating">
-                                                        <button pButton pRipple type="button" icon="pi pi-check" (click)="editableService.onRowEditSave($event, dt, editableRowElement, item)" [disabled]="!editableContext.hasChanged || !editableService.context[item.id].form.valid" class="p-button-rounded p-button-text p-button-success p-mr-2"></button>
+                                                        <button pButton pRipple type="button" icon="pi pi-check" (click)="editableService.onRowEditSave($event, dt, editableRowElement, item)" [disabled]="!editableContext.hasChanged || !editableService.context[item.id]?.form.valid" class="p-button-rounded p-button-text p-button-success p-mr-2"></button>
                                                         <button pButton pRipple type="button" icon="pi pi-times" (click)="editableService.onRowEditCancel($event, dt, item)" class="p-button-rounded p-button-text p-button-danger"></button>
                                                     </ng-container>
 
@@ -335,7 +336,7 @@
                                                     <button pButton pRipple type="button" icon="fas fa-exclamation-triangle" [disabled]="false" class="p-button-rounded p-button-text p-button-danger p-mr-2" (click)="errorsOverlay.toggle($event)"></button>
 
                                                     <!-- CRIANDO -->
-                                                    <button *ngIf="item._context?.isCreating" pButton pRipple type="button" icon="pi pi-times" (click)="editableService.onRowCreateCancel($event, dt, item, clonedData.items)" class="p-button-rounded p-button-text p-button-danger"></button>
+                                                    <button *ngIf="item._context?.isCreating" pButton pRipple type="button" icon="pi pi-times" (click)="editableService.onRowCreateCancel($event, dt, item)" class="p-button-rounded p-button-text p-button-danger"></button>
 
                                                     <!-- ATUALIZANDO -->
                                                     <button *ngIf="item._context?.isUpdating" pButton pRipple type="button" icon="pi pi-times" (click)="editableService.onRowEditCancel($event, dt, item)" class="p-button-rounded p-button-text p-button-danger"></button>

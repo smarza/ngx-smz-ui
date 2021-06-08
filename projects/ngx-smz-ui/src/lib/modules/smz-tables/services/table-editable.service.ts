@@ -27,25 +27,30 @@ export class TableEditableService {
     // BINDING DA INJEÇÃO DE DETECÇÃO DA TABELA
     public cdr: ChangeDetectorRef;
 
-    constructor(private transactions: SmzTransactionsService, private fb: FormBuilder) { }
+    constructor(private transactions: SmzTransactionsService) { }
 
-    public onRowCreateInit(table: Table, tableItems: any[]): void {
+    public onRowCreateInit(table: Table): void {
 
-        tableItems.unshift({ id: UUID.UUID() });
+        // ADICIONAR UM ITEM NOVO NA LISTA COM ID ÚNICO
+        table.value.unshift({ id: UUID.UUID() });
 
+        // SINALIZAR EDIÇÃO NA TABELA DO PRIME PARA ELEMENTO CRIADO
+        table.initRowEdit(table.value[0]);
+
+        // CONFIGURAR ITEM NOVO PARA SER UM ELEMENTO CRIAÇÃO
+        this.onRowEditInit(table.value[0], false);
+
+        // FORÇAR DETECÇÃO PARA A TABELA DO PRIME (ONPUSH)
         this.cdr.markForCheck();
+    }
 
-        setTimeout(() => {
-            table.initRowEdit(tableItems[0]);
-
-            this.onRowEditInit(tableItems[0], false);
-
-            this.cdr.markForCheck();
-        }, 0);
+    public onRowRemove(row: any): void {
+        console.log('not implemented');
     }
 
     public onRowEditInit(row: any, isUpdating = true): void {
 
+        // SINALIZAR SE A ROW SERÁ DE CRIAÇÃO OU EDIÇÃO
         row['_context'] = { isUpdating, isCreating: !isUpdating };
 
         // INICIAR UM NOVO CONTEXTO DE EDIÇÃO
@@ -69,6 +74,7 @@ export class TableEditableService {
                 context.editing[col.editable.property] = ObjectUtils.resolveFieldData(row, col.editable.property);
             });
 
+        // OUVIR ALTERAÇÕES NO FORM
         context.form.valueChanges
             .pipe(takeWhile(() => this.context[row.id] != null))
             .subscribe((event) => {
@@ -78,7 +84,8 @@ export class TableEditableService {
                     setNestedObject(context.editing, property, event[property]);
                 };
 
-                this.onChanges(row.id);
+                // VERIFICAR SE HOUVERAM MUDANÇAS
+                this.checkForChanges(row.id);
             });
 
         // GUARDAR CONTEXTO CRIADO
@@ -104,7 +111,7 @@ export class TableEditableService {
         return form;
     }
 
-    public onChanges(rowId: string): void {
+    public checkForChanges(rowId: string): void {
 
         // PEGAR CONTEXTO ATUAL
         const context = this.context[rowId];
@@ -116,7 +123,7 @@ export class TableEditableService {
         const after = context.editing;
 
         // DESCOBRIR O QUE MUDOU
-        const changes = this.getChanges(before, after);
+        const changes = this.getChanges(rowId, before, after);
 
         if (changes != null && Object.keys(changes).length === 0) {
 
@@ -148,7 +155,7 @@ export class TableEditableService {
         const after = context.editing;
 
         // DESCOBRIR O QUE MUDOU
-        const changes = this.getChanges(before, after);
+        const changes = this.getChanges(row.id, before, after);
 
         let dispatchData = null;
         let params = null;
@@ -234,7 +241,7 @@ export class TableEditableService {
         const after = context.editing;
 
         // DESCOBRIR O QUE MUDOU
-        const changes = this.getChanges(before, after);
+        const changes = this.getChanges(row.id, before, after);
 
         let dispatchData = null;
         let params = null;
@@ -313,7 +320,7 @@ export class TableEditableService {
         const after = context.editing;
 
         // DESCOBRIR O QUE MUDOU
-        const changes = this.getChanges(before, after);
+        const changes = this.getChanges(row.id, before, after);
 
         // PERCORRER AS PROPRIEDADES QUE MUDARAM
         for (let changeKey of Object.keys(changes)) {
@@ -343,10 +350,10 @@ export class TableEditableService {
         delete row['_context'];
     }
 
-    public onRowCreateCancel(event: MouseEvent, table: Table, row: any, tableItems: any[]): void {
+    public onRowCreateCancel(event: MouseEvent, table: Table, row: any): void {
 
         // REMOVER ITEM DE CRIAÇÃO DA LISTA DA TABELA
-        removeElementFromArray(tableItems, row.id);
+        removeElementFromArray(table.value, row.id);
 
         // EVITAR PROPAGAÇÃO DO CLICK PARA OUTROS EVENTOS.
         event.stopPropagation();
@@ -357,7 +364,7 @@ export class TableEditableService {
         // REMOVER CONTEXTO DE EDIÇÃO PARA ESSA ROW
         delete this.context[row.id];
     }
-    private getChanges(before: any, after: any): EditableChanges<any> {
+    private getChanges(id: string, before: any, after: any): EditableChanges<any> {
 
         // CRIAR RESULTADO (SEM MUDANÇAS)
         let results: EditableChanges<any> = {};
@@ -379,6 +386,7 @@ export class TableEditableService {
 
                 // REGISTRAR MUDANÇA NO RESULTADO
                 results[key] = {
+                    id: id,
                     before: {
                         data: before,
                         propertyData: before[key],

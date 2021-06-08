@@ -20,6 +20,7 @@ export interface EditableChanges<T>
 
 export interface EditableChangeTrack<T>
 {
+    id: string;
     before: EditableChangesData<T>,
     after: EditableChangesData<T>
 }
@@ -61,5 +62,5 @@ export function defaultMapResults(data: any, change: EditableChangeTrack<any>) {
 
     }
 
-    return result;
+    return { id: change.id, ...result };
 };

@@ -31,6 +31,9 @@ export class SmzTableBuilder {
         isButtonVisible: false,
         buttonLabel: 'Criar'
       },
+      remove: {
+        isButtonVisible: false
+      },
       dispatchs:
       {
         updateAction: null,
@@ -300,6 +303,12 @@ export class SmzTableBuilder {
 
   public setCreationDispatch(action: any): SmzTableBuilder {
     this._state.editable.dispatchs.creationAction = action;
+
+    return this;
+  }
+
+  public allowRemove(): SmzTableBuilder {
+    this._state.editable.remove.isButtonVisible = true;
 
     return this;
   }
