@@ -49,7 +49,7 @@
                     </p-multiSelect>
                     <button *ngIf="context.state.caption.rowSelection.isButtonVisible" pButton [label]="context.state.caption.rowSelection.label" class="p-button-outlined p-mr-2" icon="fas fa-check-double" (click)="onRowSelection(context)" [disabled]="clonedData.showSkeleton"></button>
                     <button *ngIf="context.state.caption.clearFilters.isButtonVisible" pButton [label]="context.state.caption.clearFilters.label" class="p-button-outlined p-mr-2" icon="pi pi-filter-slash" (click)="clear(dt, context)" [disabled]="clonedData.showSkeleton"></button>
-                    <button *ngIf="context.state.editable.creation.isButtonVisible" pButton [label]="context.state.editable.creation.buttonLabel" class="p-button-outlined p-mr-2" icon="fas fa-plus" (click)="editableService.onRowCreateInit(dt)" [disabled]="clonedData.showSkeleton"></button>
+                    <button *ngIf="context.state.editable.creation.isButtonVisible" pButton [label]="context.state.editable.creation.buttonLabel" class="p-button-outlined p-mr-2" icon="fas fa-plus" (click)="editableService.onRowCreateInit(dt)" [disabled]="clonedData.showSkeleton || editableService.isEditing || editableService.isCreating"></button>
                     <span *ngIf="context.state.caption.globalFilter.isVisible" class="p-input-icon-left p-col-12 p-md-2" [ngClass]="{ 'p-mr-2': captionTemplate != null }">
                         <i class="pi pi-search"></i>
                         <input #inputGlobal pInputText type="text" (input)="dt.filterGlobal(inputGlobal.value, 'contains')"  [disabled]="clonedData.showSkeleton" placeholder="Pesquisa global" />
@@ -155,7 +155,7 @@
 
                     </ng-container>
 
-                    <th *ngIf="context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible" [ngStyle]="{ width: context.state.actions.customActions.columnWidth + 'px' }"></th>
+                    <th *ngIf="context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible|| context.state.editable.isEditable" [ngStyle]="{ width: context.state.actions.customActions.columnWidth + 'px' }"></th>
                 </tr>
             </ng-template>
 
@@ -278,7 +278,7 @@
 
                     </ng-container>
 
-                    <ng-container *ngIf="context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible">
+                    <ng-container *ngIf="context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible || context.state.editable.isEditable">
 
                         <td [ngStyle]="{ 'text-align': 'left' }">
 
@@ -293,8 +293,8 @@
 
                                     <!-- SEM EDITAR -->
                                     <ng-container *ngIf="!editing">
-                                        <button *ngIf="context.state.editable.update.isButtonVisible" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="editableService.onRowEditInit(item)" class="p-button-rounded p-button-text p-mx-2"></button>
-                                        <button *ngIf="context.state.editable.remove.isButtonVisible" pButton pRipple type="button" icon="pi pi-times" (click)="editableService.onRowRemove(item)" class="p-button-rounded p-button-text p-button-danger"></button>
+                                        <button *ngIf="context.state.editable.update.isButtonVisible" pButton pRipple type="button" icon="pi pi-pencil" (click)="editableService.onRowEditInit(item)" class="p-button-rounded p-button-text p-mx-1" [disabled]="editableService.isEditing || editableService.isCreating" pInitEditableRow></button>
+                                        <button *ngIf="context.state.editable.remove.isButtonVisible" pButton pRipple type="button" icon="pi pi-trash" (click)="editableService.onRowRemove($event, dt, item)" class="p-button-rounded p-button-text p-button-secondary p-mx-1" [disabled]="editableService.isEditing || editableService.isCreating"></button>
                                     </ng-container>
 
                                     <!-- EDITANDO -->
@@ -371,7 +371,7 @@
             </ng-template>
             <ng-template pTemplate="emptymessage">
                 <tr>
-                    <td [attr.colspan]="context.columns.length + ((context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible) ? 1 : 0) + (context.state.caption.rowSelection.isEnabled ? 1 : 0)" [ngStyle]="{ 'text-align': 'center' }">{{ context.state.emptyFeedback.message }}</td>
+                    <td [attr.colspan]="context.columns.length + ((context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible || context.state.editable.isEditable) ? 1 : 0) + (context.state.caption.rowSelection.isEnabled ? 1 : 0)" [ngStyle]="{ 'text-align': 'center' }">{{ context.state.emptyFeedback.message }}</td>
                 </tr>
             </ng-template>
         </p-table>

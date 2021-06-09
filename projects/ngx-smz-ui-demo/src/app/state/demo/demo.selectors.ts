@@ -11,18 +11,4 @@ export class DemoFeatureSelectors {
     return state.items;
   }
 
-  @Selector([DemoFeatureState])
-  public static countries(): SimpleNamedEntity[] {
-    return countries;
-  }
-
 }
-
-export const countries: SimpleNamedEntity[] = [
-  { id: 'Brasil', name: 'Brasil' },
-  { id: 'EUA', name: 'EUA' },
-  { id: 'Japão', name: 'Japão' },
-  { id: 'Gothan City', name: 'Gothan City' },
-  { id: 'New Yourk', name: 'New Yourk' },
-  { id: 'Colorado', name: 'Colorado' }
-];

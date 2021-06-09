@@ -1,9 +1,7 @@
-import { SmzDropdownEditable, SmzEditableType } from '../models/editable-types';
-import { SmzTableEditableColumn } from '../models/table-column';
+import { SmzDropdownEditable, SmzEditableType } from '../../models/editable-types';
+import { SmzTableEditableColumn } from '../../models/table-column';
 import { SmzBaseColumnBuilder } from './column-builder';
 import { SmzTableBuilder } from './state-builder';
-
-
 
 export abstract class SmzBaseEditableBuilder<T extends SmzBaseEditableBuilder<T>> {
 
@@ -14,29 +12,24 @@ export abstract class SmzBaseEditableBuilder<T extends SmzBaseEditableBuilder<T>
       property,
       type,
       data,
-      isUpdatable: true,
-      isCreatable: true
     };
-
-    if (!this._table._state.editable.update.isButtonVisible) this._table._state.actions.customActions.columnWidth += 50;
 
     this._table._state.editable.update.isButtonVisible = true;
     this._table._state.editable.creation.isButtonVisible = true;
     this._parent._column.editable = this._editable;
+    this._table._state.editable.isEditable = true;
   }
 
   public disableUpdate(): SmzBaseEditableBuilder<T> {
 
-    this._editable.isUpdatable = false;
-    this._table._state.editable.creation.isButtonVisible = this._table._state.columns.some(x => x.editable.isUpdatable);
+    this._table._state.editable.update.isButtonVisible = this._table._state.columns.some(x => x.editable.type !== SmzEditableType.NONE);
 
     return this;
   }
 
   public disableCreation(): SmzBaseEditableBuilder<T> {
 
-    this._editable.isCreatable = false;
-    this._table._state.editable.creation.isButtonVisible = this._table._state.columns.some(x => x.editable.isCreatable);
+    this._table._state.editable.creation.isButtonVisible = this._table._state.columns.some(x => x.editable.type !== SmzEditableType.NONE);
 
     return this;
   }

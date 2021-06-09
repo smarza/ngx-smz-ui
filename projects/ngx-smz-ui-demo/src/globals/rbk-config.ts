@@ -1,6 +1,8 @@
 import { environment } from '../environments/environment';
 import { NgxRbkUtilsConfig } from 'ngx-rbk-utils';
 import { DemoFeatureName, DemoFeatureState, getInitialState as getFtDemoInitialState } from '../app/state/demo/demo.state';
+import { CountriesDbName, CountriesDbState, getInitialState as getDbCountriesInitialState } from '../app/state/database/countries/countries.state';
+import { CountriesDbActions } from '../app/state/database/countries/countries.actions';
 
 // ------------------------------------------
 // DATABASE STATES
@@ -69,6 +71,12 @@ export const rbkConfig: NgxRbkUtilsConfig = {
     },
     state: {
         database: {
+            [CountriesDbName]: {
+                state: CountriesDbState,
+                clearFunction: getDbCountriesInitialState,
+                cacheTimeout: 10,
+                loadAction: CountriesDbActions.LoadAll,
+            }
         },
         feature: {
             [DemoFeatureName]: {

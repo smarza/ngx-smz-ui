@@ -212,6 +212,7 @@ export class DemoTablesComponent implements OnInit {
       columns: [
         {
           field: 'isActive',
+          property: 'isActive',
           header: 'Situação',
           isOrderable: false,
           width: '8em',
@@ -227,6 +228,7 @@ export class DemoTablesComponent implements OnInit {
         },
         {
           field: 'number',
+          property: 'number',
           header: 'Número',
           isOrderable: false,
           width: '8em',
@@ -241,6 +243,7 @@ export class DemoTablesComponent implements OnInit {
         },
         {
           field: 'plant.name',
+          property: 'plant',
           header: 'Planta',
           isOrderable: true,
           width: '8em',
@@ -255,6 +258,7 @@ export class DemoTablesComponent implements OnInit {
         },
         {
           field: 'campaign.name',
+          property: 'campaign',
           header: 'Campanha',
           isOrderable: true,
           isVisible: true,
@@ -268,6 +272,7 @@ export class DemoTablesComponent implements OnInit {
         },
         {
           field: 'description',
+          property: 'description',
           header: 'Descrição',
           isOrderable: true,
           isVisible: true,
@@ -281,6 +286,7 @@ export class DemoTablesComponent implements OnInit {
         },
         {
           field: 'date',
+          property: 'date',
           header: 'Data',
           isOrderable: true,
           width: '8em',

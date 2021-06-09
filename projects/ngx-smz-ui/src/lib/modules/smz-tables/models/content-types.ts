@@ -1,3 +1,4 @@
+import { SmzControlType } from 'ngx-smz-dialogs';
 
 
 export type SmzContentTypes =
@@ -14,6 +15,11 @@ export enum SmzContentType {
   ICON = 18,
   CURRENCY = 4,
 }
+
+export const FromControlTypeToContentType = [
+ { from: SmzControlType.TEXT, to: SmzContentType.TEXT },
+ { from: SmzControlType.DROPDOWN, to: SmzContentType.TEXT },
+];
 
 export interface SmzTextContent {
 

@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { RbkAuthGuard } from 'ngx-rbk-utils';
+import { RbkAuthGuard, RbkDatabaseStateGuard, UI_DEFINITIONS_STATE_NAME } from 'ngx-rbk-utils';
 import { NgxSmzTablesModule, SmzRouteData } from 'ngx-smz-ui';
 import { ButtonModule } from 'primeng/button';
+import { CountriesDbName } from '../../state/database/countries/countries.state';
 
 import { DemoEditableTableComponent } from './demo-editable-table.component';
 
@@ -14,13 +15,13 @@ const data: SmzRouteData = {
   title: 'Demo EditableTables',
   appArea: 'demo-editable-table',
   clearReusableRoutes: true,
-  requiredStates: []
+  requiredStates: [UI_DEFINITIONS_STATE_NAME, CountriesDbName]
 };
 
 const routes: Routes = [
   {
     path: '',
-    canActivate: [RbkAuthGuard],
+    canActivate: [RbkAuthGuard, RbkDatabaseStateGuard],
     component: DemoEditableTableComponent,
     data
   },

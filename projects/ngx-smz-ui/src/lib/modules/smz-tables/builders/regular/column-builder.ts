@@ -1,7 +1,7 @@
-import { SmzContentType, SmzIconContent } from '../models/content-types';
-import { SmzEditableType } from '../models/editable-types';
-import { SmzFilterType } from '../models/filter-types';
-import { SmzTableColumn } from '../models/table-column';
+import { SmzContentType, SmzIconContent } from '../../models/content-types';
+import { SmzEditableType } from '../../models/editable-types';
+import { SmzFilterType } from '../../models/filter-types';
+import { SmzTableColumn } from '../../models/table-column';
 import { SmzEditableCollectionBuilder } from './editable-builder';
 import { SmzTableBuilder } from './state-builder';
 
@@ -11,33 +11,47 @@ export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T>> {
   public _column: SmzTableColumn = null;
 
   constructor(protected _table: SmzTableBuilder, protected _parent: SmzColumnCollectionBuilder, type: SmzContentType, filterType: SmzFilterType, field: string, header: string, width: string = 'auto') {
-    this._column = {
-      field: field,
-      header: header,
-      content: {
-        type: type,
-        data: { matches: [] }
-      },
-      editable: {
-        type: SmzEditableType.NONE,
-        data: {
-          rows: 5,
-          options: []
-        },
-        isUpdatable: false,
-        isCreatable: false,
-        property: null
-      },
-      isOrderable: true,
-      filter: {
-        isGlobalFilterable: true,
-        type: filterType
-      },
-      isVisible: true,
-      width: width
-    };
 
-    this._table._state.columns.push(this._column);
+    const columnIndex = _table._state.columns.findIndex(c => c.field === field);
+
+    if (columnIndex !== -1) {
+        // JÁ EXISTE UMA COLUNA
+        this._column = this._table._state.columns[columnIndex];
+        this._column.width = width;
+        this._column.header = header;
+    }
+    else {
+        // NÃO EXISTE A COLUNA AINDA
+
+        this._column = {
+          field: field,
+          property: field.split('.')[0],
+          header: header,
+          content: {
+            type: type,
+            data: { matches: [] }
+          },
+          editable: {
+            type: SmzEditableType.NONE,
+            data: {
+              rows: 5,
+              options: []
+            },
+            property: null
+          },
+          isOrderable: true,
+          filter: {
+            isGlobalFilterable: true,
+            type: filterType
+          },
+          isVisible: true,
+          width: width
+        };
+
+        this._table._state.columns.push(this._column);
+
+    }
+
   }
 
   public disableSort(): SmzBaseColumnBuilder<T> {

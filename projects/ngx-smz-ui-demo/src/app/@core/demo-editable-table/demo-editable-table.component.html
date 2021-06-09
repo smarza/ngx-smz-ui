@@ -1,7 +1,7 @@
 <h2>Demo Editable table</h2>
 <ng-container *ngIf="items$ | async as items">
 
-  <smz-ui-table #smzTable [items]="items" [state]="tableState" (save)="save($event)">
+  <smz-ui-table #smzTable [items]="items" [state]="tableState" (update)="onUpdate($event)">
 
     <!-- CONTEÚDOS COM OVERRIDE -->
     <ng-template pTemplate="content" let-item let-col="col">

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { UUID } from 'angular2-uuid';
+import { take } from 'rxjs/operators';
 import { SmzTransaction } from '../models/editable-transaction';
 
 // SERVIÇO SINGLETON
@@ -37,8 +38,15 @@ export class SmzTransactionsService {
 
     if (!this.isDebug) {
 
-      this.store.dispatch(transaction.dispatchAction);
-      // todo: fazer lógica para disparar success ou failure.
+      this.store
+        .dispatch(transaction.dispatchAction)
+        .subscribe(
+          () => {
+            this.dismissWithSuccess(transactionId);
+          },
+          (data) => {
+            this.dismissWithFailure(transactionId, data.error);
+          });
 
     }
     else {
@@ -64,6 +72,7 @@ export class SmzTransactionsService {
 
     if (!this.isDebug) {
       // todo: fazer lógica para disparar success ou failure.
+      transaction.success();
     }
     else {
       transaction.success();
@@ -80,6 +89,7 @@ export class SmzTransactionsService {
 
     if (!this.isDebug) {
       // todo: fazer lógica para disparar success ou failure.
+      transaction.failure(errors);
     }
     else {
       transaction.failure(errors);

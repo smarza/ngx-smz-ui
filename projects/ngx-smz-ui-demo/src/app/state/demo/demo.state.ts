@@ -43,22 +43,25 @@ export class DemoFeatureState {
     );
   }
 
-
   @Action(DemoFeatureActions.Create)
   public onCreate$(ctx: StateContext<DemoFeatureStateModel>, action: DemoFeatureActions.Create): Observable<DemoItem> {
     return this.apiService.create(action.data).pipe(
       tap(result => {
-
-        const items = cloneDeep(ctx.getState().items);
-
-        ctx.patchState({
-          lastUpdated: new Date(),
-          items: [result, ...items]
-        });
-
-        ctx.dispatch(new ToastActions.Success('Item criado com sucesso'));
+        ctx.dispatch(new DemoFeatureActions.CreateSuccess(result));
       })
     );
+  }
+
+  @Action(DemoFeatureActions.CreateSuccess)
+  public onCreateSuccess$(ctx: StateContext<DemoFeatureStateModel>, action: DemoFeatureActions.CreateSuccess): void {
+    const items = cloneDeep(ctx.getState().items);
+
+    ctx.patchState({
+      lastUpdated: new Date(),
+      items: [action.data, ...items]
+    });
+
+    ctx.dispatch(new ToastActions.Success('Item criado com sucesso'));
   }
 
   @Action(DemoFeatureActions.Update)

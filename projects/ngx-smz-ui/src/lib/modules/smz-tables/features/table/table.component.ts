@@ -1,4 +1,4 @@
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core'
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, TemplateRef } from '@angular/core'
 import { PrimeTemplate } from 'primeng/api';
 import { SmzContentType } from '../../models/content-types';
 import { SmzFilterType } from '../../models/filter-types';
@@ -19,7 +19,9 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
   @Input() public items: any[] = [];
   @Input() public loading: boolean = false;
   @Output() public selectionChange: EventEmitter<any> = new EventEmitter<any>();
-  @Output() public save: EventEmitter<any> = new EventEmitter<any>();
+  @Output() public create: EventEmitter<any> = new EventEmitter<any>();
+  @Output() public update: EventEmitter<any> = new EventEmitter<any>();
+  @Output() public delete: EventEmitter<any> = new EventEmitter<any>();
   public contentTemplate: TemplateRef<any>;
   public editableTemplate: TemplateRef<any>;
   public actionsTemplate: TemplateRef<any>;
@@ -57,7 +59,9 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
   }
   constructor(public cdr: ChangeDetectorRef, public editableService: TableEditableService) {
     this.editableService.cdr = this.cdr;
-    this.editableService.saveEvent = this.save;
+    this.editableService.createEvent = this.create;
+    this.editableService.updateEvent = this.update;
+    this.editableService.deleteEvent = this.delete;
   }
 
   public ngOnInit(): void {
@@ -91,6 +95,8 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
       this.populateColumnVisibility(newState);
 
       this.editableService.state = this.state;
+
+      console.log('state', this.state);
 
       this.cdr.markForCheck();
     }

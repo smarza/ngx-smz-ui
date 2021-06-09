@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Injector, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SmzTableComponent } from './features/table/table.component';
 import { TableModule } from 'primeng/table';
@@ -28,6 +28,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { SmzEditableSourcePipe } from './pipes/editable-source.pipe';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { SmzContentErrorsPipe } from './pipes/content-errors.pipe';
+import { GlobalInjector } from '../../common/services/global-injector';
 
 @NgModule({
     declarations: [
@@ -69,4 +70,9 @@ import { SmzContentErrorsPipe } from './pipes/content-errors.pipe';
         PrimeSharedModule
     ],
 })
-export class NgxSmzTablesModule { }
+export class NgxSmzTablesModule
+{
+    constructor(injector: Injector) {
+        GlobalInjector.instance = injector;
+    }
+}

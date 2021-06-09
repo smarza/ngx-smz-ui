@@ -1,4 +1,4 @@
-import { DemoCreationData, DemoUpdateData } from '../../models/demo';
+import { DemoCreationData, DemoItem, DemoUpdateData } from '../../models/demo';
 
 export namespace DemoFeatureActions {
 
@@ -15,6 +15,11 @@ export namespace DemoFeatureActions {
   export class Create {
     public static readonly type = '[DEMO] Create';
     constructor(public data: DemoCreationData) {}
+  }
+
+  export class CreateSuccess {
+    public static readonly type = '[DEMO] Create Success';
+    constructor(public data: DemoItem) {}
   }
 
   export class Remove {

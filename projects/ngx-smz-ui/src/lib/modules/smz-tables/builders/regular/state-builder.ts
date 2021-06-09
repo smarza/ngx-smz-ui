@@ -1,6 +1,12 @@
-import { SmzMenuItem } from '../models/conditional-menu-item';
-import { defaultMapResults, EditableChangeTrack } from '../models/editable-model';
-import { SmzTableState } from '../models/table-state';
+import { Store } from '@ngxs/store';
+import flatten from 'lodash-es/flatten';
+import { convertFormFeature, UiDefinitionsDbSelectors } from 'ngx-rbk-utils';
+import { SmzControlTypes, SmzForm } from 'ngx-smz-dialogs';
+import { GlobalInjector } from '../../../../../lib/common/services/global-injector';
+import { SmzMenuItem } from '../../models/conditional-menu-item';
+import { defaultMapResults, EditableChangeTrack } from '../../models/editable-model';
+import { SmzTableState } from '../../models/table-state';
+import { StateBuilderFunctions } from '../ui-definitions/state-builder-functions';
 import { SmzColumnCollectionBuilder } from './column-builder';
 import { SmzMenuBuilder } from './menu-builder';
 
@@ -9,7 +15,7 @@ export class SmzTableBuilder {
     columns: [],
     actions: {
       customActions: {
-        columnWidth: 63,
+        columnWidth: 0,
         isVisible: false,
       },
       menu: {
@@ -24,6 +30,7 @@ export class SmzTableBuilder {
       }
     },
     editable: {
+      isEditable: false,
       update: {
         isButtonVisible: false
       },
@@ -34,12 +41,13 @@ export class SmzTableBuilder {
       remove: {
         isButtonVisible: false
       },
-      dispatchs:
+      actions:
       {
-        updateAction: null,
-        creationAction: null,
-        mapResults: (data, change: EditableChangeTrack<any>) => defaultMapResults(data, change)
-      }
+        update: null,
+        creation: null,
+        remove: null,
+      },
+      mapResults: (data, change: EditableChangeTrack<any>) => defaultMapResults(data, change)
     },
     caption: {
       rowSelection: {
@@ -95,6 +103,29 @@ export class SmzTableBuilder {
       striped: false,
     }
   };
+
+  constructor(uiDefinitionName?: string) {
+
+    if (uiDefinitionName) {
+      const store = GlobalInjector.instance.get(Store);
+
+      const create = store.selectSnapshot(UiDefinitionsDbSelectors.single(uiDefinitionName, 'create'));
+
+      if (create == null) {
+        throw Error('You need to supply a valid ui-definitions.');
+      }
+
+      if (create[0] == null) {
+        throw Error('There are no elements in ui-definitions create index 0.');
+      }
+
+      const formFeature: SmzForm<any> = convertFormFeature(uiDefinitionName, store, null).data as SmzForm<any>;
+      const children: SmzControlTypes[] = flatten(formFeature.groups.map(g => flatten(g.children)));
+
+      StateBuilderFunctions.createColumnsFromInputControls(this._state, create[0].controls, children);
+    }
+
+  }
 
   public setTitle(title: string): SmzTableBuilder {
     this._state.caption.isVisible = true;
@@ -283,6 +314,7 @@ export class SmzTableBuilder {
 
     if (items != null) {
       this._state.actions.menu.isVisible = true;
+      this._state.actions.customActions.columnWidth += 63;
       this._state.actions.menu.items = items;
     }
 
@@ -290,25 +322,40 @@ export class SmzTableBuilder {
   }
 
   public customizeEditableResults<T>(mapFunction: (data: T, change: EditableChangeTrack<T>) => any): SmzTableBuilder {
-    this._state.editable.dispatchs.mapResults = mapFunction;
+    this._state.editable.mapResults = mapFunction;
 
     return this;
   }
 
-  public setUpdateDispatch(action: any): SmzTableBuilder {
-    this._state.editable.dispatchs.updateAction = action;
+  public setUpdateAction(action: any): SmzTableBuilder {
+
+    if (!this._state.editable.isEditable) this._state.actions.customActions.columnWidth += 150;
+
+    this._state.editable.actions.update = action;
+    this._state.editable.update.isButtonVisible = true;
+    this._state.editable.isEditable = true;
 
     return this;
   }
 
-  public setCreationDispatch(action: any): SmzTableBuilder {
-    this._state.editable.dispatchs.creationAction = action;
+  public setCreationAction(action: any): SmzTableBuilder {
+
+    if (!this._state.editable.isEditable) this._state.actions.customActions.columnWidth += 150;
+
+    this._state.editable.actions.creation = action;
+    this._state.editable.creation.isButtonVisible = true;
+    this._state.editable.isEditable = true;
 
     return this;
   }
 
-  public allowRemove(): SmzTableBuilder {
+  public setRemoveAction(action: any): SmzTableBuilder {
+
+    if (!this._state.editable.isEditable) this._state.actions.customActions.columnWidth += 150;
+
+    this._state.editable.actions.remove = action;
     this._state.editable.remove.isButtonVisible = true;
+    this._state.editable.isEditable = true;
 
     return this;
   }

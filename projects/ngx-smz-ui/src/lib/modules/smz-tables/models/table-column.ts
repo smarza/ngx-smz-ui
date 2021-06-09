@@ -4,9 +4,13 @@ import { SmzFilterType } from "./filter-types";
 
 export interface SmzTableColumn {
   /**
-   * Property name, nested properties can be used, i.e. person.name
+   * Full property name path, nested properties can be used, i.e. person.name
    */
   field: string;
+  /**
+   * Property name, this is an identifier and has to be unique.
+   */
+  property: string;
   /**
    * Title of the column
    */
@@ -59,14 +63,6 @@ export interface SmzTableColumn {
    * Extra data needed for the selected editable type
    */
     data?: SmzEditableTypes;
-    /**
-    * Controls if the field can be use in update form
-    */
-    isUpdatable: boolean;
-    /**
-    * Controls if the field can be use in creation form
-    */
-    isCreatable: boolean;
   };
 
   /**
@@ -100,12 +96,4 @@ export interface SmzTableEditableColumn {
  * Extra data needed for the selected editable type
  */
   data?: SmzEditableTypes;
-  /**
-  * Controls if the field can be use in update form
-  */
-  isUpdatable: boolean;
-  /**
-  * Controls if the field can be use in creation form
-  */
-  isCreatable: boolean;
 }

@@ -6,26 +6,31 @@ import { SmzEditableType } from '../models/editable-types';
 import { SmzTableState } from '../models/table-state';
 import { Table } from 'primeng/table';
 import { SmzTransactionsService } from './smz-transactions.service';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { takeWhile } from 'rxjs/operators';
 import { UUID } from 'angular2-uuid';
-import { removeElementFromArray } from 'ngx-smz-dialogs';
-import { cloneDeep } from 'lodash-es';
+import { Confirmable, removeElementFromArray } from 'ngx-smz-dialogs';
 
 // SERVIÇO COM INSTANCIAS DIFERENTES POR TABELA
 @Injectable()
 export class TableEditableService {
+
     // CONTEXTO EDITÁVEL POR ROW
     public context: { [k: string]: EditableRowContext } = {};
 
     // BINDING DO STATE ORIGINAL DA TABELA
     public state: SmzTableState;
 
-    // BINDING DO OUTPUT DE SALVAR DA TABELA
-    public saveEvent: EventEmitter<any>;
+    // BINDINGS DOS OUTPUTS PARA EVENTOS DA EDIÇÃO DA TABELA
+    public createEvent: EventEmitter<any>;
+    public updateEvent: EventEmitter<any>;
+    public deleteEvent: EventEmitter<any>;
 
     // BINDING DA INJEÇÃO DE DETECÇÃO DA TABELA
     public cdr: ChangeDetectorRef;
+    public isEditing = false;
+    public isCreating = false;
+    public isDeleting = false;
 
     constructor(private transactions: SmzTransactionsService) { }
 
@@ -38,20 +43,85 @@ export class TableEditableService {
         table.initRowEdit(table.value[0]);
 
         // CONFIGURAR ITEM NOVO PARA SER UM ELEMENTO CRIAÇÃO
-        this.onRowEditInit(table.value[0], false);
+        this.onRowEditInit(table.value[0], 'create');
+
+        // ATIVAR FLAG DE CRIAÇÃO
+        this.isCreating = true;
 
         // FORÇAR DETECÇÃO PARA A TABELA DO PRIME (ONPUSH)
         this.cdr.markForCheck();
     }
 
-    public onRowRemove(row: any): void {
-        console.log('not implemented');
+    @Confirmable('Tem certeza de que deseja excluir este item ?', 'Confirmação', true)
+    public onRowRemove(event: MouseEvent, table: Table, row: any): void {
+
+        // CONFIGURAR ITEM NOVO PARA SER UM ELEMENTO CRIAÇÃO
+        this.onRowEditInit(row, 'delete');
+
+        // PEGAR CONTEXTO ATUAL
+        const context = this.context[row.id];
+
+        // ATIVAR LOADING DA ROW
+        context.isLoading = true;
+
+        // PROVOCAR ANGULAR CHANGE DETECTION
+        this.cdr.markForCheck();
+
+        const action = this.state.editable.actions.remove;
+        let dispatchData = new action(row.id);
+
+        // PUBLICAR EVENTO DE OUTPUT SAVE DA TABELA
+        this.deleteEvent.emit(row.id);
+
+        // INICIAR TRANSAÇÃO PARA SALVAR OS DADOS
+        context.transactionId = this.transactions.add(
+            dispatchData,
+            () => {
+
+                // SUCCESS
+
+                // DESATIVAR LOADING
+                context.isLoading = false;
+
+                // REMOVER ITEM DA TABELA
+                removeElementFromArray(table.value, row.id);
+
+                // EVITAR PROPAGAÇÃO DO CLICK PARA OUTROS EVENTOS.
+                event.stopPropagation();
+
+                // DESATIVAR FLAG DE EDIÇÃO
+                this.isEditing = false;
+
+                // PROVOCAR ANGULAR CHANGE DETECTION
+                this.cdr.markForCheck();
+
+                // REMOVER CONTEXTO DE EDIÇÃO PARA ESSA ROW
+                delete this.context[row.id];
+
+                // REMOVER CONTEXTO DA ROW
+                delete row['_context'];
+
+            },
+            (errors: string[]) => {
+
+                // FAILURE
+
+                // DESATIVAR LOADING
+                context.isLoading = false;
+
+                // ATIVAR E PUBLICAR OS ERROS
+                context.hasErrors = true;
+                context.errors = errors;
+
+                // PROVOCAR ANGULAR CHANGE DETECTION
+                this.cdr.markForCheck();
+            });
     }
 
-    public onRowEditInit(row: any, isUpdating = true): void {
+    public onRowEditInit(row: any, type: 'create' | 'update' | 'delete' = 'update'): void {
 
         // SINALIZAR SE A ROW SERÁ DE CRIAÇÃO OU EDIÇÃO
-        row['_context'] = { isUpdating, isCreating: !isUpdating };
+        row['_context'] = { isUpdating: type === 'update', isCreating: type === 'create', isDeleting: type === 'delete' };
 
         // INICIAR UM NOVO CONTEXTO DE EDIÇÃO
         const context: EditableRowContext = {
@@ -90,6 +160,14 @@ export class TableEditableService {
 
         // GUARDAR CONTEXTO CRIADO
         this.context[row.id] = context;
+
+        // ATIVAR FLAG DE EDIÇÃO OU CRIAÇÃO
+        this.isEditing = type === 'update';
+        this.isCreating = type === 'create';
+        this.isDeleting = type === 'delete';
+
+        // PROVOCAR ANGULAR CHANGE DETECTION
+        this.cdr.markForCheck();
 
     }
 
@@ -164,7 +242,7 @@ export class TableEditableService {
         for (let changeKey of Object.keys(changes)) {
 
             const change = changes[changeKey];
-            const action = this.state.editable.dispatchs;
+            const action = this.state.editable.actions.update;
 
             for (let afterDataKey of Object.keys(change.after.data)) {
                 // SETAR DADO MODIFICADO NA ROW
@@ -172,14 +250,14 @@ export class TableEditableService {
             };
 
             // MAPEAR PARAMETROS PARA A ACTION
-            params = action.mapResults(row, change);
+            params = this.state.editable.mapResults(row, change);
 
             // SE HABILITADO, CRIAR ACTION PARA DISPATCH NA STORE
-            if (action.updateAction != null) dispatchData = new action.updateAction(params);
+            if (action.updateAction != null) dispatchData = new action(params);
         }
 
         // PUBLICAR EVENTO DE OUTPUT SAVE DA TABELA
-        this.saveEvent.emit(params);
+        this.updateEvent.emit(params);
 
         // INICIAR TRANSAÇÃO PARA SALVAR OS DADOS
         context.transactionId = this.transactions.add(
@@ -197,6 +275,9 @@ export class TableEditableService {
                 // EVITAR PROPAGAÇÃO DO CLICK PARA OUTROS EVENTOS.
                 event.stopPropagation();
 
+                // DESATIVAR FLAG DE EDIÇÃO
+                this.isEditing = false;
+
                 // PROVOCAR ANGULAR CHANGE DETECTION
                 this.cdr.markForCheck();
 
@@ -205,6 +286,7 @@ export class TableEditableService {
 
                 // REMOVER CONTEXTO DA ROW
                 delete row['_context'];
+
             },
             (errors: string[]) => {
 
@@ -250,7 +332,7 @@ export class TableEditableService {
         for (let changeKey of Object.keys(changes)) {
 
             const change = changes[changeKey];
-            const action = this.state.editable.dispatchs;
+            const action = this.state.editable.actions.creation;
 
             for (let afterDataKey of Object.keys(change.after.data)) {
                 // SETAR DADO MODIFICADO NA ROW
@@ -258,14 +340,14 @@ export class TableEditableService {
             };
 
             // MAPEAR PARAMETROS PARA A ACTION
-            params = action.mapResults(row, change);
+            params = this.state.editable.mapResults(row, change);
 
             // SE HABILITADO, CRIAR ACTION PARA DISPATCH NA STORE
-            if (action.creationAction != null) dispatchData = new action.creationAction(params);
+            if (action.creationAction != null) dispatchData = new action(params);
         }
 
         // PUBLICAR EVENTO DE OUTPUT SAVE DA TABELA
-        this.saveEvent.emit(params);
+        this.createEvent.emit(params);
 
         // INICIAR TRANSAÇÃO PARA SALVAR OS DADOS
         context.transactionId = this.transactions.add(
@@ -283,6 +365,9 @@ export class TableEditableService {
                 // EVITAR PROPAGAÇÃO DO CLICK PARA OUTROS EVENTOS.
                 event.stopPropagation();
 
+                // DESATIVAR FLAG DE CRIAÇÃO
+                this.isCreating = false;
+
                 // PROVOCAR ANGULAR CHANGE DETECTION
                 this.cdr.markForCheck();
 
@@ -291,6 +376,7 @@ export class TableEditableService {
 
                 // REMOVER CONTEXTO DA ROW
                 delete row['_context'];
+
             },
             (errors: string[]) => {
 
@@ -340,6 +426,9 @@ export class TableEditableService {
         // EVITAR PROPAGAÇÃO DO CLICK PARA OUTROS EVENTOS.
         event.stopPropagation();
 
+        // DESATIVAR FLAG DE EDIÇÃO
+        this.isEditing = false;
+
         // PROVOCAR ANGULAR CHANGE DETECTION
         this.cdr.markForCheck();
 
@@ -358,11 +447,15 @@ export class TableEditableService {
         // EVITAR PROPAGAÇÃO DO CLICK PARA OUTROS EVENTOS.
         event.stopPropagation();
 
+        // DESATIVAR FLAG DE CRIAÇÃO
+        this.isCreating = false;
+
         // PROVOCAR ANGULAR CHANGE DETECTION
         this.cdr.markForCheck();
 
         // REMOVER CONTEXTO DE EDIÇÃO PARA ESSA ROW
         delete this.context[row.id];
+
     }
     private getChanges(id: string, before: any, after: any): EditableChanges<any> {
 
