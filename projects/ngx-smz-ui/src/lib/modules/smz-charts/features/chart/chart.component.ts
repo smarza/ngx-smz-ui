@@ -6,7 +6,6 @@ import {
   ElementRef,
   EventEmitter,
   Input,
-  NgModule,
   OnDestroy,
   Output,
   ViewEncapsulation

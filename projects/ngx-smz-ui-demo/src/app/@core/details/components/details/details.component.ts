@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { UiActions } from 'projects/ngx-smz-ui/src/public-api';
+import { UiActions } from 'ngx-smz-ui';
 import { SmzSmartTagConfig, SmzSmartTagOptions } from '../../smart-tag.directive';
 
 @Component({

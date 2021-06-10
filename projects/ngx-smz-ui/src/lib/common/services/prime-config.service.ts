@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FilterMatchMode, FilterService } from 'primeng/api';
-import { PrimeNGConfig } from 'primeng/api';
+import { FilterMatchMode, FilterService, PrimeNGConfig } from 'primeng/api';
 
 @Injectable({
   providedIn: 'root'

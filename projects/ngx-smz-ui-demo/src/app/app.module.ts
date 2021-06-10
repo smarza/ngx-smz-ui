@@ -1,11 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { CUSTOM_ELEMENTS_SCHEMA, DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NgxSmzLayoutsModule, HephaestusLayoutModule, AthenaLayoutModule, NgxSmzFaqsModule } from 'ngx-smz-ui';
+import { NgxSmzLayoutsModule, AthenaLayoutModule, NgxSmzFaqsModule } from 'ngx-smz-ui';
 
-import { smzAthenaConfig, smzHephaestusConfig, smzLayoutsConfig } from '../globals/smz-layouts.config';
+import { smzAthenaConfig, smzLayoutsConfig } from '../globals/smz-layouts.config';
 import { CommonModule } from '@angular/common';
 import { NgxSmzDialogsModule } from 'ngx-smz-dialogs';
 import { ApplicationActions, buildState, NgxRbkUtilsConfig, NgxRbkUtilsModule } from 'ngx-rbk-utils';
@@ -37,7 +37,6 @@ import { smzFaqsConfig } from '../globals/smz-faqs.config';
     // HephaestusLayoutModule.forRoot(smzHephaestusConfig),
     AthenaLayoutModule.forRoot(smzAthenaConfig),
     NgxSmzFaqsModule.forRoot(smzFaqsConfig)
-
   ],
   providers: [
     { provide: NgxRbkUtilsConfig, useValue: rbkConfig },

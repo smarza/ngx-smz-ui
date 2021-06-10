@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { BaseApiService } from 'ngx-rbk-utils';
-import { environment } from 'projects/ngx-smz-ui-demo/src/environments/environment';
+import { environment } from '../../../environments/environment';
 import { DemoCreationData, DemoItem, DemoUpdateData } from '../../models/demo';
 import { SimpleNamedEntity } from 'ngx-smz-dialogs';
 

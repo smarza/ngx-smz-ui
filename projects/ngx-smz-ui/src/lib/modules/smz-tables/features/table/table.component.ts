@@ -6,12 +6,13 @@ import { SmzTableState, SmzTableContext } from '../../models/table-state';
 import { SmzTableColumn } from '../../models/table-column';
 import { SmzEditableType } from '../../models/editable-types';
 import { TableEditableService } from '../../services/table-editable.service';
+import { TableFormsService } from '../../services/table-forms.service';
 
 @Component({
   selector: 'smz-ui-table',
   templateUrl: './table.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [TableEditableService]
+  providers: [TableEditableService, TableFormsService]
 })
 export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
@@ -57,7 +58,7 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
     dropdown: SmzFilterType.DROPDOWN,
     multiselect: SmzFilterType.MULTI_SELECT
   }
-  constructor(public cdr: ChangeDetectorRef, public editableService: TableEditableService) {
+  constructor(public cdr: ChangeDetectorRef, public editableService: TableEditableService, public formsService: TableFormsService) {
     this.editableService.cdr = this.cdr;
     this.editableService.createEvent = this.create;
     this.editableService.updateEvent = this.update;
@@ -95,8 +96,7 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
       this.populateColumnVisibility(newState);
 
       this.editableService.state = this.state;
-
-      console.log('state', this.state);
+      this.formsService.state = this.state;
 
       this.cdr.markForCheck();
     }

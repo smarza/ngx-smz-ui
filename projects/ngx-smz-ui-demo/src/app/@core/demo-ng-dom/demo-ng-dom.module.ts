@@ -1,10 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SmzRouteData } from 'ngx-smz-ui';
+import { NgxSmzDataPipesModule, SmzRouteData } from 'ngx-smz-ui';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-import { NgxSmzDataPipesModule } from 'projects/ngx-smz-ui/src/public-api';
 import { NgDomModule } from '../../ng-dom/ng-dom.module';
 import { DemoNgDomContentComponent } from './demo-ng-dom-content.component';
 import { DemoNgDomComponent } from './demo-ng-dom.components';

@@ -10,7 +10,7 @@ export const smzHephaestusConfig: HephaestusLayout = {
 
 export const smzAthenaConfig: AthenaLayout = {
     menu: MenuType.HORIZONTAL,
-    sidebarState: SidebarState.ACTIVE,
+    sidebarState: SidebarState.INACTIVE,
     mobileSidebarState: SidebarState.INACTIVE,
     sidebarWidth: '16rem',
     sidebarSlimWidth: '6rem',

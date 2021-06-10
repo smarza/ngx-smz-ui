@@ -1,12 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
-import { SimpleNamedEntity } from 'ngx-smz-dialogs';
-import { SmzFilterType, SmzTableState, SmzTableBuilder } from 'ngx-smz-ui';
-import { EditableSaveEvent } from 'projects/ngx-smz-ui/src/lib/modules/smz-tables/models/editable-model';
+import { SmzTableState, SmzTableBuilder } from 'ngx-smz-ui';
 import { Observable } from 'rxjs';
-import { take } from 'rxjs/operators';
 import { DemoItem } from '../../models/demo';
-import { CountriesDbSelectors } from '../../state/database/countries/countries.selectors';
 import { DemoFeatureActions } from '../../state/demo/demo.actions';
 import { DemoFeatureSelectors } from '../../state/demo/demo.selectors';
 import { DemoTableDataService } from '../demo-tables/data-service/demo-tables-data-service';
@@ -32,7 +28,7 @@ export class DemoEditableTableComponent implements OnInit {
     console.log(event);
   }
 
-  public onUpdate(event: EditableSaveEvent[]): void {
+  public onUpdate(event: any[]): void {
     console.log('onUpdate Event', event);
   }
 

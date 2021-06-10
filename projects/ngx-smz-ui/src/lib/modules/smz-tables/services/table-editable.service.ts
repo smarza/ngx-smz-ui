@@ -10,6 +10,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { takeWhile } from 'rxjs/operators';
 import { UUID } from 'angular2-uuid';
 import { Confirmable, removeElementFromArray } from 'ngx-smz-dialogs';
+import { TableFormsService } from './table-forms.service';
 
 // SERVIÇO COM INSTANCIAS DIFERENTES POR TABELA
 @Injectable()
@@ -32,7 +33,7 @@ export class TableEditableService {
     public isCreating = false;
     public isDeleting = false;
 
-    constructor(private transactions: SmzTransactionsService) { }
+    constructor(private transactions: SmzTransactionsService, private formsService: TableFormsService) { }
 
     public onRowCreateInit(table: Table): void {
 
@@ -133,7 +134,7 @@ export class TableEditableService {
             errors: [],
             hasErrors: false,
             isLoading: false,
-            form: this.createForm(row)
+            form: this.formsService.createForm(row)
         };
 
         // COPIAR PROPRIEDADES EDITÁVEL NO CONTEXTO ORIGINAL E EDIÇÃO
@@ -169,24 +170,6 @@ export class TableEditableService {
         // PROVOCAR ANGULAR CHANGE DETECTION
         this.cdr.markForCheck();
 
-    }
-
-    private createForm(row: any): FormGroup {
-        const form: FormGroup = new FormGroup({});
-
-        // PERCORRER COLUNAS EDITÁVEIS
-        this.state.columns
-            .filter(c => c.editable.type !== SmzEditableType.NONE)
-            .forEach(col => {
-
-                // VALOR
-                const value = ObjectUtils.resolveFieldData(row, col.editable.property);
-
-                // CRIAR CONTROL
-                form.addControl(col.editable.property, new FormControl(value, Validators.required));
-            });
-
-        return form;
     }
 
     public checkForChanges(rowId: string): void {
