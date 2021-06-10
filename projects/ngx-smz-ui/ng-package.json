@@ -27,7 +27,7 @@
       "ngx-rbk-utils": "ngx-rbk-utils",
       "ngx-smz-dialogs": "ngx-smz-dialogs",
       "primeng/accordion": "accordion",
-      "primeng/api": "prime",
+      "primeng/api": "primengapi",
       "primeng/button": "button",
       "primeng/calendar": "calendar",
       "primeng/checkbox": "checkbox",
@@ -63,9 +63,6 @@
       "primeng/tree": "tree",
       "primeng/utils": "utils",
       "moment": "moment",
-      "primeng/api/public_api": "primeng/api",
-      "chart.js/auto": "chart",
-      "chart.js/helpers": "charthelpers",
       "angular2-uuid": "angular2Uuid",
       "lodash-es/flatten": "flatten$1"
     }
