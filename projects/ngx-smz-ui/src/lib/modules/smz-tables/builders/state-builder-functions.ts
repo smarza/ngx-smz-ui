@@ -1,17 +1,14 @@
 import { InputConfig } from 'ngx-rbk-utils';
-import { SmzControlType, SmzControlTypes } from 'ngx-smz-dialogs';
-import { ContentConvertions } from '../../models/content-convertions';
-import { FromControlTypeToContentType } from '../../models/content-types';
-import { SmzEditableType } from '../../models/editable-types';
-import { SmzFilterType } from '../../models/filter-types';
-import { SmzTableColumn } from '../../models/table-column';
-import { SmzTableState } from '../../models/table-state';
+import { SmzControlTypes } from 'ngx-smz-dialogs';
+import { ContentConvertions } from '../models/content-convertions';
+import { SmzTableColumn } from '../models/table-column';
+import { SmzTableState } from '../models/table-state';
 
 export namespace StateBuilderFunctions {
 
   export function createColumnsFromInputControls(_state: SmzTableState, inputs: InputConfig[], children: SmzControlTypes[]): void {
 
-    console.log('children', children);
+    // console.log('children', children);
 
     inputs.forEach(input => {
 

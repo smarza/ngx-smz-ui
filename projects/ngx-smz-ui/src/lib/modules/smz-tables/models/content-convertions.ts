@@ -1,5 +1,5 @@
 import { InputConfig } from 'ngx-rbk-utils';
-import { SmzControlType, SmzControlTypes, SmzDropDownControl } from 'ngx-smz-dialogs';
+import { SmzControlType, SmzControlTypes, SmzDropDownControl, SmzFormsValidatorsPreset } from 'ngx-smz-dialogs';
 import { SmzContentType, SmzContentTypes } from './content-types';
 import { SmzDropdownEditable, SmzEditableType, SmzEditableTypes } from './editable-types';
 import { SmzFilterType } from './filter-types';
@@ -16,6 +16,7 @@ interface ContentConvertionData {
     property: string;
     type: SmzEditableType;
     data?: SmzEditableTypes;
+    validatorsPreset: SmzFormsValidatorsPreset;
   },
   isOrderable: boolean;
   isGlobalFilterable: boolean;
@@ -31,7 +32,13 @@ export const ContentConvertions: ContentConvertionData[] = [
     isGlobalFilterable: true,
     filterType: SmzFilterType.TEXT,
     content: () => ({ type: SmzContentType.TEXT, data: null }),
-    editable: (input: InputConfig) => ({ property: input.propertyName, type: SmzEditableType.TEXT, data: null }),
+    editable: (input: SmzControlTypes) => (
+      {
+        property: input.propertyName,
+        type: SmzEditableType.TEXT,
+        data: null,
+        validatorsPreset: input.validatorsPreset
+      }),
   },
   {
     controlType: SmzControlType.DROPDOWN,
@@ -41,6 +48,12 @@ export const ContentConvertions: ContentConvertionData[] = [
     isGlobalFilterable: true,
     filterType: SmzFilterType.MULTI_SELECT,
     content: () => ({ type: SmzContentType.TEXT, data: null }),
-    editable: (input: SmzDropDownControl<never>) => ({ property: input.propertyName, type: SmzEditableType.DROPDOWN, data: { sourceType: 'object', sourceData: input.options, placeholder: 'Selecione uma opção' } as SmzDropdownEditable }),
+    editable: (input: SmzDropDownControl<never>) => (
+      {
+        property: input.propertyName,
+        type: SmzEditableType.DROPDOWN,
+        data: { sourceType: 'object', sourceData: input.options, placeholder: 'Selecione uma opção' } as SmzDropdownEditable,
+        validatorsPreset: input.validatorsPreset
+      }),
   }
 ];

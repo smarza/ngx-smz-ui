@@ -2,11 +2,11 @@ import { Store } from '@ngxs/store';
 import flatten from 'lodash-es/flatten';
 import { convertFormFeature, UiDefinitionsDbSelectors } from 'ngx-rbk-utils';
 import { SmzControlTypes, SmzForm } from 'ngx-smz-dialogs';
-import { GlobalInjector } from '../../../../../lib/common/services/global-injector';
-import { SmzMenuItem } from '../../models/conditional-menu-item';
-import { defaultMapResults, EditableChangeTrack } from '../../models/editable-model';
-import { SmzTableState } from '../../models/table-state';
-import { StateBuilderFunctions } from '../ui-definitions/state-builder-functions';
+import { GlobalInjector } from '../../../../lib/common/services/global-injector';
+import { SmzMenuItem } from '../models/conditional-menu-item';
+import { defaultMapResults, EditableChanges } from '../models/editable-model';
+import { SmzTableState } from '../models/table-state';
+import { StateBuilderFunctions } from './state-builder-functions';
 import { SmzColumnCollectionBuilder } from './column-builder';
 import { SmzMenuBuilder } from './menu-builder';
 
@@ -47,7 +47,7 @@ export class SmzTableBuilder {
         creation: null,
         remove: null,
       },
-      mapResults: (data, change: EditableChangeTrack<any>) => defaultMapResults(data, change)
+      mapResults: (data, changes: EditableChanges<any>) => defaultMapResults(data, changes)
     },
     caption: {
       rowSelection: {
@@ -321,7 +321,7 @@ export class SmzTableBuilder {
     return menuBuilder;
   }
 
-  public customizeEditableResults<T>(mapFunction: (data: T, change: EditableChangeTrack<T>) => any): SmzTableBuilder {
+  public customizeEditableResults<T>(mapFunction: (data: T, changeS: EditableChanges<T>) => any): SmzTableBuilder {
     this._state.editable.mapResults = mapFunction;
 
     return this;

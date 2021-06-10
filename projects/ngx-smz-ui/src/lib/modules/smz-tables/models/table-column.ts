@@ -1,3 +1,4 @@
+import { SmzFormsValidatorsPreset } from 'ngx-smz-dialogs';
 import { SmzContentType, SmzContentTypes } from "./content-types";
 import { SmzEditableType, SmzEditableTypes } from "./editable-types";
 import { SmzFilterType } from "./filter-types";
@@ -60,9 +61,13 @@ export interface SmzTableColumn {
     */
     type: SmzEditableType;
     /**
-   * Extra data needed for the selected editable type
-   */
+     * Extra data needed for the selected editable type
+     */
     data?: SmzEditableTypes;
+    /**
+     * Validators for the form input.
+     */
+    validatorsPreset: SmzFormsValidatorsPreset;
   };
 
   /**
@@ -96,4 +101,8 @@ export interface SmzTableEditableColumn {
  * Extra data needed for the selected editable type
  */
   data?: SmzEditableTypes;
+  /**
+   * Validators for the form input.
+   */
+  validatorsPreset: SmzFormsValidatorsPreset;
 }

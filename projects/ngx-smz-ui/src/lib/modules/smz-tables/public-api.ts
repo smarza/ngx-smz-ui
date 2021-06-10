@@ -13,9 +13,7 @@ export * from './models/editable-types';
 export * from './models/conditional-menu-item';
 
 // BUILDERS
-export * from './builders/regular/state-builder';
-export * from './builders/regular/column-builder';
-export * from './builders/regular/menu-builder';
-export * from './builders/regular/editable-builder';
-
-// export * from './builders/ui-definitions/state-ui-definitions-builder';
+export * from './builders/state-builder';
+export * from './builders/column-builder';
+export * from './builders/menu-builder';
+export * from './builders/editable-builder';

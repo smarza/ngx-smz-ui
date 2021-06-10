@@ -1,5 +1,5 @@
 import { SmzMenuItem } from "./conditional-menu-item";
-import { EditableChangeTrack } from './editable-model';
+import { EditableChanges, EditableChangeTrack } from './editable-model';
 import { SmzTableColumn, SmzTableContextColumn } from "./table-column";
 
 export interface SmzTableState {
@@ -78,7 +78,7 @@ export interface SmzTableState {
       creation: any,
       remove: any,
     },
-    mapResults: (data: any, change: EditableChangeTrack<any>) => any
+    mapResults: (data: any, change: EditableChanges<any>) => any
   }
 
   /**

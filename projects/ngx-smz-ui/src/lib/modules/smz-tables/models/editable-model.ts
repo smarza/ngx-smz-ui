@@ -38,7 +38,7 @@ export interface EditableSaveEvent
     data: any;
 }
 
-export function defaultMapResults(data: any, change: EditableChangeTrack<any>) {
+export function defaultMapResults(data: any, changes: EditableChanges<any>) {
 
     // console.log('defaultMapResults');
     // console.log('data', data);
@@ -46,7 +46,7 @@ export function defaultMapResults(data: any, change: EditableChangeTrack<any>) {
 
     const result = {};
 
-    const after = change.after.data;
+    const after = data;
 
     for (let key of Object.keys(after))
     {
@@ -62,5 +62,5 @@ export function defaultMapResults(data: any, change: EditableChangeTrack<any>) {
 
     }
 
-    return { id: change.id, ...result };
+    return { id: data.id, ...result };
 };

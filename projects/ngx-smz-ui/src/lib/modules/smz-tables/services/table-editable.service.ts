@@ -68,8 +68,11 @@ export class TableEditableService {
         // PROVOCAR ANGULAR CHANGE DETECTION
         this.cdr.markForCheck();
 
+        // ACTION DE EXCLUIR
         const action = this.state.editable.actions.remove;
-        let dispatchData = new action(row.id);
+
+        // ACTION INSTANCIADA COM PARAMETROS
+        const dispatchData = new action(row.id);
 
         // PUBLICAR EVENTO DE OUTPUT SAVE DA TABELA
         this.deleteEvent.emit(row.id);
@@ -218,26 +221,26 @@ export class TableEditableService {
         // DESCOBRIR O QUE MUDOU
         const changes = this.getChanges(row.id, before, after);
 
-        let dispatchData = null;
-        let params = null;
-
         // PERCORRER AS PROPRIEDADES QUE MUDARAM
         for (let changeKey of Object.keys(changes)) {
 
             const change = changes[changeKey];
-            const action = this.state.editable.actions.update;
 
             for (let afterDataKey of Object.keys(change.after.data)) {
                 // SETAR DADO MODIFICADO NA ROW
                 setNestedObject(row, afterDataKey, change.after.data[afterDataKey]);
             };
 
-            // MAPEAR PARAMETROS PARA A ACTION
-            params = this.state.editable.mapResults(row, change);
-
-            // SE HABILITADO, CRIAR ACTION PARA DISPATCH NA STORE
-            if (action.updateAction != null) dispatchData = new action(params);
         }
+
+        // MAPEAR PARAMETROS PARA A ACTION
+        const params = this.state.editable.mapResults(row, changes);
+
+        // ACTION DE UPDATE
+        const action = this.state.editable.actions.update;
+
+        // SE HABILITADO, CRIAR ACTION PARA DISPATCH NA STORE
+        const dispatchData = new action(params);
 
         // PUBLICAR EVENTO DE OUTPUT SAVE DA TABELA
         this.updateEvent.emit(params);
@@ -286,6 +289,7 @@ export class TableEditableService {
                 this.cdr.markForCheck();
             });
 
+
     }
 
     public onRowCreateSave(event: MouseEvent, table: Table, editableRowElement: any, row: any): void {
@@ -308,26 +312,26 @@ export class TableEditableService {
         // DESCOBRIR O QUE MUDOU
         const changes = this.getChanges(row.id, before, after);
 
-        let dispatchData = null;
-        let params = null;
-
         // PERCORRER AS PROPRIEDADES QUE MUDARAM
         for (let changeKey of Object.keys(changes)) {
 
             const change = changes[changeKey];
-            const action = this.state.editable.actions.creation;
 
             for (let afterDataKey of Object.keys(change.after.data)) {
                 // SETAR DADO MODIFICADO NA ROW
                 setNestedObject(row, afterDataKey, change.after.data[afterDataKey]);
             };
 
-            // MAPEAR PARAMETROS PARA A ACTION
-            params = this.state.editable.mapResults(row, change);
-
-            // SE HABILITADO, CRIAR ACTION PARA DISPATCH NA STORE
-            if (action.creationAction != null) dispatchData = new action(params);
         }
+
+        // ACTION DE CRIAÇÃO
+        const action = this.state.editable.actions.creation;
+
+        // MAPEAR PARAMETROS PARA A ACTION
+        const params = this.state.editable.mapResults(row, changes);
+
+        // SE HABILITADO, CRIAR ACTION PARA DISPATCH NA STORE
+        const dispatchData = new action(params);
 
         // PUBLICAR EVENTO DE OUTPUT SAVE DA TABELA
         this.createEvent.emit(params);

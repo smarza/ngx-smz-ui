@@ -29,6 +29,8 @@ import { SmzEditableSourcePipe } from './pipes/editable-source.pipe';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { SmzContentErrorsPipe } from './pipes/content-errors.pipe';
 import { GlobalInjector } from '../../common/services/global-injector';
+import { ValidationMessagesComponent } from './components/validation-messages/validation-messages.component';
+import { ValidationMessagesPipe } from './components/validation-messages/validation-messages.pipe';
 
 @NgModule({
     declarations: [
@@ -42,7 +44,9 @@ import { GlobalInjector } from '../../common/services/global-injector';
         SmzColumnFilterComponent,
         SmzColumnFilter2Component,
         SmzEditableSourcePipe,
-        SmzContentErrorsPipe
+        SmzContentErrorsPipe,
+        ValidationMessagesComponent,
+        ValidationMessagesPipe
     ],
     imports: [
         CommonModule,

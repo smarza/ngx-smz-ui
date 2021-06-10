@@ -197,47 +197,50 @@
                                                 <ng-container *ngTemplateOutlet="editableTemplate; context: { $implicit: item, col: col }"></ng-container>
                                             </ng-container>
 
+                                            <!-- INPUT TEXT -->
                                             <ng-container *ngSwitchCase="editableTypes.text">
-                                                <ng-container *ngIf="editableService.context[item.id]?.form.controls[col.editable.property] as control">
-                                                    <div class="relative w-full">
-                                                        <input pInputText type="text" [formControl]="$any(control)" style="width: 100%;" [ngClass]="{ 'p-pl-5': !control.valid }">
-                                                        <div *ngIf="!control.valid" class="absolute -inset-y-0 left-3 p-grid p-nogutter p-align-center p-justify-start">
-                                                            <i class="fas fa-asterisk text-xs animate-pulse transform scale-75 text-red-500 clickable" [pTooltip]="'Campo com problemas.... ainda não implementado'"></i>
+                                                <ng-container *ngIf="editableService.context[item.id]?.form as form">
+                                                    <ng-container *ngIf="form.controls[col.editable.property] as control">
+                                                        <div class="relative w-full">
+                                                            <input pInputText type="text" [formControl]="$any(control)" style="width: 100%;">
+                                                            <smz-validation-messages [errors]="control.errors" [messages]="dialogConfig.forms.validationMessages" [isFormInvalid]="form.invalid" [isFormDirty]="form.dirty"></smz-validation-messages>
                                                         </div>
-                                                    </div>
+                                                    </ng-container>
                                                 </ng-container>
                                             </ng-container>
 
+                                            <!-- INPUT TEXT AREA -->
                                             <ng-container *ngSwitchCase="editableTypes.area">
-                                                <ng-container *ngIf="editableService.context[item.id]?.form.controls[col.editable.property] as control">
-                                                    <div class="relative w-full">
-                                                        <textarea pInputTextarea type="text" [formControl]="$any(control)" [rows]="col.editable.data['rows']" required style="width: 100%;" [ngClass]="{ 'p-pl-5': !control.valid }"></textarea>
-                                                        <div *ngIf="!control.valid" class="absolute -inset-y-0 left-3 p-grid p-nogutter p-align-center p-justify-start">
-                                                            <i class="fas fa-asterisk text-xs animate-pulse transform scale-75 text-red-500 clickable" [pTooltip]="'Campo com problemas.... ainda não implementado'"></i>
+                                                <ng-container *ngIf="editableService.context[item.id]?.form as form">
+                                                    <ng-container *ngIf="form.controls[col.editable.property] as control">
+                                                        <div class="relative w-full">
+                                                            <textarea pInputTextarea type="text" [formControl]="$any(control)" [rows]="col.editable.data['rows']" required style="width: 100%;"></textarea>
+                                                            <smz-validation-messages [errors]="control.errors" [messages]="dialogConfig.forms.validationMessages" [isFormInvalid]="form.invalid" [isFormDirty]="form.dirty"></smz-validation-messages>
                                                         </div>
-                                                    </div>
+                                                    </ng-container>
                                                 </ng-container>
                                             </ng-container>
 
+                                            <!-- INPUT DROPDOWN -->
                                             <ng-container *ngSwitchCase="editableTypes.dropdown">
-                                                <ng-container *ngIf="editableService.context[item.id]?.form.controls[col.editable.property] as control">
-                                                    <div class="relative w-full">
-                                                        <p-dropdown [formControl]="$any(control)" styleClass="w-full" [options]="col.editable.data | editableSource" optionLabel="name" dataKey="id" [placeholder]="$any(col.editable.data).placeholder" [ngClass]="{ 'p-pl-5': !control.valid }"></p-dropdown>
-                                                        <div *ngIf="!control.valid" class="absolute -inset-y-0 left-3 p-grid p-nogutter p-align-center p-justify-start">
-                                                            <i class="fas fa-asterisk text-xs animate-pulse transform scale-75 text-red-500 clickable" [pTooltip]="'Campo com problemas.... ainda não implementado'"></i>
+                                                <ng-container *ngIf="editableService.context[item.id]?.form as form">
+                                                    <ng-container *ngIf="form.controls[col.editable.property] as control">
+                                                        <div class="relative w-full">
+                                                            <p-dropdown [formControl]="$any(control)" styleClass="w-full" [options]="col.editable.data | editableSource" optionLabel="name" dataKey="id" [placeholder]="$any(col.editable.data).placeholder"></p-dropdown>
+                                                            <smz-validation-messages [errors]="control.errors" [messages]="dialogConfig.forms.validationMessages" [isFormInvalid]="form.invalid" [isFormDirty]="form.dirty"></smz-validation-messages>
                                                         </div>
-                                                    </div>
+                                                    </ng-container>
                                                 </ng-container>
                                             </ng-container>
 
                                             <ng-container *ngSwitchCase="editableTypes.calendar">
-                                                <ng-container *ngIf="editableService.context[item.id]?.form.controls[col.editable.property] as control">
-                                                    <div class="relative w-full">
-                                                        <p-calendar [formControl]="$any(control)" styleClass="w-full" [ngClass]="{ 'p-pl-5': !control.valid }"></p-calendar>
-                                                        <div *ngIf="!control.valid" class="absolute -inset-y-0 left-3 p-grid p-nogutter p-align-center p-justify-start">
-                                                            <i class="fas fa-asterisk text-xs animate-pulse transform scale-75 text-red-500 clickable" [pTooltip]="'Campo com problemas.... ainda não implementado'"></i>
+                                                <ng-container *ngIf="editableService.context[item.id]?.form as form">
+                                                    <ng-container *ngIf="form.controls[col.editable.property] as control">
+                                                        <div class="relative w-full">
+                                                            <p-calendar [formControl]="$any(control)" styleClass="w-full" [ngClass]="{ 'p-pl-5': !control.valid }"></p-calendar>
+                                                            <smz-validation-messages [errors]="control.errors" [messages]="dialogConfig.forms.validationMessages" [isFormInvalid]="form.invalid" [isFormDirty]="form.dirty"></smz-validation-messages>
                                                         </div>
-                                                    </div>
+                                                    </ng-container>
                                                 </ng-container>
                                             </ng-container>
                                         </ng-container>

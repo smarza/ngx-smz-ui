@@ -7,6 +7,7 @@ import { SmzTableColumn } from '../../models/table-column';
 import { SmzEditableType } from '../../models/editable-types';
 import { TableEditableService } from '../../services/table-editable.service';
 import { TableFormsService } from '../../services/table-forms.service';
+import { SmzDialogsConfig } from 'ngx-smz-dialogs';
 
 @Component({
   selector: 'smz-ui-table',
@@ -58,7 +59,7 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
     dropdown: SmzFilterType.DROPDOWN,
     multiselect: SmzFilterType.MULTI_SELECT
   }
-  constructor(public cdr: ChangeDetectorRef, public editableService: TableEditableService, public formsService: TableFormsService) {
+  constructor(public cdr: ChangeDetectorRef, public editableService: TableEditableService, public formsService: TableFormsService, public dialogConfig: SmzDialogsConfig) {
     this.editableService.cdr = this.cdr;
     this.editableService.createEvent = this.create;
     this.editableService.updateEvent = this.update;

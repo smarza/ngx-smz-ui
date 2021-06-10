@@ -3,6 +3,7 @@ import { ObjectUtils } from 'primeng/utils';
 import { SmzEditableType } from '../models/editable-types';
 import { SmzTableState } from '../models/table-state';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { SmzTableColumn } from '../models/table-column';
 
 // SERVIÇO COM INSTANCIAS DIFERENTES POR TABELA
 @Injectable()
@@ -24,11 +25,27 @@ export class TableFormsService {
                 // VALOR
                 const value = ObjectUtils.resolveFieldData(row, col.editable.property);
 
+                // CRIAR VALIDADORES COM BASE NA CONFIGURAÇÃO DA COLUNA
+                const validators = this.getValidators(col);
+
                 // CRIAR CONTROL
-                form.addControl(col.editable.property, new FormControl(value, Validators.required));
+                form.addControl(col.editable.property, new FormControl(value, validators));
             });
 
         return form;
+    }
+
+    private getValidators(col: SmzTableColumn): any[]
+    {
+        const results = [];
+
+        if (col.editable.validatorsPreset.isRequired) results.push(Validators.required);
+        if (col.editable.validatorsPreset.max) results.push(Validators.max(col.editable.validatorsPreset.max));
+        if (col.editable.validatorsPreset.maxLength) results.push(Validators.maxLength(col.editable.validatorsPreset.maxLength));
+        if (col.editable.validatorsPreset.min) results.push(Validators.min(col.editable.validatorsPreset.min));
+        if (col.editable.validatorsPreset.minLength) results.push(Validators.minLength(col.editable.validatorsPreset.minLength));
+
+        return results;
     }
 
 }

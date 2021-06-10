@@ -1,5 +1,5 @@
-import { SmzDropdownEditable, SmzEditableType } from '../../models/editable-types';
-import { SmzTableEditableColumn } from '../../models/table-column';
+import { SmzDropdownEditable, SmzEditableType } from '../models/editable-types';
+import { SmzTableEditableColumn } from '../models/table-column';
 import { SmzBaseColumnBuilder } from './column-builder';
 import { SmzTableBuilder } from './state-builder';
 
@@ -12,6 +12,9 @@ export abstract class SmzBaseEditableBuilder<T extends SmzBaseEditableBuilder<T>
       property,
       type,
       data,
+      validatorsPreset: {
+        isRequired: true,
+      }
     };
 
     this._table._state.editable.update.isButtonVisible = true;
@@ -30,6 +33,41 @@ export abstract class SmzBaseEditableBuilder<T extends SmzBaseEditableBuilder<T>
   public disableCreation(): SmzBaseEditableBuilder<T> {
 
     this._table._state.editable.creation.isButtonVisible = this._table._state.columns.some(x => x.editable.type !== SmzEditableType.NONE);
+
+    return this;
+  }
+
+  public removeRequirement(): SmzBaseEditableBuilder<T> {
+
+    this._editable.validatorsPreset.isRequired = false;
+
+    return this;
+  }
+
+  public setMinValidator(min: number): SmzBaseEditableBuilder<T> {
+
+    this._editable.validatorsPreset.min = min;
+
+    return this;
+  }
+
+  public setMinLengthValidator(minLength: number): SmzBaseEditableBuilder<T> {
+
+    this._editable.validatorsPreset.minLength = minLength;
+
+    return this;
+  }
+
+  public setMaxValidator(max: number): SmzBaseEditableBuilder<T> {
+
+    this._editable.validatorsPreset.max = max;
+
+    return this;
+  }
+
+  public setMaxLengthValidator(maxLength: number): SmzBaseEditableBuilder<T> {
+
+    this._editable.validatorsPreset.maxLength = maxLength;
 
     return this;
   }

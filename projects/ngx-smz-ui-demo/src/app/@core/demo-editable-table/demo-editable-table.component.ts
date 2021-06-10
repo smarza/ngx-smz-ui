@@ -29,7 +29,7 @@ export class DemoEditableTableComponent implements OnInit {
   }
 
   public onUpdate(event: any[]): void {
-    console.log('onUpdate Event', event);
+    // console.log('onUpdate Event', event);
   }
 
   public setupTableState(): void {

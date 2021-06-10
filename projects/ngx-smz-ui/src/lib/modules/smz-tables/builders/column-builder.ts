@@ -1,7 +1,7 @@
-import { SmzContentType, SmzIconContent } from '../../models/content-types';
-import { SmzEditableType } from '../../models/editable-types';
-import { SmzFilterType } from '../../models/filter-types';
-import { SmzTableColumn } from '../../models/table-column';
+import { SmzContentType, SmzIconContent } from '../models/content-types';
+import { SmzEditableType } from '../models/editable-types';
+import { SmzFilterType } from '../models/filter-types';
+import { SmzTableColumn } from '../models/table-column';
 import { SmzEditableCollectionBuilder } from './editable-builder';
 import { SmzTableBuilder } from './state-builder';
 
@@ -37,7 +37,10 @@ export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T>> {
               rows: 5,
               options: []
             },
-            property: null
+            property: null,
+            validatorsPreset: {
+              isRequired: false,
+            }
           },
           isOrderable: true,
           filter: {
