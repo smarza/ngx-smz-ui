@@ -25,7 +25,7 @@
 
           <!-- FOOTER -->
           <ng-container *ngIf="routerListener.data.layout.mode === 'full'">
-            <smz-ui-hephaestus-footer>
+            <smz-ui-hephaestus-footer *ngIf="!routerListener.data.layout.hideFooter">
               <ng-template *ngIf="footerExtrasTemplate != null" pTemplate="footerExtras">
                 <ng-container *ngTemplateOutlet="footerExtrasTemplate"></ng-container>
               </ng-template>

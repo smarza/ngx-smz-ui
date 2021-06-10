@@ -27,7 +27,7 @@
 
           <!-- FOOTER -->
           <ng-container *ngIf="routerListener.data.layout.mode === 'full'">
-            <smz-ui-athena-footer>
+            <smz-ui-athena-footer *ngIf="!routerListener.data.layout.hideFooter">
               <ng-template *ngIf="footerExtrasTemplate != null" pTemplate="footerExtras">
                 <ng-container *ngTemplateOutlet="footerExtrasTemplate"></ng-container>
               </ng-template>

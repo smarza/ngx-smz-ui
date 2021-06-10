@@ -74,6 +74,7 @@ export class RouterDataListenerService
       ...data,
       layout: {
         mode: data.layout?.mode ? data.layout.mode : 'full',
+        hideFooter: data.layout.hideFooter ?? false,
         contentPadding: data.layout?.contentPadding ? data.layout.contentPadding : '2em'
       }
     }
