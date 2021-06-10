@@ -63,8 +63,10 @@
       "primeng/tree": "tree",
       "primeng/utils": "utils",
       "moment": "moment",
-      "angular2-uuid": "angular2Uuid",
-      "lodash-es/flatten": "flatten$1"
+      "angular2-uuid": "angularuuid",
+      "lodash-es/flatten": "lodashesflatten",
+      "chart.js/auto": "chartjaauto",
+      "chart.js/helpers": "chartjshelpers"
     }
   }
 }

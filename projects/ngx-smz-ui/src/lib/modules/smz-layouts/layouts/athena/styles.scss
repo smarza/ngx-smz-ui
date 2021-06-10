@@ -563,6 +563,9 @@ body a {
   justify-content: space-between;
   min-height: calc(100vh - var(--layout-footer-height));
 }
+.layout-wrapper .layout-content.layout-content-no-footer {
+  min-height: 100vh;
+}
 .layout-wrapper .layout-content .layout-breadcrumb {
   background-color: var(--surface-a);
   border-bottom: 1px solid var(--surface-d);

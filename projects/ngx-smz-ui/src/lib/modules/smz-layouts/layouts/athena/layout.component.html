@@ -18,7 +18,7 @@
           <smz-ui-athena-horizontal-menu [menu]="menu"></smz-ui-athena-horizontal-menu>
 
           <!-- CONTEÚDO -->
-          <div class="layout-content">
+          <div class="layout-content" [ngClass]="{ 'layout-content-no-footer': routerListener.data.layout.hideFooter || routerListener.data.layout.mode === 'none' }">
             <div *ngIf="state.isOverlayVisible" class="p-component-overlay clear-overlay" (click)="hideMenu()"></div>
             <div class="layout-content-container" [ngStyle]="{ padding: routerListener.data.layout.contentPadding }" [ngClass]="contentClass$ | async">
               <ng-container *ngTemplateOutlet="content"></ng-container>
