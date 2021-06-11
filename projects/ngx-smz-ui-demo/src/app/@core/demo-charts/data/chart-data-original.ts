@@ -253,11 +253,11 @@ export const LINE = {
 export const DOUGHNUT = {
   type: 'doughnut',
   data: {
-    labels: ['Red', 'Orange', 'Yellow', 'Green', 'Blue'],
+    labels: ['Green', 'Blue', 'Orange', 'Red', 'Yellow'],
     datasets: [
       {
         label: 'Dataset 1',
-        data: [5, 15, 5, 25, 20],
+        data: [25, 20, 15, 5, 5],
         extraData: [
           { x: 'Jan', y: 5, data: { value: 5 } },
           { x: 'Feb', y: 15, data: { value: 15 } },
@@ -275,10 +275,6 @@ export const DOUGHNUT = {
       legend: {
         position: 'top'
       },
-      title: {
-        display: true,
-        text: 'Chart.js Doughnut Chart'
-      }
     }
   }
 };
@@ -286,11 +282,11 @@ export const DOUGHNUT = {
 export const PIE = {
   type: 'pie',
   data: {
-    labels: ['Red', 'Orange', 'Yellow', 'Green', 'Blue'],
+    labels: ['Green', 'Blue', 'Orange', 'Red', 'Yellow'],
     datasets: [
       {
         label: 'Dataset 1',
-        data: [5, 15, 5, 25, 20],
+        data: [25, 20, 15, 5, 5],
         extraData: [
           { x: 'Jan', y: 5, data: { value: 5 } },
           { x: 'Feb', y: 15, data: { value: 15 } },
@@ -308,10 +304,6 @@ export const PIE = {
       legend: {
         position: 'top'
       },
-      title: {
-        display: true,
-        text: 'Chart.js Pie Chart'
-      }
     }
   }
 };
@@ -319,11 +311,11 @@ export const PIE = {
 export const POLAR_AREA = {
   type: 'polarArea',
   data: {
-    labels: ['Red', 'Orange', 'Yellow', 'Green', 'Blue'],
+    labels: ['Green', 'Blue', 'Orange', 'Red', 'Yellow'],
     datasets: [
       {
         label: 'Dataset 1',
-        data: [5, 15, 5, 25, 20],
+        data: [25, 20, 15, 5, 5],
         extraData: [
           { x: 'Jan', y: 5, data: { value: 5 } },
           { x: 'Feb', y: 15, data: { value: 15 } },
@@ -331,13 +323,9 @@ export const POLAR_AREA = {
           { x: 'Apr', y: 25, data: { value: 25 } },
           { x: 'May', y: 20, data: { value: 20 } }
         ],
-        backgroundColor: [
-          '#4dc9f644',
-          '#f6701944',
-          '#f5379444',
-          '#537bc444',
-          '#acc23644'
-        ]
+        backgroundColor: ['#4dc9f6', '#f67019', '#f53794', '#537bc4', '#acc236'],
+        hoverBackgroundColor: ['#4dc9f644', '#f6701944', '#f5379444', '#537bc444', '#acc23644']
+
       }
     ]
   },
@@ -347,10 +335,6 @@ export const POLAR_AREA = {
       legend: {
         position: 'top'
       },
-      title: {
-        display: true,
-        text: 'Chart.js Polar Area Chart'
-      }
     }
   }
 };

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 import { SmzChartClickEvent } from 'ngx-smz-ui';
 import { VERTICAL_BAR, HORIZONTAL_BAR, STACKED_BAR, ROUNDED_BAR, LINE, DOUGHNUT, PIE, POLAR_AREA, COMBO, IAGM } from './data/chart-data-original';
-import { COMBO_CHSARP, HORIZONTAL_BAR_CSHARP, IAGM_CSHARP, LINE_CSHARP, ROUNDED_BAR_CSHARP, STACKED_BAR_CSHARP, VERTICAL_BAR_CSHARP } from './data/chart-data-csharp';
+import { COMBO_CHSARP, DOUGHNUT_CSHARP, HORIZONTAL_BAR_CSHARP, IAGM_CSHARP, LINE_CSHARP, PIE_CSHARP, POLAR_AREA_CSHARP, ROUNDED_BAR_CSHARP, STACKED_BAR_CSHARP, VERTICAL_BAR_CSHARP } from './data/chart-data-csharp';
 
 @Component({
   selector: 'app-demo-charts',
@@ -27,7 +27,9 @@ export class DemoChartsComponent {
   public stackedBarChartCsharp;
   public horizontalBarChartCsharp;
   public verticalBarChartCsharp;
-
+  public doughnutChartCsharp;
+  public pieChartChsarp;
+  public polarAreaCsharp;
   constructor() {
     this.verticalBarChart = VERTICAL_BAR;
     this.horizontalBarChart = HORIZONTAL_BAR;
@@ -47,6 +49,9 @@ export class DemoChartsComponent {
     this.stackedBarChartCsharp = STACKED_BAR_CSHARP;
     this.horizontalBarChartCsharp = HORIZONTAL_BAR_CSHARP;
     this.verticalBarChartCsharp = VERTICAL_BAR_CSHARP;
+    this.doughnutChartCsharp = DOUGHNUT_CSHARP;
+    this.pieChartChsarp = PIE_CSHARP;
+    this.polarAreaCsharp = POLAR_AREA_CSHARP;
   }
 
   ngOnInit() {}

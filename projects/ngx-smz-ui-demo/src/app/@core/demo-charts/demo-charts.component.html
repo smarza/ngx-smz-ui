@@ -143,6 +143,12 @@
   </div>
   <div>
     <h5>Doughnut chart - FluentAPI C#</h5>
+    <smz-ui-chart
+      [type]="doughnutChartCsharp.type"
+      [data]="doughnutChartCsharp.data"
+      [options]="doughnutChartCsharp.config"
+      (chartClick)="chartClicked($event)"
+    ></smz-ui-chart>
   </div>
 </div>
 
@@ -163,6 +169,12 @@
   </div>
   <div>
     <h5>Polar area chart - FluentAPI C#</h5>
+    <smz-ui-chart
+      [type]="polarAreaCsharp.type"
+      [data]="polarAreaCsharp.data"
+      [options]="polarAreaCsharp.config"
+      (chartClick)="chartClicked($event)"
+    ></smz-ui-chart>
   </div>
 </div>
 
@@ -183,6 +195,12 @@
   </div>
   <div>
     <h5>Pie chart - FluentAPI C#</h5>
+    <smz-ui-chart
+      [type]="pieChartChsarp.type"
+      [data]="pieChartChsarp.data"
+      [options]="pieChartChsarp.config"
+      (chartClick)="chartClicked($event)"
+    ></smz-ui-chart>
   </div>
 </div>
 

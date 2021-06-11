@@ -1060,3 +1060,201 @@ export const VERTICAL_BAR_CSHARP = {
     }
   }
 };
+
+export const DOUGHNUT_CSHARP = {
+  "data": {
+    "datasets": [
+      {
+        "backgroundColor": [
+          "#4dc9f6",
+          "#f67019",
+          "#f53794",
+          "#537bc4",
+          "#acc236"
+        ],
+        "hoverBackgroundColor": [
+          "#4dc9f6ff",
+          "#f67019ff",
+          "#f53794ff",
+          "#537bc4ff",
+          "#acc236ff"
+        ],
+        "data": [
+          25.0,
+          20.0,
+          15.0,
+          5.0,
+          5.0
+        ],
+        "extra": [
+          [],
+          [],
+          [],
+          [],
+          []
+        ],
+        "id": "",
+        "normalized": true
+      }
+    ],
+    "labels": [
+      "Green",
+      "Blue",
+      "Orange",
+      "Red",
+      "Yellow"
+    ]
+  },
+  "type": "doughnut",
+  "config": {
+    "responsive": true,
+    "interaction": {
+      "intersect": false,
+      "mode": "nearest",
+      "axis": "xy"
+    },
+    "plugins": {
+      "tooltip": {
+        "intersect": false,
+        "enabled": true,
+        "mode": "nearest"
+      },
+      "legend": {
+        "display": true,
+        "position": "top"
+      }
+    }
+  }
+};
+
+export const PIE_CSHARP = {
+  "data": {
+    "datasets": [
+      {
+        "backgroundColor": [
+          "#4dc9f6",
+          "#f67019",
+          "#f53794",
+          "#537bc4",
+          "#acc236"
+        ],
+        "hoverBackgroundColor": [
+          "#4dc9f6ff",
+          "#f67019ff",
+          "#f53794ff",
+          "#537bc4ff",
+          "#acc236ff"
+        ],
+        "data": [
+          25.0,
+          20.0,
+          15.0,
+          5.0,
+          5.0
+        ],
+        "extra": [
+          [],
+          [],
+          [],
+          [],
+          []
+        ],
+        "id": "",
+        "normalized": true
+      }
+    ],
+    "labels": [
+      "Green",
+      "Blue",
+      "Orange",
+      "Red",
+      "Yellow"
+    ]
+  },
+  "type": "pie",
+  "config": {
+    "responsive": true,
+    "interaction": {
+      "intersect": false,
+      "mode": "nearest",
+      "axis": "xy"
+    },
+    "plugins": {
+      "tooltip": {
+        "intersect": false,
+        "enabled": true,
+        "mode": "nearest"
+      },
+      "legend": {
+        "display": true,
+        "position": "top"
+      }
+    }
+  }
+};
+
+export const POLAR_AREA_CSHARP = {
+  "data": {
+    "datasets": [
+      {
+        "backgroundColor": [
+          "#4dc9f6",
+          "#f67019",
+          "#f53794",
+          "#537bc4",
+          "#acc236"
+        ],
+        "hoverBackgroundColor": [
+          "#4dc9f644",
+          "#f6701944",
+          "#f5379444",
+          "#537bc444",
+          "#acc23644"
+        ],
+        "data": [
+          25.0,
+          20.0,
+          15.0,
+          5.0,
+          5.0
+        ],
+        "extra": [
+          [],
+          [],
+          [],
+          [],
+          []
+        ],
+        "id": "",
+        "normalized": true
+      }
+    ],
+    "labels": [
+      "Green",
+      "Blue",
+      "Orange",
+      "Red",
+      "Yellow"
+    ]
+  },
+  "type": "polarArea",
+  "config": {
+    "responsive": true,
+    "interaction": {
+      "intersect": false,
+      "mode": "nearest",
+      "axis": "xy"
+    },
+    "plugins": {
+      "tooltip": {
+        "intersect": false,
+        "enabled": true,
+        "mode": "nearest"
+      },
+      "legend": {
+        "display": true,
+        "position": "top"
+      }
+    }
+  }
+};
