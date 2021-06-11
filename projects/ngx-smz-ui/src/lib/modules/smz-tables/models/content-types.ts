@@ -6,6 +6,7 @@ export type SmzContentTypes =
   SmzCalendarContent |
   SmzIconContent |
   SmzCurrencyContent |
+  SmzDataTransform |
   SmzMaskContent;
 
 export enum SmzContentType {
@@ -14,6 +15,7 @@ export enum SmzContentType {
   CALENDAR = 16,
   ICON = 18,
   CURRENCY = 4,
+  DATA_TRANSFORM = 5
 }
 
 export const FromControlTypeToContentType = [
@@ -23,6 +25,10 @@ export const FromControlTypeToContentType = [
 
 export interface SmzTextContent {
 
+}
+
+export interface SmzDataTransform {
+  callback: (data: any, row: any) => string;
 }
 
 export interface SmzCalendarContent {

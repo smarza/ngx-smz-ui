@@ -1,12 +1,13 @@
 <h2>Sample table</h2>
-<smz-ui-table #smzTable [items]="items$ | async" [state]="tableState2" [loading]="loading" (selectionChange)="test($event)">
+<smz-ui-table #smzTable [items]="items$ | async" [state]="tableState" [loading]="loading" (selectionChange)="test($event)">
 
   <ng-template pTemplate="emptyActions">
-    <button pButton label="Criar" class="p-mr-2" (click)="loadItems()"></button>
+    <!-- <button pButton label="Criar" class="p-mr-2" (click)="loadItems()"></button> -->
   </ng-template>
 
   <ng-template pTemplate="caption" let-primeTable>
     <button pButton type="button" class="p-button-secondary" icon="pi pi-cog" (click)="tableLog(smzTable, primeTable)" class="p-mr-2"></button>
+    <button pButton type="button" class="p-button-secondary" icon="fas fa-sync" (click)="loadAll()" class="p-mr-2"></button>
   </ng-template>
 
   <!-- CONTEÚDOS COM OVERRIDE -->

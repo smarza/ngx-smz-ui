@@ -4,7 +4,6 @@ import { Observable } from 'rxjs/internal/Observable';
 import { BaseApiService } from 'ngx-rbk-utils';
 import { environment } from '../../../environments/environment';
 import { DemoCreationData, DemoItem, DemoUpdateData } from '../../models/demo';
-import { SimpleNamedEntity } from 'ngx-smz-dialogs';
 
 @Injectable({ providedIn: 'root' })
 export class DemoDataService extends BaseApiService {
@@ -14,8 +13,8 @@ export class DemoDataService extends BaseApiService {
     super();
   }
 
-  public getCountries(): Observable<SimpleNamedEntity[]> {
-    return this.http.get<SimpleNamedEntity[]>(`${this.endpoint}/countries`, this.generateDefaultHeaders({ errorHandlingType: 'toast' }));
+  public getCountries(): Observable<DemoItem[]> {
+    return this.http.get<DemoItem[]>(`${this.endpoint}/countries`, this.generateDefaultHeaders({ errorHandlingType: 'toast' }));
   }
 
   public getAll(): Observable<DemoItem[]> {

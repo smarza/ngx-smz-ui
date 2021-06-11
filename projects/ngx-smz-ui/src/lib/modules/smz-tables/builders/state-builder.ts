@@ -91,7 +91,8 @@ export class SmzTableBuilder {
         template: ''
       },
       rows: 10,
-      rowsPerPageOptions: [5, 10, 25, 50]
+      rowsPerPageOptions: [5, 10, 25, 50],
+      state: { first: 0, rows: 10 }
     },
     sort: {
       field: null,
@@ -236,6 +237,7 @@ export class SmzTableBuilder {
       isVisible: true,
       template: 'Mostrando {first} a {last} de {totalRecords} itens'
     };
+    this._state.pagination.state.rows = this._state.pagination.rows;
     return this;
   }
 
@@ -244,6 +246,7 @@ export class SmzTableBuilder {
       throw Error('You need to call \'usePagination\' before');
     }
     this._state.pagination.rows = value;
+    this._state.pagination.state.rows = value;
     return this;
   }
 
@@ -252,6 +255,19 @@ export class SmzTableBuilder {
       throw Error('You need to call \'usePagination\' before');
     }
     this._state.pagination.rowsPerPageOptions = value;
+    return this;
+  }
+
+  public setPaginationInitialPage(page: number): SmzTableBuilder {
+    if (!this._state.pagination.isVisible) {
+      throw Error('You need to call \'usePagination\' before');
+    }
+
+    if (page <= 0) {
+      throw Error('You need to provide a \'page number\' bigger then 0');
+    }
+
+    this._state.pagination.state.first = page - 1;
     return this;
   }
 

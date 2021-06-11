@@ -114,7 +114,8 @@ export class SmzTableContextPipe implements PipeTransform {
         pageReport: {
           isVisible: true,
           template: 'Mostrando {first} a {last} de {totalRecords} itens'
-        }
+        },
+        state: { first: 0, rows: 10 }
       },
       sort: {
         field: null,

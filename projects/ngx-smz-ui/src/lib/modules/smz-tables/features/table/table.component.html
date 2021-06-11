@@ -24,7 +24,7 @@
             [paginator]="context.state.pagination.isVisible" [currentPageReportTemplate]="context.state.pagination.pageReport.template"
             [sortField]="context.state.sort.field" [sortMode]="context.state.sort.mode"
             [sortOrder]="context.state.sort.order" [multiSortMeta]="context.state.sort.multiSortMeta"
-            editMode="row"
+            editMode="row" (onPage)="onPage($event)"
             [filterDelay]="0" [globalFilterFields]="context.globalFilter" (selectionChange)="selectionChange.emit($event)">
 
             <ng-template pTemplate="caption" *ngIf="context.state.caption.isVisible">
@@ -167,7 +167,7 @@
                     [callback]="context.state.actions.rowBehavior.clickCallback"
                     [item]="item"
                     class="p-selectable-row"
-                    [ngClass]="{ 'highlight-row': item.id === state.actions.rowBehavior.highlights }"
+                    [ngClass]="{ 'highlight-row': item?.id === state.actions.rowBehavior.highlights }"
                     >
 
                     <td *ngIf="context.state.caption.rowSelection.isEnabled" furyClickStopPropagation [ngClass]="{ 'opacity-50 pointer-events-none': editableService.context[item.id]?.hasErrors || editableService.context[item.id]?.isLoading }">
@@ -263,6 +263,12 @@
 
                                             <ng-container *ngSwitchCase="contentTypes.text">
                                                 {{ (item | tableContent : col.field) }}
+                                            </ng-container>
+
+                                            <ng-container *ngSwitchCase="contentTypes.dataTransform">
+                                                <ng-container *ngIf="(item | tableContent : col.field) as contentData">
+                                                    {{ $any(col.content.data).callback(contentData, item) }}
+                                                </ng-container>
                                             </ng-container>
 
                                             <ng-container *ngSwitchCase="contentTypes.icon">
@@ -372,6 +378,7 @@
 
                 </tr>
             </ng-template>
+
             <ng-template pTemplate="emptymessage">
                 <tr>
                     <td [attr.colspan]="context.columns.length + ((context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible || context.state.editable.isEditable) ? 1 : 0) + (context.state.caption.rowSelection.isEnabled ? 1 : 0)" [ngStyle]="{ 'text-align': 'center' }">{{ context.state.emptyFeedback.message }}</td>

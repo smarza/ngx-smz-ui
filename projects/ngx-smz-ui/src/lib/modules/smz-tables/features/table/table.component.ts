@@ -1,4 +1,4 @@
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, TemplateRef } from '@angular/core'
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewChild } from '@angular/core'
 import { PrimeTemplate } from 'primeng/api';
 import { SmzContentType } from '../../models/content-types';
 import { SmzFilterType } from '../../models/filter-types';
@@ -8,6 +8,7 @@ import { SmzEditableType } from '../../models/editable-types';
 import { TableEditableService } from '../../services/table-editable.service';
 import { TableFormsService } from '../../services/table-forms.service';
 import { SmzDialogsConfig } from 'ngx-smz-dialogs';
+import { Table } from 'primeng/table';
 
 @Component({
   selector: 'smz-ui-table',
@@ -17,6 +18,7 @@ import { SmzDialogsConfig } from 'ngx-smz-dialogs';
 })
 export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
+  @ViewChild(Table) public table: Table;
   @Input() public state: SmzTableState;
   @Input() public items: any[] = [];
   @Input() public loading: boolean = false;
@@ -40,7 +42,8 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
     calendar: SmzContentType.CALENDAR,
     icon: SmzContentType.ICON,
     text: SmzContentType.TEXT,
-    custom: SmzContentType.CUSTOM
+    custom: SmzContentType.CUSTOM,
+    dataTransform: SmzContentType.DATA_TRANSFORM
   }
   public editableTypes = {
     none: SmzEditableType.NONE,
@@ -102,6 +105,22 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
       this.cdr.markForCheck();
     }
 
+    if (changes.items != null) {
+
+      if (this.table != null) {
+
+        setTimeout(() => {
+
+          // ATUALIZAR PAGINA ATUAL NO PAGINADOR DO PRIME
+          this.table.onPageChange(this.state.pagination.state);
+
+          // PROPAGAR ALTERAÇÕES
+          this.cdr.markForCheck();
+        }, 0);
+      }
+
+    }
+
   }
 
   public ngAfterContentInit() {
@@ -158,6 +177,10 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
     if (context.state.caption.rowSelection.callback != null) {
       context.state.caption.rowSelection.callback();
     }
+  }
+
+  public onPage(event: { first: number, rows: number }): void {
+    this.state.pagination.state = event;
   }
 
 }

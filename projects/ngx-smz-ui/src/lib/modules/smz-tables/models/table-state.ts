@@ -246,7 +246,11 @@ export interface SmzTableState {
        * Controls whether the summary is visible or not
        */
       isVisible?: boolean;
-    }
+    },
+    /**
+     * Controls the current pagination state
+     */
+    state: { first: number, rows: number }
   };
 
   /**

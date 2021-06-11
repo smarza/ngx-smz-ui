@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { RbkAuthGuard } from 'ngx-rbk-utils';
+import { RbkAuthGuard, RbkDatabaseStateGuard, UI_DEFINITIONS_STATE_NAME } from 'ngx-rbk-utils';
 import { NgxSmzTablesModule, SmzRouteData } from 'ngx-smz-ui';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
+import { CountriesDbName } from '../../state/database/countries/countries.state';
 import { DemoPrimeComponent } from './demo-prime/demo-prime.component';
 import { DemoTablesComponent } from './demo-tables.components';
 
@@ -15,13 +16,13 @@ const data: SmzRouteData = {
   title: 'Demo Tables',
   appArea: 'demo-table',
   clearReusableRoutes: true,
-  requiredStates: []
+  requiredStates: [UI_DEFINITIONS_STATE_NAME, CountriesDbName]
 };
 
 const routes: Routes = [
   {
     path: '',
-    canActivate: [RbkAuthGuard],
+    canActivate: [RbkAuthGuard, RbkDatabaseStateGuard],
     component: DemoTablesComponent,
     data
   },

@@ -8,6 +8,7 @@ export class SmzMenuBuilder {
   }
 
   public item(label: string, icon: string = null): SmzMenuItemBuilder {
+    if (!this._tableBuilder._state.actions.menu.isVisible) this._tableBuilder._state.actions.customActions.columnWidth += 80;
     this._tableBuilder._state.actions.menu.isVisible = true;
     const item: SmzMenuItem = { label, icon, transforms: [], visible: true, disabled: false };
     this._tableBuilder._state.actions.menu.items.push(item);
