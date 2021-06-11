@@ -21,6 +21,7 @@ export class AppComponent {
         icon: 'pi-home',
         items: [
           { label: 'Charts', icon: 'far fa-chart', routerLink: ['charts'] },
+          { label: 'Chart Colors', icon: 'far fa-chart', routerLink: ['charts', 'colors'] },
           { label: 'Tag Area', icon: 'far fa-tree', routerLink: ['tag-area'] },
           { label: 'Trees', icon: 'far fa-tree', routerLink: ['trees'] },
           { label: 'Side Content', icon: 'far fa-star', routerLink: ['side-content'] },
