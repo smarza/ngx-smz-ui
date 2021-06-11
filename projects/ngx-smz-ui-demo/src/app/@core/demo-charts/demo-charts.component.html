@@ -1,28 +1,10 @@
-<div class="grid grid-cols-3 gap-4">
-  <div>
-    <h5>Basic chart - Raw model</h5>
-    <smz-ui-chart
-      [type]="basicChart.type"
-      [data]="basicChart.data"
-      [options]="basicChart.options"
-      (chartClick)="chartClicked($event)"
-    ></smz-ui-chart>
-  </div>
-  <div>
-    <h5>Basic chart - FluentAPI Typescript</h5>
-  </div>
-  <div>
-    <h5>Basic chart - FluentAPI C#</h5>
-  </div>
-</div>
-
-<div class="grid grid-cols-3 gap-4">
+<div class="grid grid-cols-3 gap-4 mt-4">
   <div>
     <h5>Vertical bar chart - Raw model</h5>
     <smz-ui-chart
       [type]="verticalBarChart.type"
       [data]="verticalBarChart.data"
-      [options]="verticalBarChart.options"
+      [options]="verticalBarChart.config"
       (chartClick)="chartClicked($event)"
     ></smz-ui-chart>
   </div>
@@ -31,16 +13,24 @@
   </div>
   <div>
     <h5>Vertical bar chart - FluentAPI C#</h5>
+    <smz-ui-chart
+      [type]="verticalBarChartCsharp.type"
+      [data]="verticalBarChartCsharp.data"
+      [options]="verticalBarChartCsharp.config"
+      (chartClick)="chartClicked($event)"
+    ></smz-ui-chart>
   </div>
 </div>
 
-<div class="grid grid-cols-3 gap-4">
+<hr style="width:100%;text-align:left;margin-left:0">
+
+<div class="grid grid-cols-3 gap-4 mt-4">
   <div>
     <h5>Horizontal bar chart - Raw model</h5>
     <smz-ui-chart
       [type]="horizontalBarChart.type"
       [data]="horizontalBarChart.data"
-      [options]="horizontalBarChart.options"
+      [options]="horizontalBarChart.config"
       (chartClick)="chartClicked($event)"
     ></smz-ui-chart>
   </div>
@@ -49,16 +39,24 @@
   </div>
   <div>
     <h5>Horizontal bar chart - FluentAPI C#</h5>
+    <smz-ui-chart
+      [type]="horizontalBarChartCsharp.type"
+      [data]="horizontalBarChartCsharp.data"
+      [options]="horizontalBarChartCsharp.config"
+      (chartClick)="chartClicked($event)"
+    ></smz-ui-chart>
   </div>
 </div>
 
-<div class="grid grid-cols-3 gap-4">
+<hr style="width:100%;text-align:left;margin-left:0">
+
+<div class="grid grid-cols-3 gap-4 mt-4">
   <div>
     <h5>Stacked bar chart - Raw model</h5>
     <smz-ui-chart
       [type]="stackedBarChart.type"
       [data]="stackedBarChart.data"
-      [options]="stackedBarChart.options"
+      [options]="stackedBarChart.config"
       (chartClick)="chartClicked($event)"
     ></smz-ui-chart>
   </div>
@@ -67,16 +65,24 @@
   </div>
   <div>
     <h5>Stacked bar chart - FluentAPI C#</h5>
+    <smz-ui-chart
+      [type]="stackedBarChartCsharp.type"
+      [data]="stackedBarChartCsharp.data"
+      [options]="stackedBarChartCsharp.config"
+      (chartClick)="chartClicked($event)"
+    ></smz-ui-chart>
   </div>
 </div>
 
-<div class="grid grid-cols-3 gap-4">
+<hr style="width:100%;text-align:left;margin-left:0">
+
+<div class="grid grid-cols-3 gap-4 mt-4">
   <div>
     <h5>Rounded bar chart - Raw model</h5>
     <smz-ui-chart
       [type]="roundedBarChart.type"
       [data]="roundedBarChart.data"
-      [options]="roundedBarChart.options"
+      [options]="roundedBarChart.config"
       (chartClick)="chartClicked($event)"
     ></smz-ui-chart>
   </div>
@@ -85,16 +91,24 @@
   </div>
   <div>
     <h5>Rounded bar chart - FluentAPI C#</h5>
+    <smz-ui-chart
+      [type]="roundedBarChartCsharp.type"
+      [data]="roundedBarChartCsharp.data"
+      [options]="roundedBarChartCsharp.config"
+      (chartClick)="chartClicked($event)"
+    ></smz-ui-chart>
   </div>
 </div>
 
-<div class="grid grid-cols-3 gap-4">
+<hr style="width:100%;text-align:left;margin-left:0">
+
+<div class="grid grid-cols-3 gap-4 mt-4">
   <div>
     <h5>Line chart - Raw model</h5>
     <smz-ui-chart
       [type]="lineChart.type"
       [data]="lineChart.data"
-      [options]="lineChart.options"
+      [options]="lineChart.config"
       (chartClick)="chartClicked($event)"
     ></smz-ui-chart>
   </div>
@@ -103,17 +117,24 @@
   </div>
   <div>
     <h5>Line chart - FluentAPI C#</h5>
+    <smz-ui-chart
+      [type]="lineChartCsharp.type"
+      [data]="lineChartCsharp.data"
+      [options]="lineChartCsharp.config"
+      (chartClick)="chartClicked($event)"
+    ></smz-ui-chart>
   </div>
 </div>
 
+<hr style="width:100%;text-align:left;margin-left:0">
 
-<div class="grid grid-cols-3 gap-4">
+<div class="grid grid-cols-3 gap-4 mt-4">
   <div>
     <h5>Doughnut chart - Raw model</h5>
     <smz-ui-chart
       [type]="doughnutChart.type"
       [data]="doughnutChart.data"
-      [options]="doughnutChart.options"
+      [options]="doughnutChart.config"
       (chartClick)="chartClicked($event)"
     ></smz-ui-chart>
   </div>
@@ -125,13 +146,15 @@
   </div>
 </div>
 
-<div class="grid grid-cols-3 gap-4">
+<hr style="width:100%;text-align:left;margin-left:0">
+
+<div class="grid grid-cols-3 gap-4 mt-4">
   <div>
     <h5>Polar area chart - Raw model</h5>
     <smz-ui-chart
       [type]="polarArea.type"
       [data]="polarArea.data"
-      [options]="polarArea.options"
+      [options]="polarArea.config"
       (chartClick)="chartClicked($event)"
     ></smz-ui-chart>
   </div>
@@ -143,14 +166,15 @@
   </div>
 </div>
 
+<hr style="width:100%;text-align:left;margin-left:0">
 
-<div class="grid grid-cols-3 gap-4">
+<div class="grid grid-cols-3 gap-4 mt-4">
   <div>
     <h5>Pie chart - Raw model</h5>
     <smz-ui-chart
       [type]="pieChart.type"
       [data]="pieChart.data"
-      [options]="pieChart.options"
+      [options]="pieChart.config"
       (chartClick)="chartClicked($event)"
     ></smz-ui-chart>
   </div>
@@ -162,14 +186,41 @@
   </div>
 </div>
 
+<hr style="width:100%;text-align:left;margin-left:0">
 
-<div class="grid grid-cols-3 gap-4">
+<div class="grid grid-cols-3 gap-4 mt-4">
   <div>
-    <h5>Basic chart - Raw model</h5>
+    <h5>Combo chart - Raw model</h5>
     <smz-ui-chart
       [type]="combochart.type"
-      [options]="combochart.options"
+      [options]="combochart.config"
       [data]="combochart.data"
+      (chartClick)="chartClicked($event)"
+    ></smz-ui-chart>
+  </div>
+  <div>
+    <h5>Combo chart - FluentAPI Typescript</h5>
+  </div>
+  <div>
+    <h5>Combo chart - FluentAPI C#</h5>
+    <smz-ui-chart
+      [type]="combochartCsharp.type"
+      [options]="combochartCsharp.config"
+      [data]="combochartCsharp.data"
+      (chartClick)="chartClicked($event)"
+    ></smz-ui-chart>
+  </div>
+</div>
+
+<hr style="width:100%;text-align:left;margin-left:0">
+
+<div class="grid grid-cols-3 gap-4 mt-4">
+  <div>
+    <h5>IAGM chart - Raw model</h5>
+    <smz-ui-chart height="350"
+      [type]="iagmChart.type"
+      [options]="iagmChart.config"
+      [data]="iagmChart.data"
       (chartClick)="chartClicked($event)"
     ></smz-ui-chart>
   </div>
@@ -178,5 +229,11 @@
   </div>
   <div>
     <h5>Basic chart - FluentAPI C#</h5>
+    <smz-ui-chart height="350"
+      [type]="iagmChartCsharp.type"
+      [options]="iagmChartCsharp.config"
+      [data]="iagmChartCsharp.data"
+      (chartClick)="chartClicked($event)"
+    ></smz-ui-chart>
   </div>
 </div>
