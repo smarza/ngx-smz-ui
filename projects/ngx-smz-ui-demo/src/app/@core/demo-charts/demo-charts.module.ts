@@ -7,6 +7,7 @@ import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { SmzChartModule } from 'ngx-smz-ui';
 import { DemoChartsComponent } from './demo-charts.components';
+import { DemoChartColorsComponent } from './demo-chart-colors.component';
 
 const data: SmzRouteData = {
   layout: {
@@ -25,6 +26,12 @@ const routes: Routes = [
     component: DemoChartsComponent,
     data
   },
+  {
+    path: 'colors',
+    canActivate: [],
+    component: DemoChartColorsComponent,
+    data
+  },
 ];
 
 @NgModule({
@@ -37,6 +44,7 @@ const routes: Routes = [
   exports: [],
   declarations: [
     DemoChartsComponent,
+    DemoChartColorsComponent
   ],
   providers: [],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
