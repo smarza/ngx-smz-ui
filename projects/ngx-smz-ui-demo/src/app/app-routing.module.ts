@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { DemoNestedLayout1Component } from './@core/demo-nested-routes/demo-nested-layout-1.component';
+import { DemoNestedLayout2Component } from './@core/demo-nested-routes/demo-nested-layout-2.component';
 
 const routes: Routes = [
   {
@@ -51,6 +53,27 @@ const routes: Routes = [
     path: 'tag-area',
     loadChildren: () => import('./@core/tag-area/tag-area-demo.module').then(m => m.TagAreaDemoModule),
   },
+  {
+    path: '',
+    component: DemoNestedLayout1Component,
+    canActivate: [],
+    children: [
+      {
+        path: '',
+        component: DemoNestedLayout2Component,
+        canActivate: [],
+        data: {
+          requiredStates: []
+        },
+        children: [
+          {
+            path: 'nested-routes',
+            loadChildren: () => import('./@core/demo-ng-dom/demo-ng-dom.module').then(m => m.DemoNgDomModule),
+          },
+        ]
+      },
+    ]
+  }
 ];
 
 @NgModule({

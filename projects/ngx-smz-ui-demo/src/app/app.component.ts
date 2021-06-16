@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
+import { Navigate } from '@ngxs/router-plugin';
+import { Store } from '@ngxs/store';
 import { BoilerplateService } from 'ngx-rbk-utils';
 import { MenuHelperService, ThemeManagerService } from 'ngx-smz-ui';
+
+const test = { status: 1 };
 
 @Component({
   selector: 'app-root',
@@ -9,7 +13,7 @@ import { MenuHelperService, ThemeManagerService } from 'ngx-smz-ui';
 })
 export class AppComponent {
   title = 'ngx-smz-ui-demo';
-  constructor(private boilerplateService: BoilerplateService, public menuService: MenuHelperService, private themeManager: ThemeManagerService) {
+  constructor(private store: Store, private boilerplateService: BoilerplateService, public menuService: MenuHelperService, private themeManager: ThemeManagerService) {
     this.boilerplateService.init();
 
     this.themeManager.createCss('assets/priority-styles.css');
@@ -47,6 +51,7 @@ export class AppComponent {
           { label: 'Landing', routerLink: ['landing'] },
           { label: 'Ng Dom', icon: 'far fa-star', routerLink: ['ng-dom'] },
           { label: 'Prime Tables', icon: 'far fa-star', routerLink: ['tables', 'prime'] },
+          { label: 'Nested Routes', icon: 'far fa-star', routerLink: ['nested-routes', test ] },
         ]
       },
       {

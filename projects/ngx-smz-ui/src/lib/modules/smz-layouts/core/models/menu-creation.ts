@@ -3,7 +3,7 @@ export interface MenuCreation {
   label?: string;
   icon?: string;
   command?: (event?: any) => void;
-  routerLink?: string[];
+  routerLink?: any[];
   items?: MenuCreation[];
   visible?: boolean;
 

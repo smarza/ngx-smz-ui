@@ -16,6 +16,7 @@ import { smzDialogsConfig } from '../globals/smz-config';
 import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { smzFaqsConfig } from '../globals/smz-faqs.config';
+import { DemoNestedRoutesModule } from './@core/demo-nested-routes/demo-nested-routes.module';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,9 @@ import { smzFaqsConfig } from '../globals/smz-faqs.config';
 
     // HephaestusLayoutModule.forRoot(smzHephaestusConfig),
     AthenaLayoutModule.forRoot(smzAthenaConfig),
-    NgxSmzFaqsModule.forRoot(smzFaqsConfig)
+    NgxSmzFaqsModule.forRoot(smzFaqsConfig),
+
+    DemoNestedRoutesModule
   ],
   providers: [
     { provide: NgxRbkUtilsConfig, useValue: rbkConfig },
