@@ -162,7 +162,7 @@ export class SmzTableBuilder {
 
   public setClearFilterCallback(callback: () => void): SmzTableBuilder {
     if (!this._state.caption.clearFilters.isButtonVisible) {
-      throw Error('You need to call \'useClearFilters\' before');
+      throw Error('You need to call \'enableClearFilters\' before');
     }
     this._state.caption.clearFilters.callback = callback;
     return this;
