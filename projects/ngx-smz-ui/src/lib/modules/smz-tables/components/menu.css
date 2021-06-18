@@ -17,6 +17,10 @@
   position: relative;
 }
 
+.p-menuitem-child .p-menuitem-link {
+  padding-left: 24px;
+}
+
 .p-menu .p-menuitem-text {
   line-height: 1;
 }

@@ -1,5 +1,5 @@
 import { NgModule, Component, ElementRef, OnDestroy, Input, Output, EventEmitter, Renderer2, ViewChild, Inject, forwardRef, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
-import { trigger, state, style, transition, animate, AnimationEvent } from '@angular/animations';
+import { trigger, style, transition, animate, AnimationEvent } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
 import { MenuItem } from 'primeng/api';
@@ -24,7 +24,8 @@ import { RippleModule } from 'primeng/ripple';
             <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="item.label"></span></ng-template>
         </a>
     `,
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MenuItemContent {
 
@@ -44,20 +45,31 @@ export class MenuItemContent {
             [class]="styleClass" [ngStyle]="style" (click)="preventDocumentDefault=true" *ngIf="!popup || visible"
             [@overlayAnimation]="{value: 'visible', params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}" [@.disabled]="popup !== true" (@overlayAnimation.start)="onOverlayAnimationStart($event)">
             <ul class="p-menu-list p-reset">
-                <ng-template ngFor let-submenu [ngForOf]="model" *ngIf="hasSubMenu()">
-                    <li class="p-menu-separator" *ngIf="submenu.separator" [ngClass]="{'p-hidden': submenu.visible === false}"></li>
-                    <li class="p-submenu-header" [attr.data-automationid]="submenu.automationId" *ngIf="!submenu.separator" [ngClass]="{'p-hidden': submenu.visible === false}">
-                        <span *ngIf="submenu.escape !== false; else htmlSubmenuLabel">{{submenu.label}}</span>
-                        <ng-template #htmlSubmenuLabel><span [innerHTML]="submenu.label"></span></ng-template>
-                    </li>
-                    <ng-template ngFor let-item [ngForOf]="submenu.items">
-                        <li class="p-menu-separator" *ngIf="item.separator" [ngClass]="{'p-hidden': (item.visible === false || submenu.visible === false)}"></li>
-                        <li class="p-menuitem" *ngIf="!item.separator" [pMenuItemContent]="item" [ngClass]="{'p-hidden': (item.visible === false || submenu.visible === false)}" [ngStyle]="item.style" [class]="item.styleClass"></li>
+                <ng-template ngFor let-submenu [ngForOf]="model">
+
+                    <!-- É UM HEADER -->
+                    <ng-container *ngIf="hasSubMenu(submenu); else elseChildTemplate">
+
+                      <!-- LABEL DO HEADER -->
+                      <li class="p-menu-separator" *ngIf="submenu.separator" [ngClass]="{'p-hidden': submenu.visible === false}"></li>
+                      <li class="p-submenu-header" [attr.data-automationid]="submenu.automationId" *ngIf="!submenu.separator" [ngClass]="{'p-hidden': submenu.visible === false}">
+                          <span *ngIf="submenu.escape !== false; else htmlSubmenuLabel">{{submenu.label}}</span>
+                          <ng-template #htmlSubmenuLabel><span [innerHTML]="submenu.label"></span></ng-template>
+                      </li>
+
+                    <!-- CHILDREN -->
+                      <ng-template ngFor let-item [ngForOf]="submenu.items">
+                          <li class="p-menu-separator" *ngIf="item.separator" [ngClass]="{'p-hidden': (item.visible === false || submenu.visible === false)}"></li>
+                          <li class="p-menuitem p-menuitem-child" *ngIf="!item.separator" [pMenuItemContent]="item" [ngClass]="{'p-hidden': (item.visible === false || submenu.visible === false)}" [ngStyle]="item.style" [class]="item.styleClass"></li>
+                      </ng-template>
+                    </ng-container>
+
+                    <!-- É UM CHILD -->
+                    <ng-template #elseChildTemplate>
+                        <li class="p-menu-separator" *ngIf="submenu.separator" [ngClass]="{'p-hidden': submenu.visible === false}"></li>
+                        <li class="p-menuitem" *ngIf="!submenu.separator" [pMenuItemContent]="submenu" [ngClass]="{'p-hidden': submenu.visible === false}" [ngStyle]="submenu.style" [class]="submenu.styleClass"></li>
                     </ng-template>
-                </ng-template>
-                <ng-template ngFor let-item [ngForOf]="model" *ngIf="!hasSubMenu()">
-                    <li class="p-menu-separator" *ngIf="item.separator" [ngClass]="{'p-hidden': item.visible === false}"></li>
-                    <li class="p-menuitem" *ngIf="!item.separator" [pMenuItemContent]="item" [ngClass]="{'p-hidden': item.visible === false}" [ngStyle]="item.style" [class]="item.styleClass"></li>
+
                 </ng-template>
             </ul>
         </div>
@@ -290,15 +302,13 @@ export class Menu implements OnDestroy {
     }
   }
 
-  hasSubMenu(): boolean {
-    if (this.model) {
-      for (var item of this.model) {
-        if (item.items) {
-          return true;
-        }
-      }
+  hasSubMenu(menu: MenuItem): boolean {
+    if (menu.items?.length > 0) {
+      return true;
     }
-    return false;
+    else {
+      return false;
+    }
   }
 }
 

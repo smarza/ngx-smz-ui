@@ -71,10 +71,10 @@ export class DemoTablesComponent implements OnInit {
         .setCustomInitialSorting({ field: 'number', order: -1 })
         .useStrippedStyle()
         .menu()
-        .item('Consultar')
-          .setCallback((event: any) => console.log('---'))
-          .menu
-        .table
+          .item('Consultar')
+            .setCallback((event: any) => console.log('---'))
+            .menu
+          .table
       .build();
   }
 
@@ -123,7 +123,23 @@ export class DemoTablesComponent implements OnInit {
       .setPaginationDefaultRows(1)
       .setPaginationPageOptions([1, 2, 10])
       .setPaginationInitialPage(2)
+      .menu()
+        .item('Abrir Detalhes')
+          .setCallback((event: any) => console.log(event))
+          .menu
+        .item('Rastrear mercadorias')
+          .addChild('child')
+            .setCallback((event: any) => console.log(event))
+            .setActivationRule(() => true)
+            .applyChild()
+          .addChild('child2')
+            .setCallback((event: any) => console.log(event))
+            .applyChild()
+          .menu
+        .table
       .build();
+
+      console.log(this.tableState);
   }
 
   public setupTableWithObject(): void {
