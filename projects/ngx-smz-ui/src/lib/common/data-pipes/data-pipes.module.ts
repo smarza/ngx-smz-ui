@@ -6,6 +6,7 @@ import { SafeUrlPipe } from './pipes/safe-url.pipe';
 import { UniqueFilterPipe } from './pipes/unique-filter.pipe';
 import { DescribeSimpleNamedPipe } from './pipes/describe-simple-named.pipe';
 import { DescribeArrayPipe } from './pipes/describe-array.pipe';
+import { DescribeAnyPipe } from './pipes/describe-any.pipe';
 
 @NgModule({
     imports: [
@@ -17,7 +18,8 @@ import { DescribeArrayPipe } from './pipes/describe-array.pipe';
         SafeUrlPipe,
         UniqueFilterPipe,
         DescribeSimpleNamedPipe,
-        DescribeArrayPipe
+        DescribeArrayPipe,
+        DescribeAnyPipe
     ],
     exports: [
         ClonePipe,
@@ -25,7 +27,8 @@ import { DescribeArrayPipe } from './pipes/describe-array.pipe';
         SafeUrlPipe,
         UniqueFilterPipe,
         DescribeSimpleNamedPipe,
-        DescribeArrayPipe
+        DescribeArrayPipe,
+        DescribeAnyPipe
     ],
 })
 export class NgxSmzDataPipesModule { }

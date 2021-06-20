@@ -54,26 +54,30 @@ const routes: Routes = [
     loadChildren: () => import('./@core/tag-area/tag-area-demo.module').then(m => m.TagAreaDemoModule),
   },
   {
-    path: '',
-    component: DemoNestedLayout1Component,
-    canActivate: [],
-    children: [
-      {
-        path: '',
-        component: DemoNestedLayout2Component,
-        canActivate: [],
-        data: {
-          requiredStates: []
-        },
-        children: [
-          {
-            path: 'nested-routes',
-            loadChildren: () => import('./@core/demo-ng-dom/demo-ng-dom.module').then(m => m.DemoNgDomModule),
-          },
-        ]
-      },
-    ]
-  }
+    path: 'nested',
+    loadChildren: () => import('./@core/demo-nested-routes/demo-nested-routes.module').then(m => m.DemoNestedRoutesModule),
+  },
+  // {
+  //   path: '',
+  //   component: DemoNestedLayout1Component,
+  //   canActivate: [],
+  //   children: [
+  //     {
+  //       path: '',
+  //       component: DemoNestedLayout2Component,
+  //       canActivate: [],
+  //       data: {
+  //         requiredStates: []
+  //       },
+  //       children: [
+  //         {
+  //           path: 'nested-routes',
+  //           loadChildren: () => import('./@core/demo-ng-dom/demo-ng-dom.module').then(m => m.DemoNgDomModule),
+  //         },
+  //       ]
+  //     },
+  //   ]
+  // }
 ];
 
 @NgModule({

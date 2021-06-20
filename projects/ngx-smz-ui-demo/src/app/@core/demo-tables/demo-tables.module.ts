@@ -22,16 +22,24 @@ const data: SmzRouteData = {
 const routes: Routes = [
   {
     path: '',
-    canActivate: [RbkAuthGuard, RbkDatabaseStateGuard],
-    component: DemoTablesComponent,
-    data
-  },
-  {
-    path: 'prime',
-    canActivate: [RbkAuthGuard],
-    component: DemoPrimeComponent,
-    data
-  },
+    data: {
+      breadcrumb: 'Compras'
+    },
+    children: [
+      {
+        path: '',
+        canActivate: [RbkAuthGuard, RbkDatabaseStateGuard],
+        component: DemoTablesComponent,
+        data
+      },
+      {
+        path: 'prime',
+        canActivate: [RbkAuthGuard],
+        component: DemoPrimeComponent,
+        data
+      },
+    ]
+  }
 ];
 
 @NgModule({
@@ -48,6 +56,6 @@ const routes: Routes = [
     DemoPrimeComponent
   ],
   providers: [],
-  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class DemoTablesModule { }

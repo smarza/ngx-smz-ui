@@ -28,6 +28,7 @@ export { SafeUrlPipe } from './lib/common/data-pipes/pipes/safe-url.pipe';
 export { UniqueFilterPipe } from './lib/common/data-pipes/pipes/unique-filter.pipe';
 export { DescribeArrayPipe } from './lib/common/data-pipes/pipes/describe-array.pipe';
 export { DescribeSimpleNamedPipe } from './lib/common/data-pipes/pipes/describe-simple-named.pipe';
+export { DescribeAnyPipe } from './lib/common/data-pipes/pipes/describe-any.pipe';
 export { UrlCheckerPipeModule } from './lib/common/url-checker/url-checker.pipe';
 export { UrlCheckerPipe } from './lib/common/url-checker/url-checker.pipe';
 

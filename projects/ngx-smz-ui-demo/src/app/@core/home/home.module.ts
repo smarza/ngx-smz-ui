@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
-import { SmzRouteData } from 'ngx-smz-ui';
+import { SmzRouteData, NgxSmzDataPipesModule } from 'ngx-smz-ui';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
 import { RbkAuthGuard } from 'ngx-rbk-utils';
@@ -32,6 +32,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
+    NgxSmzDataPipesModule,
     ButtonModule
   ],
   providers: [],

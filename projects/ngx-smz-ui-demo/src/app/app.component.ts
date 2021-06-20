@@ -51,7 +51,8 @@ export class AppComponent {
           { label: 'Landing', routerLink: ['landing'] },
           { label: 'Ng Dom', icon: 'far fa-star', routerLink: ['ng-dom'] },
           { label: 'Prime Tables', icon: 'far fa-star', routerLink: ['tables', 'prime'] },
-          { label: 'Nested Routes', icon: 'far fa-star', routerLink: ['nested-routes', test ] },
+          { label: 'Nested Routes 1', icon: 'far fa-star', routerLink: ['nested'] },
+          { label: 'Nested Routes 2', icon: 'far fa-star', routerLink: ['nested', 'layout' ] },
         ]
       },
       {

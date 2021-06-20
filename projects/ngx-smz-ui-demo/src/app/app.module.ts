@@ -38,8 +38,6 @@ import { DemoNestedRoutesModule } from './@core/demo-nested-routes/demo-nested-r
     // HephaestusLayoutModule.forRoot(smzHephaestusConfig),
     AthenaLayoutModule.forRoot(smzAthenaConfig),
     NgxSmzFaqsModule.forRoot(smzFaqsConfig),
-
-    DemoNestedRoutesModule
   ],
   providers: [
     { provide: NgxRbkUtilsConfig, useValue: rbkConfig },

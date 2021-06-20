@@ -11,6 +11,11 @@ import { Observable } from 'rxjs';
 export class HomeComponent
 {
   @Select(UiSelectors.appThemeTone) public appThemeTone$: Observable<ThemeToneType>;
+  public options = [
+    { key: 'key1' },
+    { key: 'key2' },
+    { key: 'key3' },
+  ]
   constructor()
   {
 

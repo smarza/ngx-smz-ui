@@ -3,3 +3,7 @@
 <ng-container *ngIf="appThemeTone$ | async as appThemeTone">
   {{ appThemeTone }}
 </ng-container>
+
+<div>
+  {{ options | describe : 'key' }}
+</div>
