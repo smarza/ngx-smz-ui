@@ -37,8 +37,10 @@ export class GlobalLoaderComponent implements OnInit
       .pipe(untilDestroyed(this))
       .subscribe((newValue) =>
       {
-        this.isLoading = newValue;
-        this.cdr.markForCheck();
+        setTimeout(() => {
+          this.isLoading = newValue;
+          this.cdr.markForCheck();
+        }, 0);
       });
 
   }

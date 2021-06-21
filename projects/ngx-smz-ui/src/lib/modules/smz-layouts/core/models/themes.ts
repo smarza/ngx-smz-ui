@@ -8,6 +8,8 @@ export enum SmzContentTheme {
     PRIMEONE_LIGHT = 'primeone-light.css',
     SOHO_DARK = 'soho-dark.css',
     SOHO_LIGHT = 'soho-light.css',
+    CUSTOM_DARK = 'custom-dark.css',
+    CUSTOM_LIGHT = 'custom-light.css',
 
 }
 
@@ -21,6 +23,8 @@ export const SmzContentThemes: ContentTheme[] = [
     { id: SmzContentTheme.PRIMEONE_LIGHT, name: 'PrimeOne Light', tone: 'light'},
     { id: SmzContentTheme.SOHO_DARK, name: 'Soho Dark', tone: 'dark'},
     { id: SmzContentTheme.SOHO_LIGHT, name: 'Soho Light', tone: 'light'},
+    { id: SmzContentTheme.CUSTOM_DARK, name: 'Custom Dark', tone: 'dark'},
+    { id: SmzContentTheme.CUSTOM_LIGHT, name: 'Custom Light', tone: 'light'},
 ];
 
 export interface ContentTheme {
