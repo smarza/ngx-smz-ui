@@ -133,6 +133,11 @@ export class SmzCustomColumnBuilder extends SmzBaseColumnBuilder<SmzCustomColumn
     return this;
   }
 
+  public enableSort(): SmzCustomColumnBuilder {
+    this._column.isOrderable = true;
+    return this;
+  }
+
 }
 
 export class SmzIconColumnBuilder extends SmzBaseColumnBuilder<SmzIconColumnBuilder> {
