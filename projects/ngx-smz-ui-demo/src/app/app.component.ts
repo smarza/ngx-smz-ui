@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Navigate } from '@ngxs/router-plugin';
 import { Store } from '@ngxs/store';
 import { BoilerplateService } from 'ngx-rbk-utils';
 import { MenuHelperService, ThemeManagerService } from 'ngx-smz-ui';
@@ -108,6 +107,7 @@ export class AppComponent {
         ]
       },
     ]);
+
 
     this.menuService.setProfile([
       {

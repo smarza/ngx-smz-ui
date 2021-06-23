@@ -33,7 +33,7 @@ export class MenuItemActionsDirective {
 
         }
         else {
-            console.error('Nether command nor routerLink was set on the item. Please review the menu item model');
+            console.error('Nether command nor routerLink was set on the item. Please review the menu item model', event, this.item);
         }
     }
 }
