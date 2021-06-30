@@ -204,16 +204,20 @@ export interface SmzTableState {
      * Controls the behavior the opnional action button. If nothing
      * is specified, no button is shown
      */
-    actionButton?: {
+    actionButtons?: {
       /**
        * Button label
        */
-      label?: string;
+      label: string;
+      /**
+       * Button Icon
+       */
+       icon?: string;
       /**
        * Callback to be executed on the button is clicked
        */
-      callback?: () => void;
-    }
+      callback: () => void;
+    }[]
     image?: string;
   };
 

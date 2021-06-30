@@ -107,17 +107,15 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
 
     if (changes.items != null) {
 
-      if (this.table != null) {
-
         setTimeout(() => {
+          if (this.table != null && this.table.onPageChange != null) {
+            // ATUALIZAR PAGINA ATUAL NO PAGINADOR DO PRIME
+            this.table.onPageChange(this.state.pagination.state);
 
-          // ATUALIZAR PAGINA ATUAL NO PAGINADOR DO PRIME
-          this.table.onPageChange(this.state.pagination.state);
-
-          // PROPAGAR ALTERAÇÕES
-          this.cdr.markForCheck();
+            // PROPAGAR ALTERAÇÕES
+            this.cdr.markForCheck();
+          }
         }, 0);
-      }
 
     }
 

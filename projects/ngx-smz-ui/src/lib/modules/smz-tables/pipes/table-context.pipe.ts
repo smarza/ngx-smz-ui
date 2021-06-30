@@ -99,12 +99,12 @@ export class SmzTableContextPipe implements PipeTransform {
       emptyFeedback: inputState.emptyFeedback == null ? {
         message: 'Lista Vazia',
         extraInfo: null,
-        actionButton: null,
+        actionButtons: [],
         image: 'assets/images/tables/empty.svg',
       } : {
         message: inputState.emptyFeedback.message ?? 'Lista Vazia',
         extraInfo: inputState.emptyFeedback.message,
-        actionButton: inputState.emptyFeedback.actionButton,
+        actionButtons: inputState.emptyFeedback.actionButtons,
         image: inputState.emptyFeedback.image == null ? 'assets/images/tables/empty.svg' : inputState.emptyFeedback.image === '' ? null : inputState.emptyFeedback.image,
       },
       pagination: {

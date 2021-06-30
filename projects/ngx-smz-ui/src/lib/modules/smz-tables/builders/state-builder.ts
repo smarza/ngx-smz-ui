@@ -73,7 +73,7 @@ export class SmzTableBuilder {
       toolbarAlignment: 'start'
     },
     emptyFeedback: {
-      actionButton: null,
+      actionButtons: [],
       extraInfo: null,
       image: 'assets/images/tables/empty.svg',
       message: 'Lista vazia'
@@ -219,8 +219,8 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public addEmptyFeedbackButton(label: string, callback: () => void): SmzTableBuilder {
-    this._state.emptyFeedback.actionButton = { callback, label };
+  public addEmptyFeedbackButton(label: string, callback: () => void, icon: string = null): SmzTableBuilder {
+    this._state.emptyFeedback.actionButtons.push({ callback, label, icon });
     return this;
   }
 
