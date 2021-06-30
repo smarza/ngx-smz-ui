@@ -37,9 +37,9 @@ export const smzLayoutsConfig: SmzLayoutsConfig = {
         },
     },
     appName: 'Demo App',
-    usernameProperty: 'displayName',
     useAvatar: true,
-    avatarProperty: 'avatar',
+    avatarProperty: 'picture',
+    usernameProperty: 'username',
     profileMessage: 'Olá, ',
     footer: {
         leftSideText: 'Left Message',

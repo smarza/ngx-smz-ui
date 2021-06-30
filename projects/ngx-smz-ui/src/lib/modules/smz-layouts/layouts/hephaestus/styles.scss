@@ -500,7 +500,10 @@ a {
 .layout-topbar .topbar-menu > li.profile-item .profile-image {
   width: 2.5rem;
   height: 2.5rem;
-  margin-right: 0.5rem;
+  margin: 0;
+}
+.layout-topbar .topbar-menu > li.profile-item .profile-icon {
+  margin: 0;
 }
 .layout-topbar .topbar-menu > li.right-sidebar-item > a {
   background: var(--surface-b);
@@ -963,6 +966,9 @@ a {
   .layout-wrapper .layout-topbar .topbar-menu > li.profile-item .profile-image {
     width: 2rem;
     height: 2rem;
+    margin: 0;
+  }
+  .layout-wrapper .layout-topbar .topbar-menu > li.profile-item .profile-icon {
     margin: 0;
   }
   .layout-wrapper .layout-topbar .topbar-menu > li.profile-item .profile-name {

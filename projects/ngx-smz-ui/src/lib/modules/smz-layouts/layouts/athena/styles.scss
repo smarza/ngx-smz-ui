@@ -313,7 +313,12 @@ body a {
 .layout-wrapper .topbar .profile .profile-image {
   vertical-align: middle;
   width: 40px;
-  margin-right: 8px;
+  margin: 0;
+}
+.layout-wrapper .topbar .profile .profile-icon {
+  vertical-align: middle;
+  width: auto;
+  margin: 0;
 }
 .layout-wrapper .topbar .profile .profile-icon-menu {
   font-size: 2em;

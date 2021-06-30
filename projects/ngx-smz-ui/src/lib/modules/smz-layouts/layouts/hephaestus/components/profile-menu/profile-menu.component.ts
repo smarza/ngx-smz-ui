@@ -9,10 +9,12 @@ import { SmzLayoutsConfig } from '../../../../core/globals/smz-layouts.config';
   selector: "[smz-ui-hephaestus-profile-menu]",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <a (click)="toggle()">
+    <a class="profile clickable p-grid p-align-center p-justify-end p-m-0 p-0 p-flex-nowrap gap-2" [ngClass]="{ 'profile-with-icon': !config.useAvatar }" (click)="toggle()">
       <ng-container *ngIf="userData$ | async as userdata">
-        <img [src]="(userdata[config.avatarProperty] ) | safeUrl" class="profile-image" />
-        <span class="profile-name">{{ userdata[config.usernameProperty] }}</span>
+        <span class="username">{{ config.profileMessage }}{{ userdata[config.usernameProperty] }}</span>
+        <img *ngIf="config.useAvatar && userdata[config.avatarProperty]" [src]="(userdata[config.avatarProperty] ) | safeUrl" class="profile-image">
+        <i *ngIf="!config.useAvatar || (config.useAvatar && !userdata[config.avatarProperty])" class="fas fa-user-circle profile-image profile-icon-menu"></i>
+        <i class="profile-submenu-icon pi pi-angle-down"></i>
       </ng-container>
     </a>
     <ul *ngIf="isExpanded" class="profile-menu fade-in-up" smz-ui-hephaestus-profile-menu-items [items]="items" (onClose)="collapse()"></ul>
