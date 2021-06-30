@@ -10,7 +10,8 @@ export class MenuHelperService {
   public menu: MenuItem[];
   public profile: MenuItem[];
   public notifications: SmzNotification[];
-
+  private menuCreationCallback: () => MenuItem[];
+  private profileCreationCallback: () => MenuItem[];
   private menuCreationData: MenuCreation[];
   private profileCreationData: MenuCreation[];
   private accessMenuBehavior: 'hide' | 'disable';
@@ -31,8 +32,30 @@ export class MenuHelperService {
     this.profile = null;
     this.notifications = null;
 
-    this.setupMenu();
-    this.setupProfile();
+    if (this.menuCreationCallback) {
+      const menu = this.menuCreationCallback();
+      this.setMenu(menu);
+    }
+    else {
+      this.setupMenu();
+    }
+
+    if (this.profileCreationCallback) {
+      const profile = this.profileCreationCallback();
+      this.setProfile(profile);
+    }
+    else {
+      this.setupProfile();
+    }
+
+  }
+
+  public setMenuBuild(callback: () => MenuItem[]): void {
+    this.menuCreationCallback = callback;
+  }
+
+  public setProfileBuild(callback: () => MenuItem[]): void {
+    this.profileCreationCallback = callback;
   }
 
   public setMenu(data: MenuCreation[], accessBehavior: 'hide' | 'disable' = 'hide'): void {
