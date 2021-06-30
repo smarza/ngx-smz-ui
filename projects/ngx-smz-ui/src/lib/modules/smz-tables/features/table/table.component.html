@@ -1,12 +1,11 @@
 <ng-container *ngIf="state | tableContext as context; else noStateTemplate">
 
-    <ng-container *ngIf="(context.state.emptyFeedback != null && (context.state.emptyFeedback.extraInfo || context.state.emptyFeedback.image || context.state.emptyFeedback.actionButton)) && (items != null && items.length === 0); else tableTemplate">
+    <ng-container *ngIf="(context.state.emptyFeedback != null && (context.state.emptyFeedback.extraInfo || context.state.emptyFeedback.image || context.state.emptyFeedback.actionButtons)) && (items != null && items.length === 0); else tableTemplate">
         <smz-data-info
             [image]="context.state.emptyFeedback.image"
             [message]="context.state.emptyFeedback.message"
             [callbackInfo]="context.state.emptyFeedback.extraInfo"
-            [callbackLabel]="context.state.emptyFeedback.actionButton?.label"
-            (clicked)="context.state.emptyFeedback.actionButton?.callback()">
+            [actions]="context.state.emptyFeedback.actionButtons">
 
             <ng-template pTemplate="actions">
                 <ng-container *ngTemplateOutlet="emptyActionsTemplate; context: { $implicit: {} }"></ng-container>

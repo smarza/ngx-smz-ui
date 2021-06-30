@@ -10,6 +10,7 @@ export class SmzDataInfoComponent implements OnInit, AfterContentInit {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
   @Input() public image: string;
   @Input() public message: string;
+  @Input() public actions: { label: string, icon?: string, callback: () => void }[];
   @Input() public callbackInfo: string;
   @Input() public callbackLabel: string;
   @Output() public clicked: EventEmitter<void> = new EventEmitter<void>();

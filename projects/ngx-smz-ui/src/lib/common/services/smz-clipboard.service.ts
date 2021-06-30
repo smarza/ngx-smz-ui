@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Store } from '@ngxs/store';
+import { ToastActions } from 'ngx-rbk-utils';
 import { SmzDialogsService, SmzPresets } from 'ngx-smz-dialogs';
 
 @Injectable({
@@ -6,9 +8,9 @@ import { SmzDialogsService, SmzPresets } from 'ngx-smz-dialogs';
 })
 export class SmzClipboardService {
 
-  constructor(private dialogs: SmzDialogsService) { }
+  constructor(private dialogs: SmzDialogsService, private store: Store) { }
 
-  public copy(val: string, notifySuccess: boolean = false){
+  public copy(val: string, notification: 'none' | 'dialog' | 'toast' = 'toast'){
     const selBox = document.createElement('textarea');
     selBox.style.position = 'fixed';
     selBox.style.left = '0';
@@ -21,7 +23,7 @@ export class SmzClipboardService {
     document.execCommand('copy');
     document.body.removeChild(selBox);
 
-    if (notifySuccess) {
+    if (notification === 'dialog') {
       this.dialogs.open({
         presetId: SmzPresets.Message,
         title: 'Area de transferência',
@@ -32,6 +34,9 @@ export class SmzClipboardService {
           extraLarge: { row: 'col-3' },
       }
       });
+    }
+    else if (notification === 'toast') {
+      this.store.dispatch(new ToastActions.Success('Mensagem copiada com sucesso.'));
     }
   }
 }
