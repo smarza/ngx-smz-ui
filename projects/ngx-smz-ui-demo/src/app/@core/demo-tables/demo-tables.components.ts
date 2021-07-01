@@ -34,10 +34,10 @@ export class DemoTablesComponent implements OnInit {
         message: 'No itens to display',
         extraInfo: 'The database is empty, if you like, you could use the button bellow to start creating new items',
         image: 'assets/images/tables/empty.svg',
-        actionButton: {
+        actionButtons: [{
           label: 'New Foo',
           callback: () => { console.log('create new foo'); }
-        },
+        }],
       },
       columns: [],
     };
@@ -254,10 +254,10 @@ export class DemoTablesComponent implements OnInit {
       emptyFeedback: {
         message: 'Lista Vazia',
         extraInfo: 'extraInfo',
-        actionButton: {
+        actionButtons: [{
           label: 'Ação',
           callback: () => { console.log('ação'); }
-        },
+        }],
         image: 'assets/images/tables/empty.svg',
       },
       pagination: {

@@ -1,5 +1,5 @@
 import { Store } from '@ngxs/store';
-import flatten from 'lodash-es/flatten';
+import { flatten } from 'lodash-es';
 import { convertFormFeature, UiDefinitionsDbSelectors } from 'ngx-rbk-utils';
 import { SmzControlTypes, SmzForm } from 'ngx-smz-dialogs';
 import { GlobalInjector } from '../../../../lib/common/services/global-injector';

@@ -19,7 +19,7 @@
     <ng-template #treeTemplate>
 
         <ng-container *ngIf="items">
-            <p-contextMenu #cm [model]="menuItems" appendTo="body"></p-contextMenu>
+            <p-contextMenu #cm [model]="menuItems" appendTo="body" [styleClass]="menuItems == null || menuItems?.length === 0 ? 'invisible-important' : ''"></p-contextMenu>
             <p-tree #dt [value]="items"
                 scrollHeight="flex"
                 [contextMenu]="cm"

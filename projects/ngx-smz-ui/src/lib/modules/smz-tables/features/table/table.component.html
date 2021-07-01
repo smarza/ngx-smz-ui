@@ -28,12 +28,12 @@
 
             <ng-template pTemplate="caption" *ngIf="context.state.caption.isVisible">
 
-                <div class="p-grid p-nogutter p-justify-start p-align-center">
-                    <span class="p-col p-mr-2">{{ state.caption.title }}</span>
+                <div class="p-grid p-nogutter p-justify-start p-align-center gap-2">
+                    <span class="p-col">{{ state.caption.title }}</span>
                     <ng-container *ngTemplateOutlet="captionTemplate; context: { $implicit: dt }"></ng-container>
                     <p-multiSelect
                         *ngIf="context.state.caption.columnVisibility.showButton"
-                        class="p-ml-2 p-mr-2 p-col-12 p-md-2"
+                        class="p-ml-2 p-col-12 p-md-2"
                         styleClass="w-full"
                         [options]="state.columns"
                         [(ngModel)]="selectedColumns"
@@ -46,10 +46,10 @@
                         (onChange)="updateColumnsVisibility()"
                         pTooltip="Escolha as colunas que deseja visualizar na tabela.">
                     </p-multiSelect>
-                    <button *ngIf="context.state.caption.rowSelection.isButtonVisible" pButton [label]="context.state.caption.rowSelection.label" class="p-button-outlined p-mr-2" icon="fas fa-check-double" (click)="onRowSelection(context)" [disabled]="clonedData.showSkeleton"></button>
-                    <button *ngIf="context.state.caption.clearFilters.isButtonVisible" pButton [label]="context.state.caption.clearFilters.label" class="p-button-outlined p-mr-2" icon="pi pi-filter-slash" (click)="clear(dt, context)" [disabled]="clonedData.showSkeleton"></button>
-                    <button *ngIf="context.state.editable.creation.isButtonVisible" pButton [label]="context.state.editable.creation.buttonLabel" class="p-button-outlined p-mr-2" icon="fas fa-plus" (click)="editableService.onRowCreateInit(dt)" [disabled]="clonedData.showSkeleton || editableService.isEditing || editableService.isCreating"></button>
-                    <span *ngIf="context.state.caption.globalFilter.isVisible" class="p-input-icon-left p-col-12 p-md-2" [ngClass]="{ 'p-mr-2': captionTemplate != null }">
+                    <button *ngIf="context.state.caption.rowSelection.isButtonVisible" pButton [label]="context.state.caption.rowSelection.label" class="p-button-outlined" icon="fas fa-check-double" (click)="onRowSelection(context)" [disabled]="clonedData.showSkeleton"></button>
+                    <button *ngIf="context.state.caption.clearFilters.isButtonVisible" pButton [label]="context.state.caption.clearFilters.label" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(dt, context)" [disabled]="clonedData.showSkeleton"></button>
+                    <button *ngIf="context.state.editable.creation.isButtonVisible" pButton [label]="context.state.editable.creation.buttonLabel" class="p-button-outlined" icon="fas fa-plus" (click)="editableService.onRowCreateInit(dt)" [disabled]="clonedData.showSkeleton || editableService.isEditing || editableService.isCreating"></button>
+                    <span *ngIf="context.state.caption.globalFilter.isVisible" class="p-input-icon-left p-col-12 p-md-2">
                         <i class="pi pi-search"></i>
                         <input #inputGlobal pInputText type="text" (input)="dt.filterGlobal(inputGlobal.value, 'contains')"  [disabled]="clonedData.showSkeleton" placeholder="Pesquisa global" />
                     </span>
