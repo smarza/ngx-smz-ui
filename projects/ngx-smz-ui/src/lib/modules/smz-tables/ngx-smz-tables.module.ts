@@ -31,6 +31,7 @@ import { SmzContentErrorsPipe } from './pipes/content-errors.pipe';
 import { GlobalInjector } from '../../common/services/global-injector';
 import { ValidationMessagesComponent } from './components/validation-messages/validation-messages.component';
 import { ValidationMessagesPipe } from './components/validation-messages/validation-messages.pipe';
+import { InputSwitchModule } from 'primeng/inputswitch';
 
 @NgModule({
     declarations: [
@@ -67,7 +68,8 @@ import { ValidationMessagesPipe } from './components/validation-messages/validat
         SkeletonModule,
         InputTextareaModule,
         OverlayPanelModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        InputSwitchModule
     ],
     exports: [
         SmzTableComponent,

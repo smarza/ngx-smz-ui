@@ -80,10 +80,18 @@ export abstract class SmzBaseEditableBuilder<T extends SmzBaseEditableBuilder<T>
 
 export class SmzEditableCollectionBuilder {
   constructor(protected _table: SmzTableBuilder, protected _parent: SmzBaseColumnBuilder<any>) {
-    new SmzTextEditableBuilder(this._table, this._parent, this._parent._column.field);
+
   }
 
-  public dropdown(property: string): SmzDropdownEditableBuilder {
+  public text(property: string = this._parent._column.field): SmzTextEditableBuilder {
+    return new SmzTextEditableBuilder(this._table, this._parent, property);
+  }
+
+  public switch(property: string = this._parent._column.field): SmzSwitchEditableBuilder {
+    return new SmzSwitchEditableBuilder(this._table, this._parent, property);
+  }
+
+  public dropdown(property: string = this._parent._column.field): SmzDropdownEditableBuilder {
     return new SmzDropdownEditableBuilder(this._table, this._parent, property);
   }
 
@@ -95,6 +103,12 @@ export class SmzEditableCollectionBuilder {
 export class SmzTextEditableBuilder extends SmzBaseEditableBuilder<SmzTextEditableBuilder> {
   constructor(protected _table: SmzTableBuilder, protected _parent: SmzBaseColumnBuilder<any>, property: string) {
     super(_table, _parent, SmzEditableType.TEXT, property, {});
+  }
+}
+
+export class SmzSwitchEditableBuilder extends SmzBaseEditableBuilder<SmzSwitchEditableBuilder> {
+  constructor(protected _table: SmzTableBuilder, protected _parent: SmzBaseColumnBuilder<any>, property: string) {
+    super(_table, _parent, SmzEditableType.SWITCH, property, {});
   }
 }
 

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  version: 'development_v.3.3.19',
+  version: 'development_v',
   databaseCacheTimeout: 2,
   domainApi: 'https://dev.varejofacil.tk',
   authenticationApi: 'https://localhost:44380',

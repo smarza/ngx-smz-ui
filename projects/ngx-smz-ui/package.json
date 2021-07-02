@@ -1,6 +1,6 @@
 {
   "name": "ngx-smz-ui",
-  "version": "2.1.17",
+  "version": "2.1.21",
   "peerDependencies": {
     "animate.css": "^4.0.0",
     "ngx-rbk-utils": "^1.0.0",

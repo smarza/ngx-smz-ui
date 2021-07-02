@@ -13,6 +13,7 @@ export enum SmzEditableType {
   CALENDAR = 3,
   AREA = 4,
   DROPDOWN = 5,
+  SWITCH = 6,
 }
 
 export interface SmzTextEditable {

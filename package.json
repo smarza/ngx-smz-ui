@@ -8,7 +8,8 @@
     "build": "ng build",
     "lint": "ng lint",
     "build-watch-lib": "ng build ngx-smz-ui --watch",
-    "build-prod-lib": "ng build ngx-smz-ui --configuration=production"
+    "build-prod-lib": "ng build ngx-smz-ui --configuration=production",
+    "build-prod-demo": "ng build ngx-smz-ui-demo --configuration=production"
   },
   "private": true,
   "dependencies": {

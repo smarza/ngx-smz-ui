@@ -52,6 +52,7 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
     text: SmzEditableType.TEXT,
     area: SmzEditableType.AREA,
     dropdown: SmzEditableType.DROPDOWN,
+    switch: SmzEditableType.SWITCH
   }
   public filterTypes = {
     boolean: SmzFilterType.BOOLEAN,

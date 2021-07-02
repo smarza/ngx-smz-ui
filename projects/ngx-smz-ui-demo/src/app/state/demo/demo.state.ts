@@ -4,7 +4,7 @@ import { DemoFeatureActions } from './demo.actions';
 import { ToastActions } from 'ngx-rbk-utils';
 import { cloneDeep } from 'lodash-es';
 import { DemoItem } from '../../models/demo';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { DemoDataService } from './demo-data.service';
 import { tap } from 'rxjs/operators';
 import { removeElementFromArray } from 'ngx-smz-dialogs';
@@ -66,6 +66,9 @@ export class DemoFeatureState {
 
   @Action(DemoFeatureActions.Update)
   public onUpdate$(ctx: StateContext<DemoFeatureStateModel>, action: DemoFeatureActions.Update): Observable<DemoItem> {
+
+    console.log('onUpdate action', action.data);
+    return of();
     return this.apiService.update(action.data).pipe(
       tap(result => {
 

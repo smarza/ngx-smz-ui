@@ -21,7 +21,8 @@ export class DemoEditableTableComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.setupFromUiDefinitions();
+    this.setup();
+    // this.setupFromUiDefinitions();
     // this.setupFromUiDefinitionsWithCustomization();
   }
 
@@ -64,6 +65,43 @@ export class DemoEditableTableComponent implements OnInit {
           .columns
         .table
       .build();
+  }
+
+  public setup(): void {
+
+    this.tableState = new SmzTableBuilder()
+      .setTitle('Demo From Ui Definitions With Customization')
+      .setUpdateAction(DemoFeatureActions.Update)
+      .setCreationAction(DemoFeatureActions.Create)
+      .setRemoveAction(DemoFeatureActions.Remove)
+      .usePagination()
+      .customizeEditableResults((data: any) => {
+        console.log('customizing', data);
+        return data;
+      })
+      .columns()
+        .text('name', 'Name', '10em')
+          .editable()
+            .text()
+          .column
+          .disableFilter()
+          .columns
+        .text('company', 'Company', '20em')
+          .disableFilter()
+          .disableSort()
+          .columns
+        .text('country.name', 'Country', '15em')
+          .setFilter(SmzFilterType.DROPDOWN)
+          .disableSort()
+          .editable()
+            .dropdown('country')
+            .setOptions([ { name: 'Não gera comissão', id: true }, { name: 'Gera Comissão', id: false }])
+          .column
+          .columns
+        .table
+      .build();
+
+    console.log(this.tableState);
   }
 
 }

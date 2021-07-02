@@ -208,6 +208,18 @@
                                                 </ng-container>
                                             </ng-container>
 
+                                            <!-- INPUT TEXT -->
+                                            <ng-container *ngSwitchCase="editableTypes.switch">
+                                                <ng-container *ngIf="editableService.context[item.id]?.form as form">
+                                                    <ng-container *ngIf="form.controls[col.editable.property] as control">
+                                                        <div class="relative w-full">
+                                                            <p-inputSwitch [formControl]="$any(control)"></p-inputSwitch>
+                                                            <smz-validation-messages [errors]="control.errors" [messages]="dialogConfig.forms.validationMessages" [isFormInvalid]="form.invalid" [isFormDirty]="form.dirty"></smz-validation-messages>
+                                                        </div>
+                                                    </ng-container>
+                                                </ng-container>
+                                            </ng-container>
+
                                             <!-- INPUT TEXT AREA -->
                                             <ng-container *ngSwitchCase="editableTypes.area">
                                                 <ng-container *ngIf="editableService.context[item.id]?.form as form">
@@ -232,6 +244,7 @@
                                                 </ng-container>
                                             </ng-container>
 
+                                             <!-- INPUT CALENDAR -->
                                             <ng-container *ngSwitchCase="editableTypes.calendar">
                                                 <ng-container *ngIf="editableService.context[item.id]?.form as form">
                                                     <ng-container *ngIf="form.controls[col.editable.property] as control">
