@@ -30,7 +30,7 @@ export class MenuHelperService {
   public rebuild(): void {
     this.menu = null;
     this.profile = null;
-    this.notifications = null;
+    // this.notifications = null;
 
     if (this.menuCreationCallback) {
       const menu = this.menuCreationCallback();
@@ -119,6 +119,7 @@ export class MenuHelperService {
       icon: creation.icon,
       command: creation.command,
       routerLink: creation.routerLink,
+      disabled: creation.disabled,
       items: []
     };
 

@@ -14,7 +14,8 @@ export abstract class SmzBaseEditableBuilder<T extends SmzBaseEditableBuilder<T>
       data,
       validatorsPreset: {
         isRequired: true,
-      }
+      },
+      defaultCreationValue: null
     };
 
     this._table._state.editable.update.isButtonVisible = true;

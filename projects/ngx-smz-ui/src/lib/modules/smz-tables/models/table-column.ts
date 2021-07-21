@@ -68,6 +68,10 @@ export interface SmzTableColumn {
      * Validators for the form input.
      */
     validatorsPreset: SmzFormsValidatorsPreset;
+    /**
+     * Default value for creation form.
+     */
+    defaultCreationValue: any;
   };
 
   /**
@@ -105,4 +109,8 @@ export interface SmzTableEditableColumn {
    * Validators for the form input.
    */
   validatorsPreset: SmzFormsValidatorsPreset;
+  /**
+   * Default value for creation form.
+   */
+  defaultCreationValue: any;
 }

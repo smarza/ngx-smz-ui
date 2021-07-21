@@ -32,6 +32,7 @@ import { GlobalInjector } from '../../common/services/global-injector';
 import { ValidationMessagesComponent } from './components/validation-messages/validation-messages.component';
 import { ValidationMessagesPipe } from './components/validation-messages/validation-messages.pipe';
 import { InputSwitchModule } from 'primeng/inputswitch';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @NgModule({
     declarations: [
@@ -69,7 +70,8 @@ import { InputSwitchModule } from 'primeng/inputswitch';
         InputTextareaModule,
         OverlayPanelModule,
         ReactiveFormsModule,
-        InputSwitchModule
+        InputSwitchModule,
+        InputNumberModule
     ],
     exports: [
         SmzTableComponent,

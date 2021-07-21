@@ -48,7 +48,7 @@
                     </p-multiSelect>
                     <button *ngIf="context.state.caption.rowSelection.isButtonVisible" pButton [label]="context.state.caption.rowSelection.label" class="p-button-outlined" icon="fas fa-check-double" (click)="onRowSelection(context)" [disabled]="clonedData.showSkeleton"></button>
                     <button *ngIf="context.state.caption.clearFilters.isButtonVisible" pButton [label]="context.state.caption.clearFilters.label" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(dt, context)" [disabled]="clonedData.showSkeleton"></button>
-                    <button *ngIf="context.state.editable.creation.isButtonVisible" pButton [label]="context.state.editable.creation.buttonLabel" class="p-button-outlined" icon="fas fa-plus" (click)="editableService.onRowCreateInit(dt)" [disabled]="clonedData.showSkeleton || editableService.isEditing || editableService.isCreating"></button>
+                    <button *ngIf="context.state.editable.creation.isButtonVisible" pButton [label]="context.state.editable.creation.buttonLabel" class="p-button-outlined" icon="fas fa-plus" (click)="editableService.onRowCreateInit(dt, context)" [disabled]="clonedData.showSkeleton || editableService.isEditing || editableService.isCreating"></button>
                     <span *ngIf="context.state.caption.globalFilter.isVisible" class="p-input-icon-left p-col-12 p-md-2">
                         <i class="pi pi-search"></i>
                         <input #inputGlobal pInputText type="text" (input)="dt.filterGlobal(inputGlobal.value, 'contains')"  [disabled]="clonedData.showSkeleton" placeholder="Pesquisa global" />
@@ -208,7 +208,19 @@
                                                 </ng-container>
                                             </ng-container>
 
-                                            <!-- INPUT TEXT -->
+                                            <!-- INPUT NUMBER -->
+                                            <ng-container *ngSwitchCase="editableTypes.number">
+                                                <ng-container *ngIf="editableService.context[item.id]?.form as form">
+                                                    <ng-container *ngIf="form.controls[col.editable.property] as control">
+                                                        <div class="relative w-full">
+                                                            <p-inputNumber [formControl]="$any(control)" [mode]="$any(col.editable.data).mode" [minFractionDigits]="$any(col.editable.data).minFractionDigits" [maxFractionDigits]="$any(col.editable.data).maxFractionDigits"></p-inputNumber>
+                                                            <smz-validation-messages [errors]="control.errors" [messages]="dialogConfig.forms.validationMessages" [isFormInvalid]="form.invalid" [isFormDirty]="form.dirty"></smz-validation-messages>
+                                                        </div>
+                                                    </ng-container>
+                                                </ng-container>
+                                            </ng-container>
+
+                                            <!-- INPUT SWITCH -->
                                             <ng-container *ngSwitchCase="editableTypes.switch">
                                                 <ng-container *ngIf="editableService.context[item.id]?.form as form">
                                                     <ng-container *ngIf="form.controls[col.editable.property] as control">
@@ -225,7 +237,7 @@
                                                 <ng-container *ngIf="editableService.context[item.id]?.form as form">
                                                     <ng-container *ngIf="form.controls[col.editable.property] as control">
                                                         <div class="relative w-full">
-                                                            <textarea pInputTextarea type="text" [formControl]="$any(control)" [rows]="col.editable.data['rows']" required style="width: 100%;"></textarea>
+                                                            <textarea pInputTextarea type="text" [formControl]="$any(control)" [rows]="$any(col.editable.data).rows" required style="width: 100%;"></textarea>
                                                             <smz-validation-messages [errors]="control.errors" [messages]="dialogConfig.forms.validationMessages" [isFormInvalid]="form.invalid" [isFormDirty]="form.dirty"></smz-validation-messages>
                                                         </div>
                                                     </ng-container>

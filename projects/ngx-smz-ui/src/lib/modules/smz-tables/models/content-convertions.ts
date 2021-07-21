@@ -17,6 +17,7 @@ interface ContentConvertionData {
     type: SmzEditableType;
     data?: SmzEditableTypes;
     validatorsPreset: SmzFormsValidatorsPreset;
+    defaultCreationValue: any;
   },
   isOrderable: boolean;
   isGlobalFilterable: boolean;
@@ -37,7 +38,8 @@ export const ContentConvertions: ContentConvertionData[] = [
         property: input.propertyName,
         type: SmzEditableType.TEXT,
         data: null,
-        validatorsPreset: input.validatorsPreset
+        validatorsPreset: input.validatorsPreset,
+        defaultCreationValue: ''
       }),
   },
   {
@@ -53,7 +55,85 @@ export const ContentConvertions: ContentConvertionData[] = [
         property: input.propertyName,
         type: SmzEditableType.DROPDOWN,
         data: { sourceType: 'object', sourceData: input.options, placeholder: 'Selecione uma opção' } as SmzDropdownEditable,
-        validatorsPreset: input.validatorsPreset
+        validatorsPreset: input.validatorsPreset,
+        defaultCreationValue: null
       }),
-  }
+  },
+  {
+    controlType: SmzControlType.TEXT_AREA,
+    field: (input: InputConfig) => input.propertyName,
+    property: (input: InputConfig) => input.propertyName,
+    isOrderable: true,
+    isGlobalFilterable: true,
+    filterType: SmzFilterType.TEXT,
+    content: () => ({ type: SmzContentType.TEXT, data: null }),
+    editable: (input: SmzControlTypes) => (
+      {
+        property: input.propertyName,
+        type: SmzEditableType.AREA,
+        data: { rows: 3 },
+        validatorsPreset: input.validatorsPreset,
+        defaultCreationValue: ''
+      }),
+  },
+  {
+    controlType: SmzControlType.CALENDAR,
+    field: (input: InputConfig) => input.propertyName,
+    property: (input: InputConfig) => input.propertyName,
+    isOrderable: true,
+    isGlobalFilterable: true,
+    filterType: SmzFilterType.DATE,
+    content: () => ({ type: SmzContentType.TEXT, data: null }),
+    editable: (input: SmzControlTypes) => (
+      {
+        property: input.propertyName,
+        type: SmzEditableType.CALENDAR,
+        data: null,
+        validatorsPreset: input.validatorsPreset,
+        defaultCreationValue: new Date()
+      }),
+  },
+  {
+    controlType: SmzControlType.CHECKBOX,
+    field: (input: InputConfig) => input.propertyName,
+    property: (input: InputConfig) => input.propertyName,
+    isOrderable: true,
+    isGlobalFilterable: true,
+    filterType: SmzFilterType.BOOLEAN,
+    content: () => ({ type: SmzContentType.ICON, data: {
+      matches: [
+        { icon: 'fas fa-toggle-on', class: 'text-green-500', value: true },
+        { icon: 'fas fa-toggle-off', class: 'text-gray-300', value: false }
+      ]
+    } }),
+    editable: (input: SmzControlTypes) => (
+      {
+        property: input.propertyName,
+        type: SmzEditableType.SWITCH,
+        data: null,
+        validatorsPreset: input.validatorsPreset,
+        defaultCreationValue: false
+      }),
+  },
+  {
+    controlType: SmzControlType.NUMBER,
+    field: (input: InputConfig) => input.propertyName,
+    property: (input: InputConfig) => input.propertyName,
+    isOrderable: true,
+    isGlobalFilterable: true,
+    filterType: SmzFilterType.NUMERIC,
+    content: () => ({ type: SmzContentType.TEXT, data: null }),
+    editable: (input: SmzControlTypes) => (
+      {
+        property: input.propertyName,
+        type: SmzEditableType.NUMBER,
+        data: {
+          mode: 'decimal',
+          minFractionDigits: 2,
+          maxFractionDigits: 2
+        },
+        validatorsPreset: input.validatorsPreset,
+        defaultCreationValue: 0
+      }),
+  },
 ];

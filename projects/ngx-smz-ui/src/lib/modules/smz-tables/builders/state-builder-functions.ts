@@ -8,15 +8,15 @@ export namespace StateBuilderFunctions {
 
   export function createColumnsFromInputControls(_state: SmzTableState, inputs: InputConfig[], children: SmzControlTypes[]): void {
 
-    // console.log('children', children);
-
     inputs.forEach(input => {
 
       const child = children.find(c => c.propertyName === input.propertyName);
+      // console.log('child', child);
       const converted = ContentConvertions.find(x => `${x.controlType}` === input.controlType.id);
+      // console.log('converted', converted);
 
       if (converted == null) {
-        throw Error(`One or more controls are no compactable: ${input.propertyName} > controlType=${input.controlType.name}`);
+        throw Error(`One or more controls doensn't have a proper input implementation on the editable table: ${input.propertyName} > controlType=${input.controlType.name}`);
       }
 
       const column: SmzTableColumn = {
@@ -38,6 +38,8 @@ export namespace StateBuilderFunctions {
 
       _state.columns.push(column);
     });
+
+    // console.log('columns', _state.columns);
 
   }
 }

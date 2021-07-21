@@ -4,6 +4,14 @@
   {{ appThemeTone }}
 </ng-container>
 
-<div>
+<div class="home-test">home-test</div>
+
+<div [ngClass]="colorClass">
   {{ options | describe : 'key' }}
 </div>
+
+<!-- <div class="text-pink-400">
+  {{ options | describe : 'key' }}
+</div> -->
+
+<button pButton type="button" label="Trocar Cor" (click)="selectNewColor()"></button>

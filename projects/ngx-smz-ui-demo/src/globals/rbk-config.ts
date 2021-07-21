@@ -49,19 +49,19 @@ export const rbkConfig: NgxRbkUtilsConfig = {
         url: null
     },
     authentication: {
-        localStoragePrefix: 'libra',
+        localStoragePrefix: 'ui-demo',
         login: {
             url: `${environment.authenticationApi}/api/auth/login`,
             errorHandlingType: 'toast',
-            responsePropertyName: 'token',
-            loadingBehavior: 'none',
+            responsePropertyName: 'accessToken',
+            loadingBehavior: 'global',
         },
         refreshToken: {
             url: `${environment.authenticationApi}/api/auth/refresh-token`,
-            loadingBehavior: 'none',
             errorHandlingType: 'toast',
             responsePropertyName: 'refreshToken',
-            extraProperties: {username: '', applicationId: environment.applicationId}
+            loadingBehavior: 'global',
+            extraProperties: { username: '', applicationId: environment.applicationId }
         },
         accessTokenClaims: [
             { claimName: 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name', propertyName: 'username', type: 'string' },

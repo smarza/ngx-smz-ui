@@ -14,10 +14,17 @@ export enum SmzEditableType {
   AREA = 4,
   DROPDOWN = 5,
   SWITCH = 6,
+  NUMBER = 7,
 }
 
 export interface SmzTextEditable {
 
+}
+
+export interface SmzNumberEditable {
+  mode: 'decimal' | 'currency';
+  minFractionDigits: number;
+  maxFractionDigits: number;
 }
 
 export interface SmzCalendarEditable {

@@ -32,7 +32,10 @@ export class TableFormsService {
                 form.addControl(col.editable.property, new FormControl(value, validators));
             });
 
+        // console.log('form', form);
+
         return form;
+
     }
 
     private getValidators(col: SmzTableColumn): any[]

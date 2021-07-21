@@ -1,5 +1,6 @@
 import { Store } from '@ngxs/store';
-import { flatten } from 'lodash-es';
+import { cloneDeep, flatten } from 'lodash-es';
+import sortBy from 'lodash-es/sortBy';
 import { convertFormFeature, UiDefinitionsDbSelectors } from 'ngx-rbk-utils';
 import { SmzControlTypes, SmzForm } from 'ngx-smz-dialogs';
 import { GlobalInjector } from '../../../../lib/common/services/global-injector';
@@ -121,7 +122,8 @@ export class SmzTableBuilder {
       }
 
       const formFeature: SmzForm<any> = convertFormFeature(uiDefinitionName, store, null).data as SmzForm<any>;
-      const children: SmzControlTypes[] = flatten(formFeature.groups.map(g => flatten(g.children)));
+      // console.log('formFeature', formFeature);
+      const children: SmzControlTypes[] = flatten(formFeature.groups.map(g => g.children));
 
       StateBuilderFunctions.createColumnsFromInputControls(this._state, create[0].controls, children);
     }
@@ -300,6 +302,11 @@ export class SmzTableBuilder {
 
   public useStrippedStyle(): SmzTableBuilder {
     this._state.styles.striped = true;
+    return this;
+  }
+
+  public reorder(...properties: string[]): SmzTableBuilder {
+    this._state.columns = sortBy(this._state.columns, (c) => properties.indexOf(c.property) !== -1? properties.indexOf(c.property) : this._state.columns.length);
     return this;
   }
 

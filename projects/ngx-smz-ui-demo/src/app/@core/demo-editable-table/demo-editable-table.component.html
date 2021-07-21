@@ -1,28 +1,23 @@
 <h2>Demo Editable table</h2>
-<ng-container *ngIf="items$ | async as items">
+<ng-container *ngIf="services$ | async as items">
 
   <smz-ui-table #smzTable [items]="items" [state]="tableState" (update)="onUpdate($event)">
 
     <!-- CONTEÚDOS COM OVERRIDE -->
     <ng-template pTemplate="content" let-item let-col="col">
 
-    </ng-template>
+      <ng-container [ngSwitch]="col.field">
 
-    <!-- AÇÕES PERSONALIZADAS -->
-    <ng-template pTemplate="actions" let-item>
+        <ng-container *ngSwitchCase="'cost'">
+          <div>{{ item.cost | currency : 'R$ ' }}</div>
+        </ng-container>
 
-    </ng-template>
+        <ng-container *ngSwitchCase="'price'">
+          <div>{{ item.price | currency : 'R$ ' }}</div>
+        </ng-container>
 
-    <!-- SEM STATE -->
-    <ng-template pTemplate="emptyState" let-item>
-      Nenhum state encontrado.
-    </ng-template>
+      </ng-container>
 
-    <!-- TOOLBAR -->
-    <ng-template pTemplate="toolbar" let-item>
-      <button pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded p-button-text"></button>
-      <button pButton pRipple type="button" icon="pi pi-bookmark" class="p-button-rounded p-button-secondary p-button-text"></button>
-      <button pButton pRipple type="button" icon="pi pi-filter" class="p-button-rounded p-button-text p-button-plain"></button>
     </ng-template>
 
   </smz-ui-table>

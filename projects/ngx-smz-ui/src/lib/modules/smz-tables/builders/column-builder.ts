@@ -19,6 +19,7 @@ export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T>> {
         this._column = this._table._state.columns[columnIndex];
         this._column.width = width;
         this._column.header = header;
+        this._column.content.type = type;
     }
     else {
         // NÃO EXISTE A COLUNA AINDA
@@ -40,7 +41,8 @@ export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T>> {
             property: null,
             validatorsPreset: {
               isRequired: false,
-            }
+            },
+            defaultCreationValue: null
           },
           isOrderable,
           filter: {

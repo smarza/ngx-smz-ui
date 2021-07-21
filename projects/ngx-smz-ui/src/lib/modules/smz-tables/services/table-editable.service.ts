@@ -3,7 +3,7 @@ import { ObjectUtils } from 'primeng/utils';
 import { isSimpleNamedEntity, setNestedObject } from '../../../common/utils/utils';
 import { EditableChanges, EditableRowContext } from '../models/editable-model';
 import { SmzEditableType } from '../models/editable-types';
-import { SmzTableState } from '../models/table-state';
+import { SmzTableContext, SmzTableState } from '../models/table-state';
 import { Table } from 'primeng/table';
 import { SmzTransactionsService } from './smz-transactions.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -35,10 +35,18 @@ export class TableEditableService {
 
     constructor(private transactions: SmzTransactionsService, private formsService: TableFormsService) { }
 
-    public onRowCreateInit(table: Table): void {
+    public onRowCreateInit(table: Table, context: SmzTableContext): void {
+
+        let creationValues = { id: UUID.UUID() };
+
+        context.columns
+            .filter(x => x.editable != null)
+            .forEach(x => {
+                creationValues[x.property] = x.editable.defaultCreationValue;
+            });
 
         // ADICIONAR UM ITEM NOVO NA LISTA COM ID ÚNICO
-        table.value.unshift({ id: UUID.UUID() });
+        table.value.unshift(creationValues);
 
         // SINALIZAR EDIÇÃO NA TABELA DO PRIME PARA ELEMENTO CRIADO
         table.initRowEdit(table.value[0]);

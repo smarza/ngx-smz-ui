@@ -6,5 +6,6 @@ export interface MenuCreation {
   routerLink?: any[];
   items?: MenuCreation[];
   visible?: boolean;
+  disabled?: boolean;
 
 }

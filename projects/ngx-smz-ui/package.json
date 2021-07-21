@@ -1,10 +1,10 @@
 {
   "name": "ngx-smz-ui",
-  "version": "2.1.21",
+  "version": "2.1.29",
   "peerDependencies": {
     "animate.css": "^4.0.0",
-    "ngx-rbk-utils": "^1.0.0",
-    "ngx-smz-dialogs": "^1.0.0",
+    "ngx-rbk-utils": "^1.4.1",
+    "ngx-smz-dialogs": "^1.4.1",
     "hover.css": "^2.0.0",
     "moment": "^2.24.0",
     "tailwindcss": "^2.0.0",
