@@ -65,13 +65,19 @@ export interface SmzTableState {
     isEditable: boolean,
     update:{
       isButtonVisible: boolean;
+      isButtonDisabled: boolean;
+      accessClaim: string;
     },
     creation: {
       isButtonVisible: boolean;
+      isButtonDisabled: boolean;
       buttonLabel: string;
+      accessClaim: string;
     },
     remove:{
       isButtonVisible: boolean;
+      isButtonDisabled: boolean;
+      accessClaim: string;
     },
     actions: {
       update: any,

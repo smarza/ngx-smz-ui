@@ -116,25 +116,12 @@ export class DemoEditableTableComponent implements OnInit {
 
     this.tableState = new SmzTableBuilder('service')
       .setTitle('Serviços')
-      .setUpdateAction(DemoFeatureActions.Update)
-      .setCreationAction(DemoFeatureActions.Create)
-      .setRemoveAction(DemoFeatureActions.Remove)
+      .setCreationAction(DemoFeatureActions.Create, 'TEST_CREATION')
+      .setUpdateAction(DemoFeatureActions.Update, 'TEST_UPDATE')
+      .setRemoveAction(DemoFeatureActions.Remove, 'TEST_DELETE')
       .customizeEditableResults((data: any) => {
-
         console.log('data', data);
-
-        return {
-          id: data.id,
-          isActive: data.isActive,
-          description: data.description,
-          cost: Number(data.cost),
-          price: Number(data.price),
-          type: data.typeOption.id,
-          unchargeable: data.unchargeable,
-          visibleToCustomer: data.visibleToCustomer,
-          acceptanceTerm: data.acceptanceTerm
-        };
-
+        return data;
       })
       .enableGlobalFilter()
       .enableClearFilters()

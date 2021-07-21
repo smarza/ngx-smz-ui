@@ -104,6 +104,8 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
       this.editableService.state = this.state;
       this.formsService.state = this.state;
 
+      this.editableService.setupAccess();
+
       this.cdr.markForCheck();
     }
 

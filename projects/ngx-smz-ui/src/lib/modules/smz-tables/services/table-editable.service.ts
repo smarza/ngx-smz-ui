@@ -11,6 +11,8 @@ import { takeWhile } from 'rxjs/operators';
 import { UUID } from 'angular2-uuid';
 import { Confirmable, removeElementFromArray } from 'ngx-smz-dialogs';
 import { TableFormsService } from './table-forms.service';
+import { Store } from '@ngxs/store';
+import { AuthenticationSelectors } from 'ngx-rbk-utils';
 
 // SERVIÇO COM INSTANCIAS DIFERENTES POR TABELA
 @Injectable()
@@ -33,7 +35,30 @@ export class TableEditableService {
     public isCreating = false;
     public isDeleting = false;
 
-    constructor(private transactions: SmzTransactionsService, private formsService: TableFormsService) { }
+    constructor(private transactions: SmzTransactionsService, private formsService: TableFormsService, private store: Store) {
+    }
+
+    public setupAccess(): void {
+
+        const creation = this.state.editable?.creation;
+        if (creation != null) {
+            const hasAccess = creation.accessClaim == null || this.store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(creation.accessClaim));
+            creation.isButtonDisabled = !hasAccess;
+        }
+
+        const update = this.state.editable?.update;
+        if (update != null) {
+            const hasAccess = update.accessClaim == null || this.store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(update.accessClaim));
+            update.isButtonDisabled = !hasAccess;
+        }
+
+        const remove = this.state.editable?.remove;
+        if (remove != null) {
+            const hasAccess = remove.accessClaim == null || this.store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(remove.accessClaim));
+            remove.isButtonDisabled = !hasAccess;
+        }
+
+    }
 
     public onRowCreateInit(table: Table, context: SmzTableContext): void {
 

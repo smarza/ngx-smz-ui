@@ -33,14 +33,20 @@ export class SmzTableBuilder {
     editable: {
       isEditable: false,
       update: {
-        isButtonVisible: false
+        isButtonVisible: false,
+        isButtonDisabled: false,
+        accessClaim: null
       },
       creation: {
         isButtonVisible: false,
-        buttonLabel: 'Criar'
+        isButtonDisabled: false,
+        buttonLabel: 'Criar',
+        accessClaim: null
       },
       remove: {
-        isButtonVisible: false
+        isButtonVisible: false,
+        isButtonDisabled: false,
+        accessClaim: null
       },
       actions:
       {
@@ -376,34 +382,37 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public setUpdateAction(action: any): SmzTableBuilder {
+  public setUpdateAction(action: any, claim?: string): SmzTableBuilder {
 
     if (!this._state.editable.isEditable) this._state.actions.customActions.columnWidth += 150;
 
     this._state.editable.actions.update = action;
     this._state.editable.update.isButtonVisible = true;
+    this._state.editable.update.accessClaim = claim;
     this._state.editable.isEditable = true;
 
     return this;
   }
 
-  public setCreationAction(action: any): SmzTableBuilder {
+  public setCreationAction(action: any, claim?: string): SmzTableBuilder {
 
     if (!this._state.editable.isEditable) this._state.actions.customActions.columnWidth += 150;
 
     this._state.editable.actions.creation = action;
     this._state.editable.creation.isButtonVisible = true;
+    this._state.editable.creation.accessClaim = claim;
     this._state.editable.isEditable = true;
 
     return this;
   }
 
-  public setRemoveAction(action: any): SmzTableBuilder {
+  public setRemoveAction(action: any, claim?: string): SmzTableBuilder {
 
     if (!this._state.editable.isEditable) this._state.actions.customActions.columnWidth += 150;
 
     this._state.editable.actions.remove = action;
     this._state.editable.remove.isButtonVisible = true;
+    this._state.editable.remove.accessClaim = claim;
     this._state.editable.isEditable = true;
 
     return this;
