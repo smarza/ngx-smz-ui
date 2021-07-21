@@ -115,23 +115,26 @@ export class SmzTableBuilder {
   constructor(uiDefinitionName?: string) {
 
     if (uiDefinitionName) {
+      const preferredUiModel = 'create';
       const store = GlobalInjector.instance.get(Store);
 
-      const create = store.selectSnapshot(UiDefinitionsDbSelectors.single(uiDefinitionName, 'create'));
+      const uiDefinition = store.selectSnapshot(UiDefinitionsDbSelectors.single(uiDefinitionName, preferredUiModel));
 
-      if (create == null) {
-        throw Error('You need to supply a valid ui-definitions.');
+      if (uiDefinition == null) {
+        throw Error(`You need to supply a valid ui-definitions. There is no ${uiDefinitionName} in the store`);
       }
 
-      if (create[0] == null) {
-        throw Error('There are no elements in ui-definitions create index 0.');
+      const inputConfigs = flatten(uiDefinition.map(x => flatten(x.controls)));
+
+      if (inputConfigs?.length === 0) {
+        throw Error(`There are no elements in ui-definitions ${preferredUiModel}`);
       }
 
       const formFeature: SmzForm<any> = convertFormFeature(uiDefinitionName, store, null).data as SmzForm<any>;
-      // console.log('formFeature', formFeature);
+
       const children: SmzControlTypes[] = flatten(formFeature.groups.map(g => g.children));
 
-      StateBuilderFunctions.createColumnsFromInputControls(this._state, create[0].controls, children);
+      StateBuilderFunctions.createColumnsFromInputControls(this._state, inputConfigs, children);
     }
 
   }

@@ -114,7 +114,7 @@ export class DemoEditableTableComponent implements OnInit {
   public setupServiceWithCustomization(): void {
 
 
-    this.tableState = new SmzTableBuilder('service')
+    this.tableState = new SmzTableBuilder('role')
       .setTitle('Serviços')
       .setCreationAction(DemoFeatureActions.Create, 'TEST_CREATION')
       .setUpdateAction(DemoFeatureActions.Update, 'TEST_UPDATE')
@@ -127,27 +127,27 @@ export class DemoEditableTableComponent implements OnInit {
       .enableClearFilters()
       .usePagination()
       .setPaginationDefaultRows(20)
-      .setInitialSorting('description', 1)
+      // .setInitialSorting('description', 1)
       .useStrippedStyle()
-      .reorder('isActive', 'description', 'cost', 'price')
-      .columns()
-        .icon('isActive', 'Status', '6em')
-          .columns
-        .text('description', 'Serviço', '20em')
-          .columns
-        .custom('cost', 'Custo', '8em')
-          .columns
-        .custom('price', 'Venda', '8em')
-          .columns
-        .text('type.name', 'Tipo', '8em')
-          .columns
-        .icon('unchargeable', 'Não Calculável', '6em')
-          .columns
-        .icon('visibleToCustomer', 'Via do Cliente', '6em')
-          .columns
-        .text('acceptanceTerm', 'Termo', '12em')
-          .columns
-        .table
+      // .reorder('description', 'isActive', 'cost', 'price')
+      // .columns()
+      //   .icon('isActive', 'Status', '6em')
+      //     .columns
+      //   .text('description', 'Serviço', '20em')
+      //     .columns
+      //   .custom('cost', 'Custo', '8em')
+      //     .columns
+      //   .custom('price', 'Venda', '8em')
+      //     .columns
+      //   .text('type.name', 'Tipo', '8em')
+      //     .columns
+      //   .icon('unchargeable', 'Não Calculável', '6em')
+      //     .columns
+      //   .icon('visibleToCustomer', 'Via do Cliente', '6em')
+      //     .columns
+      //   .text('acceptanceTerm', 'Termo', '12em')
+      //     .columns
+      //   .table
       .build();
 
       // console.log(this.tableState);
