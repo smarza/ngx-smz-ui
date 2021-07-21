@@ -310,6 +310,19 @@ export class SmzTableBuilder {
     return this;
   }
 
+  public relabel(...operations: { property: string, label: string }[]): SmzTableBuilder {
+    operations.forEach(o => {
+      const column = this._state.columns.find(x => x.property === o.property);
+
+      if (column == null) {
+        throw Error(`There is no column with the property ${o.property}`);
+      }
+
+      column.header = o.label;
+    });
+    return this;
+  }
+
   public useCustomActions(columnWidthPixels: number): SmzTableBuilder {
     this._state.actions.customActions.isVisible = true;
     this._state.actions.customActions.columnWidth += columnWidthPixels;
