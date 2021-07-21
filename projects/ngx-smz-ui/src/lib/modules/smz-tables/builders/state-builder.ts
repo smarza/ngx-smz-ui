@@ -310,7 +310,7 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public relabel(...operations: { property: string, label: string }[]): SmzTableBuilder {
+  public relabel(...operations: { property: string, header: string }[]): SmzTableBuilder {
     operations.forEach(o => {
       const column = this._state.columns.find(x => x.property === o.property);
 
@@ -318,7 +318,20 @@ export class SmzTableBuilder {
         throw Error(`There is no column with the property ${o.property}`);
       }
 
-      column.header = o.label;
+      column.header = o.header;
+    });
+    return this;
+  }
+
+  public resize(...operations: { property: string, width: string }[]): SmzTableBuilder {
+    operations.forEach(o => {
+      const column = this._state.columns.find(x => x.property === o.property);
+
+      if (column == null) {
+        throw Error(`There is no column with the property ${o.property}`);
+      }
+
+      column.width = o.width;
     });
     return this;
   }

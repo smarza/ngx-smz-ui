@@ -65,6 +65,7 @@
       "moment": "moment",
       "angular2-uuid": "angularuuid",
       "lodash-es/flatten": "lodashesflatten",
+      "lodash-es/sortBy": "lodashessortby",
       "chart.js/auto": "chartjaauto",
       "chart.js/helpers": "chartjshelpers"
     }
