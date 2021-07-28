@@ -4,6 +4,8 @@ import { SmzTableState, SmzTableBuilder, SmzFilterType } from 'ngx-smz-ui';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { DemoItem } from '../../models/demo';
+import { Warehouse } from '../../models/warehouse';
+import { WarehousesDbSelectors } from '../../state/database/warehouses/warehouses.selector';
 import { DemoFeatureActions } from '../../state/demo/demo.actions';
 import { DemoFeatureSelectors } from '../../state/demo/demo.selectors';
 import { DemoTableDataService } from '../demo-tables/data-service/demo-tables-data-service';
@@ -17,7 +19,7 @@ import { ServicesService } from '../demo-tables/data-service/services.service';
 })
 
 export class DemoEditableTableComponent implements OnInit {
-  @Select(DemoFeatureSelectors.all) public items$: Observable<DemoItem[]>;
+  @Select(WarehousesDbSelectors.all) public items$: Observable<Warehouse[]>;
   public services$: Observable<ServiceDetails[]>;
   public tableState: SmzTableState;
   constructor(private dataService: DemoTableDataService, private service: ServicesService, private store: Store) {
@@ -114,40 +116,15 @@ export class DemoEditableTableComponent implements OnInit {
   public setupServiceWithCustomization(): void {
 
 
-    this.tableState = new SmzTableBuilder('role')
-      .setTitle('Serviços')
-      .setCreationAction(DemoFeatureActions.Create, 'TEST_CREATION')
-      .setUpdateAction(DemoFeatureActions.Update, 'TEST_UPDATE')
-      .setRemoveAction(DemoFeatureActions.Remove, 'TEST_DELETE')
+    this.tableState = new SmzTableBuilder('warehouse')
+      .setTitle('Warehouses')
+      .setCreationAction(DemoFeatureActions.Create)
+      .setUpdateAction(DemoFeatureActions.Update)
+      .setRemoveAction(DemoFeatureActions.Remove)
       .customizeEditableResults((data: any) => {
         console.log('data', data);
         return data;
       })
-      .enableGlobalFilter()
-      .enableClearFilters()
-      .usePagination()
-      .setPaginationDefaultRows(20)
-      // .setInitialSorting('description', 1)
-      .useStrippedStyle()
-      // .reorder('description', 'isActive', 'cost', 'price')
-      // .columns()
-      //   .icon('isActive', 'Status', '6em')
-      //     .columns
-      //   .text('description', 'Serviço', '20em')
-      //     .columns
-      //   .custom('cost', 'Custo', '8em')
-      //     .columns
-      //   .custom('price', 'Venda', '8em')
-      //     .columns
-      //   .text('type.name', 'Tipo', '8em')
-      //     .columns
-      //   .icon('unchargeable', 'Não Calculável', '6em')
-      //     .columns
-      //   .icon('visibleToCustomer', 'Via do Cliente', '6em')
-      //     .columns
-      //   .text('acceptanceTerm', 'Termo', '12em')
-      //     .columns
-      //   .table
       .build();
 
       // console.log(this.tableState);

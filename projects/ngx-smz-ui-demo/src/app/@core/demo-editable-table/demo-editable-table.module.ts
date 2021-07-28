@@ -5,6 +5,8 @@ import { RbkAuthGuard, RbkDatabaseStateGuard, UI_DEFINITIONS_STATE_NAME } from '
 import { NgxSmzTablesModule, SmzRouteData } from 'ngx-smz-ui';
 import { ButtonModule } from 'primeng/button';
 import { CountriesDbName } from '../../state/database/countries/countries.state';
+import { ShopsDbName } from '../../state/database/shops/shops.state';
+import { WarehousesDbName } from '../../state/database/warehouses/warehouses.state';
 
 import { DemoEditableTableComponent } from './demo-editable-table.component';
 
@@ -15,7 +17,7 @@ const data: SmzRouteData = {
   title: 'Demo EditableTables',
   appArea: 'demo-editable-table',
   clearReusableRoutes: true,
-  requiredStates: [UI_DEFINITIONS_STATE_NAME, CountriesDbName]
+  requiredStates: [UI_DEFINITIONS_STATE_NAME, CountriesDbName, WarehousesDbName, ShopsDbName]
 };
 
 const routes: Routes = [

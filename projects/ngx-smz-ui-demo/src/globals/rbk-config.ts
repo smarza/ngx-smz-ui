@@ -3,6 +3,10 @@ import { NgxRbkUtilsConfig } from 'ngx-rbk-utils';
 import { DemoFeatureName, DemoFeatureState, getInitialState as getFtDemoInitialState } from '../app/state/demo/demo.state';
 import { CountriesDbName, CountriesDbState, getInitialState as getDbCountriesInitialState } from '../app/state/database/countries/countries.state';
 import { CountriesDbActions } from '../app/state/database/countries/countries.actions';
+import { WarehousesDbName, WarehousesDbState, getInitialState as getDbWarehousesInitialState } from '../app/state/database/warehouses/warehouses.state';
+import { WarehousesDbActions } from '../app/state/database/warehouses/warehouses.actions';
+import { ShopsDbName, ShopsDbState, getInitialState as getDbShopsInitialState } from '../app/state/database/shops/shops.state';
+import { ShopsDbActions } from '../app/state/database/shops/shops.actions';
 
 // ------------------------------------------
 // DATABASE STATES
@@ -76,7 +80,19 @@ export const rbkConfig: NgxRbkUtilsConfig = {
                 clearFunction: getDbCountriesInitialState,
                 cacheTimeout: 10,
                 loadAction: CountriesDbActions.LoadAll,
-            }
+            },
+            [WarehousesDbName]: {
+                state: WarehousesDbState,
+                cacheTimeout: 60,
+                loadAction: WarehousesDbActions.LoadAll,
+                clearFunction: getDbWarehousesInitialState
+              },
+              [ShopsDbName]: {
+                state: ShopsDbState,
+                cacheTimeout: 60,
+                loadAction: ShopsDbActions.LoadAll,
+                clearFunction: getDbShopsInitialState
+              },
         },
         feature: {
             [DemoFeatureName]: {

@@ -6,7 +6,6 @@ import { SmzEditableType } from '../models/editable-types';
 import { SmzTableContext, SmzTableState } from '../models/table-state';
 import { Table } from 'primeng/table';
 import { SmzTransactionsService } from './smz-transactions.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { takeWhile } from 'rxjs/operators';
 import { UUID } from 'angular2-uuid';
 import { Confirmable, removeElementFromArray } from 'ngx-smz-dialogs';
@@ -492,7 +491,7 @@ export class TableEditableService {
             const beforeValue = isSimpleNamed ? before[key]?.id : before[key];
 
             // VALOR ATUAL
-            const afterValue = isSimpleNamed ? after[key].id : after[key];
+            const afterValue = isSimpleNamed ? after[key]?.id : after[key];
 
             // SE OS VALORES MUDARAM
             if (beforeValue !== afterValue) {
