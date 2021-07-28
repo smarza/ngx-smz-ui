@@ -1,8 +1,8 @@
 import { Store } from '@ngxs/store';
 import { cloneDeep, flatten } from 'lodash-es';
 import sortBy from 'lodash-es/sortBy';
-import { convertFormFeature, UiDefinitionsDbSelectors } from 'ngx-rbk-utils';
-import { SmzControlTypes, SmzForm } from 'ngx-smz-dialogs';
+import { UiDefinitionsDbSelectors } from 'ngx-rbk-utils';
+import { convertFormFeature, SmzControlTypes, SmzForm } from 'ngx-smz-dialogs';
 import { GlobalInjector } from '../../../../lib/common/services/global-injector';
 import { SmzMenuItem } from '../models/conditional-menu-item';
 import { defaultMapResults, EditableChanges } from '../models/editable-model';
