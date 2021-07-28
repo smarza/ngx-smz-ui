@@ -3,8 +3,8 @@
   "version": "2.1.36",
   "peerDependencies": {
     "animate.css": "^4.0.0",
-    "ngx-rbk-utils": "^1.4.1",
-    "ngx-smz-dialogs": "^1.4.1",
+    "ngx-rbk-utils": "^1.4.6",
+    "ngx-smz-dialogs": "^1.5.1",
     "hover.css": "^2.0.0",
     "moment": "^2.24.0",
     "tailwindcss": "^2.0.0",

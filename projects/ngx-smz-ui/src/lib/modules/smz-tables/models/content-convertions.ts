@@ -1,5 +1,4 @@
-import { InputConfig } from 'ngx-rbk-utils';
-import { SmzControlType, SmzControlTypes, SmzDropDownControl, SmzFormsValidatorsPreset } from 'ngx-smz-dialogs';
+import { InputConfig, SmzControlType, SmzControlTypes, SmzDropDownControl, SmzFormsValidatorsPreset } from 'ngx-smz-dialogs';
 import { SmzContentType, SmzContentTypes } from './content-types';
 import { SmzDropdownEditable, SmzEditableType, SmzEditableTypes } from './editable-types';
 import { SmzFilterType } from './filter-types';
