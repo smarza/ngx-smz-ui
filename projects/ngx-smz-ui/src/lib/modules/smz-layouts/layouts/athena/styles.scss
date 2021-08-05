@@ -648,8 +648,8 @@ body a {
   float: right;
   font-weight: 700;
 }
-.layout-wrapper.layout-horizontal .layout-content {
-  padding-top: calc(var(--layout-topbar-height) + var(--layout-menu-height));
+.layout-wrapper .layout-content {
+  padding-top: calc(var(--layout-topbar-height));
 }
 
 .layout-footer {
@@ -687,6 +687,9 @@ body a {
 }
 
 @media (min-width: 1025px) {
+  .layout-wrapper .layout-content {
+    padding-top: calc(var(--layout-topbar-height));
+  }
   .layout-wrapper.layout-horizontal .layout-content {
     padding-top: calc(var(--layout-topbar-height) + var(--layout-menu-height));
   }

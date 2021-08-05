@@ -7,6 +7,7 @@ import { filter, map, mergeMap, tap } from 'rxjs/operators';
 import { SmzLayoutsConfig } from '../globals/smz-layouts.config';
 import { RouteLayoutData, SmzRouteData } from '../models/route-layout-data';
 import { UiActions } from '../state/ui/ui.actions';
+import { mergeClone } from '../../../../common/utils/deep-merge';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,8 @@ export class RouterDataListenerService
   {
     if (this.config.debugMode) console.log('>> RouterDataListenerService constructor');
     if (this.config.debugMode) console.log('>> configuration', config);
+
+    let currentRouteData = null;
 
     this.router.events
       .pipe(
@@ -36,8 +39,29 @@ export class RouterDataListenerService
         }),
         map((event) =>
         {
+          if (this.config.debugMode) {
+            console.group('router.events > mapping');
+          }
+
           let route = this.activatedRoute;
-          while (route.firstChild) { route = route.firstChild; }
+
+          while (route.firstChild) {
+
+            route.firstChild.data.subscribe(r => {
+              const layout = r.layout;
+
+              if (currentRouteData == null && layout !== null) {
+                currentRouteData = layout;
+              }
+              else {
+                currentRouteData = layout == null ? currentRouteData : this.mergeLayoutDatas(currentRouteData, layout);
+              }
+
+            });
+
+            route = route.firstChild;
+          }
+
           return { event, route };
         }),
         filter((event) => event.route.outlet === 'primary'),
@@ -45,8 +69,16 @@ export class RouterDataListenerService
       )
       .subscribe((data: SmzRouteData) =>
       {
-        this.data = this.normalizeLayoutData(data);
-        // console.log(this.data);
+        this.data = {
+          ...data,
+          layout: this.normalizeLayoutData(currentRouteData)
+        };
+
+        if (this.config.debugMode) {
+          console.log('all routes layout data merged for this route', currentRouteData);
+          console.log('final router data used', this.data);
+          console.groupEnd();
+        }
 
         if (this.config.applicationActions.registerLogs)
         {
@@ -68,16 +100,22 @@ export class RouterDataListenerService
 
   }
 
-  private normalizeLayoutData(data: SmzRouteData): SmzRouteData
+  private normalizeLayoutData(data: RouteLayoutData): RouteLayoutData
   {
     return {
-      ...data,
-      layout: {
-        mode: data.layout?.mode ? data.layout.mode : 'full',
-        hideFooter: data.layout.hideFooter ?? false,
-        contentPadding: data.layout?.contentPadding ? data.layout.contentPadding : '2em'
-      }
+      mode: data?.mode ? data.mode : 'full',
+      hideFooter: data?.hideFooter ?? false,
+      contentPadding: data?.contentPadding ? data.contentPadding : '2em'
     }
+  }
+
+  private mergeLayoutDatas(before: SmzRouteData, current: SmzRouteData): SmzRouteData
+  {
+    if (this.config.debugMode) {
+      console.log(`merging`, before, current, mergeClone(before, current));
+    }
+
+    return mergeClone(before, current);
   }
 
 }

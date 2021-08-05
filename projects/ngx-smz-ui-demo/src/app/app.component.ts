@@ -52,6 +52,7 @@ export class AppComponent {
           { label: 'Prime Tables', icon: 'far fa-star', routerLink: ['tables', 'prime'] },
           { label: 'Nested Routes 1', icon: 'far fa-star', routerLink: ['nested'] },
           { label: 'Nested Routes 2', icon: 'far fa-star', routerLink: ['nested', 'layout' ] },
+          { label: 'Nested Routes 3 With Layouts', icon: 'far fa-star', routerLink: ['nested-routes'] }
         ]
       },
       {

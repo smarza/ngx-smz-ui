@@ -11,10 +11,6 @@ import { FormsModule } from '@angular/forms';
 import { InputNumberModule } from 'primeng/inputnumber';
 
 const data: SmzRouteData = {
-  layout: {
-    mode: 'full',
-    contentPadding: '2em'
-  },
   title: 'Demo NgDom',
   appArea: 'demo-ng-dom',
   clearReusableRoutes: true,

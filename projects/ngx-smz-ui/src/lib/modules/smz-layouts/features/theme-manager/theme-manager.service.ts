@@ -9,18 +9,22 @@ export class ThemeManagerService {
     this._document = document as Document;
   }
 
-  public createCss(path: string): void {
-    const link = this._document.createElement("link");
+  public createCss(...paths: string[]): void {
 
-    link.setAttribute("rel", "stylesheet");
-    link.setAttribute("type", "text/css");
-    link.setAttribute("href", path);
+    paths.forEach(path => {
+      const link = this._document.createElement("link");
 
-    this.contentLink.push({
-      isLoaded: false,
-      path,
-      link,
-    });
+      link.setAttribute("rel", "stylesheet");
+      link.setAttribute("type", "text/css");
+      link.setAttribute("href", path);
+
+      this.contentLink.push({
+        isLoaded: false,
+        path,
+        link,
+      });
+    })
+
   }
 
   public propagate(): void {

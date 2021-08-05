@@ -1,5 +1,5 @@
 import { Store } from '@ngxs/store';
-import { cloneDeep, flatten } from 'lodash-es';
+import { flatten } from 'lodash-es';
 import sortBy from 'lodash-es/sortBy';
 import { UiDefinitionsDbSelectors } from 'ngx-rbk-utils';
 import { convertFormFeature, SmzControlTypes, SmzForm } from 'ngx-smz-dialogs';
@@ -73,7 +73,7 @@ export class SmzTableBuilder {
         showButton: false,
       },
       globalFilter: {
-        isVisible: true,
+        isVisible: false,
       },
       isVisible: false,
       title: null,

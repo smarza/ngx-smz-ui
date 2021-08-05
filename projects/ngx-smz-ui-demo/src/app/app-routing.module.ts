@@ -57,27 +57,30 @@ const routes: Routes = [
     path: 'nested',
     loadChildren: () => import('./@core/demo-nested-routes/demo-nested-routes.module').then(m => m.DemoNestedRoutesModule),
   },
-  // {
-  //   path: '',
-  //   component: DemoNestedLayout1Component,
-  //   canActivate: [],
-  //   children: [
-  //     {
-  //       path: '',
-  //       component: DemoNestedLayout2Component,
-  //       canActivate: [],
-  //       data: {
-  //         requiredStates: []
-  //       },
-  //       children: [
-  //         {
-  //           path: 'nested-routes',
-  //           loadChildren: () => import('./@core/demo-ng-dom/demo-ng-dom.module').then(m => m.DemoNgDomModule),
-  //         },
-  //       ]
-  //     },
-  //   ]
-  // }
+  {
+    path: '',
+    component: DemoNestedLayout1Component,
+    canActivate: [],
+    data: {
+      layout: {
+        mode: 'full',
+        contentPadding: '2em'
+      },
+    },
+    children: [
+      {
+        path: '',
+        component: DemoNestedLayout2Component,
+        canActivate: [],
+        children: [
+          {
+            path: 'nested-routes',
+            loadChildren: () => import('./@core/demo-ng-dom/demo-ng-dom.module').then(m => m.DemoNgDomModule),
+          },
+        ]
+      },
+    ]
+  }
 ];
 
 @NgModule({
