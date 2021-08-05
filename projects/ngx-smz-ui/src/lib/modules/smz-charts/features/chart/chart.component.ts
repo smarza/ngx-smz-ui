@@ -71,48 +71,50 @@ export class SmzChart implements AfterViewInit, OnDestroy {
   public set options(val: any) {
     this._options = val;
 
-    // 'info' is an array of all elements in the clicked index
-    this._options.onClick = (e, info) => {
-      const canvasPosition = getRelativePosition(e, this.chart);
+    if (this._options != null) {
+      // 'info' is an array of all elements in the clicked index
+      this._options.onClick = (e, info) => {
+        const canvasPosition = getRelativePosition(e, this.chart);
 
-      const element = (this.chart as Chart).getElementsAtEventForMode(
-        e,
-        'dataset',
-        { axis: '', intersect: true },
-        true
-      );
+        const element = (this.chart as Chart).getElementsAtEventForMode(
+          e,
+          'dataset',
+          { axis: '', intersect: true },
+          true
+        );
 
-      let datasetIndex = -1;
-      let pointIndex = -1;
-      let value = null;
+        let datasetIndex = -1;
+        let pointIndex = -1;
+        let value = null;
 
-      // TODO: tratar o clique em gráficos de barras horizontais
-      if (this.chart.scales.x != null) {
-        // linear charts, except horizontal bar charts
-        if (element != null && element.length > 0) {
-          datasetIndex = element[0].datasetIndex;
+        // TODO: tratar o clique em gráficos de barras horizontais
+        if (this.chart.scales.x != null) {
+          // linear charts, except horizontal bar charts
+          if (element != null && element.length > 0) {
+            datasetIndex = element[0].datasetIndex;
+          }
+          pointIndex = this.chart.scales.x.getValueForPixel(canvasPosition.x);
+
+          if (datasetIndex != -1 && pointIndex != -1) {
+            value = this._originalData.datasets[datasetIndex].data[pointIndex];
+          }
+        } else {
+          // radial charts
+          const activeElements = (this.chart as Chart).getActiveElements();
+          if (activeElements.length > 0) {
+            datasetIndex = activeElements[0].datasetIndex;
+            pointIndex = activeElements[0].index;
+          }
+          if (datasetIndex != -1 && pointIndex != -1) {
+            value = this._originalData.datasets[datasetIndex].extraData[
+              pointIndex
+            ];
+          }
         }
-        pointIndex = this.chart.scales.x.getValueForPixel(canvasPosition.x);
 
-        if (datasetIndex != -1 && pointIndex != -1) {
-          value = this._originalData.datasets[datasetIndex].data[pointIndex];
-        }
-      } else {
-        // radial charts
-        const activeElements = (this.chart as Chart).getActiveElements();
-        if (activeElements.length > 0) {
-          datasetIndex = activeElements[0].datasetIndex;
-          pointIndex = activeElements[0].index;
-        }
-        if (datasetIndex != -1 && pointIndex != -1) {
-          value = this._originalData.datasets[datasetIndex].extraData[
-            pointIndex
-          ];
-        }
-      }
-
-      this.chartClick.emit({ chart: this.chart, event: e, value: value });
-    };
+        this.chartClick.emit({ chart: this.chart, event: e, value: value });
+      };
+    }
     this.reinit();
   }
 
