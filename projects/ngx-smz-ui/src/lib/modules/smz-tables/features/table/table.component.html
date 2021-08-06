@@ -278,25 +278,25 @@
                                             </ng-container>
 
                                             <ng-container *ngSwitchCase="contentTypes.currency">
-                                                R$ {{ (item | tableContent : col.field) }}
+                                                R$ {{ (item | tableContent : col.field).result }}
                                             </ng-container>
 
                                             <ng-container *ngSwitchCase="contentTypes.calendar">
-                                                {{ (item | tableContent : col.field) | date: col.content.data['format'] }}
+                                                {{ (item | tableContent : col.field).result | date: col.content.data['format'] }}
                                             </ng-container>
 
                                             <ng-container *ngSwitchCase="contentTypes.text">
-                                                {{ (item | tableContent : col.field) }}
+                                                {{ (item | tableContent : col.field).result }}
                                             </ng-container>
 
                                             <ng-container *ngSwitchCase="contentTypes.dataTransform">
                                                 <ng-container *ngIf="(item | tableContent : col.field) as contentData">
-                                                    {{ $any(col.content.data).callback(contentData, item) }}
+                                                    {{ $any(col.content.data).callback(contentData.result, item) }}
                                                 </ng-container>
                                             </ng-container>
 
                                             <ng-container *ngSwitchCase="contentTypes.icon">
-                                                <ng-container *ngIf="(col.content.data['matches'] | contentIconMatches : (item | tableContent : col.field)) as match">
+                                                <ng-container *ngIf="(col.content.data['matches'] | contentIconMatches : (item | tableContent : col.field).result) as match">
                                                     <i *ngIf="match != null" [ngClass]="match.icon + ' ' + match.class" [pTooltip]="match.tooltip"></i>
                                                 </ng-container>
                                             </ng-container>

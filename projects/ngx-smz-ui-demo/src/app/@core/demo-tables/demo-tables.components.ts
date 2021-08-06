@@ -25,9 +25,9 @@ export class DemoTablesComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    // this.setupTableWithFluent();
+    this.setupTableWithFluent();
     // this.setupTableWithFluentFromUiDefinitions();
-    this.setupPaginationPersistence();
+    // this.setupPaginationPersistence();
 
     this.emptyTableState = {
       emptyFeedback: {
@@ -108,7 +108,10 @@ export class DemoTablesComponent implements OnInit {
           .setFilter(SmzFilterType.DROPDOWN)
           .disableSort()
           .columns
-        .dataTransform('country', 'Super Country', (country: SimpleNamedEntity, row: any) => (`super: ${country?.name?.toUpperCase()}`), '10em')
+        .dataTransform('country', 'Super Country', (country: SimpleNamedEntity, row: any) => {
+          console.log('dataTransform', country, row);
+          return `super: ${country?.name?.toUpperCase()}`;
+        }, '10em')
           .columns
         .table
       .build();
