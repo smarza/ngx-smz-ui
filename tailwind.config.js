@@ -7,7 +7,8 @@ module.exports = {
     mode: 'jit',
     purge: {
       content: [
-        './projects/ngx-smz-ui-demo/src/**/*.{html,ts,css,scss,sass,less,styl}',
+        './projects/ngx-smz-ui-demo/src/**/*.{html,ts,css,scss}',
+        './projects/ngx-smz-ui/**/*.{html,ts,css,scss}',
       ]
     },
     darkMode: false, // or 'media' or 'class'
