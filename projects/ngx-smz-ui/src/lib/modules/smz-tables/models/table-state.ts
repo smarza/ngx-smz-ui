@@ -110,7 +110,11 @@ export interface SmzTableState {
       /**
        * Controls the visibility of the inputs for this feature
        */
-      showButton: boolean;
+      showDropdownSelector: boolean;
+      /**
+       * Individual buttons that controls the visibility of each column
+       */
+       showColumnHideButton: boolean;
     };
     /**
      * Options for the global filter
@@ -193,6 +197,28 @@ export interface SmzTableState {
       rows?: number;
     };
   };
+
+  /**
+  * Viewport Behavior of the table
+  */
+    viewport?: {
+    /**
+    * when specifies, enables horizontal and/or vertical scrolling.
+    */
+    scrollable: boolean;
+    /**
+     * height of the scroll viewport in fixed pixels or the "flex" keyword for a dynamic size.
+     */
+    scrollHeight: 'flex' | string;
+    /**
+    * when enabled, columns can be resized using drag and drop.
+    */
+    resizableColumns: boolean;
+    /**
+    * defines whether the overall table width should change on column resize, valid values are "fit" and "expand".
+    */
+    columnResizeMode: 'fit' | 'expand';
+  }
 
   /**
    * Behavior of the empty feedback
@@ -292,7 +318,11 @@ export interface SmzTableState {
     /**
      * Use striped to add zebra-striping to the row's styles
      */
-    striped?: boolean
+    striped?: boolean;
+    /**
+     * Use showGrid to add borders between cells
+     */
+    showGrid?: boolean;
   }
 }
 

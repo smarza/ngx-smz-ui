@@ -4,6 +4,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgxSmzLayoutsModule, AthenaLayoutModule, NgxSmzFaqsModule } from 'ngx-smz-ui';
+import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
 import { smzAthenaConfig, smzLayoutsConfig } from '../globals/smz-layouts.config';
 import { CommonModule } from '@angular/common';
@@ -16,7 +17,6 @@ import { smzDialogsConfig } from '../globals/smz-config';
 import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { smzFaqsConfig } from '../globals/smz-faqs.config';
-import { DemoNestedRoutesModule } from './@core/demo-nested-routes/demo-nested-routes.module';
 
 @NgModule({
   declarations: [
@@ -38,9 +38,21 @@ import { DemoNestedRoutesModule } from './@core/demo-nested-routes/demo-nested-r
     // HephaestusLayoutModule.forRoot(smzHephaestusConfig),
     AthenaLayoutModule.forRoot(smzAthenaConfig),
     NgxSmzFaqsModule.forRoot(smzFaqsConfig),
+    HighlightModule
   ],
   providers: [
     { provide: NgxRbkUtilsConfig, useValue: rbkConfig },
+    {
+      provide: HIGHLIGHT_OPTIONS,
+      useValue: {
+        coreLibraryLoader: () => import('highlight.js/lib/core'),
+        lineNumbersLoader: () => import('highlightjs-line-numbers.js'), // Optional, only if you want the line numbers
+        languages: {
+          typescript: () => import('highlight.js/lib/languages/typescript'),
+          css: () => import('highlight.js/lib/languages/css'),
+        }
+      }
+    }
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   bootstrap: [AppComponent]

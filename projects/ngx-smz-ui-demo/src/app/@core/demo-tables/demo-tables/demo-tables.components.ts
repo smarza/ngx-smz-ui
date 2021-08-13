@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SmzContentType, SmzTableState, SmzClipboardService, SmzFilterType, SmzTableBuilder } from 'ngx-smz-ui';
-import { DemoTableDataService } from './data-service/demo-tables-data-service';
+import { DemoTableDataService } from '../data-service/demo-tables-data-service';
 import { Select, Store } from '@ngxs/store';
-import { DemoFeatureSelectors } from '../../state/demo/demo.selectors';
-import { DemoItem } from '../../models/demo';
-import { DemoFeatureActions } from '../../state/demo/demo.actions'
+import { DemoFeatureSelectors } from '../../../state/demo/demo.selectors';
+import { DemoItem } from '../../../models/demo';
+import { DemoFeatureActions } from '../../../state/demo/demo.actions'
 import { SimpleNamedEntity } from 'ngx-smz-dialogs';
 
 @Component({
@@ -109,12 +109,14 @@ export class DemoTablesComponent implements OnInit {
           .disableSort()
           .columns
         .dataTransform('country', 'Super Country', (country: SimpleNamedEntity, row: any) => {
-          console.log('dataTransform', country, row);
+          // console.log('dataTransform', country, row);
           return `super: ${country?.name?.toUpperCase()}`;
         }, '10em')
           .columns
         .table
       .build();
+
+      console.log(this.tableState);
 
   }
 
@@ -241,7 +243,8 @@ export class DemoTablesComponent implements OnInit {
           label: 'Limpar Filtro',
         },
         columnVisibility: {
-          showButton: true,
+          showDropdownSelector: true,
+          showColumnHideButton: true
         },
         globalFilter: {
           isVisible: true,

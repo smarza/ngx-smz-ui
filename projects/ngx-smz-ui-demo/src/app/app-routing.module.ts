@@ -1,17 +1,18 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { HOME_PATH } from '@routes';
 import { DemoNestedLayout1Component } from './@core/demo-nested-routes/demo-nested-layout-1.component';
 import { DemoNestedLayout2Component } from './@core/demo-nested-routes/demo-nested-layout-2.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: HOME_PATH,
     pathMatch: 'full',
   },
   {
-    path: 'home',
-    loadChildren: () => import('./@core/home/home.module').then(m => m.HomeModule),
+    path: HOME_PATH,
+    loadChildren: () => import('./ui/features/home/home.module').then(m => m.HomeModule),
   },
   {
     path: 'details',
@@ -56,6 +57,10 @@ const routes: Routes = [
   {
     path: 'nested',
     loadChildren: () => import('./@core/demo-nested-routes/demo-nested-routes.module').then(m => m.DemoNestedRoutesModule),
+  },
+  {
+    path: 'resolvers',
+    loadChildren: () => import('./@core/demo-resolvers/demo-resolvers.module').then(m => m.DemoResolversRoutesModule),
   },
   {
     path: '',

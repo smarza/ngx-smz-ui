@@ -17,4 +17,12 @@ export namespace ShopsDbActions
         constructor(public data: ShopDetails[]) { }
     }
 
+    export class LoadDetails
+    {
+        public static readonly type = '[Shops API] Load Details';
+
+        constructor(public data: { id: string }) { }
+    }
+
+
 }

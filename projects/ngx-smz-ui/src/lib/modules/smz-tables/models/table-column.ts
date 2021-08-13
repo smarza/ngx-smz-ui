@@ -22,9 +22,11 @@ export interface SmzTableColumn {
   isOrderable?: boolean;
 
   /**
-   * Width of the column, always use the value and the unit, ie. '100px' or '6em'
+   * Width of the column, always use the value and the unit, ie. '100px' or '6em'.
+   * Use auto for equal column sizes
+   * Fit will guess the size of each column base on the header characters.
    */
-  width?: string;
+  width?: string | 'auto' | 'fit';
 
   /**
    * Controls the column visibility. If the column visible is set the false

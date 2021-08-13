@@ -84,6 +84,13 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
 
     this.state = { ...this.state };
   }
+
+  public hideColumn(column: SmzTableColumn): void {
+    const index = this.state.columns.findIndex(x => x.field === column.field);
+    this.state.columns[index].isVisible = false;
+    this.state = { ...this.state };
+  }
+
   public ngOnChanges(changes: SimpleChanges): void {
 
     if (changes.state != null) {

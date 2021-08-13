@@ -17,11 +17,19 @@ export class SmzTableContextPipe implements PipeTransform {
     const globalFilter: string[] = [];
     const columns: SmzTableContextColumn[] = [];
 
+    let baseWidthIncrement = 0;
+
     for (const column of inputState.columns.filter(c => c.isVisible || c.filter?.isGlobalFilterable)) {
+
+      baseWidthIncrement = inputState.caption.columnVisibility?.showColumnHideButton ? 30 : 0;
+      baseWidthIncrement += column.filter.type !== SmzFilterType.NONE ? 30 : 0;
+      const width = column.width == null ? 'auto' : (column.width !== 'fit' ? column.width : `${(column.header.length * 15) + baseWidthIncrement}px`);
+
+      // console.log(column.field, column.width, width);
 
       const contextColumn: SmzTableContextColumn = {
         ...column,
-        width: column.width ?? 'auto',
+        width,
         content: column.content ?? { type: SmzContentType.TEXT, data: { } },
         filter: column.filter ?? { type: SmzFilterType.NONE, isGlobalFilterable: false }
       };
@@ -82,7 +90,8 @@ export class SmzTableContextPipe implements PipeTransform {
           label: 'Limpar Filtro',
         },
         columnVisibility: {
-          showButton: false,
+          showDropdownSelector: false,
+          showColumnHideButton: false
         },
         globalFilter: {
           isVisible: true,

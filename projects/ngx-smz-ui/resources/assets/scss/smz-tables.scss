@@ -38,6 +38,14 @@
   }
 }
 
+.p-datatable.p-datatable-smz-ui-table.p-datatable-show-grid .p-datatable-tbody > tr > td {
+  border-width: 1px;
+}
+
+.p-datatable.p-datatable-smz-ui-table.p-datatable-resizable .p-resizable-column {
+  border-width: 1px;
+}
+
 /* Responsive */
 .p-datatable-smz-ui-table .p-datatable-tbody > tr > td .p-column-title {
   display: none;

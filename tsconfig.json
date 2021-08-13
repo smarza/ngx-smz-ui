@@ -20,7 +20,10 @@
       "ngx-smz-ui": [
         "dist/ngx-smz-ui/ngx-smz-ui",
         "dist/ngx-smz-ui"
-      ]
+      ],
+      "@routes": ["projects/ngx-smz-ui-demo/src/routes"],
+      "@models/*": ["projects/ngx-smz-ui-demo/src/app/models/*"],
+      "@demos/*": ["projects/ngx-smz-ui-demo/src/app/demos/*"],
     }
   },
   "angularCompilerOptions": {

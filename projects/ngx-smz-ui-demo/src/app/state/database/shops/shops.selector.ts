@@ -1,8 +1,7 @@
 import { Selector, createSelector } from '@ngxs/store';
 import cloneDeep from 'lodash-es/cloneDeep';
+import { ShopDetails, ShopListItem } from '../../../models/shop';
 import { ShopsDbState, ShopsDbStateModel } from './shops.state';
-import { ShopDetails, ShopListItem } from 'imports/model.imports';
-import { AppStateModel } from '../../app.state';
 
 export class ShopsDbSelectors
 {
@@ -17,6 +16,12 @@ export class ShopsDbSelectors
     public static allActive(db: ShopsDbStateModel): ShopListItem[]
     {
         return cloneDeep(db.items.filter(i => i.isActive));
+    }
+
+    @Selector([ShopsDbState])
+    public static current(db: ShopsDbStateModel): ShopDetails
+    {
+        return db.current;
     }
 
     public static single(id: string): any

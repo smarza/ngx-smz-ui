@@ -73,7 +73,11 @@ caption?: {
     /**
      * Controls the visibility of the inputs for this feature
      */
-    showButton: boolean;
+    showDropdownSelector: boolean;
+    /**
+     * Individual buttons that controls the visibility of each column
+     */
+    showColumnHideButton: boolean;
   };
   /**
    * Options for the global filter
@@ -243,6 +247,44 @@ Represents all the customizable styles of the table
      * Use striped to add zebra-striping to the row's styles
      */
     striped?: boolean
+    /**
+     * Use showGrid to add borders between cells
+     */
+    showGrid?: boolean;
+};
+```
+
+## Viewport behavior
+
+This section controls the viewport state of the table.
+
+The `viewport` property controls the behavior when there is no data loaded yet, showing a table skeleton when there is no data available yet.
+
+For this to work, you need to have a `width` set for each columns. The width property will be handled by the [Columns](##columns).
+
+Keep in mind that `resizableColumns` feature automatically enables the horizontal scroll of the viewport.
+
+```typescript
+/**
+* Viewport Behavior of the table
+*/
+viewport?: {
+  /**
+  * when specifies, enables horizontal and/or vertical scrolling
+  */
+  scrollable: boolean;
+  /**
+  * height of the scroll viewport in fixed pixels or the "flex" keyword for a dynamic size.
+  */
+  scrollHeight: 'flex' | string;
+  /**
+  * when enabled, columns can be resized using drag and drop.
+  */
+  resizableColumns: boolean;
+  /**
+  * defines whether the overall table width should change on column resize, valid values are "fit" and "expand".
+  */
+  columnResizeMode: 'fit' | 'expand';
 };
 ```
 
@@ -344,19 +386,23 @@ export interface SmzTableColumn {
    * Property name, nested properties can be used, i.e. person.name
    */
   field: string;
+
   /**
    * Title of the column
    */
   header: string;
+
   /**
    * Constrols the visibility of the sort icon the column header
    */
   isOrderable?: boolean;
 
   /**
-   * Width of the column, always use the value and the unit, ie. '100px' or '6em'
+   * Width of the column, always use the value and the unit, ie. '100px' or '6em'.
+   * Use auto for equal column sizes
+   * Fit will guess the size of each column base on the header characters.
    */
-  width?: string;
+  width?: string | 'auto' | 'fit';
 
   /**
    * Controls the column visibility. If the column visible is set the false

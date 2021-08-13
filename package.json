@@ -37,6 +37,7 @@
     "lodash-es": "^4.17.21",
     "moment": "^2.29.1",
     "ngx-device-detector": "^2.1.1",
+    "ngx-highlightjs": "^4.1.4",
     "ngx-pipes": "^2.7.5",
     "ngx-rbk-utils": "1.4.6",
     "ngx-smz-dialogs": "^1.5.1",

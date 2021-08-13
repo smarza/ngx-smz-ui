@@ -70,7 +70,8 @@ export class SmzTableBuilder {
         label: '',
       },
       columnVisibility: {
-        showButton: false,
+        showDropdownSelector: false,
+        showColumnHideButton: false,
       },
       globalFilter: {
         isVisible: false,
@@ -109,6 +110,13 @@ export class SmzTableBuilder {
     },
     styles: {
       striped: false,
+      showGrid: false,
+    },
+    viewport: {
+      scrollable: false,
+      scrollHeight: null,
+      resizableColumns: false,
+      columnResizeMode: 'fit'
     }
   };
 
@@ -151,9 +159,10 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public enableColumnVisibility(): SmzTableBuilder {
+  public enableColumnVisibility(showColumnHideButton: boolean = false): SmzTableBuilder {
     this._state.caption.isVisible = true;
-    this._state.caption.columnVisibility.showButton = true;
+    this._state.caption.columnVisibility.showDropdownSelector = true;
+    this._state.caption.columnVisibility.showColumnHideButton = showColumnHideButton;
     return this;
   }
 
@@ -314,6 +323,11 @@ export class SmzTableBuilder {
     return this;
   }
 
+  public useGridStyle(): SmzTableBuilder {
+    this._state.styles.showGrid = true;
+    return this;
+  }
+
   public reorder(...properties: string[]): SmzTableBuilder {
     this._state.columns = sortBy(this._state.columns, (c) => properties.indexOf(c.property) !== -1? properties.indexOf(c.property) : this._state.columns.length);
     return this;
@@ -417,6 +431,25 @@ export class SmzTableBuilder {
     this._state.editable.remove.isButtonVisible = true;
     this._state.editable.remove.accessClaim = claim;
     this._state.editable.isEditable = true;
+
+    return this;
+  }
+
+  public setScrolling(height: 'flex' | string = 'flex'): SmzTableBuilder {
+
+    this._state.viewport.scrollable = true;
+    this._state.viewport.scrollHeight = height;
+
+    return this;
+  }
+
+  public enableResizableColumns(mode: 'fit' | 'expand' = 'fit'): SmzTableBuilder {
+
+    this._state.viewport.resizableColumns = true;
+    this._state.viewport.columnResizeMode = mode;
+
+    this._state.viewport.scrollable = true;
+    this._state.viewport.scrollHeight = 'flex';
 
     return this;
   }

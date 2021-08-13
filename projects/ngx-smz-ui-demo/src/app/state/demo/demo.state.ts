@@ -4,9 +4,9 @@ import { DemoFeatureActions } from './demo.actions';
 import { ToastActions } from 'ngx-rbk-utils';
 import { cloneDeep } from 'lodash-es';
 import { DemoItem } from '../../models/demo';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { DemoDataService } from './demo-data.service';
-import { tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { removeElementFromArray } from 'ngx-smz-dialogs';
 
 export const DemoFeatureName = 'DemoFeature';
@@ -102,6 +102,29 @@ export class DemoFeatureState {
         ctx.dispatch(new ToastActions.Success('Item removido com sucesso'));
       })
     );
+  }
+
+  @Action(DemoFeatureActions.BlockUiDemo)
+  public onBlockUiDemo$(ctx: StateContext<DemoFeatureStateModel>, action: DemoFeatureActions.BlockUiDemo): Observable<void> {
+
+    if (action.data === 1) {
+      ctx.dispatch(new ToastActions.Success('Success'));
+      ctx.dispatch(new DemoFeatureActions.BlockUiDemoSuccess());
+      return of();
+    }
+    else {
+      return this.apiService.remove('erro').pipe(
+        catchError((error) =>
+        {
+            console.log('error', error);
+            return throwError(error);
+        }),
+        tap(() => {
+          ctx.dispatch(new ToastActions.Error('Failure'));
+        })
+      );
+    }
+
   }
 
 }

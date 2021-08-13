@@ -12,6 +12,7 @@ import {
 } from '@angular/core';
 import Chart from 'chart.js/auto';
 import { getRelativePosition } from 'chart.js/helpers';
+import { SmzChartTypes } from '../../models/chart';
 import { SmzChartClickEvent } from '../../models/chart-click-event';
 
 @Component({
@@ -20,16 +21,8 @@ import { SmzChartClickEvent } from '../../models/chart-click-event';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class SmzChart implements AfterViewInit, OnDestroy {
-  @Input() type:
-    | 'bar'
-    | 'line'
-    | 'scatter'
-    | 'bubble'
-    | 'pie'
-    | 'doughnut'
-    | 'polarArea'
-    | 'radar';
+export class SmzChartComponent implements AfterViewInit, OnDestroy {
+  @Input() type: SmzChartTypes;
 
   @Input() plugins: any[] = [];
 
@@ -105,10 +98,8 @@ export class SmzChart implements AfterViewInit, OnDestroy {
             datasetIndex = activeElements[0].datasetIndex;
             pointIndex = activeElements[0].index;
           }
-          if (datasetIndex != -1 && pointIndex != -1) {
-            value = this._originalData.datasets[datasetIndex].extraData[
-              pointIndex
-            ];
+          if (datasetIndex != -1 && pointIndex != -1 && this._originalData.datasets[datasetIndex].extra?.length > 0) {
+            value = this._originalData.datasets[datasetIndex].extra[pointIndex];
           }
         }
 

@@ -37,6 +37,8 @@ export class AppComponent {
         items: [
           { label: 'Table', icon: 'far fa-star', routerLink: ['tables'] },
           { label: 'Editable Table', icon: 'far fa-star', routerLink: ['editable-table'] },
+          { label: 'Prime Table', icon: 'far fa-star', routerLink: ['tables', 'prime'] },
+          { label: 'Complex Table', icon: 'far fa-star', routerLink: ['tables', 'complex'] },
         ]
       },
       {
@@ -49,10 +51,10 @@ export class AppComponent {
           { label: 'Home', routerLink: ['home'] },
           { label: 'Landing', routerLink: ['landing'] },
           { label: 'Ng Dom', icon: 'far fa-star', routerLink: ['ng-dom'] },
-          { label: 'Prime Tables', icon: 'far fa-star', routerLink: ['tables', 'prime'] },
           { label: 'Nested Routes 1', icon: 'far fa-star', routerLink: ['nested'] },
           { label: 'Nested Routes 2', icon: 'far fa-star', routerLink: ['nested', 'layout' ] },
-          { label: 'Nested Routes 3 With Layouts', icon: 'far fa-star', routerLink: ['nested-routes'] }
+          { label: 'Nested Routes 3 With Layouts', icon: 'far fa-star', routerLink: ['nested-routes'] },
+          { label: 'Resolvers', routerLink: ['resolvers'] }
         ]
       },
       {

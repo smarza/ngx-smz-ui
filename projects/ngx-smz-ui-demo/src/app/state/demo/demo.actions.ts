@@ -27,4 +27,12 @@ export namespace DemoFeatureActions {
     constructor(public id: string) {}
   }
 
+  export class BlockUiDemo {
+    public static readonly type = '[DEMO] Block Ui Demo';
+    constructor(public data: Number) {}
+  }
+  export class BlockUiDemoSuccess {
+    public static readonly type = '[DEMO] Block Ui Demo Success';
+  }
+
 }

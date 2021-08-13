@@ -6,8 +6,9 @@ import { NgxSmzTablesModule, SmzRouteData } from 'ngx-smz-ui';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { CountriesDbName } from '../../state/database/countries/countries.state';
+import { DemoComplexTableComponent } from './demo-complex-table/demo-complex-table.component';
 import { DemoPrimeComponent } from './demo-prime/demo-prime.component';
-import { DemoTablesComponent } from './demo-tables.components';
+import { DemoTablesComponent } from './demo-tables/demo-tables.components';
 
 const data: SmzRouteData = {
   layout: {
@@ -38,6 +39,12 @@ const routes: Routes = [
         component: DemoPrimeComponent,
         data
       },
+      {
+        path: 'complex',
+        canActivate: [RbkAuthGuard],
+        component: DemoComplexTableComponent,
+        data
+      },
     ]
   }
 ];
@@ -53,7 +60,8 @@ const routes: Routes = [
   exports: [],
   declarations: [
     DemoTablesComponent,
-    DemoPrimeComponent
+    DemoPrimeComponent,
+    DemoComplexTableComponent
   ],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

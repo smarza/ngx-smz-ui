@@ -12,11 +12,13 @@ export interface ShopsDbStateModel
 {
     items: ShopListItem[];
     lastUpdated: Date | null;
+    current: ShopDetails;
 }
 
 export const getInitialState = (): ShopsDbStateModel => ({
     items: [],
-    lastUpdated: null
+    lastUpdated: null,
+    current: null
 });
 
 @State<ShopsDbStateModel>({
@@ -45,5 +47,18 @@ export class ShopsDbState
             lastUpdated: new Date()
         });
     }
+
+
+    @Action(ShopsDbActions.LoadDetails)
+    public onLoadDetails$(ctx: StateContext<ShopsDbStateModel>, action: ShopsDbActions.LoadDetails): Observable<ShopDetails>
+    {
+        return this.apiService.details(action.data.id).pipe(
+            tap((result: any) =>
+            {
+                ctx.patchState({ current: result });
+            })
+        );
+    }
+
 
 }

@@ -18,13 +18,35 @@
 
         <ng-container *ngIf="(items | cloneTableItems : context) as clonedData">
 
-        <p-table #dt [value]="clonedData.items" [(selection)]="selectedItems" dataKey="id" [styleClass]="'p-datatable-smz-ui-table' + (context.state.styles.striped ? ' p-datatable-striped' : '')" [rowHover]="context.state.actions.rowBehavior.hoverable"
-            [rows]="context.state.pagination.rows" [showCurrentPageReport]="context.state.pagination.pageReport.isVisible" [rowsPerPageOptions]="context.state.pagination.rowsPerPageOptions" [loading]="loading"
-            [paginator]="context.state.pagination.isVisible" [currentPageReportTemplate]="context.state.pagination.pageReport.template"
-            [sortField]="context.state.sort.field" [sortMode]="context.state.sort.mode"
-            [sortOrder]="context.state.sort.order" [multiSortMeta]="context.state.sort.multiSortMeta"
-            editMode="row" (onPage)="onPage($event)"
-            [filterDelay]="0" [globalFilterFields]="context.globalFilter" (selectionChange)="selectionChange.emit($event)">
+        <p-table #dt
+            dataKey="id"
+            editMode="row"
+            [value]="clonedData.items"
+            [(selection)]="selectedItems"
+
+            [styleClass]="'p-datatable-smz-ui-table' + (context.state.styles.striped ? ' p-datatable-striped' : '') + (context.state.styles.showGrid ? ' p-datatable-show-grid' : '')"
+            [rowHover]="context.state.actions.rowBehavior.hoverable"
+            [rows]="context.state.pagination.rows"
+            [showCurrentPageReport]="context.state.pagination.pageReport.isVisible"
+            [rowsPerPageOptions]="context.state.pagination.rowsPerPageOptions"
+            [loading]="loading"
+            [paginator]="context.state.pagination.isVisible"
+            [currentPageReportTemplate]="context.state.pagination.pageReport.template"
+            [sortField]="context.state.sort.field"
+            [sortMode]="context.state.sort.mode"
+            [sortOrder]="context.state.sort.order"
+            [multiSortMeta]="context.state.sort.multiSortMeta"
+            [scrollable]="context.state.viewport.scrollable"
+            [scrollHeight]="context.state.viewport.scrollHeight"
+            [filterDelay]="0"
+            [globalFilterFields]="context.globalFilter"
+
+            [resizableColumns]="context.state.viewport.resizableColumns"
+            [columnResizeMode]="context.state.viewport.columnResizeMode"
+
+            (onPage)="onPage($event)"
+            (selectionChange)="selectionChange.emit($event)"
+            >
 
             <ng-template pTemplate="caption" *ngIf="context.state.caption.isVisible">
 
@@ -32,7 +54,7 @@
                     <span class="p-col">{{ state.caption.title }}</span>
                     <ng-container *ngTemplateOutlet="captionTemplate; context: { $implicit: dt }"></ng-container>
                     <p-multiSelect
-                        *ngIf="context.state.caption.columnVisibility.showButton"
+                        *ngIf="context.state.caption.columnVisibility.showDropdownSelector"
                         class="p-ml-2 p-col-12 p-md-2"
                         styleClass="w-full"
                         [options]="state.columns"
@@ -66,30 +88,40 @@
 
             </ng-template>
 
+            <ng-template pTemplate="colgroup" let-columns>
+                <colgroup>
+                    <col *ngIf="context.state.caption.rowSelection.isEnabled" [ngStyle]="{ width: context.state.caption.rowSelection.columnWidth }">
+                    <ng-container *ngFor="let col of context.columns">
+                        <col *ngIf="col.isVisible" [ngStyle]="{ width: col.width }">
+                    </ng-container>
+                    <col *ngIf="context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible|| context.state.editable.isEditable" [ngStyle]="{ width: context.state.actions.customActions.columnWidth + 'px'}">
+                </colgroup>
+            </ng-template>
+
             <ng-template pTemplate="header">
                 <tr>
 
-                    <th [ngStyle]="{ width: context.state.caption.rowSelection.columnWidth }" *ngIf="context.state.caption.rowSelection.isEnabled">
+                    <th *ngIf="context.state.caption.rowSelection.isEnabled">
                         <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                     </th>
 
                     <ng-container *ngFor="let col of context.columns">
 
                         <ng-container *ngIf="col.isOrderable">
-                            <th [pSortableColumn]="col.field" [ngStyle]="{ width: col.width }">
+                            <th [pSortableColumn]="col.field" pResizableColumn>
                                 <ng-container *ngTemplateOutlet="headerContent"></ng-container>
                             </th>
                         </ng-container>
 
                         <ng-container *ngIf="!col.isOrderable">
-                            <th [ngStyle]="{ width: col.width }">
+                            <th pResizableColumn>
                                 <ng-container *ngTemplateOutlet="headerContent"></ng-container>
                             </th>
                         </ng-container>
 
                         <ng-template #headerContent>
                             <div class="p-d-flex p-jc-start p-ai-center">
-                                {{ col.header }}
+                                <span class="p-mr-1">{{ col.header }}</span>
                                 <p-sortIcon [field]="col.field" *ngIf="!clonedData.showSkeleton && col.isOrderable"></p-sortIcon>
 
                                 <ng-container *ngIf="!clonedData.showSkeleton">
@@ -149,12 +181,14 @@
                                     </ng-container>
                                 </ng-container>
 
+                                <button *ngIf="context.state.caption.columnVisibility.showColumnHideButton" pButton pRipple type="button" icon="far fa-eye-slash" class="p-button-rounded p-button-text p-button-plain" (click)="hideColumn(col)"></button>
+
                             </div>
                         </ng-template>
 
                     </ng-container>
 
-                    <th *ngIf="context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible|| context.state.editable.isEditable" [ngStyle]="{ width: context.state.actions.customActions.columnWidth + 'px' }"></th>
+                    <th *ngIf="context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible|| context.state.editable.isEditable"></th>
                 </tr>
             </ng-template>
 

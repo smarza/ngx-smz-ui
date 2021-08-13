@@ -176,7 +176,7 @@
     "symbol-observable" "4.0.0"
     "uuid" "8.3.2"
 
-"@angular/common@^10.0.0 || ^11.0.0 || ^12.0.0", "@angular/common@^12.0.0 || ^13.0.0-0", "@angular/common@^7.0.0 || ^8.0.0 || ^9.0.0 || ^10.0.0 || ^11.0.0", "@angular/common@>=12.0.0", "@angular/common@>=7.0.0 <=12.0.0 || ^12.0.0", "@angular/common@>=9.0.0", "@angular/common@~12.0.2", "@angular/common@11.2.14", "@angular/common@12.0.4":
+"@angular/common@^10.0.0 || ^11.0.0 || ^12.0.0", "@angular/common@^12.0.0 || ^13.0.0-0", "@angular/common@^7.0.0 || ^8.0.0 || ^9.0.0 || ^10.0.0 || ^11.0.0", "@angular/common@>=12.0.0", "@angular/common@>=7.0.0 <=12.0.0 || ^12.0.0", "@angular/common@>=8.0.0", "@angular/common@>=9.0.0", "@angular/common@~12.0.2", "@angular/common@11.2.14", "@angular/common@12.0.4":
   "integrity" "sha512-P0l5OcDdJhsURakJXxV9tGbicY8a6fEBsB+9f4iTEm36Q1FO0/7RhMMlwUDBlNK37P1oi7pEUA0mRcFIx9TOLA=="
   "resolved" "https://registry.npmjs.org/@angular/common/-/common-12.0.4.tgz"
   "version" "12.0.4"
@@ -210,7 +210,7 @@
   dependencies:
     "tslib" "^2.1.0"
 
-"@angular/core@^10.0.0 || ^11.0.0 || ^12.0.0", "@angular/core@^12.0.0 || ^13.0.0-0", "@angular/core@^7.0.0 || ^8.0.0 || ^9.0.0 || ^10.0.0 || ^11.0.0", "@angular/core@>=10.0.5", "@angular/core@>=12.0.0", "@angular/core@>=6.1.0 <13.0.0", "@angular/core@>=7.0.0 <=12.0.0 || ^12.0.0", "@angular/core@~12.0.2", "@angular/core@11.2.14", "@angular/core@12.0.4":
+"@angular/core@^10.0.0 || ^11.0.0 || ^12.0.0", "@angular/core@^12.0.0 || ^13.0.0-0", "@angular/core@^7.0.0 || ^8.0.0 || ^9.0.0 || ^10.0.0 || ^11.0.0", "@angular/core@>=10.0.5", "@angular/core@>=12.0.0", "@angular/core@>=6.1.0 <13.0.0", "@angular/core@>=7.0.0 <=12.0.0 || ^12.0.0", "@angular/core@>=8.0.0", "@angular/core@~12.0.2", "@angular/core@11.2.14", "@angular/core@12.0.4":
   "integrity" "sha512-KYFcFDot89F65CN3MzMEFoUPCVEZUkSQCLyxWfJAJT56Vtik6r91w6qwprFJ2wRk7SJ7018NLFwjZQIElj0s8A=="
   "resolved" "https://registry.npmjs.org/@angular/core/-/core-12.0.4.tgz"
   "version" "12.0.4"
@@ -3925,6 +3925,16 @@
   "resolved" "https://registry.npmjs.org/hex-color-regex/-/hex-color-regex-1.1.0.tgz"
   "version" "1.1.0"
 
+"highlight.js@^10.0.0":
+  "integrity" "sha512-tzcUFauisWKNHaRkN4Wjl/ZA07gENAjFl3J/c480dprkGTg5EQstgaNFqBfUqCq54kZRIEcreTsAgF/m2quD7A=="
+  "resolved" "https://registry.npmjs.org/highlight.js/-/highlight.js-10.7.3.tgz"
+  "version" "10.7.3"
+
+"highlightjs-line-numbers.js@^2.8.0":
+  "integrity" "sha512-TEf1gw0c8mb8nan0QwliqS7obT4cpUd9hzsGzsZLweteNnWea/VIqy5/aQqsa5wnz9lnvmtAkS1ZtDTjB/goYQ=="
+  "resolved" "https://registry.npmjs.org/highlightjs-line-numbers.js/-/highlightjs-line-numbers.js-2.8.0.tgz"
+  "version" "2.8.0"
+
 "hosted-git-info@^4.0.1":
   "integrity" "sha512-c9OGXbZ3guC/xOlCg1Ci/VgWlwsqDv1yMQL1CWqXDL0hDjXuNcq0zuR4xqPSuasI3kqFDhqSyTjREz5gzq0fXg=="
   "resolved" "https://registry.npmjs.org/hosted-git-info/-/hosted-git-info-4.0.2.tgz"
@@ -5323,6 +5333,15 @@
   "resolved" "https://registry.npmjs.org/ngx-device-detector/-/ngx-device-detector-2.1.1.tgz"
   "version" "2.1.1"
   dependencies:
+    "tslib" "^2.0.0"
+
+"ngx-highlightjs@^4.1.4":
+  "integrity" "sha512-yh5p8J+mUNHMm5kQM1CAyRdLT2KiW631l/Rky+rkxwT6NZHG80yImWXZt7RG3heTQzd1wDOWMQ8JznF3KeUv5g=="
+  "resolved" "https://registry.npmjs.org/ngx-highlightjs/-/ngx-highlightjs-4.1.4.tgz"
+  "version" "4.1.4"
+  dependencies:
+    "highlight.js" "^10.0.0"
+    "highlightjs-line-numbers.js" "^2.8.0"
     "tslib" "^2.0.0"
 
 "ngx-pipes@^2.7.3", "ngx-pipes@^2.7.5":
@@ -7092,7 +7111,7 @@
   dependencies:
     "queue-microtask" "^1.2.2"
 
-"rxjs@^6.0.0", "rxjs@^6.5.0", "rxjs@^6.5.3", "rxjs@^6.6.6", "rxjs@>=6.4.0", "rxjs@>=6.5.5", "rxjs@~6.6.0", "rxjs@6.6.7":
+"rxjs@^6.0.0", "rxjs@^6.5.0", "rxjs@^6.5.3", "rxjs@^6.6.6", "rxjs@>=6.0.0", "rxjs@>=6.4.0", "rxjs@>=6.5.5", "rxjs@~6.6.0", "rxjs@6.6.7":
   "integrity" "sha512-hTdwr+7yYNIT5n4AMYp85KA6yw2Va0FLa3Rguvbpa4W3I5xynaBZo41cM3XM+4Q6fRMj3sBYIR1VAmZMXYJvRQ=="
   "resolved" "https://registry.npmjs.org/rxjs/-/rxjs-6.6.7.tgz"
   "version" "6.6.7"
