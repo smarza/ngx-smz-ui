@@ -3,9 +3,9 @@ import { Observable } from 'rxjs';
 import { SmzContentType, SmzTableState, SmzClipboardService, SmzFilterType, SmzTableBuilder } from 'ngx-smz-ui';
 import { DemoTableDataService } from '../data-service/demo-tables-data-service';
 import { Select, Store } from '@ngxs/store';
-import { DemoFeatureSelectors } from '../../../state/demo/demo.selectors';
-import { DemoItem } from '../../../models/demo';
-import { DemoFeatureActions } from '../../../state/demo/demo.actions'
+import { DemoFeatureSelectors } from '@states/demo/demo.selectors';
+import { DemoItem } from '@models/demo';
+import { DemoFeatureActions } from '@states/demo/demo.actions'
 import { SimpleNamedEntity } from 'ngx-smz-dialogs';
 
 @Component({

@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HOME_PATH } from '@routes';
-import { DemoNestedLayout1Component } from './@core/demo-nested-routes/demo-nested-layout-1.component';
-import { DemoNestedLayout2Component } from './@core/demo-nested-routes/demo-nested-layout-2.component';
+import { DemoNestedLayout1Component } from '@features/demo-nested-routes/demo-nested-layout-1.component';
+import { DemoNestedLayout2Component } from '@features/demo-nested-routes/demo-nested-layout-2.component';
 
 const routes: Routes = [
   {
@@ -16,51 +16,51 @@ const routes: Routes = [
   },
   {
     path: 'details',
-    loadChildren: () => import('./@core/details/details.module').then(m => m.DetailsModule),
+    loadChildren: () => import('@features/details/details.module').then(m => m.DetailsModule),
   },
   {
     path: 'tables',
-    loadChildren: () => import('./@core/demo-tables/demo-tables.module').then(m => m.DemoTablesModule),
+    loadChildren: () => import('@features/demo-tables/demo-tables.module').then(m => m.DemoTablesModule),
   },
   {
     path: 'editable-table',
-    loadChildren: () => import('./@core/demo-editable-table/demo-editable-table.module').then(m => m.DemoEditableTableModule),
+    loadChildren: () => import('@features/demo-editable-table/demo-editable-table.module').then(m => m.DemoEditableTableModule),
   },
   {
     path: 'trees',
-    loadChildren: () => import('./@core/demo-trees/demo-trees.module').then(m => m.DemoTreesModule),
+    loadChildren: () => import('@features/demo-trees/demo-trees.module').then(m => m.DemoTreesModule),
   },
   {
     path: 'ng-dom',
-    loadChildren: () => import('./@core/demo-ng-dom/demo-ng-dom.module').then(m => m.DemoNgDomModule),
+    loadChildren: () => import('@features/demo-ng-dom/demo-ng-dom.module').then(m => m.DemoNgDomModule),
   },
   {
     path: 'charts',
-    loadChildren: () => import('./@core/demo-charts/demo-charts.module').then(m => m.DemoChartsModule),
+    loadChildren: () => import('./ui/features/demo-charts/demo-charts.module').then(m => m.DemoChartsModule),
   },
   {
     path: 'faqs',
-    loadChildren: () => import('./@core/demo-faqs/demo-faqs.module').then(m => m.DemoFaqsModule),
+    loadChildren: () => import('@features/demo-faqs/demo-faqs.module').then(m => m.DemoFaqsModule),
   },
   {
     path: 'landing',
-    loadChildren: () => import('./@core/landing/landing.module').then(m => m.LandingModule),
+    loadChildren: () => import('@features/landing/landing.module').then(m => m.LandingModule),
   },
   {
     path: 'side-content',
-    loadChildren: () => import('./@core/side-content/side-content.module').then(m => m.SideContentModule),
+    loadChildren: () => import('@features/side-content/side-content.module').then(m => m.SideContentModule),
   },
   {
     path: 'tag-area',
-    loadChildren: () => import('./@core/tag-area/tag-area-demo.module').then(m => m.TagAreaDemoModule),
+    loadChildren: () => import('@features/tag-area/tag-area-demo.module').then(m => m.TagAreaDemoModule),
   },
   {
     path: 'nested',
-    loadChildren: () => import('./@core/demo-nested-routes/demo-nested-routes.module').then(m => m.DemoNestedRoutesModule),
+    loadChildren: () => import('@features/demo-nested-routes/demo-nested-routes.module').then(m => m.DemoNestedRoutesModule),
   },
   {
     path: 'resolvers',
-    loadChildren: () => import('./@core/demo-resolvers/demo-resolvers.module').then(m => m.DemoResolversRoutesModule),
+    loadChildren: () => import('@features/demo-resolvers/demo-resolvers.module').then(m => m.DemoResolversRoutesModule),
   },
   {
     path: '',
@@ -80,7 +80,7 @@ const routes: Routes = [
         children: [
           {
             path: 'nested-routes',
-            loadChildren: () => import('./@core/demo-ng-dom/demo-ng-dom.module').then(m => m.DemoNgDomModule),
+            loadChildren: () => import('@features/demo-ng-dom/demo-ng-dom.module').then(m => m.DemoNgDomModule),
           },
         ]
       },

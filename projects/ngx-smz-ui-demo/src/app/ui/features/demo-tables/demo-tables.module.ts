@@ -5,7 +5,7 @@ import { RbkAuthGuard, RbkDatabaseStateGuard, UI_DEFINITIONS_STATE_NAME } from '
 import { NgxSmzTablesModule, SmzRouteData } from 'ngx-smz-ui';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
-import { CountriesDbName } from '../../state/database/countries/countries.state';
+import { CountriesDbName } from '@states/database/countries/countries.state';
 import { DemoComplexTableComponent } from './demo-complex-table/demo-complex-table.component';
 import { DemoPrimeComponent } from './demo-prime/demo-prime.component';
 import { DemoTablesComponent } from './demo-tables/demo-tables.components';

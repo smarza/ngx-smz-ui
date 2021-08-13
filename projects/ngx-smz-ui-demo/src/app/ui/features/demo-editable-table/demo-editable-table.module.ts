@@ -4,9 +4,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { RbkAuthGuard, RbkDatabaseStateGuard, UI_DEFINITIONS_STATE_NAME } from 'ngx-rbk-utils';
 import { NgxSmzTablesModule, SmzRouteData } from 'ngx-smz-ui';
 import { ButtonModule } from 'primeng/button';
-import { CountriesDbName } from '../../state/database/countries/countries.state';
-import { ShopsDbName } from '../../state/database/shops/shops.state';
-import { WarehousesDbName } from '../../state/database/warehouses/warehouses.state';
+import { CountriesDbName } from '@states/database/countries/countries.state';
+import { ShopsDbName } from '@states/database/shops/shops.state';
+import { WarehousesDbName } from '@states/database/warehouses/warehouses.state';
 
 import { DemoEditableTableComponent } from './demo-editable-table.component';
 

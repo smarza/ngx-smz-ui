@@ -3,8 +3,8 @@ import { Navigate } from '@ngxs/router-plugin';
 import { Select, Store } from '@ngxs/store';
 import { SmzTableBuilder, SmzTableState } from 'ngx-smz-ui';
 import { Observable } from 'rxjs';
-import { ShopDetails } from '../../models/shop';
-import { ShopsDbSelectors } from '../../state/database/shops/shops.selector';
+import { ShopDetails } from '@models/shop';
+import { ShopsDbSelectors } from '@states/database/shops/shops.selector';
 
 @Component({
   selector: 'app-demo-reolvers-details',

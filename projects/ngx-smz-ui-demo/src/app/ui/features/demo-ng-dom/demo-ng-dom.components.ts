@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ComponentData } from 'ngx-smz-dialogs';
 import { BehaviorSubject } from 'rxjs';
-import { NgDomService } from '../../ng-dom/ng-dom.service';
+import { NgDomService } from '../../../ng-dom/ng-dom.service';
 import { DemoNgDomContentComponent } from './demo-ng-dom-content.component';
 
 @Component({

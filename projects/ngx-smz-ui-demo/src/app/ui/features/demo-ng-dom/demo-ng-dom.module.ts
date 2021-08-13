@@ -4,11 +4,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgxSmzDataPipesModule, SmzRouteData } from 'ngx-smz-ui';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-import { NgDomModule } from '../../ng-dom/ng-dom.module';
 import { DemoNgDomContentComponent } from './demo-ng-dom-content.component';
 import { DemoNgDomComponent } from './demo-ng-dom.components';
 import { FormsModule } from '@angular/forms';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { NgDomModule } from '../../../ng-dom/ng-dom.module';
 
 const data: SmzRouteData = {
   title: 'Demo NgDom',

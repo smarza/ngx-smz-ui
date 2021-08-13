@@ -3,8 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ShopDetails } from '../../models/shop';
-import { ShopsDbSelectors } from '../../state/database/shops/shops.selector';
+import { ShopDetails } from '@models/shop';
+import { ShopsDbSelectors } from '@states/database/shops/shops.selector';
 
 @Component({
   selector: 'app-demo-reolvers-details',
