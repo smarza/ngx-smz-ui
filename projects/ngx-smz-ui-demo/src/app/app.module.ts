@@ -3,12 +3,11 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NgxSmzLayoutsModule, AthenaLayoutModule, NgxSmzFaqsModule } from 'ngx-smz-ui';
+import { NgxSmzLayoutsModule, AthenaLayoutModule, NgxSmzFaqsModule, NgxSmzDialogsModule } from 'ngx-smz-ui';
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
 import { smzAthenaConfig, smzLayoutsConfig } from '../globals/smz-layouts.config';
 import { CommonModule } from '@angular/common';
-import { NgxSmzDialogsModule } from 'ngx-smz-dialogs';
 import { ApplicationActions, buildState, NgxRbkUtilsConfig, NgxRbkUtilsModule } from 'ngx-rbk-utils';
 import { NgxsModule, Store } from '@ngxs/store';
 import { environment } from '../environments/environment';

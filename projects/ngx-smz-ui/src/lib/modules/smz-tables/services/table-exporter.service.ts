@@ -9,7 +9,7 @@
 // } from "jspdf-autotable";
 // import isDate from "lodash-es/isDate";
 // import * as moment from "moment";
-// import { SmzControlType } from 'ngx-smz-dialogs';
+// import { SmzControlType } from '../../smz-forms/models/control-types';
 // import { SmzTableContext } from '../models/table-state';
 
 // // @UntilDestroy()

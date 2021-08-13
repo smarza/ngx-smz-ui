@@ -1,4 +1,4 @@
-import { SimpleEntity } from 'ngx-smz-dialogs';
+import { SimpleEntity } from '../../../../common/models/simple-named-entity';
 import { LeftPositionType, RightPositionType, SidePositionType } from './positions';
 
 export interface Assistance {

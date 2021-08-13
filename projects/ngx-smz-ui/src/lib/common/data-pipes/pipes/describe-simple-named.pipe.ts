@@ -1,6 +1,6 @@
 import { Injectable, Pipe, PipeTransform } from '@angular/core';
 import { cloneDeep } from 'lodash-es';
-import { SimpleNamedEntity } from 'ngx-smz-dialogs';
+import { SimpleNamedEntity } from '../../models/simple-named-entity';
 
 @Pipe({
  name: 'describeSimpleNamed'

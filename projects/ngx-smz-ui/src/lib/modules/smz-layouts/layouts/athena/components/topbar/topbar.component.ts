@@ -7,11 +7,11 @@ import { UiSelectors } from '../../../../core/state/ui/ui.selectors';
 import { SmzLayoutsConfig } from '../../../../core/globals/smz-layouts.config';
 import { UiAthenaActions } from '../../state/ui-layout.actions';
 import { SmzAppLogo } from '../../../../core/models/logo';
-import { NgxRbkUtilsConfig } from 'ngx-rbk-utils';
 import { SmzNotification } from '../../../../core/models/notifications';
 import { UiAthenaSelectors } from '../../state/ui-layout.selectors';
 import { AthenaLayout } from '../../layout.config';
 import { MenuType } from '../../../../core/models/menu-types';
+import { NgxRbkUtilsConfig } from '../../../../../rbk-utils/ngx-rbk-utils.config';
 
 @UntilDestroy()
 @Component({

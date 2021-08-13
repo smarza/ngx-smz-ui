@@ -1,0 +1,88 @@
+<ng-container *ngIf="dialogConfig.data._context as context">
+
+    <p-toolbar class="smz-dialog-footer">
+        <div class="smz-group-right">
+
+            <ng-container *ngIf="context.customButtonsOrder == null || context.customButtonsOrder === 'first'">
+                <ng-container *ngFor="let customButton of context.customButtons">
+                    <p-button
+                        *ngIf="customButton.visible == null || customButton.visible"
+                        [label]="customButton.name"
+                        [ngClass]="customButton.class"
+                        [styleClass]="customButton.class"
+                        [disabled]="context.isGlobalDisabled || customButton.dependsOnValidation && !isValid() || customButton.disabled"
+                        [pTooltip]="customButton.tooltip"
+                        appendTo="body"
+                        tooltipPosition="top"
+                        (onClick)="customClick(customButton)">
+                    </p-button>
+                </ng-container>
+            </ng-container>
+
+            <p-button
+                *ngIf="context.behaviors.showCancelButton"
+                [label]="context.builtInButtons.cancelName"
+                [ngClass]="context.builtInButtons.cancelClass"
+                [styleClass]="context.builtInButtons.cancelClass"
+                (onClick)="close()">
+            </p-button>
+
+            <!-- DependsOnValidation -->
+            <p-button
+                *ngIf="context.behaviors.showConfirmButton"
+                [confirmOnEnter]="context.isLoading ? false : context.behaviors.confirmOnEnter"
+                [dialogId]="context.id"
+                [label]="context.builtInButtons.confirmName"
+                [ngClass]="context.builtInButtons.confirmClass"
+                [styleClass]="context.builtInButtons.confirmClass"
+                [disabled]="context.isGlobalDisabled"
+                (onClick)="confirm()">
+            </p-button>
+
+            <!-- DependsOnValidation -->
+            <p-button
+                *ngIf="context.behaviors.showOkButton"
+                [confirmOnEnter]="context.isLoading ? false : context.behaviors.confirmOnEnter"
+                [dialogId]="context.id"
+                [label]="context.builtInButtons.okName"
+                [ngClass]="context.builtInButtons.okClass"
+                [styleClass]="context.builtInButtons.okClass"
+                [disabled]="context.isGlobalDisabled"
+                (onClick)="ok()">
+            </p-button>
+
+            <!-- DependsOnValidation -->
+            <p-button
+                *ngIf="context.behaviors.showSaveButton"
+                [confirmOnEnter]="context.isLoading ? false : context.behaviors.confirmOnEnter"
+                [dialogId]="context.id"
+                [label]="context.builtInButtons.saveName"
+                [ngClass]="context.builtInButtons.saveClass"
+                [styleClass]="context.builtInButtons.saveClass"
+                [icon]="context.isLoading ? 'fas fa-spinner fa-spin' : ''"
+                [disabled]="context.isGlobalDisabled"
+                (onClick)="save()">
+            </p-button>
+
+            <ng-container *ngIf="context.customButtonsOrder === 'last'">
+                <ng-container *ngFor="let customButton of context.customButtons">
+
+                    <!-- DependsOnValidation -->
+                    <p-button
+                        *ngIf="customButton.visible == null || customButton.visible"
+                        [label]="customButton.name"
+                        [ngClass]="customButton.class"
+                        [styleClass]="customButton.class"
+                        [disabled]="context.isGlobalDisabled || customButton.disabled"
+                        [pTooltip]="customButton.tooltip"
+                        appendTo="body"
+                        tooltipPosition="top"
+                        (onClick)="customClick(customButton)">
+                    </p-button>
+                </ng-container>
+            </ng-container>
+
+        </div>
+    </p-toolbar>
+
+</ng-container>

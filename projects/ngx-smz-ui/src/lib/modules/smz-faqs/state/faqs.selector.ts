@@ -1,7 +1,7 @@
 import { Selector, createSelector } from '@ngxs/store';
 import { FaqsDbState, FaqsDbStateModel } from './faqs.state';
 import { DbData, FaqDetails } from '../models/faqs';
-import { deepClone } from 'ngx-rbk-utils';
+import { deepClone } from '../../rbk-utils/utils/utils';
 
 // @dynamic
 export class FaqsDbSelector

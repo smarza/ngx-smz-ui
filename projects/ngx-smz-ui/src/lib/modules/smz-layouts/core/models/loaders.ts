@@ -1,4 +1,5 @@
-import { SimpleEntity, SimpleNamedEntity } from 'ngx-smz-dialogs';
+import { SimpleEntity } from '../../../../common/models/simple-named-entity';
+
 export enum SmzLoader {
     CUBE = 'cube',
 }

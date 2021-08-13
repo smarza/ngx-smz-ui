@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { isEmpty } from 'ngx-rbk-utils';
+import { isEmpty } from '../../rbk-utils/utils/utils';
 
 
 @Pipe({

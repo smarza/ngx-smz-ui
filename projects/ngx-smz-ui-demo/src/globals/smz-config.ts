@@ -1,4 +1,4 @@
-import { SmzControlType, SmzDialogsConfig } from 'ngx-smz-dialogs';
+import { SmzControlType, SmzDialogsConfig } from 'ngx-smz-ui';
 
 export const smzDialogsConfig: SmzDialogsConfig = {
     dialogs: {

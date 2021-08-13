@@ -1,7 +1,7 @@
 import { DomPortalOutlet, ComponentPortal } from '@angular/cdk/portal';
 import { ApplicationRef, ComponentFactoryResolver, ComponentRef, Inject, Injectable, Injector } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { ComponentData, InjectableContentEntity, InjectableOutput } from 'ngx-smz-dialogs';
+import { ComponentData, InjectableContentEntity, InjectableOutput } from 'ngx-smz-ui';
 import { takeWhile } from 'rxjs/operators';
 
 @Injectable()

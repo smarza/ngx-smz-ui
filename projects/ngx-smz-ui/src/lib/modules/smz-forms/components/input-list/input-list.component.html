@@ -1,0 +1,57 @@
+<label *ngIf="!input.hideName" class="smz__input_name" [innerHTML]="input.name"></label>
+<div class="input_inner__wrapper">
+    <p-listbox
+        [options]="input.options"
+        [metaKeySelection]="false"
+        [checkbox]="false"
+        [filter]="input.showFilter"
+        optionLabel="null"
+        [listStyle]="{'height': input.height ? input.height : '200px'}"
+        [style]="{'width':'100%'}"
+        [styleClass]="!input.showAddButton && !input.showSortButton && !input.showClearButton ? 'smz__input_list smz__input_list-hide-header' + (input.options.length === 0 && input.validatorsPreset?.isRequired ? '' : ' smz__input_list-hide-footer') : 'smz__input_list' + (input.options.length === 0 && input.validatorsPreset?.isRequired ? '' : ' smz__input_list-hide-footer')"
+        [disabled]="input.isDisabled"
+        (onClick)="onClick($event)"
+        [readonly]="isInlineEditingEnabled"
+        [(ngModel)]="current">
+
+        <ng-template pTemplate="header">
+            <div class="smz__list-header">
+                <button *ngIf="input.showAddButton" pButton pRipple type="button" icon="pi pi-plus" furyClickStopPropagation class="p-nocustom p-button-rounded p-button p-button-text" (click)="onAdd()" pTooltip="Adicionar novo item"></button>
+                <button *ngIf="input.showSortButton" pButton pRipple type="button" icon="pi pi-sort-alpha-down" furyClickStopPropagation class="p-nocustom p-button-rounded p-button p-button-text" (click)="onSort()" pTooltip="Reordenar"></button>
+                <button *ngIf="input.showClearButton" pButton pRipple type="button" icon="pi pi-trash" furyClickStopPropagation class="p-nocustom p-button-rounded p-button p-button-text" (click)="onClear()" pTooltip="Limpar a lista"></button>
+            </div>
+        </ng-template>
+
+        <ng-template let-item pTemplate="item">
+            <div class="smz__list-item">
+                <ng-container *ngIf="!isInlineEditingEnabled || (isInlineEditingEnabled && current !== item)">
+                    <div class="smz__list_item-title">{{item}}</div>
+                </ng-container>
+
+                <ng-container *ngIf="isInlineEditingEnabled && current === item">
+                    <div *ngIf="editForm != null" class="smz__list_item-actions" furyClickStopPropagation>
+                        <smz-form-group [config]="editForm" furyClickStopPropagation></smz-form-group>
+                        <button pButton pRipple type="button" icon="pi pi-check" furyClickStopPropagation [disabled]="!formComponent?.isValid" class="p-nocustom inline_action_button p-button-rounded p-button-success p-button-text" (click)="onConfirmInlineEditing(item, $any(formComponent.getData().data))"></button>
+                        <button pButton pRipple type="button" icon="pi pi-times" furyClickStopPropagation class="p-nocustom inline_action_button p-button-rounded p-button-danger p-button-text" (click)="cancelEdit()"></button>
+                    </div>
+                </ng-container>
+
+                <ng-container *ngIf="current === item && !isInlineEditingEnabled">
+                    <div class="smz__list_item-actions" furyClickStopPropagation>
+                        <button *ngIf="input.showEditButton" furyClickStopPropagation pButton pRipple type="button" icon="pi pi-pencil" class="p-nocustom p-button-rounded p-button-text" (click)="onEdit(item)"></button>
+                        <button *ngIf="input.showRemoveButton" furyClickStopPropagation pButton pRipple type="button" icon="pi pi-trash" class="p-nocustom p-button-rounded p-button-text" (click)="input.askBeforeRemoveItem ? askBeforeRemove(item) : remove(item)"></button>
+                        <button *ngIf="input.showMoveButton" furyClickStopPropagation pButton pRipple type="button" icon="pi pi-arrow-up" class="p-nocustom p-button-rounded p-button-text" (click)="moveUp(item)"></button>
+                        <button *ngIf="input.showMoveButton" furyClickStopPropagation pButton pRipple type="button" icon="pi pi-arrow-down" class="p-nocustom p-button-rounded p-button-text" (click)="moveDown(item)"></button>
+                    </div>
+                </ng-container>
+
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="footer">
+            <ng-container *ngIf="input.options.length === 0 && input.validatorsPreset?.isRequired">
+                <span class="p-col-12 smz__footer-message">*Campo obrigatório</span>
+            </ng-container>
+        </ng-template>
+    </p-listbox>
+</div>

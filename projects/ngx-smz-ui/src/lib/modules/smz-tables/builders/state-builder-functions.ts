@@ -1,4 +1,5 @@
-import { InputConfig, SmzControlTypes } from 'ngx-smz-dialogs';
+import { InputConfig } from '../../smz-dialogs/builders/dialog-input-conversion';
+import { SmzControlTypes } from '../../smz-forms/models/control-types';
 import { ContentConvertions } from '../models/content-convertions';
 import { SmzTableColumn } from '../models/table-column';
 import { SmzTableState } from '../models/table-state';

@@ -3,7 +3,10 @@ import { FaqDetails, FaqCreation, FaqUpdate } from '../../models/faqs';
 import { FaqsForms } from '../../functions/faqs.forms';
 import { FaqsDialogs } from '../../functions/faqs.dialogs';
 import { FaqsManagerService } from '../../services/faqs-manager.service';
-import { Confirmable, FormGroupComponent, SmzDialogsService, SmzForm } from 'ngx-smz-dialogs';
+import { SmzForm } from '../../../smz-forms/models/smz-forms';
+import { SmzDialogsService } from '../../../smz-dialogs/services/smz-dialogs.service';
+import { FormGroupComponent } from '../../../smz-forms/features/form-group/form-group.component';
+import { Confirmable } from '../../../smz-dialogs/decorators/confirmable.decorator';
 
 @Component({
     selector: 'smz-faqs-content',

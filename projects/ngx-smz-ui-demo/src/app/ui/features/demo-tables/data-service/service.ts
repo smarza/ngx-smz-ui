@@ -1,4 +1,4 @@
-import { SimpleEntity } from 'ngx-smz-dialogs';
+import { SimpleEntity } from 'ngx-smz-ui';
 
 export interface ServiceDetails
 {

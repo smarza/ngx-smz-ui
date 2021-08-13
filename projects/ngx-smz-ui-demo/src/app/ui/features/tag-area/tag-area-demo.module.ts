@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { SmzRouteData } from 'ngx-smz-ui';
+import { SmzRouteData, NgxSmzFormsModule } from 'ngx-smz-ui';
 import { RbkAuthGuard } from 'ngx-rbk-utils';
 import { TagAreaDemoComponent } from './tag-area-demo.component';
-import { NgxSmzFormsModule } from 'ngx-smz-dialogs';
 import { ButtonModule } from 'primeng/button';
 
 const data: SmzRouteData = {

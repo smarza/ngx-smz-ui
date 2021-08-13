@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BaseApiService } from 'ngx-rbk-utils';
 import { FaqDetails, FaqCreation, FaqUpdate } from '../models/faqs';
 import { Observable } from 'rxjs';
 import { SmzFaqsConfig } from '../smz-faqs.config';
+import { BaseApiService } from '../../rbk-utils/http/base-api.service';
 
 @Injectable({
     providedIn: 'root'

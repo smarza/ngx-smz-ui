@@ -1,4 +1,4 @@
-import { SimpleNamedEntity } from 'ngx-smz-dialogs';
+import { SimpleNamedEntity } from 'ngx-smz-ui';
 
 export interface ShopListItem
 {

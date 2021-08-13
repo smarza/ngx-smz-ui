@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ValidationErrors, FormGroup } from '@angular/forms';
-import { ValidationMessage } from 'ngx-smz-dialogs';
+import { ValidationErrors } from '@angular/forms';
+import { ValidationMessage } from '../../../smz-forms/models/advanced';
 
 @Component({
     selector: 'smz-validation-messages',

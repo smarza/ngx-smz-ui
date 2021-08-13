@@ -1,4 +1,4 @@
-import { SimpleEntity, SimpleNamedEntity } from 'ngx-smz-dialogs';
+import { SimpleEntity } from '../../../../common/models/simple-named-entity';
 import { EdgePositionType } from './positions';
 
 export enum SmzToast {

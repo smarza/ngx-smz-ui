@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RbkPipesModule } from 'ngx-rbk-utils';
+import { RbkPipesModule } from '../rbk-utils/pipes/rbk-pipes.module';
 
 import { SmzHtmlViewerComponent } from './smz-html-viewer.component';
 

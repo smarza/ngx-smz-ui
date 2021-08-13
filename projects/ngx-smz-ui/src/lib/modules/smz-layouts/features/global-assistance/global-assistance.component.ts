@@ -1,7 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Select, Store } from '@ngxs/store';
-import { ApplicationActions, ApplicationSelectors, ToastActions } from 'ngx-rbk-utils';
 import { Observable } from 'rxjs';
 import { Assistance, SmzAssistanceButtonPositions, SmzAssistancePositions } from '../../core/models/assistance';
 import { SmzLoader, SmzLoaders } from '../../core/models/loaders';
@@ -12,6 +11,9 @@ import { SmzLayoutsConfig } from '../../core/globals/smz-layouts.config';
 import { SmzToast, SmzToastPositions, SmzToasts } from '../../core/models/toasts';
 import { EdgePositionType, LeftPositionType, RightPositionType, SidePositionType } from '../../core/models/positions';
 import { ColorSchemaDefinition, SmzColorSchemas } from '../../core/models/color-schemas';
+import { ApplicationSelectors } from '../../../rbk-utils/state/global/application/application.selector';
+import { ApplicationActions } from '../../../rbk-utils/state/global/application/application.actions';
+import { ToastActions } from '../../../rbk-utils/state/global/application/application.actions.toast';
 
 @UntilDestroy()
 @Component({

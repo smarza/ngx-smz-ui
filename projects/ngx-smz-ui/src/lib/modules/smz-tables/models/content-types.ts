@@ -1,5 +1,4 @@
-import { SmzControlType } from 'ngx-smz-dialogs';
-
+import { SmzControlType } from '../../smz-forms/models/control-types';
 
 export type SmzContentTypes =
   SmzTextContent |

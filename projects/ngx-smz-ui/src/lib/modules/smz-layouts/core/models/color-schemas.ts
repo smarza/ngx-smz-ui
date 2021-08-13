@@ -1,4 +1,4 @@
-import { SimpleNamedEntity } from 'ngx-smz-dialogs';
+import { SimpleNamedEntity } from '../../../../common/models/simple-named-entity';
 import { ThemeToneType } from './layout';
 
 export enum ColorSchemaDefinition {

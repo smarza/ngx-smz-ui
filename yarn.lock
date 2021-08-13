@@ -5358,7 +5358,7 @@
   dependencies:
     "tslib" "^2.0.1"
 
-"ngx-smz-dialogs@^1.1.8", "ngx-smz-dialogs@^1.5.1":
+"ngx-smz-dialogs@^1.1.8":
   "integrity" "sha512-+B4LGz5xTYaGnHNXTYsKrkNfWEAaXZR4kkdFrj64jHE3MDVKdinU7og4DarRFVfmMynlXI3ZEyH1Sm90GRLLSw=="
   "resolved" "https://registry.npmjs.org/ngx-smz-dialogs/-/ngx-smz-dialogs-1.5.1.tgz"
   "version" "1.5.1"

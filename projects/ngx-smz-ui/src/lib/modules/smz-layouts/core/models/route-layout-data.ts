@@ -1,4 +1,4 @@
-import { ReusableRouteConfig } from 'ngx-rbk-utils';
+import { ReusableRouteConfig } from '../../../rbk-utils/utils/reusable-route';
 import { FaqsRouterConfig } from '../../../smz-faqs/models/faqs';
 
 export interface SmzRouteData

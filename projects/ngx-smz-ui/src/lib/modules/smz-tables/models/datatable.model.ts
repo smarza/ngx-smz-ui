@@ -1,5 +1,5 @@
-import { SimpleNamedEntity } from 'ngx-smz-dialogs';
 import { Observable } from 'rxjs';
+import { SimpleNamedEntity } from '../../../common/models/simple-named-entity';
 
 export interface TableColumn {
     isVisible: Boolean;

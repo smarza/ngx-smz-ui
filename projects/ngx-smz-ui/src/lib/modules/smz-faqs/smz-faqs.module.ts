@@ -12,9 +12,9 @@ import { NgxsModule } from '@ngxs/store';
 import { FaqsDbState } from './state/faqs.state';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { SmzFaqsConfig } from './smz-faqs.config';
-import { NgxSmzFormsModule } from 'ngx-smz-dialogs';
 import { SmzMessagesModule } from '../smz-messages/smz-messages.module';
-import { RbkAccessControlModule } from 'ngx-rbk-utils';
+import { NgxSmzFormsModule } from '../smz-forms/smz-forms.module';
+import { RbkAccessControlModule } from '../rbk-utils/auth/guards/access-control.module';
 
 const initial: SmzFaqsConfig =
 {

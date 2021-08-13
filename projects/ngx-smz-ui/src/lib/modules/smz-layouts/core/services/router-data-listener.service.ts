@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Store } from '@ngxs/store';
-import { ApplicationActions } from 'ngx-rbk-utils';
-import { SmzDialogsService } from 'ngx-smz-dialogs';
 import { filter, map, mergeMap, tap } from 'rxjs/operators';
 import { SmzLayoutsConfig } from '../globals/smz-layouts.config';
 import { RouteLayoutData, SmzRouteData } from '../models/route-layout-data';
 import { UiActions } from '../state/ui/ui.actions';
 import { mergeClone } from '../../../../common/utils/deep-merge';
+import { SmzDialogsService } from '../../../smz-dialogs/services/smz-dialogs.service';
+import { ApplicationActions } from '../../../rbk-utils/state/global/application/application.actions';
 
 @Injectable({
   providedIn: 'root'

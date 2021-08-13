@@ -1,7 +1,6 @@
 import { Injectable, Pipe, PipeTransform } from '@angular/core';
 import { ValidationErrors } from '@angular/forms';
-import { ValidationMessage } from 'ngx-smz-dialogs';
-import { TableFormsService } from '../../services/table-forms.service';
+import { ValidationMessage } from '../../../smz-forms/models/advanced';
 
 @Pipe({
     name: 'validationMessages',

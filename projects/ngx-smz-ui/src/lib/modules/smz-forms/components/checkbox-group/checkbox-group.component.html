@@ -1,0 +1,16 @@
+<div class="p-grid p-col-12 p-col-nogutter input_inner__wrapper">
+    <label class="p-col-12" [for]="input.propertyName" [innerHTML]="input.name"></label>
+    <div class="p-col-12 flex-gap-1" fxLayoutGap="10px">
+        <ng-container *ngFor="let option of input.options">
+            <p-checkbox
+                class="smz__input_value"
+                [name]="input.propertyName"
+                [id]="input.propertyName"
+                [value]="option.id"
+                [label]="option.name"
+                [formControl]="control">
+            </p-checkbox>
+        </ng-container>
+    </div>
+    <smz-validation-messages [input]="input" [control]="control" [behaviors]="behaviors"></smz-validation-messages>
+</div>

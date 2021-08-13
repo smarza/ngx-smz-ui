@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store'; import { SmzLayoutsConfig } from '../../core/globals/smz-layouts.config';
-import { SmzControlType, SmzForm, SmzFormsResponse, SmzPasswordControl, SmzTextControl } from 'ngx-smz-dialogs';
-import { AuthenticationActions, AuthenticationSelectors } from 'ngx-rbk-utils';
 import { UiSelectors } from '../../core/state/ui/ui.selectors';
 import { Observable } from 'rxjs';
 import { SmzAppLogo } from '../../core/models/logo';
 import { SmzLoginData } from '../../core/models/login';
+import { SmzForm, SmzFormsResponse } from '../../../smz-forms/models/smz-forms';
+import { SmzControlType, SmzPasswordControl, SmzTextControl } from '../../../smz-forms/models/control-types';
+import { AuthenticationSelectors } from '../../../rbk-utils/state/global/authentication/authentication.selectors';
+import { AuthenticationActions } from '../../../rbk-utils/state/global/authentication/authentication.actions';
 
 @Component({
   selector: 'smz-ui-login',

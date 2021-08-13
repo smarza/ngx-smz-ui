@@ -1,7 +1,6 @@
 import { DemoKeys } from '@demos/demo-keys';
 import { Store } from '@ngxs/store';
-import { GlobalInjector, SmzDialogBuilder, SmzDialogsService } from 'ngx-smz-dialogs';
-import { SmzTableBuilder } from 'ngx-smz-ui';
+import { GlobalInjector, SmzDialogBuilder, SmzDialogsService, SmzTableBuilder } from 'ngx-smz-ui';
 import { DemoFeatureSelectors } from '../../state/demo/demo.selectors';
 
 const service = GlobalInjector.instance.get(SmzDialogsService);

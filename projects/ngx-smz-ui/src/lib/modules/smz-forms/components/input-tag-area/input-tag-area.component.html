@@ -1,0 +1,11 @@
+<label class="smz__input_name" [innerHTML]="input.name"></label>
+<div class="input_inner__wrapper">
+    <smz-input-tag-area
+        [rows]="input.textAreaRows != null ? input.textAreaRows : 5"
+        [control]="control"
+        [config]="input.config"
+        [id]="input.propertyName"
+        class="smz__input_value p-0 w-full">
+    </smz-input-tag-area>
+    <smz-validation-messages [input]="input" [control]="control" [behaviors]="behaviors"></smz-validation-messages>
+</div>

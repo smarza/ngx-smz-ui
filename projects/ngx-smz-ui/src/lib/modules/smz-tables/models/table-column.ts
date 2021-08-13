@@ -1,4 +1,4 @@
-import { SmzFormsValidatorsPreset } from 'ngx-smz-dialogs';
+import { SmzFormsValidatorsPreset } from '../../smz-forms/models/controls';
 import { SmzContentType, SmzContentTypes } from "./content-types";
 import { SmzEditableType, SmzEditableTypes } from "./editable-types";
 import { SmzFilterType } from "./filter-types";

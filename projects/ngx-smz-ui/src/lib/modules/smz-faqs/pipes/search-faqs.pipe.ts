@@ -1,6 +1,6 @@
 import { Injectable, Pipe, PipeTransform } from '@angular/core';
+import { deepClone, isEmpty } from '../../rbk-utils/utils/utils';
 import { FaqDetails } from '../models/faqs';
-import { deepClone, isEmpty } from 'ngx-rbk-utils';
 
 @Pipe({
     name: 'searchFaqs'

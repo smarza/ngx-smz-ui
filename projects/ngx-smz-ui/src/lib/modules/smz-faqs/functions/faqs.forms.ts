@@ -1,5 +1,7 @@
 import { Validators } from '@angular/forms';
-import { SmzControlType, SmzDialogFeature, SmzForm, SmzFormGroup, SmzTextAreaControl, SmzTextControl } from 'ngx-smz-dialogs';
+import { SmzDialogFeature } from '../../smz-dialogs/models/smz-dialogs';
+import { SmzTextControl, SmzControlType, SmzTextAreaControl } from '../../smz-forms/models/control-types';
+import { SmzForm, SmzFormGroup } from '../../smz-forms/models/smz-forms';
 import { FaqDetails } from '../models/faqs';
 
 export namespace FaqsForms

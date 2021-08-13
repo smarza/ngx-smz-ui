@@ -6,7 +6,7 @@ import { Select, Store } from '@ngxs/store';
 import { DemoFeatureSelectors } from '@states/demo/demo.selectors';
 import { DemoItem } from '@models/demo';
 import { DemoFeatureActions } from '@states/demo/demo.actions'
-import { SimpleNamedEntity } from 'ngx-smz-dialogs';
+import { SimpleNamedEntity } from 'ngx-smz-ui';
 
 @Component({
   selector: 'app-demo-tables',

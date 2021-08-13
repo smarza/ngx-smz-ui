@@ -1,4 +1,4 @@
-import { SimpleNamedEntity } from 'ngx-smz-dialogs';
+import { SimpleNamedEntity } from '../models/simple-named-entity';
 
 export type CollectionPredicate = (item?: any, index?: number, collection?: any[]) => boolean;
 

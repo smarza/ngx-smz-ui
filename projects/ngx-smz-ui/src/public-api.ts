@@ -2,6 +2,9 @@
  * Public API Surface of ngx-smz-ui
  */
 
+export * from './lib/modules/smz-dialogs/public-api';
+export * from './lib/modules/smz-forms/public-api';
+
 export * from './lib/ngx-smz-ui.component';
 export * from './lib/ngx-smz-ui.module';
 
@@ -44,3 +47,16 @@ export * from './lib/common/directives/tooltip-touch-support/tooltip-touch-suppo
 
 export * from './lib/common/directives/action-dispatch/action-dispatch.module';
 export * from './lib/common/directives/action-dispatch/action-dispatch.directive';
+
+// DIALOG STUFFS
+
+export * from './lib/common/modules/inject-content/public-api';
+export * from './lib/common/models/simple-named-entity';
+export * from './lib/common/models/templates';
+export * from './lib/common/utils/utils';
+
+export * from './lib/common/pipes/templates.pipe';
+
+// RBK
+
+export * from './lib/modules/rbk-utils/public-api';

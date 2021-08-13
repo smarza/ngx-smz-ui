@@ -1,4 +1,6 @@
-import { InputConfig, SmzControlType, SmzControlTypes, SmzDropDownControl, SmzFormsValidatorsPreset } from 'ngx-smz-dialogs';
+import { InputConfig } from '../../smz-dialogs/builders/dialog-input-conversion';
+import { SmzControlType, SmzControlTypes, SmzDropDownControl } from '../../smz-forms/models/control-types';
+import { SmzFormsValidatorsPreset } from '../../smz-forms/models/controls';
 import { SmzContentType, SmzContentTypes } from './content-types';
 import { SmzDropdownEditable, SmzEditableType, SmzEditableTypes } from './editable-types';
 import { SmzFilterType } from './filter-types';

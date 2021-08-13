@@ -7,8 +7,8 @@ import { SmzTableColumn } from '../../models/table-column';
 import { SmzEditableType } from '../../models/editable-types';
 import { TableEditableService } from '../../services/table-editable.service';
 import { TableFormsService } from '../../services/table-forms.service';
-import { SmzDialogsConfig } from 'ngx-smz-dialogs';
 import { Table } from 'primeng/table';
+import { SmzDialogsConfig } from '../../../smz-dialogs/smz-dialogs.config';
 
 @Component({
   selector: 'smz-ui-table',

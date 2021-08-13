@@ -6,11 +6,11 @@ import { Observable } from 'rxjs';
 import { UiSelectors } from '../../../../core/state/ui/ui.selectors';
 import { SmzLayoutsConfig } from '../../../../core/globals/smz-layouts.config';
 import { SmzAppLogo } from '../../../../core/models/logo';
-import { NgxRbkUtilsConfig } from 'ngx-rbk-utils';
 import { MenuType } from '../../../../core/models/menu-types';
 import { UiAthenaSelectors } from '../../state/ui-layout.selectors';
 import { AthenaLayout } from '../../layout.config';
 import { RouterState } from '@ngxs/router-plugin';
+import { NgxRbkUtilsConfig } from '../../../../../rbk-utils/ngx-rbk-utils.config';
 
 @UntilDestroy()
 @Component({

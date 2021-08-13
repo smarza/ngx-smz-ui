@@ -2,7 +2,7 @@ import { Action, State, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { SimpleNamedEntity } from 'ngx-smz-dialogs';
+import { SimpleNamedEntity } from 'ngx-smz-ui';
 import { DemoDataService } from '../../demo/demo-data.service';
 import { CountriesDbActions } from './countries.actions';
 

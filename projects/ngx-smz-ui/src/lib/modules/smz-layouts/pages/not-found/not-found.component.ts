@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NgxRbkUtilsConfig } from '../../../rbk-utils/ngx-rbk-utils.config';
 import { SmzLayoutsConfig } from '../../core/globals/smz-layouts.config';
-
-import { NgxRbkUtilsConfig } from 'ngx-rbk-utils';
 
 @Component({
   selector: 'smz-ui-not-found',

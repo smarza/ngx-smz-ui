@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroupComponent, SmzForm, SmzControlType, SmzTagAreaControl } from 'ngx-smz-dialogs';
+import { FormGroupComponent, SmzForm, SmzControlType, SmzTagAreaControl } from 'ngx-smz-ui';
 
 interface Response
 {

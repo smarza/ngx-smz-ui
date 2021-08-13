@@ -1,0 +1,15 @@
+<label class="smz__input_name" [innerHTML]="input.name"></label>
+<div class="input_inner__wrapper">
+    <p-inputMask
+        class="smz__input_value"
+        fxFlex="grow"
+        slotChar=""
+        [autoClear]="false"
+        mask="9?9999999999999999999999999999999"
+        characterPattern="([0-9])"
+        [id]="input.propertyName"
+        type="number"
+        [formControl]="control">
+    </p-inputMask>
+    <smz-validation-messages [input]="input" [control]="control" [behaviors]="behaviors"></smz-validation-messages>
+</div>

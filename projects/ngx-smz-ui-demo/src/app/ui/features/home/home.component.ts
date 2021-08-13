@@ -2,9 +2,7 @@ import { Component } from '@angular/core';
 import { TreeDemoData } from '@demos/demo-tree';
 import { DemoTreeNode } from '@models/demo';
 import { Store } from '@ngxs/store';
-import { SmzDialogsService } from 'ngx-smz-dialogs';
-import { SmzTreeBuilder, SmzTreeState } from 'ngx-smz-ui';
-import { TreeNode } from 'primeng/api/treenode';
+import { SmzTreeBuilder, SmzTreeState, SmzDialogsService } from 'ngx-smz-ui';
 import { DemoFeatureActions } from '../../../state/demo/demo.actions';
 
 @Component({

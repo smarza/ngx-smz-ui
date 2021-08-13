@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, EventEmitter, Injectable } from '@angular/core';
 import { ObjectUtils } from 'primeng/utils';
-import { isSimpleNamedEntity, setNestedObject } from '../../../common/utils/utils';
+import { isSimpleNamedEntity, removeElementFromArray, setNestedObject } from '../../../common/utils/utils';
 import { EditableChanges, EditableRowContext } from '../models/editable-model';
 import { SmzEditableType } from '../models/editable-types';
 import { SmzTableContext, SmzTableState } from '../models/table-state';
@@ -8,10 +8,10 @@ import { Table } from 'primeng/table';
 import { SmzTransactionsService } from './smz-transactions.service';
 import { takeWhile } from 'rxjs/operators';
 import { UUID } from 'angular2-uuid';
-import { Confirmable, removeElementFromArray } from 'ngx-smz-dialogs';
 import { TableFormsService } from './table-forms.service';
 import { Store } from '@ngxs/store';
-import { AuthenticationSelectors } from 'ngx-rbk-utils';
+import { Confirmable } from '../../smz-dialogs/decorators/confirmable.decorator';
+import { AuthenticationSelectors } from '../../rbk-utils/state/global/authentication/authentication.selectors';
 
 // SERVIÇO COM INSTANCIAS DIFERENTES POR TABELA
 @Injectable()

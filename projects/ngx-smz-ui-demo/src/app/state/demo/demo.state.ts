@@ -7,7 +7,7 @@ import { DemoItem } from '../../models/demo';
 import { Observable, of, throwError } from 'rxjs';
 import { DemoDataService } from './demo-data.service';
 import { catchError, tap } from 'rxjs/operators';
-import { removeElementFromArray } from 'ngx-smz-dialogs';
+import { removeElementFromArray } from 'ngx-smz-ui';
 
 export const DemoFeatureName = 'DemoFeature';
 

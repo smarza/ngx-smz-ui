@@ -1,0 +1,15 @@
+<ng-container *ngIf="behaviors?.showErrorsMethod != null ? control[behaviors.showErrorsMethod] : control[configuration.forms.behaviors.showErrorsMethod]">
+<ng-container *ngIf="(control.errors | validationMessages : input.advancedSettings?.validationMessages) as messages">
+
+    <ng-container *ngIf="messages.length === 1">
+        <ng-container *ngFor="let message of messages">
+            <span class="p-col-12 error-message">{{ message }}</span>
+        </ng-container>
+    </ng-container>
+
+    <ng-container *ngIf="messages.length > 1">
+        <span class="p-col-12 error-message asterisk" [pTooltip]="messages | describeArray">length: messages.length ..{{ configuration.forms.multipleErrorMessagesLabel }} *</span>
+    </ng-container>
+
+</ng-container>
+</ng-container>

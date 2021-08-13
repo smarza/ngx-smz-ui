@@ -3,12 +3,11 @@ import { State, Action, StateContext } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { FaqsDbActions } from './faqs.actions';
-import { isWithinTime, deepClone, } from 'ngx-rbk-utils';
 import { DbData, FaqDetails } from '../models/faqs';
 import { FaqsApiService } from '../services/faqs-api.service';
 import { SmzFaqsConfig } from '../smz-faqs.config';
-import { replaceItem } from 'ngx-smz-dialogs';
-
+import { replaceItem } from '../../../common/utils/utils';
+import { deepClone, isWithinTime } from '../../rbk-utils/utils/utils';
 
 export interface FaqsDbStateModel
 {

@@ -1,6 +1,3 @@
-import { SimpleEntity } from 'ngx-smz-dialogs';
-import { LeftPositionType, RightPositionType, SidePositionType } from './positions';
-
 export interface SmzFooter {
 
     leftSideText?: string;

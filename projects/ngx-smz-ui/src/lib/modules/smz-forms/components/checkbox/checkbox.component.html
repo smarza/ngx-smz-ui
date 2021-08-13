@@ -1,0 +1,14 @@
+<div class="p-grid p-col-12 p-col-nogutter input_inner__wrapper">
+    <div class="p-col-12" fxLayoutGap="10px">
+        <p-checkbox
+            class="smz__input_value"
+            [name]="input.propertyName"
+            [id]="input.propertyName"
+            [label]="input.name"
+            [formControl]="control"
+            (onChange)="emitChange(input, formId, $event)"
+            [binary]="true">
+        </p-checkbox>
+    </div>
+    <smz-validation-messages [input]="input" [control]="control" [behaviors]="behaviors"></smz-validation-messages>
+</div>
