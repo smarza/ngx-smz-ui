@@ -12,9 +12,10 @@ import { SetTemplateClasses } from '../../../common/pipes/templates.pipe';
 import { DynamicDialogRef } from '../dynamicdialog/dynamicdialog-ref';
 import { isArray, removeElementFromArray, uuidv4 } from '../../../common/utils/utils';
 import { SmzDialogsVisibilityService } from './smz-dialogs-visibility.service';
-import { SmzCheckBoxControl, SmzControlTypes } from '../../smz-forms/public-api';
 import { getPreset } from '../models/smz-presets';
 import { HtmlContentComponent } from '../features/html-content/html-content.component';
+import { SmzControlTypes } from '../../smz-forms/models/control-types';
+import { SmzCheckBoxControl } from '../../smz-forms/models/control-types';
 
 const FORMGROUP_BASE = 2;
 const CONFIRMATION_BASE = 4;

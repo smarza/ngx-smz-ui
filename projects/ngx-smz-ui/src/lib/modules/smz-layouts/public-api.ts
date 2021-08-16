@@ -8,7 +8,22 @@ export * from './core/models/menu-types';
 export * from './core/models/positions';
 export * from './core/models/route-layout-data';
 export * from './core/models/sidebar-states';
-export * from './core/models/color-schemas';
+
+export { ColorSchema, ColorSchemaDefinition, SmzColorSchemas } from './core/models/color-schemas';
+
+// -------------------------------------------------------
+// EXPORT COM PROBLEMAS
+// -------------------------------------------------------
+// export * from './core/models/color-schemas';
+
+// WARNING: Conflicting namespaces: "dist/ngx-smz-ui/esm2015/public-api.js" re-exports "ɵ0" from both "dist/ngx-smz-ui/esm2015/lib/modules/smz-dialogs/services/smz-dialogs.service.js" and "dist/ngx-smz-ui/esm2015/lib/modules/smz-layouts/core/models/color-schemas.js" (will be ignored)
+// WARNING: Conflicting namespaces: "dist/ngx-smz-ui/esm2015/public-api.js" re-exports "ɵ1" from both "dist/ngx-smz-ui/esm2015/lib/modules/smz-dialogs/services/smz-dialogs.service.js" and "dist/ngx-smz-ui/esm2015/lib/modules/smz-layouts/core/models/color-schemas.js" (will be ignored)
+// WARNING: Conflicting namespaces: "dist/ngx-smz-ui/esm2015/public-api.js" re-exports "ɵ2" from both "dist/ngx-smz-ui/esm2015/lib/modules/smz-dialogs/services/smz-dialogs.service.js" and "dist/ngx-smz-ui/esm2015/lib/modules/smz-layouts/core/models/color-schemas.js" (will be ignored)
+
+// color-schemas.js       >>> export { ɵ0, ɵ1, ɵ2, ɵ3 };
+// smz-dialogs.service.js >>> export { ɵ0, ɵ1, ɵ2 };
+// -------------------------------------------------------
+
 export * from './core/models/notifications';
 export * from './core/models/action-link';
 export * from './core/models/menu-creation';

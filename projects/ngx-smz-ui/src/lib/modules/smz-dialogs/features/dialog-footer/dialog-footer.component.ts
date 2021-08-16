@@ -8,8 +8,9 @@ import { Observable } from 'rxjs';
 import { catchError, take } from 'rxjs/operators';
 import { FormGroupComponent } from '../../../smz-forms/features/form-group/form-group.component';
 import { SmzForm } from '../../../smz-forms/models/smz-forms';
-import { ComponentData, InjectComponentService, ComponentDataBase } from '../../../../common/modules/inject-content/public-api';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { InjectComponentService } from '../../../../common/modules/inject-content/inject-component.service';
+import { ComponentData, ComponentDataBase } from '../../../../common/modules/inject-content/models/injectable.model';
 
 @UntilDestroy()
 @Component({
