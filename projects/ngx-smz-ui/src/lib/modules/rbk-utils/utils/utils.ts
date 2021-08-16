@@ -1,7 +1,4 @@
-import { Store } from '@ngxs/store';
-import { FormGroupConfig, SmzDialog } from 'ngx-smz-dialogs';
-import { GlobalInjector } from '../misc/global.injector';
-import { UiDefinitionsDbSelectors } from '../state/database/ui-definitions/ui-definitions.selectors';
+import { FormGroupConfig } from '../../smz-dialogs/builders/dialog-input-conversion';
 
 /*
     Replaces an item in an array by its id property

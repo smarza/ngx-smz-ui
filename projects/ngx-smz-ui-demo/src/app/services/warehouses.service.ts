@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BaseApiService } from 'ngx-rbk-utils';
+import { BaseApiService } from 'ngx-smz-ui';
 import { environment } from '../../environments/environment';
 import { Warehouse } from '../models/warehouse';
 import { Observable } from 'rxjs';

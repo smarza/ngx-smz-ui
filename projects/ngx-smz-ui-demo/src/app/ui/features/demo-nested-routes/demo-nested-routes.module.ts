@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { RbkAuthGuard } from 'ngx-rbk-utils';
+import { RbkAuthGuard } from 'ngx-smz-ui';
 import { SmzRouteData } from 'ngx-smz-ui';
 import { DemoNestedLayout1Component } from './demo-nested-layout-1.component';
 import { DemoNestedLayout2Component } from './demo-nested-layout-2.component';

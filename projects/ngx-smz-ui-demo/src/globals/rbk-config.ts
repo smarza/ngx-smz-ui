@@ -1,5 +1,5 @@
 import { environment } from '../environments/environment';
-import { NgxRbkUtilsConfig } from 'ngx-rbk-utils';
+import { NgxRbkUtilsConfig } from 'ngx-smz-ui';
 import { DemoFeatureName, DemoFeatureState, getInitialState as getFtDemoInitialState } from '../app/state/demo/demo.state';
 import { CountriesDbName, CountriesDbState, getInitialState as getDbCountriesInitialState } from '../app/state/database/countries/countries.state';
 import { CountriesDbActions } from '../app/state/database/countries/countries.actions';

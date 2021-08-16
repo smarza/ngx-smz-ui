@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DemoFaqsComponent } from './components/demo-faqs/demo-faqs.component';
 import { SmzRouteData } from 'ngx-smz-ui';
-import { RbkAuthGuard } from 'ngx-rbk-utils';
+import { RbkAuthGuard } from 'ngx-smz-ui';
 import { ButtonModule } from 'primeng/button';
 
 const data: SmzRouteData = {

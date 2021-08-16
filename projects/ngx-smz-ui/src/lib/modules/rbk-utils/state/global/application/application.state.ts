@@ -7,7 +7,8 @@ import { NgxRbkUtilsConfig } from '../../../ngx-rbk-utils.config';
 import { ToastActions } from './application.actions.toast';
 import { Navigate } from '@ngxs/router-plugin';
 import { HttpErrorHandler } from '../../../error-handler/error.handler';
-import { SmzDialog, SmzDialogsService } from 'ngx-smz-dialogs';
+import { SmzDialogsService } from '../../../../smz-dialogs/services/smz-dialogs.service';
+import { SmzDialog } from '../../../../smz-dialogs/models/smz-dialogs';
 
 export interface ApplicationStateModel {
     globalIsLoading: boolean;

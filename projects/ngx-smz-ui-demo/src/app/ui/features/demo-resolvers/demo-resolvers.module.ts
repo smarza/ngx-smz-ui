@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { RbkAuthGuard, RbkDatabaseStateGuard } from 'ngx-rbk-utils';
+import { RbkAuthGuard, RbkDatabaseStateGuard } from 'ngx-smz-ui';
 import { NgxSmzTablesModule } from 'ngx-smz-ui';
 import { ShopsDbActions } from '@states/database/shops/shops.actions';
 import { ShopsDbSelectors } from '@states/database/shops/shops.selector';

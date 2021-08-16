@@ -1,7 +1,8 @@
 import { createSelector, Selector } from '@ngxs/store';
 import { UiDefinitionsDbState, UiDefinitionsDbStateModel } from './ui-definitions.state';
 import { cloneDeep } from 'lodash-es';
-import { FormGroupConfig } from 'ngx-smz-dialogs';
+import { FormGroupConfig } from '../../../../smz-dialogs/builders/dialog-input-conversion';
+
 // @dynamic
 export class UiDefinitionsDbSelectors {
     public static single(entity: string, mode: string): (state: UiDefinitionsDbStateModel) => FormGroupConfig[] {

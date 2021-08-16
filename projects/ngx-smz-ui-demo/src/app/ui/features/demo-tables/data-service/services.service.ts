@@ -1,4 +1,4 @@
-import { BaseApiService } from 'ngx-rbk-utils';
+import { BaseApiService } from 'ngx-smz-ui';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ServiceCreation, ServiceDetails, ServiceUpdateData } from './service';

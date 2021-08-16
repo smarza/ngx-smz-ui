@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { BoilerplateService } from 'ngx-rbk-utils';
-import { MenuHelperService, ThemeManagerService } from 'ngx-smz-ui';
+import { MenuHelperService, ThemeManagerService, BoilerplateService } from 'ngx-smz-ui';
 
 const test = { status: 1 };
 

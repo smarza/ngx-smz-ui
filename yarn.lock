@@ -252,7 +252,7 @@
   dependencies:
     "tslib" "^2.1.0"
 
-"@auth0/angular-jwt@^4.0.0 || ^5.0.0", "@auth0/angular-jwt@^5.0.2":
+"@auth0/angular-jwt@^5.0.2":
   "integrity" "sha512-rSamC9mu+gUxoR86AXcIo+KD7xRIro+/iu1F2Ld85YAZEVKlpB5vYG+g0yGaEOqjtQWP/i0H6fi6XMGPVHSYYQ=="
   "resolved" "https://registry.npmjs.org/@auth0/angular-jwt/-/angular-jwt-5.0.2.tgz"
   "version" "5.0.2"
@@ -4811,7 +4811,7 @@
   dependencies:
     "p-locate" "^4.1.0"
 
-"lodash-es@^4.0.0", "lodash-es@^4.17.21":
+"lodash-es@^4.17.21":
   "integrity" "sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw=="
   "resolved" "https://registry.npmjs.org/lodash-es/-/lodash-es-4.17.21.tgz"
   "version" "4.17.21"
@@ -5351,14 +5351,7 @@
   dependencies:
     "tslib" "^2.0.0"
 
-"ngx-rbk-utils@1.4.6":
-  "integrity" "sha512-VLFuJN5INi44hJ+Pvo2z2cwa2J1aU062+zzuEJ1MmFZH4fX1Szy21SHcfN0fLTBNuUj6lj6zOBEhdez1GfAYDw=="
-  "resolved" "https://registry.npmjs.org/ngx-rbk-utils/-/ngx-rbk-utils-1.4.6.tgz"
-  "version" "1.4.6"
-  dependencies:
-    "tslib" "^2.0.1"
-
-"ngx-smz-dialogs@^1.1.8":
+"ngx-smz-dialogs@^1.5.1":
   "integrity" "sha512-+B4LGz5xTYaGnHNXTYsKrkNfWEAaXZR4kkdFrj64jHE3MDVKdinU7og4DarRFVfmMynlXI3ZEyH1Sm90GRLLSw=="
   "resolved" "https://registry.npmjs.org/ngx-smz-dialogs/-/ngx-smz-dialogs-1.5.1.tgz"
   "version" "1.5.1"
@@ -8005,7 +7998,7 @@
   "resolved" "https://registry.npmjs.org/tslib/-/tslib-1.14.1.tgz"
   "version" "1.14.1"
 
-"tslib@^2.0.0", "tslib@^2.0.1", "tslib@^2.1.0", "tslib@2.2.0":
+"tslib@^2.0.0", "tslib@^2.1.0", "tslib@2.2.0":
   "integrity" "sha512-gS9GVHRU+RGn5KQM2rllAlR3dU6m7AcpJKdtH8gFvQiC4Otgk98XnmMU+nZenHt/+VhnBPWwgrJsyrdcw6i23w=="
   "resolved" "https://registry.npmjs.org/tslib/-/tslib-2.2.0.tgz"
   "version" "2.2.0"

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DetailsComponent } from './components/details/details.component';
 import { NgxSmzTablesModule, SmzActionDispatchModule, SmzRouteData, SmzMessagesModule } from 'ngx-smz-ui';
-import { RbkAuthGuard } from 'ngx-rbk-utils';
+import { RbkAuthGuard } from 'ngx-smz-ui';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button'
 import { InputTextareaModule } from 'primeng/inputtextarea';

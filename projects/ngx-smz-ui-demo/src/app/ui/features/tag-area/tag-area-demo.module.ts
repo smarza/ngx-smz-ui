@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SmzRouteData, NgxSmzFormsModule } from 'ngx-smz-ui';
-import { RbkAuthGuard } from 'ngx-rbk-utils';
+import { RbkAuthGuard } from 'ngx-smz-ui';
 import { TagAreaDemoComponent } from './tag-area-demo.component';
 import { ButtonModule } from 'primeng/button';
 

@@ -1,7 +1,7 @@
 import { Action, State, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { DemoFeatureActions } from './demo.actions';
-import { ToastActions } from 'ngx-rbk-utils';
+import { ToastActions } from 'ngx-smz-ui';
 import { cloneDeep } from 'lodash-es';
 import { DemoItem } from '../../models/demo';
 import { Observable, of, throwError } from 'rxjs';
