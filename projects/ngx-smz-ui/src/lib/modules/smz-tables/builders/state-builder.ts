@@ -112,7 +112,11 @@ export class SmzTableBuilder {
     styles: {
       striped: false,
       showGrid: false,
-      size: 'regular'
+      size: 'regular',
+      columnsWidth: {
+        estimate: false,
+        samples: 10
+      }
     },
     viewport: {
       scrollable: false,
@@ -332,6 +336,12 @@ export class SmzTableBuilder {
 
   public setSize(size: 'small' | 'regular' | 'large'): SmzTableBuilder {
     this._state.styles.size = size;
+    return this;
+  }
+
+  public useAutoWidth(samples: number = 10): SmzTableBuilder {
+    this._state.styles.columnsWidth.estimate = true;
+    this._state.styles.columnsWidth.samples = samples;
     return this;
   }
 

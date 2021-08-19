@@ -78,18 +78,26 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
   public bind(): void {
   }
 
-  public updateColumnsVisibility(): void {
+  public updateColumnsVisibility(context: SmzTableContext): void {
     this.state.columns.forEach(x => {
       x.isVisible = this.selectedColumns?.findIndex(c => c.field === x.field) !== -1;
     });
 
     this.state = { ...this.state };
+
+    context.visibleColumns = context.columns.filter(x => this.selectedColumns.findIndex(c => c.field === x.field) !== -1);
   }
 
-  public hideColumn(column: SmzTableColumn): void {
+  public hideColumn(column: SmzTableColumn, context: SmzTableContext): void {
     const stateIndex = this.state.columns.findIndex(x => x.field === column.field);
     this.state.columns[stateIndex].isVisible = false;
-    this.state = { ...this.state };
+
+    const contextIndex = context.columns.findIndex(x => x.field === column.field);
+    context.columns[contextIndex].isVisible = false;
+
+    context.visibleColumns = context.visibleColumns.filter(x => x.field !== column.field);
+
+    // this.state = { ...this.state };
 
     if (this.selectedColumns != null) {
       this.selectedColumns = this.selectedColumns.filter(x => x.field !== column.field);

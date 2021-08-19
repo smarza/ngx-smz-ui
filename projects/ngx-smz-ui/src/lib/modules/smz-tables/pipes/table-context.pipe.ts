@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { cloneDeep } from 'lodash-es';
 import { mergeDeep } from '../../../common/utils/deep-merge';
 import { SmzContentType } from '../models/content-types';
 import { SmzFilterType } from '../models/filter-types';
@@ -143,10 +144,15 @@ export class SmzTableContextPipe implements PipeTransform {
       }
     };
 
-    return {
+    const context: SmzTableContext = {
       globalFilter,
       columns,
+      visibleColumns: cloneDeep(columns.filter(x => x.isVisible === true)),
       state: mergeDeep(state, inputState)
     };
+
+    // console.log('pipe context', context);
+
+    return context;
   }
 }

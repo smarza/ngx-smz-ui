@@ -41,6 +41,7 @@
             [filterDelay]="0"
             [globalFilterFields]="context.globalFilter"
 
+            [columns]="context.visibleColumns"
             [resizableColumns]="context.state.viewport.resizableColumns"
             [columnResizeMode]="context.state.viewport.columnResizeMode"
 
@@ -66,7 +67,7 @@
                         dataKey="field"
                         optionLabel="header"
                         [filter]="false"
-                        (onChange)="updateColumnsVisibility()"
+                        (onChange)="updateColumnsVisibility(context)"
                         pTooltip="Escolha as colunas que deseja visualizar na tabela.">
                     </p-multiSelect>
                     <button *ngIf="context.state.caption.rowSelection.isButtonVisible" pButton [label]="context.state.caption.rowSelection.label" class="p-button-outlined" icon="fas fa-check-double" (click)="onRowSelection(context)" [disabled]="clonedData.showSkeleton"></button>
@@ -92,21 +93,21 @@
             <ng-template pTemplate="colgroup" let-columns>
                 <colgroup>
                     <col *ngIf="context.state.caption.rowSelection.isEnabled" [ngStyle]="{ width: context.state.caption.rowSelection.columnWidth }">
-                    <ng-container *ngFor="let col of context.columns">
+                    <ng-container *ngFor="let col of columns">
                         <col *ngIf="col.isVisible" [ngStyle]="{ width: col.width }">
                     </ng-container>
                     <col *ngIf="context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible|| context.state.editable.isEditable" [ngStyle]="{ width: context.state.actions.customActions.columnWidth + 'px'}">
                 </colgroup>
             </ng-template>
 
-            <ng-template pTemplate="header">
+            <ng-template pTemplate="header" let-columns>
                 <tr>
 
                     <th *ngIf="context.state.caption.rowSelection.isEnabled">
                         <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                     </th>
 
-                    <ng-container *ngFor="let col of context.columns">
+                    <ng-container *ngFor="let col of columns">
 
                         <ng-container *ngIf="col.isOrderable">
                             <th [pSortableColumn]="col.field" pResizableColumn>
@@ -182,7 +183,7 @@
                                     </ng-container>
                                 </ng-container>
 
-                                <button *ngIf="context.state.caption.columnVisibility.showColumnHideButton" pButton pRipple type="button" icon="far fa-eye-slash" class="p-button-rounded p-button-text p-button-plain" (click)="hideColumn(col)"></button>
+                                <button *ngIf="context.state.caption.columnVisibility.showColumnHideButton" pButton pRipple type="button" icon="far fa-eye-slash" class="p-button-rounded p-button-text p-button-plain" (click)="hideColumn(col, context)"></button>
 
                             </div>
                         </ng-template>
@@ -193,7 +194,7 @@
                 </tr>
             </ng-template>
 
-            <ng-template pTemplate="body" let-item let-editing="editing" let-rowIndex="rowIndex">
+            <ng-template pTemplate="body" let-item let-editing="editing" let-rowIndex="rowIndex" let-columns="columns">
                 <tr #editableRowElement
                     [pEditableRow]="item"
                     tableItemAction
@@ -208,7 +209,7 @@
                         <p-tableCheckbox [value]="item"></p-tableCheckbox>
                     </td>
 
-                    <ng-container *ngFor="let col of context.columns">
+                    <ng-container *ngFor="let col of columns">
 
                         <ng-container *ngIf="clonedData.showSkeleton; else dataTemplate">
                             <td><p-skeleton width="100%" height="1rem"></p-skeleton></td>
@@ -438,9 +439,9 @@
                 </tr>
             </ng-template>
 
-            <ng-template pTemplate="emptymessage">
+            <ng-template pTemplate="emptymessage" let-columns>
                 <tr>
-                    <td [attr.colspan]="context.columns.length + ((context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible || context.state.editable.isEditable) ? 1 : 0) + (context.state.caption.rowSelection.isEnabled ? 1 : 0)" [ngStyle]="{ 'text-align': 'center' }">{{ context.state.emptyFeedback.message }}</td>
+                    <td [attr.colspan]="columns.length + ((context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible || context.state.editable.isEditable) ? 1 : 0) + (context.state.caption.rowSelection.isEnabled ? 1 : 0)" [ngStyle]="{ 'text-align': 'center' }">{{ context.state.emptyFeedback.message }}</td>
                 </tr>
             </ng-template>
         </p-table>

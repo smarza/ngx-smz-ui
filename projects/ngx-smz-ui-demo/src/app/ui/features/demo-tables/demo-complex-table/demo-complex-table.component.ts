@@ -23,13 +23,14 @@ export class DemoComplexTableComponent implements OnInit {
             .enableClearFilters()
             .usePagination()
             .setEmptyFeedbackMessage('Nenhum Resultado')
-            .enableColumnVisibility(true)
+            .enableColumnVisibility(false)
             .enableResizableColumns('expand')
             .setScrolling('flex')
             .useGridStyle()
             .setSize('large')
             .useStrippedStyle()
             .disableRowHoverEffect()
+            .useAutoWidth()
             .build();
     }
 

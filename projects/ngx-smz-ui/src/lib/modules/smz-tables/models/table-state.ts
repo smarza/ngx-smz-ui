@@ -327,11 +327,19 @@ export interface SmzTableState {
      * Use size to specify the size and spacing between rows
      */
      size?: 'small' | 'regular' | 'large';
+    /**
+     * Use columnsWidth to estimate the columns width automatically based on the items samples.
+     */
+     columnsWidth?: {
+      estimate: boolean;
+      samples: number;
+     };
   }
 }
 
 export interface SmzTableContext {
   columns: SmzTableContextColumn[];
+  visibleColumns: SmzTableContextColumn[];
   state: SmzTableState;
   globalFilter: string[];
 }
