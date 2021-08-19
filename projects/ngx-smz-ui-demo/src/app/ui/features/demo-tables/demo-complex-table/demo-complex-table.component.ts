@@ -27,6 +27,7 @@ export class DemoComplexTableComponent implements OnInit {
             .enableResizableColumns('expand')
             .setScrolling('flex')
             .useGridStyle()
+            .setSize('large')
             .useStrippedStyle()
             .disableRowHoverEffect()
             .build();

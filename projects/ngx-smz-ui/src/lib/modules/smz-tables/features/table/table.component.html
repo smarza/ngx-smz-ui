@@ -24,7 +24,7 @@
             [value]="clonedData.items"
             [(selection)]="selectedItems"
 
-            [styleClass]="'p-datatable-smz-ui-table' + (context.state.styles.striped ? ' p-datatable-striped' : '') + (context.state.styles.showGrid ? ' p-datatable-show-grid' : '')"
+            [styleClass]="'p-datatable-smz-ui-table' + (context.state.styles.striped ? ' p-datatable-striped' : '') + (context.state.styles.showGrid ? ' p-datatable-show-grid' : '') + (context.state.styles.size === 'small' ? ' p-datatable-sm' : '') + (context.state.styles.size === 'large' ? ' p-datatable-lg' : '')"
             [rowHover]="context.state.actions.rowBehavior.hoverable"
             [rows]="context.state.pagination.rows"
             [showCurrentPageReport]="context.state.pagination.pageReport.isVisible"
@@ -54,6 +54,7 @@
                     <span class="p-col">{{ state.caption.title }}</span>
                     <ng-container *ngTemplateOutlet="captionTemplate; context: { $implicit: dt }"></ng-container>
                     <p-multiSelect
+                        #columnMultiselect
                         *ngIf="context.state.caption.columnVisibility.showDropdownSelector"
                         class="p-ml-2 p-col-12 p-md-2"
                         styleClass="w-full"

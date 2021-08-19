@@ -251,6 +251,10 @@ Represents all the customizable styles of the table
      * Use showGrid to add borders between cells
      */
     showGrid?: boolean;
+    /**
+     * Use size to specify the size and spacing between rows
+     */
+     size?: 'small' | 'regular' | 'large';
 };
 ```
 

@@ -11,7 +11,7 @@ import { SmzTableState, SmzTableContext } from '../models/table-state';
 
 export class SmzTableContextPipe implements PipeTransform {
   transform(inputState: SmzTableState): SmzTableContext {
-
+    // console.log('pipe', inputState);
     if (inputState == null) return null;
 
     const globalFilter: string[] = [];

@@ -323,6 +323,10 @@ export interface SmzTableState {
      * Use showGrid to add borders between cells
      */
     showGrid?: boolean;
+    /**
+     * Use size to specify the size and spacing between rows
+     */
+     size?: 'small' | 'regular' | 'large';
   }
 }
 

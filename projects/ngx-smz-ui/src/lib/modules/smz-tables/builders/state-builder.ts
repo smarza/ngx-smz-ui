@@ -112,6 +112,7 @@ export class SmzTableBuilder {
     styles: {
       striped: false,
       showGrid: false,
+      size: 'regular'
     },
     viewport: {
       scrollable: false,
@@ -326,6 +327,11 @@ export class SmzTableBuilder {
 
   public useGridStyle(): SmzTableBuilder {
     this._state.styles.showGrid = true;
+    return this;
+  }
+
+  public setSize(size: 'small' | 'regular' | 'large'): SmzTableBuilder {
+    this._state.styles.size = size;
     return this;
   }
 

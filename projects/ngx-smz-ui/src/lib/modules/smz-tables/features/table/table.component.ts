@@ -19,6 +19,7 @@ import { SmzDialogsConfig } from '../../../smz-dialogs/smz-dialogs.config';
 export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
   @ViewChild(Table) public table: Table;
+  @ViewChild('columnMultiselect') public columnMultiselect: any;
   @Input() public state: SmzTableState;
   @Input() public items: any[] = [];
   @Input() public loading: boolean = false;
@@ -86,9 +87,13 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
   }
 
   public hideColumn(column: SmzTableColumn): void {
-    const index = this.state.columns.findIndex(x => x.field === column.field);
-    this.state.columns[index].isVisible = false;
+    const stateIndex = this.state.columns.findIndex(x => x.field === column.field);
+    this.state.columns[stateIndex].isVisible = false;
     this.state = { ...this.state };
+
+    if (this.selectedColumns != null) {
+      this.selectedColumns = this.selectedColumns.filter(x => x.field !== column.field);
+    }
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
