@@ -16,6 +16,7 @@ import { getPreset } from '../models/smz-presets';
 import { HtmlContentComponent } from '../features/html-content/html-content.component';
 import { SmzControlTypes } from '../../smz-forms/models/control-types';
 import { SmzCheckBoxControl } from '../../smz-forms/models/control-types';
+import { TableContentComponent } from '../features/table-content/table-content.component';
 
 const FORMGROUP_BASE = 2;
 const CONFIRMATION_BASE = 4;
@@ -395,7 +396,7 @@ export class SmzDialogsService
                     const tableData = feature.data as any; // SmzDialogTable;
 
                     data._context.injectables.push({
-                        component: HtmlContentComponent,
+                        component: TableContentComponent,
                         inputs: [{ data: tableData.items$, input: 'items$' }, { data: tableData.state, input: 'state' }],
                         outputs: [],
                         template: featureTemplate,

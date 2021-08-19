@@ -1,6 +1,5 @@
 import { Store } from '@ngxs/store';
-import { flatten } from 'lodash-es';
-import sortBy from 'lodash-es/sortBy';
+import { flatten, sortBy } from 'lodash-es';
 import { GlobalInjector } from '../../../../lib/common/services/global-injector';
 import { SmzMenuItem } from '../models/conditional-menu-item';
 import { defaultMapResults, EditableChanges } from '../models/editable-model';

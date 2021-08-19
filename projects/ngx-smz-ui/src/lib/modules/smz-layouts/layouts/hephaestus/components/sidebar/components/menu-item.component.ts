@@ -5,7 +5,7 @@ import { MenuItem } from 'primeng/api';
   selector: 'smz-ui-hephaestus-menu-item',
   template: `
       <li [ngClass]="{ 'active-menuitem': currentUrl | urlChecker : item.routerLink }">
-        <a class="p-ripple" [ngClass]="{ 'active-route': currentUrl | urlChecker : item.routerLink }" menuItemAction [item]="item" [tabindex]="index">
+        <a class="p-ripple" [ngClass]="{ 'active-route': currentUrl | urlChecker : item.routerLink }" menuItemAction [item]="item" [parent]="parent" [breadcrumbs]="true" [tabindex]="index">
             <i class="layout-menuitem-icon pi pi-fw" [ngClass]="item.icon"></i>
             <span class="layout-menuitem-text">{{ item.label }}</span>
             <span class="p-ink"></span>
@@ -21,6 +21,7 @@ import { MenuItem } from 'primeng/api';
 
 export class HephaestusMenuItemComponent implements OnInit {
   @Input() public item: MenuItem;
+  @Input() public parent: MenuItem;
   @Input() public index: number;
   @Input() public currentUrl: string;
   constructor() { }

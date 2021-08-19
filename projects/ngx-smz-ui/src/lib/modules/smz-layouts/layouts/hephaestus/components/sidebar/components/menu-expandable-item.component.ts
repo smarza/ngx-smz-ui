@@ -19,7 +19,7 @@ import { MenuItem } from 'primeng/api';
               <ng-container [ngSwitch]="subItem | hasChild">
 
                   <ng-container *ngSwitchCase="false">
-                      <smz-ui-hephaestus-menu-item [item]="subItem" [index]="subItemIndex" [currentUrl]="currentUrl"></smz-ui-hephaestus-menu-item>
+                      <smz-ui-hephaestus-menu-item [item]="subItem" [parent]="item" [index]="subItemIndex" [currentUrl]="currentUrl"></smz-ui-hephaestus-menu-item>
                   </ng-container>
 
                   <ng-container *ngSwitchCase="true">

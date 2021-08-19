@@ -34,7 +34,6 @@
       "lodash-es/uniqBy": "uniqBy",
       "moment": "moment",
       "ngx-device-detector": "ngxDeviceDetector",
-      "ngx-rbk-utils": "ngx-rbk-utils",
       "primeng/accordion": "accordion",
       "primeng/api": "primengapi",
       "primeng/button": "button",

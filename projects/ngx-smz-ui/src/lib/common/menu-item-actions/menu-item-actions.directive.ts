@@ -1,13 +1,17 @@
 import { Directive, EventEmitter, HostListener, Input, Output } from '@angular/core';
 import { Navigate } from '@ngxs/router-plugin';
 import { Store } from '@ngxs/store';
+import { MenuItem } from 'primeng/api';
 import { ActionLink } from '../../modules/smz-layouts/core/models/action-link';
+import { UiActions } from '../../modules/smz-layouts/core/state/ui/ui.actions';
 
 @Directive({
     selector: '[menuItemAction]'
 })
 export class MenuItemActionsDirective {
     @Input() public item: ActionLink;
+    @Input() public parent: MenuItem;
+    @Input() public breadcrumbs = false;
     @Output() public collapse: EventEmitter<void> = new EventEmitter<void>();
 
     constructor(private store: Store) {
@@ -23,12 +27,20 @@ export class MenuItemActionsDirective {
         }
         else if (this.item.routerLink != null) {
 
+            if (this.breadcrumbs) {
+                this.store.dispatch(new UiActions.SetBreadcrumbs({
+                    item: this.item,
+                    parent: this.parent
+                }));
+            }
+
             if (this.item.queryParams != null) {
                 this.store.dispatch(new Navigate([this.item.routerLink[0], this.item.queryParams]));
             }
             else {
                 this.store.dispatch(new Navigate(this.item.routerLink));
             }
+
             this.collapse.emit();
 
         }

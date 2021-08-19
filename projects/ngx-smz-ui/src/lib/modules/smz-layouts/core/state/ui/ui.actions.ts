@@ -1,3 +1,4 @@
+import { BreadcrumbsData } from '../../models/breadcrumbs';
 import { ColorSchemaDefinition } from '../../models/color-schemas';
 import { SmzLoader } from '../../models/loaders';
 import { EdgePositionType, LeftPositionType, RightPositionType, SidePositionType } from '../../models/positions';
@@ -81,6 +82,12 @@ export namespace UiActions
     export class NavigateBack
     {
         public static readonly type = '[UI] Navigate Back';
+    }
+
+    export class SetBreadcrumbs
+    {
+        public static readonly type = '[UI] SetB readcrumbs';
+        constructor(public data: BreadcrumbsData) {}
     }
 
 }

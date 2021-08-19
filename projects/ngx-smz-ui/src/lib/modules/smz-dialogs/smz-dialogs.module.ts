@@ -34,7 +34,7 @@ import { GlobalInjector } from './services/global-injector';
 import { MessagesModule } from 'primeng/messages';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { SafeContentPipeModule } from '../../common/pipes/safe-html.pipe';
-// import { NgxSmzTablesModule } from 'ngx-smz-ui';
+import { NgxSmzTablesModule } from '../smz-tables/ngx-smz-tables.module';
 import { TableContentComponent } from './features/table-content/table-content.component';
 
 const defaultDialogsModuleConfig: SmzDialogsConfig = {
@@ -107,7 +107,7 @@ const defaultDialogsModuleConfig: SmzDialogsConfig = {
         MessagesModule,
         ProgressBarModule,
         SafeContentPipeModule,
-        // NgxSmzTablesModule
+        NgxSmzTablesModule
     ],
     entryComponents: [DialogContentManagerComponent, MessageContentComponent, HtmlContentComponent, DialogFooterComponent, TableContentComponent],
     providers: [DialogService, SmzDynamicDialogConfig, DynamicDialogConfig, DynamicDialogRef],

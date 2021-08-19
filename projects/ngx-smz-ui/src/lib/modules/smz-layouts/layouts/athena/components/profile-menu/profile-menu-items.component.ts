@@ -11,7 +11,7 @@ import { SmzLayoutsConfig } from '../../../../core/globals/smz-layouts.config';
       <ng-container [ngSwitch]="item | hasChild">
 
         <ng-container *ngSwitchCase="false">
-          <a menuItemAction [item]="item" [tabindex]="index" class="clickable" (collapse)="collapse.emit()">
+          <a menuItemAction [item]="item" [parent]="null" [breadcrumbs]="false" [tabindex]="index" class="clickable" (collapse)="collapse.emit()">
             <i *ngIf="item.icon != null" class="topbar-icon pi pi-fw" [ngClass]="item.icon"></i>
             <span class="topbar-item-name" [innerHtml]="item.label"></span>
             <span *ngIf="item.badge != null" class="topbar-badge">{{ item.badge }}</span>

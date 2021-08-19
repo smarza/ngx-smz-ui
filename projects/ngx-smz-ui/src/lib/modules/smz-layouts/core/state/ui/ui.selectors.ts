@@ -4,6 +4,7 @@ import { LoaderData, ThemeToneType } from '../../models/layout';
 import { Assistance } from '../../models/assistance';
 import { SmzAppLogo } from '../../models/logo';
 import { SmzToastData } from '../../models/toasts';
+import { BreadcrumbsData } from '../../models/breadcrumbs';
 export class UiSelectors
 {
 
@@ -81,5 +82,11 @@ export class UiSelectors
     public static isMouseInApp(state: UiStateModel): boolean
     {
         return state.lastUserMouseEvent === 'mouseenter';
+    }
+
+    @Selector([UiState])
+    public static breadcrumbs(state: UiStateModel): BreadcrumbsData
+    {
+        return state.breadcrumbs;
     }
 }

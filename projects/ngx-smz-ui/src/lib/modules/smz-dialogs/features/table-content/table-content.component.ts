@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation, Input } from '@angular/core';
-// import { SmzTableState } from 'ngx-smz-ui';
 import { Observable } from 'rxjs';
+import { SmzTableState } from '../../../smz-tables/models/table-state';
 
 @Component({
     selector: 'smz-table-content',
@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 export class TableContentComponent
 {
     @Input() public items$: Observable<any[]>;
-    // @Input() public state: SmzTableState;
+    @Input() public state: SmzTableState;
     public isValid = true;
 
 }

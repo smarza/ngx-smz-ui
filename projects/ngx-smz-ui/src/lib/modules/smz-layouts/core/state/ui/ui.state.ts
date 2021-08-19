@@ -10,6 +10,7 @@ import { SmzContentTheme, SmzContentThemes } from '../../models/themes';
 import { LogoResource } from '../../models/logo';
 import { SmzToastData } from '../../models/toasts';
 import { ColorSchemaDefinition, SmzColorSchemas } from '../../models/color-schemas';
+import { BreadcrumbsData } from '../../models/breadcrumbs';
 
 export interface UiStateModel {
   assistance: Assistance;
@@ -22,6 +23,7 @@ export interface UiStateModel {
   state: LayoutState;
   appLogo: LogoResource;
   lastUserMouseEvent: 'mouseenter' | 'mouseleave';
+  breadcrumbs: BreadcrumbsData;
 }
 
 export const getInitialState = (): UiStateModel => ({
@@ -50,7 +52,11 @@ export const getInitialState = (): UiStateModel => ({
     schemaTone: null
   },
   appLogo: null,
-  lastUserMouseEvent: 'mouseenter'
+  lastUserMouseEvent: 'mouseenter',
+  breadcrumbs: {
+    item: null,
+    parent: null
+  }
 });
 
 // @dynamic
@@ -189,6 +195,15 @@ export class UiState {
   public onNavigateBack(ctx: StateContext<UiStateModel>): void {
     this.location.back();
 
+  }
+
+  @Action(UiActions.SetBreadcrumbs)
+  public onSetBreadcrumbs(ctx: StateContext<UiStateModel>, action: UiActions.SetBreadcrumbs): void {
+    const data: BreadcrumbsData = {
+      parent: { ...action.data.parent, command: undefined, items: undefined },
+      item: { ...action.data.item, command: undefined, items: undefined },
+    }
+    ctx.patchState({ breadcrumbs: cloneDeep(data) });
   }
 
 }

@@ -14,9 +14,9 @@
 
                                 <ng-container *ngSwitchCase="false">
                                     <li class="layout-root-menuitem" [ngClass]="{ 'active-menuitem' : item.expanded }">
-                                        <div class="layout-menuitem-root-text clickable" menuItemAction [item]="item" (collapse)="collapseAll(menu)">{{ item.label }}</div>
+                                        <div class="layout-menuitem-root-text clickable" menuItemAction [item]="item" [parent]="null" [breadcrumbs]="true" (collapse)="collapseAll(menu)">{{ item.label }}</div>
 
-                                        <a class="p-ripple" menuItemAction [item]="item"  (collapse)="collapseAll(menu)" [tabindex]="itemIndex" [ngClass]="{ 'active-first-route': route.url | urlChecker : item.routerLink }">
+                                        <a class="p-ripple" menuItemAction [item]="item" [parent]="null" [breadcrumbs]="true" (collapse)="collapseAll(menu)" [tabindex]="itemIndex" [ngClass]="{ 'active-first-route': route.url | urlChecker : item.routerLink }">
                                             <i *ngIf="item.icon" class="layout-menuitem-icon pi" [ngClass]="item.icon"></i>
                                             <span>{{ item.label }}</span>
                                             <span class="p-ink"></span>
