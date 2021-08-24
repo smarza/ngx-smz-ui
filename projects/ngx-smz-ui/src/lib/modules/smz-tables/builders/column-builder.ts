@@ -50,6 +50,7 @@ export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T>> {
             type: filterType
           },
           isVisible: true,
+          isFrozen: false,
           width: width
         };
 
@@ -66,6 +67,12 @@ export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T>> {
 
   public hide(): SmzBaseColumnBuilder<T> {
     this._column.isVisible = false;
+    return this;
+  }
+
+  public frozen(): SmzBaseColumnBuilder<T> {
+    this._column.isFrozen = true;
+    this._table._state.frozen.isEnabled = true;
     return this;
   }
 

@@ -37,6 +37,12 @@ export interface SmzTableColumn {
   isVisible?: boolean;
 
   /**
+   * Set the isFrozen attribute to true, and this will bring
+   * the column in the locked columns group positioned on the left in the table.
+   */
+  isFrozen?: boolean;
+
+  /**
    * Cell data template
    */
   content?: {

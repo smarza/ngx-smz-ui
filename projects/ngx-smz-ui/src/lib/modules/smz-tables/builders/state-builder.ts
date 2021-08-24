@@ -115,8 +115,12 @@ export class SmzTableBuilder {
       size: 'regular',
       columnsWidth: {
         estimate: false,
-        samples: 10
+        samples: null
       }
+    },
+    frozen: {
+      isEnabled: false,
+      width: '300px'
     },
     viewport: {
       scrollable: false,
@@ -339,9 +343,9 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public useAutoWidth(samples: number = 10): SmzTableBuilder {
+  public useAutoWidth(samplesCount?: number): SmzTableBuilder {
     this._state.styles.columnsWidth.estimate = true;
-    this._state.styles.columnsWidth.samples = samples;
+    this._state.styles.columnsWidth.samples = samplesCount;
     return this;
   }
 
@@ -452,9 +456,20 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public setScrolling(height: 'flex' | string = 'flex'): SmzTableBuilder {
+  public useScrolling(): SmzTableBuilder {
 
     this._state.viewport.scrollable = true;
+    this._state.viewport.scrollHeight = 'flex';
+
+    return this;
+  }
+
+  public setVerticalScrollHeight(height: string): SmzTableBuilder {
+
+    if (!this._state.viewport.scrollable) {
+      throw Error('You need to call \'useScrolling\' before');
+    }
+
     this._state.viewport.scrollHeight = height;
 
     return this;
@@ -462,11 +477,12 @@ export class SmzTableBuilder {
 
   public enableResizableColumns(mode: 'fit' | 'expand' = 'fit'): SmzTableBuilder {
 
+    if (!this._state.viewport.scrollable) {
+      throw Error('You need to call \'useScrolling\' before');
+    }
+
     this._state.viewport.resizableColumns = true;
     this._state.viewport.columnResizeMode = mode;
-
-    this._state.viewport.scrollable = true;
-    this._state.viewport.scrollHeight = 'flex';
 
     return this;
   }

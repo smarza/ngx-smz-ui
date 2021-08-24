@@ -63,7 +63,7 @@ export interface SmzTableState {
    */
   editable?: {
     isEditable: boolean,
-    update:{
+    update: {
       isButtonVisible: boolean;
       isButtonDisabled: boolean;
       accessClaim: string;
@@ -74,7 +74,7 @@ export interface SmzTableState {
       buttonLabel: string;
       accessClaim: string;
     },
-    remove:{
+    remove: {
       isButtonVisible: boolean;
       isButtonDisabled: boolean;
       accessClaim: string;
@@ -114,7 +114,7 @@ export interface SmzTableState {
       /**
        * Individual buttons that controls the visibility of each column
        */
-       showColumnHideButton: boolean;
+      showColumnHideButton: boolean;
     };
     /**
      * Options for the global filter
@@ -180,7 +180,7 @@ export interface SmzTableState {
   /**
    * Behavior of the initial state of the table
    */
-  initialState?:{
+  initialState?: {
     /**
      * Setup behavior when the data is still not loaded, i.e. the `items`
      * property is null. This is different from the case when there is no
@@ -201,7 +201,7 @@ export interface SmzTableState {
   /**
   * Viewport Behavior of the table
   */
-    viewport?: {
+  viewport?: {
     /**
     * when specifies, enables horizontal and/or vertical scrolling.
     */
@@ -244,7 +244,7 @@ export interface SmzTableState {
       /**
        * Button Icon
        */
-       icon?: string;
+      icon?: string;
       /**
        * Callback to be executed on the button is clicked
        */
@@ -326,20 +326,38 @@ export interface SmzTableState {
     /**
      * Use size to specify the size and spacing between rows
      */
-     size?: 'small' | 'regular' | 'large';
+    size?: 'small' | 'regular' | 'large';
     /**
      * Use columnsWidth to estimate the columns width automatically based on the items samples.
      */
-     columnsWidth?: {
+    columnsWidth?: {
       estimate: boolean;
       samples: number;
-     };
-  }
+    };
+  },
+  /**
+   * Settings for Frozen Columns
+   */
+  frozen?: {
+    /**
+     * Enables the hability to lock the frozen columns
+     * Each column has to be configurated as frozen
+     * All frozen columns will be arranged on the left part of the table
+     */
+    isEnabled?: boolean;
+    /**
+     * Set the frozen column width
+     */
+    width?: string;
+  },
+
 }
 
 export interface SmzTableContext {
   columns: SmzTableContextColumn[];
+  hideableColumns: SmzTableContextColumn[];
   visibleColumns: SmzTableContextColumn[];
+  frozenColumns: SmzTableContextColumn[];
   state: SmzTableState;
   globalFilter: string[];
 }

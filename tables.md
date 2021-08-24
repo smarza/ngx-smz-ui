@@ -265,6 +265,28 @@ Represents all the customizable styles of the table
 };
 ```
 
+## Frozen Columns
+
+Simply set the frozen attribute of the corresponding column to true, and this will bring the column in the locked columns group positioned on the left in the table.
+
+```typescript
+  /**
+   * Settings for Frozen Columns
+   */
+  frozen?: {
+    /**
+     * Enables the hability to lock the frozen columns
+     * Each column has to be configurated as frozen
+     * All frozen columns will be arranged on the left part of the table
+     */
+    isEnabled?: boolean;
+    /**
+     * Set the frozen column width
+     */
+    width?: string;
+  },
+```
+
 ## Viewport behavior
 
 This section controls the viewport state of the table.

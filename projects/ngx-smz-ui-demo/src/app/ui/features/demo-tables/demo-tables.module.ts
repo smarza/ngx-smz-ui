@@ -35,13 +35,13 @@ const routes: Routes = [
       },
       {
         path: 'prime',
-        canActivate: [RbkAuthGuard],
+        canActivate: [RbkAuthGuard, RbkDatabaseStateGuard],
         component: DemoPrimeComponent,
         data
       },
       {
         path: 'complex',
-        canActivate: [RbkAuthGuard],
+        canActivate: [RbkAuthGuard, RbkDatabaseStateGuard],
         component: DemoComplexTableComponent,
         data
       },

@@ -20,7 +20,7 @@ export class SmzTableContextPipe implements PipeTransform {
 
     let baseWidthIncrement = 0;
 
-    for (const column of inputState.columns.filter(c => c.isVisible || c.filter?.isGlobalFilterable)) {
+    for (const column of inputState.columns) {
 
       baseWidthIncrement = inputState.caption.columnVisibility?.showColumnHideButton ? 30 : 0;
       baseWidthIncrement += column.filter.type !== SmzFilterType.NONE ? 30 : 0;
@@ -59,11 +59,13 @@ export class SmzTableContextPipe implements PipeTransform {
         globalFilter.push(column.field);
       }
 
-      if (column.isVisible) {
-        columns.push(contextColumn);
-      }
+      columns.push(contextColumn);
 
     }
+
+    const visibleColumns = columns.filter(x => x.isVisible === true && !x?.isFrozen) ?? [];
+    const frozenColumns = columns.filter(x => x.isVisible === true && x?.isFrozen === true) ?? [];
+    const hideableColumns = columns.map(x => ({ ...x, disabled: x?.isFrozen })) ?? [];
 
     const state: SmzTableState = {
       actions: {
@@ -141,15 +143,22 @@ export class SmzTableContextPipe implements PipeTransform {
       },
       styles: inputState.styles ?? {
         striped: false
+      },
+      frozen: {
+        isEnabled: false,
       }
     };
 
     const context: SmzTableContext = {
       globalFilter,
       columns,
-      visibleColumns: cloneDeep(columns.filter(x => x.isVisible === true)),
+      hideableColumns: cloneDeep(hideableColumns),
+      visibleColumns: cloneDeep(visibleColumns),
+      frozenColumns: frozenColumns?.length === 0 ? null : cloneDeep(frozenColumns),
       state: mergeDeep(state, inputState)
     };
+
+    context.state.frozen.isEnabled = frozenColumns?.length > 0;
 
     // console.log('pipe context', context);
 

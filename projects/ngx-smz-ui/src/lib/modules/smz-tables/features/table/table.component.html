@@ -42,6 +42,8 @@
             [globalFilterFields]="context.globalFilter"
 
             [columns]="context.visibleColumns"
+            [frozenColumns]="context.frozenColumns"
+            [frozenWidth]="context.state.frozen.isEnabled ? context.state.frozen.width : null"
             [resizableColumns]="context.state.viewport.resizableColumns"
             [columnResizeMode]="context.state.viewport.columnResizeMode"
 
@@ -59,7 +61,7 @@
                         *ngIf="context.state.caption.columnVisibility.showDropdownSelector"
                         class="p-ml-2 p-col-12 p-md-2"
                         styleClass="w-full"
-                        [options]="state.columns"
+                        [options]="context.hideableColumns"
                         [(ngModel)]="selectedColumns"
                         placeholder="Colunas"
                         [selectedItemsLabel]="'{0} colunas visíveis'"
@@ -109,17 +111,33 @@
 
                     <ng-container *ngFor="let col of columns">
 
-                        <ng-container *ngIf="col.isOrderable">
-                            <th [pSortableColumn]="col.field" pResizableColumn>
-                                <ng-container *ngTemplateOutlet="headerContent"></ng-container>
-                            </th>
+                        <ng-container *ngIf="context.state.viewport.resizableColumns; else nonResizable">
+                            <ng-container *ngIf="col.isOrderable">
+                                <th [pSortableColumn]="col.field" pResizableColumn>
+                                    <ng-container *ngTemplateOutlet="headerContent"></ng-container>
+                                </th>
+                            </ng-container>
+
+                            <ng-container *ngIf="!col.isOrderable">
+                                <th pResizableColumn>
+                                    <ng-container *ngTemplateOutlet="headerContent"></ng-container>
+                                </th>
+                            </ng-container>
                         </ng-container>
 
-                        <ng-container *ngIf="!col.isOrderable">
-                            <th pResizableColumn>
-                                <ng-container *ngTemplateOutlet="headerContent"></ng-container>
-                            </th>
-                        </ng-container>
+                        <ng-template #nonResizable>
+                            <ng-container *ngIf="col.isOrderable">
+                                <th [pSortableColumn]="col.field">
+                                    <ng-container *ngTemplateOutlet="headerContent"></ng-container>
+                                </th>
+                            </ng-container>
+
+                            <ng-container *ngIf="!col.isOrderable">
+                                <th>
+                                    <ng-container *ngTemplateOutlet="headerContent"></ng-container>
+                                </th>
+                            </ng-container>
+                        </ng-template>
 
                         <ng-template #headerContent>
                             <div class="p-d-flex p-jc-start p-ai-center">
@@ -322,7 +340,7 @@
                                             </ng-container>
 
                                             <ng-container *ngSwitchCase="contentTypes.text">
-                                                {{ (item | tableContent : col.field).result }}
+                                                <div [innerHtml]="(item | tableContent : col.field).result"></div>
                                             </ng-container>
 
                                             <ng-container *ngSwitchCase="contentTypes.dataTransform">

@@ -48,6 +48,9 @@ export * from './lib/common/directives/tooltip-touch-support/tooltip-touch-suppo
 export * from './lib/common/directives/action-dispatch/action-dispatch.module';
 export * from './lib/common/directives/action-dispatch/action-dispatch.directive';
 
+export * from './lib/common/directives/ng-var/ng-var.module';
+export * from './lib/common/directives/ng-var/ng-var.directive';
+
 // DIALOG STUFFS
 
 export * from './lib/common/modules/inject-content/public-api';

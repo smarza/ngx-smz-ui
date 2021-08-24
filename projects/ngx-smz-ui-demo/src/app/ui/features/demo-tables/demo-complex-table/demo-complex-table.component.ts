@@ -23,11 +23,12 @@ export class DemoComplexTableComponent implements OnInit {
             .enableClearFilters()
             .usePagination()
             .setEmptyFeedbackMessage('Nenhum Resultado')
-            .enableColumnVisibility(false)
+            .enableColumnVisibility(true)
+            .useScrolling()
+            .setVerticalScrollHeight('400px')
             .enableResizableColumns('expand')
-            .setScrolling('flex')
             .useGridStyle()
-            .setSize('large')
+            .setSize('small')
             .useStrippedStyle()
             .disableRowHoverEffect()
             .useAutoWidth()
@@ -43,7 +44,7 @@ export class DemoComplexTableComponent implements OnInit {
         this.http.get<any[]>('./assets/complex-data.json').subscribe(results => {
 
             this.results = results.slice(0, 50);
-            console.log(results[0]);
+
             this.tableState.columns = this.buildColumns(results[0]);
 
             this.isDataReady = true;
@@ -55,14 +56,17 @@ export class DemoComplexTableComponent implements OnInit {
         console.groupCollapsed('buildColumns', Object.keys(element).length);
         const columns: SmzTableColumn[] = [];
         for (const key of Object.keys(element)) {
+          const isFrozen = false; // key === 'tag';
+
           columns.push({
               field: key,
               property: key,
               filter: { isGlobalFilterable: true, type: SmzFilterType.TEXT },
               header: key,
               isVisible: true,
+              isFrozen,
               content: { type: SmzContentType.TEXT, data: null },
-              width: 'fit'
+              width: 'fit',
             });
           console.log(key, columns[columns.length - 1]);
         }
