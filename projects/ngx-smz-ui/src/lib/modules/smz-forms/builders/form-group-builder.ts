@@ -7,6 +7,7 @@ import { SmzFormsBaseControl } from '../models/controls';
 import { ValidatorFn } from '@angular/forms';
 import { SmzTextPattern } from '../models/text-patterns';
 import { cloneDeep } from 'lodash-es';
+import { MustMatch } from '../../../common/utils/custom-validations';
 
 
 export class SmzFormGroupBuilder<TResponse> {
@@ -503,6 +504,39 @@ export class SmzFormGroupBuilder<TResponse> {
     return new SmzFormPasswordBuilder(this, input as SmzPasswordControl);
   }
 
+  public addPasswordConfirmation (property: string, label?: string): SmzFormPasswordBuilder<TResponse> {
+
+    let input = this.group.children.find(x => x.propertyName == property + '_confirmation');
+
+    if (input == null) {
+
+      if (label == null) {
+        throw Error('Confirmation label is required for password confirmation')
+      }
+
+      input = {
+        propertyName: property + '_confirmation', type: SmzControlType.PASSWORD, name: label,
+        defaultValue: null,
+        feedback: false,
+        toggleMask: false,
+        promptLabel: 'Confirme a senha',
+        advancedSettings: {
+          validators : [MustMatch(property)],
+          validationMessages: [{type: 'mustmatch', message: 'As senhas não são iguais.'}]
+        }
+      };
+
+      this.group.children.push(input);
+    }
+    else {
+      if (label != null) {
+        throw Error('Label come from uiDefinitions and cannot be changed.')
+      }
+    }
+
+    return new SmzFormPasswordBuilder(this, input as SmzPasswordControl);
+  }
+
   public get form(): SmzFormBuilder<TResponse> {
     return this._formBuilder;
   }
@@ -992,7 +1026,9 @@ export class SmzFormPasswordBuilder<TResponse> extends SmzFormInputBuilder<TResp
 export class SmzFormInputValidatorBuilder<TResponse> {
   constructor(public _inputBuilder: SmzFormInputBuilder<TResponse>, private _input: SmzFormsBaseControl) {
     _input.validatorsPreset = {};
-    _input.advancedSettings = { validators: [], validationMessages: [] };
+
+    _input.advancedSettings?.validators ?? [];
+    _input.advancedSettings?.validationMessages ?? [];
   }
 
   public required(): SmzFormInputValidatorBuilder<TResponse> {

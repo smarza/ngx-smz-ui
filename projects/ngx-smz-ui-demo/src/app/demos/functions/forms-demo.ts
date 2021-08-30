@@ -389,41 +389,32 @@ export const FormsDemo: { [key: string]: () => void } = {
   },
   //
   [DemoKeys.FORMS_INPUT_PASSWORD_WITH_CONFIRMATION]: () => {
-    const config = new SmzDialogBuilder<void>()
-      .setTitle(`Custom Validator Demo`)
-      .setLayout('EXTRA_SMALL', 'col-12')
-      .setLayout('LARGE', 'col-4')
-      .setLayout('EXTRA_LARGE', 'col-3')
-      .form()
-        .group()
-          .setLayout('EXTRA_SMALL', 'col-12')
-          .password('password', 'Password')
-            .validators()
-              .required()
-          .group
-          .password('confirmation', 'Confirmation')
-            .validators()
-              .required()
-              .custom(
-                (control: FormControl): { [key: string]: any } => {
-                    if (control.value === control?.parent?.controls['password']?.value) return null;
-                    return { 'passwordMatch': true };
-                  },
-                  'passwordMatch',
-                  'Password has to match')
-          .group
-        .form
-    .dialog
-      .buttons()
-        .confirm()
-          .dependsOnValidation()
-          .buttons
-        .dialog
-    .build();
-
-    console.log(config);
-
-    service.open(config);
+    service.open(
+      new SmzDialogBuilder<void>()
+        .setTitle(`Custom Validator Demo`)
+        .setLayout('EXTRA_SMALL', 'col-12')
+        .setLayout('LARGE', 'col-4')
+        .setLayout('EXTRA_LARGE', 'col-3')
+        .form()
+          .group()
+            .setLayout('EXTRA_SMALL', 'col-12')
+            .password('password', 'Password')
+              .validators()
+                .required()
+            .group
+            .addPasswordConfirmation('password', 'Confirmation')
+              .validators()
+                .required()
+            .group
+          .form
+      .dialog
+        .buttons()
+          .confirm()
+            .dependsOnValidation()
+            .buttons
+          .dialog
+      .build()
+    );
   },
 }
 
