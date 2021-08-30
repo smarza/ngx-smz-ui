@@ -72,5 +72,8 @@ export const smzDialogsConfig: SmzDialogsConfig = {
             extraSmall: { row: 'col-12', },
         },
         globalStyleScale: 0.8
+    },
+    charts: {
+        emptyMessage: 'Sem dados para exibir'
     }
 };

@@ -6,6 +6,9 @@ export class SmzDialogsConfig
 {
     public dialogs?: SmzDialogsPresets;
     public forms?: SmzFormsConfig & SmzFormsPresets;
+    public charts?: {
+        emptyMessage: string
+    };
 }
 
 export class SmzDialogsPresets

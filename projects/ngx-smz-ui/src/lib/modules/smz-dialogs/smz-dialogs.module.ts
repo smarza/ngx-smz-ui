@@ -74,7 +74,10 @@ const defaultDialogsModuleConfig: SmzDialogsConfig = {
             large: { row: 'col-6' },
         }
     },
-    forms: defaultFormsModuleConfig
+    forms: defaultFormsModuleConfig,
+    charts: {
+        emptyMessage: 'Sem dados para exibir'
+    }
 };
 
 @NgModule({

@@ -6,7 +6,8 @@ export type SmzChartTypes =
 | 'pie'
 | 'doughnut'
 | 'polarArea'
-| 'radar';
+| 'radar'
+| 'empty';
 
 export interface SmzChart {
   config: any;

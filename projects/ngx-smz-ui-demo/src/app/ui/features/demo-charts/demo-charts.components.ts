@@ -1,12 +1,12 @@
-import { Component } from '@angular/core';
-import { PrimeNGConfig } from 'primeng/api';
-import { SmzChartClickEvent } from 'ngx-smz-ui';
-import { VERTICAL_BAR, HORIZONTAL_BAR, STACKED_BAR, ROUNDED_BAR, LINE, DOUGHNUT, PIE, POLAR_AREA, COMBO, IAGM } from './data/chart-data-original';
+import { Component, ViewEncapsulation } from '@angular/core';
+import { VERTICAL_BAR, HORIZONTAL_BAR, STACKED_BAR, ROUNDED_BAR, LINE, DOUGHNUT, PIE, POLAR_AREA, COMBO, IAGM, EMPTY } from './data/chart-data-original';
 import { COMBO_CHSARP, DOUGHNUT_CSHARP, HORIZONTAL_BAR_CSHARP, IAGM_CSHARP, LINE_CSHARP, PIE_CSHARP, POLAR_AREA_CSHARP, ROUNDED_BAR_CSHARP, STACKED_BAR_CSHARP, VERTICAL_BAR_CSHARP } from './data/chart-data-csharp';
 
 @Component({
   selector: 'app-demo-charts',
   templateUrl: './demo-charts.component.html',
+  styleUrls: ['./demo-charts.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class DemoChartsComponent {
   public verticalBarChart;
@@ -19,6 +19,7 @@ export class DemoChartsComponent {
   public polarArea;
   public combochart;
   public iagmChart;
+  public emptyChart;
 
   public iagmChartCsharp;
   public combochartCsharp;
@@ -41,6 +42,7 @@ export class DemoChartsComponent {
     this.polarArea = POLAR_AREA;
     this.combochart = COMBO;
     this.iagmChart = IAGM;
+    this.emptyChart = EMPTY;
 
     this.iagmChartCsharp = IAGM_CSHARP;
     this.combochartCsharp = COMBO_CHSARP;

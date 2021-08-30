@@ -12,8 +12,9 @@ import {
 } from '@angular/core';
 import Chart from 'chart.js/auto';
 import { getRelativePosition } from 'chart.js/helpers';
+import { SmzDialogsConfig } from '../../../smz-dialogs/smz-dialogs.config';
 import { SmzChartTypes } from '../../models/chart';
-import { SmzChartClickEvent } from '../../models/chart-click-event';
+import { SmzChartInteractionEvent } from '../../models/chart-click-event';
 
 @Component({
   selector: 'smz-ui-chart',
@@ -32,9 +33,8 @@ export class SmzChartComponent implements AfterViewInit, OnDestroy {
 
   @Input() responsive: boolean = true;
 
-  @Output() chartClick: EventEmitter<SmzChartClickEvent> = new EventEmitter<
-    SmzChartClickEvent
-  >();
+  @Output() chartClick: EventEmitter<SmzChartInteractionEvent> = new EventEmitter<SmzChartInteractionEvent>();
+  @Output() chartHover: EventEmitter<SmzChartInteractionEvent> = new EventEmitter<SmzChartInteractionEvent>();
 
   private initialized: boolean;
 
@@ -43,9 +43,10 @@ export class SmzChartComponent implements AfterViewInit, OnDestroy {
 
   private _options: any = {};
 
+  public title: string;
   public chart: any;
 
-  constructor(public el: ElementRef) {}
+  constructor(public el: ElementRef, public defaultConfig: SmzDialogsConfig) {}
 
   @Input() public get data(): any {
     return this._data;
@@ -65,6 +66,8 @@ export class SmzChartComponent implements AfterViewInit, OnDestroy {
     this._options = val;
 
     if (this._options != null) {
+      this.title = this._options.plugins?.title?.text;
+console.log(this._options);
       // 'info' is an array of all elements in the clicked index
       this._options.onClick = (e, info) => {
         const canvasPosition = getRelativePosition(e, this.chart);
@@ -105,6 +108,12 @@ export class SmzChartComponent implements AfterViewInit, OnDestroy {
 
         this.chartClick.emit({ chart: this.chart, event: e, value: value });
       };
+
+      this._options.onHover = (e, dataset, chart) => {
+        this.chartHover.emit({ chart: this.chart, event: e, value: dataset });
+      };
+
+      // this._options.events = ['mousemove', 'mouseout', 'click', 'touchstart', 'touchmove'];
     }
     this.reinit();
   }

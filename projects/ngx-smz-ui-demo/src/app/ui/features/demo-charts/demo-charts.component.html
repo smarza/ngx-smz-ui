@@ -255,3 +255,22 @@
     ></smz-ui-chart>
   </div>
 </div>
+
+<hr style="width:100%;text-align:left;margin-left:0">
+
+<div class="grid grid-cols-3 gap-4 mt-4">
+  <div>
+    <h5>Empty chart - Raw model</h5>
+    <smz-ui-chart height="350"
+      [type]="emptyChart.type"
+      [options]="emptyChart.config"
+      [data]="emptyChart.data"
+    ></smz-ui-chart>
+  </div>
+  <div>
+    <h5>Basic chart - FluentAPI Typescript</h5>
+  </div>
+  <div>
+    <h5>Basic chart - FluentAPI C#</h5>
+  </div>
+</div>

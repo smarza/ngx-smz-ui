@@ -629,3 +629,20 @@ export const IAGM = {
     }
   }
 };
+
+export const EMPTY = {
+  data: null,
+  type: 'empty',
+  config: {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top'
+      },
+      title: {
+        display: true,
+        text: 'Empty chart title'
+      }
+    }
+  }
+};
