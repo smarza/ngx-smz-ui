@@ -6,6 +6,7 @@ import { SmzTemplate } from '../../../common/models/templates';
 import { SmzFormsBaseControl } from '../models/controls';
 import { ValidatorFn } from '@angular/forms';
 import { SmzTextPattern } from '../models/text-patterns';
+import { cloneDeep } from 'lodash-es';
 
 
 export class SmzFormGroupBuilder<TResponse> {
@@ -487,7 +488,8 @@ export class SmzFormGroupBuilder<TResponse> {
         mediumLabel: 'Moderada',
         strongLabel: 'Forte',
         mediumRegex: '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})',
-        strongRegex: '^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,}).'
+        strongRegex: '^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,}).',
+        advancedSettings: { validators: [] }
       };
 
       this.group.children.push(input);
@@ -990,6 +992,7 @@ export class SmzFormPasswordBuilder<TResponse> extends SmzFormInputBuilder<TResp
 export class SmzFormInputValidatorBuilder<TResponse> {
   constructor(public _inputBuilder: SmzFormInputBuilder<TResponse>, private _input: SmzFormsBaseControl) {
     _input.validatorsPreset = {};
+    _input.advancedSettings = { validators: [], validationMessages: [] };
   }
 
   public required(): SmzFormInputValidatorBuilder<TResponse> {
@@ -1012,8 +1015,13 @@ export class SmzFormInputValidatorBuilder<TResponse> {
     return this;
   }
 
-  public custom(validators: ValidatorFn[]): SmzFormInputValidatorBuilder<TResponse> {
-    this._input.advancedSettings.validators = validators;
+  public custom(validator: ValidatorFn, name?: string, message?: string): SmzFormInputValidatorBuilder<TResponse> {
+    this._input.advancedSettings.validators.push(validator);
+
+    if (name != null && message != null) {
+      this._input.advancedSettings.validationMessages.push({ type: name, message });
+    }
+
     return this;
   }
 

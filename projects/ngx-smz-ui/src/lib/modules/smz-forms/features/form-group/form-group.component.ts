@@ -91,14 +91,20 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
                     }
 
                     group.children[index].isVisible = group.children[index].isVisible == null ? true : group.children[index].isVisible;
+
                     if (presetControlType != null)
                     {
                         // console.log(presetControlType, group.children[index]);
+                        const child = group.children[index];
                         const inputRef = group.children[index]._inputFormControl;
                         group.children[index] = {
                             ...mergeClone(presetControlType, { ...group.children[index], _inputFormControl: null }),
                             _inputFormControl: inputRef
                         };
+
+                        if (group.children[index]?.advancedSettings?.validators?.length > 0) {
+                            group.children[index].advancedSettings.validators = child.advancedSettings.validators;
+                        }
                     }
                 }
 

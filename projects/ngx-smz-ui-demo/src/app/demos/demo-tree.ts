@@ -3,6 +3,7 @@ import { DemoKeys } from './demo-keys';
 import { DialogsDemo } from './functions/dialogs-demo';
 import { FormsDemo } from './functions/forms-demo';
 import { TablesDemo } from './functions/tables-demo';
+import { ValidatorsDemo } from './functions/validators-demo';
 
 export const TreeDemoData: DemoTreeNode[] = [
   {
@@ -221,15 +222,20 @@ export const TreeDemoData: DemoTreeNode[] = [
             notes: '',
             data: FormsDemo[DemoKeys.FORMS_INPUT_PASSWORD]
           },
+          {
+            label: 'Password With Confirmation', icon: 'fas fa-code', type: 'Demo',
+            notes: '',
+            data: FormsDemo[DemoKeys.FORMS_INPUT_PASSWORD_WITH_CONFIRMATION]
+          },
         ]
       },
       {
         label: 'Validators', type: 'SubCategory',
         children: [
           {
-            label: 'no name', icon: 'fas fa-code', type: 'Demo',
+            label: 'Custom Validator', icon: 'fas fa-code', type: 'Demo',
             notes: '',
-            data: null
+            data: ValidatorsDemo[DemoKeys.VALIDATORS_CUSTOM]
           },
         ]
       },

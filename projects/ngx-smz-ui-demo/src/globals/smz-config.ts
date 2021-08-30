@@ -51,6 +51,7 @@ export const smzDialogsConfig: SmzDialogsConfig = {
             { type: 'maxlength', message: 'Número máximo de caracteres ultrapassado.' },
             { type: 'min', message: 'Valor mínimo atingido' },
             { type: 'max', message: 'Valor máximo atingido' },
+            { type: 'test', message: 'Erro na validação test' },
         ],
         multipleErrorMessagesLabel: 'Multiplos erros encontrados',
         controlTypes: {
