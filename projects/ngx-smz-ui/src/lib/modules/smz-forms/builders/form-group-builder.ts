@@ -6,6 +6,8 @@ import { SmzTemplate } from '../../../common/models/templates';
 import { SmzFormsBaseControl } from '../models/controls';
 import { ValidatorFn } from '@angular/forms';
 import { SmzTextPattern } from '../models/text-patterns';
+import { cloneDeep } from 'lodash-es';
+import { MustMatch } from '../../../common/utils/custom-validations';
 
 
 export class SmzFormGroupBuilder<TResponse> {
@@ -487,7 +489,8 @@ export class SmzFormGroupBuilder<TResponse> {
         mediumLabel: 'Moderada',
         strongLabel: 'Forte',
         mediumRegex: '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})',
-        strongRegex: '^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,}).'
+        strongRegex: '^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,}).',
+        advancedSettings: { validators: [] }
       };
 
       this.group.children.push(input);
@@ -495,6 +498,39 @@ export class SmzFormGroupBuilder<TResponse> {
     else {
       if (label != null || defaultValue != null) {
         throw Error('Label and defaultValue come from uiDefinitions and cannot be changed.')
+      }
+    }
+
+    return new SmzFormPasswordBuilder(this, input as SmzPasswordControl);
+  }
+
+  public addPasswordConfirmation (property: string, label?: string): SmzFormPasswordBuilder<TResponse> {
+
+    let input = this.group.children.find(x => x.propertyName == property + '_confirmation');
+
+    if (input == null) {
+
+      if (label == null) {
+        throw Error('Confirmation label is required for password confirmation')
+      }
+
+      input = {
+        propertyName: property + '_confirmation', type: SmzControlType.PASSWORD, name: label,
+        defaultValue: null,
+        feedback: false,
+        toggleMask: false,
+        promptLabel: 'Confirme a senha',
+        advancedSettings: {
+          validators : [MustMatch(property)],
+          validationMessages: [{type: 'mustmatch', message: 'As senhas não são iguais.'}]
+        }
+      };
+
+      this.group.children.push(input);
+    }
+    else {
+      if (label != null) {
+        throw Error('Label come from uiDefinitions and cannot be changed.')
       }
     }
 
@@ -990,6 +1026,9 @@ export class SmzFormPasswordBuilder<TResponse> extends SmzFormInputBuilder<TResp
 export class SmzFormInputValidatorBuilder<TResponse> {
   constructor(public _inputBuilder: SmzFormInputBuilder<TResponse>, private _input: SmzFormsBaseControl) {
     _input.validatorsPreset = {};
+
+    _input.advancedSettings?.validators ?? [];
+    _input.advancedSettings?.validationMessages ?? [];
   }
 
   public required(): SmzFormInputValidatorBuilder<TResponse> {
@@ -1012,8 +1051,13 @@ export class SmzFormInputValidatorBuilder<TResponse> {
     return this;
   }
 
-  public custom(validators: ValidatorFn[]): SmzFormInputValidatorBuilder<TResponse> {
-    this._input.advancedSettings.validators = validators;
+  public custom(validator: ValidatorFn, name?: string, message?: string): SmzFormInputValidatorBuilder<TResponse> {
+    this._input.advancedSettings.validators.push(validator);
+
+    if (name != null && message != null) {
+      this._input.advancedSettings.validationMessages.push({ type: name, message });
+    }
+
     return this;
   }
 

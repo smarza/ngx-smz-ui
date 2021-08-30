@@ -23,10 +23,13 @@ export class SmzFormsManagerService
         const input = control.validatorsPreset;
 
         const isRequired = this.checkValidatorPreset(config.isRequired, input?.isRequired);
-        // console.log(input);
+        // console.groupCollapsed('getValidators');
+        // console.log('control', control);
+        // console.log('input', input);
         // console.log('config.isRequired', config.isRequired);
         // console.log('input?.isRequired', input?.isRequired);
         // console.log('isRequired', isRequired);
+        // console.groupEnd();
         if (isRequired != null) validators.push(Validators.required);
 
         const min = this.checkValidatorPreset(config.min, input?.min);
