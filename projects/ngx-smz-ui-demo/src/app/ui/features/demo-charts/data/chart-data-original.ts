@@ -631,18 +631,57 @@ export const IAGM = {
 };
 
 export const EMPTY = {
-  data: null,
+  data: {
+    datasets: [
+      {
+        backgroundColor: [],
+        hoverBackgroundColor: [],
+        data: [],
+        extra: [],
+        id: '',
+        normalized: true
+      }
+    ],
+    labels: []
+  },
   type: 'empty',
   config: {
     responsive: true,
+    maintainAspectRatio: false,
+    layout: {
+      padding: {
+        top: 48,
+        right: 0,
+        bottom: 48,
+        left: 0
+      }
+    },
+    interaction: {
+      intersect: false,
+      mode: 'nearest',
+      axis: 'xy'
+    },
     plugins: {
+      tooltip: {
+        intersect: false,
+        enabled: true,
+        mode: 'nearest'
+      },
       legend: {
-        position: 'top'
+        display: false
       },
       title: {
+        color: 'cornflowerblue',
         display: true,
-        text: 'Empty chart title'
-      }
+        font: {
+          size: 16,
+        },
+        padding: { top: 20, left: 0, right: 0, bottom: 20 },
+        text: 'Empty chart',
+        align: 'center',
+      },
     }
-  }
+  },
+  allowEmpty: false
 };
+
