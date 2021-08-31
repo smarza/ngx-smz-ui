@@ -7,7 +7,7 @@
 </div>
 
 <ng-container *ngIf="type === 'empty'" >
-    <div style="position:relative"
+    <div class="relative h-full"
         [ngStyle]="{ height: responsive && !height ? 'auto' : height + 'px', width: responsive && !width ? 'auto' : width + 'px'}">
         <div class="text-center smz-chart-title">{{title}}</div>
         <div class="p-grid p-nogutter p-flex-column gap-3 p-align-center p-justify-center h-full">
