@@ -36,8 +36,6 @@ export class SmzChartComponent implements AfterViewInit, OnDestroy {
   @Output() chartClick: EventEmitter<SmzChartInteractionEvent> = new EventEmitter<SmzChartInteractionEvent>();
   @Output() chartHover: EventEmitter<SmzChartInteractionEvent> = new EventEmitter<SmzChartInteractionEvent>();
 
-  private initialized: boolean;
-
   private _originalData: any;
   private _data: any;
 
@@ -67,7 +65,7 @@ export class SmzChartComponent implements AfterViewInit, OnDestroy {
 
     if (this._options != null) {
       this.title = this._options.plugins?.title?.text;
-console.log(this._options);
+
       // 'info' is an array of all elements in the clicked index
       this._options.onClick = (e, info) => {
         const canvasPosition = getRelativePosition(e, this.chart);
@@ -120,10 +118,11 @@ console.log(this._options);
 
   public ngAfterViewInit(): void {
     this.initChart();
-    this.initialized = true;
   }
 
   public initChart(): void {
+    if (this.type === 'empty') return;
+
     let opts = this.options || {};
     opts.responsive = this.responsive;
 
@@ -170,7 +169,6 @@ console.log(this._options);
   public ngOnDestroy(): void {
     if (this.chart) {
       this.chart.destroy();
-      this.initialized = false;
       this.chart = null;
     }
   }
