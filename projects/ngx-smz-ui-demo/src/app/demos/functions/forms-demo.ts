@@ -341,6 +341,7 @@ export const FormsDemo: { [key: string]: () => void } = {
             .group
               .file('file', 'Confirmação')
               .useBinaryFormat()
+              .acceptImages()
               .validators()
               .required()
             .group

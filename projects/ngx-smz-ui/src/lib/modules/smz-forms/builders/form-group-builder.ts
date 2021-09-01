@@ -796,7 +796,7 @@ export class SmzFormFileBuilder<TResponse> extends SmzFormInputBuilder<TResponse
     super(_groupBuilder, _fileInput);
   }
 
-  public acceptImages(): SmzFormInputBuilder<TResponse> {
+  public acceptImages(): SmzFormFileBuilder<TResponse> {
     if(this._fileInput.fileAccept == null) {
       this._fileInput.fileAccept = 'image/*';
     }
@@ -806,7 +806,7 @@ export class SmzFormFileBuilder<TResponse> extends SmzFormInputBuilder<TResponse
     return this;
   }
 
-  public acceptPdf(): SmzFormInputBuilder<TResponse> {
+  public acceptPdf(): SmzFormFileBuilder<TResponse> {
     if(this._fileInput.fileAccept == null) {
       this._fileInput.fileAccept = 'application/pdf';
     }
@@ -816,7 +816,7 @@ export class SmzFormFileBuilder<TResponse> extends SmzFormInputBuilder<TResponse
     return this;
   }
 
-  public acceptXlsx(): SmzFormInputBuilder<TResponse> {
+  public acceptXlsx(): SmzFormFileBuilder<TResponse> {
     if(this._fileInput.fileAccept == null) {
       this._fileInput.fileAccept = 'application/xlsx';
     }
@@ -826,7 +826,7 @@ export class SmzFormFileBuilder<TResponse> extends SmzFormInputBuilder<TResponse
     return this;
   }
 
-  public acceptCsv(): SmzFormInputBuilder<TResponse> {
+  public acceptCsv(): SmzFormFileBuilder<TResponse> {
     if(this._fileInput.fileAccept == null) {
       this._fileInput.fileAccept = 'application/csv';
     }
@@ -836,7 +836,7 @@ export class SmzFormFileBuilder<TResponse> extends SmzFormInputBuilder<TResponse
     return this;
   }
 
-  public accept(formats: string): SmzFormInputBuilder<TResponse> {
+  public accept(formats: string): SmzFormFileBuilder<TResponse> {
     if(this._fileInput.fileAccept != null) {
       throw Error('This method can´t be used together with other accept method.');
     }
@@ -844,42 +844,42 @@ export class SmzFormFileBuilder<TResponse> extends SmzFormInputBuilder<TResponse
     return this;
   }
 
-  public useBinaryFormat(): SmzFormInputBuilder<TResponse> {
+  public useBinaryFormat(): SmzFormFileBuilder<TResponse> {
     this._fileInput.outputFormat = 'file';
     return this;
   }
 
-  public maxSize(size: number): SmzFormInputBuilder<TResponse> {
+  public maxSize(size: number): SmzFormFileBuilder<TResponse> {
     this._fileInput.maxFileSize = size;
     return this;
   }
 
-  public thumbnailSize(size: string): SmzFormInputBuilder<TResponse> {
+  public thumbnailSize(size: string): SmzFormFileBuilder<TResponse> {
     this._fileInput.thumbnailSize = size;
     return this;
   }
 
-  public disableZoom(): SmzFormInputBuilder<TResponse> {
+  public disableZoom(): SmzFormFileBuilder<TResponse> {
     this._fileInput.allowZoom = false;
     return this;
   }
 
-  public hideFileSize(): SmzFormInputBuilder<TResponse> {
+  public hideFileSize(): SmzFormFileBuilder<TResponse> {
     this._fileInput.showFileSize = false;
     return this;
   }
 
-  public dragIconClass(className: string): SmzFormInputBuilder<TResponse> {
+  public dragIconClass(className: string): SmzFormFileBuilder<TResponse> {
     this._fileInput.dragIconClass = className;
     return this;
   }
 
-  public inputMessage(message: string): SmzFormInputBuilder<TResponse> {
+  public inputMessage(message: string): SmzFormFileBuilder<TResponse> {
     this._fileInput.inputMessage = message;
     return this;
   }
 
-  public maxDisplayName(length: number, separator: string = '...'): SmzFormInputBuilder<TResponse> {
+  public maxDisplayName(length: number, separator: string = '...'): SmzFormFileBuilder<TResponse> {
     this._fileInput.shortenLength = length;
     this._fileInput.shortenSeparator = separator;
     return this;
