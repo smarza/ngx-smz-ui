@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { RbkAuthGuard, RbkDatabaseStateGuard, UI_DEFINITIONS_STATE_NAME } from 'ngx-smz-ui';
 import { CodeBlockModule } from '../../components/code-block/code-block.module';
 import { DemoTitlePipeModule } from '../../pipes/demo-title.pipe';
+import { CountriesDbName } from '@states/database/countries/countries.state';
 
 const data: SmzRouteData = {
   layout: {
@@ -15,7 +16,7 @@ const data: SmzRouteData = {
   title: 'Home',
   appArea: 'home',
   clearReusableRoutes: true,
-  requiredStates: [UI_DEFINITIONS_STATE_NAME]
+  requiredStates: [UI_DEFINITIONS_STATE_NAME, CountriesDbName]
 };
 
 const routes: Routes = [

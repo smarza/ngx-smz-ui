@@ -11,6 +11,21 @@ export const TreeDemoData: DemoTreeNode[] = [
     type: 'Category',
     children: [
       {
+        label: 'Ui Definitions', type: 'SubCategory',
+        children: [
+          {
+            label: 'Create', icon: 'fas fa-code', type: 'Demo',
+            notes: '',
+            data: DialogsDemo[DemoKeys.DIALOGS_FROM_UI_DEFINITION_CREATE]
+          },
+          {
+            label: 'Update', icon: 'fas fa-code', type: 'Demo',
+            notes: '',
+            data: DialogsDemo[DemoKeys.DIALOGS_FROM_UI_DEFINITION_UPDATE]
+          },
+        ]
+      },
+      {
         label: 'Header', type: 'SubCategory',
         children: [
           {
@@ -114,6 +129,21 @@ export const TreeDemoData: DemoTreeNode[] = [
     label: 'Forms',
     type: 'Category',
     children: [
+      {
+        label: 'Ui Definitions', type: 'SubCategory',
+        children: [
+          {
+            label: 'Create', icon: 'fas fa-code', type: 'Demo',
+            notes: '',
+            data: FormsDemo[DemoKeys.FORMS_FROM_UI_DEFINITION_CREATE]
+          },
+          {
+            label: 'Update', icon: 'fas fa-code', type: 'Demo',
+            notes: '',
+            data: FormsDemo[DemoKeys.FORMS_FROM_UI_DEFINITION_UPDATE]
+          },
+        ]
+      },
       {
         label: 'Behaviors', type: 'SubCategory',
         children: [

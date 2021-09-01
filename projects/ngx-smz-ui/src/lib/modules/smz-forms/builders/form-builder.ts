@@ -4,6 +4,7 @@ import { GlobalInjector } from '../../smz-dialogs/services/global-injector';
 import { SmzDialogsConfig } from '../../smz-dialogs/smz-dialogs.config';
 import { SmzForm, SmzFormGroup } from '../models/smz-forms';
 import { SmzFormGroupBuilder } from './form-group-builder';
+import { SmzFormUiDefinitionBuilder } from './form-ui-definition-builder';
 
 export class SmzFormBuilder<TResponse> {
   private defaultConfig = GlobalInjector.instance.get(SmzDialogsConfig);
@@ -25,6 +26,8 @@ export class SmzFormBuilder<TResponse> {
       ...this.defaultConfig?.forms?.behaviors
     },
   };
+
+  public createdByUiDefinitions = false;
 
   constructor(public _dialogBuilder: SmzDialogBuilder<TResponse> = null, state: SmzForm<TResponse> = null) {
     if (state != null) {
@@ -59,5 +62,13 @@ export class SmzFormBuilder<TResponse> {
 
   public build(): SmzForm<TResponse> {
     return this._state;
+  }
+
+  public fromUiDefintion(entity: string): SmzFormUiDefinitionBuilder<TResponse> {
+    if (this.createdByUiDefinitions) {
+      throw Error("Form already created from ui definition.")
+    }
+    this.createdByUiDefinitions = true;
+    return new SmzFormUiDefinitionBuilder(this, entity);
   }
 }

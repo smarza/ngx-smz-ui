@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Injector, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -58,6 +58,7 @@ import { FileNameShortenPipe } from './components/file-upload/file-name-shorten.
 import { SmzInputTagAreaModule } from './components/input-text-area/input-tag-area.component';
 import { InputTagAreaComponent } from './components/input-tag-area/input-tag-area.component';
 import { NgxSmzDataPipesModule } from '../../common/data-pipes/data-pipes.module';
+import { SmzFormsGlobalInjector } from './services/smz-forms-global-injector';
 
 export const defaultFormsModuleConfig: SmzFormsConfig = {
     behaviors: {
@@ -197,5 +198,9 @@ export const defaultFormsModuleConfig: SmzFormsConfig = {
     ],
 
 })
-export class NgxSmzFormsModule { }
+export class NgxSmzFormsModule {
+    constructor(injector: Injector) {
+        SmzFormsGlobalInjector.instance = injector;
+    }
+}
 

@@ -417,5 +417,53 @@ export const FormsDemo: { [key: string]: () => void } = {
       .build()
     );
   },
+  //
+  [DemoKeys.FORMS_FROM_UI_DEFINITION_CREATE]: () => {
+    service.open(
+      new SmzDialogBuilder<void>()
+        .setTitle(`Create form from ui definitiono`)
+        .setLayout('EXTRA_SMALL', 'col-12')
+        .setLayout('LARGE', 'col-4')
+        .setLayout('EXTRA_LARGE', 'col-3')
+        .form()
+          .fromUiDefintion('entity')
+          .form
+        .dialog
+        .buttons()
+          .confirm()
+            .dependsOnValidation()
+            .buttons
+          .dialog
+      .build()
+    );
+  },
+  //
+  [DemoKeys.FORMS_FROM_UI_DEFINITION_UPDATE]: () => {
+    service.open(
+      new SmzDialogBuilder<void>()
+        .setTitle(`Update form from ui definition`)
+        .setLayout('EXTRA_SMALL', 'col-12')
+        .setLayout('LARGE', 'col-4')
+        .setLayout('EXTRA_LARGE', 'col-3')
+        .form()
+          .fromUiDefintion('entity')
+            .forEntity({
+              name: 'Name',
+              company: 'Company',
+              country: {
+                name: 'Brazil',
+                id: '55e08b38-cec6-4063-acd0-25747f31dc59'
+              }
+            })
+          .form
+        .dialog
+        .buttons()
+          .confirm()
+            .dependsOnValidation()
+            .buttons
+          .dialog
+      .build()
+    );
+  },
 }
 
