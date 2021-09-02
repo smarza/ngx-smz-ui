@@ -1,13 +1,12 @@
-import { SmzCalendarControl, SmzCheckBoxControl, SmzCheckBoxGroupControl, SmzColorPickerControl, SmzControlType, SmzCurrencyControl, SmzDropDownControl, SmzFileControl, SmzLinkedDropDownControl, SmzLinkedMultiSelectControl, SmzListControl, SmzMaskControl, SmzMultiSelectControl, SmzNumberControl, SmzPasswordControl, SmzRadioControl, SmzSwitchControl, SmzTagAreaControl, SmzTextAreaControl, SmzTextControl } from '../models/control-types';
-import { SimpleEntity, SimpleParentEntity } from '../../../common/models/simple-named-entity';
+import { SmzCalendarControl, SmzCheckBoxControl, SmzCheckBoxGroupControl, SmzColorPickerControl, SmzControlType, SmzCurrencyControl, SmzDropDownControl, SmzFileControl, SmzLinkedDropDownControl, SmzLinkedMultiSelectControl, SmzListControl, SmzMaskControl, SmzMultiSelectControl, SmzNumberControl, SmzPasswordControl, SmzRadioControl, SmzSwitchControl, SmzTagAreaControl, SmzTextAreaControl, SmzTextControl } from '../../modules/smz-forms/models/control-types';
+import { SimpleEntity, SimpleParentEntity } from '../../common/models/simple-named-entity';
 import { SmzFormBuilder } from './form-builder';
-import { SmzFormGroup } from '../models/smz-forms';
-import { SmzTemplate } from '../../../common/models/templates';
-import { SmzFormsBaseControl } from '../models/controls';
+import { SmzFormGroup } from '../../modules/smz-forms/models/smz-forms';
+import { SmzTemplate } from '../../common/models/templates';
+import { SmzFormsBaseControl } from '../../modules/smz-forms/models/controls';
 import { ValidatorFn } from '@angular/forms';
-import { SmzTextPattern } from '../models/text-patterns';
-import { cloneDeep } from 'lodash-es';
-import { MustMatch } from '../../../common/utils/custom-validations';
+import { SmzTextPattern } from '../../modules/smz-forms/models/text-patterns';
+import { MustMatch } from '../../common/utils/custom-validations';
 
 
 export class SmzFormGroupBuilder<TResponse> {

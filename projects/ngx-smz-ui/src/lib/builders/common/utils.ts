@@ -1,4 +1,4 @@
-import { FormGroupConfig } from './dialog-input-conversion';
+import { FormGroupConfig } from '../smz-dialogs/dialog-input-conversion';
 
 /*
     Checks if a string is null, undefined or empty

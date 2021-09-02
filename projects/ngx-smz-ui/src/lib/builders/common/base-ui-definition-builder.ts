@@ -1,5 +1,5 @@
-import { getSmzTemplate } from '../../smz-forms/builders/form-group-builder';
-import { InputConversionOptions } from './dialog-input-conversion';
+import { getSmzTemplate } from '../smz-forms/form-group-builder';
+import { InputConversionOptions } from '../smz-dialogs/dialog-input-conversion';
 
 export class SmzBaseUiDefinitionBuilder<T> {
   protected that: T;

@@ -1,8 +1,8 @@
-import { InputConfig } from '../../smz-dialogs/builders/dialog-input-conversion';
-import { SmzControlTypes } from '../../smz-forms/models/control-types';
-import { ContentConvertions } from '../models/content-convertions';
-import { SmzTableColumn } from '../models/table-column';
-import { SmzTableState } from '../models/table-state';
+import { InputConfig } from '../smz-dialogs/dialog-input-conversion';
+import { SmzControlTypes } from '../../modules/smz-forms/models/control-types';
+import { ContentConvertions } from '../../modules/smz-tables/models/content-convertions';
+import { SmzTableColumn } from '../../modules/smz-tables/models/table-column';
+import { SmzTableState } from '../../modules/smz-tables/models/table-state';
 
 export namespace StateBuilderFunctions {
 

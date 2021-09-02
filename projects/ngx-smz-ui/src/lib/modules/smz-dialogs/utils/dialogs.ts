@@ -4,7 +4,7 @@ import { SmzDialog } from '../models/smz-dialogs';
 import { SmzPresets } from '../models/smz-presets';
 import { GlobalInjector } from '../services/global-injector';
 import { SmzDialogsService } from '../services/smz-dialogs.service';
-import { convertFormFeature, InputConfig, InputConversionOptions } from './dialog-input-conversion';
+import { convertFormFeature, InputConfig, InputConversionOptions } from '../../../builders/smz-dialogs/dialog-input-conversion';
 
 export function showPersistentDialog(
   entity: { [key: string]: any },

@@ -1,9 +1,9 @@
 import { Store } from '@ngxs/store';
-import { GlobalInjector } from '../services/global-injector';
-import { showConfirmation, showDialog, showMessage, showPersistentDialog } from './dialogs';
+import { GlobalInjector } from '../../modules/smz-dialogs/services/global-injector';
+import { showConfirmation, showDialog, showMessage, showPersistentDialog } from '../../modules/smz-dialogs/utils/dialogs';
 import { SmzDialogBuilder } from './dialog-builder';
 import { convertFormFeature } from './dialog-input-conversion';
-import { SmzBaseUiDefinitionBuilder } from './base-ui-definition-builder';
+import { SmzBaseUiDefinitionBuilder } from '../common/base-ui-definition-builder';
 
 export class SmzDialogUiDefinitionBuilder<TResponse> extends SmzBaseUiDefinitionBuilder<SmzDialogUiDefinitionBuilder<TResponse>> {
   protected that = this;

@@ -1,11 +1,11 @@
-import { fixDate, isEmpty } from './utils';
+import { fixDate, isEmpty } from '../common/utils';
 import { Store } from '@ngxs/store';
-import { SmzDialogFeature } from '../models/smz-dialogs';
-import { SmzForm, SmzFormGroup } from '../../smz-forms/models/smz-forms';
-import { SmzCalendarControl, SmzCheckBoxControl, SmzColorPickerControl, SmzControlType, SmzControlTypes, SmzCurrencyControl, SmzDropDownControl, SmzFileControl, SmzLinkedDropDownControl, SmzListControl, SmzMaskControl, SmzMultiSelectControl, SmzNumberControl, SmzPasswordControl, SmzRadioControl, SmzSwitchControl, SmzTextAreaControl, SmzTextControl } from '../../smz-forms/models/control-types';
-import { SimpleNamedEntity } from '../../../common/models/simple-named-entity';
-import { SmzFormsBaseControl } from '../../smz-forms/models/controls';
-import { SmzTemplate } from '../../../common/models/templates';
+import { SmzDialogFeature } from '../../modules/smz-dialogs/models/smz-dialogs';
+import { SmzForm, SmzFormGroup } from '../../modules/smz-forms/models/smz-forms';
+import { SmzCalendarControl, SmzCheckBoxControl, SmzColorPickerControl, SmzControlType, SmzControlTypes, SmzCurrencyControl, SmzDropDownControl, SmzFileControl, SmzLinkedDropDownControl, SmzListControl, SmzMaskControl, SmzMultiSelectControl, SmzNumberControl, SmzPasswordControl, SmzRadioControl, SmzSwitchControl, SmzTextAreaControl, SmzTextControl } from '../../modules/smz-forms/models/control-types';
+import { SimpleNamedEntity } from '../../common/models/simple-named-entity';
+import { SmzFormsBaseControl } from '../../modules/smz-forms/models/controls';
+import { SmzTemplate } from '../../common/models/templates';
 import { cloneDeep } from 'lodash-es';
 
 export function convertFormFeature(

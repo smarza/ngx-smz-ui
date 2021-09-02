@@ -1,5 +1,5 @@
-import { SmzTemplate } from '../../../common/models/templates';
-import { InputConversionOptions } from '../../smz-dialogs/builders/dialog-input-conversion';
+import { SmzTemplate } from '../../common/models/templates';
+import { InputConversionOptions } from '../smz-dialogs/dialog-input-conversion';
 
 export function getSmzTemplate(breakpoint: 'EXTRA_SMALL' | 'SMALL' | 'MEDIUM' | 'LARGE' | 'EXTRA_LARGE',
   colType: 'col-1' | 'col-2' | 'col-3' | 'col-4' | 'col-5' | 'col-6' | 'col-7' | 'col-8' | 'col-9' | 'col-10' | 'col-11' | 'col-12') {

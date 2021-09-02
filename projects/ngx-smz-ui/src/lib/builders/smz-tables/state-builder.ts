@@ -1,16 +1,16 @@
 import { Store } from '@ngxs/store';
 import { flatten, sortBy } from 'lodash-es';
-import { GlobalInjector } from '../../../../lib/common/services/global-injector';
-import { SmzMenuItem } from '../models/conditional-menu-item';
-import { defaultMapResults, EditableChanges } from '../models/editable-model';
-import { SmzTableState } from '../models/table-state';
+import { GlobalInjector } from '../../../lib/common/services/global-injector';
+import { SmzMenuItem } from '../../modules/smz-tables/models/conditional-menu-item';
+import { defaultMapResults, EditableChanges } from '../../modules/smz-tables/models/editable-model';
+import { SmzTableState } from '../../modules/smz-tables/models/table-state';
 import { StateBuilderFunctions } from './state-builder-functions';
 import { SmzColumnCollectionBuilder } from './column-builder';
 import { SmzMenuBuilder } from './menu-builder';
-import { SmzForm } from '../../smz-forms/models/smz-forms';
-import { SmzControlTypes } from '../../smz-forms/models/control-types';
-import { convertFormFeature } from '../../smz-dialogs/builders/dialog-input-conversion';
-import { UiDefinitionsDbSelectors } from '../../rbk-utils/state/database/ui-definitions/ui-definitions.selectors';
+import { SmzForm } from '../../modules/smz-forms/models/smz-forms';
+import { SmzControlTypes } from '../../modules/smz-forms/models/control-types';
+import { convertFormFeature } from '../smz-dialogs/dialog-input-conversion';
+import { UiDefinitionsDbSelectors } from '../../modules/rbk-utils/state/database/ui-definitions/ui-definitions.selectors';
 
 export class SmzTableBuilder {
   public _state: SmzTableState = {

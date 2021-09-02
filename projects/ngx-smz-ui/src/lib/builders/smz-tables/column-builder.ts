@@ -1,7 +1,7 @@
-import { SmzContentType, SmzDataTransform, SmzIconContent } from '../models/content-types';
-import { SmzEditableType } from '../models/editable-types';
-import { SmzFilterType } from '../models/filter-types';
-import { SmzTableColumn } from '../models/table-column';
+import { SmzContentType, SmzDataTransform, SmzIconContent } from '../../modules/smz-tables/models/content-types';
+import { SmzEditableType } from '../../modules/smz-tables/models/editable-types';
+import { SmzFilterType } from '../../modules/smz-tables/models/filter-types';
+import { SmzTableColumn } from '../../modules/smz-tables/models/table-column';
 import { SmzEditableCollectionBuilder } from './editable-builder';
 import { SmzTableBuilder } from './state-builder';
 

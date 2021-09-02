@@ -1,11 +1,11 @@
 import { Observable } from 'rxjs';
-import { ComponentData, ComponentDataBase } from '../../../common/modules/inject-content/models/injectable.model';
-import { SmzFormBuilder } from '../../smz-forms/builders/form-builder';
-import { getSmzTemplate } from '../../smz-forms/builders/form-group-builder';
-import { SmzForm } from '../../smz-forms/models/smz-forms';
-import { SmzDialog, SmzDialogFeature } from '../models/smz-dialogs';
-import { GlobalInjector } from '../services/global-injector';
-import { SmzDialogsConfig } from '../smz-dialogs.config';
+import { ComponentData, ComponentDataBase } from '../../common/modules/inject-content/models/injectable.model';
+import { SmzFormBuilder } from '../smz-forms/form-builder';
+import { getSmzTemplate } from '../smz-forms/form-group-builder';
+import { SmzForm } from '../../modules/smz-forms/models/smz-forms';
+import { SmzDialog, SmzDialogFeature } from '../../modules/smz-dialogs/models/smz-dialogs';
+import { GlobalInjector } from '../../modules/smz-dialogs/services/global-injector';
+import { SmzDialogsConfig } from '../../modules/smz-dialogs/smz-dialogs.config';
 import { SmzDialogButtonsBuilder } from './dialog-buttons-builder';
 import { SmzDialogUiDefinitionBuilder } from './dialog-ui-definition-builder';
 

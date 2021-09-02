@@ -11,9 +11,9 @@ export * from './features/dialog-content-manager/dialog-content-manager.componen
 
 export * from './dynamicdialog/public_api';
 
-export * from './builders/dialog-builder';
+export * from '../../builders/smz-dialogs/dialog-builder';
 
 export * from './services/global-injector';
 
-export * from './builders/dialogs';
-export * from './builders/dialog-input-conversion';
+export * from './utils/dialogs';
+export * from '../../builders/smz-dialogs/dialog-input-conversion';

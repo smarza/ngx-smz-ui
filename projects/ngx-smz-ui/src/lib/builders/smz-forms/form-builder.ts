@@ -1,8 +1,8 @@
 import { UUID } from 'angular2-uuid';
-import { SmzDialogBuilder } from '../../smz-dialogs/builders/dialog-builder';
-import { GlobalInjector } from '../../smz-dialogs/services/global-injector';
-import { SmzDialogsConfig } from '../../smz-dialogs/smz-dialogs.config';
-import { SmzForm, SmzFormGroup } from '../models/smz-forms';
+import { SmzDialogBuilder } from '../smz-dialogs/dialog-builder';
+import { GlobalInjector } from '../../modules/smz-dialogs/services/global-injector';
+import { SmzDialogsConfig } from '../../modules/smz-dialogs/smz-dialogs.config';
+import { SmzForm, SmzFormGroup } from '../../modules/smz-forms/models/smz-forms';
 import { SmzFormGroupBuilder } from './form-group-builder';
 import { SmzFormUiDefinitionBuilder } from './form-ui-definition-builder';
 

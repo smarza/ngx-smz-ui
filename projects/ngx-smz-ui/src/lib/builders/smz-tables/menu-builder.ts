@@ -1,5 +1,5 @@
 import { MenuItem } from 'primeng/api';
-import { SmzMenuItem } from '../models/conditional-menu-item';
+import { SmzMenuItem } from '../../modules/smz-tables/models/conditional-menu-item';
 import { SmzTableBuilder } from './state-builder';
 
 export class SmzMenuBuilder {

@@ -1,4 +1,4 @@
-import { SmzDialogCustomButton } from '../models/smz-dialogs';
+import { SmzDialogCustomButton } from '../../modules/smz-dialogs/models/smz-dialogs';
 import { SmzDialogBuilder } from './dialog-builder';
 
 export class SmzDialogButtonsBuilder<TResponse> {

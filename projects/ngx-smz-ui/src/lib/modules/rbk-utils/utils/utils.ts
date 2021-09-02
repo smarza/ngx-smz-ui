@@ -1,4 +1,4 @@
-import { FormGroupConfig } from '../../smz-dialogs/builders/dialog-input-conversion';
+import { FormGroupConfig } from '../../../builders/smz-dialogs/dialog-input-conversion';
 
 /*
     Replaces an item in an array by its id property

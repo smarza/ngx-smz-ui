@@ -1,8 +1,8 @@
 import { Store } from '@ngxs/store';
-import { SmzBaseUiDefinitionBuilder } from '../../smz-dialogs/builders/base-ui-definition-builder';
-import { convertFormFeature } from '../../smz-dialogs/builders/dialog-input-conversion';
-import { SmzForm } from '../models/smz-forms';
-import { SmzFormsGlobalInjector } from '../services/smz-forms-global-injector';
+import { SmzBaseUiDefinitionBuilder } from '../common/base-ui-definition-builder';
+import { convertFormFeature } from '../smz-dialogs/dialog-input-conversion';
+import { SmzForm } from '../../modules/smz-forms/models/smz-forms';
+import { SmzFormsGlobalInjector } from '../../modules/smz-forms/services/smz-forms-global-injector';
 import { SmzFormBuilder } from './form-builder';
 
 export class SmzFormUiDefinitionBuilder<TResponse> extends SmzBaseUiDefinitionBuilder<SmzFormUiDefinitionBuilder<TResponse>> {

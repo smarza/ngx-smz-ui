@@ -1,5 +1,5 @@
-import { SmzDropdownEditable, SmzEditableType } from '../models/editable-types';
-import { SmzTableEditableColumn } from '../models/table-column';
+import { SmzDropdownEditable, SmzEditableType } from '../../modules/smz-tables/models/editable-types';
+import { SmzTableEditableColumn } from '../../modules/smz-tables/models/table-column';
 import { SmzBaseColumnBuilder } from './column-builder';
 import { SmzTableBuilder } from './state-builder';
 
