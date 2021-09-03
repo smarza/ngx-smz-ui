@@ -33,14 +33,17 @@ export class SmzFormBuilder<TResponse> {
     if (state != null) {
       this._state = state;
     }
+
+    if(this._dialogBuilder) {
+      this.createdByUiDefinitions = this._dialogBuilder.createdByUiDefinitions;
+    }
   }
 
   public group(name: string = null): SmzFormGroupBuilder<TResponse> {
-    if(this._dialogBuilder) {
-      if (this._dialogBuilder.createdByUiDefinitions) {
-        return new SmzFormGroupBuilder(this, this._state.groups[0]);
-      }
+    if(this.createdByUiDefinitions) {
+      return new SmzFormGroupBuilder(this, this._state.groups[this._state.groups.length - 1]);
     }
+
     const group: SmzFormGroup = { name, showName: name != null, children: [] };
     this._state.groups.push(group)
     return new SmzFormGroupBuilder(this, group);
