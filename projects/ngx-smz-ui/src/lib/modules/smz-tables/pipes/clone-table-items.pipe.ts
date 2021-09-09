@@ -13,8 +13,8 @@ export class SmzCloneTableItemsPipe implements PipeTransform {
     const showSkeleton = items == null && context.state.initialState.skeleton.isEnabled;
     const clonedItems = showSkeleton ? new Array<any>(context.state.initialState.skeleton.rows) : cloneDeep(items);
 
-    const count = context.state.styles.columnsWidth.samples ?? items.length;
-    const samples = items?.slice(0, items.length <= count ? items.length - 1 : count);
+    const count = context.state.styles.columnsWidth.samples ?? items?.length;
+    const samples = items?.slice(0, items?.length <= count ? items?.length - 1 : count);
 
     // console.log('context from items', context);
 

@@ -554,13 +554,13 @@ export class SmzFormInputBuilder<TResponse> {
     return this;
   }
 
-  public hide(): SmzFormInputBuilder<TResponse> {
-    this._input.isVisible = false;
+  public hide(condition?: boolean): SmzFormInputBuilder<TResponse> {
+    this._input.isVisible = condition ?? false;
     return this;
   }
 
-  public disable(): SmzFormInputBuilder<TResponse> {
-    this._input.isDisabled = true;
+  public disable(condition?: boolean): SmzFormInputBuilder<TResponse> {
+    this._input.isDisabled = condition ?? true;
     return this
   }
 
