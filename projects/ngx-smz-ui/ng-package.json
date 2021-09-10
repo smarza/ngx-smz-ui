@@ -35,7 +35,6 @@
       "moment": "moment",
       "ngx-device-detector": "ngxDeviceDetector",
       "primeng/accordion": "accordion",
-      "primeng/api": "primengapi",
       "primeng/button": "button",
       "primeng/calendar": "calendar",
       "primeng/checkbox": "checkbox",
@@ -70,7 +69,8 @@
       "primeng/toolbar": "toolbar",
       "primeng/tooltip": "tooltip",
       "primeng/tree": "tree",
-      "primeng/utils": "utils"
+      "primeng/utils": "utils",
+      "primeng/api": "api"
     }
   }
 }

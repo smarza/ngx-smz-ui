@@ -4,7 +4,7 @@ import { tap } from 'rxjs/operators';
 import { UiDefinitionsDbActions } from './ui-definitions.actions';
 import { UiDefinitionsService } from './ui-definitions.service';
 import { Observable } from 'rxjs';
-import { FormDefinitionData } from '../../../../smz-dialogs/public-api';
+import { FormDefinitionData } from '../../../../../builders/smz-dialogs/dialog-input-conversion';
 
 export const UI_DEFINITIONS_STATE_NAME = 'uiDefinitions';
 
