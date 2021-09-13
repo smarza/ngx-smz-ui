@@ -1,3 +1,4 @@
+import { ElementRef } from '@angular/core';
 
 export namespace DialogsActions
 {
@@ -22,6 +23,12 @@ export namespace DialogsActions
     export class ConfirmationFailure
     {
         public static readonly type = '[Dialogs] Confirmation Failure';
+    }
+
+    export class ConfirmOnEnter
+    {
+        public static readonly type = '[Dialogs] Confirm On Enter';
+        constructor(public element: ElementRef, public dialogId: string, public targetEventClick: string, public delayConfirmationRate?: number){}
     }
 
 

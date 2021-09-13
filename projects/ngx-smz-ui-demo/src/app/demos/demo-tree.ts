@@ -44,12 +44,17 @@ export const TreeDemoData: DemoTreeNode[] = [
         children: [
           {
             label: 'Close on Escape', icon: 'fas fa-code', type: 'Demo',
-            notes: 'Press escape to close de dialog',
+            notes: 'Press escape to close the dialog',
             data: DialogsDemo[DemoKeys.DIALOGS_CONTROLS_CLOSE_ON_ESCAPE]
           },
           {
+            label: 'Confirm on Enter', icon: 'fas fa-code', type: 'Demo',
+            notes: 'Press enter to confirm the dialog',
+            data: DialogsDemo[DemoKeys.DIALOGS_CONTROLS_CONFIRM_ON_ENTER]
+          },
+          {
             label: 'Dismissable Mask', icon: 'fas fa-code', type: 'Demo',
-            notes: 'Click outside to close de dialog',
+            notes: 'Click outside to close the dialog',
             data: DialogsDemo[DemoKeys.DIALOGS_CONTROLS_DISMISSABLE_MASK]
           },
           {

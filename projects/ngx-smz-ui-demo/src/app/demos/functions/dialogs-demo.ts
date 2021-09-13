@@ -43,6 +43,21 @@ export const DialogsDemo: { [key: string]: () => void } = {
     );
   },
   //
+  [DemoKeys.DIALOGS_CONTROLS_CONFIRM_ON_ENTER]: () => {
+    service.open(
+      new SmzDialogBuilder<void>()
+        .setTitle(`Some Title Here`)
+        .setLayout('EXTRA_SMALL', 'col-12')
+        .setLayout('EXTRA_LARGE', 'col-8')
+        .confirmOnEnter()
+        .buttons()
+          .confirm()
+          .buttons
+        .dialog
+      .build()
+    );
+  },
+  //
   [DemoKeys.DIALOGS_CONTROLS_DISMISSABLE_MASK]: () => {
     service.open(
       new SmzDialogBuilder<void>()

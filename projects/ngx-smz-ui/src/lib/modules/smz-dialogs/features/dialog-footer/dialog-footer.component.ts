@@ -11,7 +11,7 @@ import { SmzForm } from '../../../smz-forms/models/smz-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { InjectComponentService } from '../../../../common/modules/inject-content/inject-component.service';
 import { ComponentData, ComponentDataBase } from '../../../../common/modules/inject-content/models/injectable.model';
-import { SmzDialogsService } from '../../services/smz-dialogs.service';
+import { DialogsActions } from '../../state/dialogs/dialogs.actions';
 
 @UntilDestroy()
 @Component({
@@ -340,7 +340,7 @@ export class ConfirmOnEnterDirective {
     @Input('disabled') public disabled: boolean;
     @Input() public dialogId: string;
 
-    constructor(private el: ElementRef, private dialogsService: SmzDialogsService) {
+    constructor(private el: ElementRef, private store: Store) {
     }
 
     @HostListener('window:keydown', ['$event'])
@@ -350,21 +350,7 @@ export class ConfirmOnEnterDirective {
             if (this.confirmOnEnter) {
 
                 // console.log(this.dialogsService);
-
-                const topDialogId = this.dialogsService.dialogRefs[this.dialogsService.dialogRefs.length - 1].id;
-
-                if (topDialogId === this.dialogId) {
-                    // console.log('me', this.dialogId);
-
-                    if (this.delayConfirmation) {
-                        setTimeout(() => {
-                            this.el.nativeElement.dispatchEvent(new Event(this.clickEvent));
-                        }, 300);
-                    }
-                    else {
-                        this.el.nativeElement.dispatchEvent(new Event(this.clickEvent));
-                    }
-                }
+                this.store.dispatch(new DialogsActions.ConfirmOnEnter(this.el, this.dialogId, this.clickEvent, this.delayConfirmation ? 300 : null));
             }
 
         }

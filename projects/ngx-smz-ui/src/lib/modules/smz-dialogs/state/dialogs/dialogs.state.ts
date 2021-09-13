@@ -59,42 +59,62 @@ export class DialogsState {
 
 
     const dialog: SmzDialog<any> = {
-      title: action.title,
-      features: [
-          { type: 'message', data: action.messages },
-      ],
-      behaviors: {
-          showCancelButton: false,
-          useAdvancedResponse: false,
-          showConfirmButton: false,
-          closeOnEscape: true,
-          showCloseButton: false,
-          showFooter: true,
-          showHeader: true,
-          showOkButton: true,
-      },
-      builtInButtons: {
-          confirmDependsOnValidation: false,
-          okName: 'OK'
-      },
-      callbacks: {
-        onConfirm: () =>
-        {
-          ctx.dispatch(new DialogsActions.ConfirmationSuccess());
+        title: action.title,
+        features: [
+            { type: 'message', data: action.messages },
+        ],
+        behaviors: {
+            showCancelButton: false,
+            useAdvancedResponse: false,
+            showConfirmButton: false,
+            closeOnEscape: true,
+            showCloseButton: false,
+            showFooter: true,
+            showHeader: true,
+            showOkButton: true,
         },
-        onCancel: () =>
-        {
-          ctx.dispatch(new DialogsActions.ConfirmationFailure());
+        builtInButtons: {
+            confirmDependsOnValidation: false,
+            okName: 'OK'
         },
-        onClose: () =>
-        {
-          ctx.dispatch(new DialogsActions.ConfirmationFailure());
-        }
-      },
-      presetId: action.isCritical ? SmzPresets.CriticalConfirmation : SmzPresets.Confirmation,
-  };
+        callbacks: {
+          onConfirm: () =>
+          {
+            ctx.dispatch(new DialogsActions.ConfirmationSuccess());
+          },
+          onCancel: () =>
+          {
+            ctx.dispatch(new DialogsActions.ConfirmationFailure());
+          },
+          onClose: () =>
+          {
+            ctx.dispatch(new DialogsActions.ConfirmationFailure());
+          }
+        },
+        presetId: action.isCritical ? SmzPresets.CriticalConfirmation : SmzPresets.Confirmation,
+    };
 
-  this.dialogs.open(dialog);
+    this.dialogs.open(dialog);
+
+  }
+
+  @Action(DialogsActions.ConfirmOnEnter)
+  public onConfirmOnEnter(ctx: StateContext<DialogsStateModel>, action: DialogsActions.ConfirmOnEnter): void {
+
+    const topDialogId = this.dialogs.dialogRefs[this.dialogs.dialogRefs.length - 1].id;
+
+    if (topDialogId === action.dialogId) {
+        // console.log('me', this.dialogId);
+
+        if (action.delayConfirmationRate != null) {
+            setTimeout(() => {
+              action.element.nativeElement.dispatchEvent(new Event(action.targetEventClick));
+            }, action.delayConfirmationRate);
+        }
+        else {
+            action.element.nativeElement.dispatchEvent(new Event(action.targetEventClick));
+        }
+    }
 
   }
 

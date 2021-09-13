@@ -95,6 +95,11 @@ export class SmzDialogBuilder<TResponse> {
     return this;
   }
 
+  public confirmOnEnter(): SmzDialogBuilder<TResponse> {
+    this._state.behaviors.confirmOnEnter = true;
+    return this;
+  }
+
   public padding(padding: string): SmzDialogBuilder<TResponse> {
     this._state.behaviors.contentPadding = padding;
     return this;
