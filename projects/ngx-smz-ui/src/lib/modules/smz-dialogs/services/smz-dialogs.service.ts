@@ -1,22 +1,19 @@
 import { Injectable } from '@angular/core';
 import { SmzDialogsConfig } from '../smz-dialogs.config';
-import { SmzDialog, SmzDialogPreset, SmzDialogTable, SmzDynamicDialogConfig } from '../models/smz-dialogs';
+import { SmzDialog, SmzDialogPreset, SmzDynamicDialogConfig } from '../models/smz-dialogs';
 import { SmzForm, SmzFormGroup } from '../../smz-forms/models/smz-forms';
 import { ComponentData } from '../../../common/modules/inject-content/models/injectable.model';
-import { FormGroupComponent } from '../../smz-forms/features/form-group/form-group.component';
-import { MessageContentComponent } from '../features/message-content/message-content.component';
 import { DialogService } from '../dynamicdialog/dialogservice';
 import { DialogContentManagerComponent } from '../features/dialog-content-manager/dialog-content-manager.component';
 import { clone, mergeClone } from '../../../common/utils/deep-merge';
 import { SetTemplateClasses } from '../../../common/pipes/templates.pipe';
 import { DynamicDialogRef } from '../dynamicdialog/dynamicdialog-ref';
-import { isArray, removeElementFromArray, uuidv4 } from '../../../common/utils/utils';
+import { removeElementFromArray, uuidv4 } from '../../../common/utils/utils';
 import { SmzDialogsVisibilityService } from './smz-dialogs-visibility.service';
 import { getPreset } from '../models/smz-presets';
-import { HtmlContentComponent } from '../features/html-content/html-content.component';
 import { SmzControlTypes } from '../../smz-forms/models/control-types';
 import { SmzCheckBoxControl } from '../../smz-forms/models/control-types';
-import { TableContentComponent } from '../features/table-content/table-content.component';
+import { SmzFeaturesService } from './smz-features.service';
 
 const FORMGROUP_BASE = 2;
 const CONFIRMATION_BASE = 4;
@@ -57,7 +54,7 @@ const BASE_DIALOG: SmzDialog<any> = {
 export class SmzDialogsService
 {
     public dialogRefs: DynamicDialogRef[] = [];
-    constructor(private moduleConfig: SmzDialogsConfig, private dialogService: DialogService, public refService: DynamicDialogRef, private visibilityService: SmzDialogsVisibilityService)
+    constructor(private moduleConfig: SmzDialogsConfig, private dialogService: DialogService, public refService: DynamicDialogRef, private visibilityService: SmzDialogsVisibilityService, private featuresService: SmzFeaturesService)
     {
         BASE_DIALOG.behaviors = moduleConfig.dialogs.behaviors;
         BASE_DIALOG.dialogTemplate = moduleConfig.dialogs.dialogTemplate;
@@ -94,7 +91,7 @@ export class SmzDialogsService
 
         // console.log('dialog', dialog);
 
-        this.createInjectables(data);
+        this.featuresService.createInjectables(data);
 
         const behaviors = data._context.behaviors;
         const paddingStyle = behaviors.contentPadding ? { 'padding': behaviors.contentPadding } : {};
@@ -323,101 +320,6 @@ export class SmzDialogsService
             featureTemplate: this.moduleConfig.dialogs.featureTemplate,
             dialogTemplate: mergeClone(this.moduleConfig.dialogs.dialogTemplate, data.dialogTemplate),
         };
-    }
-
-    private createInjectables(data: SmzDialog<any>): void
-    {
-
-        for (let feature of data.features)
-        {
-            const featureTemplate = mergeClone(data._context.featureTemplate, feature.template);
-
-            switch (feature.type)
-            {
-                case 'form':
-                    // FORM GROUP DETECTED
-                    const featureData = feature.data as SmzForm<any>;
-
-                    data._context.injectables.push({
-                        component: FormGroupComponent,
-                        inputs: [{ data: feature.data, input: 'config' }],
-                        outputs: [{
-                            output: 'statusChanges', callback: (event: any) =>
-                            {
-                                data._context.advancedResponse[featureData.formId] = event.data;
-
-                                data._context.simpleResponse = {};
-
-                                for (const key of Object.keys(data._context.advancedResponse))
-                                {
-                                    data._context.simpleResponse = { ...data._context.simpleResponse, ...data._context.advancedResponse[key] };
-                                }
-
-                                // data._context.simpleResponse = { ...data._context.simpleResponse, ...event.data };
-                                // data._context.simpleResponse = { ...data._context.simpleResponse, ...event.data };
-                            }
-                        }],
-                        template: featureTemplate,
-                        type: feature.type
-                    });
-                    break;
-
-                case 'message':
-                    // MESSAGE DETECTED
-
-                    const message = isArray(feature.data) ? (feature.data as string[]).join('<br>') : feature.data;
-
-                    data._context.injectables.push({
-                        component: MessageContentComponent,
-                        inputs: [{ data: message, input: 'data' }],
-                        outputs: [],
-                        template: featureTemplate,
-                        type: feature.type
-                    });
-                    break;
-
-                case 'html':
-                    // HTML DETECTED
-
-                    const html = isArray(feature.data) ? (feature.data as string[]).join('<br>') : feature.data;
-
-                    data._context.injectables.push({
-                        component: HtmlContentComponent,
-                        inputs: [{ data: html, input: 'data' }],
-                        outputs: [],
-                        template: featureTemplate,
-                        type: feature.type
-                    });
-                    break;
-
-                case 'table':
-                    // HTML DETECTED
-
-                    const tableData = feature.data as any; // SmzDialogTable;
-
-                    data._context.injectables.push({
-                        component: TableContentComponent,
-                        inputs: [{ data: tableData.items$, input: 'items$' }, { data: tableData.state, input: 'state' }],
-                        outputs: [],
-                        template: featureTemplate,
-                        type: feature.type
-                    });
-                    break;
-
-                case 'component':
-                    // INJECTABLE COMPONENT DETECTED
-                    data._context.injectables.push({
-                        ...feature.data as ComponentData,
-                        template: featureTemplate,
-                        type: feature.type
-                    });
-                    break;
-                default:
-                    break;
-            }
-
-        }
-
     }
 
 }

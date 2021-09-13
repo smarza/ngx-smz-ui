@@ -5,7 +5,7 @@ import { ThemeManagerService } from './theme-manager.service';
 
 @Component({
   selector: 'smz-ui-theme-manager',
-  templateUrl: './theme-manager.component.html',
+  template: ``,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThemeManagerComponent implements OnInit

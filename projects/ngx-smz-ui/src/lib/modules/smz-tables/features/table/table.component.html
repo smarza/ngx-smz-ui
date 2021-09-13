@@ -92,7 +92,7 @@
 
             </ng-template>
 
-            <ng-template pTemplate="colgroup" let-columns>
+            <!-- <ng-template pTemplate="colgroup" let-columns>
                 <colgroup>
                     <col *ngIf="context.state.caption.rowSelection.isEnabled" [ngStyle]="{ width: context.state.caption.rowSelection.columnWidth }">
                     <ng-container *ngFor="let col of columns">
@@ -100,12 +100,12 @@
                     </ng-container>
                     <col *ngIf="context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible|| context.state.editable.isEditable" [ngStyle]="{ width: context.state.actions.customActions.columnWidth + 'px'}">
                 </colgroup>
-            </ng-template>
+            </ng-template> -->
 
             <ng-template pTemplate="header" let-columns>
                 <tr>
 
-                    <th *ngIf="context.state.caption.rowSelection.isEnabled">
+                    <th *ngIf="context.state.caption.rowSelection.isEnabled" [ngStyle]="{ width: context.state.caption.rowSelection.columnWidth }">
                         <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                     </th>
 
@@ -113,13 +113,13 @@
 
                         <ng-container *ngIf="context.state.viewport.resizableColumns; else nonResizable">
                             <ng-container *ngIf="col.isOrderable">
-                                <th [pSortableColumn]="col.field" pResizableColumn>
+                                <th [pSortableColumn]="col.field" pResizableColumn [ngStyle]="{ width: col.width }">
                                     <ng-container *ngTemplateOutlet="headerContent"></ng-container>
                                 </th>
                             </ng-container>
 
                             <ng-container *ngIf="!col.isOrderable">
-                                <th pResizableColumn>
+                                <th pResizableColumn [ngStyle]="{ width: col.width }">
                                     <ng-container *ngTemplateOutlet="headerContent"></ng-container>
                                 </th>
                             </ng-container>
@@ -127,13 +127,13 @@
 
                         <ng-template #nonResizable>
                             <ng-container *ngIf="col.isOrderable">
-                                <th [pSortableColumn]="col.field">
+                                <th [pSortableColumn]="col.field" [ngStyle]="{ width: col.width }">
                                     <ng-container *ngTemplateOutlet="headerContent"></ng-container>
                                 </th>
                             </ng-container>
 
                             <ng-container *ngIf="!col.isOrderable">
-                                <th>
+                                <th [ngStyle]="{ width: col.width }">
                                     <ng-container *ngTemplateOutlet="headerContent"></ng-container>
                                 </th>
                             </ng-container>
@@ -208,7 +208,7 @@
 
                     </ng-container>
 
-                    <th *ngIf="context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible|| context.state.editable.isEditable"></th>
+                    <th *ngIf="context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible|| context.state.editable.isEditable" [ngStyle]="{ width: context.state.actions.customActions.columnWidth + 'px'}"></th>
                 </tr>
             </ng-template>
 

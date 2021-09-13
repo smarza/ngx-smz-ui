@@ -7,8 +7,7 @@ import { NgxRbkUtilsConfig } from '../../../ngx-rbk-utils.config';
 import { ToastActions } from './application.actions.toast';
 import { Navigate } from '@ngxs/router-plugin';
 import { HttpErrorHandler } from '../../../error-handler/error.handler';
-import { SmzDialogsService } from '../../../../smz-dialogs/services/smz-dialogs.service';
-import { SmzDialog } from '../../../../smz-dialogs/models/smz-dialogs';
+import { DialogsActions } from '../../../../smz-dialogs/state/dialogs/dialogs.actions';
 
 export interface ApplicationStateModel {
     globalIsLoading: boolean;
@@ -59,7 +58,7 @@ export const getCleanApplicationState = (): ApplicationStateModel => ({
 })
 @Injectable()
 export class ApplicationState {
-    constructor(private messageService: MessageService, private rbkConfig: NgxRbkUtilsConfig, private dialogs: SmzDialogsService) { }
+    constructor(private messageService: MessageService, private rbkConfig: NgxRbkUtilsConfig) { }
 
     @Action(ApplicationActions.HandleHttpErrorWithDialog)
     public async handleErrorWithDialog$(ctx: StateContext<ApplicationStateModel>, action: ApplicationActions.HandleHttpErrorWithDialog): Promise<void> {
@@ -82,52 +81,10 @@ export class ApplicationState {
 
 
         if (action.error.status >= 400 && action.error.status < 500) {
-            const dialog: SmzDialog<any> = {
-                title: this.rbkConfig.dialogsConfig.warningDialogTitle,
-                features: [
-                    { type: 'message', data: error.messages },
-                ],
-                behaviors: {
-                    showCancelButton: false,
-                    useAdvancedResponse: false,
-                    showConfirmButton: false,
-                    closeOnEscape: true,
-                    showCloseButton: false,
-                    showFooter: true,
-                    showHeader: true,
-                    showOkButton: true,
-                },
-                builtInButtons: {
-                    confirmDependsOnValidation: false,
-                    okName: 'OK'
-                },
-            };
-
-            this.dialogs.open(dialog);
+            ctx.dispatch(new DialogsActions.Message(this.rbkConfig.dialogsConfig.warningDialogTitle, error.messages));
         }
         else {
-            const dialog: SmzDialog<any> = {
-                title: this.rbkConfig.dialogsConfig.errorDialogTitle,
-                features: [
-                    { type: 'message', data: error.messages },
-                ],
-                behaviors: {
-                    showCancelButton: false,
-                    showConfirmButton: false,
-                    useAdvancedResponse: false,
-                    closeOnEscape: true,
-                    showCloseButton: false,
-                    showFooter: true,
-                    showHeader: true,
-                    showOkButton: true,
-                },
-                builtInButtons: {
-                    confirmDependsOnValidation: false,
-                    okName: 'OK'
-                },
-            };
-
-            this.dialogs.open(dialog);
+            ctx.dispatch(new DialogsActions.Message(this.rbkConfig.dialogsConfig.errorDialogTitle, error.messages));
         }
 
         if (error.redirectTo != null) {

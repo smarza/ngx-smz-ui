@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { MenubarModule } from 'primeng/menubar';
-import { SharedModule as PrimeSharedModule } from 'primeng/api';
+import { SharedModule } from 'primeng/api';
 import { HephaestusLayoutComponent } from './layout.component';
 import { OutletModule } from '../../features/outlet/outlet.module';
 import { SmzDiamontTopbarModule } from './components/topbar/topbar.module';
@@ -19,7 +19,7 @@ export const ngxsModuleForFeatureUiHephaestusLayoutState = NgxsModule.forFeature
   declarations: [HephaestusLayoutComponent],
   imports: [
     CommonModule,
-    PrimeSharedModule,
+    SharedModule,
     MenubarModule,
     OutletModule,
     SmzDiamontTopbarModule,
@@ -30,7 +30,7 @@ export const ngxsModuleForFeatureUiHephaestusLayoutState = NgxsModule.forFeature
   ],
   exports: [
     HephaestusLayoutComponent,
-    PrimeSharedModule
+    SharedModule
   ]
 })
 export class HephaestusLayoutModule

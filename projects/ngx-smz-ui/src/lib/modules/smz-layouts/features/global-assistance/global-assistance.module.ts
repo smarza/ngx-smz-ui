@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { GlobalAssistanceComponent } from './global-assistance.component';
-import { SharedModule as PrimeSharedModule } from 'primeng/api';
+import { SharedModule } from 'primeng/api';
 import { SidebarModule } from 'primeng/sidebar';
 import { ButtonModule } from 'primeng/button';
 import { SelectButtonModule } from 'primeng/selectbutton';
@@ -15,7 +15,7 @@ import { InputBlurDetectionModule } from '../../../../common/input-detection/inp
   imports: [
     CommonModule,
     FormsModule,
-    PrimeSharedModule,
+    SharedModule,
     SidebarModule,
     ButtonModule,
     SelectButtonModule,

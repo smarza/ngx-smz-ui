@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { AthenaAssistanceComponent } from './assistance.component';
-import { SharedModule as PrimeSharedModule } from 'primeng/api';
+import { SharedModule } from 'primeng/api';
 import { SidebarModule } from 'primeng/sidebar';
 import { ButtonModule } from 'primeng/button';
 import { SelectButtonModule } from 'primeng/selectbutton';
@@ -16,7 +16,7 @@ import { GlobalAssistanceModule } from '../../../../features/global-assistance/g
   imports: [
     CommonModule,
     FormsModule,
-    PrimeSharedModule,
+    SharedModule,
     SidebarModule,
     ButtonModule,
     SelectButtonModule,

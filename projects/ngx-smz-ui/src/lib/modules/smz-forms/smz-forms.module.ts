@@ -4,7 +4,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ListboxModule } from 'primeng/listbox';
 
-import { FormGroupComponent } from './features/form-group/form-group.component';
+import { FormGroupComponent, InputListComponent } from './features/form-group/form-group.component';
 
 import { InputPasswordComponent } from './components/input-password/input-password.component';
 import { InputTextComponent } from './components/input-text/input-text.component';
@@ -49,7 +49,7 @@ import { ValidationMessagesComponent } from './components/validation-messages/va
 import { ValidationMessagesPipe } from './components/validation-messages/validation-messages.pipe';
 import { TooltipModule } from 'primeng/tooltip';
 import { LinkedMultiSelectComponent } from './components/linked-multi-select/linked-multi-select.component';
-import { InputListComponent } from './components/input-list/input-list.component';
+
 import { ClickStopPropagationModule } from '../../common/stop-click-propagation/click-stop-propagation.module';
 import { FileDragDropDirective } from './directives/file-drag-drop.directive';
 import { MessagesModule } from 'primeng/messages';
