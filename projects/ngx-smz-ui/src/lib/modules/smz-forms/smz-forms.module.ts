@@ -4,7 +4,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ListboxModule } from 'primeng/listbox';
 
-import { FormGroupComponent, InputListComponent } from './features/form-group/form-group.component';
+import { FormGroupComponent } from './features/form-group/form-group.component';
 
 import { InputPasswordComponent } from './components/input-password/input-password.component';
 import { InputTextComponent } from './components/input-text/input-text.component';
@@ -59,6 +59,7 @@ import { SmzInputTagAreaModule } from './components/input-text-area/input-tag-ar
 import { InputTagAreaComponent } from './components/input-tag-area/input-tag-area.component';
 import { NgxSmzDataPipesModule } from '../../common/data-pipes/data-pipes.module';
 import { SmzFormsGlobalInjector } from './services/smz-forms-global-injector';
+import { InputListComponent } from './components/input-list/input-list.component';
 
 export const defaultFormsModuleConfig: SmzFormsConfig = {
     behaviors: {

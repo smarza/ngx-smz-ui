@@ -21,6 +21,7 @@ export * from './components/input-mask/input-mask.component';
 export * from './components/input-number/input-number.component';
 export * from './components/input-password/input-password.component';
 export * from './components/input-switch/input-switch.component';
+export * from './components/input-list/input-list.component';
 export * from './components/input-text-area/input-text-area.component';
 export * from './components/input-tag-area/input-tag-area.component';
 export * from './components/input-text/input-text.component';
