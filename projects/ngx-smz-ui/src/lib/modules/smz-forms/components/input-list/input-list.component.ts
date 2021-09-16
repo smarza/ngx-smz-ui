@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, ViewChild } from '@angular/core';
 import { FormControl, ValidatorFn } from '@angular/forms';
 import { Confirmable } from '../../../smz-dialogs/decorators/confirmable.decorator';
-import { SmzDialogsService } from '../../../smz-dialogs/services/smz-dialogs.service';
+// import { SmzDialogsService } from '../../../smz-dialogs/services/smz-dialogs.service';
 import { SmzFormsBehaviorsConfig } from '../../models/behaviors';
 import { SmzControlType, SmzListControl, SmzTextControl } from '../../models/control-types';
 import { SmzForm } from '../../models/smz-forms';
@@ -19,7 +19,7 @@ export class InputListComponent {
   public current: string = null;
   public isInlineEditingEnabled = false;
   public editForm: SmzForm<never> = null;
-  constructor(private dialogs: SmzDialogsService, private cdf: ChangeDetectorRef) {
+  constructor(private cdf: ChangeDetectorRef) {
   }
 
   public onClick(event: { option: string, value: string }): void {
@@ -118,22 +118,22 @@ export class InputListComponent {
 
   public editWithDialog(option: string): void {
 
-      this.dialogs.open({
-          title: 'Edição',
-          features: [
-              {
-                  type: 'form',
-                  data: this.createEditForm(false, option)
-              }
-          ],
-          dialogTemplate: { large: { row: 'col-4' }, medium: { row: 'col-6' }, extraSmall: { row: 'col-12' } },
-          behaviors: { useAdvancedResponse: false, confirmOnEnter: true },
-          callbacks: {
-              onConfirm: (response: { name: string }) => {
-                  this.confirmEdit(option, response.name);
-              }
-          }
-      });
+    //   this.dialogs.open({
+    //       title: 'Edição',
+    //       features: [
+    //           {
+    //               type: 'form',
+    //               data: this.createEditForm(false, option)
+    //           }
+    //       ],
+    //       dialogTemplate: { large: { row: 'col-4' }, medium: { row: 'col-6' }, extraSmall: { row: 'col-12' } },
+    //       behaviors: { useAdvancedResponse: false, confirmOnEnter: true },
+    //       callbacks: {
+    //           onConfirm: (response: { name: string }) => {
+    //               this.confirmEdit(option, response.name);
+    //           }
+    //       }
+    //   });
   }
 
   public onConfirmInlineEditing(option: string, response: { name: string }): void {
@@ -159,26 +159,26 @@ export class InputListComponent {
 
   public onAdd(): void {
 
-      this.dialogs.open({
-          title: 'Novo item',
-          features: [
-              {
-                  type: 'form',
-                  data: this.createEditForm(false, '')
-              }
-          ],
-          dialogTemplate: { large: { row: 'col-4' }, medium: { row: 'col-6' }, extraSmall: { row: 'col-12' } },
-          behaviors: { useAdvancedResponse: false, confirmOnEnter: true },
-          callbacks: {
-              onConfirm: (response: { name: string }) => {
-                  // add new item
-                  this.input.options = [response.name, ...this.input.options];
-                  this.current = response.name;
-                  // update new list to control
-                  this.updateControl();
-              }
-          }
-      });
+    //   this.dialogs.open({
+    //       title: 'Novo item',
+    //       features: [
+    //           {
+    //               type: 'form',
+    //               data: this.createEditForm(false, '')
+    //           }
+    //       ],
+    //       dialogTemplate: { large: { row: 'col-4' }, medium: { row: 'col-6' }, extraSmall: { row: 'col-12' } },
+    //       behaviors: { useAdvancedResponse: false, confirmOnEnter: true },
+    //       callbacks: {
+    //           onConfirm: (response: { name: string }) => {
+    //               // add new item
+    //               this.input.options = [response.name, ...this.input.options];
+    //               this.current = response.name;
+    //               // update new list to control
+    //               this.updateControl();
+    //           }
+    //       }
+    //   });
   }
 
   public createEditForm(hideName: boolean, defaultValue: string): SmzForm<{ name: string }> {
