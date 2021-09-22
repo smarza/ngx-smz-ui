@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store'; import { SmzLayoutsConfig } from '../../core/globals/smz-layouts.config';
-import { LayoutUiSelectors } from '../../core/state/ui/ui.selectors';
+import { LayoutUiSelectors } from '../../../../state/ui/layout/layout.selectors';
 import { Observable } from 'rxjs';
 import { SmzAppLogo } from '../../core/models/logo';
 import { SmzLoginData } from '../../core/models/login';

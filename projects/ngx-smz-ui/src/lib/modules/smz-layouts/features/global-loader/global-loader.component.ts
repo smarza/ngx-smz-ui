@@ -9,7 +9,7 @@ import { filter } from 'rxjs/operators';
 import { ApplicationSelectors } from '../../../../state/global/application/application.selector';
 import { LoaderData } from '../../core/models/layout';
 import { SmzLoader } from '../../core/models/loaders';
-import { LayoutUiSelectors } from '../../core/state/ui/ui.selectors';
+import { LayoutUiSelectors } from '../../../../state/ui/layout/layout.selectors';
 
 @UntilDestroy()
 @Component({

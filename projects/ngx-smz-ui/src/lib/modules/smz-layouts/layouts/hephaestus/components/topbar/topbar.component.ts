@@ -3,7 +3,7 @@ import { Select, Store } from '@ngxs/store';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { MenuItem, PrimeTemplate } from 'primeng/api';
 import { Observable } from 'rxjs';
-import { LayoutUiSelectors } from '../../../../core/state/ui/ui.selectors';
+import { LayoutUiSelectors } from '../../../../../../state/ui/layout/layout.selectors';
 import { SmzLayoutsConfig } from '../../../../core/globals/smz-layouts.config';
 import { UiHephaestusActions } from '../../state/ui-layout.actions';
 import { SmzNotification } from '../../../../core/models/notifications';

@@ -4,10 +4,10 @@ import { SmzLayoutsConfig } from '../../core/globals/smz-layouts.config';
 import { RouterDataListenerService } from '../../core/services/router-data-listener.service';
 import { PrimeTemplate, MenuItem } from 'primeng/api';
 import { Observable } from 'rxjs';
-import { LayoutUiSelectors } from '../../core/state/ui/ui.selectors';
+import { LayoutUiSelectors } from '../../../../state/ui/layout/layout.selectors';
 import { SmzToastData } from '../../core/models/toasts';
 import { PrimeConfigService } from '../../../../common/services/prime-config.service';
-import { LayoutUiActions } from '../../core/state/ui/ui.actions';
+import { LayoutUiActions } from '../../../../state/ui/layout/layout.actions';
 
 @Component({
   selector: 'smz-ui-outlet',

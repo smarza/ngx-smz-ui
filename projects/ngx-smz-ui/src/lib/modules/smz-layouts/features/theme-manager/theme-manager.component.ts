@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store, } from '@ngxs/store';
-import { LayoutUiSelectors } from '../../core/state/ui/ui.selectors';
+import { LayoutUiSelectors } from '../../../../state/ui/layout/layout.selectors';
 import { ThemeManagerService } from './theme-manager.service';
 
 @Component({

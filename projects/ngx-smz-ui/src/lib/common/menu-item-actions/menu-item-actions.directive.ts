@@ -3,7 +3,7 @@ import { Navigate } from '@ngxs/router-plugin';
 import { Store } from '@ngxs/store';
 import { MenuItem } from 'primeng/api';
 import { ActionLink } from '../../modules/smz-layouts/core/models/action-link';
-import { LayoutUiActions } from '../../modules/smz-layouts/core/state/ui/ui.actions';
+import { LayoutUiActions } from '../../state/ui/layout/layout.actions';
 
 @Directive({
     selector: '[menuItemAction]'

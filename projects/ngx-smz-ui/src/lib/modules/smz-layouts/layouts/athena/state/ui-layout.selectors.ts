@@ -2,7 +2,7 @@ import { Selector } from '@ngxs/store';
 import { LayoutState } from '../../../core/models/layout';
 import { MenuType } from '../../../core/models/menu-types';
 import { SidebarState } from '../../../core/models/sidebar-states';
-import { LayoutUiState, UiStateModel } from '../../../core/state/ui/ui.state';
+import { LayoutUiState, UiStateModel } from '../../../../../state/ui/layout/layout.state';
 import { AthenaLayout } from '../layout.config';
 import { UiAthenaState, UiAthenaStateModel } from './ui-layout.state';
 

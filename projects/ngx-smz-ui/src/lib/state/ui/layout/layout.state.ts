@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Location } from '@angular/common';
 import { State, Action, StateContext } from '@ngxs/store';
-import { Assistance } from '../../models/assistance';
-import { LayoutState, LoaderData } from '../../models/layout';
-import { LayoutUiActions } from './ui.actions';
+import { Assistance } from '../../../modules/smz-layouts/core/models/assistance';
+import { LayoutState, LoaderData } from '../../../modules/smz-layouts/core/models/layout';
+import { LayoutUiActions } from './layout.actions';
 import { cloneDeep } from 'lodash-es';
-import { SmzLayoutsConfig } from '../../globals/smz-layouts.config';
-import { SmzContentTheme, SmzContentThemes } from '../../models/themes';
-import { LogoResource } from '../../models/logo';
-import { SmzToastData } from '../../models/toasts';
-import { ColorSchemaDefinition, SmzColorSchemas } from '../../models/color-schemas';
-import { BreadcrumbsData } from '../../models/breadcrumbs';
+import { SmzLayoutsConfig } from '../../../modules/smz-layouts/core/globals/smz-layouts.config';
+import { SmzContentTheme, SmzContentThemes } from '../../../modules/smz-layouts/core/models/themes';
+import { LogoResource } from '../../../modules/smz-layouts/core/models/logo';
+import { SmzToastData } from '../../../modules/smz-layouts/core/models/toasts';
+import { ColorSchemaDefinition, SmzColorSchemas } from '../../../modules/smz-layouts/core/models/color-schemas';
+import { BreadcrumbsData } from '../../../modules/smz-layouts/core/models/breadcrumbs';
 
 export interface UiStateModel {
   assistance: Assistance;

@@ -1,10 +1,10 @@
 import { Selector } from '@ngxs/store';
-import { LayoutUiState, UiStateModel } from './ui.state';
-import { LoaderData, ThemeToneType } from '../../models/layout';
-import { Assistance } from '../../models/assistance';
-import { SmzAppLogo } from '../../models/logo';
-import { SmzToastData } from '../../models/toasts';
-import { BreadcrumbsData } from '../../models/breadcrumbs';
+import { LayoutUiState, UiStateModel } from './layout.state';
+import { LoaderData, ThemeToneType } from '../../../modules/smz-layouts/core/models/layout';
+import { Assistance } from '../../../modules/smz-layouts/core/models/assistance';
+import { SmzAppLogo } from '../../../modules/smz-layouts/core/models/logo';
+import { SmzToastData } from '../../../modules/smz-layouts/core/models/toasts';
+import { BreadcrumbsData } from '../../../modules/smz-layouts/core/models/breadcrumbs';
 export class LayoutUiSelectors
 {
 

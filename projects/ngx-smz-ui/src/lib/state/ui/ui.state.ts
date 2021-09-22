@@ -3,10 +3,11 @@ import { Injectable } from '@angular/core';
 import { UiActions } from './ui.actions';
 import { NgxRbkUtilsConfig } from '../../modules/rbk-utils/ngx-rbk-utils.config';
 import { NotificationsUiState } from './notifications/notifications.state';
-import { LayoutUiState } from '../../modules/smz-layouts/core/state/ui/ui.state';
+import { LayoutUiState } from './layout/layout.state';
+import { RouterParamsState } from '../../modules/smz-router-params/state/router-params/router-params.state';
 
 
-export const UI_STATES: any[] = [LayoutUiState, NotificationsUiState];
+export const UI_STATES: any[] = [LayoutUiState, NotificationsUiState, RouterParamsState];
 
 export const UI_REQUIRED_ACTIONS = [];
 

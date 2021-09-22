@@ -1,7 +1,7 @@
 import { AfterContentInit, Component, ContentChildren, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { PrimeTemplate } from 'primeng/api';
-import { LayoutUiActions } from '../smz-layouts/core/state/ui/ui.actions';
+import { LayoutUiActions } from '../../state/ui/layout/layout.actions';
 import { SmzSideContent, SmzSideContentDefault } from './models/side-content';
 
 @Component({

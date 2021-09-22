@@ -1,8 +1,8 @@
-import { BreadcrumbsData } from '../../models/breadcrumbs';
-import { ColorSchemaDefinition } from '../../models/color-schemas';
-import { SmzLoader } from '../../models/loaders';
-import { EdgePositionType, LeftPositionType, RightPositionType, SidePositionType } from '../../models/positions';
-import { SmzContentTheme } from '../../models/themes';
+import { BreadcrumbsData } from '../../../modules/smz-layouts/core/models/breadcrumbs';
+import { ColorSchemaDefinition } from '../../../modules/smz-layouts/core/models/color-schemas';
+import { SmzLoader } from '../../../modules/smz-layouts/core/models/loaders';
+import { EdgePositionType, LeftPositionType, RightPositionType, SidePositionType } from '../../../modules/smz-layouts/core/models/positions';
+import { SmzContentTheme } from '../../../modules/smz-layouts/core/models/themes';
 
 export namespace LayoutUiActions
 {

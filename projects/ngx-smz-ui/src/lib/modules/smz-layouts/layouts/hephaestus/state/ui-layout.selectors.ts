@@ -2,7 +2,7 @@ import { Selector } from '@ngxs/store';
 import { LayoutState } from '../../../core/models/layout';
 import { MenuType } from '../../../core/models/menu-types';
 import { SidebarState } from '../../../core/models/sidebar-states';
-import { LayoutUiState, UiStateModel } from '../../../core/state/ui/ui.state';
+import { LayoutUiState, UiStateModel } from '../../../../../state/ui/layout/layout.state';
 import { HephaestusLayout } from '../layout.config';
 import { UiHephaestusState, UiHephaestusStateModel } from './ui-layout.state';
 
