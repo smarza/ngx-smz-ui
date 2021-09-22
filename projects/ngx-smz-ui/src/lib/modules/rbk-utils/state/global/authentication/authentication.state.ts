@@ -64,7 +64,16 @@ export class AuthenticationState {
     public remoteLogin(ctx: StateContext<AuthenticationStateModel>, action: AuthenticationActions.RemoteLogin): Observable<LoginResponse> {
         return this.authService.login(action.username, action.password, action.extraProperties).pipe(
             tap((result: LoginResponse) => {
-                this.store.dispatch(new AuthenticationActions.RemoteLoginSuccess(result.accessToken, result.refreshToken));
+
+                if (result.redirect == null) {
+                    this.store.dispatch(new AuthenticationActions.RemoteLoginSuccess(result.accessToken, result.refreshToken));
+                }
+                else if (this.rbkConfig.authentication.login.redirectCallback != null) {
+                    this.rbkConfig.authentication.login.redirectCallback(result);
+                }
+                else {
+                    throw console.error('Rbk Config redirectCallback not defined.');
+                }
             })
         );
     }

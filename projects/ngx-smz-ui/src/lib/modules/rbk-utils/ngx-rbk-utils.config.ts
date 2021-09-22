@@ -1,3 +1,4 @@
+import { LoginResponse } from './auth/models';
 import { HttpBehaviorParameters } from './http/base-api.service';
 
 export class NgxRbkUtilsConfig {
@@ -5,6 +6,9 @@ export class NgxRbkUtilsConfig {
     public applicationName: string;
     public useTitleService?: boolean;
     public diagnostics: {
+        url: string;
+    };
+    public notifications: {
         url: string;
     };
     public uiDefinitions: {
@@ -22,6 +26,7 @@ export class NgxRbkUtilsConfig {
             loadingBehavior: 'global' | 'local' | 'none',
             errorHandlingType: 'toast' | 'dialog' | 'none',
             responsePropertyName: string, // this is used in the login and refresh token endpoint responses
+            redirectCallback?: (response: LoginResponse) => void
         },
         refreshToken: {
             url: string,

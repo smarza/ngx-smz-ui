@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, ContentChildren, ElementRef, Input, OnInit, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, ElementRef, Input, OnChanges, OnInit, QueryList, SimpleChanges, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { MenuItem, PrimeTemplate } from 'primeng/api';
@@ -18,9 +18,10 @@ import { NgxRbkUtilsConfig } from '../../../../../rbk-utils/ngx-rbk-utils.config
   templateUrl: './horizontal-menu.component.html',
   styleUrls: ['./horizontal-menu.component.scss'],
   host: { "(document:click)": "collapseFromOutside($event)" },
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AthenaHorizontalMenuComponent implements OnInit, AfterContentInit {
+export class AthenaHorizontalMenuComponent implements OnInit, AfterContentInit, OnChanges {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
   @Select(UiSelectors.topbarTitle) public topbarTitle$: Observable<string>;
   @Select(UiSelectors.appContentLogo) public appLogo$: Observable<SmzAppLogo>;
@@ -47,6 +48,20 @@ export class AthenaHorizontalMenuComponent implements OnInit, AfterContentInit {
     });
   }
 
+  public ngOnChanges(changes: SimpleChanges): void
+  {
+      if (changes.menu != null)
+      {
+          const data = changes.menu.currentValue;
+
+          if (data == null) {
+            document.documentElement.style.setProperty('--layout-menu-height', '0em');
+          }
+          else {
+            document.documentElement.style.setProperty('--layout-menu-height', '4em');
+          }
+      }
+  }
 
   public toogleOnly(item: MenuItem, menu: MenuItem[]): void {
     this.collapseAll(menu);
@@ -56,7 +71,7 @@ export class AthenaHorizontalMenuComponent implements OnInit, AfterContentInit {
   }
 
   public collapseAll(menu: MenuItem[]): void {
-    menu.forEach(x => {
+    menu?.forEach(x => {
       x.expanded = false;
       if (x.items != null && x.items.length > 0) {
         this.collapseAll(x.items);

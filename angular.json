@@ -59,7 +59,7 @@
             "index": "projects/ngx-smz-ui-demo/src/index.html",
             "main": "projects/ngx-smz-ui-demo/src/main.ts",
             "polyfills": "projects/ngx-smz-ui-demo/src/polyfills.ts",
-            "tsConfig": "projects/ngx-smz-ui-demo/tsconfig.app.json",
+            "tsConfig": "projects/ngx-smz-ui-demo/tsconfig.json",
             "aot": true,
             "assets": [
               "projects/ngx-smz-ui-demo/src/favicon.ico",
@@ -146,11 +146,227 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/ngx-smz-ui-demo/tsconfig.app.json"
+              "projects/ngx-smz-ui-demo/tsconfig.json"
             ],
             "exclude": [
               "**/node_modules/**"
             ]
+          }
+        }
+      }
+    },
+    "ngx-smz-ui-overview": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "projects/ngx-smz-ui-overview",
+      "sourceRoot": "projects/ngx-smz-ui-overview/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/ngx-smz-ui-overview",
+            "index": "projects/ngx-smz-ui-overview/src/index.html",
+            "main": "projects/ngx-smz-ui-overview/src/main.ts",
+            "polyfills": "projects/ngx-smz-ui-overview/src/polyfills.ts",
+            "tsConfig": "projects/ngx-smz-ui-overview/tsconfig.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/ngx-smz-ui-overview/src/favicon.ico",
+              "projects/ngx-smz-ui-overview/src/assets",
+              {
+                "glob": "**/*",
+                "input": "dist/ngx-smz-ui/resources",
+                "output": "/"
+              }
+            ],
+            "styles": [
+              "projects/ngx-smz-ui-overview/src/styles.scss",
+              "dist/ngx-smz-ui/resources/assets/scss/smz-ui.scss",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/primeflex/primeflex.min.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+              "node_modules/highlight.js/styles/vs2015.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "projects/ngx-smz-ui-overview/src/environments/environment.ts",
+                  "with": "projects/ngx-smz-ui-overview/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": {
+                "scripts": false,
+                "styles": {
+                  "minify": false,
+                  "inlineCritical": false
+                },
+                "fonts": false
+              },
+              "buildOptimizer": false
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "ngx-smz-ui-overview:build:production"
+            },
+            "development": {
+              "browserTarget": "ngx-smz-ui-overview:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "ngx-smz-ui-overview:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-smz-ui-overview/src/test.ts",
+            "polyfills": "projects/ngx-smz-ui-overview/src/polyfills.ts",
+            "tsConfig": "projects/ngx-smz-ui-overview/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-smz-ui-overview/karma.conf.js",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/ngx-smz-ui-overview/src/favicon.ico",
+              "projects/ngx-smz-ui-overview/src/assets"
+            ],
+            "styles": [
+              "projects/ngx-smz-ui-overview/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    },
+    "ngx-smz-ui-notifications": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "projects/ngx-smz-ui-notifications",
+      "sourceRoot": "projects/ngx-smz-ui-notifications/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/ngx-smz-ui-notifications",
+            "index": "projects/ngx-smz-ui-notifications/src/index.html",
+            "main": "projects/ngx-smz-ui-notifications/src/main.ts",
+            "polyfills": "projects/ngx-smz-ui-notifications/src/polyfills.ts",
+            "tsConfig": "projects/ngx-smz-ui-notifications/tsconfig.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/ngx-smz-ui-notifications/src/favicon.ico",
+              "projects/ngx-smz-ui-notifications/src/assets",
+              {
+                "glob": "**/*",
+                "input": "dist/ngx-smz-ui/resources",
+                "output": "/"
+              }
+            ],
+            "styles": [
+              "projects/ngx-smz-ui-notifications/src/styles.scss",
+              "dist/ngx-smz-ui/resources/assets/scss/smz-ui.scss",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/primeflex/primeflex.min.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+              "node_modules/highlight.js/styles/vs2015.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "projects/ngx-smz-ui-notifications/src/environments/environment.ts",
+                  "with": "projects/ngx-smz-ui-notifications/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": {
+                "scripts": false,
+                "styles": {
+                  "minify": false,
+                  "inlineCritical": false
+                },
+                "fonts": false
+              },
+              "buildOptimizer": false
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "ngx-smz-ui-notifications:build:production"
+            },
+            "development": {
+              "browserTarget": "ngx-smz-ui-notifications:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "ngx-smz-ui-notifications:build"
           }
         }
       }

@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { NgxRbkUtilsConfig } from '../../../../../rbk-utils/ngx-rbk-utils.config';
 import { SmzNotification } from '../../../../core/models/notifications';
 
 @Component({
@@ -15,7 +16,13 @@ import { SmzNotification } from '../../../../core/models/notifications';
           <ng-container *ngTemplateOutlet="headerExtrasTemplate"></ng-container>
       </span>
 
-      <span class="notification-container" *ngIf="notifications != null" smz-ui-athena-notifications [items]="notifications"></span>
+      <ng-container *ngIf="rbkConfig.notifications.url != null; else modelDrivenNotificationsTemplate">
+        <smz-ui-notifications class="p-mr-3"></smz-ui-notifications>
+      </ng-container>
+
+      <ng-template #modelDrivenNotificationsTemplate>
+        <span class="notification-container" *ngIf="notifications != null" smz-ui-athena-notifications [items]="notifications"></span>
+      </ng-template>
 
       <span *ngIf="profile != null" smz-ui-athena-profile-menu [profile]="profile"></span>
 
@@ -27,7 +34,7 @@ export class AthenaTopbarActionsComponent implements OnInit {
   @Input() public notifications: SmzNotification[] = [];
   @Input() public headerExtrasTemplate: TemplateRef<any>;
 
-  constructor() {}
+  constructor(public rbkConfig: NgxRbkUtilsConfig) {}
 
   public ngOnInit(): void {
   }

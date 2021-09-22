@@ -1,15 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
-import { SmzTableState, SmzTableBuilder, SmzFilterType } from 'ngx-smz-ui';
+import { SmzTableState, SmzTableBuilder, SmzFilterType, SimpleNamedEntity } from 'ngx-smz-ui';
 import { Observable } from 'rxjs';
-import { Warehouse } from '@models/warehouse';
-import { WarehousesDbSelectors } from '@states/database/warehouses/warehouses.selector';
 import { DemoFeatureActions } from '@states/demo/demo.actions';
 import { DemoTableDataService } from '../demo-tables/data-service/demo-tables-data-service';
 import { ServiceDetails } from '../demo-tables/data-service/service';
 import { ServicesService } from '../demo-tables/data-service/services.service';
 import { CountriesDbSelectors } from '@states/database/countries/countries.selectors';
-import { SimpleNamedEntity } from 'projects/ngx-smz-ui/src/public-api';
+
 
 @Component({
   selector: 'demo-editable-table',

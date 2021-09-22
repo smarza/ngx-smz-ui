@@ -10,12 +10,13 @@ import { smzAthenaConfig, smzLayoutsConfig } from '../globals/smz-layouts.config
 import { CommonModule } from '@angular/common';
 import { ApplicationActions, buildState, NgxRbkUtilsConfig, NgxRbkUtilsModule } from 'ngx-smz-ui';
 import { NgxsModule, Store } from '@ngxs/store';
-import { environment } from '../environments/environment';
 import { rbkConfig } from '../globals/rbk-config';
 import { smzDialogsConfig } from '../globals/smz-config';
 import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { smzFaqsConfig } from '../globals/smz-faqs.config';
+import { environment } from '@enviroment';
+
 
 @NgModule({
   declarations: [
