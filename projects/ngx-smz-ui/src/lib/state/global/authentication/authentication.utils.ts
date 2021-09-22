@@ -1,5 +1,5 @@
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { NgxRbkUtilsConfig } from '../../../ngx-rbk-utils.config';
+import { NgxRbkUtilsConfig } from '../../../modules/rbk-utils/ngx-rbk-utils.config';
 
 export function generateUserData(token: string, config: NgxRbkUtilsConfig): any {
     const jwtDecoder = new JwtHelperService();

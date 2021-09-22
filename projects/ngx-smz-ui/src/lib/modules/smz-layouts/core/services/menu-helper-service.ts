@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actions, ofActionSuccessful, Store } from '@ngxs/store';
 import { MenuItem } from 'primeng/api';
-import { AuthenticationActions } from '../../../rbk-utils/state/global/authentication/authentication.actions';
-import { AuthenticationSelectors } from '../../../rbk-utils/state/global/authentication/authentication.selectors';
+import { AuthenticationActions } from '../../../../state/global/authentication/authentication.actions';
+import { AuthenticationSelectors } from '../../../../state/global/authentication/authentication.selectors';
 import { MenuCreation } from '../models/menu-creation';
 import { SmzNotification } from '../models/notifications';
 

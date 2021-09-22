@@ -1,7 +1,7 @@
 import { AfterContentInit, Component, ContentChildren, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { PrimeTemplate } from 'primeng/api';
-import { UiActions } from '../smz-layouts/core/state/ui/ui.actions';
+import { LayoutUiActions } from '../smz-layouts/core/state/ui/ui.actions';
 import { SmzSideContent, SmzSideContentDefault } from './models/side-content';
 
 @Component({
@@ -30,7 +30,7 @@ export class SmzSideContentComponent implements OnInit, AfterContentInit, OnChan
   public ngOnChanges(changes: SimpleChanges): void {
     if (changes.visible?.isFirstChange()) {
       this.appendToBody = changes.visible.currentValue;
-      this.store.dispatch(new UiActions.RestoreLayoutPosition());
+      this.store.dispatch(new LayoutUiActions.RestoreLayoutPosition());
       return;
     }
 
@@ -38,17 +38,17 @@ export class SmzSideContentComponent implements OnInit, AfterContentInit, OnChan
       const overlay: boolean = changes.overlay.currentValue;
 
       if (overlay) {
-        this.store.dispatch(new UiActions.RestoreLayoutPosition());
+        this.store.dispatch(new LayoutUiActions.RestoreLayoutPosition());
       }
       else {
         if (this.position === 'left') {
-          this.store.dispatch(new UiActions.MoveLayout('shift-content-right'));
+          this.store.dispatch(new LayoutUiActions.MoveLayout('shift-content-right'));
         }
         else if (this.position === 'right') {
-          this.store.dispatch(new UiActions.MoveLayout('shift-content-left'));
+          this.store.dispatch(new LayoutUiActions.MoveLayout('shift-content-left'));
         }
         else {
-          this.store.dispatch(new UiActions.RestoreLayoutPosition());
+          this.store.dispatch(new LayoutUiActions.RestoreLayoutPosition());
         }
       }
     }
@@ -58,32 +58,32 @@ export class SmzSideContentComponent implements OnInit, AfterContentInit, OnChan
       this.appendToBody = visible;
 
       if (!visible || this.overlay) {
-        this.store.dispatch(new UiActions.RestoreLayoutPosition());
+        this.store.dispatch(new LayoutUiActions.RestoreLayoutPosition());
       }
       else {
         if (this.position === 'left') {
-          this.store.dispatch(new UiActions.MoveLayout('shift-content-right'));
+          this.store.dispatch(new LayoutUiActions.MoveLayout('shift-content-right'));
         }
         else if (this.position === 'right') {
-          this.store.dispatch(new UiActions.MoveLayout('shift-content-left'));
+          this.store.dispatch(new LayoutUiActions.MoveLayout('shift-content-left'));
         }
         else {
-          this.store.dispatch(new UiActions.RestoreLayoutPosition());
+          this.store.dispatch(new LayoutUiActions.RestoreLayoutPosition());
         }
       }
     }
     else if (changes.position != null) {
       if (!this.visible || this.overlay) {
-        this.store.dispatch(new UiActions.RestoreLayoutPosition());
+        this.store.dispatch(new LayoutUiActions.RestoreLayoutPosition());
       }
       else if (this.position === 'left') {
-        this.store.dispatch(new UiActions.MoveLayout('shift-content-right'));
+        this.store.dispatch(new LayoutUiActions.MoveLayout('shift-content-right'));
       }
       else if (this.position === 'right') {
-        this.store.dispatch(new UiActions.MoveLayout('shift-content-left'));
+        this.store.dispatch(new LayoutUiActions.MoveLayout('shift-content-left'));
       }
       else {
-        this.store.dispatch(new UiActions.RestoreLayoutPosition());
+        this.store.dispatch(new LayoutUiActions.RestoreLayoutPosition());
       }
 
     }
@@ -101,6 +101,6 @@ export class SmzSideContentComponent implements OnInit, AfterContentInit, OnChan
   }
 
   public ngOnDestroy(): void {
-    this.store.dispatch(new UiActions.RestoreLayoutPosition());
+    this.store.dispatch(new LayoutUiActions.RestoreLayoutPosition());
   }
 }

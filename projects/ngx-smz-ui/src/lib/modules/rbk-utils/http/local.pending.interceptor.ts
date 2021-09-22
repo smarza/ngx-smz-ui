@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Store } from '@ngxs/store';
 import { LOADING_BEHAVIOR_HEADER, LOCAL_LOADING_TAG_HEADER } from './base-api.service';
-import { ApplicationActions } from '../state/global/application/application.actions';
+import { ApplicationActions } from '../../../state/global/application/application.actions';
 import { NgxRbkUtilsConfig } from '../ngx-rbk-utils.config';
 import { map, catchError, finalize } from 'rxjs/operators';
 import { throwError, Observable } from 'rxjs';

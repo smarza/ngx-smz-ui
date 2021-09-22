@@ -1,6 +1,6 @@
 import { Injectable, Pipe, PipeTransform } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { AuthenticationSelectors } from '../../state/global/authentication/authentication.selectors';
+import { AuthenticationSelectors } from '../../../../state/global/authentication/authentication.selectors';
 
 @Pipe({
     name: 'rbkCanAccess'

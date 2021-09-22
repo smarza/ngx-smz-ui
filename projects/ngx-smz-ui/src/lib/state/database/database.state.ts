@@ -1,7 +1,7 @@
 import { State, Action, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { DatabaseActions } from './database.actions';
-import { NgxRbkUtilsConfig } from '../../ngx-rbk-utils.config';
+import { NgxRbkUtilsConfig } from '../../modules/rbk-utils/ngx-rbk-utils.config';
 
 export const DATABASE_STATES: any[] = [];
 

@@ -1,6 +1,6 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, ContentChildren, ElementRef, HostBinding, Input, OnInit, QueryList } from "@angular/core";
 import { Select, Store } from '@ngxs/store';
-import { AuthenticationSelectors } from '../../../../../rbk-utils/state/global/authentication/authentication.selectors';
+import { AuthenticationSelectors } from '../../../../../../state/global/authentication/authentication.selectors';
 import { MenuItem, PrimeTemplate } from 'primeng/api';
 import { Observable } from 'rxjs';
 import { SmzLayoutsConfig } from '../../../../core/globals/smz-layouts.config';

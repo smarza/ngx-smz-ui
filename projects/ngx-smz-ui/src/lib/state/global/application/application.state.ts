@@ -3,11 +3,11 @@ import { State, Action, StateContext } from '@ngxs/store';
 import { AuthenticationActions } from '../authentication/authentication.actions';
 import { ApplicationActions } from './application.actions';
 import { MessageService } from 'primeng/api';
-import { NgxRbkUtilsConfig } from '../../../ngx-rbk-utils.config';
+import { NgxRbkUtilsConfig } from '../../../modules/rbk-utils/ngx-rbk-utils.config';
 import { ToastActions } from './application.actions.toast';
 import { Navigate } from '@ngxs/router-plugin';
-import { HttpErrorHandler } from '../../../error-handler/error.handler';
-import { DialogsActions } from '../../../../smz-dialogs/state/dialogs/dialogs.actions';
+import { HttpErrorHandler } from '../../../modules/rbk-utils/error-handler/error.handler';
+import { DialogsActions } from '../../../modules/smz-dialogs/state/dialogs/dialogs.actions';
 
 export interface ApplicationStateModel {
     globalIsLoading: boolean;

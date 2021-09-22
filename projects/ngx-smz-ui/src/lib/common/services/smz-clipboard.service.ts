@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { ToastActions } from '../../modules/rbk-utils/state/global/application/application.actions.toast';
+import { ToastActions } from '../../state/global/application/application.actions.toast';
 import { SmzPresets } from '../../modules/smz-dialogs/models/smz-presets';
 import { SmzDialogsService } from '../../modules/smz-dialogs/services/smz-dialogs.service';
 

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';import { NgxRbkUtilsConfig } from '../../../rbk-utils/ngx-rbk-utils.config';
-import { DatabaseActions } from '../../../rbk-utils/state/database/database.actions';
-import { FeaturesActions } from '../../../rbk-utils/state/features/features.actions';
-import { GlobalActions } from '../../../rbk-utils/state/global/global.actions';
+import { DatabaseActions } from '../../../../state/database/database.actions';
+import { FeaturesActions } from '../../../../state/features/features.actions';
+import { GlobalActions } from '../../../../state/global/global.actions';
  import { SmzLayoutsConfig } from '../../core/globals/smz-layouts.config';
 import { RouterDataListenerService } from '../../core/services/router-data-listener.service';
 

@@ -10,7 +10,7 @@ import { SmzMenuBuilder } from './menu-builder';
 import { SmzForm } from '../../modules/smz-forms/models/smz-forms';
 import { SmzControlTypes } from '../../modules/smz-forms/models/control-types';
 import { convertFormFeature } from '../smz-dialogs/dialog-input-conversion';
-import { UiDefinitionsDbSelectors } from '../../modules/rbk-utils/state/database/ui-definitions/ui-definitions.selectors';
+import { UiDefinitionsDbSelectors } from '../../state/database/ui-definitions/ui-definitions.selectors';
 
 export class SmzTableBuilder {
   public _state: SmzTableState = {

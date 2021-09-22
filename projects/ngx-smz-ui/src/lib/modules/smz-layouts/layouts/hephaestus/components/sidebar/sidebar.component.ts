@@ -3,7 +3,7 @@ import { Select, Store } from '@ngxs/store';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { MenuItem, PrimeTemplate } from 'primeng/api';
 import { Observable } from 'rxjs';
-import { UiSelectors } from '../../../../core/state/ui/ui.selectors';
+import { LayoutUiSelectors } from '../../../../core/state/ui/ui.selectors';
 import { RouterState } from '@ngxs/router-plugin';
 import { SmzLayoutsConfig } from '../../../../core/globals/smz-layouts.config';
 import { SmzAppLogo } from '../../../../core/models/logo';
@@ -22,9 +22,9 @@ export class HephaestusSidebarComponent implements OnInit, AfterContentInit
 {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
   @Select(UiHephaestusSelectors.layout) public layout$: Observable<HephaestusLayout>;
-  @Select(UiSelectors.appName) public appName$: Observable<string>;
+  @Select(LayoutUiSelectors.appName) public appName$: Observable<string>;
   @Select(RouterState.state) public currentRoute$: Observable<any>;
-  @Select(UiSelectors.appLayoutLogo) public appLayoutLogo$: Observable<SmzAppLogo>;
+  @Select(LayoutUiSelectors.appLayoutLogo) public appLayoutLogo$: Observable<SmzAppLogo>;
   public headerExtrasTemplate: TemplateRef<any>;
   @Input() public menu: MenuItem[];
   public isAnyMenuExpanded = false;

@@ -8,8 +8,9 @@ export class NgxRbkUtilsConfig {
     public diagnostics: {
         url: string;
     };
-    public notifications: {
+    public notifications?: {
         url: string;
+        httpBehavior: Partial<HttpBehaviorParameters>
     };
     public uiDefinitions: {
         url: string;

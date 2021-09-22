@@ -3,7 +3,7 @@ import { Location } from '@angular/common';
 import { State, Action, StateContext } from '@ngxs/store';
 import { Assistance } from '../../models/assistance';
 import { LayoutState, LoaderData } from '../../models/layout';
-import { UiActions } from './ui.actions';
+import { LayoutUiActions } from './ui.actions';
 import { cloneDeep } from 'lodash-es';
 import { SmzLayoutsConfig } from '../../globals/smz-layouts.config';
 import { SmzContentTheme, SmzContentThemes } from '../../models/themes';
@@ -61,16 +61,16 @@ export const getInitialState = (): UiStateModel => ({
 
 // @dynamic
 @State<UiStateModel>({
-  name: 'ui',
+  name: 'layout',
   defaults: getInitialState()
 })
 
 @Injectable()
-export class UiState {
+export class LayoutUiState {
   constructor(public readonly config: SmzLayoutsConfig, private location: Location) { }
 
 
-  @Action(UiActions.Initialize)
+  @Action(LayoutUiActions.Initialize)
   public onInitialize(ctx: StateContext<UiStateModel>): void {
     const state = ctx.getState().state;
 
@@ -96,18 +96,18 @@ export class UiState {
         loader: this.config.loader,
       });
 
-    ctx.dispatch(new UiActions.SetContentTheme(this.config.themes.content));
-    ctx.dispatch(new UiActions.SetColorSchema(schema));
+    ctx.dispatch(new LayoutUiActions.SetContentTheme(this.config.themes.content));
+    ctx.dispatch(new LayoutUiActions.SetColorSchema(schema));
   }
 
-  @Action(UiActions.SetTopbarTitle)
-  public onSetTopbarTitle(ctx: StateContext<UiStateModel>, action: UiActions.SetTopbarTitle): void {
+  @Action(LayoutUiActions.SetTopbarTitle)
+  public onSetTopbarTitle(ctx: StateContext<UiStateModel>, action: LayoutUiActions.SetTopbarTitle): void {
     const state = ctx.getState().state;
     ctx.patchState({ state: { ...state, topbarTitle: action.data } });
   }
 
-  @Action(UiActions.SetContentTheme)
-  public onSetContentTheme(ctx: StateContext<UiStateModel>, action: UiActions.SetContentTheme): void {
+  @Action(LayoutUiActions.SetContentTheme)
+  public onSetContentTheme(ctx: StateContext<UiStateModel>, action: LayoutUiActions.SetContentTheme): void {
     const themes = ctx.getState().themes;
     const state = ctx.getState().state;
     const contentTheme = SmzContentThemes.find(x => x.id === action.data);
@@ -115,8 +115,8 @@ export class UiState {
     ctx.patchState({ themes: { ...themes, content: action.data }, state: { ...state, contentTone: contentTheme.tone } });
   }
 
-  @Action(UiActions.SetColorSchema)
-  public onSetColorSchema(ctx: StateContext<UiStateModel>, action: UiActions.SetColorSchema): void {
+  @Action(LayoutUiActions.SetColorSchema)
+  public onSetColorSchema(ctx: StateContext<UiStateModel>, action: LayoutUiActions.SetColorSchema): void {
     const themes = ctx.getState().themes;
     const state = ctx.getState().state;
     const schema = SmzColorSchemas.find(x => x.id === action.data);
@@ -128,46 +128,46 @@ export class UiState {
     ctx.patchState({ themes: { ...themes, schema: action.data }, state: { ...state, schemaTone: schema.tone } });
   }
 
-  @Action(UiActions.SetGlobalLoader)
-  public onSetGlobalLoader(ctx: StateContext<UiStateModel>, action: UiActions.SetGlobalLoader): void {
+  @Action(LayoutUiActions.SetGlobalLoader)
+  public onSetGlobalLoader(ctx: StateContext<UiStateModel>, action: LayoutUiActions.SetGlobalLoader): void {
     const loader = ctx.getState().loader;
 
     ctx.patchState({ loader: { ...loader, type: action.data } });
   }
 
-  @Action(UiActions.ShowConfigAssistance)
+  @Action(LayoutUiActions.ShowConfigAssistance)
   public onShowConfigAssistance(ctx: StateContext<UiStateModel>): void {
     const assistance = cloneDeep(ctx.getState().assistance);
     ctx.patchState({ assistance: { ...assistance, isVisible: true } });
   }
 
-  @Action(UiActions.HideConfigAssistance)
+  @Action(LayoutUiActions.HideConfigAssistance)
   public onHideConfigassistance(ctx: StateContext<UiStateModel>): void {
     const assistance = ctx.getState().assistance;
     ctx.patchState({ assistance: { ...assistance, isVisible: false } });
   }
 
-  @Action(UiActions.SetAssistancePosition)
-  public onSetAssistancePosition(ctx: StateContext<UiStateModel>, action: UiActions.SetAssistancePosition): void {
+  @Action(LayoutUiActions.SetAssistancePosition)
+  public onSetAssistancePosition(ctx: StateContext<UiStateModel>, action: LayoutUiActions.SetAssistancePosition): void {
     const assistance = ctx.getState().assistance;
     ctx.patchState({ assistance: { ...assistance, sidebarData: { ...assistance.sidebarData, position: action.data } } });
   }
 
-  @Action(UiActions.SetAssistanceButtonPosition)
-  public onSetAssistanceButtonPosition(ctx: StateContext<UiStateModel>, action: UiActions.SetAssistanceButtonPosition): void {
+  @Action(LayoutUiActions.SetAssistanceButtonPosition)
+  public onSetAssistanceButtonPosition(ctx: StateContext<UiStateModel>, action: LayoutUiActions.SetAssistanceButtonPosition): void {
     const assistance = ctx.getState().assistance;
     ctx.patchState({ assistance: { ...assistance, buttonPosition: action.data } });
   }
 
-  @Action(UiActions.SetToastPosition)
-  public onSetToastPosition(ctx: StateContext<UiStateModel>, action: UiActions.SetToastPosition): void {
+  @Action(LayoutUiActions.SetToastPosition)
+  public onSetToastPosition(ctx: StateContext<UiStateModel>, action: LayoutUiActions.SetToastPosition): void {
     const toast = ctx.getState().toast;
     ctx.patchState({ toast: { ...toast, position: action.data } });
   }
 
 
-  @Action(UiActions.MoveLayout)
-  public onMoveLayout(ctx: StateContext<UiStateModel>, action: UiActions.MoveLayout): void {
+  @Action(LayoutUiActions.MoveLayout)
+  public onMoveLayout(ctx: StateContext<UiStateModel>, action: LayoutUiActions.MoveLayout): void {
     const state = ctx.getState().state;
 
     ctx.patchState({ state: { ...state, contentClass: action.data }});
@@ -175,7 +175,7 @@ export class UiState {
   }
 
 
-  @Action(UiActions.RestoreLayoutPosition)
+  @Action(LayoutUiActions.RestoreLayoutPosition)
   public onRestoreLayoutPosition(ctx: StateContext<UiStateModel>): void {
     const state = ctx.getState().state;
 
@@ -183,22 +183,22 @@ export class UiState {
 
   }
 
-  @Action(UiActions.SetLastUserMouseEvent)
-  public onSetLastUserMouseEvent(ctx: StateContext<UiStateModel>, action: UiActions.SetLastUserMouseEvent): void {
+  @Action(LayoutUiActions.SetLastUserMouseEvent)
+  public onSetLastUserMouseEvent(ctx: StateContext<UiStateModel>, action: LayoutUiActions.SetLastUserMouseEvent): void {
     const state = ctx.getState().state;
 
     ctx.patchState({ lastUserMouseEvent: action.data });
 
   }
 
-  @Action(UiActions.NavigateBack)
+  @Action(LayoutUiActions.NavigateBack)
   public onNavigateBack(ctx: StateContext<UiStateModel>): void {
     this.location.back();
 
   }
 
-  @Action(UiActions.SetBreadcrumbs)
-  public onSetBreadcrumbs(ctx: StateContext<UiStateModel>, action: UiActions.SetBreadcrumbs): void {
+  @Action(LayoutUiActions.SetBreadcrumbs)
+  public onSetBreadcrumbs(ctx: StateContext<UiStateModel>, action: LayoutUiActions.SetBreadcrumbs): void {
     const data: BreadcrumbsData = {
       parent: { ...action.data.parent, command: undefined, items: undefined },
       item: { ...action.data.item, command: undefined, items: undefined },

@@ -5,8 +5,8 @@ import { Observable } from 'rxjs';
 import { Assistance } from '../../core/models/assistance';
 import { LayoutState } from '../../core/models/layout';
 import { RouterDataListenerService } from '../../core/services/router-data-listener.service';
-import { UiActions } from '../../core/state/ui/ui.actions';
-import { UiSelectors } from '../../core/state/ui/ui.selectors';
+import { LayoutUiActions } from '../../core/state/ui/ui.actions';
+import { LayoutUiSelectors } from '../../core/state/ui/ui.selectors';
 import { SmzLayoutsConfig } from '../../core/globals/smz-layouts.config';
 import { UiAthenaActions } from './state/ui-layout.actions';
 import { UiAthenaSelectors } from './state/ui-layout.selectors';
@@ -21,16 +21,16 @@ import { SmzNotification } from '../../core/models/notifications';
 })
 export class AthenaLayoutComponent implements OnInit, AfterContentInit {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
-  @Select(UiSelectors.contentClass) public contentClass$: Observable<string>;
+  @Select(LayoutUiSelectors.contentClass) public contentClass$: Observable<string>;
   @Select(UiAthenaSelectors.state) public state$: Observable<LayoutState>;
-  @Select(UiSelectors.assistance) public assistance$: Observable<Assistance>;
+  @Select(LayoutUiSelectors.assistance) public assistance$: Observable<Assistance>;
   @Input() public menu: MenuItem[];
   @Input() public profile: MenuItem[];
   @Input() public notifications: SmzNotification[];
   public headerExtrasTemplate: TemplateRef<any>;
   public footerExtrasTemplate: TemplateRef<any>;
   constructor(public readonly config: SmzLayoutsConfig, public readonly layout: AthenaLayout, public readonly routerListener: RouterDataListenerService, private store: Store, public cdr: ChangeDetectorRef) {
-    this.store.dispatch(new UiActions.Initialize());
+    this.store.dispatch(new LayoutUiActions.Initialize());
     this.store.dispatch(new UiAthenaActions.Initialize(config, layout));
   }
 

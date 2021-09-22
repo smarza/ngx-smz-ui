@@ -3,7 +3,7 @@ import { Navigate } from '@ngxs/router-plugin';
 import { Store } from '@ngxs/store';
 import { MenuItem } from 'primeng/api';
 import { ActionLink } from '../../modules/smz-layouts/core/models/action-link';
-import { UiActions } from '../../modules/smz-layouts/core/state/ui/ui.actions';
+import { LayoutUiActions } from '../../modules/smz-layouts/core/state/ui/ui.actions';
 
 @Directive({
     selector: '[menuItemAction]'
@@ -28,7 +28,7 @@ export class MenuItemActionsDirective {
         else if (this.item.routerLink != null) {
 
             if (this.breadcrumbs) {
-                this.store.dispatch(new UiActions.SetBreadcrumbs({
+                this.store.dispatch(new LayoutUiActions.SetBreadcrumbs({
                     item: this.item,
                     parent: this.parent
                 }));

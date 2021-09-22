@@ -3,7 +3,7 @@ import { Select, Store } from '@ngxs/store';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { MenuItem, PrimeTemplate } from 'primeng/api';
 import { Observable } from 'rxjs';
-import { UiSelectors } from '../../../../core/state/ui/ui.selectors';
+import { LayoutUiSelectors } from '../../../../core/state/ui/ui.selectors';
 import { SmzLayoutsConfig } from '../../../../core/globals/smz-layouts.config';
 import { UiHephaestusActions } from '../../state/ui-layout.actions';
 import { SmzNotification } from '../../../../core/models/notifications';
@@ -21,7 +21,7 @@ export class HephaestusTopbarComponent implements OnInit, AfterContentInit
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
   @Input() public notifications: SmzNotification[];
   @Input() public profile: MenuItem[];
-  @Select(UiSelectors.topbarTitle) public topbarTitle$: Observable<string>;
+  @Select(LayoutUiSelectors.topbarTitle) public topbarTitle$: Observable<string>;
   public headerExtrasTemplate: TemplateRef<any>;
   constructor(public readonly config: SmzLayoutsConfig, private store: Store) { }
 

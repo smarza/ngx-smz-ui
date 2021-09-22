@@ -2,14 +2,14 @@ import { Selector } from '@ngxs/store';
 import { LayoutState } from '../../../core/models/layout';
 import { MenuType } from '../../../core/models/menu-types';
 import { SidebarState } from '../../../core/models/sidebar-states';
-import { UiState, UiStateModel } from '../../../core/state/ui/ui.state';
+import { LayoutUiState, UiStateModel } from '../../../core/state/ui/ui.state';
 import { AthenaLayout } from '../layout.config';
 import { UiAthenaState, UiAthenaStateModel } from './ui-layout.state';
 
 export class UiAthenaSelectors
 {
 
-    @Selector([UiAthenaState, UiState])
+    @Selector([UiAthenaState, LayoutUiState])
     public static state(state: UiAthenaStateModel, ui: UiStateModel): LayoutState
     {
         const layoutClass = `layout-${state.config.menu}`;

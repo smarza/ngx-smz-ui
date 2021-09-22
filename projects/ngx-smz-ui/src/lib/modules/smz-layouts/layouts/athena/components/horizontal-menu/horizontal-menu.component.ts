@@ -3,7 +3,7 @@ import { Select, Store } from '@ngxs/store';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { MenuItem, PrimeTemplate } from 'primeng/api';
 import { Observable } from 'rxjs';
-import { UiSelectors } from '../../../../core/state/ui/ui.selectors';
+import { LayoutUiSelectors } from '../../../../core/state/ui/ui.selectors';
 import { SmzLayoutsConfig } from '../../../../core/globals/smz-layouts.config';
 import { SmzAppLogo } from '../../../../core/models/logo';
 import { MenuType } from '../../../../core/models/menu-types';
@@ -23,11 +23,11 @@ import { NgxRbkUtilsConfig } from '../../../../../rbk-utils/ngx-rbk-utils.config
 })
 export class AthenaHorizontalMenuComponent implements OnInit, AfterContentInit, OnChanges {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
-  @Select(UiSelectors.topbarTitle) public topbarTitle$: Observable<string>;
-  @Select(UiSelectors.appContentLogo) public appLogo$: Observable<SmzAppLogo>;
+  @Select(LayoutUiSelectors.topbarTitle) public topbarTitle$: Observable<string>;
+  @Select(LayoutUiSelectors.appContentLogo) public appLogo$: Observable<SmzAppLogo>;
 
   @Select(UiAthenaSelectors.layout) public layout$: Observable<AthenaLayout>;
-  @Select(UiSelectors.appName) public appName$: Observable<string>;
+  @Select(LayoutUiSelectors.appName) public appName$: Observable<string>;
   @Select(RouterState.state) public currentRoute$: Observable<any>;
   @Input() public menu: MenuItem[];
   public isAnyMenuExpanded = false;

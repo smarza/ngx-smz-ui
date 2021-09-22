@@ -55,7 +55,14 @@ export const rbkConfig: NgxRbkUtilsConfig = {
         url: null
     },
     notifications: {
-        url: ''
+        url: '',
+        httpBehavior: {
+            authentication: false,
+            compression: true,
+            errorHandlingType: 'dialog',
+            loadingBehavior: 'global',
+            needToRefreshToken: false
+        }
     },
     authentication: {
         localStoragePrefix: 'ui-demo',

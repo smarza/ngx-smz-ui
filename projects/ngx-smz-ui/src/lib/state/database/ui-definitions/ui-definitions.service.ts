@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { NgxRbkUtilsConfig } from '../../../ngx-rbk-utils.config';
-import { BaseApiService } from '../../../http/base-api.service';
+import { NgxRbkUtilsConfig } from '../../../modules/rbk-utils/ngx-rbk-utils.config';
+import { BaseApiService } from '../../../modules/rbk-utils/http/base-api.service';
 import { Observable } from 'rxjs';
-import { FormDefinitionData } from '../../../../../builders/smz-dialogs/dialog-input-conversion';
+import { FormDefinitionData } from '../../../builders/smz-dialogs/dialog-input-conversion';
 
 @Injectable({providedIn: 'root'})
 export class UiDefinitionsService extends BaseApiService {
