@@ -22,6 +22,20 @@ export interface SmzTableState {
     };
 
     /**
+     * Configuration of the actions for multiselection
+     */
+    batchActions?: {
+      /**
+       * Controls the visibility of the button menu of the rows
+       */
+      isVisible: boolean;
+      /**
+       * Items for the buttons
+       */
+      items: SmzMenuItem[];
+    };
+
+    /**
      * Custom actions for all rows
      */
     customActions?: {
@@ -121,9 +135,17 @@ export interface SmzTableState {
      */
     globalFilter?: {
       /**
-       * Controsl wheter the global filter is visible or not
+       * Control whether the global filter is visible or not
        */
       isVisible: boolean;
+      /**
+       * If true the input will expand to 100% of the width table
+       */
+      expanded: boolean;
+      /**
+       * The input search placeholder
+       */
+       placeholder: string;
     };
     /**
      * Allows the end user to manually clear table filters
@@ -175,6 +197,16 @@ export interface SmzTableState {
     };
   };
 
+  /**
+   * Behavior of everything that is hosted in the caption area of the table
+   */
+  header?: {
+    /**
+     * Controls de visibility of the header area
+     */
+    isVisible?: boolean;
+  };
+
   columns: SmzTableColumn[];
 
   /**
@@ -224,6 +256,10 @@ export interface SmzTableState {
    * Behavior of the empty feedback
    */
   emptyFeedback?: {
+    /**
+     * Message displayed when the table has no data
+     */
+    isFeatured?: boolean;
     /**
      * Message displayed when the table has no data
      */

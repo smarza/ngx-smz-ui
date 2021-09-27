@@ -1,16 +1,22 @@
 
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
-import { SmzNotificationsService } from '../../services/smz-notifications.service';
+import { Select, Store } from '@ngxs/store';
+import { NotificationData } from '../../../../state/ui/notifications/notifications.model';
+import { Observable } from 'rxjs';
+import { NotificationsUiSelectors } from '../../../../state/ui/notifications/notifications.selectors';
 
 @Component({
   selector: 'smz-ui-notifications',
   templateUrl: './notifications.component.html',
+  styleUrls: ['./notifications.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
 export class SmzNotificationsComponent {
 
-
-  constructor(public notificationService: SmzNotificationsService) {}
+  @Select(NotificationsUiSelectors.all) public notifications$: Observable<NotificationData[]>;
+  @Select(NotificationsUiSelectors.newCount) public newCount$: Observable<number>;
+  constructor(public store: Store) {
+  }
 
 }

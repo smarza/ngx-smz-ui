@@ -55,14 +55,22 @@ export const rbkConfig: NgxRbkUtilsConfig = {
         url: null
     },
     notifications: {
-        url: '',
+        url: `${environment.domainApi}/api/notifications`,
+        updateMethod: 'interval',
+        updateRate: 100000,
         httpBehavior: {
-            authentication: false,
+            authentication: true,
             compression: true,
-            errorHandlingType: 'dialog',
-            loadingBehavior: 'global',
-            needToRefreshToken: false
-        }
+            errorHandlingType: 'toast',
+            loadingBehavior: 'none',
+            needToRefreshToken: true
+        },
+        emptyMessage: 'Nenhuma notificação encontrada',
+        title: 'Notificações',
+        rowsPerPage: 5,
+        pageOptions: [5, 10, 20],
+        showTypeIndicators: true,
+        showRefreshButton: true
     },
     authentication: {
         localStoragePrefix: 'ui-demo',

@@ -17,7 +17,7 @@ import { SmzNotification } from '../../../../core/models/notifications';
       </span>
 
       <ng-container *ngIf="rbkConfig.notifications.url != null; else modelDrivenNotificationsTemplate">
-        <smz-ui-notifications class="p-mr-3"></smz-ui-notifications>
+        <smz-ui-notifications class="p-mr-5"></smz-ui-notifications>
       </ng-container>
 
       <ng-template #modelDrivenNotificationsTemplate>

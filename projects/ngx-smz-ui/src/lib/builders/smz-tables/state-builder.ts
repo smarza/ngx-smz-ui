@@ -11,6 +11,7 @@ import { SmzForm } from '../../modules/smz-forms/models/smz-forms';
 import { SmzControlTypes } from '../../modules/smz-forms/models/control-types';
 import { convertFormFeature } from '../smz-dialogs/dialog-input-conversion';
 import { UiDefinitionsDbSelectors } from '../../state/database/ui-definitions/ui-definitions.selectors';
+import { SmzBatchMenuBuilder } from './batch-menu-builder';
 
 export class SmzTableBuilder {
   public _state: SmzTableState = {
@@ -21,6 +22,10 @@ export class SmzTableBuilder {
         isVisible: false,
       },
       menu: {
+        isVisible: false,
+        items: []
+      },
+      batchActions: {
         isVisible: false,
         items: []
       },
@@ -76,16 +81,22 @@ export class SmzTableBuilder {
       },
       globalFilter: {
         isVisible: false,
+        expanded: false,
+        placeholder: 'Pesquisa Global'
       },
       isVisible: false,
       title: null,
       toolbarAlignment: 'start'
     },
+    header: {
+      isVisible: true
+    },
     emptyFeedback: {
       actionButtons: [],
       extraInfo: null,
       image: 'assets/images/tables/empty.svg',
-      message: 'Lista vazia'
+      message: 'Lista vazia',
+      isFeatured: true
     },
     initialState: {
       skeleton: {
@@ -163,9 +174,21 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public enableGlobalFilter(): SmzTableBuilder {
+  public enableGlobalFilter(placeholder?: string): SmzTableBuilder {
     this._state.caption.isVisible = true;
     this._state.caption.globalFilter.isVisible = true;
+
+    if (placeholder != null) this._state.caption.globalFilter.placeholder = placeholder;
+    return this;
+  }
+
+  public expandGlobalFilterInput(): SmzTableBuilder {
+
+    if (!this._state.caption.globalFilter.isVisible) {
+      throw Error('You need to call \'enableGlobalFilter\' before');
+    }
+
+    this._state.caption.globalFilter.expanded = true;
     return this;
   }
 
@@ -233,6 +256,11 @@ export class SmzTableBuilder {
     return this;
   }
 
+  public hideHeader(): SmzTableBuilder {
+    this._state.header.isVisible = false;
+    return this;
+  }
+
   public setSkeletonRowsCount(rows: number): SmzTableBuilder {
     this._state.initialState.skeleton.isEnabled = true;
     this._state.initialState.skeleton.rows = rows;
@@ -244,17 +272,34 @@ export class SmzTableBuilder {
     return this;
   }
 
+  public useTableEmptyMessage(): SmzTableBuilder {
+    this._state.emptyFeedback.isFeatured = false;
+    return this;
+  }
+
   public setEmptyFeedbackExtraInfo(text: string): SmzTableBuilder {
+    if (!this._state.emptyFeedback.isFeatured) {
+      throw Error('This feature is not compatible with \'useTableEmptyMessage\'');
+    }
+
     this._state.emptyFeedback.extraInfo = text;
     return this;
   }
 
   public addEmptyFeedbackButton(label: string, callback: () => void, icon: string = null): SmzTableBuilder {
+    if (!this._state.emptyFeedback.isFeatured) {
+      throw Error('This feature is not compatible with \'useTableEmptyMessage\'');
+    }
+
     this._state.emptyFeedback.actionButtons.push({ callback, label, icon });
     return this;
   }
 
   public setEmptyFeedbackImage(path: string): SmzTableBuilder {
+    if (!this._state.emptyFeedback.isFeatured) {
+      throw Error('This feature is not compatible with \'useTableEmptyMessage\'');
+    }
+
     this._state.emptyFeedback.image = path;
     return this;
   }
@@ -412,6 +457,22 @@ export class SmzTableBuilder {
     }
 
     return menuBuilder;
+  }
+
+  public batchMenu(items: SmzMenuItem[] = null): SmzBatchMenuBuilder {
+
+    if (!this._state.caption.rowSelection.isEnabled) {
+      throw Error('You need to call \'allowDefaultMultiSelection\' or \'allowUserMultiSelection\' before');
+    }
+
+    const batchMenuBuilder = new SmzBatchMenuBuilder(this);
+
+    if (items != null) {
+      this._state.actions.batchActions.isVisible = true;
+      this._state.actions.batchActions.items = items;
+    }
+
+    return batchMenuBuilder;
   }
 
   public customizeEditableResults<T>(mapFunction: (data: T, changeS: EditableChanges<T>) => any): SmzTableBuilder {

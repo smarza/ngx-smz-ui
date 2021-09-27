@@ -29,7 +29,7 @@ export const smzLayoutsConfig: SmzLayoutsConfig = {
         },
     },
     appName: 'Notifications Demo',
-    useAvatar: true,
+    useAvatar: false,
     avatarProperty: 'picture',
     usernameProperty: 'username',
     profileMessage: 'Olá, ',
