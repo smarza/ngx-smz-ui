@@ -4,7 +4,7 @@ import { SmzFormBuilder } from './form-builder';
 import { SmzFormGroup } from '../../modules/smz-forms/models/smz-forms';
 import { SmzTemplate } from '../../common/models/templates';
 import { SmzFormsBaseControl } from '../../modules/smz-forms/models/controls';
-import { ValidatorFn } from '@angular/forms';
+import { ValidatorFn, Validators } from '@angular/forms';
 import { SmzTextPattern } from '../../modules/smz-forms/models/text-patterns';
 import { MustMatch } from '../../common/utils/custom-validations';
 
@@ -1026,8 +1026,12 @@ export class SmzFormInputValidatorBuilder<TResponse> {
   constructor(public _inputBuilder: SmzFormInputBuilder<TResponse>, private _input: SmzFormsBaseControl) {
     _input.validatorsPreset = {};
 
-    _input.advancedSettings?.validators ?? [];
-    _input.advancedSettings?.validationMessages ?? [];
+    _input.advancedSettings = {
+      validators: [],
+      validationMessages: [],
+      ..._input.advancedSettings
+    };
+
   }
 
   public required(): SmzFormInputValidatorBuilder<TResponse> {
@@ -1035,6 +1039,8 @@ export class SmzFormInputValidatorBuilder<TResponse> {
     if(this._input.type == SmzControlType.CALENDAR) {
       (this._input as SmzCalendarControl).showButtonBar = false;
     }
+
+    if (!this._input.name.endsWith('*')) this._input.name = `${this._input.name} *`;
     return this;
   }
 
@@ -1056,6 +1062,13 @@ export class SmzFormInputValidatorBuilder<TResponse> {
     if (name != null && message != null) {
       this._input.advancedSettings.validationMessages.push({ type: name, message });
     }
+
+    return this;
+  }
+
+  public email(): SmzFormInputValidatorBuilder<TResponse> {
+    this._input.advancedSettings.validators.push(Validators.email);
+    this._input.advancedSettings.validationMessages.push({ type: 'email', message: 'Email com formato inválido.' });
 
     return this;
   }

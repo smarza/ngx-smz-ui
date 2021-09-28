@@ -16,6 +16,7 @@ import { SimpleNamedEntity } from 'ngx-smz-ui';
 
 export class DemoTablesComponent implements OnInit {
   @Select(DemoFeatureSelectors.all) public items$: Observable<DemoItem[]>;
+
   public tableState: SmzTableState;
   public emptyData = [];
   public emptyTableState: SmzTableState;
@@ -91,27 +92,32 @@ export class DemoTablesComponent implements OnInit {
       .setPaginationDefaultRows(50)
       .setCustomInitialSorting({ field: 'number', order: -1 })
       .useStrippedStyle()
+      .useAutoWidth()
       .menu()
         .item('Consultar')
           .setCallback((event: any) => console.log('---'))
           .menu
         .table
       .columns()
-        .text('name', 'Name', '10em')
+        .text('name', 'Name')
           .disableFilter()
           .columns
-        .text('company', 'Company', '20em')
+        .text('company', 'Company')
           .disableFilter()
           .disableSort()
           .columns
-        .text('country.name', 'Country', '15em')
+        .text('country.name', 'Country')
           .setFilter(SmzFilterType.DROPDOWN)
           .disableSort()
           .columns
         .dataTransform('country', 'Super Country', (country: SimpleNamedEntity, row: any) => {
-          // console.log('dataTransform', country, row);
-          return `super: ${country?.name?.toUpperCase()}`;
-        }, '10em')
+            // console.log('dataTransform', country, row);
+            return `super: ${country?.name?.toUpperCase()}`;
+          })
+          .columns
+        .dataTransform('roles', 'Perfis', (roles: SimpleNamedEntity[], row: any) => {
+            return roles.map(x => x.name).join(', ');
+          })
           .columns
         .table
       .build();
@@ -248,6 +254,8 @@ export class DemoTablesComponent implements OnInit {
         },
         globalFilter: {
           isVisible: true,
+          expanded: false,
+          placeholder: 'Pesquisa Global'
         },
         rowSelection: {
           isButtonVisible: true,

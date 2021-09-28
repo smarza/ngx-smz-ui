@@ -39,10 +39,12 @@ import { ClickStopPropagationModule } from '../../common/stop-click-propagation/
     constructor(configuration: NgxRbkUtilsConfig, service: SmzNotificationsService) {
 
       if (configuration.notifications?.url != null) {
+
+        if (configuration.notifications?.httpBehavior == null) {
+          throw Error('You need to specify the notification httpBehavior on rbk configuration.');
+        }
+
         service.init();
-      }
-      else {
-        throw Error('You need to specify the notification url on rbk configuration.');
       }
 
   }

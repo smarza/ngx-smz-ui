@@ -10,15 +10,15 @@ export class NgxRbkUtilsConfig {
     };
     public notifications: {
         url: string;
-        updateMethod: 'interval';
-        updateRate: number;
-        httpBehavior: Partial<HttpBehaviorParameters>;
-        emptyMessage: string;
-        title: string;
-        rowsPerPage: number;
-        pageOptions: number[];
-        showTypeIndicators: boolean;
-        showRefreshButton: boolean;
+        updateMethod?: 'interval';
+        updateRate?: number;
+        httpBehavior?: Partial<HttpBehaviorParameters>;
+        emptyMessage?: string;
+        title?: string;
+        rowsPerPage?: number;
+        pageOptions?: number[];
+        showTypeIndicators?: boolean;
+        showRefreshButton?: boolean;
     };
     public uiDefinitions: {
         url: string;

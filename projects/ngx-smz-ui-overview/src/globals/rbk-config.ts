@@ -54,6 +54,9 @@ export const rbkConfig: NgxRbkUtilsConfig = {
         // url: `${environment.domainApi}/api/diagnostics`
         url: null
     },
+    notifications: {
+        url: null
+    },
     authentication: {
         localStoragePrefix: 'ui-demo',
         login: {
