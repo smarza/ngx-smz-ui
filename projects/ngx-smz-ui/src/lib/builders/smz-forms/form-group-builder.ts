@@ -15,7 +15,8 @@ export class SmzFormGroupBuilder<TResponse> {
 
   public setLayout(breakpoint: 'EXTRA_SMALL' | 'SMALL' | 'MEDIUM' | 'LARGE' | 'EXTRA_LARGE',
     colType?: 'col-1' | 'col-2' | 'col-3' | 'col-4' | 'col-5' | 'col-6' | 'col-7' | 'col-8' | 'col-9' | 'col-10' | 'col-11' | 'col-12'): SmzFormGroupBuilder<TResponse> {
-    this.group.template = getSmzTemplate(breakpoint, colType);
+    const template = getSmzTemplate(breakpoint, colType) as any;
+    this.group.template = { ...this.group.template, ...template };
     return this;
   }
 
@@ -550,7 +551,8 @@ export class SmzFormInputBuilder<TResponse> {
 
   public setLayout(breakpoint: 'EXTRA_SMALL' | 'SMALL' | 'MEDIUM' | 'LARGE' | 'EXTRA_LARGE',
     colType?: 'col-1' | 'col-2' | 'col-3' | 'col-4' | 'col-5' | 'col-6' | 'col-7' | 'col-8' | 'col-9' | 'col-10' | 'col-11' | 'col-12'): SmzFormInputBuilder<TResponse> {
-    this._input.template = getSmzTemplate(breakpoint, colType);
+    const template = getSmzTemplate(breakpoint, colType) as any;
+    this._input.template = { ...this._input.template, ...template };
     return this;
   }
 
@@ -1080,26 +1082,20 @@ export class SmzFormInputValidatorBuilder<TResponse> {
 
 export function getSmzTemplate(breakpoint: 'EXTRA_SMALL' | 'SMALL' | 'MEDIUM' | 'LARGE' | 'EXTRA_LARGE',
   colType: 'col-1' | 'col-2' | 'col-3' | 'col-4' | 'col-5' | 'col-6' | 'col-7' | 'col-8' | 'col-9' | 'col-10' | 'col-11' | 'col-12') {
-  let template: SmzTemplate;
+
   switch (breakpoint) {
     case 'EXTRA_SMALL':
-      template = { extraSmall: { row: colType == null ? 'col-auto' : colType } };
-      break;
+      return { extraSmall: { row: colType == null ? 'col-auto' : colType } };
     case 'SMALL':
-      template = { small: { row: colType == null ? 'col-auto' : colType } };
-      break;
+      return { small: { row: colType == null ? 'col-auto' : colType } };
     case 'MEDIUM':
-      template = { medium: { row: colType == null ? 'col-auto' : colType } };
-      break;
+      return { medium: { row: colType == null ? 'col-auto' : colType } };
     case 'LARGE':
-      template = { large: { row: colType == null ? 'col-auto' : colType } };
-      break;
+      return { large: { row: colType == null ? 'col-auto' : colType } };
     case 'EXTRA_LARGE':
-      template = { extraLarge: { row: colType == null ? 'col-auto' : colType } };
-      break;
+      return { extraLarge: { row: colType == null ? 'col-auto' : colType } };
     default:
-      break;
+      return {};
   }
 
-  return template;
 }

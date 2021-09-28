@@ -29,7 +29,6 @@ export const smzDialogsConfig: SmzDialogsConfig = {
         },
         dialogTemplate: {
             extraSmall: { row: 'col-12' },
-            large: { row: 'col-8' },
             extraLarge: { row: 'col-6' },
         }
     },

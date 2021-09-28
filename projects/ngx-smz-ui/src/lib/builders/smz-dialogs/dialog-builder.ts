@@ -127,7 +127,8 @@ export class SmzDialogBuilder<TResponse> {
 
   public setLayout(breakpoint: 'EXTRA_SMALL' | 'SMALL' | 'MEDIUM' | 'LARGE' | 'EXTRA_LARGE',
     colType: 'col-1' | 'col-2' | 'col-3' | 'col-4' | 'col-5' | 'col-6' | 'col-7' | 'col-8' | 'col-9' | 'col-10' | 'col-11' | 'col-12' = null): SmzDialogBuilder<TResponse> {
-      this._state.dialogTemplate = getSmzTemplate(breakpoint, colType);
+      const template = getSmzTemplate(breakpoint, colType) as any;
+      this._state.dialogTemplate = { ...this._state.dialogTemplate, ...template };
       return this;
   }
 
@@ -223,7 +224,8 @@ export class SmzDialogComponentBuilder<TResponse> {
 
   public setLayout(breakpoint: 'EXTRA_SMALL' | 'SMALL' | 'MEDIUM' | 'LARGE' | 'EXTRA_LARGE',
     colType: 'col-1' | 'col-2' | 'col-3' | 'col-4' | 'col-5' | 'col-6' | 'col-7' | 'col-8' | 'col-9' | 'col-10' | 'col-11' | 'col-12' = null): SmzDialogComponentBuilder<TResponse> {
-      this.feature.template = getSmzTemplate(breakpoint, colType);
+      const template = getSmzTemplate(breakpoint, colType) as any;
+      this.feature.template = { ...this.feature.template, ...template };
       return this;
   }
 
