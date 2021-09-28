@@ -15,6 +15,7 @@ export class HomeComponent
   public items: DemoTreeNode[] = TreeDemoData;
   public treeState: SmzTreeState;
   public selectedNode: DemoTreeNode = null;
+  public selectedTabIndex = 0;
 
   constructor(private dialogs: SmzDialogsService, private store: Store)
   {
@@ -41,6 +42,7 @@ export class HomeComponent
 
   public selectionChanged(node: DemoTreeNode): void {
     if (node?.type === 'Demo') {
+      this.selectedTabIndex = 0;
       this.selectedNode = node;
     }
   }

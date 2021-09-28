@@ -15,11 +15,13 @@ export const TreeDemoData: DemoTreeNode[] = [
         children: [
           {
             label: 'Create', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'dialog',
             notes: '',
             data: DialogsDemo[DemoKeys.DIALOGS_FROM_UI_DEFINITION_CREATE]
           },
           {
             label: 'Update', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'dialog',
             notes: '',
             data: DialogsDemo[DemoKeys.DIALOGS_FROM_UI_DEFINITION_UPDATE]
           },
@@ -30,10 +32,12 @@ export const TreeDemoData: DemoTreeNode[] = [
         children: [
           {
             label: 'With Title', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'dialog',
             data: DialogsDemo[DemoKeys.DIALOGS_HEADER_WITH_TITLE]
           },
           {
             label: 'Hidden Header', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'dialog',
             notes: 'The dialog header should be hidden',
             data: DialogsDemo[DemoKeys.DIALOGS_HEADER_HIDDEN]
           },
@@ -44,21 +48,25 @@ export const TreeDemoData: DemoTreeNode[] = [
         children: [
           {
             label: 'Close on Escape', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'dialog',
             notes: 'Press escape to close the dialog',
             data: DialogsDemo[DemoKeys.DIALOGS_CONTROLS_CLOSE_ON_ESCAPE]
           },
           {
             label: 'Confirm on Enter', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'dialog',
             notes: 'Press enter to confirm the dialog',
             data: DialogsDemo[DemoKeys.DIALOGS_CONTROLS_CONFIRM_ON_ENTER]
           },
           {
             label: 'Dismissable Mask', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'dialog',
             notes: 'Click outside to close the dialog',
             data: DialogsDemo[DemoKeys.DIALOGS_CONTROLS_DISMISSABLE_MASK]
           },
           {
             label: 'Base z-index', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'dialog',
             notes: 'The dialog will appear behind the frames',
             data: DialogsDemo[DemoKeys.DIALOGS_CONTROLS_BASE_Z_INDEX]
           },
@@ -69,6 +77,7 @@ export const TreeDemoData: DemoTreeNode[] = [
         children: [
           {
             label: 'Test', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'dialog',
             data: DialogsDemo[DemoKeys.DIALOGS_FOOTER_HIDDEN]
           },
         ]
@@ -78,41 +87,49 @@ export const TreeDemoData: DemoTreeNode[] = [
         children: [
           {
             label: 'Built-in Buttons', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'dialog',
             notes: 'By default, the built-in buttons visibility follows the configuration provided on the app module.',
             data: DialogsDemo[DemoKeys.DIALOGS_BUTTONS_BUILT_IN]
           },
           {
             label: 'Renaming Buttons', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'dialog',
             notes: 'The CANCEL and OK buttons should be renamed to NO and YES.',
             data: DialogsDemo[DemoKeys.DIALOGS_BUTTONS_RENAMING]
           },
           {
             label: 'Styling Buttons', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'dialog',
             notes: 'Some styling samples.',
             data: DialogsDemo[DemoKeys.DIALOGS_BUTTONS_STYLING]
           },
           {
             label: 'Custom Buttons', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'dialog',
             notes: 'Create unlimited buttons with custom buttons.',
             data: DialogsDemo[DemoKeys.DIALOGS_BUTTONS_STYLING]
           },
           {
             label: 'Reordering Custom Buttons', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'dialog',
             notes: 'By default, all custom buttons are placed at the right side of the built-in buttons.',
             data: DialogsDemo[DemoKeys.DIALOGS_BUTTONS_REODERING]
           },
           {
             label: 'Close Dialog', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'dialog',
             notes: 'By default, custom buttons doesn\'t close the dialog.',
             data: DialogsDemo[DemoKeys.DIALOGS_BUTTONS_CLOSE_DIALOG]
           },
           {
             label: 'Depends On Validation', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'dialog',
             notes: 'By default, custom buttons are clickable even if the content is not valid.',
             data: DialogsDemo[DemoKeys.DIALOGS_BUTTONS_DEPENDS_ON_VALIDATION]
           },
           {
             label: 'Block Ui', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'dialog',
             notes: 'Block Ui is a featured that customize an specific button to block the ui until an success or failure action is dispatched.',
             data: DialogsDemo[DemoKeys.DIALOGS_BUTTONS_BLOCK_UI]
           },
@@ -123,6 +140,7 @@ export const TreeDemoData: DemoTreeNode[] = [
         children: [
           {
             label: 'Hidden Footer', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'dialog',
             notes: 'The dialog footer should be hidden',
             data: DialogsDemo[DemoKeys.DIALOGS_FOOTER_HIDDEN]
           },
@@ -139,11 +157,13 @@ export const TreeDemoData: DemoTreeNode[] = [
         children: [
           {
             label: 'Create', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'form',
             notes: '',
             data: FormsDemo[DemoKeys.FORMS_FROM_UI_DEFINITION_CREATE]
           },
           {
             label: 'Update', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'form',
             notes: '',
             data: FormsDemo[DemoKeys.FORMS_FROM_UI_DEFINITION_UPDATE]
           },
@@ -151,114 +171,128 @@ export const TreeDemoData: DemoTreeNode[] = [
       },
       {
         label: 'Behaviors', type: 'SubCategory',
-        children: [
-          {
-            label: 'no name', icon: 'fas fa-code', type: 'Demo',
-            notes: '',
-            data: null
-          },
-        ]
+        children: []
       },
       {
         label: 'Inputs', type: 'SubCategory',
         children: [
           {
             label: 'Calendar', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'form',
             notes: '',
             data: FormsDemo[DemoKeys.FORMS_INPUT_CALENDAR]
           },
           {
             label: 'Checkbox', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'form',
             notes: '',
             data: FormsDemo[DemoKeys.FORMS_INPUT_CHECKBOX]
           },
           {
             label: 'Checkbox Group', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'form',
             notes: '',
             data: FormsDemo[DemoKeys.FORMS_INPUT_CHECKBOX_GROUP]
           },
           {
             label: 'Dropdown', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'form',
             notes: '',
             data: FormsDemo[DemoKeys.FORMS_INPUT_DROPDOWN]
           },
           {
             label: 'Linked Dropdown', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'form',
             notes: '',
             data: FormsDemo[DemoKeys.FORMS_INPUT_LINKED_DROPDOWN]
           },
           {
             label: 'Multiselect', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'form',
             notes: '',
             data: FormsDemo[DemoKeys.FORMS_INPUT_MULTISELECT]
           },
           {
             label: 'Linked Multiselect', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'form',
             notes: '',
             data: FormsDemo[DemoKeys.FORMS_INPUT_LINKED_MULTISELECT]
           },
           {
             label: 'Color Picker', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'form',
             notes: '',
             data: FormsDemo[DemoKeys.FORMS_INPUT_COLOR_PICKER]
           },
           {
             label: 'Currency', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'form',
             notes: '',
             data: FormsDemo[DemoKeys.FORMS_INPUT_CURRENCY]
           },
           {
             label: 'Number', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'form',
             notes: '',
             data: FormsDemo[DemoKeys.FORMS_INPUT_NUMBER]
           },
           {
             label: 'Radio Group', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'form',
             notes: '',
             data: FormsDemo[DemoKeys.FORMS_INPUT_RADIO_GROUP]
           },
           {
             label: 'Switch', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'form',
             notes: '',
             data: FormsDemo[DemoKeys.FORMS_INPUT_SWITCH]
           },
           {
             label: 'Text Area', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'form',
             notes: '',
             data: FormsDemo[DemoKeys.FORMS_INPUT_TEXT_AREA]
           },
           {
             label: 'Tag Area', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'form',
             notes: '',
             data: FormsDemo[DemoKeys.FORMS_INPUT_TAG_AREA]
           },
           {
             label: 'Text', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'form',
             notes: '',
             data: FormsDemo[DemoKeys.FORMS_INPUT_TEXT]
           },
           {
             label: 'File', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'form',
             notes: '',
             data: FormsDemo[DemoKeys.FORMS_INPUT_FILE]
           },
           {
             label: 'List', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'form',
             notes: '',
             data: FormsDemo[DemoKeys.FORMS_INPUT_LIST]
           },
           {
             label: 'Mask', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'form',
             notes: '',
             data: FormsDemo[DemoKeys.FORMS_INPUT_MASK]
           },
           {
             label: 'Password', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'form',
             notes: '',
             data: FormsDemo[DemoKeys.FORMS_INPUT_PASSWORD]
           },
           {
             label: 'Password With Confirmation', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'form',
             notes: '',
             data: FormsDemo[DemoKeys.FORMS_INPUT_PASSWORD_WITH_CONFIRMATION]
           },
@@ -269,6 +303,7 @@ export const TreeDemoData: DemoTreeNode[] = [
         children: [
           {
             label: 'Custom Validator', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'form',
             notes: '',
             data: ValidatorsDemo[DemoKeys.VALIDATORS_CUSTOM]
           },
@@ -282,16 +317,19 @@ export const TreeDemoData: DemoTreeNode[] = [
     children: [
       {
         label: 'Inputs', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'dialog',
         notes: '',
         data: null
       },
       {
         label: 'Outputs', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'dialog',
         notes: '',
         data: null
       },
       {
         label: 'Error Messages', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'dialog',
         notes: '',
         data: null
       },
@@ -303,6 +341,7 @@ export const TreeDemoData: DemoTreeNode[] = [
     children: [
       {
         label: 'Ui Definitions', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'dialog',
         notes: '',
         data: TablesDemo[DemoKeys.TABLE_UI_DEFINITIONS]
       },

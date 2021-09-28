@@ -8,7 +8,8 @@ import { RbkAuthGuard, RbkDatabaseStateGuard, UI_DEFINITIONS_STATE_NAME } from '
 import { CodeBlockModule } from '@components/code-block/code-block.module';
 import { DemoTitlePipeModule } from '@pipes/demo-title.pipe';
 import { CountriesDbName } from '@states/database/countries/countries.state';
-
+import { TabViewModule } from 'primeng/tabview';
+import { DemoFormComponent } from './components/demo-form/demo-form.component'
 
 const data: SmzRouteData = {
   layout: {
@@ -30,7 +31,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [HomeComponent],
+  declarations: [HomeComponent, DemoFormComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
@@ -39,7 +40,8 @@ const routes: Routes = [
     NgxSmzDialogsModule,
     NgxSmzTreesModule,
     CodeBlockModule,
-    DemoTitlePipeModule
+    DemoTitlePipeModule,
+    TabViewModule
   ],
   providers: [],
   bootstrap: [HomeComponent]
