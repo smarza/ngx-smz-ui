@@ -102,23 +102,23 @@ export class DemoTablesComponent implements OnInit {
         .text('name', 'Name')
           .disableFilter()
           .columns
-        .text('company', 'Company')
-          .disableFilter()
-          .disableSort()
-          .columns
-        .text('country.name', 'Country')
-          .setFilter(SmzFilterType.DROPDOWN)
-          .disableSort()
-          .columns
-        .dataTransform('country', 'Super Country', (country: SimpleNamedEntity, row: any) => {
-            // console.log('dataTransform', country, row);
-            return `super: ${country?.name?.toUpperCase()}`;
-          })
-          .columns
-        .dataTransform('roles', 'Perfis', (roles: SimpleNamedEntity[], row: any) => {
-            return roles.map(x => x.name).join(', ');
-          })
-          .columns
+        // .text('company', 'Company')
+        //   .disableFilter()
+        //   .disableSort()
+        //   .columns
+        // .text('country.name', 'Country')
+        //   .setFilter(SmzFilterType.DROPDOWN)
+        //   .disableSort()
+        //   .columns
+        // .dataTransform('country', 'Super Country', (country: SimpleNamedEntity, row: any) => {
+        //     // console.log('dataTransform', country, row);
+        //     return `super: ${country?.name?.toUpperCase()}`;
+        //   })
+        //   .columns
+        // .dataTransform('roles', 'Perfis', (roles: SimpleNamedEntity[], row: any) => {
+        //     return roles.map(x => x.name).join(', ');
+        //   })
+        //   .columns
         .table
       .build();
 

@@ -383,9 +383,9 @@
 
                     <ng-container *ngIf="context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible || context.state.editable.isEditable">
 
-                        <td [ngStyle]="{ 'text-align': 'left' }">
+                        <td>
 
-                            <div  class="p-grid p-nogutter p-align-center p-justify-start">
+                            <div class="p-grid p-nogutter p-align-center p-justify-end">
                                 <ng-container *ngIf="clonedData.showSkeleton; else menuTemplate">
                                     <div class="w-full">
                                         <p-skeleton width="100%" height="1rem"></p-skeleton>

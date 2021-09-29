@@ -1,13 +1,3 @@
-<smz-ui-athena-layout [menu]="menuService.menu" [notifications]="menuService.notifications" [profile]="menuService.profile">
-
+<smz-ui-athena-layout [profile]="menuService.profile">
   <router-outlet></router-outlet>
-
-  <ng-template pTemplate="headerExtras">
-    extras 1
-  </ng-template>
-
-  <ng-template pTemplate="footerExtras">
-    extras 2
-  </ng-template>
-
 </smz-ui-athena-layout>

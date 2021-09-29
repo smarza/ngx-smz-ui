@@ -87,7 +87,7 @@ export const smzLayoutsConfig: SmzLayoutsConfig = {
         notFoundImagePath: 'assets/images/pages/bg-404.jpg',
     },
     assistance: {
-        isEnabled: true,
+        isEnabled: false,
         sidebarData: {
             position: 'right'
         },

@@ -4,6 +4,7 @@ import { DialogsDemo } from './functions/dialogs-demo';
 import { FormsDemo } from './functions/forms-demo';
 import { TablesDemo } from './functions/tables-demo';
 import { ValidatorsDemo } from './functions/validators-demo';
+import { ChartsDemo } from './functions/charts-demo';
 
 export const TreeDemoData: DemoTreeNode[] = [
   {
@@ -317,19 +318,19 @@ export const TreeDemoData: DemoTreeNode[] = [
     children: [
       {
         label: 'Inputs', icon: 'fas fa-code', type: 'Demo',
-            demoType: 'dialog',
+        demoType: 'dialog',
         notes: '',
         data: null
       },
       {
         label: 'Outputs', icon: 'fas fa-code', type: 'Demo',
-            demoType: 'dialog',
+        demoType: 'dialog',
         notes: '',
         data: null
       },
       {
         label: 'Error Messages', icon: 'fas fa-code', type: 'Demo',
-            demoType: 'dialog',
+        demoType: 'dialog',
         notes: '',
         data: null
       },
@@ -341,9 +342,21 @@ export const TreeDemoData: DemoTreeNode[] = [
     children: [
       {
         label: 'Ui Definitions', icon: 'fas fa-code', type: 'Demo',
-            demoType: 'dialog',
+        demoType: 'table',
         notes: '',
         data: TablesDemo[DemoKeys.TABLE_UI_DEFINITIONS]
+      },
+    ]
+  },
+  {
+    label: 'Charts',
+    type: 'Category',
+    children: [
+      {
+        label: 'Vertical Bar', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'chart',
+        notes: '',
+        data: ChartsDemo[DemoKeys.CHARTS_VERTICAL_BAR]
       },
     ]
   }
