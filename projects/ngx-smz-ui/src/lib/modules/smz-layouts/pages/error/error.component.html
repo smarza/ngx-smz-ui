@@ -11,7 +11,7 @@
           <div class="p-col-12 exception-label-error exception-light">{{ config.pages.errorTitle }}</div>
           <div class="p-col-4 exception-separator exception-light"></div>
           <div class="p-col-12 exception-label-message exception-light">{{ config.pages.errorMessage }}</div>
-          <button class="p-col-4 p-button-lg p-button-ghost" pButton type="button" [routerLink]="rbkConfig.routes.login" label="Ir para Login"></button>
+          <button class="p-col-4 p-button-lg p-button-ghost" pButton type="button" label="Ir para Login" (click)="goToLogin()"></button>
       </div>
   </div>
 
@@ -25,7 +25,7 @@
           <div class="p-col-12 exception-label-error">{{ config.pages.errorTitle }}</div>
           <div class="p-col-4 exception-separator"></div>
           <div class="p-col-12 exception-label-message">{{ config.pages.errorMessage }}</div>
-          <button class="p-col-4 p-button-lg p-button-ghost" pButton type="button" [routerLink]="rbkConfig.routes.login" label="Ir para Login"></button>
+          <button class="p-col-4 p-button-lg p-button-ghost" pButton type="button" label="Ir para Login" (click)="goToLogin()"></button>
       </div>
   </div>
 
