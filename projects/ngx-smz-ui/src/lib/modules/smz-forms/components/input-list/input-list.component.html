@@ -30,9 +30,9 @@
 
                 <ng-container *ngIf="isInlineEditingEnabled && current === item">
                     <div *ngIf="editForm != null" class="smz__list_item-actions" furyClickStopPropagation>
-                        <smz-form-group [config]="editForm" furyClickStopPropagation></smz-form-group>
-                        <button pButton pRipple type="button" icon="pi pi-check" furyClickStopPropagation [disabled]="!formComponent?.isValid" class="p-nocustom inline_action_button p-button-rounded p-button-success p-button-text" (click)="onConfirmInlineEditing(item, $any(formComponent.getData().data))"></button>
-                        <button pButton pRipple type="button" icon="pi pi-times" furyClickStopPropagation class="p-nocustom inline_action_button p-button-rounded p-button-danger p-button-text" (click)="cancelEdit()"></button>
+                        <!-- <smz-form-group #formComponent [config]="editForm" furyClickStopPropagation></smz-form-group>
+                        <button pButton pRipple type="button" icon="pi pi-check" furyClickStopPropagation [disabled]="!formComponent?.isValid" class="p-nocustom inline_action_button p-button-rounded p-button-success p-button-text" (click)="onConfirmInlineEditing(item, $any(formComponent?.getData().data))"></button>
+                        <button pButton pRipple type="button" icon="pi pi-times" furyClickStopPropagation class="p-nocustom inline_action_button p-button-rounded p-button-danger p-button-text" (click)="cancelEdit()"></button> -->
                     </div>
                 </ng-container>
 

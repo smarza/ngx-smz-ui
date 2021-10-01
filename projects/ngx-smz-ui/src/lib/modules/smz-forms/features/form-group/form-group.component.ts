@@ -10,7 +10,6 @@ import { SmzDialogsConfig } from '../../../smz-dialogs/smz-dialogs.config';
 import { uuidv4 } from '../../../../common/utils/utils';
 import { mergeClone } from '../../../../common/utils/deep-merge';
 
-
 @Component({
     selector: 'smz-form-group',
     templateUrl: './form-group.component.html',
@@ -520,4 +519,3 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
     }
 
 }
-

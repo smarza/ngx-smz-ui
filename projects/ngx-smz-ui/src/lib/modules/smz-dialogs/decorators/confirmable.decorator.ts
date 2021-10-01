@@ -1,6 +1,7 @@
-import { SmzPresets } from '../models/smz-presets';
+import { Actions, ofActionSuccessful, Store } from '@ngxs/store';
+import { take, takeWhile } from 'rxjs/operators';
 import { GlobalInjector } from '../services/global-injector';
-import { SmzDialogsService } from '../services/smz-dialogs.service';
+import { DialogsActions } from '../state/dialogs/dialogs.actions';
 
 export function Confirmable(
   /**
@@ -21,48 +22,24 @@ export function Confirmable(
   {
     const original = descriptor.value;
 
-    descriptor.value = function (...args: never[])
+    descriptor.value = async function (...args: never[])
     {
-      const service = GlobalInjector.instance.get(SmzDialogsService);
+      const store = GlobalInjector.instance.get(Store);
+      const actions$ = GlobalInjector.instance.get(Actions);
+      let isConfirming = true;
 
-      // for (const key of Reflect.ownKeys(this))
-      // {
-      //     // console.log('----');
-      //     // console.log(`typeof ${key.toString()}:`, typeof this[key]);
+      actions$.pipe(ofActionSuccessful(DialogsActions.ConfirmationSuccess), take(1), takeWhile(x => isConfirming)).subscribe(() => {
+        isConfirming = false;
+        const result = original.apply(this, args);
+        return result;
+      });
 
-      //     if(this[key] instanceof SmzDialogsService)
-      //     {
-      //       service = this[key];
-      //     }
-      // }
+      actions$.pipe(ofActionSuccessful(DialogsActions.ConfirmationFailure), take(1), takeWhile(x => isConfirming)).subscribe(() => {
+        isConfirming = false;
+        return null;
+      });
 
-      if (service != null)
-      {
-        service.open({
-          title: title ?? 'Mensagem',
-          features: [{ type: 'message', data: message }],
-          callbacks: {
-            onConfirm: () =>
-            {
-              const result = original.apply(this, args);
-              return result;
-            },
-            onCancel: () =>
-            {
-              return null;
-            },
-            onClose: () =>
-            {
-              return null;
-            }
-          },
-          presetId: isCritical ? SmzPresets.CriticalConfirmation : SmzPresets.Confirmation,
-        });
-      }
-      else
-      {
-        throw 'O serviço SmzDialogsService não foi encontrado no component. Favor injetar SmzDialogsService';
-      }
+      await store.dispatch(new DialogsActions.Confirmation(title ?? 'Mensagem', [message], isCritical)).toPromise();
 
     };
 

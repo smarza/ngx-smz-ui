@@ -205,4 +205,8 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
     this.state.pagination.state = event;
   }
 
+  public emitSelection(event: any): void {
+    this.selectionChange.emit(event);
+  }
+
 }

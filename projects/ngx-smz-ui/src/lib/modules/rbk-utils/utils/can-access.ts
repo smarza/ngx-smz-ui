@@ -3,8 +3,8 @@ import { Store } from '@ngxs/store';
 import { SmzPresets } from '../../smz-dialogs/models/smz-presets';
 import { SmzDialogsService } from '../../smz-dialogs/services/smz-dialogs.service';
 import { GlobalInjector } from '../misc/global.injector';
-import { ToastActions } from '../state/global/application/application.actions.toast';
-import { AuthenticationSelectors } from '../state/global/authentication/authentication.selectors';
+import { ToastActions } from '../../../state/global/application/application.actions.toast';
+import { AuthenticationSelectors } from '../../../state/global/authentication/authentication.selectors';
 
 export function CanAccess(
   /**

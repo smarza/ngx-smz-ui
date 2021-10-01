@@ -4,10 +4,10 @@ import { SmzLayoutsConfig } from '../../core/globals/smz-layouts.config';
 import { RouterDataListenerService } from '../../core/services/router-data-listener.service';
 import { PrimeTemplate, MenuItem } from 'primeng/api';
 import { Observable } from 'rxjs';
-import { UiSelectors } from '../../core/state/ui/ui.selectors';
+import { LayoutUiSelectors } from '../../../../state/ui/layout/layout.selectors';
 import { SmzToastData } from '../../core/models/toasts';
 import { PrimeConfigService } from '../../../../common/services/prime-config.service';
-import { UiActions } from '../../core/state/ui/ui.actions';
+import { LayoutUiActions } from '../../../../state/ui/layout/layout.actions';
 
 @Component({
   selector: 'smz-ui-outlet',
@@ -16,7 +16,7 @@ import { UiActions } from '../../core/state/ui/ui.actions';
 })
 export class OutletComponent implements OnInit, AfterContentInit {
   @ContentChildren(forwardRef(() => PrimeTemplate)) templates: QueryList<PrimeTemplate>;
-  @Select(UiSelectors.toast) public toast$: Observable<SmzToastData>;
+  @Select(LayoutUiSelectors.toast) public toast$: Observable<SmzToastData>;
   @Input() public menu: MenuItem[];
   public layoutTemplate: TemplateRef<any>;
   public contentTemplate: TemplateRef<any>;
@@ -24,14 +24,14 @@ export class OutletComponent implements OnInit, AfterContentInit {
   @HostListener('mouseleave')
   public onMouseLeave(): void {
     if (this.config.monitoreMouseEvents) {
-      this.store.dispatch(new UiActions.SetLastUserMouseEvent('mouseleave'));
+      this.store.dispatch(new LayoutUiActions.SetLastUserMouseEvent('mouseleave'));
     }
   }
 
   @HostListener('mouseenter')
   public onBeforeUnload(): void {
     if (this.config.monitoreMouseEvents) {
-      this.store.dispatch(new UiActions.SetLastUserMouseEvent('mouseenter'));
+      this.store.dispatch(new LayoutUiActions.SetLastUserMouseEvent('mouseenter'));
     }
   }
 

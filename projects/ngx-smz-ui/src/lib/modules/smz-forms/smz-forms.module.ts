@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Injector, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -49,7 +49,7 @@ import { ValidationMessagesComponent } from './components/validation-messages/va
 import { ValidationMessagesPipe } from './components/validation-messages/validation-messages.pipe';
 import { TooltipModule } from 'primeng/tooltip';
 import { LinkedMultiSelectComponent } from './components/linked-multi-select/linked-multi-select.component';
-import { InputListComponent } from './components/input-list/input-list.component';
+
 import { ClickStopPropagationModule } from '../../common/stop-click-propagation/click-stop-propagation.module';
 import { FileDragDropDirective } from './directives/file-drag-drop.directive';
 import { MessagesModule } from 'primeng/messages';
@@ -58,6 +58,8 @@ import { FileNameShortenPipe } from './components/file-upload/file-name-shorten.
 import { SmzInputTagAreaModule } from './components/input-text-area/input-tag-area.component';
 import { InputTagAreaComponent } from './components/input-tag-area/input-tag-area.component';
 import { NgxSmzDataPipesModule } from '../../common/data-pipes/data-pipes.module';
+import { SmzFormsGlobalInjector } from './services/smz-forms-global-injector';
+import { InputListComponent } from './components/input-list/input-list.component';
 
 export const defaultFormsModuleConfig: SmzFormsConfig = {
     behaviors: {
@@ -197,5 +199,9 @@ export const defaultFormsModuleConfig: SmzFormsConfig = {
     ],
 
 })
-export class NgxSmzFormsModule { }
+export class NgxSmzFormsModule {
+    constructor(injector: Injector) {
+        SmzFormsGlobalInjector.instance = injector;
+    }
+}
 

@@ -3,8 +3,8 @@ import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { DiagnosticsService } from './diagnostic.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { Store } from '@ngxs/store';
-import { ApplicationSelectors } from '../state/global/application/application.selector';
-import { AuthenticationSelectors } from '../state/global/authentication/authentication.selectors';
+import { ApplicationSelectors } from '../../../state/global/application/application.selector';
+import { AuthenticationSelectors } from '../../../state/global/authentication/authentication.selectors';
 import { NgxRbkUtilsConfig } from '../ngx-rbk-utils.config';
 
 @Injectable()

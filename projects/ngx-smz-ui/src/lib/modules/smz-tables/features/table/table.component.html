@@ -1,6 +1,6 @@
 <ng-container *ngIf="state | tableContext as context; else noStateTemplate">
 
-    <ng-container *ngIf="(context.state.emptyFeedback != null && (context.state.emptyFeedback.extraInfo || context.state.emptyFeedback.image || context.state.emptyFeedback.actionButtons)) && (items != null && items.length === 0); else tableTemplate">
+    <ng-container *ngIf="(context.state.emptyFeedback != null && (context.state.emptyFeedback.extraInfo || context.state.emptyFeedback.image || context.state.emptyFeedback.actionButtons)) && (items != null && items.length === 0) && context.state.emptyFeedback.isFeatured; else tableTemplate">
         <smz-data-info
             [image]="context.state.emptyFeedback.image"
             [message]="context.state.emptyFeedback.message"
@@ -48,13 +48,13 @@
             [columnResizeMode]="context.state.viewport.columnResizeMode"
 
             (onPage)="onPage($event)"
-            (selectionChange)="selectionChange.emit($event)"
+            (selectionChange)="emitSelection($event)"
             >
 
             <ng-template pTemplate="caption" *ngIf="context.state.caption.isVisible">
 
                 <div class="p-grid p-nogutter p-justify-start p-align-center gap-2">
-                    <span class="p-col">{{ state.caption.title }}</span>
+                    <span class="p-col database-title">{{ state.caption.title }}</span>
                     <ng-container *ngTemplateOutlet="captionTemplate; context: { $implicit: dt }"></ng-container>
                     <p-multiSelect
                         #columnMultiselect
@@ -75,9 +75,9 @@
                     <button *ngIf="context.state.caption.rowSelection.isButtonVisible" pButton [label]="context.state.caption.rowSelection.label" class="p-button-outlined" icon="fas fa-check-double" (click)="onRowSelection(context)" [disabled]="clonedData.showSkeleton"></button>
                     <button *ngIf="context.state.caption.clearFilters.isButtonVisible" pButton [label]="context.state.caption.clearFilters.label" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(dt, context)" [disabled]="clonedData.showSkeleton"></button>
                     <button *ngIf="context.state.editable.creation.isButtonVisible" pButton [label]="context.state.editable.creation.buttonLabel" class="p-button-outlined" icon="fas fa-plus" (click)="editableService.onRowCreateInit(dt, context)" [disabled]="clonedData.showSkeleton || editableService.isEditing || editableService.isCreating || context.state.editable.creation.isButtonDisabled"></button>
-                    <span *ngIf="context.state.caption.globalFilter.isVisible" class="p-input-icon-left p-col-12 p-md-2">
+                    <span *ngIf="context.state.caption.globalFilter.isVisible" class="p-input-icon-left p-col-12" [ngClass]="{ 'p-md-2': !context.state.caption.globalFilter.expanded }">
                         <i class="pi pi-search"></i>
-                        <input #inputGlobal pInputText type="text" (input)="dt.filterGlobal(inputGlobal.value, 'contains')"  [disabled]="clonedData.showSkeleton" placeholder="Pesquisa global" />
+                        <input #inputGlobal pInputText type="text" styleClass="database-global-search" (input)="dt.filterGlobal(inputGlobal.value, 'contains')"  [disabled]="clonedData.showSkeleton" [placeholder]="context.state.caption.globalFilter.placeholder" />
                     </span>
                 </div>
 
@@ -92,7 +92,7 @@
 
             </ng-template>
 
-            <ng-template pTemplate="colgroup" let-columns>
+            <!-- <ng-template pTemplate="colgroup" let-columns>
                 <colgroup>
                     <col *ngIf="context.state.caption.rowSelection.isEnabled" [ngStyle]="{ width: context.state.caption.rowSelection.columnWidth }">
                     <ng-container *ngFor="let col of columns">
@@ -100,26 +100,28 @@
                     </ng-container>
                     <col *ngIf="context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible|| context.state.editable.isEditable" [ngStyle]="{ width: context.state.actions.customActions.columnWidth + 'px'}">
                 </colgroup>
-            </ng-template>
+            </ng-template> -->
 
             <ng-template pTemplate="header" let-columns>
-                <tr>
+                <tr [ngClass]="{ 'invisible-header': !context.state.header.isVisible }">
 
-                    <th *ngIf="context.state.caption.rowSelection.isEnabled">
-                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    <th *ngIf="context.state.caption.rowSelection.isEnabled" [ngStyle]="{ width: context.state.caption.rowSelection.columnWidth }">
+                        <ng-container *ngIf="!context.state.actions.batchActions.isVisible">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </ng-container>
                     </th>
 
                     <ng-container *ngFor="let col of columns">
 
                         <ng-container *ngIf="context.state.viewport.resizableColumns; else nonResizable">
                             <ng-container *ngIf="col.isOrderable">
-                                <th [pSortableColumn]="col.field" pResizableColumn>
+                                <th [pSortableColumn]="col.field" pResizableColumn [ngStyle]="{ width: col.width }">
                                     <ng-container *ngTemplateOutlet="headerContent"></ng-container>
                                 </th>
                             </ng-container>
 
                             <ng-container *ngIf="!col.isOrderable">
-                                <th pResizableColumn>
+                                <th pResizableColumn [ngStyle]="{ width: col.width }">
                                     <ng-container *ngTemplateOutlet="headerContent"></ng-container>
                                 </th>
                             </ng-container>
@@ -127,13 +129,13 @@
 
                         <ng-template #nonResizable>
                             <ng-container *ngIf="col.isOrderable">
-                                <th [pSortableColumn]="col.field">
+                                <th [pSortableColumn]="col.field" [ngStyle]="{ width: col.width }">
                                     <ng-container *ngTemplateOutlet="headerContent"></ng-container>
                                 </th>
                             </ng-container>
 
                             <ng-container *ngIf="!col.isOrderable">
-                                <th>
+                                <th [ngStyle]="{ width: col.width }">
                                     <ng-container *ngTemplateOutlet="headerContent"></ng-container>
                                 </th>
                             </ng-container>
@@ -208,7 +210,21 @@
 
                     </ng-container>
 
-                    <th *ngIf="context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible|| context.state.editable.isEditable"></th>
+                    <th *ngIf="context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible|| context.state.editable.isEditable" [ngStyle]="{ width: context.state.actions.customActions.columnWidth + 'px'}"></th>
+                </tr>
+
+                <tr *ngIf="context.state.actions.batchActions.isVisible">
+                    <th [attr.colspan]="columns.length + ((context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible || context.state.editable.isEditable) ? 1 : 0) + (context.state.caption.rowSelection.isEnabled ? 1 : 0)">
+                        <div class="p-grid p-nogutter p-align-center p-justify-start">
+                            <p-tableHeaderCheckbox class="mr-4"></p-tableHeaderCheckbox>
+                            <ng-container *ngIf="selectedItems?.length > 0">
+                                <ng-container *ngFor="let batchItem of context.state.actions.batchActions.items">
+                                    <button *ngIf="batchItem.visible" pButton [label]="batchItem.label" class="p-button-rounded p-button-text p-button-plain animate__animated animate__fadeIn" [ngClass]="batchItem.styleClass" [icon]="batchItem.icon" (click)="batchItem.command(selectedItems); selectedItems = [];" [disabled]="batchItem.disabled" [pTooltip]="batchItem.tooltip"></button>
+                                </ng-container>
+                            </ng-container>
+
+                        </div>
+                    </th>
                 </tr>
             </ng-template>
 
@@ -367,9 +383,9 @@
 
                     <ng-container *ngIf="context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible || context.state.editable.isEditable">
 
-                        <td [ngStyle]="{ 'text-align': 'left' }">
+                        <td>
 
-                            <div  class="p-grid p-nogutter p-align-center p-justify-start">
+                            <div class="p-grid p-nogutter p-align-center p-justify-end">
                                 <ng-container *ngIf="clonedData.showSkeleton; else menuTemplate">
                                     <div class="w-full">
                                         <p-skeleton width="100%" height="1rem"></p-skeleton>

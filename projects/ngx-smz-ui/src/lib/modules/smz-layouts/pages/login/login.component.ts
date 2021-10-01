@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store'; import { SmzLayoutsConfig } from '../../core/globals/smz-layouts.config';
-import { UiSelectors } from '../../core/state/ui/ui.selectors';
+import { LayoutUiSelectors } from '../../../../state/ui/layout/layout.selectors';
 import { Observable } from 'rxjs';
 import { SmzAppLogo } from '../../core/models/logo';
 import { SmzLoginData } from '../../core/models/login';
 import { SmzForm, SmzFormsResponse } from '../../../smz-forms/models/smz-forms';
 import { SmzControlType, SmzPasswordControl, SmzTextControl } from '../../../smz-forms/models/control-types';
-import { AuthenticationSelectors } from '../../../rbk-utils/state/global/authentication/authentication.selectors';
-import { AuthenticationActions } from '../../../rbk-utils/state/global/authentication/authentication.actions';
+import { AuthenticationSelectors } from '../../../../state/global/authentication/authentication.selectors';
+import { AuthenticationActions } from '../../../../state/global/authentication/authentication.actions';
+import { NgxRbkUtilsConfig } from '../../../rbk-utils/ngx-rbk-utils.config';
 
 @Component({
   selector: 'smz-ui-login',
@@ -15,10 +16,10 @@ import { AuthenticationActions } from '../../../rbk-utils/state/global/authentic
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  @Select(UiSelectors.appContentLogo) public appLogo$: Observable<SmzAppLogo>;
+  @Select(LayoutUiSelectors.appContentLogo) public appLogo$: Observable<SmzAppLogo>;
   public form: SmzForm<SmzLoginData>;
 
-  constructor(public readonly config: SmzLayoutsConfig, private store: Store) {
+  constructor(public readonly config: SmzLayoutsConfig, private store: Store, private rbkConfig: NgxRbkUtilsConfig) {
     this.createForm();
   }
 
@@ -65,7 +66,7 @@ export class LoginComponent implements OnInit {
   }
 
   public login(form: SmzFormsResponse<SmzLoginData>): void {
-    this.store.dispatch(new AuthenticationActions.RemoteLogin(form.data.username, form.data.password, { applicationId: 'LIBRA', domain: 'BUZIOS' }));
+    this.store.dispatch(new AuthenticationActions.RemoteLogin(form.data.username, form.data.password, { applicationId: this.rbkConfig.authentication?.refreshToken?.extraProperties?.applicationId, domain: 'BUZIOS' }));
   }
 
 }

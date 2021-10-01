@@ -1,0 +1,48 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "../../dist/out-tsc/app",
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "importHelpers": true,
+    "target": "es2017",
+    "module": "es2020",
+    "lib": [
+      "es2018",
+      "dom"
+    ],
+    "paths": {
+      "ngx-smz-ui": [
+        "../../dist/ngx-smz-ui/ngx-smz-ui",
+        "../../dist/ngx-smz-ui"
+      ],
+      "@components/*": ["src/app/ui/components/*"],
+      "@demos/*": ["src/app/demos/*"],
+      "@enviroment": ["src/environments/environment"],
+      "@features/*": ["src/app/ui/features/*"],
+      "@models/*": ["src/app/models/*"],
+      "@pipes/*": ["src/app/ui/pipes/*"],
+      "@routes": ["src/routes"],
+      "@services/*": ["src/app/services/*"],
+      "@states/*": ["src/app/state/*"],
+    },
+    "typeRoots": [
+      "node_modules/@types"
+    ]
+  },
+  "files": [
+    "src/main.ts",
+    "src/polyfills.ts"
+  ],
+  "include": [
+    "src/**/*.d.ts"
+  ],
+  "angularCompilerOptions": {
+    "strictTemplates": true
+  },
+}

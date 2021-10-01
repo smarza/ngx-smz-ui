@@ -1,8 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { SmzTableContext } from '../models/table-state';
-import { cloneDeep, property } from 'lodash-es';
+import { cloneDeep } from 'lodash-es';
 import { SmzFilterType } from '../models/filter-types';
-import { isArray } from '../../../common/utils/utils';
+import { isArray, isSimpleNamedEntity } from '../../../common/utils/utils';
 
 @Pipe({
   name: 'cloneTableItems'
@@ -13,8 +13,8 @@ export class SmzCloneTableItemsPipe implements PipeTransform {
     const showSkeleton = items == null && context.state.initialState.skeleton.isEnabled;
     const clonedItems = showSkeleton ? new Array<any>(context.state.initialState.skeleton.rows) : cloneDeep(items);
 
-    const count = context.state.styles.columnsWidth.samples ?? items.length;
-    const samples = items?.slice(0, items.length <= count ? items.length - 1 : count);
+    const count = context.state.styles.columnsWidth.samples ?? items?.length;
+    const samples = items?.slice(0, items?.length <= count ? items?.length - 1 : count);
 
     // console.log('context from items', context);
 
@@ -85,16 +85,31 @@ export class SmzCloneTableItemsPipe implements PipeTransform {
   private getBigger(items: string[], log: boolean): number {
 
     const mapped = items
-      .map(x => x?.trim())
       .map(x => {
-        const multipleLines = x?.split('<br>');
+        if (x == null) {
+          return x;
+        }
+        else if (x != null && isArray(x)) {
+          if (x.length > 0 && isSimpleNamedEntity(x[0] as any)) {
+            return (x as any).map(x => x.name).join(' ');
+          }
+          return (x as any);
+        }
+        else if (x != null && isSimpleNamedEntity(x as any)) {
+          return (x as any).name.trim();
+        }
 
-        // if (log) {
-        //   console.log('-----------')
-        //   console.log('map x', x);
-        //   console.log('map multipleLines', multipleLines);
-        //   console.log('-----------')
-        // }
+        return x == null ? x : x?.trim();
+      })
+      .map(x => {
+        const multipleLines = (x == null || isArray(x)) ? [] : x?.split('<br>');
+
+        if (log) {
+          console.log('-----------')
+          console.log('map x', x);
+          console.log('map multipleLines', multipleLines);
+          console.log('-----------')
+        }
 
         if (multipleLines == null) return x?.length ?? 0;
         if (isArray(multipleLines) && multipleLines.length === 1) {
@@ -102,32 +117,32 @@ export class SmzCloneTableItemsPipe implements PipeTransform {
           return x?.length ?? 0;
         };
 
-        const result = this.getBigger(multipleLines, true);
+        const result = this.getBigger(multipleLines, false);
 
-        // if (log) {
-        //   console.log('-----------')
-        //   console.log('result multipleLines', result);
-        //   console.log('-----------')
-        // }
+        if (log) {
+          console.log('-----------')
+          console.log('result multipleLines', result);
+          console.log('-----------')
+        }
 
         return result;
       });
 
-      // if (log) {
-      //   console.log('-----------')
-      //   console.log('mapped', mapped);
-      //   console.log('-----------')
-      // }
+      if (log) {
+        console.log('-----------')
+        console.log('mapped', mapped);
+        console.log('-----------')
+      }
 
-      return mapped
+      return mapped.length === 0 ? 0 : mapped
         .reduce((accumulator, element) => {
-          // if (log) {
-          //   console.log('-----------')
-          //   console.log('reduce accumulator', accumulator);
-          //   console.log('reduce element', element);
-          //   console.log('reduce result', element > accumulator ? element : accumulator);
-          //   console.log('-----------')
-          // }
+          if (log) {
+            console.log('-----------')
+            console.log('reduce accumulator', accumulator);
+            console.log('reduce element', element);
+            console.log('reduce result', element > accumulator ? element : accumulator);
+            console.log('-----------')
+          }
           return element > accumulator ? element : accumulator;
         });
 
@@ -149,7 +164,7 @@ export class SmzCloneTableItemsPipe implements PipeTransform {
 
       if (items == null || items.length === 0) return `${min}px`;
 
-      const maxCount = this.getBigger(items, header === 'service');
+      const maxCount = this.getBigger(items, false);
 
       const finalCount = (maxCount * multiply) + headerButtonsCompensation;
 

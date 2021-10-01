@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { MenubarModule } from 'primeng/menubar';
-import { SharedModule as PrimeSharedModule } from 'primeng/api';
+import { SharedModule } from 'primeng/api';
 import { AthenaLayoutComponent } from './layout.component';
 import { OutletModule } from '../../features/outlet/outlet.module';
 import { SmzAthenaTopbarModule } from './components/topbar/topbar.module';
@@ -20,7 +20,7 @@ export const ngxsModuleForFeatureUiAthenaLayoutState = NgxsModule.forFeature([Ui
   declarations: [AthenaLayoutComponent],
   imports: [
     CommonModule,
-    PrimeSharedModule,
+    SharedModule,
     MenubarModule,
     OutletModule,
     SmzAthenaTopbarModule,
@@ -31,7 +31,7 @@ export const ngxsModuleForFeatureUiAthenaLayoutState = NgxsModule.forFeature([Ui
   ],
   exports: [
     AthenaLayoutComponent,
-    PrimeSharedModule
+    SharedModule
   ]
 })
 export class AthenaLayoutModule

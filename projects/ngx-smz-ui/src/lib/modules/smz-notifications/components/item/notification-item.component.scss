@@ -1,0 +1,32 @@
+smz-notification-item {
+
+  @mixin notification-type() {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -5px;
+    width: 5px;
+    bottom: 0;
+}
+
+  .success-type::before {
+    @include notification-type();
+    background-color: var(--color-success);
+  }
+  .info-type::before {
+    @include notification-type();
+    background-color: var(--color-info);
+  }
+  .warning-type::before {
+    @include notification-type();
+    background-color: var(--color-warning);
+  }
+  .danger-type::before {
+    @include notification-type();
+    background-color: var(--color-danger);
+  }
+  .help-type::before {
+    @include notification-type();
+    background-color: var(--color-help);
+  }
+}

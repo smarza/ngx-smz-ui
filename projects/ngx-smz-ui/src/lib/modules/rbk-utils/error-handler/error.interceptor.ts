@@ -4,11 +4,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { ERROR_HANDLING_TYPE_HEADER, RESTORE_STATE_ON_ERROR_HEADER, IGNORE_ERROR_HANDLING } from '../http/base-api.service';
-import { ApplicationActions } from '../state/global/application/application.actions';
+import { ApplicationActions } from '../../../state/global/application/application.actions';
 import { tap } from 'rxjs/operators';
-import { DatabaseActions } from '../state/database/database.actions';
-import { FeaturesActions } from '../state/features/features.actions';
-import { GlobalActions } from '../state/global/global.actions';
+import { DatabaseActions } from '../../../state/database/database.actions';
+import { FeaturesActions } from '../../../state/features/features.actions';
+import { GlobalActions } from '../../../state/global/global.actions';
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {

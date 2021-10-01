@@ -10,8 +10,8 @@ import { takeWhile } from 'rxjs/operators';
 import { UUID } from 'angular2-uuid';
 import { TableFormsService } from './table-forms.service';
 import { Store } from '@ngxs/store';
+import { AuthenticationSelectors } from '../../../state/global/authentication/authentication.selectors';
 import { Confirmable } from '../../smz-dialogs/decorators/confirmable.decorator';
-import { AuthenticationSelectors } from '../../rbk-utils/state/global/authentication/authentication.selectors';
 
 // SERVIÇO COM INSTANCIAS DIFERENTES POR TABELA
 @Injectable()

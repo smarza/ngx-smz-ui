@@ -1,5 +1,8 @@
 @import "./styles.scss";
 
+/* VARIÁVEIS GLOBAIS */
+@import "./styles/variables.scss";
+
 .clear-overlay {
     background-color: unset;
     z-index: 1;

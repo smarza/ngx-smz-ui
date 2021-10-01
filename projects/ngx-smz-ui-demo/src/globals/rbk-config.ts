@@ -1,5 +1,5 @@
 import { environment } from '../environments/environment';
-import { NgxRbkUtilsConfig } from 'ngx-smz-ui';
+import { GlobalInjector, LoginResponse, NgxRbkUtilsConfig } from 'ngx-smz-ui';
 import { DemoFeatureName, DemoFeatureState, getInitialState as getFtDemoInitialState } from '../app/state/demo/demo.state';
 import { CountriesDbName, CountriesDbState, getInitialState as getDbCountriesInitialState } from '../app/state/database/countries/countries.state';
 import { CountriesDbActions } from '../app/state/database/countries/countries.actions';
@@ -7,6 +7,8 @@ import { WarehousesDbName, WarehousesDbState, getInitialState as getDbWarehouses
 import { WarehousesDbActions } from '../app/state/database/warehouses/warehouses.actions';
 import { ShopsDbName, ShopsDbState, getInitialState as getDbShopsInitialState } from '../app/state/database/shops/shops.state';
 import { ShopsDbActions } from '../app/state/database/shops/shops.actions';
+import { Store } from '@ngxs/store';
+import { Navigate } from '@ngxs/router-plugin';
 
 // ------------------------------------------
 // DATABASE STATES
@@ -52,6 +54,9 @@ export const rbkConfig: NgxRbkUtilsConfig = {
         // url: `${environment.domainApi}/api/diagnostics`
         url: null
     },
+    notifications: {
+        url: null
+    },
     authentication: {
         localStoragePrefix: 'ui-demo',
         login: {
@@ -59,6 +64,15 @@ export const rbkConfig: NgxRbkUtilsConfig = {
             errorHandlingType: 'toast',
             responsePropertyName: 'accessToken',
             loadingBehavior: 'global',
+            redirectCallback: (response: LoginResponse) => {
+                console.log('from callback', response);
+
+                const store = GlobalInjector.instance.get(Store);
+
+                setTimeout(() => {
+                    store.dispatch(new Navigate(['ng-dom']));
+                }, 3000);
+            }
         },
         refreshToken: {
             url: `${environment.authenticationApi}/api/auth/refresh-token`,

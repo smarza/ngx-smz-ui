@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
-import { SmzTableState, SmzTableBuilder, SmzFilterType } from 'ngx-smz-ui';
+import { SmzTableState, SmzTableBuilder, SmzFilterType, SimpleNamedEntity } from 'ngx-smz-ui';
 import { Observable } from 'rxjs';
-import { Warehouse } from '@models/warehouse';
-import { WarehousesDbSelectors } from '@states/database/warehouses/warehouses.selector';
 import { DemoFeatureActions } from '@states/demo/demo.actions';
 import { DemoTableDataService } from '../demo-tables/data-service/demo-tables-data-service';
 import { ServiceDetails } from '../demo-tables/data-service/service';
 import { ServicesService } from '../demo-tables/data-service/services.service';
+import { CountriesDbSelectors } from '@states/database/countries/countries.selectors';
+
 
 @Component({
   selector: 'demo-editable-table',
@@ -16,7 +16,7 @@ import { ServicesService } from '../demo-tables/data-service/services.service';
 })
 
 export class DemoEditableTableComponent implements OnInit {
-  @Select(WarehousesDbSelectors.all) public items$: Observable<Warehouse[]>;
+  @Select(CountriesDbSelectors.all) public items$: Observable<SimpleNamedEntity[]>;
   public services$: Observable<ServiceDetails[]>;
   public tableState: SmzTableState;
   constructor(private dataService: DemoTableDataService, private service: ServicesService, private store: Store) {
@@ -113,8 +113,8 @@ export class DemoEditableTableComponent implements OnInit {
   public setupServiceWithCustomization(): void {
 
 
-    this.tableState = new SmzTableBuilder('warehouse')
-      .setTitle('Warehouses')
+    this.tableState = new SmzTableBuilder('entity')
+      .setTitle('Entidades')
       .setCreationAction(DemoFeatureActions.Create)
       .setUpdateAction(DemoFeatureActions.Update)
       .setRemoveAction(DemoFeatureActions.Remove)

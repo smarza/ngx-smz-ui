@@ -1,9 +1,9 @@
 import { Injectable, Injector, ReflectiveInjector, Inject } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { CanActivate, ActivatedRouteSnapshot } from '@angular/router';
-import { AuthenticationSelectors } from '../state/global/authentication/authentication.selectors';
-import { AuthenticationActions } from '../state/global/authentication/authentication.actions';
-import { ToastActions } from '../state/global/application/application.actions.toast';
+import { AuthenticationSelectors } from '../../../state/global/authentication/authentication.selectors';
+import { AuthenticationActions } from '../../../state/global/authentication/authentication.actions';
+import { ToastActions } from '../../../state/global/application/application.actions.toast';
 import { Navigate } from '@ngxs/router-plugin';
 import { NgxRbkUtilsConfig } from '../ngx-rbk-utils.config';
 

@@ -3,9 +3,9 @@ import { Store } from '@ngxs/store';
 import { CanActivate, ActivatedRouteSnapshot } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
-import { ApplicationSelectors } from '../../state/global/application/application.selector';
+import { ApplicationSelectors } from '../../../../state/global/application/application.selector';
 import { NgxRbkUtilsConfig } from '../../ngx-rbk-utils.config';
-import { DatabaseSelectors } from '../../state/database/database.selectors';
+import { DatabaseSelectors } from '../../../../state/database/database.selectors';
 import { isWithinTime } from '../utils';
 
 @Injectable({ providedIn: 'root' })

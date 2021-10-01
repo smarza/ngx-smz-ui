@@ -39,8 +39,8 @@ export * from './core/services/menu-helper-service';
 export * from './features/theme-manager/theme-manager.service';
 
 // STATES
-export { UiActions } from './core/state/ui/ui.actions';
-export { UiSelectors } from './core/state/ui/ui.selectors';
+export { LayoutUiActions as UiActions } from '../../state/ui/layout/layout.actions';
+export { LayoutUiSelectors as UiSelectors } from '../../state/ui/layout/layout.selectors';
 
 // DIAMOND LAYOUT MODULE
 export * from './layouts/hephaestus/layout.module';

@@ -13,7 +13,7 @@ export * from './models/editable-types';
 export * from './models/conditional-menu-item';
 
 // BUILDERS
-export * from './builders/state-builder';
-export * from './builders/column-builder';
-export * from './builders/menu-builder';
-export * from './builders/editable-builder';
+export * from '../../builders/smz-tables/state-builder';
+export * from '../../builders/smz-tables/column-builder';
+export * from '../../builders/smz-tables/menu-builder';
+export * from '../../builders/smz-tables/editable-builder';

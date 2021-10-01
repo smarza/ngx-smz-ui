@@ -21,6 +21,30 @@
 }
 
 .p-datatable.p-datatable-smz-ui-table {
+
+  .p-component-overlay {
+    animation: fade-in 800ms forwards;
+  }
+
+  @keyframes fade-in {
+    0% {
+      background-color: rgba(0, 0, 0, 0);
+      opacity: 0;
+    }
+    90% {
+      background-color: rgba(0, 0, 0, 0);
+      opacity: 0;
+    }
+    100% {
+      background-color: rgba(0, 0, 0, 0.2);
+      opacity: 1;
+    }
+  }
+
+  .p-datatable .p-datatable-loading-icon {
+    color: var(--primary-color-loading-bg);
+}
+
   .p-datatable-header {
     padding: 1rem;
     text-align: left;
@@ -37,6 +61,20 @@
 
   .p-datatable-thead > tr > th {
     text-align: left;
+  }
+
+  .p-datatable-thead {
+    .invisible-header {
+      padding: 0;
+      height: 0;
+      visibility: collapse;
+
+      th {
+        padding: 0;
+        height: 0;
+        visibility: collapse;
+      }
+    }
   }
 
   .p-dropdown-label:not(.p-placeholder) {

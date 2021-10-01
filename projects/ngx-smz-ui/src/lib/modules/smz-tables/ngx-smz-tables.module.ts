@@ -9,7 +9,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { CalendarModule } from 'primeng/calendar';
 import { SmzTableContextPipe } from './pipes/table-context.pipe';
-import { SharedModule as PrimeSharedModule } from 'primeng/api';
+import { SharedModule } from 'primeng/api';
 import { DropdownModule } from 'primeng/dropdown';
 import { SmzMenuModule } from './components/menu';
 import { SmzTableContentPipe } from './pipes/table-content.pipe';
@@ -52,7 +52,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
     ],
     imports: [
         CommonModule,
-        PrimeSharedModule,
+        SharedModule,
         TableModule,
         ButtonModule,
         InputTextModule,
@@ -75,7 +75,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
     ],
     exports: [
         SmzTableComponent,
-        PrimeSharedModule
+        SharedModule
     ],
 })
 export class NgxSmzTablesModule

@@ -4,10 +4,10 @@ import { Store } from '@ngxs/store';
 import { filter, map, mergeMap, tap } from 'rxjs/operators';
 import { SmzLayoutsConfig } from '../globals/smz-layouts.config';
 import { RouteLayoutData, SmzRouteData } from '../models/route-layout-data';
-import { UiActions } from '../state/ui/ui.actions';
+import { LayoutUiActions } from '../../../../state/ui/layout/layout.actions';
 import { mergeClone } from '../../../../common/utils/deep-merge';
 import { SmzDialogsService } from '../../../smz-dialogs/services/smz-dialogs.service';
-import { ApplicationActions } from '../../../rbk-utils/state/global/application/application.actions';
+import { ApplicationActions } from '../../../../state/global/application/application.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -94,7 +94,7 @@ export class RouterDataListenerService
 
         if (this.config.debugMode) console.log('\n');
 
-        this.store.dispatch(new UiActions.SetTopbarTitle(data.title));
+        this.store.dispatch(new LayoutUiActions.SetTopbarTitle(data.title));
 
       });
 

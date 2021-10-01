@@ -1,4 +1,4 @@
-@charset "UTF-8";
+
 /* Add your customizations of the layout variables here */
 @font-face {
   font-family: "Nunito";
@@ -27,9 +27,6 @@
     url("./styles/fonts/nunito-v12-latin-ext_latin-700.woff") format("woff");
   /* Modern Browsers */
 }
-
-/* VARIÁVEIS GLOBAIS */
-@import "./styles/variables";
 
 /* Utils */
 .clearfix:after {

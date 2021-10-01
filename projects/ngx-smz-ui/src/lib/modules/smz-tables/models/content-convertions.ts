@@ -1,4 +1,4 @@
-import { InputConfig } from '../../smz-dialogs/builders/dialog-input-conversion';
+import { InputConfig } from '../../../builders/smz-dialogs/dialog-input-conversion';
 import { SmzControlType, SmzControlTypes, SmzDropDownControl } from '../../smz-forms/models/control-types';
 import { SmzFormsValidatorsPreset } from '../../smz-forms/models/controls';
 import { SmzContentType, SmzContentTypes } from './content-types';

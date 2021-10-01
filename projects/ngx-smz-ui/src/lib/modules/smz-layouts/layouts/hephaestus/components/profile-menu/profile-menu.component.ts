@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit } from "@angular/core";
 import { Select } from '@ngxs/store';
 import { MenuItem } from 'primeng/api';
-import { AuthenticationSelectors } from '../../../../../rbk-utils/state/global/authentication/authentication.selectors';
+import { AuthenticationSelectors } from '../../../../../../state/global/authentication/authentication.selectors';
 import { Observable } from 'rxjs';
 import { SmzLayoutsConfig } from '../../../../core/globals/smz-layouts.config';
 

@@ -17,11 +17,11 @@ export * from './components/color-picker/color-picker.component';
 export * from './components/dropdown/dropdown.component';
 export * from './components/file-upload/file-upload.component';
 export * from './components/input-currency/input-currency.component';
-export * from './components/input-list/input-list.component';
 export * from './components/input-mask/input-mask.component';
 export * from './components/input-number/input-number.component';
 export * from './components/input-password/input-password.component';
 export * from './components/input-switch/input-switch.component';
+export * from './components/input-list/input-list.component';
 export * from './components/input-text-area/input-text-area.component';
 export * from './components/input-tag-area/input-tag-area.component';
 export * from './components/input-text/input-text.component';
@@ -31,4 +31,4 @@ export * from './components/multi-select/multi-select.component';
 export * from './components/radio-button/radio-button.component';
 export * from './features/form-group/form-group.component';
 
-export * from './builders/form-builder';
+export * from '../../builders/smz-forms/form-builder';

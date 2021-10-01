@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, Directive, ElementRef, HostListener, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { SmzDynamicDialogConfig, SmzDialogCustomButton } from '../../models/smz-dialogs';
 import { DynamicDialogRef } from '../../dynamicdialog/dynamicdialog-ref';
 import { SmzDialogsConfig } from '../../smz-dialogs.config';
@@ -11,6 +11,7 @@ import { SmzForm } from '../../../smz-forms/models/smz-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { InjectComponentService } from '../../../../common/modules/inject-content/inject-component.service';
 import { ComponentData, ComponentDataBase } from '../../../../common/modules/inject-content/models/injectable.model';
+import { DialogsActions } from '../../state/dialogs/dialogs.actions';
 
 @UntilDestroy()
 @Component({
@@ -323,6 +324,38 @@ export class DialogFooterComponent implements OnInit {
         const response = config.behaviors.useAdvancedResponse ? config._context.advancedResponse : config._context.simpleResponse;
 
         return config.callbacks?.postProcessResponse != null ? config.callbacks.postProcessResponse(response) : response;
+    }
+
+}
+
+
+@Directive({
+    // tslint:disable-next-line:directive-selector
+    selector: '[confirmOnEnter]'
+})
+export class ConfirmOnEnterDirective {
+    @Input('confirmOnEnter') public confirmOnEnter: boolean = false;
+    @Input('clickEvent') public clickEvent: string = 'onClick';
+    @Input('delayConfirmation') public delayConfirmation: boolean = true;
+    @Input('disabled') public disabled: boolean;
+    @Input() public dialogId: string;
+
+    constructor(private el: ElementRef, private store: Store) {
+    }
+
+    @HostListener('window:keydown', ['$event'])
+    public handleKeyboardEvent(event: KeyboardEvent) {
+
+        if (!this.disabled && event.keyCode === 13) {
+            if (this.confirmOnEnter) {
+
+                // console.log(this.dialogsService);
+                this.store.dispatch(new DialogsActions.ConfirmOnEnter(this.el, this.dialogId, this.clickEvent, this.delayConfirmation ? 300 : null));
+            }
+
+        }
+
+
     }
 
 }

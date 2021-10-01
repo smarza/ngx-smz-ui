@@ -1,6 +1,6 @@
 import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { AuthenticationSelectors } from '../../state/global/authentication/authentication.selectors';
+import { AuthenticationSelectors } from '../../../../state/global/authentication/authentication.selectors';
 
 @Directive({ selector: '[rbkClaimGuard]'})
 export class RbkClaimGuardDirective {

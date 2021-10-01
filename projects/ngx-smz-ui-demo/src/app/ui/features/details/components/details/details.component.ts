@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { UiActions } from 'ngx-smz-ui';
+import { UiActions, Confirmable } from 'ngx-smz-ui';
 import { SmzSmartTagConfig, SmzSmartTagOptions } from '../../smart-tag.directive';
 
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
-  styleUrls: ['./details.component.scss']
+  styleUrls: ['./details.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DetailsComponent implements OnInit {
 
@@ -45,6 +46,11 @@ export class DetailsComponent implements OnInit {
   }
 
   public ngOnInit(): void {
+  }
+
+  @Confirmable('Testando', 'title test', true)
+  public testConfirmation(): void {
+    console.log('testConfirmation ok');
   }
 
 }

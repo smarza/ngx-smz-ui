@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngxs/store';import { NgxRbkUtilsConfig } from '../../../rbk-utils/ngx-rbk-utils.config';
-import { DatabaseActions } from '../../../rbk-utils/state/database/database.actions';
-import { FeaturesActions } from '../../../rbk-utils/state/features/features.actions';
-import { GlobalActions } from '../../../rbk-utils/state/global/global.actions';
+import { DatabaseActions } from '../../../../state/database/database.actions';
+import { FeaturesActions } from '../../../../state/features/features.actions';
+import { GlobalActions } from '../../../../state/global/global.actions';
  import { SmzLayoutsConfig } from '../../core/globals/smz-layouts.config';
 import { RouterDataListenerService } from '../../core/services/router-data-listener.service';
+import { Navigate } from '@ngxs/router-plugin';
 
 @Component({
   selector: 'smz-ui-error',
@@ -14,10 +15,10 @@ import { RouterDataListenerService } from '../../core/services/router-data-liste
 export class ErrorComponent implements OnInit {
 
   constructor(public readonly rbkConfig: NgxRbkUtilsConfig, public readonly config: SmzLayoutsConfig, public readonly routerListener: RouterDataListenerService, private store: Store) {
-    this.clear();
   }
 
   public ngOnInit(): void {
+    this.clear();
   }
 
   public clear(): void {
@@ -25,6 +26,12 @@ export class ErrorComponent implements OnInit {
     this.store.dispatch(new DatabaseActions.Clear());
     this.store.dispatch(new FeaturesActions.Clear());
     localStorage.clear();
+    window.history.pushState('', '', '');
+  }
+
+  public goToLogin(): void {
+    this.store.dispatch(new Navigate([this.rbkConfig.routes.login]));
+    this.clear();
   }
 
 }

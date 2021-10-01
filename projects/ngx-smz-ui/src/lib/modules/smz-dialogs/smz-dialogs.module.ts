@@ -18,14 +18,12 @@ import { DialogContentManagerComponent } from './features/dialog-content-manager
 import { NgGroupByPipeModule } from '../../common/pipes/group-by.pipe';
 import { SmzDialogsConfig } from './smz-dialogs.config';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
-import { ConfirmOnEnterDirective } from './directives/confirm-on-enter.directive';
 import { SmzDynamicDialogConfig } from './models/smz-dialogs';
 import { MessageContentComponent } from './features/message-content/message-content.component';
-import { DialogService } from './dynamicdialog/dialogservice';
 import { DynamicDialogRef } from './dynamicdialog/dynamicdialog-ref';
 import { DynamicDialogModule } from './dynamicdialog/dynamicdialog';
 import { DynamicDialogConfig } from './dynamicdialog/dynamicdialog-config';
-import { DialogFooterComponent } from './features/dialog-footer/dialog-footer.component';
+import { DialogFooterComponent, ConfirmOnEnterDirective } from './features/dialog-footer/dialog-footer.component';
 import { mergeClone } from '../../common/utils/deep-merge';
 import { SmzTemplatesPipeModule } from '../../common/pipes/templates.pipe';
 import { TooltipModule } from 'primeng/tooltip';
@@ -36,6 +34,8 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { SafeContentPipeModule } from '../../common/pipes/safe-html.pipe';
 import { NgxSmzTablesModule } from '../smz-tables/ngx-smz-tables.module';
 import { TableContentComponent } from './features/table-content/table-content.component';
+import { NgxsModule } from '@ngxs/store';
+import { DialogsState } from './state/dialogs/dialogs.state';
 
 const defaultDialogsModuleConfig: SmzDialogsConfig = {
     dialogs: {
@@ -80,6 +80,8 @@ const defaultDialogsModuleConfig: SmzDialogsConfig = {
     }
 };
 
+export const ngxsModuleForFeatureDialogsState = NgxsModule.forFeature([DialogsState]);
+
 @NgModule({
     declarations: [
         DialogContentManagerComponent,
@@ -93,6 +95,7 @@ const defaultDialogsModuleConfig: SmzDialogsConfig = {
         CommonModule,
         ReactiveFormsModule,
         DialogModule,
+        ngxsModuleForFeatureDialogsState,
         OverlayPanelModule,
         ToastModule,
         TableModule,
@@ -113,7 +116,7 @@ const defaultDialogsModuleConfig: SmzDialogsConfig = {
         NgxSmzTablesModule
     ],
     entryComponents: [DialogContentManagerComponent, MessageContentComponent, HtmlContentComponent, DialogFooterComponent, TableContentComponent],
-    providers: [DialogService, SmzDynamicDialogConfig, DynamicDialogConfig, DynamicDialogRef],
+    providers: [SmzDynamicDialogConfig, DynamicDialogConfig, DynamicDialogRef],
 })
 
 export class NgxSmzDialogsModule

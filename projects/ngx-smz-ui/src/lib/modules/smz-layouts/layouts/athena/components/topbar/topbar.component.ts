@@ -3,7 +3,7 @@ import { Select, Store } from '@ngxs/store';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { MenuItem, PrimeTemplate } from 'primeng/api';
 import { Observable } from 'rxjs';
-import { UiSelectors } from '../../../../core/state/ui/ui.selectors';
+import { LayoutUiSelectors } from '../../../../../../state/ui/layout/layout.selectors';
 import { SmzLayoutsConfig } from '../../../../core/globals/smz-layouts.config';
 import { UiAthenaActions } from '../../state/ui-layout.actions';
 import { SmzAppLogo } from '../../../../core/models/logo';
@@ -23,8 +23,8 @@ import { NgxRbkUtilsConfig } from '../../../../../rbk-utils/ngx-rbk-utils.config
 export class AthenaTopbarComponent implements OnInit, AfterContentInit
 {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
-  @Select(UiSelectors.topbarTitle) public topbarTitle$: Observable<string>;
-  @Select(UiSelectors.appLayoutLogo) public appLogo$: Observable<SmzAppLogo>;
+  @Select(LayoutUiSelectors.topbarTitle) public topbarTitle$: Observable<string>;
+  @Select(LayoutUiSelectors.appLayoutLogo) public appLogo$: Observable<SmzAppLogo>;
   @Select(UiAthenaSelectors.layout) public layout$: Observable<AthenaLayout>;
   @Input() public notifications: SmzNotification[];
   @Input() public profile: MenuItem[];

@@ -77,6 +77,10 @@ export class SmzTableContextPipe implements PipeTransform {
           isVisible: false,
           items: []
         },
+        batchActions: {
+          isVisible: false,
+          items: []
+        },
         rowBehavior: {
           isClickable: false,
           clickCallback: null,
@@ -98,6 +102,8 @@ export class SmzTableContextPipe implements PipeTransform {
         },
         globalFilter: {
           isVisible: true,
+          expanded: false,
+          placeholder: 'Pesquisa Global'
         },
         rowSelection: {
           isButtonVisible: true,
@@ -107,12 +113,16 @@ export class SmzTableContextPipe implements PipeTransform {
           label: 'Seleção'
         },
       },
+      header: {
+        isVisible: true
+      },
       columns: [],
       emptyFeedback: inputState.emptyFeedback == null ? {
         message: 'Lista Vazia',
         extraInfo: null,
         actionButtons: [],
         image: 'assets/images/tables/empty.svg',
+        isFeatured: true
       } : {
         message: inputState.emptyFeedback.message ?? 'Lista Vazia',
         extraInfo: inputState.emptyFeedback.message,

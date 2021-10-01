@@ -6,10 +6,10 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { ApplicationSelectors } from '../../../rbk-utils/state/global/application/application.selector';
+import { ApplicationSelectors } from '../../../../state/global/application/application.selector';
 import { LoaderData } from '../../core/models/layout';
 import { SmzLoader } from '../../core/models/loaders';
-import { UiSelectors } from '../../core/state/ui/ui.selectors';
+import { LayoutUiSelectors } from '../../../../state/ui/layout/layout.selectors';
 
 @UntilDestroy()
 @Component({
@@ -21,7 +21,7 @@ import { UiSelectors } from '../../core/state/ui/ui.selectors';
 })
 export class GlobalLoaderComponent implements OnInit
 {
-  @Select(UiSelectors.loader) public loader$: Observable<LoaderData>;
+  @Select(LayoutUiSelectors.loader) public loader$: Observable<LoaderData>;
   @Input() public template: TemplateRef<any>;
   public loaders = SmzLoader;
   public isLoading: boolean = false;

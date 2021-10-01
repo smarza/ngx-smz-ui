@@ -1,0 +1,46 @@
+<ng-container *ngVar="hasRuningRequest$ | async as hasRuningRequest">
+
+<smz-ui-table #smzTable [items]="notifications | filterBy : ['status'] : currentFolder.status" [state]="tableState" [loading]="hasRuningRequest" (selectionChange)="onSelect($event)">
+
+  <ng-template pTemplate="caption" let-primeTable>
+    <button *ngIf="rbkConfig.notifications.showRefreshButton" pButton pRipple type="button" icon="fas fa-sync" pTooltip="Atualizar" class="p-button-rounded p-button-text p-button-plain mr-3" (click)="refresh()"></button>
+    <p-selectButton [options]="folders" [(ngModel)]="currentFolder" optionLabel="icon" (onChange)="currentFolder.rebuild()">
+      <ng-template let-item>
+          <i [ngClass]="item.icon" [pTooltip]="item.tooltip"></i>
+          <span class="ml-1 text-sm">({{ item.count$ | async }})</span>
+      </ng-template>
+    </p-selectButton>
+  </ng-template>
+
+  <!-- CONTEÚDOS COM OVERRIDE -->
+  <ng-template pTemplate="content" let-item let-col="col">
+
+    <ng-container [ngSwitch]="col.field">
+      <ng-container *ngSwitchCase="'searchData'">
+
+        <div class="p-grid p-nogutter p-align-center p-justify-between" (mouseenter)="item._showActions = true" (mouseleave)="item._showActions = false">
+
+          <div class="p-col">
+            <smz-notification-item [item]="item"></smz-notification-item>
+          </div>
+
+          <div class="p-grid p-nogutter p-align-center p-justify-start gap-4 px-4 animate__animated animate__fadeIn relative" *ngIf="item._showActions">
+            <i #archiveButton *ngIf="item.status !== status.ARCHIVED" pTooltip="Arquivar" [appendTo]="archiveButton" tooltipPosition="bottom" class="fas fa-archive p-button-rounded p-button-text p-button-plain relative text-gray-500" (click)="archive([item])"></i>
+            <i #inboxButton *ngIf="item.status === status.ARCHIVED" pTooltip="Desarquivar" [appendTo]="inboxButton" tooltipPosition="bottom" class="fas fa-inbox p-button-rounded p-button-text p-button-plain relative text-gray-500" (click)="moveToInbox([item])"></i>
+
+            <i #routeButton *ngIf="item.route != ''" pTooltip="Navegar" [appendTo]="routeButton" tooltipPosition="bottom" class="fas fa-share p-button-rounded p-button-text p-button-plain relative text-gray-500" (click)="navigate(item)"></i>
+            <i #linkButton *ngIf="item.link != ''" pTooltip="Abrir Link" [appendTo]="linkButton" tooltipPosition="bottom" class="fas fa-external-link-alt p-button-rounded p-button-text p-button-plain relative text-gray-500" (click)="openLink(item)"></i>
+
+            <i #trashButton pTooltip="Excluir" [appendTo]="trashButton" tooltipPosition="bottom" class="fas fa-trash p-button-rounded p-button-text p-button-plain relative text-gray-500" styleClass="relative" (click)="remove(item)"></i>
+          </div>
+
+        </div>
+
+      </ng-container>
+    </ng-container>
+
+  </ng-template>
+
+</smz-ui-table>
+
+</ng-container>

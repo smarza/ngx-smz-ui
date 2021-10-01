@@ -1,3 +1,4 @@
+import { LoginResponse } from './auth/models';
 import { HttpBehaviorParameters } from './http/base-api.service';
 
 export class NgxRbkUtilsConfig {
@@ -7,53 +8,66 @@ export class NgxRbkUtilsConfig {
     public diagnostics: {
         url: string;
     };
+    public notifications: {
+        url: string;
+        updateMethod?: 'interval';
+        updateRate?: number;
+        httpBehavior?: Partial<HttpBehaviorParameters>;
+        emptyMessage?: string;
+        title?: string;
+        rowsPerPage?: number;
+        pageOptions?: number[];
+        showTypeIndicators?: boolean;
+        showRefreshButton?: boolean;
+    };
     public uiDefinitions: {
         url: string;
-        httpBehavior: Partial<HttpBehaviorParameters>
+        httpBehavior: Partial<HttpBehaviorParameters>;
     };
     public state: {
-        database: {[name: string]: DatabaseStateParameters},
-        feature: {[name: string]: DatabaseStateParameters}
+        database: {[name: string]: DatabaseStateParameters};
+        feature: {[name: string]: DatabaseStateParameters};
     };
     public authentication: {
         localStoragePrefix: string;
         login: {
-            url: string,
-            loadingBehavior: 'global' | 'local' | 'none',
-            errorHandlingType: 'toast' | 'dialog' | 'none',
-            responsePropertyName: string, // this is used in the login and refresh token endpoint responses
-        },
+            url: string;
+            loadingBehavior: 'global' | 'local' | 'none';
+            errorHandlingType: 'toast' | 'dialog' | 'none';
+            responsePropertyName: string; // this is used in the login and refresh token endpoint responses
+            redirectCallback?: (response: LoginResponse) => void;
+        };
         refreshToken: {
-            url: string,
-            loadingBehavior: 'global' | 'local' | 'none',
-            errorHandlingType: 'toast' | 'dialog' | 'none',
-            responsePropertyName: string, // this is used in the login and refresh token endpoint responses
-            extraProperties?: {[name: string]: string},
-        },
-        accessTokenClaims?: { claimName: string, propertyName: string, type: 'string' | 'array' } []
+            url: string;
+            loadingBehavior: 'global' | 'local' | 'none';
+            errorHandlingType: 'toast' | 'dialog' | 'none';
+            responsePropertyName: string; // this is used in the login and refresh token endpoint responses
+            extraProperties?: {[name: string]: string};
+        };
+        accessTokenClaims?: { claimName: string; propertyName: string; type: 'string' | 'array' } []
     };
     public httpBehaviors: {
-        defaultParameters: HttpBehaviorParameters,
+        defaultParameters: HttpBehaviorParameters;
     };
     public toastConfig: {
-        severity: string,
-        life: number,
-        sticky: boolean,
-        closable: boolean,
-        successTitle: string,
-        warningTitle: string,
-        errorTitle: string,
-        infoTitle: string,
+        severity: string;
+        life: number;
+        sticky: boolean;
+        closable: boolean;
+        successTitle: string;
+        warningTitle: string;
+        errorTitle: string;
+        infoTitle: string;
     };
     public dialogsConfig: {
-        errorDialogTitle: string,
-        warningDialogTitle: string
+        errorDialogTitle: string;
+        warningDialogTitle: string;
     };
     public routes: {
-        authenticatedRoot: string,
-        nonAuthenticatedRoot: string,
-        login: string,
-        error: string
+        authenticatedRoot: string;
+        nonAuthenticatedRoot: string;
+        login: string;
+        error: string;
     };
 }
 

@@ -4,12 +4,12 @@ import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { cloneDeep } from 'lodash-es';
 import { UiAthenaSelectors } from '../../state/ui-layout.selectors';
-import { UiSelectors } from '../../../../core/state/ui/ui.selectors';
+import { LayoutUiSelectors } from '../../../../../../state/ui/layout/layout.selectors';
 import { Assistance } from '../../../../core/models/assistance';
 import { SmzLayoutsConfig } from '../../../../core/globals/smz-layouts.config';
 import { InputChangeData } from '../../../../../../common/input-detection/input-detection.directive';
 import { UiAthenaActions } from '../../state/ui-layout.actions';
-import { UiActions } from '../../../../core/state/ui/ui.actions';
+import { LayoutUiActions } from '../../../../../../state/ui/layout/layout.actions';
 import { SmzContentTheme } from '../../../../core/models/themes';
 import { AthenaLayout, AthenaMenuTypes } from '../../layout.config';
 import { MenuType } from '../../../../core/models/menu-types';
@@ -22,7 +22,7 @@ import { MenuType } from '../../../../core/models/menu-types';
   encapsulation: ViewEncapsulation.None
 })
 export class AthenaAssistanceComponent implements OnInit {
-  @Select(UiSelectors.assistance) public assistance$: Observable<Assistance>;
+  @Select(LayoutUiSelectors.assistance) public assistance$: Observable<Assistance>;
   public isVisible = false;
   public menuTypes = [];
   public menuType: AthenaMenuTypes = MenuType.STATIC;
@@ -38,7 +38,7 @@ export class AthenaAssistanceComponent implements OnInit {
       });
 
     this.store
-      .select(UiSelectors.assistance)
+      .select(LayoutUiSelectors.assistance)
       .pipe(untilDestroyed(this))
       .subscribe(assistance => {
         this.isVisible = assistance.isVisible;
@@ -72,11 +72,11 @@ export class AthenaAssistanceComponent implements OnInit {
   }
 
   public onHide(): void {
-    this.store.dispatch(new UiActions.HideConfigAssistance);
+    this.store.dispatch(new LayoutUiActions.HideConfigAssistance);
   }
 
   public onShow(): void {
-    this.store.dispatch(new UiActions.ShowConfigAssistance);
+    this.store.dispatch(new LayoutUiActions.ShowConfigAssistance);
   }
 
   public showMenu(): void {
@@ -88,12 +88,12 @@ export class AthenaAssistanceComponent implements OnInit {
   }
 
   public onSetContentTheme(theme: SmzContentTheme): void {
-    this.store.dispatch(new UiActions.SetContentTheme(theme));
+    this.store.dispatch(new LayoutUiActions.SetContentTheme(theme));
   }
 
   public showAssistance(): void
   {
-    this.store.dispatch(new UiActions.ShowConfigAssistance);
+    this.store.dispatch(new LayoutUiActions.ShowConfigAssistance);
   }
 
 }

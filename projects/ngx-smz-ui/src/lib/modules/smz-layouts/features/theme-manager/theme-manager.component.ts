@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store, } from '@ngxs/store';
-import { UiSelectors } from '../../core/state/ui/ui.selectors';
+import { LayoutUiSelectors } from '../../../../state/ui/layout/layout.selectors';
 import { ThemeManagerService } from './theme-manager.service';
 
 @Component({
   selector: 'smz-ui-theme-manager',
-  templateUrl: './theme-manager.component.html',
+  template: ``,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThemeManagerComponent implements OnInit
@@ -21,7 +21,7 @@ export class ThemeManagerComponent implements OnInit
     this.contentLink.setAttribute('href', '');
 
     this.store
-      .select(UiSelectors.contentTheme)
+      .select(LayoutUiSelectors.contentTheme)
       .subscribe((newTheme) =>
       {
         if (newTheme !== this.currentContentTheme)

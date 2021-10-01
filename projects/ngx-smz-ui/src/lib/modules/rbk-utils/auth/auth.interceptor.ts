@@ -6,7 +6,7 @@ import { Store } from '@ngxs/store';
 import { AuthHandler } from './auth.handler';
 import { AUTHENTICATION_HEADER, REFRESH_TOKEN_BEHAVIOR_HEADER } from '../http/base-api.service';
 import { NgxRbkUtilsConfig } from '../ngx-rbk-utils.config';
-import { AuthenticationActions } from '../state/global/authentication/authentication.actions';
+import { AuthenticationActions } from '../../../state/global/authentication/authentication.actions';
 import { isEmpty } from '../utils/utils';
 
 @Injectable()

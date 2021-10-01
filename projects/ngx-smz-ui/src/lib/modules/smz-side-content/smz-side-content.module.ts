@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { SidebarModule } from 'primeng/sidebar';
-import { SharedModule as PrimeSharedModule } from 'primeng/api';
+import { SharedModule } from 'primeng/api';
 
 import { SmzSideContentComponent } from './smz-side-content.component';
 
@@ -9,11 +9,11 @@ import { SmzSideContentComponent } from './smz-side-content.component';
   imports: [
     CommonModule,
     SidebarModule,
-    PrimeSharedModule,
+    SharedModule,
   ],
   exports: [
     SmzSideContentComponent,
-    PrimeSharedModule
+    SharedModule
   ],
   declarations: [
     SmzSideContentComponent,
