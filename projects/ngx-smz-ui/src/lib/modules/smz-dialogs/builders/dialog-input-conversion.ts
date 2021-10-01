@@ -20,6 +20,16 @@ export function convertFormFeature(
 
   if (groups == null) throw new Error('UI definitions are empty. Were they manually loaded or set as required state?');
 
+  return convertFormFeatureFromInputData(groups, entity, options, store);
+}
+
+export function convertFormFeatureFromInputData(
+  groups: any[],
+  entity: { [key: string]: any } = null,
+  options: InputConversionOptions = null,
+  store: Store,
+): SmzDialogFeature {
+
   const form: SmzForm<any> = {
     groups: [],
     behaviors: {}
