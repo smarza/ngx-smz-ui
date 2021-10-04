@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { State, Action, StateContext } from '@ngxs/store';
 import { AuthenticationActions } from '../authentication/authentication.actions';
 import { ApplicationActions } from './application.actions';
-import { MessageService } from 'primeng/api';
 import { NgxRbkUtilsConfig } from '../../../modules/rbk-utils/ngx-rbk-utils.config';
 import { ToastActions } from './application.actions.toast';
 import { Navigate } from '@ngxs/router-plugin';
 import { HttpErrorHandler } from '../../../modules/rbk-utils/error-handler/error.handler';
 import { DialogsActions } from '../../../modules/smz-dialogs/state/dialogs/dialogs.actions';
+import { ToastService } from '../../../modules/rbk-utils/misc/toast.service';
 
 export interface ApplicationStateModel {
     globalIsLoading: boolean;
@@ -58,7 +58,7 @@ export const getCleanApplicationState = (): ApplicationStateModel => ({
 })
 @Injectable()
 export class ApplicationState {
-    constructor(private messageService: MessageService, private rbkConfig: NgxRbkUtilsConfig) { }
+    constructor(private toastService: ToastService, private rbkConfig: NgxRbkUtilsConfig) { }
 
     @Action(ApplicationActions.HandleHttpErrorWithDialog)
     public async handleErrorWithDialog$(ctx: StateContext<ApplicationStateModel>, action: ApplicationActions.HandleHttpErrorWithDialog): Promise<void> {
@@ -78,7 +78,6 @@ export class ApplicationState {
             styleClass: '',
             visible: true
         };
-
 
         if (action.error.status >= 400 && action.error.status < 500) {
             ctx.dispatch(new DialogsActions.Message(this.rbkConfig.dialogsConfig.warningDialogTitle, error.messages));
@@ -151,7 +150,7 @@ export class ApplicationState {
             ...action.message
         };
 
-        this.messageService.add(message);
+        this.toastService.add(message);
     }
 
     @Action(ToastActions.Success)
@@ -163,7 +162,7 @@ export class ApplicationState {
             detail: action.message
         };
 
-        this.messageService.add(message);
+        this.toastService.add(message);
     }
 
     @Action(ToastActions.Error)
@@ -175,7 +174,7 @@ export class ApplicationState {
             detail: action.message
         };
 
-        this.messageService.add(message);
+        this.toastService.add(message);
     }
 
     @Action(ToastActions.Info)
@@ -187,7 +186,7 @@ export class ApplicationState {
             detail: action.message
         };
 
-        this.messageService.add(message);
+        this.toastService.add(message);
     }
 
     @Action(ToastActions.Warning)
@@ -199,7 +198,7 @@ export class ApplicationState {
             detail: action.message
         };
 
-        this.messageService.add(message);
+        this.toastService.add(message);
     }
 
     @Action(ApplicationActions.NgRxInitialized)
