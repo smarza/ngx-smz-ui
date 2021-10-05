@@ -106,19 +106,21 @@ export class DemoTablesComponent implements OnInit {
         //   .disableFilter()
         //   .disableSort()
         //   .columns
-        // .text('country.name', 'Country')
-        //   .setFilter(SmzFilterType.DROPDOWN)
-        //   .disableSort()
-        //   .columns
-        // .dataTransform('country', 'Super Country', (country: SimpleNamedEntity, row: any) => {
-        //     // console.log('dataTransform', country, row);
-        //     return `super: ${country?.name?.toUpperCase()}`;
-        //   })
-        //   .columns
-        // .dataTransform('roles', 'Perfis', (roles: SimpleNamedEntity[], row: any) => {
-        //     return roles.map(x => x.name).join(', ');
-        //   })
-        //   .columns
+        .text('country.name', 'Country')
+          .setFilter(SmzFilterType.DROPDOWN)
+          .disableSort()
+          .columns
+        .dataTransform('country', 'Super Country', (country: SimpleNamedEntity, row: any) => {
+            // console.log('dataTransform', country, row);
+            return `super: ${country?.name?.toUpperCase()}`;
+          })
+          .setFilter(SmzFilterType.DROPDOWN)
+          .columns
+        .dataTransform('roles', 'Perfis', (roles: SimpleNamedEntity[], row: any) => {
+            return roles.map(x => x.name).join(', ');
+          })
+          .setFilter(SmzFilterType.DROPDOWN)
+          .columns
         .table
       .build();
 

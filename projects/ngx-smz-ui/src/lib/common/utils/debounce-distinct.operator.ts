@@ -1,12 +1,11 @@
+import { Message } from 'primeng/api/message';
 import { Observable, Subscription, timer } from 'rxjs';
 
-// observable.pipe(debounceDistinct(51)).subscribe(x => console.log(x));
-
-export function debounceDistinct<T>(delay: number) {
-  return (source: Observable<T>): Observable<T> => {
+export function debounceDistinctMessage(delay: number) {
+  return (source: Observable<Message>): Observable<Message> => {
       return new Observable(subscriber => {
           let hasValue = false;
-          let lastValue: T | null = null;
+          let lastValue: Message | null = null;
           let durationSub: Subscription = null;
 
           const emit = () => {
@@ -22,11 +21,11 @@ export function debounceDistinct<T>(delay: number) {
           };
 
           return source.subscribe(
-              (value: T) => {
+              (value: Message) => {
                   // new value received cancel timer
                   durationSub?.unsubscribe();
                   // emit lastValue if the value has changed
-                  if (hasValue && value !== lastValue) {
+                  if (hasValue && value?.detail !== lastValue?.detail) {
                       const value = lastValue!;
                       subscriber.next(value);
                   }

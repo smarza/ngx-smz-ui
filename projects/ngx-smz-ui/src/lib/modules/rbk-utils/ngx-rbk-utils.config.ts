@@ -58,6 +58,7 @@ export class NgxRbkUtilsConfig {
         warningTitle: string;
         errorTitle: string;
         infoTitle: string;
+        debounceDistinctDelay: number;
     };
     public dialogsConfig: {
         errorDialogTitle: string;

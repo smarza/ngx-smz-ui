@@ -1,5 +1,5 @@
 import { Injectable, Pipe, PipeTransform } from '@angular/core';
-import { uniqBy } from 'lodash-es';
+import { uniqBy, flatten } from 'lodash-es';
 import { sortArray } from '../../utils/utils';
 
 @Pipe({
@@ -10,7 +10,7 @@ import { sortArray } from '../../utils/utils';
 export class UniqueFilterPipe implements PipeTransform
 {
     constructor() { }
-    public transform(items: any[], args: any[] | string, reMap: string = null, initial: any = null, sortBy: string = null): any
+    public transform(items: any[], args: any[] | string, reMap: string = null, initial: any = null, sortBy: string = null, isManyToMany: boolean = false): any
     {
         // console.log('------ uniqueFilter');
         // console.log(items, args, reMap);
@@ -20,17 +20,33 @@ export class UniqueFilterPipe implements PipeTransform
         // filtra os items com base nos critérios args
         // args, pode conter propriedades compostas como ex: 'status.id'
         // args, pode conter multiplos critérios
-        const uniques = uniqBy(items.filter(i => Reflect.get(i, reMap) != null), args);
+
         // console.log('uniques', uniques);
-        if (reMap != null)
+        if (reMap != null && !isManyToMany)
         {
             // retorna a lista contendo apenas a propriedade solicitada
+
+            const uniques = uniqBy(items.filter(i => Reflect.get(i, reMap) != null), args);
 
             const results = uniques.map(u => (Reflect.get(u, reMap)));
             // console.log('results', results);
             const afterSort = sortBy != null ? sortArray(results, sortBy) : results;
             // console.log('afterSort', afterSort);
             // console.log('result 1', initial != null ? [initial, ...afterSort] : afterSort);
+            return initial != null ? [initial, ...afterSort] : afterSort;
+        }
+        else if (reMap != null && isManyToMany)
+        {
+            // retorna a lista contendo apenas a propriedade solicitada
+
+            const mapped = items.map(u => (Reflect.get(u, reMap)));
+            const flat = flatten(mapped);
+
+            const uniques = uniqBy(flat, 'id');
+
+            const results = uniques; //.map(u => (Reflect.get(u, reMap)));
+            // console.log('results', results);
+            const afterSort = sortBy != null ? sortArray(results, sortBy) : results;
             return initial != null ? [initial, ...afterSort] : afterSort;
         }
         else

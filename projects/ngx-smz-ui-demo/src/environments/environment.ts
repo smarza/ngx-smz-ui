@@ -7,7 +7,7 @@ export const environment = {
   version: 'development_v',
   databaseCacheTimeout: 2,
   domainApi: 'https://dev.varejofacil.tk',
-  authenticationApi: 'https://dev.varejofacil.tk',
+  authenticationApi: 'https://api.varejofacil.tk',
   applicationId: 'UI-DEMO'
 };
 

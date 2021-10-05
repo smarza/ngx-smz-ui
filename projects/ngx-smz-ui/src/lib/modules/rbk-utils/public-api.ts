@@ -30,6 +30,7 @@ export * from './http/base-api.service';
 export * from './misc/breadcrum.service';
 export * from './misc/title.service';
 export * from './misc/boilerplate.service';
+export * from './misc/toast.service';
 
 export * from '../../state/app.state';
 export * from '../../state/app.utils';

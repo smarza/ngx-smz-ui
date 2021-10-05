@@ -136,6 +136,7 @@ export const rbkConfig: NgxRbkUtilsConfig = {
         errorTitle: 'ERRO',
         warningTitle: 'ALERTA',
         infoTitle: 'AVISO',
+        debounceDistinctDelay: 200
     },
     dialogsConfig: {
         errorDialogTitle: 'ERRO',
