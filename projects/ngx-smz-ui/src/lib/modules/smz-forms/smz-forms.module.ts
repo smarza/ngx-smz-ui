@@ -60,6 +60,7 @@ import { InputTagAreaComponent } from './components/input-tag-area/input-tag-are
 import { NgxSmzDataPipesModule } from '../../common/data-pipes/data-pipes.module';
 import { SmzFormsGlobalInjector } from './services/smz-forms-global-injector';
 import { InputListComponent } from './components/input-list/input-list.component';
+import { InputContentMaskComponent } from './components/input-content-mask/input-content-mask.component';
 
 export const defaultFormsModuleConfig: SmzFormsConfig = {
     behaviors: {
@@ -87,7 +88,22 @@ export const defaultFormsModuleConfig: SmzFormsConfig = {
     multipleErrorMessagesLabel: 'Multiplos erros',
     controlTypes: {
         [SmzControlType.MULTI_SELECT]: {
-            defaultLabel: 'Escolha multiplas opções'
+            defaultLabel: 'Escolha multiplas opções',
+            emptyMessage: 'Lista vazia.',
+            emptyFilterMessage: 'Nenhum registro encontrado'
+        },
+        [SmzControlType.LINKED_MULTISELECT]: {
+            defaultLabel: 'Escolha multiplas opções',
+            emptyMessage: 'Lista vazia.',
+            emptyFilterMessage: 'Nenhum registro encontrado'
+        },
+        [SmzControlType.DROPDOWN]: {
+            emptyMessage: 'Lista vazia.',
+            emptyFilterMessage: 'Nenhum registro encontrado'
+        },
+        [SmzControlType.LINKED_DROPDOWN]: {
+            emptyMessage: 'Lista vazia.',
+            emptyFilterMessage: 'Nenhum registro encontrado'
         },
         [SmzControlType.FILE]: {
             fileAccept: 'image/*,application/pdf',
@@ -173,7 +189,8 @@ export const defaultFormsModuleConfig: SmzFormsConfig = {
         ValidationMessagesPipe,
         FileDragDropDirective,
         FileNameShortenPipe,
-        InputTagAreaComponent
+        InputTagAreaComponent,
+        InputContentMaskComponent
     ],
     entryComponents: [FormGroupComponent],
     exports: [

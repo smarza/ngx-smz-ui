@@ -13,7 +13,9 @@
             [panelStyle]="{ minWidth: '20em' }"
             appendTo="body"
             [filter]="input.showFilter ? true : false"
-            [filterMatchMode]="input.filterMatchMode != null ? input.filterMatchMode : 'contains'">
+            [filterMatchMode]="input.filterMatchMode != null ? input.filterMatchMode : 'contains'"
+            [emptyMessage]="input.emptyMessage"
+            [emptyFilterMessage]="input.emptyFilterMessage">
         </p-multiSelect>
         <smz-validation-messages [input]="input" [control]="control" [behaviors]="behaviors"></smz-validation-messages>
     </div>

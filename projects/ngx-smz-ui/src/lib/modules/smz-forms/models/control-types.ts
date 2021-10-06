@@ -15,6 +15,7 @@ export type SmzControlTypes =
     SmzLinkedMultiSelectControl<any> |
     SmzListControl |
     SmzMaskControl |
+    SmzContentMaskControl |
     SmzMultiSelectControl<any> |
     SmzNumberControl |
     SmzPasswordControl |
@@ -154,6 +155,13 @@ export interface SmzMaskControl extends SmzFormsBaseControl
     exportPattern?: SmzTextPattern;
 }
 
+export interface SmzContentMaskControl extends SmzFormsBaseControl
+{
+    defaultValue?: string;
+    textAreaRows?: number;
+
+}
+
 export interface SmzFileControl extends SmzFormsBaseControl
 {
     defaultValue?: string;
@@ -204,6 +212,8 @@ export interface SmzDropDownControl<T> extends SmzFormsBaseControl
     defaultValue?: T | SimpleEntity<T>;
     showFilter?: Boolean;
     filterMatchMode?: 'contains' | string;
+    emptyMessage?: string;
+    emptyFilterMessage?: string;
 
 }
 
@@ -214,7 +224,8 @@ export interface SmzLinkedDropDownControl<T> extends SmzFormsBaseControl
     showFilter?: Boolean;
     filterMatchMode?: 'contains' | string;
     dependsOn?: { propertyName: string, formId?: string };
-
+    emptyMessage?: string;
+    emptyFilterMessage?: string;
 }
 
 export interface SmzLinkedMultiSelectControl<T> extends SmzFormsBaseControl
@@ -225,6 +236,8 @@ export interface SmzLinkedMultiSelectControl<T> extends SmzFormsBaseControl
     filterMatchMode?: 'contains' | string;
     dependsOn?: { propertyName: string, formId?: string };
     defaultLabel?: string;
+    emptyMessage?: string;
+    emptyFilterMessage?: string;
 
 }
 
@@ -235,5 +248,7 @@ export interface SmzMultiSelectControl<T> extends SmzFormsBaseControl
     showFilter?: Boolean;
     filterMatchMode?: 'contains' | string;
     defaultLabel?: string;
+    emptyMessage?: string;
+    emptyFilterMessage?: string;
 
 }
