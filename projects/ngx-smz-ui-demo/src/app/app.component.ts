@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { MenuHelperService, ThemeManagerService, BoilerplateService } from 'ngx-smz-ui';
+import { MenuHelperService, ThemeManagerService, BoilerplateService, ToastActions } from 'ngx-smz-ui';
 
 const test = { status: 1 };
 
@@ -143,6 +143,19 @@ export class AppComponent {
         routerLink: ['/login'],
       }
     ]);
+
+    // setTimeout(() => {
+    //   this.store.dispatch(new ToastActions.Error('Erro aqui'));
+
+    //   setTimeout(() => {
+    //     this.store.dispatch(new ToastActions.Error('Erro aqui'));
+    //   }, 1000);
+
+    //   setTimeout(() => {
+    //     this.store.dispatch(new ToastActions.Error('Erro aqui'));
+    //   }, 5000);
+
+    // }, 5000);
 
   }
 

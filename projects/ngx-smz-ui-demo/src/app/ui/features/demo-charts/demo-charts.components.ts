@@ -1,6 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { VERTICAL_BAR, HORIZONTAL_BAR, STACKED_BAR, ROUNDED_BAR, LINE, DOUGHNUT, PIE, POLAR_AREA, COMBO, IAGM, EMPTY } from './data/chart-data-original';
 import { COMBO_CHSARP, DOUGHNUT_CSHARP, HORIZONTAL_BAR_CSHARP, IAGM_CSHARP, LINE_CSHARP, PIE_CSHARP, POLAR_AREA_CSHARP, ROUNDED_BAR_CSHARP, STACKED_BAR_CSHARP, VERTICAL_BAR_CSHARP } from './data/chart-data-csharp';
+import { SmzChartInteractionEvent } from 'ngx-smz-ui';
 
 @Component({
   selector: 'app-demo-charts',
@@ -58,7 +59,7 @@ export class DemoChartsComponent {
 
   ngOnInit() {}
 
-  public chartClicked(event: any): void {
+  public chartClicked(event: SmzChartInteractionEvent<any>): void {
     console.log('click: ', event.value);
   }
 }

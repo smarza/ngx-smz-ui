@@ -33,8 +33,8 @@ export class SmzChartComponent implements AfterViewInit, OnDestroy {
 
   @Input() responsive: boolean = true;
 
-  @Output() chartClick: EventEmitter<SmzChartInteractionEvent> = new EventEmitter<SmzChartInteractionEvent>();
-  @Output() chartHover: EventEmitter<SmzChartInteractionEvent> = new EventEmitter<SmzChartInteractionEvent>();
+  @Output() chartClick: EventEmitter<SmzChartInteractionEvent<any>> = new EventEmitter<SmzChartInteractionEvent<any>>();
+  @Output() chartHover: EventEmitter<SmzChartInteractionEvent<any>> = new EventEmitter<SmzChartInteractionEvent<any>>();
 
   private _originalData: any;
   private _data: any;
