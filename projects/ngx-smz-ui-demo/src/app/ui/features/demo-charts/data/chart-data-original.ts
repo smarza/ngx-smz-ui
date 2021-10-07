@@ -258,7 +258,7 @@ export const DOUGHNUT = {
       {
         label: 'Dataset 1',
         data: [25, 20, 15, 5, 5],
-        extraData: [
+        extra: [
           { x: 'Jan', y: 5, data: { value: 5 } },
           { x: 'Feb', y: 15, data: { value: 15 } },
           { x: 'Mar', y: 5, data: { value: 5 } },
@@ -287,7 +287,7 @@ export const PIE = {
       {
         label: 'Dataset 1',
         data: [25, 20, 15, 5, 5],
-        extraData: [
+        extra: [
           { x: 'Jan', y: 5, data: { value: 5 } },
           { x: 'Feb', y: 15, data: { value: 15 } },
           { x: 'Mar', y: 5, data: { value: 5 } },
@@ -316,7 +316,7 @@ export const POLAR_AREA = {
       {
         label: 'Dataset 1',
         data: [25, 20, 15, 5, 5],
-        extraData: [
+        extra: [
           { x: 'Jan', y: 5, data: { value: 5 } },
           { x: 'Feb', y: 15, data: { value: 15 } },
           { x: 'Mar', y: 5, data: { value: 5 } },

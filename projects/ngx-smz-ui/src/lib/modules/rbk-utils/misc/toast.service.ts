@@ -17,15 +17,12 @@ export class ToastService {
   }
 
   public add(message: Message): void {
-
     if (this.config.toastConfig.debounceDistinctDelay != null) {
-
       // Delay ativado
 
       // Verificar se a mensagem atual é a mesma da anterior
       if (this.lastMessage?.detail === message.detail) {
-
-        const cacheTime = this.config.toastConfig?.debounceDistinctDelay ?? 0;
+        const cacheTime = (this.config.toastConfig?.debounceDistinctDelay ?? 0) / 1000 / 60;
 
         // Verificar se não existe uma mensagem anterior ou se a mesma já pode ser emitida
         if (this.lastUpdated == null || !isWithinTime(this.lastUpdated, cacheTime))
@@ -39,14 +36,12 @@ export class ToastService {
         }
       }
       else {
-
         // Mensagem diferente da anterior
         this.send(message);
       }
 
     }
     else {
-
       // Delay desativado
       this.send(message);
     }

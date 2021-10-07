@@ -9,6 +9,7 @@ import { TableEditableService } from '../../services/table-editable.service';
 import { TableFormsService } from '../../services/table-forms.service';
 import { Table } from 'primeng/table';
 import { SmzDialogsConfig } from '../../../smz-dialogs/smz-dialogs.config';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'smz-ui-table',
@@ -24,6 +25,7 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
   @Input() public items: any[] = [];
   @Input() public loading: boolean = false;
   @Output() public selectionChange: EventEmitter<any> = new EventEmitter<any>();
+  @Output() public filterChange: EventEmitter<any> = new EventEmitter<any>();
   @Output() public create: EventEmitter<any> = new EventEmitter<any>();
   @Output() public update: EventEmitter<any> = new EventEmitter<any>();
   @Output() public delete: EventEmitter<any> = new EventEmitter<any>();
@@ -207,6 +209,10 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
 
   public emitSelection(event: any): void {
     this.selectionChange.emit(event);
+  }
+
+  public onFilter(event: any): void {
+    this.filterChange.emit(event);
   }
 
 }
