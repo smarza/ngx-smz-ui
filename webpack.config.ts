@@ -11,6 +11,14 @@ export default (config: webpack.Configuration, options: CustomWebpackBrowserSche
   config.plugins.push(
     new webpack.DefinePlugin({ APP_VERSION: JSON.stringify(pkg.version) }),
     new MomentLocalesPlugin({ localesToKeep: ['br'] }),
+    new UglifyJsPlugin({
+      "mangle": false,
+      "compress": {
+        "screw_ie8": true,
+        "warnings": false
+      },
+      "sourceMap": false
+    }),
     // new LodashModuleReplacementPlugin({ 'collections': true, "paths": true, "shorthands": true }),
   );
 

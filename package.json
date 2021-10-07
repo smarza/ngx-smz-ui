@@ -12,6 +12,7 @@
     "build-watch-lib": "ng build ngx-smz-ui --watch",
     "build-prod-lib": "ng build ngx-smz-ui --configuration=production",
     "build-prod-demo": "ng build ngx-smz-ui-demo --configuration=production --stats-json",
+    "build-prod-overview": "ng build ngx-smz-ui-overview --configuration=production --stats-json",
     "analyze": "webpack-bundle-analyzer dist/ngx-smz-ui-demo/stats.json --port 8889"
   },
   "private": true,
@@ -58,6 +59,7 @@
     "@types/node": "^12.11.1",
     "lodash-webpack-plugin": "^0.11.6",
     "moment-locales-webpack-plugin": "^1.2.0",
+    "uglifyjs-webpack-plugin": "^2.2.0",
     "ng-packagr": "^12.0.2",
     "postcss-import": "^14.0.1",
     "postcss-loader": "^5.2.0",

@@ -2,7 +2,7 @@ export const environment = {
   production: true,
   version: 'production_v',
   databaseCacheTimeout: 10,
-  domainApi: 'https://localhost:5001',
-  authenticationApi: 'https://localhost:5001',
+  domainApi: 'https://lib.horizon-solutions.tk',
+  authenticationApi: 'https://lib.horizon-solutions.tk',
   applicationId: 'SMZ-UI-NOTIFICATIONS'
 };

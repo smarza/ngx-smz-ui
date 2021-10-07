@@ -23,7 +23,7 @@ export class HomeComponent
     this.store.dispatch(new DemoFeatureActions.LoadAll());
 
     this.treeState = new SmzTreeBuilder()
-      .setTitle('Dialogs Demo')
+      .setTitle('Fluent Configuration')
       .enableFilter()
       .toolbar('rounded-outlined')
         .setAlignment('end')
