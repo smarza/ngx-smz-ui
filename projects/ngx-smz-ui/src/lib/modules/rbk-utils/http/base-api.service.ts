@@ -6,6 +6,7 @@ import { NgxRbkUtilsConfig } from '../ngx-rbk-utils.config';
 export const LOADING_BEHAVIOR_HEADER = 'Loading-Behavior';
 export const ERROR_HANDLING_TYPE_HEADER = 'Error-Handling-Type';
 export const REFRESH_TOKEN_BEHAVIOR_HEADER = 'Refresh-Token-Behavior';
+export const WINDOWS_AUTHENTICATION_HEADER = 'Windows-Authentication';
 export const AUTHENTICATION_HEADER = 'Authorization';
 export const CONTENT_ENCODING_HEADER = 'Content-Encoding';
 export const LOCAL_LOADING_TAG_HEADER = 'Local-Loading-Tag';
@@ -43,6 +44,10 @@ export class BaseApiService {
             headers = headers.set(REFRESH_TOKEN_BEHAVIOR_HEADER, 'true');
         }
 
+        if (finalParameters.useWindowsAuthentication === true) {
+            headers = headers.set(WINDOWS_AUTHENTICATION_HEADER, 'true');
+        }
+
         if (finalParameters.localLoadingTag != null) {
             headers = headers.set(LOCAL_LOADING_TAG_HEADER, finalParameters.localLoadingTag);
         }
@@ -68,4 +73,5 @@ export interface HttpBehaviorParameters {
     localLoadingTag: string;
     restoreStateOnError: boolean;
     ignoreErrorHandling: boolean;
+    useWindowsAuthentication: boolean;
 }

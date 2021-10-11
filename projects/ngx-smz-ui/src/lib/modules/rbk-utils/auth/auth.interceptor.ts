@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, switchMap, share } from 'rxjs/operators';
 import { Store } from '@ngxs/store';
 import { AuthHandler } from './auth.handler';
-import { AUTHENTICATION_HEADER, REFRESH_TOKEN_BEHAVIOR_HEADER } from '../http/base-api.service';
+import { AUTHENTICATION_HEADER, REFRESH_TOKEN_BEHAVIOR_HEADER, WINDOWS_AUTHENTICATION_HEADER } from '../http/base-api.service';
 import { NgxRbkUtilsConfig } from '../ngx-rbk-utils.config';
 import { AuthenticationActions } from '../../../state/global/authentication/authentication.actions';
 import { isEmpty } from '../utils/utils';
@@ -17,6 +17,10 @@ export class AuthInterceptor implements HttpInterceptor {
 
     public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         if (this.rbkConfig.debugMode) console.log(`[AuthInterceptor: ${req.url}] Intercepting request for `, req);
+
+        if (req.headers.get(WINDOWS_AUTHENTICATION_HEADER) != null) {
+            req = req.clone({ withCredentials: true });
+        }
 
         if (req.headers.get(AUTHENTICATION_HEADER) == null ||
             req.headers.get(REFRESH_TOKEN_BEHAVIOR_HEADER) == null) {

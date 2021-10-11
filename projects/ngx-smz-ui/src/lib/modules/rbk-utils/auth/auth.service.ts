@@ -23,6 +23,7 @@ export class AuthService extends BaseApiService {
             this.generateDefaultHeaders({
                 loadingBehavior: this.rbkConfig.authentication.login.loadingBehavior,
                 authentication: false,
+                useWindowsAuthentication: this.rbkConfig.authentication.useWindowsAuthentication,
                 errorHandlingType: this.rbkConfig.authentication.login.errorHandlingType,
                 localLoadingTag: this.rbkConfig.authentication.login.loadingBehavior === 'local' ? 'login' : null
             })).pipe(
@@ -42,6 +43,7 @@ export class AuthService extends BaseApiService {
             this.generateDefaultHeaders({
                 loadingBehavior: this.rbkConfig.authentication.refreshToken.loadingBehavior,
                 authentication: false,
+                useWindowsAuthentication: this.rbkConfig.authentication.useWindowsAuthentication,
                 errorHandlingType: this.rbkConfig.authentication.refreshToken.errorHandlingType,
                 localLoadingTag: this.rbkConfig.authentication.refreshToken.loadingBehavior === 'local' ? 'refresh-token' : null
             })).pipe(
