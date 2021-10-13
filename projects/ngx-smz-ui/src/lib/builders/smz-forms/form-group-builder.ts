@@ -1,8 +1,7 @@
-import { SmzCalendarControl, SmzCheckBoxControl, SmzCheckBoxGroupControl, SmzColorPickerControl, SmzControlType, SmzCurrencyControl, SmzDropDownControl, SmzFileControl, SmzLinkedDropDownControl, SmzLinkedMultiSelectControl, SmzListControl, SmzMaskControl, SmzMultiSelectControl, SmzNumberControl, SmzPasswordControl, SmzRadioControl, SmzSwitchControl, SmzTagAreaControl, SmzTextAreaControl, SmzTextControl } from '../../modules/smz-forms/models/control-types';
+import { SmzCalendarControl, SmzCheckBoxControl, SmzCheckBoxGroupControl, SmzColorPickerControl, SmzContentMaskControl, SmzControlType, SmzCurrencyControl, SmzDropDownControl, SmzFileControl, SmzLinkedDropDownControl, SmzLinkedMultiSelectControl, SmzListControl, SmzMaskControl, SmzMultiSelectControl, SmzNumberControl, SmzPasswordControl, SmzRadioControl, SmzSwitchControl, SmzTagAreaControl, SmzTextAreaControl, SmzTextControl } from '../../modules/smz-forms/models/control-types';
 import { SimpleEntity, SimpleParentEntity } from '../../common/models/simple-named-entity';
 import { SmzFormBuilder } from './form-builder';
 import { SmzFormGroup } from '../../modules/smz-forms/models/smz-forms';
-import { SmzTemplate } from '../../common/models/templates';
 import { SmzFormsBaseControl } from '../../modules/smz-forms/models/controls';
 import { ValidatorFn, Validators } from '@angular/forms';
 import { SmzTextPattern } from '../../modules/smz-forms/models/text-patterns';
@@ -321,6 +320,39 @@ export class SmzFormGroupBuilder<TResponse> {
     }
 
     return new SmzFormTextAreaBuilder(this, input as SmzTextAreaControl);
+  }
+
+  public contentMask(property: string, label?: string, defaultValue?: string): SmzFormContentMaskBuilder<TResponse> {
+
+    let input = this.group.children.find(x => x.propertyName == property) as SmzContentMaskControl;
+
+    if (input == null) {
+
+      if (label == null) {
+        throw Error('Label is required for contentMask')
+      }
+
+      input = {
+        propertyName: property, type: SmzControlType.CONTENT_MASK, name: label,
+        defaultValue: defaultValue,
+        quickActions: [],
+        variableId: 'input__variable',
+        inputClass: 'smz-input-content-mask',
+        tagClass: '',
+        variableBegin: '{{',
+        variableEnd: '}}',
+        exportHtmlNewLine: false
+      };
+
+      this.group.children.push(input);
+    }
+    else {
+      if (label != null || defaultValue != null) {
+        throw Error('Label and defaultValue come from uiDefinitions and cannot be changed.')
+      }
+    }
+
+    return new SmzFormContentMaskBuilder(this, input as SmzContentMaskControl);
   }
 
   public tagArea(property: string, label: string, defaultValue?: string): SmzFormTagAreaBuilder<TResponse> {
@@ -775,6 +807,50 @@ export class SmzFormTextAreaBuilder<TResponse> extends SmzFormInputBuilder<TResp
     return this;
   }
 }
+
+export class SmzFormContentMaskBuilder<TResponse> extends SmzFormInputBuilder<TResponse> {
+  constructor(public _groupBuilder: SmzFormGroupBuilder<TResponse>, private _contentMaskInput: SmzContentMaskControl) {
+    super(_groupBuilder, _contentMaskInput);
+  }
+
+  public setRows(rows: number): SmzFormContentMaskBuilder<TResponse> {
+    this._contentMaskInput.textAreaRows = rows;
+    return this;
+  }
+
+  public setQuickAction(triggerKeyCode: number, callback: () => {}): SmzFormContentMaskBuilder<TResponse> {
+    this._contentMaskInput.quickActions.push({ keycode: triggerKeyCode, callback });
+    return this;
+  }
+
+  // public changeVariableId(variableId: string): SmzFormContentMaskBuilder<TResponse> {
+  //   this._contentMaskInput.variableId = variableId;
+  //   return this;
+  // }
+
+  public setInputClass(classStyle: string): SmzFormContentMaskBuilder<TResponse> {
+    this._contentMaskInput.inputClass = classStyle;
+    return this;
+  }
+
+  public setTagClass(classStyle: string): SmzFormContentMaskBuilder<TResponse> {
+    this._contentMaskInput.tagClass = classStyle;
+    return this;
+  }
+
+  public setVariable(begin: string, end: string): SmzFormContentMaskBuilder<TResponse> {
+    this._contentMaskInput.variableBegin = begin;
+    this._contentMaskInput.variableEnd = end;
+    return this;
+  }
+
+  public exportHtmlNewLine(): SmzFormContentMaskBuilder<TResponse> {
+    this._contentMaskInput.exportHtmlNewLine = true;
+    return this;
+  }
+
+}
+
 
 export class SmzFormTextBuilder<TResponse> extends SmzFormInputBuilder<TResponse> {
   constructor(public _groupBuilder: SmzFormGroupBuilder<TResponse>, private _textInput: SmzTextControl) {

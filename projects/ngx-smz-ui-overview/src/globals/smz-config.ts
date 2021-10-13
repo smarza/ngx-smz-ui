@@ -71,7 +71,7 @@ export const smzDialogsConfig: SmzDialogsConfig = {
         inputTemplates: {
             extraSmall: { row: 'col-12', },
         },
-        globalStyleScale: 0.8
+        globalStyleScale: 1
     },
     charts: {
         emptyMessage: 'Sem dados para exibir'

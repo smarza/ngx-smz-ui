@@ -1,14 +1,18 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChange, SimpleChanges, ViewChild } from '@angular/core';
 import { DemoTreeNode } from '@models/demo';
-import { SmzForm } from 'ngx-smz-ui';
+import { FormGroupComponent, SmzForm } from 'ngx-smz-ui';
 
 @Component({
   selector: 'app-demo-form',
-  template: `<smz-form-group *ngIf="form != null" [config]="form"></smz-form-group>`,
+  template: `
+  <button pButton pRipple type="button" label="Logar Dados" (click)="log()"></button>
+  <smz-form-group *ngIf="form != null" [config]="form" #formComponent></smz-form-group>
+  `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class DemoFormComponent implements OnInit, OnChanges {
+  @ViewChild(FormGroupComponent) public formComponent: FormGroupComponent;
   @Input() public node: DemoTreeNode
   public form: SmzForm<any>;
 
@@ -24,5 +28,9 @@ export class DemoFormComponent implements OnInit, OnChanges {
       this.form = node.data();
     }
 
+  }
+
+  public log(): void {
+    console.log('getData from form', this.formComponent.getData());
   }
 }

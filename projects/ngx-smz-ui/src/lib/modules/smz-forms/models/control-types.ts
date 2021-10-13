@@ -2,6 +2,7 @@ import { SimpleEntity, SimpleParentEntity } from '../../../common/models/simple-
 import { SmzSmartTagConfig } from '../directives/smart-tag.directive';
 import { SmzFormsBaseControl } from './controls';
 import { SmzTextPattern } from './text-patterns';
+import { SmzQuickAction } from '../directives/transfer-value-acessor';
 
 export type SmzControlTypes =
     SmzCalendarControl |
@@ -51,6 +52,7 @@ export enum SmzControlType
     LINKED_MULTISELECT = 17,
     LIST = 18,
     TAG_AREA = 19,
+    CONTENT_MASK = 20
 }
 
 export interface SmzTextControl extends SmzFormsBaseControl
@@ -159,7 +161,13 @@ export interface SmzContentMaskControl extends SmzFormsBaseControl
 {
     defaultValue?: string;
     textAreaRows?: number;
-
+    quickActions: SmzQuickAction[];
+    variableId: string;
+    inputClass: string;
+    tagClass: string
+    variableBegin: string;
+    variableEnd: string;
+    exportHtmlNewLine: boolean;
 }
 
 export interface SmzFileControl extends SmzFormsBaseControl

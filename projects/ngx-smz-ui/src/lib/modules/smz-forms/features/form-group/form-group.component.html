@@ -60,6 +60,10 @@
         <smz-input-text-area [input]="input" [control]="form.controls[input.propertyName]" [behaviors]="config.behaviors"></smz-input-text-area>
     </ng-container>
 
+    <ng-container *ngIf="input.type == controlTypes.CONTENT_MASK">
+        <smz-input-content-mask [input]="input" [control]="form.controls[input.propertyName]" [behaviors]="config.behaviors"></smz-input-content-mask>
+    </ng-container>
+
     <ng-container *ngIf="input.type == controlTypes.TAG_AREA">
         <input-tag-area [input]="input" [control]="form.controls[input.propertyName]" [behaviors]="config.behaviors"></input-tag-area>
     </ng-container>

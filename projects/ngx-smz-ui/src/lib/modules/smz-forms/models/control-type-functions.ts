@@ -1,10 +1,11 @@
 import { AbstractControl, FormGroup } from '@angular/forms';
-import { SmzControlType, SmzControlTypes, SmzCalendarControl, SmzCurrencyControl, SmzPasswordControl, SmzSwitchControl, SmzTextControl, SmzCheckBoxControl, SmzCheckBoxGroupControl, SmzColorPickerControl, SmzDropDownControl, SmzFileControl, SmzLinkedDropDownControl, SmzMultiSelectControl, SmzNumberControl, SmzRadioControl, SmzTextAreaControl, SmzMaskControl, SmzLinkedMultiSelectControl, SmzListControl, SmzTagAreaControl } from './control-types';
+import { SmzControlType, SmzControlTypes, SmzCalendarControl, SmzCurrencyControl, SmzPasswordControl, SmzSwitchControl, SmzTextControl, SmzCheckBoxControl, SmzCheckBoxGroupControl, SmzColorPickerControl, SmzDropDownControl, SmzFileControl, SmzLinkedDropDownControl, SmzMultiSelectControl, SmzNumberControl, SmzRadioControl, SmzTextAreaControl, SmzMaskControl, SmzLinkedMultiSelectControl, SmzListControl, SmzTagAreaControl, SmzContentMaskControl } from './control-types';
 import { SmzDialogsConfig } from '../../smz-dialogs/smz-dialogs.config';
 import { flatten, isArray } from '../../../common/utils/utils';
 import { executeTextPattern } from './text-patterns';
 import { cloneDeep } from 'lodash-es';
 import { SmzSmartTagData } from '../directives/smart-tag.directive';
+import { mapInputContentMaskText, unmapInputContentMaskText } from '../components/input-content-mask/input-content-mask.pipe';
 
 export interface SmzControlTypeFunctionsDefinitions
 {
@@ -330,6 +331,21 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
 
             // console.log('getValue TEXT_AREA', value);
             return mapResponseValue(input, value, false);
+        },
+    },
+    [SmzControlType.CONTENT_MASK]: {
+        initialize: (input: SmzContentMaskControl, config: SmzDialogsConfig) => {},
+        clear: (control: AbstractControl) => { control.patchValue(''); },
+        updateValue: (control: AbstractControl, input: SmzContentMaskControl) => {
+            const mapped = mapInputContentMaskText(input);
+            control.patchValue(mapped);
+        },
+        getValue: (form: FormGroup, input: SmzContentMaskControl, flattenResponse: boolean) =>
+        {
+            let value = form.get(input.propertyName).value;
+            const unmapped = unmapInputContentMaskText(value, input.variableId, input.tagClass, input.variableBegin, input.variableEnd, input.exportHtmlNewLine);
+
+            return mapResponseValue(input, unmapped, false);
         },
     },
     [SmzControlType.TAG_AREA]: {

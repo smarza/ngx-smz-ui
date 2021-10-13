@@ -50,6 +50,23 @@ export const FormsDemo: { [key: string]: () => void } = {
       .build();
   },
   //
+  [DemoKeys.FORMS_INPUT_CONTENT_MASK]: () => {
+    return new SmzFormBuilder<any>()
+      .group()
+        .setLayout('EXTRA_SMALL', 'col-12')
+        .contentMask('input1', 'Conteúdo com variáveis',
+`Anestesia da região do punho direito com {{xilocaína a 2%}}.
+
+Punção da artéria radial {{direita}} seguida da instalação de introdutor 5F.
+
+Através deste instrumento avançou-se uma guia {{metálica 0.0035}} e um cateter {{TIG}} que foi posicionado no ventrículo esquerdo e com ele realizados o registro pressórico, a ventrículografia e as coronariogafias. Retirou-se o sistema.`)
+          .validators()
+          .required()
+        .group
+      .form
+      .build();
+  },
+  //
   [DemoKeys.FORMS_INPUT_DROPDOWN]: () => {
     return new SmzFormBuilder<any>()
       .group()

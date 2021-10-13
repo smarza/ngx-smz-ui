@@ -1,0 +1,17 @@
+.smz-input-content-mask-variable {
+  color: red;
+  cursor: not-allowed;
+  user-select: none !important;
+  font-weight: 600;
+}
+
+.smz-input-content-mask {
+  color: #424242;
+  border: 1px #bdbdbd solid;
+  border-radius: 2px;
+  padding: 0.5em;
+}
+
+.smz-input-content-mask-disabled {
+  color: #c4c4c4;
+}

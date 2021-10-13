@@ -196,6 +196,12 @@ export const TreeDemoData: DemoTreeNode[] = [
             data: FormsDemo[DemoKeys.FORMS_INPUT_CHECKBOX_GROUP]
           },
           {
+            label: 'Content Mask', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'form',
+            notes: '',
+            data: FormsDemo[DemoKeys.FORMS_INPUT_CONTENT_MASK]
+          },
+          {
             label: 'Dropdown', icon: 'fas fa-code', type: 'Demo',
             demoType: 'form',
             notes: '',

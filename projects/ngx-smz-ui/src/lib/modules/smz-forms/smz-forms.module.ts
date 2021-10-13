@@ -61,6 +61,8 @@ import { NgxSmzDataPipesModule } from '../../common/data-pipes/data-pipes.module
 import { SmzFormsGlobalInjector } from './services/smz-forms-global-injector';
 import { InputListComponent } from './components/input-list/input-list.component';
 import { InputContentMaskComponent } from './components/input-content-mask/input-content-mask.component';
+import { TransferValueAccessor } from './directives/transfer-value-acessor';
+import { InputContentMaskTextPipe } from './components/input-content-mask/input-content-mask.pipe';
 
 export const defaultFormsModuleConfig: SmzFormsConfig = {
     behaviors: {
@@ -190,7 +192,9 @@ export const defaultFormsModuleConfig: SmzFormsConfig = {
         FileDragDropDirective,
         FileNameShortenPipe,
         InputTagAreaComponent,
-        InputContentMaskComponent
+        InputContentMaskComponent,
+        TransferValueAccessor,
+        InputContentMaskTextPipe
     ],
     entryComponents: [FormGroupComponent],
     exports: [
