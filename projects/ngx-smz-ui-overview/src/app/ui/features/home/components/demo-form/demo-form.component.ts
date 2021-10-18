@@ -6,6 +6,7 @@ import { FormGroupComponent, SmzForm } from 'ngx-smz-ui';
   selector: 'app-demo-form',
   template: `
   <button pButton pRipple type="button" label="Logar Dados" (click)="log()"></button>
+  <div>isValid: {{ formComponent?.isValid }}</div>
   <smz-form-group *ngIf="form != null" [config]="form" #formComponent></smz-form-group>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush

@@ -1,6 +1,7 @@
 <label class="smz__input_name" [innerHTML]="input.name"></label>
 <div class="input_inner__wrapper">
     <p-inputMask
+        *ngIf="!input.useFraction"
         class="smz__input_value"
         fxFlex="grow"
         slotChar=""
@@ -10,5 +11,15 @@
         [id]="input.propertyName"
         [formControl]="control">
     </p-inputMask>
+    <p-inputNumber
+        *ngIf="input.useFraction"
+        class="smz__input_value"
+        fxFlex="grow"
+        [formControl]="control"
+        [locale]="input.locale"
+        [minFractionDigits]="input.minFractionDigits"
+        [id]="input.propertyName"
+        (onInput)="onInput($event)">
+    </p-inputNumber>
     <smz-validation-messages [input]="input" [control]="control" [behaviors]="behaviors"></smz-validation-messages>
 </div>

@@ -218,7 +218,7 @@ export class SmzFormGroupBuilder<TResponse> {
     return new SmzFormInputBuilder(this, input as SmzCurrencyControl);
   }
 
-  public number(property: string, label?: string, defaultValue?: number): SmzFormInputBuilder<TResponse> {
+  public number(property: string, label?: string, defaultValue?: number): SmzFormNumberBuilder<TResponse> {
 
     let input = this.group.children.find(x => x.propertyName == property);
 
@@ -241,7 +241,7 @@ export class SmzFormGroupBuilder<TResponse> {
       }
     }
 
-    return new SmzFormInputBuilder(this, input as SmzNumberControl);
+    return new SmzFormNumberBuilder(this, input as SmzNumberControl);
   }
 
   public radioGroup<T>(property: string, label?: string, options?: SimpleEntity<T>[], defaultValue?: T): SmzFormRadioGroupBuilder<T,TResponse> {
@@ -665,6 +665,11 @@ export class SmzFormCalendarBuilder<TResponse> extends SmzFormInputBuilder<TResp
     this._calendarInput.defaultValue = new Date();
     return this;
   }
+
+  public setTimeOnly(): SmzFormCalendarBuilder<TResponse> {
+    this._calendarInput.timeOnly = true;
+    return this;
+  }
 }
 
 export class SmzFormCheckboxGroupBuilder<T,TResponse> extends SmzFormInputBuilder<TResponse> {
@@ -790,6 +795,25 @@ export class SmzFormTagAreaBuilder<TResponse> extends SmzFormInputBuilder<TRespo
     this._tagAreaInput.config.options.push({ key, data })
     return this;
   }
+}
+
+export class SmzFormNumberBuilder<TResponse> extends SmzFormInputBuilder<TResponse> {
+  constructor(public _groupBuilder: SmzFormGroupBuilder<TResponse>, private _numberInput: SmzNumberControl) {
+    super(_groupBuilder, _numberInput);
+  }
+
+  public setFraction(minFractionDigits: number): SmzFormNumberBuilder<TResponse> {
+    this._numberInput.minFractionDigits = minFractionDigits;
+    this._numberInput.useFraction = true;
+    return this;
+  }
+
+  public setLocale(locale: 'pt-BR'): SmzFormNumberBuilder<TResponse> {
+    this._numberInput.locale = 'pt-BR';
+    this._numberInput.useFraction = true;
+    return this;
+  }
+
 }
 
 export class SmzFormTextAreaBuilder<TResponse> extends SmzFormInputBuilder<TResponse> {

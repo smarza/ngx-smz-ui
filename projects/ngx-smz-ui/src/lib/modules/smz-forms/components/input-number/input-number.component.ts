@@ -14,4 +14,9 @@ export class InputNumberComponent
     @Input() public behaviors: SmzFormsBehaviorsConfig;
     constructor() { }
 
+    public onInput(event: any) {
+        this.control.setValue(event.value);
+        this.control.updateValueAndValidity();
+    }
+
 }

@@ -156,10 +156,14 @@ Através deste instrumento avançou-se uma guia {{metálica 0.0035}} e um catete
       .group()
         .setLayout('EXTRA_SMALL', 'col-12')
         .number('input1', 'I\'m not required')
-        .group
+          .group
         .number('input2', 'I\'m required')
           .validators()
           .required()
+        .group
+        .number('input3', 'Fraction Number')
+          .setFraction(2)
+          .setLocale('pt-BR')
         .group
         .form
       .build();

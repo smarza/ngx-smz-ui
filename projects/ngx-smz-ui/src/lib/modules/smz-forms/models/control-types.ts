@@ -98,6 +98,7 @@ export interface SmzCalendarControl extends SmzFormsBaseControl
     showIcon?: boolean;
     dateFormat?: string;
     yearRange?: string;
+    timeOnly?: boolean;
 
 }
 
@@ -123,6 +124,9 @@ export interface SmzSwitchControl extends SmzFormsBaseControl
 export interface SmzNumberControl extends SmzFormsBaseControl
 {
     defaultValue?: number;
+    useFraction?: boolean;
+    minFractionDigits?: number;
+    locale?: 'pt-BR';
 
 }
 
