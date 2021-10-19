@@ -103,8 +103,10 @@ export class TableEditableService {
         // ACTION DE EXCLUIR
         const action = this.state.editable.actions.remove;
 
+        const override = this.state.editable.remove.overrideActionDataCallback;
+
         // ACTION INSTANCIADA COM PARAMETROS
-        const dispatchData = new action(row.id);
+        const dispatchData = new action(override != null ? override(row) : row.id);
 
         // PUBLICAR EVENTO DE OUTPUT SAVE DA TABELA
         this.deleteEvent.emit(row.id);

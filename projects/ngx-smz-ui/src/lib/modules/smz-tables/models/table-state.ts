@@ -92,6 +92,7 @@ export interface SmzTableState {
       isButtonVisible: boolean;
       isButtonDisabled: boolean;
       accessClaim: string;
+      overrideActionDataCallback: (row: any) => any
     },
     actions: {
       update: any,

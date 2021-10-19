@@ -52,7 +52,8 @@ export class SmzTableBuilder {
       remove: {
         isButtonVisible: false,
         isButtonDisabled: false,
-        accessClaim: null
+        accessClaim: null,
+        overrideActionDataCallback: null
       },
       actions:
       {
@@ -505,13 +506,14 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public setRemoveAction(action: any, claim?: string): SmzTableBuilder {
+  public setRemoveAction(action: any, claim?: string, overrideActionData?: (row: any) => any): SmzTableBuilder {
 
     if (!this._state.editable.isEditable) this._state.actions.customActions.columnWidth += 150;
 
     this._state.editable.actions.remove = action;
     this._state.editable.remove.isButtonVisible = true;
     this._state.editable.remove.accessClaim = claim;
+    this._state.editable.remove.overrideActionDataCallback = overrideActionData;
     this._state.editable.isEditable = true;
 
     return this;
