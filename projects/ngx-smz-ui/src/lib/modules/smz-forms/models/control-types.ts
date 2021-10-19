@@ -126,6 +126,7 @@ export interface SmzNumberControl extends SmzFormsBaseControl
     defaultValue?: number;
     useFraction?: boolean;
     minFractionDigits?: number;
+    maxFractionDigits?: number;
     locale?: 'pt-BR';
 
 }

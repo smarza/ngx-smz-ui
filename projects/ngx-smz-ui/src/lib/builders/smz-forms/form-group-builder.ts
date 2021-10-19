@@ -802,8 +802,9 @@ export class SmzFormNumberBuilder<TResponse> extends SmzFormInputBuilder<TRespon
     super(_groupBuilder, _numberInput);
   }
 
-  public setFraction(minFractionDigits: number): SmzFormNumberBuilder<TResponse> {
+  public setFraction(minFractionDigits?: number, maxFractionDigits?: number): SmzFormNumberBuilder<TResponse> {
     this._numberInput.minFractionDigits = minFractionDigits;
+    this._numberInput.maxFractionDigits = maxFractionDigits;
     this._numberInput.useFraction = true;
     return this;
   }
