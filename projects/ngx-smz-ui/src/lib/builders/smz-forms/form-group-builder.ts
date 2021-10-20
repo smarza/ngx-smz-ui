@@ -800,12 +800,23 @@ export class SmzFormTagAreaBuilder<TResponse> extends SmzFormInputBuilder<TRespo
 export class SmzFormNumberBuilder<TResponse> extends SmzFormInputBuilder<TResponse> {
   constructor(public _groupBuilder: SmzFormGroupBuilder<TResponse>, private _numberInput: SmzNumberControl) {
     super(_groupBuilder, _numberInput);
+
+    this._numberInput.minFractionDigits = 0;
+    this._numberInput.useGrouping = false;
   }
 
   public setFraction(minFractionDigits: number = 0, maxFractionDigits?: number): SmzFormNumberBuilder<TResponse> {
     this._numberInput.minFractionDigits = minFractionDigits;
     this._numberInput.maxFractionDigits = maxFractionDigits;
+
     this._numberInput.useFraction = true;
+    return this;
+  }
+
+  public useGrouping(): SmzFormNumberBuilder<TResponse> {
+    this._numberInput.useGrouping = true;
+    this._numberInput.useFraction = true;
+
     return this;
   }
 

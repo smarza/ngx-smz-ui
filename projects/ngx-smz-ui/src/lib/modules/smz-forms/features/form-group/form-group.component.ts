@@ -191,6 +191,7 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
                         )
                         .subscribe(() =>
                         {
+                            // console.log('form statusChanges');
                             this.checkCustomFunctions();
                         });
 

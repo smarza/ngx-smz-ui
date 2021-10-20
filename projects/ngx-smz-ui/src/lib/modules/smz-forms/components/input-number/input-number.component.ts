@@ -15,6 +15,7 @@ export class InputNumberComponent
     constructor() { }
 
     public onInput(event: any) {
+        // console.log('onInput', event);
         this.control.setValue(event.value);
         this.control.updateValueAndValidity();
     }
