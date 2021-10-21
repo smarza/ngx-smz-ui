@@ -15,7 +15,9 @@ import { smzDialogsConfig } from '../globals/smz-config';
 import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { environment } from '@enviroment';
+import * as moment from 'moment';
 
+moment.locale('pt-br');
 
 @NgModule({
   declarations: [

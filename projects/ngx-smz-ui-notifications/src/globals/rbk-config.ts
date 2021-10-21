@@ -70,7 +70,12 @@ export const rbkConfig: NgxRbkUtilsConfig = {
         rowsPerPage: 5,
         pageOptions: [5, 10, 20],
         showTypeIndicators: true,
-        showRefreshButton: true
+        showRefreshButton: true,
+        date: {
+            recentsMethod: 'fromNow',
+            recentsDaysCount: 2,
+            othersFormat: 'DD/MM/YYYY HH:mm'
+        }
     },
     authentication: {
         localStoragePrefix: 'ui-demo',
@@ -139,7 +144,8 @@ export const rbkConfig: NgxRbkUtilsConfig = {
             loadingBehavior: 'global',
             errorHandlingType: 'dialog',
             localLoadingTag: null,
-            restoreStateOnError: true
+            restoreStateOnError: true,
+            useWindowsAuthentication: false
         },
     },
     toastConfig: {
@@ -151,6 +157,7 @@ export const rbkConfig: NgxRbkUtilsConfig = {
         errorTitle: 'ERRO',
         warningTitle: 'ALERTA',
         infoTitle: 'AVISO',
+        debounceDistinctDelay: 200
     },
     dialogsConfig: {
         errorDialogTitle: 'ERRO',

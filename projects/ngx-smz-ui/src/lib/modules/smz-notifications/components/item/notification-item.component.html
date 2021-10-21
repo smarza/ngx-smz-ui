@@ -1,7 +1,17 @@
-<div class="p-grid p-nogutter p-flex-column p-align-stretch p-justify-start relative pl-2">
-    <div class="p-grid p-nogutter p-align-center p-justify-start mb-1" [ngClass]="rbkConfig.notifications.showTypeIndicators ? typeClass[item.type] : ''">
-        <div class="font-medium" [ngClass]="{ 'font-extrabold': item.status === status.NEW || item.status === status.NOTIFIED }">{{item.title}}</div>
-        <div *ngIf="item.status === status.NEW" class="rounded bg-blue-500 text-white px-1 py-0.5 ml-2 text-xs">NOVO</div>
+<div class="p-grid p-nogutter p-flex-row p-flex-nowrap p-align-center p-justify-between relative flex-gap-1 py-2">
+
+    <div class="p-grid p-nogutter p-flex-column p-align-stretch p-justify-start relative flex-gap-1">
+        <div class="p-grid p-nogutter p-align-center p-justify-start mb-1" [ngClass]="rbkConfig.notifications.showTypeIndicators ? typeClass[item.type] : ''">
+            <div class="font-medium" [ngClass]="{ 'font-extrabold': item.status === status.NEW || item.status === status.NOTIFIED }">{{item.title}}</div>
+            <div *ngIf="item.status === status.NEW" class="rounded bg-blue-500 text-white px-1 py-0.5 ml-2 text-xs">NOVO</div>
+        </div>
+        <div class="text-sm" [ngClass]="{ 'font-bold': item.status === status.NEW || item.status === status.NOTIFIED }">{{ charactersLimit != null ? (item.body | shorten : charactersLimit : '...') : item.body}}</div>
     </div>
-    <div class="text-sm" [ngClass]="{ 'font-bold': item.status === status.NEW || item.status === status.NOTIFIED }">{{ charactersLimit != null ? (item.body | shorten : charactersLimit : '...') : item.body}}</div>
+
+    <div *ngIf="showDate">
+        <span *ngIf="rbkConfig.notifications.date as date" class="text-xs text-right whitespace-nowrap">
+            {{ item.date | calendar : date.recentsMethod : date.recentsDaysCount : date.othersFormat }}
+        </span>
+    </div>
+
 </div>

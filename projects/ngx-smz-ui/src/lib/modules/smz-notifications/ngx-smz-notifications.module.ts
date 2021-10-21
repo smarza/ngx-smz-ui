@@ -16,6 +16,7 @@ import { FormsModule } from '@angular/forms';
 import { NgPipesModule } from 'ngx-pipes';
 import { NgVarModule } from '../../common/directives/ng-var/ng-var.module';
 import { ClickStopPropagationModule } from '../../common/stop-click-propagation/click-stop-propagation.module';
+import { NgxSmzDataPipesModule } from '../../common/data-pipes/data-pipes.module';
 
 @NgModule({
     imports: [
@@ -30,7 +31,8 @@ import { ClickStopPropagationModule } from '../../common/stop-click-propagation/
       SelectButtonModule,
       NgPipesModule,
       NgVarModule,
-      ClickStopPropagationModule
+      ClickStopPropagationModule,
+      NgxSmzDataPipesModule
     ],
     exports: [SmzNotificationsComponent],
     declarations: [SmzNotificationsComponent, NotificationsListComponent, NotificationItemComponent]

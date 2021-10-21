@@ -6,8 +6,8 @@ export const environment = {
   production: false,
   version: 'development_v',
   databaseCacheTimeout: 2,
-  domainApi: 'https://lib.horizon-solutions.tk',
-  authenticationApi: 'https://lib.horizon-solutions.tk',
+  domainApi: 'https://localhost:5001',
+  authenticationApi: 'https://localhost:5001',
   applicationId: 'SMZ-UI-NOTIFICATIONS'
 };
 
