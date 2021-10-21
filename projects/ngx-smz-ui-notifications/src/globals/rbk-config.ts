@@ -73,6 +73,7 @@ export const rbkConfig: NgxRbkUtilsConfig = {
         showRefreshButton: true,
         width: '550px',
         styleClass: '',
+        zIndex: 2000,
         date: {
             recentsMethod: 'fromNow',
             recentsDaysCount: 2,
