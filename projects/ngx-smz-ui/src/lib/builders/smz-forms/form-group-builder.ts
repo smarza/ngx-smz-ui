@@ -649,6 +649,9 @@ export class SmzFormInputBuilder<TResponse> {
 export class SmzFormCalendarBuilder<TResponse> extends SmzFormInputBuilder<TResponse> {
   constructor(public _groupBuilder: SmzFormGroupBuilder<TResponse>, private _calendarInput: SmzCalendarControl) {
     super(_groupBuilder, _calendarInput);
+
+    _calendarInput.timeOnly = false;
+    _calendarInput.showTime = false;
   }
 
   public enableTouchUI(): SmzFormCalendarBuilder<TResponse> {
@@ -666,8 +669,13 @@ export class SmzFormCalendarBuilder<TResponse> extends SmzFormInputBuilder<TResp
     return this;
   }
 
-  public setTimeOnly(): SmzFormCalendarBuilder<TResponse> {
+  public useTimeOnly(): SmzFormCalendarBuilder<TResponse> {
     this._calendarInput.timeOnly = true;
+    return this;
+  }
+
+  public enableDateAndTime(): SmzFormCalendarBuilder<TResponse> {
+    this._calendarInput.showTime = true;
     return this;
   }
 }

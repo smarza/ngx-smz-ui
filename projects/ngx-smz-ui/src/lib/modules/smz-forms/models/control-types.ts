@@ -99,6 +99,7 @@ export interface SmzCalendarControl extends SmzFormsBaseControl
     dateFormat?: string;
     yearRange?: string;
     timeOnly?: boolean;
+    showTime?: boolean;
 
 }
 
