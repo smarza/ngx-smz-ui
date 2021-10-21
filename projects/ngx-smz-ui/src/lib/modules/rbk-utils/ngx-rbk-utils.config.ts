@@ -19,6 +19,8 @@ export class NgxRbkUtilsConfig {
         pageOptions?: number[];
         showTypeIndicators?: boolean;
         showRefreshButton?: boolean;
+        width: string;
+        styleClass: string;
         date?: {
             recentsMethod: 'fromNow' | 'calendar',
             recentsDaysCount: number,

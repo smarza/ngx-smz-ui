@@ -19,12 +19,7 @@ export class CalendarPipe implements PipeTransform
         const date = moment(data).set({ h: 0, m: 0, s: 0 });
         const comparison = moment().set({ h: 23, m: 59, s: 59 }).subtract(days, days > 1 ? 'days' : 'day');
 
-        // console.log(`------------- ${days}`);
-        // console.log(date.format('DD/MM/YYYY HH:mm'));
-        // console.log(comparison.format('DD/MM/YYYY HH:mm'));
-
         if (date > comparison) {
-            console.log(true);
             switch (method)
             {
                 case 'fromNow':
@@ -38,7 +33,6 @@ export class CalendarPipe implements PipeTransform
             }
         }
         else {
-            console.log(false);
             return moment(data).format(format);
         }
 
