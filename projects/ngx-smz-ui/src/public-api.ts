@@ -21,6 +21,7 @@ export * from './lib/modules/smz-info-date/public-api';
 export * from './lib/modules/smz-router-params/public-api';
 export * from './lib/modules/smz-viewport/public-api';
 // export * from './lib/modules/smz-notifications/public-api';
+export * from './lib/modules/smz-documents/public-api';
 
 export * from './lib/common/input-detection/input-detection.module';
 export * from './lib/common/input-detection/input-detection.directive';
@@ -65,3 +66,6 @@ export * from './lib/common/pipes/templates.pipe';
 // RBK
 
 export * from './lib/modules/rbk-utils/public-api';
+
+// BUILDERS
+export * from './lib/builders/smz-documents/document-builder';

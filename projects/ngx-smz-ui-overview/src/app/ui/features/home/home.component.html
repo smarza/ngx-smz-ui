@@ -58,6 +58,10 @@
           <app-demo-chart *ngIf="selectedNode?.demoType === 'chart' "  [node]="selectedNode"></app-demo-chart>
         </p-tabPanel>
 
+        <p-tabPanel header="Documento" [disabled]="selectedNode?.demoType !== 'document'">
+          <app-demo-document *ngIf="selectedNode?.demoType === 'document' "  [node]="selectedNode"></app-demo-document>
+        </p-tabPanel>
+
       </p-tabView>
     </div>
   </div>

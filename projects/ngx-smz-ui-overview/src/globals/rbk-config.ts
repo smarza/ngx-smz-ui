@@ -57,6 +57,14 @@ export const rbkConfig: NgxRbkUtilsConfig = {
     notifications: {
         url: null
     },
+    documents: {
+        defaultStyles: {
+            title: {
+                text: 'text-black text-2xl font-bold',
+                container: 'p-2 bg-gray-200'
+            }
+        }
+    },
     authentication: {
         localStoragePrefix: 'ui-demo',
         login: {

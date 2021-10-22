@@ -8,6 +8,7 @@ import { SmzDialog } from '../models/smz-dialogs';
 import { mergeClone } from '../../../common/utils/deep-merge';
 import { SmzForm } from '../../smz-forms/models/smz-forms';
 import { FormGroupComponent } from '../../smz-forms/features/form-group/form-group.component';
+import { DocumentContentComponent } from '../features/document-content/document-content.component';
 
 @Injectable({providedIn: 'root'})
 export class SmzFeaturesService {
@@ -91,6 +92,20 @@ export class SmzFeaturesService {
                       type: feature.type
                   });
                   break;
+
+                case 'document':
+                    // HTML DETECTED
+
+                    const documentData = feature.data as any; // SmzDialogTable;
+
+                    data._context.injectables.push({
+                        component: DocumentContentComponent,
+                        inputs: [{ data: documentData.state, input: 'state' }],
+                        outputs: [],
+                        template: featureTemplate,
+                        type: feature.type
+                    });
+                    break;
 
               case 'component':
                   // INJECTABLE COMPONENT DETECTED

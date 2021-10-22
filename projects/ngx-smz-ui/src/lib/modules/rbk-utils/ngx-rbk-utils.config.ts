@@ -1,3 +1,4 @@
+import { SmzDocumentConfig } from '../smz-documents/models/smz-document-config';
 import { LoginResponse } from './auth/models';
 import { HttpBehaviorParameters } from './http/base-api.service';
 
@@ -27,6 +28,9 @@ export class NgxRbkUtilsConfig {
             recentsDaysCount: number,
             othersFormat: string;
         };
+    };
+    public documents?: {
+        defaultStyles: SmzDocumentConfig;
     };
     public uiDefinitions: {
         url: string;

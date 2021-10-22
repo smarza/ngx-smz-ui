@@ -82,7 +82,7 @@ export interface SmzDialogPreset
     }
 }
 
-export type FeatureType = 'form' | 'message' | 'component' | 'html' | 'table';
+export type FeatureType = 'form' | 'message' | 'component' | 'html' | 'table' | 'document';
 
 export interface SmzDialogFeature
 {

@@ -1,0 +1,12 @@
+<div
+  [ngStyle]="{ background: data.container.background }"
+  class="p-grid p-nogutter p-align-center p-justify-center h-full"
+  [ngClass]="data.container.styles">
+
+  <div
+    [ngStyle]="{ color: data.text.color }"
+    [ngClass]="data.text.styles">
+    {{ data.text.value }}
+  </div>
+
+</div>

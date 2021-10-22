@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home.component';
-import { NgxSmzTablesModule, NgxSmzTreesModule, SmzRouteData, NgxSmzDialogsModule, NgxSmzFormsModule, SmzChartModule } from 'ngx-smz-ui';
+import { NgxSmzTablesModule, NgxSmzTreesModule, SmzRouteData, NgxSmzDialogsModule, NgxSmzFormsModule, SmzChartModule, NgxSmzDocumentsModule } from 'ngx-smz-ui';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
 import { RbkAuthGuard, RbkDatabaseStateGuard, UI_DEFINITIONS_STATE_NAME } from 'ngx-smz-ui';
@@ -12,6 +12,7 @@ import { TabViewModule } from 'primeng/tabview';
 import { DemoFormComponent } from './components/demo-form/demo-form.component';
 import { DemoTableComponent } from './components/demo-table/demo-table.component';
 import { DemoChartComponent } from './components/demo-chart/demo-chart.component';
+import { DemoDocumentComponent } from './components/demo-document/demo-document.component';
 
 const data: SmzRouteData = {
   layout: {
@@ -33,7 +34,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [HomeComponent, DemoFormComponent, DemoTableComponent, DemoChartComponent],
+  declarations: [HomeComponent, DemoFormComponent, DemoTableComponent, DemoChartComponent, DemoDocumentComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
@@ -42,6 +43,7 @@ const routes: Routes = [
     NgxSmzDialogsModule,
     NgxSmzTreesModule,
     NgxSmzTablesModule,
+    NgxSmzDocumentsModule,
     CodeBlockModule,
     DemoTitlePipeModule,
     TabViewModule,

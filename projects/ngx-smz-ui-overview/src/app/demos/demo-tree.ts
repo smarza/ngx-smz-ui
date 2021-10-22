@@ -5,8 +5,22 @@ import { FormsDemo } from './functions/forms-demo';
 import { TablesDemo } from './functions/tables-demo';
 import { ValidatorsDemo } from './functions/validators-demo';
 import { ChartsDemo } from './functions/charts-demo';
+import { DocumentsDemo } from './functions/documents-demo';
 
 export const TreeDemoData: DemoTreeNode[] = [
+  {
+    label: 'Documents',
+    type: 'Category',
+    expanded: true,
+    children: [
+      {
+        label: 'Demo 1', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'document',
+        notes: '',
+        data: DocumentsDemo[DemoKeys.DOCUMENTS_DEMO]
+      },
+    ]
+  },
   {
     label: 'Dialogs',
     type: 'Category',
@@ -365,5 +379,5 @@ export const TreeDemoData: DemoTreeNode[] = [
         data: ChartsDemo[DemoKeys.CHARTS_VERTICAL_BAR]
       },
     ]
-  }
+  },
 ];

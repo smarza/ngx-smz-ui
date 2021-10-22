@@ -1,0 +1,48 @@
+<table class="w-full h-full table-fixed border-collapse" cellspacing="0" cellpadding="0">
+
+  <ng-container *ngFor="let row of data?.rows">
+
+    <!-- <tr class="invisible">
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr> -->
+
+    <tr>
+
+      <ng-container *ngFor="let cell of row.cells">
+
+        <td [colSpan]="cell.colspan" [rowSpan]="cell.rowspan" [ngStyle]="{ height: cell.height}">
+
+          <ng-container [ngSwitch]="cell.data?.type">
+
+            <ng-container *ngSwitchCase="'content'">
+              <smz-document-content [data]="$any(cell.data)" [config]="config"></smz-document-content>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="featureDefinitions.TITLE">
+              <smz-document-feature-title [data]="$any(cell.data)" [config]="config"></smz-document-feature-title>
+            </ng-container>
+
+            <ng-container *ngSwitchDefault>unknown cell data type</ng-container>
+
+          </ng-container>
+
+        </td>
+
+      </ng-container>
+
+    </tr>
+
+  </ng-container>
+
+</table>

@@ -36,6 +36,8 @@ import { NgxSmzTablesModule } from '../smz-tables/ngx-smz-tables.module';
 import { TableContentComponent } from './features/table-content/table-content.component';
 import { NgxsModule } from '@ngxs/store';
 import { DialogsState } from './state/dialogs/dialogs.state';
+import { NgxSmzDocumentsModule } from '../smz-documents/ngx-smz-documents.module';
+import { DocumentContentComponent } from './features/document-content/document-content.component';
 
 const defaultDialogsModuleConfig: SmzDialogsConfig = {
     dialogs: {
@@ -90,6 +92,7 @@ export const ngxsModuleForFeatureDialogsState = NgxsModule.forFeature([DialogsSt
         TableContentComponent,
         DialogFooterComponent,
         ConfirmOnEnterDirective,
+        DocumentContentComponent
     ],
     imports: [
         CommonModule,
@@ -113,9 +116,10 @@ export const ngxsModuleForFeatureDialogsState = NgxsModule.forFeature([DialogsSt
         MessagesModule,
         ProgressBarModule,
         SafeContentPipeModule,
-        NgxSmzTablesModule
+        NgxSmzTablesModule,
+        NgxSmzDocumentsModule
     ],
-    entryComponents: [DialogContentManagerComponent, MessageContentComponent, HtmlContentComponent, DialogFooterComponent, TableContentComponent],
+    entryComponents: [DialogContentManagerComponent, MessageContentComponent, HtmlContentComponent, DialogFooterComponent, TableContentComponent, DocumentContentComponent],
     providers: [SmzDynamicDialogConfig, DynamicDialogConfig, DynamicDialogRef],
 })
 
