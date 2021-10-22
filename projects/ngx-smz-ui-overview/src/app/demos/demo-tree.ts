@@ -17,7 +17,13 @@ export const TreeDemoData: DemoTreeNode[] = [
         label: 'Demo 1', icon: 'fas fa-code', type: 'Demo',
         demoType: 'document',
         notes: '',
-        data: DocumentsDemo[DemoKeys.DOCUMENTS_DEMO]
+        data: DocumentsDemo[DemoKeys.DOCUMENTS_DEMO_1]
+      },
+      {
+        label: 'Demo 2', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'document',
+        notes: '',
+        data: DocumentsDemo[DemoKeys.DOCUMENTS_DEMO_2]
       },
     ]
   },

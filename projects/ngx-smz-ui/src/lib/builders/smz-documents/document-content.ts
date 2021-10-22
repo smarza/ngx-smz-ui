@@ -1,8 +1,8 @@
 
-import { SmzDocumentCell, SmzDocumentRow, SmzDocumentSpanTypes, SmzDocumentContent } from '../../modules/smz-documents/models/smz-document';
-import { SmzDocumentTitle, SmzDocumentFeatureDefinitions } from '../../modules/smz-documents/models/smz-document-features';
+import { SmzDocumentCell, SmzDocumentRow, SmzDocumentContent } from '../../modules/smz-documents/models/smz-document';
+import { SmzDocumentTitle, SmzDocumentFeatureDefinitions, SmzDocumentDivider } from '../../modules/smz-documents/models/smz-document-features';
 import { SmzDocumentBuilder } from './document-builder';
-import { SmzDocumentFeatureTitleBuilder } from './document-features';
+import { SmzCellDividerBuilder, SmzCellTitleBuilder } from './document-cells';
 
 export class SmzDocumentContentBuilder {
   constructor(private _documentBuilder: SmzDocumentBuilder, private _content: SmzDocumentContent) {
@@ -25,43 +25,23 @@ export class SmzDocumentRowBuilder {
 
   }
 
-  public cell(): SmzDocumentCellBuilder {
-    const cell: SmzDocumentCell = { colspan: 1, rowspan: 1, height: '100%', data: null };
+  public title(text: string): SmzCellTitleBuilder {
+    const cell: SmzDocumentCell = { colspan: 1, rowspan: 1, height: '100%', width: 'auto', data: null };
     this._row.cells.push(cell)
-    return new SmzDocumentCellBuilder(this, cell, this._documentBuilder);
+    const item: SmzDocumentTitle = { type: SmzDocumentFeatureDefinitions.TITLE, text: { value: text } };
+    cell.data = item;
+    return new SmzCellTitleBuilder(this, cell, item, this._documentBuilder);
+  }
+
+  public divider(): SmzCellDividerBuilder {
+    const cell: SmzDocumentCell = { colspan: 1, rowspan: 1, height: '100%', width: 'auto', data: null };
+    this._row.cells.push(cell)
+    const item: SmzDocumentDivider = { type: SmzDocumentFeatureDefinitions.DIVIDER };
+    cell.data = item;
+    return new SmzCellDividerBuilder(this, cell, item, this._documentBuilder);
   }
 
   public get content(): SmzDocumentContentBuilder {
     return this._contentBuilder;
-  }
-}
-
-export class SmzDocumentCellBuilder {
-  constructor(private _rowBuilder: SmzDocumentRowBuilder, private _cell: SmzDocumentCell, private _documentBuilder: SmzDocumentBuilder) {
-
-  }
-  public setRowspan(rowsCount: number): SmzDocumentCellBuilder {
-    this._cell.rowspan = rowsCount;
-    return this;
-  }
-
-  public setColspan(colsCount: number): SmzDocumentCellBuilder {
-    this._cell.colspan = colsCount;
-    return this;
-  }
-
-  public setHeight(height: string): SmzDocumentCellBuilder {
-    this._cell.height = height;
-    return this;
-  }
-
-  public title(text: string): SmzDocumentFeatureTitleBuilder {
-    const item: SmzDocumentTitle = { type: SmzDocumentFeatureDefinitions.TITLE, text: { value: text } };
-    this._cell.data = item;
-    return new SmzDocumentFeatureTitleBuilder(this, item, this._documentBuilder);
-  }
-
-  public get row(): SmzDocumentRowBuilder {
-    return this._rowBuilder;
   }
 }

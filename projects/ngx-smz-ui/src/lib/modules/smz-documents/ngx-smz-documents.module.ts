@@ -14,8 +14,9 @@ import { ClickStopPropagationModule } from '../../common/stop-click-propagation/
 import { NgxSmzDataPipesModule } from '../../common/data-pipes/data-pipes.module';
 import { SmzDocumentComponent } from './features/document/smz-document.component';
 import { GlobalInjector } from '../../common/services/global-injector';
-import { SmzDocumentFeatureTitleComponent } from './components/title/title.component';
+import { SmzDocumentTitleComponent } from './components/title/title.component';
 import { SmzDocumentContentComponent } from './components/content/content.component';
+import { SmzDocumentDividerComponent } from './components/divider/divider.component';
 
 @NgModule({
     imports: [
@@ -37,7 +38,8 @@ import { SmzDocumentContentComponent } from './components/content/content.compon
     declarations: [
       SmzDocumentComponent,
       SmzDocumentContentComponent,
-      SmzDocumentFeatureTitleComponent
+      SmzDocumentTitleComponent,
+      SmzDocumentDividerComponent
     ]
   })
   export class NgxSmzDocumentsModule

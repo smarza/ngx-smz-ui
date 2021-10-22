@@ -3,11 +3,11 @@ import { SmzDocumentConfig } from '../../models/smz-document-config';
 import { SmzDocumentTitle } from '../../models/smz-document-features';
 
 @Component({
-  selector: 'smz-document-feature-title',
+  selector: 'smz-document-title',
   templateUrl: 'title.component.html'
 })
 
-export class SmzDocumentFeatureTitleComponent implements OnInit {
+export class SmzDocumentTitleComponent implements OnInit {
   @Input() public data: SmzDocumentTitle;
   @Input() public config: SmzDocumentConfig;
   constructor() { }

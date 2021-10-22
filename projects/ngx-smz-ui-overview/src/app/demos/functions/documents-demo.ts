@@ -3,45 +3,90 @@ import { SmzDocumentBuilder } from 'ngx-smz-ui';
 
 export const DocumentsDemo: { [key: string]: () => void } = {
   //
-  [DemoKeys.DOCUMENTS_DEMO]: () => {
+  [DemoKeys.DOCUMENTS_DEMO_1]: () => {
     return new SmzDocumentBuilder()
       .debugMode()
       .content()
 
         .row()
-          .cell()
-            .title('Month').cell.row
-          .cell()
-            .title('Savings').cell.row
-          .cell()
-            .title('Savings for holiday!').cell.row
+          .title('Month')
+            .row
+          .title('Savings')
+            .row
+          .title('Savings for holiday!')
+            .row
         .content
 
         .row()
-          .cell()
-            .title('January')
-            .cell
-          .row
-          .cell()
-            .title('$100')
-            .cell
-          .row
-          .cell()
+          .title('January')
+            .row
+          .title('$100')
+            .row
+          .title('$50')
             .setRowspan(2)
-            .title('$50')
-            .cell
-          .row
+            .row
         .content
 
         .row()
-          .cell()
-            .title('February')
-            .cell
-          .row
-          .cell()
-            .title('$80')
-            .cell
-          .row
+          .title('February')
+            .row
+          .title('$80')
+            .row
+        .content
+
+        .document
+      .build()
+  },
+  [DemoKeys.DOCUMENTS_DEMO_2]: () => {
+    return new SmzDocumentBuilder()
+      .debugMode()
+      .content()
+
+        .row()
+          .title('imagem')
+            .setWidth('70%')
+            .setRowspan(3)
+            .row
+          .title('OC-02382')
+            .setWidth('15%')
+            .row
+          .title('VERSÃO DE CONSULTA')
+            .setWidth('15%')
+            .row
+        .content
+
+        .row()
+          .title('AGUARDANDO CONFIRMAÇÃO')
+            .setColspan(2)
+            .row
+        .content
+
+        .row()
+          .title('04/10/2021 18:00')
+            .setColspan(2)
+            .row
+        .content
+
+        .row()
+          .title('ORDEM DE COMPRA')
+            .setBackgroundColor('#FDD835')
+            .setTextColor('#212121')
+            .setColspan(3)
+            .row
+        .content
+
+        .row()
+          .divider()
+            .setColspan(3)
+            .row
+        .content
+
+        .row()
+          .title('ORDEM DE COMPRA')
+            .setBackgroundColor('#FDD835')
+            .setTextColor('#212121')
+            .setColspan(3)
+            .row
         .content
 
         .document

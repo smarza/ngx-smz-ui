@@ -34,7 +34,7 @@ export class SmzDocumentBuilder {
 
   public debugMode(): SmzDocumentBuilder {
     const debugClasses = ' border-solid border-1 border-red-400';
-    this._state.config.title.container += debugClasses;
+    this._state.config.titles.container += debugClasses;
     return this;
   }
 

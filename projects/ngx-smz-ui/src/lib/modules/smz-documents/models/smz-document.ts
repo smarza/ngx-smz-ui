@@ -19,6 +19,7 @@ export interface SmzDocumentCell {
   colspan: number;
   rowspan: number;
   height: string;
+  width: string;
   data: SmzDocumentContent | SmzDocumentFeatures;
 }
 

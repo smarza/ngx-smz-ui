@@ -1,10 +1,15 @@
 
-export type SmzDocumentFeatures = SmzDocumentTitle;
+export type SmzDocumentFeatures = SmzDocumentTitle | SmzDocumentDivider;
 
 export enum SmzDocumentFeatureDefinitions {
   TITLE,
+  DIVIDER
 }
-export interface SmzDocumentTitle {
+export interface SmzDocumentBaseCell {
+  type: SmzDocumentFeatureDefinitions;
+}
+
+export interface SmzDocumentTitle extends SmzDocumentBaseCell {
   type: SmzDocumentFeatureDefinitions.TITLE;
   container?: {
     background?: string;
@@ -15,4 +20,10 @@ export interface SmzDocumentTitle {
     styles?: string;
     color?: string;
   }
+}
+
+export interface SmzDocumentDivider extends SmzDocumentBaseCell {
+  type: SmzDocumentFeatureDefinitions.DIVIDER;
+  styles?: string;
+
 }

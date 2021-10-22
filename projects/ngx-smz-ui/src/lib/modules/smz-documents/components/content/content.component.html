@@ -1,4 +1,4 @@
-<table class="w-full h-full table-fixed border-collapse" cellspacing="0" cellpadding="0">
+<table class="w-full h-full border-collapse" cellspacing="0" cellpadding="0">
 
   <ng-container *ngFor="let row of data?.rows">
 
@@ -21,7 +21,7 @@
 
       <ng-container *ngFor="let cell of row.cells">
 
-        <td [colSpan]="cell.colspan" [rowSpan]="cell.rowspan" [ngStyle]="{ height: cell.height}">
+        <td [colSpan]="cell.colspan" [rowSpan]="cell.rowspan" [ngStyle]="{ height: cell.height, width: cell.width }">
 
           <ng-container [ngSwitch]="cell.data?.type">
 
@@ -30,7 +30,11 @@
             </ng-container>
 
             <ng-container *ngSwitchCase="featureDefinitions.TITLE">
-              <smz-document-feature-title [data]="$any(cell.data)" [config]="config"></smz-document-feature-title>
+              <smz-document-title [data]="$any(cell.data)" [config]="config"></smz-document-title>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="featureDefinitions.DIVIDER">
+              <smz-document-divider [data]="$any(cell.data)" [config]="config"></smz-document-divider>
             </ng-container>
 
             <ng-container *ngSwitchDefault>unknown cell data type</ng-container>

@@ -1,6 +1,9 @@
 export interface SmzDocumentConfig {
-  title: {
+  titles: {
     text: string;
     container: string;
+  };
+  dividers: {
+    styles: string;
   }
 }

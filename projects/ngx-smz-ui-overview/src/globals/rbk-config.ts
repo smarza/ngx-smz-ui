@@ -9,6 +9,7 @@ import { ShopsDbName, ShopsDbState, getInitialState as getDbShopsInitialState } 
 import { ShopsDbActions } from '../app/state/database/shops/shops.actions';
 import { Store } from '@ngxs/store';
 import { Navigate } from '@ngxs/router-plugin';
+import { style } from '@angular/animations';
 
 // ------------------------------------------
 // DATABASE STATES
@@ -59,9 +60,12 @@ export const rbkConfig: NgxRbkUtilsConfig = {
     },
     documents: {
         defaultStyles: {
-            title: {
+            titles: {
                 text: 'text-black text-2xl font-bold',
                 container: 'p-2 bg-gray-200'
+            },
+            dividers: {
+                styles: 'p-py-2'
             }
         }
     },
