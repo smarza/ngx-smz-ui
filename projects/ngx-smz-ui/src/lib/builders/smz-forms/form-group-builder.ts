@@ -674,7 +674,7 @@ export class SmzFormCalendarBuilder<TResponse> extends SmzFormInputBuilder<TResp
     return this;
   }
 
-  public enableDateAndTime(): SmzFormCalendarBuilder<TResponse> {
+  public useDateAndTime(): SmzFormCalendarBuilder<TResponse> {
     this._calendarInput.showTime = true;
     return this;
   }
