@@ -37,6 +37,10 @@
               <smz-document-divider [data]="$any(cell.data)" [config]="config"></smz-document-divider>
             </ng-container>
 
+            <ng-container *ngSwitchCase="featureDefinitions.FIELD">
+              <smz-document-field [data]="$any(cell.data)" [config]="config"></smz-document-field>
+            </ng-container>
+
             <ng-container *ngSwitchDefault>unknown cell data type</ng-container>
 
           </ng-container>

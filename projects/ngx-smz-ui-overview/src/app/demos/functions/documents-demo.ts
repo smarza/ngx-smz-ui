@@ -39,7 +39,7 @@ export const DocumentsDemo: { [key: string]: () => void } = {
   },
   [DemoKeys.DOCUMENTS_DEMO_2]: () => {
     return new SmzDocumentBuilder()
-      .debugMode()
+      // .debugMode()
       .content()
 
         .row()
@@ -47,23 +47,30 @@ export const DocumentsDemo: { [key: string]: () => void } = {
             .setWidth('70%')
             .setRowspan(3)
             .row
-          .title('OC-02382')
+          .field('OC-02382', 'Nº COMPRA')
             .setWidth('15%')
+            .useCentralized()
+            .useBold()
             .row
-          .title('VERSÃO DE CONSULTA')
+          .field('VERSÃO DE CONSULTA')
             .setWidth('15%')
+            .useCentralized()
+            .useAlert()
             .row
         .content
 
         .row()
-          .title('AGUARDANDO CONFIRMAÇÃO')
+          .field('AGUARDANDO CONFIRMAÇÃO', 'STATUS')
             .setColspan(2)
+            .useCentralized()
+            .useBold()
             .row
         .content
 
         .row()
-          .title('04/10/2021 18:00')
+          .field('04/10/2021 18:00', 'DATA DA EMISSÃO')
             .setColspan(2)
+            .useCentralized()
             .row
         .content
 
@@ -82,10 +89,7 @@ export const DocumentsDemo: { [key: string]: () => void } = {
         .content
 
         .row()
-          .title('ORDEM DE COMPRA')
-            .setBackgroundColor('#FDD835')
-            .setTextColor('#212121')
-            .setColspan(3)
+          .field('TIG COMERCIO DE MOVEIS E DECORACOES EIRELLI', 'RAZÃO SOCIAL')
             .row
         .content
 

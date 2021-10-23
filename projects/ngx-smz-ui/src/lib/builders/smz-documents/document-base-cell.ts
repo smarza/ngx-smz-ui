@@ -11,24 +11,24 @@ export class SmzDocumentBaseCellBuilder<T> {
 
   }
 
-  public setRowspan(rowsCount: number): SmzDocumentBaseCellBuilder<T> {
+  public setRowspan(rowsCount: number): T {
     this._cell.rowspan = rowsCount;
-    return this;
+    return this.that;
   }
 
-  public setColspan(colsCount: number): SmzDocumentBaseCellBuilder<T> {
+  public setColspan(colsCount: number): T {
     this._cell.colspan = colsCount;
-    return this;
+    return this.that;
   }
 
-  public setHeight(height: string): SmzDocumentBaseCellBuilder<T> {
+  public setHeight(height: string): T {
     this._cell.height = height;
-    return this;
+    return this.that;
   }
 
-  public setWidth(width: string): SmzDocumentBaseCellBuilder<T> {
+  public setWidth(width: string): T {
     this._cell.width = width;
-    return this;
+    return this.that;
   }
 
   public get row(): SmzDocumentRowBuilder {

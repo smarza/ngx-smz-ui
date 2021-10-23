@@ -17,6 +17,7 @@ import { GlobalInjector } from '../../common/services/global-injector';
 import { SmzDocumentTitleComponent } from './components/title/title.component';
 import { SmzDocumentContentComponent } from './components/content/content.component';
 import { SmzDocumentDividerComponent } from './components/divider/divider.component';
+import { SmzDocumentFieldComponent } from './components/field/field.component';
 
 @NgModule({
     imports: [
@@ -39,7 +40,8 @@ import { SmzDocumentDividerComponent } from './components/divider/divider.compon
       SmzDocumentComponent,
       SmzDocumentContentComponent,
       SmzDocumentTitleComponent,
-      SmzDocumentDividerComponent
+      SmzDocumentDividerComponent,
+      SmzDocumentFieldComponent
     ]
   })
   export class NgxSmzDocumentsModule

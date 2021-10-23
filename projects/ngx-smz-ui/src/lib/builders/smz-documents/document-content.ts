@@ -1,8 +1,8 @@
 
 import { SmzDocumentCell, SmzDocumentRow, SmzDocumentContent } from '../../modules/smz-documents/models/smz-document';
-import { SmzDocumentTitle, SmzDocumentFeatureDefinitions, SmzDocumentDivider } from '../../modules/smz-documents/models/smz-document-features';
+import { SmzDocumentTitle, SmzDocumentFeatureDefinitions, SmzDocumentDivider, SmzDocumentField } from '../../modules/smz-documents/models/smz-document-features';
 import { SmzDocumentBuilder } from './document-builder';
-import { SmzCellDividerBuilder, SmzCellTitleBuilder } from './document-cells';
+import { SmzCellDividerBuilder, SmzCellFieldBuilder, SmzCellTitleBuilder } from './document-cells';
 
 export class SmzDocumentContentBuilder {
   constructor(private _documentBuilder: SmzDocumentBuilder, private _content: SmzDocumentContent) {
@@ -39,6 +39,14 @@ export class SmzDocumentRowBuilder {
     const item: SmzDocumentDivider = { type: SmzDocumentFeatureDefinitions.DIVIDER };
     cell.data = item;
     return new SmzCellDividerBuilder(this, cell, item, this._documentBuilder);
+  }
+
+  public field(text: string, label?: string): SmzCellFieldBuilder {
+    const cell: SmzDocumentCell = { colspan: 1, rowspan: 1, height: '100%', width: 'auto', data: null };
+    this._row.cells.push(cell)
+    const item: SmzDocumentField = { type: SmzDocumentFeatureDefinitions.FIELD, text: { value: text }, label: { value: label, isVisible: label != null } };
+    cell.data = item;
+    return new SmzCellFieldBuilder(this, cell, item, this._documentBuilder);
   }
 
   public get content(): SmzDocumentContentBuilder {

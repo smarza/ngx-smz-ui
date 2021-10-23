@@ -61,11 +61,16 @@ export const rbkConfig: NgxRbkUtilsConfig = {
     documents: {
         defaultStyles: {
             titles: {
+                container: 'p-2 bg-gray-200',
                 text: 'text-black text-2xl font-bold',
-                container: 'p-2 bg-gray-200'
             },
             dividers: {
                 styles: 'p-py-2'
+            },
+            fields: {
+                container: 'p-1 bg-white border border-solid',
+                label: 'text-black text-xs',
+                text: 'text-black text-base',
             }
         }
     },
