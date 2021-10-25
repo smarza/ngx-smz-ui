@@ -1,0 +1,53 @@
+@font-face {
+  font-family: "RobotoThin";
+  src: url("../../fonts/Roboto-Thin.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "RobotoLight";
+  src: url("../../fonts/Roboto-Light.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "RobotoMedium";
+  src: url("../../fonts/Roboto-Medium.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "RobotoBoldCondensed";
+    src: url("../../fonts/Roboto-BoldCondensed.ttf") format("truetype");
+  }
+
+.smz-document-font-bold {
+  font-family: 'RobotoBoldCondensed';
+}
+
+.smz-document-text-base {
+  font-size: 1em;
+  line-height: 1.5em;
+}
+
+.smz-document-text-xs {
+  font-size: 0.75em;
+  line-height: 1em;
+}
+
+.smz-document-text-lg {
+  font-size: 1.125em;
+  line-height: 1.75em;
+}
+
+.smz-document-text-2xl {
+  font-size: 1.5em;
+  line-height: 2em;
+}
+
+.smz-document-border::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: -1px;
+  bottom: -1px;
+  border: solid 1px #424242;
+}

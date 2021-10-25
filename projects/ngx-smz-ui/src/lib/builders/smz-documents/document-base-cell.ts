@@ -3,8 +3,6 @@ import { SmzDocumentBaseCell } from '../../modules/smz-documents/models/smz-docu
 import { SmzDocumentBuilder } from './document-builder';
 import { SmzDocumentRowBuilder } from './document-content';
 
-
-
 export class SmzDocumentBaseCellBuilder<T> {
   protected that: T;
   constructor(public _rowBuilder: SmzDocumentRowBuilder, public _cell: SmzDocumentCell, public _data: SmzDocumentBaseCell, public _documentBuilder: SmzDocumentBuilder) {

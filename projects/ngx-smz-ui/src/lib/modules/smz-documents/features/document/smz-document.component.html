@@ -1,1 +1,18 @@
-<smz-document-content [data]="state.content" [config]="state.config"></smz-document-content>
+<document-viewer #document [exportOnLoad]="false" description="" [filename]="'file'" [title]="'Ordem de Compra'" (fileSent)="onFileSent($event)">
+
+  <!-- HEADER -->
+  <header>
+    <smz-document-content [data]="state.header" [config]="state.config"></smz-document-content>
+  </header>
+
+  <!-- PRINTABLE HEADER -->
+  <section>
+    <smz-document-content [data]="state.header" [config]="state.config"></smz-document-content>
+  </section>
+
+  <!-- BODY -->
+  <content>
+    <smz-document-content [data]="state.content" [config]="state.config"></smz-document-content>
+  </content>
+
+</document-viewer>

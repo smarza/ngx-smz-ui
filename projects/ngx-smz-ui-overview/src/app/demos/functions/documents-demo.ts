@@ -40,12 +40,15 @@ export const DocumentsDemo: { [key: string]: () => void } = {
   [DemoKeys.DOCUMENTS_DEMO_2]: () => {
     return new SmzDocumentBuilder()
       // .debugMode()
-      .content()
+      .setGlobalScale(0.7)
+      .setHeaderHeight('cm', 5)
+      .header()
 
         .row()
-          .title('imagem')
+          .image('assets/layout/images/horizontal-light.svg')
             .setWidth('70%')
             .setRowspan(3)
+            .setImageWidth('40%')
             .row
           .field('OC-02382', 'Nº COMPRA')
             .setWidth('15%')
@@ -57,7 +60,7 @@ export const DocumentsDemo: { [key: string]: () => void } = {
             .useCentralized()
             .useAlert()
             .row
-        .content
+          .content
 
         .row()
           .field('AGUARDANDO CONFIRMAÇÃO', 'STATUS')
@@ -65,14 +68,14 @@ export const DocumentsDemo: { [key: string]: () => void } = {
             .useCentralized()
             .useBold()
             .row
-        .content
+          .content
 
         .row()
           .field('04/10/2021 18:00', 'DATA DA EMISSÃO')
             .setColspan(2)
             .useCentralized()
             .row
-        .content
+          .content
 
         .row()
           .title('ORDEM DE COMPRA')
@@ -80,18 +83,83 @@ export const DocumentsDemo: { [key: string]: () => void } = {
             .setTextColor('#212121')
             .setColspan(3)
             .row
-        .content
+          .content
+
+        .document
+
+      .content()
 
         .row()
-          .divider()
+          .subTitle('COMPRADOR')
+            .row
+          .content
+
+        .row()
+          .group()
             .setColspan(3)
+            .addField('TIG COMERCIO DE MOVEIS E DECORACOES EIRELLI', 'RAZÃO SOCIAL')
+              .setWidth('col-8')
+              .group
+            .addField('01234567891012', 'CNPJ')
+              .setWidth('col-4')
+              .group
+            .addField('YASMIM.FREITAS', 'RESPONSÁVEL')
+              .group
+            .addField('21 7280-9395', 'TELEFONE')
+              .group
+            .addField('ENCOMENDA@GRUPOIDEIA.COM.BR', 'EMAIL')
+              .group
             .row
-        .content
+          .content
 
         .row()
-          .field('TIG COMERCIO DE MOVEIS E DECORACOES EIRELLI', 'RAZÃO SOCIAL')
+          .subTitle('FORNECEDOR')
             .row
-        .content
+          .content
+
+        .row()
+          .group()
+            .setColspan(3)
+            .addField('HOME SIER', 'FÁBRICA')
+              .useBold()
+              .setTextColor('blue')
+              .group
+            .addField('MAURY', 'REPRESENTANTE')
+              .group
+            .addField('21 99209-4433', 'TELEFONE')
+              .group
+            .addField('AFFARIVENDAS@OUTLOO.COM', 'EMAIL')
+              .group
+            .row
+          .content
+
+        .row()
+          .subTitle('INFORMAÇÕES GERAIS')
+            .row
+          .content
+
+        .row()
+          .group()
+            .setColspan(3)
+            .addField('ENCOMENDA DE MERCADORIA VENDIDA', 'NATUREZA')
+              .setWidth('col-6')
+              .useBold()
+              .useAlert()
+              .group
+            .addField('PV-002167', 'PEDIDO DE VENDA')
+              .useBold()
+              .group
+            .addField('04/02/2022', 'PREVISÃO DE CHEGADA')
+              .group
+            .addField(`
+Se houver alguma dúvida, favor entrar em contato conosco imediatamente.
+Caso contrário, aguardamos a confirmação do envio em até 48 horas.
+
+** Enviar o número do nosso pedido de venda e ordem de compra no corpo da nota fiscal, na confirmação e na embalagem da mercadoria.`, 'OBSERVAÇÕES')
+              .setWidth('col-12')
+              .group
+            .row
+          .content
 
         .document
       .build()

@@ -1,0 +1,10 @@
+<div
+  [ngStyle]="{ background: data.container.background }"
+  class="p-grid p-nogutter p-align-stretch p-justify-start h-full w-full relative"
+  [ngClass]="data.container.styles">
+
+  <ng-container *ngFor="let field of data.fields">
+    <smz-document-field [ngClass]="field.flexWidth" [data]="field" [config]="config"></smz-document-field>
+  </ng-container>
+
+</div>

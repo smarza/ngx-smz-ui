@@ -1,0 +1,11 @@
+<div
+  [ngStyle]="{ background: data.container.background }"
+  class="p-grid p-nogutter p-align-start p-justify-center p-flex-column h-full relative"
+  [ngClass]="data.container.styles">
+
+  <img
+    [src]="data.image.src"
+    [ngClass]="data.image.styles"
+    [ngStyle]="{ width: data.image.width }"/>
+
+</div>

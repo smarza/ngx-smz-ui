@@ -18,6 +18,12 @@ import { SmzDocumentTitleComponent } from './components/title/title.component';
 import { SmzDocumentContentComponent } from './components/content/content.component';
 import { SmzDocumentDividerComponent } from './components/divider/divider.component';
 import { SmzDocumentFieldComponent } from './components/field/field.component';
+import { SmzDocumentImageComponent } from './components/image/image.component';
+import { SmzDocumentSpacerComponent } from './components/spacer/spacer.component';
+import { SmzDocumentSubTitleComponent } from './components/sub-title/sub-title.component';
+import { SmzDocumentFieldsGroupComponent } from './components/fields-group/fields-group.component';
+import { SmzDocumentViewerComponent } from './features/document-viewer/document-viewer.component';
+import { PDFExportModule } from '@progress/kendo-angular-pdf-export';
 
 @NgModule({
     imports: [
@@ -33,7 +39,8 @@ import { SmzDocumentFieldComponent } from './components/field/field.component';
       NgPipesModule,
       NgVarModule,
       ClickStopPropagationModule,
-      NgxSmzDataPipesModule
+      NgxSmzDataPipesModule,
+      PDFExportModule
     ],
     exports: [SmzDocumentComponent],
     declarations: [
@@ -41,7 +48,12 @@ import { SmzDocumentFieldComponent } from './components/field/field.component';
       SmzDocumentContentComponent,
       SmzDocumentTitleComponent,
       SmzDocumentDividerComponent,
-      SmzDocumentFieldComponent
+      SmzDocumentFieldComponent,
+      SmzDocumentImageComponent,
+      SmzDocumentSpacerComponent,
+      SmzDocumentSubTitleComponent,
+      SmzDocumentFieldsGroupComponent,
+      SmzDocumentViewerComponent
     ]
   })
   export class NgxSmzDocumentsModule

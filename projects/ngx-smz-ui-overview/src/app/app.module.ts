@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -7,7 +7,7 @@ import { NgxSmzLayoutsModule, AthenaLayoutModule, NgxSmzDialogsModule } from 'ng
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
 import { smzAthenaConfig, smzLayoutsConfig } from '../globals/smz-layouts.config';
-import { CommonModule } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import { ApplicationActions, buildState, NgxRbkUtilsConfig, NgxRbkUtilsModule } from 'ngx-smz-ui';
 import { NgxsModule, Store } from '@ngxs/store';
 import { rbkConfig } from '../globals/rbk-config';
@@ -16,6 +16,11 @@ import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { environment } from '@enviroment';
 
+import ptBr from '@angular/common/locales/pt';
+import * as moment from 'moment';
+
+registerLocaleData(ptBr);
+moment.locale('pt-br');
 
 @NgModule({
   declarations: [
@@ -49,7 +54,15 @@ import { environment } from '@enviroment';
           css: () => import('highlight.js/lib/languages/css'),
         }
       }
-    }
+    },
+    {
+      provide: LOCALE_ID,
+      useValue: 'pt'
+    },
+    {
+      provide: DEFAULT_CURRENCY_CODE,
+      useValue: 'pt'
+    },
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   bootstrap: [AppComponent]

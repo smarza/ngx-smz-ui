@@ -300,10 +300,16 @@ export const TreeDemoData: DemoTreeNode[] = [
             data: FormsDemo[DemoKeys.FORMS_INPUT_FILE]
           },
           {
-            label: 'List', icon: 'fas fa-code', type: 'Demo',
+            label: 'List With Dialog Crud', icon: 'fas fa-code', type: 'Demo',
             demoType: 'form',
             notes: '',
-            data: FormsDemo[DemoKeys.FORMS_INPUT_LIST]
+            data: FormsDemo[DemoKeys.FORMS_INPUT_LIST_DIALOG_CRUD]
+          },
+          {
+            label: 'List With Inline Crud', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'form',
+            notes: '',
+            data: FormsDemo[DemoKeys.FORMS_INPUT_LIST_INLINE_CRUD]
           },
           {
             label: 'Mask', icon: 'fas fa-code', type: 'Demo',

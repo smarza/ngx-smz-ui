@@ -1,0 +1,43 @@
+$font-family: 'RobotoLight', 'RobotoThin', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+$paper-width: calc(21 * 28.346px);
+$paper-height: calc(29.7 * 28.346px);
+$paper-margin: calc(0.8 * 28.346px);
+
+$footer-margin: calc(0.5 * 28.346px);
+
+kendo-pdf-export {
+    font-family: $font-family;
+}
+
+.pager {
+    width: $paper-width;
+    background: white;
+    transform-origin: top center;
+    transition: transform 100ms ease-in-out;
+
+    padding: 20px;
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+
+    box-shadow: 0 5.8px 5.8px rgba(0, 0, 0, 0.056), 0 16.2px 16.2px rgba(0, 0, 0, 0.08), 0 38.9px 38.9px rgba(0, 0, 0, 0.104), 0 129px 129px rgba(0, 0, 0, 0.16);
+    border: 1px #fff solid;
+}
+
+
+.footer-container {
+    position: absolute;
+    bottom: $footer-margin;
+    right: $paper-margin;
+    font-size: '0.8px';
+    font-family: $font-family;
+}
+
+.sticky-header {
+    position: absolute;
+    top: $paper-margin;
+    left: $paper-margin;
+    right: $paper-margin;
+    font-family: $font-family;
+}

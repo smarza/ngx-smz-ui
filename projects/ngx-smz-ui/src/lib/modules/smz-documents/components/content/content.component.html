@@ -2,26 +2,11 @@
 
   <ng-container *ngFor="let row of data?.rows">
 
-    <!-- <tr class="invisible">
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr> -->
-
     <tr>
 
       <ng-container *ngFor="let cell of row.cells">
 
-        <td [colSpan]="cell.colspan" [rowSpan]="cell.rowspan" [ngStyle]="{ height: cell.height, width: cell.width }">
+        <td [colSpan]="cell.colspan" [rowSpan]="cell.rowspan" [ngStyle]="{ height: cell.height, width: cell.width }" [ngClass]="data.cellStyles">
 
           <ng-container [ngSwitch]="cell.data?.type">
 
@@ -39,6 +24,22 @@
 
             <ng-container *ngSwitchCase="featureDefinitions.FIELD">
               <smz-document-field [data]="$any(cell.data)" [config]="config"></smz-document-field>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="featureDefinitions.IMAGE">
+              <smz-document-image [data]="$any(cell.data)" [config]="config"></smz-document-image>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="featureDefinitions.SPACER">
+              <smz-document-spacer [data]="$any(cell.data)" [config]="config"></smz-document-spacer>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="featureDefinitions.SUB_TITLE">
+              <smz-document-sub-title [data]="$any(cell.data)" [config]="config"></smz-document-sub-title>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="featureDefinitions.FIELDS_GROUP">
+              <smz-document-fields-group [data]="$any(cell.data)" [config]="config"></smz-document-fields-group>
             </ng-container>
 
             <ng-container *ngSwitchDefault>unknown cell data type</ng-container>

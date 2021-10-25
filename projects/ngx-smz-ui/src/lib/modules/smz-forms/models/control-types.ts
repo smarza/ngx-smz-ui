@@ -78,6 +78,7 @@ export interface SmzListControl extends SmzFormsBaseControl
     showClearButton?: boolean;
     editMode?: 'dialog' | 'inline';
     hideName?: boolean;
+    emptyMessage?: string;
 
 }
 

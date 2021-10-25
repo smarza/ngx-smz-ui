@@ -1,0 +1,35 @@
+<div>
+
+    <div class="header" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="6px">
+        <div>{{ documentService.zoom }}</div>
+        <button pButton type="button" class="p-button p-button-outlined" label="ZOOM -" (click)="lessZoom()" [disabled]="!isReady"></button>
+        <button pButton type="button" class="p-button p-button-outlined" label="100%" (click)="restoreZoom()" [disabled]="!isReady"></button>
+        <button pButton type="button" class="p-button p-button-outlined" label="ZOOM +" (click)="moreZoom()" [disabled]="!isReady"></button>
+
+        <button *ngIf="documentService.showDownloadControl" pButton type="button" class="p-button p-button-success" label="DOWNLOAD" [disabled]="!isReady" (click)="download()"></button>
+        <button *ngIf="documentService.showExportControl" pButton type="button" class="p-button p-button-success" label="ENVIAR" [disabled]="!isReady" (click)="emitExport()"></button>
+    </div>
+
+    <div #paper class="pager" [ngStyle]="{'transform': 'scale(' + documentService.zoom + ')'}">
+
+        <ng-content select="header"></ng-content>
+
+        <kendo-pdf-export #pdf paperSize="A4" [margin]="documentService.margin" [scale]="1" keepTogether=".prevent-split" [repeatHeaders]="true">
+
+            <!-- CONTENT -->
+            <ng-content select="content"></ng-content>
+
+            <!-- HEADER & FOOTER -->
+            <ng-template kendoPDFTemplate let-pageNum="pageNum" let-totalPages="totalPages">
+                <div class="sticky-header">
+                    <ng-content select="section"></ng-content>
+                </div>
+                <div class="footer-container">
+                    Hora da Impressão: {{ now }} | Pág. {{ pageNum }} de {{ totalPages }}
+                </div>
+            </ng-template>
+
+        </kendo-pdf-export>
+    </div>
+
+</div>

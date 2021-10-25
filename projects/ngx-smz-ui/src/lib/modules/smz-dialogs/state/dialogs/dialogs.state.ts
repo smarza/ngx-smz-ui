@@ -5,13 +5,15 @@ import { DialogsActions } from './dialogs.actions';
 import { SmzDialogsService } from '../../services/smz-dialogs.service';
 import { SmzDialog } from '../../models/smz-dialogs';
 import { SmzPresets } from '../../models/smz-presets';
+import { DialogService } from 'primeng/dynamicdialog';
+import { SmzFormsResponse } from '../../../smz-forms/models/smz-forms';
+import { InputListDialogCrudComponent } from '../../../smz-forms/components/input-list/input-list-dialog-crud.component';
+import { DialogCrudStateService } from './dialog-crud-state.service';
 
 export interface DialogsStateModel {
-
 }
 
 export const getInitialState = (): DialogsStateModel => ({
-
 });
 
 // @dynamic
@@ -22,7 +24,7 @@ export const getInitialState = (): DialogsStateModel => ({
 
 @Injectable()
 export class DialogsState {
-  constructor(private dialogs: SmzDialogsService) { }
+  constructor(private dialogs: SmzDialogsService, public dialogService: DialogService, public dialogCrudService: DialogCrudStateService) { }
 
 
   @Action(DialogsActions.Message)
@@ -118,5 +120,31 @@ export class DialogsState {
 
   }
 
+  @Action(DialogsActions.ShowInputListCreationCrudDialog)
+  public onShowInputListCreationCrudDialog(ctx: StateContext<DialogsStateModel>, action: DialogsActions.ShowInputListCreationCrudDialog): void {
+
+    const ref = this.dialogService.open(InputListDialogCrudComponent, {
+      header: action.title,
+      width: '50%',
+      contentStyle: {"max-height": "500px", "overflow": "auto"},
+      baseZIndex: 10000,
+      data: { input: action.input, value: action.value }
+    })
+
+    this.dialogCrudService.ref = ref;
+
+    ref.onClose.subscribe((event: SmzFormsResponse<{ name: string }>) =>{
+
+      if (event) {
+          ctx.dispatch(new DialogsActions.ShowInputListCreationCrudDialogSuccess(true, action.value, event.data.name));
+      }
+      else {
+        ctx.dispatch(new DialogsActions.ShowInputListCreationCrudDialogSuccess(false));
+      }
+    });
+
+  }
 
 }
+
+

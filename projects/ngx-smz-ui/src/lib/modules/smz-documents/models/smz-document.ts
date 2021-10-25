@@ -1,14 +1,20 @@
 import { SmzDocumentConfig } from './smz-document-config';
-import { SmzDocumentFeatureDefinitions, SmzDocumentFeatures } from './smz-document-features';
+import { SmzDocumentFeatures } from './smz-document-features';
 
 export interface SmzDocumentState {
+  header: SmzDocumentContent;
   content: SmzDocumentContent;
   config: SmzDocumentConfig;
+  globals: {
+    fontScale: string;
+    headerHeight: string;
+  }
 }
 
 export interface SmzDocumentContent {
   type: 'content';
   rows: SmzDocumentRow[];
+  cellStyles: string;
 }
 
 export interface SmzDocumentRow {

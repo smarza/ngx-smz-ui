@@ -1,7 +1,9 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, ViewChild } from '@angular/core';
-import { FormControl, ValidatorFn } from '@angular/forms';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { Actions, ofActionDispatched, Store } from '@ngxs/store';
+import { take } from 'rxjs/operators';
 import { Confirmable } from '../../../smz-dialogs/decorators/confirmable.decorator';
-// import { SmzDialogsService } from '../../../smz-dialogs/services/smz-dialogs.service';
+import { DialogsActions } from '../../../smz-dialogs/state/dialogs/dialogs.actions';
 import { SmzFormsBehaviorsConfig } from '../../models/behaviors';
 import { SmzControlType, SmzListControl, SmzTextControl } from '../../models/control-types';
 import { SmzForm } from '../../models/smz-forms';
@@ -9,17 +11,16 @@ import { SmzForm } from '../../models/smz-forms';
 @Component({
   selector: 'smz-input-list',
   templateUrl: './input-list.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InputListComponent {
-  @ViewChild('formComponent') public formComponent: any;
   @Input() public input: SmzListControl;
   @Input() public control: any;
   @Input() public behaviors: SmzFormsBehaviorsConfig;
   public current: string = null;
   public isInlineEditingEnabled = false;
-  public editForm: SmzForm<never> = null;
-  constructor(private cdf: ChangeDetectorRef) {
+  public editForm: FormGroup = null;
+  constructor(private cdf: ChangeDetectorRef, private store: Store, private actions$: Actions, public fb: FormBuilder) {
   }
 
   public onClick(event: { option: string, value: string }): void {
@@ -60,7 +61,7 @@ export class InputListComponent {
   public activateActions(option: string): void {
 
       if (this.current != null) {
-          this.editForm = this.createEditForm(true, option);
+          this.editForm = this.createEditForm(option);
       }
       else {
           this.editForm = null;
@@ -118,27 +119,23 @@ export class InputListComponent {
 
   public editWithDialog(option: string): void {
 
-    //   this.dialogs.open({
-    //       title: 'Edição',
-    //       features: [
-    //           {
-    //               type: 'form',
-    //               data: this.createEditForm(false, option)
-    //           }
-    //       ],
-    //       dialogTemplate: { large: { row: 'col-4' }, medium: { row: 'col-6' }, extraSmall: { row: 'col-12' } },
-    //       behaviors: { useAdvancedResponse: false, confirmOnEnter: true },
-    //       callbacks: {
-    //           onConfirm: (response: { name: string }) => {
-    //               this.confirmEdit(option, response.name);
-    //           }
-    //       }
-    //   });
+    this.actions$.pipe(ofActionDispatched(DialogsActions.ShowInputListCreationCrudDialogSuccess), take(1)).subscribe((event: { isValid: boolean, option?: string, value?: string }) => {
+        if (event.isValid)
+        {
+            this.confirmEdit(option, event.value);
+        }
+    });
+
+    this.store.dispatch(new DialogsActions.ShowInputListCreationCrudDialog('Editar', this.input, option));
+
   }
 
-  public onConfirmInlineEditing(option: string, response: { name: string }): void {
-      this.confirmEdit(option, response.name);
-      this.isInlineEditingEnabled = false;
+  public onConfirmInlineEditing(option: string): void {
+
+    const value = this.editForm.get('value').value;
+
+    this.confirmEdit(option, value);
+    this.isInlineEditingEnabled = false;
   }
 
   public confirmEdit(oldName: string, newName: string): void {
@@ -159,48 +156,26 @@ export class InputListComponent {
 
   public onAdd(): void {
 
-    //   this.dialogs.open({
-    //       title: 'Novo item',
-    //       features: [
-    //           {
-    //               type: 'form',
-    //               data: this.createEditForm(false, '')
-    //           }
-    //       ],
-    //       dialogTemplate: { large: { row: 'col-4' }, medium: { row: 'col-6' }, extraSmall: { row: 'col-12' } },
-    //       behaviors: { useAdvancedResponse: false, confirmOnEnter: true },
-    //       callbacks: {
-    //           onConfirm: (response: { name: string }) => {
-    //               // add new item
-    //               this.input.options = [response.name, ...this.input.options];
-    //               this.current = response.name;
-    //               // update new list to control
-    //               this.updateControl();
-    //           }
-    //       }
-    //   });
+    this.actions$.pipe(ofActionDispatched(DialogsActions.ShowInputListCreationCrudDialogSuccess), take(1)).subscribe((event: { isValid: boolean, option?: string, value?: string }) => {
+        if (event.isValid)
+        {
+            // add new item
+            this.input.options = [event.value, ...this.input.options];
+            this.current = event.value;
+            // update new list to control
+            this.updateControl();
+        }
+    });
+
+    this.store.dispatch(new DialogsActions.ShowInputListCreationCrudDialog('Criar', this.input, ''));
+
   }
 
-  public createEditForm(hideName: boolean, defaultValue: string): SmzForm<{ name: string }> {
-      const input: SmzTextControl = {
-          propertyName: 'name', name: 'Nome', type: SmzControlType.TEXT, hideName: true,
-          validatorsPreset: { isRequired: true },
-          advancedSettings: { validators: [unique(this.input.options)], validationMessages: [{ type: 'unique', message: 'Já existe um item com esse nome.' }] },
-          template: { large: { row: 'col-12' } },
-          defaultValue: defaultValue,
-      };
+  public createEditForm(defaultValue: string): FormGroup {
 
-      const form: SmzForm<never> = {
-          formId: 'add-list-item-form',
-          behaviors: { flattenResponse: false, avoidFocusOnLoad: false },
-          groups: [
-              {
-                  name: '', showName: false,
-                  children: [input],
-                  template: { large: { row: 'col-12' } }
-              }
-          ],
-      };
+    const form: FormGroup =  new FormGroup({
+        value: new FormControl(defaultValue, [Validators.required, unique(this.input.options)]),
+      });
 
       return form;
   }

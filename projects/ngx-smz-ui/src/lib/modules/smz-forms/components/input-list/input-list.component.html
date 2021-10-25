@@ -12,6 +12,7 @@
         [disabled]="input.isDisabled"
         (onClick)="onClick($event)"
         [readonly]="isInlineEditingEnabled"
+        [emptyMessage]="input.emptyMessage"
         [(ngModel)]="current">
 
         <ng-template pTemplate="header">
@@ -29,10 +30,17 @@
                 </ng-container>
 
                 <ng-container *ngIf="isInlineEditingEnabled && current === item">
-                    <div *ngIf="editForm != null" class="smz__list_item-actions" furyClickStopPropagation>
-                        <!-- <smz-form-group #formComponent [config]="editForm" furyClickStopPropagation></smz-form-group>
-                        <button pButton pRipple type="button" icon="pi pi-check" furyClickStopPropagation [disabled]="!formComponent?.isValid" class="p-nocustom inline_action_button p-button-rounded p-button-success p-button-text" (click)="onConfirmInlineEditing(item, $any(formComponent?.getData().data))"></button>
-                        <button pButton pRipple type="button" icon="pi pi-times" furyClickStopPropagation class="p-nocustom inline_action_button p-button-rounded p-button-danger p-button-text" (click)="cancelEdit()"></button> -->
+                    <div *ngIf="editForm != null" class="p-col p-grid p-nogutter p-align-center p-justify-center flex-gap-2 p-py-3 p-px-0" furyClickStopPropagation>
+                        <form #form [formGroup]="editForm" class="p-col relative">
+                            <input type="text" furyClickStopPropagation pInputText formControlName="value"/>
+                            <ng-container *ngIf="editForm.get('value') as valueInput">
+                                <div *ngIf="valueInput.touched && valueInput.hasError('required')" class="text-xs text-red-500 absolute right-3 p-my-1">Campo Obrigatório.</div>
+                                <div *ngIf="valueInput.touched && valueInput.hasError('unique')" class="text-xs text-red-500 absolute right-3 p-my-1">Já existe um item com esse nome.</div>
+                            </ng-container>
+
+                        </form>
+                        <button pButton pRipple type="button" icon="pi pi-check" furyClickStopPropagation [disabled]="!editForm.valid" class="p-nocustom inline_action_button p-button-rounded p-button-success p-button-text" (click)="onConfirmInlineEditing(item)"></button>
+                        <button pButton pRipple type="button" icon="pi pi-times" furyClickStopPropagation class="p-nocustom inline_action_button p-button-rounded p-button-danger p-button-text" (click)="cancelEdit()"></button>
                     </div>
                 </ng-container>
 

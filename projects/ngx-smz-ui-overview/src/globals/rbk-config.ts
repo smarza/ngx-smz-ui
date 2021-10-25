@@ -60,17 +60,31 @@ export const rbkConfig: NgxRbkUtilsConfig = {
     },
     documents: {
         defaultStyles: {
+            globals: {
+                fontScale: 0.7
+            },
             titles: {
-                container: 'p-2 bg-gray-200',
-                text: 'text-black text-2xl font-bold',
+                container: 'bg-gray-200',
+                text: 'text-black smz-document-text-2xl smz-document-font-bold',
+            },
+            subTitles: {
+                container: 'p-mt-2',
+                text: 'text-black smz-document-text-lg smz-document-font-bold',
             },
             dividers: {
-                styles: 'p-py-2'
+                container: 'p-py-1'
             },
             fields: {
-                container: 'p-1 bg-white border border-solid',
-                label: 'text-black text-xs',
-                text: 'text-black text-base',
+                container: 'p-1 smz-document-border',
+                label: 'text-black smz-document-text-xs',
+                text: 'text-black smz-document-text-base',
+            },
+            fieldsGroup: {
+                container: ''
+            },
+            images: {
+                container: '',
+                styles: '',
             }
         }
     },

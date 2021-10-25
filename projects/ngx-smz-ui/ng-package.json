@@ -9,6 +9,7 @@
     "./resources/assets/scss/extras/*.*",
     "./resources/assets/scss/dialogs/*.*",
     "./resources/assets/scss/forms/*.*",
+    "./resources/assets/scss/documents/*.*",
     "./resources/assets/fonts/*.*",
     "./resources/assets/images/pages/*.*",
     "./resources/assets/images/avatar/*.*",

@@ -448,10 +448,10 @@ export class SmzFormGroupBuilder<TResponse> {
         propertyName: property,
         type: SmzControlType.LIST,
         name: label,
-        defaultValue: defaultValue,
+        defaultValue,
         height: '200px',
         showFilter: false,
-        options: options,
+        options,
         askBeforeRemoveItem: false,
         showAddButton: false,
         showRemoveButton: false,
@@ -1027,7 +1027,7 @@ export class SmzFormListBuilder<TResponse> extends SmzFormInputBuilder<TResponse
     return this;
   }
 
-  public setDialogEditMode(): SmzFormListBuilder<TResponse> {
+  public useDialogEditMode(): SmzFormListBuilder<TResponse> {
     this._listInput.editMode = 'dialog';
     return this;
   }

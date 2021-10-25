@@ -204,20 +204,55 @@ Através deste instrumento avançou-se uma guia {{metálica 0.0035}} e um catete
       .group()
         .setLayout('EXTRA_SMALL', 'col-12')
         .text('input1', 'I\'m not required')
-        .group
-          .file('file', 'Confirmação')
+          .group
+        .file('file', 'Confirmação')
           .useBinaryFormat()
           .acceptImages()
           .validators()
           .required()
-        .group
+          .group
         .form
       .build();
   },
   //
-  [DemoKeys.FORMS_INPUT_LIST]: () => {
-
+  [DemoKeys.FORMS_INPUT_LIST_DIALOG_CRUD]: () => {
+    return new SmzFormBuilder<any>()
+      .group()
+        .setLayout('EXTRA_SMALL', 'col-12')
+        .list('input1', 'I\'m not required', ['Option 1', 'Option 2', 'Option 3'], ['Option 2'])
+          .useDialogEditMode()
+          .buttons()
+            .add()
+            .all()
+            .clear()
+            .edit()
+            .move()
+            .remove()
+            .sort()
+            .list
+          .group
+        .form
+      .build();
   },
+    //
+    [DemoKeys.FORMS_INPUT_LIST_INLINE_CRUD]: () => {
+      return new SmzFormBuilder<any>()
+        .group()
+          .setLayout('EXTRA_SMALL', 'col-12')
+          .list('input1', 'I\'m not required', ['Option 1', 'Option 2', 'Option 3'], ['Option 2'])
+            .buttons()
+              .add()
+              .all()
+              .clear()
+              .edit()
+              .move()
+              .remove()
+              .sort()
+              .list
+            .group
+          .form
+        .build();
+    },
   //
   [DemoKeys.FORMS_INPUT_MASK]: () => {
 

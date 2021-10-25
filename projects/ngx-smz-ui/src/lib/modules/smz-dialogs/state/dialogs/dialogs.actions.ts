@@ -1,4 +1,5 @@
 import { ElementRef } from '@angular/core';
+import { SmzListControl } from '../../../smz-forms/models/control-types';
 
 export namespace DialogsActions
 {
@@ -29,6 +30,18 @@ export namespace DialogsActions
     {
         public static readonly type = '[Dialogs] Confirm On Enter';
         constructor(public element: ElementRef, public dialogId: string, public targetEventClick: string, public delayConfirmationRate?: number){}
+    }
+
+    export class ShowInputListCreationCrudDialog
+    {
+        public static readonly type = '[Dialogs] Show InputList Creation Crud Dialog';
+        constructor(public title: string, public input: SmzListControl, public value: string){}
+    }
+
+    export class ShowInputListCreationCrudDialogSuccess
+    {
+        public static readonly type = '[Dialogs] Show InputList Creation Crud Dialog Success';
+        constructor(public isValid: boolean, public option?: string, public value?: string){}
     }
 
 

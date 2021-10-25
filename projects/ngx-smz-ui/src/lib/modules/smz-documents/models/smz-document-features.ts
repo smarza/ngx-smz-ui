@@ -1,10 +1,15 @@
 
-export type SmzDocumentFeatures = SmzDocumentTitle | SmzDocumentDivider | SmzDocumentField;
+export type SmzDocumentFeatures = SmzDocumentTitle | SmzDocumentDivider | SmzDocumentField | SmzDocumentImage | SmzDocumentSpacer | SmzDocumentSubTitle | SmzDocumentFieldsGroup;
 
 export enum SmzDocumentFeatureDefinitions {
-  TITLE,
   DIVIDER,
-  FIELD
+  FIELD,
+  FIELDS_GROUP,
+  IMAGE,
+  SPACER,
+  SUB_TITLE,
+  TITLE,
+
 }
 export interface SmzDocumentBaseCell {
   type: SmzDocumentFeatureDefinitions;
@@ -12,6 +17,19 @@ export interface SmzDocumentBaseCell {
 
 export interface SmzDocumentTitle extends SmzDocumentBaseCell {
   type: SmzDocumentFeatureDefinitions.TITLE;
+  container?: {
+    background?: string;
+    styles?: string;
+  }
+  text?: {
+    value: string;
+    styles?: string;
+    color?: string;
+  }
+}
+
+export interface SmzDocumentSubTitle extends SmzDocumentBaseCell {
+  type: SmzDocumentFeatureDefinitions.SUB_TITLE;
   container?: {
     background?: string;
     styles?: string;
@@ -47,4 +65,40 @@ export interface SmzDocumentField extends SmzDocumentBaseCell {
     color?: string;
     fontWeight?: string;
   }
+}
+
+export interface SmzDocumentFieldsGroup extends SmzDocumentBaseCell {
+  type: SmzDocumentFeatureDefinitions.FIELDS_GROUP;
+
+  container?: {
+    background?: string;
+    styles?: string;
+  }
+
+  fields: SmzDocumentFieldGroup[]
+}
+
+export interface SmzDocumentFieldGroup extends SmzDocumentField {
+  flexWidth: string;
+}
+
+export interface SmzDocumentImage extends SmzDocumentBaseCell {
+  type: SmzDocumentFeatureDefinitions.IMAGE;
+  container?: {
+    background?: string;
+    styles?: string;
+  }
+  image?: {
+    src: string;
+    width: string;
+    styles?: string;
+  }
+
+}
+
+export interface SmzDocumentSpacer extends SmzDocumentBaseCell {
+  type: SmzDocumentFeatureDefinitions.SPACER;
+  height: string;
+  styles?: string;
+
 }

@@ -63,6 +63,9 @@ import { InputListComponent } from './components/input-list/input-list.component
 import { InputContentMaskComponent } from './components/input-content-mask/input-content-mask.component';
 import { TransferValueAccessor } from './directives/transfer-value-acessor';
 import { InputContentMaskTextPipe } from './components/input-content-mask/input-content-mask.pipe';
+import { InputListDialogCrudComponent } from './components/input-list/input-list-dialog-crud.component';
+import { InputListInlineCrudComponent } from './components/input-list/input-list-inline-crud.component';
+import { DialogService } from 'primeng/dynamicdialog';
 
 export const defaultFormsModuleConfig: SmzFormsConfig = {
     behaviors: {
@@ -102,6 +105,9 @@ export const defaultFormsModuleConfig: SmzFormsConfig = {
         [SmzControlType.DROPDOWN]: {
             emptyMessage: 'Lista vazia.',
             emptyFilterMessage: 'Nenhum registro encontrado'
+        },
+        [SmzControlType.LIST]: {
+            emptyMessage: 'Lista vazia.',
         },
         [SmzControlType.LINKED_DROPDOWN]: {
             emptyMessage: 'Lista vazia.',
@@ -194,9 +200,11 @@ export const defaultFormsModuleConfig: SmzFormsConfig = {
         InputTagAreaComponent,
         InputContentMaskComponent,
         TransferValueAccessor,
-        InputContentMaskTextPipe
+        InputContentMaskTextPipe,
+        InputListDialogCrudComponent,
+        InputListInlineCrudComponent
     ],
-    entryComponents: [FormGroupComponent],
+    entryComponents: [FormGroupComponent, InputListDialogCrudComponent, InputListInlineCrudComponent],
     exports: [
         CalendarComponent,
         CheckBoxComponent,
@@ -218,6 +226,7 @@ export const defaultFormsModuleConfig: SmzFormsConfig = {
         MultiSelectComponent,
         RadioButtonComponent,
     ],
+    providers: [DialogService]
 
 })
 export class NgxSmzFormsModule {
