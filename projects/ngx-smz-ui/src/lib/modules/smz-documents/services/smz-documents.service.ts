@@ -2,8 +2,13 @@ import { Injectable, Renderer2 } from '@angular/core';
 import { from, Observable } from 'rxjs';
 import { PDFExportComponent } from '@progress/kendo-angular-pdf-export';
 import { Group } from '@progress/kendo-drawing';
+import { defineFont } from '@progress/kendo-drawing/pdf';
 
-const INITIAL_ZOOM = 1;
+defineFont({
+  'Open Sans': 'assets/fonts/OpenSans-VariableFont_wdth,wght.ttf',
+});
+
+const INITIAL_ZOOM = 1.5;
 
 @Injectable({providedIn: 'root'})
 export class SmzDocumentsService

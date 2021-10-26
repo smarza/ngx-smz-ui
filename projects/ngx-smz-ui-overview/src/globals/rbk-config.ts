@@ -61,15 +61,21 @@ export const rbkConfig: NgxRbkUtilsConfig = {
     documents: {
         defaultStyles: {
             globals: {
-                fontScale: 0.7
+                font: {
+                    scale: '0.7rem',
+                    family: 'Roboto'
+                },
+                header: {
+                    height: '10px'
+                },
             },
             titles: {
                 container: 'bg-gray-200',
-                text: 'text-black smz-document-text-2xl smz-document-font-bold',
+                text: 'text-black smz-document-text-2xl font-bold',
             },
             subTitles: {
                 container: 'p-mt-2',
-                text: 'text-black smz-document-text-lg smz-document-font-bold',
+                text: 'text-black smz-document-text-lg font-bold',
             },
             dividers: {
                 container: 'p-py-1'
@@ -131,13 +137,13 @@ export const rbkConfig: NgxRbkUtilsConfig = {
                 cacheTimeout: 60,
                 loadAction: WarehousesDbActions.LoadAll,
                 clearFunction: getDbWarehousesInitialState
-              },
-              [ShopsDbName]: {
+            },
+            [ShopsDbName]: {
                 state: ShopsDbState,
                 cacheTimeout: 60,
                 loadAction: ShopsDbActions.LoadAll,
                 clearFunction: getDbShopsInitialState
-              },
+            },
         },
         feature: {
             [DemoFeatureName]: {

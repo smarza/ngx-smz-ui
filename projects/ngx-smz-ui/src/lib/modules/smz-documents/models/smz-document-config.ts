@@ -1,7 +1,7 @@
+import { SmzDocumentGlobals } from './smz-document';
+
 export interface SmzDocumentConfig {
-  globals: {
-    fontScale: number;
-  };
+  globals: SmzDocumentGlobals;
   titles: {
     container: string;
     text: string;

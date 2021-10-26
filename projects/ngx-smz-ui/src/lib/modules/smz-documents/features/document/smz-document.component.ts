@@ -18,8 +18,8 @@ export class SmzDocumentComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.state);
-    this.updateHostClasses({ 'font-size': this.state.globals.fontScale });
-    this.documentService.setHeaderHeight(this.state.globals.headerHeight);
+    this.updateHostClasses({ 'font-size': this.state.globals.font.scale });
+    this.documentService.setHeaderHeight(this.state.globals.header.height);
   }
 
     private updateHostClasses(data: { [name: string]: string }): void {

@@ -1,6 +1,6 @@
 import { GlobalInjector } from '../../modules/smz-dialogs/services/global-injector';
 import { NgxRbkUtilsConfig } from '../../modules/rbk-utils/ngx-rbk-utils.config';
-import { SmzDocumentState } from '../../modules/smz-documents/models/smz-document';
+import { SmzDocumentFontFamilies, SmzDocumentState } from '../../modules/smz-documents/models/smz-document';
 import { SmzDocumentContentBuilder } from './document-content';
 import { SmzDocumentConfig } from '../../modules/smz-documents/models/smz-document-config';
 import cloneDeep from 'lodash-es/cloneDeep';
@@ -12,10 +12,7 @@ export class SmzDocumentBuilder {
     header: null,
     content: null,
     config: cloneDeep(this.getConfig()),
-    globals: {
-      fontScale: `${cloneDeep(this.getConfig().globals)}rem`,
-      headerHeight: '10cm'
-    }
+    globals: cloneDeep(this.getConfig().globals)
   };
 
   private getConfig(): SmzDocumentConfig {
@@ -69,12 +66,17 @@ export class SmzDocumentBuilder {
   }
 
   public setGlobalScale(scale: number): SmzDocumentBuilder {
-    this._state.globals.fontScale = `${scale}rem`;
+    this._state.globals.font.scale = `${scale}rem`;
+    return this;
+  }
+
+  public setFontFamily(fontFamily: SmzDocumentFontFamilies): SmzDocumentBuilder {
+    this._state.globals.font.family = fontFamily;
     return this;
   }
 
   public setHeaderHeight(unit: 'cm', value: number): SmzDocumentBuilder {
-    this._state.globals.headerHeight = `${value}${unit}`;
+    this._state.globals.header.height = `${value}${unit}`;
     return this;
   }
 

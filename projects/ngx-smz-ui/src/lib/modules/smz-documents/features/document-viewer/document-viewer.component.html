@@ -1,7 +1,6 @@
-<div>
+<div class="p-grid p-nogutter p-align-center p-justify-start p-flex-column gap-2">
 
-    <div class="header" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="6px">
-        <div>{{ documentService.zoom }}</div>
+    <div class="p-grid p-nogutter p-align-start p-justify-start gap-2">
         <button pButton type="button" class="p-button p-button-outlined" label="ZOOM -" (click)="lessZoom()" [disabled]="!isReady"></button>
         <button pButton type="button" class="p-button p-button-outlined" label="100%" (click)="restoreZoom()" [disabled]="!isReady"></button>
         <button pButton type="button" class="p-button p-button-outlined" label="ZOOM +" (click)="moreZoom()" [disabled]="!isReady"></button>
@@ -10,11 +9,11 @@
         <button *ngIf="documentService.showExportControl" pButton type="button" class="p-button p-button-success" label="ENVIAR" [disabled]="!isReady" (click)="emitExport()"></button>
     </div>
 
-    <div #paper class="pager" [ngStyle]="{'transform': 'scale(' + documentService.zoom + ')'}">
+    <div #paper class="pager" [ngStyle]="{ 'transform': 'scale(' + documentService.zoom + ')', 'font-family':  state.globals.font.family }">
 
         <ng-content select="header"></ng-content>
 
-        <kendo-pdf-export #pdf paperSize="A4" [margin]="documentService.margin" [scale]="1" keepTogether=".prevent-split" [repeatHeaders]="true">
+        <kendo-pdf-export #pdf paperSize="A4" [ngStyle]="{ 'font-family':  state.globals.font.family }" [margin]="documentService.margin" [scale]="1" keepTogether=".prevent-split" [repeatHeaders]="true">
 
             <!-- CONTENT -->
             <ng-content select="content"></ng-content>

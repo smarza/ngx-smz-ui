@@ -11,6 +11,7 @@ import { SmzPresets } from '../../../smz-dialogs/models/smz-presets';
 import { take } from 'rxjs/operators';
 
 import * as moment_ from 'moment';
+import { SmzDocumentState } from '../../models/smz-document';
 
 const moment = moment_;
 
@@ -33,6 +34,7 @@ export class SmzDocumentViewerComponent implements OnInit, AfterViewInit, Blocka
 
     @ViewChild('pdf', { static: true }) public pdfElement: PDFExportComponent;
     @ViewChild('paper', { static: true }) public paperContainer: any;
+    @Input() public state: SmzDocumentState;
     @Input() public description = 'Visualizador de pdf';
     @Input() public filename = 'export';
     @Input() public title = 'Visualizador de pdf';
@@ -46,8 +48,8 @@ export class SmzDocumentViewerComponent implements OnInit, AfterViewInit, Blocka
 
     public ngOnInit(): void
     {
-        this.pdfElement.author = 'Grupo Idéia';
-        this.pdfElement.creator = 'Sistema Varejo Fácil';
+        // this.pdfElement.author = 'Grupo Idéia';
+        // this.pdfElement.creator = 'Sistema Varejo Fácil';
 
         this.documentService.description = this.description;
         this.documentService.filename = this.filename;

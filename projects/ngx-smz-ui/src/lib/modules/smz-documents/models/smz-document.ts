@@ -5,9 +5,18 @@ export interface SmzDocumentState {
   header: SmzDocumentContent;
   content: SmzDocumentContent;
   config: SmzDocumentConfig;
-  globals: {
-    fontScale: string;
-    headerHeight: string;
+  globals: SmzDocumentGlobals;
+}
+
+export type SmzDocumentFontFamilies = 'Roboto' | 'Open Sans';
+
+export interface SmzDocumentGlobals {
+  font: {
+    scale: string;
+    family: SmzDocumentFontFamilies;
+  }
+  header: {
+    height: string;
   }
 }
 

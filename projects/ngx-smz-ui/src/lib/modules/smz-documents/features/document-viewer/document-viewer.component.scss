@@ -1,4 +1,4 @@
-$font-family: 'RobotoLight', 'RobotoThin', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+// $font-family: 'RobotoLight', 'RobotoThin', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
 $paper-width: calc(21 * 28.346px);
 $paper-height: calc(29.7 * 28.346px);
@@ -6,9 +6,10 @@ $paper-margin: calc(0.8 * 28.346px);
 
 $footer-margin: calc(0.5 * 28.346px);
 
-kendo-pdf-export {
-    font-family: $font-family;
-}
+// kendo-pdf-export {
+//     font-family: 'Open Sans';
+//     font-weight: 700;
+// }
 
 .pager {
     width: $paper-width;
@@ -31,7 +32,7 @@ kendo-pdf-export {
     bottom: $footer-margin;
     right: $paper-margin;
     font-size: '0.8px';
-    font-family: $font-family;
+    // font-family: $font-family;
 }
 
 .sticky-header {
@@ -39,5 +40,5 @@ kendo-pdf-export {
     top: $paper-margin;
     left: $paper-margin;
     right: $paper-margin;
-    font-family: $font-family;
+    // font-family: $font-family;
 }
