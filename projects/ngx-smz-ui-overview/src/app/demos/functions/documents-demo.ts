@@ -1,4 +1,5 @@
 import { DemoKeys } from '@demos/demo-keys';
+import { DemoFeatureSelectors } from '@states/demo/demo.selectors';
 import { SmzDocumentBuilder } from 'ngx-smz-ui';
 
 export const DocumentsDemo: { [key: string]: () => void } = {
@@ -39,7 +40,7 @@ export const DocumentsDemo: { [key: string]: () => void } = {
   },
   [DemoKeys.DOCUMENTS_DEMO_2]: () => {
     return new SmzDocumentBuilder()
-      // .debugMode()
+      .debugMode()
       .setGlobalScale(0.7)
       .setHeaderHeight('cm', 5)
       .header()
@@ -158,6 +159,22 @@ Caso contrário, aguardamos a confirmação do envio em até 48 horas.
 ** Enviar o número do nosso pedido de venda e ordem de compra no corpo da nota fiscal, na confirmação e na embalagem da mercadoria.`, 'OBSERVAÇÕES')
               .setWidth('col-12')
               .group
+            .row
+          .content
+
+        .row()
+          .subTitle('RELAÇÃO DE ITENS')
+            .row
+          .content
+
+        .row()
+          .table()
+            .applyItems(DemoFeatureSelectors.all)
+            .addColumn('name', 'Nome')
+              .setWidth('20%')
+              .table
+            .addColumn('company', 'Empresa')
+              .table
             .row
           .content
 

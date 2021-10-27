@@ -1,0 +1,35 @@
+<div
+  [ngStyle]="{ background: data.container.background }"
+  class="p-grid p-nogutter p-align-stretch p-justify-start h-full w-full relative"
+  [ngClass]="data.container.styles">
+
+  <table class="w-full h-full border-collapse table-fixed" cellspacing="0" cellpadding="0">
+
+      <tr *ngIf="data?.header.isVisible" class="relative">
+        <ng-container *ngFor="let column of data?.header.columns">
+          <th class="relative" [colSpan]="column.colspan" [rowSpan]="column.rowspan" [ngStyle]="{ height: column.height, width: column.width, background: column.headerStyles.background ?? data.header.background, color: column.headerStyles.color ?? data.header.color }" [ngClass]="column.headerStyles.styles ?? data.header.styles">
+            {{ column.value }}
+          </th>
+        </ng-container>
+      </tr>
+
+    <ng-container *ngFor="let row of data?.content.items$ | async; let index">
+
+      <tr class="relative" [ngStyle]="{ background: data.content.background }">
+
+        <ng-container *ngFor="let column of data?.header.columns">
+
+          <td class="relative" [colSpan]="column.colspan" [rowSpan]="column.rowspan" [ngStyle]="{ height: column.height, width: column.width, background: column.contentStyles.background ?? data.content.background, color: column.contentStyles.color ?? data.content.color }" [ngClass]="column.contentStyles.styles ?? data.content.styles">
+            {{ (row | getData : column.property).result }}
+          </td>
+
+        </ng-container>
+
+      </tr>
+
+    </ng-container>
+
+  </table>
+
+</div>
+

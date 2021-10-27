@@ -8,6 +8,7 @@ import { DescribeSimpleNamedPipe } from './pipes/describe-simple-named.pipe';
 import { DescribeArrayPipe } from './pipes/describe-array.pipe';
 import { DescribeAnyPipe } from './pipes/describe-any.pipe';
 import { CalendarPipe } from './pipes/calendar.pipe';
+import { SmzGetDataPipe } from './pipes/get-data.pipe';
 
 @NgModule({
     imports: [
@@ -21,7 +22,8 @@ import { CalendarPipe } from './pipes/calendar.pipe';
         DescribeSimpleNamedPipe,
         DescribeArrayPipe,
         DescribeAnyPipe,
-        CalendarPipe
+        CalendarPipe,
+        SmzGetDataPipe
     ],
     exports: [
         ClonePipe,
@@ -31,7 +33,8 @@ import { CalendarPipe } from './pipes/calendar.pipe';
         DescribeSimpleNamedPipe,
         DescribeArrayPipe,
         DescribeAnyPipe,
-        CalendarPipe
+        CalendarPipe,
+        SmzGetDataPipe
     ],
 })
 export class NgxSmzDataPipesModule { }

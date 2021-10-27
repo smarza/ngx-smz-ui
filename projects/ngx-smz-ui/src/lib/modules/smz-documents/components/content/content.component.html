@@ -42,6 +42,10 @@
               <smz-document-fields-group [data]="$any(cell.data)" [config]="config"></smz-document-fields-group>
             </ng-container>
 
+            <ng-container *ngSwitchCase="featureDefinitions.TABLE">
+              <smz-document-table [data]="$any(cell.data)" [config]="config"></smz-document-table>
+            </ng-container>
+
             <ng-container *ngSwitchDefault>unknown cell data type</ng-container>
 
           </ng-container>

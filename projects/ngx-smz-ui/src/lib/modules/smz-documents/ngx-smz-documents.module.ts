@@ -24,6 +24,7 @@ import { SmzDocumentSubTitleComponent } from './components/sub-title/sub-title.c
 import { SmzDocumentFieldsGroupComponent } from './components/fields-group/fields-group.component';
 import { SmzDocumentViewerComponent } from './features/document-viewer/document-viewer.component';
 import { PDFExportModule } from '@progress/kendo-angular-pdf-export';
+import { SmzDocumentTableComponent } from './components/table/table.component';
 
 @NgModule({
     imports: [
@@ -53,7 +54,8 @@ import { PDFExportModule } from '@progress/kendo-angular-pdf-export';
       SmzDocumentSpacerComponent,
       SmzDocumentSubTitleComponent,
       SmzDocumentFieldsGroupComponent,
-      SmzDocumentViewerComponent
+      SmzDocumentViewerComponent,
+      SmzDocumentTableComponent,
     ]
   })
   export class NgxSmzDocumentsModule

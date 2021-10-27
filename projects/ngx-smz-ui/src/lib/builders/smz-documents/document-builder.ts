@@ -1,6 +1,6 @@
 import { GlobalInjector } from '../../modules/smz-dialogs/services/global-injector';
 import { NgxRbkUtilsConfig } from '../../modules/rbk-utils/ngx-rbk-utils.config';
-import { SmzDocumentFontFamilies, SmzDocumentState } from '../../modules/smz-documents/models/smz-document';
+import { SmzDocumentFontFamilies, SmzDocumentRow, SmzDocumentState } from '../../modules/smz-documents/models/smz-document';
 import { SmzDocumentContentBuilder } from './document-content';
 import { SmzDocumentConfig } from '../../modules/smz-documents/models/smz-document-config';
 import cloneDeep from 'lodash-es/cloneDeep';
@@ -8,6 +8,7 @@ import cloneDeep from 'lodash-es/cloneDeep';
 export class SmzDocumentBuilder {
   private defaultConfig = GlobalInjector.instance.get(NgxRbkUtilsConfig);
   private isDebugMode = false;
+  public _colsCount: number = 0;
   public _state: SmzDocumentState = {
     header: null,
     content: null,
@@ -81,7 +82,58 @@ export class SmzDocumentBuilder {
   }
 
   public build(): SmzDocumentState {
+
+    if (this._state.header != null) {
+      const rows = this._state.header.rows;
+      rows.forEach(row => {
+        normalizeColspan(rows, row, this._colsCount)
+      });
+    }
+
+    if (this._state.content != null) {
+      const rows = this._state.content.rows;
+      rows.forEach(row => {
+        normalizeColspan(rows, row, this._colsCount)
+      });
+    }
+
     return this._state;
   }
 
+}
+
+function normalizeColspan(rows: SmzDocumentRow[], row: SmzDocumentRow, totalColsCount: number): void {
+
+
+  const currentIndex = rows.findIndex(x => x.id === row.id);
+  const rowsBefore = rows.slice(0, currentIndex);
+  console.log(`current: ${currentIndex} ${row.id} - before: `, rowsBefore);
+
+  let cellsMerging = 0;
+  const merging = [];
+  rowsBefore.reverse().forEach((x, i) => {
+    const test = x.cells.filter(c => c.rowspan !== 1 && c.rowspan > i + 1);
+    if (test.length > 0) {
+      // console.log('yes', test.length);
+      cellsMerging += test.length;
+      merging.push(test);
+    }
+  });
+
+  if (cellsMerging > 0) {
+    console.log('cellsMerging', cellsMerging);
+    console.log('rowsBefore', rowsBefore);
+    console.log('merging', merging);
+  }
+
+  const colsCount = row.cells.map(x => x.colspan).reduce((a, b) => (a + b));
+
+  // console.log('colsCount', colsCount, this._row.cells);
+  if ((colsCount + cellsMerging) > totalColsCount) {
+    console.group(`was ${row.cells[row.cells.length - 1].colspan}`);
+    row.cells[row.cells.length - 1].colspan = totalColsCount - colsCount;
+    console.log('now', row.cells[row.cells.length - 1].colspan);
+    console.log('target', row.cells[row.cells.length - 1]);
+    console.groupEnd()
+  }
 }

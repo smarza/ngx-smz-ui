@@ -1,5 +1,7 @@
+import { Observable } from 'rxjs';
+import { SmzDocumentCellConfig } from './smz-document';
 
-export type SmzDocumentFeatures = SmzDocumentTitle | SmzDocumentDivider | SmzDocumentField | SmzDocumentImage | SmzDocumentSpacer | SmzDocumentSubTitle | SmzDocumentFieldsGroup;
+export type SmzDocumentFeatures = SmzDocumentTitle | SmzDocumentDivider | SmzDocumentField | SmzDocumentImage | SmzDocumentSpacer | SmzDocumentSubTitle | SmzDocumentFieldsGroup | SmzDocumentTable;
 
 export enum SmzDocumentFeatureDefinitions {
   DIVIDER,
@@ -9,6 +11,7 @@ export enum SmzDocumentFeatureDefinitions {
   SPACER,
   SUB_TITLE,
   TITLE,
+  TABLE
 
 }
 export interface SmzDocumentBaseCell {
@@ -76,6 +79,43 @@ export interface SmzDocumentFieldsGroup extends SmzDocumentBaseCell {
   }
 
   fields: SmzDocumentFieldGroup[]
+}
+
+export interface SmzDocumentTable extends SmzDocumentBaseCell {
+  type: SmzDocumentFeatureDefinitions.TABLE;
+  container?: {
+    background?: string;
+    styles?: string;
+  }
+
+  header?: {
+    isVisible: boolean;
+    columns: SmzDocumentTableColumn[];
+    background?: string;
+    styles?: string;
+    color?: string;
+  }
+  content?: {
+    styles?: string;
+    background?: string;
+    color?: string;
+    items$?: Observable<any[]>
+  }
+}
+
+export interface SmzDocumentTableColumn extends SmzDocumentCellConfig {
+  value: string;
+  property: string;
+  headerStyles: {
+    background?: string;
+    color?: string;
+    styles?: string;
+  }
+  contentStyles: {
+    background?: string;
+    color?: string;
+    styles?: string;
+  }
 }
 
 export interface SmzDocumentFieldGroup extends SmzDocumentField {

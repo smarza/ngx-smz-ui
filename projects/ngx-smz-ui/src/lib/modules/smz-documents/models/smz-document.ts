@@ -28,14 +28,18 @@ export interface SmzDocumentContent {
 
 export interface SmzDocumentRow {
   cells: SmzDocumentCell[];
+  id: string;
 }
 
-export interface SmzDocumentCell {
+export interface SmzDocumentCell extends SmzDocumentCellConfig {
+  data: SmzDocumentContent | SmzDocumentFeatures;
+}
+
+export interface SmzDocumentCellConfig {
   colspan: number;
   rowspan: number;
   height: string;
   width: string;
-  data: SmzDocumentContent | SmzDocumentFeatures;
 }
 
 

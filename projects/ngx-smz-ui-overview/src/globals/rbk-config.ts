@@ -91,6 +91,14 @@ export const rbkConfig: NgxRbkUtilsConfig = {
             images: {
                 container: '',
                 styles: '',
+            },
+            tables: {
+                container: 'bg-white text-black smz-document-text-base text-left',
+                header: {
+                    container: '',
+                    columns: 'p-1 smz-document-border bg-gray-200'
+                },
+                content: 'p-1 smz-document-border'
             }
         }
     },

@@ -23,6 +23,15 @@ export interface SmzDocumentConfig {
     container: string;
   };
 
+  tables: {
+    container: string;
+    header: {
+      container: string;
+      columns: string;
+    }
+    content: string
+  };
+
   images: {
     container: string;
     styles: string;
