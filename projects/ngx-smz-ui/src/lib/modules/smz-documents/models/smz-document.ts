@@ -1,5 +1,6 @@
 import { SmzDocumentConfig } from './smz-document-config';
 import { SmzDocumentFeatures } from './smz-document-features';
+import { SmzDocumentPaper } from './smz-document-paper';
 
 export interface SmzDocumentState {
   isDebug: boolean;
@@ -7,6 +8,12 @@ export interface SmzDocumentState {
   content: SmzDocumentContent;
   config: SmzDocumentConfig;
   globals: SmzDocumentGlobals;
+  summary: {
+    text: string;
+    showPrintHour: boolean;
+    showPageNumbers: boolean;
+  }
+  paper: SmzDocumentPaper;
 }
 
 export type SmzDocumentFontFamilies = 'Roboto' | 'Open Sans';
@@ -15,9 +22,6 @@ export interface SmzDocumentGlobals {
   font: {
     scale: string;
     family: SmzDocumentFontFamilies;
-  }
-  header: {
-    height: string;
   }
 }
 

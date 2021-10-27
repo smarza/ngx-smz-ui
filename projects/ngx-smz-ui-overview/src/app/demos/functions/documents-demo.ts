@@ -40,9 +40,10 @@ export const DocumentsDemo: { [key: string]: () => void } = {
   },
   [DemoKeys.DOCUMENTS_DEMO_2]: () => {
     return new SmzDocumentBuilder()
-      .debugMode()
+      // .debugMode()
       .setGlobalScale(0.7)
-      .setHeaderHeight('cm', 5)
+      .setHeaderHeight('cm', 5.5)
+      .setMargins('cm', 0.6)
       .header()
 
         .row()
@@ -129,7 +130,7 @@ export const DocumentsDemo: { [key: string]: () => void } = {
               .group
             .addField('21 99209-4433', 'TELEFONE')
               .group
-            .addField('AFFARIVENDAS@OUTLOO.COM', 'EMAIL')
+            .addField('AFFARIVENDAS@OUTLOOK.COM', 'EMAIL')
               .group
             .row
           .content
@@ -171,10 +172,28 @@ Caso contrário, aguardamos a confirmação do envio em até 48 horas.
           .table()
             .applyItems(DemoFeatureSelectors.all)
             .addColumn('name', 'Nome')
-              .setWidth('20%')
               .table
             .addColumn('company', 'Empresa')
               .table
+            .row
+          .content
+
+        .row()
+          .spacer()
+            .row
+          .content
+
+        .row()
+
+          .field('FINAL DO DOCUMENTO')
+            .setBackgroundColor('#EEEEEE')
+            .useBold()
+            .row
+          .field('YASMIM.FREITAS', 'EMISSOR DO DOCUMENTO')
+            .setBackgroundColor('#EEEEEE')
+            .row
+          .field('4 DE OUT. DE 2021', 'DATA DA EMISSÃO')
+            .setBackgroundColor('#EEEEEE')
             .row
           .content
 

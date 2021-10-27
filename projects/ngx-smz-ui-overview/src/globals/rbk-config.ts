@@ -65,9 +65,15 @@ export const rbkConfig: NgxRbkUtilsConfig = {
                     scale: '0.7rem',
                     family: 'Roboto'
                 },
-                header: {
-                    height: '10px'
+            },
+            paper: {
+                marginCm: {
+                    top: 0.6,
+                    left: 0.6,
+                    right: 0.6,
+                    bottom: 0.6,
                 },
+                headerHeightCm: null
             },
             titles: {
                 container: 'bg-gray-200',
@@ -81,8 +87,8 @@ export const rbkConfig: NgxRbkUtilsConfig = {
                 container: 'p-py-1'
             },
             fields: {
-                container: 'p-1 smz-document-border',
-                label: 'text-black smz-document-text-xs',
+                container: 'p-1 px-2 smz-document-border',
+                label: 'text-black smz-document-text-xs p-my-1',
                 text: 'text-black smz-document-text-base',
             },
             fieldsGroup: {
@@ -96,9 +102,9 @@ export const rbkConfig: NgxRbkUtilsConfig = {
                 container: 'bg-white text-black smz-document-text-base text-left',
                 header: {
                     container: '',
-                    columns: 'p-1 smz-document-border bg-gray-200'
+                    columns: 'p-1 px-2 smz-document-border bg-gray-200'
                 },
-                content: 'p-1 smz-document-border'
+                content: 'p-1 px-2 smz-document-border'
             }
         }
     },

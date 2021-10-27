@@ -13,15 +13,9 @@ const INITIAL_ZOOM = 1.5;
 @Injectable({providedIn: 'root'})
 export class SmzDocumentsService
 {
-  private _pixelMultiplier: number;
-  private _baseMargin: number;
-  private _paperWidth: number;
 
-  public margin: any;
   public showDownloadControl: boolean; // deixar o usuário baixar o pdf
-
   public showExportControl: boolean; // exportar o pdf em formato blob para o component pai
-
   public zoom = INITIAL_ZOOM;
 
   public pdfElement: PDFExportComponent;
@@ -36,27 +30,13 @@ export class SmzDocumentsService
       this.reset();
   }
 
-  public calcColumnWidth(cm: number): number
-  {
-      const area = (this._paperWidth - (this._baseMargin * 2));
-      return (cm * 100) / area;
-  }
-
-  public setHeaderHeight(height: string): void
-  {
-      this.margin.top = height;
-  }
-
   public reset(): void
   {
       this.zoom = INITIAL_ZOOM;
 
       this.showDownloadControl = true;
       this.showExportControl = true;
-      this._pixelMultiplier = 28.346;
-      this._baseMargin = 0.6;
-      this.margin = { top: `${this._baseMargin}cm`, bottom: `${this._baseMargin}cm`, right: `${this._baseMargin}cm`, left: `${this._baseMargin}cm` };
-      this._paperWidth = 21;
+
   }
 
   public download(filenameExtension: string = null): void

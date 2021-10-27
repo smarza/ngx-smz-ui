@@ -1,7 +1,17 @@
 import { SmzDocumentGlobals } from './smz-document';
+import { SmzDocumentPaper } from './smz-document-paper';
 
 export interface SmzDocumentConfig {
   globals: SmzDocumentGlobals;
+  paper: {
+    headerHeightCm: number;
+    marginCm: {
+      left: number;
+      right: number;
+      top: number;
+      bottom: number;
+    }
+  };
   titles: {
     container: string;
     text: string;

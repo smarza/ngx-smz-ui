@@ -5,30 +5,86 @@ import { SmzDocumentContentBuilder } from './document-content';
 import { SmzDocumentConfig } from '../../modules/smz-documents/models/smz-document-config';
 import cloneDeep from 'lodash-es/cloneDeep';
 
+const pixelCmFactor = 28.346;
 export class SmzDocumentBuilder {
   private defaultConfig = GlobalInjector.instance.get(NgxRbkUtilsConfig);
   public _colsCount: number = 0;
+  private _isHeaderHeightUpdated = false;
   public _state: SmzDocumentState = {
     isDebug: false,
     header: null,
     content: null,
-    config: cloneDeep(this.getConfig()),
-    globals: cloneDeep(this.getConfig().globals)
+    config: null,
+    globals: null,
+    paper: {
+      headerMargin: {
+        top: null,
+        left: null,
+        right: null
+      },
+      margin: {
+        top: null,
+        left: null,
+        right: null,
+        bottom: null
+      }
+    },
+    summary: {
+      text: null,
+      showPrintHour: true,
+      showPageNumbers: true
+    }
   };
 
-  private getConfig(): SmzDocumentConfig {
+  private applyConfig(): void {
 
     if (this.defaultConfig.documents == null || this.defaultConfig.documents.defaultStyles == null) {
       throw new Error(`You need to provide de default styles for documents at rbk config file.`);
     }
+    const config = cloneDeep(this.defaultConfig.documents.defaultStyles);
 
-    return this.defaultConfig.documents.defaultStyles;
+    this._state.config = config;
+    this._state.globals = config.globals;
+
+    const marginCm = config.paper.marginCm;
+    const globalHeaderHeightCm = config.paper.headerHeightCm ? `${config.paper.headerHeightCm}cm` : null;
+    this.applyMargin('cm', globalHeaderHeightCm, null, marginCm.left, marginCm.right, marginCm.top, marginCm.bottom);
+  }
+
+  private applyMargin(unit: 'cm', headerHeight: string, all: number, left?: number, right?: number, top?: number, bottom?: number): void {
+
+    if (unit === 'cm') {
+
+      if (all != null) {
+        this._state.paper.margin.left = `${all}${unit}`;
+        this._state.paper.margin.right = `${all}${unit}`;
+        this._state.paper.margin.top = headerHeight ?? (this._isHeaderHeightUpdated ? this._state.paper.margin.top : `${all}${unit}`);
+        this._state.paper.margin.bottom = `${all}${unit}`;
+
+        this._state.paper.headerMargin.left = `${all * pixelCmFactor}px`;
+        this._state.paper.headerMargin.right = `${all * pixelCmFactor}px`;
+        this._state.paper.headerMargin.top = `${all * pixelCmFactor}px`;
+      }
+
+      this._state.paper.margin.left = left != null ? `${left}${unit}` : this._state.paper.margin.left;
+      this._state.paper.margin.right = right != null ? `${right}${unit}` : this._state.paper.margin.right;
+      this._state.paper.margin.top = top != null && headerHeight == null ? `${top}${unit}` : (headerHeight ?? this._state.paper.margin.top);
+      this._state.paper.margin.bottom = bottom != null ? `${bottom}${unit}` : this._state.paper.margin.bottom;
+
+      this._state.paper.headerMargin.left = left != null ? `${left * pixelCmFactor}px` : this._state.paper.headerMargin.left;
+      this._state.paper.headerMargin.right = right != null ? `${right * pixelCmFactor}px` : this._state.paper.headerMargin.right;
+      this._state.paper.headerMargin.top = top != null ? `${top * pixelCmFactor}px` : this._state.paper.headerMargin.top;
+
+    }
+
   }
 
   constructor(state: SmzDocumentState = null) {
     if (state != null) {
       this._state = state;
     }
+
+    this.applyConfig()
   }
 
   public overrideDefaultConfigs(newConfig: SmzDocumentConfig): SmzDocumentBuilder {
@@ -56,6 +112,21 @@ export class SmzDocumentBuilder {
     return this;
   }
 
+  public hidePageNumbers(): SmzDocumentBuilder {
+    this._state.summary.showPageNumbers = false;
+    return this;
+  }
+
+  public hidePrintHour(): SmzDocumentBuilder {
+    this._state.summary.showPrintHour = false;
+    return this;
+  }
+
+  public setSummaryText(text: string): SmzDocumentBuilder {
+    this._state.summary.text = text;
+    return this;
+  }
+
   public setGlobalScale(scale: number): SmzDocumentBuilder {
     this._state.globals.font.scale = `${scale}rem`;
     return this;
@@ -67,17 +138,25 @@ export class SmzDocumentBuilder {
   }
 
   public setHeaderHeight(unit: 'cm', value: number): SmzDocumentBuilder {
-    this._state.globals.header.height = `${value}${unit}`;
+    this._isHeaderHeightUpdated = true;
+    this._state.paper.margin.top = `${value}${unit}`;
+    return this;
+  }
+
+  public setMargins(unit: 'cm', all: number, left?: number, right?: number, top?: number, bottom?: number): SmzDocumentBuilder {
+    const globalHeaderHeightCm = this._state.config.paper.headerHeightCm ? `${this._state.config.paper.headerHeightCm}cm` : null;
+    const headerHeight = this._isHeaderHeightUpdated ? null : globalHeaderHeightCm;
+    this.applyMargin(unit, headerHeight, all, left, right, top, bottom);
     return this;
   }
 
   public build(): SmzDocumentState {
 
-    console.log('--------------------');
-    console.log('--------------------');
-    console.log('--------------------');
-    console.log('totalColsCount', this._colsCount);
-    console.log('--------------------');
+    // console.log('--------------------');
+    // console.log('--------------------');
+    // console.log('--------------------');
+    // console.log('totalColsCount', this._colsCount);
+    // console.log('--------------------');
 
     if (this._state.header != null) {
       const rows = this._state.header.rows;
