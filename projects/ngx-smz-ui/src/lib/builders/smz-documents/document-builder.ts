@@ -7,9 +7,9 @@ import cloneDeep from 'lodash-es/cloneDeep';
 
 export class SmzDocumentBuilder {
   private defaultConfig = GlobalInjector.instance.get(NgxRbkUtilsConfig);
-  private isDebugMode = false;
   public _colsCount: number = 0;
   public _state: SmzDocumentState = {
+    isDebug: false,
     header: null,
     content: null,
     config: cloneDeep(this.getConfig()),
@@ -37,10 +37,6 @@ export class SmzDocumentBuilder {
       throw new Error(`You need to call 'overrideDefaultConfigs' before place any content.`);
     }
 
-    if (this.isDebugMode) {
-      throw new Error(`You need to call 'overrideDefaultConfigs' before enable debug mode.`);
-    }
-
     this._state.config = newConfig;
     return this;
   }
@@ -56,13 +52,7 @@ export class SmzDocumentBuilder {
   }
 
   public debugMode(): SmzDocumentBuilder {
-
-    if (this._state.content == null) this._state.content = { type: 'content', rows: [], cellStyles: '' };
-
-    this.isDebugMode = true;
-    const debugClasses = 'border-solid border-1 border-red-400';
-    this._state.content.cellStyles = debugClasses;
-
+    this._state.isDebug = true;
     return this;
   }
 
@@ -82,6 +72,12 @@ export class SmzDocumentBuilder {
   }
 
   public build(): SmzDocumentState {
+
+    console.log('--------------------');
+    console.log('--------------------');
+    console.log('--------------------');
+    console.log('totalColsCount', this._colsCount);
+    console.log('--------------------');
 
     if (this._state.header != null) {
       const rows = this._state.header.rows;
@@ -104,10 +100,15 @@ export class SmzDocumentBuilder {
 
 function normalizeColspan(rows: SmzDocumentRow[], row: SmzDocumentRow, totalColsCount: number): void {
 
+  const debug = false; // row.cells.findIndex(x => (x.data as any)?.text?.value === 'COMPRADOR') !== -1;
 
   const currentIndex = rows.findIndex(x => x.id === row.id);
   const rowsBefore = rows.slice(0, currentIndex);
-  console.log(`current: ${currentIndex} ${row.id} - before: `, rowsBefore);
+
+  if (debug){
+    console.log(`current: ${currentIndex} ${row.id} - before: `, rowsBefore);
+    console.log('row', row);
+  }
 
   let cellsMerging = 0;
   const merging = [];
@@ -121,19 +122,37 @@ function normalizeColspan(rows: SmzDocumentRow[], row: SmzDocumentRow, totalCols
   });
 
   if (cellsMerging > 0) {
-    console.log('cellsMerging', cellsMerging);
-    console.log('rowsBefore', rowsBefore);
-    console.log('merging', merging);
+    if (debug){
+      console.log('cellsMerging', cellsMerging);
+      console.log('rowsBefore', rowsBefore);
+      console.log('merging', merging);
+    }
+
   }
 
   const colsCount = row.cells.map(x => x.colspan).reduce((a, b) => (a + b));
 
-  // console.log('colsCount', colsCount, this._row.cells);
-  if ((colsCount + cellsMerging) > totalColsCount) {
-    console.group(`was ${row.cells[row.cells.length - 1].colspan}`);
-    row.cells[row.cells.length - 1].colspan = totalColsCount - colsCount;
-    console.log('now', row.cells[row.cells.length - 1].colspan);
-    console.log('target', row.cells[row.cells.length - 1]);
-    console.groupEnd()
+  if (debug){
+    console.log('if ??', (colsCount + cellsMerging) > totalColsCount);
+    console.log('   > colsCount: ', colsCount);
+    console.log('   > cellsMerging', cellsMerging);
+    console.log('   > totalColsCount', totalColsCount);
+  }
+
+
+  if ((colsCount + cellsMerging) < totalColsCount) {
+
+    if (debug){
+      console.group(`was ${row.cells[row.cells.length - 1].colspan}`);
+    }
+
+    row.cells[row.cells.length - 1].colspan = totalColsCount - colsCount + row.cells[row.cells.length - 1].colspan;
+
+    if (debug){
+      console.log('now', row.cells[row.cells.length - 1].colspan);
+      console.log('target', row.cells[row.cells.length - 1]);
+      console.groupEnd()
+    }
+
   }
 }

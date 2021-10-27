@@ -2,17 +2,17 @@
 
   <!-- HEADER -->
   <header>
-    <smz-document-content [data]="state.header" [config]="state.config"></smz-document-content>
+    <smz-document-content [data]="state.header" [config]="state.config" [isDebug]="state.isDebug"></smz-document-content>
   </header>
 
   <!-- PRINTABLE HEADER -->
   <section>
-    <smz-document-content [data]="state.header" [config]="state.config"></smz-document-content>
+    <smz-document-content [data]="state.header" [config]="state.config" [isDebug]="state.isDebug"></smz-document-content>
   </section>
 
   <!-- BODY -->
   <content>
-    <smz-document-content [data]="state.content" [config]="state.config"></smz-document-content>
+    <smz-document-content [data]="state.content" [config]="state.config" [isDebug]="state.isDebug"></smz-document-content>
   </content>
 
 </document-viewer>

@@ -6,7 +6,7 @@
 
       <ng-container *ngFor="let cell of row.cells">
 
-        <td [colSpan]="cell.colspan" [rowSpan]="cell.rowspan" [ngStyle]="{ height: cell.height, width: cell.width }" [ngClass]="data.cellStyles">
+        <td class="relative" [colSpan]="cell.colspan" [rowSpan]="cell.rowspan" [ngStyle]="{ height: cell.height, width: cell.width }" [ngClass]="data.cellStyles">
 
           <ng-container [ngSwitch]="cell.data?.type">
 
@@ -49,6 +49,11 @@
             <ng-container *ngSwitchDefault>unknown cell data type</ng-container>
 
           </ng-container>
+
+          <div *ngIf="isDebug"
+            class="absolute inset-0 w-full h-full border-dotted border border-red-500 cursor-pointer hover:bg-red-700 hover:opacity-10 transition-all"
+            [pTooltip]="'colspan: ' + cell.colspan + ' - rowspan: ' + cell.rowspan" appendTo="body" [hideDelay]="200" [showDelay]="50">
+          </div>
 
         </td>
 

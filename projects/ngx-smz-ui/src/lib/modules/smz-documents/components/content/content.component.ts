@@ -11,7 +11,9 @@ import { SmzDocumentFeatureDefinitions } from '../../models/smz-document-feature
 export class SmzDocumentContentComponent implements OnInit {
   @Input() public data: SmzDocumentContent;
   @Input() public config: SmzDocumentConfig;
+  @Input() public isDebug: boolean;
   public featureDefinitions = SmzDocumentFeatureDefinitions;
   constructor() { }
   ngOnInit() { }
+
 }

@@ -2,6 +2,7 @@ import { SmzDocumentConfig } from './smz-document-config';
 import { SmzDocumentFeatures } from './smz-document-features';
 
 export interface SmzDocumentState {
+  isDebug: boolean;
   header: SmzDocumentContent;
   content: SmzDocumentContent;
   config: SmzDocumentConfig;

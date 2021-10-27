@@ -41,7 +41,8 @@ import { SmzDocumentTableComponent } from './components/table/table.component';
       NgVarModule,
       ClickStopPropagationModule,
       NgxSmzDataPipesModule,
-      PDFExportModule
+      PDFExportModule,
+      TooltipModule
     ],
     exports: [SmzDocumentComponent],
     declarations: [
