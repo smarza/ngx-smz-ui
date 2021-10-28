@@ -6,12 +6,12 @@ import { exportPDF } from '@progress/kendo-drawing';
 import { Subject } from 'rxjs';
 import { BlockableUI } from 'primeng/api/blockableui';
 import { SmzDocumentsService } from '../../services/smz-documents.service';
-import { SmzDialogsService } from '../../../smz-dialogs/services/smz-dialogs.service';
-import { SmzPresets } from '../../../smz-dialogs/models/smz-presets';
 import { take } from 'rxjs/operators';
 
 import * as moment_ from 'moment';
 import { SmzDocumentState } from '../../models/smz-document';
+import { Store } from '@ngxs/store';
+import { DialogsActions } from '../../../smz-dialogs/state/dialogs/dialogs.actions';
 
 const moment = moment_;
 
@@ -44,7 +44,7 @@ export class SmzDocumentViewerComponent implements OnInit, AfterViewInit, Blocka
     public maxZoom = MAX_ZOOM;
     public minZoom = MIN_ZOOM;
     public now = moment().format('MMMM Do YYYY, h:mm:ss a');
-    constructor(private el: ElementRef, public documentService: SmzDocumentsService, private location: Location, private cdf: ChangeDetectorRef, private dialogs2: SmzDialogsService, private renderer: Renderer2) { }
+    constructor(private el: ElementRef, public documentService: SmzDocumentsService, private location: Location, private cdf: ChangeDetectorRef, private store: Store, private renderer: Renderer2) { }
 
     public ngOnInit(): void
     {
@@ -87,31 +87,19 @@ export class SmzDocumentViewerComponent implements OnInit, AfterViewInit, Blocka
 
             // console.log('fontSize', fontSize);
 
+
             if (!fontSize.includes('6.5'))
             {
-
-                this.dialogs2.open({
-                    presetId: SmzPresets.Message,
-                    title: `Aviso`,
-                    features: [
-                        {
-                            type: 'message', data: [
-                                'Identificamos um problema com a configuração de mínima de fonte do seu navegador.',
-                                'Caso tenha alterado a configuração mínima de fonte, pedimos que retorna ao padrão antes de continuar utilizanndo o sistems',
-                                '',
-                                'O Sistema foi programado para não permitir personalizações fora do padrão.',
-                                '',
-                                'Se o problema persistir contacte seu supervisor.'
-                            ]
-                        },
-                    ],
-                    callbacks: {
-                        onOk: () =>
-                        {
-                            this.dialogs2.closeAll();
-                        }
-                    }
-                });
+                this.store.dispatch(new DialogsActions.Message(
+                    'Aviso', [
+                        'Identificamos um problema com a configuração de mínima de fonte do seu navegador.',
+                        'Caso tenha alterado a configuração mínima de fonte, pedimos que retorna ao padrão antes de continuar utilizanndo o sistems',
+                        '',
+                        'O Sistema foi programado para não permitir personalizações fora do padrão.',
+                        '',
+                        'Se o problema persistir contacte seu supervisor.'
+                    ]
+                    ));
             }
         }
 

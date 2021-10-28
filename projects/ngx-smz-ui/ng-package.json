@@ -74,7 +74,10 @@
       "primeng/tree": "tree",
       "primeng/utils": "utils",
       "primeng/api": "api",
-      "ngx-pipes": "ngxpipes"
+      "ngx-pipes": "ngxpipes",
+      "@progress/kendo-drawing": "progresskendodrawing",
+      "@progress/kendo-drawing/pdf": "kendodrawingpdf",
+      "@progress/kendo-angular-pdf-export": "kendoangularpdfexport"
     }
   }
 }

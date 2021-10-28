@@ -11,16 +11,16 @@ export const TreeDemoData: DemoTreeNode[] = [
   {
     label: 'Documents',
     type: 'Category',
-    expanded: true,
+    expanded: false,
     children: [
       {
-        label: 'Demo 1', icon: 'fas fa-code', type: 'Demo',
+        label: 'Demo', icon: 'fas fa-code', type: 'Demo',
         demoType: 'document',
         notes: '',
         data: DocumentsDemo[DemoKeys.DOCUMENTS_DEMO_1]
       },
       {
-        label: 'Demo 2', icon: 'fas fa-code', type: 'Demo',
+        label: 'Demo em Debug', icon: 'fas fa-code', type: 'Demo',
         demoType: 'document',
         notes: '',
         data: DocumentsDemo[DemoKeys.DOCUMENTS_DEMO_2]

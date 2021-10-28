@@ -2,7 +2,6 @@ import { NgStyle } from '@angular/common';
 import { Component, Input, OnInit, Self } from '@angular/core';
 import { SmzDocumentState } from '../../models/smz-document';
 import { SmzDocumentFeatureDefinitions } from '../../models/smz-document-features';
-import { SmzDocumentsService } from '../../services/smz-documents.service';
 
 @Component({
   selector: 'smz-ui-document',
@@ -12,9 +11,8 @@ import { SmzDocumentsService } from '../../services/smz-documents.service';
 
 export class SmzDocumentComponent implements OnInit {
   @Input() public state: SmzDocumentState;
-
   public featureDefinitions = SmzDocumentFeatureDefinitions;
-  constructor(@Self() private ngStyle: NgStyle, private documentService: SmzDocumentsService) { }
+  constructor(@Self() private ngStyle: NgStyle) { }
 
   ngOnInit() {
     console.log(this.state);
