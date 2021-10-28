@@ -75,7 +75,7 @@
       "primeng/utils": "utils",
       "primeng/api": "api",
       "ngx-pipes": "ngxpipes",
-      "pdfmake": "pdfmake"
+      "jspdf": "jspdf"
     }
   }
 }

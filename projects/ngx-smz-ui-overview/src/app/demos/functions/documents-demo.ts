@@ -7,16 +7,16 @@ export const DocumentsDemo: { [key: string]: () => void } = {
   //
   [DemoKeys.DOCUMENTS_DEMO_1]: () => {
     return new SmzDocumentBuilder()
-      .setGlobalScale(0.7)
+      .setGlobalScale(0.8)
       .setHeaderHeight('cm', 5.5)
       .setMargins('cm', 0.6)
       .header()
 
         .row()
-          .title('assets/layout/images/horizontal-light.svg')
+          .image('assets/logo.png')
             .setWidth('70%')
             .setRowspan(3)
-            // .setImageWidth('40%')
+            .setImageWidth('40%')
             .row
           .field('OC-02382', 'Nº COMPRA')
             .setWidth('15%')
@@ -169,7 +169,7 @@ export const DocumentsDemo: { [key: string]: () => void } = {
   [DemoKeys.DOCUMENTS_DEMO_2]: () => {
     return new SmzDocumentBuilder()
       // .debugMode()
-      .setGlobalScale(0.7)
+      .setGlobalScale(0.8)
       .setHeaderHeight('cm', 5.5)
       .setMargins('cm', 0.6)
       .header()

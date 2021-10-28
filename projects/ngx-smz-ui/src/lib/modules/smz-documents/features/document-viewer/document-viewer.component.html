@@ -5,9 +5,9 @@
         <button pButton type="button" class="p-button p-button-outlined" label="100%" (click)="restoreZoom()"></button>
         <button pButton type="button" class="p-button p-button-outlined" label="ZOOM +" (click)="moreZoom()"></button>
 
-        <button pButton type="button" class="p-button p-button-success" label="OPEN" (click)="documentService.generatePdf('open', paperElement)"></button>
-        <button pButton type="button" class="p-button p-button-success" label="PRINT" (click)="documentService.generatePdf('print', paperElement)"></button>
-        <button pButton type="button" class="p-button p-button-success" label="DOWNLOAD" (click)="documentService.generatePdf('download', paperElement)"></button>
+        <button pButton type="button" class="p-button p-button-success" label="OPEN" [disabled]="true" (click)="generate('open', paperElement)"></button>
+        <button pButton type="button" class="p-button p-button-success" label="PRINT" [disabled]="true" (click)="generate('print', paperElement)"></button>
+        <button pButton type="button" class="p-button p-button-success" label="DOWNLOAD" (click)="generate('download', paperElement)"></button>
     </div>
 
     <div class="pager" [ngStyle]="{ 'transform': 'scale(' + documentService.zoom + ')' }">

@@ -6,6 +6,7 @@ import { SmzDocumentsService } from '../../services/smz-documents.service';
 import * as moment_ from 'moment';
 import { SmzDocumentState } from '../../models/smz-document';
 import { Store } from '@ngxs/store';
+import { ApplicationActions } from '../../../rbk-utils/public-api';
 
 const moment = moment_;
 
@@ -37,6 +38,16 @@ export class SmzDocumentViewerComponent implements OnInit, AfterViewInit
 
     public ngAfterViewInit(): void
     {
+    }
+
+    public generate(action: "open" | "print" | "download", element: ElementRef): void {
+        this.store.dispatch(new ApplicationActions.StartGlobalLoading());
+
+        setTimeout(() => {
+            this.documentService.generatePdf(action, element, this.state).then(() => {
+                this.store.dispatch(new ApplicationActions.StopGlobalLoading());
+            });
+        }, 0);
     }
 
     public moreZoom(): void

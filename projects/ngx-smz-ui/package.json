@@ -15,7 +15,7 @@
     "moment": "^2.24.0",
     "ngx-pipes": "^2.7.3",
     "tailwindcss": "^2.0.0",
-    "pdfmake": "^0.2.2"
+    "jspdf": "^2.4.0"
   },
   "dependencies": {
     "tslib": "^2.0.0"
