@@ -5,14 +5,16 @@
         <button pButton type="button" class="p-button p-button-outlined" label="100%" (click)="restoreZoom()"></button>
         <button pButton type="button" class="p-button p-button-outlined" label="ZOOM +" (click)="moreZoom()"></button>
 
-        <button pButton type="button" class="p-button p-button-success" label="OPEN" (click)="documentService.generatePdf('open')"></button>
-        <button pButton type="button" class="p-button p-button-success" label="PRINT" (click)="documentService.generatePdf('print')"></button>
-        <button pButton type="button" class="p-button p-button-success" label="DOWNLOAD" (click)="documentService.generatePdf('download')"></button>
+        <button pButton type="button" class="p-button p-button-success" label="OPEN" (click)="documentService.generatePdf('open', paperElement)"></button>
+        <button pButton type="button" class="p-button p-button-success" label="PRINT" (click)="documentService.generatePdf('print', paperElement)"></button>
+        <button pButton type="button" class="p-button p-button-success" label="DOWNLOAD" (click)="documentService.generatePdf('download', paperElement)"></button>
     </div>
 
-    <div #paper class="pager" [ngStyle]="{ 'transform': 'scale(' + documentService.zoom + ')', 'font-family':  state.globals.font.family }">
-        <ng-content select="header"></ng-content>
-        <ng-content select="content"></ng-content>
+    <div class="pager" [ngStyle]="{ 'transform': 'scale(' + documentService.zoom + ')' }">
+        <div #paper [ngStyle]="{ 'font-family':  state.globals.font.family }">
+            <ng-content select="header"></ng-content>
+            <ng-content select="content"></ng-content>
+        </div>
     </div>
 
 </div>

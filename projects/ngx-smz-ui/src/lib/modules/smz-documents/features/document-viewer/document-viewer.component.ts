@@ -24,7 +24,7 @@ const INITIAL_ZOOM = MIN_ZOOM;
 export class SmzDocumentViewerComponent implements OnInit, AfterViewInit
 {
 
-    @ViewChild('paper', { static: true }) public paperContainer: any;
+    @ViewChild('paper', { static: true }) public paperElement: ElementRef;
     @Input() public state: SmzDocumentState;
     public maxZoom = MAX_ZOOM;
     public minZoom = MIN_ZOOM;

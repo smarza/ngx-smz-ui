@@ -1,6 +1,7 @@
 import { DemoKeys } from '@demos/demo-keys';
 import { DemoFeatureSelectors } from '@states/demo/demo.selectors';
 import { SmzDocumentBuilder } from 'ngx-smz-ui';
+import { CountriesDbSelectors } from '@states/database/countries/countries.selectors';
 
 export const DocumentsDemo: { [key: string]: () => void } = {
   //
@@ -12,10 +13,10 @@ export const DocumentsDemo: { [key: string]: () => void } = {
       .header()
 
         .row()
-          .image('assets/layout/images/horizontal-light.svg')
+          .title('assets/layout/images/horizontal-light.svg')
             .setWidth('70%')
             .setRowspan(3)
-            .setImageWidth('40%')
+            // .setImageWidth('40%')
             .row
           .field('OC-02382', 'Nº COMPRA')
             .setWidth('15%')
@@ -167,14 +168,14 @@ export const DocumentsDemo: { [key: string]: () => void } = {
   },
   [DemoKeys.DOCUMENTS_DEMO_2]: () => {
     return new SmzDocumentBuilder()
-      .debugMode()
+      // .debugMode()
       .setGlobalScale(0.7)
       .setHeaderHeight('cm', 5.5)
       .setMargins('cm', 0.6)
       .header()
 
         .row()
-          .image('assets/layout/images/horizontal-light.svg')
+          .image('assets/logo.png')
             .setWidth('70%')
             .setRowspan(3)
             .setImageWidth('40%')
@@ -291,7 +292,7 @@ Caso contrário, aguardamos a confirmação do envio em até 48 horas.
           .content
 
         .row()
-          .subTitle('RELAÇÃO DE ITENS')
+          .subTitle('RELAÇÃO DE ITENS 1')
             .row
           .content
 
@@ -301,6 +302,51 @@ Caso contrário, aguardamos a confirmação do envio em até 48 horas.
             .addColumn('name', 'Nome')
               .table
             .addColumn('company', 'Empresa')
+              .table
+            .row
+          .content
+
+        .row()
+          .subTitle('RELAÇÃO DE ITENS 2')
+            .row
+          .content
+
+        .row()
+          .table()
+            .applyItems(CountriesDbSelectors.all)
+            .addColumn('name', 'País')
+              .table
+            .addColumn('id', 'Identificação')
+              .table
+            .row
+          .content
+
+        .row()
+          .subTitle('RELAÇÃO DE ITENS 3')
+            .row
+          .content
+
+        .row()
+          .table()
+            .applyItems(DemoFeatureSelectors.all)
+            .addColumn('name', 'Nome')
+              .table
+            .addColumn('company', 'Empresa')
+              .table
+            .row
+          .content
+
+        .row()
+          .subTitle('RELAÇÃO DE ITENS 4')
+            .row
+          .content
+
+        .row()
+          .table()
+            .applyItems(CountriesDbSelectors.all)
+            .addColumn('name', 'País')
+              .table
+            .addColumn('id', 'Identificação')
               .table
             .row
           .content

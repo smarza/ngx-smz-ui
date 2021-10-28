@@ -177,6 +177,12 @@
             "main": "projects/ngx-smz-ui-overview/src/main.ts",
             "polyfills": "projects/ngx-smz-ui-overview/src/polyfills.ts",
             "tsConfig": "projects/ngx-smz-ui-overview/tsconfig.json",
+            "allowedCommonJsDependencies": [
+              "jspdf",
+              "canvg",
+              "raf",
+              "core-js"
+            ],
             "inlineStyleLanguage": "scss",
             "assets": [
               "projects/ngx-smz-ui-overview/src/favicon.ico",

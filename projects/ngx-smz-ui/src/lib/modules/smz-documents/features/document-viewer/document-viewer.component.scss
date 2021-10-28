@@ -12,7 +12,7 @@ $footer-margin: calc(0.5 * 28.346px);
 // }
 
 .pager {
-    width: $paper-width;
+    width: 595.276pt; // $paper-width;
     background: white;
     transform-origin: top center;
     transition: transform 100ms ease-in-out;
