@@ -1,41 +1,18 @@
 <div class="p-grid p-nogutter p-align-center p-justify-start p-flex-column gap-2">
 
     <div class="p-grid p-nogutter p-align-start p-justify-start gap-2">
-        <button pButton type="button" class="p-button p-button-outlined" label="ZOOM -" (click)="lessZoom()" [disabled]="!isReady"></button>
-        <button pButton type="button" class="p-button p-button-outlined" label="100%" (click)="restoreZoom()" [disabled]="!isReady"></button>
-        <button pButton type="button" class="p-button p-button-outlined" label="ZOOM +" (click)="moreZoom()" [disabled]="!isReady"></button>
+        <button pButton type="button" class="p-button p-button-outlined" label="ZOOM -" (click)="lessZoom()"></button>
+        <button pButton type="button" class="p-button p-button-outlined" label="100%" (click)="restoreZoom()"></button>
+        <button pButton type="button" class="p-button p-button-outlined" label="ZOOM +" (click)="moreZoom()"></button>
 
-        <button *ngIf="documentService.showDownloadControl" pButton type="button" class="p-button p-button-success" label="DOWNLOAD" [disabled]="!isReady" (click)="download()"></button>
-        <button *ngIf="documentService.showExportControl" pButton type="button" class="p-button p-button-success" label="ENVIAR" [disabled]="!isReady" (click)="emitExport()"></button>
+        <button pButton type="button" class="p-button p-button-success" label="OPEN" (click)="documentService.generatePdf('open')"></button>
+        <button pButton type="button" class="p-button p-button-success" label="PRINT" (click)="documentService.generatePdf('print')"></button>
+        <button pButton type="button" class="p-button p-button-success" label="DOWNLOAD" (click)="documentService.generatePdf('download')"></button>
     </div>
 
     <div #paper class="pager" [ngStyle]="{ 'transform': 'scale(' + documentService.zoom + ')', 'font-family':  state.globals.font.family }">
-
         <ng-content select="header"></ng-content>
-
-        <kendo-pdf-export #pdf paperSize="A4" [ngStyle]="{ 'font-family': state.globals.font.family }" [margin]="state.paper.margin" [scale]="1" keepTogether=".prevent-split" [repeatHeaders]="true">
-
-            <!-- CONTENT -->
-            <ng-content select="content"></ng-content>
-
-            <!-- HEADER & FOOTER -->
-            <ng-template kendoPDFTemplate let-pageNum="pageNum" let-totalPages="totalPages">
-                <ng-container *ngVar="state.paper.headerMargin as margin">
-                    <div class="sticky-header" [ngStyle]="{ top: margin.top, left: margin.left, right: margin.right }">
-                        <ng-content select="section"></ng-content>
-                    </div>
-                </ng-container>
-
-                <div class="footer-container">
-                    <span *ngIf="state.summary.text != null">{{ state.summary.text }}</span>
-                    <span *ngIf="state.summary.text != null && state.summary.showPrintHour"> | </span>
-                    <span *ngIf="state.summary.showPrintHour">Hora da Impressão: {{ now }}</span>
-                    <span *ngIf="(state.summary.text != null || state.summary.showPrintHour) && state.summary.showPageNumbers"> | </span>
-                    <span *ngIf="state.summary.showPageNumbers">Pág. {{ pageNum }} de {{ totalPages }}</span>
-                </div>
-            </ng-template>
-
-        </kendo-pdf-export>
+        <ng-content select="content"></ng-content>
     </div>
 
 </div>

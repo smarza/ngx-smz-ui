@@ -15,10 +15,7 @@
     "moment": "^2.24.0",
     "ngx-pipes": "^2.7.3",
     "tailwindcss": "^2.0.0",
-    "@progress/kendo-angular-common": "2.0.1",
-    "@progress/kendo-angular-pdf-export": "3.0.1",
-    "@progress/kendo-drawing": "1.10.1",
-    "@progress/kendo-licensing": "1.1.4"
+    "pdfmake": "^0.2.2"
   },
   "dependencies": {
     "tslib": "^2.0.0"
