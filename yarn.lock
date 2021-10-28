@@ -1364,11 +1364,6 @@
   "resolved" "https://registry.npmjs.org/@progress/kendo-schematics/-/kendo-schematics-1.2.1.tgz"
   "version" "1.2.1"
 
-"@progress/kendo-theme-default@4.39.0":
-  "integrity" "sha512-0nXNscH1O5TsR7yTTXHVH6CuzzGAPPYwRPNKdVAResG2r7ypxqjVc5Jv1SG5NBrX11A54qwrnNdR/wRBdoyBOA=="
-  "resolved" "https://registry.npmjs.org/@progress/kendo-theme-default/-/kendo-theme-default-4.39.0.tgz"
-  "version" "4.39.0"
-
 "@progress/pako-esm@^1.0.1":
   "integrity" "sha512-O4A3b1EuE9Xe1pC3Xz9Tcn1M/CYrL71f4y/5TXeytOVTkmkzBgYW97fYP2f+54H0e0erWRaqV/kUUB/a8Uxfbw=="
   "resolved" "https://registry.npmjs.org/@progress/pako-esm/-/pako-esm-1.0.1.tgz"
