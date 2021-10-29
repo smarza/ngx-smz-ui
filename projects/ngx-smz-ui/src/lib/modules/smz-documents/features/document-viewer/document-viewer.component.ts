@@ -6,7 +6,7 @@ import { SmzDocumentsService } from '../../services/smz-documents.service';
 import * as moment_ from 'moment';
 import { SmzDocumentState } from '../../models/smz-document';
 import { Store } from '@ngxs/store';
-import { ApplicationActions } from '../../../rbk-utils/public-api';
+import { ApplicationActions } from '../../../../state/global/application/application.actions';
 
 const moment = moment_;
 
