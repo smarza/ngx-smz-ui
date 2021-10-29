@@ -13,6 +13,7 @@ import { DemoFormComponent } from './components/demo-form/demo-form.component';
 import { DemoTableComponent } from './components/demo-table/demo-table.component';
 import { DemoChartComponent } from './components/demo-chart/demo-chart.component';
 import { DemoDocumentComponent } from './components/demo-document/demo-document.component';
+import { DemoTreeComponent } from './components/demo-tree/demo-tree.component';
 
 const data: SmzRouteData = {
   layout: {
@@ -34,7 +35,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [HomeComponent, DemoFormComponent, DemoTableComponent, DemoChartComponent, DemoDocumentComponent],
+  declarations: [HomeComponent, DemoFormComponent, DemoTableComponent, DemoChartComponent, DemoDocumentComponent, DemoTreeComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
@@ -47,7 +48,8 @@ const routes: Routes = [
     CodeBlockModule,
     DemoTitlePipeModule,
     TabViewModule,
-    SmzChartModule
+    SmzChartModule,
+    NgxSmzTreesModule
   ],
   providers: [],
   bootstrap: [HomeComponent]

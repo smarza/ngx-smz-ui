@@ -49,65 +49,73 @@
                 <ng-template pTemplate="header" *ngIf="state.header.isVisible">
 
                     <ng-container *ngIf="state.header.toolbar as toolbar">
-                        <div class="p-grid p-nogutter p-justify-start p-align-center p-mb-2">
+                        <div class="p-grid p-nogutter p-justify-start p-align-center p-mb-2 gap-2">
                             <h3 *ngIf="state.header.title != null" class="p-m-2 p-col">{{state.header.title}}</h3>
-                            <div class="p-grid p-nogutter p-justify-start p-align-center">
+                            <div class="p-grid p-nogutter p-justify-start p-align-center gap-2">
                                 <ng-container *ngFor="let button of state.header.toolbar.items; let i=index">
                                     <button
                                         pButton
                                         pRipple
                                         type="button"
-                                        [ngClass]="{ 'p-ml-1' : i !== 0, 'p-button-text': toolbar.buttonType.endsWith('borderless'), 'p-button-outlined': toolbar.buttonType.endsWith('outlined'), 'p-button-rounded': toolbar.buttonType.startsWith('rounded'), 'p-button-secondary': button.color === 'secondary', 'p-button-success': button.color === 'success', 'p-button-info': button.color === 'info', 'p-button-warning': button.color === 'warning', 'p-button-help': button.color === 'help', 'p-button-danger': button.color === 'danger' }"
+                                        [ngClass]="{ 'p-button-text': toolbar.buttonType.endsWith('borderless'), 'p-button-outlined': toolbar.buttonType.endsWith('outlined'), 'p-button-rounded': toolbar.buttonType.startsWith('rounded'), 'p-button-secondary': button.color === 'secondary', 'p-button-success': button.color === 'success', 'p-button-info': button.color === 'info', 'p-button-warning': button.color === 'warning', 'p-button-help': button.color === 'help', 'p-button-danger': button.color === 'danger' }"
                                         [label]="button.label"
                                         [icon]="button.icon"
                                         (click)="onToolbarButtonClick($event, button)"
                                         [pTooltip]="button.tooltip"></button>
                                 </ng-container>
 
-                                <div [pTooltip]="selection != null ? toolbar.nodeExpandButtons.expandTooltip : toolbar.nodeExpandButtons.disabledTooltip">
-                                    <button *ngIf="toolbar.nodeExpandButtons.isVisible === true"
+                                <button
+                                    *ngIf="toolbar.nodeExpandButtons.isVisible === true"
                                     pButton
                                     pRipple
                                     type="button"
-                                    [ngClass]="{ 'p-ml-1' : toolbar.items != null && toolbar.items.length > 0, 'p-button-text': toolbar.buttonType.endsWith('borderless'), 'p-button-outlined': toolbar.buttonType.endsWith('outlined'), 'p-button-rounded': toolbar.buttonType.startsWith('rounded'), 'p-button-secondary': true }"
+                                    [ngClass]="{ 'p-button-text': toolbar.buttonType.endsWith('borderless'), 'p-button-outlined': toolbar.buttonType.endsWith('outlined'), 'p-button-rounded': toolbar.buttonType.startsWith('rounded'), 'p-button-secondary': true }"
                                     [label]="toolbar.nodeExpandButtons.expandLabel"
                                     icon="fas fa-angle-down"
                                     (click)="expandNode()"
-                                    [disabled]="selection == null"></button>
-                                </div>
+                                    [pTooltip]="selection != null ? toolbar.nodeExpandButtons.expandTooltip : toolbar.nodeExpandButtons.disabledTooltip"
+                                    [disabled]="selection == null">
+                                </button>
 
-                                <div [pTooltip]="selection != null ? toolbar.nodeExpandButtons.collapseTooltip : toolbar.nodeExpandButtons.disabledTooltip">
-                                <button *ngIf="toolbar.nodeExpandButtons.isVisible === true"
+                                <button
+                                    *ngIf="toolbar.nodeExpandButtons.isVisible === true"
                                     pButton
                                     pRipple
                                     type="button"
-                                    [ngClass]="{ 'p-ml-1' : true, 'p-button-text': toolbar.buttonType.endsWith('borderless'), 'p-button-outlined': toolbar.buttonType.endsWith('outlined'), 'p-button-rounded': toolbar.buttonType.startsWith('rounded'), 'p-button-secondary': true }"
+                                    [ngClass]="{ 'p-button-text': toolbar.buttonType.endsWith('borderless'), 'p-button-outlined': toolbar.buttonType.endsWith('outlined'), 'p-button-rounded': toolbar.buttonType.startsWith('rounded'), 'p-button-secondary': true }"
                                     [label]="toolbar.nodeExpandButtons.collapseLabel"
                                     icon="fas fa-angle-up"
                                     (click)="collapseNode()"
-                                    [disabled]="selection == null"></button>
-                                </div>
+                                    [pTooltip]="selection != null ? toolbar.nodeExpandButtons.collapseTooltip : toolbar.nodeExpandButtons.disabledTooltip"
+                                    [disabled]="selection == null">
+                                </button>
 
-                                <button *ngIf="toolbar.treeExpandButtons.isVisible === true"
+                                <button
+                                    *ngIf="toolbar.treeExpandButtons.isVisible === true"
                                     pButton
                                     pRipple
                                     type="button"
-                                    [ngClass]="{ 'p-ml-1' : toolbar.items != null && toolbar.items.length > 0 || toolbar.nodeExpandButtons.isVisible === false, 'p-button-text': toolbar.buttonType.endsWith('borderless'), 'p-button-outlined': toolbar.buttonType.endsWith('outlined'), 'p-button-rounded': toolbar.buttonType.startsWith('rounded'), 'p-button-secondary': true }"
+                                    [ngClass]="{ 'p-button-text': toolbar.buttonType.endsWith('borderless'), 'p-button-outlined': toolbar.buttonType.endsWith('outlined'), 'p-button-rounded': toolbar.buttonType.startsWith('rounded'), 'p-button-secondary': true }"
                                     [label]="toolbar.treeExpandButtons.expandLabel"
                                     icon="fas fa-angle-double-down"
                                     (click)="expandAll()"
-                                    [pTooltip]=""></button>
-                                <button *ngIf="toolbar.treeExpandButtons.isVisible === true"
+                                    [pTooltip]="">
+                                </button>
+
+                                <button
+                                    *ngIf="toolbar.treeExpandButtons.isVisible === true"
                                     pButton
                                     pRipple
                                     type="button"
-                                    [ngClass]="{ 'p-ml-1' : true, 'p-button-text': toolbar.buttonType.endsWith('borderless'), 'p-button-outlined': toolbar.buttonType.endsWith('outlined'), 'p-button-rounded': toolbar.buttonType.startsWith('rounded'), 'p-button-secondary': true }"
+                                    [ngClass]="{ 'p-button-text': toolbar.buttonType.endsWith('borderless'), 'p-button-outlined': toolbar.buttonType.endsWith('outlined'), 'p-button-rounded': toolbar.buttonType.startsWith('rounded'), 'p-button-secondary': true }"
                                     [label]="toolbar.treeExpandButtons.collapseLabel"
                                     icon="fas fa-angle-double-up"
                                     (click)="collapseAll()"
-                                    [pTooltip]=""></button>
+                                    [pTooltip]="">
+                                </button>
+
                             </div>
-                            <span *ngIf="state.filter.show" class="p-input-icon-left p-col-12 p-md-4" [ngClass]="{ 'p-ml-2': state.header.toolbar.isVisible }">
+                            <span *ngIf="state.filter.show" class="p-input-icon-left p-col p-col-12 p-md-4">
                                 <i class="pi pi-search"></i>
                                 <input #inputGlobal pInputText type="text" (input)="dt._filter(inputGlobal.value)" [placeholder]="state.filter.textPlaceholder" />
                             </span>

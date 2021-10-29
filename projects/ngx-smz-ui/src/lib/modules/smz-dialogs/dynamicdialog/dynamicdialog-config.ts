@@ -12,6 +12,8 @@ export class DynamicDialogConfig {
 	rtl?: boolean;
 	style?: any;
 	contentStyle?: any;
+	headerStyle?: any;
+	footerStyle?: any;
 	styleClass?: string;
 	transitionOptions?: string;
     closable?: boolean;

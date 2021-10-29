@@ -3,14 +3,13 @@ import * as webpack from 'webpack';
 import * as pkg from './package.json';
 
 const path = require('path');
-const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
+// const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 // var LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 
 export default (config: webpack.Configuration, options: CustomWebpackBrowserSchema, targetOptions: TargetOptions) => {
 
   config.plugins.push(
     new webpack.DefinePlugin({ APP_VERSION: JSON.stringify(pkg.version) }),
-    new MomentLocalesPlugin({ localesToKeep: ['br'] }),
     new UglifyJsPlugin({
       "mangle": false,
       "compress": {

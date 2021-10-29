@@ -37,7 +37,7 @@ export class SmzDialogBuilder<TResponse> {
       showHeader: true,
       showFooter: true,
       dismissableMask: false,
-      contentPadding: '1em',
+      contentPadding: '1.5em',
       baseZIndex: 0,
       includeComponentResponses: false,
       ...this.defaultConfig?.dialogs?.behaviors

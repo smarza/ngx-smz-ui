@@ -46,20 +46,19 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-builders/custom-webpack:browser",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "customWebpackConfig": {
-              "path": "./webpack.config.ts",
-              "replaceDuplicatePlugins": true,
-              "mergeRules": {
-                "externals": "replace"
-              }
-            },
             "outputPath": "dist/ngx-smz-ui-demo",
             "index": "projects/ngx-smz-ui-demo/src/index.html",
             "main": "projects/ngx-smz-ui-demo/src/main.ts",
             "polyfills": "projects/ngx-smz-ui-demo/src/polyfills.ts",
             "tsConfig": "projects/ngx-smz-ui-demo/tsconfig.json",
+            "allowedCommonJsDependencies": [
+              "jspdf",
+              "canvg",
+              "raf",
+              "core-js"
+            ],
             "aot": true,
             "assets": [
               "projects/ngx-smz-ui-demo/src/favicon.ico",
@@ -123,7 +122,7 @@
           }
         },
         "serve": {
-          "builder": "@angular-builders/custom-webpack:dev-server",
+          "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "ngx-smz-ui-demo:build"
           },

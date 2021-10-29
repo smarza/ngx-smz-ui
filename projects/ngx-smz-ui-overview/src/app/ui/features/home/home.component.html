@@ -13,6 +13,20 @@
   <div class="h-full p-col-12 p-lg-8 p-p-2">
     <div class="h-full p-align-stretch p-flex-column p-grid p-justify-start p-nogutter p-py-3 rounded shadow-md w-full overflow-y-auto">
       <p-tabView [(activeIndex)]="selectedTabIndex">
+
+        <p-tabPanel header="Exemplo" [disabled]="selectedNode == null">
+          <ng-container [ngSwitch]="selectedNode?.demoType">
+            <app-demo-form *ngSwitchCase="'form'"  [node]="selectedNode"></app-demo-form>
+            <app-demo-table *ngSwitchCase="'table'" [node]="selectedNode"></app-demo-table>
+            <app-demo-chart *ngSwitchCase="'chart'" [node]="selectedNode"></app-demo-chart>
+            <app-demo-document *ngSwitchCase="'document'" [node]="selectedNode"></app-demo-document>
+            <app-demo-tree *ngSwitchCase="'tree'" [node]="selectedNode"></app-demo-tree>
+            <div *ngSwitchCase="'dialog'">
+              <button pButton pRipple type="button" label="Abrir Dialogo" class="p-button-success" (click)="selectedNode.data()"></button>
+            </div>
+          </ng-container>
+        </p-tabPanel>
+
         <p-tabPanel header="Código">
 
           <!-- CONTEÚDO -->
@@ -21,12 +35,6 @@
             <!-- HEADER -->
             <div class="p-grid p-nogutter p-align-center p-justify-between p-py-2">
               <h3 class="p-m-0">{{ selectedNode | demoTitle }}</h3>
-
-              <!-- AÇÕES -->
-              <div>
-                <button *ngIf="selectedNode.demoType === 'dialog'" pButton pRipple type="button" label="Executar"
-                  class="p-button-success" (click)="selectedNode.data()"></button>
-              </div>
             </div>
 
             <!-- CONTEÚDO -->
@@ -44,22 +52,6 @@
             </div>
           </ng-template>
 
-        </p-tabPanel>
-
-        <p-tabPanel header="Formulário" [disabled]="selectedNode?.demoType !== 'form'">
-          <app-demo-form *ngIf="selectedNode?.demoType === 'form' "  [node]="selectedNode"></app-demo-form>
-        </p-tabPanel>
-
-        <p-tabPanel header="Tabela" [disabled]="selectedNode?.demoType !== 'table'">
-          <app-demo-table *ngIf="selectedNode?.demoType === 'table' "  [node]="selectedNode"></app-demo-table>
-        </p-tabPanel>
-
-        <p-tabPanel header="Gráfico" [disabled]="selectedNode?.demoType !== 'chart'">
-          <app-demo-chart *ngIf="selectedNode?.demoType === 'chart' "  [node]="selectedNode"></app-demo-chart>
-        </p-tabPanel>
-
-        <p-tabPanel header="Documento" [disabled]="selectedNode?.demoType !== 'document'">
-          <app-demo-document *ngIf="selectedNode?.demoType === 'document' "  [node]="selectedNode"></app-demo-document>
         </p-tabPanel>
 
       </p-tabView>

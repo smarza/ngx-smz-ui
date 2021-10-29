@@ -4,6 +4,7 @@ import { DemoTreeNode } from '@models/demo';
 import { Store } from '@ngxs/store';
 import { SmzTreeBuilder, SmzTreeState, SmzDialogsService } from 'ngx-smz-ui';
 import { DemoFeatureActions } from '../../../state/demo/demo.actions';
+import { sortArray } from '../../../../../../ngx-smz-ui/src/lib/common/utils/utils';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,7 @@ import { DemoFeatureActions } from '../../../state/demo/demo.actions';
 })
 export class HomeComponent
 {
-  public items: DemoTreeNode[] = TreeDemoData;
+  public items: DemoTreeNode[] = sortArray(TreeDemoData, 'label');
   public treeState: SmzTreeState;
   public selectedNode: DemoTreeNode = null;
   public selectedTabIndex = 0;
@@ -23,7 +24,7 @@ export class HomeComponent
     this.store.dispatch(new DemoFeatureActions.LoadAll());
 
     this.treeState = new SmzTreeBuilder()
-      .setTitle('Fluent Configuration')
+      .setTitle('Fluents')
       .enableFilter()
       .toolbar('rounded-outlined')
         .setAlignment('end')

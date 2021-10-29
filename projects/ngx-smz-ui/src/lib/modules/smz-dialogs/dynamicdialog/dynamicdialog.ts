@@ -24,7 +24,7 @@ const hideAnimation = animation([
                 [@animation]="{value: 'visible', params: {transform: transformOptions, transition: config.transitionOptions || '150ms cubic-bezier(0, 0, 0.2, 1)'}}"
                 (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" role="dialog" *ngIf="visible"
                 [style.width]="config.width" [style.height]="config.height">
-                <div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top" *ngIf="config.showHeader === false ? false: true">
+                <div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top" [ngStyle]="config.headerStyle" *ngIf="config.showHeader === false ? false: true">
                     <span class="ui-dialog-title">{{config.header}}</span>
                     <div class="ui-dialog-titlebar-icons" [ngClass]="{ 'disable-a': dialogConfig.data._context.isGlobalDisabled }">
                         <a [ngClass]="'ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all'" tabindex="0" role="button" (click)="maximize()" *ngIf="config.maximizable !== false">
@@ -38,7 +38,7 @@ const hideAnimation = animation([
                 <div class="ui-dialog-content ui-widget-content" [ngStyle]="config.contentStyle" [ngClass]="{ 'disable-ui-dialog-content': dialogConfig.data._context.isGlobalDisabled }">
                     <ng-template pDynamicDialogContent></ng-template>
                 </div>
-                <div class="ui-dialog-footer ui-widget-content" *ngIf="config.footer" [ngClass]="{ 'disable-container': dialogConfig.data._context.isGlobalDisabled }">
+                <div class="ui-dialog-footer ui-widget-content" *ngIf="config.footer" [ngStyle]="config.footerStyle" [ngClass]="{ 'disable-container': dialogConfig.data._context.isGlobalDisabled }">
                     <ng-template pDynamicDialogFooter></ng-template>
                 </div>
             </div>

@@ -34,7 +34,7 @@ const SmzPreset: { [key in SmzPresets]: SmzDialogPreset } = {
                 showHeader: true,
                 showFooter: true,
                 dismissableMask: false,
-                contentPadding: '1em',
+                contentPadding: '1.5em',
                 includeComponentResponses: false,
             },
             builtInButtons: {
@@ -76,7 +76,7 @@ const SmzPreset: { [key in SmzPresets]: SmzDialogPreset } = {
                 showHeader: true,
                 showFooter: true,
                 dismissableMask: false,
-                contentPadding: '1em',
+                contentPadding: '1.5em',
                 includeComponentResponses: false,
             },
             builtInButtons: {
@@ -118,7 +118,7 @@ const SmzPreset: { [key in SmzPresets]: SmzDialogPreset } = {
                 showHeader: true,
                 showFooter: false,
                 dismissableMask: false,
-                contentPadding: '1em',
+                contentPadding: '1.5em',
                 includeComponentResponses: false,
             },
             builtInButtons: {
@@ -160,7 +160,7 @@ const SmzPreset: { [key in SmzPresets]: SmzDialogPreset } = {
                 showHeader: true,
                 showFooter: true,
                 dismissableMask: false,
-                contentPadding: '1em',
+                contentPadding: '1.5em',
                 includeComponentResponses: false,
             },
             builtInButtons: {
@@ -225,7 +225,7 @@ const SmzPreset: { [key in SmzPresets]: SmzDialogPreset } = {
                 showHeader: true,
                 showFooter: true,
                 dismissableMask: false,
-                contentPadding: '1em',
+                contentPadding: '1.5em',
                 includeComponentResponses: false,
             },
             builtInButtons: {
@@ -290,7 +290,7 @@ const SmzPreset: { [key in SmzPresets]: SmzDialogPreset } = {
                 showHeader: true,
                 showFooter: true,
                 dismissableMask: false,
-                contentPadding: '1em',
+                contentPadding: '1.5em',
                 includeComponentResponses: false,
             },
             builtInButtons: {
@@ -355,7 +355,7 @@ const SmzPreset: { [key in SmzPresets]: SmzDialogPreset } = {
                 showHeader: true,
                 showFooter: true,
                 dismissableMask: false,
-                contentPadding: '1em',
+                contentPadding: '1.5em',
                 includeComponentResponses: false,
             },
             builtInButtons: {
@@ -399,7 +399,7 @@ const SmzPreset: { [key in SmzPresets]: SmzDialogPreset } = {
                 showHeader: true,
                 showFooter: true,
                 dismissableMask: false,
-                contentPadding: '1em',
+                contentPadding: '1.5em',
                 includeComponentResponses: false,
             },
             builtInButtons: {

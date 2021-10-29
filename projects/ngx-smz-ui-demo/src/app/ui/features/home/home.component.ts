@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
-import { TreeDemoData } from '@demos/demo-tree';
-import { DemoTreeNode } from '@models/demo';
 import { Store } from '@ngxs/store';
-import { SmzTreeBuilder, SmzTreeState, SmzDialogsService } from 'ngx-smz-ui';
-import { DemoFeatureActions } from '../../../state/demo/demo.actions';
+import { SmzDialogsService } from 'ngx-smz-ui';
 
 @Component({
   selector: 'app-home',
@@ -12,37 +9,11 @@ import { DemoFeatureActions } from '../../../state/demo/demo.actions';
 })
 export class HomeComponent
 {
-  public items: DemoTreeNode[] = TreeDemoData;
-  public treeState: SmzTreeState;
-  public selectedNode: DemoTreeNode = null;
 
   constructor(private dialogs: SmzDialogsService, private store: Store)
   {
 
-    this.store.dispatch(new DemoFeatureActions.LoadAll());
 
-    this.treeState = new SmzTreeBuilder()
-      .setTitle('Fluent Config Demo')
-      .enableFilter()
-      .toolbar('rounded-outlined')
-        .setAlignment('end')
-        .useTreeExpandButtons()
-        .useNodeExpandButtons()
-        .tree
-        .menu()
-        .item('Executar')
-          .setCallback<DemoTreeNode>(node => node.data())
-          .showForTypes('Demo')
-          .menu
-        .tree
-      .build();
-
-  }
-
-  public selectionChanged(node: DemoTreeNode): void {
-    if (node?.type === 'Demo') {
-      this.selectedNode = node;
-    }
   }
 
 }

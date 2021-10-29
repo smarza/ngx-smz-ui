@@ -6,24 +6,42 @@ import { TablesDemo } from './functions/tables-demo';
 import { ValidatorsDemo } from './functions/validators-demo';
 import { ChartsDemo } from './functions/charts-demo';
 import { DocumentsDemo } from './functions/documents-demo';
+import { TreesDemo } from './functions/trees-demo';
 
 export const TreeDemoData: DemoTreeNode[] = [
   {
-    label: 'Documents',
+    label: 'Charts',
     type: 'Category',
-    expanded: false,
     children: [
       {
-        label: 'Demo', icon: 'fas fa-code', type: 'Demo',
-        demoType: 'document',
+        label: 'Vertical Bar', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'chart',
         notes: '',
-        data: DocumentsDemo[DemoKeys.DOCUMENTS_DEMO_1]
+        data: ChartsDemo[DemoKeys.CHARTS_VERTICAL_BAR]
+      },
+    ]
+  },
+  {
+    label: 'Components',
+    type: 'Category',
+    children: [
+      {
+        label: 'Inputs', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'dialog',
+        notes: '',
+        data: null
       },
       {
-        label: 'Demo em Debug', icon: 'fas fa-code', type: 'Demo',
-        demoType: 'document',
+        label: 'Outputs', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'dialog',
         notes: '',
-        data: DocumentsDemo[DemoKeys.DOCUMENTS_DEMO_2]
+        data: null
+      },
+      {
+        label: 'Error Messages', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'dialog',
+        notes: '',
+        data: null
       },
     ]
   },
@@ -172,6 +190,25 @@ export const TreeDemoData: DemoTreeNode[] = [
           },
         ]
       }
+    ]
+  },
+  {
+    label: 'Documents',
+    type: 'Category',
+    expanded: false,
+    children: [
+      {
+        label: 'Demo', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'document',
+        notes: '',
+        data: DocumentsDemo[DemoKeys.DOCUMENTS_DEMO_1]
+      },
+      {
+        label: 'Demo em Debug', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'document',
+        notes: '',
+        data: DocumentsDemo[DemoKeys.DOCUMENTS_DEMO_2]
+      },
     ]
   },
   {
@@ -350,30 +387,6 @@ export const TreeDemoData: DemoTreeNode[] = [
     ]
   },
   {
-    label: 'Components',
-    type: 'Category',
-    children: [
-      {
-        label: 'Inputs', icon: 'fas fa-code', type: 'Demo',
-        demoType: 'dialog',
-        notes: '',
-        data: null
-      },
-      {
-        label: 'Outputs', icon: 'fas fa-code', type: 'Demo',
-        demoType: 'dialog',
-        notes: '',
-        data: null
-      },
-      {
-        label: 'Error Messages', icon: 'fas fa-code', type: 'Demo',
-        demoType: 'dialog',
-        notes: '',
-        data: null
-      },
-    ]
-  },
-  {
     label: 'Tables',
     type: 'Category',
     children: [
@@ -386,14 +399,15 @@ export const TreeDemoData: DemoTreeNode[] = [
     ]
   },
   {
-    label: 'Charts',
+    label: 'Trees',
     type: 'Category',
+    expanded: false,
     children: [
       {
-        label: 'Vertical Bar', icon: 'fas fa-code', type: 'Demo',
-        demoType: 'chart',
+        label: 'Demo', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'tree',
         notes: '',
-        data: ChartsDemo[DemoKeys.CHARTS_VERTICAL_BAR]
+        data: TreesDemo[DemoKeys.TREE_DEMO_1]
       },
     ]
   },

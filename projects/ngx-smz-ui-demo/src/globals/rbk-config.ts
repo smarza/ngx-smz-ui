@@ -124,7 +124,8 @@ export const rbkConfig: NgxRbkUtilsConfig = {
             loadingBehavior: 'global',
             errorHandlingType: 'dialog',
             localLoadingTag: null,
-            restoreStateOnError: true
+            restoreStateOnError: true,
+            useWindowsAuthentication: false
         },
     },
     toastConfig: {

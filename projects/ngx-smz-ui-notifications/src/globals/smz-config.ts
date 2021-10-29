@@ -12,7 +12,7 @@ export const smzDialogsConfig: SmzDialogsConfig = {
             showHeader: true,
             showFooter: true,
             dismissableMask: false,
-            contentPadding: '1em',
+            contentPadding: '1.5em',
             baseZIndex: 0,
             includeComponentResponses: false
         },

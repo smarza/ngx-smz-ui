@@ -1,7 +1,7 @@
 <ng-container *ngIf="dialogConfig.data._context as context">
 
     <p-toolbar class="smz-dialog-footer">
-        <div class="smz-group-right">
+        <div class="p-grid p-nogutter p-align-center p-justify-end gap-2">
 
             <ng-container *ngIf="context.customButtonsOrder == null || context.customButtonsOrder === 'first'">
                 <ng-container *ngFor="let customButton of context.customButtons">

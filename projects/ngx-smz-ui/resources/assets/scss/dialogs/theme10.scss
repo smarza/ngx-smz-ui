@@ -16,7 +16,6 @@ smz-dynamicDialog {
         border: 1px solid var(--surface-d);
         background-color: var(--surface-a);
         color: var(--text-color);
-        padding: 1em;
         font-weight: 700;
         border-bottom: 0 none;
         border-top-right-radius: 4px;
@@ -42,14 +41,11 @@ smz-dynamicDialog {
     .ui-dialog .ui-dialog-content {
         background-color: var(--surface-a);
         color: var(--text-color);
-        // border: 1px solid var(--surface-d);
         padding: 0.571em 1em;
     }
     .ui-dialog .ui-dialog-footer {
-        // border: 1px solid var(--surface-d);
         background-color: var(--surface-a);
         color: var(--text-color);
-        padding: 0.571em 1em;
         margin: 0;
         text-align: right;
         position: relative;
@@ -58,7 +54,7 @@ smz-dynamicDialog {
         border-bottom-left-radius: 4px;
     }
     .ui-dialog .ui-dialog-footer button {
-        margin: 0 0.5em 0 0;
+        margin: 0;
         width: auto;
     }
     .ui-dialog.ui-confirm-dialog .ui-dialog-content {
