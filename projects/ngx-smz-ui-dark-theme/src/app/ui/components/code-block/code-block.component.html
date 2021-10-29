@@ -1,0 +1,3 @@
+<ng-container *ngIf="showCode">
+  <pre><code class="overflow-x-auto" [highlight]="code | onlyBuildCode | removeOneTab : 2" [lineNumbers]="true"></code></pre>
+</ng-container>

@@ -1,0 +1,69 @@
+<div class="p-grid p-nogutter p-align-start p-justify-start h-full">
+
+  <!-- TREE -->
+  <div class="h-full p-col-12 p-lg-4 p-p-2">
+    <div class="h-full w-full bg-white rounded shadow-md p-p-3">
+      <div class="h-full">
+        <smz-ui-tree [items]="items" [state]="treeState" (selectionChange)="selectionChanged($event)"></smz-ui-tree>
+      </div>
+    </div>
+  </div>
+
+  <!-- DETAILS -->
+  <div class="h-full p-col-12 p-lg-8 p-p-2">
+    <div class="bg-white h-full p-align-stretch p-flex-column p-grid p-justify-start p-nogutter p-py-3 rounded shadow-md w-full overflow-y-auto">
+      <p-tabView [(activeIndex)]="selectedTabIndex">
+        <p-tabPanel header="Código">
+
+          <!-- CONTEÚDO -->
+          <ng-container *ngIf="selectedNode != null; else noSelectionTemplate">
+
+            <!-- HEADER -->
+            <div class="p-grid p-nogutter p-align-center p-justify-between p-py-2">
+              <h3 class="p-m-0">{{ selectedNode | demoTitle }}</h3>
+
+              <!-- AÇÕES -->
+              <div>
+                <button *ngIf="selectedNode.demoType === 'dialog'" pButton pRipple type="button" label="Executar"
+                  class="p-button-success" (click)="selectedNode.data()"></button>
+              </div>
+            </div>
+
+            <!-- CONTEÚDO -->
+            <div class="flex-grow relative w-full p-mt-1 p-mb-3 h-full overflow-y-auto">
+              <p>{{ selectedNode.notes }}</p>
+              <demo-code-block [code]="$any(selectedNode.data)"></demo-code-block>
+            </div>
+
+          </ng-container>
+
+          <ng-template #noSelectionTemplate>
+            <div class="p-grid p-nogutter p-align-center p-justify-center p-p-4 p-flex-column flex-grow mt-10">
+              <i class="fas fa-info-circle text-5xl text-yellow-500 p-mb-4"></i>
+              <div class="text-lg">Escolha um demo.</div>
+            </div>
+          </ng-template>
+
+        </p-tabPanel>
+
+        <p-tabPanel header="Formulário" [disabled]="selectedNode?.demoType !== 'form'">
+          <app-demo-form *ngIf="selectedNode?.demoType === 'form' "  [node]="selectedNode"></app-demo-form>
+        </p-tabPanel>
+
+        <p-tabPanel header="Tabela" [disabled]="selectedNode?.demoType !== 'table'">
+          <app-demo-table *ngIf="selectedNode?.demoType === 'table' "  [node]="selectedNode"></app-demo-table>
+        </p-tabPanel>
+
+        <p-tabPanel header="Gráfico" [disabled]="selectedNode?.demoType !== 'chart'">
+          <app-demo-chart *ngIf="selectedNode?.demoType === 'chart' "  [node]="selectedNode"></app-demo-chart>
+        </p-tabPanel>
+
+        <p-tabPanel header="Documento" [disabled]="selectedNode?.demoType !== 'document'">
+          <app-demo-document *ngIf="selectedNode?.demoType === 'document' "  [node]="selectedNode"></app-demo-document>
+        </p-tabPanel>
+
+      </p-tabView>
+    </div>
+  </div>
+
+</div>
