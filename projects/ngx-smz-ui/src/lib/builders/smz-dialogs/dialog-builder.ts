@@ -81,6 +81,11 @@ export class SmzDialogBuilder<TResponse> {
     return this;
   }
 
+  public allowMaximize(): SmzDialogBuilder<TResponse> {
+    this._state.behaviors.showMaximizeButton = true;
+    return this;
+  }
+
   public hideHeader(): SmzDialogBuilder<TResponse> {
     this._state.behaviors.showHeader = false;
     return this;

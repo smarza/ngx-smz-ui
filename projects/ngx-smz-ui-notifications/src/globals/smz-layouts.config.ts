@@ -53,6 +53,7 @@ export const smzLayoutsConfig: SmzLayoutsConfig = {
             constrast: '#ffffff',
             schemas: [
               { id: '--primary-color', name: '#18A16D' },
+              { id: '--secondary-color', name: '#26A69A' },
               { id: '--primary-color-text', name: '#ffffff' },
               { id: '--primary-color-menu-bg', name: '#18A16D' },
               { id: '--primary-color-menu-bg-hover', name: '#0000001c' },

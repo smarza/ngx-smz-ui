@@ -24,24 +24,24 @@
 
 .smz-button-ghost {
     .ui-button {
-        color: #007ad9;
-        background-color: #fff;
-        border: 1px solid #007ad9;
+        color: var(--secondary-color);
+        background-color: #fff0;
+        border: 1px solid var(--secondary-color);
 
         &:hover {
-            color: #fff;
-            background-color: #007ad9;
+            color: var(--surface-f);
+            background-color: var(--secondary-color);
         }
     }
 
     .p-button {
-        color: #007ad9;
-        background-color: #fff;
-        border: 1px solid #007ad9;
+        color: var(--secondary-color);
+        background-color: #fff0;
+        border: 1px solid var(--secondary-color);
 
         &:hover {
-            color: #fff;
-            background-color: #007ad9;
+            color: var(--surface-f);
+            background-color: var(--secondary-color);
         }
     }
 }

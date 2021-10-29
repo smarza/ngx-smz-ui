@@ -1,287 +1,172 @@
 import { DemoKeys } from '@demos/demo-keys';
-import { Store } from '@ngxs/store';
-import { GlobalInjector, SmzDialogBuilder, SmzDialogsService } from 'ngx-smz-ui';
+import { SmzFormBuilder } from 'ngx-smz-ui';
 import * as moment from 'moment';
-import { FormControl } from '@angular/forms';
-
-const service = GlobalInjector.instance.get(SmzDialogsService);
-const store = GlobalInjector.instance.get(Store);
 
 export const FormsDemo: { [key: string]: () => void } = {
   //
   [DemoKeys.FORMS_INPUT_CALENDAR]: () => {
-    service.open(
-      new SmzDialogBuilder<void>()
-        .setTitle(`Calendar Demo`)
+    return new SmzFormBuilder<any>()
+      .group()
         .setLayout('EXTRA_SMALL', 'col-12')
-        .setLayout('LARGE', 'col-4')
-        .setLayout('EXTRA_LARGE', 'col-3')
-        .form()
-          .group()
-            .setLayout('EXTRA_SMALL', 'col-12')
-            .calendar('input1', 'I\'m not required')
-            .group
-            .calendar('input2', 'new Date()', new Date())
-            .group
-            .calendar('input3', 'moment().toDate()', moment().toDate())
-            .group
-            .calendar('input4', `moment(new Date()).endOf('month').toDate()`, moment(new Date()).endOf('month').toDate())
-            .group
-            .calendar('input5', 'I\'m required')
-              .validators()
-                .required()
-            .group
-
-          .form
-      .dialog
-        .buttons()
-          .confirm()
-            .dependsOnValidation()
-            .buttons
-          .dialog
-      .build()
-    );
+        .calendar('input1', 'I\'m not required')
+        .group
+        .calendar('input2', 'new Date()', new Date())
+        .group
+        .calendar('input3', 'moment().toDate()', moment().toDate())
+        .group
+        .calendar('input4', `moment(new Date()).endOf('month').toDate()`, moment(new Date()).endOf('month').toDate())
+        .group
+        .calendar('input5', 'I\'m required')
+          .validators()
+            .required()
+        .group
+      .form
+      .build();
   },
   //
   [DemoKeys.FORMS_INPUT_CHECKBOX]: () => {
-    service.open(
-      new SmzDialogBuilder<void>()
-        .setTitle(`Checkbox Demo`)
+    return new SmzFormBuilder<any>()
+      .group()
         .setLayout('EXTRA_SMALL', 'col-12')
-        .setLayout('LARGE', 'col-4')
-        .setLayout('EXTRA_LARGE', 'col-3')
-        .form()
-          .group()
-            .setLayout('EXTRA_SMALL', 'col-12')
-            .checkbox('input1', 'I\'m not required')
-            .group
-            .checkbox('input2', 'I\'m required')
-              .validators()
-              .required()
-            .group
-          .form
-      .dialog
-        .buttons()
-          .confirm()
-            .dependsOnValidation()
-            .buttons
-          .dialog
-      .build()
-    );
+        .checkbox('input1', 'I\'m not required')
+        .group
+        .checkbox('input2', 'I\'m required')
+          .validators()
+          .required()
+        .group
+      .form
+      .build();
   },
   //
   [DemoKeys.FORMS_INPUT_CHECKBOX_GROUP]: () => {
-    service.open(
-      new SmzDialogBuilder<void>()
-        .setTitle(`Checkbox Group Demo`)
+    return new SmzFormBuilder<any>()
+      .group()
         .setLayout('EXTRA_SMALL', 'col-12')
-        .setLayout('LARGE', 'col-4')
-        .setLayout('EXTRA_LARGE', 'col-3')
-        .form()
-          .group()
-            .setLayout('EXTRA_SMALL', 'col-12')
-            .checkboxGroup('input1', 'I\'m required', [{ id: '1', name: 'Option 1'}, { id: '2', name: 'Option 2'}, { id: '3', name: 'Option 3'}])
-              .validators()
-              .required()
-            .group
-          .form
-      .dialog
-        .buttons()
-          .confirm()
-            .dependsOnValidation()
-            .buttons
-          .dialog
-      .build()
-    );
+        .checkboxGroup('input1', 'I\'m required', [{ id: '1', name: 'Option 1'}, { id: '2', name: 'Option 2'}, { id: '3', name: 'Option 3'}])
+          .validators()
+          .required()
+        .group
+      .form
+      .build();
+  },
+  //
+  [DemoKeys.FORMS_INPUT_CONTENT_MASK]: () => {
+    return new SmzFormBuilder<any>()
+      .group()
+        .setLayout('EXTRA_SMALL', 'col-12')
+        .contentMask('input1', 'Conteúdo com variáveis',
+`Anestesia da região do punho direito com {{xilocaína a 2%}}.
+
+Punção da artéria radial {{direita}} seguida da instalação de introdutor 5F.
+
+Através deste instrumento avançou-se uma guia {{metálica 0.0035}} e um cateter {{TIG}} que foi posicionado no ventrículo esquerdo e com ele realizados o registro pressórico, a ventrículografia e as coronariogafias. Retirou-se o sistema.`)
+          .validators()
+          .required()
+        .group
+      .form
+      .build();
   },
   //
   [DemoKeys.FORMS_INPUT_DROPDOWN]: () => {
-    service.open(
-      new SmzDialogBuilder<void>()
-        .setTitle(`Dropdown Demo`)
+    return new SmzFormBuilder<any>()
+      .group()
         .setLayout('EXTRA_SMALL', 'col-12')
-        .setLayout('LARGE', 'col-4')
-        .setLayout('EXTRA_LARGE', 'col-3')
-        .form()
-          .group()
-            .setLayout('EXTRA_SMALL', 'col-12')
-            .dropdown('input1', 'I\'m required', [{ id: '1', name: 'Option 1'}, { id: '2', name: 'Option 2'}, { id: '3', name: 'Option 3'}])
-              .validators()
-              .required()
-            .group
-          .form
-      .dialog
-        .buttons()
-          .confirm()
-            .dependsOnValidation()
-            .buttons
-          .dialog
-      .build()
-    );
+        .dropdown('input1', 'I\'m required', [{ id: '1', name: 'Option 1'}, { id: '2', name: 'Option 2'}, { id: '3', name: 'Option 3'}])
+          .validators()
+          .required()
+        .group
+      .form
+      .build();
   },
   //
   [DemoKeys.FORMS_INPUT_LINKED_DROPDOWN]: () => {
-    service.open(
-      new SmzDialogBuilder<void>()
-        .setTitle(`Linked Dropdown Demo`)
+    return new SmzFormBuilder<any>()
+      .group()
         .setLayout('EXTRA_SMALL', 'col-12')
-        .setLayout('LARGE', 'col-4')
-        .setLayout('EXTRA_LARGE', 'col-3')
-        .form()
-          .group()
-            .setLayout('EXTRA_SMALL', 'col-12')
-            .dropdown('input1', 'I\'m required', [{ id: 'A', name: 'Group A'}, { id: 'B', name: 'Group B'}])
-              .validators()
-              .required()
-            .group
-            .linkedDropdown('input2', 'input1', 'I\'m required', [{ parentId: 'A', data: [{ id: 'A1', name: 'Option A1' }, { id: 'A2', name: 'Option A2' }]}, { parentId: 'B', data: [{ id: 'B1', name: 'Option B1' }, { id: 'B2', name: 'Option B2' }]}])
-              .validators()
-              .required()
-            .group
-        .form
-      .dialog
-        .buttons()
-          .confirm()
-            .dependsOnValidation()
-            .buttons
-          .dialog
-      .build()
-    );
+        .dropdown('input1', 'I\'m required', [{ id: 'A', name: 'Group A'}, { id: 'B', name: 'Group B'}])
+          .validators()
+          .required()
+        .group
+        .linkedDropdown('input2', 'input1', 'I\'m required', [{ parentId: 'A', data: [{ id: 'A1', name: 'Option A1' }, { id: 'A2', name: 'Option A2' }]}, { parentId: 'B', data: [{ id: 'B1', name: 'Option B1' }, { id: 'B2', name: 'Option B2' }]}])
+          .validators()
+          .required()
+        .group
+      .form
+      .build();
   },
   //
   [DemoKeys.FORMS_INPUT_MULTISELECT]: () => {
-    service.open(
-      new SmzDialogBuilder<void>()
-        .setTitle(`Multiselect Demo`)
+    return new SmzFormBuilder<any>()
+      .group()
         .setLayout('EXTRA_SMALL', 'col-12')
-        .setLayout('LARGE', 'col-4')
-        .setLayout('EXTRA_LARGE', 'col-3')
-        .form()
-          .group()
-            .setLayout('EXTRA_SMALL', 'col-12')
-            .multiselect('input1', 'I\'m required', [{ id: '1', name: 'Option 1'}, { id: '2', name: 'Option 2'}, { id: '3', name: 'Option 3'}])
-              .validators()
-              .required()
-            .group
-          .form
-      .dialog
-        .buttons()
-          .confirm()
-            .dependsOnValidation()
-            .buttons
-          .dialog
-      .build()
-    );
+        .multiselect('input1', 'I\'m required', [{ id: '1', name: 'Option 1'}, { id: '2', name: 'Option 2'}, { id: '3', name: 'Option 3'}])
+          .validators()
+          .required()
+        .group
+      .form
+      .build();
   },
   //
   [DemoKeys.FORMS_INPUT_LINKED_MULTISELECT]: () => {
-    service.open(
-      new SmzDialogBuilder<void>()
-        .setTitle(`Linked Multiselect Demo`)
+    return new SmzFormBuilder<any>()
+      .group()
         .setLayout('EXTRA_SMALL', 'col-12')
-        .setLayout('LARGE', 'col-4')
-        .setLayout('EXTRA_LARGE', 'col-3')
-        .form()
-          .group()
-            .setLayout('EXTRA_SMALL', 'col-12')
-            .dropdown('input1', 'I\'m required', [{ id: 'A', name: 'Group A'}, { id: 'B', name: 'Group B'}])
-              .validators()
-              .required()
-            .group
-            .linkedMultiselect('input2', 'input1', 'I\'m required', [{ parentId: 'A', data: [{ id: 'A1', name: 'Option A1' }, { id: 'A2', name: 'Option A2' }]}, { parentId: 'B', data: [{ id: 'B1', name: 'Option B1' }, { id: 'B2', name: 'Option B2' }]}])
-              .validators()
-              .required()
-            .group
+        .dropdown('input1', 'I\'m required', [{ id: 'A', name: 'Group A'}, { id: 'B', name: 'Group B'}])
+          .validators()
+          .required()
+        .group
+        .linkedMultiselect('input2', 'input1', 'I\'m required', [{ parentId: 'A', data: [{ id: 'A1', name: 'Option A1' }, { id: 'A2', name: 'Option A2' }]}, { parentId: 'B', data: [{ id: 'B1', name: 'Option B1' }, { id: 'B2', name: 'Option B2' }]}])
+          .validators()
+          .required()
+        .group
         .form
-      .dialog
-        .buttons()
-          .confirm()
-            .dependsOnValidation()
-            .buttons
-          .dialog
-      .build()
-    );
+      .build();
   },
   //
   [DemoKeys.FORMS_INPUT_COLOR_PICKER]: () => {
-    service.open(
-      new SmzDialogBuilder<void>()
-        .setTitle(`Color Picker Demo`)
+    return new SmzFormBuilder<any>()
+      .group()
         .setLayout('EXTRA_SMALL', 'col-12')
-        .setLayout('LARGE', 'col-4')
-        .setLayout('EXTRA_LARGE', 'col-3')
-        .form()
-          .group()
-            .setLayout('EXTRA_SMALL', 'col-12')
-            .colorPicker('input1', 'I\'m not required')
-            .group
-            .colorPicker('input2', 'I\'m required')
-              .validators()
-              .required()
-            .group
-          .form
-      .dialog
-        .buttons()
-          .confirm()
-            .dependsOnValidation()
-            .buttons
-          .dialog
-      .build()
-    );
+        .colorPicker('input1', 'I\'m not required')
+        .group
+        .colorPicker('input2', 'I\'m required')
+          .validators()
+          .required()
+        .group
+        .form
+      .build();
   },
   //
   [DemoKeys.FORMS_INPUT_CURRENCY]: () => {
-    service.open(
-      new SmzDialogBuilder<void>()
-        .setTitle(`Currency Demo`)
+    return new SmzFormBuilder<any>()
+      .group()
         .setLayout('EXTRA_SMALL', 'col-12')
-        .setLayout('LARGE', 'col-4')
-        .setLayout('EXTRA_LARGE', 'col-3')
-        .form()
-          .group()
-            .setLayout('EXTRA_SMALL', 'col-12')
-            .currency('input1', 'I\'m not required')
-            .group
-            .currency('input2', 'I\'m required')
-              .validators()
-              .required()
-            .group
-          .form
-      .dialog
-        .buttons()
-          .confirm()
-            .dependsOnValidation()
-            .buttons
-          .dialog
-      .build()
-    );
+        .currency('input1', 'I\'m not required')
+        .group
+        .currency('input2', 'I\'m required')
+          .validators()
+          .required()
+        .group
+        .form
+      .build();
   },
   //
   [DemoKeys.FORMS_INPUT_NUMBER]: () => {
-    service.open(
-      new SmzDialogBuilder<void>()
-        .setTitle(`Number Demo`)
+    return new SmzFormBuilder<any>()
+      .group()
         .setLayout('EXTRA_SMALL', 'col-12')
-        .setLayout('LARGE', 'col-4')
-        .setLayout('EXTRA_LARGE', 'col-3')
-        .form()
-          .group()
-            .setLayout('EXTRA_SMALL', 'col-12')
-            .number('input1', 'I\'m not required')
-            .group
-            .number('input2', 'I\'m required')
-              .validators()
-              .required()
-            .group
-          .form
-      .dialog
-        .buttons()
-          .confirm()
-            .dependsOnValidation()
-            .buttons
-          .dialog
-      .build()
-    );
+        .number('input1', 'I\'m not required')
+          .group
+        .number('input2', 'I\'m required')
+          .validators()
+          .required()
+        .group
+        .number('input3', 'Fraction Number')
+          .setFraction(2)
+          .setLocale('pt-BR')
+        .group
+        .form
+      .build();
   },
   //
   [DemoKeys.FORMS_INPUT_RADIO_GROUP]: () => {
@@ -301,169 +186,126 @@ export const FormsDemo: { [key: string]: () => void } = {
   },
   //
   [DemoKeys.FORMS_INPUT_TEXT]: () => {
-    service.open(
-      new SmzDialogBuilder<void>()
-        .setTitle(`Text Demo`)
+    return new SmzFormBuilder<any>()
+      .group()
         .setLayout('EXTRA_SMALL', 'col-12')
-        .setLayout('LARGE', 'col-4')
-        .setLayout('EXTRA_LARGE', 'col-3')
-        .form()
-          .group()
-            .setLayout('EXTRA_SMALL', 'col-12')
-            .text('input1', 'I\'m not required')
-            .group
-            .text('input2', 'I\'m required')
-              .validators()
-              .required()
-            .group
-          .form
-      .dialog
-        .buttons()
-          .confirm()
-            .dependsOnValidation()
-            .buttons
-          .dialog
-      .build()
-    );
+        .text('input1', 'I\'m not required')
+        .group
+        .text('input2', 'I\'m required')
+          .validators()
+          .required()
+        .group
+        .form
+      .build();
   },
   //
   [DemoKeys.FORMS_INPUT_FILE]: () => {
-    service.open(
-      new SmzDialogBuilder<void>()
-        .setTitle(`Text Demo`)
+    return new SmzFormBuilder<any>()
+      .group()
         .setLayout('EXTRA_SMALL', 'col-12')
-        .setLayout('LARGE', 'col-4')
-        .setLayout('EXTRA_LARGE', 'col-3')
-        .form()
-          .group()
-            .setLayout('EXTRA_SMALL', 'col-12')
-            .text('input1', 'I\'m not required')
-            .group
-              .file('file', 'Confirmação')
-              .useBinaryFormat()
-              .acceptImages()
-              .validators()
-              .required()
-            .group
-          .form
-      .dialog
-        .buttons()
-          .confirm()
-            .dependsOnValidation()
-            .buttons
-          .dialog
-      .build()
-    );
+        .text('input1', 'I\'m not required')
+          .group
+        .file('file', 'Confirmação')
+          .useBinaryFormat()
+          .acceptImages()
+          .validators()
+          .required()
+          .group
+        .form
+      .build();
   },
   //
-  [DemoKeys.FORMS_INPUT_LIST]: () => {
-
+  [DemoKeys.FORMS_INPUT_LIST_DIALOG_CRUD]: () => {
+    return new SmzFormBuilder<any>()
+      .group()
+        .setLayout('EXTRA_SMALL', 'col-12')
+        .list('input1', 'I\'m not required', ['Option 1', 'Option 2', 'Option 3'], ['Option 2'])
+          .useDialogEditMode()
+          .buttons()
+            .add()
+            .all()
+            .clear()
+            .edit()
+            .move()
+            .remove()
+            .sort()
+            .list
+          .group
+        .form
+      .build();
   },
+    //
+    [DemoKeys.FORMS_INPUT_LIST_INLINE_CRUD]: () => {
+      return new SmzFormBuilder<any>()
+        .group()
+          .setLayout('EXTRA_SMALL', 'col-12')
+          .list('input1', 'I\'m not required', ['Option 1', 'Option 2', 'Option 3'], ['Option 2'])
+            .buttons()
+              .add()
+              .all()
+              .clear()
+              .edit()
+              .move()
+              .remove()
+              .sort()
+              .list
+            .group
+          .form
+        .build();
+    },
   //
   [DemoKeys.FORMS_INPUT_MASK]: () => {
 
   },
   //
   [DemoKeys.FORMS_INPUT_PASSWORD]: () => {
-    service.open(
-      new SmzDialogBuilder<void>()
-        .setTitle(`Password Demo`)
+    return new SmzFormBuilder<any>()
+      .group()
         .setLayout('EXTRA_SMALL', 'col-12')
-        .setLayout('LARGE', 'col-4')
-        .setLayout('EXTRA_LARGE', 'col-3')
-        .form()
-          .group()
-            .setLayout('EXTRA_SMALL', 'col-12')
-            .password('password', 'Password')
-              .validators()
-              .required()
-            .group
-          .form
-      .dialog
-        .buttons()
-          .confirm()
-            .dependsOnValidation()
-            .buttons
-          .dialog
-      .build()
-    );
+        .password('password', 'Password')
+          .validators()
+          .required()
+        .group
+        .form
+      .build();
   },
   //
   [DemoKeys.FORMS_INPUT_PASSWORD_WITH_CONFIRMATION]: () => {
-    service.open(
-      new SmzDialogBuilder<void>()
-        .setTitle(`Custom Validator Demo`)
+    return new SmzFormBuilder<any>()
+      .group()
         .setLayout('EXTRA_SMALL', 'col-12')
-        .setLayout('LARGE', 'col-4')
-        .setLayout('EXTRA_LARGE', 'col-3')
-        .form()
-          .group()
-            .setLayout('EXTRA_SMALL', 'col-12')
-            .password('password', 'Password')
-              .validators()
-                .required()
-            .group
-            .addPasswordConfirmation('password', 'Confirmation')
-              .validators()
-                .required()
-            .group
-          .form
-      .dialog
-        .buttons()
-          .confirm()
-            .dependsOnValidation()
-            .buttons
-          .dialog
-      .build()
-    );
+        .password('password', 'Password')
+          .validators()
+            .required()
+        .group
+        .addPasswordConfirmation('password', 'Confirmation')
+          .validators()
+            .required()
+        .group
+        .form
+      .build();
   },
   //
   [DemoKeys.FORMS_FROM_UI_DEFINITION_CREATE]: () => {
-    service.open(
-      new SmzDialogBuilder<void>()
-        .setTitle(`Create form from ui definitiono`)
-        .setLayout('EXTRA_SMALL', 'col-12')
-        .setLayout('LARGE', 'col-4')
-        .setLayout('EXTRA_LARGE', 'col-3')
-        .form()
-          .fromUiDefintion('entity')
-          .form
-        .dialog
-        .buttons()
-          .confirm()
-            .dependsOnValidation()
-            .buttons
-          .dialog
-      .build()
-    );
+    return new SmzFormBuilder<any>()
+        .fromUiDefintion('entity')
+        .form
+      .build();
   },
   //
   [DemoKeys.FORMS_FROM_UI_DEFINITION_UPDATE]: () => {
-    service.open(
-      new SmzDialogBuilder<void>()
-        .setTitle(`Update form from ui definition`)
-        .setLayout('EXTRA_SMALL', 'col-12')
-        .setLayout('LARGE', 'col-4')
-        .setLayout('EXTRA_LARGE', 'col-3')
-        .form()
-          .fromUiDefintion('entity')
-            .forEntity({
-              name: 'Name',
-              company: 'Company',
-              country: {
-                name: 'Brazil',
-                id: '55e08b38-cec6-4063-acd0-25747f31dc59'
-              }
-            })
-          .form
-        .dialog
-        .buttons()
-          .confirm()
-            .dependsOnValidation()
-            .buttons
-          .dialog
-      .build()
-    );
+    return new SmzFormBuilder<any>()
+      .fromUiDefintion('entity')
+        .forEntity({
+          name: 'Name',
+          company: 'Company',
+          country: {
+            name: 'Brazil',
+            id: '55e08b38-cec6-4063-acd0-25747f31dc59'
+          }
+        })
+      .form
+      .build();
   },
 }
 

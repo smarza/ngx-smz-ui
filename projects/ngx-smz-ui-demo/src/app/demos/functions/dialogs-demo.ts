@@ -32,6 +32,17 @@ export const DialogsDemo: { [key: string]: () => void } = {
     );
   },
   //
+  [DemoKeys.DIALOGS_HEADER_WITH_MAXIMIZE]: () => {
+    service.open(
+      new SmzDialogBuilder<void>()
+        .setTitle(`Some Title Here`)
+        .setLayout('EXTRA_SMALL', 'col-12')
+        .setLayout('EXTRA_LARGE', 'col-8')
+        .allowMaximize()
+      .build()
+    );
+  },
+  //
   [DemoKeys.DIALOGS_CONTROLS_CLOSE_ON_ESCAPE]: () => {
     service.open(
       new SmzDialogBuilder<void>()
@@ -252,7 +263,7 @@ export const DialogsDemo: { [key: string]: () => void } = {
   [DemoKeys.DIALOGS_FROM_UI_DEFINITION_CREATE]: () => {
     service.open(
       new SmzDialogBuilder<void>()
-        .setTitle(`Create form from ui definitiono`)
+        .setTitle(`Create form from ui definition`)
         .setLayout('EXTRA_SMALL', 'col-12')
         .setLayout('LARGE', 'col-4')
         .setLayout('EXTRA_LARGE', 'col-3')

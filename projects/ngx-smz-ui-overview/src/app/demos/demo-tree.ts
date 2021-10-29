@@ -62,6 +62,11 @@ export const TreeDemoData: DemoTreeNode[] = [
             notes: 'The dialog header should be hidden',
             data: DialogsDemo[DemoKeys.DIALOGS_HEADER_HIDDEN]
           },
+          {
+            label: 'With Maximize', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'dialog',
+            data: DialogsDemo[DemoKeys.DIALOGS_HEADER_WITH_MAXIMIZE]
+          },
         ]
       },
       {

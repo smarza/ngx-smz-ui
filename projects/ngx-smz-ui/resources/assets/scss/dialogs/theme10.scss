@@ -1,24 +1,33 @@
 smz-dynamicDialog {
     .ui-dialog {
         padding: 0;
-        -webkit-box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.16);
-        -moz-box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.16);
-        box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.16);
+        box-shadow:
+            2.7px 3.3px 1.7px rgba(0, 0, 0, 0.022),
+            6.4px 7.8px 4px rgba(0, 0, 0, 0.032),
+            12px 14.8px 7.5px rgba(0, 0, 0, 0.04),
+            21.4px 26.4px 13.4px rgba(0, 0, 0, 0.048),
+            40.1px 49.3px 25.1px rgba(0, 0, 0, 0.058),
+            96px 118px 60px rgba(0, 0, 0, 0.08)
+        ;
+
+        border-radius: 4px;
     }
     .ui-dialog .ui-dialog-titlebar {
-        border: 1px solid #c8c8c8;
-        background-color: #f4f4f4;
-        color: #333333;
+        border: 1px solid var(--surface-d);
+        background-color: var(--surface-a);
+        color: var(--text-color);
         padding: 1em;
         font-weight: 700;
         border-bottom: 0 none;
+        border-top-right-radius: 4px;
+        border-top-left-radius: 4px;
     }
     .ui-dialog .ui-dialog-titlebar .ui-dialog-title {
         margin: 0;
         float: none;
     }
     .ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-icon {
-        color: #848484;
+        color: var(--text-color);
         border: 0 none;
         padding: 0;
         margin-left: 0.5em;
@@ -28,23 +37,25 @@ smz-dynamicDialog {
         transition: color 0.2s;
     }
     .ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-icon:hover {
-        color: #333333;
+        color: var(--text-color-secondary);
     }
     .ui-dialog .ui-dialog-content {
-        background-color: #ffffff;
-        color: #333333;
-        border: 1px solid #c8c8c8;
+        background-color: var(--surface-a);
+        color: var(--text-color);
+        // border: 1px solid var(--surface-d);
         padding: 0.571em 1em;
     }
     .ui-dialog .ui-dialog-footer {
-        border: 1px solid #c8c8c8;
-        background-color: #ffffff;
-        color: #333333;
+        // border: 1px solid var(--surface-d);
+        background-color: var(--surface-a);
+        color: var(--text-color);
         padding: 0.571em 1em;
         margin: 0;
         text-align: right;
         position: relative;
         top: -1px;
+        border-bottom-right-radius: 4px;
+        border-bottom-left-radius: 4px;
     }
     .ui-dialog .ui-dialog-footer button {
         margin: 0 0.5em 0 0;

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { TreeDemoData } from '@demos/demo-tree';
 import { DemoTreeNode } from '@models/demo';
 import { Store } from '@ngxs/store';
-import { SmzTreeBuilder, SmzTreeState, SmzDialogsService } from 'ngx-smz-ui';
+import { SmzTreeBuilder, SmzTreeState } from 'ngx-smz-ui';
 import { DemoFeatureActions } from '../../../state/demo/demo.actions';
 
 @Component({
@@ -17,7 +17,7 @@ export class HomeComponent
   public selectedNode: DemoTreeNode = null;
   public selectedTabIndex = 0;
 
-  constructor(private dialogs: SmzDialogsService, private store: Store)
+  constructor(private store: Store)
   {
 
     this.store.dispatch(new DemoFeatureActions.LoadAll());
