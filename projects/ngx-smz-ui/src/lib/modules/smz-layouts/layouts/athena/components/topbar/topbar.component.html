@@ -6,7 +6,7 @@
 
             <a class="topbar-logo p-col">
                 <ng-container *ngIf="(appLogo$ | async) as appLogo">
-                    <img routerlink="/" [src]="appLogo.horizontal" [routerLink]="rbkConfig.routes.authenticatedRoot" class="logo"
+                    <img routerlink="/" [src]="appLogo.horizontal" [routerLink]="rbkConfig.authentication.authenticatedRoot" class="logo"
                     style="outline: none; cursor: pointer;" tabindex="0">
                 </ng-container>
             </a>

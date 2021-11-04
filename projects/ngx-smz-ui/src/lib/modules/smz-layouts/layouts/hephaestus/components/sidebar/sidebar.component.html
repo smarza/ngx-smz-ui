@@ -8,7 +8,7 @@
 
             <!-- LOGO EM FORMATO DE ICONE -->
             <ng-container *ngIf="layout.menu === menuType.SLIM; else elseHeaderTemplate">
-                <a class="logo" [routerLink]="rbkConfig.routes.authenticatedRoot">
+                <a class="logo" [routerLink]="rbkConfig.authentication.authenticatedRoot">
                     <img id="app-logo" [src]="appLayoutLogo.icon" class="p-m-2 slim-mobile-logo">
                     <span class="app-name">{{ appName }}</span>
                 </a>
@@ -16,7 +16,7 @@
 
             <!-- LOGO COMPLETA -->
             <ng-template #elseHeaderTemplate>
-                <a class="logo" [routerLink]="rbkConfig.routes.authenticatedRoot">
+                <a class="logo" [routerLink]="rbkConfig.authentication.authenticatedRoot">
                     <img id="app-logo" [src]="appLayoutLogo.horizontal" class="p-pl-4 p-pr-4" width="100%">
                 </a>
             </ng-template>

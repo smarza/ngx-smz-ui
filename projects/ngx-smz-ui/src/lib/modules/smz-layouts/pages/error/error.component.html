@@ -3,15 +3,15 @@
 <div class="p-d-flex p-d-lg-none p-grid p-jc-center p-ai-center vertical-container exception-page">
 
   <div class="exception-full-image-container">
-      <img [src]="config.pages.errorImagePath" alt="mirage-layout" />
+      <img [src]="rbkConfig.errorsConfig.page.imagePath" alt="mirage-layout" />
   </div>
 
   <div class="p-grid p-jc-center p-ai-center p-col-12 p-lg-6 p-nogutter">
       <div class="p-grid p-col-8 p-ai-center">
-          <div class="p-col-12 exception-label-error exception-light">{{ config.pages.errorTitle }}</div>
+          <div class="p-col-12 exception-label-error exception-light">{{ rbkConfig.errorsConfig.page.title }}</div>
           <div class="p-col-4 exception-separator exception-light"></div>
-          <div class="p-col-12 exception-label-message exception-light">{{ config.pages.errorMessage }}</div>
-          <button class="p-col-4 p-button-lg p-button-ghost" pButton type="button" label="Ir para Login" (click)="goToLogin()"></button>
+          <div class="p-col-12 exception-label-message exception-light">{{ rbkConfig.errorsConfig.page.message }}</div>
+          <button *ngIf="rbkConfig.errorsConfig.page.button.isVisible" class="p-col-4 p-button-lg p-button-ghost" pButton type="button" [label]="rbkConfig.errorsConfig.page.button.label" (click)="redirect()"></button>
       </div>
   </div>
 
@@ -22,14 +22,14 @@
 
   <div class="p-grid p-jc-center p-ai-center p-col-12 p-lg-6 p-nogutter">
       <div class="p-grid p-col-8 p-ai-center">
-          <div class="p-col-12 exception-label-error">{{ config.pages.errorTitle }}</div>
+          <div class="p-col-12 exception-label-error">{{ rbkConfig.errorsConfig.page.title }}</div>
           <div class="p-col-4 exception-separator"></div>
-          <div class="p-col-12 exception-label-message">{{ config.pages.errorMessage }}</div>
-          <button class="p-col-4 p-button-lg p-button-ghost" pButton type="button" label="Ir para Login" (click)="goToLogin()"></button>
+          <div class="p-col-12 exception-label-message">{{ rbkConfig.errorsConfig.page.message }}</div>
+          <button *ngIf="rbkConfig.errorsConfig.page.button.isVisible" class="p-col-4 p-button-lg p-button-ghost" pButton type="button" [label]="rbkConfig.errorsConfig.page.button.label" (click)="redirect()"></button>
       </div>
   </div>
 
   <div class="p-col-12 p-lg-6 exception-image-container">
-      <img [src]="config.pages.errorImagePath" alt="mirage-layout" />
+      <img [src]="rbkConfig.errorsConfig.page.imagePath" alt="mirage-layout" />
   </div>
 </div>

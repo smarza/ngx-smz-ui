@@ -30,12 +30,12 @@ export class BoilerplateService {
 
         this.subs1 = this.actions$.subscribe(dispatchData => {
             if (dispatchData.action.constructor.type === AuthenticationActions.RemoteLoginSuccess.type) {
-                this.store.dispatch(new Navigate([this.rbkConfig.routes.authenticatedRoot]));
+                this.store.dispatch(new Navigate([this.rbkConfig.authentication.authenticatedRoot]));
             }
         });
 
         this.subs3 = this.actions$.pipe(ofActionDispatched(AuthenticationActions.Logout)).subscribe(() => {
-            this.store.dispatch(new Navigate([this.rbkConfig.routes.login]));
+            this.store.dispatch(new Navigate([this.rbkConfig.authentication.login.route]));
 
             this.store.dispatch(new DatabaseActions.Clear());
             this.store.dispatch(new FeaturesActions.Clear());

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { State, Action, StateContext } from '@ngxs/store';
+import { State, Action, StateContext, Store } from '@ngxs/store';
 import { AuthenticationActions } from '../authentication/authentication.actions';
 import { ApplicationActions } from './application.actions';
 import { NgxRbkUtilsConfig } from '../../../modules/rbk-utils/ngx-rbk-utils.config';
@@ -58,26 +58,12 @@ export const getCleanApplicationState = (): ApplicationStateModel => ({
 })
 @Injectable()
 export class ApplicationState {
-    constructor(private toastService: ToastService, private rbkConfig: NgxRbkUtilsConfig) { }
+    constructor(private toastService: ToastService, private rbkConfig: NgxRbkUtilsConfig, private store: Store) { }
 
     @Action(ApplicationActions.HandleHttpErrorWithDialog)
     public async handleErrorWithDialog$(ctx: StateContext<ApplicationStateModel>, action: ApplicationActions.HandleHttpErrorWithDialog): Promise<void> {
-        // ctx.dispatch(new ApplicationActions.StopGlobalLoading());
-        const error = await HttpErrorHandler.handle(action.error, this.rbkConfig);
 
-        const confirm = {
-            validationRequired: false,
-            closeDialogAfterClicked: true,
-            confirmOnEnter: true,
-            isOverlayAction: false,
-            icon: '',
-            iconPos: '',
-            label: 'FECHAR',
-            onClick: () => { },
-            style: 'primary',
-            styleClass: '',
-            visible: true
-        };
+        const error = await HttpErrorHandler.handle(action.error, this.rbkConfig);
 
         if (action.error.status >= 400 && action.error.status < 500) {
             ctx.dispatch(new DialogsActions.Message(this.rbkConfig.dialogsConfig.warningDialogTitle, error.messages));
@@ -89,11 +75,14 @@ export class ApplicationState {
         if (error.redirectTo != null) {
             ctx.dispatch(new Navigate([error.redirectTo]));
         }
+
+        if (this.rbkConfig.errorsConfig.callback != null) {
+            this.rbkConfig.errorsConfig.callback(error, this.store);
+        }
     }
 
     @Action(ApplicationActions.HandleHttpErrorWithToast)
     public async handleErrorWithToast$(ctx: StateContext<ApplicationStateModel>, action: ApplicationActions.HandleHttpErrorWithToast): Promise<void> {
-        // ctx.dispatch(new ApplicationActions.StopGlobalLoading());
 
         const error = await HttpErrorHandler.handle(action.error, this.rbkConfig);
 
@@ -108,6 +97,10 @@ export class ApplicationState {
 
         if (error.redirectTo != null) {
             ctx.dispatch(new Navigate([error.redirectTo]));
+        }
+
+        if (this.rbkConfig.errorsConfig.callback != null) {
+            this.rbkConfig.errorsConfig.callback(error, this.store);
         }
     }
 

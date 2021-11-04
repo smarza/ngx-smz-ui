@@ -1,5 +1,5 @@
 import { environment } from '../environments/environment';
-import { GlobalInjector, LoginResponse, NgxRbkUtilsConfig } from 'ngx-smz-ui';
+import { GlobalInjector, LoginResponse, NgxRbkUtilsConfig, CustomError, ApplicationActions } from 'ngx-smz-ui';
 import { DemoFeatureName, DemoFeatureState, getInitialState as getFtDemoInitialState } from '../app/state/demo/demo.state';
 import { CountriesDbName, CountriesDbState, getInitialState as getDbCountriesInitialState } from '../app/state/database/countries/countries.state';
 import { CountriesDbActions } from '../app/state/database/countries/countries.actions';
@@ -9,7 +9,6 @@ import { ShopsDbName, ShopsDbState, getInitialState as getDbShopsInitialState } 
 import { ShopsDbActions } from '../app/state/database/shops/shops.actions';
 import { Store } from '@ngxs/store';
 import { Navigate } from '@ngxs/router-plugin';
-import { style } from '@angular/animations';
 
 // ------------------------------------------
 // DATABASE STATES
@@ -35,12 +34,6 @@ export const rbkConfig: NgxRbkUtilsConfig = {
     debugMode: false,
     applicationName: environment.production ? 'Overview' : 'Overview DEV',
     useTitleService: true,
-    routes: {
-        authenticatedRoot: '/home',
-        nonAuthenticatedRoot: '/login',
-        login: '/login',
-        error: '/error'
-    },
     uiDefinitions: {
         url: `${environment.domainApi}/api/ui-definitions`,
         httpBehavior: {
@@ -110,8 +103,11 @@ export const rbkConfig: NgxRbkUtilsConfig = {
     },
     authentication: {
         localStoragePrefix: 'ui-demo',
+        authenticatedRoot: '/home',
+        nonAuthenticatedRoot: '/login',
         login: {
             url: `${environment.authenticationApi}/api/auth/login`,
+            route: '/login',
             errorHandlingType: 'toast',
             responsePropertyName: 'accessToken',
             loadingBehavior: 'global',
@@ -193,5 +189,29 @@ export const rbkConfig: NgxRbkUtilsConfig = {
     dialogsConfig: {
         errorDialogTitle: 'ERRO',
         warningDialogTitle: 'ALERTA'
+    },
+    errorsConfig: {
+        page: {
+            route: '/error',
+            title: 'Erro',
+            message: 'Ocorreu um erro com a sua solicitação. Caso persista, entre em contato com seu administrador de sistema.',
+            imagePath: 'assets/images/pages/bg-error.jpg',
+            button: {
+                isVisible: true,
+                label: 'Ir para Login',
+                redirectTo: '/login'
+            },
+        },
+        clearBehaviors: {
+            method: 'onError',
+            globalStates: true,
+            databaseStates: true,
+            featuresStates: true,
+            localStorage: 'appPrefix',
+            navigationHistory: true
+        },
+        callback: (error: CustomError, store: Store) => {
+            console.log('error callback', error, store);
+        }
     }
 };

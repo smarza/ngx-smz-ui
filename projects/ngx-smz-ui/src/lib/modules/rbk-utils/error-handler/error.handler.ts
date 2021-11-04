@@ -53,15 +53,15 @@ export class HttpErrorHandler {
             }
             else if (response.status === 500) {
                 // Internal Server Error, ModelState, server
-                return CustomError.fromExceptionResponse(response, rbkConfig.routes.error);
+                return CustomError.fromExceptionResponse(response, rbkConfig.errorsConfig.page.route);
             }
             else if (response.status === 401) {
                 // Unauthorized, not authenticated
                 if (typeof response.error === 'string' || response.error instanceof String) {
-                    return CustomError.fromSingleError(response.error as string, rbkConfig.routes.login);
+                    return CustomError.fromSingleError(response.error as string, rbkConfig.authentication.login.route);
                 }
                 else {
-                    return CustomError.fromSingleError('Houve um problema na autenticação com o servidor.', rbkConfig.routes.login);
+                    return CustomError.fromSingleError('Houve um problema na autenticação com o servidor.', rbkConfig.authentication.login.route);
                 }
             }
             else if (response.status === 403) {
@@ -74,16 +74,16 @@ export class HttpErrorHandler {
             }
             else if (response.status === 0) {
                 // Unknown error
-                return CustomError.fromSingleError('Erro de comunicação com o servidor.', rbkConfig.routes.error);
+                return CustomError.fromSingleError('Erro de comunicação com o servidor.', rbkConfig.errorsConfig.page.route);
             }
             else {
                 // Error has a code, but it was not handled
-                return CustomError.fromSingleError(`Código de erro não tratado: ${response.status}.`, rbkConfig.routes.error);
+                return CustomError.fromSingleError(`Código de erro não tratado: ${response.status}.`, rbkConfig.errorsConfig.page.route);
             }
         }
         else {
             console.error('response', httpResponse);
-            return CustomError.fromSingleError('Erro desconhecido na conexão com o servidor.', rbkConfig.routes.error);
+            return CustomError.fromSingleError('Erro desconhecido na conexão com o servidor.', rbkConfig.errorsConfig.page.route);
         }
     }
 

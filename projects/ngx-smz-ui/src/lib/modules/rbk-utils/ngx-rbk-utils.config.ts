@@ -1,5 +1,7 @@
+import { Store } from '@ngxs/store';
 import { SmzDocumentConfig } from '../smz-documents/models/smz-document-config';
 import { LoginResponse } from './auth/models';
+import { CustomError } from './error-handler/error.handler';
 import { HttpBehaviorParameters } from './http/base-api.service';
 
 export class NgxRbkUtilsConfig {
@@ -42,8 +44,11 @@ export class NgxRbkUtilsConfig {
     };
     public authentication: {
         localStoragePrefix: string;
+        authenticatedRoot: string;
+        nonAuthenticatedRoot: string;
         login: {
             url: string;
+            route: string;
             loadingBehavior: 'global' | 'local' | 'none';
             errorHandlingType: 'toast' | 'dialog' | 'none';
             responsePropertyName: string; // this is used in the login and refresh token endpoint responses
@@ -77,12 +82,28 @@ export class NgxRbkUtilsConfig {
         errorDialogTitle: string;
         warningDialogTitle: string;
     };
-    public routes: {
-        authenticatedRoot: string;
-        nonAuthenticatedRoot: string;
-        login: string;
-        error: string;
-    };
+    public errorsConfig: {
+        page: {
+            title: string;
+            message: string;
+            imagePath: string;
+            route: string;
+            button: {
+                isVisible: boolean;
+                label?: string;
+                redirectTo?: string;
+            },
+        };
+        clearBehaviors: {
+            method: 'onError' | 'onRedirect' | 'none';
+            globalStates: boolean;
+            databaseStates: boolean;
+            featuresStates: boolean;
+            localStorage: 'appPrefix' | 'none';
+            navigationHistory: boolean;
+        };
+        callback?: (error: CustomError, store: Store) => void
+    }
 }
 
 export interface DatabaseStateParameters {
