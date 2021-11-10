@@ -18,6 +18,25 @@ export class PrimeConfigService {
     this.filterUtils.register('multiselectById', (value: string, filter: { id: string }[]): boolean => filter.findIndex(x => x.id === value) > -1);
     this.filterUtils.register('multiselectByValue', (value: string, filter: { value: string }[]): boolean => filter.findIndex(x => x.value === value) > -1);
     this.filterUtils.register('dropdown', (value: string, filter: { value: string }[]): boolean => filter == null || Reflect.get(filter, 'id') === value );
+
+
+    // register filter type for array items, when filter has one or more of values
+    this.filterUtils.register('array-some', (value: any[], filters) => {
+      if (filters === undefined || filters === null || filters.length === 0) {
+          return true;
+      }
+      const results = value.some(v => filters.includes(v));
+      return results;
+    });
+
+    // register filter type for array items, when filter has every value
+    this.filterUtils.register('array-every', (value: any[], filters) => {
+      if (filters === undefined || filters === null || filters.length === 0) {
+          return true;
+      }
+
+      return value.every(v => filters.includes(v));
+    });
   }
 
   private setFilterMatchModeOptions(): void {

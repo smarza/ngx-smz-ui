@@ -1,5 +1,5 @@
 import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewChild } from '@angular/core'
-import { PrimeTemplate } from 'primeng/api';
+import { FilterMatchMode, PrimeTemplate } from 'primeng/api';
 import { SmzContentType } from '../../models/content-types';
 import { SmzFilterType } from '../../models/filter-types';
 import { SmzTableState, SmzTableContext } from '../../models/table-state';
@@ -65,7 +65,8 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
     text: SmzFilterType.TEXT,
     currency: SmzFilterType.CURRENCY,
     dropdown: SmzFilterType.DROPDOWN,
-    multiselect: SmzFilterType.MULTI_SELECT
+    multiselect: SmzFilterType.MULTI_SELECT,
+    multiselect_array: SmzFilterType.MULTI_SELECT_ARRAY
   }
   constructor(public cdr: ChangeDetectorRef, public editableService: TableEditableService, public formsService: TableFormsService, public dialogConfig: SmzDialogsConfig) {
     this.editableService.cdr = this.cdr;

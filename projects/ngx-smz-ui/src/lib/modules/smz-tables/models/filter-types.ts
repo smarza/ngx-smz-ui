@@ -6,5 +6,6 @@ export enum SmzFilterType {
   DATE = 4,
   CURRENCY = 5,
   DROPDOWN = 6,
-  MULTI_SELECT = 7
+  MULTI_SELECT = 7,
+  MULTI_SELECT_ARRAY = 9
 }

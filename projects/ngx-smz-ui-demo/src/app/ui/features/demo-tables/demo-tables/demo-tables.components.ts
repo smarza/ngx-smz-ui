@@ -107,19 +107,22 @@ export class DemoTablesComponent implements OnInit {
         //   .disableSort()
         //   .columns
         .text('country.name', 'Country')
-          .setFilter(SmzFilterType.DROPDOWN)
+          .setFilter(SmzFilterType.MULTI_SELECT)
           .disableSort()
+          .columns
+        .dataTransform('country.name.id', 'Super Country 2', (country: SimpleNamedEntity, row: any) => {
+            // console.log('dataTransform', country, row);
+            return `test: ${country?.name?.toUpperCase()}`;
+          })
           .columns
         .dataTransform('country', 'Super Country', (country: SimpleNamedEntity, row: any) => {
             // console.log('dataTransform', country, row);
             return `super: ${country?.name?.toUpperCase()}`;
           })
-          .setFilter(SmzFilterType.DROPDOWN)
+          .setFilter(SmzFilterType.MULTI_SELECT)
           .columns
-        .dataTransform('roles', 'Perfis', (roles: SimpleNamedEntity[], row: any) => {
-            return roles.map(x => x.name).join(', ');
-          })
-          .setFilter(SmzFilterType.DROPDOWN)
+        .dataTransform('roles', 'Perfis', (roles: SimpleNamedEntity[], row: any) => { return roles.map(x => x.name).join(', '); })
+          .setFilter(SmzFilterType.MULTI_SELECT_ARRAY)
           .columns
         .table
       .build();

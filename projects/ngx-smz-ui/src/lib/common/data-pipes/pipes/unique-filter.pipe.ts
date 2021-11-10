@@ -14,6 +14,7 @@ export class UniqueFilterPipe implements PipeTransform
     {
         // console.log('------ uniqueFilter');
         // console.log(items, args, reMap);
+
         // EXEMPLO DE USO
         // [options]="items | uniqueFilter : 'status.id' : 'status'"
 
@@ -24,10 +25,11 @@ export class UniqueFilterPipe implements PipeTransform
         // console.log('uniques', uniques);
         if (reMap != null && !isManyToMany)
         {
+            // console.log(1);
             // retorna a lista contendo apenas a propriedade solicitada
 
             const uniques = uniqBy(items.filter(i => Reflect.get(i, reMap) != null), args);
-
+            // console.log('uniques', uniques);
             const results = uniques.map(u => (Reflect.get(u, reMap)));
             // console.log('results', results);
             const afterSort = sortBy != null ? sortArray(results, sortBy) : results;
@@ -37,20 +39,23 @@ export class UniqueFilterPipe implements PipeTransform
         }
         else if (reMap != null && isManyToMany)
         {
+            // console.log(2);
             // retorna a lista contendo apenas a propriedade solicitada
 
             const mapped = items.map(u => (Reflect.get(u, reMap)));
+            // console.log('mapped', mapped);
             const flat = flatten(mapped);
 
             const uniques = uniqBy(flat, 'id');
-
-            const results = uniques; //.map(u => (Reflect.get(u, reMap)));
+            // console.log('uniques', uniques);
+            const results = uniques;
             // console.log('results', results);
             const afterSort = sortBy != null ? sortArray(results, sortBy) : results;
             return initial != null ? [initial, ...afterSort] : afterSort;
         }
         else
         {
+            // console.log(3);
             // retorna a lista única com a mesma estrutura original
 
             const results = uniqBy(items, args);

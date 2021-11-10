@@ -195,7 +195,22 @@
                                                         </div>
                                                     </ng-template>
                                                     <ng-template pTemplate="filter" let-value let-filter="filter">
-                                                        <p-multiSelect [ngModel]="value" [options]="(clonedData.items != null ? clonedData.items : []) | uniqueFilter : filterField + '.id' : filterField" placeholder="Todos" (onChange)="filter($event.value)" optionLabel="name" dataKey="id"></p-multiSelect>
+                                                        <p-multiSelect [ngModel]="value" [options]="(clonedData.items != null ? clonedData.items : []) | uniqueFilter : filterField + '.id' : filterField : null : null : false" placeholder="Todos" (onChange)="filter($event.value)" optionLabel="name" dataKey="id"></p-multiSelect>
+                                                    </ng-template>
+                                                </smz-column-filter>
+                                            </ng-container>
+                                        </ng-container>
+
+                                        <ng-container *ngSwitchCase="filterTypes.multiselect_array">
+                                            <ng-container *ngIf="col.field | filterObject as filterField">
+                                                <smz-column-filter [field]="filterField" matchMode="array-some" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                                                    <ng-template pTemplate="header">
+                                                        <div class="p-px-3 p-pt-3 p-pb-0">
+                                                            <span class="p-text-bold">{{ col.header }}</span>
+                                                        </div>
+                                                    </ng-template>
+                                                    <ng-template pTemplate="filter" let-value let-filter="filter">
+                                                        <p-multiSelect [ngModel]="value" [options]="(clonedData.items != null ? clonedData.items : []) | uniqueFilter : filterField + '.id' : filterField : null : null : true" placeholder="Todos" (onChange)="filter($event.value)" optionLabel="name" dataKey="id"></p-multiSelect>
                                                     </ng-template>
                                                 </smz-column-filter>
                                             </ng-container>

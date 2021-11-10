@@ -608,6 +608,16 @@ export class SmzFormInputBuilder<TResponse> {
     return this;
   }
 
+  public setVisibilityCondition(inputDependencyName: string, reversed: boolean, conditions?: any[]): SmzFormInputBuilder<TResponse> {
+    this._input.visibilityDependsOn = {
+      propertyName: inputDependencyName,
+      reversed,
+      condition: conditions?.length === 1 ? conditions[0] : null,
+      conditions: conditions?.length > 1 ? conditions : null
+    };
+    return this;
+  }
+
   public validators(): SmzFormInputValidatorBuilder<TResponse> {
     return new SmzFormInputValidatorBuilder(this, this._input);
   }
