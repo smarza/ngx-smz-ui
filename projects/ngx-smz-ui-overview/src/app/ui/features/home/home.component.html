@@ -40,7 +40,7 @@
             <!-- CONTEÚDO -->
             <div class="flex-grow relative w-full p-mt-1 p-mb-3 h-full overflow-y-auto">
               <p>{{ selectedNode.notes }}</p>
-              <demo-code-block [code]="$any(selectedNode.data)"></demo-code-block>
+              <demo-code-block [code]="$any(selectedNode.data?.code ?? selectedNode.data)"></demo-code-block>
             </div>
 
           </ng-container>

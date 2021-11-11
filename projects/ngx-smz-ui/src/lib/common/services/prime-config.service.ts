@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FilterMatchMode, FilterService, PrimeNGConfig } from 'primeng/api';
+import { SimpleNamedEntity } from '../models/simple-named-entity';
+
 
 @Injectable({
   providedIn: 'root'
@@ -19,13 +21,13 @@ export class PrimeConfigService {
     this.filterUtils.register('multiselectByValue', (value: string, filter: { value: string }[]): boolean => filter.findIndex(x => x.value === value) > -1);
     this.filterUtils.register('dropdown', (value: string, filter: { value: string }[]): boolean => filter == null || Reflect.get(filter, 'id') === value );
 
-
     // register filter type for array items, when filter has one or more of values
-    this.filterUtils.register('array-some', (value: any[], filters) => {
+    this.filterUtils.register('array-some', (value: SimpleNamedEntity[], filters: SimpleNamedEntity[]) => {
+      // console.log('array-some', value, filters);
       if (filters === undefined || filters === null || filters.length === 0) {
           return true;
       }
-      const results = value.some(v => filters.includes(v));
+      const results = value?.some(v => filters?.some(f => f.id === v.id));
       return results;
     });
 

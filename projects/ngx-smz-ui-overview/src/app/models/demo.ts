@@ -3,7 +3,7 @@ import { TreeNode } from 'primeng/api/treenode';
 
 export interface DemoTreeNode extends TreeNode {
   notes?: string;
-  data?: () => void;
+  data?: any;
   children?: DemoTreeNode[];
   demoType?: 'dialog' | 'form' | 'table' | 'chart' | 'document' | 'tree';
 }

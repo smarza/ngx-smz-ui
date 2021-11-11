@@ -396,6 +396,18 @@ export const TreeDemoData: DemoTreeNode[] = [
         notes: '',
         data: TablesDemo[DemoKeys.TABLE_UI_DEFINITIONS]
       },
+      {
+        label: 'Basic', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'table',
+        notes: '',
+        data: TablesDemo[DemoKeys.TABLE_BASIC]
+      },
+      {
+        label: 'Filters: Array', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'table',
+        notes: '',
+        data: TablesDemo[DemoKeys.TABLE_ARRAY_FILTER]
+      },
     ]
   },
   {

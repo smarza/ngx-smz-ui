@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 })
 
 export class DemoTableComponent implements OnInit, OnChanges {
-  @Select(DemoFeatureSelectors.all) public items$: Observable<DemoItem[]>;
+  public items$: Observable<DemoItem[]>;
 
   @Input() public node: DemoTreeNode
   public state: SmzTableState;
@@ -20,14 +20,21 @@ export class DemoTableComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnInit() {
-    this.state = this.node.data() as any;
+    this.updateData(this.node);
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.node != null) {
       const node = changes.node.currentValue;
-      this.state = node.data();
+      this.updateData(node);
     }
 
+  }
+
+  updateData(node: any): void {
+    console.log('node', node);
+    const event = node.data;
+    this.state = event.code();
+    this.items$ = event.items$;
   }
 }
