@@ -244,6 +244,13 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
                     setTimeout(() => { this.resetState(); }, 0);
                 }, 0);
             }
+            else if (changes.config != null && changes.config.currentValue == null && changes.config.previousValue != null)
+            {
+                this.isValid = false;
+                this.hasChanges = false;
+                this.cdf.markForCheck();
+            }
+
         }, 0);
 
     }
@@ -480,7 +487,6 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
                 {
                     const value = CONTROL_FUNCTIONS[input.type].getValue(this.form, input, formFlattenResponse);
 
-                    // console.log(input);
                     if (input.visibilityDependsOn == null || input.isVisible)
                     {
                         // console.log(`${input.propertyName}`, input._inputFormControl.valid);
@@ -502,6 +508,8 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
         };
 
         this.isValid = response.isValid;
+
+        // console.log('isValid', this.isValid);
 
         return response;
 

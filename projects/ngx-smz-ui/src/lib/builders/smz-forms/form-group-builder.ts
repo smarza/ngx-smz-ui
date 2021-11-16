@@ -36,9 +36,8 @@ export class SmzFormGroupBuilder<TResponse> {
       this.group.children.push(input);
     }
     else {
-      if (label != null || defaultValue != null) {
-        throw Error('Label and defaultValue come from uiDefinitions and cannot be changed.')
-      }
+      input.name = label ?? input.name;
+      input.defaultValue = defaultValue ?? input.defaultValue;
     }
 
     return new SmzFormCalendarBuilder(this, input as SmzCalendarControl);
@@ -61,9 +60,8 @@ export class SmzFormGroupBuilder<TResponse> {
       this.group.children.push(input);
     }
     else {
-      if (label != null || defaultValue != null) {
-        throw Error('Label and defaultValue come from uiDefinitions and cannot be changed.')
-      }
+      input.name = label ?? input.name;
+      input.defaultValue = defaultValue ?? input.defaultValue;
     }
 
     return new SmzFormInputBuilder(this, input as SmzCheckBoxControl);
@@ -184,9 +182,8 @@ export class SmzFormGroupBuilder<TResponse> {
       this.group.children.push(input);
     }
     else {
-      if (label != null || defaultValue != null) {
-        throw Error('Label and defaultValue come from uiDefinitions and cannot be changed.')
-      }
+      input.name = label ?? input.name;
+      input.defaultValue = defaultValue ?? input.defaultValue;
     }
 
     return new SmzFormInputBuilder(this, input as SmzColorPickerControl);
@@ -210,9 +207,8 @@ export class SmzFormGroupBuilder<TResponse> {
       this.group.children.push(input);
     }
     else {
-      if (label != null || defaultValue != null) {
-        throw Error('Label and defaultValue come from uiDefinitions and cannot be changed.')
-      }
+      input.name = label ?? input.name;
+      input.defaultValue = defaultValue ?? input.defaultValue;
     }
 
     return new SmzFormInputBuilder(this, input as SmzCurrencyControl);
@@ -236,9 +232,8 @@ export class SmzFormGroupBuilder<TResponse> {
       this.group.children.push(input);
     }
     else {
-      if (label != null || defaultValue != null) {
-        throw Error('Label and defaultValue come from uiDefinitions and cannot be changed.')
-      }
+      input.name = label ?? input.name;
+      input.defaultValue = defaultValue ?? input.defaultValue;
     }
 
     return new SmzFormNumberBuilder(this, input as SmzNumberControl);
@@ -288,9 +283,8 @@ export class SmzFormGroupBuilder<TResponse> {
       this.group.children.push(input);
     }
     else {
-      if (label != null || defaultValue != null) {
-        throw Error('Label and defaultValue come from uiDefinitions and cannot be changed.')
-      }
+      input.name = label ?? input.name;
+      input.defaultValue = defaultValue ?? input.defaultValue;
     }
 
     return new SmzFormInputBuilder(this, input as SmzSwitchControl);
@@ -314,9 +308,8 @@ export class SmzFormGroupBuilder<TResponse> {
       this.group.children.push(input);
     }
     else {
-      if (label != null || defaultValue != null) {
-        throw Error('Label and defaultValue come from uiDefinitions and cannot be changed.')
-      }
+      input.name = label ?? input.name;
+      input.defaultValue = defaultValue ?? input.defaultValue;
     }
 
     return new SmzFormTextAreaBuilder(this, input as SmzTextAreaControl);
@@ -347,9 +340,8 @@ export class SmzFormGroupBuilder<TResponse> {
       this.group.children.push(input);
     }
     else {
-      if (label != null || defaultValue != null) {
-        throw Error('Label and defaultValue come from uiDefinitions and cannot be changed.')
-      }
+      input.name = label ?? input.name;
+      input.defaultValue = defaultValue ?? input.defaultValue;
     }
 
     return new SmzFormContentMaskBuilder(this, input as SmzContentMaskControl);
@@ -392,9 +384,8 @@ export class SmzFormGroupBuilder<TResponse> {
       this.group.children.push(input);
     }
     else {
-      if (label != null || defaultValue != null) {
-        throw Error('Label and defaultValue come from uiDefinitions and cannot be changed.')
-      }
+      input.name = label ?? input.name;
+      input.defaultValue = defaultValue ?? input.defaultValue;
     }
 
     return new SmzFormTextBuilder(this, input as SmzTextControl);
@@ -426,9 +417,8 @@ export class SmzFormGroupBuilder<TResponse> {
       this.group.children.push(input);
     }
     else {
-      if (label != null || defaultValue != null) {
-        throw Error('Label and defaultValue come from uiDefinitions and cannot be changed.')
-      }
+      input.name = label ?? input.name;
+      input.defaultValue = defaultValue ?? input.defaultValue;
     }
 
     return new SmzFormFileBuilder(this, input as SmzFileControl);
@@ -493,9 +483,8 @@ export class SmzFormGroupBuilder<TResponse> {
       this.group.children.push(input);
     }
     else {
-      if (label != null || defaultValue != null) {
-        throw Error('Label and defaultValue come from uiDefinitions and cannot be changed.')
-      }
+      input.name = label ?? input.name;
+      input.defaultValue = defaultValue ?? input.defaultValue;
     }
 
     return new SmzFormMaskBuilder(this, input as SmzMaskControl);
@@ -528,9 +517,8 @@ export class SmzFormGroupBuilder<TResponse> {
       this.group.children.push(input);
     }
     else {
-      if (label != null || defaultValue != null) {
-        throw Error('Label and defaultValue come from uiDefinitions and cannot be changed.')
-      }
+      input.name = label ?? input.name;
+      input.defaultValue = defaultValue ?? input.defaultValue;
     }
 
     return new SmzFormPasswordBuilder(this, input as SmzPasswordControl);

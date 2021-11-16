@@ -1,3 +1,5 @@
+<ng-container *ngIf="config != null">
+
 <div class="smz_form_grid_container">
 
     <ng-container *ngIf="form != null && !configHasErrors">
@@ -11,6 +13,8 @@
     </ng-container>
 
 </div>
+
+</ng-container>
 
 <ng-template #groupTemplate>
 
