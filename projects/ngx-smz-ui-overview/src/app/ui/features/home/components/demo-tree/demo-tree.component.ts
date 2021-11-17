@@ -10,7 +10,9 @@ import { map } from 'rxjs/operators';
   selector: 'app-demo-tree',
   template: `
   <div *ngIf="state != null" style="height: 675px;">
-    <smz-ui-tree #smzTree [items]="items$ | async" [state]="state"></smz-ui-tree>
+  <ng-container *ngClone="items$ | async as items">
+    <smz-ui-tree #smzTree [items]="items" [state]="state"></smz-ui-tree>
+  </ng-container>
   </div>
 `,
   changeDetection: ChangeDetectionStrategy.OnPush

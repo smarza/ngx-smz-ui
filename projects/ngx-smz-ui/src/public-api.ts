@@ -55,6 +55,9 @@ export * from './lib/common/directives/action-dispatch/action-dispatch.directive
 export * from './lib/common/directives/ng-var/ng-var.module';
 export * from './lib/common/directives/ng-var/ng-var.directive';
 
+export * from './lib/common/directives/ng-clone/ng-clone.module';
+export * from './lib/common/directives/ng-clone/ng-clone.directive';
+
 // DIALOG STUFFS
 
 export * from './lib/common/modules/inject-content/public-api';
