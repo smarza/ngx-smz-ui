@@ -7,6 +7,8 @@ import { SimpleNamedEntity } from '../../common/models/simple-named-entity';
 import { SmzFormsBaseControl } from '../../modules/smz-forms/models/controls';
 import { SmzTemplate } from '../../common/models/templates';
 import { cloneDeep } from 'lodash-es';
+import { GlobalInjector } from '../../common/services/global-injector';
+import { NgxRbkUtilsConfig } from '../../modules/rbk-utils/ngx-rbk-utils.config';
 
 export function convertFormFeature(
   entityName: string,
@@ -29,6 +31,8 @@ export function convertFormFeatureFromInputData(
   options: InputConversionOptions = null,
   store: Store,
 ): SmzDialogFeature {
+
+  const rbkConfig = GlobalInjector.instance.get(NgxRbkUtilsConfig);
 
   const form: SmzForm<any> = {
     groups: [],
@@ -147,15 +151,46 @@ export function convertFormFeatureFromInputData(
     }
   }
 
+    // Apply templates if the options are available
+    if (options != null && options.fieldsToOverwriteControl) {
+      let groupIndex = 0;
+      if (groups.length === 1) {
+        groupIndex = 0;
+      }
+      else if (groups.length > 1 && groups[0].controls.length === 1 && groups[0].controls[0].propertyName === 'id') {
+        groupIndex = 1;
+      }
+      else {
+        throw new Error(`Multiple groups are not supported with the reorder option`);
+      }
+
+      for (let i = 0; i < options.fieldsToOverwriteControl.length; i++) {
+        const item = form.groups[groupIndex].children.find(x => x.propertyName === options.fieldsToOverwriteControl[i].propertyName);
+        if (item == null) {
+          throw new Error(`Could not find control '${options.fieldsToOverwriteControl[i].propertyName}' for templating`);
+        }
+        options.fieldsToOverwriteControl[i].callback(item);
+      }
+    }
+
   return smzFeature;
 }
 
 function convertInputs(inputs: InputConfig[], store: Store, options: InputConversionOptions): SmzControlTypes[] {
+  const rbkConfig = GlobalInjector.instance.get(NgxRbkUtilsConfig);
   const results = [];
 
   if (inputs == null) throw new Error('Inputs could not be null');
 
   for (const config of inputs) {
+
+    if (rbkConfig.debugMode) {
+      console.groupCollapsed(config.propertyName);
+
+      console.log('config', config);
+      console.log('options', options);
+    }
+
     if (config.controlType.id === `${SmzControlType.TEXT}`) {
       const input: SmzTextControl = {
         ...convertBaseControl(config),
@@ -202,7 +237,13 @@ function convertInputs(inputs: InputConfig[], store: Store, options: InputConver
     }
 
     else if (config.controlType.id === `${SmzControlType.DROPDOWN}`) {
+
       const list = getInputOptions(config, store, options);
+
+      if (rbkConfig.debugMode) {
+        console.log('list', list);
+      }
+
       const input: SmzDropDownControl<any> = {
         ...convertBaseControl(config),
         defaultValue: config.required ? list[0].id : config.defaultValue,
@@ -341,6 +382,12 @@ function convertInputs(inputs: InputConfig[], store: Store, options: InputConver
       results.push(parentInput);
       results.push(childInput);
     }
+
+    if (rbkConfig.debugMode) {
+      console.log('results', results[results?.length - 1]);
+      console.groupEnd();
+    }
+
   }
 
   return results;
@@ -415,6 +462,14 @@ function getDataFromStore(config: InputConfig, store: Store, options: InputConve
 
   if (storeData === null) {
     throw new Error('The data was loaded from the store, but it seems to be null. Please check that your store is populated or that your selector is not returning null');
+  }
+
+  const rbkConfig = GlobalInjector.instance.get(NgxRbkUtilsConfig);
+  if (rbkConfig.debugMode) {
+    console.log(' >> getDataFromStore()');
+    console.log('     >> config', storeData);
+    console.log('     >> options', options);
+    console.log('     >> storeData', storeData);
   }
 
   return storeData;
@@ -501,4 +556,5 @@ export interface InputConversionOptions {
   fieldsToUseSelectors?: { propertyName: string, selector: any }[]
   fieldsToOverwriteOrder?: string[],
   fieldsWithLayoutTemplates?: { propertyName: string, template: SmzTemplate }[]
+  fieldsToOverwriteControl?: { propertyName: string, callback: (control: SmzControlTypes) => void }[]
 }

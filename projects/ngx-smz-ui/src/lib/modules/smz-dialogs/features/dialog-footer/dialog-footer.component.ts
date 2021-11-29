@@ -12,6 +12,7 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { InjectComponentService } from '../../../../common/modules/inject-content/inject-component.service';
 import { ComponentData, ComponentDataBase } from '../../../../common/modules/inject-content/models/injectable.model';
 import { DialogsActions } from '../../state/dialogs/dialogs.actions';
+import { NgxRbkUtilsConfig } from '../../../rbk-utils/ngx-rbk-utils.config';
 
 @UntilDestroy()
 @Component({
@@ -30,6 +31,7 @@ export class DialogFooterComponent implements OnInit {
         private injectComponent: InjectComponentService,
         private cdf: ChangeDetectorRef,
         private actions$: Actions,
+        private rbkConfig: NgxRbkUtilsConfig,
         private store: Store) { }
 
     public ngOnInit(): void {
@@ -65,9 +67,18 @@ export class DialogFooterComponent implements OnInit {
 
     public onSubmit(): boolean {
         if (this.isValid()) {
+
+            if (this.rbkConfig.debugMode) {
+                console.log('           onSubmit => ', true);
+            }
+
             return true;
         }
         else {
+
+            if (this.rbkConfig.debugMode) {
+                console.log('           Forms... ');
+            }
 
             this.dialogConfig.data.features
                 .filter(x => x.type === 'form')
@@ -75,11 +86,24 @@ export class DialogFooterComponent implements OnInit {
                     const formFeature = feature.data as SmzForm<never>;
                     const form = formFeature._context.form;
 
+                    if (this.rbkConfig.debugMode) {
+                        console.log('               > formFeature:', formFeature);
+                        console.log('               > form:', form);
+                        console.log('               > controls:', form.controls);
+                    }
+
                     Object.keys(form.controls).forEach(field => {
                         const control = form.get(field);
+                        if (this.rbkConfig.debugMode) {
+                            console.log(`               > control for ${field}:`, control);
+                        }
                         control.markAsTouched({ onlySelf: true });
-                      });
+                    });
                 });
+
+            if (this.rbkConfig.debugMode) {
+                console.log('           Components... ');
+            }
 
             this.dialogConfig.data.features
                 .filter(x => x.type === 'component')
@@ -111,6 +135,10 @@ export class DialogFooterComponent implements OnInit {
 
             this.cdf.markForCheck();
 
+            if (this.rbkConfig.debugMode) {
+                console.log('           onSubmit => ', false);
+            }
+
             return false;
         }
     }
@@ -134,6 +162,13 @@ export class DialogFooterComponent implements OnInit {
     }
 
     public save(): void {
+
+        if (this.rbkConfig.debugMode) {
+            console.groupCollapsed('Dialog Save Pressed:');
+            console.log('     >> context', this.dialogConfig.data._context);
+            console.log('     >> onSubmit()', this.onSubmit());
+            console.log('     >> data', this.dialogConfig.data);
+        }
 
         const context = this.dialogConfig.data._context;
         if (context.builtInButtons.saveDependsOnValidation && !this.onSubmit()) return;
@@ -160,8 +195,16 @@ export class DialogFooterComponent implements OnInit {
 
             const action = this.dialogConfig.data.callbacks.onSaveAction;
 
+            if (this.rbkConfig.debugMode) {
+                console.log('     >> postProcessResponse', postProcessResponse);
+            }
+
             (this.store.dispatch(new action(postProcessResponse)) as Observable<any>)
                 .pipe(catchError(err => {
+
+                    if (this.rbkConfig.debugMode) {
+                        console.log('     >> dispatch catchError', err);
+                    }
 
                     const errors: string[] = err.error;
 
@@ -184,12 +227,21 @@ export class DialogFooterComponent implements OnInit {
                     return err;
                 }))
                 .subscribe(() => {
+
+                    if (this.rbkConfig.debugMode) {
+                        console.log('     >> dispatch subscribe');
+                    }
+
                     this.dialogConfig.data._context.isGlobalDisabled = false;
                     this.dialogConfig.data._context.isLoading = false;
                     this.dialogConfig.data._context.apiErrors = [];
 
                     this.refService.close();
                 });
+        }
+
+        if (this.rbkConfig.debugMode) {
+            console.groupEnd();
         }
 
     }
@@ -229,7 +281,7 @@ export class DialogFooterComponent implements OnInit {
 
                 formComponent.form.disable();
             }
-            else if(instance.blockUi != null) {
+            else if (instance.blockUi != null) {
                 instance.blockUi();
             }
 
@@ -239,8 +291,7 @@ export class DialogFooterComponent implements OnInit {
 
         this.actions$
             .pipe(ofActionSuccessful(button.blockUi.successAction), untilDestroyed(this), take(1))
-            .subscribe(() =>
-            {
+            .subscribe(() => {
                 this.dialogConfig.data._context.isGlobalDisabled = false;
                 this.dialogConfig.data._context.isLoading = false;
                 this.dialogConfig.data._context.apiErrors = [];
@@ -252,8 +303,7 @@ export class DialogFooterComponent implements OnInit {
 
             this.actions$
                 .pipe(ofActionErrored(button.blockUi.erroredAction), untilDestroyed(this), take(1))
-                .subscribe((err) =>
-                {
+                .subscribe((err) => {
                     console.log('ofActionErrored', err);
 
                     const errors: string[] = err.error;
@@ -272,7 +322,7 @@ export class DialogFooterComponent implements OnInit {
 
                             formComponent.form.enable();
                         }
-                        else if(instance.blockUi != null) {
+                        else if (instance.blockUi != null) {
                             instance.unBlockUi();
                         }
 
@@ -296,12 +346,27 @@ export class DialogFooterComponent implements OnInit {
         // console.log('context', this.dialogConfig.data._context);
         let isValid = true;
 
+        if (this.rbkConfig.debugMode) {
+            console.log('           Calling isValid()');
+        }
+
         for (const injectable of this.dialogConfig.data._context.injectables) {
 
+            if (this.rbkConfig.debugMode) console.log('           >> injectable', injectable);
+
             if (injectable.visibilityDependsOn != null) {
+
+                if (this.rbkConfig.debugMode) console.log('           >> injectable visibilityDependsOn');
+
                 const observer = this.visibilityService.observers[injectable.componentId + injectable.component.name];
 
+                if (this.rbkConfig.debugMode) console.log('           >> injectable observer', observer);
+
                 const isVisible = !injectable.visibilityDependsOn.reversed && observer?.visibility$.value.state || injectable.visibilityDependsOn.reversed && !observer?.visibility$.value.state;
+
+                if (this.rbkConfig.debugMode) console.log('           >> injectable isVisible', isVisible);
+
+                if (this.rbkConfig.debugMode) console.log('           >> injectable componentRef isValid', injectable.ref?.componentRef?.instance?.isValid);
 
                 if (isVisible && !injectable.ref?.componentRef?.instance?.isValid) {
                     isValid = false;
@@ -309,11 +374,20 @@ export class DialogFooterComponent implements OnInit {
             }
             else {
                 // console.log('   instance isValid', injectable.ref?.componentRef?.instance?.isValid);
+
+                if (this.rbkConfig.debugMode) {
+                    console.log('           >> injectable componentRef isValid', injectable.ref?.componentRef?.instance?.isValid);
+                }
+
                 if (!injectable.ref?.componentRef?.instance?.isValid) {
                     isValid = false;
                 }
 
             }
+        }
+
+        if (this.rbkConfig.debugMode) {
+            console.log('           isValid() => ', isValid);
         }
 
         return isValid;
@@ -322,6 +396,10 @@ export class DialogFooterComponent implements OnInit {
     private responsePostProcesses(): any {
         const config = this.dialogConfig.data;
         const response = config.behaviors.useAdvancedResponse ? config._context.advancedResponse : config._context.simpleResponse;
+
+        if (this.rbkConfig.debugMode) {
+            console.log('     >> response', response);
+        }
 
         return config.callbacks?.postProcessResponse != null ? config.callbacks.postProcessResponse(response) : response;
     }

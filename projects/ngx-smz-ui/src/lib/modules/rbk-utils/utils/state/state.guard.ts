@@ -19,6 +19,7 @@ export class RbkDatabaseStateGuard implements CanActivate {
 
         if (snapshot.routeConfig.data.requiredStates == null ||
             snapshot.routeConfig.data.requiredStates?.length === 0) {
+            if (this.config.debugMode) console.groupEnd();
             return of(true);
         }
 
@@ -27,16 +28,19 @@ export class RbkDatabaseStateGuard implements CanActivate {
         for (const name of states) {
             const stateConfig = this.config.state.database[name];
             if (stateConfig == null) {
+                if (this.config.debugMode) console.groupEnd();
                 throw new Error('The route is asking for a state that is not setup in the config file');
             }
 
             const stateValue = this.store.selectSnapshot(x => x.database[name]);
 
             if (stateValue == null) {
+                if (this.config.debugMode) console.groupEnd();
                 throw new Error(name + ' state is null, is it properly initialized with a default value?');
             }
 
             if (stateValue.lastUpdated === undefined) {
+                if (this.config.debugMode) console.groupEnd();
                 throw new Error('For a state to be automatically loaded by the route it needs to have a "lastUpdated" property');
             }
 
@@ -64,6 +68,8 @@ export class RbkDatabaseStateGuard implements CanActivate {
                 this.store.dispatch(stateConfig.loadAction);
             }
         }
+
+        if (this.config.debugMode) console.groupEnd();
 
         return this.store
             .select(DatabaseSelectors.areStatesInitialized(states))
