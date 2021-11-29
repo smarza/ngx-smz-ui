@@ -9,7 +9,7 @@ export class DynamicDialogRef {
     }
 
     destroy() {
-		this._onDestroy.next();
+		this._onDestroy.next(null);
 	}
 
 	private readonly _onClose = new Subject<any>();
