@@ -39,7 +39,7 @@ export class MenuItemContent {
 }
 
 @Component({
-  selector: 'p-menu',
+  selector: 'smz-menu-items',
   template: `
         <div #container [ngClass]="{'p-menu p-component': true, 'p-menu-overlay': popup}"
             [class]="styleClass" [ngStyle]="style" (click)="preventDocumentDefault=true" *ngIf="!popup || visible"

@@ -20,6 +20,7 @@ export * from './lib/modules/smz-side-content/public-api';
 export * from './lib/modules/smz-info-date/public-api';
 export * from './lib/modules/smz-router-params/public-api';
 export * from './lib/modules/smz-viewport/public-api';
+export * from './lib/modules/smz-menu/public-api';
 // export * from './lib/modules/smz-notifications/public-api';
 export * from './lib/modules/smz-documents/public-api';
 
@@ -73,3 +74,4 @@ export * from './lib/modules/rbk-utils/public-api';
 
 // BUILDERS
 export * from './lib/builders/smz-documents/document-builder';
+export * from './lib/builders/smz-menu/menu-builder';

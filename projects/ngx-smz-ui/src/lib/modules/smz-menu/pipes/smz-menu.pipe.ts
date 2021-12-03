@@ -1,12 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { SmzMenuItem } from '../models/conditional-menu-item';
+import { SmzMenuItem } from '../models/smz-menu-item';
 
 @Pipe({
-  name: 'tableMenu'
+  name: 'smzMenu'
 })
 
-export class SmzTableMenuPipe implements PipeTransform {
+export class SmzMenuPipe implements PipeTransform {
   transform(menu: SmzMenuItem[], data: any): MenuItem[] {
     if (menu == null || menu.length === 0) return null;
 
