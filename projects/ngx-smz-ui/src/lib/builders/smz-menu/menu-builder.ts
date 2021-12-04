@@ -19,7 +19,7 @@ export class SmzMenuBuilder {
     return this;
   }
 
-  public get build(): SmzMenuItem[] {
+  public build(): SmzMenuItem[] {
     return this._items;
   }
 

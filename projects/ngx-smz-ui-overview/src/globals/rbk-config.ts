@@ -59,6 +59,10 @@ export const rbkConfig: NgxRbkUtilsConfig = {
                     family: 'Roboto'
                 },
             },
+            viewer: {
+                container: 'bg-gray-50',
+                paper: 'bg-white p-6 m-6 shadow-lg border border-solid border-white',
+            },
             paper: {
                 marginCm: {
                     top: 0.6,

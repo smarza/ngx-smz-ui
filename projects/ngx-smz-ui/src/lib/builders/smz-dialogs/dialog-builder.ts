@@ -8,7 +8,8 @@ import { GlobalInjector } from '../../modules/smz-dialogs/services/global-inject
 import { SmzDialogsConfig } from '../../modules/smz-dialogs/smz-dialogs.config';
 import { SmzDialogButtonsBuilder } from './dialog-buttons-builder';
 import { SmzDialogUiDefinitionBuilder } from './dialog-ui-definition-builder';
-import { SmzDocumentBuilder } from '../smz-documents/document-builder';
+import { SmzTableState } from '../../modules/smz-tables/models/table-state';
+import { SmzDocumentState } from '../../modules/smz-documents/models/smz-document';
 
 export class SmzDialogBuilder<TResponse> {
   private defaultConfig = GlobalInjector.instance.get(SmzDialogsConfig);
@@ -199,8 +200,8 @@ export class SmzDialogBuilder<TResponse> {
     return this;
   }
 
-  public table(items$: Observable<any>, state: any): SmzDialogBuilder<TResponse> {
-    const data: any = { items$, state}; // any = SmzDialogTable
+  public table(items$: Observable<any>, state: SmzTableState): SmzDialogBuilder<TResponse> {
+    const data: any = { items$, state };
     const feature: SmzDialogFeature = {
       type: 'table',
       data
@@ -209,8 +210,8 @@ export class SmzDialogBuilder<TResponse> {
     return this;
   }
 
-  public document(items$: Observable<any>, state: any): SmzDialogBuilder<TResponse> {
-    const data: any = { items$, state}; // any = SmzDialogTable
+  public document(state: SmzDocumentState): SmzDialogBuilder<TResponse> {
+    const data: any = { state };
     const feature: SmzDialogFeature = {
       type: 'document',
       data

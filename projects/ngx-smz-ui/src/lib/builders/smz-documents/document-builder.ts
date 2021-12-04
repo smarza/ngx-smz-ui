@@ -4,9 +4,11 @@ import { SmzDocumentFontFamilies, SmzDocumentRow, SmzDocumentState } from '../..
 import { SmzDocumentContentBuilder } from './document-content';
 import { SmzDocumentConfig } from '../../modules/smz-documents/models/smz-document-config';
 import cloneDeep from 'lodash-es/cloneDeep';
+import { SmzConditionalBuilder } from '../common/smz-conditional-builder';
+import { SmzDocumentViewerBuilder } from './document-viewer';
 
 const pixelCmFactor = 28.346;
-export class SmzDocumentBuilder {
+export class SmzDocumentBuilder extends SmzConditionalBuilder<SmzDocumentBuilder> {
   private defaultConfig = GlobalInjector.instance.get(NgxRbkUtilsConfig);
   public _colsCount: number = 0;
   private _isHeaderHeightUpdated = false;
@@ -33,6 +35,31 @@ export class SmzDocumentBuilder {
       text: null,
       showPrintHour: true,
       showPageNumbers: true
+    },
+    viewer: {
+      filename: 'sample',
+      zoom: {
+        isEnabled: true,
+        min: 1,
+        max: 2.5,
+        initial: 1,
+        variation: 2.5 / 5
+      },
+      open: {
+        isEnabled: false
+      },
+      print: {
+        isEnabled: false
+      },
+      download: {
+        isEnabled: false
+      },
+      container: {
+        styleClass: null
+      },
+      paper: {
+        styleClass: null
+      }
     }
   };
 
@@ -45,6 +72,8 @@ export class SmzDocumentBuilder {
 
     this._state.config = config;
     this._state.globals = config.globals;
+    this._state.viewer.container.styleClass = config.viewer.container;
+    this._state.viewer.paper.styleClass = config.viewer.paper;
 
     const marginCm = config.paper.marginCm;
     const globalHeaderHeightCm = config.paper.headerHeightCm ? `${config.paper.headerHeightCm}cm` : null;
@@ -80,11 +109,13 @@ export class SmzDocumentBuilder {
   }
 
   constructor(state: SmzDocumentState = null) {
+    super();
+
     if (state != null) {
       this._state = state;
     }
 
-    this.applyConfig()
+    this.applyConfig();
   }
 
   public overrideDefaultConfigs(newConfig: SmzDocumentConfig): SmzDocumentBuilder {
@@ -95,6 +126,10 @@ export class SmzDocumentBuilder {
 
     this._state.config = newConfig;
     return this;
+  }
+
+  public viewer(): SmzDocumentViewerBuilder {
+    return new SmzDocumentViewerBuilder(this, this._state.viewer);
   }
 
   public content(): SmzDocumentContentBuilder {

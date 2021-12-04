@@ -5,10 +5,11 @@ import { SmzDocumentBuilder } from './document-builder';
 import { SmzCellDividerBuilder, SmzCellFieldBuilder, SmzCellFieldsGroupBuilder, SmzCellImageBuilder, SmzCellSpacerBuilder, SmzCellSubTitleBuilder, SmzCellTableBuilder, SmzCellTitleBuilder } from './document-cells';
 import cloneDeep from 'lodash-es/cloneDeep';
 import { UUID } from 'angular2-uuid';
+import { SmzConditionalBuilder } from '../common/smz-conditional-builder';
 
-export class SmzDocumentContentBuilder {
+export class SmzDocumentContentBuilder extends SmzConditionalBuilder<SmzDocumentContentBuilder> {
   constructor(private _documentBuilder: SmzDocumentBuilder, private _content: SmzDocumentContent) {
-
+    super();
   }
   public row(): SmzDocumentRowBuilder {
     const row: SmzDocumentRow = { id: UUID.UUID(), cells: [] };

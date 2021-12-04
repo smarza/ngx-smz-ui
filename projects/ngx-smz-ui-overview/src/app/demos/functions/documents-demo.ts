@@ -10,6 +10,13 @@ export const DocumentsDemo: { [key: string]: () => void } = {
       .setGlobalScale(0.8)
       .setHeaderHeight('cm', 5.5)
       .setMargins('cm', 0.6)
+
+      .viewer()
+        .setFilename('demo')
+        .setZoom(1, 0.5, 5, 0.5)
+        .allowDownload()
+        .document
+
       .header()
 
         .row()
@@ -73,8 +80,10 @@ export const DocumentsDemo: { [key: string]: () => void } = {
               .group
             .addField('YASMIM.FREITAS', 'RESPONSÁVEL')
               .group
-            .addField('21 7280-9395', 'TELEFONE')
-              .group
+            .if(true)
+              .addField('21 7280-9395', 'TELEFONE')
+                .group
+              .endIf
             .addField('ENCOMENDA@GRUPOIDEIA.COM.BR', 'EMAIL')
               .group
             .row
@@ -168,10 +177,17 @@ export const DocumentsDemo: { [key: string]: () => void } = {
   },
   [DemoKeys.DOCUMENTS_DEMO_2]: () => {
     return new SmzDocumentBuilder()
-      // .debugMode()
+      .debugMode()
       .setGlobalScale(0.8)
       .setHeaderHeight('cm', 5.5)
       .setMargins('cm', 0.6)
+
+      .viewer()
+        .setFilename('demo-debug')
+        .setZoom(1, 0.5, 5, 0.5)
+        .allowDownload()
+        .document
+
       .header()
 
         .row()
