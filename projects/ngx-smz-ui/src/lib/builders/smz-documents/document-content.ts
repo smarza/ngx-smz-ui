@@ -3,11 +3,11 @@ import { SmzDocumentCell, SmzDocumentRow, SmzDocumentContent } from '../../modul
 import { SmzDocumentTitle, SmzDocumentFeatureDefinitions, SmzDocumentDivider, SmzDocumentField, SmzDocumentImage, SmzDocumentSpacer, SmzDocumentSubTitle, SmzDocumentFieldsGroup, SmzDocumentTable } from '../../modules/smz-documents/models/smz-document-features';
 import { SmzDocumentBuilder } from './document-builder';
 import { SmzCellDividerBuilder, SmzCellFieldBuilder, SmzCellFieldsGroupBuilder, SmzCellImageBuilder, SmzCellSpacerBuilder, SmzCellSubTitleBuilder, SmzCellTableBuilder, SmzCellTitleBuilder } from './document-cells';
-import cloneDeep from 'lodash-es/cloneDeep';
 import { UUID } from 'angular2-uuid';
-import { SmzConditionalBuilder } from '../common/smz-conditional-builder';
+import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 
-export class SmzDocumentContentBuilder extends SmzConditionalBuilder<SmzDocumentContentBuilder> {
+export class SmzDocumentContentBuilder extends SmzBuilderUtilities<SmzDocumentContentBuilder> {
+  protected that = this;
   constructor(private _documentBuilder: SmzDocumentBuilder, private _content: SmzDocumentContent) {
     super();
   }

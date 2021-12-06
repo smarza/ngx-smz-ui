@@ -7,6 +7,7 @@ import { ValidatorsDemo } from './functions/validators-demo';
 import { ChartsDemo } from './functions/charts-demo';
 import { DocumentsDemo } from './functions/documents-demo';
 import { TreesDemo } from './functions/trees-demo';
+import { MenusDemo } from './functions/menus-demo';
 
 export const TreeDemoData: DemoTreeNode[] = [
   {
@@ -18,6 +19,24 @@ export const TreeDemoData: DemoTreeNode[] = [
         demoType: 'chart',
         notes: '',
         data: ChartsDemo[DemoKeys.CHARTS_VERTICAL_BAR]
+      },
+    ]
+  },
+  {
+    label: 'Menu',
+    type: 'Category',
+    children: [
+      {
+        label: 'Menu If True', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'menu',
+        notes: 'kkkk',
+        data: MenusDemo[DemoKeys.MENU_IF_TRUE]
+      },
+      {
+        label: 'Menu If False', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'menu',
+        notes: '',
+        data: MenusDemo[DemoKeys.MENU_IF_FALSE]
       },
     ]
   },
@@ -189,7 +208,17 @@ export const TreeDemoData: DemoTreeNode[] = [
             data: DialogsDemo[DemoKeys.DIALOGS_FOOTER_HIDDEN]
           },
         ]
-      }
+      },
+      {
+        label: 'Conditionals', type: 'SubCategory',
+        children: [
+          {
+            label: 'If Title', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'dialog',
+            data: DialogsDemo[DemoKeys.DIALOGS_IF]
+          },
+        ]
+      },
     ]
   },
   {
@@ -401,6 +430,12 @@ export const TreeDemoData: DemoTreeNode[] = [
         demoType: 'table',
         notes: '',
         data: TablesDemo[DemoKeys.TABLE_BASIC]
+      },
+      {
+        label: 'Conditional Columns', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'table',
+        notes: '',
+        data: TablesDemo[DemoKeys.TABLE_IF]
       },
       {
         label: 'Filters: Array', icon: 'fas fa-code', type: 'Demo',

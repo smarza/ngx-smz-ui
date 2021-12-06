@@ -303,6 +303,21 @@ export const DialogsDemo: { [key: string]: () => void } = {
       .build()
     );
   },
+    //
+    [DemoKeys.DIALOGS_IF]: () => {
+      service.open(
+        new SmzDialogBuilder<void>()
+          .if(true)
+            .setTitle(`Title inside first if`)
+            .endIf
+          .if(false)
+            .setTitle(`Title inside second if`)
+            .endIf
+          .setLayout('EXTRA_SMALL', 'col-12')
+          .setLayout('EXTRA_LARGE', 'col-8')
+        .build()
+      );
+    },
 }
 
 function ExecuteBlockUiDemo(value: Number): void {

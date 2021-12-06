@@ -20,6 +20,7 @@
             <app-demo-table *ngSwitchCase="'table'" [node]="selectedNode"></app-demo-table>
             <app-demo-chart *ngSwitchCase="'chart'" [node]="selectedNode"></app-demo-chart>
             <app-demo-document *ngSwitchCase="'document'" [node]="selectedNode"></app-demo-document>
+            <app-demo-menu *ngSwitchCase="'menu'" [node]="selectedNode"></app-demo-menu>
             <app-demo-tree *ngSwitchCase="'tree'" [node]="selectedNode"></app-demo-tree>
             <div *ngSwitchCase="'dialog'">
               <button pButton pRipple type="button" label="Abrir Dialogo" class="p-button-success" (click)="selectedNode.data()"></button>

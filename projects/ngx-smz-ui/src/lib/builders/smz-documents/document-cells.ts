@@ -7,7 +7,6 @@ import cloneDeep from 'lodash-es/cloneDeep';
 import { Observable, of } from 'rxjs';
 import { GlobalInjector } from '../../modules/smz-dialogs/services/global-injector';
 import { Store } from '@ngxs/store';
-import { style } from '@angular/animations';
 
 export class SmzCellTitleBuilder extends SmzDocumentBaseCellBuilder<SmzCellTitleBuilder> {
   protected that = this;

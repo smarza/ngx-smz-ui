@@ -4,11 +4,12 @@ import { SmzDocumentFontFamilies, SmzDocumentRow, SmzDocumentState } from '../..
 import { SmzDocumentContentBuilder } from './document-content';
 import { SmzDocumentConfig } from '../../modules/smz-documents/models/smz-document-config';
 import cloneDeep from 'lodash-es/cloneDeep';
-import { SmzConditionalBuilder } from '../common/smz-conditional-builder';
+import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzDocumentViewerBuilder } from './document-viewer';
 
 const pixelCmFactor = 28.346;
-export class SmzDocumentBuilder extends SmzConditionalBuilder<SmzDocumentBuilder> {
+export class SmzDocumentBuilder extends SmzBuilderUtilities<SmzDocumentBuilder> {
+  protected that = this;
   private defaultConfig = GlobalInjector.instance.get(NgxRbkUtilsConfig);
   public _colsCount: number = 0;
   private _isHeaderHeightUpdated = false;

@@ -10,8 +10,10 @@ import { SmzDialogButtonsBuilder } from './dialog-buttons-builder';
 import { SmzDialogUiDefinitionBuilder } from './dialog-ui-definition-builder';
 import { SmzTableState } from '../../modules/smz-tables/models/table-state';
 import { SmzDocumentState } from '../../modules/smz-documents/models/smz-document';
+import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 
-export class SmzDialogBuilder<TResponse> {
+export class SmzDialogBuilder<TResponse> extends SmzBuilderUtilities<SmzDialogBuilder<TResponse>> {
+  protected that = this;
   private defaultConfig = GlobalInjector.instance.get(SmzDialogsConfig);
   public _state: SmzDialog<TResponse> = {
     title: null,
@@ -64,7 +66,7 @@ export class SmzDialogBuilder<TResponse> {
   public createdByUiDefinitions = false;
 
   constructor() {
-
+    super();
   }
 
   public setTitle(title = null): SmzDialogBuilder<TResponse> {

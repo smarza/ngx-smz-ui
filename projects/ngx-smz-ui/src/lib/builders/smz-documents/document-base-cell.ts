@@ -1,10 +1,10 @@
 import { SmzDocumentCell } from '../../modules/smz-documents/models/smz-document';
 import { SmzDocumentBaseCell } from '../../modules/smz-documents/models/smz-document-features';
-import { SmzConditionalBuilder } from '../common/smz-conditional-builder';
+import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzDocumentBuilder } from './document-builder';
 import { SmzDocumentRowBuilder } from './document-content';
 
-export class SmzDocumentBaseCellBuilder<T> extends SmzConditionalBuilder<T> {
+export class SmzDocumentBaseCellBuilder<T> extends SmzBuilderUtilities<T> {
   protected that: T;
   constructor(public _rowBuilder: SmzDocumentRowBuilder, public _cell: SmzDocumentCell, public _data: SmzDocumentBaseCell, public _documentBuilder: SmzDocumentBuilder) {
     super();

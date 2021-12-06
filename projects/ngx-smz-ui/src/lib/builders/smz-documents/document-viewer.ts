@@ -1,8 +1,9 @@
 import { SmzDocumentBuilder } from './document-builder';
-import { SmzConditionalBuilder } from '../common/smz-conditional-builder';
+import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzDocumentViewer } from '../../modules/smz-documents/models/smz-document-viewer';
 
-export class SmzDocumentViewerBuilder extends SmzConditionalBuilder<SmzDocumentViewerBuilder> {
+export class SmzDocumentViewerBuilder extends SmzBuilderUtilities<SmzDocumentViewerBuilder> {
+  protected that = this;
   constructor(private _documentBuilder: SmzDocumentBuilder, private _viewer: SmzDocumentViewer) {
     super();
   }

@@ -28,11 +28,9 @@ export class DemoTableComponent implements OnInit, OnChanges {
       const node = changes.node.currentValue;
       this.updateData(node);
     }
-
   }
 
   updateData(node: any): void {
-    console.log('node', node);
     const event = node.data;
     this.state = event.code();
     this.items$ = event.items$;
