@@ -40,30 +40,30 @@ export const TreeDemoData: DemoTreeNode[] = [
       },
     ]
   },
-  {
-    label: 'Components',
-    type: 'Category',
-    children: [
-      {
-        label: 'Inputs', icon: 'fas fa-code', type: 'Demo',
-        demoType: 'dialog',
-        notes: '',
-        data: null
-      },
-      {
-        label: 'Outputs', icon: 'fas fa-code', type: 'Demo',
-        demoType: 'dialog',
-        notes: '',
-        data: null
-      },
-      {
-        label: 'Error Messages', icon: 'fas fa-code', type: 'Demo',
-        demoType: 'dialog',
-        notes: '',
-        data: null
-      },
-    ]
-  },
+  // {
+  //   label: 'Components',
+  //   type: 'Category',
+  //   children: [
+  //     {
+  //       label: 'Inputs', icon: 'fas fa-code', type: 'Demo',
+  //       demoType: 'dialog',
+  //       notes: '',
+  //       data: null
+  //     },
+  //     {
+  //       label: 'Outputs', icon: 'fas fa-code', type: 'Demo',
+  //       demoType: 'dialog',
+  //       notes: '',
+  //       data: null
+  //     },
+  //     {
+  //       label: 'Error Messages', icon: 'fas fa-code', type: 'Demo',
+  //       demoType: 'dialog',
+  //       notes: '',
+  //       data: null
+  //     },
+  //   ]
+  // },
   {
     label: 'Dialogs',
     type: 'Category',

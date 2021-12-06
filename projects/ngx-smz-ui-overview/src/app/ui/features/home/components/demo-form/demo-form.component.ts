@@ -14,7 +14,7 @@ import { FormGroupComponent, SmzForm, SmzDialogsService, SmzDialogBuilder } from
     <i *ngIf="!formComponent.isValid" class="fas fa-times text-red-500 text-2xl" pTooltip="Com erros"></i>
   </div>
 
-  <smz-form-group [config]="form" #formComponent></smz-form-group>
+  <smz-form-group [config]="form" #formComponent (statusChanges)="onStatusChanges($event)"></smz-form-group>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -36,6 +36,10 @@ export class DemoFormComponent implements OnInit, OnChanges {
       this.form = node.data();
     }
 
+  }
+
+  public onStatusChanges(event: any): void {
+    console.log(event);
   }
 
   public log(): void {

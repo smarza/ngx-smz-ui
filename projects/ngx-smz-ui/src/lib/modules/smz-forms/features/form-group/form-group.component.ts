@@ -1,5 +1,5 @@
 import { ViewEncapsulation, Component, OnInit, AfterViewInit, OnDestroy, Input, Output, EventEmitter, OnChanges, SimpleChanges, ChangeDetectorRef } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, AbstractControlOptions } from '@angular/forms';
 import { debounceTime, takeWhile } from 'rxjs/operators';
 import { InjectableDialogComponentInterface } from '../../../../common/modules/inject-content/models/injectable-dialog-component.interface';
 import { SmzControlType, SmzFileControl } from '../../models/control-types';
@@ -147,7 +147,8 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
                 };
             };
 
-            this.form = this.fb.group(controlsConfig);
+            const options: AbstractControlOptions = { updateOn: this.config?.behaviors?.updateOn ?? 'change' };
+            this.form = this.fb.group(controlsConfig, options);
 
             if (this.config._context == null) {
                 this.config._context = {
@@ -177,7 +178,10 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
                 }
                 else
                 {
-                    this.statusChanges.emit(this.getData());
+                    if (!this.config.behaviors?.skipEmitChangesOnLoad)
+                    {
+                        this.statusChanges.emit(this.getData());
+                    }
                 }
 
                 // Esse timeout garante um adiamento no subscribe de status change do form para não ser executado na primeira inicialização
