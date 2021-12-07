@@ -45,7 +45,7 @@ export class DemoFormComponent implements OnInit, OnChanges {
     if (event.hasUnsavedChanges && event.isValid) {
       console.log('hasUnsavedChanges and isValid', event);
     }
-    if (event.hasUnsavedChanges && !event.isValid) {
+    else if (event.hasUnsavedChanges && !event.isValid) {
       console.log('hasUnsavedChanges and not valid', event);
     }
     else {

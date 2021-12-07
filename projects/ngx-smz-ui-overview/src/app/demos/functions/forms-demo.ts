@@ -174,7 +174,13 @@ Exame sem intercorrências.`)
   },
   //
   [DemoKeys.FORMS_INPUT_RADIO_GROUP]: () => {
-
+    return new SmzFormBuilder<any>()
+      .group()
+        .setLayout('EXTRA_SMALL', 'col-12')
+        .radioGroup('radio', 'Radio', [{id: 'Nenhum', name: 'Nenhum'}, {id: 'Irregularidade', name: 'Irregularidade'}, {id: 'Tortuosidade', name: 'Tortuosidade'}], 'Irregularidade')
+          .group
+        .form
+      .build();
   },
   //
   [DemoKeys.FORMS_INPUT_SWITCH]: () => {

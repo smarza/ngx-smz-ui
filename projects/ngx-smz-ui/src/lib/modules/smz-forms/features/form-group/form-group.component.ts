@@ -9,6 +9,7 @@ import { SmzFormsManagerService } from '../../services/smz-forms-manager.service
 import { SmzDialogsConfig } from '../../../smz-dialogs/smz-dialogs.config';
 import { uuidv4 } from '../../../../common/utils/utils';
 import { mergeClone } from '../../../../common/utils/deep-merge';
+import { NgxRbkUtilsConfig } from '../../../rbk-utils/ngx-rbk-utils.config';
 
 @Component({
     selector: 'smz-form-group',
@@ -33,7 +34,7 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
     public isInitialized = false;
     public configHasErrors = false;
 
-    constructor(public fb: FormBuilder, private cdf: ChangeDetectorRef, public manager: SmzFormsManagerService, public configService: SmzDialogsConfig)
+    constructor(public fb: FormBuilder, private cdf: ChangeDetectorRef, public manager: SmzFormsManagerService, public configService: SmzDialogsConfig, public rbkConfig: NgxRbkUtilsConfig)
     {
 
     }
@@ -371,13 +372,23 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
     /** Atualiza o hasChanges */
     public updateHasChanges(): void
     {
+
         const response = this.getData();
 
         const original = this.originalState;
+
         const current = JSON.stringify(response.data).replace(/['"]+/g, '');
 
         if (this.hasChanges === false && original !== current) {
             this.changed.emit(response);
+        }
+
+        if (this.rbkConfig.debugMode) {
+            console.group('UpdateHasChanges');
+            console.log('original', original);
+            console.log('current', current);
+            console.log('hasChanges', original !== current);
+            console.groupEnd();
         }
 
         this.hasChanges = original !== current;
