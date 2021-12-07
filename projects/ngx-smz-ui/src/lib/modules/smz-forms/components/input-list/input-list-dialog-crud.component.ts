@@ -10,7 +10,7 @@ import { SmzForm } from '../../models/smz-forms';
   template: `
     <ng-container *ngIf="form != null">
       <div class="p-grid p-nogutter p-align-start p-justify-start">
-        <smz-form-group class="p-col" #formComponent [config]="form" furyClickStopPropagation></smz-form-group>
+        <smz-form-group class="p-col" #formComponent [config]="form" clickStopPropagation></smz-form-group>
         <div class="w-full p-grid p-nogutter p-align-start p-justify-end">
           <button pButton (click)="confirm()" type="button" [disabled]="!formComponent.isValid" icon="pi pi-check" label="Confirmar" styleClass="p-mr-2"></button>
         </div>

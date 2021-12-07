@@ -255,7 +255,7 @@
                     [ngClass]="{ 'highlight-row': item?.id === state.actions.rowBehavior.highlights }"
                     >
 
-                    <td *ngIf="context.state.caption.rowSelection.isEnabled" furyClickStopPropagation [ngClass]="{ 'opacity-50 pointer-events-none': editableService.context[item.id]?.hasErrors || editableService.context[item.id]?.isLoading }">
+                    <td *ngIf="context.state.caption.rowSelection.isEnabled" clickStopPropagation [ngClass]="{ 'opacity-50 pointer-events-none': editableService.context[item.id]?.hasErrors || editableService.context[item.id]?.isLoading }">
                         <p-tableCheckbox [value]="item"></p-tableCheckbox>
                     </td>
 

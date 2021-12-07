@@ -1,3 +1,4 @@
+import { ClickStopPropagationModule } from './lib/common/stop-click-propagation/click-stop-propagation.module';
 /*
  * Public API Surface of ngx-smz-ui
  */
@@ -39,6 +40,9 @@ export { DescribeSimpleNamedPipe } from './lib/common/data-pipes/pipes/describe-
 export { DescribeAnyPipe } from './lib/common/data-pipes/pipes/describe-any.pipe';
 export { UrlCheckerPipeModule } from './lib/common/url-checker/url-checker.pipe';
 export { UrlCheckerPipe } from './lib/common/url-checker/url-checker.pipe';
+
+export { ClickStopPropagationModule } from './lib/common/stop-click-propagation/click-stop-propagation.module';
+export { ClickStopPropagationDirective } from './lib/common/stop-click-propagation/click-stop-propagation.directive';
 
 export { IsVisiblePipeModule, IsVisiblePipe } from './lib/common/is-visible-pipe/is-visible.pipe';
 export { MergeClonePipeModule, MergeClonePipe } from './lib/common/merge-clone-pipe/merge-clone.pipe';

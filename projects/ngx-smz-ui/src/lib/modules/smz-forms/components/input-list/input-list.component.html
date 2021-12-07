@@ -17,9 +17,9 @@
 
         <ng-template pTemplate="header">
             <div class="smz__list-header">
-                <button *ngIf="input.showAddButton" pButton pRipple type="button" icon="pi pi-plus" furyClickStopPropagation class="p-nocustom p-button-rounded p-button p-button-text" (click)="onAdd()" pTooltip="Adicionar novo item"></button>
-                <button *ngIf="input.showSortButton" pButton pRipple type="button" icon="pi pi-sort-alpha-down" furyClickStopPropagation class="p-nocustom p-button-rounded p-button p-button-text" (click)="onSort()" pTooltip="Reordenar"></button>
-                <button *ngIf="input.showClearButton" pButton pRipple type="button" icon="pi pi-trash" furyClickStopPropagation class="p-nocustom p-button-rounded p-button p-button-text" (click)="onClear()" pTooltip="Limpar a lista"></button>
+                <button *ngIf="input.showAddButton" pButton pRipple type="button" icon="pi pi-plus" clickStopPropagation class="p-nocustom p-button-rounded p-button p-button-text" (click)="onAdd()" pTooltip="Adicionar novo item"></button>
+                <button *ngIf="input.showSortButton" pButton pRipple type="button" icon="pi pi-sort-alpha-down" clickStopPropagation class="p-nocustom p-button-rounded p-button p-button-text" (click)="onSort()" pTooltip="Reordenar"></button>
+                <button *ngIf="input.showClearButton" pButton pRipple type="button" icon="pi pi-trash" clickStopPropagation class="p-nocustom p-button-rounded p-button p-button-text" (click)="onClear()" pTooltip="Limpar a lista"></button>
             </div>
         </ng-template>
 
@@ -30,26 +30,26 @@
                 </ng-container>
 
                 <ng-container *ngIf="isInlineEditingEnabled && current === item">
-                    <div *ngIf="editForm != null" class="p-col p-grid p-nogutter p-align-center p-justify-center flex-gap-2 p-py-3 p-px-0" furyClickStopPropagation>
+                    <div *ngIf="editForm != null" class="p-col p-grid p-nogutter p-align-center p-justify-center flex-gap-2 p-py-3 p-px-0" clickStopPropagation>
                         <form #form [formGroup]="editForm" class="p-col relative">
-                            <input type="text" furyClickStopPropagation pInputText formControlName="value"/>
+                            <input type="text" clickStopPropagation pInputText formControlName="value"/>
                             <ng-container *ngIf="editForm.get('value') as valueInput">
                                 <div *ngIf="valueInput.touched && valueInput.hasError('required')" class="text-xs text-red-500 absolute right-3 p-my-1">Campo Obrigatório.</div>
                                 <div *ngIf="valueInput.touched && valueInput.hasError('unique')" class="text-xs text-red-500 absolute right-3 p-my-1">Já existe um item com esse nome.</div>
                             </ng-container>
 
                         </form>
-                        <button pButton pRipple type="button" icon="pi pi-check" furyClickStopPropagation [disabled]="!editForm.valid" class="p-nocustom inline_action_button p-button-rounded p-button-success p-button-text" (click)="onConfirmInlineEditing(item)"></button>
-                        <button pButton pRipple type="button" icon="pi pi-times" furyClickStopPropagation class="p-nocustom inline_action_button p-button-rounded p-button-danger p-button-text" (click)="cancelEdit()"></button>
+                        <button pButton pRipple type="button" icon="pi pi-check" clickStopPropagation [disabled]="!editForm.valid" class="p-nocustom inline_action_button p-button-rounded p-button-success p-button-text" (click)="onConfirmInlineEditing(item)"></button>
+                        <button pButton pRipple type="button" icon="pi pi-times" clickStopPropagation class="p-nocustom inline_action_button p-button-rounded p-button-danger p-button-text" (click)="cancelEdit()"></button>
                     </div>
                 </ng-container>
 
                 <ng-container *ngIf="current === item && !isInlineEditingEnabled">
-                    <div class="smz__list_item-actions" furyClickStopPropagation>
-                        <button *ngIf="input.showEditButton" furyClickStopPropagation pButton pRipple type="button" icon="pi pi-pencil" class="p-nocustom p-button-rounded p-button-text" (click)="onEdit(item)"></button>
-                        <button *ngIf="input.showRemoveButton" furyClickStopPropagation pButton pRipple type="button" icon="pi pi-trash" class="p-nocustom p-button-rounded p-button-text" (click)="input.askBeforeRemoveItem ? askBeforeRemove(item) : remove(item)"></button>
-                        <button *ngIf="input.showMoveButton" furyClickStopPropagation pButton pRipple type="button" icon="pi pi-arrow-up" class="p-nocustom p-button-rounded p-button-text" (click)="moveUp(item)"></button>
-                        <button *ngIf="input.showMoveButton" furyClickStopPropagation pButton pRipple type="button" icon="pi pi-arrow-down" class="p-nocustom p-button-rounded p-button-text" (click)="moveDown(item)"></button>
+                    <div class="smz__list_item-actions" clickStopPropagation>
+                        <button *ngIf="input.showEditButton" clickStopPropagation pButton pRipple type="button" icon="pi pi-pencil" class="p-nocustom p-button-rounded p-button-text" (click)="onEdit(item)"></button>
+                        <button *ngIf="input.showRemoveButton" clickStopPropagation pButton pRipple type="button" icon="pi pi-trash" class="p-nocustom p-button-rounded p-button-text" (click)="input.askBeforeRemoveItem ? askBeforeRemove(item) : remove(item)"></button>
+                        <button *ngIf="input.showMoveButton" clickStopPropagation pButton pRipple type="button" icon="pi pi-arrow-up" class="p-nocustom p-button-rounded p-button-text" (click)="moveUp(item)"></button>
+                        <button *ngIf="input.showMoveButton" clickStopPropagation pButton pRipple type="button" icon="pi pi-arrow-down" class="p-nocustom p-button-rounded p-button-text" (click)="moveDown(item)"></button>
                     </div>
                 </ng-container>
 
