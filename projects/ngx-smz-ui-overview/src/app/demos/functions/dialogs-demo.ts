@@ -83,10 +83,22 @@ export const DialogsDemo: { [key: string]: () => void } = {
   [DemoKeys.DIALOGS_CONTROLS_BASE_Z_INDEX]: () => {
     service.open(
       new SmzDialogBuilder<void>()
-        .setTitle(`Some Title Here`)
-        .setLayout('EXTRA_SMALL', 'col-12')
-        .setLayout('EXTRA_LARGE', 'col-8')
-        .baseZIndex(-1)
+      .setLayout('EXTRA_SMALL', 'col-12')
+      .setLayout('SMALL', 'col-12')
+      .setLayout('MEDIUM', 'col-6')
+      .setLayout('LARGE', 'col-6')
+      .setLayout('EXTRA_LARGE', 'col-6')
+      .baseZIndex(500)
+      .closeOnEscape()
+      .dismissableMask()
+      .confirmOnEnter()
+        .form()
+        .group()
+          .calendar('date', 'Agendamento')
+            .useDateAndTime()
+            .group
+          .form
+        .dialog
       .build()
     );
   },

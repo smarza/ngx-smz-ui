@@ -43,6 +43,19 @@ export class SmzBuilderUtilities<T> {
     return data;
   }
 
+  public for(items: any[], callback: (i: T, item: any) => T): T {
+
+    let result = this.that;
+
+    items.forEach(
+      item => {
+        result = callback(result, item);
+      }
+    );
+
+    return result;
+  }
+
 }
 
 

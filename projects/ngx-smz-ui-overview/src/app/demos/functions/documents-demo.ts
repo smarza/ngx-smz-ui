@@ -315,10 +315,11 @@ Caso contrário, aguardamos a confirmação do envio em até 48 horas.
         .row()
           .table()
             .applyItems(DemoFeatureSelectors.all)
-            .addColumn('name', 'Nome')
-              .table
-            .addColumn('company', 'Empresa')
-              .table
+            .for([{ property: 'name', label: 'Nome' }, { property: 'company', label: 'Empresa' }],
+              (x, item) =>
+                x.addColumn(item.property, item.label)
+                  .table
+              )
             .row
           .content
 
