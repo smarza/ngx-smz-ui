@@ -1,4 +1,4 @@
-import { SmzCalendarControl, SmzCheckBoxControl, SmzCheckBoxGroupControl, SmzColorPickerControl, SmzContentMaskControl, SmzControlType, SmzCurrencyControl, SmzDropDownControl, SmzFileControl, SmzLinkedDropDownControl, SmzLinkedMultiSelectControl, SmzListControl, SmzMaskControl, SmzMultiSelectControl, SmzNumberControl, SmzPasswordControl, SmzRadioControl, SmzSwitchControl, SmzTagAreaControl, SmzTextAreaControl, SmzTextControl } from '../../modules/smz-forms/models/control-types';
+import { SmzCalendarControl, SmzCheckBoxControl, SmzCheckBoxGroupControl, SmzColorPickerControl, SmzContentMaskControl, SmzControlType, SmzCurrencyControl, SmzDropDownControl, SmzFileControl, SmzLinkedDropDownControl, SmzLinkedMultiSelectControl, SmzListControl, SmzMaskControl, SmzMultiSelectControl, SmzNumberControl, SmzPasswordControl, SmzRadioControl, SmzSwitchControl, SmzTagAreaControl, SmzTextAreaControl, SmzTextControl, SmzControlTypes } from '../../modules/smz-forms/models/control-types';
 import { SimpleEntity, SimpleParentEntity } from '../../common/models/simple-named-entity';
 import { SmzFormBuilder } from './form-builder';
 import { SmzFormGroup } from '../../modules/smz-forms/models/smz-forms';
@@ -6,9 +6,12 @@ import { SmzFormsBaseControl } from '../../modules/smz-forms/models/controls';
 import { ValidatorFn, Validators } from '@angular/forms';
 import { SmzTextPattern } from '../../modules/smz-forms/models/text-patterns';
 import { MustMatch } from '../../common/utils/custom-validations';
+import { GlobalInjector } from '../../common/services/global-injector';
+import { SmzDialogsConfig } from '../../modules/smz-dialogs/smz-dialogs.config';
 
 
 export class SmzFormGroupBuilder<TResponse> {
+  private defaultConfig = GlobalInjector.instance.get(SmzDialogsConfig);
   constructor(public _formBuilder: SmzFormBuilder<TResponse>, public group: SmzFormGroup) {
   }
 
@@ -325,16 +328,13 @@ export class SmzFormGroupBuilder<TResponse> {
         throw Error('Label is required for contentMask')
       }
 
+      const defaults = this.defaultConfig.forms.controlTypes[SmzControlType.CONTENT_MASK] as SmzContentMaskControl;
+
       input = {
-        propertyName: property, type: SmzControlType.CONTENT_MASK, name: label,
+        ...defaults,
+        propertyName: property, type: SmzControlType.CONTENT_MASK,
+        name: label,
         defaultValue: defaultValue,
-        quickActions: [],
-        variableId: 'input__variable',
-        inputClass: 'smz-input-content-mask',
-        tagClass: '',
-        variableBegin: '{{',
-        variableEnd: '}}',
-        exportHtmlNewLine: false
       };
 
       this.group.children.push(input);

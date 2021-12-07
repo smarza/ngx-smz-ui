@@ -63,6 +63,7 @@ Realizados os registros pressóricos em:
 <monitoredData id="6416118c-b362-4467-6ae4-08d9b8dd31bd">Monitoração ambulatorial da pressão arterial</monitoredData>
 Na sequência, foi realizada a coronariografia direita.
 Exame sem intercorrências.`)
+          // .setTagClass('text-purple-500')
           .validators()
           .required()
         .group
