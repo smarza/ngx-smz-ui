@@ -61,13 +61,23 @@ export class SmzFormBuilder<TResponse> {
     return this;
   }
 
-  public setEmitChangesBehavior(updateOn: 'blur' | 'change' | 'submit'): SmzFormBuilder<TResponse> {
-    this._state.behaviors.updateOn = updateOn;
-
-    if (updateOn !== 'change') this._state.behaviors.skipEmitChangesOnLoad = true;
-
+  public emitChangesOnFocusExit(): SmzFormBuilder<TResponse> {
+    this._state.behaviors.updateOn = 'blur';
+    this._state.behaviors.skipEmitChangesOnLoad = true;
     return this;
   }
+
+  // public EmitChangesOnSubmit(): SmzFormBuilder<TResponse> {
+  //   this._state.behaviors.updateOn = 'submit';
+  //   this._state.behaviors.skipEmitChangesOnLoad = true;
+  //   return this;
+  // }
+
+  public emitChangesOnAllChanges(): SmzFormBuilder<TResponse> {
+    this._state.behaviors.updateOn = 'change';
+    return this;
+  }
+
 
   public avoidEmitChangesOnLoad(): SmzFormBuilder<TResponse> {
     this._state.behaviors.skipEmitChangesOnLoad = true;

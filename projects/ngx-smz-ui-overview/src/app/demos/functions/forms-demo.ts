@@ -52,7 +52,7 @@ export const FormsDemo: { [key: string]: () => void } = {
   //
   [DemoKeys.FORMS_INPUT_CONTENT_MASK]: () => {
     return new SmzFormBuilder<any>()
-      .setEmitChangesBehavior('blur')
+      .emitChangesOnFocusExit()
       .group()
         .setLayout('EXTRA_SMALL', 'col-12')
         .contentMask('input1', 'Conteúdo com variáveis',
@@ -190,12 +190,11 @@ Exame sem intercorrências.`)
   //
   [DemoKeys.FORMS_INPUT_TEXT]: () => {
     return new SmzFormBuilder<any>()
-      .setEmitChangesBehavior('blur')
       .group()
         .setLayout('EXTRA_SMALL', 'col-12')
         .text('input1', 'I\'m not required')
         .group
-        .text('input2', 'I\'m required')
+        .text('input2', 'I\'m required', 'sample')
           .validators()
           .required()
         .group
