@@ -145,7 +145,7 @@ export const DocumentsDemo: { [key: string]: () => void } = {
 
         .row()
           .table()
-            .applyItems(DemoFeatureSelectors.all)
+            .setSource(DemoFeatureSelectors.all)
             .addColumn('name', 'Nome')
               .table
             .addColumn('company', 'Empresa')
@@ -314,7 +314,7 @@ Caso contrário, aguardamos a confirmação do envio em até 48 horas.
 
         .row()
           .table()
-            .applyItems(DemoFeatureSelectors.all)
+            .setSource(DemoFeatureSelectors.all)
             .for([{ property: 'name', label: 'Nome' }, { property: 'company', label: 'Empresa' }],
               (x, item) =>
                 x.addColumn(item.property, item.label)
@@ -330,7 +330,7 @@ Caso contrário, aguardamos a confirmação do envio em até 48 horas.
 
         .row()
           .table()
-            .applyItems(CountriesDbSelectors.all)
+            .setSource(CountriesDbSelectors.all)
             .addColumn('name', 'País')
               .table
             .addColumn('id', 'Identificação')
@@ -345,7 +345,7 @@ Caso contrário, aguardamos a confirmação do envio em até 48 horas.
 
         .row()
           .table()
-            .applyItems(DemoFeatureSelectors.all)
+            .setSource(DemoFeatureSelectors.all)
             .addColumn('name', 'Nome')
               .table
             .addColumn('company', 'Empresa')
@@ -360,7 +360,7 @@ Caso contrário, aguardamos a confirmação do envio em até 48 horas.
 
         .row()
           .table()
-            .applyItems(CountriesDbSelectors.all)
+            .setSource(CountriesDbSelectors.all)
             .addColumn('name', 'País')
               .table
             .addColumn('id', 'Identificação')

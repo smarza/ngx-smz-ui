@@ -361,7 +361,7 @@ export class SmzCellTableBuilder extends SmzDocumentBaseCellBuilder<SmzCellTable
     return new SmzCellTableColumnBuilder(this, property, label, this._documentBuilder);
   }
 
-  public applyItems(selector?: any, items$?: Observable<any[]>, items?: any[]): SmzCellTableBuilder {
+  public setSource(selector?: any, items$?: Observable<any[]>, items?: any[]): SmzCellTableBuilder {
     if (selector != null) {
       const store = GlobalInjector.instance.get(Store);
       this._data.content.items$ = store.select(selector);
@@ -373,7 +373,7 @@ export class SmzCellTableBuilder extends SmzDocumentBaseCellBuilder<SmzCellTable
       this._data.content.items$ = of(items);
     }
     else {
-      throw new Error(`You need to provide at least one type of items to the table (applyItems())`);
+      throw new Error(`You need to provide at least one type of items to the table (setSource())`);
     }
     return this.that;
   }
