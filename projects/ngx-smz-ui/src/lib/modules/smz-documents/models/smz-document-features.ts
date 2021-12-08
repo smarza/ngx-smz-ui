@@ -1,7 +1,8 @@
 import { Observable } from 'rxjs';
+import { SmzChart } from '../../smz-charts/models/chart';
 import { SmzDocumentCellConfig } from './smz-document';
 
-export type SmzDocumentFeatures = SmzDocumentTitle | SmzDocumentDivider | SmzDocumentField | SmzDocumentImage | SmzDocumentSpacer | SmzDocumentSubTitle | SmzDocumentFieldsGroup | SmzDocumentTable;
+export type SmzDocumentFeatures = SmzDocumentTitle | SmzDocumentDivider | SmzDocumentField | SmzDocumentImage | SmzDocumentSpacer | SmzDocumentSubTitle | SmzDocumentFieldsGroup | SmzDocumentTable | SmzDocumentChart;
 
 export enum SmzDocumentFeatureDefinitions {
   DIVIDER,
@@ -11,7 +12,8 @@ export enum SmzDocumentFeatureDefinitions {
   SPACER,
   SUB_TITLE,
   TITLE,
-  TABLE
+  TABLE,
+  CHART
 
 }
 export interface SmzDocumentBaseCell {
@@ -141,4 +143,16 @@ export interface SmzDocumentSpacer extends SmzDocumentBaseCell {
   height: string;
   styles?: string;
 
+}
+
+export interface SmzDocumentChart extends SmzDocumentBaseCell {
+  type: SmzDocumentFeatureDefinitions.CHART;
+  container?: {
+    background?: string;
+    styles?: string;
+  }
+  content?: {
+    chartData?: SmzChart
+  }
+  flexWidth: string;
 }

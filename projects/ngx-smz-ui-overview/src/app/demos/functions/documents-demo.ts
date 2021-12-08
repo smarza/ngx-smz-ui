@@ -1,7 +1,8 @@
 import { DemoKeys } from '@demos/demo-keys';
 import { DemoFeatureSelectors } from '@states/demo/demo.selectors';
-import { SmzDocumentBuilder } from 'ngx-smz-ui';
+import { SmzChart, SmzDocumentBuilder } from 'ngx-smz-ui';
 import { CountriesDbSelectors } from '@states/database/countries/countries.selectors';
+import { VERTICAL_BAR } from '@demos/data/chart-data-original';
 
 export const DocumentsDemo: { [key: string]: () => void } = {
   //
@@ -112,6 +113,12 @@ export const DocumentsDemo: { [key: string]: () => void } = {
 
         .row()
           .subTitle('INFORMAÇÕES GERAIS')
+            .row
+          .content
+
+        .row()
+          .chart(VERTICAL_BAR as SmzChart)
+            .setWidth('col-5')
             .row
           .content
 

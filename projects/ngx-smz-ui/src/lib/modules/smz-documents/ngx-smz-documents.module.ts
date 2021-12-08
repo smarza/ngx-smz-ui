@@ -24,6 +24,8 @@ import { SmzDocumentSubTitleComponent } from './components/sub-title/sub-title.c
 import { SmzDocumentFieldsGroupComponent } from './components/fields-group/fields-group.component';
 import { SmzDocumentViewerComponent } from './features/document-viewer/document-viewer.component';
 import { SmzDocumentTableComponent } from './components/table/table.component';
+import { SmzDocumentChartComponent } from './components/chart/chart.component';
+import { SmzChartModule } from '../smz-charts/ngx-smz-charts.module';
 
 @NgModule({
     imports: [
@@ -40,7 +42,8 @@ import { SmzDocumentTableComponent } from './components/table/table.component';
       NgVarModule,
       ClickStopPropagationModule,
       NgxSmzDataPipesModule,
-      TooltipModule
+      TooltipModule,
+      SmzChartModule
     ],
     exports: [SmzDocumentComponent],
     declarations: [
@@ -55,6 +58,7 @@ import { SmzDocumentTableComponent } from './components/table/table.component';
       SmzDocumentFieldsGroupComponent,
       SmzDocumentViewerComponent,
       SmzDocumentTableComponent,
+      SmzDocumentChartComponent
     ]
   })
   export class NgxSmzDocumentsModule
