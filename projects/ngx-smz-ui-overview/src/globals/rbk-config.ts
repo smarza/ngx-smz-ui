@@ -31,7 +31,7 @@ import { Navigate } from '@ngxs/router-plugin';
 //
 
 export const rbkConfig: NgxRbkUtilsConfig = {
-    debugMode: false,
+    debugMode: true,
     applicationName: environment.production ? 'Overview' : 'Overview DEV',
     useTitleService: true,
     uiDefinitions: {

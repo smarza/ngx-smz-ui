@@ -14,6 +14,7 @@ import { getPreset } from '../models/smz-presets';
 import { SmzControlTypes } from '../../smz-forms/models/control-types';
 import { SmzCheckBoxControl } from '../../smz-forms/models/control-types';
 import { SmzFeaturesService } from './smz-features.service';
+import { NgxRbkUtilsConfig } from '../../rbk-utils/ngx-rbk-utils.config';
 
 const FORMGROUP_BASE = 2;
 const CONFIRMATION_BASE = 4;
@@ -54,7 +55,7 @@ const BASE_DIALOG: SmzDialog<any> = {
 export class SmzDialogsService
 {
     public dialogRefs: DynamicDialogRef[] = [];
-    constructor(private moduleConfig: SmzDialogsConfig, private dialogService: DialogService, public refService: DynamicDialogRef, private visibilityService: SmzDialogsVisibilityService, private featuresService: SmzFeaturesService)
+    constructor(private moduleConfig: SmzDialogsConfig, private dialogService: DialogService, public refService: DynamicDialogRef, private visibilityService: SmzDialogsVisibilityService, private featuresService: SmzFeaturesService, private rbkConfig: NgxRbkUtilsConfig)
     {
         BASE_DIALOG.behaviors = moduleConfig.dialogs.behaviors;
         BASE_DIALOG.dialogTemplate = moduleConfig.dialogs.dialogTemplate;
@@ -68,6 +69,7 @@ export class SmzDialogsService
     public open(dialog: SmzDialog<any>, preset?: SmzDialogPreset): DynamicDialogRef
     {
         // console.log('open', dialog);
+
         const dialogId = uuidv4();
 
         const data: SmzDialog<any> = {
@@ -125,7 +127,18 @@ export class SmzDialogsService
         ref.id = dialogId;
 
         this.dialogRefs.push(ref);
-        // console.log('dialogRefs push', this.dialogRefs);
+
+        if (this.rbkConfig.debugMode) {
+            console.groupCollapsed('SmzDialogsService => open()');
+
+            console.log('SmzDialogsConfig', this.moduleConfig);
+            console.log('dialog', dialog);
+            console.log('config', config);
+            console.log('behaviors', behaviors);
+            console.log('data', data);
+
+            console.groupEnd();
+        }
 
         return ref;
     }

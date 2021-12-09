@@ -83,12 +83,13 @@ export const DialogsDemo: { [key: string]: () => void } = {
   [DemoKeys.DIALOGS_CONTROLS_BASE_Z_INDEX]: () => {
     service.open(
       new SmzDialogBuilder<void>()
+      .setTitle('Base z-index sample')
       .setLayout('EXTRA_SMALL', 'col-12')
       .setLayout('SMALL', 'col-12')
       .setLayout('MEDIUM', 'col-6')
       .setLayout('LARGE', 'col-6')
       .setLayout('EXTRA_LARGE', 'col-6')
-      .baseZIndex(500)
+      // .baseZIndex(500)
       .closeOnEscape()
       .dismissableMask()
       .confirmOnEnter()
@@ -97,6 +98,9 @@ export const DialogsDemo: { [key: string]: () => void } = {
           .calendar('date', 'Agendamento')
             .useDateAndTime()
             .group
+        .dropdown('input1', 'I\'m required', [{ id: '1', name: 'Option 1'}, { id: '2', name: 'Option 2'}, { id: '3', name: 'Option 3'}])
+              .validators().required()
+              .group
           .form
         .dialog
       .build()
