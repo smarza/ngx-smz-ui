@@ -44,7 +44,7 @@
         <li
           class="p-menuitem"
           *ngIf="!item.separator"
-          [pMenuItemContent]="item"
+          [smzMenuItemContent]="item"
           [ngClass]="{'p-hidden': (item.visible === false || submenu.visible === false)}"
           [ngStyle]="item.style"
           [class]="item.styleClass"
@@ -64,7 +64,7 @@
       <li
         class="p-menuitem"
         *ngIf="!item.separator"
-        [pMenuItemContent]="item"
+        [smzMenuItemContent]="item"
         [ngClass]="{'p-hidden': item.visible === false}"
         [ngStyle]="item.style"
         [class]="item.styleClass"

@@ -31,7 +31,7 @@ import { RippleModule } from "primeng/ripple";
 import { TooltipModule } from "primeng/tooltip";
 
 @Component({
-  selector: "[pMenuItemContent]",
+  selector: "[smzMenuItemContent]",
   encapsulation: ViewEncapsulation.None,
   templateUrl: "./menu-item-content.html",
   host: {
@@ -39,7 +39,7 @@ import { TooltipModule } from "primeng/tooltip";
   },
 })
 export class MenuItemContent {
-  @Input("pMenuItemContent") item: MenuItem;
+  @Input("smzMenuItemContent") item: MenuItem;
 
   menu: Menu;
 
@@ -384,7 +384,7 @@ export class Menu implements OnDestroy {
   hasSubMenu(): boolean {
     if (this.model) {
       for (var item of this.model) {
-        if (item.items) {
+        if (item.items?.length > 0) {
           return true;
         }
       }
