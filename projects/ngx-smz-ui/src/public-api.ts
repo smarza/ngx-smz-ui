@@ -69,6 +69,7 @@ export * from './lib/common/modules/inject-content/public-api';
 export * from './lib/common/models/simple-named-entity';
 export * from './lib/common/models/templates';
 export * from './lib/common/utils/utils';
+export * from './lib/common/utils/pretty-json';
 
 export * from './lib/common/pipes/templates.pipe';
 
@@ -79,3 +80,4 @@ export * from './lib/modules/rbk-utils/public-api';
 // BUILDERS
 export * from './lib/builders/smz-documents/document-builder';
 export * from './lib/builders/smz-menu/menu-builder';
+export * from './lib/builders/smz-charts/public-api';

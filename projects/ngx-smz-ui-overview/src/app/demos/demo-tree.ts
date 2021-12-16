@@ -15,10 +15,76 @@ export const TreeDemoData: DemoTreeNode[] = [
     type: 'Category',
     children: [
       {
+        label: 'Combo', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'chart',
+        notes: '',
+        data: ChartsDemo[DemoKeys.CHARTS_COMBO]
+      },
+      {
+        label: 'Line Bar', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'chart',
+        notes: '',
+        data: ChartsDemo[DemoKeys.CHARTS_LINE_BAR]
+      },
+      {
+        label: 'Rounded Bar', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'chart',
+        notes: '',
+        data: ChartsDemo[DemoKeys.CHARTS_ROUNDED_BAR]
+      },
+      {
+        label: 'Stacked Bar', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'chart',
+        notes: '',
+        data: ChartsDemo[DemoKeys.CHARTS_STACKED_BAR]
+      },
+      {
         label: 'Vertical Bar', icon: 'fas fa-code', type: 'Demo',
         demoType: 'chart',
         notes: '',
         data: ChartsDemo[DemoKeys.CHARTS_VERTICAL_BAR]
+      },
+      {
+        label: 'Bar', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'chart',
+        notes: '',
+        data: ChartsDemo[DemoKeys.CHARTS_BAR]
+      },
+      {
+        label: 'Dougnut', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'chart',
+        notes: '',
+        data: ChartsDemo[DemoKeys.CHARTS_DOUGNUT]
+      },
+      {
+        label: 'Pie', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'chart',
+        notes: '',
+        data: ChartsDemo[DemoKeys.CHARTS_PIE]
+      },
+      {
+        label: 'Polar Area', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'chart',
+        notes: '',
+        data: ChartsDemo[DemoKeys.CHARTS_POLAR_AREA]
+      },
+      {
+        label: 'Color Pallete', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'chart',
+        notes: '',
+        data: ChartsDemo[DemoKeys.CHARTS_COLOR_PALLETE]
+      },
+      {
+        label: 'Sprint 1', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'chart',
+        notes: '',
+        data: ChartsDemo[DemoKeys.CHARTS_SPRINTS_1]
+      },
+      {
+        label: 'Sprint 2', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'chart',
+        notes: '',
+        data: ChartsDemo[DemoKeys.CHARTS_SPRINTS_2]
       },
     ]
   },
