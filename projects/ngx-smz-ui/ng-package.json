@@ -77,7 +77,8 @@
       "primeng/utils": "utils",
       "primeng/api": "api",
       "ngx-pipes": "ngxpipes",
-      "jspdf": "jspdf"
+      "jspdf": "jspdf",
+      "chart.js": "chartjs"
     }
   }
 }

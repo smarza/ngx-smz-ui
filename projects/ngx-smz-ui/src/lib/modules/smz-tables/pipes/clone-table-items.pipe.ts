@@ -99,7 +99,7 @@ export class SmzCloneTableItemsPipe implements PipeTransform {
           return (x as any).name.trim();
         }
 
-        return x == null ? x : x?.trim();
+        return x == null ? x : x?.toString().trim();
       })
       .map(x => {
         const multipleLines = (x == null || isArray(x)) ? [] : x?.split('<br>');
