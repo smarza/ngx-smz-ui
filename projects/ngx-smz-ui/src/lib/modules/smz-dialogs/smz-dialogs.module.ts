@@ -38,6 +38,7 @@ import { NgxsModule } from '@ngxs/store';
 import { DialogsState } from './state/dialogs/dialogs.state';
 import { NgxSmzDocumentsModule } from '../smz-documents/ngx-smz-documents.module';
 import { DocumentContentComponent } from './features/document-content/document-content.component';
+import { ContextMenuService } from 'primeng/api';
 
 const defaultDialogsModuleConfig: SmzDialogsConfig = {
     dialogs: {
@@ -120,7 +121,7 @@ export const ngxsModuleForFeatureDialogsState = NgxsModule.forFeature([DialogsSt
         NgxSmzDocumentsModule
     ],
     entryComponents: [DialogContentManagerComponent, MessageContentComponent, HtmlContentComponent, DialogFooterComponent, TableContentComponent, DocumentContentComponent],
-    providers: [SmzDynamicDialogConfig, DynamicDialogConfig, DynamicDialogRef],
+    providers: [SmzDynamicDialogConfig, DynamicDialogConfig, DynamicDialogRef, ContextMenuService],
 })
 
 export class NgxSmzDialogsModule

@@ -48,6 +48,7 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
   public footerTemplate: TemplateRef<any>;
   public toolbarTemplate: TemplateRef<any>;
   public emptyStateTemplate: TemplateRef<any>;
+  public contentTemplates: { type: string, template: TemplateRef<any> }[] = [];
   public selectedItems: TreeNode[];
   public documentClickListener = null;
   public menuItems: MenuItem[] = null;
@@ -83,28 +84,44 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
   public ngAfterContentInit() {
 
     this.templates.forEach((item) => {
-      switch (item.getType()) {
 
-        case 'header':
-          this.headerTemplate = item.template;
-          break;
+      const templateName = item.getType();
+      if (templateName.includes('content')) {
+        const type = templateName.split(':')[1];
 
-        case 'footer':
-          this.footerTemplate = item.template;
-          break;
-
-        case 'empty':
-          this.emptyStateTemplate = item.template;
-          break;
-
-        case 'toolbar':
-          this.toolbarTemplate = item.template;
-          break;
-
-        case 'emptyState':
-          this.emptyStateTemplate = item.template;
-          break;
+        this.contentTemplates.push({
+          type,
+          template: item.template
+        });
       }
+      else {
+
+        switch (templateName) {
+
+          case 'header':
+            this.headerTemplate = item.template;
+            break;
+
+          case 'footer':
+            this.footerTemplate = item.template;
+            break;
+
+          case 'empty':
+            this.emptyStateTemplate = item.template;
+            break;
+
+          case 'toolbar':
+            this.toolbarTemplate = item.template;
+            break;
+
+          case 'emptyState':
+            this.emptyStateTemplate = item.template;
+            break;
+        }
+
+      }
+
+
     });
   }
 
