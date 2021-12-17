@@ -26,22 +26,21 @@ export class SmzCloneTableItemsPipe implements PipeTransform {
         context.columns.forEach(col => {
 
           const columnItems = samples.map(x => x[col.field]).filter(x => x != null);
-          const estimativeWidth = this.estimate(columnItems, col.field, context.state.caption.columnVisibility.showDropdownSelector, context.state.caption.columnVisibility.showColumnHideButton, col.isOrderable, col.filter?.type !== SmzFilterType.NONE);
 
-          // if (col.field === 'service') {
-          //   console.log(`${col.field} => ${estimativeWidth}`);
-          // }
+          var width = col.width;
 
-          col.width = estimativeWidth;
+          if (col.width == 'auto') {
+            width = this.estimate(columnItems, col.field, context.state.caption.columnVisibility.showDropdownSelector, context.state.caption.columnVisibility.showColumnHideButton, col.isOrderable, col.filter?.type !== SmzFilterType.NONE);
+          }
 
           const visibleColumnsIndex = context.visibleColumns?.findIndex(x => x.field === col.field);
           if (visibleColumnsIndex >= 0) {
-            context.visibleColumns[visibleColumnsIndex].width = estimativeWidth;
+            context.visibleColumns[visibleColumnsIndex].width = width;
           }
 
           const frozenColumnsIndex = context.frozenColumns?.findIndex(x => x.field === col.field);
           if (frozenColumnsIndex >= 0) {
-            context.frozenColumns[frozenColumnsIndex].width = estimativeWidth;
+            context.frozenColumns[frozenColumnsIndex].width = width;
           }
 
         });

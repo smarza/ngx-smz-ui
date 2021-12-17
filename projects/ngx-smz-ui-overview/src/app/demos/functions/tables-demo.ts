@@ -54,7 +54,7 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
           .menu
         .table
       .columns()
-        .text('name', 'Name')
+        .text('name', 'Name', '40em')
           .disableFilter()
           .columns
         .text('country.name', 'Country')
