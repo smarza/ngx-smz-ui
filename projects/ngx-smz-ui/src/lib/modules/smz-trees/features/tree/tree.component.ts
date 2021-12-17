@@ -86,7 +86,7 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
     this.templates.forEach((item) => {
 
       const templateName = item.getType();
-      if (templateName.includes('content')) {
+      if (templateName.includes('type')) {
         const type = templateName.split(':')[1];
 
         this.contentTemplates.push({
