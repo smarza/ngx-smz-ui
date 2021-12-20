@@ -11,10 +11,10 @@ const designMode = true;
 module.exports = {
     prefix: '',
     mode: designMode ? undefined : 'jit',
-    purge: [
+    content: [
         './src/**/*.{html,ts,css,scss}',
+        '../ngx-smz-ui/**/*.{html,ts,css,scss}'
     ],
-    darkMode: false, // or 'media' or 'class'
     theme: {
       extend: {},
     },

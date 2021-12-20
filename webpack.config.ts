@@ -1,6 +1,7 @@
 import { CustomWebpackBrowserSchema, TargetOptions } from '@angular-builders/custom-webpack';
 import * as webpack from 'webpack';
 import * as pkg from './package.json';
+import { UglifyJsPlugin } from 'uglifyjs-webpack-plugin';
 
 const path = require('path');
 // const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
@@ -21,19 +22,19 @@ export default (config: webpack.Configuration, options: CustomWebpackBrowserSche
     // new LodashModuleReplacementPlugin({ 'collections': true, "paths": true, "shorthands": true }),
   );
 
-  config.module.rules.push(
-    {
-      test: /\.scss$/,
-      loader: 'postcss-loader',
-      options: {
-        postcssOptions: {
-          ident: 'postcss',
-          syntax: 'postcss-scss',
-          plugins: ['postcss-import', 'autoprefixer'],
-        },
-      },
-    },
-  );
+  // config.module.rules.push(
+  //   {
+  //     test: /\.scss$/,
+  //     loader: 'postcss-loader',
+  //     options: {
+  //       postcssOptions: {
+  //         ident: 'postcss',
+  //         syntax: 'postcss-scss',
+  //         plugins: ['postcss-import', 'autoprefixer'],
+  //       },
+  //     },
+  //   },
+  // );
 
   return config;
 };
