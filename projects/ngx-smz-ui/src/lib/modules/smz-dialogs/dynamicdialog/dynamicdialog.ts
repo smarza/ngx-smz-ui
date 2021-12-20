@@ -9,6 +9,7 @@ import { DynamicDialogRef } from './dynamicdialog-ref';
 import { SmzDynamicDialogConfig } from '../models/smz-dialogs';
 import { NgxRbkUtilsConfig } from '../../rbk-utils/ngx-rbk-utils.config';
 import { PrimeNGConfig } from 'primeng/api';
+import { SmzDockService } from '../../smz-dock/services/smz-dock.service';
 
 const showAnimation = animation([
     style({ transform: '{{transform}}', opacity: 0 }),
@@ -22,7 +23,7 @@ const hideAnimation = animation([
 @Component({
     selector: 'smz-dynamicDialog',
     template: `
-        <div #mask [ngClass]="{'p-dialog-mask':true, 'p-component-overlay p-component-overlay-enter p-dialog-mask-scrollblocker': config.modal !== false}" class="smz_form_grid_container">
+        <div #mask [ngClass]="{'p-dialog-mask':true, 'p-component-overlay p-component-overlay-enter p-dialog-mask-scrollblocker': config.modal !== false, 'smz-dialog-minimized': minimized }" class="smz_form_grid_container">
             <div [ngClass]="{'p-dialog p-dynamic-dialog p-component':true, 'p-dialog-rtl': config.rtl, 'p-dialog-maximized': maximized}" [ngStyle]="config.style" [class]="config.styleClass"
                 [@animation]="{value: 'visible', params: {transform: transformOptions, transition: config.transitionOptions || '150ms cubic-bezier(0, 0, 0.2, 1)'}}"
                 (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" role="dialog" *ngIf="visible"
@@ -30,6 +31,9 @@ const hideAnimation = animation([
                 <div class="p-dialog-header" [ngStyle]="config.headerStyle" *ngIf="config.showHeader === false ? false: true">
                     <span class="p-dialog-title">{{config.header}}</span>
                     <div class="p-dialog-header-icons" [ngClass]="{ 'disable-a': dialogConfig.data._context.isGlobalDisabled }">
+                        <button [ngClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'" type="button" (click)="minimize()" (keydown.enter)="minimize()" *ngIf="config.minimizable !== false">
+                            <span class="p-dialog-header-close-icon far fa-window-minimize"></span>
+                        </button>
                         <button [ngClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'" type="button" (click)="maximize()" (keydown.enter)="maximize()" *ngIf="config.maximizable !== false">
                             <span class="p-dialog-header-close-icon" [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
                         </button>
@@ -98,6 +102,9 @@ export class DynamicDialogComponent implements AfterViewInit, OnInit, OnDestroy
     @Output() onMaximize: EventEmitter<any> = new EventEmitter();
     maximized: boolean;
 
+    @Output() onMinimize: EventEmitter<any> = new EventEmitter();
+    minimized: boolean;
+
     preMaximizeContentHeight: number;
 
     preMaximizeContainerWidth: number;
@@ -109,7 +116,8 @@ export class DynamicDialogComponent implements AfterViewInit, OnInit, OnDestroy
     preMaximizePageY: number;
 
     constructor(private componentFactoryResolver: ComponentFactoryResolver, private cd: ChangeDetectorRef, public renderer: Renderer2,
-        public config: DynamicDialogConfig, private dialogRef: DynamicDialogRef, public zone: NgZone, public dialogConfig: SmzDynamicDialogConfig, private rbkConfig: NgxRbkUtilsConfig, public primeNGConfig: PrimeNGConfig) { }
+        public config: DynamicDialogConfig, private dialogRef: DynamicDialogRef, public zone: NgZone, public dialogConfig: SmzDynamicDialogConfig, private rbkConfig: NgxRbkUtilsConfig, public primeNGConfig: PrimeNGConfig,
+        public dockService: SmzDockService) { }
 
     ngOnInit()
     {
@@ -242,6 +250,17 @@ export class DynamicDialogComponent implements AfterViewInit, OnInit, OnDestroy
         if (this.dialogRef) {
             this.dialogRef.close();
         }
+    }
+
+    restore() {
+        this.minimized = false;
+        this.onMinimize.emit({'minimized': this.minimized});
+    }
+
+    minimize() {
+        this.minimized = true;
+        this.dockService.appendDialog(this);
+        this.onMinimize.emit({'minimized': this.minimized});
     }
 
     maximize() {

@@ -18,6 +18,7 @@ export const smzAthenaConfig: AthenaLayout = {
 
 export const smzLayoutsConfig: SmzLayoutsConfig = {
     debugMode: false,
+    useDock: true,
     appLogo: {
         horizontal: {
             dark: 'assets/layout/images/horizontal-dark.svg',

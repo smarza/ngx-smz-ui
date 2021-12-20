@@ -170,6 +170,11 @@ export const TreeDemoData: DemoTreeNode[] = [
             demoType: 'dialog',
             data: DialogsDemo[DemoKeys.DIALOGS_HEADER_WITH_MAXIMIZE]
           },
+          {
+            label: 'With Minimize', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'dialog',
+            data: DialogsDemo[DemoKeys.DIALOGS_HEADER_WITH_MINIMIZE]
+          },
         ]
       },
       {

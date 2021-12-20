@@ -22,6 +22,7 @@ export * from './lib/modules/smz-info-date/public-api';
 export * from './lib/modules/smz-router-params/public-api';
 export * from './lib/modules/smz-viewport/public-api';
 export * from './lib/modules/smz-menu/public-api';
+export * from './lib/modules/smz-dock/public-api';
 // export * from './lib/modules/smz-notifications/public-api';
 export * from './lib/modules/smz-documents/public-api';
 

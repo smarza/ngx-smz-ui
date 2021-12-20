@@ -1,3 +1,8 @@
+.smz-dialog-minimized {
+    z-index: -1 !important;
+    display: none !important;
+}
+
 .smz-button-success {
     .ui-button {
         color: #fff;

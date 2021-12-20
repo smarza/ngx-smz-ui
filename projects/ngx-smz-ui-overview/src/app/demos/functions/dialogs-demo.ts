@@ -11,9 +11,10 @@ export const DialogsDemo: { [key: string]: () => void } = {
   [DemoKeys.DIALOGS_HEADER_WITH_TITLE]: () => {
     service.open(
       new SmzDialogBuilder<void>()
-        .setTitle(`Some Title Here`)
+        .setTitle(`Header With Title Demo`)
         .setLayout('EXTRA_SMALL', 'col-12')
         .setLayout('EXTRA_LARGE', 'col-8')
+        .allowMinimize('TITLE DEMO')
       .build()
     );
   },
@@ -39,6 +40,17 @@ export const DialogsDemo: { [key: string]: () => void } = {
         .setLayout('EXTRA_SMALL', 'col-12')
         .setLayout('EXTRA_LARGE', 'col-8')
         .allowMaximize()
+      .build()
+    );
+  },
+  //
+  [DemoKeys.DIALOGS_HEADER_WITH_MINIMIZE]: () => {
+    service.open(
+      new SmzDialogBuilder<void>()
+        .setTitle(`Minimize Demo`)
+        .setLayout('EXTRA_SMALL', 'col-12')
+        .setLayout('EXTRA_LARGE', 'col-8')
+        .allowMinimize('DEMO A')
       .build()
     );
   },
