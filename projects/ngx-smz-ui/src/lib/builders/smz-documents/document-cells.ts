@@ -100,7 +100,7 @@ export class SmzCellFieldBuilder extends SmzDocumentBaseCellBuilder<SmzCellField
   }
 
   public useCentralized(): SmzCellFieldBuilder {
-    this._data.container.styles += ' p-align-center';
+    this._data.container.styles += ' align-content-center';
     this._data.label.styles += ' text-center';
     this._data.text.styles += ' text-center';
     return this.that;
@@ -291,7 +291,7 @@ export class SmzCellFieldGroupBuilder {
   }
 
   public useCentralized(): SmzCellFieldGroupBuilder {
-    this._data.container.styles += ' p-align-center';
+    this._data.container.styles += ' align-content-center';
     this._data.label.styles += ' text-center';
     this._data.text.styles += ' text-center';
     return this;
@@ -444,8 +444,8 @@ export class SmzCellTableColumnBuilder {
   }
 
   public useCentralized(): SmzCellTableColumnBuilder {
-    this._data.contentStyles.styles += ' p-align-center text-center';
-    this._data.headerStyles.styles += ' p-align-center text-center';
+    this._data.contentStyles.styles += ' align-content-center text-center';
+    this._data.headerStyles.styles += ' align-content-center text-center';
     return this;
   }
 

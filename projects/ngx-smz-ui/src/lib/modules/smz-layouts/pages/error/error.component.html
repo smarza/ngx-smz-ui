@@ -1,12 +1,12 @@
 
 <!-- VERSAO MOBILE -->
-<div class="flex lg:hidden grid justify-content-center align-items-center vertical-container exception-page">
+<div class="grid lg:hidden justify-content-center align-items-center vertical-container exception-page">
 
   <div class="exception-full-image-container">
       <img [src]="rbkConfig.errorsConfig.page.imagePath" alt="mirage-layout" />
   </div>
 
-  <div class="grid justify-content-center align-items-center col-12 lg:p-6 grid-nogutter">
+  <div class="grid justify-content-center align-items-center col-12 lg:col-6 grid-nogutter">
       <div class="grid col-8 align-items-center">
           <div class="col-12 exception-label-error exception-light">{{ rbkConfig.errorsConfig.page.title }}</div>
           <div class="col-4 exception-separator exception-light"></div>
@@ -18,9 +18,9 @@
 </div>
 
 <!-- VERSÃO DESKTOP -->
-<div class="hidden lg:flex grid justify-content-center align-items-center vertical-container exception-page">
+<div class="hidden lg:grid justify-content-center align-items-center vertical-container exception-page">
 
-  <div class="grid justify-content-center align-items-center col-12 lg:p-6 grid-nogutter">
+  <div class="grid justify-content-center align-items-center col-12 lg:col-6 grid-nogutter">
       <div class="grid col-8 align-items-center">
           <div class="col-12 exception-label-error">{{ rbkConfig.errorsConfig.page.title }}</div>
           <div class="col-4 exception-separator"></div>
@@ -29,7 +29,7 @@
       </div>
   </div>
 
-  <div class="col-12 lg:p-6 exception-image-container">
+  <div class="col-12 lg:col-6 exception-image-container">
       <img [src]="rbkConfig.errorsConfig.page.imagePath" alt="mirage-layout" />
   </div>
 </div>

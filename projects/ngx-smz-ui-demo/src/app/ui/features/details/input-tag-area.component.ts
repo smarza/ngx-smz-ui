@@ -12,7 +12,7 @@ import { cloneDeep } from 'lodash-es';
 @Component({
     selector: 'smz-input-tag-area',
     template: `
-<textarea #inputArea id="inputArea" pInputTextarea smzSmartTag ([ngModel])="ngModel" [formControl]="control" [options]="config?.options" [rows]="rows" (tagTyped)="onTag($event)" class="p-col-12"></textarea>
+<textarea #inputArea id="inputArea" pInputTextarea smzSmartTag ([ngModel])="ngModel" [formControl]="control" [options]="config?.options" [rows]="rows" (tagTyped)="onTag($event)" class="col-12"></textarea>
 <p-overlayPanel #overlay appendTo="body" [style]="{width: '450px'}" (onHide)="onHideOverlay()" styleClass="tag-overlay">
 <ng-template pTemplate>
 <p-listbox *ngIf="currentTag" #listbox (keyup.enter)="onEnter($event)" styleClass="tag-dropdown" [options]="currentTag.data" [(ngModel)]="currentTagSelection" optionLabel="key"></p-listbox>

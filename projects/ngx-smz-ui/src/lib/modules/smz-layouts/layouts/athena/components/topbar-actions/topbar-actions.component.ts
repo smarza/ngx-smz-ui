@@ -12,12 +12,12 @@ import { SmzNotification } from '../../../../core/models/notifications';
 
       <div id="smz-ui-athena-topbar"></div>
 
-      <span *ngIf="headerExtrasTemplate != null" class="extras-container p-mr-3">
+      <span *ngIf="headerExtrasTemplate != null" class="extras-container mr-3">
           <ng-container *ngTemplateOutlet="headerExtrasTemplate"></ng-container>
       </span>
 
       <ng-container *ngIf="rbkConfig.notifications.url != null; else modelDrivenNotificationsTemplate">
-        <smz-ui-notifications class="p-mr-5"></smz-ui-notifications>
+        <smz-ui-notifications class="mr-5"></smz-ui-notifications>
       </ng-container>
 
       <ng-template #modelDrivenNotificationsTemplate>

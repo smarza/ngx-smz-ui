@@ -77,15 +77,15 @@ export const rbkConfig: NgxRbkUtilsConfig = {
                 text: 'text-black smz-document-text-2xl font-bold',
             },
             subTitles: {
-                container: 'p-mt-2',
+                container: 'mt-2',
                 text: 'text-black smz-document-text-lg font-bold',
             },
             dividers: {
-                container: 'p-py-1'
+                container: 'py-1'
             },
             fields: {
                 container: 'p-1 px-2 smz-document-border',
-                label: 'text-black smz-document-text-xs p-my-1',
+                label: 'text-black smz-document-text-xs my-1',
                 text: 'text-black smz-document-text-base',
             },
             fieldsGroup: {

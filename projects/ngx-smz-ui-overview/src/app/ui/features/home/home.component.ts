@@ -9,7 +9,7 @@ import { sortArray } from '../../../../../../ngx-smz-ui/src/lib/common/utils/uti
 @Component({
   selector: 'app-home',
   templateUrl: `home.component.html`,
-  host: { 'class': 'absolute inset-0 p-p-3' }
+  host: { 'class': 'absolute inset-0 p-3' }
 })
 export class HomeComponent
 {

@@ -115,7 +115,7 @@
                                 </button>
 
                             </div>
-                            <span *ngIf="state.filter.show" class="p-input-icon-left col col-12 md:p-4">
+                            <span *ngIf="state.filter.show" class="p-input-icon-left col col-12 md:col-4">
                                 <i class="pi pi-search"></i>
                                 <input #inputGlobal pInputText type="text" (input)="dt._filter(inputGlobal.value)" [placeholder]="state.filter.textPlaceholder" />
                             </span>
