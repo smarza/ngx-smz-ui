@@ -215,9 +215,11 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
         // console.log('ngOnChanges', changes);
 
         // Esse timeout garante que o init não seja chamado ao mesmo tempo do init chamado no ngOnInit
+        const config = changes.config;
+
         setTimeout(() =>
         {
-            if (changes.config != null && changes.config.currentValue != null && !this.isInitialized)
+            if (config != null && config.currentValue != null && !this.isInitialized)
             {
                 if (this.hasUndefinedPropertyName() || this.hasDuplicateNames())
                 {
@@ -230,11 +232,11 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
                     this.configHasErrors = false;
                 }
             }
-            else if (changes.config != null && changes.config.currentValue != null && this.form != null)
+            else if (config != null && config.currentValue != null && this.form != null)
             {
-                const config: SmzForm<any> = changes.config.currentValue;
+                const newConfig: SmzForm<any> = config.currentValue;
 
-                const runStatusChangesOnConfigUpdate = config.behaviors?.runStatusChangesOnConfigUpdate;
+                const runStatusChangesOnConfigUpdate = newConfig.behaviors?.runStatusChangesOnConfigUpdate;
 
                 if (runStatusChangesOnConfigUpdate || this.isFirstUpdate)
                 {
@@ -252,7 +254,7 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
                     // setTimeout(() => { this.resetState(); }, 0);
                 }, 0);
             }
-            else if (changes.config != null && changes.config.currentValue == null && changes.config.previousValue != null)
+            else if (config != null && config.currentValue == null && config.previousValue != null)
             {
                 this.isValid = false;
                 this.hasChanges = false;
@@ -299,6 +301,8 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
         } catch (error)
         {
             console.error('Um ou mais Inputs não possuem propertyName', this.config.groups);
+
+            return null;
         }
 
     }
@@ -327,6 +331,8 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
         } catch (error)
         {
             console.error('Um ou mais Inputs possuem problemas', this.config.groups);
+
+            return null;
         }
 
     }
