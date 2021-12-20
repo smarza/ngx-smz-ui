@@ -30,10 +30,10 @@ export namespace SmzBreakpoints
     export const Tags =
     {
         [Breakpoint.EXTRA_SMALL]: '',
-        [Breakpoint.SMALL]: 'sm-',
-        [Breakpoint.MEDIUM]: 'md-',
-        [Breakpoint.LARGE]: 'lg-',
-        [Breakpoint.EXTRA_LARGE]: 'xl-',
+        [Breakpoint.SMALL]: 'sm:',
+        [Breakpoint.MEDIUM]: 'md:',
+        [Breakpoint.LARGE]: 'lg:',
+        [Breakpoint.EXTRA_LARGE]: 'xl:',
     }
 
     export const ReplacePositions =

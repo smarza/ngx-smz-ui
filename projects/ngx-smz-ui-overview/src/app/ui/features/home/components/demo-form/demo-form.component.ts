@@ -42,15 +42,15 @@ export class DemoFormComponent implements OnInit, OnChanges {
   public onStatusChanges(event: SmzFormsResponse<any>): void {
     // console.log('onStatusChanges', event);
 
-    if (event.hasUnsavedChanges && event.isValid) {
-      console.log('hasUnsavedChanges and isValid', event);
-    }
-    else if (event.hasUnsavedChanges && !event.isValid) {
-      console.log('hasUnsavedChanges and not valid', event);
-    }
-    else {
-      console.log('original');
-    }
+    // if (event.hasUnsavedChanges && event.isValid) {
+    //   console.log('hasUnsavedChanges and isValid', event);
+    // }
+    // else if (event.hasUnsavedChanges && !event.isValid) {
+    //   console.log('hasUnsavedChanges and not valid', event);
+    // }
+    // else {
+    //   console.log('original');
+    // }
 
   }
 
