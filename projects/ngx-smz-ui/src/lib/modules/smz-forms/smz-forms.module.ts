@@ -136,6 +136,15 @@ export const defaultFormsModuleConfig: SmzFormsConfig = {
             strongLabel: 'Forte',
             mediumRegex: '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})',
             strongRegex: '^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,}).'
+        },
+        [SmzControlType.CONTENT_MASK]: {
+            tagClass: 'text-green-500 font-bold',
+            variableBegin: '{{',
+            variableEnd: '}}',
+            exportHtmlNewLine: false,
+            quickActions: [],
+            variableId: 'input__variable',
+            inputClass: '',
         }
     }
 };

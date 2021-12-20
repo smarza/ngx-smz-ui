@@ -33,4 +33,5 @@ export interface SmzFormsResponse<T>
 {
     data: T;
     isValid: boolean;
+    hasUnsavedChanges: boolean;
 }

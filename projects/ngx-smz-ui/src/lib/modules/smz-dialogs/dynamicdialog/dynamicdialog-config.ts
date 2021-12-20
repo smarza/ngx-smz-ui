@@ -16,9 +16,12 @@ export class DynamicDialogConfig {
 	footerStyle?: any;
 	styleClass?: string;
 	transitionOptions?: string;
-    closable?: boolean;
-    maximizable?: boolean;
+	closable?: boolean;
+	maximizable?: boolean;
+	minimizable?: boolean;
+	minimizeDockImagePath?: string;
+	minimizeLabel?: string;
 	showHeader?: boolean;
-    modal?: boolean;
-    domElementId?: string;
+	modal?: boolean;
+	domElementId?: string;
 }

@@ -1,7 +1,7 @@
 <label class="smz__input_name" [innerHTML]="input.name"></label>
 <div class="input_inner__wrapper">
     <div
-        [ngClass]="input.inputClass"
+        [ngClass]="'smz-input-content-mask ' + input.inputClass"
         [formControl]="control"
         [variableId]="input.variableId"
         [isDisabled]="input.isDisabled"

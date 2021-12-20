@@ -135,6 +135,12 @@
                     </div>
                 </ng-template>
 
+                <ng-container *ngFor="let content of contentTemplates">
+                    <ng-template let-node [pTemplate]="content.type">
+                            <ng-container *ngTemplateOutlet="content.template; context: { $implicit: node }"></ng-container>
+                    </ng-template>
+                </ng-container>
+
                 <ng-template pTemplate="empty">
                     <tr>
                         <!-- <td [attr.colspan]="context.columns.length + ((context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible) ? 1 : 0) + (context.state.caption.rowSelection.isEnabled ? 1 : 0)"

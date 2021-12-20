@@ -1,0 +1,4 @@
+<ng-container *ngIf="(items | smzMenu : data) as itemMenu">
+  <smz-menu-items #actionMenu [popup]="true" [model]="itemMenu" appendTo="body"></smz-menu-items>
+  <button id="action-button" type="button" pButton icon="pi pi-bars" (click)="actionMenu.toggle($event, data)"></button>
+</ng-container>

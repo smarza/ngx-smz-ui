@@ -9,7 +9,7 @@ import { DialogCrudStateService } from '../../../smz-dialogs/state/dialogs/dialo
   selector: 'smz-input-list-inline-crud',
   template: `
     <ng-container *ngIf="form != null">
-      <smz-form-group #formComponent [config]="form" furyClickStopPropagation></smz-form-group>
+      <smz-form-group #formComponent [config]="form" clickStopPropagation></smz-form-group>
       <button pButton (click)="confirm()" type="button" [disabled]="!formComponent.isValid" icon="pi pi-check" label="Confirmar" styleClass="p-mr-2"></button>
     </ng-container>
   `,

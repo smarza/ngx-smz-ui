@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { DemoTreeNode } from '@models/demo';
+import { SmzChart } from '../../../../../../../../../dist/ngx-smz-ui/lib/modules/smz-charts/models/chart';
 
 @Component({
   selector: 'app-demo-chart',
@@ -32,7 +33,7 @@ import { DemoTreeNode } from '@models/demo';
 export class DemoChartComponent implements OnInit, OnChanges {
 
   @Input() public node: DemoTreeNode
-  public chart: any;
+  public chart: { model: SmzChart, cSharp: any };
 
   constructor() { }
 

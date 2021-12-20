@@ -22,7 +22,9 @@ export class SmzFormBuilder<TResponse> {
       flattenResponse: true,
       runCustomFunctionsOnLoad: false,
       skipFunctionAfterNextEmit: false,
+      skipEmitChangesOnLoad: false,
       showErrorsMethod: 'touched',
+      // updateOn: 'change',
       ...this.defaultConfig?.forms?.behaviors
     },
   };
@@ -56,6 +58,29 @@ export class SmzFormBuilder<TResponse> {
 
   public setDebounceTime(debouceTime: number): SmzFormBuilder<TResponse> {
     this._state.behaviors.debounceTime = debouceTime;
+    return this;
+  }
+
+  public emitChangesOnFocusExit(): SmzFormBuilder<TResponse> {
+    this._state.behaviors.updateOn = 'blur';
+    this._state.behaviors.skipEmitChangesOnLoad = true;
+    return this;
+  }
+
+  // public EmitChangesOnSubmit(): SmzFormBuilder<TResponse> {
+  //   this._state.behaviors.updateOn = 'submit';
+  //   this._state.behaviors.skipEmitChangesOnLoad = true;
+  //   return this;
+  // }
+
+  public emitChangesOnAllChanges(): SmzFormBuilder<TResponse> {
+    this._state.behaviors.updateOn = 'change';
+    return this;
+  }
+
+
+  public avoidEmitChangesOnLoad(): SmzFormBuilder<TResponse> {
+    this._state.behaviors.skipEmitChangesOnLoad = true;
     return this;
   }
 

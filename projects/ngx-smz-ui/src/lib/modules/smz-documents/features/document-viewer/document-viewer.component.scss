@@ -13,19 +13,13 @@ $footer-margin: calc(0.5 * 28.346px);
 
 .pager {
     width: 595.276pt; // $paper-width;
-    background: white;
     transform-origin: top center;
     transition: transform 100ms ease-in-out;
 
-    padding: 20px;
     margin-top: 0px;
     margin-left: auto;
     margin-right: auto;
-
-    box-shadow: 0 5.8px 5.8px rgba(0, 0, 0, 0.056), 0 16.2px 16.2px rgba(0, 0, 0, 0.08), 0 38.9px 38.9px rgba(0, 0, 0, 0.104), 0 129px 129px rgba(0, 0, 0, 0.16);
-    border: 1px #fff solid;
 }
-
 
 .footer-container {
     position: absolute;

@@ -3,6 +3,10 @@ import { SmzDocumentPaper } from './smz-document-paper';
 
 export interface SmzDocumentConfig {
   globals: SmzDocumentGlobals;
+  viewer: {
+    container: string;
+    paper: string;
+  };
   paper: {
     headerHeightCm: number;
     marginCm: {

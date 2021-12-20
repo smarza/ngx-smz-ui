@@ -8,12 +8,14 @@
     "./resources/assets/scss/pages/*.*",
     "./resources/assets/scss/extras/*.*",
     "./resources/assets/scss/dialogs/*.*",
+    "./resources/assets/scss/dock/*.*",
     "./resources/assets/scss/forms/*.*",
     "./resources/assets/scss/documents/*.*",
     "./resources/assets/fonts/*.*",
     "./resources/assets/images/pages/*.*",
     "./resources/assets/images/avatar/*.*",
-    "./resources/assets/images/tables/*.*"
+    "./resources/assets/images/tables/*.*",
+    "./resources/assets/images/dock/*.*"
 ],
   "lib": {
     "entryFile": "src/public-api.ts"

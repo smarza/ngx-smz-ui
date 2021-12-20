@@ -255,7 +255,7 @@
                     [ngClass]="{ 'highlight-row': item?.id === state.actions.rowBehavior.highlights }"
                     >
 
-                    <td *ngIf="context.state.caption.rowSelection.isEnabled" furyClickStopPropagation [ngClass]="{ 'opacity-50 pointer-events-none': editableService.context[item.id]?.hasErrors || editableService.context[item.id]?.isLoading }">
+                    <td *ngIf="context.state.caption.rowSelection.isEnabled" clickStopPropagation [ngClass]="{ 'opacity-50 pointer-events-none': editableService.context[item.id]?.hasErrors || editableService.context[item.id]?.isLoading }">
                         <p-tableCheckbox [value]="item"></p-tableCheckbox>
                     </td>
 
@@ -474,10 +474,7 @@
 
                                     <!-- MENU -->
                                     <ng-container *ngIf="context.state.actions.menu.isVisible && !editing">
-                                        <ng-container *ngIf="(context.state.actions.menu.items | tableMenu : item) as itemMenu">
-                                            <p-menu #actionMenu [popup]="true" [model]="itemMenu" appendTo="body" [ngClass]="{ 'p-ml-2': context.state.actions.customActions.isVisible }"></p-menu>
-                                            <button id="action-button" type="button" pButton icon="pi pi-bars" (click)="actionMenu.toggle($event, item)"></button>
-                                        </ng-container>
+                                        <smz-menu [items]="context.state.actions.menu.items" [data]="item" [ngClass]="{ 'p-ml-2': context.state.actions.customActions.isVisible }"></smz-menu>
                                     </ng-container>
                                 </ng-template>
                             </div>

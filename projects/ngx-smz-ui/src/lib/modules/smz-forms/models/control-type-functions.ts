@@ -334,7 +334,38 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
         },
     },
     [SmzControlType.CONTENT_MASK]: {
-        initialize: (input: SmzContentMaskControl, config: SmzDialogsConfig) => {},
+        initialize: (input: SmzContentMaskControl, config: SmzDialogsConfig) => {
+            // Expressão para localizar as tags originais
+            const expression = new RegExp(/(<[^\/].*?>)(.*?)(<[\/].*?>)/gm);
+            const variables = [];
+
+            // Loop para encontrar todas as variáveis
+            let value = expression.exec(input.defaultValue);
+
+            while(value != null) {
+                // Inserir variável encontrada
+                // Cada variável será armazenada em um array de 4 elementos, sendo total [0], tag de abertura [1], valor [2] e tag de fechamento [3].
+                variables.push(value);
+
+                // Localizar próximo match
+                value = expression.exec(input.defaultValue);
+             }
+
+            // Substituir as tags originais pelo padrão do content mask: {{value}}
+            input.defaultValue = input.defaultValue.replace(expression, a => {
+
+                // Resultado da busca será um array de 2 elementos, sendo total [0] e valor [1]
+                const variable = new RegExp(/<[^\/].*?>(.*)<[\/].*?>/gm).exec(a);
+
+                if (variable.length != 2) throw new Error(`Some wrong when trying to extract variable value of ${variable}`);
+
+                // Retornando formato {{value}}
+                return `${input.variableBegin}${variable[1]}${input.variableEnd}`;
+              });
+
+            // Armazenar variaveis originais para usar do mapping de getValue (response)
+            input._originalVariables = variables;
+        },
         clear: (control: AbstractControl) => { control.patchValue(''); },
         updateValue: (control: AbstractControl, input: SmzContentMaskControl) => {
             const mapped = mapInputContentMaskText(input);
@@ -343,9 +374,32 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
         getValue: (form: FormGroup, input: SmzContentMaskControl, flattenResponse: boolean) =>
         {
             let value = form.get(input.propertyName).value;
+
+            // Capturar valores do texto sem as tags de estilos do content mask
             const unmapped = unmapInputContentMaskText(value, input.variableId, input.tagClass, input.variableBegin, input.variableEnd, input.exportHtmlNewLine);
 
-            return mapResponseValue(input, unmapped, false);
+            // Expressão para localizar as tags {{value}}
+            const expression = new RegExp(`${input.variableBegin}.*?${input.variableEnd}`, 'gm');
+
+            // Loop para substituir as tags {{value}} pela sua respectiva variável original
+            let originalFormat = unmapped;
+            let originalValue = expression.exec(unmapped);
+            let index = 0;
+
+            while(originalValue != null) {
+
+                // Substituir bloco por variavel original
+                // Esse regex não pode ser global para que substitua apenas um bloco por vez,
+                // assim a ordem do original baterá perfeitamente com a sequencia da busca
+                originalFormat = originalFormat.replace(new RegExp(`${input.variableBegin}.*?${input.variableEnd}`, ''), input._originalVariables[index][0]);
+
+                // Localizar próximo match
+                originalValue = expression.exec(unmapped);
+
+                index++;
+             }
+
+            return mapResponseValue(input, originalFormat, false);
         },
     },
     [SmzControlType.TAG_AREA]: {

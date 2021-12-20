@@ -17,7 +17,6 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { smzFaqsConfig } from '../globals/smz-faqs.config';
 import { environment } from '@enviroment';
 
-
 @NgModule({
   declarations: [
     AppComponent

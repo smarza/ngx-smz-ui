@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { DemoTreeNode } from '@models/demo';
-import { FormGroupComponent, SmzForm, SmzDialogsService, SmzDialogBuilder } from 'ngx-smz-ui';
+import { FormGroupComponent, SmzForm, SmzDialogsService, SmzDialogBuilder, SmzFormsResponse } from 'ngx-smz-ui';
 
 @Component({
   selector: 'app-demo-form',
@@ -12,9 +12,10 @@ import { FormGroupComponent, SmzForm, SmzDialogsService, SmzDialogBuilder } from
     <i *ngIf="!formComponent.form?.touched" class="far fa-meh text-2xl" pTooltip="Ainda não foi tocado"></i>
     <i *ngIf="formComponent.isValid" class="fas fa-check text-green-500 text-2xl" pTooltip="Válido"></i>
     <i *ngIf="!formComponent.isValid" class="fas fa-times text-red-500 text-2xl" pTooltip="Com erros"></i>
+    <i class="fas fa-cash-register text-gray-100 text-2xl" [ngClass]="{ 'text-blue-500': formComponent?.hasChanges }" [pTooltip]="formComponent?.hasChanges ? 'Modificado' : 'Não modificado'"></i>
   </div>
 
-  <smz-form-group [config]="form" #formComponent></smz-form-group>
+  <smz-form-group [config]="form" #formComponent (statusChanges)="onStatusChanges($event)"></smz-form-group>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -38,9 +39,29 @@ export class DemoFormComponent implements OnInit, OnChanges {
 
   }
 
+  public onStatusChanges(event: SmzFormsResponse<any>): void {
+    // console.log('onStatusChanges', event);
+
+    if (event.hasUnsavedChanges && event.isValid) {
+      console.log('hasUnsavedChanges and isValid', event);
+    }
+    else if (event.hasUnsavedChanges && !event.isValid) {
+      console.log('hasUnsavedChanges and not valid', event);
+    }
+    else {
+      console.log('original');
+    }
+
+  }
+
+  public onValuesChanged(event: any): void {
+    console.log('onValuesChanged', event);
+  }
+
   public log(): void {
     const data = this.formComponent.getData();
-
+    console.log('formComponent', this.formComponent);
+    console.log('formResponse', data);
     this.dialog.open(
       new SmzDialogBuilder()
         .setTitle(`Resposta do Form: ${this.node.label}`)

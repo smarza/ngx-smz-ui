@@ -11,9 +11,10 @@ export const DialogsDemo: { [key: string]: () => void } = {
   [DemoKeys.DIALOGS_HEADER_WITH_TITLE]: () => {
     service.open(
       new SmzDialogBuilder<void>()
-        .setTitle(`Some Title Here`)
+        .setTitle(`Header With Title Demo`)
         .setLayout('EXTRA_SMALL', 'col-12')
         .setLayout('EXTRA_LARGE', 'col-8')
+        .allowMinimize('TITLE DEMO')
       .build()
     );
   },
@@ -39,6 +40,17 @@ export const DialogsDemo: { [key: string]: () => void } = {
         .setLayout('EXTRA_SMALL', 'col-12')
         .setLayout('EXTRA_LARGE', 'col-8')
         .allowMaximize()
+      .build()
+    );
+  },
+  //
+  [DemoKeys.DIALOGS_HEADER_WITH_MINIMIZE]: () => {
+    service.open(
+      new SmzDialogBuilder<void>()
+        .setTitle(`Minimize Demo`)
+        .setLayout('EXTRA_SMALL', 'col-12')
+        .setLayout('EXTRA_LARGE', 'col-8')
+        .allowMinimize('DEMO A')
       .build()
     );
   },
@@ -83,10 +95,26 @@ export const DialogsDemo: { [key: string]: () => void } = {
   [DemoKeys.DIALOGS_CONTROLS_BASE_Z_INDEX]: () => {
     service.open(
       new SmzDialogBuilder<void>()
-        .setTitle(`Some Title Here`)
-        .setLayout('EXTRA_SMALL', 'col-12')
-        .setLayout('EXTRA_LARGE', 'col-8')
-        .baseZIndex(-1)
+      .setTitle('Base z-index sample')
+      .setLayout('EXTRA_SMALL', 'col-12')
+      .setLayout('SMALL', 'col-12')
+      .setLayout('MEDIUM', 'col-6')
+      .setLayout('LARGE', 'col-6')
+      .setLayout('EXTRA_LARGE', 'col-6')
+      // .baseZIndex(500)
+      .closeOnEscape()
+      .dismissableMask()
+      .confirmOnEnter()
+        .form()
+        .group()
+          .calendar('date', 'Agendamento')
+            .useDateAndTime()
+            .group
+        .dropdown('input1', 'I\'m required', [{ id: '1', name: 'Option 1'}, { id: '2', name: 'Option 2'}, { id: '3', name: 'Option 3'}])
+              .validators().required()
+              .group
+          .form
+        .dialog
       .build()
     );
   },
@@ -303,6 +331,21 @@ export const DialogsDemo: { [key: string]: () => void } = {
       .build()
     );
   },
+    //
+    [DemoKeys.DIALOGS_IF]: () => {
+      service.open(
+        new SmzDialogBuilder<void>()
+          .if(true)
+            .setTitle(`Title inside first if`)
+            .endIf
+          .if(false)
+            .setTitle(`Title inside second if`)
+            .endIf
+          .setLayout('EXTRA_SMALL', 'col-12')
+          .setLayout('EXTRA_LARGE', 'col-8')
+        .build()
+      );
+    },
 }
 
 function ExecuteBlockUiDemo(value: Number): void {

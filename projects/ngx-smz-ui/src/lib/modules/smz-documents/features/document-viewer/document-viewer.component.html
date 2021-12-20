@@ -1,16 +1,19 @@
-<div class="p-grid p-nogutter p-align-center p-justify-start p-flex-column gap-2">
+<div class="p-grid p-nogutter p-align-center p-justify-start p-flex-column gap-2" [ngClass]="state.viewer.container.styleClass">
 
     <div class="p-grid p-nogutter p-align-start p-justify-start gap-2">
-        <button pButton type="button" class="p-button p-button-outlined" label="ZOOM -" (click)="lessZoom()"></button>
-        <button pButton type="button" class="p-button p-button-outlined" label="100%" (click)="restoreZoom()"></button>
-        <button pButton type="button" class="p-button p-button-outlined" label="ZOOM +" (click)="moreZoom()"></button>
 
-        <button pButton type="button" class="p-button p-button-success" label="OPEN" [disabled]="true" (click)="generate('open', paperElement)"></button>
-        <button pButton type="button" class="p-button p-button-success" label="PRINT" [disabled]="true" (click)="generate('print', paperElement)"></button>
-        <button pButton type="button" class="p-button p-button-success" label="DOWNLOAD" (click)="generate('download', paperElement)"></button>
+        <ng-container *ngIf="state.viewer.zoom.isEnabled">
+            <button pButton type="button" class="p-button p-button-outlined" label="ZOOM -" (click)="documentService.lessZoom()"></button>
+            <button pButton type="button" class="p-button p-button-outlined" label="100%" (click)="documentService.restoreZoom()"></button>
+            <button pButton type="button" class="p-button p-button-outlined" label="ZOOM +" (click)="documentService.moreZoom()"></button>
+        </ng-container>
+
+        <button *ngIf="state.viewer.open.isEnabled" pButton type="button" class="p-button p-button-success" label="OPEN" (click)="documentService.generate('open')"></button>
+        <button *ngIf="state.viewer.print.isEnabled" pButton type="button" class="p-button p-button-success" label="PRINT" (click)="documentService.generate('print')"></button>
+        <button *ngIf="state.viewer.download.isEnabled" pButton type="button" class="p-button p-button-success" label="DOWNLOAD" (click)="documentService.generate('download')"></button>
     </div>
 
-    <div class="pager" [ngStyle]="{ 'transform': 'scale(' + documentService.zoom + ')' }">
+    <div class="pager" [ngClass]="state.viewer.paper.styleClass"[ngStyle]="{ 'transform': 'scale(' + documentService.zoom + ')' }">
         <div #paper [ngStyle]="{ 'font-family':  state.globals.font.family }">
             <ng-content select="header"></ng-content>
             <ng-content select="content"></ng-content>

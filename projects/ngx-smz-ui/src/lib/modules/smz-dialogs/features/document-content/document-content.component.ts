@@ -14,4 +14,6 @@ export class DocumentContentComponent
     @Input() public state: SmzDocumentState;
     public isValid = true;
 
+    // Todo: bindar o isValid com o serviço de visualização do documento
+
 }

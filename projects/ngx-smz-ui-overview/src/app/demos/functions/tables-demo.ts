@@ -56,7 +56,7 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
           .menu
         .table
       .columns()
-        .text('name', 'Name')
+        .text('name', 'Name', '40em')
           .disableFilter()
           .columns
         .text('country.name', 'Country')
@@ -114,6 +114,38 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
           .addIconConfiguration('fas fa-lock-open', false, 'green-text', 'Tarefa criada manualmente (edição permitida)')
           .ignoreOnGlobalFilter()
           .columns
+        .table
+      .build()
+    }
+  },
+  //
+  [DemoKeys.TABLE_IF]: {
+    items$: of(convertorTasks),
+    code: () => {
+    return new SmzTableBuilder()
+      .setTitle('Table with conditional columns')
+      .enableClearFilters()
+      .enableColumnVisibility()
+      .setEmptyFeedbackMessage('Lista vazia')
+      .setEmptyFeedbackExtraInfo('Clique abaixo para carregar novos dados.')
+      .usePagination()
+      .setPaginationPageOptions([5, 10, 50, 100, 500])
+      .setPaginationDefaultRows(500)
+      .useStrippedStyle()
+      .useCustomActions(60)
+      .columns()
+        .text('name', 'Outside if', '8em')
+          .columns
+        .if(false)
+          .text('plantDesign.name', 'Inside if 1', '7em')
+            .setFilter(SmzFilterType.MULTI_SELECT)
+            .columns
+          .endIf
+        .if(true)
+          .text('files', 'Inside if 2', '4em')
+            .setFilter(SmzFilterType.NUMERIC)
+            .columns
+          .endIf
         .table
       .build()
     }

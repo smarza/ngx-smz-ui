@@ -1,12 +1,12 @@
 import { Store } from '@ngxs/store';
 import { flatten, sortBy } from 'lodash-es';
 import { GlobalInjector } from '../../../lib/common/services/global-injector';
-import { SmzMenuItem } from '../../modules/smz-tables/models/conditional-menu-item';
+import { SmzMenuItem } from '../../modules/smz-menu/models/smz-menu-item';
 import { defaultMapResults, EditableChanges } from '../../modules/smz-tables/models/editable-model';
 import { SmzTableState } from '../../modules/smz-tables/models/table-state';
 import { StateBuilderFunctions } from './state-builder-functions';
 import { SmzColumnCollectionBuilder } from './column-builder';
-import { SmzMenuBuilder } from './menu-builder';
+import { SmzMenuTableBuilder } from './menu-builder';
 import { SmzForm } from '../../modules/smz-forms/models/smz-forms';
 import { SmzControlTypes } from '../../modules/smz-forms/models/control-types';
 import { convertFormFeature } from '../smz-dialogs/dialog-input-conversion';
@@ -448,8 +448,8 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public menu(items: SmzMenuItem[] = null): SmzMenuBuilder {
-    const menuBuilder = new SmzMenuBuilder(this);
+  public menu(items: SmzMenuItem[] = null): SmzMenuTableBuilder {
+    const menuBuilder = new SmzMenuTableBuilder(this);
 
     if (items != null) {
       this._state.actions.menu.isVisible = true;

@@ -11,7 +11,6 @@ import { CalendarModule } from 'primeng/calendar';
 import { SmzTableContextPipe } from './pipes/table-context.pipe';
 import { SharedModule } from 'primeng/api';
 import { DropdownModule } from 'primeng/dropdown';
-import { SmzMenuModule } from './components/menu';
 import { SmzTableContentPipe } from './pipes/table-content.pipe';
 import { SmzContentIconMatchesPipe } from './pipes/content-icon-matches.pipe';
 import { SmzFilterObjectPipe } from './pipes/filter-object.pipe';
@@ -19,7 +18,6 @@ import { TableItemActionsModule } from '../../common/table-item-actions/table-it
 import { ClickStopPropagationModule } from '../../common/stop-click-propagation/click-stop-propagation.module';
 import { NgxSmzDataInfoModule } from '../smz-data-info/smz-data-info.module';
 import { TooltipModule } from 'primeng/tooltip';
-import { SmzTableMenuPipe } from './pipes/table-menu.pipe';
 import { SmzCloneTableItemsPipe } from './pipes/clone-table-items.pipe';
 import { SkeletonModule } from 'primeng/skeleton';
 import { SmzColumnFilterComponent } from './components/smz-filter-column.component';
@@ -33,6 +31,7 @@ import { ValidationMessagesComponent } from './components/validation-messages/va
 import { ValidationMessagesPipe } from './components/validation-messages/validation-messages.pipe';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { NgxSmzMenuModule } from '../smz-menu/smz-menu.module';
 
 @NgModule({
     declarations: [
@@ -41,7 +40,6 @@ import { InputNumberModule } from 'primeng/inputnumber';
         SmzTableContentPipe,
         SmzFilterObjectPipe,
         SmzContentIconMatchesPipe,
-        SmzTableMenuPipe,
         SmzCloneTableItemsPipe,
         SmzColumnFilterComponent,
         SmzColumnFilter2Component,
@@ -60,7 +58,6 @@ import { InputNumberModule } from 'primeng/inputnumber';
         MultiSelectModule,
         DropdownModule,
         CalendarModule,
-        SmzMenuModule,
         FormsModule,
         TableItemActionsModule,
         ClickStopPropagationModule,
@@ -71,7 +68,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
         OverlayPanelModule,
         ReactiveFormsModule,
         InputSwitchModule,
-        InputNumberModule
+        InputNumberModule,
+        NgxSmzMenuModule
     ],
     exports: [
         SmzTableComponent,

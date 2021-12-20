@@ -8,10 +8,12 @@ export interface SmzFormsBehaviorsConfig
     debounceTime?: number;
     runCustomFunctionsOnLoad?: boolean;
     skipFunctionAfterNextEmit?: boolean;
+    skipEmitChangesOnLoad?: boolean;
     runStatusChangesOnConfigUpdate?: boolean;
     flattenResponse?: boolean;
     showErrorsMethod?: ShowErrorsMethodTypes;
     submitOnEnter?: boolean;
+    updateOn?: 'blur' | 'change' | 'submit';
 }
 
 export type ShowErrorsMethodTypes = 'touched' | 'pristine' | 'dirty';

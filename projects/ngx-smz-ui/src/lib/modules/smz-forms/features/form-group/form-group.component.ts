@@ -1,5 +1,5 @@
 import { ViewEncapsulation, Component, OnInit, AfterViewInit, OnDestroy, Input, Output, EventEmitter, OnChanges, SimpleChanges, ChangeDetectorRef } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, AbstractControlOptions } from '@angular/forms';
 import { debounceTime, takeWhile } from 'rxjs/operators';
 import { InjectableDialogComponentInterface } from '../../../../common/modules/inject-content/models/injectable-dialog-component.interface';
 import { SmzControlType, SmzFileControl } from '../../models/control-types';
@@ -9,6 +9,7 @@ import { SmzFormsManagerService } from '../../services/smz-forms-manager.service
 import { SmzDialogsConfig } from '../../../smz-dialogs/smz-dialogs.config';
 import { uuidv4 } from '../../../../common/utils/utils';
 import { mergeClone } from '../../../../common/utils/deep-merge';
+import { NgxRbkUtilsConfig } from '../../../rbk-utils/ngx-rbk-utils.config';
 
 @Component({
     selector: 'smz-form-group',
@@ -24,6 +25,7 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
     public hasChanges = false;
     @Input() public config: SmzForm<any>;
     @Output() public statusChanges: EventEmitter<SmzFormsResponse<any>> = new EventEmitter<SmzFormsResponse<any>>();
+    @Output() public changed: EventEmitter<SmzFormsResponse<any>> = new EventEmitter<SmzFormsResponse<any>>();
     @Output() public submit: EventEmitter<SmzFormsResponse<any>> = new EventEmitter<SmzFormsResponse<any>>();
     private isFirstUpdate = true;
     private emitChanges = true;
@@ -32,7 +34,7 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
     public isInitialized = false;
     public configHasErrors = false;
 
-    constructor(public fb: FormBuilder, private cdf: ChangeDetectorRef, public manager: SmzFormsManagerService, public configService: SmzDialogsConfig)
+    constructor(public fb: FormBuilder, private cdf: ChangeDetectorRef, public manager: SmzFormsManagerService, public configService: SmzDialogsConfig, public rbkConfig: NgxRbkUtilsConfig)
     {
 
     }
@@ -147,7 +149,8 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
                 };
             };
 
-            this.form = this.fb.group(controlsConfig);
+            const options: AbstractControlOptions = { updateOn: this.config?.behaviors?.updateOn ?? 'change' };
+            this.form = this.fb.group(controlsConfig, options);
 
             if (this.config._context == null) {
                 this.config._context = {
@@ -177,7 +180,10 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
                 }
                 else
                 {
-                    this.statusChanges.emit(this.getData());
+                    if (!this.config.behaviors?.skipEmitChangesOnLoad)
+                    {
+                        this.statusChanges.emit(this.getData());
+                    }
                 }
 
                 // Esse timeout garante um adiamento no subscribe de status change do form para não ser executado na primeira inicialização
@@ -196,6 +202,8 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
                         });
 
                     this.fixRadioBug();
+
+                    this.resetState();
                 }, 0);
 
             }, 0);
@@ -241,7 +249,7 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
                 setTimeout(() =>
                 {
                     this.init();
-                    setTimeout(() => { this.resetState(); }, 0);
+                    // setTimeout(() => { this.resetState(); }, 0);
                 }, 0);
             }
             else if (changes.config != null && changes.config.currentValue == null && changes.config.previousValue != null)
@@ -355,18 +363,33 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
     /** Atualiza o state do formulário com seus valores atuais */
     public resetState(): void
     {
-        const data = this.form.value;
+        const data = this.getData().data;
         this.originalState = JSON.stringify(data).replace(/['"]+/g, '');
+
         this.updateHasChanges();
     }
 
     /** Atualiza o hasChanges */
     public updateHasChanges(): void
     {
-        const data = this.form.value;
+
+        const response = this.getData();
 
         const original = this.originalState;
-        const current = JSON.stringify(data).replace(/['"]+/g, '');
+
+        const current = JSON.stringify(response.data).replace(/['"]+/g, '');
+
+        if (this.hasChanges === false && original !== current) {
+            this.changed.emit(response);
+        }
+
+        if (this.rbkConfig.debugMode) {
+            console.group('UpdateHasChanges');
+            console.log('original', original);
+            console.log('current', current);
+            console.log('hasChanges', original !== current);
+            console.groupEnd();
+        }
 
         this.hasChanges = original !== current;
 
@@ -428,21 +451,24 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
             {
                 this.config.functions?.customBehavior(data, this.config, this.form, {});
             }
-
-            if (this.emitChanges)
-            {
-                this.statusChanges.emit(data);
-            }
-            else
-            {
-                this.emitChanges = true;
-            }
         }
 
-        setTimeout(() =>
+        if (this.emitChanges)
         {
-            this.updateHasChanges();
-        }, 0);
+            setTimeout(() =>
+            {
+                this.updateHasChanges();
+                this.statusChanges.emit(this.getData());
+            }, 0);
+        }
+        else
+        {
+            setTimeout(() =>
+            {
+                this.updateHasChanges();
+            }, 0);
+            this.emitChanges = true;
+        }
 
     }
 
@@ -476,7 +502,7 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
         // console.log('--------------------------');
         // console.log('--------------------------');
         const data: T = {} as T;
-        const response: SmzFormsResponse<T> = { data, isValid: true };
+        const response: SmzFormsResponse<T> = { data, isValid: true, hasUnsavedChanges: false };
         const formFlattenResponse = this.config.behaviors?.flattenResponse ?? false;
 
         for (const group of this.config.groups)
@@ -508,6 +534,8 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
         };
 
         this.isValid = response.isValid;
+
+        response.hasUnsavedChanges = this.hasChanges;
 
         // console.log('isValid', this.isValid);
 

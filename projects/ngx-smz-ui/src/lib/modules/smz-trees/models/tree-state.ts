@@ -1,5 +1,3 @@
-import { TreeNode } from 'primeng/api';
-import { SmzMenuItem } from '../../smz-tables/models/conditional-menu-item';
 import { SmzTreeMenuItem } from './tree-menu-item';
 import { SmzTreeToolbarButton } from './tree-toolbar-button';
 

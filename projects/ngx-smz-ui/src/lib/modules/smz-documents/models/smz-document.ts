@@ -1,6 +1,7 @@
 import { SmzDocumentConfig } from './smz-document-config';
 import { SmzDocumentFeatures } from './smz-document-features';
 import { SmzDocumentPaper } from './smz-document-paper';
+import { SmzDocumentViewer } from './smz-document-viewer';
 
 export interface SmzDocumentState {
   isDebug: boolean;
@@ -14,6 +15,7 @@ export interface SmzDocumentState {
     showPageNumbers: boolean;
   }
   paper: SmzDocumentPaper;
+  viewer: SmzDocumentViewer;
 }
 
 export type SmzDocumentFontFamilies = 'Roboto' | 'Open Sans';

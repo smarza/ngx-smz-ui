@@ -11,7 +11,17 @@ import { map } from 'rxjs/operators';
   template: `
   <div *ngIf="state != null" style="height: 675px;">
   <ng-container *ngClone="items$ | async as items">
-    <smz-ui-tree #smzTree [items]="items" [state]="state"></smz-ui-tree>
+    <smz-ui-tree #smzTree [items]="items" [state]="state">
+
+      <!-- <ng-template pTemplate="type:folder" let-node>
+        <span>folder => {{ node.label }}</span>
+      </ng-template>
+
+      <ng-template pTemplate="type:disk" let-node>
+        <span>disk => {{ node.label }}</span>
+      </ng-template> -->
+
+    </smz-ui-tree>
   </ng-container>
   </div>
 `,

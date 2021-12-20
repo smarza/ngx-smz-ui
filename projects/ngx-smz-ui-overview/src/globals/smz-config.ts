@@ -59,6 +59,10 @@ export const smzDialogsConfig: SmzDialogsConfig = {
             },
             [SmzControlType.FILE]: {
                 fileAccept: 'image/*,application/pdf',
+            },
+            [SmzControlType.CONTENT_MASK]: {
+                tagClass: 'bg-blue-500 rounded px-1 py-0.5 mx-1 text-white font-bold',
+                inputClass: 'leading-7'
             }
         },
         formTemplates: {

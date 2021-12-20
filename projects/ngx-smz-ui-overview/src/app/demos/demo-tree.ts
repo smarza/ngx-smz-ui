@@ -7,6 +7,7 @@ import { ValidatorsDemo } from './functions/validators-demo';
 import { ChartsDemo } from './functions/charts-demo';
 import { DocumentsDemo } from './functions/documents-demo';
 import { TreesDemo } from './functions/trees-demo';
+import { MenusDemo } from './functions/menus-demo';
 
 export const TreeDemoData: DemoTreeNode[] = [
   {
@@ -14,37 +15,121 @@ export const TreeDemoData: DemoTreeNode[] = [
     type: 'Category',
     children: [
       {
+        label: 'Combo', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'chart',
+        notes: '',
+        data: ChartsDemo[DemoKeys.CHARTS_COMBO]
+      },
+      {
+        label: 'Line Bar', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'chart',
+        notes: '',
+        data: ChartsDemo[DemoKeys.CHARTS_LINE_BAR]
+      },
+      {
+        label: 'Rounded Bar', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'chart',
+        notes: '',
+        data: ChartsDemo[DemoKeys.CHARTS_ROUNDED_BAR]
+      },
+      {
+        label: 'Stacked Bar', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'chart',
+        notes: '',
+        data: ChartsDemo[DemoKeys.CHARTS_STACKED_BAR]
+      },
+      {
         label: 'Vertical Bar', icon: 'fas fa-code', type: 'Demo',
         demoType: 'chart',
         notes: '',
         data: ChartsDemo[DemoKeys.CHARTS_VERTICAL_BAR]
       },
+      {
+        label: 'Bar', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'chart',
+        notes: '',
+        data: ChartsDemo[DemoKeys.CHARTS_BAR]
+      },
+      {
+        label: 'Dougnut', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'chart',
+        notes: '',
+        data: ChartsDemo[DemoKeys.CHARTS_DOUGNUT]
+      },
+      {
+        label: 'Pie', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'chart',
+        notes: '',
+        data: ChartsDemo[DemoKeys.CHARTS_PIE]
+      },
+      {
+        label: 'Polar Area', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'chart',
+        notes: '',
+        data: ChartsDemo[DemoKeys.CHARTS_POLAR_AREA]
+      },
+      {
+        label: 'Color Pallete', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'chart',
+        notes: '',
+        data: ChartsDemo[DemoKeys.CHARTS_COLOR_PALLETE]
+      },
+      {
+        label: 'Sprint 1', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'chart',
+        notes: '',
+        data: ChartsDemo[DemoKeys.CHARTS_SPRINTS_1]
+      },
+      {
+        label: 'Sprint 2', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'chart',
+        notes: '',
+        data: ChartsDemo[DemoKeys.CHARTS_SPRINTS_2]
+      },
     ]
   },
   {
-    label: 'Components',
+    label: 'Menu',
     type: 'Category',
     children: [
       {
-        label: 'Inputs', icon: 'fas fa-code', type: 'Demo',
-        demoType: 'dialog',
-        notes: '',
-        data: null
+        label: 'Menu If True', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'menu',
+        notes: 'kkkk',
+        data: MenusDemo[DemoKeys.MENU_IF_TRUE]
       },
       {
-        label: 'Outputs', icon: 'fas fa-code', type: 'Demo',
-        demoType: 'dialog',
+        label: 'Menu If False', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'menu',
         notes: '',
-        data: null
-      },
-      {
-        label: 'Error Messages', icon: 'fas fa-code', type: 'Demo',
-        demoType: 'dialog',
-        notes: '',
-        data: null
+        data: MenusDemo[DemoKeys.MENU_IF_FALSE]
       },
     ]
   },
+  // {
+  //   label: 'Components',
+  //   type: 'Category',
+  //   children: [
+  //     {
+  //       label: 'Inputs', icon: 'fas fa-code', type: 'Demo',
+  //       demoType: 'dialog',
+  //       notes: '',
+  //       data: null
+  //     },
+  //     {
+  //       label: 'Outputs', icon: 'fas fa-code', type: 'Demo',
+  //       demoType: 'dialog',
+  //       notes: '',
+  //       data: null
+  //     },
+  //     {
+  //       label: 'Error Messages', icon: 'fas fa-code', type: 'Demo',
+  //       demoType: 'dialog',
+  //       notes: '',
+  //       data: null
+  //     },
+  //   ]
+  // },
   {
     label: 'Dialogs',
     type: 'Category',
@@ -84,6 +169,11 @@ export const TreeDemoData: DemoTreeNode[] = [
             label: 'With Maximize', icon: 'fas fa-code', type: 'Demo',
             demoType: 'dialog',
             data: DialogsDemo[DemoKeys.DIALOGS_HEADER_WITH_MAXIMIZE]
+          },
+          {
+            label: 'With Minimize', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'dialog',
+            data: DialogsDemo[DemoKeys.DIALOGS_HEADER_WITH_MINIMIZE]
           },
         ]
       },
@@ -189,7 +279,17 @@ export const TreeDemoData: DemoTreeNode[] = [
             data: DialogsDemo[DemoKeys.DIALOGS_FOOTER_HIDDEN]
           },
         ]
-      }
+      },
+      {
+        label: 'Conditionals', type: 'SubCategory',
+        children: [
+          {
+            label: 'If Title', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'dialog',
+            data: DialogsDemo[DemoKeys.DIALOGS_IF]
+          },
+        ]
+      },
     ]
   },
   {
@@ -401,6 +501,12 @@ export const TreeDemoData: DemoTreeNode[] = [
         demoType: 'table',
         notes: '',
         data: TablesDemo[DemoKeys.TABLE_BASIC]
+      },
+      {
+        label: 'Conditional Columns', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'table',
+        notes: '',
+        data: TablesDemo[DemoKeys.TABLE_IF]
       },
       {
         label: 'Filters: Array', icon: 'fas fa-code', type: 'Demo',

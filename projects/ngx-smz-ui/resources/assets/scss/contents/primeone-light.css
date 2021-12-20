@@ -3686,9 +3686,13 @@ p-togglebutton.ng-dirty.ng-invalid > .p-togglebutton.p-button {
   margin-left: 1rem;
 }
 .p-dialog {
-  border-radius: 3px;
-  box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2),
-    0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
+  border-radius: 6px;
+  box-shadow:
+    0.9px 1.4px 2.8px rgba(0, 0, 0, 0.017),
+    2.5px 3.9px 7.8px rgba(0, 0, 0, 0.025),
+    6px 9.3px 18.7px rgba(0, 0, 0, 0.033),
+    20px 31px 62px rgba(0, 0, 0, 0.05)
+  ;
   border: 0 none;
 }
 .p-dialog .p-dialog-header {

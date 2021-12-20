@@ -8,9 +8,12 @@ import { GlobalInjector } from '../../modules/smz-dialogs/services/global-inject
 import { SmzDialogsConfig } from '../../modules/smz-dialogs/smz-dialogs.config';
 import { SmzDialogButtonsBuilder } from './dialog-buttons-builder';
 import { SmzDialogUiDefinitionBuilder } from './dialog-ui-definition-builder';
-import { SmzDocumentBuilder } from '../smz-documents/document-builder';
+import { SmzTableState } from '../../modules/smz-tables/models/table-state';
+import { SmzDocumentState } from '../../modules/smz-documents/models/smz-document';
+import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 
-export class SmzDialogBuilder<TResponse> {
+export class SmzDialogBuilder<TResponse> extends SmzBuilderUtilities<SmzDialogBuilder<TResponse>> {
+  protected that = this;
   private defaultConfig = GlobalInjector.instance.get(SmzDialogsConfig);
   public _state: SmzDialog<TResponse> = {
     title: null,
@@ -32,6 +35,9 @@ export class SmzDialogBuilder<TResponse> {
       showSaveButton: false,
       confirmOnEnter: false,
       showMaximizeButton: false,
+      showMinimizeButton: false,
+      minimizeLabel: null,
+      minimizeDockImagePath: 'assets/images/dock/dialog.svg',
       useAdvancedResponse: false,
       closeOnEscape: false,
       showHeader: true,
@@ -63,7 +69,7 @@ export class SmzDialogBuilder<TResponse> {
   public createdByUiDefinitions = false;
 
   constructor() {
-
+    super();
   }
 
   public setTitle(title = null): SmzDialogBuilder<TResponse> {
@@ -83,6 +89,17 @@ export class SmzDialogBuilder<TResponse> {
 
   public allowMaximize(): SmzDialogBuilder<TResponse> {
     this._state.behaviors.showMaximizeButton = true;
+    return this;
+  }
+
+  public allowMinimize(label?: string): SmzDialogBuilder<TResponse> {
+    this._state.behaviors.showMinimizeButton = true;
+    this._state.behaviors.minimizeLabel = label;
+    return this;
+  }
+
+  public setMinimizeDockImage(imagePath: string): SmzDialogBuilder<TResponse> {
+    this._state.behaviors.minimizeDockImagePath = imagePath;
     return this;
   }
 
@@ -199,8 +216,8 @@ export class SmzDialogBuilder<TResponse> {
     return this;
   }
 
-  public table(items$: Observable<any>, state: any): SmzDialogBuilder<TResponse> {
-    const data: any = { items$, state}; // any = SmzDialogTable
+  public table(items$: Observable<any>, state: SmzTableState): SmzDialogBuilder<TResponse> {
+    const data: any = { items$, state };
     const feature: SmzDialogFeature = {
       type: 'table',
       data
@@ -209,8 +226,8 @@ export class SmzDialogBuilder<TResponse> {
     return this;
   }
 
-  public document(items$: Observable<any>, state: any): SmzDialogBuilder<TResponse> {
-    const data: any = { items$, state}; // any = SmzDialogTable
+  public document(state: SmzDocumentState): SmzDialogBuilder<TResponse> {
+    const data: any = { state };
     const feature: SmzDialogFeature = {
       type: 'document',
       data

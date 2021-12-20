@@ -1,7 +1,8 @@
 import { DemoKeys } from '@demos/demo-keys';
 import { DemoFeatureSelectors } from '@states/demo/demo.selectors';
-import { SmzDocumentBuilder } from 'ngx-smz-ui';
+import { SmzChart, SmzDocumentBuilder } from 'ngx-smz-ui';
 import { CountriesDbSelectors } from '@states/database/countries/countries.selectors';
+import { VERTICAL_BAR } from '@demos/data/chart-data-original';
 
 export const DocumentsDemo: { [key: string]: () => void } = {
   //
@@ -10,6 +11,13 @@ export const DocumentsDemo: { [key: string]: () => void } = {
       .setGlobalScale(0.8)
       .setHeaderHeight('cm', 5.5)
       .setMargins('cm', 0.6)
+
+      .viewer()
+        .setFilename('demo')
+        .setZoom(1, 0.5, 5, 0.5)
+        .allowDownload()
+        .document
+
       .header()
 
         .row()
@@ -73,8 +81,10 @@ export const DocumentsDemo: { [key: string]: () => void } = {
               .group
             .addField('YASMIM.FREITAS', 'RESPONSÁVEL')
               .group
-            .addField('21 7280-9395', 'TELEFONE')
-              .group
+            .if(false)
+              .addField('21 7280-9395', 'TELEFONE')
+                .group
+              .endIf
             .addField('ENCOMENDA@GRUPOIDEIA.COM.BR', 'EMAIL')
               .group
             .row
@@ -103,6 +113,12 @@ export const DocumentsDemo: { [key: string]: () => void } = {
 
         .row()
           .subTitle('INFORMAÇÕES GERAIS')
+            .row
+          .content
+
+        .row()
+          .chart(VERTICAL_BAR as SmzChart)
+            .setWidth('col-5')
             .row
           .content
 
@@ -136,7 +152,7 @@ export const DocumentsDemo: { [key: string]: () => void } = {
 
         .row()
           .table()
-            .applyItems(DemoFeatureSelectors.all)
+            .setSource(DemoFeatureSelectors.all)
             .addColumn('name', 'Nome')
               .table
             .addColumn('company', 'Empresa')
@@ -168,10 +184,17 @@ export const DocumentsDemo: { [key: string]: () => void } = {
   },
   [DemoKeys.DOCUMENTS_DEMO_2]: () => {
     return new SmzDocumentBuilder()
-      // .debugMode()
+      .debugMode()
       .setGlobalScale(0.8)
       .setHeaderHeight('cm', 5.5)
       .setMargins('cm', 0.6)
+
+      .viewer()
+        .setFilename('demo-debug')
+        .setZoom(1, 0.5, 5, 0.5)
+        .allowDownload()
+        .document
+
       .header()
 
         .row()
@@ -298,11 +321,12 @@ Caso contrário, aguardamos a confirmação do envio em até 48 horas.
 
         .row()
           .table()
-            .applyItems(DemoFeatureSelectors.all)
-            .addColumn('name', 'Nome')
-              .table
-            .addColumn('company', 'Empresa')
-              .table
+            .setSource(DemoFeatureSelectors.all)
+            .for([{ property: 'name', label: 'Nome' }, { property: 'company', label: 'Empresa' }],
+              (x, item) =>
+                x.addColumn(item.property, item.label)
+                  .table
+              )
             .row
           .content
 
@@ -313,7 +337,7 @@ Caso contrário, aguardamos a confirmação do envio em até 48 horas.
 
         .row()
           .table()
-            .applyItems(CountriesDbSelectors.all)
+            .setSource(CountriesDbSelectors.all)
             .addColumn('name', 'País')
               .table
             .addColumn('id', 'Identificação')
@@ -328,7 +352,7 @@ Caso contrário, aguardamos a confirmação do envio em até 48 horas.
 
         .row()
           .table()
-            .applyItems(DemoFeatureSelectors.all)
+            .setSource(DemoFeatureSelectors.all)
             .addColumn('name', 'Nome')
               .table
             .addColumn('company', 'Empresa')
@@ -343,7 +367,7 @@ Caso contrário, aguardamos a confirmação do envio em até 48 horas.
 
         .row()
           .table()
-            .applyItems(CountriesDbSelectors.all)
+            .setSource(CountriesDbSelectors.all)
             .addColumn('name', 'País')
               .table
             .addColumn('id', 'Identificação')

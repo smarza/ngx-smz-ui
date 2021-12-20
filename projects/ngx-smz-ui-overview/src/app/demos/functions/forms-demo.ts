@@ -52,14 +52,18 @@ export const FormsDemo: { [key: string]: () => void } = {
   //
   [DemoKeys.FORMS_INPUT_CONTENT_MASK]: () => {
     return new SmzFormBuilder<any>()
+      .emitChangesOnFocusExit()
       .group()
         .setLayout('EXTRA_SMALL', 'col-12')
         .contentMask('input1', 'Conteúdo com variáveis',
-`Anestesia da região do punho direito com {{xilocaína a 2%}}.
-
-Punção da artéria radial {{direita}} seguida da instalação de introdutor 5F.
-
-Através deste instrumento avançou-se uma guia {{metálica 0.0035}} e um cateter {{TIG}} que foi posicionado no ventrículo esquerdo e com ele realizados o registro pressórico, a ventrículografia e as coronariogafias. Retirou-se o sistema.`)
+`Anestesia da região de punho direito com xilocaína 2%.
+Punção da artéria radial direita com agulha seguida da instalação de <variable id="755956dd-1696-4efb-448d-08d9b8dd31be">Introdutor</variable>.
+Através deste instrumento avançou-se sobre uma <variable id="70026d73-50dd-43f7-448e-08d9b8dd31be">Guia</variable> um <variable id="3c8cf03b-fd29-4f42-448f-08d9b8dd31be">Cateter</variable>.
+Realizados os registros pressóricos em:
+<monitoredData id="6416118c-b362-4467-6ae4-08d9b8dd31bd">Monitoração ambulatorial da pressão arterial</monitoredData>
+Na sequência, foi realizada a coronariografia direita.
+Exame sem intercorrências.`)
+          // .setTagClass('text-purple-500')
           .validators()
           .required()
         .group
@@ -72,9 +76,8 @@ Através deste instrumento avançou-se uma guia {{metálica 0.0035}} e um catete
       .group()
         .setLayout('EXTRA_SMALL', 'col-12')
         .dropdown('input1', 'I\'m required', [{ id: '1', name: 'Option 1'}, { id: '2', name: 'Option 2'}, { id: '3', name: 'Option 3'}])
-          .validators()
-          .required()
-        .group
+          .validators().required()
+          .group
       .form
       .build();
   },
@@ -170,7 +173,13 @@ Através deste instrumento avançou-se uma guia {{metálica 0.0035}} e um catete
   },
   //
   [DemoKeys.FORMS_INPUT_RADIO_GROUP]: () => {
-
+    return new SmzFormBuilder<any>()
+      .group()
+        .setLayout('EXTRA_SMALL', 'col-12')
+        .radioGroup('radio', 'Radio', [{id: 'Nenhum', name: 'Nenhum'}, {id: 'Irregularidade', name: 'Irregularidade'}, {id: 'Tortuosidade', name: 'Tortuosidade'}], 'Irregularidade')
+          .group
+        .form
+      .build();
   },
   //
   [DemoKeys.FORMS_INPUT_SWITCH]: () => {
@@ -191,7 +200,7 @@ Através deste instrumento avançou-se uma guia {{metálica 0.0035}} e um catete
         .setLayout('EXTRA_SMALL', 'col-12')
         .text('input1', 'I\'m not required')
         .group
-        .text('input2', 'I\'m required')
+        .text('input2', 'I\'m required', 'sample')
           .validators()
           .required()
         .group

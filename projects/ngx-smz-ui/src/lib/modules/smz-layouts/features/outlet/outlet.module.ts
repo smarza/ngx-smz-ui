@@ -5,6 +5,7 @@ import { SharedModule } from 'primeng/api';
 import { SmzThemeManagerModule } from '../theme-manager/theme-manager.module';
 import { GlobalLoaderModule } from '../global-loader/global-loader.module';
 import { ToastModule } from 'primeng/toast';
+import { NgxSmzDockModule } from '../../../smz-dock/smz-dock.module';
 
 @NgModule({
   declarations: [OutletComponent],
@@ -13,7 +14,8 @@ import { ToastModule } from 'primeng/toast';
     SharedModule,
     SmzThemeManagerModule,
     GlobalLoaderModule,
-    ToastModule
+    ToastModule,
+    NgxSmzDockModule
   ],
   exports: [OutletComponent]
 })

@@ -31,7 +31,7 @@ import { Navigate } from '@ngxs/router-plugin';
 //
 
 export const rbkConfig: NgxRbkUtilsConfig = {
-    debugMode: false,
+    debugMode: true,
     applicationName: environment.production ? 'Overview' : 'Overview DEV',
     useTitleService: true,
     uiDefinitions: {
@@ -58,6 +58,10 @@ export const rbkConfig: NgxRbkUtilsConfig = {
                     scale: '0.7rem',
                     family: 'Roboto'
                 },
+            },
+            viewer: {
+                container: 'bg-gray-50',
+                paper: 'bg-white p-6 m-6 shadow-lg border border-solid border-white',
             },
             paper: {
                 marginCm: {

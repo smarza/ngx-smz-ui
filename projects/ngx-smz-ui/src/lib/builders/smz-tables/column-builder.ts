@@ -2,6 +2,7 @@ import { SmzContentType, SmzDataTransform, SmzIconContent } from '../../modules/
 import { SmzEditableType } from '../../modules/smz-tables/models/editable-types';
 import { SmzFilterType } from '../../modules/smz-tables/models/filter-types';
 import { SmzTableColumn } from '../../modules/smz-tables/models/table-column';
+import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzEditableCollectionBuilder } from './editable-builder';
 import { SmzTableBuilder } from './state-builder';
 
@@ -180,9 +181,10 @@ export class SmzDataTransformColumnBuilder extends SmzBaseColumnBuilder<SmzDataT
 
 }
 
-export class SmzColumnCollectionBuilder {
+export class SmzColumnCollectionBuilder extends SmzBuilderUtilities<SmzColumnCollectionBuilder> {
+  protected that = this;
   constructor(private _tableBuilder: SmzTableBuilder) {
-
+    super();
   }
 
   public text(field: string, header: string, width: string = 'auto'): SmzTextColumnBuilder {

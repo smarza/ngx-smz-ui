@@ -167,15 +167,16 @@ export interface SmzMaskControl extends SmzFormsBaseControl
 
 export interface SmzContentMaskControl extends SmzFormsBaseControl
 {
+    _originalVariables?: string[];
     defaultValue?: string;
     textAreaRows?: number;
-    quickActions: SmzQuickAction[];
-    variableId: string;
-    inputClass: string;
-    tagClass: string
-    variableBegin: string;
-    variableEnd: string;
-    exportHtmlNewLine: boolean;
+    quickActions?: SmzQuickAction[];
+    variableId?: string;
+    inputClass?: string;
+    tagClass?: string
+    variableBegin?: string;
+    variableEnd?: string;
+    exportHtmlNewLine?: boolean;
 }
 
 export interface SmzFileControl extends SmzFormsBaseControl
