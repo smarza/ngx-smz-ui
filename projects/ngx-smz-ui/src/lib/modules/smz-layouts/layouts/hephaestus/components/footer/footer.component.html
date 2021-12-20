@@ -1,24 +1,24 @@
 <ng-container *ngIf="state$ | async as state">
 
     <div class="layout-footer">
-        <div class="footer-logo-container p-col">
+        <div class="footer-logo-container col">
             <ng-container *ngIf="(appLogo$ | async) as appLogo">
                 <img *ngIf="config.footer.showLogo" id="footer-logo" alt="athenas-layout" [src]="appLogo.icon">
                 <span *ngIf="config.footer.showAppName" class="app-name">{{ state.appName }}</span>
             </ng-container>
 
-            <span class="copyright p-col p-ml-2 p-mr-2 hide-mobile">{{ config.footer.leftSideText }}</span>
+            <span class="copyright col ml-2 mr-2 hide-mobile">{{ config.footer.leftSideText }}</span>
         </div>
 
-        <span class="copyright p-ml-2 hide-mobile">{{ config.footer.rightSideText }}</span>
+        <span class="copyright ml-2 hide-mobile">{{ config.footer.rightSideText }}</span>
 
-        <div class="copyright p-ml-2">
+        <div class="copyright ml-2">
             <ng-container *ngTemplateOutlet="footerExtrasTemplate"></ng-container>
         </div>
 
         <ng-container *ngIf="config.footer.rightSideImages != null">
             <ng-container *ngFor="let image of config.footer.rightSideImages">
-                <img [src]="image" class="h-full max-w-10 p-ml-4 p-pb-2 p-pt-2 hide-mobile">
+                <img [src]="image" class="h-full max-w-10 ml-4 pb-2 pt-2 hide-mobile">
             </ng-container>
         </ng-container>
     </div>

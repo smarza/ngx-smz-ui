@@ -30,12 +30,12 @@
                 </ng-container>
 
                 <ng-container *ngIf="isInlineEditingEnabled && current === item">
-                    <div *ngIf="editForm != null" class="p-col p-grid p-nogutter p-align-center p-justify-center flex-gap-2 p-py-3 p-px-0" clickStopPropagation>
-                        <form #form [formGroup]="editForm" class="p-col relative">
+                    <div *ngIf="editForm != null" class="col grid grid-nogutter align-content-center justify-content-center flex-gap-2 py-3 px-0" clickStopPropagation>
+                        <form #form [formGroup]="editForm" class="col relative">
                             <input type="text" clickStopPropagation pInputText formControlName="value"/>
                             <ng-container *ngIf="editForm.get('value') as valueInput">
-                                <div *ngIf="valueInput.touched && valueInput.hasError('required')" class="text-xs text-red-500 absolute right-3 p-my-1">Campo Obrigatório.</div>
-                                <div *ngIf="valueInput.touched && valueInput.hasError('unique')" class="text-xs text-red-500 absolute right-3 p-my-1">Já existe um item com esse nome.</div>
+                                <div *ngIf="valueInput.touched && valueInput.hasError('required')" class="text-xs text-red-500 absolute right-3 my-1">Campo Obrigatório.</div>
+                                <div *ngIf="valueInput.touched && valueInput.hasError('unique')" class="text-xs text-red-500 absolute right-3 my-1">Já existe um item com esse nome.</div>
                             </ng-container>
 
                         </form>
@@ -58,7 +58,7 @@
 
         <ng-template pTemplate="footer">
             <ng-container *ngIf="input.options.length === 0 && input.validatorsPreset?.isRequired">
-                <span class="p-col-12 smz__footer-message">*Campo obrigatório</span>
+                <span class="col-12 smz__footer-message">*Campo obrigatório</span>
             </ng-container>
         </ng-template>
     </p-listbox>

@@ -151,11 +151,11 @@
     border-bottom: 1px solid $dividerColor;
   }
 
-  .p-grid > div {
+  .grid > div {
     padding: 2em 0;
   }
 
-  div.p-col-12:not(:last-child) {
+  div.col-12:not(:last-child) {
     border-right: 1px solid $dividerColor;
   }
 
@@ -369,8 +369,8 @@
 .widget-timeline {
   margin: 0;
 
-  > .p-grid {
-    .p-col-3 {
+  > .grid {
+    .col-3 {
       font-size: 14px;
       position: relative;
       border-right: 1px solid $dividerColor;
@@ -382,7 +382,7 @@
       }
     }
 
-    .p-col-9 {
+    .col-9 {
       padding-left: 1.5em;
 
       .event-text {

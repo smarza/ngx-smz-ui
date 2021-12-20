@@ -3,12 +3,12 @@
 
     <ng-container *ngIf="messages.length === 1">
         <ng-container *ngFor="let message of messages">
-            <span class="p-col-12 error-message">{{ message }}</span>
+            <span class="col-12 error-message">{{ message }}</span>
         </ng-container>
     </ng-container>
 
     <ng-container *ngIf="messages.length > 1">
-        <span class="p-col-12 error-message asterisk" [pTooltip]="messages | describeArray">{{ configuration.forms.multipleErrorMessagesLabel }} *</span>
+        <span class="col-12 error-message asterisk" [pTooltip]="messages | describeArray">{{ configuration.forms.multipleErrorMessagesLabel }} *</span>
     </ng-container>
 
 </ng-container>

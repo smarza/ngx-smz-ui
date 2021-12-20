@@ -1,7 +1,7 @@
-<div class="p-grid p-nogutter p-flex-row p-flex-nowrap p-align-center p-justify-between relative flex-gap-1 py-2">
+<div class="grid grid-nogutter flex-row flex-nowrap align-content-center justify-content-between relative flex-gap-1 py-2">
 
-    <div class="p-grid p-nogutter p-flex-column p-align-stretch p-justify-start relative flex-gap-1">
-        <div class="p-grid p-nogutter p-align-center p-justify-start mb-1" [ngClass]="rbkConfig.notifications.showTypeIndicators ? typeClass[item.type] : ''">
+    <div class="grid grid-nogutter flex-column align-content-stretch justify-content-start relative flex-gap-1">
+        <div class="grid grid-nogutter align-content-center justify-content-start mb-1" [ngClass]="rbkConfig.notifications.showTypeIndicators ? typeClass[item.type] : ''">
             <div class="font-medium" [ngClass]="{ 'font-extrabold': item.status === status.NEW || item.status === status.NOTIFIED }">{{item.title}}</div>
             <div *ngIf="item.status === status.NEW" class="rounded bg-blue-500 text-white px-1 py-0.5 ml-2 text-xs">NOVO</div>
         </div>

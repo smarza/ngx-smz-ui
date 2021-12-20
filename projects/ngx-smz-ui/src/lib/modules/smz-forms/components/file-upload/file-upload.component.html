@@ -1,20 +1,20 @@
 <div class="ui-g ui-fluid">
-    <div class="ui-g-12 p-col-nogutter relative" [ngStyle]="{ padding: 0 }">
+    <div class="ui-g-12 grid-nogutter relative" [ngStyle]="{ padding: 0 }">
 
         <label class="smz__input_name" [innerHTML]="input.name"></label>
 
         <!-- ZONA DE DROPPING -->
-        <div *ngIf="input._file == null" SmzDragDrop (fileDropped)="onFilesDropped($event)" class="file_upload__drag-container p-grid p-nogutter p-align-center p-justify-center p-mt-1  p-mb-1">
-            <div class="p-grid p-nogutter p-flex-column p-align-center p-justify-center p-pt-3 p-pb-3">
+        <div *ngIf="input._file == null" SmzDragDrop (fileDropped)="onFilesDropped($event)" class="file_upload__drag-container grid grid-nogutter align-content-center justify-content-center mt-1  mb-1">
+            <div class="grid grid-nogutter flex-column align-content-center justify-content-center pt-3 pb-3">
                 <!-- ICONE DE UPLOAD -->
-                <i [ngClass]="input.dragIconClass" class="text-4xl p-mb-2"></i>
+                <i [ngClass]="input.dragIconClass" class="text-4xl mb-2"></i>
                 <span>
                     <!-- INPUT DE UPLOAD MANUAL -->
                     <input #uploadControl type="file" name="uploadControl" class="upload_manual_control" [accept]="input.fileAccept" id="uploadControl" (change)="onInputFiles($event)" />
                     <!-- BOTÃO PARA SELECIONAR ARQUIVO -->
                     <label for="uploadControl" class="clickable upload_manual_label hvr hvr-grow">{{ input.inputMessage }}</label>
                     <!-- MENSAGEM PARA ARRASTAR -->
-                    <span class="upload_field-drag-message p-ml-1">ou {{ input.dragMessage }}</span>
+                    <span class="upload_field-drag-message ml-1">ou {{ input.dragMessage }}</span>
                 </span>
 
                 <!-- MENSAGEM DE ERRO PARA SELEÇÃO DE ARQUIVO -->
@@ -23,7 +23,7 @@
         </div>
 
         <!-- CONTEÚDO COM ARQUIVO CARREGADO -->
-        <div *ngIf="input._file != null" class="p-grid p-nogutter p-align-center p-justify-start p-flex-nowrap p-mt-1 p-mb-1">
+        <div *ngIf="input._file != null" class="grid grid-nogutter align-content-center justify-content-start flex-nowrap mt-1 mb-1">
 
             <div class="upload_field" [style.height]="input.thumbnailSize" [style.width]="input.thumbnailSize">
                 <ng-container [ngSwitch]="input._fileType">
@@ -32,11 +32,11 @@
                     <ng-container *ngSwitchCase="'image'">
 
                         <!-- THUMBNAIL DE IMAGENS -->
-                        <img *ngIf="input._base64" class="upload_field-img p-mr-3" [src]="input._base64 | safeUrl"/>
+                        <img *ngIf="input._base64" class="upload_field-img mr-3" [src]="input._base64 | safeUrl"/>
 
                         <!-- ZOOM PARA IMAGENS -->
                         <div class="upload_field__actions">
-                            <div class="p-grid p-nogutter p-align-center p-justify-end p-mr-2 p-mt-2">
+                            <div class="grid grid-nogutter align-content-center justify-content-end mr-2 mt-2">
                                 <i *ngIf="input.allowZoom" class="fas fa-search-plus upload_field__actions_icon hvr hvr-grow text-white clickable" (click)="applyZoom()"></i>
                             </div>
                         </div>
@@ -45,7 +45,7 @@
 
                     <!-- APLICAÇÕES -->
                     <ng-container *ngSwitchCase="'application'">
-                        <div class="upload_field-generic h-full w-full p-grid p-nogutter p-align-center text-5xl p-justify-center p-mr-3">
+                        <div class="upload_field-generic h-full w-full grid grid-nogutter align-content-center text-5xl justify-content-center mr-3">
 
                             <!-- THUMBNAIL DE APLICAÇÕES -->
                             <ng-container [ngSwitch]="input._fileExtension">
@@ -66,7 +66,7 @@
 
                         <!-- ZOOM PARA PDF -->
                         <div *ngIf="input._fileExtension === '.pdf'" class="upload_field__actions">
-                            <div class="p-grid p-nogutter p-align-center p-justify-end p-mr-2 p-mt-2">
+                            <div class="grid grid-nogutter align-content-center justify-content-end mr-2 mt-2">
                                 <i *ngIf="input.allowZoom" class="fas fa-search-plus upload_field__actions_icon hvr hvr-grow text-white clickable" (click)="applyZoom()"></i>
                             </div>
                         </div>
@@ -77,7 +77,7 @@
                     <ng-container *ngSwitchCase="'video'">
 
                         <!-- THUMBNAIL DE VÍDEOS -->
-                        <div class="upload_field-generic h-full w-full p-grid p-nogutter p-align-center text-5xl p-justify-center p-mr-3">
+                        <div class="upload_field-generic h-full w-full grid grid-nogutter align-content-center text-5xl justify-content-center mr-3">
                             <i class="far fa-file-video"></i>
                         </div>
 
@@ -87,7 +87,7 @@
                     <ng-container *ngSwitchCase="'audio'">
 
                         <!-- THUMBNAIL DE AUDIOS -->
-                        <div class="upload_field-generic h-full w-full p-grid p-nogutter p-align-center text-5xl p-justify-center p-mr-3">
+                        <div class="upload_field-generic h-full w-full grid grid-nogutter align-content-center text-5xl justify-content-center mr-3">
                             <i class="far fa-file-audio"></i>
                         </div>
 
@@ -97,7 +97,7 @@
                     <ng-container *ngSwitchDefault>
 
                         <!-- THUMBNAIL GENERICOS -->
-                        <div class="upload_field-generic h-full w-full p-grid p-nogutter p-align-center text-5xl p-justify-center p-mr-3">
+                        <div class="upload_field-generic h-full w-full grid grid-nogutter align-content-center text-5xl justify-content-center mr-3">
                             <i class="far fa-file"></i>
                         </div>
 
@@ -108,8 +108,8 @@
             </div>
 
             <!-- NOME E TAMANHO DO ARQUIVO -->
-            <div class="p-grid p-nogutter p-flex-column p-align-start p-justify-end p-ml-3">
-                <span>{{ input._file.name | fileNameShorten : input.shortenLength : input.shortenSeparator }} <i class="far fa-trash-alt hvr hvr-grow text-red-500 clickable p-ml-2 p-mb-1" (click)="clear()"></i></span>
+            <div class="grid grid-nogutter flex-column align-content-start justify-content-end ml-3">
+                <span>{{ input._file.name | fileNameShorten : input.shortenLength : input.shortenSeparator }} <i class="far fa-trash-alt hvr hvr-grow text-red-500 clickable ml-2 mb-1" (click)="clear()"></i></span>
                 <span *ngIf="input.showFileSize"><small>{{ formatBytes(input._file.size) }}</small></span>
             </div>
 
@@ -133,5 +133,5 @@
     </ng-template>
 
     <!-- ICONE DE SAIR DO FULLSCREEN -->
-    <i class="far fa-times-circle clickable p-m-4 hvr hvr-grow text-4xl text-white" (click)="restoreZoom()"></i>
+    <i class="far fa-times-circle clickable m-4 hvr hvr-grow text-4xl text-white" (click)="restoreZoom()"></i>
 </div>

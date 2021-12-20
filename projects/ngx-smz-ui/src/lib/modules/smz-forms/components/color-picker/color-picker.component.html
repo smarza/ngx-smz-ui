@@ -1,5 +1,5 @@
 <label class="smz__input_name" [innerHTML]="input.name"></label>
-<div class="input_inner__wrapper p-grid p-nogutter p-align-center p-justify-start p-flex-nowrap p-mt-1">
+<div class="input_inner__wrapper grid grid-nogutter align-content-center justify-content-start flex-nowrap mt-1">
     <p-colorPicker
         [id]="input.propertyName"
         class="smz__input_value"
@@ -8,7 +8,7 @@
         (onChange)="onPickerChange($event)">
     </p-colorPicker>
     <input
-        class="smz__input_value colorpicker-hexa-input p-ml-2"
+        class="smz__input_value colorpicker-hexa-input ml-2"
         pInputText
         [disabled]="input.isDisabled"
         [(ngModel)]="color"

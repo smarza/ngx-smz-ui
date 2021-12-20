@@ -1,11 +1,11 @@
-<div class="p-grid p-justify-center p-align-center p-p-4 p-m-0 h-full w-full text-center animate__animated animate__fadeInDown">
-  <div class="p-col-10 p-md-8 p-grid p-nogutter p-flex-column p-align-center p-justify-center">
+<div class="grid justify-content-center align-content-center p-4 m-0 h-full w-full text-center animate__animated animate__fadeInDown">
+  <div class="col-10 md:p-8 grid grid-nogutter flex-column align-content-center justify-content-center">
 
       <img *ngIf="image != null && image !== ''" [src]="image" class="img-fluid" width="60%" [ngStyle]="{ 'max-width': '250px' }" />
       <h2 class="mt-2">{{ message }}</h2>
       <div *ngIf="callbackInfo != null" class="mb-2" [innerHtml]="callbackInfo"></div>
 
-      <div class="p-grid p-nogutter p-align-center p-justify-center p-mt-2 gap-2">
+      <div class="grid grid-nogutter align-content-center justify-content-center mt-2 gap-2">
         <ng-container *ngTemplateOutlet="actionsTemplate; context: { $implicit: { } }"></ng-container>
         <button *ngIf="callbackLabel != null" pButton type="button" class="p-button" [label]="callbackLabel" (click)="clicked.emit()"></button>
         <ng-container *ngIf="actions">

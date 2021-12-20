@@ -18,15 +18,15 @@
 
 <ng-template #groupTemplate>
 
-    <div class="w-full p-px-0 p-mx-auto">
-        <div class="p-grid p-nogutter p-flex-wrap p-align-start p-justify-start flex-gap-2" [ngClass]="config.template | setTemplateClasses : ['horizontalAlignment', 'verticalAlignment']">
+    <div class="w-full px-0 mx-auto">
+        <div class="grid grid-nogutter flex-wrap align-content-start justify-content-start flex-gap-2" [ngClass]="config.template | setTemplateClasses : ['horizontalAlignment', 'verticalAlignment']">
             <ng-container *ngFor="let group of config.groups">
-                <div class="p-col" [ngClass]="group.template | setTemplateClasses : ['row']">
+                <div class="col" [ngClass]="group.template | setTemplateClasses : ['row']">
                     <div class="smz__group_name" *ngIf="group.showName">{{ group.name }}</div>
 
-                    <div class="p-grid p-nogutter p-flex-wrap p-align-start p-justify-start flex-gap-2">
+                    <div class="grid grid-nogutter flex-wrap align-content-start justify-content-start flex-gap-2">
                         <ng-container *ngFor="let input of group.children">
-                            <div *ngIf="input.isVisible" class="input__control__wrapper p-col" [ngClass]="input.template | setTemplateClasses : ['row']">
+                            <div *ngIf="input.isVisible" class="input__control__wrapper col" [ngClass]="input.template | setTemplateClasses : ['row']">
                                 <ng-container *ngTemplateOutlet="inputTemplate; context: { $implicit: input }"></ng-container>
                             </div>
                         </ng-container>

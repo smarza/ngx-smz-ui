@@ -2,7 +2,7 @@
   <ng-template pTemplate="item" let-item>
       <div class="w-full relative cursor-pointer" (click)="execute(item)">
         <img [src]="item.icon" width="100%">
-        <div *ngIf="item.label != null" class="absolute inset-0 p-grid p-nogutter p-align-center p-justify-center p-flex-column">
+        <div *ngIf="item.label != null" class="absolute inset-0 grid grid-nogutter align-content-center justify-content-center flex-column">
           <div class="text-center font-medium my-auto pt-2 select-none text-black text-xs">{{ item.label }}</div>
         </div>
       </div>

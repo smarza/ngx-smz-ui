@@ -75,8 +75,8 @@ export namespace SmzBreakpoints
 
     export const ResponsivePrimeTag =
     {
-        row: { withTag: 'p-',  emptyTag: 'p-col-' },
-        verticalAlignment:  { withTag: 'p-ai-',  emptyTag: 'p-ai-' },
-        horizontalAlignment: { withTag: 'p-jc-',  emptyTag: 'p-jc-' }
+        row: { withTag: '',  emptyTag: 'col-' },
+        verticalAlignment:  { withTag: 'align-items-',  emptyTag: 'align-items-' },
+        horizontalAlignment: { withTag: 'justify-content-',  emptyTag: 'justify-content-' }
     }
 }

@@ -1,10 +1,10 @@
 <div class="ui-g ui-fluid">
-    <div class="ui-g-12 p-col-nogutter no-padding">
+    <div class="ui-g-12 grid-nogutter no-padding">
       <label class="smz__input_name" [innerHTML]="input.name"></label>
       <div class="input_inner__wrapper">
           <p-multiSelect
             fxFlex="grow"
-            class="p-col-12 p-col-nogutter smz__input_value"
+            class="col-12 grid-nogutter smz__input_value"
             [id]="input.propertyName"
             [options]="service.observers[formId + input.propertyName]?.options | async"
             [formControl]="control"

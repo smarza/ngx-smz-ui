@@ -15,14 +15,14 @@
       <li
         class="p-menu-separator"
         *ngIf="submenu.separator"
-        [ngClass]="{'p-hidden': submenu.visible === false}"
+        [ngClass]="{'hidden': submenu.visible === false}"
         role="separator"
       ></li>
       <li
         class="p-submenu-header"
         [attr.data-automationid]="submenu.automationId"
         *ngIf="!submenu.separator"
-        [ngClass]="{'p-hidden': submenu.visible === false}"
+        [ngClass]="{'hidden': submenu.visible === false}"
         pTooltip
         [tooltipOptions]="submenu.tooltipOptions"
         role="none"
@@ -38,14 +38,14 @@
         <li
           class="p-menu-separator"
           *ngIf="item.separator"
-          [ngClass]="{'p-hidden': (item.visible === false || submenu.visible === false)}"
+          [ngClass]="{'hidden': (item.visible === false || submenu.visible === false)}"
           role="separator"
         ></li>
         <li
           class="p-menuitem"
           *ngIf="!item.separator"
           [smzMenuItemContent]="item"
-          [ngClass]="{'p-hidden': (item.visible === false || submenu.visible === false)}"
+          [ngClass]="{'hidden': (item.visible === false || submenu.visible === false)}"
           [ngStyle]="item.style"
           [class]="item.styleClass"
           pTooltip
@@ -58,14 +58,14 @@
       <li
         class="p-menu-separator"
         *ngIf="item.separator"
-        [ngClass]="{'p-hidden': item.visible === false}"
+        [ngClass]="{'hidden': item.visible === false}"
         role="separator"
       ></li>
       <li
         class="p-menuitem"
         *ngIf="!item.separator"
         [smzMenuItemContent]="item"
-        [ngClass]="{'p-hidden': item.visible === false}"
+        [ngClass]="{'hidden': item.visible === false}"
         [ngStyle]="item.style"
         [class]="item.styleClass"
         pTooltip

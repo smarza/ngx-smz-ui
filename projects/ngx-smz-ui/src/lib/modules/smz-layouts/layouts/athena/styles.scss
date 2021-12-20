@@ -1299,7 +1299,7 @@ body a {
 .dashboard {
   margin: 0;
 }
-.dashboard > .p-col-12 {
+.dashboard > .col-12 {
   padding: 0.75rem;
 }
 .dashboard .overview-box {
@@ -1437,10 +1437,10 @@ body a {
 .dashboard .contact-form .p-panel .p-panel-content {
   min-height: 350px;
 }
-.dashboard .contact-form .p-col-12 {
+.dashboard .contact-form .col-12 {
   padding: 10px 15px;
 }
-.dashboard .contact-form .p-col-12:last-child {
+.dashboard .contact-form .col-12:last-child {
   padding-bottom: 0;
 }
 .dashboard .contacts {
@@ -1579,26 +1579,26 @@ body a {
 .dashboard .timeline {
   margin: 0;
 }
-.dashboard .timeline > .p-grid .p-col-3 {
+.dashboard .timeline > .grid .col-3 {
   font-size: 14px;
   position: relative;
   border-right: 1px solid var(--surface-d);
 }
-.dashboard .timeline > .p-grid .p-col-3 i {
+.dashboard .timeline > .grid .col-3 i {
   font-size: 24px;
   position: absolute;
   right: -16px;
 }
-.dashboard .timeline > .p-grid .p-col-9 {
+.dashboard .timeline > .grid .col-9 {
   padding-left: 1.5em;
 }
-.dashboard .timeline > .p-grid .p-col-9 .event-text {
+.dashboard .timeline > .grid .col-9 .event-text {
   color: var(--text-color-secondary);
   font-size: 14px;
   display: block;
   padding-bottom: 20px;
 }
-.dashboard .timeline > .p-grid .p-col-9 .event-content img {
+.dashboard .timeline > .grid .col-9 .event-content img {
   width: 100%;
 }
 .dashboard .user-card {
@@ -1842,10 +1842,10 @@ body a {
 .dashboard .circle-panel .p-panel-content {
   padding: 0;
 }
-.dashboard .circle-panel .p-grid > div {
+.dashboard .circle-panel .grid > div {
   padding: 2em 0;
 }
-.dashboard .circle-panel div.p-col-12:not(:last-child) {
+.dashboard .circle-panel div.col-12:not(:last-child) {
   border-right: 1px solid var(--surface-d);
 }
 .dashboard .p-panel {
@@ -1855,7 +1855,7 @@ body a {
 }
 
 @media (max-width: 1024px) {
-  .dashboard .circle-panel div.p-col-12:not(:last-child) {
+  .dashboard .circle-panel div.col-12:not(:last-child) {
     border-right: 0 none;
   }
 }
@@ -1963,7 +1963,7 @@ body a {
 .layout-config .layout-config-content .layout-themes a:hover {
   transform: scale(1.1);
 }
-.layout-config .p-col {
+.layout-config .col {
   text-align: center;
 }
 .layout-config p {
@@ -2263,10 +2263,10 @@ p:last-child {
   padding-bottom: 1rem;
   border-bottom: 1px solid var(--surface-d);
 }
-.widget-circle-panel .p-grid > div {
+.widget-circle-panel .grid > div {
   padding: 2em 0;
 }
-.widget-circle-panel div.p-col-12:not(:last-child) {
+.widget-circle-panel div.col-12:not(:last-child) {
   border-right: 1px solid var(--surface-d);
 }
 .widget-circle-panel .status-title {
@@ -2554,26 +2554,26 @@ p:last-child {
 .widget-timeline {
   margin: 0;
 }
-.widget-timeline > .p-grid .p-col-3 {
+.widget-timeline > .grid .col-3 {
   font-size: 14px;
   position: relative;
   border-right: 1px solid var(--surface-d);
 }
-.widget-timeline > .p-grid .p-col-3 i {
+.widget-timeline > .grid .col-3 i {
   font-size: 24px;
   position: absolute;
   right: -16px;
 }
-.widget-timeline > .p-grid .p-col-9 {
+.widget-timeline > .grid .col-9 {
   padding-left: 1.5em;
 }
-.widget-timeline > .p-grid .p-col-9 .event-text {
+.widget-timeline > .grid .col-9 .event-text {
   color: var(--text-color-secondary);
   font-size: 14px;
   display: block;
   padding-bottom: 20px;
 }
-.widget-timeline > .p-grid .p-col-9 .event-content img {
+.widget-timeline > .grid .col-9 .event-content img {
   width: 100%;
 }
 

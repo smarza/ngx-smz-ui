@@ -94,7 +94,7 @@ export class SmzDocumentRowBuilder {
   public chart(chartData: SmzChart): SmzCellChartBuilder {
     const cell: SmzDocumentCell = { colspan: 1, rowspan: 1, height: '100%', width: 'auto', data: null };
     this._row.cells.push(cell)
-    const item: SmzDocumentChart = { type: SmzDocumentFeatureDefinitions.CHART, content: { chartData }, flexWidth: 'p-col' };
+    const item: SmzDocumentChart = { type: SmzDocumentFeatureDefinitions.CHART, content: { chartData }, flexWidth: 'col' };
     cell.data = item;
     return new SmzCellChartBuilder(this, cell, item, this._documentBuilder);
   }

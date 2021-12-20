@@ -241,7 +241,7 @@ export class SmzCellFieldGroupBuilder {
       container: { styles: defaultConfig.fields.container },
       label: { value: label, isVisible: label != null, styles: defaultConfig.fields.label },
       text: { value: text, styles: defaultConfig.fields.text },
-      flexWidth: 'p-col'
+      flexWidth: 'col'
     };
 
     this._groupBuilder._data.fields.push(this._data)
@@ -249,7 +249,7 @@ export class SmzCellFieldGroupBuilder {
   }
 
   public setWidth(width: 'auto' | 'col-1' | 'col-2' | 'col-3' | 'col-4' | 'col-5' | 'col-6' | 'col-7' | 'col-8' | 'col-9' | 'col-10' | 'col-11' | 'col-12'): SmzCellFieldGroupBuilder {
-    const newStyle = width === 'auto' ? 'p-col' : `p-${width}`;
+    const newStyle = width === 'auto' ? 'col' : `${width}`;
     this._data.flexWidth = newStyle;
     return this;
   }
@@ -474,7 +474,7 @@ export class SmzCellChartBuilder extends SmzDocumentBaseCellBuilder<SmzCellChart
   }
 
   public setWidth(width: 'auto' | 'col-1' | 'col-2' | 'col-3' | 'col-4' | 'col-5' | 'col-6' | 'col-7' | 'col-8' | 'col-9' | 'col-10' | 'col-11' | 'col-12'): SmzCellChartBuilder {
-    const newStyle = width === 'auto' ? 'p-col' : `p-${width}`;
+    const newStyle = width === 'auto' ? 'col' : `${width}`;
     this._data.flexWidth = newStyle;
     return this;
   }

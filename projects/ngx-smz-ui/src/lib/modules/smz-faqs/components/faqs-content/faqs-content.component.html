@@ -1,6 +1,6 @@
-<div class="p-grid">
+<div class="grid">
 
-    <div class="p-col-12">
+    <div class="col-12">
         <h3>{{ manager.config.placeholders.searchTitle }}</h3>
         <div class="p-inputgroup">
             <span class="p-inputgroup-addon"><i class="fas fa-search"></i></span>
@@ -9,7 +9,7 @@
         </div>
     </div>
 
-    <div class="p-col-12">
+    <div class="col-12">
         <ng-container *ngIf="(items | searchFaqs : keywords) as filtered">
             <ng-container *ngIf="filtered.length > 0; else emptyTemplate">
                 <h3>{{ manager.config.placeholders.contentTitle }}</h3>
@@ -28,7 +28,7 @@
         </ng-container>
     </div>
 
-    <div class="p-col-12">
+    <div class="col-12">
         <ng-container *ngIf="(manager.config.creationClaim | rbkCanAccess) && formConfig != null">
             <h3>{{ manager.config.placeholders.creationTitle }}</h3>
             <smz-form-group #creationComponent [config]="formConfig"></smz-form-group>
