@@ -1,3 +1,6 @@
+/* TAILWIND */
+@import 'tailwindcss/utilities';
+
 /* PRIME */
 @import "primeng/resources/primeng.min.css";
 
@@ -13,9 +16,6 @@
 /* ANIMATIONS */
 @import "hover.css/css/hover-min.css";
 @import "animate.css/animate.min.css";
-
-/* TAILWIND */
-@import 'tailwindcss/utilities';
 
 /* LEGACY - PRIME FLEX RESPONSIVE */
 @import "./legacy/variables";

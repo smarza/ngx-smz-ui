@@ -49,9 +49,9 @@
     "ngx-device-detector": "^3.0.0",
     "ngx-highlightjs": "^4.1.4",
     "ngx-pipes": "^2.7.6",
-    "primeflex": "^2.0.0",
+    "primeflex": "^3.1.2",
     "primeicons": "^5.0.0",
-    "primeng": "^13.0.2",
+    "primeng": "^13.0.3",
     "rxjs": "~7.4.0",
     "tslib": "^2.3.1",
     "zone.js": "~0.11.4"
