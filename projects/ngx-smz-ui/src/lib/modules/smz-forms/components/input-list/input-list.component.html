@@ -30,7 +30,7 @@
                 </ng-container>
 
                 <ng-container *ngIf="isInlineEditingEnabled && current === item">
-                    <div *ngIf="editForm != null" class="col grid grid-nogutter align-content-center justify-content-center flex-gap-2 py-3 px-0" clickStopPropagation>
+                    <div *ngIf="editForm != null" class="col grid grid-nogutter align-items-center justify-content-center flex-gap-2 py-3 px-0" clickStopPropagation>
                         <form #form [formGroup]="editForm" class="col relative">
                             <input type="text" clickStopPropagation pInputText formControlName="value"/>
                             <ng-container *ngIf="editForm.get('value') as valueInput">

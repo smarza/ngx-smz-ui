@@ -1,4 +1,4 @@
-<div class="grid grid-nogutter align-content-start justify-content-start h-full">
+<div class="grid grid-nogutter align-items-start justify-content-start h-full">
 
   <!-- TREE -->
   <div class="h-full col-12 lg:col-4 p-2">
@@ -11,7 +11,7 @@
 
   <!-- DETAILS -->
   <div class="h-full col-12 lg:col-8 p-2">
-    <div class="h-full align-content-stretch flex-column grid justify-content-start grid-nogutter py-3 rounded shadow-md w-full">
+    <div class="h-full align-items-stretch flex-column grid justify-content-start grid-nogutter py-3 rounded shadow-md w-full">
 
       <!-- CONTEÚDO -->
       <div class="flex-grow relative w-full mt-1">
@@ -20,7 +20,7 @@
           <ng-container *ngIf="selectedNode != null; else noSelectionTemplate">
 
             <!-- HEADER -->
-            <div class="grid grid-nogutter align-content-center justify-content-between py-2">
+            <div class="grid grid-nogutter align-items-center justify-content-between py-2">
               <h3 class="m-0">{{ selectedNode | demoTitle }}</h3>
 
               <!-- AÇÕES -->
@@ -38,7 +38,7 @@
           </ng-container>
 
           <ng-template #noSelectionTemplate>
-            <div class="grid grid-nogutter align-content-center justify-content-center p-4 flex-column flex-grow">
+            <div class="grid grid-nogutter align-items-center justify-content-center p-4 flex-column flex-grow">
               <i class="fas fa-info-circle text-5xl text-yellow-500 mb-4"></i>
               <div class="text-lg">Escolha um demo.</div>
             </div>

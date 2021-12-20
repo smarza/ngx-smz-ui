@@ -19,12 +19,12 @@
 <ng-template #groupTemplate>
 
     <div class="w-full px-0 mx-auto">
-        <div class="grid grid-nogutter flex-wrap align-content-start justify-content-start flex-gap-2" [ngClass]="config.template | setTemplateClasses : ['horizontalAlignment', 'verticalAlignment']">
+        <div class="grid grid-nogutter flex-wrap align-items-start justify-content-start flex-gap-2" [ngClass]="config.template | setTemplateClasses : ['horizontalAlignment', 'verticalAlignment']">
             <ng-container *ngFor="let group of config.groups">
                 <div class="col" [ngClass]="group.template | setTemplateClasses : ['row']">
                     <div class="smz__group_name" *ngIf="group.showName">{{ group.name }}</div>
 
-                    <div class="grid grid-nogutter flex-wrap align-content-start justify-content-start flex-gap-2">
+                    <div class="grid grid-nogutter flex-wrap align-items-start justify-content-start flex-gap-2">
                         <ng-container *ngFor="let input of group.children">
                             <div *ngIf="input.isVisible" class="input__control__wrapper col" [ngClass]="input.template | setTemplateClasses : ['row']">
                                 <ng-container *ngTemplateOutlet="inputTemplate; context: { $implicit: input }"></ng-container>

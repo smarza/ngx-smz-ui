@@ -11,7 +11,7 @@ import { SmzLayoutsConfig } from '../../../../core/globals/smz-layouts.config';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
       <!-- <ng-content></ng-content> -->
-      <a class="profile clickable grid align-content-center justify-content-end m-0 p-0 flex-nowrap gap-2" [ngClass]="{ 'profile-with-icon': !config.useAvatar }" (click)="toggle()">
+      <a class="profile clickable grid align-items-center justify-content-end m-0 p-0 flex-nowrap gap-2" [ngClass]="{ 'profile-with-icon': !config.useAvatar }" (click)="toggle()">
         <ng-container *ngIf="userData$ | async as userdata">
           <span class="username">{{ config.profileMessage }}{{ userdata[config.usernameProperty] }}</span>
           <img *ngIf="config.useAvatar && userdata[config.avatarProperty]" [src]="(userdata[config.avatarProperty] ) | safeUrl" class="profile-image">
