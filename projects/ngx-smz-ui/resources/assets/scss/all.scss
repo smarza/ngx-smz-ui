@@ -9,7 +9,11 @@
 
 @import 'primeflex/src/_variables';
 @import 'primeflex/src/_mixins';
-@import 'primeflex/src/_grid';
+
+/* FOI FEITO UM OVERRIDE DO PRIME GRID ORIGINAL PARA ADICIONAR !IMPORTANT */
+@import './prime-grid/grid';
+// @import 'primeflex/src/_grid';
+
 // @import 'primeflex/src/_colors';
 @import 'primeflex/src/_formlayout';
 // @import 'primeflex/src/_display';

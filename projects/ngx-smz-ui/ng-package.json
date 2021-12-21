@@ -10,6 +10,7 @@
     "./resources/assets/scss/dock/*.*",
     "./resources/assets/scss/forms/*.*",
     "./resources/assets/scss/documents/*.*",
+    "./resources/assets/scss/prime-grid/*.*",
     "./resources/assets/fonts/*.*",
     "./resources/assets/images/pages/*.*",
     "./resources/assets/images/avatar/*.*",
