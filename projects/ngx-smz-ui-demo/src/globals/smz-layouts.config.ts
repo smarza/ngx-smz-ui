@@ -52,7 +52,7 @@ export const smzLayoutsConfig: SmzLayoutsConfig = {
         position: 'bottom-right'
     },
     themes: {
-        content: SmzContentTheme.PRIMEONE_LIGHT,
+        content: SmzContentTheme.TAILWIND_LIGHT,
         custom:   {
             id: 'e-libra-mobile',
             name: 'e-Libra Mobile',

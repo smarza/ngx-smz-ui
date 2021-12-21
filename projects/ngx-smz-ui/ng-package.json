@@ -4,7 +4,6 @@
   "assets": [
     "./resources/assets/scss/*.*",
     "./resources/assets/scss/layouts/*.*",
-    "./resources/assets/scss/contents/*.*",
     "./resources/assets/scss/pages/*.*",
     "./resources/assets/scss/extras/*.*",
     "./resources/assets/scss/dialogs/*.*",

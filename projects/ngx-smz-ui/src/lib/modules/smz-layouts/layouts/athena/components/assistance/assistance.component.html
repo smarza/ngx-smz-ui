@@ -8,7 +8,7 @@
 
     <div class="grid flex-col items-start justify-start p-2 grid-nogutter">
       <h5>Menu</h5>
-      <div class="grid grid-nogutter">
+      <div class="grid grid-nogutter gap-2">
         <p-selectButton [options]="menuTypes" [(ngModel)]="menuType" (onChange)="onMenuTypeChange()" optionLabel="label" optionValue="value"></p-selectButton>
 
         <div class="col-5 mt-2 mr-2">

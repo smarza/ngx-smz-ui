@@ -29,7 +29,7 @@ export class LayoutUiSelectors
     @Selector([LayoutUiState])
     public static contentTheme(state: UiStateModel): string
     {
-        return `assets/scss/contents/${state.themes.content}`;
+        return `assets/themes/${state.themes.content}`;
     }
 
     @Selector([LayoutUiState])

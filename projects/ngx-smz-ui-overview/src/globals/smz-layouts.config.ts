@@ -1,4 +1,4 @@
-import { SmzLayoutsConfig, SmzContentTheme, SmzLoader, HephaestusLayout, MenuType, SidebarState, AthenaLayout, ColorSchemaDefinition } from 'ngx-smz-ui';
+import { SmzLayoutsConfig, SmzContentTheme, SmzLoader, HephaestusLayout, MenuType, SidebarState, AthenaLayout } from 'ngx-smz-ui';
 
 export const smzHephaestusConfig: HephaestusLayout = {
     menu: MenuType.SLIM,
@@ -53,7 +53,7 @@ export const smzLayoutsConfig: SmzLayoutsConfig = {
         position: 'bottom-right'
     },
     themes: {
-        content: SmzContentTheme.PRIMEONE_LIGHT,
+        content: SmzContentTheme.TAILWIND_LIGHT,
         custom:   {
             id: 'e-libra-mobile',
             name: 'e-Libra Mobile',
@@ -86,7 +86,7 @@ export const smzLayoutsConfig: SmzLayoutsConfig = {
         notFoundImagePath: 'assets/images/pages/bg-404.jpg',
     },
     assistance: {
-        isEnabled: false,
+        isEnabled: true,
         sidebarData: {
             position: 'right'
         },

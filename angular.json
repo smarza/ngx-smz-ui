@@ -190,6 +190,11 @@
                 "glob": "**/*",
                 "input": "dist/ngx-smz-ui/resources",
                 "output": "/"
+              },
+              {
+                "glob": "**/*",
+                "input": "./node_modules/primeng/resources/themes",
+                "output": "/assets/themes/"
               }
             ],
             "styles": [

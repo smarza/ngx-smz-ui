@@ -10,7 +10,7 @@ const designMode = true;
 
 module.exports = {
     prefix: '',
-    important: false,
+    important: true,
     mode: designMode ? undefined : 'jit',
     content: [
         './src/**/*.{html,ts,css,scss}',
