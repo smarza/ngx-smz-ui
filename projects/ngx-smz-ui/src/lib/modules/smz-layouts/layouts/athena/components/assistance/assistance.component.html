@@ -6,7 +6,7 @@
 
   <p-sidebar [(visible)]="isVisible" [position]="assistance.sidebarData.position" styleClass="assistence_sidebar" (onHide)="onHide()" (onShow)="onShow()">
 
-    <div class="grid flex-column align-items-start justify-content-start p-2 grid-nogutter">
+    <div class="grid flex-col items-start justify-start p-2 grid-nogutter">
       <h5>Menu</h5>
       <div class="grid grid-nogutter">
         <p-selectButton [options]="menuTypes" [(ngModel)]="menuType" (onChange)="onMenuTypeChange()" optionLabel="label" optionValue="value"></p-selectButton>

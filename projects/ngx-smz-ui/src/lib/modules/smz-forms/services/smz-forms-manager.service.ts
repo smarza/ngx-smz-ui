@@ -96,8 +96,8 @@ export class SmzFormsManagerService
         return {
             extraSmall: {
                 row: 'col-12',
-                horizontalAlignment: 'justify-content-start',
-                verticalAlignment: 'align-items-start'
+                horizontalAlignment: 'justify-start',
+                verticalAlignment: 'items-start'
             }
         };
 

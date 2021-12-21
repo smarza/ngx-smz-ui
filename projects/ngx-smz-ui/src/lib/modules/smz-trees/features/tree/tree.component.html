@@ -49,9 +49,9 @@
                 <ng-template pTemplate="header" *ngIf="state.header.isVisible">
 
                     <ng-container *ngIf="state.header.toolbar as toolbar">
-                        <div class="grid grid-nogutter justify-content-start align-items-center mb-2 gap-2">
+                        <div class="grid grid-nogutter justify-start items-center mb-2 gap-2">
                             <h3 *ngIf="state.header.title != null" class="m-2 col">{{state.header.title}}</h3>
-                            <div class="grid grid-nogutter justify-content-start align-items-center gap-2">
+                            <div class="grid grid-nogutter justify-start items-center gap-2">
                                 <ng-container *ngFor="let button of state.header.toolbar.items; let i=index">
                                     <button
                                         pButton
@@ -121,8 +121,8 @@
                             </span>
                         </div>
 
-                        <div *ngIf="toolbarTemplate != null" class="grid grid-nogutter align-items-center mt-2"
-                            [ngClass]="'justify-content-' + state.header.toolbar.alignment">
+                        <div *ngIf="toolbarTemplate != null" class="grid grid-nogutter items-center mt-2"
+                            [ngClass]="'justify-' + state.header.toolbar.alignment">
                             <ng-container *ngTemplateOutlet="toolbarTemplate; context: { $implicit: dt }"></ng-container>
                         </div>
                     </ng-container>
@@ -130,7 +130,7 @@
                 </ng-template>
 
                 <ng-template pTemplate="footer" *ngIf="state.footer.isVisible">
-                    <div class="grid grid-nogutter justify-content-start align-items-center">
+                    <div class="grid grid-nogutter justify-start items-center">
                         <span class="col mr-2">FOOTER</span>
                     </div>
                 </ng-template>

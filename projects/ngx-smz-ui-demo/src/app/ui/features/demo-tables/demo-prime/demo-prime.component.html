@@ -17,21 +17,21 @@
                 <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
             </th>
             <th pSortableColumn="name">
-                <div class="flex justify-content-between align-items-center">
+                <div class="flex justify-between items-center">
                     Name
                     <p-sortIcon field="name"></p-sortIcon>
                     <p-columnFilter type="text" field="name" display="menu" class="ml-auto"></p-columnFilter>
                 </div>
             </th>
             <th pSortableColumn="country.name">
-                <div class="flex justify-content-between align-items-center">
+                <div class="flex justify-between items-center">
                     Country
                     <p-sortIcon field="country.name"></p-sortIcon>
                     <p-columnFilter type="text" field="country.name" display="menu" class="ml-auto"></p-columnFilter>
                 </div>
             </th>
             <th pSortableColumn="representative.name">
-                <div class="flex justify-content-between align-items-center">
+                <div class="flex justify-between items-center">
                     Agent
                     <p-sortIcon field="representative.name"></p-sortIcon>
                     <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">
@@ -54,21 +54,21 @@
                 </div>
             </th>
             <th pSortableColumn="date">
-                <div class="flex justify-content-between align-items-center">
+                <div class="flex justify-between items-center">
                     Date
                     <p-sortIcon field="date"></p-sortIcon>
                     <p-columnFilter type="date" field="date" display="menu" class="ml-auto"></p-columnFilter>
                 </div>
             </th>
             <th pSortableColumn="balance">
-                <div class="flex justify-content-between align-items-center">
+                <div class="flex justify-between items-center">
                     Balance
                     <p-sortIcon field="balance"></p-sortIcon>
                     <p-columnFilter type="numeric" field="balance" display="menu" currency="USD" class="ml-auto"></p-columnFilter>
                 </div>
             </th>
             <th pSortableColumn="status">
-                <div class="flex justify-content-between align-items-center">
+                <div class="flex justify-between items-center">
                     Status
                     <p-sortIcon field="status"></p-sortIcon>
                     <p-columnFilter field="status" matchMode="equals" display="menu" class="ml-auto">
@@ -83,13 +83,13 @@
                 </div>
             </th>
             <th pSortableColumn="activity">
-                <div class="flex justify-content-between align-items-center">
+                <div class="flex justify-between items-center">
                     Activity
                     <p-sortIcon field="activity"></p-sortIcon>
                     <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">
                         <ng-template pTemplate="filter" let-filter="filterCallback">
                             <p-slider [ngModel]="activityValues" [range]="true" (onSlideEnd)="filter($event['values'])" styleClass="m-3"></p-slider>
-                            <div class="flex align-items-center justify-content-between px-2">
+                            <div class="flex items-center justify-between px-2">
                                 <span>{{activityValues[0]}}</span>
                                 <span>{{activityValues[1]}}</span>
                             </div>

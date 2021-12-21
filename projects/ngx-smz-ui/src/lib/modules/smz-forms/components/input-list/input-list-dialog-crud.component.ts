@@ -9,9 +9,9 @@ import { SmzForm } from '../../models/smz-forms';
   selector: 'smz-input-list-dialog-crud',
   template: `
     <ng-container *ngIf="form != null">
-      <div class="grid grid-nogutter align-items-start justify-content-start">
+      <div class="grid grid-nogutter items-start justify-start">
         <smz-form-group class="col" #formComponent [config]="form" clickStopPropagation></smz-form-group>
-        <div class="w-full grid grid-nogutter align-items-start justify-content-end">
+        <div class="w-full grid grid-nogutter items-start justify-end">
           <button pButton (click)="confirm()" type="button" [disabled]="!formComponent.isValid" icon="pi pi-check" label="Confirmar" styleClass="mr-2"></button>
         </div>
       </div>

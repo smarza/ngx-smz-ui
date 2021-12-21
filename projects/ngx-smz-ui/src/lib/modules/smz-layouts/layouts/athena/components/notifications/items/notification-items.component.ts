@@ -8,7 +8,7 @@ import { SmzNotification } from '../../../../../core/models/notifications';
   styleUrls: ['./notification-items.component.scss'],
   template: `
     <li role="menuitem" *ngFor="let item of items; let index = index;">
-      <a menuItemAction class="grid grid-nogutter align-items-center justify-content-start" style="display: flex;" [item]="item" [parent]="null" [breadcrumbs]="false" [tabindex]="index">
+      <a menuItemAction class="grid grid-nogutter items-center justify-start" style="display: flex;" [item]="item" [parent]="null" [breadcrumbs]="false" [tabindex]="index">
         <i *ngIf="item.icon != null" class="pi mr-3" [ngClass]="item.icon"></i>
         <div class="notification-item">
           <div class="notification-summary">{{ item.summary }}</div>

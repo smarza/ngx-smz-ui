@@ -11,7 +11,7 @@
         [ngStyle]="{ height: responsive && !height ? 'auto' : height + 'px', width: responsive && !width ? 'auto' : width + 'px'}"
         class="h-full">
         <div class="text-center smz-chart-title">{{title}}</div>
-        <div class="grid grid-nogutter flex-column gap-3 align-items-center justify-content-center h-full">
+        <div class="grid grid-nogutter flex-col gap-3 items-center justify-center h-full">
             <i class="far fa-chart-bar text-4xl"></i>
             <p>{{defaultConfig.charts.emptyMessage}}</p>
         </div>

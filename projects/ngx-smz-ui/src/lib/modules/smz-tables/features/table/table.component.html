@@ -54,7 +54,7 @@
 
             <ng-template pTemplate="caption" *ngIf="context.state.caption.isVisible">
 
-                <div class="grid grid-nogutter justify-content-start align-items-center gap-2">
+                <div class="grid grid-nogutter justify-start items-center gap-2">
                     <span class="col database-title">{{ state.caption.title }}</span>
                     <ng-container *ngTemplateOutlet="captionTemplate; context: { $implicit: dt }"></ng-container>
                     <p-multiSelect
@@ -82,7 +82,7 @@
                     </span>
                 </div>
 
-                <div *ngIf="toolbarTemplate != null" class="grid grid-nogutter align-items-center mt-2" [ngClass]="'justify-content-' + context.state.caption.toolbarAlignment">
+                <div *ngIf="toolbarTemplate != null" class="grid grid-nogutter items-center mt-2" [ngClass]="'justify-' + context.state.caption.toolbarAlignment">
                     <ng-container *ngTemplateOutlet="toolbarTemplate; context: { $implicit: dt }"></ng-container>
                 </div>
 
@@ -143,7 +143,7 @@
                         </ng-template>
 
                         <ng-template #headerContent>
-                            <div class="flex justify-content-start align-items-center">
+                            <div class="flex justify-start items-center">
                                 <span class="mr-1">{{ col.header }}</span>
                                 <p-sortIcon [field]="col.field" *ngIf="!clonedData.showSkeleton && col.isOrderable"></p-sortIcon>
 
@@ -231,7 +231,7 @@
 
                 <tr *ngIf="context.state.actions.batchActions.isVisible">
                     <th [attr.colspan]="columns.length + ((context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible || context.state.editable.isEditable) ? 1 : 0) + (context.state.caption.rowSelection.isEnabled ? 1 : 0)">
-                        <div class="grid grid-nogutter align-items-center justify-content-start">
+                        <div class="grid grid-nogutter items-center justify-start">
                             <p-tableHeaderCheckbox class="mr-4"></p-tableHeaderCheckbox>
                             <ng-container *ngIf="selectedItems?.length > 0">
                                 <ng-container *ngFor="let batchItem of context.state.actions.batchActions.items">
@@ -401,7 +401,7 @@
 
                         <td>
 
-                            <div class="grid grid-nogutter align-items-center justify-content-end">
+                            <div class="grid grid-nogutter items-center justify-end">
                                 <ng-container *ngIf="clonedData.showSkeleton; else menuTemplate">
                                     <div class="w-full">
                                         <p-skeleton width="100%" height="1rem"></p-skeleton>

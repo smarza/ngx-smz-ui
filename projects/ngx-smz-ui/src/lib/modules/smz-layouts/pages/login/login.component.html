@@ -1,8 +1,8 @@
-<div class="login-page flex align-items-center justify-content-center">
+<div class="login-page flex items-center justify-center">
   <div>
-    <div class="flex flex-column">
+    <div class="flex flex-col">
       <div class="login-card-container p-5">
-        <div class="flex flex-column login-container align-items-center">
+        <div class="flex flex-col login-container items-center">
           <img class="login-logo" alt="" [src]="(appLogo$ | async).vertical" />
           <p class="g-mb-2">Entre com as suas credenciais:</p>
           <smz-form-group #formComponent (submit)="login($event)" [config]="form"></smz-form-group>

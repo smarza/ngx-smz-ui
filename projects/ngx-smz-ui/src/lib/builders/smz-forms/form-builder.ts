@@ -12,8 +12,8 @@ export class SmzFormBuilder<TResponse> {
     formId: UUID.UUID(),
     groups: [],
     template: {
-      extraSmall: { horizontalAlignment: 'justify-content-between', verticalAlignment: 'align-items-start' },
-      small: { horizontalAlignment: 'justify-content-between', verticalAlignment: 'align-items-start' },
+      extraSmall: { horizontalAlignment: 'justify-between', verticalAlignment: 'items-start' },
+      small: { horizontalAlignment: 'justify-between', verticalAlignment: 'items-start' },
       ...this.defaultConfig?.forms?.formTemplates
     },
     behaviors: {
