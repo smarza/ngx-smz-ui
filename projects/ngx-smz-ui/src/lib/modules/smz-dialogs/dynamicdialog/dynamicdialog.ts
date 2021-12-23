@@ -32,7 +32,7 @@ const hideAnimation = animation([
                     <span class="p-dialog-title">{{config.header}}</span>
                     <div class="p-dialog-header-icons" [ngClass]="{ 'disable-a': dialogConfig.data._context.isGlobalDisabled }">
                         <button [ngClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'" type="button" (click)="minimize()" (keydown.enter)="minimize()" *ngIf="config.minimizable !== false">
-                            <span class="p-dialog-header-close-icon far fa-window-minimize"></span>
+                            <span class="p-dialog-header-close-icon pi pi-minus"></span>
                         </button>
                         <button [ngClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'" type="button" (click)="maximize()" (keydown.enter)="maximize()" *ngIf="config.maximizable !== false">
                             <span class="p-dialog-header-close-icon" [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>

@@ -24,7 +24,6 @@ export class ThemeManagerComponent implements OnInit
       .select(LayoutUiSelectors.contentTheme)
       .subscribe((newTheme) =>
       {
-        console.log(newTheme);
         if (newTheme !== this.currentContentTheme)
         {
           this.contentLink.setAttribute('href', newTheme);
