@@ -13,8 +13,8 @@ module.exports = {
     important: true,
     mode: designMode ? undefined : 'jit',
     content: [
-        './src/**/*.{html,ts,css,scss}',
-        '../ngx-smz-ui/**/*.{html,ts,css,scss}'
+        './src/**/*.{html,ts,js,mjs}',
+        '../ngx-smz-ui/**/*.{html,ts,js,mjs}'
     ],
     theme: {
       extend: {},

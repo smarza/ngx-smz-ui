@@ -261,30 +261,6 @@
             }
           },
           "defaultConfiguration": "development"
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "ngx-smz-ui-overview:build"
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/ngx-smz-ui-overview/src/test.ts",
-            "polyfills": "projects/ngx-smz-ui-overview/src/polyfills.ts",
-            "tsConfig": "projects/ngx-smz-ui-overview/tsconfig.spec.json",
-            "karmaConfig": "projects/ngx-smz-ui-overview/karma.conf.js",
-            "inlineStyleLanguage": "scss",
-            "assets": [
-              "projects/ngx-smz-ui-overview/src/favicon.ico",
-              "projects/ngx-smz-ui-overview/src/assets"
-            ],
-            "styles": [
-              "projects/ngx-smz-ui-overview/src/styles.scss"
-            ],
-            "scripts": []
-          }
         }
       }
     },

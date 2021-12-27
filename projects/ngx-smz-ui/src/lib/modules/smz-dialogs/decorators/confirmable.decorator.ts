@@ -1,4 +1,5 @@
 import { Actions, ofActionSuccessful, Store } from '@ngxs/store';
+import { firstValueFrom } from 'rxjs';
 import { take, takeWhile } from 'rxjs/operators';
 import { GlobalInjector } from '../services/global-injector';
 import { DialogsActions } from '../state/dialogs/dialogs.actions';
@@ -39,7 +40,7 @@ export function Confirmable(
         return null;
       });
 
-      await store.dispatch(new DialogsActions.Confirmation(title ?? 'Mensagem', [message], isCritical)).toPromise();
+      await firstValueFrom(store.dispatch(new DialogsActions.Confirmation(title ?? 'Mensagem', [message], isCritical)));
 
     };
 
