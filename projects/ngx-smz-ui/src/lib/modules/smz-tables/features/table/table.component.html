@@ -481,7 +481,7 @@
 
                                     <!-- MENU -->
                                     <ng-container *ngIf="context.state.actions.menu.isVisible && !editing">
-                                        <smz-menu [items]="context.state.actions.menu.items" [data]="item" [ngClass]="{ 'ml-2': context.state.actions.customActions.isVisible }"></smz-menu>
+                                        <smz-menu [callback]="context.state.actions.menu.callback" [items]="context.state.actions.menu.items" [data]="item" [ngClass]="{ 'ml-2': context.state.actions.customActions.isVisible }"></smz-menu>
                                     </ng-container>
                                 </ng-template>
                             </div>

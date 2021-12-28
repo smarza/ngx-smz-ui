@@ -1,5 +1,5 @@
 import { environment } from '../environments/environment';
-import { GlobalInjector, LoginResponse, NgxRbkUtilsConfig, CustomError, ApplicationActions } from 'ngx-smz-ui';
+import { GlobalInjector, LoginResponse, NgxRbkUtilsConfig, CustomError } from 'ngx-smz-ui';
 import { DemoFeatureName, DemoFeatureState, getInitialState as getFtDemoInitialState } from '../app/state/demo/demo.state';
 import { CountriesDbName, CountriesDbState, getInitialState as getDbCountriesInitialState } from '../app/state/database/countries/countries.state';
 import { CountriesDbActions } from '../app/state/database/countries/countries.actions';

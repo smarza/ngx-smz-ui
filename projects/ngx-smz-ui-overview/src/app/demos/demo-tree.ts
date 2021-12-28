@@ -520,6 +520,12 @@ export const TreeDemoData: DemoTreeNode[] = [
         notes: '',
         data: TablesDemo[DemoKeys.TABLE_ROW_EXPANSION]
       },
+      {
+        label: 'Dynamic Menu', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'table',
+        notes: '',
+        data: TablesDemo[DemoKeys.TABLE_DYNAMIC_MENU]
+      },
     ]
   },
   {

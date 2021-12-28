@@ -497,6 +497,20 @@ export class SmzTableBuilder {
     return menuBuilder;
   }
 
+  public dynamicMenu(callback: (row: any) => SmzMenuItem[]): SmzTableBuilder {
+
+    if (!this._state.caption.rowSelection.isEnabled) {
+      throw Error('You can\'t call \'dynamicMenu\' if the menu items are already set');
+    }
+
+    this._state.actions.menu.isVisible = true;
+    this._state.actions.customActions.columnWidth += 63;
+    this._state.actions.menu.callback = callback;
+    this._state.actions.menu.items = null;
+
+    return this;
+  }
+
   public batchMenu(items: SmzMenuItem[] = null): SmzBatchMenuBuilder {
 
     if (!this._state.caption.rowSelection.isEnabled) {

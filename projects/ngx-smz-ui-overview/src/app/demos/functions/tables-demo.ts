@@ -175,5 +175,31 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
       .build()
   }
   },
+  //
+  [DemoKeys.TABLE_DYNAMIC_MENU]: {
+    items$: store.select(DemoFeatureSelectors.all),
+    code: () => {
+    return new SmzTableBuilder('entity')
+        .setTitle('Demo Dynamic Menu')
+        .enableClearFilters()
+        .enableColumnVisibility()
+        .enableGlobalFilter()
+        .setEmptyFeedbackMessage('Lista vazia')
+        .setEmptyFeedbackExtraInfo('Clique abaixo para carregar novos dados.')
+        .addEmptyFeedbackButton('Atualizar', () => console.log('---'))
+        .usePagination()
+        .setPaginationDefaultRows(50)
+        .setCustomInitialSorting({ field: 'number', order: -1 })
+        .useStrippedStyle()
+        .allowDefaultRowExpansion()
+        .dynamicMenu((row: any) => {
+          return [
+            { label: 'Test 1', icon: 'fas fa-biohazard', command: (event) => console.log('test1', event) },
+            { label: 'Test 2', icon: 'fas fa-candy-cane', command: (event) => console.log('test2', event) },
+          ];
+        })
+      .build()
+  }
+  },
 }
 
