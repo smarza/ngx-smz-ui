@@ -150,5 +150,30 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
       .build()
     }
   },
+  //
+  [DemoKeys.TABLE_ROW_EXPANSION]: {
+    items$: store.select(DemoFeatureSelectors.all),
+    code: () => {
+    return new SmzTableBuilder('entity')
+        .setTitle('Demo Row Expansion')
+        .enableClearFilters()
+        .enableColumnVisibility()
+        .enableGlobalFilter()
+        .setEmptyFeedbackMessage('Lista vazia')
+        .setEmptyFeedbackExtraInfo('Clique abaixo para carregar novos dados.')
+        .addEmptyFeedbackButton('Atualizar', () => console.log('---'))
+        .usePagination()
+        .setPaginationDefaultRows(50)
+        .setCustomInitialSorting({ field: 'number', order: -1 })
+        .useStrippedStyle()
+        .allowDefaultRowExpansion()
+        .menu()
+          .item('Consultar')
+            .setCallback((event: any) => console.log('---'))
+            .menu
+          .table
+      .build()
+  }
+  },
 }
 

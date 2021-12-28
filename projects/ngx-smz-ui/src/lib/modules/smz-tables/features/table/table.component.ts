@@ -36,6 +36,7 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
   public toolbarTemplate: TemplateRef<any>;
   public emptyActionsTemplate: TemplateRef<any>;
   public emptyStateTemplate: TemplateRef<any>;
+  public rowContentTemplate: TemplateRef<any>;
   public selectedItems: any[];
   public selectedColumns: SmzTableColumn[];
   public showSkeleton = false;
@@ -179,6 +180,10 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
 
         case 'emptyState':
           this.emptyStateTemplate = item.template;
+          break;
+
+        case 'rowContent':
+          this.rowContentTemplate = item.template;
           break;
       }
     });

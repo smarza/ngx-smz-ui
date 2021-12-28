@@ -112,6 +112,9 @@
                         </ng-container>
                     </th>
 
+                    <th *ngIf="context.state.rowExpansion.isEnabled" [ngStyle]="{ width: context.state.rowExpansion.columnWidth }">
+                    </th>
+
                     <ng-container *ngFor="let col of columns">
 
                         <ng-container *ngIf="context.state.viewport.resizableColumns; else nonResizable">
@@ -230,7 +233,7 @@
                 </tr>
 
                 <tr *ngIf="context.state.actions.batchActions.isVisible">
-                    <th [attr.colspan]="columns.length + ((context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible || context.state.editable.isEditable) ? 1 : 0) + (context.state.caption.rowSelection.isEnabled ? 1 : 0)">
+                    <th [attr.colspan]="columns.length + ((context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible || context.state.editable.isEditable) ? 1 : 0) + (context.state.caption.rowSelection.isEnabled ? 1 : 0) + (context.state.rowExpansion.isEnabled ? 1 : 0)">
                         <div class="grid grid-nogutter items-center justify-start">
                             <p-tableHeaderCheckbox class="mr-4"></p-tableHeaderCheckbox>
                             <ng-container *ngIf="selectedItems?.length > 0">
@@ -257,6 +260,10 @@
 
                     <td *ngIf="context.state.caption.rowSelection.isEnabled" clickStopPropagation [ngClass]="{ 'opacity-50 pointer-events-none': editableService.context[item.id]?.hasErrors || editableService.context[item.id]?.isLoading }">
                         <p-tableCheckbox [value]="item"></p-tableCheckbox>
+                    </td>
+
+                    <td *ngIf="context.state.rowExpansion.isEnabled" clickStopPropagation [ngClass]="{ 'opacity-50 pointer-events-none': editableService.context[item.id]?.hasErrors || editableService.context[item.id]?.isLoading }">
+                        <p-toggleButton [(ngModel)]="item._isExpanded" [onIcon]="'fas fa-chevron-down'" [offIcon]="'fas fa-chevron-right'"></p-toggleButton>
                     </td>
 
                     <ng-container *ngFor="let col of columns">
@@ -377,7 +384,7 @@
 
                                             <ng-container *ngSwitchCase="contentTypes.dataTransform">
                                                 <ng-container *ngIf="(item | tableContent : col.field) as contentData">
-                                                    {{ $any(col.content.data).callback(contentData.result, item) }}
+                                                    <div [innerHtml]="$any(col.content.data).callback(contentData.result, item)"></div>
                                                 </ng-container>
                                             </ng-container>
 
@@ -484,11 +491,17 @@
                     </ng-container>
 
                 </tr>
+
+                <tr *ngIf="item._isExpanded">
+                    <td [attr.colspan]="columns.length + ((context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible || context.state.editable.isEditable) ? 1 : 0) + (context.state.caption.rowSelection.isEnabled ? 1 : 0) + (context.state.rowExpansion.isEnabled ? 1 : 0)">
+                        <ng-container *ngTemplateOutlet="rowContentTemplate; context: { $implicit: item }"></ng-container>
+                    </td>
+                </tr>
             </ng-template>
 
             <ng-template pTemplate="emptymessage" let-columns>
                 <tr>
-                    <td [attr.colspan]="columns.length + ((context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible || context.state.editable.isEditable) ? 1 : 0) + (context.state.caption.rowSelection.isEnabled ? 1 : 0)" [ngStyle]="{ 'text-align': 'center' }">{{ context.state.emptyFeedback.message }}</td>
+                    <td [attr.colspan]="columns.length + ((context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible || context.state.editable.isEditable) ? 1 : 0) + (context.state.caption.rowSelection.isEnabled ? 1 : 0) + (context.state.rowExpansion.isEnabled ? 1 : 0)" [ngStyle]="{ 'text-align': 'center' }">{{ context.state.emptyFeedback.message }}</td>
                 </tr>
             </ng-template>
         </p-table>

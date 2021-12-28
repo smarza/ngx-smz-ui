@@ -386,7 +386,35 @@ export interface SmzTableState {
      * Set the frozen column width
      */
     width?: string;
-  },
+  };
+    /**
+   * Allows the user to expand a row to show some content
+   */
+  rowExpansion: {
+    /**
+     * Controls the visibility of the button that expand or collapse the row content
+     */
+    isButtonVisible: boolean;
+    /**
+     * Label of the button
+     */
+    label?: string;
+    /**
+     * Width of the column that will host the toggle button
+     */
+    columnWidth?: string;
+    /**
+     * This callback is executed when you expand/collapse the row
+     * This can be used, for instance, in the case you want to proccess some data
+     */
+    callback?: () => void;
+    /**
+     * Controls whether the toggle is enabled or not
+     * Use this when you want to control this through the code instead
+     * of letting the user activate it with the dedicated button
+     */
+    isEnabled: boolean;
+  };
 
 }
 

@@ -139,7 +139,14 @@ export class SmzTableBuilder {
       scrollHeight: null,
       resizableColumns: false,
       columnResizeMode: 'fit'
-    }
+    },
+    rowExpansion: {
+      isButtonVisible: false,
+      isEnabled: false,
+      callback: null,
+      columnWidth: '3em',
+      label: ''
+    },
   };
 
   constructor(uiDefinitionName?: string) {
@@ -254,6 +261,36 @@ export class SmzTableBuilder {
       throw Error('You need to call \'allowUserMultiSelection\' before');
     }
     this._state.caption.rowSelection.columnWidth = width;
+    return this;
+  }
+
+
+  public allowDefaultRowExpansion(): SmzTableBuilder {
+    this._state.rowExpansion.isEnabled = true;
+    return this;
+  }
+
+  public allowRowExpansion(label: string = 'Seleção', initialState: 'enabled' | 'disabled' = 'enabled'): SmzTableBuilder {
+    this._state.rowExpansion.isEnabled = initialState === 'enabled';
+    this._state.rowExpansion.isButtonVisible = true;
+    this._state.rowExpansion.label = label;
+    this._state.rowExpansion.columnWidth = '3em';
+    return this;
+  }
+
+  public setRowExpansionCallback(callback: () => void): SmzTableBuilder {
+    if (!this._state.rowExpansion.isButtonVisible) {
+      throw Error('You need to call \'allowRowExpansion\' before');
+    }
+    this._state.rowExpansion.callback = callback;
+    return this;
+  }
+
+  public setRowExpansionColumnWidth(width: string): SmzTableBuilder {
+    if (!this._state.rowExpansion.isButtonVisible) {
+      throw Error('You need to call \'allowRowExpansion\' before');
+    }
+    this._state.rowExpansion.columnWidth = width;
     return this;
   }
 

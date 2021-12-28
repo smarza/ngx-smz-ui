@@ -156,7 +156,14 @@ export class SmzTableContextPipe implements PipeTransform {
       },
       frozen: {
         isEnabled: false,
-      }
+      },
+      rowExpansion: {
+        isButtonVisible: true,
+        columnWidth: '3em',
+        callback: null,
+        isEnabled: false,
+        label: 'Seleção'
+      },
     };
 
     const context: SmzTableContext = {

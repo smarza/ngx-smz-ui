@@ -514,6 +514,12 @@ export const TreeDemoData: DemoTreeNode[] = [
         notes: '',
         data: TablesDemo[DemoKeys.TABLE_ARRAY_FILTER]
       },
+      {
+        label: 'Row Expansion', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'table',
+        notes: '',
+        data: TablesDemo[DemoKeys.TABLE_ROW_EXPANSION]
+      },
     ]
   },
   {

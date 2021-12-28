@@ -15,6 +15,20 @@ export function replaceArrayItem<T>(items: T[], newItem: T): T[] {
 }
 
 /*
+    Replaces an item in an array by its id property
+*/
+export function replaceArrayPartialItem<T>(items: T[], newItem: Partial<T>): T[] {
+    const index = items.findIndex(x => (x as any).id === (newItem as any).id);
+
+    if (index === -1) throw new Error('Elemento não encontrado no array');
+
+    const result = [...items];
+    result[index] = { ...result[index], ...newItem };
+
+    return result;
+}
+
+/*
     Checks wheter the current date is withing a time interval of
     X min after the specified date
 */
