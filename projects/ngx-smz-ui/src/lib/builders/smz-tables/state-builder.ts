@@ -499,7 +499,7 @@ export class SmzTableBuilder {
 
   public dynamicMenu(callback: (row: any) => SmzMenuItem[]): SmzTableBuilder {
 
-    if (!this._state.caption.rowSelection.isEnabled) {
+    if (this._state.actions.menu.items != null && this._state.actions.menu.items.length > 0) {
       throw Error('You can\'t call \'dynamicMenu\' if the menu items are already set');
     }
 
