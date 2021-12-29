@@ -12,6 +12,7 @@ import { SmzTreeComponent } from './features/tree/tree.component';
 import { TreeModule } from 'primeng/tree';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { SharedModule } from 'primeng/api';
+import { NgxSmzMenuModule } from '../smz-menu/smz-menu.module';
 
 @NgModule({
     declarations: [
@@ -30,7 +31,8 @@ import { SharedModule } from 'primeng/api';
         TreeModule,
         TooltipModule,
         InputTextModule,
-        SkeletonModule
+        SkeletonModule,
+        NgxSmzMenuModule
     ],
     exports: [
         SmzTreeComponent,

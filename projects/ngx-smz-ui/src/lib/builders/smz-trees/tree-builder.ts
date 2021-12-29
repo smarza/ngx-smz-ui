@@ -1,7 +1,7 @@
 import { TreeNode } from 'primeng/api';
-import { SmzTreeMenuItem } from '../models/tree-menu-item';
-import { SmzTreeState } from '../models/tree-state';
-import { SmzTreeToolbarButton } from '../models/tree-toolbar-button';
+import { SmzTreeMenuItem } from '../../modules/smz-trees/models/tree-menu-item';
+import { SmzTreeState } from '../../modules/smz-trees/models/tree-state';
+import { SmzTreeToolbarButton } from '../../modules/smz-trees/models/tree-toolbar-button';
 
 export class SmzTreeBuilder {
   public _state: SmzTreeState = {

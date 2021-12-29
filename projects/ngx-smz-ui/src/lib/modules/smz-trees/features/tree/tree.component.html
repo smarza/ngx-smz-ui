@@ -1,8 +1,8 @@
 <ng-container *ngIf="state; else noStateTemplate">
 
-    <ng-container
+    <!-- <ng-container
         *ngIf="(state.emptyFeedback != null && (state.emptyFeedback.extraInfo || state.emptyFeedback.image || state.emptyFeedback.actionButton)) && (items != null && items.length === 0); else treeTemplate">
-        <!-- <smz-data-info
+        <smz-data-info
             [image]="context.state.emptyFeedback.image"
             [message]="context.state.emptyFeedback.message"
             [callbackInfo]="context.state.emptyFeedback.extraInfo"
@@ -13,12 +13,12 @@
                 <ng-container *ngTemplateOutlet="emptyActionsTemplate; context: { $implicit: {} }"></ng-container>
             </ng-template>
 
-        </smz-data-info> -->
+        </smz-data-info>
     </ng-container>
 
-    <ng-template #treeTemplate>
+    <ng-template #treeTemplate> -->
 
-        <ng-container *ngIf="items">
+        <ng-container *ngIf="items != null">
             <p-contextMenu #cm [model]="menuItems" [appendTo]="appendTo" [styleClass]="menuItems == null || menuItems?.length === 0 ? 'invisible-important' : ''"></p-contextMenu>
             <p-tree #dt [value]="items"
                 scrollHeight="flex"
@@ -137,7 +137,7 @@
 
                 <ng-container *ngFor="let content of contentTemplates">
                     <ng-template let-node [pTemplate]="content.type">
-                            <ng-container *ngTemplateOutlet="content.template; context: { $implicit: node }"></ng-container>
+                        <ng-container *ngTemplateOutlet="content.template; context: { $implicit: node }"></ng-container>
                     </ng-template>
                 </ng-container>
 
@@ -150,7 +150,7 @@
             </p-tree>
 
         </ng-container>
-    </ng-template>
+    <!-- </ng-template> -->
 
 </ng-container>
 

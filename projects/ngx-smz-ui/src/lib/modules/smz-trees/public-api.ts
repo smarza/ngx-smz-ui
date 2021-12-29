@@ -8,10 +8,8 @@ export * from './features/tree/tree.component';
 export * from './models/tree-state';
 export * from './models/tree-menu-item';
 
-// PIPES
-
 // SERVICES
-export * from './services/tree-builder';
+export * from './services/tree-helper.service';
 
 // UTILS
 export * from './utils/tree-helpers';
