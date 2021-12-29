@@ -156,6 +156,7 @@ Exame sem intercorrências.`)
   //
   [DemoKeys.FORMS_INPUT_NUMBER]: () => {
     return new SmzFormBuilder<any>()
+      .emitChangesOnFocusExit()
       .group()
         .setLayout('EXTRA_SMALL', 'col-12')
         .number('input1', 'I\'m not required')

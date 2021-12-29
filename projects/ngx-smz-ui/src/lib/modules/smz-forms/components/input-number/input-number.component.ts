@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { AbstractControl } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { SmzFormsBehaviorsConfig } from '../../models/behaviors';
 import { SmzNumberControl } from '../../models/control-types';
 
@@ -12,12 +12,16 @@ export class InputNumberComponent
     @Input() public input: SmzNumberControl;
     @Input() public control: any;
     @Input() public behaviors: SmzFormsBehaviorsConfig;
+    @Input() public form: FormGroup;
     constructor() { }
 
     public onInput(event: any) {
         // console.log('onInput', event);
-        this.control.setValue(event.value);
-        this.control.updateValueAndValidity();
+
+        if (this.form.updateOn !== 'blur') {
+            this.control.setValue(event.value);
+            this.control.updateValueAndValidity();
+        }
     }
 
 }
