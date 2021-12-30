@@ -454,6 +454,12 @@ export const TreeDemoData: DemoTreeNode[] = [
             data: FormsDemo[DemoKeys.FORMS_INPUT_LIST_INLINE_CRUD]
           },
           {
+            label: 'List With Batch Crud', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'form',
+            notes: '',
+            data: FormsDemo[DemoKeys.FORMS_INPUT_LIST_BATCH_CRUD]
+          },
+          {
             label: 'Mask', icon: 'fas fa-code', type: 'Demo',
             demoType: 'form',
             notes: '',

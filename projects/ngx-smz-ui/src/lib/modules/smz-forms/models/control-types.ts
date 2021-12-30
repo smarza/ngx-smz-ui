@@ -79,6 +79,7 @@ export interface SmzListControl extends SmzFormsBaseControl
     editMode?: 'dialog' | 'inline';
     hideName?: boolean;
     emptyMessage?: string;
+    allowBatchCreation?: boolean;
 
 }
 

@@ -66,6 +66,7 @@ import { InputContentMaskTextPipe } from './components/input-content-mask/input-
 import { InputListDialogCrudComponent } from './components/input-list/input-list-dialog-crud.component';
 import { InputListInlineCrudComponent } from './components/input-list/input-list-inline-crud.component';
 import { DialogService } from 'primeng/dynamicdialog';
+import { InputListBatchCrudComponent } from './components/input-list/input-list-batch-crud.component';
 
 export const defaultFormsModuleConfig: SmzFormsConfig = {
     behaviors: {
@@ -211,7 +212,8 @@ export const defaultFormsModuleConfig: SmzFormsConfig = {
         TransferValueAccessor,
         InputContentMaskTextPipe,
         InputListDialogCrudComponent,
-        InputListInlineCrudComponent
+        InputListInlineCrudComponent,
+        InputListBatchCrudComponent
     ],
     entryComponents: [FormGroupComponent, InputListDialogCrudComponent, InputListInlineCrudComponent],
     exports: [

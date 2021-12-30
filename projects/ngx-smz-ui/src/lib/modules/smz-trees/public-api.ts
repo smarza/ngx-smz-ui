@@ -7,6 +7,7 @@ export * from './features/tree/tree.component';
 // MODELS
 export * from './models/tree-state';
 export * from './models/tree-menu-item';
+export * from './models/drag-and-drop';
 
 // SERVICES
 export * from './services/tree-helper.service';

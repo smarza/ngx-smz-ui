@@ -444,6 +444,7 @@ export class SmzFormGroupBuilder<TResponse> {
         options,
         askBeforeRemoveItem: false,
         showAddButton: false,
+        allowBatchCreation: false,
         showRemoveButton: false,
         showEditButton: false,
         showSortButton: false,
@@ -1017,6 +1018,11 @@ export class SmzFormListBuilder<TResponse> extends SmzFormInputBuilder<TResponse
 
   public showFilter(): SmzFormListBuilder<TResponse> {
     this._listInput.showFilter = true;
+    return this;
+  }
+
+  public allowBatchCreation(): SmzFormListBuilder<TResponse> {
+    this._listInput.allowBatchCreation = true;
     return this;
   }
 

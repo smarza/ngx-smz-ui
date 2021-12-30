@@ -345,6 +345,7 @@ function convertInputs(inputs: InputConfig[], store: Store, options: InputConver
         askBeforeRemoveItem: false,
         editMode: 'inline',
         showAddButton: true,
+        allowBatchCreation: false,
         showClearButton: true,
         showFilter: false,
         showEditButton: true,

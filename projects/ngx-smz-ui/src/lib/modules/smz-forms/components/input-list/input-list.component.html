@@ -17,7 +17,7 @@
 
         <ng-template pTemplate="header">
             <div class="smz__list-header">
-                <button *ngIf="input.showAddButton" pButton pRipple type="button" icon="pi pi-plus" clickStopPropagation class="p-nocustom p-button-rounded p-button p-button-text" (click)="onAdd()" pTooltip="Adicionar novo item"></button>
+                <button *ngIf="input.showAddButton" pButton pRipple type="button" icon="pi pi-plus" clickStopPropagation class="p-nocustom p-button-rounded p-button p-button-text" (click)="input.allowBatchCreation ? onAddInBatch() : onAdd()" pTooltip="Adicionar novo item"></button>
                 <button *ngIf="input.showSortButton" pButton pRipple type="button" icon="pi pi-sort-alpha-down" clickStopPropagation class="p-nocustom p-button-rounded p-button p-button-text" (click)="onSort()" pTooltip="Reordenar"></button>
                 <button *ngIf="input.showClearButton" pButton pRipple type="button" icon="pi pi-trash" clickStopPropagation class="p-nocustom p-button-rounded p-button p-button-text" (click)="onClear()" pTooltip="Limpar a lista"></button>
             </div>
