@@ -1,5 +1,5 @@
 import { AbstractControl, FormGroup } from '@angular/forms';
-import { SmzControlType, SmzControlTypes, SmzCalendarControl, SmzCurrencyControl, SmzPasswordControl, SmzSwitchControl, SmzTextControl, SmzCheckBoxControl, SmzCheckBoxGroupControl, SmzColorPickerControl, SmzDropDownControl, SmzFileControl, SmzLinkedDropDownControl, SmzMultiSelectControl, SmzNumberControl, SmzRadioControl, SmzTextAreaControl, SmzMaskControl, SmzLinkedMultiSelectControl, SmzListControl, SmzTagAreaControl, SmzContentMaskControl } from './control-types';
+import { SmzControlType, SmzControlTypes, SmzCalendarControl, SmzCurrencyControl, SmzPasswordControl, SmzSwitchControl, SmzTextControl, SmzCheckBoxControl, SmzCheckBoxGroupControl, SmzColorPickerControl, SmzDropDownControl, SmzFileControl, SmzLinkedDropDownControl, SmzMultiSelectControl, SmzNumberControl, SmzRadioControl, SmzTextAreaControl, SmzMaskControl, SmzLinkedMultiSelectControl, SmzListControl, SmzTagAreaControl, SmzContentMaskControl, SmzTextButtonControl } from './control-types';
 import { SmzDialogsConfig } from '../../smz-dialogs/smz-dialogs.config';
 import { flatten, isArray } from '../../../common/utils/utils';
 import { executeTextPattern } from './text-patterns';
@@ -309,7 +309,9 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
     [SmzControlType.TEXT]: {
         initialize: (input: SmzTextControl, config: SmzDialogsConfig) => { },
         clear: (control: AbstractControl) => { control.patchValue(''); },
-        updateValue: (control: AbstractControl, input: SmzTextControl) => { control.patchValue(input.defaultValue); },
+        updateValue: (control: AbstractControl, input: SmzTextControl) => {
+            control.patchValue(input.defaultValue);
+        },
         getValue: (form: FormGroup, input: SmzTextControl, flattenResponse: boolean) =>
         {
             let value = form.get(input.propertyName).value;
@@ -317,6 +319,16 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
             value = executeTextPattern(value, input.exportPattern);
 
             // console.log('getValue TEXT AFTER exportPattern', value);
+            return mapResponseValue(input, value, false);
+        },
+    },
+    [SmzControlType.TEXT_BUTTON]: {
+        initialize: (input: SmzTextButtonControl, config: SmzDialogsConfig) => { },
+        clear: (control: AbstractControl) => { control.patchValue(''); },
+        updateValue: (control: AbstractControl, input: SmzTextButtonControl) => { control.patchValue(input.defaultValue); },
+        getValue: (form: FormGroup, input: SmzTextButtonControl, flattenResponse: boolean) =>
+        {
+            let value = form.get(input.propertyName).value;
             return mapResponseValue(input, value, false);
         },
     },

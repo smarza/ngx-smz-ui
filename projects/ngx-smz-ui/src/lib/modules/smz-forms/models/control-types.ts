@@ -3,6 +3,8 @@ import { SmzSmartTagConfig } from '../directives/smart-tag.directive';
 import { SmzFormsBaseControl } from './controls';
 import { SmzTextPattern } from './text-patterns';
 import { SmzQuickAction } from '../directives/transfer-value-acessor';
+import { SmzFormsResponse } from './smz-forms';
+import { SmzFormViewdata } from './form-viewdata';
 
 export type SmzControlTypes =
     SmzCalendarControl |
@@ -24,7 +26,8 @@ export type SmzControlTypes =
     SmzSwitchControl |
     SmzTextAreaControl |
     SmzTagAreaControl |
-    SmzTextControl;
+    SmzTextControl |
+    SmzTextButtonControl;
 
 export type SmzLinkedControlTypes =
     SmzDropDownControl<any> |
@@ -52,7 +55,8 @@ export enum SmzControlType
     LINKED_MULTISELECT = 17,
     LIST = 18,
     TAG_AREA = 19,
-    CONTENT_MASK = 20
+    CONTENT_MASK = 20,
+    TEXT_BUTTON = 21
 }
 
 export interface SmzTextControl extends SmzFormsBaseControl
@@ -63,6 +67,17 @@ export interface SmzTextControl extends SmzFormsBaseControl
 
 }
 
+export interface SmzTextButtonControl extends SmzFormsBaseControl
+{
+    defaultValue?: string;
+    hideName?: boolean;
+    placeholder: string;
+    label?: string;
+    icon?: string;
+    styleClass: string;
+    callback: (data: SmzFormsResponse<unknown>, utils: SmzFormViewdata) => void;
+
+}
 export interface SmzListControl extends SmzFormsBaseControl
 {
     defaultValue?: string[];

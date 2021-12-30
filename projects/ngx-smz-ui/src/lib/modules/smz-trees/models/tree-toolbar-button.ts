@@ -1,10 +1,9 @@
-import { TreeNode } from 'primeng/api';
-import { Tree } from 'primeng/tree';
+import { SmzTreeNode } from './tree-node';
 
 export interface SmzTreeToolbarButton {
   label?: string;
   icon?: string;
-  callback?: (event: MouseEvent, tree: TreeNode[], node?: TreeNode) => void;
+  callback?: (event: MouseEvent, tree: SmzTreeNode[], node?: SmzTreeNode) => void;
   color?: 'secondary' | 'success' | 'info' | 'warning' | 'help' | 'danger';
   tooltip?: string;
 }

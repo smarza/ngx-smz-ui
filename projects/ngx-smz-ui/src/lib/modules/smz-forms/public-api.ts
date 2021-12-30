@@ -7,7 +7,7 @@ export * from './models/control-types';
 export * from './models/text-patterns';
 export * from './models/controls';
 export * from './models/smz-forms';
-export * from './models/smz-forms';
+export * from './models/form-viewdata';
 export * from './directives/smart-tag.directive';
 
 export * from './components/calendar/calendar.component';

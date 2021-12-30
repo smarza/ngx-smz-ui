@@ -1,5 +1,5 @@
 import { DemoKeys } from '@demos/demo-keys';
-import { SmzFormBuilder } from 'ngx-smz-ui';
+import { SmzFormBuilder, SmzFormsResponse, SmzFormViewdata } from 'ngx-smz-ui';
 import * as moment from 'moment';
 
 export const FormsDemo: { [key: string]: () => void } = {
@@ -202,6 +202,40 @@ Exame sem intercorrências.`)
         .text('input1', 'I\'m not required')
         .group
         .text('input2', 'I\'m required', 'sample')
+          .validators()
+            .required()
+        .group
+        .form
+      .build();
+  },
+  //
+  [DemoKeys.FORMS_INPUT_TEXT_BUTTON]: () => {
+    return new SmzFormBuilder<any>()
+      .group()
+        .setLayout('EXTRA_SMALL', 'col-12')
+        .textButton('input0', 'With Icon', '',
+          (response: SmzFormsResponse<any>, utils: SmzFormViewdata): void => {
+            console.log('callback response...', response);
+            console.log('callback utils...', utils);
+            utils.updateInputValue('input2', response.data.input0);
+            utils.updateInputConfig('input2', { isDisabled: true });
+          })
+          .setLayout('MEDIUM', 'col-6')
+          .validators().required()
+          .group
+        .textButton('input1', 'With Label', '',
+          (response: SmzFormsResponse<any>, utils: SmzFormViewdata): void => {
+            console.log('callback response...', response);
+            console.log('callback utils...', utils);
+            utils.updateInputValue('input2', response.data.input1);
+            utils.updateInputConfig('input2', { isDisabled: true });
+          })
+          .useLabel('Replicar')
+          .setLayout('MEDIUM', 'col-6')
+          .validators().required()
+          .group
+        .text('input2', 'Automático', '')
+          .disable()
           .validators()
           .required()
         .group

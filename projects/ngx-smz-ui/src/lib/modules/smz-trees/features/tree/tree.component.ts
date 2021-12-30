@@ -1,9 +1,8 @@
 import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core'
-import { MenuItem, PrimeTemplate, TreeDragDropService, TreeNode } from 'primeng/api';
-import { ContextMenu } from 'primeng/contextmenu';
-import { Tree } from 'primeng/tree';
-import { SmzTreeDragEvent, SmzTreeDragNode, SmzTreeDragResult } from '../../models/drag-and-drop';
+import { MenuItem, PrimeTemplate, TreeDragDropService } from 'primeng/api';
+import { SmzTreeDragEvent, SmzTreeDragResult } from '../../models/drag-and-drop';
 import { SmzTreeMenuItem } from '../../models/tree-menu-item';
+import { SmzTreeNode } from '../../models/tree-node';
 import { SmzTreeContext, SmzTreeState } from '../../models/tree-state';
 
 @Component({
@@ -15,29 +14,29 @@ import { SmzTreeContext, SmzTreeState } from '../../models/tree-state';
 export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
   @Input() public state: SmzTreeState;
-  @Input() public items: TreeNode[] = [];
+  @Input() public items: SmzTreeNode[] = [];
   @Input() public loading: boolean = false;
   @Input() public styleClass = '';
   @Input() public inlineStyle = '';
   @Input() public appendTo = 'body';
 
     // Evento emitido quando um nó da árvore é selecionado ou é clicado com o botão direito do mouse
-    @Output() public selectionChange = new EventEmitter<TreeNode>();
+    @Output() public selectionChange = new EventEmitter<SmzTreeNode>();
 
     // Evento emitido quando um nó é movido para outro pai
-    @Output() public parentChange = new EventEmitter<{ parentNode: TreeNode, node: TreeNode, event: any }>();
+    @Output() public parentChange = new EventEmitter<{ parentNode: SmzTreeNode, node: SmzTreeNode, event: any }>();
 
     // Evento emitido quando um nó é reordenado dentro do mesmo pai
-    @Output() public reorder = new EventEmitter<{ parentNode: TreeNode, node: TreeNode, childrenIds: string[], event: any }>();
+    @Output() public reorder = new EventEmitter<{ parentNode: SmzTreeNode, node: SmzTreeNode, childrenIds: string[], event: any }>();
 
     // Evento emitido quando uma operação de arrastar não é permitida
     @Output() public blockedDrop = new EventEmitter<{ blockedEvent: SmzTreeDragEvent }>();
 
     // Evento emitido quando um nó é expandido
-    @Output() public nodeExpanded = new EventEmitter<{ node: TreeNode }>();
+    @Output() public nodeExpanded = new EventEmitter<{ node: SmzTreeNode }>();
 
     // Evento emitido quando um nó é colapsado
-    @Output() public nodeCollapsed = new EventEmitter<{ node: TreeNode }>();
+    @Output() public nodeCollapsed = new EventEmitter<{ node: SmzTreeNode }>();
 
     // Evento emitido quando toda a árvore é expandida
     @Output() public treeExpanded = new EventEmitter();
@@ -49,19 +48,19 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
   public toolbarTemplate: TemplateRef<any>;
   public emptyStateTemplate: TemplateRef<any>;
   public contentTemplates: { type: string, template: TemplateRef<any> }[] = [];
-  public selectedItems: TreeNode[];
+  public selectedItems: SmzTreeNode[];
   public documentClickListener = null;
   public menuItems: MenuItem[] = null;
 
-  public selection: TreeNode;
+  public selection: SmzTreeNode;
 
 
 
   // -- Drag and drop variables
 
-  private dropNode: TreeNode = null;
-  private dragNode: TreeNode = null;
-  private dragParentNode: TreeNode = null;
+  private dropNode: SmzTreeNode = null;
+  private dragNode: SmzTreeNode = null;
+  private dragParentNode: SmzTreeNode = null;
   private dropIndex: number = -1;
   private operationResult = false;
   private operationType: 'reorder' | 'move' | 'not-implemented' | 'none';
@@ -150,11 +149,11 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
 
 
 
-  public onUnselected(event: { originalEvent: MouseEvent, node: TreeNode }): void {
+  public onUnselected(event: { originalEvent: MouseEvent, node: SmzTreeNode }): void {
 
   }
 
-  public onSelected(event: { originalEvent: MouseEvent, node: TreeNode }): void {
+  public onSelected(event: { originalEvent: MouseEvent, node: SmzTreeNode }): void {
     this.selectionChange.emit(event.node);
     if (!event.node.expanded) {
       event.node.expanded = true;
@@ -162,15 +161,15 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
     }
   }
 
-  public onExpanded(event: { originalEvent: MouseEvent, node: TreeNode }): void {
+  public onExpanded(event: { originalEvent: MouseEvent, node: SmzTreeNode }): void {
     this.nodeExpanded.emit({ node: event.node });
   }
 
-  public onCollapsed(event: { originalEvent: MouseEvent, node: TreeNode }): void {
+  public onCollapsed(event: { originalEvent: MouseEvent, node: SmzTreeNode }): void {
     this.nodeCollapsed.emit({ node: event.node });
   }
 
-  public onContextMenuOpen(event: { originalEvent: MouseEvent, node: TreeNode }): void {
+  public onContextMenuOpen(event: { originalEvent: MouseEvent, node: SmzTreeNode }): void {
     if (this.state.menu.isVisible) {
       this.menuItems = this.convertMenu(this.state.menu.items, event.node);
       this.cdr.markForCheck();
@@ -178,7 +177,7 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
     this.selectionChange.emit(event.node);
   }
 
-  private convertMenu(items: SmzTreeMenuItem[], context: TreeNode): MenuItem[] {
+  private convertMenu(items: SmzTreeMenuItem[], context: SmzTreeNode): MenuItem[] {
     if (items == null) return null;
 
     const results: MenuItem[] = [];
@@ -272,7 +271,7 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
   // Inicialmente ele verifica se a operação é permitida e envia o accept para o prime, entretanto
   // o dados do evento só podem ser lidos depois de um tempo pre-definido porque o parent do nó
   // só é atualizado depois que a ui processa a operação.
-  public onDropped(event: { originalEvent: DragEvent, dragNode: TreeNode, dropNode: TreeNode, dropIndex: number, index: number, accept: () => void }): void {
+  public onDropped(event: { originalEvent: DragEvent, dragNode: SmzTreeNode, dropNode: SmzTreeNode, dropIndex: number, index: number, accept: () => void }): void {
     const isAllowed = this.check(event);
 
     if (isAllowed) {
@@ -319,7 +318,7 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
   public onFiltered(event: {filter: any, filteredValue: any}): void {
   }
 
-  private expandRecursive(node: TreeNode, isExpand: boolean): void {
+  private expandRecursive(node: SmzTreeNode, isExpand: boolean): void {
     node.expanded = isExpand;
     if (node.children) {
       node.children.forEach(childNode => {
@@ -338,7 +337,7 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
 
 
     // Método que verifica se uma operação é permitida ou não, baseado nas regras da configuração
-    public check(event: { originalEvent: any, dragNode: TreeNode, dropNode: TreeNode, dropIndex: number, index: number, accept: () => void }): boolean {
+    public check(event: { originalEvent: any, dragNode: SmzTreeNode, dropNode: SmzTreeNode, dropIndex: number, index: number, accept: () => void }): boolean {
       // console.log(`D&D: Dropped [${event.dragNode.label} (${event.dragNode.type})] into [${event.dropNode.label} (${event.dropNode.type})], index=${event.index}`);
 
       // if (event.dropNode.data.isVirtual == null) {

@@ -436,6 +436,12 @@ export const TreeDemoData: DemoTreeNode[] = [
             data: FormsDemo[DemoKeys.FORMS_INPUT_TEXT]
           },
           {
+            label: 'Text Button', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'form',
+            notes: '',
+            data: FormsDemo[DemoKeys.FORMS_INPUT_TEXT_BUTTON]
+          },
+          {
             label: 'File', icon: 'fas fa-code', type: 'Demo',
             demoType: 'form',
             notes: '',

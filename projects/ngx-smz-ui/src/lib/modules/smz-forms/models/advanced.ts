@@ -1,4 +1,4 @@
-import { Validators, AsyncValidator, ValidatorFn } from '@angular/forms';
+import { AsyncValidator, ValidatorFn } from '@angular/forms';
 
 export interface ValidationMessage
 {

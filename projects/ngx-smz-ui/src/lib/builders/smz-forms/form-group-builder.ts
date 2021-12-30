@@ -1,14 +1,14 @@
-import { SmzCalendarControl, SmzCheckBoxControl, SmzCheckBoxGroupControl, SmzColorPickerControl, SmzContentMaskControl, SmzControlType, SmzCurrencyControl, SmzDropDownControl, SmzFileControl, SmzLinkedDropDownControl, SmzLinkedMultiSelectControl, SmzListControl, SmzMaskControl, SmzMultiSelectControl, SmzNumberControl, SmzPasswordControl, SmzRadioControl, SmzSwitchControl, SmzTagAreaControl, SmzTextAreaControl, SmzTextControl, SmzControlTypes } from '../../modules/smz-forms/models/control-types';
+import { SmzCalendarControl, SmzCheckBoxControl, SmzCheckBoxGroupControl, SmzColorPickerControl, SmzContentMaskControl, SmzControlType, SmzCurrencyControl, SmzDropDownControl, SmzFileControl, SmzLinkedDropDownControl, SmzLinkedMultiSelectControl, SmzListControl, SmzMaskControl, SmzMultiSelectControl, SmzNumberControl, SmzPasswordControl, SmzRadioControl, SmzSwitchControl, SmzTagAreaControl, SmzTextAreaControl, SmzTextControl, SmzControlTypes, SmzTextButtonControl } from '../../modules/smz-forms/models/control-types';
 import { SimpleEntity, SimpleParentEntity } from '../../common/models/simple-named-entity';
 import { SmzFormBuilder } from './form-builder';
-import { SmzFormGroup } from '../../modules/smz-forms/models/smz-forms';
+import { SmzFormGroup, SmzFormsResponse } from '../../modules/smz-forms/models/smz-forms';
 import { SmzFormsBaseControl } from '../../modules/smz-forms/models/controls';
 import { ValidatorFn, Validators } from '@angular/forms';
 import { SmzTextPattern } from '../../modules/smz-forms/models/text-patterns';
 import { MustMatch } from '../../common/utils/custom-validations';
 import { GlobalInjector } from '../../common/services/global-injector';
 import { SmzDialogsConfig } from '../../modules/smz-dialogs/smz-dialogs.config';
-
+import { SmzFormViewdata } from '../../modules/smz-forms/models/form-viewdata';
 
 export class SmzFormGroupBuilder<TResponse> {
   private defaultConfig = GlobalInjector.instance.get(SmzDialogsConfig);
@@ -389,6 +389,35 @@ export class SmzFormGroupBuilder<TResponse> {
     }
 
     return new SmzFormTextBuilder(this, input as SmzTextControl);
+  }
+
+  public textButton(property: string, label?: string, defaultValue?: string, callback?: (data: SmzFormsResponse<unknown>, utils: SmzFormViewdata) => void): SmzFormTextButtonBuilder<TResponse> {
+
+    let input = this.group.children.find(x => x.propertyName == property) as SmzTextButtonControl;
+
+    if (input == null) {
+
+      if (label == null) throw Error('Label is required for text button')
+      if (callback == null) throw Error('Callback is required for text button')
+
+      input = {
+        propertyName: property, type: SmzControlType.TEXT_BUTTON, name: label,
+        defaultValue,
+        callback,
+        hideName: false,
+        icon: 'fas fa-redo',
+        placeholder: '',
+        styleClass: 'p-button-success'
+      };
+
+      this.group.children.push(input);
+    }
+    else {
+      input.name = label ?? input.name;
+      input.defaultValue = defaultValue ?? input.defaultValue;
+    }
+
+    return new SmzFormTextButtonBuilder(this, input as SmzTextButtonControl);
   }
 
   public file(property: string, label?: string, defaultValue?: string): SmzFormFileBuilder<TResponse> {
@@ -909,6 +938,41 @@ export class SmzFormTextBuilder<TResponse> extends SmzFormInputBuilder<TResponse
     this._textInput.exportPattern = format;
     return this;
   }
+}
+
+
+export class SmzFormTextButtonBuilder<TResponse> extends SmzFormInputBuilder<TResponse> {
+  constructor(public _groupBuilder: SmzFormGroupBuilder<TResponse>, private _textButtonInput: SmzTextButtonControl) {
+    super(_groupBuilder, _textButtonInput);
+  }
+
+  public hideLabel(): SmzFormTextButtonBuilder<TResponse> {
+    this._textButtonInput.hideName = true;
+    return this;
+  }
+
+  public useLabel(label: string): SmzFormTextButtonBuilder<TResponse> {
+    this._textButtonInput.label = label;
+    this._textButtonInput.icon = null;
+    return this;
+  }
+
+  public useIcon(icon: string): SmzFormTextButtonBuilder<TResponse> {
+    this._textButtonInput.label = null;
+    this._textButtonInput.icon = icon;
+    return this;
+  }
+
+  public setPlaceholder(placeholder: string): SmzFormTextButtonBuilder<TResponse> {
+    this._textButtonInput.placeholder = placeholder;
+    return this;
+  }
+
+  public setStyle(styleClass: string): SmzFormTextButtonBuilder<TResponse> {
+    this._textButtonInput.styleClass = styleClass;
+    return this;
+  }
+
 }
 
 export class SmzFormFileBuilder<TResponse> extends SmzFormInputBuilder<TResponse> {

@@ -1,9 +1,10 @@
-import { TreeNode } from 'primeng/api';
+import { SmzTreeNode } from './tree-node';
+
 
 export interface SmzTreeDragEvent {
   originalEvent: DragEvent;
-  dragNode: TreeNode;
-  dropNode: TreeNode;
+  dragNode: SmzTreeNode;
+  dropNode: SmzTreeNode;
   dropIndex: number;
   index: number;
 }
@@ -16,8 +17,8 @@ export interface SmzTreeDragNode {
 export interface SmzTreeDragResult {
   isAllowed: boolean;
   operationType: string;
-  dragNode: TreeNode;
-  dropNode: TreeNode;
+  dragNode: SmzTreeNode;
+  dropNode: SmzTreeNode;
   dropIndex: number;
   originalEvent: any;
   dropPlace: string;

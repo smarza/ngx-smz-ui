@@ -67,6 +67,8 @@ import { InputListDialogCrudComponent } from './components/input-list/input-list
 import { InputListInlineCrudComponent } from './components/input-list/input-list-inline-crud.component';
 import { DialogService } from 'primeng/dynamicdialog';
 import { InputListBatchCrudComponent } from './components/input-list/input-list-batch-crud.component';
+import { InputTextButtonComponent } from './components/input-text-button/input-text-button.component';
+import { ButtonModule } from 'primeng/button';
 
 export const defaultFormsModuleConfig: SmzFormsConfig = {
     behaviors: {
@@ -179,7 +181,8 @@ export const defaultFormsModuleConfig: SmzFormsConfig = {
         MessagesModule,
         SafeContentPipeModule,
         SmzInputTagAreaModule,
-        NgxSmzDataPipesModule
+        NgxSmzDataPipesModule,
+        ButtonModule
     ],
     // tslint:disable-next-line:max-line-length
     declarations: [
@@ -213,7 +216,8 @@ export const defaultFormsModuleConfig: SmzFormsConfig = {
         InputContentMaskTextPipe,
         InputListDialogCrudComponent,
         InputListInlineCrudComponent,
-        InputListBatchCrudComponent
+        InputListBatchCrudComponent,
+        InputTextButtonComponent
     ],
     entryComponents: [FormGroupComponent, InputListDialogCrudComponent, InputListInlineCrudComponent],
     exports: [
