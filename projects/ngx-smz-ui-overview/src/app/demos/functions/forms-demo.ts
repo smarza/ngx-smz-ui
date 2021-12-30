@@ -211,6 +211,7 @@ Exame sem intercorrências.`)
   //
   [DemoKeys.FORMS_INPUT_TEXT_BUTTON]: () => {
     return new SmzFormBuilder<any>()
+      .includeDisabledInValidation()
       .group()
         .setLayout('EXTRA_SMALL', 'col-12')
         .textButton('input0', 'With Icon', '',
@@ -236,9 +237,12 @@ Exame sem intercorrências.`)
           .group
         .text('input2', 'Automático', '')
           .disable()
-          .validators()
-          .required()
-        .group
+          .validators().required()
+          .group
+        .text('input3', 'Automático')
+          .disable()
+          .validators().required()
+          .group
         .form
       .build();
   },

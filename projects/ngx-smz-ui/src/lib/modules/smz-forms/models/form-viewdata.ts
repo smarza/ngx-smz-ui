@@ -30,7 +30,7 @@ export class SmzFormViewdata {
 
                     if (input.visibilityDependsOn == null || input.isVisible) {
                         // console.log(`${input.propertyName}`, input._inputFormControl.valid);
-                        if (input.isDisabled) {
+                        if (input.isDisabled && !this.config.behaviors.includeDisabledInValidation) {
                             // Forçando a validação para true porque o campo esta desabilitado
                             response.isValid = response.isValid && true;
                         }

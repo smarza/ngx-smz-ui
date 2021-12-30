@@ -14,6 +14,7 @@ export interface SmzFormsBehaviorsConfig
     showErrorsMethod?: ShowErrorsMethodTypes;
     submitOnEnter?: boolean;
     updateOn?: 'blur' | 'change' | 'submit';
+    includeDisabledInValidation?: boolean;
 }
 
 export type ShowErrorsMethodTypes = 'touched' | 'pristine' | 'dirty';
