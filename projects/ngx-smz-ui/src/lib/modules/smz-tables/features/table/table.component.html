@@ -492,7 +492,7 @@
 
                 </tr>
 
-                <tr *ngIf="item._isExpanded">
+                <tr *ngIf="item?._isExpanded">
                     <td [attr.colspan]="columns.length + ((context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible || context.state.editable.isEditable) ? 1 : 0) + (context.state.caption.rowSelection.isEnabled ? 1 : 0) + (context.state.rowExpansion.isEnabled ? 1 : 0)">
                         <ng-container *ngTemplateOutlet="rowContentTemplate; context: { $implicit: item }"></ng-container>
                     </td>

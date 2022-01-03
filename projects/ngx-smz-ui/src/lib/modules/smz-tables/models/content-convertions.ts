@@ -117,6 +117,28 @@ export const ContentConvertions: ContentConvertionData[] = [
       }),
   },
   {
+    controlType: SmzControlType.SWITCH,
+    field: (input: InputConfig) => input.propertyName,
+    property: (input: InputConfig) => input.propertyName,
+    isOrderable: true,
+    isGlobalFilterable: true,
+    filterType: SmzFilterType.BOOLEAN,
+    content: () => ({ type: SmzContentType.ICON, data: {
+      matches: [
+        { icon: 'fas fa-toggle-on', class: 'text-green-500', value: true },
+        { icon: 'fas fa-toggle-off', class: 'text-gray-300', value: false }
+      ]
+    } }),
+    editable: (input: SmzControlTypes) => (
+      {
+        property: input.propertyName,
+        type: SmzEditableType.SWITCH,
+        data: null,
+        validatorsPreset: input.validatorsPreset,
+        defaultCreationValue: false
+      }),
+  },
+  {
     controlType: SmzControlType.NUMBER,
     field: (input: InputConfig) => input.propertyName,
     property: (input: InputConfig) => input.propertyName,
