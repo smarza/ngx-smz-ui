@@ -162,7 +162,10 @@ export class SmzTableContextPipe implements PipeTransform {
         columnWidth: '3em',
         callback: null,
         isEnabled: false,
-        label: 'Seleção'
+        label: 'Seleção',
+        sincronize: false,
+        highlightNewItems: false,
+        highlightLabel: 'NOVO'
       },
     };
 

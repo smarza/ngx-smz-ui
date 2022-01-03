@@ -3,13 +3,17 @@ import { SmzTableContext } from '../models/table-state';
 import { cloneDeep } from 'lodash-es';
 import { SmzFilterType } from '../models/filter-types';
 import { isArray, isSimpleNamedEntity } from '../../../common/utils/utils';
+import { TableHelperService } from '../services/table-helper.service';
 
 @Pipe({
   name: 'cloneTableItems'
 })
 
 export class SmzCloneTableItemsPipe implements PipeTransform {
-  transform(items: any[], context: SmzTableContext): { showSkeleton: boolean, items: any[] } {
+  constructor(private tableHelper: TableHelperService) {
+  }
+
+  transform(items: any[], context: SmzTableContext, tableKey: string, sincronize: boolean): { showSkeleton: boolean, items: any[] } {
     const showSkeleton = items == null && context.state.initialState.skeleton.isEnabled;
     const clonedItems = showSkeleton ? new Array<any>(context.state.initialState.skeleton.rows) : cloneDeep(items);
 
@@ -77,7 +81,7 @@ export class SmzCloneTableItemsPipe implements PipeTransform {
 
     return {
       showSkeleton,
-      items: clonedItems
+      items: sincronize ? this.tableHelper.sincronize(tableKey, clonedItems) : clonedItems
     };
   }
 
@@ -144,6 +148,8 @@ export class SmzCloneTableItemsPipe implements PipeTransform {
           }
           return element > accumulator ? element : accumulator;
         });
+
+
 
   }
 

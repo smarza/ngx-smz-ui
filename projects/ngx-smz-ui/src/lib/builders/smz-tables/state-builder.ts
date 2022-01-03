@@ -145,7 +145,8 @@ export class SmzTableBuilder {
       isEnabled: false,
       callback: null,
       columnWidth: '3em',
-      label: ''
+      label: '',
+      sincronize: false
     },
   };
 
@@ -267,6 +268,9 @@ export class SmzTableBuilder {
 
   public allowDefaultRowExpansion(): SmzTableBuilder {
     this._state.rowExpansion.isEnabled = true;
+    this._state.rowExpansion.sincronize = true;
+    this._state.rowExpansion.highlightNewItems = true;
+    this._state.rowExpansion.highlightLabel = 'NOVO';
     return this;
   }
 
@@ -275,6 +279,33 @@ export class SmzTableBuilder {
     this._state.rowExpansion.isButtonVisible = true;
     this._state.rowExpansion.label = label;
     this._state.rowExpansion.columnWidth = '3em';
+    this._state.rowExpansion.sincronize = true;
+    this._state.rowExpansion.highlightNewItems = true;
+    this._state.rowExpansion.highlightLabel = 'NOVO';
+    return this;
+  }
+
+  public disableRowExpansionSincronization(): SmzTableBuilder {
+    if (!this._state.rowExpansion.isEnabled) {
+      throw Error('You need to call \'allowDefaultRowExpansion or allowRowExpansion\' before');
+    }
+    this._state.rowExpansion.sincronize = false;
+    return this;
+  }
+
+  public setNewItemsMessage(label: string): SmzTableBuilder {
+    if (!this._state.rowExpansion.isEnabled) {
+      throw Error('You need to call \'allowDefaultRowExpansion or allowRowExpansion\' before');
+    }
+    this._state.rowExpansion.label = label;
+    return this;
+  }
+
+  public hideNewItemsMessage(): SmzTableBuilder {
+    if (!this._state.rowExpansion.isEnabled) {
+      throw Error('You need to call \'allowDefaultRowExpansion or allowRowExpansion\' before');
+    }
+    this._state.rowExpansion.highlightNewItems = false;
     return this;
   }
 

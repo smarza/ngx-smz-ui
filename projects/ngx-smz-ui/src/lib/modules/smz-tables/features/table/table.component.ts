@@ -1,4 +1,4 @@
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewChild } from '@angular/core'
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewChild, OnDestroy } from '@angular/core';
 import { FilterMatchMode, PrimeTemplate } from 'primeng/api';
 import { SmzContentType } from '../../models/content-types';
 import { SmzFilterType } from '../../models/filter-types';
@@ -10,6 +10,8 @@ import { TableFormsService } from '../../services/table-forms.service';
 import { Table } from 'primeng/table';
 import { SmzDialogsConfig } from '../../../smz-dialogs/smz-dialogs.config';
 import { filter } from 'rxjs/operators';
+import { uuidv4 } from '../../../../common/utils/utils';
+import { TableHelperService } from '../../services/table-helper.service';
 
 @Component({
   selector: 'smz-ui-table',
@@ -17,7 +19,8 @@ import { filter } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [TableEditableService, TableFormsService]
 })
-export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
+export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, OnDestroy {
+  public tableKey = uuidv4();
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
   @ViewChild(Table) public table: Table;
   @ViewChild('columnMultiselect') public columnMultiselect: any;
@@ -69,7 +72,7 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
     multiselect: SmzFilterType.MULTI_SELECT,
     multiselect_array: SmzFilterType.MULTI_SELECT_ARRAY
   }
-  constructor(public cdr: ChangeDetectorRef, public editableService: TableEditableService, public formsService: TableFormsService, public dialogConfig: SmzDialogsConfig) {
+  constructor(public cdr: ChangeDetectorRef, public editableService: TableEditableService, public formsService: TableFormsService, public dialogConfig: SmzDialogsConfig, private tableHelper: TableHelperService) {
     this.editableService.cdr = this.cdr;
     this.editableService.createEvent = this.create;
     this.editableService.updateEvent = this.update;
@@ -219,6 +222,10 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges {
 
   public onFilter(event: any): void {
     this.filterChange.emit(event);
+  }
+
+  public ngOnDestroy(): void {
+    this.tableHelper.clear(this.tableKey);
   }
 
 }

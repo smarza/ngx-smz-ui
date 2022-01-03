@@ -420,6 +420,12 @@ export interface SmzTableState {
      * of letting the user activate it with the dedicated button
      */
     isEnabled: boolean;
+    /**
+    * Mantain row expansions state sincronized
+    */
+    sincronize?: boolean;
+    highlightNewItems?: boolean;
+    highlightLabel?: string;
   };
 
 }

@@ -5,6 +5,7 @@ import { GlobalInjector, SimpleNamedEntity, SmzFilterType, SmzTableBuilder } fro
 import { of } from 'rxjs';
 import { convertorTasks } from './../data/conversor-tasks';
 import { Observable } from 'rxjs/internal/Observable';
+import { DemoFeatureActions } from '@states/demo/demo.actions';
 
 const store = GlobalInjector.instance.get(Store);
 
@@ -159,6 +160,7 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
         .enableClearFilters()
         .enableColumnVisibility()
         .enableGlobalFilter()
+        .setRowClickCallback((event) => { store.dispatch(new DemoFeatureActions.Create({name: 'test', company: 'test2', countryId: '3fb9838e-2f62-42a3-9ebc-09f236bc3c12'}));})
         .setEmptyFeedbackMessage('Lista vazia')
         .setEmptyFeedbackExtraInfo('Clique abaixo para carregar novos dados.')
         .addEmptyFeedbackButton('Atualizar', () => console.log('---'))

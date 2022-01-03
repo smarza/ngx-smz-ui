@@ -280,8 +280,8 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
     },
     [SmzControlType.SWITCH]: {
         initialize: (input: SmzSwitchControl, config: SmzDialogsConfig) => { },
-        clear: (control: AbstractControl) => { control.patchValue(''); },
-        updateValue: (control: AbstractControl, input: SmzSwitchControl) => { control.patchValue(input.defaultValue); },
+        clear: (control: AbstractControl) => { control.patchValue(false); },
+        updateValue: (control: AbstractControl, input: SmzSwitchControl) => { control.patchValue(input.defaultValue ?? false); },
         getValue: (form: FormGroup, input: SmzSwitchControl, flattenResponse: boolean) =>
         {
             const value = form.get(input.propertyName).value;
