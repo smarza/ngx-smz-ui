@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Validators, ValidatorFn } from '@angular/forms';
+import { Validators, ValidatorFn, AbstractControl, FormGroup } from '@angular/forms';
 import { ValidationMessage } from '../models/advanced';
-import { SmzControlType, SmzControlTypes, SmzDropDownControl, SmzLinkedControlTypes, SmzLinkedDropDownControl } from '../models/control-types';
+import { SmzControlType, SmzControlTypes, SmzDropDownControl, SmzLinkedDropDownControl } from '../models/control-types';
 import { SmzDialogsConfig } from '../../smz-dialogs/smz-dialogs.config';
 import { SmzTemplate } from '../../../common/models/templates';
 import { SmzFormsDropdownService } from './smz-forms-dropdown.service';
 import { SmzForm } from '../models/smz-forms';
 import { SmzFormsVisibilityService } from './smz-forms-visibility.service';
+import { flatten, isEmpty } from 'lodash-es';
+import { isArray } from '../../../common/utils/utils';
 
 @Injectable({
     providedIn: 'root'
@@ -15,6 +17,49 @@ export class SmzFormsManagerService
 {
 
     constructor(public configService: SmzDialogsConfig, private dropDownService: SmzFormsDropdownService, private service: SmzFormsVisibilityService) { }
+
+    // public manuallyValidate(input: SmzControlTypes, data: { [key: string]: any }): boolean {
+
+    //     console.log('       ...manuallyValidate()');
+
+    //     const config = input.validatorsPreset;
+
+    //     // Se não houver validatores, returnar válido
+    //     if (config === null) return true;
+
+    //     // Inicializar como válido
+    //     var isValid = true;
+
+    //     const value = Object.keys(data).map((key) => data[key]).reduce((value, initialValue) => initialValue);
+
+    //     console.log('       ... value?', value);
+
+    //     if (config.isRequired) {
+    //         const isRequiredPass = !isEmpty(value);
+    //         isValid = isValid && isRequiredPass;
+    //     }
+    //     console.log('input._inputFormControl', input._inputFormControl);
+    //     const validators = (input._inputFormControl as any)._composedValidatorFn;
+    //     console.log('validators', validators);
+
+    //     if (isArray(validators)) {
+    //         validators.forEach((validator, index) => {
+    //             console.log('validator', validator);
+    //             const isValidatorValid = validator(input._inputFormControl);
+    //             console.log(`isValidatorValid ${index}`, isValidatorValid);
+
+    //         });
+    //     }
+    //     else if (validators != null) {
+    //         const isValidatorValid = validators(input._inputFormControl);
+    //         console.log('isValidatorValid', isValidatorValid);
+    //     }
+
+
+
+    //     console.log('       isValid ?', isValid);
+    //     return isValid;
+    // }
 
     public getValidators(control: SmzControlTypes): Validators
     {

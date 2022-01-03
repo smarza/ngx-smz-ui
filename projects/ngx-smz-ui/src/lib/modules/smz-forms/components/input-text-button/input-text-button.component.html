@@ -10,9 +10,9 @@
             type="text"
             [placeholder]="input.placeholder"
             [formControl]="control">
-        <button type="button" [disabled]="!control.valid" pButton pRipple class="min-w-fit" [label]="input.label" [icon]="input.icon" styleClass="p-button-warn" (click)="emit()"></button>
+        <button type="button" [disabled]="!control.valid || blocked" pButton pRipple class="min-w-fit" [label]="input.label" [icon]="input.icon" styleClass="p-button-warn" (click)="emit()"></button>
     </div>
 
-    <smz-validation-messages [input]="input" [control]="control" [behaviors]="behaviors"></smz-validation-messages>
+    <smz-validation-messages [input]="input" [control]="control" [behaviors]="behaviors" [extraMessages]="input.buttonMessages"></smz-validation-messages>
 
 </div>

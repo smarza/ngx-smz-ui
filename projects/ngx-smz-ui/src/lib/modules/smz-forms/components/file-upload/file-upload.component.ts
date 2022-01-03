@@ -3,6 +3,8 @@ import { SmzFileControl } from '../../models/control-types';
 import { AbstractControl, FormGroup } from '@angular/forms';
 import { SmzFormsBehaviorsConfig } from '../../models/behaviors';
 import { Message } from 'primeng/api';
+import { Store } from '@ngxs/store';
+import { ToastActions } from '../../../../state/global/application/application.actions.toast';
 
 @Component({
     selector: 'smz-file-upload',
@@ -18,7 +20,7 @@ export class FileUploadComponent {
     public files: File[] = [];
     public isZoomActive = false;
 
-    constructor(private cdf: ChangeDetectorRef) { }
+    constructor(private cdf: ChangeDetectorRef, private store: Store) { }
 
     public ngOnInit(): void {
         this.input._clearMethod = () => { this.clear(); };
@@ -36,6 +38,10 @@ export class FileUploadComponent {
 
     public restoreZoom(): void {
         this.isZoomActive = false;
+    }
+
+    public notAllowed(): void {
+        this.store.dispatch(new ToastActions.Warning('Upload desabilitado'));
     }
 
     public onInputFiles(event: any): void {

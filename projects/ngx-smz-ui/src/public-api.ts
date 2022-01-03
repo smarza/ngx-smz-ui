@@ -37,6 +37,7 @@ export { UniqueFilterPipe } from './lib/common/data-pipes/pipes/unique-filter.pi
 export { DescribeArrayPipe } from './lib/common/data-pipes/pipes/describe-array.pipe';
 export { CalendarPipe } from './lib/common/data-pipes/pipes/calendar.pipe';
 export { SmzGetDataPipe } from './lib/common/data-pipes/pipes/get-data.pipe';
+export { JoinPipe } from './lib/common/data-pipes/pipes/join.pipe';
 export { DescribeSimpleNamedPipe } from './lib/common/data-pipes/pipes/describe-simple-named.pipe';
 export { DescribeAnyPipe } from './lib/common/data-pipes/pipes/describe-any.pipe';
 export { UrlCheckerPipeModule } from './lib/common/url-checker/url-checker.pipe';

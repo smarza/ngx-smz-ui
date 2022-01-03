@@ -4,17 +4,17 @@
         <label class="smz__input_name" [innerHTML]="input.name"></label>
 
         <!-- ZONA DE DROPPING -->
-        <div *ngIf="input._file == null" SmzDragDrop (fileDropped)="onFilesDropped($event)" class="file_upload__drag-container grid grid-nogutter items-center justify-center mt-1  mb-1">
+        <div *ngIf="input._file == null" SmzDragDrop (fileDropped)="input.isDisabled ? notAllowed() : onFilesDropped($event)" class="file_upload__drag-container grid grid-nogutter items-center justify-center mt-1  mb-1">
             <div class="grid grid-nogutter flex-col items-center justify-center pt-3 pb-3">
                 <!-- ICONE DE UPLOAD -->
                 <i [ngClass]="input.dragIconClass" class="text-4xl mb-2"></i>
-                <span>
+                <span class="grid grid-nogutter gap-2">
                     <!-- INPUT DE UPLOAD MANUAL -->
-                    <input #uploadControl type="file" name="uploadControl" class="upload_manual_control" [accept]="input.fileAccept" id="uploadControl" (change)="onInputFiles($event)" />
+                    <input #uploadControl type="file" name="uploadControl" class="upload_manual_control" [attr.disabled]="input.isDisabled" [accept]="input.fileAccept" id="uploadControl" (change)="onInputFiles($event)" />
                     <!-- BOTÃO PARA SELECIONAR ARQUIVO -->
-                    <label for="uploadControl" class="clickable upload_manual_label hvr hvr-grow">{{ input.inputMessage }}</label>
+                    <label for="uploadControl" [ngClass]="{ 'text-gray-500' : input.isDisabled,'clickable upload_manual_label hvr hvr-grow': !input.isDisabled }">{{ input.inputMessage }}</label>
                     <!-- MENSAGEM PARA ARRASTAR -->
-                    <span class="upload_field-drag-message ml-1">ou {{ input.dragMessage }}</span>
+                    <span class="upload_field-drag-message">ou {{ input.dragMessage }}</span>
                 </span>
 
                 <!-- MENSAGEM DE ERRO PARA SELEÇÃO DE ARQUIVO -->

@@ -340,6 +340,18 @@ export const TreeDemoData: DemoTreeNode[] = [
         label: 'Inputs', type: 'SubCategory',
         children: [
           {
+            label: 'All Inputs', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'form',
+            notes: '',
+            data: FormsDemo[DemoKeys.FORMS_ALL_INPUTS]
+          },
+          {
+            label: 'All Inputs Disabled', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'form',
+            notes: '',
+            data: FormsDemo[DemoKeys.FORMS_ALL_INPUTS_DISABLED]
+          },
+          {
             label: 'Calendar', icon: 'fas fa-code', type: 'Demo',
             demoType: 'form',
             notes: '',

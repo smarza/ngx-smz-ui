@@ -9,6 +9,7 @@ import { MustMatch } from '../../common/utils/custom-validations';
 import { GlobalInjector } from '../../common/services/global-injector';
 import { SmzDialogsConfig } from '../../modules/smz-dialogs/smz-dialogs.config';
 import { SmzFormViewdata } from '../../modules/smz-forms/models/form-viewdata';
+import { Observable } from 'rxjs';
 
 export class SmzFormGroupBuilder<TResponse> {
   private defaultConfig = GlobalInjector.instance.get(SmzDialogsConfig);
@@ -391,7 +392,7 @@ export class SmzFormGroupBuilder<TResponse> {
     return new SmzFormTextBuilder(this, input as SmzTextControl);
   }
 
-  public textButton(property: string, label?: string, defaultValue?: string, callback?: (data: SmzFormsResponse<unknown>, utils: SmzFormViewdata) => void): SmzFormTextButtonBuilder<TResponse> {
+  public textButton(property: string, label?: string, defaultValue?: string, callback?: (data: SmzFormsResponse<unknown>, utils: SmzFormViewdata) => Observable<{ isValid: boolean, messages?: string[] }>): SmzFormTextButtonBuilder<TResponse> {
 
     let input = this.group.children.find(x => x.propertyName == property) as SmzTextButtonControl;
 
@@ -404,6 +405,8 @@ export class SmzFormGroupBuilder<TResponse> {
         propertyName: property, type: SmzControlType.TEXT_BUTTON, name: label,
         defaultValue,
         callback,
+        isButtonValid: false,
+        buttonMessages: [],
         hideName: false,
         icon: 'fas fa-redo',
         placeholder: '',

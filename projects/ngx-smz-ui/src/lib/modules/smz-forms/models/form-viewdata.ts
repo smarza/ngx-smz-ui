@@ -1,7 +1,8 @@
 import { ChangeDetectorRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { SmzFormsManagerService } from '../services/smz-forms-manager.service';
 import { CONTROL_FUNCTIONS } from './control-type-functions';
-import { SmzControlTypes } from './control-types';
+import { SmzControlType, SmzControlTypes, SmzTextButtonControl } from './control-types';
 import { SmzForm, SmzFormsResponse } from './smz-forms';
 
 export class SmzFormViewdata {
@@ -11,6 +12,7 @@ export class SmzFormViewdata {
     constructor(
         public config: SmzForm<any>,
         public form: FormGroup,
+        public manager: SmzFormsManagerService,
         public cdf: ChangeDetectorRef
     ) { }
 
@@ -19,25 +21,34 @@ export class SmzFormViewdata {
         // console.log('--------------------------');
         // console.log('--------------------------');
         // console.log('--------------------------');
+
         const data: T = {} as T;
         const response: SmzFormsResponse<T> = { data, isValid: true, hasUnsavedChanges: false };
         const formFlattenResponse = this.config.behaviors?.flattenResponse ?? false;
 
         for (const group of this.config.groups) {
             for (const input of group.children) {
+
+                // console.log(`> ${input.propertyName}`, input);
+
                 if (input.advancedSettings == null || !input.advancedSettings.excludeFromResponse) {
+                    // console.log(1);
                     const value = CONTROL_FUNCTIONS[input.type].getValue(this.form, input, formFlattenResponse);
 
                     if (input.visibilityDependsOn == null || input.isVisible) {
-                        // console.log(`${input.propertyName}`, input._inputFormControl.valid);
-                        if (input.isDisabled && !this.config.behaviors.includeDisabledInValidation) {
+
+                        if (input.isDisabled) {
                             // Forçando a validação para true porque o campo esta desabilitado
-                            response.isValid = response.isValid && true;
+                            response.isValid = response.isValid && true; // this.manager.manuallyValidate(input, value);
                         }
-                        else {
+                        else if (input.type === SmzControlType.TEXT_BUTTON) {
+                            response.isValid = response.isValid && input._inputFormControl.valid && (input as SmzTextButtonControl).isButtonValid;
+                        }
+                        else if (!input.isDisabled) {
                             // Refletindo a validação do angular na resposta
                             response.isValid = response.isValid && input._inputFormControl.valid;
                         }
+
                         response.data = { ...response.data, ...value };
                     }
                 }
@@ -49,7 +60,7 @@ export class SmzFormViewdata {
 
         response.hasUnsavedChanges = this.hasChanges;
 
-        // console.log('isValid', this.isValid);
+        // console.log('Final isValid', this.isValid);
 
         return response;
 
@@ -87,7 +98,7 @@ export class SmzFormViewdata {
                 if (input.propertyName === property) {
                     input.defaultValue = newValue;
                     const control = this.form.controls[input.propertyName];
-                    CONTROL_FUNCTIONS[input.type].updateValue(control, input)
+                    CONTROL_FUNCTIONS[input.type].updateValue(control, input);
                     modified = true;
                 }
             })
@@ -96,6 +107,7 @@ export class SmzFormViewdata {
         if (modified) {
             this.form.markAsPristine();
             this.cdf.markForCheck();
+            this.getData();
         }
     }
 
@@ -112,6 +124,9 @@ export class SmzFormViewdata {
             })
         });
 
-        if (modified) this.updateFormValues(false);
+        if (modified) {
+            this.updateFormValues(false);
+            this.getData();
+        }
     }
 }

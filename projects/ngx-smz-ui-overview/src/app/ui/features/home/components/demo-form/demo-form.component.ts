@@ -35,7 +35,6 @@ export class DemoFormComponent implements OnInit, OnChanges {
     if (changes.node != null) {
       const node = changes.node.currentValue;
       this.form = node.data();
-      console.log(this.form);
     }
 
   }

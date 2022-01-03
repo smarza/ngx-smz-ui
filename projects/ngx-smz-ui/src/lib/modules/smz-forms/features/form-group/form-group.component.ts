@@ -150,7 +150,7 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
             };
 
             const options: AbstractControlOptions = { updateOn: this.config?.behaviors?.updateOn ?? 'change' };
-            this.viewdata = new SmzFormViewdata(this.config, this.fb.group(controlsConfig, options), this.cdf);
+            this.viewdata = new SmzFormViewdata(this.config, this.fb.group(controlsConfig, options), this.manager, this.cdf);
 
             if (this.config._context == null) {
                 this.config._context = {
@@ -401,33 +401,6 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
 
         this.cdf.markForCheck();
     }
-
-    // /** Atualiza os valores dos inputs com seus dados default */
-    // public updateFormValues(): void
-    // {
-
-    //     for (const group of this.config.groups)
-    //     {
-    //         for (const input of group.children)
-    //         {
-    //             const control = this.viewdata.form.controls[input.propertyName];
-
-    //             if (input.isDisabled)
-    //             {
-    //                 control.disable();
-    //             }
-    //             else
-    //             {
-    //                 control.enable();
-    //             }
-    //             CONTROL_FUNCTIONS[input.type].updateValue(control, input);
-    //         };
-    //     };
-
-    //     this.viewdata.form.markAsPristine();
-    //     this.cdf.markForCheck();
-
-    // }
 
     public ngAfterViewInit(): void
     {

@@ -5,6 +5,7 @@ import { SmzTextPattern } from './text-patterns';
 import { SmzQuickAction } from '../directives/transfer-value-acessor';
 import { SmzFormsResponse } from './smz-forms';
 import { SmzFormViewdata } from './form-viewdata';
+import { Observable } from 'rxjs';
 
 export type SmzControlTypes =
     SmzCalendarControl |
@@ -75,7 +76,11 @@ export interface SmzTextButtonControl extends SmzFormsBaseControl
     label?: string;
     icon?: string;
     styleClass: string;
-    callback: (data: SmzFormsResponse<unknown>, utils: SmzFormViewdata) => void;
+    // Callback has to return if the button clicked turned the input valid or invalid.
+    // Everytime the button is clicked, the input is automatically invalidated.
+    callback: (data: SmzFormsResponse<unknown>, utils: SmzFormViewdata) => Observable<{ isValid: boolean, messages?: string[] }>;
+    isButtonValid: boolean;
+    buttonMessages: string[];
 
 }
 export interface SmzListControl extends SmzFormsBaseControl

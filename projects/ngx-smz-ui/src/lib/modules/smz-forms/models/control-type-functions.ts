@@ -323,7 +323,10 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
         },
     },
     [SmzControlType.TEXT_BUTTON]: {
-        initialize: (input: SmzTextButtonControl, config: SmzDialogsConfig) => { },
+        initialize: (input: SmzTextButtonControl, config: SmzDialogsConfig) => {
+            input.isButtonValid = false;
+            input.buttonMessages = [];
+        },
         clear: (control: AbstractControl) => { control.patchValue(''); },
         updateValue: (control: AbstractControl, input: SmzTextButtonControl) => { control.patchValue(input.defaultValue); },
         getValue: (form: FormGroup, input: SmzTextButtonControl, flattenResponse: boolean) =>

@@ -24,7 +24,7 @@ export class SmzFormBuilder<TResponse> {
       skipFunctionAfterNextEmit: false,
       skipEmitChangesOnLoad: false,
       showErrorsMethod: 'touched',
-      includeDisabledInValidation: false,
+      showMultipleErrorMessages: false,
       // updateOn: 'change',
       ...this.defaultConfig?.forms?.behaviors
     },
@@ -85,8 +85,8 @@ export class SmzFormBuilder<TResponse> {
     return this;
   }
 
-  public includeDisabledInValidation(): SmzFormBuilder<TResponse> {
-    this._state.behaviors.includeDisabledInValidation = true;
+  public showMultipleErrorsMessages(): SmzFormBuilder<TResponse> {
+    this._state.behaviors.showMultipleErrorMessages = true;
     return this;
   }
 
