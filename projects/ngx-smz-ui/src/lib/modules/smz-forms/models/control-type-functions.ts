@@ -292,7 +292,7 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
     [SmzControlType.LIST]: {
         initialize: (input: SmzListControl, config: SmzDialogsConfig) => {
             // input.defaultValue = cloneDeep(input.options);
-            input.options = cloneDeep(input.options);
+            input.options = cloneDeep(input.defaultValue);
 
             if (input.editMode == null) input.editMode = 'dialog';
         },

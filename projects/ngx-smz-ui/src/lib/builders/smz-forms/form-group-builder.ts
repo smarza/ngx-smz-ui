@@ -456,15 +456,11 @@ export class SmzFormGroupBuilder<TResponse> {
     return new SmzFormFileBuilder(this, input as SmzFileControl);
   }
 
-  public list(property: string, label?: string, options?: string[], defaultValue?: string[]): SmzFormListBuilder<TResponse> {
+  public list(property: string, label?: string, defaultValue?: string[]): SmzFormListBuilder<TResponse> {
 
     let input = this.group.children.find(x => x.propertyName == property);
 
     if (input == null) {
-
-      if (label == null || options == null) {
-        throw Error('Label and options are required for list.')
-      }
 
       input = {
         propertyName: property,
@@ -473,7 +469,6 @@ export class SmzFormGroupBuilder<TResponse> {
         defaultValue,
         height: '200px',
         showFilter: false,
-        options,
         askBeforeRemoveItem: false,
         showAddButton: false,
         allowBatchCreation: false,
@@ -489,8 +484,8 @@ export class SmzFormGroupBuilder<TResponse> {
       this.group.children.push(input);
     }
     else {
-      if (label != null || options != null || defaultValue != null) {
-        throw Error('Label, options and defaultValue come from uiDefinitions and cannot be changed.')
+      if (label != null || defaultValue != null) {
+        throw Error('Label, defaultValue come from uiDefinitions and cannot be changed.')
       }
     }
 

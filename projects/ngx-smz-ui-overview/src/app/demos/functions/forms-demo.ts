@@ -39,7 +39,7 @@ Exame sem intercorrências.`).validators().required().group
         .text('input17', 'I\'m required', 'sample').validators().required().group
         .textButton('input18', 'Chave', '', (response: SmzFormsResponse<any>, utils: SmzFormViewdata): Observable<{ isValid: boolean, messages?: string[] }> => { console.log('callback response...', response); return of({ isValid: true }); }).useLabel('Buscar').validators().required().group
         .file('input19', 'Confirmação').useBinaryFormat().acceptImages().validators().required().group
-        .list('input20', 'I\'m not required', ['Option 1', 'Option 2', 'Option 3'], ['Option 2']).useDialogEditMode().buttons().add().all().clear().edit().move().remove().sort().list.validators().required().group
+        .list('input20', 'I\'m not required', ['Option 1', 'Option 2', 'Option 3']).useDialogEditMode().buttons().add().all().clear().edit().move().remove().sort().list.validators().required().group
         .password('input21', 'Password').validators().required().group
         .form
       .build();
@@ -76,7 +76,7 @@ Exame sem intercorrências.`).disable().validators().required().group
         .text('input17', 'I\'m required', 'sample').disable().validators().required().group
         .textButton('input18', 'Chave', '', (response: SmzFormsResponse<any>, utils: SmzFormViewdata): Observable<{ isValid: boolean, messages?: string[] }> => { console.log('callback response...', response); return of({ isValid: true }) }).useLabel('Buscar').disable().validators().required().group
         .file('input19', 'Confirmação').useBinaryFormat().acceptImages().disable().validators().required().group
-        .list('input20', 'I\'m not required', ['Option 1', 'Option 2', 'Option 3'], ['Option 2']).useDialogEditMode().buttons().add().all().clear().edit().move().remove().sort().list.disable().validators().required().group
+        .list('input20', 'I\'m not required', ['Option 1', 'Option 2', 'Option 3']).useDialogEditMode().buttons().add().all().clear().edit().move().remove().sort().list.disable().validators().required().group
         .password('input21', 'Password').disable().validators().required().group
         .form
       .build();
@@ -382,7 +382,7 @@ Exame sem intercorrências.`)
     return new SmzFormBuilder<any>()
       .group()
         .setLayout('EXTRA_SMALL', 'col-12')
-        .list('input1', 'I\'m not required', ['Option 1', 'Option 2', 'Option 3'], ['Option 2'])
+        .list('input1', 'I\'m not required', ['Option 1', 'Option 2', 'Option 3'])
           .useDialogEditMode()
           .buttons()
             .add()
@@ -402,7 +402,7 @@ Exame sem intercorrências.`)
     return new SmzFormBuilder<any>()
       .group()
         .setLayout('EXTRA_SMALL', 'col-12')
-        .list('input1', 'I\'m not required', ['Option 1', 'Option 2', 'Option 3'], ['Option 2'])
+        .list('input1', 'I\'m not required', ['Option 1', 'Option 2', 'Option 3'])
           .buttons()
             .add()
             .all()
@@ -421,7 +421,7 @@ Exame sem intercorrências.`)
     return new SmzFormBuilder<any>()
       .group()
         .setLayout('EXTRA_SMALL', 'col-12')
-        .list('input1', 'I\'m not required', ['Option 1', 'Option 2', 'Option 3'], ['Option 2'])
+        .list('input1', 'I\'m not required', ['Option 1', 'Option 2', 'Option 3'])
           .allowBatchCreation()
           .buttons()
             .add()
