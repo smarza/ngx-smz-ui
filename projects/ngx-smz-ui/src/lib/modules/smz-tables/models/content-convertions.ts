@@ -84,14 +84,14 @@ export const ContentConvertions: ContentConvertionData[] = [
     isOrderable: true,
     isGlobalFilterable: true,
     filterType: SmzFilterType.DATE,
-    content: () => ({ type: SmzContentType.TEXT, data: null }),
+    content: () => ({ type: SmzContentType.TEXT, data: { format: 'shortDate' } }),
     editable: (input: SmzControlTypes) => (
       {
         property: input.propertyName,
         type: SmzEditableType.CALENDAR,
         data: null,
         validatorsPreset: input.validatorsPreset,
-        defaultCreationValue: new Date()
+        defaultCreationValue: new Date(),
       }),
   },
   {

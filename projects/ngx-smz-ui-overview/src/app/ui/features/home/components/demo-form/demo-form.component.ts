@@ -77,6 +77,10 @@ export class DemoFormComponent implements OnInit, OnChanges {
   public build(): void {
     this.form = this.node.data() as any;
     this.cdf.markForCheck();
+
+    setTimeout(() => {
+      console.log('form', this.form);
+    }, 2000);
   }
 
   public clear(): void {
