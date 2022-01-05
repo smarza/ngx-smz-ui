@@ -1,2 +1,2 @@
 <smz-menu-items #actionMenu [popup]="true" [model]="menuItems" appendTo="body"></smz-menu-items>
-<button id="action-button" type="button" pButton [ngClass]="styleClass" [icon]="icon" (click)="toggle($event, actionMenu)"></button>
+<p-button id="action-button" type="button" [ngClass]="buttonClass" [styleClass]="styleClass" [icon]="icon" (onClick)="toggle($event, actionMenu)"></p-button>

@@ -13,6 +13,7 @@ export class SmzMenuComponent {
   @Input() public items: SmzMenuItem[];
   @Input() public callback: (data: any) => SmzMenuItem[];
   @Input() public data: any;
+  @Input() public buttonClass: string = '';
   @Input() public styleClass: string = '';
   @Input() public icon: string = 'pi pi-bars';
   public menuItems: any[] = [];
