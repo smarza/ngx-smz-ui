@@ -13,6 +13,8 @@ export class SmzMenuComponent {
   @Input() public items: SmzMenuItem[];
   @Input() public callback: (data: any) => SmzMenuItem[];
   @Input() public data: any;
+  @Input() public styleClass: string = '';
+  @Input() public icon: string = 'pi pi-bars';
   public menuItems: any[] = [];
   public toggle(event: any, actionMenu: Menu): void {
     const items = this.callback != null ? this.callback(this.data) : this.items;
