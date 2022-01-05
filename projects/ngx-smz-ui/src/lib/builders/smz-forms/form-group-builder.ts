@@ -410,7 +410,8 @@ export class SmzFormGroupBuilder<TResponse> {
         hideName: false,
         icon: 'fas fa-redo',
         placeholder: '',
-        styleClass: 'p-button-success'
+        styleClass: 'p-button-success',
+        clearButtonMessageOnChanges: true
       };
 
       this.group.children.push(input);
@@ -968,6 +969,11 @@ export class SmzFormTextButtonBuilder<TResponse> extends SmzFormInputBuilder<TRe
 
   public setStyle(styleClass: string): SmzFormTextButtonBuilder<TResponse> {
     this._textButtonInput.styleClass = styleClass;
+    return this;
+  }
+
+  public persistMessages(styleClass: string): SmzFormTextButtonBuilder<TResponse> {
+    this._textButtonInput.clearButtonMessageOnChanges = false;
     return this;
   }
 

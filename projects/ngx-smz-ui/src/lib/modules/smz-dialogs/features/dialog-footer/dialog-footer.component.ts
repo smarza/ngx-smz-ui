@@ -98,6 +98,8 @@ export class DialogFooterComponent implements OnInit {
                             console.log(`               > control for ${field}:`, control);
                         }
                         control.markAsTouched({ onlySelf: true });
+
+                        formFeature._context.cdf.markForCheck();
                     });
                 });
 

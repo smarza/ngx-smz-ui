@@ -9,7 +9,7 @@
             [id]="input.propertyName"
             type="text"
             [placeholder]="input.placeholder"
-            [formControl]="control">
+            [formControl]="$any(control)">
         <button type="button" [disabled]="!control.valid || blocked" pButton pRipple class="min-w-fit" [label]="input.label" [icon]="input.icon" styleClass="p-button-warn" (click)="emit()"></button>
     </div>
 

@@ -301,7 +301,8 @@ export class SmzDialogsService
                     {
                         form._context = {
                             applyGlobalStyles: false,
-                            form: null
+                            form: null,
+                            cdf: null
                         };
                     }
                     else

@@ -155,7 +155,8 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
             if (this.config._context == null) {
                 this.config._context = {
                     applyGlobalStyles: null,
-                    form: this.viewdata.form
+                    form: this.viewdata.form,
+                    cdf: this.cdf
                 };
             }
             else {

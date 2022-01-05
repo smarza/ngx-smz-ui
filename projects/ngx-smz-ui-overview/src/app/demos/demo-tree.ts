@@ -290,6 +290,16 @@ export const TreeDemoData: DemoTreeNode[] = [
           },
         ]
       },
+      {
+        label: 'Dialog With Forms', type: 'SubCategory',
+        children: [
+          {
+            label: 'Validation', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'dialog',
+            data: DialogsDemo[DemoKeys.DIALOGS_WITH_FORM]
+          },
+        ]
+      },
     ]
   },
   {
