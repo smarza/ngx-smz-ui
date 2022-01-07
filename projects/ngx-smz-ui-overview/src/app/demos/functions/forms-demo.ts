@@ -488,6 +488,30 @@ Exame sem intercorrências.`)
           }
         })
       .form
+      .group()
+        .dropdown('country', 'Países', [ { id: '55e08b38-cec6-4063-acd0-25747f31dc59', name: 'Brazil'}])
+          .validators().required()
+          .group
+        .form
+      .build();
+  },
+  //
+  [DemoKeys.FORMS_WITH_APPLY_DATA]: () => {
+    return new SmzFormBuilder<any>()
+      .fromUiDefintion('entity')
+      .form
+      .group()
+        .dropdown('country', 'Países', [ { id: '55e08b38-cec6-4063-acd0-25747f31dc59', name: 'Brazil'}])
+          .validators().required()
+          .group
+        .form
+      .applyData({
+        name: 'Name',
+        company: 'Company',
+        country: {
+          name: 'Brazil',
+          id: '55e08b38-cec6-4063-acd0-25747f31dc59'
+        }})
       .build();
   },
 }

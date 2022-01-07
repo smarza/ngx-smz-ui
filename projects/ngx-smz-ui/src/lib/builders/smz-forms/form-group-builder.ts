@@ -10,6 +10,7 @@ import { GlobalInjector } from '../../common/services/global-injector';
 import { SmzDialogsConfig } from '../../modules/smz-dialogs/smz-dialogs.config';
 import { SmzFormViewdata } from '../../modules/smz-forms/models/form-viewdata';
 import { Observable } from 'rxjs';
+import sortBy from 'lodash-es/sortBy';
 
 export class SmzFormGroupBuilder<TResponse> {
   private defaultConfig = GlobalInjector.instance.get(SmzDialogsConfig);
@@ -20,6 +21,11 @@ export class SmzFormGroupBuilder<TResponse> {
     colType?: 'col-1' | 'col-2' | 'col-3' | 'col-4' | 'col-5' | 'col-6' | 'col-7' | 'col-8' | 'col-9' | 'col-10' | 'col-11' | 'col-12'): SmzFormGroupBuilder<TResponse> {
     const template = getSmzTemplate(breakpoint, colType) as any;
     this.group.template = { ...this.group.template, ...template };
+    return this;
+  }
+
+  public reorder(...properties: string[]): SmzFormGroupBuilder<TResponse> {
+    this.group.children = sortBy(this.group.children, (c) => properties.indexOf(c.propertyName) !== -1? properties.indexOf(c.propertyName) : this.group.children.length);
     return this;
   }
 
@@ -83,7 +89,7 @@ export class SmzFormGroupBuilder<TResponse> {
 
   public dropdown<T>(property: string, label?: string, options?: SimpleEntity<T>[], defaultValue?: T): SmzFormDropdownBuilder<T,TResponse> {
 
-    let input = this.group.children.find(x => x.propertyName == property);
+    let input = this.group.children.find(x => x.propertyName == property) as SmzDropDownControl<T>;
 
     if (input == null) {
 
@@ -95,12 +101,15 @@ export class SmzFormGroupBuilder<TResponse> {
         propertyName: property, type: SmzControlType.DROPDOWN, name: label,
         defaultValue: defaultValue, options: options
       };
+
       this.group.children.push(input);
     }
     else {
-      if (label != null || options != null || defaultValue != null) {
-        throw Error('Label, options and defaultValue come from uiDefinitions and cannot be changed.')
-      }
+
+      input.name = label ?? input.name;
+      input.options = options ?? input.options;
+      input.defaultValue = defaultValue ?? input.defaultValue;
+
     }
 
     return new SmzFormDropdownBuilder<T,TResponse>(this, input as SmzDropDownControl<T>);
@@ -108,7 +117,7 @@ export class SmzFormGroupBuilder<TResponse> {
 
   public linkedDropdown<T>(property: string, dependsOn: string, label?: string, options?: SimpleParentEntity<T>[], defaultValue?: T): SmzFormLinkedDropdownBuilder<T,TResponse> {
 
-    let input = this.group.children.find(x => x.propertyName == property);
+    let input = this.group.children.find(x => x.propertyName == property) as SmzLinkedDropDownControl<T>;
 
     if (input == null) {
 
@@ -124,9 +133,9 @@ export class SmzFormGroupBuilder<TResponse> {
       this.group.children.push(input);
     }
     else {
-      if (label != null || options != null || defaultValue != null) {
-        throw Error('Label, options and defaultValue come from uiDefinitions and cannot be changed.')
-      }
+      input.name = label ?? input.name;
+      input.options = options ?? input.options;
+      input.defaultValue = defaultValue ?? input.defaultValue;
     }
 
     return new SmzFormLinkedDropdownBuilder<T,TResponse>(this, input as SmzLinkedDropDownControl<T>);
@@ -134,7 +143,7 @@ export class SmzFormGroupBuilder<TResponse> {
 
   public multiselect<T>(property: string, label?: string, options?: SimpleEntity<T>[], defaultValue?: T[]): SmzFormMultiselectBuilder<T,TResponse> {
 
-    let input = this.group.children.find(x => x.propertyName == property);
+    let input = this.group.children.find(x => x.propertyName == property) as SmzMultiSelectControl<T>;
 
     if (input == null) {
 
@@ -150,9 +159,9 @@ export class SmzFormGroupBuilder<TResponse> {
       this.group.children.push(input);
     }
     else {
-      if (label != null || options != null || defaultValue != null) {
-        throw Error('Label, options and defaultValue come from uiDefinitions and cannot be changed.')
-      }
+      input.name = label ?? input.name;
+      input.options = options ?? input.options;
+      input.defaultValue = defaultValue ?? input.defaultValue;
     }
 
     return new SmzFormMultiselectBuilder<T,TResponse>(this, input as SmzMultiSelectControl<T>);
@@ -245,7 +254,7 @@ export class SmzFormGroupBuilder<TResponse> {
 
   public radioGroup<T>(property: string, label?: string, options?: SimpleEntity<T>[], defaultValue?: T): SmzFormRadioGroupBuilder<T,TResponse> {
 
-    let input = this.group.children.find(x => x.propertyName == property);
+    let input = this.group.children.find(x => x.propertyName == property) as SmzRadioControl<T>;
 
     if (input == null) {
 
@@ -261,9 +270,9 @@ export class SmzFormGroupBuilder<TResponse> {
       this.group.children.push(input);
     }
     else {
-      if (label != null || options != null || defaultValue != null) {
-        throw Error('Label, options and defaultValue come from uiDefinitions and cannot be changed.')
-      }
+      input.name = label ?? input.name;
+      input.options = options ?? input.options;
+      input.defaultValue = defaultValue ?? input.defaultValue;
     }
 
     return new SmzFormRadioGroupBuilder<T,TResponse>(this, input as SmzRadioControl<T>);

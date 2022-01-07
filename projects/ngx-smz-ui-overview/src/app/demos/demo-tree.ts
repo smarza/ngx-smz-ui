@@ -343,6 +343,17 @@ export const TreeDemoData: DemoTreeNode[] = [
         ]
       },
       {
+        label: 'Misc', type: 'SubCategory',
+        children: [
+          {
+            label: 'Apply Data', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'form',
+            notes: '',
+            data: FormsDemo[DemoKeys.FORMS_WITH_APPLY_DATA]
+          },
+        ]
+      },
+      {
         label: 'Behaviors', type: 'SubCategory',
         children: []
       },
