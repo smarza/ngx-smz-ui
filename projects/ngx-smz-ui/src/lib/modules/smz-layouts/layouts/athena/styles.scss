@@ -300,6 +300,9 @@ body a {
 .layout-wrapper .topbar .topbar-logo .logo {
   height: calc(var(--layout-topbar-height) * 0.6);
 }
+.layout-wrapper .topbar .topbar-logo .enlarged-logo {
+  height: calc(var(--layout-topbar-height) * 0.8);
+}
 .layout-wrapper .topbar .profile {
   text-align: right;
   font-weight: 700;

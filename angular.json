@@ -426,16 +426,18 @@
                 "glob": "**/*",
                 "input": "dist/ngx-smz-ui/resources",
                 "output": "/"
+              },
+              {
+                "glob": "**/*",
+                "input": "./node_modules/primeng/resources/themes",
+                "output": "/assets/themes/"
               }
             ],
             "styles": [
-              "projects/ngx-smz-ui-notifications/src/styles.scss",
-              "dist/ngx-smz-ui/resources/assets/scss/smz-ui.scss",
-              "node_modules/primeng/resources/primeng.min.css",
-              "node_modules/primeicons/primeicons.css",
-              "node_modules/primeflex/primeflex.min.css",
-              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
-              "node_modules/highlight.js/styles/vs2015.css"
+              "dist/ngx-smz-ui/resources/assets/scss/styles.scss",
+              "dist/ngx-smz-ui/resources/assets/scss/fontawesome-free.scss",
+              "node_modules/highlight.js/styles/vs2015.css",
+              "projects/ngx-smz-ui-overview/src/styles.scss"
             ],
             "scripts": []
           },

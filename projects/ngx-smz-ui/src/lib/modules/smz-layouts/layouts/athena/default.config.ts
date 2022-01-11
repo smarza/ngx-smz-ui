@@ -9,4 +9,5 @@ export const defaultAthenaConfig: AthenaLayout = {
     mobileSidebarState: SidebarState.INACTIVE,
     sidebarWidth: '16rem',
     sidebarSlimWidth: '6rem',
+    enlargeTopbarLogo: false
 }
