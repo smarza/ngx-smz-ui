@@ -29,7 +29,7 @@ export const defaultSmzLayoutsConfig: SmzLayoutsConfig = {
     },
     themes: {
         content: SmzContentTheme.TAILWIND_LIGHT,
-        schema: ColorSchemaDefinition.CONVERSOR
+        schema: ColorSchemaDefinition.BASE
     },
     loader: {
         type: SmzLoader.CUBE,
