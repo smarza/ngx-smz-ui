@@ -13,8 +13,9 @@
     min-width: 230px;
     max-width: 500px;
     height: 80px;
-    background: white;
+    background: var(--surface-card);
     border-radius: 60px;
+    border: 1px solid var(--surface-ground);
     box-shadow: 0 6.2px 4.5px rgba(0, 0, 0, 0.023), 0 14.4px 10.6px rgba(0, 0, 0, 0.034),
         0 25.8px 19px rgba(0, 0, 0, 0.041), 0 42.9px 31.5px rgba(0, 0, 0, 0.049), 0 70.6px 51.8px rgba(0, 0, 0, 0.056),
         0 123.4px 90.6px rgba(0, 0, 0, 0.067), 0 267px 196px rgba(0, 0, 0, 0.09);
@@ -37,7 +38,7 @@
     --aspect-ratio: 1/1;
     height: 60px;
     width: 60px;
-    background: var(--primary-color-loading-bg);
+    background: var(--primary-color);
     border-radius: 60px;
 }
 
@@ -45,24 +46,19 @@
 
     h3 {
         font-size: 18px;
-        color: #424242;
+        color: var(--text-color);
         margin-top: 16px;
         margin-bottom: 0;
     }
 
     p {
-        color: #424242;
+        color: var(--text-color);
         margin: 0px;
         font-size: 12px;
         line-height: 15px;
         margin-top: 2px;
     }
 }
-
-
-
-
-
 
 
 .sk-cube-grid {
@@ -75,7 +71,7 @@
   .sk-cube-grid .sk-cube {
     width: 33%;
     height: 33%;
-    background-color: var(--primary-color-loading);
+    background-color: var(--surface-card);
     float: left;
     -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
             animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;

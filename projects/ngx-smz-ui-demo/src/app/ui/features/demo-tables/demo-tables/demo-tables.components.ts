@@ -31,6 +31,7 @@ export class DemoTablesComponent implements OnInit {
     // this.setupPaginationPersistence();
 
     this.emptyTableState = {
+      rowExpansion: null,
       emptyFeedback: {
         message: 'No itens to display',
         extraInfo: 'The database is empty, if you like, you could use the button bellow to start creating new items',
@@ -161,6 +162,7 @@ export class DemoTablesComponent implements OnInit {
   public setupTableWithObject(): void {
 
     this.tableState = {
+      rowExpansion: null,
       actions: {
         customActions: {
           isVisible: true,
