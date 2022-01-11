@@ -203,6 +203,7 @@ body a {
 .layout-wrapper .topbar {
   background-color: var(--surface-card);
   padding: 10px calc(var(--layout-topbar-height) / 2);
+  padding-bottom: 2px;
   height: var(--layout-topbar-height);
   box-sizing: border-box;
   position: fixed;
@@ -219,7 +220,7 @@ body a {
   width: var(--layout-topbar-height);
   text-align: center;
   margin-left: 30px;
-  color: var(--primary-color-text);
+  color: var(--text-color-secondary);
   -moz-transition: background-color 0.3s;
   -o-transition: background-color 0.3s;
   -webkit-transition: background-color 0.3s;
@@ -245,7 +246,7 @@ body a {
   font-size: 14px;
   background: rgba(0, 0, 0, 0.15);
   outline: 0 none;
-  color: var(--primary-color-text);
+  color: var(--text-color-secondary);
   width: 175px;
   padding: 4px 20px 4px 8px;
   margin: 0px;
@@ -254,7 +255,7 @@ body a {
   border-radius: 2px;
 }
 .layout-wrapper .topbar .topbar-search input::-webkit-input-placeholder {
-  color: var(--primary-color-text);
+  color: var(--text-color-secondary);
   opacity: 0.7;
   -moz-transition: opacity 0.3s;
   -o-transition: opacity 0.3s;
@@ -262,7 +263,7 @@ body a {
   transition: opacity 0.3s;
 }
 .layout-wrapper .topbar .topbar-search input:-moz-placeholder {
-  color: var(--primary-color-text);
+  color: var(--text-color-secondary);
   opacity: 0.7;
   -moz-transition: opacity 0.3s;
   -o-transition: opacity 0.3s;
@@ -270,7 +271,7 @@ body a {
   transition: opacity 0.3s;
 }
 .layout-wrapper .topbar .topbar-search input::-moz-placeholder {
-  color: var(--primary-color-text);
+  color: var(--text-color-secondary);
   opacity: 0.7;
   -moz-transition: opacity 0.3s;
   -o-transition: opacity 0.3s;
@@ -278,7 +279,7 @@ body a {
   transition: opacity 0.3s;
 }
 .layout-wrapper .topbar .topbar-search input:-ms-input-placeholder {
-  color: var(--primary-color-text);
+  color: var(--text-color-secondary);
   opacity: 0.7;
   -moz-transition: opacity 0.3s;
   -o-transition: opacity 0.3s;
@@ -290,12 +291,13 @@ body a {
   position: absolute;
   top: 4px;
   right: 5px;
-  color: var(--primary-color-text);
+  color: var(--text-color-secondary);
 }
 .layout-wrapper .topbar .topbar-logo {
-  height: 100%;
+  // height: 100%;
   width: 185px;
   display: inline-block;
+  padding: 0.5em 0em;
 }
 .layout-wrapper .topbar .topbar-logo .logo {
   height: calc(var(--layout-topbar-height) * 0.6);
@@ -323,17 +325,17 @@ body a {
 .layout-wrapper .topbar .profile .profile-icon-menu {
   font-size: 2em;
   margin-top: 0px;
-  color: var(--primary-color-text);
+  color: var(--text-color-secondary);
 }
 .layout-wrapper .topbar .profile .username {
   vertical-align: middle;
   margin-right: 8px;
-  color: var(--primary-color-text);
+  color: var(--text-color-secondary);
 }
 .layout-wrapper .topbar .profile .profile-submenu-icon {
   font-size: 16px;
   vertical-align: middle;
-  color: var(--primary-color-text);
+  color: var(--text-color-secondary);
 }
 .layout-wrapper .topbar .topbar-menu {
   display: none;
@@ -356,7 +358,7 @@ body a {
   display: block;
 }
 .layout-wrapper .topbar .topbar-menu > li a {
-  color: var(--primary-color-text);
+  color: var(--text-color-secondary);
   padding: 10px 16px;
   display: block;
 }
@@ -494,7 +496,7 @@ body a {
   display: inline-block;
   vertical-align: middle;
   text-align: center;
-  color: var(--primary-color-text);
+  color: var(--text-color-secondary);
   font-size: 12px;
   float: right;
   position: relative;
@@ -539,7 +541,7 @@ body a {
   padding: 6px 8px;
   font-weight: 700;
   background-color: var(--primary-color);
-  color: var(--primary-color-text);
+  color: var(--text-color-secondary);
   min-width: 75px;
   white-space: nowrap;
   text-align: center;
@@ -626,7 +628,7 @@ body a {
 }
 .layout-wrapper .layout-content .layout-breadcrumb .layout-breadcrumb-options a:hover {
   background-color: var(--primary-color);
-  color: var(--primary-color-text);
+  color: var(--text-color-secondary);
 }
 .layout-wrapper .layout-content .layout-breadcrumb .layout-breadcrumb-options a i {
   font-size: 18px;
@@ -1082,7 +1084,7 @@ body a {
     box-shadow: 0 2px 4px 0px rgba(0, 0, 0, 0.3);
     -webkit-box-shadow: 0 2px 4px 0px rgba(0, 0, 0, 0.3);
     -moz-box-shadow: 0 1px 2px 4px rgba(0, 0, 0, 0.3);
-    padding: 10px calc(var(--layout-topbar-height) / 4);
+    padding: 3px 15px calc(var(--layout-topbar-height) / 4);
   }
   .layout-wrapper .topbar .profile .username {
     display: none;
@@ -1314,7 +1316,7 @@ body a {
 }
 .dashboard .overview-box h1 {
   font-size: 12px;
-  color: var(--primary-color-text);
+  color: var(--text-color-secondary);
   margin: 0;
 }
 .dashboard .overview-box img {
@@ -1325,13 +1327,13 @@ body a {
 .dashboard .overview-box .overview-value {
   font-size: 20px;
   font-weight: 700;
-  color: var(--primary-color-text);
+  color: var(--text-color-secondary);
 }
 .dashboard .overview-box .overview-ratio {
   position: absolute;
   right: 15px;
   top: 15px;
-  color: var(--primary-color-text);
+  color: var(--text-color-secondary);
 }
 .dashboard .overview-box .overview-ratio .overview-direction {
   display: inline-block;
@@ -1534,7 +1536,7 @@ body a {
 }
 .dashboard .chat ul li.message-from span {
   background-color: var(--primary-color);
-  color: var(--primary-color-text);
+  color: var(--text-color-secondary);
 }
 .dashboard .chat ul li.message-own img,
 .dashboard .chat ul li.message-own span {
@@ -1893,7 +1895,7 @@ body a {
   line-height: 52px;
   background-color: var(--primary-color);
   text-align: center;
-  color: var(--primary-color-text);
+  color: var(--text-color-secondary);
   top: 230px;
   left: -52px;
   z-index: -1;
@@ -1923,7 +1925,7 @@ body a {
   transition: background-color 0.3s;
 }
 .layout-config .layout-config-close i {
-  color: var(--primary-color-text);
+  color: var(--text-color-secondary);
   line-height: inherit;
   font-size: 12px;
 }
@@ -1957,7 +1959,7 @@ body a {
 .layout-config .layout-config-content .layout-themes a i {
   font-size: 1rem;
   position: absolute;
-  color: var(--primary-color-text);
+  color: var(--text-color-secondary);
   top: 50%;
   left: 50%;
   margin-left: -0.5rem;
@@ -2181,7 +2183,7 @@ p:last-child {
 }
 .widget-overview-box h1 {
   font-size: 12px;
-  color: var(--primary-color-text);
+  color: var(--text-color-secondary);
   margin: 0;
 }
 .widget-overview-box img {
@@ -2192,13 +2194,13 @@ p:last-child {
 .widget-overview-box .overview-value {
   font-size: 20px;
   font-weight: 700;
-  color: var(--primary-color-text);
+  color: var(--text-color-secondary);
 }
 .widget-overview-box .overview-ratio {
   position: absolute;
   right: 15px;
   top: 15px;
-  color: var(--primary-color-text);
+  color: var(--text-color-secondary);
 }
 .widget-overview-box .overview-ratio .overview-direction {
   display: inline-block;
@@ -2634,7 +2636,7 @@ p:last-child {
 .widget-chat ul li.message-from div {
   order: 2;
   background-color: var(--primary-color);
-  color: var(--primary-color-text);
+  color: var(--text-color-secondary);
   border: solid 1px var(--primary-color);
 }
 .widget-chat ul li.message-own {
@@ -2647,7 +2649,7 @@ p:last-child {
 .widget-chat ul li.message-own div {
   order: 1;
   background-color: #6ebc3b;
-  color: var(--primary-color-text);
+  color: var(--text-color-secondary);
   border: solid 1px #6ebc3b;
 }
 .widget-chat .new-message {
@@ -2702,7 +2704,7 @@ p:last-child {
   -webkit-border-radius: 50px;
   border-radius: 50px;
   background-color: var(--primary-color);
-  color: var(--primary-color-text);
+  color: var(--text-color-secondary);
   width: 100px;
   height: 100px;
   margin: 30px auto;
@@ -2711,10 +2713,10 @@ p:last-child {
 }
 .widget-pricing-box:hover {
   background-color: var(--primary-color);
-  color: var(--primary-color-text);
+  color: var(--text-color-secondary);
 }
 .widget-pricing-box:hover p {
-  color: var(--primary-color-text);
+  color: var(--text-color-secondary);
 }
 .widget-pricing-box:hover .pricing-fee {
   background-color: #eaeeef;

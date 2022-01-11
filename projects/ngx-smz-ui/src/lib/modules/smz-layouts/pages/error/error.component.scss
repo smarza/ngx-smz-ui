@@ -37,7 +37,7 @@
 
 .exception-label-error {
   font-size: 5em;
-  color: #212121;
+  color: var(--text-color-secondary);
   padding: 0;
 }
 
@@ -49,17 +49,17 @@
   padding: 0;
 
   &.exception-light {
-      border-bottom: 4px #ffffff solid;
+      border-bottom: 4px var(--primary-color) solid;
   }
 }
 
 .exception-label-message {
   font-size: 1.4em;
-  color: #616161;
+  color: var(--primary-color);
   margin-bottom: 2em;
   padding: 0;
 }
 
 .exception-light {
-  color: #ffffff;
+  color: var(--primary-color);
 }

@@ -1,6 +1,6 @@
 .notification {
   font-weight: 700;
-  color: var(--primary-color-text);
+  color: var(--text-color-secondary);
   margin-left: 1rem;
   position: relative;
 
@@ -25,7 +25,7 @@
   font-size: 0.714rem;
   border-radius: 50%;
   font-weight: 600;
-  background: var(--primary-color-text);
+  background: var(--text-color-secondary);
   color: var(--primary-color);
   text-align: center;
 }
