@@ -1,10 +1,7 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { SmzDialogsService, SmzFilterType, SmzTableBuilder, SmzTableState } from 'ngx-smz-ui';
+import { SmzDialogsService, SignalRSelectors, SmzTableBuilder, SmzTableState, SignalRActions, SendSignalRData, SignalRConfig, SignalRConnection } from 'ngx-smz-ui';
 import { Observable } from 'rxjs';
-import { SendSignalRData, SignalRConfig, SignalRConnection } from '@states/signalr/signalr';
-import { SignalRActions } from '@states/signalr/signalr.actions';
-import { SignalRSelectors } from '@states/signalr/signalr.selectors';
 import { ChatFile } from '../../models/chat';
 
 @Component({

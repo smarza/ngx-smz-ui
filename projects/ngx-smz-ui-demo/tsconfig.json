@@ -23,7 +23,7 @@
       ],
       "@components/*": ["src/app/ui/components/*"],
       "@demos/*": ["src/app/demos/*"],
-      "@enviroment": ["src/environments/environment"],
+      "@environments/*": ["src/environments/*"],
       "@features/*": ["src/app/ui/features/*"],
       "@models/*": ["src/app/models/*"],
       "@pipes/*": ["src/app/ui/pipes/*"],

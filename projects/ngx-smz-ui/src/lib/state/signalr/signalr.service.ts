@@ -4,10 +4,10 @@ import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr';
 import { cloneDeep } from 'lodash-es';
 import { from, Observable, of } from 'rxjs';
 import { SendSignalRData, SignalRConfig } from './signalr';
+import { environment } from '@environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class SignalRService {
-  public serverApi = 'https://localhost:7229';
   public hubs: { config: SignalRConfig, connection: HubConnection, listeners: string[] }[] = [];
 
   constructor() {
@@ -21,7 +21,7 @@ export class SignalRService {
 
     const newConnection = new HubConnectionBuilder()
       .configureLogging(signalR.LogLevel.Debug)
-      .withUrl(`${this.serverApi}/${config.hub}`, {
+      .withUrl(`${environment.serverUrl}/${config.hub}`, {
         skipNegotiation: true,
         transport: signalR.HttpTransportType.WebSockets
       })

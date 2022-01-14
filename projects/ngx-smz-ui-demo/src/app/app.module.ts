@@ -15,7 +15,7 @@ import { smzDialogsConfig } from '../globals/smz-config';
 import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { smzFaqsConfig } from '../globals/smz-faqs.config';
-import { environment } from '@enviroment';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [

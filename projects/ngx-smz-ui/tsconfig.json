@@ -25,6 +25,9 @@
       "dom",
       "es2018"
     ],
+    "paths": {
+      "@environments/*": ["projects/ngx-smz-ui/src/lib/environments/*"],
+    }
   },
   "angularCompilerOptions": {
     "compilationMode": "partial",

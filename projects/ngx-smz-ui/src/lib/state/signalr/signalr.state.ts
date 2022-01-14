@@ -30,7 +30,6 @@ export class SignalRState {
   public onConnect$(ctx: StateContext<SignalRStateModel>, action: SignalRActions.Connect): Observable<void> {
     return this.service.newConnection(action.data).pipe(
       tap((test) => {
-        console.log('   tap', test, action.data);
 
         const payloads = cloneDeep(ctx.getState().payloads);
         const key = `${action.data.hub}/${action.data.method}`;

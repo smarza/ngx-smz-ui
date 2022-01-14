@@ -1,10 +1,7 @@
 import { Component } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
-import { SmzDialogsService, SmzTableBuilder, SmzTableState } from 'ngx-smz-ui';
-import { SignalRSelectors } from '../../../state/signalr/signalr.selectors';
+import { SmzDialogsService, SmzTableBuilder, SmzTableState, SignalRConfig, SignalRConnection, SignalRActions, SignalRSelectors } from 'ngx-smz-ui';
 import { Observable } from 'rxjs';
-import { SignalRConfig, SignalRConnection } from '@states/signalr/signalr';
-import { SignalRActions } from '@states/signalr/signalr.actions';
 
 export interface Chat {
   user: string;

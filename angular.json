@@ -12,12 +12,12 @@
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "tsConfig": "projects/ngx-smz-ui/tsconfig.lib.json",
+            "tsConfig": "projects/ngx-smz-ui/tsconfig.json",
             "project": "projects/ngx-smz-ui/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/ngx-smz-ui/tsconfig.lib.prod.json"
+              "tsConfig": "projects/ngx-smz-ui/tsconfig.prod.json"
             }
           }
         },
@@ -25,7 +25,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/ngx-smz-ui/tsconfig.lib.json"
+              "projects/ngx-smz-ui/tsconfig.json"
             ],
             "exclude": [
               "**/node_modules/**"

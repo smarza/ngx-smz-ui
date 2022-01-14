@@ -1,4 +1,3 @@
-import { DemoCreationData, DemoItem, DemoUpdateData } from '../../models/demo';
 import { SendSignalRData, SignalRConfig } from './signalr';
 
 export namespace SignalRActions {
