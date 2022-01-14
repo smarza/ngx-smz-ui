@@ -9,6 +9,7 @@ import { ShopsDbName, ShopsDbState, getInitialState as getDbShopsInitialState } 
 import { ShopsDbActions } from '../app/state/database/shops/shops.actions';
 import { Store } from '@ngxs/store';
 import { Navigate } from '@ngxs/router-plugin';
+import { getInitialSignalRState, SignalRState, SIGNALR_STATE_NAME } from '../app/state/signalr/signalr.state';
 
 // ------------------------------------------
 // DATABASE STATES
@@ -109,6 +110,10 @@ export const rbkConfig: NgxRbkUtilsConfig = {
             [DemoFeatureName]: {
                 state: DemoFeatureState,
                 clearFunction: getFtDemoInitialState
+            },
+            [SIGNALR_STATE_NAME]: {
+                state: SignalRState,
+                clearFunction: getInitialSignalRState
             },
         },
     },

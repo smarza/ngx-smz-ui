@@ -1,0 +1,17 @@
+<div class="w-full">
+
+  <ng-container *ngIf="connection$ | async as connection">
+
+    <ng-container *ngIf="connection.data != null">
+
+      <smz-ui-table [items]="connection.data" [state]="table">
+        <ng-template pTemplate="caption" let-primeTable>
+          <button pButton type="button" label="Send" class="p-button-secondary" icon="fas fa-sync" (click)="send()" class="mr-2"></button>
+        </ng-template>
+      </smz-ui-table>
+
+    </ng-container>
+
+  </ng-container>
+
+</div>

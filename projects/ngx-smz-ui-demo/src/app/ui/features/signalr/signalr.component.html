@@ -1,0 +1,32 @@
+<div class="grid grid-nogutter items-start justify-start h-full flex-col gap-3">
+
+  <ng-container *ngIf="connections$ | async as connections">
+
+    <smz-ui-table class="col-12" [items]="connections" [state]="table">
+      <ng-template pTemplate="caption" let-primeTable>
+
+        <ng-container *ngIf="messagesConnection$ | async; else connectMessages"></ng-container>
+
+        <ng-template #connectMessages>
+          <button pButton type="button" label="Connect to Messages" class="p-button-secondary" icon="fas fa-sync" (click)="connectToMessages()" class="mr-2"></button>
+        </ng-template>
+
+        <ng-container *ngIf="filesConnection$ | async; else connectFiles"></ng-container>
+
+        <ng-template #connectFiles>
+          <button pButton type="button" label="Connect to Files" class="p-button-secondary" icon="fas fa-sync" (click)="connectToFiles()" class="mr-2"></button>
+        </ng-template>
+
+        <button *ngIf="connections.length > 0" pButton type="button" label="Disconnect All" class="p-button-danger" icon="fas fa-sync" (click)="closeHub()" class="mr-2"></button>
+
+      </ng-template>
+    </smz-ui-table>
+
+  </ng-container>
+
+  <div class="col-12 grid grid-nogutter items-start justify-start flex-gap-2">
+    <app-signalr-messages class="col-6"></app-signalr-messages>
+    <app-signalr-files class="col-6"></app-signalr-files>
+  </div>
+
+</div>
