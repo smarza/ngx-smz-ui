@@ -2,8 +2,8 @@ module.exports = {
   prefix: '',
   important: true,
   content: [
-      './src/**/*.{html,ts}',
-      'dist/ngx-smz-ui/**/*.{html,ts,js,mjs}'
+      'projects/ngx-smz-ui-demo/src/**/*.{html,ts,tsx,js,jsx,mjs}',
+      'dist/ngx-smz-ui/**/*.{html,ts,tsx,js,jsx,mjs}'
   ],
   theme: {
     extend: {},

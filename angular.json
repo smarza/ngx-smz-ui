@@ -80,7 +80,10 @@
               "node_modules/highlight.js/styles/vs2015.css",
               "projects/ngx-smz-ui-overview/src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/@svgdotjs/svg.js/dist/svg.min.js",
+              "node_modules/@svgdotjs/svg.panzoom.js/dist/svg.panzoom.min.js"
+            ]
           },
           "configurations": {
             "development": {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import * as signalR from '@aspnet/signalr';
-import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr';
+import * as signalR from '@microsoft/signalr';
+import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { cloneDeep } from 'lodash-es';
 import { from, Observable, of } from 'rxjs';
 import { SendSignalRData, SignalRConfig } from './signalr';
@@ -21,10 +21,9 @@ export class SignalRService {
 
     const newConnection = new HubConnectionBuilder()
       .configureLogging(signalR.LogLevel.Debug)
-      .withUrl(`${environment.serverUrl}/${config.hub}`, {
-        skipNegotiation: true,
-        transport: signalR.HttpTransportType.WebSockets
-      })
+      .withUrl(`${environment.serverUrl}/${config.hub}`, { skipNegotiation: true, transport: signalR.HttpTransportType.WebSockets})
+      // .withUrl(`https://localhost:7229/${config.hub}`, { skipNegotiation: true, transport: signalR.HttpTransportType.WebSockets})
+      .withAutomaticReconnect(config.retryDelays)
       .build();
 
     this.hubs.push({ config, connection: newConnection, listeners: [] });

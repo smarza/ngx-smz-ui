@@ -10,7 +10,7 @@ import { ChatFile } from '../../models/chat';
 })
 export class FilesComponent
 {
-  public config: SignalRConfig = { hub: 'chatHub', method: 'SendFile', dataBehavior: 'accumulate' };
+  public config: SignalRConfig = { hub: 'chatHub', method: 'SendFile', dataBehavior: 'accumulate', retryDelays: [0, 10000, 30000, 60000, 60000] };
   public connection$: Observable<SignalRConnection<ChatFile[]>>;
   public table: SmzTableState = this.setupTable();
 

@@ -15,8 +15,8 @@ export interface Chat {
 export class SignalRComponent
 {
   @Select(SignalRSelectors.connections) public connections$: Observable<SignalRConfig[]>;
-  public messagesConfig: SignalRConfig = { hub: 'chatHub', method: 'SendMessage', dataBehavior: 'accumulate' };
-  public filesConfig: SignalRConfig = { hub: 'chatHub', method: 'SendFile', dataBehavior: 'accumulate' };
+  public messagesConfig: SignalRConfig = { hub: 'chatHub', method: 'SendMessage', dataBehavior: 'accumulate', retryDelays: [0, 10000, 30000, 60000, 60000] };
+  public filesConfig: SignalRConfig = { hub: 'chatHub', method: 'SendFile', dataBehavior: 'accumulate', retryDelays: [0, 10000, 30000, 60000, 60000] };
   public messagesConnection$: Observable<SignalRConnection<unknown>>;
   public filesConnection$: Observable<SignalRConnection<unknown>>;
   public table: SmzTableState = this.setupTable();
