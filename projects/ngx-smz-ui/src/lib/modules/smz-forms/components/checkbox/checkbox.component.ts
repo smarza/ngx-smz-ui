@@ -8,6 +8,7 @@ import { SmzFormsVisibilityService } from '../../services/smz-forms-visibility.s
 @Component({
     selector: 'smz-checkbox',
     templateUrl: './checkbox.component.html',
+    host: { class: 'grid grid-nogutter' }
 })
 export class CheckBoxComponent implements OnInit
 {

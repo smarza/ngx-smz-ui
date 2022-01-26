@@ -9,7 +9,7 @@ import { SpeedSeries } from '../data/charts/speed-series';
 
 export const ChartsDemo: { [key: string]: () => void } = {
   //
-  [DemoKeys.CHARTS_VERTICAL_BAR]: () => {
+  [DemoKeys.CHARTS_FROM_MODEL]: () => {
     return { model: VERTICAL_BAR, cSharp: VERTICAL_BAR_CSHARP }
   },
   //

@@ -6,6 +6,7 @@ import { SmzSwitchControl } from '../../models/control-types';
 @Component({
     selector: 'smz-input-switch',
     templateUrl: './input-switch.component.html',
+    host: { class: 'grid grid-nogutter' }
 })
 export class InputSwitchComponent
 {

@@ -5,7 +5,8 @@ import { SmzRadioControl } from '../../models/control-types';
 
 @Component({
     selector: 'smz-radio-button',
-    templateUrl: './radio-button.component.html'
+    templateUrl: './radio-button.component.html',
+    host: { class: 'grid grid-nogutter' }
 })
 export class RadioButtonComponent
 {

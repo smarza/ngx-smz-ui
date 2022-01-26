@@ -20,29 +20,32 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
   @Input() public inlineStyle = '';
   @Input() public appendTo = 'body';
 
-    // Evento emitido quando um nó da árvore é selecionado ou é clicado com o botão direito do mouse
-    @Output() public selectionChange = new EventEmitter<SmzTreeNode>();
+  // Evento emitido quando o array de nodes selecionados é atualizado
+  @Output() public selectedNodes = new EventEmitter<SmzTreeNode>();
 
-    // Evento emitido quando um nó é movido para outro pai
-    @Output() public parentChange = new EventEmitter<{ parentNode: SmzTreeNode, node: SmzTreeNode, event: any }>();
+  // Evento emitido quando um nó da árvore é selecionado ou é clicado com o botão direito do mouse
+  @Output() public selectionChange = new EventEmitter<SmzTreeNode>();
 
-    // Evento emitido quando um nó é reordenado dentro do mesmo pai
-    @Output() public reorder = new EventEmitter<{ parentNode: SmzTreeNode, node: SmzTreeNode, childrenIds: string[], event: any }>();
+  // Evento emitido quando um nó é movido para outro pai
+  @Output() public parentChange = new EventEmitter<{ parentNode: SmzTreeNode, node: SmzTreeNode, event: any }>();
 
-    // Evento emitido quando uma operação de arrastar não é permitida
-    @Output() public blockedDrop = new EventEmitter<{ blockedEvent: SmzTreeDragEvent }>();
+  // Evento emitido quando um nó é reordenado dentro do mesmo pai
+  @Output() public reorder = new EventEmitter<{ parentNode: SmzTreeNode, node: SmzTreeNode, childrenIds: string[], event: any }>();
 
-    // Evento emitido quando um nó é expandido
-    @Output() public nodeExpanded = new EventEmitter<{ node: SmzTreeNode }>();
+  // Evento emitido quando uma operação de arrastar não é permitida
+  @Output() public blockedDrop = new EventEmitter<{ blockedEvent: SmzTreeDragEvent }>();
 
-    // Evento emitido quando um nó é colapsado
-    @Output() public nodeCollapsed = new EventEmitter<{ node: SmzTreeNode }>();
+  // Evento emitido quando um nó é expandido
+  @Output() public nodeExpanded = new EventEmitter<{ node: SmzTreeNode }>();
 
-    // Evento emitido quando toda a árvore é expandida
-    @Output() public treeExpanded = new EventEmitter();
+  // Evento emitido quando um nó é colapsado
+  @Output() public nodeCollapsed = new EventEmitter<{ node: SmzTreeNode }>();
 
-    // Evento emitido quando toda a árvore é colapsada
-    @Output() public nodeDropped = new EventEmitter<SmzTreeDragResult>();
+  // Evento emitido quando toda a árvore é expandida
+  @Output() public treeExpanded = new EventEmitter();
+
+  // Evento emitido quando toda a árvore é colapsada
+  @Output() public nodeDropped = new EventEmitter<SmzTreeDragResult>();
   public headerTemplate: TemplateRef<any>;
   public footerTemplate: TemplateRef<any>;
   public toolbarTemplate: TemplateRef<any>;
@@ -140,20 +143,12 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
     // }
   }
 
-
-
-
-
-
-
-
-
-
   public onUnselected(event: { originalEvent: MouseEvent, node: SmzTreeNode }): void {
-
+    this.selectedNodes.emit(this.selection);
   }
 
   public onSelected(event: { originalEvent: MouseEvent, node: SmzTreeNode }): void {
+    this.selectedNodes.emit(this.selection);
     this.selectionChange.emit(event.node);
     if (!event.node.expanded) {
       event.node.expanded = true;

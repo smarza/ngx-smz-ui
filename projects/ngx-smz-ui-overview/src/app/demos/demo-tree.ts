@@ -15,6 +15,12 @@ export const TreeDemoData: DemoTreeNode[] = [
     type: 'Category',
     children: [
       {
+        label: 'From model', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'chart',
+        notes: '',
+        data: ChartsDemo[DemoKeys.CHARTS_FROM_MODEL]
+      },
+      {
         label: 'Combo', icon: 'fas fa-code', type: 'Demo',
         demoType: 'chart',
         notes: '',
