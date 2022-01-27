@@ -19,6 +19,7 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
   @Input() public styleClass = '';
   @Input() public inlineStyle = '';
   @Input() public appendTo = 'body';
+  @Input() public selection: SmzTreeNode;
 
   // Evento emitido quando o array de nodes selecionados é atualizado
   @Output() public selectedNodes = new EventEmitter<SmzTreeNode>();
@@ -54,10 +55,6 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
   public selectedItems: SmzTreeNode[];
   public documentClickListener = null;
   public menuItems: MenuItem[] = null;
-
-  public selection: SmzTreeNode;
-
-
 
   // -- Drag and drop variables
 
