@@ -1,6 +1,7 @@
 <div [ngClass]="{ 'invisible fixed': type == null || type === 'empty' }"
     [style.width]="responsive && !width ? null : width"
-    [style.height]="responsive && !height ? null : height">
+    [style.height]="responsive && !height ? null : height"
+    class="{{styleClass}}">
     <canvas [attr.width]="responsive && !width ? null : width"
             [attr.height]="responsive && !height ? null : height">
     </canvas>
