@@ -87,7 +87,7 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
     items$: of(convertorTasks),
     code: () => {
     return new SmzTableBuilder()
-      .setTitle('Tarefas')
+      .setTitle('Array Filter Demo')
       .enableClearFilters()
       .enableColumnVisibility()
       .enableGlobalFilter()

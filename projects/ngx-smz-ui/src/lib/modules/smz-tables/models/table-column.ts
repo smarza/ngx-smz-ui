@@ -51,6 +51,10 @@ export interface SmzTableColumn {
      */
     type: SmzContentType;
     /**
+     * Styles Classes that will be inserted in the main div of the cell
+     */
+     styleClass: string;
+    /**
      * Extra data needed for the selected content type
      */
     data?: SmzContentTypes;

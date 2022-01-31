@@ -31,7 +31,7 @@ export class SmzTableContextPipe implements PipeTransform {
       const contextColumn: SmzTableContextColumn = {
         ...column,
         width,
-        content: column.content ?? { type: SmzContentType.TEXT, data: { } },
+        content: column.content ?? { type: SmzContentType.TEXT, styleClass: '', data: { } },
         filter: column.filter ?? { type: SmzFilterType.NONE, isGlobalFilterable: false }
       };
 
