@@ -88,6 +88,9 @@ export interface SmzTreeState {
     validateDrop?: boolean;
     configuration?: { dragType: string, dropType: string }[];
   }
+  content: {
+    sincronize: boolean;
+  }
 }
 
 export interface SmzTreeContext {

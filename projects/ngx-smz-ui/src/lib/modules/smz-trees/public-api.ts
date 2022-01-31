@@ -15,3 +15,6 @@ export * from './services/tree-helper.service';
 
 // UTILS
 export * from './utils/tree-helpers';
+
+// PIPES
+export * from './pipes/sincronize-tree.pipe';

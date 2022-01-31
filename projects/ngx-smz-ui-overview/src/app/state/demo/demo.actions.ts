@@ -7,6 +7,11 @@ export namespace DemoFeatureActions {
     constructor() {}
   }
 
+  export class LoadTree {
+    public static readonly type = '[DEMO] Load Tree';
+    constructor() {}
+  }
+
   export class Update {
     public static readonly type = '[DEMO] Update';
     constructor(public data: DemoUpdateData) {}

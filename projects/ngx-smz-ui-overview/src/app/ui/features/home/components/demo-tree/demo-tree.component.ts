@@ -5,6 +5,9 @@ import { TreeNode } from 'primeng/api/treenode';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { Select, Store } from '@ngxs/store';
+import { DemoFeatureSelectors } from '@states/demo/demo.selectors';
+import { DemoFeatureActions } from '@states/demo/demo.actions';
 
 @Component({
   selector: 'app-demo-tree',
@@ -29,12 +32,16 @@ import { map } from 'rxjs/operators';
 })
 
 export class DemoTreeComponent implements OnInit, OnChanges {
-  public items$: Observable<TreeNode[]>;
+  @Select(DemoFeatureSelectors.tree) public items$: Observable<TreeNode[]>;
   @Input() public node: DemoTreeNode
   public state: SmzTreeState;
 
-  constructor(private http: HttpClient) {
-    this.items$ = this.http.get<{data: TreeNode[]}>('assets/files.json').pipe(map(x => x.data));
+  constructor(private store: Store) {
+    this.store.dispatch(new DemoFeatureActions.LoadTree());
+
+    // setTimeout(() => {
+    //   store.dispatch(new DemoFeatureActions.LoadTree());
+    // }, 6000);
   }
 
   ngOnInit() {

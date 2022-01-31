@@ -61,6 +61,9 @@ export class SmzTreeBuilder {
       mode: 'single',
       propagateDown: true,
       propagateUp: true
+    },
+    content: {
+      sincronize: false
     }
   };
   constructor() {
@@ -114,6 +117,11 @@ export class SmzTreeBuilder {
 
   public setFilterPlaceholder(text: string): SmzTreeBuilder {
     this._state.filter.textPlaceholder = text;
+    return this;
+  }
+
+  public useSincronization(): SmzTreeBuilder {
+    this._state.content.sincronize = true;
     return this;
   }
 

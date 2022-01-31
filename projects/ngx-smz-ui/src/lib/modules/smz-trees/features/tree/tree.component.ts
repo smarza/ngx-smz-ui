@@ -4,6 +4,7 @@ import { SmzTreeDragEvent, SmzTreeDragResult } from '../../models/drag-and-drop'
 import { SmzTreeMenuItem } from '../../models/tree-menu-item';
 import { SmzTreeNode } from '../../models/tree-node';
 import { SmzTreeContext, SmzTreeState } from '../../models/tree-state';
+import { uuidv4 } from '../../../../common/utils/utils';
 
 @Component({
   selector: 'smz-ui-tree',
@@ -12,6 +13,7 @@ import { SmzTreeContext, SmzTreeState } from '../../models/tree-state';
   providers: [TreeDragDropService]
 })
 export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
+  public treeKey = uuidv4();
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
   @Input() public state: SmzTreeState;
   @Input() public items: SmzTreeNode[] = [];
