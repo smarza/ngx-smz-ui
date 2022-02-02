@@ -6,6 +6,7 @@ import { SmzThemeManagerModule } from '../theme-manager/theme-manager.module';
 import { GlobalLoaderModule } from '../global-loader/global-loader.module';
 import { ToastModule } from 'primeng/toast';
 import { NgxSmzDockModule } from '../../../smz-dock/smz-dock.module';
+import { NgxSmzUiBlockModule } from '../../../smz-ui-block/smz-ui-block.module';
 
 @NgModule({
   declarations: [OutletComponent],
@@ -15,7 +16,8 @@ import { NgxSmzDockModule } from '../../../smz-dock/smz-dock.module';
     SmzThemeManagerModule,
     GlobalLoaderModule,
     ToastModule,
-    NgxSmzDockModule
+    NgxSmzDockModule,
+    NgxSmzUiBlockModule
   ],
   exports: [OutletComponent]
 })

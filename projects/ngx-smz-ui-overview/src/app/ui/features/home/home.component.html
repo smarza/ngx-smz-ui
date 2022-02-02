@@ -1,9 +1,13 @@
+<!-- <button type="button" pButton pRipple label="Block" (click)="uiBlockService.blockAll()"></button>
+<button type="button" pButton pRipple label="Unblock" (click)="uiBlockService.unBlockAll()"></button> -->
+
 <div class="grid grid-nogutter items-start justify-start h-full">
 
   <!-- TREE -->
   <div class="h-full col-12 lg:col-4 p-2">
+
     <div class="h-full w-full rounded shadow-md p-3">
-      <div class="h-full">
+      <div smzUiBlock #treeContainer [component]="treeContainer" class="h-full">
         <smz-ui-tree [items]="items" [state]="treeState" (selectionChange)="selectionChanged($event)"></smz-ui-tree>
       </div>
     </div>
@@ -11,7 +15,7 @@
 
   <!-- DETAILS -->
   <div class="h-full col-12 lg:col-8 p-2">
-    <div class="h-full items-stretch flex-col grid justify-start grid-nogutter py-3 rounded shadow-md w-full overflow-y-auto">
+    <div smzUiBlock #tabContainer [component]="tabContainer" class="h-full items-stretch flex-col grid justify-start grid-nogutter py-3 rounded shadow-md w-full overflow-y-auto">
       <p-tabView [(activeIndex)]="selectedTabIndex">
 
         <p-tabPanel header="Exemplo" [disabled]="selectedNode == null">

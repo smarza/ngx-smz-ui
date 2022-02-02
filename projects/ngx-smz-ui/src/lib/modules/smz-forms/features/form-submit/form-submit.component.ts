@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { SmzUiBlockService } from '../../../smz-ui-block/smz-ui-block.service';
 import { SmzFormsResponse } from '../../models/smz-forms';
 import { FormGroupComponent } from '../form-group/form-group.component';
 
@@ -13,6 +14,7 @@ export class FormSubmitComponent implements OnInit, OnChanges, OnDestroy {
   @Output() public save: EventEmitter<any> = new EventEmitter<any>();
   public response: SmzFormsResponse<any>;
   public hook: Subscription;
+  constructor(private uiBlockService: SmzUiBlockService) {}
 
   public ngOnInit(): void { }
 
@@ -27,11 +29,22 @@ export class FormSubmitComponent implements OnInit, OnChanges, OnDestroy {
 
   public hookFormChanges(): void {
     setTimeout(() => {
-      this.hook = this.form.statusChanges.subscribe((event) => this.response = event);
+      this.hook = this.form.statusChanges.subscribe((event) => {
+        this.response = event;
+
+        if (event.hasUnsavedChanges) {
+          this.uiBlockService.blockAll();
+        }
+        else {
+          this.uiBlockService.unBlockAll();
+        }
+
+      });
     }, 0);
   }
 
   public dispose(): void {
+    this.uiBlockService.unBlockAll();
     this.hook?.unsubscribe();
   }
 

@@ -85,3 +85,6 @@ export * from './lib/builders/smz-documents/document-builder';
 export * from './lib/builders/smz-menu/menu-builder';
 export * from './lib/builders/smz-charts/public-api';
 export * from './lib/builders/smz-trees/tree-builder';
+
+
+export * from './lib/modules/smz-ui-block/public-api';
