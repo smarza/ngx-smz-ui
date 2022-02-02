@@ -8,6 +8,8 @@ export const FORMS_PATH = 'forms';
 export const COMPONENTS_PATH = 'components';
 export const MESSAGES_PATH = 'messages';
 export const HTMLS_PATH = 'htmls';
+export const SIGNALR_PATH = 'signalr';
+export const SVG_PATH = 'svg';
 
 
 // PAGES

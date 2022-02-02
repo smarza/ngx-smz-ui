@@ -5,6 +5,7 @@ import { GlobalInjector, SimpleNamedEntity, SmzFilterType, SmzTableBuilder } fro
 import { of } from 'rxjs';
 import { convertorTasks } from './../data/conversor-tasks';
 import { Observable } from 'rxjs/internal/Observable';
+import { DemoFeatureActions } from '@states/demo/demo.actions';
 
 const store = GlobalInjector.instance.get(Store);
 
@@ -17,6 +18,7 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
         .setTitle('Demo From Ui Definitions With Fluent')
         .enableClearFilters()
         .enableColumnVisibility()
+        .enableGlobalFilter()
         .setEmptyFeedbackMessage('Lista vazia')
         .setEmptyFeedbackExtraInfo('Clique abaixo para carregar novos dados.')
         .addEmptyFeedbackButton('Atualizar', () => console.log('---'))
@@ -40,6 +42,7 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
       .setTitle('Demo With Fluent')
       .enableClearFilters()
       .enableColumnVisibility()
+      .enableGlobalFilter()
       .setEmptyFeedbackMessage('Lista vazia')
       .setEmptyFeedbackExtraInfo('Clique abaixo para carregar novos dados.')
       .addEmptyFeedbackButton('Atualizar', () => console.log('---'))
@@ -54,7 +57,7 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
           .menu
         .table
       .columns()
-        .text('name', 'Name')
+        .text('name', 'Name', '40em')
           .disableFilter()
           .columns
         .text('country.name', 'Country')
@@ -84,9 +87,10 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
     items$: of(convertorTasks),
     code: () => {
     return new SmzTableBuilder()
-      .setTitle('Tarefas')
+      .setTitle('Array Filter Demo')
       .enableClearFilters()
       .enableColumnVisibility()
+      .enableGlobalFilter()
       .setEmptyFeedbackMessage('Lista vazia')
       .setEmptyFeedbackExtraInfo('Clique abaixo para carregar novos dados.')
       .usePagination()
@@ -146,6 +150,58 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
         .table
       .build()
     }
+  },
+  //
+  [DemoKeys.TABLE_ROW_EXPANSION]: {
+    items$: store.select(DemoFeatureSelectors.all),
+    code: () => {
+    return new SmzTableBuilder('entity')
+        .setTitle('Demo Row Expansion')
+        .enableClearFilters()
+        .enableColumnVisibility()
+        .enableGlobalFilter()
+        .setRowClickCallback((event) => { store.dispatch(new DemoFeatureActions.Create({name: 'test', company: 'test2', countryId: '3fb9838e-2f62-42a3-9ebc-09f236bc3c12'}));})
+        .setEmptyFeedbackMessage('Lista vazia')
+        .setEmptyFeedbackExtraInfo('Clique abaixo para carregar novos dados.')
+        .addEmptyFeedbackButton('Atualizar', () => console.log('---'))
+        .usePagination()
+        .setPaginationDefaultRows(50)
+        .setCustomInitialSorting({ field: 'number', order: -1 })
+        .useStrippedStyle()
+        .allowDefaultRowExpansion()
+        .menu()
+          .item('Consultar')
+            .setCallback((event: any) => console.log('---'))
+            .menu
+          .table
+      .build()
+  }
+  },
+  //
+  [DemoKeys.TABLE_DYNAMIC_MENU]: {
+    items$: store.select(DemoFeatureSelectors.all),
+    code: () => {
+    return new SmzTableBuilder('entity')
+        .setTitle('Demo Dynamic Menu')
+        .enableClearFilters()
+        .enableColumnVisibility()
+        .enableGlobalFilter()
+        .setEmptyFeedbackMessage('Lista vazia')
+        .setEmptyFeedbackExtraInfo('Clique abaixo para carregar novos dados.')
+        .addEmptyFeedbackButton('Atualizar', () => console.log('---'))
+        .usePagination()
+        .setPaginationDefaultRows(50)
+        .setCustomInitialSorting({ field: 'number', order: -1 })
+        .useStrippedStyle()
+        .allowDefaultRowExpansion()
+        .dynamicMenu((row: any) => {
+          return [
+            { label: 'Test 1', icon: 'fas fa-biohazard', command: (event) => console.log('test1', event) },
+            { label: 'Test 2', icon: 'fas fa-candy-cane', command: (event) => console.log('test2', event) },
+          ];
+        })
+      .build()
+  }
   },
 }
 

@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import * as moment_ from 'moment';
+import moment from 'moment';
 
-const moment = moment_;
+// const moment = moment_;
 
 @Pipe({
     name: 'smzInfoDate'

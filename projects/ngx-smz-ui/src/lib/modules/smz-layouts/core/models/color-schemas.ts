@@ -6,6 +6,7 @@ export enum ColorSchemaDefinition {
   E_LIBRA = 'e-libra',
   DIABLO = 'diablo',
   DEMO_PROJECT = 'demo-project',
+  BASE = 'base'
 }
 
 export interface ColorSchema {
@@ -18,6 +19,14 @@ export interface ColorSchema {
 }
 
 export const SmzColorSchemas: ColorSchema[] = [
+  {
+    id: ColorSchemaDefinition.BASE,
+    name: 'Base',
+    tone: 'dark',
+    color: '#FF0000',
+    constrast: '#E100FF',
+    schemas: []
+  },
   {
     id: ColorSchemaDefinition.CONVERSOR,
     name: 'Conversor',

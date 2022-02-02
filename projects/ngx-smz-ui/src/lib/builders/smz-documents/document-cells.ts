@@ -1,5 +1,5 @@
 import { SmzDocumentCell } from '../../modules/smz-documents/models/smz-document';
-import { SmzDocumentDivider, SmzDocumentFeatureDefinitions, SmzDocumentField, SmzDocumentFieldGroup, SmzDocumentFieldsGroup, SmzDocumentImage, SmzDocumentSpacer, SmzDocumentSubTitle, SmzDocumentTable, SmzDocumentTableColumn, SmzDocumentTitle } from '../../modules/smz-documents/models/smz-document-features';
+import { SmzDocumentChart, SmzDocumentDivider, SmzDocumentFeatureDefinitions, SmzDocumentField, SmzDocumentFieldGroup, SmzDocumentFieldsGroup, SmzDocumentImage, SmzDocumentSpacer, SmzDocumentSubTitle, SmzDocumentTable, SmzDocumentTableColumn, SmzDocumentTitle } from '../../modules/smz-documents/models/smz-document-features';
 import { SmzDocumentBuilder } from './document-builder';
 import { SmzDocumentBaseCellBuilder } from './document-base-cell';
 import { SmzDocumentRowBuilder } from './document-content';
@@ -100,7 +100,7 @@ export class SmzCellFieldBuilder extends SmzDocumentBaseCellBuilder<SmzCellField
   }
 
   public useCentralized(): SmzCellFieldBuilder {
-    this._data.container.styles += ' p-align-center';
+    this._data.container.styles += ' items-center';
     this._data.label.styles += ' text-center';
     this._data.text.styles += ' text-center';
     return this.that;
@@ -241,7 +241,7 @@ export class SmzCellFieldGroupBuilder {
       container: { styles: defaultConfig.fields.container },
       label: { value: label, isVisible: label != null, styles: defaultConfig.fields.label },
       text: { value: text, styles: defaultConfig.fields.text },
-      flexWidth: 'p-col'
+      flexWidth: 'col'
     };
 
     this._groupBuilder._data.fields.push(this._data)
@@ -249,7 +249,7 @@ export class SmzCellFieldGroupBuilder {
   }
 
   public setWidth(width: 'auto' | 'col-1' | 'col-2' | 'col-3' | 'col-4' | 'col-5' | 'col-6' | 'col-7' | 'col-8' | 'col-9' | 'col-10' | 'col-11' | 'col-12'): SmzCellFieldGroupBuilder {
-    const newStyle = width === 'auto' ? 'p-col' : `p-${width}`;
+    const newStyle = width === 'auto' ? 'col' : `${width}`;
     this._data.flexWidth = newStyle;
     return this;
   }
@@ -291,7 +291,7 @@ export class SmzCellFieldGroupBuilder {
   }
 
   public useCentralized(): SmzCellFieldGroupBuilder {
-    this._data.container.styles += ' p-align-center';
+    this._data.container.styles += ' items-center';
     this._data.label.styles += ' text-center';
     this._data.text.styles += ' text-center';
     return this;
@@ -361,7 +361,7 @@ export class SmzCellTableBuilder extends SmzDocumentBaseCellBuilder<SmzCellTable
     return new SmzCellTableColumnBuilder(this, property, label, this._documentBuilder);
   }
 
-  public applyItems(selector?: any, items$?: Observable<any[]>, items?: any[]): SmzCellTableBuilder {
+  public setSource(selector?: any, items$?: Observable<any[]>, items?: any[]): SmzCellTableBuilder {
     if (selector != null) {
       const store = GlobalInjector.instance.get(Store);
       this._data.content.items$ = store.select(selector);
@@ -373,7 +373,7 @@ export class SmzCellTableBuilder extends SmzDocumentBaseCellBuilder<SmzCellTable
       this._data.content.items$ = of(items);
     }
     else {
-      throw new Error(`You need to provide at least one type of items to the table (applyItems())`);
+      throw new Error(`You need to provide at least one type of items to the table (setSource())`);
     }
     return this.that;
   }
@@ -444,13 +444,39 @@ export class SmzCellTableColumnBuilder {
   }
 
   public useCentralized(): SmzCellTableColumnBuilder {
-    this._data.contentStyles.styles += ' p-align-center text-center';
-    this._data.headerStyles.styles += ' p-align-center text-center';
+    this._data.contentStyles.styles += ' items-center text-center';
+    this._data.headerStyles.styles += ' items-center text-center';
     return this;
   }
 
   public get table(): SmzCellTableBuilder {
     return this._tableBuilder;
+  }
+
+}
+
+export class SmzCellChartBuilder extends SmzDocumentBaseCellBuilder<SmzCellChartBuilder> {
+  protected that = this;
+  constructor(public _rowBuilder: SmzDocumentRowBuilder, public _cell: SmzDocumentCell, public _data: SmzDocumentChart, public _documentBuilder: SmzDocumentBuilder) {
+    super(_rowBuilder, _cell, _data, _documentBuilder);
+    const defaultConfig = cloneDeep(this._documentBuilder._state.config);
+    _data.container = { styles: defaultConfig.tables.container };
+  }
+
+  public overrideContainerStyles(styleClass: string): SmzCellChartBuilder {
+    this._data.container.styles = styleClass;
+    return this.that;
+  }
+
+  public setContainerBackgroundColor(color: string): SmzCellChartBuilder {
+    this._data.container.background = color;
+    return this.that;
+  }
+
+  public setWidth(width: 'auto' | 'col-1' | 'col-2' | 'col-3' | 'col-4' | 'col-5' | 'col-6' | 'col-7' | 'col-8' | 'col-9' | 'col-10' | 'col-11' | 'col-12'): SmzCellChartBuilder {
+    const newStyle = width === 'auto' ? 'col' : `${width}`;
+    this._data.flexWidth = newStyle;
+    return this;
   }
 
 }

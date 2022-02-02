@@ -36,11 +36,13 @@ export const VERTICAL_BAR = {
     plugins: {
       legend: {
         position: 'top'
+      },
+      title: {
+        text: 'TÍTULO TESTE'
       }
     }
   }
 };
-
 export const HORIZONTAL_BAR = {
   type: 'bar',
   data: {

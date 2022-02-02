@@ -18,13 +18,13 @@
     <ng-container [ngSwitch]="col.field">
       <ng-container *ngSwitchCase="'searchData'">
 
-        <div class="p-grid p-nogutter p-align-center p-justify-between" (mouseenter)="item._showActions = true" (mouseleave)="item._showActions = false">
+        <div class="grid grid-nogutter items-center justify-between" (mouseenter)="item._showActions = true" (mouseleave)="item._showActions = false">
 
-          <div class="p-col">
+          <div class="col">
             <smz-notification-item [item]="item" [showDate]="!item._showActions"></smz-notification-item>
           </div>
 
-          <div class="p-grid p-nogutter p-align-center p-justify-start gap-4 px-4 animate__animated animate__fadeIn relative" *ngIf="item._showActions">
+          <div class="grid grid-nogutter items-center justify-start gap-4 px-4 animate__animated animate__fadeIn relative" *ngIf="item._showActions">
             <i #archiveButton *ngIf="item.status !== status.ARCHIVED" pTooltip="Arquivar" [appendTo]="archiveButton" tooltipPosition="bottom" class="fas fa-archive p-button-rounded p-button-text p-button-plain relative text-gray-500" (click)="archive([item])"></i>
             <i #inboxButton *ngIf="item.status === status.ARCHIVED" pTooltip="Desarquivar" [appendTo]="inboxButton" tooltipPosition="bottom" class="fas fa-inbox p-button-rounded p-button-text p-button-plain relative text-gray-500" (click)="moveToInbox([item])"></i>
 

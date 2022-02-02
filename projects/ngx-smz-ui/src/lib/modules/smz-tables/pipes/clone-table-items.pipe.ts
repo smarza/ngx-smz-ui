@@ -3,13 +3,17 @@ import { SmzTableContext } from '../models/table-state';
 import { cloneDeep } from 'lodash-es';
 import { SmzFilterType } from '../models/filter-types';
 import { isArray, isSimpleNamedEntity } from '../../../common/utils/utils';
+import { TableHelperService } from '../services/table-helper.service';
 
 @Pipe({
   name: 'cloneTableItems'
 })
 
 export class SmzCloneTableItemsPipe implements PipeTransform {
-  transform(items: any[], context: SmzTableContext): { showSkeleton: boolean, items: any[] } {
+  constructor(private tableHelper: TableHelperService) {
+  }
+
+  transform(items: any[], context: SmzTableContext, tableKey: string, sincronize: boolean): { showSkeleton: boolean, items: any[] } {
     const showSkeleton = items == null && context.state.initialState.skeleton.isEnabled;
     const clonedItems = showSkeleton ? new Array<any>(context.state.initialState.skeleton.rows) : cloneDeep(items);
 
@@ -26,22 +30,21 @@ export class SmzCloneTableItemsPipe implements PipeTransform {
         context.columns.forEach(col => {
 
           const columnItems = samples.map(x => x[col.field]).filter(x => x != null);
-          const estimativeWidth = this.estimate(columnItems, col.field, context.state.caption.columnVisibility.showDropdownSelector, context.state.caption.columnVisibility.showColumnHideButton, col.isOrderable, col.filter?.type !== SmzFilterType.NONE);
 
-          // if (col.field === 'service') {
-          //   console.log(`${col.field} => ${estimativeWidth}`);
-          // }
+          var width = col.width;
 
-          col.width = estimativeWidth;
+          if (col.width == 'auto') {
+            width = this.estimate(columnItems, col.field, context.state.caption.columnVisibility.showDropdownSelector, context.state.caption.columnVisibility.showColumnHideButton, col.isOrderable, col.filter?.type !== SmzFilterType.NONE);
+          }
 
           const visibleColumnsIndex = context.visibleColumns?.findIndex(x => x.field === col.field);
           if (visibleColumnsIndex >= 0) {
-            context.visibleColumns[visibleColumnsIndex].width = estimativeWidth;
+            context.visibleColumns[visibleColumnsIndex].width = width;
           }
 
           const frozenColumnsIndex = context.frozenColumns?.findIndex(x => x.field === col.field);
           if (frozenColumnsIndex >= 0) {
-            context.frozenColumns[frozenColumnsIndex].width = estimativeWidth;
+            context.frozenColumns[frozenColumnsIndex].width = width;
           }
 
         });
@@ -78,7 +81,7 @@ export class SmzCloneTableItemsPipe implements PipeTransform {
 
     return {
       showSkeleton,
-      items: clonedItems
+      items: sincronize ? this.tableHelper.sincronize(tableKey, clonedItems) : clonedItems
     };
   }
 
@@ -99,7 +102,7 @@ export class SmzCloneTableItemsPipe implements PipeTransform {
           return (x as any).name.trim();
         }
 
-        return x == null ? x : x?.trim();
+        return x == null ? x : x?.toString().trim();
       })
       .map(x => {
         const multipleLines = (x == null || isArray(x)) ? [] : x?.split('<br>');
@@ -145,6 +148,8 @@ export class SmzCloneTableItemsPipe implements PipeTransform {
           }
           return element > accumulator ? element : accumulator;
         });
+
+
 
   }
 

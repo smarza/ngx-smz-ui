@@ -13,6 +13,7 @@ export class ValidationMessagesComponent implements OnInit
     @Input() public input: SmzControlTypes;
     @Input() public control: AbstractControl;
     @Input() public behaviors: SmzFormsBehaviorsConfig;
+    @Input() public extraMessages: string[] = [];
 
     constructor(public configuration: SmzDialogsConfig) { }
 

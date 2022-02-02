@@ -59,11 +59,15 @@ export const smzDialogsConfig: SmzDialogsConfig = {
             },
             [SmzControlType.FILE]: {
                 fileAccept: 'image/*,application/pdf',
+            },
+            [SmzControlType.CONTENT_MASK]: {
+                tagClass: 'bg-primary-color rounded px-1 py-0.5 mx-1 text-primary-color-text font-bold',
+                inputClass: 'leading-7'
             }
         },
         formTemplates: {
-            extraSmall: { horizontalAlignment: 'justify-content-between', verticalAlignment: 'align-items-start' },
-            small: { horizontalAlignment: 'justify-content-between', verticalAlignment: 'align-items-start' },
+            extraSmall: { horizontalAlignment: 'justify-between', verticalAlignment: 'items-start' },
+            small: { horizontalAlignment: 'justify-between', verticalAlignment: 'items-start' },
         },
         groupTemplates: {
             extraSmall: { row: 'col-12' },

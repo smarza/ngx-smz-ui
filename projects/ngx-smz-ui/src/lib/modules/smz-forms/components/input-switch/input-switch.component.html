@@ -1,13 +1,12 @@
-<div class="p-grid p-col-12 p-col-nogutter input_inner__wrapper">
-    <div class="p-col-12" style="display: flex;" fxLayoutGap="10px">
-        <label class="smz__input_name" [for]="input.propertyName" [innerHTML]="input.name"></label>
-        <p-inputSwitch
-            class="smz__input_value"
-            [name]="input.propertyName"
-            [id]="input.propertyName"
-            [formControl]="control"
-            binary="true">
-        </p-inputSwitch>
-    </div>
+<div class="grid col-12 grid-nogutter input_inner__wrapper flex-gap-1">
+    <label class="col-12 smz__input_name" [for]="input.propertyName" [innerHTML]="input.name"></label>
+    <p-inputSwitch
+        class="smz__input_value"
+        [name]="input.propertyName"
+        [id]="input.propertyName"
+        [formControl]="control"
+        [attr.disabled]="input.isDisabled"
+        binary="true">
+    </p-inputSwitch>
     <smz-validation-messages [input]="input" [control]="control" [behaviors]="behaviors"></smz-validation-messages>
 </div>

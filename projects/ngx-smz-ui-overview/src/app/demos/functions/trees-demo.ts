@@ -5,7 +5,8 @@ export const TreesDemo: { [key: string]: () => void } = {
   //
   [DemoKeys.TREE_DEMO_1]: () => {
     return new SmzTreeBuilder()
-      .setTitle('My awesome tree')
+      .setTitle('Sincronized Tree')
+      .useSincronization()
       .menu()
         .caption('Novo')
           .item('Arquivo text')

@@ -3,7 +3,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NgxSmzLayoutsModule, AthenaLayoutModule, NgxSmzFaqsModule, NgxSmzDialogsModule } from 'ngx-smz-ui';
+import { NgxSmzLayoutsModule, AthenaLayoutModule, NgxSmzFaqsModule, NgxSmzDialogsModule, NewAthenaLayoutModule } from 'ngx-smz-ui';
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
 import { smzAthenaConfig, smzLayoutsConfig } from '../globals/smz-layouts.config';
@@ -15,8 +15,7 @@ import { smzDialogsConfig } from '../globals/smz-config';
 import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { smzFaqsConfig } from '../globals/smz-faqs.config';
-import { environment } from '@enviroment';
-
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -36,7 +35,7 @@ import { environment } from '@enviroment';
     NgxSmzLayoutsModule.forRoot(smzLayoutsConfig),
 
     // HephaestusLayoutModule.forRoot(smzHephaestusConfig),
-    AthenaLayoutModule.forRoot(smzAthenaConfig),
+    NewAthenaLayoutModule.forRoot(smzAthenaConfig),
     NgxSmzFaqsModule.forRoot(smzFaqsConfig),
     HighlightModule
   ],

@@ -6,6 +6,7 @@ import { SmzCheckBoxGroupControl } from '../../models/control-types';
 @Component({
     selector: 'smz-checkbox-group',
     templateUrl: './checkbox-group.component.html',
+    host: { class: 'grid grid-nogutter' }
 })
 export class CheckBoxGroupComponent
 {

@@ -8,17 +8,20 @@ import { Observable, of, throwError } from 'rxjs';
 import { DemoDataService } from './demo-data.service';
 import { catchError, tap } from 'rxjs/operators';
 import { removeElementFromArray } from 'ngx-smz-ui';
+import { TreeNode } from 'primeng/api/treenode';
 
 export const DemoFeatureName = 'DemoFeature';
 
 export interface DemoFeatureStateModel {
   lastUpdated: Date | null;
   items: DemoItem[];
+  tree: TreeNode[];
 }
 
 export const getInitialState = (): DemoFeatureStateModel => ({
   lastUpdated: null,
-  items: null
+  items: null,
+  tree: null
 });
 
 @State<DemoFeatureStateModel>({
@@ -38,6 +41,17 @@ export class DemoFeatureState {
         ctx.patchState({
           lastUpdated: new Date(),
           items: results
+        });
+      })
+    );
+  }
+
+  @Action(DemoFeatureActions.LoadTree)
+  public onLoadTree$(ctx: StateContext<DemoFeatureStateModel>): Observable<TreeNode[]> {
+    return this.apiService.getTree().pipe(
+      tap(results => {
+        ctx.patchState({
+          tree: results
         });
       })
     );

@@ -1,0 +1,12 @@
+<ng-container *ngIf="dockService.dockItems != null">
+  <p-dock [model]="dockService.dockItems" position="bottom" [ngClass]="{ 'hidden': dockService.dockItems.length === 0}">
+    <ng-template pTemplate="item" let-item>
+        <div class="w-full relative cursor-pointer" (click)="execute(item)">
+          <img [src]="item.icon" width="100%">
+          <div *ngIf="item.label != null" class="absolute inset-0 grid grid-nogutter items-center justify-center flex-col">
+            <div class="text-center font-medium my-auto pt-2 select-none text-black text-xs">{{ item.label }}</div>
+          </div>
+        </div>
+    </ng-template>
+  </p-dock>
+</ng-container>

@@ -2,8 +2,8 @@
 
 <div class="smz_form_grid_container">
 
-    <ng-container *ngIf="form != null && !configHasErrors">
-        <form focusFirstInput [focus]="!config.behaviors.avoidFocusOnLoad" [formGroup]="form" class="smz_form__wrapper" (keyup.enter)="onEnter()">
+    <ng-container *ngIf="viewdata?.form != null && !configHasErrors">
+        <form focusFirstInput [focus]="!config.behaviors.avoidFocusOnLoad" [formGroup]="viewdata.form" class="smz_form__wrapper" (keyup.enter)="onEnter()">
             <ng-container *ngTemplateOutlet="groupTemplate"></ng-container>
         </form>
     </ng-container>
@@ -18,15 +18,15 @@
 
 <ng-template #groupTemplate>
 
-    <div class="w-full p-px-0 p-mx-auto">
-        <div class="p-grid p-nogutter p-flex-wrap p-align-start p-justify-start flex-gap-2" [ngClass]="config.template | setTemplateClasses : ['horizontalAlignment', 'verticalAlignment']">
+    <div class="w-full px-0 mx-auto">
+        <div class="grid grid-nogutter flex-wrap items-start justify-start flex-gap-2" [ngClass]="config.template | setTemplateClasses : ['horizontalAlignment', 'verticalAlignment']">
             <ng-container *ngFor="let group of config.groups">
-                <div class="p-col" [ngClass]="group.template | setTemplateClasses : ['row']">
+                <div class="col" [ngClass]="group.template | setTemplateClasses : ['row']">
                     <div class="smz__group_name" *ngIf="group.showName">{{ group.name }}</div>
 
-                    <div class="p-grid p-nogutter p-flex-wrap p-align-start p-justify-start flex-gap-2">
+                    <div class="grid grid-nogutter flex-wrap items-start justify-start flex-gap-2">
                         <ng-container *ngFor="let input of group.children">
-                            <div *ngIf="input.isVisible" class="input__control__wrapper p-col" [ngClass]="input.template | setTemplateClasses : ['row']">
+                            <div *ngIf="input.isVisible" class="input__control__wrapper col" [ngClass]="input.template | setTemplateClasses : ['row']">
                                 <ng-container *ngTemplateOutlet="inputTemplate; context: { $implicit: input }"></ng-container>
                             </div>
                         </ng-container>
@@ -41,83 +41,87 @@
 <ng-template #inputTemplate let-input>
 
     <ng-container *ngIf="input.type == controlTypes.PASSWORD">
-        <smz-input-password [input]="input" [control]="form.controls[input.propertyName]" [behaviors]="config.behaviors"></smz-input-password>
+        <smz-input-password [input]="input" [control]="viewdata.form.controls[input.propertyName]" [behaviors]="config.behaviors"></smz-input-password>
     </ng-container>
 
     <ng-container *ngIf="input.type == controlTypes.TEXT_MASK">
-        <smz-input-mask [input]="input" [control]="form.controls[input.propertyName]" [behaviors]="config.behaviors"></smz-input-mask>
+        <smz-input-mask [input]="input" [control]="viewdata.form.controls[input.propertyName]" [behaviors]="config.behaviors"></smz-input-mask>
     </ng-container>
 
     <ng-container *ngIf="input.type == controlTypes.TEXT">
-        <smz-input-text [input]="input" [control]="form.controls[input.propertyName]" [behaviors]="config.behaviors"></smz-input-text>
+        <smz-input-text [input]="input" [control]="viewdata.form.controls[input.propertyName]" [behaviors]="config.behaviors"></smz-input-text>
     </ng-container>
 
     <ng-container *ngIf="input.type == controlTypes.LIST">
-        <smz-input-list [input]="input" [control]="form.controls[input.propertyName]" [behaviors]="config.behaviors"></smz-input-list>
+        <smz-input-list [input]="input" [control]="viewdata.form.controls[input.propertyName]" [behaviors]="config.behaviors"></smz-input-list>
     </ng-container>
 
     <ng-container *ngIf="input.type == controlTypes.NUMBER">
-        <smz-input-number [input]="input" [control]="form.controls[input.propertyName]" [behaviors]="config.behaviors"></smz-input-number>
+        <smz-input-number [input]="input" [form]="viewdata.form" [control]="viewdata.form.controls[input.propertyName]" [behaviors]="config.behaviors"></smz-input-number>
     </ng-container>
 
     <ng-container *ngIf="input.type == controlTypes.TEXT_AREA">
-        <smz-input-text-area [input]="input" [control]="form.controls[input.propertyName]" [behaviors]="config.behaviors"></smz-input-text-area>
+        <smz-input-text-area [input]="input" [control]="viewdata.form.controls[input.propertyName]" [behaviors]="config.behaviors"></smz-input-text-area>
     </ng-container>
 
     <ng-container *ngIf="input.type == controlTypes.CONTENT_MASK">
-        <smz-input-content-mask [input]="input" [control]="form.controls[input.propertyName]" [behaviors]="config.behaviors"></smz-input-content-mask>
+        <smz-input-content-mask [input]="input" [control]="viewdata.form.controls[input.propertyName]" [behaviors]="config.behaviors"></smz-input-content-mask>
     </ng-container>
 
     <ng-container *ngIf="input.type == controlTypes.TAG_AREA">
-        <input-tag-area [input]="input" [control]="form.controls[input.propertyName]" [behaviors]="config.behaviors"></input-tag-area>
+        <input-tag-area [input]="input" [control]="viewdata.form.controls[input.propertyName]" [behaviors]="config.behaviors"></input-tag-area>
     </ng-container>
 
     <ng-container *ngIf="input.type == controlTypes.RADIO">
-        <smz-radio-button [input]="input" [control]="form.controls[input.propertyName]" [behaviors]="config.behaviors"></smz-radio-button>
+        <smz-radio-button [input]="input" [control]="viewdata.form.controls[input.propertyName]" [behaviors]="config.behaviors"></smz-radio-button>
     </ng-container>
 
     <ng-container *ngIf="input.type == controlTypes.SWITCH">
-        <smz-input-switch [input]="input" [control]="form.controls[input.propertyName]" [behaviors]="config.behaviors"></smz-input-switch>
+        <smz-input-switch [input]="input" [control]="viewdata.form.controls[input.propertyName]" [behaviors]="config.behaviors"></smz-input-switch>
     </ng-container>
 
     <ng-container *ngIf="input.type == controlTypes.CHECKBOX">
-        <smz-checkbox [input]="input" [control]="form.controls[input.propertyName]" [formId]="config.formId" [behaviors]="config.behaviors"></smz-checkbox>
+        <smz-checkbox [input]="input" [control]="viewdata.form.controls[input.propertyName]" [formId]="config.formId" [behaviors]="config.behaviors"></smz-checkbox>
     </ng-container>
 
     <ng-container *ngIf="input.type == controlTypes.CHECKBOX_GROUP">
-        <smz-checkbox-group [input]="input" [control]="form.controls[input.propertyName]" [behaviors]="config.behaviors"></smz-checkbox-group>
+        <smz-checkbox-group [input]="input" [control]="viewdata.form.controls[input.propertyName]" [behaviors]="config.behaviors"></smz-checkbox-group>
     </ng-container>
 
     <ng-container *ngIf="input.type == controlTypes.CALENDAR">
-        <smz-calendar [input]="input" [control]="form.controls[input.propertyName]" [behaviors]="config.behaviors"></smz-calendar>
+        <smz-calendar [input]="input" [control]="viewdata.form.controls[input.propertyName]" [behaviors]="config.behaviors"></smz-calendar>
     </ng-container>
 
     <ng-container *ngIf="input.type == controlTypes.DROPDOWN">
-        <smz-dropdown [input]="input" [control]="form.controls[input.propertyName]" [formId]="config.formId" [behaviors]="config.behaviors"></smz-dropdown>
+        <smz-dropdown [input]="input" [control]="viewdata.form.controls[input.propertyName]" [formId]="config.formId" [behaviors]="config.behaviors"></smz-dropdown>
     </ng-container>
 
     <ng-container *ngIf="input.type == controlTypes.LINKED_DROPDOWN">
-        <smz-linked-dropdown [input]="input" [control]="form.controls[input.propertyName]" [formId]="config.formId" [behaviors]="config.behaviors"></smz-linked-dropdown>
+        <smz-linked-dropdown [input]="input" [control]="viewdata.form.controls[input.propertyName]" [formId]="config.formId" [behaviors]="config.behaviors"></smz-linked-dropdown>
     </ng-container>
 
     <ng-container *ngIf="input.type == controlTypes.FILE">
-        <smz-file-upload [input]="input" [control]="form.controls[input.propertyName]" [form]="form" [behaviors]="config.behaviors"></smz-file-upload>
+        <smz-file-upload [input]="input" [control]="viewdata.form.controls[input.propertyName]" [form]="viewdata.form" [behaviors]="config.behaviors"></smz-file-upload>
     </ng-container>
 
     <ng-container *ngIf="input.type == controlTypes.CURRENCY">
-        <smz-input-currency [input]="input" [control]="form.controls[input.propertyName]" [behaviors]="config.behaviors"></smz-input-currency>
+        <smz-input-currency [input]="input" [control]="viewdata.form.controls[input.propertyName]" [behaviors]="config.behaviors"></smz-input-currency>
     </ng-container>
 
     <ng-container *ngIf="input.type == controlTypes.MULTI_SELECT">
-        <smz-multi-select [input]="input" [control]="form.controls[input.propertyName]" [behaviors]="config.behaviors"></smz-multi-select>
+        <smz-multi-select [input]="input" [control]="viewdata.form.controls[input.propertyName]" [behaviors]="config.behaviors"></smz-multi-select>
     </ng-container>
 
     <ng-container *ngIf="input.type == controlTypes.LINKED_MULTISELECT">
-        <smz-linked-multi-select [input]="input" [control]="form.controls[input.propertyName]" [formId]="config.formId" [behaviors]="config.behaviors"></smz-linked-multi-select>
+        <smz-linked-multi-select [input]="input" [control]="viewdata.form.controls[input.propertyName]" [formId]="config.formId" [behaviors]="config.behaviors"></smz-linked-multi-select>
     </ng-container>
 
     <ng-container *ngIf="input.type == controlTypes.COLOR_PICKER">
-        <smz-color-picker [input]="input" [control]="form.controls[input.propertyName]" [behaviors]="config.behaviors"></smz-color-picker>
+        <smz-color-picker [input]="input" [control]="viewdata.form.controls[input.propertyName]" [behaviors]="config.behaviors"></smz-color-picker>
+    </ng-container>
+
+    <ng-container *ngIf="input.type == controlTypes.TEXT_BUTTON">
+        <smz-input-text-button [input]="input" [control]="viewdata.form.controls[input.propertyName]" [viewdata]="viewdata" [behaviors]="config.behaviors"></smz-input-text-button>
     </ng-container>
 
 </ng-template>

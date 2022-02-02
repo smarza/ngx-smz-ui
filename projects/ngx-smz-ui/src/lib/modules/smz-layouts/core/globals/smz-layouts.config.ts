@@ -9,6 +9,7 @@ import { SmzContentTheme } from '../models/themes';
 
 export class SmzLayoutsConfig {
     debugMode?: boolean;
+    useDock?: boolean;
     appLogo: LogoResource;
     appName?: string;
     footer: SmzFooter;

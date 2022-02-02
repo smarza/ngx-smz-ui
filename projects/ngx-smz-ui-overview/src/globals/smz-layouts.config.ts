@@ -1,4 +1,4 @@
-import { SmzLayoutsConfig, SmzContentTheme, SmzLoader, HephaestusLayout, MenuType, SidebarState, AthenaLayout, ColorSchemaDefinition } from 'ngx-smz-ui';
+import { SmzLayoutsConfig, SmzContentTheme, SmzLoader, HephaestusLayout, MenuType, SidebarState, AthenaLayout } from 'ngx-smz-ui';
 
 export const smzHephaestusConfig: HephaestusLayout = {
     menu: MenuType.SLIM,
@@ -18,6 +18,7 @@ export const smzAthenaConfig: AthenaLayout = {
 
 export const smzLayoutsConfig: SmzLayoutsConfig = {
     debugMode: false,
+    useDock: true,
     appLogo: {
         horizontal: {
             dark: 'assets/layout/images/horizontal-dark.svg',
@@ -52,26 +53,7 @@ export const smzLayoutsConfig: SmzLayoutsConfig = {
         position: 'bottom-right'
     },
     themes: {
-        content: SmzContentTheme.PRIMEONE_LIGHT,
-        custom:   {
-            id: 'e-libra-mobile',
-            name: 'e-Libra Mobile',
-            tone: 'dark',
-            color: '#1976D2',
-            constrast: '#ffffff',
-            schemas: [
-              { id: '--primary-color', name: '#1976D2' },
-              { id: '--secondary-color', name: '#42A5F5' },
-              { id: '--primary-color-text', name: '#ffffff' },
-              { id: '--primary-color-menu-bg', name: '#1976D2' },
-              { id: '--primary-color-menu-bg-hover', name: '#0000001c' },
-              { id: '--primary-color-menu-text', name: '#FFFFFFE7' },
-              { id: '--primary-color-menu-text-hover', name: '#FAFAFA' },
-              { id: '--primary-color-menu-active', name: '#ffffffcf' },
-              { id: '--primary-color-loading', name: '#ffffff' },
-              { id: '--primary-color-loading-bg', name: '#1976D2' }
-            ]
-          },
+        content: SmzContentTheme.VELA_ORANGE,
     },
     loader: {
         type: SmzLoader.CUBE,
@@ -85,7 +67,7 @@ export const smzLayoutsConfig: SmzLayoutsConfig = {
         notFoundImagePath: 'assets/images/pages/bg-404.jpg',
     },
     assistance: {
-        isEnabled: false,
+        isEnabled: true,
         sidebarData: {
             position: 'right'
         },

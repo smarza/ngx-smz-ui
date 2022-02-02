@@ -63,8 +63,8 @@ export const smzDialogsConfig: SmzDialogsConfig = {
             }
         },
         formTemplates: {
-            extraSmall: { horizontalAlignment: 'justify-content-between', verticalAlignment: 'align-items-start' },
-            small: { horizontalAlignment: 'justify-content-between', verticalAlignment: 'align-items-start' },
+            extraSmall: { horizontalAlignment: 'justify-between', verticalAlignment: 'items-start' },
+            small: { horizontalAlignment: 'justify-between', verticalAlignment: 'items-start' },
         },
         groupTemplates: {
             extraSmall: { row: 'col-12' },

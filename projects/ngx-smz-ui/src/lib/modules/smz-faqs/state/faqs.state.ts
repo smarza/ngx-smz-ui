@@ -45,6 +45,9 @@ export class FaqsDbState
                 })
             );
         }
+        else {
+            return null;
+        }
 
     }
 

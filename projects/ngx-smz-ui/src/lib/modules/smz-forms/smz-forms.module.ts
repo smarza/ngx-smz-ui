@@ -66,6 +66,11 @@ import { InputContentMaskTextPipe } from './components/input-content-mask/input-
 import { InputListDialogCrudComponent } from './components/input-list/input-list-dialog-crud.component';
 import { InputListInlineCrudComponent } from './components/input-list/input-list-inline-crud.component';
 import { DialogService } from 'primeng/dynamicdialog';
+import { InputListBatchCrudComponent } from './components/input-list/input-list-batch-crud.component';
+import { InputTextButtonComponent } from './components/input-text-button/input-text-button.component';
+import { ButtonModule } from 'primeng/button';
+import { FormSubmitComponent } from './features/form-submit/form-submit.component';
+import { StateBuilderPipe } from './pipes/form-state.pipe';
 
 export const defaultFormsModuleConfig: SmzFormsConfig = {
     behaviors: {
@@ -120,7 +125,7 @@ export const defaultFormsModuleConfig: SmzFormsConfig = {
             maxFileSize: null,
             thumbnailSize: '90px',
             allowZoom: true,
-            dragIconClass: 'pi pi-upload green-text',
+            dragIconClass: 'pi pi-upload text-primary-color',
             inputMessage: 'Escolha o arquivo',
             dragMessage: 'Arraste aqui',
             showFileSize: true,
@@ -136,6 +141,15 @@ export const defaultFormsModuleConfig: SmzFormsConfig = {
             strongLabel: 'Forte',
             mediumRegex: '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})',
             strongRegex: '^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,}).'
+        },
+        [SmzControlType.CONTENT_MASK]: {
+            tagClass: 'text-green-500 font-bold',
+            variableBegin: '{{',
+            variableEnd: '}}',
+            exportHtmlNewLine: false,
+            quickActions: [],
+            variableId: 'input__variable',
+            inputClass: '',
         }
     }
 };
@@ -169,7 +183,8 @@ export const defaultFormsModuleConfig: SmzFormsConfig = {
         MessagesModule,
         SafeContentPipeModule,
         SmzInputTagAreaModule,
-        NgxSmzDataPipesModule
+        NgxSmzDataPipesModule,
+        ButtonModule
     ],
     // tslint:disable-next-line:max-line-length
     declarations: [
@@ -202,7 +217,11 @@ export const defaultFormsModuleConfig: SmzFormsConfig = {
         TransferValueAccessor,
         InputContentMaskTextPipe,
         InputListDialogCrudComponent,
-        InputListInlineCrudComponent
+        InputListInlineCrudComponent,
+        InputListBatchCrudComponent,
+        InputTextButtonComponent,
+        FormSubmitComponent,
+        StateBuilderPipe
     ],
     entryComponents: [FormGroupComponent, InputListDialogCrudComponent, InputListInlineCrudComponent],
     exports: [
@@ -225,6 +244,8 @@ export const defaultFormsModuleConfig: SmzFormsConfig = {
         LinkedMultiSelectComponent,
         MultiSelectComponent,
         RadioButtonComponent,
+        FormSubmitComponent,
+        StateBuilderPipe
     ],
     providers: [DialogService]
 

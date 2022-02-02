@@ -1,4 +1,4 @@
-<table class="w-full h-full border-collapse" cellspacing="0" cellpadding="0">
+<table class="w-full h-full border-collapse bg-white" cellspacing="0" cellpadding="0">
 
   <ng-container *ngFor="let row of data?.rows">
 
@@ -44,6 +44,10 @@
 
             <ng-container *ngSwitchCase="featureDefinitions.TABLE">
               <smz-document-table [data]="$any(cell.data)" [config]="config"></smz-document-table>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="featureDefinitions.CHART">
+              <smz-document-chart [data]="$any(cell.data)" [config]="config"></smz-document-chart>
             </ng-container>
 
             <ng-container *ngSwitchDefault>unknown cell data type</ng-container>

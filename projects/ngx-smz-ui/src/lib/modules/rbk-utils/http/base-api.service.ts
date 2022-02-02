@@ -14,6 +14,11 @@ export const RESTORE_STATE_ON_ERROR_HEADER = 'Restore-State-On-Error';
 export const IGNORE_ERROR_HANDLING = 'Ignore-Error-Handling'
 
 export class BaseApiService {
+    private oneTimeOnlyParameters: Partial<HttpBehaviorParameters> = {};
+    public withParameters<T extends BaseApiService>(parameters: Partial<HttpBehaviorParameters>): T {
+        this.oneTimeOnlyParameters = parameters;
+        return this as any;
+    }
     constructor() { }
 
     protected generateDefaultHeaders(parameters: Partial<HttpBehaviorParameters>): { headers: HttpHeaders } {
@@ -25,7 +30,7 @@ export class BaseApiService {
 
         const defaulValues: HttpBehaviorParameters = {...config.httpBehaviors.defaultParameters};
 
-        const finalParameters = { ...defaulValues, ...parameters };
+        const finalParameters = { ...defaulValues, ...parameters, ...this.oneTimeOnlyParameters };
 
         if (finalParameters.compression === true) {
             headers = headers.set(CONTENT_ENCODING_HEADER, 'gzip');
@@ -59,6 +64,8 @@ export class BaseApiService {
         if (finalParameters.ignoreErrorHandling === true) {
           headers = headers.set(IGNORE_ERROR_HANDLING, 'true');
         }
+
+        this.oneTimeOnlyParameters = {};
 
         return { headers };
     }

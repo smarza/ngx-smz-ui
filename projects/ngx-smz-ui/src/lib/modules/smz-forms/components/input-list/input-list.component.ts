@@ -5,8 +5,7 @@ import { take } from 'rxjs/operators';
 import { Confirmable } from '../../../smz-dialogs/decorators/confirmable.decorator';
 import { DialogsActions } from '../../../smz-dialogs/state/dialogs/dialogs.actions';
 import { SmzFormsBehaviorsConfig } from '../../models/behaviors';
-import { SmzControlType, SmzListControl, SmzTextControl } from '../../models/control-types';
-import { SmzForm } from '../../models/smz-forms';
+import { SmzListControl } from '../../models/control-types';
 
 @Component({
   selector: 'smz-input-list',
@@ -168,6 +167,23 @@ export class InputListComponent {
     });
 
     this.store.dispatch(new DialogsActions.ShowInputListCreationCrudDialog('Criar', this.input, ''));
+
+  }
+
+  public onAddInBatch(): void {
+
+    this.actions$.pipe(ofActionDispatched(DialogsActions.ShowInputListBatchCreationCrudDialogSuccess), take(1)).subscribe((event: { isValid: boolean, values?: string[] }) => {
+        if (event.isValid)
+        {
+            // add new item
+            this.input.options = [...event.values, ...this.input.options];
+            this.current = event.values[0];
+            // update new list to control
+            this.updateControl();
+        }
+    });
+
+    this.store.dispatch(new DialogsActions.ShowInputListBatchCreationCrudDialog('Criar Multiplos', this.input));
 
   }
 

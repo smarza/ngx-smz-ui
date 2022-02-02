@@ -1,5 +1,5 @@
 import { environment } from '../environments/environment';
-import { GlobalInjector, LoginResponse, NgxRbkUtilsConfig, CustomError, ApplicationActions } from 'ngx-smz-ui';
+import { GlobalInjector, LoginResponse, NgxRbkUtilsConfig, CustomError } from 'ngx-smz-ui';
 import { DemoFeatureName, DemoFeatureState, getInitialState as getFtDemoInitialState } from '../app/state/demo/demo.state';
 import { CountriesDbName, CountriesDbState, getInitialState as getDbCountriesInitialState } from '../app/state/database/countries/countries.state';
 import { CountriesDbActions } from '../app/state/database/countries/countries.actions';
@@ -77,15 +77,15 @@ export const rbkConfig: NgxRbkUtilsConfig = {
                 text: 'text-black smz-document-text-2xl font-bold',
             },
             subTitles: {
-                container: 'p-mt-2',
+                container: 'mt-2',
                 text: 'text-black smz-document-text-lg font-bold',
             },
             dividers: {
-                container: 'p-py-1'
+                container: 'py-1'
             },
             fields: {
                 container: 'p-1 px-2 smz-document-border',
-                label: 'text-black smz-document-text-xs p-my-1',
+                label: 'text-black smz-document-text-xs my-1',
                 text: 'text-black smz-document-text-base',
             },
             fieldsGroup: {

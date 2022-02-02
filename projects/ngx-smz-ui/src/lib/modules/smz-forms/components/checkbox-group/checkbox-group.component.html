@@ -1,6 +1,6 @@
-<div class="p-grid p-col-12 p-col-nogutter input_inner__wrapper">
-    <label class="p-col-12" [for]="input.propertyName" [innerHTML]="input.name"></label>
-    <div class="p-col-12 flex-gap-1" fxLayoutGap="10px">
+<div class="grid col-12 grid-nogutter input_inner__wrapper flex-gap-1">
+    <label class="col-12" [for]="input.propertyName" [innerHTML]="input.name"></label>
+    <div class="col-12 flex-gap-1" fxLayoutGap="10px">
         <ng-container *ngFor="let option of input.options">
             <p-checkbox
                 class="smz__input_value"

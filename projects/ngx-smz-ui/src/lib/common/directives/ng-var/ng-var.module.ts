@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
-import { NgVarDirective } from './ng-var.directive';
+import { NgVar } from './ng-var.directive';
 
 @NgModule({
   imports: [],
-  exports: [NgVarDirective],
-  declarations: [NgVarDirective],
+  exports: [NgVar],
+  declarations: [NgVar],
   providers: [],
 })
 export class NgVarModule { }

@@ -139,7 +139,15 @@ export class SmzTableBuilder {
       scrollHeight: null,
       resizableColumns: false,
       columnResizeMode: 'fit'
-    }
+    },
+    rowExpansion: {
+      isButtonVisible: false,
+      isEnabled: false,
+      callback: null,
+      columnWidth: '3em',
+      label: '',
+      sincronize: false
+    },
   };
 
   constructor(uiDefinitionName?: string) {
@@ -254,6 +262,66 @@ export class SmzTableBuilder {
       throw Error('You need to call \'allowUserMultiSelection\' before');
     }
     this._state.caption.rowSelection.columnWidth = width;
+    return this;
+  }
+
+
+  public allowDefaultRowExpansion(): SmzTableBuilder {
+    this._state.rowExpansion.isEnabled = true;
+    this._state.rowExpansion.sincronize = true;
+    this._state.rowExpansion.highlightNewItems = true;
+    this._state.rowExpansion.highlightLabel = 'NOVO';
+    return this;
+  }
+
+  public allowRowExpansion(label: string = 'Seleção', initialState: 'enabled' | 'disabled' = 'enabled'): SmzTableBuilder {
+    this._state.rowExpansion.isEnabled = initialState === 'enabled';
+    this._state.rowExpansion.isButtonVisible = true;
+    this._state.rowExpansion.label = label;
+    this._state.rowExpansion.columnWidth = '3em';
+    this._state.rowExpansion.sincronize = true;
+    this._state.rowExpansion.highlightNewItems = true;
+    this._state.rowExpansion.highlightLabel = 'NOVO';
+    return this;
+  }
+
+  public disableRowExpansionSincronization(): SmzTableBuilder {
+    if (!this._state.rowExpansion.isEnabled) {
+      throw Error('You need to call \'allowDefaultRowExpansion or allowRowExpansion\' before');
+    }
+    this._state.rowExpansion.sincronize = false;
+    return this;
+  }
+
+  public setNewItemsMessage(label: string): SmzTableBuilder {
+    if (!this._state.rowExpansion.isEnabled) {
+      throw Error('You need to call \'allowDefaultRowExpansion or allowRowExpansion\' before');
+    }
+    this._state.rowExpansion.label = label;
+    return this;
+  }
+
+  public hideNewItemsMessage(): SmzTableBuilder {
+    if (!this._state.rowExpansion.isEnabled) {
+      throw Error('You need to call \'allowDefaultRowExpansion or allowRowExpansion\' before');
+    }
+    this._state.rowExpansion.highlightNewItems = false;
+    return this;
+  }
+
+  public setRowExpansionCallback(callback: () => void): SmzTableBuilder {
+    if (!this._state.rowExpansion.isButtonVisible) {
+      throw Error('You need to call \'allowRowExpansion\' before');
+    }
+    this._state.rowExpansion.callback = callback;
+    return this;
+  }
+
+  public setRowExpansionColumnWidth(width: string): SmzTableBuilder {
+    if (!this._state.rowExpansion.isButtonVisible) {
+      throw Error('You need to call \'allowRowExpansion\' before');
+    }
+    this._state.rowExpansion.columnWidth = width;
     return this;
   }
 
@@ -458,6 +526,20 @@ export class SmzTableBuilder {
     }
 
     return menuBuilder;
+  }
+
+  public dynamicMenu(callback: (row: any) => SmzMenuItem[]): SmzTableBuilder {
+
+    if (this._state.actions.menu.items != null && this._state.actions.menu.items.length > 0) {
+      throw Error('You can\'t call \'dynamicMenu\' if the menu items are already set');
+    }
+
+    this._state.actions.menu.isVisible = true;
+    this._state.actions.customActions.columnWidth += 63;
+    this._state.actions.menu.callback = callback;
+    this._state.actions.menu.items = null;
+
+    return this;
   }
 
   public batchMenu(items: SmzMenuItem[] = null): SmzBatchMenuBuilder {

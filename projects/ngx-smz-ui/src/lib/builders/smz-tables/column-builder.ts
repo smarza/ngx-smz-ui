@@ -31,6 +31,7 @@ export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T>> {
           header: header,
           content: {
             type: type,
+            styleClass: '',
             data: { matches: [] }
           },
           editable: {
@@ -76,6 +77,12 @@ export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T>> {
     this._table._state.frozen.isEnabled = true;
     return this;
   }
+
+  public addStyles(styleClass: string): SmzBaseColumnBuilder<T> {
+    this._column.content.styleClass = styleClass;
+    return this;
+  }
+
 
   public ignoreOnGlobalFilter(): SmzBaseColumnBuilder<T> {
     this._column.filter.isGlobalFilterable = false;

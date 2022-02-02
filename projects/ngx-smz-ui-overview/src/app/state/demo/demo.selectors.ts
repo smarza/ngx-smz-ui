@@ -2,6 +2,7 @@
 import { Selector } from '@ngxs/store';
 import { DemoItem } from '../../models/demo';
 import { DemoFeatureState, DemoFeatureStateModel } from './demo.state';
+import { TreeNode } from 'primeng/api/treenode';
 
 export class DemoFeatureSelectors {
 
@@ -16,6 +17,12 @@ export class DemoFeatureSelectors {
     ]}));
     // console.log('DemoFeatureSelectors results', results);
     return results;
+  }
+
+
+  @Selector([DemoFeatureState])
+  public static tree(state: DemoFeatureStateModel): TreeNode[] {
+    return state.tree;
   }
 
 }

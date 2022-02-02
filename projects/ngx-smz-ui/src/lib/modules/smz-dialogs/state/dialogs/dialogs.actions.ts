@@ -44,5 +44,17 @@ export namespace DialogsActions
         constructor(public isValid: boolean, public option?: string, public value?: string){}
     }
 
+    export class ShowInputListBatchCreationCrudDialog
+    {
+        public static readonly type = '[Dialogs] Show InputList Batch Creation Crud Dialog';
+        constructor(public title: string, public input: SmzListControl){}
+    }
+
+    export class ShowInputListBatchCreationCrudDialogSuccess
+    {
+        public static readonly type = '[Dialogs] Show InputList Batch Creation Crud Dialog Success';
+        constructor(public isValid: boolean, public values?: string[]){}
+    }
+
 
 }

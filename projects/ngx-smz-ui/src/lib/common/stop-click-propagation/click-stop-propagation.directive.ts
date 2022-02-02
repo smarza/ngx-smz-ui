@@ -1,7 +1,7 @@
 import { Directive, HostListener } from '@angular/core';
 
 @Directive({
-    selector: '[furyClickStopPropagation]'
+    selector: '[clickStopPropagation]'
 })
 export class ClickStopPropagationDirective
 {

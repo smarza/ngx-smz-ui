@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { DemoTreeNode } from '@models/demo';
+import { SmzChart } from 'ngx-smz-ui';
 
 @Component({
   selector: 'app-demo-chart',
   template: `
     <div class="grid grid-cols-2 gap-4 mt-4">
-      <div>
+      <div *ngIf="chart?.model != null">
         <h5>Vertical bar chart - Raw model</h5>
         <smz-ui-chart
           [type]="chart.model.type"
@@ -15,7 +16,7 @@ import { DemoTreeNode } from '@models/demo';
         ></smz-ui-chart>
       </div>
 
-      <div>
+      <div *ngIf="chart?.cSharp != null">
         <h5>Vertical bar chart - FluentAPI C#</h5>
         <smz-ui-chart
           [type]="chart.cSharp.type"
@@ -32,7 +33,7 @@ import { DemoTreeNode } from '@models/demo';
 export class DemoChartComponent implements OnInit, OnChanges {
 
   @Input() public node: DemoTreeNode
-  public chart: any;
+  public chart: { model: SmzChart, cSharp: any };
 
   constructor() { }
 

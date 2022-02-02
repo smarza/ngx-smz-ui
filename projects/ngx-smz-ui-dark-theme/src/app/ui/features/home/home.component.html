@@ -1,8 +1,8 @@
-<div class="p-grid p-nogutter p-align-start p-justify-start h-full">
+<div class="grid grid-nogutter items-start justify-start h-full">
 
   <!-- TREE -->
-  <div class="h-full p-col-12 p-lg-4 p-p-2">
-    <div class="h-full w-full rounded shadow-md p-p-3">
+  <div class="h-full col-12 lg:col-4 p-2">
+    <div class="h-full w-full rounded shadow-md p-3">
       <div class="h-full">
         <smz-ui-tree [items]="items" [state]="treeState" (selectionChange)="selectionChanged($event)"></smz-ui-tree>
       </div>
@@ -10,8 +10,8 @@
   </div>
 
   <!-- DETAILS -->
-  <div class="h-full p-col-12 p-lg-8 p-p-2">
-    <div class="h-full p-align-stretch p-flex-column p-grid p-justify-start p-nogutter p-py-3 rounded shadow-md w-full overflow-y-auto">
+  <div class="h-full col-12 lg:col-8 p-2">
+    <div class="h-full items-stretch flex-col grid justify-start grid-nogutter py-3 rounded shadow-md w-full overflow-y-auto">
       <p-tabView [(activeIndex)]="selectedTabIndex">
         <p-tabPanel header="Código">
 
@@ -19,8 +19,8 @@
           <ng-container *ngIf="selectedNode != null; else noSelectionTemplate">
 
             <!-- HEADER -->
-            <div class="p-grid p-nogutter p-align-center p-justify-between p-py-2">
-              <h3 class="p-m-0">{{ selectedNode | demoTitle }}</h3>
+            <div class="grid grid-nogutter items-center justify-between py-2">
+              <h3 class="m-0">{{ selectedNode | demoTitle }}</h3>
 
               <!-- AÇÕES -->
               <div>
@@ -30,7 +30,7 @@
             </div>
 
             <!-- CONTEÚDO -->
-            <div class="flex-grow relative w-full p-mt-1 p-mb-3 h-full overflow-y-auto">
+            <div class="flex-grow relative w-full mt-1 mb-3 h-full overflow-y-auto">
               <p>{{ selectedNode.notes }}</p>
               <demo-code-block [code]="$any(selectedNode.data)"></demo-code-block>
             </div>
@@ -38,8 +38,8 @@
           </ng-container>
 
           <ng-template #noSelectionTemplate>
-            <div class="p-grid p-nogutter p-align-center p-justify-center p-p-4 p-flex-column flex-grow mt-10">
-              <i class="fas fa-info-circle text-5xl text-yellow-500 p-mb-4"></i>
+            <div class="grid grid-nogutter items-center justify-center p-4 flex-col flex-grow mt-10">
+              <i class="fas fa-info-circle text-5xl text-yellow-500 mb-4"></i>
               <div class="text-lg">Escolha um demo.</div>
             </div>
           </ng-template>

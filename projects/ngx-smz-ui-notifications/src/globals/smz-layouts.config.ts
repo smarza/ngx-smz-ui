@@ -6,6 +6,7 @@ export const smzAthenaConfig: AthenaLayout = {
     mobileSidebarState: SidebarState.INACTIVE,
     sidebarWidth: '16rem',
     sidebarSlimWidth: '6rem',
+    enlargeTopbarLogo: true
 };
 
 export const smzLayoutsConfig: SmzLayoutsConfig = {
@@ -44,26 +45,7 @@ export const smzLayoutsConfig: SmzLayoutsConfig = {
         position: 'bottom-right'
     },
     themes: {
-        content: SmzContentTheme.PRIMEONE_LIGHT,
-        custom:   {
-            id: 'e-libra-mobile',
-            name: 'e-Libra Mobile',
-            tone: 'dark',
-            color: '#18A16D',
-            constrast: '#ffffff',
-            schemas: [
-              { id: '--primary-color', name: '#18A16D' },
-              { id: '--secondary-color', name: '#26A69A' },
-              { id: '--primary-color-text', name: '#ffffff' },
-              { id: '--primary-color-menu-bg', name: '#18A16D' },
-              { id: '--primary-color-menu-bg-hover', name: '#0000001c' },
-              { id: '--primary-color-menu-text', name: '#FFFFFFE7' },
-              { id: '--primary-color-menu-text-hover', name: '#FAFAFA' },
-              { id: '--primary-color-menu-active', name: '#ffffffcf' },
-              { id: '--primary-color-loading', name: '#ffffff' },
-              { id: '--primary-color-loading-bg', name: '#18A16D' }
-            ]
-          },
+        content: SmzContentTheme.VELA_BLUE,
     },
     loader: {
         type: SmzLoader.CUBE,

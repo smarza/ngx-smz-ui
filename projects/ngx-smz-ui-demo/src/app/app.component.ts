@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngxs/store';
+import { SIGNALR_PATH, SVG_PATH } from '@routes';
 import { MenuHelperService, ThemeManagerService, BoilerplateService, ToastActions } from 'ngx-smz-ui';
 
 const test = { status: 1 };
@@ -27,6 +28,8 @@ export class AppComponent {
           { label: 'Tag Area', icon: 'far fa-tree', routerLink: ['tag-area'] },
           { label: 'Trees', icon: 'far fa-tree', routerLink: ['trees'] },
           { label: 'Side Content', icon: 'far fa-star', routerLink: ['side-content'] },
+          { label: 'SignalR', icon: 'far fa-chart', routerLink: [SIGNALR_PATH] },
+          { label: 'SVG', icon: 'far fa-chart', routerLink: [SVG_PATH] },
           { label: 'Tag Area', icon: 'far fa-tree', routerLink: ['tag-area'] },
         ]
       },

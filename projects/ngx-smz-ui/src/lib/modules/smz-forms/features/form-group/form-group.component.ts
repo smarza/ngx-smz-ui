@@ -1,4 +1,4 @@
-import { ViewEncapsulation, Component, OnInit, AfterViewInit, OnDestroy, Input, Output, EventEmitter, OnChanges, SimpleChanges, ChangeDetectorRef } from '@angular/core';
+import { ViewEncapsulation, Component, OnInit, AfterViewInit, OnDestroy, Input, Output, EventEmitter, OnChanges, SimpleChanges, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormBuilder, AbstractControlOptions } from '@angular/forms';
 import { debounceTime, takeWhile } from 'rxjs/operators';
 import { InjectableDialogComponentInterface } from '../../../../common/modules/inject-content/models/injectable-dialog-component.interface';
@@ -9,21 +9,23 @@ import { SmzFormsManagerService } from '../../services/smz-forms-manager.service
 import { SmzDialogsConfig } from '../../../smz-dialogs/smz-dialogs.config';
 import { uuidv4 } from '../../../../common/utils/utils';
 import { mergeClone } from '../../../../common/utils/deep-merge';
+import { NgxRbkUtilsConfig } from '../../../rbk-utils/ngx-rbk-utils.config';
+import { SmzFormViewdata } from '../../models/form-viewdata';
 
 @Component({
     selector: 'smz-form-group',
     templateUrl: './form-group.component.html',
     encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy, InjectableDialogComponentInterface<SmzFormsResponse<any>> {
     public isComponentActive = true;
-    public form: FormGroup;
-    //** isValid corresponde ao valid do formulário ou customValidator caso aja; Atualizada em toda mudança de status do formulário */
-    public isValid = false;
-    /** hasChanges ocorre quando os valores do formulário são diferentes do último state salvo. */
-    public hasChanges = false;
+    public viewdata: SmzFormViewdata;
+    public get isValid() { return this.viewdata?.isValid; };
+    public getData<T>(): SmzFormsResponse<T> { return this.viewdata?.getData(); };
     @Input() public config: SmzForm<any>;
     @Output() public statusChanges: EventEmitter<SmzFormsResponse<any>> = new EventEmitter<SmzFormsResponse<any>>();
+    @Output() public changed: EventEmitter<SmzFormsResponse<any>> = new EventEmitter<SmzFormsResponse<any>>();
     @Output() public submit: EventEmitter<SmzFormsResponse<any>> = new EventEmitter<SmzFormsResponse<any>>();
     private isFirstUpdate = true;
     private emitChanges = true;
@@ -32,7 +34,7 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
     public isInitialized = false;
     public configHasErrors = false;
 
-    constructor(public fb: FormBuilder, private cdf: ChangeDetectorRef, public manager: SmzFormsManagerService, public configService: SmzDialogsConfig)
+    constructor(public fb: FormBuilder, private cdf: ChangeDetectorRef, public manager: SmzFormsManagerService, public configService: SmzDialogsConfig, public rbkConfig: NgxRbkUtilsConfig)
     {
 
     }
@@ -148,25 +150,26 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
             };
 
             const options: AbstractControlOptions = { updateOn: this.config?.behaviors?.updateOn ?? 'change' };
-            this.form = this.fb.group(controlsConfig, options);
+            this.viewdata = new SmzFormViewdata(this.config, this.fb.group(controlsConfig, options), this.manager, this.cdf);
 
             if (this.config._context == null) {
                 this.config._context = {
                     applyGlobalStyles: null,
-                    form: this.form
+                    form: this.viewdata.form,
+                    cdf: this.cdf
                 };
             }
             else {
-                this.config._context.form = this.form;
+                this.config._context.form = this.viewdata.form;
             }
 
             this.linkInputControls();
 
             setTimeout(() =>
             {
-                this.updateFormValues();
+                this.viewdata.updateFormValues();
 
-                // this.isValid = this.form.valid;
+                // this.viewdata.isValid = this.viewdata.form.valid;
 
                 const runCustomFunctionsOnLoad = this.config.behaviors?.runCustomFunctionsOnLoad ?? false;
 
@@ -188,7 +191,7 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
                 setTimeout(() =>
                 {
 
-                    this.form.statusChanges
+                    this.viewdata.form.statusChanges
                         .pipe(
                             debounceTime(this.config.behaviors?.debounceTime ?? 400),
                             takeWhile(() => this.isComponentActive),
@@ -200,6 +203,8 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
                         });
 
                     this.fixRadioBug();
+
+                    this.resetState();
                 }, 0);
 
             }, 0);
@@ -211,9 +216,11 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
         // console.log('ngOnChanges', changes);
 
         // Esse timeout garante que o init não seja chamado ao mesmo tempo do init chamado no ngOnInit
+        const config = changes.config;
+
         setTimeout(() =>
         {
-            if (changes.config != null && changes.config.currentValue != null && !this.isInitialized)
+            if (config != null && config.currentValue != null && !this.isInitialized)
             {
                 if (this.hasUndefinedPropertyName() || this.hasDuplicateNames())
                 {
@@ -226,11 +233,11 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
                     this.configHasErrors = false;
                 }
             }
-            else if (changes.config != null && changes.config.currentValue != null && this.form != null)
+            else if (config != null && config.currentValue != null && this.viewdata?.form != null)
             {
-                const config: SmzForm<any> = changes.config.currentValue;
+                const newConfig: SmzForm<any> = config.currentValue;
 
-                const runStatusChangesOnConfigUpdate = config.behaviors?.runStatusChangesOnConfigUpdate;
+                const runStatusChangesOnConfigUpdate = newConfig.behaviors?.runStatusChangesOnConfigUpdate;
 
                 if (runStatusChangesOnConfigUpdate || this.isFirstUpdate)
                 {
@@ -245,13 +252,13 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
                 setTimeout(() =>
                 {
                     this.init();
-                    setTimeout(() => { this.resetState(); }, 0);
+                    // setTimeout(() => { this.resetState(); }, 0);
                 }, 0);
             }
-            else if (changes.config != null && changes.config.currentValue == null && changes.config.previousValue != null)
+            else if (config != null && config.currentValue == null && config.previousValue != null)
             {
-                this.isValid = false;
-                this.hasChanges = false;
+                this.viewdata.isValid = false;
+                this.viewdata.hasChanges = false;
                 this.cdf.markForCheck();
             }
 
@@ -265,7 +272,7 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
         {
             for (const input of group.children)
             {
-                input._inputFormControl = this.form.controls[input.propertyName];
+                input._inputFormControl = this.viewdata.form.controls[input.propertyName];
             };
         };
     }
@@ -295,6 +302,8 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
         } catch (error)
         {
             console.error('Um ou mais Inputs não possuem propertyName', this.config.groups);
+
+            return null;
         }
 
     }
@@ -323,6 +332,8 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
         } catch (error)
         {
             console.error('Um ou mais Inputs possuem problemas', this.config.groups);
+
+            return null;
         }
 
     }
@@ -337,71 +348,59 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
                 if (input.type === SmzControlType.FILE)
                 {
                     const fileInput = input as SmzFileControl;
-                    CONTROL_FUNCTIONS[input.type].clear(this.form.controls[input.propertyName], fileInput._clearMethod);
+                    CONTROL_FUNCTIONS[input.type].clear(this.viewdata.form.controls[input.propertyName], fileInput._clearMethod);
                 }
                 else
                 {
-                    CONTROL_FUNCTIONS[input.type].clear(this.form.controls[input.propertyName]);
+                    CONTROL_FUNCTIONS[input.type].clear(this.viewdata.form.controls[input.propertyName]);
                 }
             };
         };
 
-        this.form.markAsPristine();
+        this.viewdata.form.markAsPristine();
     }
 
     /** Restaura últimos dados salvos */
     public undoChanges(): void
     {
-        this.updateFormValues();
+        this.viewdata.updateFormValues();
         this.resetState();
     }
 
     /** Atualiza o state do formulário com seus valores atuais */
     public resetState(): void
     {
-        const data = this.form.value;
+        const data = this.getData().data;
         this.originalState = JSON.stringify(data).replace(/['"]+/g, '');
+
         this.updateHasChanges();
     }
 
     /** Atualiza o hasChanges */
     public updateHasChanges(): void
     {
-        const data = this.form.value;
+
+        const response = this.getData();
 
         const original = this.originalState;
-        const current = JSON.stringify(data).replace(/['"]+/g, '');
 
-        this.hasChanges = original !== current;
+        const current = JSON.stringify(response.data).replace(/['"]+/g, '');
+
+        if (this.viewdata.hasChanges === false && original !== current) {
+            this.changed.emit(response);
+        }
+
+        if (this.rbkConfig.debugMode) {
+            console.group('UpdateHasChanges');
+            console.log('original', original);
+            console.log('current', current);
+            console.log('hasChanges', original !== current);
+            console.groupEnd();
+        }
+
+        this.viewdata.hasChanges = original !== current;
 
         this.cdf.markForCheck();
-    }
-
-    /** Atualiza os valores dos inputs com seus dados default */
-    public updateFormValues(): void
-    {
-
-        for (const group of this.config.groups)
-        {
-            for (const input of group.children)
-            {
-                const control = this.form.controls[input.propertyName];
-
-                if (input.isDisabled)
-                {
-                    control.disable();
-                }
-                else
-                {
-                    control.enable();
-                }
-                CONTROL_FUNCTIONS[input.type].updateValue(control, input);
-            };
-        };
-
-        this.form.markAsPristine();
-        this.cdf.markForCheck();
-
     }
 
     public ngAfterViewInit(): void
@@ -415,11 +414,11 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
 
         if (this.config.functions?.customValidator != null)
         {
-            this.isValid = this.config.functions?.customValidator(data, this.form);
+            this.viewdata.isValid = this.config.functions?.customValidator(data, this.viewdata.form);
         }
         // else
         // {
-        //     this.isValid = this.form.valid;
+        //     this.viewdata.isValid = this.viewdata.form.valid;
         // }
 
         if (this.config.behaviors?.skipFunctionAfterNextEmit)
@@ -430,23 +429,26 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
         {
             if (this.config.functions?.customBehavior != null)
             {
-                this.config.functions?.customBehavior(data, this.config, this.form, {});
-            }
-
-            if (this.emitChanges)
-            {
-                this.statusChanges.emit(data);
-            }
-            else
-            {
-                this.emitChanges = true;
+                this.config.functions?.customBehavior(data, this.config, this.viewdata.form, {});
             }
         }
 
-        setTimeout(() =>
+        if (this.emitChanges)
         {
-            this.updateHasChanges();
-        }, 0);
+            setTimeout(() =>
+            {
+                this.updateHasChanges();
+                this.statusChanges.emit(this.getData());
+            }, 0);
+        }
+        else
+        {
+            setTimeout(() =>
+            {
+                this.updateHasChanges();
+            }, 0);
+            this.emitChanges = true;
+        }
 
     }
 
@@ -463,9 +465,9 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
             {
                 if (input.type === SmzControlType.RADIO)
                 {
-                    this.form.get(input.propertyName).valueChanges.subscribe(val => {
+                    this.viewdata.form.get(input.propertyName).valueChanges.subscribe(val => {
                         // console.log('fix');
-                        this.form.controls[input.propertyName].setValue(val, { emitEvent: false });
+                        this.viewdata.form.controls[input.propertyName].setValue(val, { emitEvent: false });
                       });
                 }
             };
@@ -473,55 +475,9 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
 
     }
 
-    /** Retorna o objeto com os valores dos inputs; Esse objeto seguirá a nomemclatura do campo name de cada inputConfig */
-    public getData<T>(): SmzFormsResponse<T>
-    {
-        // console.log('--------------------------');
-        // console.log('--------------------------');
-        // console.log('--------------------------');
-        const data: T = {} as T;
-        const response: SmzFormsResponse<T> = { data, isValid: true };
-        const formFlattenResponse = this.config.behaviors?.flattenResponse ?? false;
-
-        for (const group of this.config.groups)
-        {
-            for (const input of group.children)
-            {
-                if (input.advancedSettings == null || !input.advancedSettings.excludeFromResponse)
-                {
-                    const value = CONTROL_FUNCTIONS[input.type].getValue(this.form, input, formFlattenResponse);
-
-                    if (input.visibilityDependsOn == null || input.isVisible)
-                    {
-                        // console.log(`${input.propertyName}`, input._inputFormControl.valid);
-                        if (input.isDisabled)
-                        {
-                            // Forçando a validação para true porque o campo esta desabilitado
-                            response.isValid = response.isValid && true;
-                        }
-                        else
-                        {
-                            // Refletindo a validação do angular na resposta
-                            response.isValid = response.isValid && input._inputFormControl.valid;
-                        }
-                        response.data = { ...response.data, ...value };
-                    }
-                }
-
-            };
-        };
-
-        this.isValid = response.isValid;
-
-        // console.log('isValid', this.isValid);
-
-        return response;
-
-    }
-
     public onEnter(): void
     {
-        if (this.config.behaviors.submitOnEnter && this.isValid) {
+        if (this.config.behaviors.submitOnEnter && this.viewdata.isValid) {
             this.submit.emit(this.getData());
         }
     }

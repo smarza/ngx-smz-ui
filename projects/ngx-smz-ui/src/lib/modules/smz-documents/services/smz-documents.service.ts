@@ -90,6 +90,7 @@ export class SmzDocumentsService {
         y: 0,
         html2canvas: {
           svgRendering: true,
+
         },
       };
 
@@ -100,6 +101,7 @@ export class SmzDocumentsService {
       doc.addFont('assets/fonts/Roboto-Bold.ttf', 'Bold', 'normal', 700);
 
       doc.html(element.nativeElement, options).then(() => {
+
         switch (action) {
           case 'open': {
             doc.output('dataurlnewwindow', { filename: `${this.filename}.pdf` });

@@ -4,17 +4,17 @@
 
   <p-sidebar [(visible)]="isVisible" [position]="assistance.sidebarData.position" styleClass="assistence_sidebar" (onHide)="onHide()" (onShow)="onShow()">
 
-    <div class="p-grid p-flex-column p-align-start p-justify-start p-p-2 p-nogutter">
+    <div class="grid flex-col items-start justify-start p-2 grid-nogutter">
       <h5>Menu</h5>
-      <div class="p-grid p-nogutter">
+      <div class="grid grid-nogutter">
         <p-selectButton [options]="menuTypes" [(ngModel)]="menuType" (onChange)="onMenuTypeChange()" optionLabel="label" optionValue="value"></p-selectButton>
 
-        <div class="p-col-5 p-mt-2 p-mr-2">
+        <div class="col-5 mt-2 mr-2">
           <label for="sidebar-width">Sidebar Width</label>
           <input id="sidebar-width" type="text" pInputText [(ngModel)]="layout.sidebarWidth" appInputChangeDetection (valueChanged)="setSidebarWidth($event)"/>
         </div>
 
-        <div class="p-col p-mt-2">
+        <div class="col mt-2">
           <label for="sidebar-slim-width">Slim Width</label>
           <input id="sidebar-slim-width" type="text" pInputText [(ngModel)]="layout.sidebarSlimWidth" appInputChangeDetection (valueChanged)="setSidebarSlimWidth($event)"/>
         </div>

@@ -26,7 +26,7 @@ export function SetTemplateClasses(template: SmzTemplate, properties: string[]):
     if (template == null) return response;
 
     for (let tag of Object.keys(template)) {
-        const prefix = `${SmzBreakpoints.Tags[tag]}`;
+        const prefix = `${SmzBreakpoints.Tags[tag]}col-`;
 
         for (let property of properties) {
             if (template[tag][property] != null) {

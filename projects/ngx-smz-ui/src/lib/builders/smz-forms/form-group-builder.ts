@@ -1,14 +1,19 @@
-import { SmzCalendarControl, SmzCheckBoxControl, SmzCheckBoxGroupControl, SmzColorPickerControl, SmzContentMaskControl, SmzControlType, SmzCurrencyControl, SmzDropDownControl, SmzFileControl, SmzLinkedDropDownControl, SmzLinkedMultiSelectControl, SmzListControl, SmzMaskControl, SmzMultiSelectControl, SmzNumberControl, SmzPasswordControl, SmzRadioControl, SmzSwitchControl, SmzTagAreaControl, SmzTextAreaControl, SmzTextControl } from '../../modules/smz-forms/models/control-types';
+import { SmzCalendarControl, SmzCheckBoxControl, SmzCheckBoxGroupControl, SmzColorPickerControl, SmzContentMaskControl, SmzControlType, SmzCurrencyControl, SmzDropDownControl, SmzFileControl, SmzLinkedDropDownControl, SmzLinkedMultiSelectControl, SmzListControl, SmzMaskControl, SmzMultiSelectControl, SmzNumberControl, SmzPasswordControl, SmzRadioControl, SmzSwitchControl, SmzTagAreaControl, SmzTextAreaControl, SmzTextControl, SmzControlTypes, SmzTextButtonControl } from '../../modules/smz-forms/models/control-types';
 import { SimpleEntity, SimpleParentEntity } from '../../common/models/simple-named-entity';
 import { SmzFormBuilder } from './form-builder';
-import { SmzFormGroup } from '../../modules/smz-forms/models/smz-forms';
+import { SmzFormGroup, SmzFormsResponse } from '../../modules/smz-forms/models/smz-forms';
 import { SmzFormsBaseControl } from '../../modules/smz-forms/models/controls';
 import { ValidatorFn, Validators } from '@angular/forms';
 import { SmzTextPattern } from '../../modules/smz-forms/models/text-patterns';
 import { MustMatch } from '../../common/utils/custom-validations';
-
+import { GlobalInjector } from '../../common/services/global-injector';
+import { SmzDialogsConfig } from '../../modules/smz-dialogs/smz-dialogs.config';
+import { SmzFormViewdata } from '../../modules/smz-forms/models/form-viewdata';
+import { Observable } from 'rxjs';
+import sortBy from 'lodash-es/sortBy';
 
 export class SmzFormGroupBuilder<TResponse> {
+  private defaultConfig = GlobalInjector.instance.get(SmzDialogsConfig);
   constructor(public _formBuilder: SmzFormBuilder<TResponse>, public group: SmzFormGroup) {
   }
 
@@ -16,6 +21,11 @@ export class SmzFormGroupBuilder<TResponse> {
     colType?: 'col-1' | 'col-2' | 'col-3' | 'col-4' | 'col-5' | 'col-6' | 'col-7' | 'col-8' | 'col-9' | 'col-10' | 'col-11' | 'col-12'): SmzFormGroupBuilder<TResponse> {
     const template = getSmzTemplate(breakpoint, colType) as any;
     this.group.template = { ...this.group.template, ...template };
+    return this;
+  }
+
+  public reorder(...properties: string[]): SmzFormGroupBuilder<TResponse> {
+    this.group.children = sortBy(this.group.children, (c) => properties.indexOf(c.propertyName) !== -1? properties.indexOf(c.propertyName) : this.group.children.length);
     return this;
   }
 
@@ -79,7 +89,7 @@ export class SmzFormGroupBuilder<TResponse> {
 
   public dropdown<T>(property: string, label?: string, options?: SimpleEntity<T>[], defaultValue?: T): SmzFormDropdownBuilder<T,TResponse> {
 
-    let input = this.group.children.find(x => x.propertyName == property);
+    let input = this.group.children.find(x => x.propertyName == property) as SmzDropDownControl<T>;
 
     if (input == null) {
 
@@ -91,12 +101,15 @@ export class SmzFormGroupBuilder<TResponse> {
         propertyName: property, type: SmzControlType.DROPDOWN, name: label,
         defaultValue: defaultValue, options: options
       };
+
       this.group.children.push(input);
     }
     else {
-      if (label != null || options != null || defaultValue != null) {
-        throw Error('Label, options and defaultValue come from uiDefinitions and cannot be changed.')
-      }
+
+      input.name = label ?? input.name;
+      input.options = options ?? input.options;
+      input.defaultValue = defaultValue ?? input.defaultValue;
+
     }
 
     return new SmzFormDropdownBuilder<T,TResponse>(this, input as SmzDropDownControl<T>);
@@ -104,7 +117,7 @@ export class SmzFormGroupBuilder<TResponse> {
 
   public linkedDropdown<T>(property: string, dependsOn: string, label?: string, options?: SimpleParentEntity<T>[], defaultValue?: T): SmzFormLinkedDropdownBuilder<T,TResponse> {
 
-    let input = this.group.children.find(x => x.propertyName == property);
+    let input = this.group.children.find(x => x.propertyName == property) as SmzLinkedDropDownControl<T>;
 
     if (input == null) {
 
@@ -120,9 +133,9 @@ export class SmzFormGroupBuilder<TResponse> {
       this.group.children.push(input);
     }
     else {
-      if (label != null || options != null || defaultValue != null) {
-        throw Error('Label, options and defaultValue come from uiDefinitions and cannot be changed.')
-      }
+      input.name = label ?? input.name;
+      input.options = options ?? input.options;
+      input.defaultValue = defaultValue ?? input.defaultValue;
     }
 
     return new SmzFormLinkedDropdownBuilder<T,TResponse>(this, input as SmzLinkedDropDownControl<T>);
@@ -130,7 +143,7 @@ export class SmzFormGroupBuilder<TResponse> {
 
   public multiselect<T>(property: string, label?: string, options?: SimpleEntity<T>[], defaultValue?: T[]): SmzFormMultiselectBuilder<T,TResponse> {
 
-    let input = this.group.children.find(x => x.propertyName == property);
+    let input = this.group.children.find(x => x.propertyName == property) as SmzMultiSelectControl<T>;
 
     if (input == null) {
 
@@ -146,9 +159,9 @@ export class SmzFormGroupBuilder<TResponse> {
       this.group.children.push(input);
     }
     else {
-      if (label != null || options != null || defaultValue != null) {
-        throw Error('Label, options and defaultValue come from uiDefinitions and cannot be changed.')
-      }
+      input.name = label ?? input.name;
+      input.options = options ?? input.options;
+      input.defaultValue = defaultValue ?? input.defaultValue;
     }
 
     return new SmzFormMultiselectBuilder<T,TResponse>(this, input as SmzMultiSelectControl<T>);
@@ -241,7 +254,7 @@ export class SmzFormGroupBuilder<TResponse> {
 
   public radioGroup<T>(property: string, label?: string, options?: SimpleEntity<T>[], defaultValue?: T): SmzFormRadioGroupBuilder<T,TResponse> {
 
-    let input = this.group.children.find(x => x.propertyName == property);
+    let input = this.group.children.find(x => x.propertyName == property) as SmzRadioControl<T>;
 
     if (input == null) {
 
@@ -257,9 +270,9 @@ export class SmzFormGroupBuilder<TResponse> {
       this.group.children.push(input);
     }
     else {
-      if (label != null || options != null || defaultValue != null) {
-        throw Error('Label, options and defaultValue come from uiDefinitions and cannot be changed.')
-      }
+      input.name = label ?? input.name;
+      input.options = options ?? input.options;
+      input.defaultValue = defaultValue ?? input.defaultValue;
     }
 
     return new SmzFormRadioGroupBuilder<T,TResponse>(this, input as SmzRadioControl<T>);
@@ -325,16 +338,13 @@ export class SmzFormGroupBuilder<TResponse> {
         throw Error('Label is required for contentMask')
       }
 
+      const defaults = this.defaultConfig.forms.controlTypes[SmzControlType.CONTENT_MASK] as SmzContentMaskControl;
+
       input = {
-        propertyName: property, type: SmzControlType.CONTENT_MASK, name: label,
+        ...defaults,
+        propertyName: property, type: SmzControlType.CONTENT_MASK,
+        name: label,
         defaultValue: defaultValue,
-        quickActions: [],
-        variableId: 'input__variable',
-        inputClass: 'smz-input-content-mask',
-        tagClass: '',
-        variableBegin: '{{',
-        variableEnd: '}}',
-        exportHtmlNewLine: false
       };
 
       this.group.children.push(input);
@@ -391,6 +401,38 @@ export class SmzFormGroupBuilder<TResponse> {
     return new SmzFormTextBuilder(this, input as SmzTextControl);
   }
 
+  public textButton(property: string, label?: string, defaultValue?: string, callback?: (data: SmzFormsResponse<unknown>, utils: SmzFormViewdata) => Observable<{ isValid: boolean, messages?: string[] }>): SmzFormTextButtonBuilder<TResponse> {
+
+    let input = this.group.children.find(x => x.propertyName == property) as SmzTextButtonControl;
+
+    if (input == null) {
+
+      if (label == null) throw Error('Label is required for text button')
+      if (callback == null) throw Error('Callback is required for text button')
+
+      input = {
+        propertyName: property, type: SmzControlType.TEXT_BUTTON, name: label,
+        defaultValue,
+        callback,
+        isButtonValid: false,
+        buttonMessages: [],
+        hideName: false,
+        icon: 'fas fa-redo',
+        placeholder: '',
+        styleClass: 'p-button-success',
+        clearButtonMessageOnChanges: true
+      };
+
+      this.group.children.push(input);
+    }
+    else {
+      input.name = label ?? input.name;
+      input.defaultValue = defaultValue ?? input.defaultValue;
+    }
+
+    return new SmzFormTextButtonBuilder(this, input as SmzTextButtonControl);
+  }
+
   public file(property: string, label?: string, defaultValue?: string): SmzFormFileBuilder<TResponse> {
 
     let input = this.group.children.find(x => x.propertyName == property);
@@ -407,7 +449,7 @@ export class SmzFormGroupBuilder<TResponse> {
         maxFileSize: null,
         thumbnailSize: '90px',
         allowZoom: true,
-        dragIconClass: 'pi pi-upload green-text',
+        dragIconClass: 'pi pi-upload text-primary-color',
         showFileSize: true,
         shortenLength: 10,
         shortenSeparator: '...',
@@ -424,15 +466,11 @@ export class SmzFormGroupBuilder<TResponse> {
     return new SmzFormFileBuilder(this, input as SmzFileControl);
   }
 
-  public list(property: string, label?: string, options?: string[], defaultValue?: string[]): SmzFormListBuilder<TResponse> {
+  public list(property: string, label?: string, defaultValue?: string[]): SmzFormListBuilder<TResponse> {
 
     let input = this.group.children.find(x => x.propertyName == property);
 
     if (input == null) {
-
-      if (label == null || options == null) {
-        throw Error('Label and options are required for list.')
-      }
 
       input = {
         propertyName: property,
@@ -441,9 +479,9 @@ export class SmzFormGroupBuilder<TResponse> {
         defaultValue,
         height: '200px',
         showFilter: false,
-        options,
         askBeforeRemoveItem: false,
         showAddButton: false,
+        allowBatchCreation: false,
         showRemoveButton: false,
         showEditButton: false,
         showSortButton: false,
@@ -456,8 +494,8 @@ export class SmzFormGroupBuilder<TResponse> {
       this.group.children.push(input);
     }
     else {
-      if (label != null || options != null || defaultValue != null) {
-        throw Error('Label, options and defaultValue come from uiDefinitions and cannot be changed.')
+      if (label != null || defaultValue != null) {
+        throw Error('Label, defaultValue come from uiDefinitions and cannot be changed.')
       }
     }
 
@@ -910,6 +948,46 @@ export class SmzFormTextBuilder<TResponse> extends SmzFormInputBuilder<TResponse
   }
 }
 
+
+export class SmzFormTextButtonBuilder<TResponse> extends SmzFormInputBuilder<TResponse> {
+  constructor(public _groupBuilder: SmzFormGroupBuilder<TResponse>, private _textButtonInput: SmzTextButtonControl) {
+    super(_groupBuilder, _textButtonInput);
+  }
+
+  public hideLabel(): SmzFormTextButtonBuilder<TResponse> {
+    this._textButtonInput.hideName = true;
+    return this;
+  }
+
+  public useLabel(label: string): SmzFormTextButtonBuilder<TResponse> {
+    this._textButtonInput.label = label;
+    this._textButtonInput.icon = null;
+    return this;
+  }
+
+  public useIcon(icon: string): SmzFormTextButtonBuilder<TResponse> {
+    this._textButtonInput.label = null;
+    this._textButtonInput.icon = icon;
+    return this;
+  }
+
+  public setPlaceholder(placeholder: string): SmzFormTextButtonBuilder<TResponse> {
+    this._textButtonInput.placeholder = placeholder;
+    return this;
+  }
+
+  public setStyle(styleClass: string): SmzFormTextButtonBuilder<TResponse> {
+    this._textButtonInput.styleClass = styleClass;
+    return this;
+  }
+
+  public persistMessages(styleClass: string): SmzFormTextButtonBuilder<TResponse> {
+    this._textButtonInput.clearButtonMessageOnChanges = false;
+    return this;
+  }
+
+}
+
 export class SmzFormFileBuilder<TResponse> extends SmzFormInputBuilder<TResponse> {
   constructor(public _groupBuilder: SmzFormGroupBuilder<TResponse>, private _fileInput: SmzFileControl) {
     super(_groupBuilder, _fileInput);
@@ -1017,6 +1095,11 @@ export class SmzFormListBuilder<TResponse> extends SmzFormInputBuilder<TResponse
 
   public showFilter(): SmzFormListBuilder<TResponse> {
     this._listInput.showFilter = true;
+    return this;
+  }
+
+  public allowBatchCreation(): SmzFormListBuilder<TResponse> {
+    this._listInput.allowBatchCreation = true;
     return this;
   }
 

@@ -1,11 +1,9 @@
 import { Component, OnInit, ChangeDetectionStrategy, ViewChild, Input, ChangeDetectorRef, AfterViewInit, Renderer2, ElementRef, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
 import { SmzDocumentsService } from '../../services/smz-documents.service';
-import * as moment_ from 'moment';
+import moment from 'moment';
 import { SmzDocumentState } from '../../models/smz-document';
 import { Store } from '@ngxs/store';
-
-const moment = moment_;
 
 @Component({
     selector: 'document-viewer',

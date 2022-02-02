@@ -9,6 +9,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { SmzFormsResponse } from '../../../smz-forms/models/smz-forms';
 import { InputListDialogCrudComponent } from '../../../smz-forms/components/input-list/input-list-dialog-crud.component';
 import { DialogCrudStateService } from './dialog-crud-state.service';
+import { InputListBatchCrudComponent } from '../../../smz-forms/components/input-list/input-list-batch-crud.component';
 
 export interface DialogsStateModel {
 }
@@ -133,13 +134,37 @@ export class DialogsState {
 
     this.dialogCrudService.ref = ref;
 
-    ref.onClose.subscribe((event: SmzFormsResponse<{ name: string }>) =>{
+    ref.onClose.subscribe((event: SmzFormsResponse<{ name: string }>) => {
 
       if (event) {
           ctx.dispatch(new DialogsActions.ShowInputListCreationCrudDialogSuccess(true, action.value, event.data.name));
       }
       else {
         ctx.dispatch(new DialogsActions.ShowInputListCreationCrudDialogSuccess(false));
+      }
+    });
+
+  }
+
+  @Action(DialogsActions.ShowInputListBatchCreationCrudDialog)
+  public onShowInputListBatchCreationCrudDialog(ctx: StateContext<DialogsStateModel>, action: DialogsActions.ShowInputListBatchCreationCrudDialog): void {
+
+    const ref = this.dialogService.open(InputListBatchCrudComponent, {
+      header: action.title,
+      width: '50%',
+      contentStyle: {"max-height": "500px", "overflow": "auto"},
+      baseZIndex: 10000,
+      data: { input: action.input, value: ''}
+    })
+
+    this.dialogCrudService.ref = ref;
+
+    ref.onClose.subscribe((event: { names: string[] }) => {
+      if (event) {
+          ctx.dispatch(new DialogsActions.ShowInputListBatchCreationCrudDialogSuccess(true, event.names));
+      }
+      else {
+        ctx.dispatch(new DialogsActions.ShowInputListBatchCreationCrudDialogSuccess(false));
       }
     });
 

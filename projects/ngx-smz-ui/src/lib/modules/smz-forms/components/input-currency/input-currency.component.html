@@ -1,9 +1,9 @@
 <div class="ui-g ui-fluid">
-    <div class="ui-g-12 p-col-nogutter" [ngStyle]="{ padding: 0 }">
+    <div class="ui-g-12 grid-nogutter" [ngStyle]="{ padding: 0 }">
         <label class="smz__input_name" [innerHTML]="input.name"></label>
         <div class="p-inputgroup input_inner__wrapper">
             <span class="p-inputgroup-addon">R$</span>
-            <input pInputText fxFlex="grow" class="p-col-12 smz__input_value" [id]="input.propertyName" type="number"
+            <input pInputText fxFlex="grow" class="col-12 smz__input_value" [id]="input.propertyName" type="number"
                 [formControl]="control">
             <smz-validation-messages [input]="input" [control]="control" [behaviors]="behaviors"></smz-validation-messages>
         </div>

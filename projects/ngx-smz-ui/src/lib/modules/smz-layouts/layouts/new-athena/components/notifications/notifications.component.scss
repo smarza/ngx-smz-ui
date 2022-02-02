@@ -1,0 +1,31 @@
+.notification {
+  font-weight: 700;
+  color: var(--text-color-secondary);
+  margin-left: 1rem;
+  position: relative;
+
+  i {
+    line-height: inherit;
+    font-size: 1.5rem;
+  }
+}
+
+.topbar-notification-menu-top-adjust {
+  margin-top: -17px !important;
+}
+
+.topbar-badge {
+  position: absolute;
+  display: block;
+  right: -5px;
+  top: -10px;
+  width: 1rem;
+  height: 1rem;
+  line-height: 1rem;
+  font-size: 0.714rem;
+  border-radius: 50%;
+  font-weight: 600;
+  background: var(--text-color-secondary);
+  color: var(--primary-color);
+  text-align: center;
+}

@@ -1,0 +1,14 @@
+<div
+  [ngStyle]="{ background: data.container.background }"
+  class="grid grid-nogutter items-stretch justify-start h-full w-full relative"
+  [ngClass]="data.container.styles">
+
+  <smz-ui-chart
+    class="w-full h-full"
+    [ngClass]="data.flexWidth"
+    [type]="data.content.chartData.type"
+    [data]="data.content.chartData.data"
+    [options]="data.content.chartData.config">
+  </smz-ui-chart>
+
+</div>

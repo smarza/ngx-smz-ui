@@ -1,6 +1,7 @@
 import { DemoKeys } from '@demos/demo-keys';
 import { Store } from '@ngxs/store';
-import { GlobalInjector, SmzDialogBuilder, SmzDialogsService } from 'ngx-smz-ui';
+import { GlobalInjector, SmzDialogBuilder, SmzDialogsService, SmzFormsResponse, SmzFormViewdata, ToastActions } from 'ngx-smz-ui';
+import { Observable, of } from 'rxjs';
 import { DemoFeatureActions } from '../../state/demo/demo.actions';
 
 const service = GlobalInjector.instance.get(SmzDialogsService);
@@ -11,9 +12,10 @@ export const DialogsDemo: { [key: string]: () => void } = {
   [DemoKeys.DIALOGS_HEADER_WITH_TITLE]: () => {
     service.open(
       new SmzDialogBuilder<void>()
-        .setTitle(`Some Title Here`)
+        .setTitle(`Header With Title Demo`)
         .setLayout('EXTRA_SMALL', 'col-12')
         .setLayout('EXTRA_LARGE', 'col-8')
+        .allowMinimize('TITLE DEMO')
       .build()
     );
   },
@@ -39,6 +41,17 @@ export const DialogsDemo: { [key: string]: () => void } = {
         .setLayout('EXTRA_SMALL', 'col-12')
         .setLayout('EXTRA_LARGE', 'col-8')
         .allowMaximize()
+      .build()
+    );
+  },
+  //
+  [DemoKeys.DIALOGS_HEADER_WITH_MINIMIZE]: () => {
+    service.open(
+      new SmzDialogBuilder<void>()
+        .setTitle(`Minimize Demo`)
+        .setLayout('EXTRA_SMALL', 'col-12')
+        .setLayout('EXTRA_LARGE', 'col-8')
+        .allowMinimize('DEMO A')
       .build()
     );
   },
@@ -83,10 +96,26 @@ export const DialogsDemo: { [key: string]: () => void } = {
   [DemoKeys.DIALOGS_CONTROLS_BASE_Z_INDEX]: () => {
     service.open(
       new SmzDialogBuilder<void>()
-        .setTitle(`Some Title Here`)
-        .setLayout('EXTRA_SMALL', 'col-12')
-        .setLayout('EXTRA_LARGE', 'col-8')
-        .baseZIndex(-1)
+      .setTitle('Base z-index sample')
+      .setLayout('EXTRA_SMALL', 'col-12')
+      .setLayout('SMALL', 'col-12')
+      .setLayout('MEDIUM', 'col-6')
+      .setLayout('LARGE', 'col-6')
+      .setLayout('EXTRA_LARGE', 'col-6')
+      // .baseZIndex(500)
+      .closeOnEscape()
+      .dismissableMask()
+      .confirmOnEnter()
+        .form()
+        .group()
+          .calendar('date', 'Agendamento')
+            .useDateAndTime()
+            .group
+        .dropdown('input1', 'I\'m required', [{ id: '1', name: 'Option 1'}, { id: '2', name: 'Option 2'}, { id: '3', name: 'Option 3'}])
+              .validators().required()
+              .group
+          .form
+        .dialog
       .build()
     );
   },
@@ -303,21 +332,96 @@ export const DialogsDemo: { [key: string]: () => void } = {
       .build()
     );
   },
-    //
-    [DemoKeys.DIALOGS_IF]: () => {
-      service.open(
-        new SmzDialogBuilder<void>()
-          .if(true)
-            .setTitle(`Title inside first if`)
-            .endIf
-          .if(false)
-            .setTitle(`Title inside second if`)
-            .endIf
-          .setLayout('EXTRA_SMALL', 'col-12')
-          .setLayout('EXTRA_LARGE', 'col-8')
-        .build()
-      );
-    },
+  //
+  [DemoKeys.DIALOGS_IF]: () => {
+    service.open(
+      new SmzDialogBuilder<void>()
+        .if(true)
+          .setTitle(`Title inside first if`)
+          .endIf
+        .if(false)
+          .setTitle(`Title inside second if`)
+          .endIf
+        .setLayout('EXTRA_SMALL', 'col-12')
+        .setLayout('EXTRA_LARGE', 'col-8')
+      .build()
+    );
+  },
+  //
+  [DemoKeys.DIALOGS_WITH_FORM]: () => {
+    service.open(
+      new SmzDialogBuilder<void>()
+        .setTitle(`Form`)
+        .setLayout('EXTRA_SMALL', 'col-12')
+        .setLayout('EXTRA_LARGE', 'col-8')
+        .form()
+        .showMultipleErrorsMessages()
+        .group('Chave correta: access')
+          .textButton('key', 'Chave', '',
+            (response: SmzFormsResponse<any>, utils: SmzFormViewdata): Observable<{ isValid: boolean, messages?: string[] }> => {
+              console.log('callback data...', response);
+
+              if (response.data.key === 'access') {
+                utils.updateInputValue('name', 'user.name');
+                utils.updateInputValue('email', 'user@email.com');
+                utils.updateInputValue('sector', 'user.sector');
+                utils.updateInputValue('identifier', 'user.identifier');
+                utils.updateInputValue('isContracted', true);
+                store.dispatch(new ToastActions.Success('Chave válida'));
+                return of({ isValid: true });
+              }
+              else {
+                utils.updateInputValue('name', '');
+                utils.updateInputValue('email', '');
+                utils.updateInputValue('sector', '');
+                utils.updateInputValue('identifier', '');
+                utils.updateInputValue('isContracted', null);
+                store.dispatch(new ToastActions.Error('Chave Inválida'));
+                return of({ isValid: false, messages: ['Chave Inválida'] });
+              }
+
+            })
+            .useLabel('Buscar')
+            .validators()
+              .required()
+            .group
+          .form
+
+        .group('Preenchimento automático')
+          .text('name', 'Nome')
+            .disable()
+            .validators()
+              .required()
+            .group
+          .text('email', 'Email')
+            .disable()
+            .validators()
+              .required()
+              .email()
+            .group
+          .text('sector', 'Gerência')
+            .disable()
+            .validators()
+              .required()
+            .group
+
+          // OCULTOS
+          .text('identifier', 'Identificador')
+            .disable()
+            .hide()
+            .validators()
+              .required()
+            .group
+          .switch('isContracted', 'IsContracted')
+            .disable()
+            .hide()
+            .group
+
+          .form
+          .dialog
+      .build()
+    );
+  },
 }
 
 function ExecuteBlockUiDemo(value: Number): void {

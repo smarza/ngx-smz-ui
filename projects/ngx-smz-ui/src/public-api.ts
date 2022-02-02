@@ -1,3 +1,4 @@
+import { ClickStopPropagationModule } from './lib/common/stop-click-propagation/click-stop-propagation.module';
 /*
  * Public API Surface of ngx-smz-ui
  */
@@ -21,8 +22,10 @@ export * from './lib/modules/smz-info-date/public-api';
 export * from './lib/modules/smz-router-params/public-api';
 export * from './lib/modules/smz-viewport/public-api';
 export * from './lib/modules/smz-menu/public-api';
+export * from './lib/modules/smz-dock/public-api';
 // export * from './lib/modules/smz-notifications/public-api';
 export * from './lib/modules/smz-documents/public-api';
+// export * from './lib/modules/smz-svg/public-api';
 
 export * from './lib/common/input-detection/input-detection.module';
 export * from './lib/common/input-detection/input-detection.directive';
@@ -35,10 +38,14 @@ export { UniqueFilterPipe } from './lib/common/data-pipes/pipes/unique-filter.pi
 export { DescribeArrayPipe } from './lib/common/data-pipes/pipes/describe-array.pipe';
 export { CalendarPipe } from './lib/common/data-pipes/pipes/calendar.pipe';
 export { SmzGetDataPipe } from './lib/common/data-pipes/pipes/get-data.pipe';
+export { JoinPipe } from './lib/common/data-pipes/pipes/join.pipe';
 export { DescribeSimpleNamedPipe } from './lib/common/data-pipes/pipes/describe-simple-named.pipe';
 export { DescribeAnyPipe } from './lib/common/data-pipes/pipes/describe-any.pipe';
 export { UrlCheckerPipeModule } from './lib/common/url-checker/url-checker.pipe';
 export { UrlCheckerPipe } from './lib/common/url-checker/url-checker.pipe';
+
+export { ClickStopPropagationModule } from './lib/common/stop-click-propagation/click-stop-propagation.module';
+export { ClickStopPropagationDirective } from './lib/common/stop-click-propagation/click-stop-propagation.directive';
 
 export { IsVisiblePipeModule, IsVisiblePipe } from './lib/common/is-visible-pipe/is-visible.pipe';
 export { MergeClonePipeModule, MergeClonePipe } from './lib/common/merge-clone-pipe/merge-clone.pipe';
@@ -65,6 +72,7 @@ export * from './lib/common/modules/inject-content/public-api';
 export * from './lib/common/models/simple-named-entity';
 export * from './lib/common/models/templates';
 export * from './lib/common/utils/utils';
+export * from './lib/common/utils/pretty-json';
 
 export * from './lib/common/pipes/templates.pipe';
 
@@ -75,3 +83,5 @@ export * from './lib/modules/rbk-utils/public-api';
 // BUILDERS
 export * from './lib/builders/smz-documents/document-builder';
 export * from './lib/builders/smz-menu/menu-builder';
+export * from './lib/builders/smz-charts/public-api';
+export * from './lib/builders/smz-trees/tree-builder';

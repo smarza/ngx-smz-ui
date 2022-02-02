@@ -16,3 +16,6 @@ export * from '../../builders/smz-tables/state-builder';
 export * from '../../builders/smz-tables/column-builder';
 export * from '../../builders/smz-tables/menu-builder';
 export * from '../../builders/smz-tables/editable-builder';
+
+export * from './services/table-helper.service';
+export * from './pipes/sincronize-table.pipe';

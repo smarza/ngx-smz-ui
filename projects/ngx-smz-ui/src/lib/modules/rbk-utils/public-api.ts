@@ -60,6 +60,12 @@ export * from '../../state/global/authentication/authentication.actions';
 export * from '../../state/global/authentication/authentication.selectors';
 export * from '../../state/global/authentication/authentication.state';
 
+export * from '../../state/signalr/signalr.actions';
+export * from '../../state/signalr/signalr.selectors';
+export * from '../../state/signalr/signalr.state';
+export * from '../../state/signalr/signalr';
+export * from '../../state/signalr/signalr.service';
+
 export * from './ui/input-clear-extension.directive';
 export * from './ui/table-clear-extension.directive';
 export * from './ui/table-clear-extions.module';

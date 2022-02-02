@@ -1,10 +1,11 @@
 
 import { SmzDocumentCell, SmzDocumentRow, SmzDocumentContent } from '../../modules/smz-documents/models/smz-document';
-import { SmzDocumentTitle, SmzDocumentFeatureDefinitions, SmzDocumentDivider, SmzDocumentField, SmzDocumentImage, SmzDocumentSpacer, SmzDocumentSubTitle, SmzDocumentFieldsGroup, SmzDocumentTable } from '../../modules/smz-documents/models/smz-document-features';
+import { SmzDocumentTitle, SmzDocumentFeatureDefinitions, SmzDocumentDivider, SmzDocumentField, SmzDocumentImage, SmzDocumentSpacer, SmzDocumentSubTitle, SmzDocumentFieldsGroup, SmzDocumentTable, SmzDocumentChart } from '../../modules/smz-documents/models/smz-document-features';
 import { SmzDocumentBuilder } from './document-builder';
-import { SmzCellDividerBuilder, SmzCellFieldBuilder, SmzCellFieldsGroupBuilder, SmzCellImageBuilder, SmzCellSpacerBuilder, SmzCellSubTitleBuilder, SmzCellTableBuilder, SmzCellTitleBuilder } from './document-cells';
+import { SmzCellChartBuilder, SmzCellDividerBuilder, SmzCellFieldBuilder, SmzCellFieldsGroupBuilder, SmzCellImageBuilder, SmzCellSpacerBuilder, SmzCellSubTitleBuilder, SmzCellTableBuilder, SmzCellTitleBuilder } from './document-cells';
 import { UUID } from 'angular2-uuid';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
+import { SmzChart } from '../../modules/smz-charts/models/chart';
 
 export class SmzDocumentContentBuilder extends SmzBuilderUtilities<SmzDocumentContentBuilder> {
   protected that = this;
@@ -88,6 +89,14 @@ export class SmzDocumentRowBuilder {
     const item: SmzDocumentTable = { type: SmzDocumentFeatureDefinitions.TABLE };
     cell.data = item;
     return new SmzCellTableBuilder(this, cell, item, this._documentBuilder);
+  }
+
+  public chart(chartData: SmzChart): SmzCellChartBuilder {
+    const cell: SmzDocumentCell = { colspan: 1, rowspan: 1, height: '100%', width: 'auto', data: null };
+    this._row.cells.push(cell)
+    const item: SmzDocumentChart = { type: SmzDocumentFeatureDefinitions.CHART, content: { chartData }, flexWidth: 'col' };
+    cell.data = item;
+    return new SmzCellChartBuilder(this, cell, item, this._documentBuilder);
   }
 
   public get content(): SmzDocumentContentBuilder {

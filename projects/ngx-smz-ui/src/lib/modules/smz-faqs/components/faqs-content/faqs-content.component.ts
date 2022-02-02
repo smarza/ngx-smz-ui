@@ -45,7 +45,7 @@ export class FaqsContentComponent implements OnInit
     @Confirmable('Confirma a criação desta pergunta/resposta ?', 'Aviso')
     public create(formComponent: FormGroupComponent): void
     {
-        const data = formComponent.form.value;
+        const data = formComponent.viewdata.form.value;
 
         const creation: FaqCreation = {
             tag: this.manager.currentTag,

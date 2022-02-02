@@ -1,10 +1,10 @@
 <div class="ui-g ui-fluid">
-    <div class="ui-g-12 p-col-nogutter" [ngStyle]="{ padding: 0 }">
+    <div class="ui-g-12 grid-nogutter" [ngStyle]="{ padding: 0 }">
         <label class="smz__input_name" [innerHTML]="input.name"></label>
-        <div class="input_inner__wrapper">
+        <div class="input_inner__wrapper grid grid-nogutter">
             <p-calendar
                 fxFlex="grow"
-                class="p-col-12 p-col-nogutter smz__input_value"
+                class="col-12 grid-nogutter smz__input_value"
                 [monthNavigator]="true"
                 [yearNavigator]="true"
                 [yearRange]="input.yearRange != null ? input.yearRange : '1930:2030'"

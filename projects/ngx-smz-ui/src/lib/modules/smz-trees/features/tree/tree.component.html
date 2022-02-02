@@ -1,8 +1,8 @@
 <ng-container *ngIf="state; else noStateTemplate">
 
-    <ng-container
+    <!-- <ng-container
         *ngIf="(state.emptyFeedback != null && (state.emptyFeedback.extraInfo || state.emptyFeedback.image || state.emptyFeedback.actionButton)) && (items != null && items.length === 0); else treeTemplate">
-        <!-- <smz-data-info
+        <smz-data-info
             [image]="context.state.emptyFeedback.image"
             [message]="context.state.emptyFeedback.message"
             [callbackInfo]="context.state.emptyFeedback.extraInfo"
@@ -13,14 +13,14 @@
                 <ng-container *ngTemplateOutlet="emptyActionsTemplate; context: { $implicit: {} }"></ng-container>
             </ng-template>
 
-        </smz-data-info> -->
+        </smz-data-info>
     </ng-container>
 
-    <ng-template #treeTemplate>
+    <ng-template #treeTemplate> -->
 
-        <ng-container *ngIf="items">
+        <ng-container *ngIf="items != null">
             <p-contextMenu #cm [model]="menuItems" [appendTo]="appendTo" [styleClass]="menuItems == null || menuItems?.length === 0 ? 'invisible-important' : ''"></p-contextMenu>
-            <p-tree #dt [value]="items"
+            <p-tree #dt [value]="state.content.sincronize ? (items | sincronizeTree : treeKey) : items"
                 scrollHeight="flex"
                 [contextMenu]="cm"
                 [selectionMode]="state.selection.mode"
@@ -49,9 +49,9 @@
                 <ng-template pTemplate="header" *ngIf="state.header.isVisible">
 
                     <ng-container *ngIf="state.header.toolbar as toolbar">
-                        <div class="p-grid p-nogutter p-justify-start p-align-center p-mb-2 gap-2">
-                            <h3 *ngIf="state.header.title != null" class="p-m-2 p-col">{{state.header.title}}</h3>
-                            <div class="p-grid p-nogutter p-justify-start p-align-center gap-2">
+                        <div class="grid grid-nogutter justify-start items-center mb-2 gap-2">
+                            <h3 *ngIf="state.header.title != null" class="m-2 col">{{state.header.title}}</h3>
+                            <div class="grid grid-nogutter justify-start items-center gap-2">
                                 <ng-container *ngFor="let button of state.header.toolbar.items; let i=index">
                                     <button
                                         pButton
@@ -115,14 +115,14 @@
                                 </button>
 
                             </div>
-                            <span *ngIf="state.filter.show" class="p-input-icon-left p-col p-col-12 p-md-4">
+                            <span *ngIf="state.filter.show" class="p-input-icon-left col col-12 md:col-4">
                                 <i class="pi pi-search"></i>
                                 <input #inputGlobal pInputText type="text" (input)="dt._filter(inputGlobal.value)" [placeholder]="state.filter.textPlaceholder" />
                             </span>
                         </div>
 
-                        <div *ngIf="toolbarTemplate != null" class="p-grid p-nogutter p-align-center p-mt-2"
-                            [ngClass]="'p-justify-' + state.header.toolbar.alignment">
+                        <div *ngIf="toolbarTemplate != null" class="grid grid-nogutter items-center mt-2"
+                            [ngClass]="'justify-' + state.header.toolbar.alignment">
                             <ng-container *ngTemplateOutlet="toolbarTemplate; context: { $implicit: dt }"></ng-container>
                         </div>
                     </ng-container>
@@ -130,10 +130,16 @@
                 </ng-template>
 
                 <ng-template pTemplate="footer" *ngIf="state.footer.isVisible">
-                    <div class="p-grid p-nogutter p-justify-start p-align-center">
-                        <span class="p-col p-mr-2">FOOTER</span>
+                    <div class="grid grid-nogutter justify-start items-center">
+                        <span class="col mr-2">FOOTER</span>
                     </div>
                 </ng-template>
+
+                <ng-container *ngFor="let content of contentTemplates">
+                    <ng-template let-node [pTemplate]="content.type">
+                        <ng-container *ngTemplateOutlet="content.template; context: { $implicit: node }"></ng-container>
+                    </ng-template>
+                </ng-container>
 
                 <ng-template pTemplate="empty">
                     <tr>
@@ -144,7 +150,7 @@
             </p-tree>
 
         </ng-container>
-    </ng-template>
+    <!-- </ng-template> -->
 
 </ng-container>
 

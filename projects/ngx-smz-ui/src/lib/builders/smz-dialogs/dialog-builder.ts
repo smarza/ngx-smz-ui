@@ -35,6 +35,9 @@ export class SmzDialogBuilder<TResponse> extends SmzBuilderUtilities<SmzDialogBu
       showSaveButton: false,
       confirmOnEnter: false,
       showMaximizeButton: false,
+      showMinimizeButton: false,
+      minimizeLabel: null,
+      minimizeDockImagePath: 'assets/images/dock/dialog.svg',
       useAdvancedResponse: false,
       closeOnEscape: false,
       showHeader: true,
@@ -86,6 +89,17 @@ export class SmzDialogBuilder<TResponse> extends SmzBuilderUtilities<SmzDialogBu
 
   public allowMaximize(): SmzDialogBuilder<TResponse> {
     this._state.behaviors.showMaximizeButton = true;
+    return this;
+  }
+
+  public allowMinimize(label?: string): SmzDialogBuilder<TResponse> {
+    this._state.behaviors.showMinimizeButton = true;
+    this._state.behaviors.minimizeLabel = label;
+    return this;
+  }
+
+  public setMinimizeDockImage(imagePath: string): SmzDialogBuilder<TResponse> {
+    this._state.behaviors.minimizeDockImagePath = imagePath;
     return this;
   }
 

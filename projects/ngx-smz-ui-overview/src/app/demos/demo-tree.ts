@@ -15,10 +15,82 @@ export const TreeDemoData: DemoTreeNode[] = [
     type: 'Category',
     children: [
       {
+        label: 'From model', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'chart',
+        notes: '',
+        data: ChartsDemo[DemoKeys.CHARTS_FROM_MODEL]
+      },
+      {
+        label: 'Combo', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'chart',
+        notes: '',
+        data: ChartsDemo[DemoKeys.CHARTS_COMBO]
+      },
+      {
+        label: 'Line Bar', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'chart',
+        notes: '',
+        data: ChartsDemo[DemoKeys.CHARTS_LINE_BAR]
+      },
+      {
+        label: 'Rounded Bar', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'chart',
+        notes: '',
+        data: ChartsDemo[DemoKeys.CHARTS_ROUNDED_BAR]
+      },
+      {
+        label: 'Stacked Bar', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'chart',
+        notes: '',
+        data: ChartsDemo[DemoKeys.CHARTS_STACKED_BAR]
+      },
+      {
         label: 'Vertical Bar', icon: 'fas fa-code', type: 'Demo',
         demoType: 'chart',
         notes: '',
         data: ChartsDemo[DemoKeys.CHARTS_VERTICAL_BAR]
+      },
+      {
+        label: 'Bar', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'chart',
+        notes: '',
+        data: ChartsDemo[DemoKeys.CHARTS_BAR]
+      },
+      {
+        label: 'Dougnut', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'chart',
+        notes: '',
+        data: ChartsDemo[DemoKeys.CHARTS_DOUGNUT]
+      },
+      {
+        label: 'Pie', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'chart',
+        notes: '',
+        data: ChartsDemo[DemoKeys.CHARTS_PIE]
+      },
+      {
+        label: 'Polar Area', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'chart',
+        notes: '',
+        data: ChartsDemo[DemoKeys.CHARTS_POLAR_AREA]
+      },
+      {
+        label: 'Color Pallete', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'chart',
+        notes: '',
+        data: ChartsDemo[DemoKeys.CHARTS_COLOR_PALLETE]
+      },
+      {
+        label: 'Sprint 1', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'chart',
+        notes: '',
+        data: ChartsDemo[DemoKeys.CHARTS_SPRINTS_1]
+      },
+      {
+        label: 'Sprint 2', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'chart',
+        notes: '',
+        data: ChartsDemo[DemoKeys.CHARTS_SPRINTS_2]
       },
     ]
   },
@@ -103,6 +175,11 @@ export const TreeDemoData: DemoTreeNode[] = [
             label: 'With Maximize', icon: 'fas fa-code', type: 'Demo',
             demoType: 'dialog',
             data: DialogsDemo[DemoKeys.DIALOGS_HEADER_WITH_MAXIMIZE]
+          },
+          {
+            label: 'With Minimize', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'dialog',
+            data: DialogsDemo[DemoKeys.DIALOGS_HEADER_WITH_MINIMIZE]
           },
         ]
       },
@@ -219,6 +296,16 @@ export const TreeDemoData: DemoTreeNode[] = [
           },
         ]
       },
+      {
+        label: 'Dialog With Forms', type: 'SubCategory',
+        children: [
+          {
+            label: 'Validation', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'dialog',
+            data: DialogsDemo[DemoKeys.DIALOGS_WITH_FORM]
+          },
+        ]
+      },
     ]
   },
   {
@@ -262,12 +349,35 @@ export const TreeDemoData: DemoTreeNode[] = [
         ]
       },
       {
+        label: 'Misc', type: 'SubCategory',
+        children: [
+          {
+            label: 'Apply Data', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'form',
+            notes: '',
+            data: FormsDemo[DemoKeys.FORMS_WITH_APPLY_DATA]
+          },
+        ]
+      },
+      {
         label: 'Behaviors', type: 'SubCategory',
         children: []
       },
       {
         label: 'Inputs', type: 'SubCategory',
         children: [
+          {
+            label: 'All Inputs', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'form',
+            notes: '',
+            data: FormsDemo[DemoKeys.FORMS_ALL_INPUTS]
+          },
+          {
+            label: 'All Inputs Disabled', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'form',
+            notes: '',
+            data: FormsDemo[DemoKeys.FORMS_ALL_INPUTS_DISABLED]
+          },
           {
             label: 'Calendar', icon: 'fas fa-code', type: 'Demo',
             demoType: 'form',
@@ -365,6 +475,12 @@ export const TreeDemoData: DemoTreeNode[] = [
             data: FormsDemo[DemoKeys.FORMS_INPUT_TEXT]
           },
           {
+            label: 'Text Button', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'form',
+            notes: '',
+            data: FormsDemo[DemoKeys.FORMS_INPUT_TEXT_BUTTON]
+          },
+          {
             label: 'File', icon: 'fas fa-code', type: 'Demo',
             demoType: 'form',
             notes: '',
@@ -381,6 +497,12 @@ export const TreeDemoData: DemoTreeNode[] = [
             demoType: 'form',
             notes: '',
             data: FormsDemo[DemoKeys.FORMS_INPUT_LIST_INLINE_CRUD]
+          },
+          {
+            label: 'List With Batch Crud', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'form',
+            notes: '',
+            data: FormsDemo[DemoKeys.FORMS_INPUT_LIST_BATCH_CRUD]
           },
           {
             label: 'Mask', icon: 'fas fa-code', type: 'Demo',
@@ -442,6 +564,18 @@ export const TreeDemoData: DemoTreeNode[] = [
         demoType: 'table',
         notes: '',
         data: TablesDemo[DemoKeys.TABLE_ARRAY_FILTER]
+      },
+      {
+        label: 'Row Expansion', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'table',
+        notes: '',
+        data: TablesDemo[DemoKeys.TABLE_ROW_EXPANSION]
+      },
+      {
+        label: 'Dynamic Menu', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'table',
+        notes: '',
+        data: TablesDemo[DemoKeys.TABLE_DYNAMIC_MENU]
       },
     ]
   },

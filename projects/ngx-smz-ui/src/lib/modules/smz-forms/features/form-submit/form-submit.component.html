@@ -1,0 +1,6 @@
+<ng-container *ngIf="form != null && response != null">
+  <div class="grid grid-nogutter items-center justify-start gap-2">
+    <button pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded p-button-text" [disabled]="!response.isValid || !response.hasUnsavedChanges" (click)="submitSave()"></button>
+    <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger p-button-text" [disabled]="!response.hasUnsavedChanges" (click)="cancel()"></button>
+  </div>
+</ng-container>

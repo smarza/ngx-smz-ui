@@ -3,6 +3,7 @@ import { SmzFormsBehaviorsConfig, SmzFormsBehaviorsFunctions as SmzFormCustomFun
 import { SmzControlTypes } from './control-types';
 import { SmzTemplate } from '../../../common/models/templates';
 import { Form, FormGroup } from '@angular/forms';
+import { ChangeDetectorRef } from '@angular/core';
 
 export interface SmzForm<T>
 {
@@ -19,6 +20,7 @@ export interface SmzForm<T>
 export interface SmzFormContext {
     applyGlobalStyles: boolean;
     form: FormGroup;
+    cdf: ChangeDetectorRef;
 }
 
 export interface SmzFormGroup
@@ -33,4 +35,5 @@ export interface SmzFormsResponse<T>
 {
     data: T;
     isValid: boolean;
+    hasUnsavedChanges: boolean;
 }

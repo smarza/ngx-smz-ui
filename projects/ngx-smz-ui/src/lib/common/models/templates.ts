@@ -11,8 +11,8 @@ export interface SmzTemplate
 export interface SmzResponsive
 {
     row?: 'col-1' | 'col-2' | 'col-3' | 'col-4' | 'col-5' | 'col-6' | 'col-7' | 'col-8' | 'col-9' | 'col-10' | 'col-11' | 'col-12' | 'col' | 'col-auto';
-    verticalAlignment?: 'align-items-start' | 'align-items-center' | 'align-items-end';
-    horizontalAlignment?: 'justify-content-start' | 'justify-content-center' | 'justify-content-end' | 'justify-content-around' | 'justify-content-between';
+    verticalAlignment?: 'items-start' | 'items-center' | 'items-end';
+    horizontalAlignment?: 'justify-start' | 'justify-center' | 'justify-end' | 'justify-around' | 'justify-between';
 
 }
 
@@ -30,10 +30,10 @@ export namespace SmzBreakpoints
     export const Tags =
     {
         [Breakpoint.EXTRA_SMALL]: '',
-        [Breakpoint.SMALL]: 'sm-',
-        [Breakpoint.MEDIUM]: 'md-',
-        [Breakpoint.LARGE]: 'lg-',
-        [Breakpoint.EXTRA_LARGE]: 'xl-',
+        [Breakpoint.SMALL]: 'sm:',
+        [Breakpoint.MEDIUM]: 'md:',
+        [Breakpoint.LARGE]: 'lg:',
+        [Breakpoint.EXTRA_LARGE]: 'xl:',
     }
 
     export const ReplacePositions =
@@ -60,23 +60,23 @@ export namespace SmzBreakpoints
             ['col-12']: '12',
         },
         verticalAlignment: {
-            ['align-items-start']: 'start',
-            ['align-items-center']: 'center',
-            ['align-items-end']: 'end',
+            ['items-start']: 'start',
+            ['items-center']: 'center',
+            ['items-end']: 'end',
         },
         horizontalAlignment: {
-            ['justify-content-start']: 'start',
-            ['justify-content-center']: 'center',
-            ['justify-content-end']: 'end',
-            ['justify-content-around']: 'around',
-            ['justify-content-between']: 'between',
+            ['justify-start']: 'start',
+            ['justify-center']: 'center',
+            ['justify-end']: 'end',
+            ['justify-around']: 'around',
+            ['justify-between']: 'between',
         }
     }
 
     export const ResponsivePrimeTag =
     {
-        row: { withTag: 'p-',  emptyTag: 'p-col-' },
-        verticalAlignment:  { withTag: 'p-ai-',  emptyTag: 'p-ai-' },
-        horizontalAlignment: { withTag: 'p-jc-',  emptyTag: 'p-jc-' }
+        row: { withTag: '',  emptyTag: 'col-' },
+        verticalAlignment:  { withTag: 'items-',  emptyTag: 'items-' },
+        horizontalAlignment: { withTag: 'justify-',  emptyTag: 'justify-' }
     }
 }

@@ -32,6 +32,8 @@ import { ValidationMessagesPipe } from './components/validation-messages/validat
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { NgxSmzMenuModule } from '../smz-menu/smz-menu.module';
+import { ToggleButtonModule } from 'primeng/togglebutton';
+import { SmzSincronizeTablePipe } from './pipes/sincronize-table.pipe';
 
 @NgModule({
     declarations: [
@@ -46,7 +48,8 @@ import { NgxSmzMenuModule } from '../smz-menu/smz-menu.module';
         SmzEditableSourcePipe,
         SmzContentErrorsPipe,
         ValidationMessagesComponent,
-        ValidationMessagesPipe
+        ValidationMessagesPipe,
+        SmzSincronizeTablePipe
     ],
     imports: [
         CommonModule,
@@ -69,10 +72,12 @@ import { NgxSmzMenuModule } from '../smz-menu/smz-menu.module';
         ReactiveFormsModule,
         InputSwitchModule,
         InputNumberModule,
-        NgxSmzMenuModule
+        NgxSmzMenuModule,
+        ToggleButtonModule
     ],
     exports: [
         SmzTableComponent,
+        SmzSincronizeTablePipe,
         SharedModule
     ],
 })

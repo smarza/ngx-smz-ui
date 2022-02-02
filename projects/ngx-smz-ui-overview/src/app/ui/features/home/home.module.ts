@@ -15,6 +15,7 @@ import { DemoChartComponent } from './components/demo-chart/demo-chart.component
 import { DemoDocumentComponent } from './components/demo-document/demo-document.component';
 import { DemoTreeComponent } from './components/demo-tree/demo-tree.component';
 import { DemoMenuComponent } from './components/demo-menu/demo-menu.component';
+import { TooltipModule } from 'primeng/tooltip';
 
 const data: SmzRouteData = {
   layout: {
@@ -52,7 +53,8 @@ const routes: Routes = [
     SmzChartModule,
     NgCloneModule,
     NgVarModule,
-    NgxSmzMenuModule
+    NgxSmzMenuModule,
+    TooltipModule
   ],
   providers: [],
   bootstrap: [HomeComponent]

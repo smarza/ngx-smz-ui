@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HOME_PATH } from '@routes';
+import { HOME_PATH, SIGNALR_PATH, SVG_PATH } from '@routes';
 import { DemoNestedLayout1Component } from '@features/demo-nested-routes/demo-nested-layout-1.component';
 import { DemoNestedLayout2Component } from '@features/demo-nested-routes/demo-nested-layout-2.component';
 
@@ -13,6 +13,14 @@ const routes: Routes = [
   {
     path: HOME_PATH,
     loadChildren: () => import('./ui/features/home/home.module').then(m => m.HomeModule),
+  },
+  {
+    path: SIGNALR_PATH,
+    loadChildren: () => import('./ui/features/signalr/signalr.module').then(m => m.SignalRModule),
+  },
+  {
+    path: SVG_PATH,
+    loadChildren: () => import('./ui/features/svg/svg.module').then(m => m.SvgModule),
   },
   {
     path: 'details',

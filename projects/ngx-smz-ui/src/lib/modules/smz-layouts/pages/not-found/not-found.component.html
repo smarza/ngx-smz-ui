@@ -1,35 +1,35 @@
 
 <!-- VERSAO MOBILE -->
-<div class="p-d-flex p-d-lg-none p-grid p-jc-center p-ai-center vertical-container exception-page">
+<div class="lg:hidden grid justify-center items-center vertical-container exception-page">
 
   <div class="exception-full-image-container">
       <img [src]="config.pages.notFoundImagePath"/>
   </div>
 
-  <div class="p-grid p-jc-center p-ai-center p-col-12 p-lg-6 p-nogutter">
-      <div class="p-grid p-col-8 p-ai-center">
-          <div class="p-col-12 exception-label-error exception-light">{{ config.pages.notFoundTitle }}</div>
-          <div class="p-col-4 exception-separator exception-light"></div>
-          <div class="p-col-12 exception-label-message exception-light">{{ config.pages.notFoundMessage }}</div>
-          <button class="p-col-4 p-button-lg p-button-ghost" pButton type="button" [routerLink]="rbkConfig.authentication.authenticatedRoot" label="Ir para Home"></button>
+  <div class="grid justify-center items-center col-12 lg:col-6 grid-nogutter">
+      <div class="grid col-8 items-center">
+          <div class="col-12 exception-label-error exception-light">{{ config.pages.notFoundTitle }}</div>
+          <div class="col-4 exception-separator exception-light"></div>
+          <div class="col-12 exception-label-message exception-light">{{ config.pages.notFoundMessage }}</div>
+          <button class="col-4 p-button-lg p-button-ghost" pButton type="button" [routerLink]="rbkConfig.authentication.authenticatedRoot" label="Ir para Home"></button>
       </div>
   </div>
 
 </div>
 
 <!-- VERSÃO DESKTOP -->
-<div class="p-d-none p-d-lg-flex p-grid p-jc-center p-ai-center vertical-container exception-page">
+<div class="grid justify-center items-center vertical-container exception-page">
 
-  <div class="p-grid p-jc-center p-ai-center p-col-12 p-lg-6 p-nogutter">
-      <div class="p-grid p-col-8 p-ai-center">
-          <div class="p-col-12 exception-label-error">{{ config.pages.notFoundTitle }}</div>
-          <div class="p-col-4 exception-separator"></div>
-          <div class="p-col-12 exception-label-message">{{ config.pages.notFoundMessage }}</div>
-          <button class="p-col-4 p-button-lg p-button-ghost" pButton type="button" [routerLink]="rbkConfig.authentication.authenticatedRoot" label="Ir para Home"></button>
+  <div class="grid justify-center items-center col-12 lg:col-6 grid-nogutter">
+      <div class="grid col-8 items-center">
+          <div class="col-12 exception-label-error">{{ config.pages.notFoundTitle }}</div>
+          <div class="col-4 exception-separator"></div>
+          <div class="col-12 exception-label-message">{{ config.pages.notFoundMessage }}</div>
+          <button class="col-4 p-button-lg p-button-ghost" pButton type="button" [routerLink]="rbkConfig.authentication.authenticatedRoot" label="Ir para Home"></button>
       </div>
   </div>
 
-  <div class="p-col-12 p-lg-6 exception-image-container">
+  <div class="col-12 lg:col-6 exception-image-container">
       <img [src]="config.pages.notFoundImagePath"/>
   </div>
 </div>

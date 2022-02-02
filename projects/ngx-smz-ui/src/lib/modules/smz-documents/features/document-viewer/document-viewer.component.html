@@ -1,6 +1,6 @@
-<div class="p-grid p-nogutter p-align-center p-justify-start p-flex-column gap-2" [ngClass]="state.viewer.container.styleClass">
+<div class="grid grid-nogutter items-center justify-start flex-col gap-2" [ngClass]="state.viewer.container.styleClass">
 
-    <div class="p-grid p-nogutter p-align-start p-justify-start gap-2">
+    <div class="grid grid-nogutter items-start justify-start gap-2">
 
         <ng-container *ngIf="state.viewer.zoom.isEnabled">
             <button pButton type="button" class="p-button p-button-outlined" label="ZOOM -" (click)="documentService.lessZoom()"></button>

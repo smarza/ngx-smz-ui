@@ -1,11 +1,15 @@
-import { Component, NgModule, Type, ComponentFactoryResolver, ViewChild, OnDestroy, ComponentRef, AfterViewInit, ChangeDetectorRef, Renderer2, NgZone, ElementRef, ChangeDetectionStrategy, ViewRef, HostListener, HostBinding, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, NgModule, Type, ComponentFactoryResolver, ViewChild, OnDestroy, ComponentRef, AfterViewInit, ChangeDetectorRef, Renderer2, NgZone, ElementRef, ChangeDetectionStrategy, ViewRef, HostListener, HostBinding, OnInit, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { trigger, style, transition, animate, AnimationEvent, animation, useAnimation } from '@angular/animations';
 import { DynamicDialogContent, DynamicDialogFooter } from './dynamicdialogcontent';
 import { DynamicDialogConfig } from './dynamicdialog-config';
 import { CommonModule } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
+import { ZIndexUtils } from 'primeng/utils';
 import { DynamicDialogRef } from './dynamicdialog-ref';
 import { SmzDynamicDialogConfig } from '../models/smz-dialogs';
+import { NgxRbkUtilsConfig } from '../../rbk-utils/ngx-rbk-utils.config';
+import { PrimeNGConfig } from 'primeng/api';
+import { SmzDockService } from '../../smz-dock/services/smz-dock.service';
 
 const showAnimation = animation([
     style({ transform: '{{transform}}', opacity: 0 }),
@@ -19,26 +23,29 @@ const hideAnimation = animation([
 @Component({
     selector: 'smz-dynamicDialog',
     template: `
-        <div #mask [ngClass]="{'ui-dialog-mask ui-dialog-visible':true, 'ui-widget-overlay ui-dialog-mask-scrollblocker': config.modal !== false}" class="smz_form_grid_container">
-            <div [ngClass]="{'ui-dialog ui-dynamicdialog ui-widget ui-widget-content ui-corner-all ui-shadow':true, 'ui-dialog-rtl': config.rtl, 'ui-dialog-maximized': maximized}" [ngStyle]="config.style" [class]="config.styleClass"
+        <div #mask [ngClass]="{'p-dialog-mask':true, 'p-component-overlay p-component-overlay-enter p-dialog-mask-scrollblocker': config.modal !== false, 'smz-dialog-minimized': minimized }" class="smz_form_grid_container">
+            <div [ngClass]="{'p-dialog p-dynamic-dialog p-component':true, 'p-dialog-rtl': config.rtl, 'p-dialog-maximized': maximized}" [ngStyle]="config.style" [class]="config.styleClass"
                 [@animation]="{value: 'visible', params: {transform: transformOptions, transition: config.transitionOptions || '150ms cubic-bezier(0, 0, 0.2, 1)'}}"
                 (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" role="dialog" *ngIf="visible"
                 [style.width]="config.width" [style.height]="config.height">
-                <div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top" [ngStyle]="config.headerStyle" *ngIf="config.showHeader === false ? false: true">
-                    <span class="ui-dialog-title">{{config.header}}</span>
-                    <div class="ui-dialog-titlebar-icons" [ngClass]="{ 'disable-a': dialogConfig.data._context.isGlobalDisabled }">
-                        <a [ngClass]="'ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all'" tabindex="0" role="button" (click)="maximize()" *ngIf="config.maximizable !== false">
-                            <span [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
-                        </a>
-                        <a [ngClass]="'ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all'" tabindex="0" role="button" (click)="close()" *ngIf="config.closable !== false">
-                            <span class="pi pi-times"></span>
-                        </a>
+                <div class="p-dialog-header" [ngStyle]="config.headerStyle" *ngIf="config.showHeader === false ? false: true">
+                    <span class="p-dialog-title">{{config.header}}</span>
+                    <div class="p-dialog-header-icons" [ngClass]="{ 'disable-a': dialogConfig.data._context.isGlobalDisabled }">
+                        <button [ngClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'" type="button" (click)="minimize()" (keydown.enter)="minimize()" *ngIf="config.minimizable !== false">
+                            <span class="p-dialog-header-close-icon pi pi-minus"></span>
+                        </button>
+                        <button [ngClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'" type="button" (click)="maximize()" (keydown.enter)="maximize()" *ngIf="config.maximizable !== false">
+                            <span class="p-dialog-header-close-icon" [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
+                        </button>
+                        <button [ngClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'" type="button" (click)="hide()" (keydown.enter)="hide()" *ngIf="config.closable !== false">
+                            <span class="p-dialog-header-close-icon pi pi-times"></span>
+                        </button>
                     </div>
                 </div>
-                <div class="ui-dialog-content ui-widget-content" [ngStyle]="config.contentStyle" [ngClass]="{ 'disable-ui-dialog-content': dialogConfig.data._context.isGlobalDisabled }">
+                <div class="p-dialog-content" [ngStyle]="config.contentStyle" [ngClass]="{ 'disable-ui-dialog-content': dialogConfig.data._context.isGlobalDisabled }">
                     <ng-template pDynamicDialogContent></ng-template>
                 </div>
-                <div class="ui-dialog-footer ui-widget-content" *ngIf="config.footer" [ngStyle]="config.footerStyle" [ngClass]="{ 'disable-container': dialogConfig.data._context.isGlobalDisabled }">
+                <div class="p-dialog-footer" *ngIf="config.footer" [ngStyle]="config.footerStyle" [ngClass]="{ 'disable-container': dialogConfig.data._context.isGlobalDisabled }">
                     <ng-template pDynamicDialogFooter></ng-template>
                 </div>
             </div>
@@ -54,7 +61,12 @@ const hideAnimation = animation([
             ])
         ])
     ],
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.Default,
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./dialog.css'],
+    host: {
+        'class': 'p-element'
+    }
 })
 export class DynamicDialogComponent implements AfterViewInit, OnInit, OnDestroy
 {
@@ -90,6 +102,9 @@ export class DynamicDialogComponent implements AfterViewInit, OnInit, OnDestroy
     @Output() onMaximize: EventEmitter<any> = new EventEmitter();
     maximized: boolean;
 
+    @Output() onMinimize: EventEmitter<any> = new EventEmitter();
+    minimized: boolean;
+
     preMaximizeContentHeight: number;
 
     preMaximizeContainerWidth: number;
@@ -101,7 +116,8 @@ export class DynamicDialogComponent implements AfterViewInit, OnInit, OnDestroy
     preMaximizePageY: number;
 
     constructor(private componentFactoryResolver: ComponentFactoryResolver, private cd: ChangeDetectorRef, public renderer: Renderer2,
-        public config: DynamicDialogConfig, private dialogRef: DynamicDialogRef, public zone: NgZone, public dialogConfig: SmzDynamicDialogConfig) { }
+        public config: DynamicDialogConfig, private dialogRef: DynamicDialogRef, public zone: NgZone, public dialogConfig: SmzDynamicDialogConfig, private rbkConfig: NgxRbkUtilsConfig, public primeNGConfig: PrimeNGConfig,
+        public dockService: SmzDockService) { }
 
     ngOnInit()
     {
@@ -161,65 +177,90 @@ export class DynamicDialogComponent implements AfterViewInit, OnInit, OnDestroy
 
     moveOnTop()
     {
-        if (this.config.autoZIndex !== false)
-        {
-            const zIndex = (this.config.baseZIndex || 0) + (++DomHandler.zindex);
-            this.container.style.zIndex = String(zIndex);
-            this.maskViewChild.nativeElement.style.zIndex = String(zIndex - 1);
-        }
+
+        if (this.config.autoZIndex !== false) {
+            ZIndexUtils.set('modal', this.container, (this.config.baseZIndex||0) + this.primeNGConfig.zIndex.modal);
+            this.wrapper.style.zIndex = String(parseInt(this.container.style.zIndex, 10) - 1);
+
+            if (this.rbkConfig.debugMode) {
+                console.groupCollapsed('DynamicDialogComponent => moveOnTop()');
+
+                console.log('config.baseZIndex', this.config.baseZIndex);
+                console.log('DomHandler.zindex', DomHandler.zindex);
+                console.log('primeNGConfig', this.primeNGConfig);
+                console.log('wrapper.style.zIndex', this.wrapper.style.zIndex);
+
+                console.groupEnd();
+            }
+		}
     }
 
     onAnimationStart(event: AnimationEvent)
     {
-        switch (event.toState)
-        {
-            case 'visible':
+		switch(event.toState) {
+			case 'visible':
                 this.container = event.element;
                 this.wrapper = this.container.parentElement;
-                this.moveOnTop();
+				this.moveOnTop();
                 this.bindGlobalListeners();
 
-                if (this.config.modal !== false)
-                {
+                if (this.config.modal !== false) {
                     this.enableModality();
                 }
                 this.focus();
-                break;
+			break;
 
-            case 'void':
-                this.onContainerDestroy();
-                break;
-        }
+			case 'void':
+                if (this.wrapper && this.config.modal !== false) {
+                    DomHandler.addClass(this.wrapper, 'p-component-overlay-leave');
+                }
+			break;
+		}
     }
 
     onAnimationEnd(event: AnimationEvent)
     {
-        if (event.toState === 'void')
-        {
-            this.dialogRef.destroy();
-        }
+		if (event.toState === 'void') {
+            this.onContainerDestroy();
+			this.dialogRef.destroy();
+		}
     }
 
     onContainerDestroy()
     {
-        this.unbindGlobalListeners();
+		this.unbindGlobalListeners();
 
-        if (this.maximized) {
-            DomHandler.removeClass(document.body, 'p-overflow-hidden');
-            this.maximized = false;
+        if (this.container && this.config.autoZIndex !== false) {
+            ZIndexUtils.clear(this.container);
         }
 
-        if (this.config.modal !== false)
-        {
+        if (this.config.modal !== false) {
             this.disableModality();
         }
-
         this.container = null;
     }
 
     close()
     {
         this.visible = false;
+        this.cd.markForCheck();
+    }
+
+    hide() {
+        if (this.dialogRef) {
+            this.dialogRef.close();
+        }
+    }
+
+    restore() {
+        this.minimized = false;
+        this.onMinimize.emit({'minimized': this.minimized});
+    }
+
+    minimize() {
+        this.minimized = true;
+        this.dockService.appendDialog(this);
+        this.onMinimize.emit({'minimized': this.minimized});
     }
 
     maximize() {
@@ -237,41 +278,31 @@ export class DynamicDialogComponent implements AfterViewInit, OnInit, OnDestroy
 
     enableModality()
     {
-        if (this.config.closable !== false && this.config.dismissableMask)
-        {
-            this.maskClickListener = this.renderer.listen(this.wrapper, 'click', (event: any) =>
-            {
-                if (this.wrapper && this.wrapper.isSameNode(event.target))
-                {
-                    this.close();
+        if (this.config.closable !== false && this.config.dismissableMask) {
+            this.maskClickListener = this.renderer.listen(this.wrapper, 'mousedown', (event: any) => {
+                if (this.wrapper && this.wrapper.isSameNode(event.target)) {
+                    this.hide();
                 }
             });
         }
 
-        if (this.config.modal !== false)
-        {
-            DomHandler.addClass(document.body, 'ui-overflow-hidden');
+        if (this.config.modal !== false) {
             DomHandler.addClass(document.body, 'p-overflow-hidden');
         }
     }
 
     disableModality()
     {
-        if (this.wrapper)
-        {
-            if (this.config.dismissableMask)
-            {
+        if (this.wrapper) {
+            if (this.config.dismissableMask) {
                 this.unbindMaskClickListener();
             }
 
-            if (this.config.modal !== false)
-            {
-                DomHandler.removeClass(document.body, 'ui-overflow-hidden');
+            if (this.config.modal !== false) {
                 DomHandler.removeClass(document.body, 'p-overflow-hidden');
             }
 
-            if (!(this.cd as ViewRef).destroyed)
-            {
+            if (!(this.cd as ViewRef).destroyed) {
                 this.cd.detectChanges();
             }
         }
@@ -279,31 +310,25 @@ export class DynamicDialogComponent implements AfterViewInit, OnInit, OnDestroy
 
     onKeydown(event: KeyboardEvent)
     {
-        if (event.which === 9)
-        {
+        if (event.which === 9) {
             event.preventDefault();
 
             let focusableElements = DomHandler.getFocusableElements(this.container);
 
-            if (focusableElements && focusableElements.length > 0)
-            {
-                if (!document.activeElement)
-                {
+            if (focusableElements && focusableElements.length > 0) {
+                if (!focusableElements[0].ownerDocument.activeElement) {
                     focusableElements[0].focus();
                 }
-                else
-                {
-                    let focusedIndex = focusableElements.indexOf(document.activeElement);
+                else {
+                    let focusedIndex = focusableElements.indexOf(focusableElements[0].ownerDocument.activeElement);
 
-                    if (event.shiftKey)
-                    {
+                    if (event.shiftKey) {
                         if (focusedIndex == -1 || focusedIndex === 0)
                             focusableElements[focusableElements.length - 1].focus();
                         else
                             focusableElements[focusedIndex - 1].focus();
                     }
-                    else
-                    {
+                    else {
                         if (focusedIndex == -1 || focusedIndex === (focusableElements.length - 1))
                             focusableElements[0].focus();
                         else
@@ -316,11 +341,9 @@ export class DynamicDialogComponent implements AfterViewInit, OnInit, OnDestroy
 
     focus()
     {
-        let focusable = DomHandler.findSingle(this.container, 'a');
-        if (focusable)
-        {
-            this.zone.runOutsideAngular(() =>
-            {
+        let focusable = DomHandler.findSingle(this.container, '[autofocus]');
+        if (focusable) {
+            this.zone.runOutsideAngular(() => {
                 setTimeout(() => focusable.focus(), 5);
             });
         }
@@ -330,8 +353,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnInit, OnDestroy
     {
         this.bindDocumentKeydownListener();
 
-        if (this.config.closeOnEscape !== false && this.config.closable !== false)
-        {
+        if (this.config.closeOnEscape !== false && this.config.closable !== false) {
             this.bindDocumentEscapeListener();
         }
     }
@@ -344,8 +366,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnInit, OnDestroy
 
     bindDocumentKeydownListener()
     {
-        this.zone.runOutsideAngular(() =>
-        {
+        this.zone.runOutsideAngular(() => {
             this.documentKeydownListener = this.onKeydown.bind(this);
             window.document.addEventListener('keydown', this.documentKeydownListener);
         });
@@ -353,8 +374,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnInit, OnDestroy
 
     unbindDocumentKeydownListener()
     {
-        if (this.documentKeydownListener)
-        {
+        if (this.documentKeydownListener) {
             window.document.removeEventListener('keydown', this.documentKeydownListener);
             this.documentKeydownListener = null;
         }
@@ -362,25 +382,20 @@ export class DynamicDialogComponent implements AfterViewInit, OnInit, OnDestroy
 
     bindDocumentEscapeListener()
     {
-        this.documentEscapeListener = this.renderer.listen('document', 'keydown', (event) =>
-        {
-            if (event.which == 27)
-            {
-                if (parseInt(this.container.style.zIndex) == (DomHandler.zindex + (this.config.baseZIndex ? this.config.baseZIndex : 0)))
-                {
-                    if (!this.dialogConfig.data._context.isLoading)
-                    {
-                        this.close();
-                    }
-                }
+        const documentTarget: any = this.maskViewChild ? this.maskViewChild.nativeElement.ownerDocument : 'document';
+
+        this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
+            if (event.which == 27) {
+                if (parseInt(this.container.style.zIndex) == ZIndexUtils.getCurrent()) {
+					this.hide();
+				}
             }
         });
     }
 
     unbindDocumentEscapeListener()
     {
-        if (this.documentEscapeListener)
-        {
+        if (this.documentEscapeListener) {
             this.documentEscapeListener();
             this.documentEscapeListener = null;
         }
@@ -388,8 +403,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnInit, OnDestroy
 
     unbindMaskClickListener()
     {
-        if (this.maskClickListener)
-        {
+        if (this.maskClickListener) {
             this.maskClickListener();
             this.maskClickListener = null;
         }
@@ -397,12 +411,11 @@ export class DynamicDialogComponent implements AfterViewInit, OnInit, OnDestroy
 
     ngOnDestroy()
     {
-        this.onContainerDestroy();
+		this.onContainerDestroy();
 
-        if (this.componentRef)
-        {
-            this.componentRef.destroy();
-        }
+		if (this.componentRef) {
+			this.componentRef.destroy();
+		}
     }
 }
 

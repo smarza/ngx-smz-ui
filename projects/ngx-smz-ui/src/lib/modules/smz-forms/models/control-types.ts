@@ -3,6 +3,9 @@ import { SmzSmartTagConfig } from '../directives/smart-tag.directive';
 import { SmzFormsBaseControl } from './controls';
 import { SmzTextPattern } from './text-patterns';
 import { SmzQuickAction } from '../directives/transfer-value-acessor';
+import { SmzFormsResponse } from './smz-forms';
+import { SmzFormViewdata } from './form-viewdata';
+import { Observable } from 'rxjs';
 
 export type SmzControlTypes =
     SmzCalendarControl |
@@ -24,7 +27,8 @@ export type SmzControlTypes =
     SmzSwitchControl |
     SmzTextAreaControl |
     SmzTagAreaControl |
-    SmzTextControl;
+    SmzTextControl |
+    SmzTextButtonControl;
 
 export type SmzLinkedControlTypes =
     SmzDropDownControl<any> |
@@ -52,7 +56,8 @@ export enum SmzControlType
     LINKED_MULTISELECT = 17,
     LIST = 18,
     TAG_AREA = 19,
-    CONTENT_MASK = 20
+    CONTENT_MASK = 20,
+    TEXT_BUTTON = 21
 }
 
 export interface SmzTextControl extends SmzFormsBaseControl
@@ -63,6 +68,22 @@ export interface SmzTextControl extends SmzFormsBaseControl
 
 }
 
+export interface SmzTextButtonControl extends SmzFormsBaseControl
+{
+    defaultValue?: string;
+    hideName?: boolean;
+    placeholder: string;
+    label?: string;
+    icon?: string;
+    styleClass: string;
+    // Callback has to return if the button clicked turned the input valid or invalid.
+    // Everytime the button is clicked, the input is automatically invalidated.
+    callback: (data: SmzFormsResponse<unknown>, utils: SmzFormViewdata) => Observable<{ isValid: boolean, messages?: string[] }>;
+    isButtonValid: boolean;
+    buttonMessages: string[];
+    clearButtonMessageOnChanges: boolean;
+
+}
 export interface SmzListControl extends SmzFormsBaseControl
 {
     defaultValue?: string[];
@@ -79,6 +100,7 @@ export interface SmzListControl extends SmzFormsBaseControl
     editMode?: 'dialog' | 'inline';
     hideName?: boolean;
     emptyMessage?: string;
+    allowBatchCreation?: boolean;
 
 }
 
@@ -170,13 +192,13 @@ export interface SmzContentMaskControl extends SmzFormsBaseControl
     _originalVariables?: string[];
     defaultValue?: string;
     textAreaRows?: number;
-    quickActions: SmzQuickAction[];
-    variableId: string;
-    inputClass: string;
-    tagClass: string
-    variableBegin: string;
-    variableEnd: string;
-    exportHtmlNewLine: boolean;
+    quickActions?: SmzQuickAction[];
+    variableId?: string;
+    inputClass?: string;
+    tagClass?: string
+    variableBegin?: string;
+    variableEnd?: string;
+    exportHtmlNewLine?: boolean;
 }
 
 export interface SmzFileControl extends SmzFormsBaseControl

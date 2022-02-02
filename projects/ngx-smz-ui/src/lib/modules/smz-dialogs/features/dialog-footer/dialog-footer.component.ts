@@ -98,6 +98,8 @@ export class DialogFooterComponent implements OnInit {
                             console.log(`               > control for ${field}:`, control);
                         }
                         control.markAsTouched({ onlySelf: true });
+
+                        formFeature._context.cdf.markForCheck();
                     });
                 });
 
@@ -183,7 +185,7 @@ export class DialogFooterComponent implements OnInit {
             if (instance?.form != null) {
                 const formComponent = instance as FormGroupComponent;
 
-                formComponent.form.disable();
+                formComponent.viewdata.form.disable();
             }
         });
 
@@ -220,7 +222,7 @@ export class DialogFooterComponent implements OnInit {
                         if (instance?.form != null) {
                             const formComponent = instance as FormGroupComponent;
 
-                            formComponent.form.enable();
+                            formComponent.viewdata.form.enable();
                         }
                     });
 
@@ -279,7 +281,7 @@ export class DialogFooterComponent implements OnInit {
             if (instance?.form != null) {
                 const formComponent = instance as FormGroupComponent;
 
-                formComponent.form.disable();
+                formComponent.viewdata.form.disable();
             }
             else if (instance.blockUi != null) {
                 instance.blockUi();
@@ -320,7 +322,7 @@ export class DialogFooterComponent implements OnInit {
                         if (instance?.form != null) {
                             const formComponent = instance as FormGroupComponent;
 
-                            formComponent.form.enable();
+                            formComponent.viewdata.form.enable();
                         }
                         else if (instance.blockUi != null) {
                             instance.unBlockUi();

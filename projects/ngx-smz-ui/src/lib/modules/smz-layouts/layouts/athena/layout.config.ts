@@ -7,6 +7,7 @@ export class AthenaLayout {
     mobileSidebarState: AthenaSidebarStates;
     sidebarWidth: string;
     sidebarSlimWidth: string;
+    enlargeTopbarLogo?: boolean;
 
 }
 

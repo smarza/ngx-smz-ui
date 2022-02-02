@@ -9,6 +9,7 @@ import { DescribeArrayPipe } from './pipes/describe-array.pipe';
 import { DescribeAnyPipe } from './pipes/describe-any.pipe';
 import { CalendarPipe } from './pipes/calendar.pipe';
 import { SmzGetDataPipe } from './pipes/get-data.pipe';
+import { JoinPipe } from './pipes/join.pipe';
 
 @NgModule({
     imports: [
@@ -23,7 +24,8 @@ import { SmzGetDataPipe } from './pipes/get-data.pipe';
         DescribeArrayPipe,
         DescribeAnyPipe,
         CalendarPipe,
-        SmzGetDataPipe
+        SmzGetDataPipe,
+        JoinPipe
     ],
     exports: [
         ClonePipe,
@@ -34,7 +36,8 @@ import { SmzGetDataPipe } from './pipes/get-data.pipe';
         DescribeArrayPipe,
         DescribeAnyPipe,
         CalendarPipe,
-        SmzGetDataPipe
+        SmzGetDataPipe,
+        JoinPipe
     ],
 })
 export class NgxSmzDataPipesModule { }

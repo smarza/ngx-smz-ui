@@ -9,5 +9,5 @@
 }
 
 .exception-label-error {
-  color: var(--text-color) !important;
+  color: var(--text-color-secondary) !important;
 }

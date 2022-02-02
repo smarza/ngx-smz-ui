@@ -28,8 +28,8 @@ export const defaultSmzLayoutsConfig: SmzLayoutsConfig = {
         position: 'bottom-right'
     },
     themes: {
-        content: SmzContentTheme.SOHO_DARK,
-        schema: ColorSchemaDefinition.CONVERSOR
+        content: SmzContentTheme.TAILWIND_LIGHT,
+        schema: ColorSchemaDefinition.BASE
     },
     loader: {
         type: SmzLoader.CUBE,

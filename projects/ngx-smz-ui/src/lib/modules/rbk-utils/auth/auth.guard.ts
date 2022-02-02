@@ -6,6 +6,7 @@ import { AuthenticationActions } from '../../../state/global/authentication/auth
 import { ToastActions } from '../../../state/global/application/application.actions.toast';
 import { Navigate } from '@ngxs/router-plugin';
 import { NgxRbkUtilsConfig } from '../ngx-rbk-utils.config';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class RbkAuthGuard implements CanActivate {
@@ -23,7 +24,7 @@ export class RbkAuthGuard implements CanActivate {
             try {
                 if (this.config.debugMode) console.log('[RbkAuthGuard] User not authenticated, trying to login from localstorage...');
 
-                await this.store.dispatch(new AuthenticationActions.LocalLogin()).toPromise();
+                await firstValueFrom(this.store.dispatch(new AuthenticationActions.LocalLogin()));
 
                 isAuthenticated = this.store.selectSnapshot(AuthenticationSelectors.isAuthenticated);
             }

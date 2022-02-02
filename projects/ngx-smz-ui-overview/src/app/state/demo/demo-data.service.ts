@@ -4,6 +4,8 @@ import { Observable } from 'rxjs/internal/Observable';
 import { BaseApiService } from 'ngx-smz-ui';
 import { environment } from '../../../environments/environment';
 import { DemoCreationData, DemoItem, DemoUpdateData } from '../../models/demo';
+import { TreeNode } from 'primeng/api/treenode';
+import { map } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class DemoDataService extends BaseApiService {
@@ -32,5 +34,10 @@ export class DemoDataService extends BaseApiService {
   public remove(id: string): Observable<void> {
     return this.http.delete<void>(`${this.endpoint}/${id}`, this.generateDefaultHeaders({ errorHandlingType: 'toast' }));
   }
+
+  public getTree(): Observable<TreeNode[]> {
+    return this.http.get<{data: TreeNode[]}>('assets/files.json').pipe(map(x => x.data));
+  }
+
 
 }
