@@ -123,7 +123,7 @@ export const defaultFormsModuleConfig: SmzFormsConfig = {
             maxFileSize: null,
             thumbnailSize: '90px',
             allowZoom: true,
-            dragIconClass: 'pi pi-upload green-text',
+            dragIconClass: 'pi pi-upload text-primary-color',
             inputMessage: 'Escolha o arquivo',
             dragMessage: 'Arraste aqui',
             showFileSize: true,

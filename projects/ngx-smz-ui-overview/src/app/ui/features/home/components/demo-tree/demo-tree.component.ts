@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { DemoTreeNode } from '@models/demo';
-import { SmzTreeState } from 'ngx-smz-ui';
+import { SmzTreeNode, SmzTreeState } from 'ngx-smz-ui';
 import { TreeNode } from 'primeng/api/treenode';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
@@ -14,7 +14,7 @@ import { DemoFeatureActions } from '@states/demo/demo.actions';
   template: `
   <div *ngIf="state != null" style="height: 675px;">
   <ng-container *ngClone="items$ | async as items">
-    <smz-ui-tree #smzTree [items]="items" [state]="state">
+    <smz-ui-tree #smzTree [items]="items" [state]="state" (selectedNodes)="selectionChanged($event)" >
 
       <!-- <ng-template pTemplate="type:folder" let-node>
         <span>folder => {{ node.label }}</span>
@@ -53,6 +53,13 @@ export class DemoTreeComponent implements OnInit, OnChanges {
       const node = changes.node.currentValue;
       this.state = node.data();
     }
+
+  }
+
+
+  public selectionChanged(node: SmzTreeNode<any>): void {
+
+    console.log('selectionChanged', node);
 
   }
 }

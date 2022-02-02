@@ -53,26 +53,7 @@ export const smzLayoutsConfig: SmzLayoutsConfig = {
         position: 'bottom-right'
     },
     themes: {
-        content: SmzContentTheme.TAILWIND_LIGHT,
-        custom:   {
-            id: 'e-libra-mobile',
-            name: 'e-Libra Mobile',
-            tone: 'dark',
-            color: '#1976D2',
-            constrast: '#ffffff',
-            schemas: [
-              { id: '--primary-color', name: '#1976D2' },
-              { id: '--secondary-color', name: '#42A5F5' },
-              { id: '--primary-color-text', name: '#ffffff' },
-              { id: '--primary-color-menu-bg', name: '#1976D2' },
-              { id: '--primary-color-menu-bg-hover', name: '#0000001c' },
-              { id: '--primary-color-menu-text', name: '#FFFFFFE7' },
-              { id: '--primary-color-menu-text-hover', name: '#FAFAFA' },
-              { id: '--primary-color-menu-active', name: '#ffffffcf' },
-              { id: '--primary-color-loading', name: '#ffffff' },
-              { id: '--primary-color-loading-bg', name: '#1976D2' }
-            ]
-          },
+        content: SmzContentTheme.VELA_ORANGE,
     },
     loader: {
         type: SmzLoader.CUBE,

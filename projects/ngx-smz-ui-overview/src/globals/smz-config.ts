@@ -61,7 +61,7 @@ export const smzDialogsConfig: SmzDialogsConfig = {
                 fileAccept: 'image/*,application/pdf',
             },
             [SmzControlType.CONTENT_MASK]: {
-                tagClass: 'bg-blue-500 rounded px-1 py-0.5 mx-1 text-white font-bold',
+                tagClass: 'bg-primary-color rounded px-1 py-0.5 mx-1 text-primary-color-text font-bold',
                 inputClass: 'leading-7'
             }
         },

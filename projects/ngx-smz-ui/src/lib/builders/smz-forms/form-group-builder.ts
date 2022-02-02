@@ -449,7 +449,7 @@ export class SmzFormGroupBuilder<TResponse> {
         maxFileSize: null,
         thumbnailSize: '90px',
         allowZoom: true,
-        dragIconClass: 'pi pi-upload green-text',
+        dragIconClass: 'pi pi-upload text-primary-color',
         showFileSize: true,
         shortenLength: 10,
         shortenSeparator: '...',

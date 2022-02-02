@@ -23,7 +23,7 @@
         </div>
 
         <!-- CONTEÚDO COM ARQUIVO CARREGADO -->
-        <div *ngIf="input._file != null" class="grid grid-nogutter items-center justify-start flex-nowrap mt-1 mb-1">
+        <div *ngIf="input._file != null" class="grid grid-nogutter items-center justify-start flex-nowrap mt-1 mb-1 file_upload-container">
 
             <div class="upload_field" [style.height]="input.thumbnailSize" [style.width]="input.thumbnailSize">
                 <ng-container [ngSwitch]="input._fileType">
