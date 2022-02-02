@@ -58,13 +58,16 @@ export function fixDateProperties(data: { [key: string]: any }) {
                     data[key] = fixStringDate(data[key]);
                 }
                 else if (key === 'lastUpdate') {
-                  data[key] = fixStringDate(data[key]);
+                    data[key] = fixStringDate(data[key]);
                 }
                 else if (key === 'timestamp') {
-                  data[key] = fixStringDate(data[key]);
+                    data[key] = fixStringDate(data[key]);
                 }
                 else if (key === 'lastUpdated') {
-                  data[key] = fixStringDate(data[key]);
+                    data[key] = fixStringDate(data[key]);
+                }
+                else if (key.startsWith('time') || key.endsWith('Time')) {
+                    data[key] = fixStringDate(data[key]);
                 }
             }
             else if (typeof data[key] === 'number') {
