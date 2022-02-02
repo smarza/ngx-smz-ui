@@ -471,14 +471,14 @@ Exame sem intercorrências.`)
   //
   [DemoKeys.FORMS_FROM_UI_DEFINITION_CREATE]: () => {
     return new SmzFormBuilder<any>()
-        .fromUiDefintion('entity')
+        .fromUiDefinition('entity')
         .form
       .build();
   },
   //
   [DemoKeys.FORMS_FROM_UI_DEFINITION_UPDATE]: () => {
     return new SmzFormBuilder<any>()
-      .fromUiDefintion('entity')
+      .fromUiDefinition('entity')
         .forEntity({
           name: 'Name',
           company: 'Company',
@@ -498,7 +498,7 @@ Exame sem intercorrências.`)
   //
   [DemoKeys.FORMS_WITH_APPLY_DATA]: () => {
     return new SmzFormBuilder<any>()
-      .fromUiDefintion('entity')
+      .fromUiDefinition('entity')
       .form
       .group()
         .dropdown('country', 'Países', [ { id: '55e08b38-cec6-4063-acd0-25747f31dc59', name: 'Brazil'}])

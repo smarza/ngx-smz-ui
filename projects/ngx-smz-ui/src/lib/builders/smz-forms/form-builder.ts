@@ -154,7 +154,7 @@ export class SmzFormBuilder<TResponse> {
     return this._state;
   }
 
-  public fromUiDefintion(entity: string): SmzFormUiDefinitionBuilder<TResponse> {
+  public fromUiDefinition(entity: string): SmzFormUiDefinitionBuilder<TResponse> {
     if (this.createdByUiDefinitions) {
       throw Error("Form already created from ui definition.")
     }
