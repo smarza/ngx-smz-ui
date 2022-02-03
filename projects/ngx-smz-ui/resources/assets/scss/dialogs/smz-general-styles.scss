@@ -371,11 +371,11 @@ input {
 }
 
 .upload_field-generic {
-  background: red;
+  background: var(--surface-c);
   border-radius: 4px;
 
   i {
-    color: red;
+    color: var(--text-color);
   }
 }
 

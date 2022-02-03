@@ -1015,10 +1015,10 @@ export class SmzFormFileBuilder<TResponse> extends SmzFormInputBuilder<TResponse
 
   public acceptXlsx(): SmzFormFileBuilder<TResponse> {
     if(this._fileInput.fileAccept == null) {
-      this._fileInput.fileAccept = 'application/xlsx';
+      this._fileInput.fileAccept = '.xlsx, .xls';
     }
     else {
-      this._fileInput.fileAccept += ',application/xlsx'
+      this._fileInput.fileAccept += ',.xlsx,.xls'
     }
     return this;
   }
