@@ -70,7 +70,6 @@ import { InputListBatchCrudComponent } from './components/input-list/input-list-
 import { InputTextButtonComponent } from './components/input-text-button/input-text-button.component';
 import { ButtonModule } from 'primeng/button';
 import { FormSubmitComponent } from './features/form-submit/form-submit.component';
-import { StateBuilderPipe } from './pipes/form-state.pipe';
 
 export const defaultFormsModuleConfig: SmzFormsConfig = {
     behaviors: {
@@ -221,7 +220,6 @@ export const defaultFormsModuleConfig: SmzFormsConfig = {
         InputListBatchCrudComponent,
         InputTextButtonComponent,
         FormSubmitComponent,
-        StateBuilderPipe
     ],
     entryComponents: [FormGroupComponent, InputListDialogCrudComponent, InputListInlineCrudComponent],
     exports: [
@@ -245,7 +243,6 @@ export const defaultFormsModuleConfig: SmzFormsConfig = {
         MultiSelectComponent,
         RadioButtonComponent,
         FormSubmitComponent,
-        StateBuilderPipe
     ],
     providers: [DialogService]
 

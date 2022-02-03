@@ -41,6 +41,8 @@ export { SmzGetDataPipe } from './lib/common/data-pipes/pipes/get-data.pipe';
 export { JoinPipe } from './lib/common/data-pipes/pipes/join.pipe';
 export { DescribeSimpleNamedPipe } from './lib/common/data-pipes/pipes/describe-simple-named.pipe';
 export { DescribeAnyPipe } from './lib/common/data-pipes/pipes/describe-any.pipe';
+export { StateBuilderPipe } from './lib/common/data-pipes/pipes/state-builder.pipe';
+
 export { UrlCheckerPipeModule } from './lib/common/url-checker/url-checker.pipe';
 export { UrlCheckerPipe } from './lib/common/url-checker/url-checker.pipe';
 
