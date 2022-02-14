@@ -206,6 +206,7 @@ export class SmzDocumentBuilder extends SmzBuilderUtilities<SmzDocumentBuilder> 
 
   public debugMode(): SmzDocumentBuilder {
     this._state.isDebug = true;
+    this._state.export.htmlOptions.html2canvas.logging = true;
     return this;
   }
 
