@@ -1,8 +1,12 @@
 import { ElementRef, Injectable } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { HTMLOptions, jsPDF, jsPDFOptions } from 'jspdf';
+import * as html2canvas from 'html2canvas';
+import { cloneDeep } from 'lodash-es';
 import { ApplicationActions } from '../../../state/global/application/application.actions';
 import { SmzDocumentState } from '../models/smz-document';
+
+window['html2canvas'] = html2canvas;
 
 const INITIAL_ZOOM = 1;
 
@@ -68,7 +72,7 @@ export class SmzDocumentsService {
   private generatePdf(action: 'open' | 'print' | 'download', element: ElementRef, state: SmzDocumentState): Promise<any> {
     return new Promise((resolve) => {
 
-      const doc = new jsPDF(state.export.jsPDFOptions);
+      const doc = new jsPDF(cloneDeep(state.export.jsPDFOptions));
 
       doc.addFont('assets/fonts/Roboto-Thin.ttf', 'Thin', 'normal', 100);
       doc.addFont('assets/fonts/Roboto-Light.ttf', 'Light', 'normal', 300);
@@ -76,7 +80,7 @@ export class SmzDocumentsService {
       doc.addFont('assets/fonts/Roboto-Medium.ttf', 'Medium', 'normal', 500);
       doc.addFont('assets/fonts/Roboto-Bold.ttf', 'Bold', 'normal', 700);
 
-      doc.html(element.nativeElement, state.export.htmlOptions).then(() => {
+      doc.html(element.nativeElement, cloneDeep(state.export.htmlOptions)).then(() => {
 
         switch (action) {
           case 'open': {

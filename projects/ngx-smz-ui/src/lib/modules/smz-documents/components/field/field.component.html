@@ -4,14 +4,17 @@
   [ngClass]="data.container.styles">
 
   <div *ngIf="data.label.isVisible"
-    [ngStyle]="{ color: data.label.color }"
-    [ngClass]="data.label.styles">
+    [ngClass]="data.label.styles"
+    [style.color]="data.label.color"
+    >
     {{ data.label.value }}
   </div>
 
   <div
-    [ngStyle]="{ color: data.text.color, 'font-weight': data.text.fontWeight }"
-    [ngClass]="data.text.styles">
+    [ngStyle]="{ 'font-weight': data.text.fontWeight }"
+    [ngClass]="data.text.styles"
+    [style.color]="data.text.color"
+    >
     {{ data.text.value }}
   </div>
 

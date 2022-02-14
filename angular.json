@@ -82,7 +82,8 @@
             ],
             "scripts": [
               "node_modules/@svgdotjs/svg.js/dist/svg.min.js",
-              "node_modules/@svgdotjs/svg.panzoom.js/dist/svg.panzoom.min.js"
+              "node_modules/@svgdotjs/svg.panzoom.js/dist/svg.panzoom.min.js",
+              "node_modules/html2canvas/dist/html2canvas.min.js"
             ]
           },
           "configurations": {

@@ -107,7 +107,7 @@ export class SmzCellFieldBuilder extends SmzDocumentBaseCellBuilder<SmzCellField
   }
 
   public useBold(): SmzCellFieldBuilder {
-    this._data.text.fontWeight = '600';
+    this._data.text.fontWeight = '700 !important';
     return this.that;
   }
 
@@ -117,7 +117,7 @@ export class SmzCellFieldBuilder extends SmzDocumentBaseCellBuilder<SmzCellField
       throw new Error(`You can't use alert on field: ${this._data.text.value}, because it will override your previous text color choice (setTextColor).`);
     }
 
-    this._data.text.color = 'red';
+    this._data.text.color = 'red !important';
     return this.that;
   }
 
@@ -298,7 +298,7 @@ export class SmzCellFieldGroupBuilder {
   }
 
   public useBold(): SmzCellFieldGroupBuilder {
-    this._data.text.fontWeight = '600';
+    this._data.text.fontWeight = '700 !important';
     return this;
   }
 
@@ -308,7 +308,7 @@ export class SmzCellFieldGroupBuilder {
       throw new Error(`You can't use alert on the group field, because it will override your previous text color choice (setTextColor).`);
     }
 
-    this._data.text.color = 'red';
+    this._data.text.color = 'red !important';
     return this;
   }
 
