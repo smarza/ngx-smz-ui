@@ -1,7 +1,7 @@
 // $font-family: 'RobotoLight', 'RobotoThin', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
-$paper-width: calc(21 * 28.346px);
-$paper-height: calc(29.7 * 28.346px);
+// $paper-width: calc(21 * 28.346px);
+// $paper-height: calc(29.7 * 28.346px);
 $paper-margin: calc(0.8 * 28.346px);
 
 $footer-margin: calc(0.5 * 28.346px);
@@ -12,7 +12,7 @@ $footer-margin: calc(0.5 * 28.346px);
 // }
 
 .pager {
-    width: 595.276pt; // $paper-width;
+    // width: 595.276pt; // $paper-width;
     transform-origin: top center;
     transition: transform 100ms ease-in-out;
 

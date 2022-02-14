@@ -68,31 +68,7 @@ export class SmzDocumentsService {
   private generatePdf(action: 'open' | 'print' | 'download', element: ElementRef, state: SmzDocumentState): Promise<any> {
     return new Promise((resolve) => {
 
-      const docOptions: jsPDFOptions = {
-        orientation: 'portrait',
-        unit: 'pt',
-        format: 'A4',
-        userUnit: 1,
-        precision: 2,
-        compress: true,
-        putOnlyUsedFonts: true,
-      };
-
-      const doc = new jsPDF(docOptions);
-
-      const margin = 15;
-      const options: HTMLOptions = {
-        width: 595.276 - (margin * 2),
-        windowWidth: (595.276 - margin * 2) * 1.65,
-        margin: margin,
-        autoPaging: true,
-        x: 0,
-        y: 0,
-        html2canvas: {
-          svgRendering: true,
-
-        },
-      };
+      const doc = new jsPDF(state.export.jsPDFOptions);
 
       doc.addFont('assets/fonts/Roboto-Thin.ttf', 'Thin', 'normal', 100);
       doc.addFont('assets/fonts/Roboto-Light.ttf', 'Light', 'normal', 300);
@@ -100,7 +76,7 @@ export class SmzDocumentsService {
       doc.addFont('assets/fonts/Roboto-Medium.ttf', 'Medium', 'normal', 500);
       doc.addFont('assets/fonts/Roboto-Bold.ttf', 'Bold', 'normal', 700);
 
-      doc.html(element.nativeElement, options).then(() => {
+      doc.html(element.nativeElement, state.export.htmlOptions).then(() => {
 
         switch (action) {
           case 'open': {

@@ -11,9 +11,10 @@ export const DocumentsDemo: { [key: string]: () => void } = {
       .setGlobalScale(0.8)
       .setHeaderHeight('cm', 5.5)
       .setMargins('cm', 0.6)
+      .setFilename('demo')
+      .setPaperSize(15, 297, 'landscape', 'A4')
 
       .viewer()
-        .setFilename('demo')
         .setZoom(1, 0.5, 5, 0.5)
         .allowDownload()
         .document
@@ -188,9 +189,9 @@ export const DocumentsDemo: { [key: string]: () => void } = {
       .setGlobalScale(0.8)
       .setHeaderHeight('cm', 5.5)
       .setMargins('cm', 0.6)
+      .setFilename('demo-debug')
 
       .viewer()
-        .setFilename('demo-debug')
         .setZoom(1, 0.5, 5, 0.5)
         .allowDownload()
         .document

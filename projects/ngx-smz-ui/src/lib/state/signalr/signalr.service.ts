@@ -90,7 +90,7 @@ export class SignalRService {
 
     if (exists) {
 
-      exists.connection.off(`${config.method}Payload`);
+      exists.connection.off(`${config.method}`);
 
       const index = exists.listeners.findIndex(x => x === config.method);
       delete exists.listeners[index];
@@ -100,7 +100,7 @@ export class SignalRService {
   }
 
   private setupListener(connection: signalR.HubConnection, config: SignalRConfig, receive: (data) => void): void {
-    connection.on(`${config.method}Payload`, (data) => receive(data));
+    connection.on(`${config.method}`, (data) => receive(data));
   }
 
 }

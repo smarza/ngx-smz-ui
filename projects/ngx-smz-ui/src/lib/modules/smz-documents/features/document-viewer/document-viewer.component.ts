@@ -22,7 +22,7 @@ export class SmzDocumentViewerComponent implements OnInit, AfterViewInit, OnDest
     public ngOnInit(): void
     {
         this.documentService.setZoom(this.state.viewer.zoom.initial);
-        this.documentService.setFilename(this.state.viewer.filename);
+        this.documentService.setFilename(this.state.export.filename);
         this.documentService.setState(this.state);
     }
 

@@ -1,4 +1,4 @@
-import { SendSignalRData, SignalRConfig } from './signalr';
+import { SendSignalRData, SignalRConfig, SignalRConnection } from './signalr';
 
 export namespace SignalRActions {
 
@@ -20,6 +20,11 @@ export namespace SignalRActions {
   export class CloseHubConnection {
     public static readonly type = '[SIGNALR] Close Hub Connection';
     constructor(public data: SignalRConfig) {}
+  }
+
+  export class DataReceived {
+    public static readonly type = '[SIGNALR] Data Received';
+    constructor(public data: SignalRConnection<unknown>) {}
   }
 
 }

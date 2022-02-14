@@ -25,4 +25,11 @@ export class SignalRSelectors {
 
   }
 
+  public static data<T>(config: SignalRConfig): (state) => T {
+    return createSelector([SignalRState], (state: SignalRStateModel) => {
+      const payload = state.payloads[`${config.hub}/${config.method}`];
+      return (payload as SignalRConnection<T>)?.data;
+    });
+  }
+
 }

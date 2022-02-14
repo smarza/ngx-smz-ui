@@ -6,6 +6,7 @@ import { SmzDocumentConfig } from '../../modules/smz-documents/models/smz-docume
 import cloneDeep from 'lodash-es/cloneDeep';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzDocumentViewerBuilder } from './document-viewer';
+import { HTMLOptions, jsPDFOptions } from 'jspdf';
 
 const pixelCmFactor = 28.346;
 export class SmzDocumentBuilder extends SmzBuilderUtilities<SmzDocumentBuilder> {
@@ -38,7 +39,6 @@ export class SmzDocumentBuilder extends SmzBuilderUtilities<SmzDocumentBuilder> 
       showPageNumbers: true
     },
     viewer: {
-      filename: 'sample',
       zoom: {
         isEnabled: true,
         min: 1,
@@ -59,8 +59,14 @@ export class SmzDocumentBuilder extends SmzBuilderUtilities<SmzDocumentBuilder> 
         styleClass: null
       },
       paper: {
-        styleClass: null
+        styleClass: null,
+        width: null,
       }
+    },
+    export: {
+      filename: 'sample',
+      jsPDFOptions: null,
+      htmlOptions: null,
     }
   };
 
@@ -78,7 +84,9 @@ export class SmzDocumentBuilder extends SmzBuilderUtilities<SmzDocumentBuilder> 
 
     const marginCm = config.paper.marginCm;
     const globalHeaderHeightCm = config.paper.headerHeightCm ? `${config.paper.headerHeightCm}cm` : null;
+
     this.applyMargin('cm', globalHeaderHeightCm, null, marginCm.left, marginCm.right, marginCm.top, marginCm.bottom);
+    this.initHTMLOptions(marginCm.top, config.paper.width, config.paper.orientation, config.paper.format);
   }
 
   private applyMargin(unit: 'cm', headerHeight: string, all: number, left?: number, right?: number, top?: number, bottom?: number): void {
@@ -109,6 +117,38 @@ export class SmzDocumentBuilder extends SmzBuilderUtilities<SmzDocumentBuilder> 
 
   }
 
+  private initJsPDFOptions(): void {
+    this._state.export.jsPDFOptions = {
+      orientation: null,
+      unit: 'pt',
+      format: null,
+      userUnit: 1,
+      precision: 2,
+      compress: true,
+      putOnlyUsedFonts: true,
+    };
+  }
+
+  private initHTMLOptions(margin: number, widthInMillimeters: number, orientation: "portrait" | "p" | "l" | "landscape", format: string | number[]): void {
+    const width = (widthInMillimeters / 10) * 28.346;
+
+    this._state.export.htmlOptions = {
+      width: width - (margin * 2),
+      windowWidth: (width - margin * 2) * 1.65,
+      margin: margin,
+      autoPaging: true,
+      x: 0,
+      y: 0,
+      html2canvas: {
+        svgRendering: true,
+      },
+    };
+
+    this._state.viewer.paper.width = width;
+    this._state.export.jsPDFOptions.orientation = orientation;
+    this._state.export.jsPDFOptions.format = format;
+  }
+
   constructor(state: SmzDocumentState = null) {
     super();
 
@@ -116,6 +156,7 @@ export class SmzDocumentBuilder extends SmzBuilderUtilities<SmzDocumentBuilder> 
       this._state = state;
     }
 
+    this.initJsPDFOptions();
     this.applyConfig();
   }
 
@@ -126,6 +167,26 @@ export class SmzDocumentBuilder extends SmzBuilderUtilities<SmzDocumentBuilder> 
     }
 
     this._state.config = newConfig;
+    return this;
+  }
+
+  public setPaperSize(margin: number, millimeters: number, orientation: "portrait" | "p" | "l" | "landscape", format: string | number[]): SmzDocumentBuilder {
+    this.initHTMLOptions(margin, millimeters, orientation, format);
+    return this;
+  }
+
+  public overrideJsPDFOptions(options: jsPDFOptions): SmzDocumentBuilder {
+    this._state.export.jsPDFOptions = { ...this._state.export.jsPDFOptions, ...options };
+    return this;
+  }
+
+  public overrideHTMLOptions(options: HTMLOptions): SmzDocumentBuilder {
+    this._state.export.htmlOptions = { ...this._state.export.htmlOptions, ...options };
+    return this;
+  }
+
+  public setFilename(filename: string): SmzDocumentBuilder {
+    this._state.export.filename = filename;
     return this;
   }
 

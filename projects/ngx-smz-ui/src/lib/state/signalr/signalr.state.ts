@@ -5,7 +5,8 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { SignalRService } from './signalr.service';
 import { cloneDeep } from 'lodash-es';
-import { SignalRConfig, SignalRConnection } from './signalr';
+import { SignalRConnection } from './signalr';
+import { NgxRbkUtilsConfig } from '../../modules/rbk-utils/ngx-rbk-utils.config';
 
 export const SIGNALR_STATE_NAME = 'SignalR';
 
@@ -24,35 +25,30 @@ export const getInitialSignalRState = (): SignalRStateModel => ({
 
 @Injectable()
 export class SignalRState {
-  constructor(private service: SignalRService) {}
+  constructor(private service: SignalRService, private rbkConfig: NgxRbkUtilsConfig) {}
 
   @Action(SignalRActions.Connect)
   public onConnect$(ctx: StateContext<SignalRStateModel>, action: SignalRActions.Connect): Observable<void> {
     return this.service.newConnection(action.data).pipe(
-      tap((test) => {
+      tap(() => {
 
-        const payloads = cloneDeep(ctx.getState().payloads);
         const key = `${action.data.hub}/${action.data.method}`;
-
-        payloads[key] = { config: action.data, data: action.data.dataBehavior === 'accumulate' ? [] : null };
-
-        ctx.patchState({ payloads });
 
         this.service.addListener(action.data, (payload) => {
 
-          console.log(payload);
+          if (this.rbkConfig.debugMode) console.log(payload);
+
           const payloads = cloneDeep(ctx.getState().payloads);
 
-          const data = payloads[key].data as any;
-
-          const newData = action.data.dataBehavior === 'accumulate' ?
-            [ ...data, payload] :
-            payload;
-
+        const newData = action.data.dataBehavior === 'store' ? payload : null;
           payloads[key] = { config: action.data, data: newData };
-
           ctx.patchState({ payloads });
-        })
+
+          if (action.data.dataBehavior === 'action') {
+            ctx.dispatch(new SignalRActions.DataReceived(payloads as any))
+          }
+        });
+
       })
     );
   }

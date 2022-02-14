@@ -65,7 +65,7 @@ export class DemoComplexTableComponent implements OnInit {
               header: key,
               isVisible: true,
               isFrozen,
-              content: { type: SmzContentType.TEXT, data: null },
+              content: { type: SmzContentType.TEXT, data: null, styleClass: '' },
               width: 'fit',
             });
           console.log(key, columns[columns.length - 1]);

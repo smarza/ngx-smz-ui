@@ -10,7 +10,7 @@ import { ChatMessage } from '../../models/chat';
 })
 export class MessagesComponent
 {
-  public config: SignalRConfig = { hub: 'chatHub', method: 'SendMessage', dataBehavior: 'accumulate', retryDelays: [0, 10000, 30000, 60000, 60000] };
+  public config: SignalRConfig = { hub: 'chatHub', method: 'SendMessage', dataBehavior: 'store', retryDelays: [0, 10000, 30000, 60000, 60000] };
   public connection$: Observable<SignalRConnection<ChatMessage[]>>;
   public table: SmzTableState = this.setupTable();
 

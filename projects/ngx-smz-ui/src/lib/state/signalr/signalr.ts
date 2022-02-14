@@ -1,8 +1,8 @@
 export interface SignalRConfig {
   hub: string;
   method: string;
-  dataBehavior: 'accumulate' | 'replace';
   retryDelays: number[];
+  dataBehavior: 'store' | 'action';
 }
 
 export interface SendSignalRData<T> {

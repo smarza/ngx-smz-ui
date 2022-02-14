@@ -7,10 +7,6 @@ export class SmzDocumentViewerBuilder extends SmzBuilderUtilities<SmzDocumentVie
   constructor(private _documentBuilder: SmzDocumentBuilder, private _viewer: SmzDocumentViewer) {
     super();
   }
-  public setFilename(filename: string): SmzDocumentViewerBuilder {
-    this._viewer.filename = filename;
-    return this;
-  }
 
   public overrideContainerStyles(styleClass: string): SmzDocumentViewerBuilder {
     this._viewer.container.styleClass= styleClass;

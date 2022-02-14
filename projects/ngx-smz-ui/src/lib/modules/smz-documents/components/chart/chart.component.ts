@@ -10,6 +10,18 @@ import { SmzDocumentChart } from '../../models/smz-document-features';
 export class SmzDocumentChartComponent implements OnInit {
   @Input() public data: SmzDocumentChart;
   @Input() public config: SmzDocumentConfig;
+  public plugins = [
+    {
+      afterRender: function (c) {
+        var ctx = c.ctx;
+        ctx.save();
+        ctx.globalCompositeOperation = 'destination-over';
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, 0, c.width, c.height);
+        ctx.restore();
+      }
+    }
+  ]
   constructor() { }
   ngOnInit() {
   }

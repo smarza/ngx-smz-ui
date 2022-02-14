@@ -15,6 +15,9 @@ export interface SmzDocumentConfig {
       top: number;
       bottom: number;
     }
+    width: number; // millimeters
+    orientation: "portrait" | "p" | "l" | "landscape";
+    format: string | number[];
   };
   titles: {
     container: string;

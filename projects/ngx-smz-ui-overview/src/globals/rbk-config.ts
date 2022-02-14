@@ -70,7 +70,10 @@ export const rbkConfig: NgxRbkUtilsConfig = {
                     right: 0.6,
                     bottom: 0.6,
                 },
-                headerHeightCm: null
+                headerHeightCm: null,
+                width: 210,
+                orientation: 'portrait',
+                format: 'A4'
             },
             titles: {
                 container: 'bg-gray-200',

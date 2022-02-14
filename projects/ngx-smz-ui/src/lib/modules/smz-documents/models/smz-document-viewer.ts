@@ -1,6 +1,5 @@
 
 export interface SmzDocumentViewer {
-  filename: string;
   zoom: {
     isEnabled: boolean;
     min: number;
@@ -23,5 +22,6 @@ export interface SmzDocumentViewer {
 
   paper: {
     styleClass: string;
+    width: number;
   };
 }

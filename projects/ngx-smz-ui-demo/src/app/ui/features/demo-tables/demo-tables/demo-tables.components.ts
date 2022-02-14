@@ -310,6 +310,7 @@ export class DemoTablesComponent implements OnInit {
           isVisible: true,
           content: {
             type: SmzContentType.ICON,
+            styleClass: '',
             data: { matches: [ { icon: 'fas fa-check', class: 'green-text darken-3', value: true }, { icon: 'fas fa-times', class: 'red-text darken-2', value: false } ] }
           },
           filter: {
@@ -326,6 +327,7 @@ export class DemoTablesComponent implements OnInit {
           isVisible: true,
           content: {
             type: SmzContentType.TEXT,
+            styleClass: '',
           },
           filter: {
             type: SmzFilterType.TEXT,
@@ -341,6 +343,7 @@ export class DemoTablesComponent implements OnInit {
           isVisible: true,
           content: {
             type: SmzContentType.TEXT,
+            styleClass: '',
           },
           filter: {
             type: SmzFilterType.DROPDOWN,
@@ -355,6 +358,7 @@ export class DemoTablesComponent implements OnInit {
           isVisible: true,
           content: {
             type: SmzContentType.TEXT,
+            styleClass: '',
           },
           filter: {
             type: SmzFilterType.MULTI_SELECT,
@@ -369,6 +373,7 @@ export class DemoTablesComponent implements OnInit {
           isVisible: true,
           content: {
             type: SmzContentType.TEXT,
+            styleClass: '',
           },
           filter: {
             type: SmzFilterType.NONE,
@@ -384,7 +389,8 @@ export class DemoTablesComponent implements OnInit {
           isVisible: true,
           content: {
             type: SmzContentType.CALENDAR,
-            data: { format: 'shortTime' }
+            data: { format: 'shortTime' },
+            styleClass: '',
           },
           filter: {
             type: SmzFilterType.DATE,
