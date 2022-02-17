@@ -1,6 +1,6 @@
 import { GlobalInjector } from '../../modules/smz-dialogs/services/global-injector';
 import { NgxRbkUtilsConfig } from '../../modules/rbk-utils/ngx-rbk-utils.config';
-import { SmzDocumentFontFamilies, SmzDocumentRenderers, SmzDocumentRow, SmzDocumentState } from '../../modules/smz-documents/models/smz-document';
+import { SmzDocumentContent, SmzDocumentFontFamilies, SmzDocumentRenderers, SmzDocumentRow, SmzDocumentState } from '../../modules/smz-documents/models/smz-document';
 import { SmzDocumentContentBuilder } from './document-content';
 import { SmzDocumentConfig } from '../../modules/smz-documents/models/smz-document-config';
 import cloneDeep from 'lodash-es/cloneDeep';
@@ -23,12 +23,11 @@ import * as html2canvas from 'html2canvas';
 export class SmzDocumentBuilder extends SmzBuilderUtilities<SmzDocumentBuilder> {
   protected that = this;
   private defaultConfig = GlobalInjector.instance.get(NgxRbkUtilsConfig);
-  public _colsCount: number = 0;
   public _state: SmzDocumentState = {
     isDebug: false,
     renderer: 'html2pdf',
     header: null,
-    content: null,
+    contents: [],
     config: null,
     globals: null,
     paper: {
@@ -215,7 +214,7 @@ export class SmzDocumentBuilder extends SmzBuilderUtilities<SmzDocumentBuilder> 
 
   public overrideDefaultConfigs(newConfig: SmzDocumentConfig): SmzDocumentBuilder {
 
-    if (this._state.content != null) {
+    if (this._state.contents.length > 0) {
       throw new Error(`You need to call 'overrideDefaultConfigs' before place any content.`);
     }
 
@@ -247,13 +246,27 @@ export class SmzDocumentBuilder extends SmzBuilderUtilities<SmzDocumentBuilder> 
     return new SmzDocumentViewerBuilder(this, this._state.viewer);
   }
 
+
+  public pageBreak(): SmzDocumentBuilder {
+
+    if (this._state.renderer == 'jspdf') {
+      throw new Error(`Page Break doen't work with jspdf renderer`);
+    }
+
+    const newContent: SmzDocumentContent = { type: 'page-break', rows: [], cellStyles: '', colsCount: 0 };
+    this._state.contents.push(newContent);
+
+    return this;
+  }
+
   public content(): SmzDocumentContentBuilder {
-    if (this._state.content == null) this._state.content = { type: 'content', rows: [], cellStyles: '' };
-    return new SmzDocumentContentBuilder(this, this._state.content);
+    const newContent: SmzDocumentContent = { type: 'content', rows: [], cellStyles: '', colsCount: 0 };
+    this._state.contents.push(newContent);
+    return new SmzDocumentContentBuilder(this, newContent);
   }
 
   public header(): SmzDocumentContentBuilder {
-    if (this._state.header == null) this._state.header = { type: 'content', rows: [], cellStyles: '' };
+    if (this._state.header == null) this._state.header = { type: 'content', rows: [], cellStyles: '', colsCount: 0 };
     return new SmzDocumentContentBuilder(this, this._state.header);
   }
 
@@ -298,15 +311,19 @@ export class SmzDocumentBuilder extends SmzBuilderUtilities<SmzDocumentBuilder> 
     if (this._state.header != null) {
       const rows = this._state.header.rows;
       rows.forEach(row => {
-        normalizeColspan(rows, row, this._colsCount)
+        normalizeColspan(rows, row, this._state.header.colsCount)
       });
     }
 
-    if (this._state.content != null) {
-      const rows = this._state.content.rows;
-      rows.forEach(row => {
-        normalizeColspan(rows, row, this._colsCount)
+    if (this._state.contents != null) {
+
+      this._state.contents.forEach(content => {
+        const rows = content.rows;
+        rows.forEach(row => {
+          normalizeColspan(rows, row, content.colsCount)
+        });
       });
+
     }
 
     this.updateHTMLOptions();

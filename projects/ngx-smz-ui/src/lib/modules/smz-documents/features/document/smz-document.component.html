@@ -12,7 +12,14 @@
 
   <!-- BODY -->
   <content>
-    <smz-document-content [data]="state.content" [config]="state.config" [isDebug]="state.isDebug"></smz-document-content>
+    <ng-container *ngFor="let content of state.contents">
+
+      <ng-container [ngSwitch]="content.type">
+        <smz-document-content *ngSwitchCase="'content'" [data]="content" [config]="state.config" [isDebug]="state.isDebug"></smz-document-content>
+        <smz-document-page-break *ngSwitchCase="'page-break'"></smz-document-page-break>
+      </ng-container>
+
+    </ng-container>
   </content>
 
 </document-viewer>

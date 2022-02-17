@@ -8,7 +8,7 @@ export interface SmzDocumentState {
   isDebug: boolean;
   renderer: SmzDocumentRenderers;
   header: SmzDocumentContent;
-  content: SmzDocumentContent;
+  contents: SmzDocumentContent[];
   config: SmzDocumentConfig;
   globals: SmzDocumentGlobals;
   summary: {
@@ -36,9 +36,10 @@ export interface SmzDocumentGlobals {
 }
 
 export interface SmzDocumentContent {
-  type: 'content';
+  type: 'content' | 'page-break';
   rows: SmzDocumentRow[];
   cellStyles: string;
+  colsCount: number;
 }
 
 export interface SmzDocumentRow {

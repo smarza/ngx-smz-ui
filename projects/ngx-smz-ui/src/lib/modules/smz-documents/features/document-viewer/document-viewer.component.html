@@ -7,9 +7,9 @@
             <button pButton type="button" class="p-button p-button-outlined" label="100%" (click)="documentService.restoreZoom()"></button>
             <button pButton type="button" class="p-button p-button-outlined" label="ZOOM +" (click)="documentService.moreZoom()"></button>
         </ng-container>
-        <button *ngIf="state.viewer.open.isEnabled" pButton type="button" class="p-button p-button-success" label="OPEN" (click)="documentService.generate('open')"></button>
-        <button *ngIf="state.viewer.print.isEnabled" pButton type="button" class="p-button p-button-success" label="PRINT" (click)="documentService.generate('print')"></button>
-        <button *ngIf="state.viewer.download.isEnabled" pButton type="button" class="p-button p-button-success" label="DOWNLOAD" (click)="documentService.generate('download')"></button>
+        <button *ngIf="state.viewer.open.isEnabled" pButton type="button" class="p-button p-button-success" label="OPEN" (click)="documentService.generate('open')" [disabled]="state.isDebug"></button>
+        <button *ngIf="state.viewer.print.isEnabled" pButton type="button" class="p-button p-button-success" label="PRINT" (click)="documentService.generate('print')" [disabled]="state.isDebug"></button>
+        <button *ngIf="state.viewer.download.isEnabled" pButton type="button" class="p-button p-button-success" label="DOWNLOAD" (click)="documentService.generate('download')" [disabled]="state.isDebug"></button>
     </div>
 
     <div class="pager" [ngClass]="state.viewer.paper.styleClass"
@@ -20,7 +20,7 @@
         [style.padding-top]="state.export.margin.top + 'pt !important'"
         [style.padding-bottom]="state.export.margin.bottom + 'pt !important'"
         >
-        <div #paper [style.font-family]="state.globals.font.family">
+        <div #paper [style.font-family]="state.globals.font.family" class="p-px">
             <ng-content select="header"></ng-content>
             <ng-content select="content"></ng-content>
         </div>

@@ -71,73 +71,81 @@ export class SmzDocumentsService {
   }
 
   private generatePdf(action: 'open' | 'print' | 'download', element: ElementRef, state: SmzDocumentState): Promise<any> {
+
+    if (state.isDebug) {
+      throw new Error(`You cannot download in debug mode.`);
+    }
+
     return new Promise((resolve) => {
 
-      switch (state.renderer) {
-        case 'html2pdf':
+      setTimeout(() => {
 
-          const html2pdfData = html2pdf()
-            .from(element.nativeElement)
-            .set(state.export.html2pdfOptions);
+        switch (state.renderer) {
+          case 'html2pdf':
+
+            const html2pdfData = html2pdf()
+              .from(element.nativeElement)
+              .set(state.export.html2pdfOptions);
 
             switch (action) {
               case 'open': {
                 html2pdfData.outputPdf()
-                .then((pdf) => {
-                  const base64Pdf = btoa(pdf);
-                  window.open(base64Pdf, '_blank');
-                  resolve('Resolved');
-                });
+                  .then((pdf) => {
+                    const base64Pdf = btoa(pdf);
+                    window.open(base64Pdf, '_blank');
+                    resolve('Resolved');
+                  });
 
                 break;
               }
               // case 'print': this.pdfMakeService.pdfMake.createPdf(document).print(); break;
               case 'download': {
                 html2pdfData.save()
-                .then(() => { resolve('Resolved'); });
+                  .then(() => { resolve('Resolved'); });
 
                 break;
               }
             }
-          break;
+            break;
 
-        case 'jspdf':
+          case 'jspdf':
 
-          const doc = new jsPDF(cloneDeep(state.export.jsPDFOptions));
+            const doc = new jsPDF(cloneDeep(state.export.jsPDFOptions));
 
-          doc.addFont('assets/fonts/Roboto-Thin.ttf', 'Thin', 'normal', 100);
-          doc.addFont('assets/fonts/Roboto-Light.ttf', 'Light', 'normal', 300);
-          doc.addFont('assets/fonts/Roboto-Regular.ttf', 'Roboto', 'normal', 400);
-          doc.addFont('assets/fonts/Roboto-Medium.ttf', 'Medium', 'normal', 500);
-          doc.addFont('assets/fonts/Roboto-Bold.ttf', 'Bold', 'normal', 700);
+            doc.addFont('assets/fonts/Roboto-Thin.ttf', 'Thin', 'normal', 100);
+            doc.addFont('assets/fonts/Roboto-Light.ttf', 'Light', 'normal', 300);
+            doc.addFont('assets/fonts/Roboto-Regular.ttf', 'Roboto', 'normal', 400);
+            doc.addFont('assets/fonts/Roboto-Medium.ttf', 'Medium', 'normal', 500);
+            doc.addFont('assets/fonts/Roboto-Bold.ttf', 'Bold', 'normal', 700);
 
-          doc.html(element.nativeElement, cloneDeep(state.export.htmlOptions)).then(() => {
+            doc.html(element.nativeElement, cloneDeep(state.export.htmlOptions)).then(() => {
 
-          switch (action) {
-            case 'open': {
-              doc.output('dataurlnewwindow', { filename: `${this.filename}.pdf` });
-              resolve('Resolved');
+              switch (action) {
+                case 'open': {
+                  doc.output('dataurlnewwindow', { filename: `${this.filename}.pdf` });
+                  resolve('Resolved');
 
-              break;
-            }
-            // case 'print': this.pdfMakeService.pdfMake.createPdf(document).print(); break;
-            case 'download': {
-              const saving = doc.save(`${this.filename}.pdf`, { returnPromise: true });
-              (saving as any).then(() => {
-                resolve('Resolved');
-              });
+                  break;
+                }
+                // case 'print': this.pdfMakeService.pdfMake.createPdf(document).print(); break;
+                case 'download': {
+                  const saving = doc.save(`${this.filename}.pdf`, { returnPromise: true });
+                  (saving as any).then(() => {
+                    resolve('Resolved');
+                  });
 
-              break;
-            }
-          }
-          });
+                  break;
+                }
+              }
+            });
 
-          break;
+            break;
 
-        default:
-          break;
-      }
+          default:
+            break;
+        }
 
+      }, 0);
 
     });
   }

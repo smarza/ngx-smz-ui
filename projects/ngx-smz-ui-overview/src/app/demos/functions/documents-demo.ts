@@ -9,7 +9,7 @@ export const DocumentsDemo: { [key: string]: () => void } = {
   //
   [DemoKeys.DOCUMENTS_DEMO_HTML2PDF]: () => {
     return baseDocument(new SmzDocumentBuilder(), true)
-      .debugMode()
+      // .debugMode()
       .setRenderer('html2pdf')
       .setQuality(2)
 
@@ -571,6 +571,7 @@ function baseDocument(_: SmzDocumentBuilder, includePageBreaks: boolean): SmzDoc
 
     .row()
       .title('ORDEM DE COMPRA 1')
+        .addContainerStyles('outline outline-1 outline-offset-0 outline-yellow-400')
         .setBackgroundColor('#FDD835')
         .setTextColor('#212121')
         .setColspan(3)
@@ -627,14 +628,11 @@ function baseDocument(_: SmzDocumentBuilder, includePageBreaks: boolean): SmzDoc
         .row
       .content
 
-    .if(includePageBreaks)
-      .row()
-        .pageBreak()
-        .row
-      .content
-    .endIf
-
     .document
+
+    .if(includePageBreaks)
+      .pageBreak()
+    .endIf
 
     .content()
 
@@ -656,6 +654,11 @@ function baseDocument(_: SmzDocumentBuilder, includePageBreaks: boolean): SmzDoc
       .content
 
     .document
+
+    .if(includePageBreaks)
+      .pageBreak()
+    .endIf
+
     .content()
 
     .row()

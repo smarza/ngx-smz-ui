@@ -27,6 +27,16 @@ export class SmzCellTitleBuilder extends SmzDocumentBaseCellBuilder<SmzCellTitle
     return this.that;
   }
 
+  public addContainerStyles(styleClass: string): SmzCellTitleBuilder {
+    this._data.container.styles += ' ' + styleClass;
+    return this.that;
+  }
+
+  public addTextStyles(styleClass: string): SmzCellTitleBuilder {
+    this._data.text.styles += ' ' + styleClass;
+    return this.that;
+  }
+
   public setBackgroundColor(color: string): SmzCellTitleBuilder {
     this._data.container.background = `${color} !important`;
     return this.that;
@@ -85,6 +95,21 @@ export class SmzCellFieldBuilder extends SmzDocumentBaseCellBuilder<SmzCellField
 
   public overrideTextStyles(styleClass: string): SmzCellFieldBuilder {
     this._data.text.styles = styleClass;
+    return this.that;
+  }
+
+  public addContainerStyles(styleClass: string): SmzCellFieldBuilder {
+    this._data.container.styles =+ ' ' + styleClass;
+    return this.that;
+  }
+
+  public addLabelStyles(styleClass: string): SmzCellFieldBuilder {
+    this._data.label.styles =+ ' ' + styleClass;
+    return this.that;
+  }
+
+  public addTextStyles(styleClass: string): SmzCellFieldBuilder {
+    this._data.text.styles =+ ' ' + styleClass;
     return this.that;
   }
 
@@ -151,6 +176,16 @@ export class SmzCellImageBuilder extends SmzDocumentBaseCellBuilder<SmzCellImage
     return this.that;
   }
 
+  public addContainerStyles(styleClass: string): SmzCellImageBuilder {
+    this._data.container.styles =+ ' ' + styleClass;
+    return this.that;
+  }
+
+  public addImageStyles(styleClass: string): SmzCellImageBuilder {
+    this._data.image.styles =+ ' ' + styleClass;
+    return this.that;
+  }
+
   public setBackgroundColor(color: string): SmzCellImageBuilder {
     this._data.container.background = `${color} !important`;
     return this.that;
@@ -202,6 +237,16 @@ export class SmzCellSubTitleBuilder extends SmzDocumentBaseCellBuilder<SmzCellSu
     return this.that;
   }
 
+  public addContainerStyles(styleClass: string): SmzCellSubTitleBuilder {
+    this._data.container.styles =+ ' ' + styleClass;
+    return this.that;
+  }
+
+  public addTextStyles(styleClass: string): SmzCellSubTitleBuilder {
+    this._data.text.styles =+ ' ' + styleClass;
+    return this.that;
+  }
+
   public setBackgroundColor(color: string): SmzCellSubTitleBuilder {
     this._data.container.background = `${color} !important`;
     return this.that;
@@ -224,6 +269,11 @@ export class SmzCellFieldsGroupBuilder extends SmzDocumentBaseCellBuilder<SmzCel
 
   public overrideContainerStyles(styleClass: string): SmzCellFieldsGroupBuilder {
     this._data.container.styles = styleClass;
+    return this.that;
+  }
+
+  public addContainerStyles(styleClass: string): SmzCellFieldsGroupBuilder {
+    this._data.container.styles =+ ' ' + styleClass;
     return this.that;
   }
 
@@ -276,6 +326,21 @@ export class SmzCellFieldGroupBuilder {
 
   public overrideTextStyles(styleClass: string): SmzCellFieldGroupBuilder {
     this._data.text.styles = styleClass;
+    return this;
+  }
+
+  public addContainerStyles(styleClass: string): SmzCellFieldGroupBuilder {
+    this._data.container.styles =+ ' ' + styleClass;
+    return this;
+  }
+
+  public addLabelStyles(styleClass: string): SmzCellFieldGroupBuilder {
+    this._data.label.styles =+ ' ' + styleClass;
+    return this;
+  }
+
+  public addTextStyles(styleClass: string): SmzCellFieldGroupBuilder {
+    this._data.text.styles =+ ' ' + styleClass;
     return this;
   }
 
@@ -352,6 +417,11 @@ export class SmzCellTableBuilder extends SmzDocumentBaseCellBuilder<SmzCellTable
 
   public overrideContainerStyles(styleClass: string): SmzCellTableBuilder {
     this._data.container.styles = styleClass;
+    return this.that;
+  }
+
+  public addContainerStyles(styleClass: string): SmzCellTableBuilder {
+    this._data.container.styles =+ ' ' + styleClass;
     return this.that;
   }
 
@@ -495,6 +565,11 @@ export class SmzCellChartBuilder extends SmzDocumentBaseCellBuilder<SmzCellChart
 
   public overrideContainerStyles(styleClass: string): SmzCellChartBuilder {
     this._data.container.styles = styleClass;
+    return this.that;
+  }
+
+  public addContainerStyles(styleClass: string): SmzCellChartBuilder {
+    this._data.container.styles =+ ' ' + styleClass;
     return this.that;
   }
 

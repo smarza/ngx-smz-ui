@@ -126,8 +126,8 @@ export class SmzDocumentRowBuilder {
       }
     });
 
-    if ((colsCount + cellsMerging) > this._documentBuilder._colsCount) {
-      this._documentBuilder._colsCount = colsCount;
+    if ((colsCount + cellsMerging) > this._content.colsCount) {
+      this._content.colsCount = colsCount;
     }
     return this._contentBuilder;
   }
