@@ -26,6 +26,7 @@ import { SmzDocumentViewerComponent } from './features/document-viewer/document-
 import { SmzDocumentTableComponent } from './components/table/table.component';
 import { SmzDocumentChartComponent } from './components/chart/chart.component';
 import { SmzChartModule } from '../smz-charts/ngx-smz-charts.module';
+import { SmzDocumentPageBreakComponent } from './components/page-break/page-break.component';
 
 @NgModule({
     imports: [
@@ -58,7 +59,8 @@ import { SmzChartModule } from '../smz-charts/ngx-smz-charts.module';
       SmzDocumentFieldsGroupComponent,
       SmzDocumentViewerComponent,
       SmzDocumentTableComponent,
-      SmzDocumentChartComponent
+      SmzDocumentChartComponent,
+      SmzDocumentPageBreakComponent
     ]
   })
   export class NgxSmzDocumentsModule

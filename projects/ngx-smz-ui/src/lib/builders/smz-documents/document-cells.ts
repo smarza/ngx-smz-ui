@@ -1,5 +1,5 @@
 import { SmzDocumentCell } from '../../modules/smz-documents/models/smz-document';
-import { SmzDocumentChart, SmzDocumentDivider, SmzDocumentFeatureDefinitions, SmzDocumentField, SmzDocumentFieldGroup, SmzDocumentFieldsGroup, SmzDocumentImage, SmzDocumentSpacer, SmzDocumentSubTitle, SmzDocumentTable, SmzDocumentTableColumn, SmzDocumentTitle } from '../../modules/smz-documents/models/smz-document-features';
+import { SmzDocumentChart, SmzDocumentDivider, SmzDocumentFeatureDefinitions, SmzDocumentField, SmzDocumentFieldGroup, SmzDocumentFieldsGroup, SmzDocumentImage, SmzDocumentPageBreak, SmzDocumentSpacer, SmzDocumentSubTitle, SmzDocumentTable, SmzDocumentTableColumn, SmzDocumentTitle } from '../../modules/smz-documents/models/smz-document-features';
 import { SmzDocumentBuilder } from './document-builder';
 import { SmzDocumentBaseCellBuilder } from './document-base-cell';
 import { SmzDocumentRowBuilder } from './document-content';
@@ -28,12 +28,12 @@ export class SmzCellTitleBuilder extends SmzDocumentBaseCellBuilder<SmzCellTitle
   }
 
   public setBackgroundColor(color: string): SmzCellTitleBuilder {
-    this._data.container.background = color;
+    this._data.container.background = `${color} !important`;
     return this.that;
   }
 
   public setTextColor(color: string): SmzCellTitleBuilder {
-    this._data.text.color = color;
+    this._data.text.color = `${color} !important`;
     return this.that;
   }
 
@@ -50,6 +50,15 @@ export class SmzCellDividerBuilder extends SmzDocumentBaseCellBuilder<SmzCellDiv
   public overrideStyles(styleClass: string): SmzCellDividerBuilder {
     this._data.styles = styleClass;
     return this.that;
+  }
+
+}
+
+
+export class SmzCellPageBreakBuilder extends SmzDocumentBaseCellBuilder<SmzCellPageBreakBuilder> {
+  protected that = this;
+  constructor(public _rowBuilder: SmzDocumentRowBuilder, public _cell: SmzDocumentCell, public _data: SmzDocumentPageBreak, public _documentBuilder: SmzDocumentBuilder) {
+    super(_rowBuilder, _cell, _data, _documentBuilder);
   }
 
 }
@@ -80,12 +89,12 @@ export class SmzCellFieldBuilder extends SmzDocumentBaseCellBuilder<SmzCellField
   }
 
   public setBackgroundColor(color: string): SmzCellFieldBuilder {
-    this._data.container.background = color;
+    this._data.container.background = `${color} !important`;
     return this.that;
   }
 
   public setLabelColor(color: string): SmzCellFieldBuilder {
-    this._data.label.color = color;
+    this._data.label.color = `${color} !important`;
     return this.that;
   }
 
@@ -95,7 +104,7 @@ export class SmzCellFieldBuilder extends SmzDocumentBaseCellBuilder<SmzCellField
       throw new Error(`You already set the text color on field: ${this._data.text.value}.`);
     }
 
-    this._data.text.color = color;
+    this._data.text.color = `${color} !important`;
     return this.that;
   }
 
@@ -143,7 +152,7 @@ export class SmzCellImageBuilder extends SmzDocumentBaseCellBuilder<SmzCellImage
   }
 
   public setBackgroundColor(color: string): SmzCellImageBuilder {
-    this._data.container.background = color;
+    this._data.container.background = `${color} !important`;
     return this.that;
   }
 
@@ -194,12 +203,12 @@ export class SmzCellSubTitleBuilder extends SmzDocumentBaseCellBuilder<SmzCellSu
   }
 
   public setBackgroundColor(color: string): SmzCellSubTitleBuilder {
-    this._data.container.background = color;
+    this._data.container.background = `${color} !important`;
     return this.that;
   }
 
   public setTextColor(color: string): SmzCellSubTitleBuilder {
-    this._data.text.color = color;
+    this._data.text.color = `${color} !important`;
     return this.that;
   }
 
@@ -219,7 +228,7 @@ export class SmzCellFieldsGroupBuilder extends SmzDocumentBaseCellBuilder<SmzCel
   }
 
   public setBackgroundColor(color: string): SmzCellFieldsGroupBuilder {
-    this._data.container.background = color;
+    this._data.container.background = `${color} !important`;
     return this.that;
   }
 
@@ -271,12 +280,12 @@ export class SmzCellFieldGroupBuilder {
   }
 
   public setBackgroundColor(color: string): SmzCellFieldGroupBuilder {
-    this._data.container.background = color;
+    this._data.container.background = `${color} !important`;
     return this;
   }
 
   public setLabelColor(color: string): SmzCellFieldGroupBuilder {
-    this._data.label.color = color;
+    this._data.label.color = `${color} !important`;
     return this;
   }
 
@@ -286,7 +295,7 @@ export class SmzCellFieldGroupBuilder {
       throw new Error(`You already set the text color on the group field`);
     }
 
-    this._data.text.color = color;
+    this._data.text.color = `${color} !important`;
     return this;
   }
 
@@ -328,13 +337,26 @@ export class SmzCellTableBuilder extends SmzDocumentBaseCellBuilder<SmzCellTable
     _data.content = { styles: defaultConfig.tables.content };
   }
 
+  // public setWidth(width: 'auto' | 'col-1' | 'col-2' | 'col-3' | 'col-4' | 'col-5' | 'col-6' | 'col-7' | 'col-8' | 'col-9' | 'col-10' | 'col-11' | 'col-12'): SmzCellTableBuilder {
+  //   let newWidth = 'unset';
+
+  //   if (width !== 'auto')
+  //   {
+  //     const size = Number(width.split('-')[1]);
+  //     newWidth = `${(100/12) * size}%`;
+  //   }
+
+  //   this._cell.width = newWidth;
+  //   return this;
+  // }
+
   public overrideContainerStyles(styleClass: string): SmzCellTableBuilder {
     this._data.container.styles = styleClass;
     return this.that;
   }
 
   public setContainerBackgroundColor(color: string): SmzCellTableBuilder {
-    this._data.container.background = color;
+    this._data.container.background = `${color} !important`;
     return this.that;
   }
 
@@ -420,8 +442,16 @@ export class SmzCellTableColumnBuilder {
     return this;
   }
 
-  public setWidth(width: string): SmzCellTableColumnBuilder {
-    this._data.width = width;
+  public setWidth(width: 'auto' | 'col-1' | 'col-2' | 'col-3' | 'col-4' | 'col-5' | 'col-6' | 'col-7' | 'col-8' | 'col-9' | 'col-10' | 'col-11' | 'col-12'): SmzCellTableColumnBuilder {
+    let newWidth = 'unset';
+
+    if (width !== 'auto')
+    {
+      const size = Number(width.split('-')[1]);
+      newWidth = `${(100/12) * size}%`;
+    }
+
+    this._data.width = newWidth;
     return this;
   }
 
@@ -469,7 +499,7 @@ export class SmzCellChartBuilder extends SmzDocumentBaseCellBuilder<SmzCellChart
   }
 
   public setContainerBackgroundColor(color: string): SmzCellChartBuilder {
-    this._data.container.background = color;
+    this._data.container.background = `${color} !important`;
     return this.that;
   }
 

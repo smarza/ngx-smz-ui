@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ViewChild, Input, ChangeDetectorRef, AfterViewInit, Renderer2, ElementRef, ViewEncapsulation, OnDestroy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ViewChild, Input, ChangeDetectorRef, AfterViewInit, Renderer2, ElementRef, ViewEncapsulation, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
 import { Location } from '@angular/common';
 import { SmzDocumentsService } from '../../services/smz-documents.service';
 import moment from 'moment';
@@ -12,7 +12,7 @@ import { Store } from '@ngxs/store';
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None
 })
-export class SmzDocumentViewerComponent implements OnInit, AfterViewInit, OnDestroy
+export class SmzDocumentViewerComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges
 {
     @ViewChild('paper', { static: true }) public paperElement: ElementRef;
     @Input() public state: SmzDocumentState;
@@ -21,9 +21,15 @@ export class SmzDocumentViewerComponent implements OnInit, AfterViewInit, OnDest
 
     public ngOnInit(): void
     {
-        this.documentService.setZoom(this.state.viewer.zoom.initial);
-        this.documentService.setFilename(this.state.export.filename);
-        this.documentService.setState(this.state);
+
+    }
+
+    public ngOnChanges(changes: SimpleChanges): void {
+        if (changes.state.currentValue != null) {
+            this.documentService.setZoom(this.state.viewer.zoom.initial);
+            this.documentService.setFilename(this.state.export.filename);
+            this.documentService.setState(this.state);
+        }
     }
 
     public ngAfterViewInit(): void

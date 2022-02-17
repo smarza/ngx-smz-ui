@@ -66,9 +66,9 @@ export class GlobalAssistanceComponent implements OnInit {
     this.store.dispatch(new LayoutUiActions.SetColorSchema(data));
   }
 
-  public changeGlobalLoading(event: { checked: boolean }): void {
+  public changeGlobalLoading(event: { checked: boolean }, seconds: number): void {
     if (event.checked) {
-      this.timer = 5;
+      this.timer = seconds;
       this.store.dispatch(new ApplicationActions.StartGlobalLoading);
     }
 
@@ -80,7 +80,7 @@ export class GlobalAssistanceComponent implements OnInit {
       this.store.dispatch(new ApplicationActions.StopGlobalLoading);
       this.timer = null;
       clearInterval(timer);
-    }, 5000);
+    }, seconds * 1000);
   }
 
   public onSetGlobalLoader(data: SmzLoader): void {

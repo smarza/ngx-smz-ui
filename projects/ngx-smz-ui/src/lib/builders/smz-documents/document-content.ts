@@ -1,8 +1,8 @@
 
 import { SmzDocumentCell, SmzDocumentRow, SmzDocumentContent } from '../../modules/smz-documents/models/smz-document';
-import { SmzDocumentTitle, SmzDocumentFeatureDefinitions, SmzDocumentDivider, SmzDocumentField, SmzDocumentImage, SmzDocumentSpacer, SmzDocumentSubTitle, SmzDocumentFieldsGroup, SmzDocumentTable, SmzDocumentChart } from '../../modules/smz-documents/models/smz-document-features';
+import { SmzDocumentTitle, SmzDocumentFeatureDefinitions, SmzDocumentDivider, SmzDocumentField, SmzDocumentImage, SmzDocumentSpacer, SmzDocumentSubTitle, SmzDocumentFieldsGroup, SmzDocumentTable, SmzDocumentChart, SmzDocumentPageBreak } from '../../modules/smz-documents/models/smz-document-features';
 import { SmzDocumentBuilder } from './document-builder';
-import { SmzCellChartBuilder, SmzCellDividerBuilder, SmzCellFieldBuilder, SmzCellFieldsGroupBuilder, SmzCellImageBuilder, SmzCellSpacerBuilder, SmzCellSubTitleBuilder, SmzCellTableBuilder, SmzCellTitleBuilder } from './document-cells';
+import { SmzCellChartBuilder, SmzCellDividerBuilder, SmzCellFieldBuilder, SmzCellFieldsGroupBuilder, SmzCellImageBuilder, SmzCellPageBreakBuilder, SmzCellSpacerBuilder, SmzCellSubTitleBuilder, SmzCellTableBuilder, SmzCellTitleBuilder } from './document-cells';
 import { UUID } from 'angular2-uuid';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzChart } from '../../modules/smz-charts/models/chart';
@@ -41,6 +41,19 @@ export class SmzDocumentRowBuilder {
     const item: SmzDocumentDivider = { type: SmzDocumentFeatureDefinitions.DIVIDER };
     cell.data = item;
     return new SmzCellDividerBuilder(this, cell, item, this._documentBuilder);
+  }
+
+  public pageBreak(): SmzCellPageBreakBuilder {
+
+    if (this._documentBuilder._state.renderer == 'jspdf') {
+      throw new Error(`Page Break doen't work with jspdf renderer`);
+    }
+
+    const cell: SmzDocumentCell = { colspan: 1, rowspan: 1, height: '100%', width: 'auto', data: null };
+    this._row.cells.push(cell)
+    const item: SmzDocumentPageBreak = { type: SmzDocumentFeatureDefinitions.PAGE_BREAK };
+    cell.data = item;
+    return new SmzCellPageBreakBuilder(this, cell, item, this._documentBuilder);
   }
 
   public field(text: string, label?: string): SmzCellFieldBuilder {

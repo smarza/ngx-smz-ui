@@ -1,5 +1,5 @@
 <div
-  [ngStyle]="{ background: data.container.background }"
+  [style.background]="data.container.background"
   class="grid grid-nogutter items-start justify-center flex-col h-full relative"
   [ngClass]="data.container.styles">
 
@@ -11,7 +11,7 @@
   </div>
 
   <div
-    [ngStyle]="{ 'font-weight': data.text.fontWeight }"
+    [style.font-weight]="data.text.fontWeight"
     [ngClass]="data.text.styles"
     [style.color]="data.text.color"
     >

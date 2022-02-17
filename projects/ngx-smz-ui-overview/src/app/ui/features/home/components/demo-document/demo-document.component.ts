@@ -27,6 +27,7 @@ export class DemoDocumentComponent implements OnInit, OnChanges {
     if (changes.node != null) {
       const node = changes.node.currentValue;
       this.state = node.data();
+      console.log(this.state);
     }
 
   }

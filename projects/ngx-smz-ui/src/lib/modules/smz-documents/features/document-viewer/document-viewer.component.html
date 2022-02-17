@@ -12,8 +12,15 @@
         <button *ngIf="state.viewer.download.isEnabled" pButton type="button" class="p-button p-button-success" label="DOWNLOAD" (click)="documentService.generate('download')"></button>
     </div>
 
-    <div class="pager" [ngClass]="state.viewer.paper.styleClass" [ngStyle]="{ 'transform': 'scale(' + documentService.zoom + ')' }" [style.width.pt]="state.viewer.paper.width">
-        <div #paper [ngStyle]="{ 'font-family':  state.globals.font.family }">
+    <div class="pager" [ngClass]="state.viewer.paper.styleClass"
+        [style.transform]="'scale(' + documentService.zoom + ')'"
+        [style.width.pt]="state.viewer.paper.ptWidth"
+        [style.padding-left]="state.export.margin.left + 'pt !important'"
+        [style.padding-right]="state.export.margin.right + 'pt !important'"
+        [style.padding-top]="state.export.margin.top + 'pt !important'"
+        [style.padding-bottom]="state.export.margin.bottom + 'pt !important'"
+        >
+        <div #paper [style.font-family]="state.globals.font.family">
             <ng-content select="header"></ng-content>
             <ng-content select="content"></ng-content>
         </div>

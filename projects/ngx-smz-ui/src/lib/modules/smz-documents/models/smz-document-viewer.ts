@@ -22,6 +22,7 @@ export interface SmzDocumentViewer {
 
   paper: {
     styleClass: string;
-    width: number;
+    ptWidth: number;
+    ptHeight: number;
   };
 }

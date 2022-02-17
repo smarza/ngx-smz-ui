@@ -1,21 +1,32 @@
 import { GlobalInjector } from '../../modules/smz-dialogs/services/global-injector';
 import { NgxRbkUtilsConfig } from '../../modules/rbk-utils/ngx-rbk-utils.config';
-import { SmzDocumentFontFamilies, SmzDocumentRow, SmzDocumentState } from '../../modules/smz-documents/models/smz-document';
+import { SmzDocumentFontFamilies, SmzDocumentRenderers, SmzDocumentRow, SmzDocumentState } from '../../modules/smz-documents/models/smz-document';
 import { SmzDocumentContentBuilder } from './document-content';
 import { SmzDocumentConfig } from '../../modules/smz-documents/models/smz-document-config';
 import cloneDeep from 'lodash-es/cloneDeep';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzDocumentViewerBuilder } from './document-viewer';
 import { HTMLOptions, jsPDFOptions } from 'jspdf';
+import { SmzDocumentPageFormats, SmzPageFormatsInPt } from '../../modules/smz-documents/models/smz-page-formats';
+import { isArray } from '../../common/utils/utils';
+import * as html2canvas from 'html2canvas';
 
-const pixelCmFactor = 28.346;
+// HTML2PDF
+// https://ekoopmans.github.io/html2pdf.js/#usage
+
+// JSPDF OPTIONS
+// https://rawgit.com/MrRio/jsPDF/master/docs/jsPDF.html
+
+// HTML2CANVAS OPTIONS
+// https://html2canvas.hertzen.com/configuration
+
 export class SmzDocumentBuilder extends SmzBuilderUtilities<SmzDocumentBuilder> {
   protected that = this;
   private defaultConfig = GlobalInjector.instance.get(NgxRbkUtilsConfig);
   public _colsCount: number = 0;
-  private _isHeaderHeightUpdated = false;
   public _state: SmzDocumentState = {
     isDebug: false,
+    renderer: 'html2pdf',
     header: null,
     content: null,
     config: null,
@@ -26,12 +37,6 @@ export class SmzDocumentBuilder extends SmzBuilderUtilities<SmzDocumentBuilder> 
         left: null,
         right: null
       },
-      margin: {
-        top: null,
-        left: null,
-        right: null,
-        bottom: null
-      }
     },
     summary: {
       text: null,
@@ -60,13 +65,26 @@ export class SmzDocumentBuilder extends SmzBuilderUtilities<SmzDocumentBuilder> 
       },
       paper: {
         styleClass: null,
-        width: null,
+        ptWidth: 0,
+        ptHeight: 0
       }
     },
     export: {
       filename: 'sample',
       jsPDFOptions: null,
       htmlOptions: null,
+      html2pdfOptions: {
+        html2canvas: { scale: 1 }
+      },
+      margin: {
+        top: 1,
+        left: 1,
+        bottom: 1,
+        right: 1,
+      }
+    },
+    userPreferences: {
+      unit: 'mm'
     }
   };
 
@@ -81,61 +99,79 @@ export class SmzDocumentBuilder extends SmzBuilderUtilities<SmzDocumentBuilder> 
     this._state.globals = config.globals;
     this._state.viewer.container.styleClass = config.viewer.container;
     this._state.viewer.paper.styleClass = config.viewer.paper;
-
-    const marginCm = config.paper.marginCm;
-    const globalHeaderHeightCm = config.paper.headerHeightCm ? `${config.paper.headerHeightCm}cm` : null;
-
-    this.applyMargin('cm', globalHeaderHeightCm, null, marginCm.left, marginCm.right, marginCm.top, marginCm.bottom);
-    this.initHTMLOptions(marginCm.top, config.paper.width, config.paper.orientation, config.paper.format);
   }
 
-  private applyMargin(unit: 'cm', headerHeight: string, all: number, left?: number, right?: number, top?: number, bottom?: number): void {
+  private applyMargin(left?: number, right?: number, top?: number, bottom?: number): void {
 
-    if (unit === 'cm') {
+    let factor = 1;
 
-      if (all != null) {
-        this._state.paper.margin.left = `${all}${unit}`;
-        this._state.paper.margin.right = `${all}${unit}`;
-        this._state.paper.margin.top = headerHeight ?? (this._isHeaderHeightUpdated ? this._state.paper.margin.top : `${all}${unit}`);
-        this._state.paper.margin.bottom = `${all}${unit}`;
-
-        this._state.paper.headerMargin.left = `${all * pixelCmFactor}px`;
-        this._state.paper.headerMargin.right = `${all * pixelCmFactor}px`;
-        this._state.paper.headerMargin.top = `${all * pixelCmFactor}px`;
-      }
-
-      this._state.paper.margin.left = left != null ? `${left}${unit}` : this._state.paper.margin.left;
-      this._state.paper.margin.right = right != null ? `${right}${unit}` : this._state.paper.margin.right;
-      this._state.paper.margin.top = top != null && headerHeight == null ? `${top}${unit}` : (headerHeight ?? this._state.paper.margin.top);
-      this._state.paper.margin.bottom = bottom != null ? `${bottom}${unit}` : this._state.paper.margin.bottom;
-
-      this._state.paper.headerMargin.left = left != null ? `${left * pixelCmFactor}px` : this._state.paper.headerMargin.left;
-      this._state.paper.headerMargin.right = right != null ? `${right * pixelCmFactor}px` : this._state.paper.headerMargin.right;
-      this._state.paper.headerMargin.top = top != null ? `${top * pixelCmFactor}px` : this._state.paper.headerMargin.top;
-
+    switch (this._state.userPreferences.unit) {
+      case 'cm':
+        factor = 28.3465;
+        break;
+      case 'mm':
+        factor = 2.8346;
+          break;
+      default:
+        break;
     }
-
+    this._state.export.margin.left = left * factor;
+    this._state.export.margin.right = right * factor;
+    this._state.export.margin.top = top * factor;
+    this._state.export.margin.bottom = bottom * factor;
   }
 
   private initJsPDFOptions(): void {
     this._state.export.jsPDFOptions = {
-      orientation: null,
       unit: 'pt',
-      format: null,
-      userUnit: 1,
+      // userUnit: 1,
       precision: 2,
       compress: true,
       putOnlyUsedFonts: true,
+      hotfixes: ['px_scaling'],
     };
+
+    this.setPageConfig('a4', 'portrait');
   }
 
-  private initHTMLOptions(margin: number, widthInMillimeters: number, orientation: "portrait" | "p" | "l" | "landscape", format: string | number[]): void {
-    const width = (widthInMillimeters / 10) * 28.346;
+  private updateHtml2pdfOptions(): void {
+    this._state.export.html2pdfOptions = {
+      ...this._state.export.html2pdfOptions,
+      margin: this._state.export.htmlOptions.margin,
+      filename: `${this._state.export.filename}.pdf`,
+      pagebreak: {
+        mode: ['avoid-all', 'css', 'legacy'],
+        avoid: ['tr', 'img', 'canvas'],
+        before: ['.page-break-tag']
+      },
+      enableLinks: true,
+      // image: { type: 'jpeg', quality: 0.98 },
+      jsPDF: cloneDeep(this._state.export.jsPDFOptions)
+    };
+
+  }
+
+  private setPageConfig(format: SmzDocumentPageFormats | number[], orientation: 'portrait' | 'p' | 'l' | 'landscape'): void {
+    this._state.export.jsPDFOptions.format = format;
+    this._state.export.jsPDFOptions.orientation = orientation;
+
+    const sizes = isArray(format) ? format : SmzPageFormatsInPt[format as string];
+
+    const widthIndex = (orientation == 'p' || orientation == 'portrait') ? 0 : 1;
+    const heightIndex = (orientation == 'p' || orientation == 'portrait') ? 1 : 0;
+
+    this._state.viewer.paper.ptWidth = sizes[widthIndex];
+    this._state.viewer.paper.ptHeight = sizes[heightIndex];
+  }
+
+  private updateHTMLOptions(): void {
+    const width = this._state.viewer.paper.ptWidth;
+    const marginX = this._state.export.margin.left + this._state.export.margin.right;
 
     this._state.export.htmlOptions = {
-      width: width - (margin * 2),
-      windowWidth: (width - margin * 2) * 1.65,
-      margin: margin,
+      width: width - marginX,
+      windowWidth: (width - marginX) * 1.65,
+      margin: [this._state.export.margin.top, this._state.export.margin.left, this._state.export.margin.bottom, this._state.export.margin.right],
       autoPaging: true,
       x: 0,
       y: 0,
@@ -144,9 +180,6 @@ export class SmzDocumentBuilder extends SmzBuilderUtilities<SmzDocumentBuilder> 
       },
     };
 
-    this._state.viewer.paper.width = width;
-    this._state.export.jsPDFOptions.orientation = orientation;
-    this._state.export.jsPDFOptions.format = format;
   }
 
   constructor(state: SmzDocumentState = null) {
@@ -160,6 +193,26 @@ export class SmzDocumentBuilder extends SmzBuilderUtilities<SmzDocumentBuilder> 
     this.applyConfig();
   }
 
+  public setUnit(unit: 'mm' | 'cm'): SmzDocumentBuilder {
+    this._state.userPreferences.unit = unit;
+    return this;
+  }
+
+  public setRenderer(render: SmzDocumentRenderers): SmzDocumentBuilder {
+    this._state.renderer = render;
+    return this;
+  }
+
+  public setQuality(scale: number): SmzDocumentBuilder {
+
+    if (this._state.renderer != 'html2pdf') {
+      throw new Error(`Set Quality is only available for html2pdf Renderer.`);
+    }
+
+    this._state.export.html2pdfOptions.html2canvas.scale = scale;
+    return this;
+  }
+
   public overrideDefaultConfigs(newConfig: SmzDocumentConfig): SmzDocumentBuilder {
 
     if (this._state.content != null) {
@@ -170,8 +223,8 @@ export class SmzDocumentBuilder extends SmzBuilderUtilities<SmzDocumentBuilder> 
     return this;
   }
 
-  public setPaperSize(margin: number, millimeters: number, orientation: "portrait" | "p" | "l" | "landscape", format: string | number[]): SmzDocumentBuilder {
-    this.initHTMLOptions(margin, millimeters, orientation, format);
+  public setPage(format: SmzDocumentPageFormats | number[], orientation: 'portrait' | 'p' | 'l' | 'landscape'): SmzDocumentBuilder {
+    this.setPageConfig(format, orientation);
     return this;
   }
 
@@ -206,7 +259,6 @@ export class SmzDocumentBuilder extends SmzBuilderUtilities<SmzDocumentBuilder> 
 
   public debugMode(): SmzDocumentBuilder {
     this._state.isDebug = true;
-    this._state.export.htmlOptions.html2canvas.logging = true;
     return this;
   }
 
@@ -225,7 +277,7 @@ export class SmzDocumentBuilder extends SmzBuilderUtilities<SmzDocumentBuilder> 
     return this;
   }
 
-  public setGlobalScale(scale: number): SmzDocumentBuilder {
+  public setPreviewScale(scale: number): SmzDocumentBuilder {
     this._state.globals.font.scale = `${scale}rem`;
     return this;
   }
@@ -235,26 +287,13 @@ export class SmzDocumentBuilder extends SmzBuilderUtilities<SmzDocumentBuilder> 
     return this;
   }
 
-  public setHeaderHeight(unit: 'cm', value: number): SmzDocumentBuilder {
-    this._isHeaderHeightUpdated = true;
-    this._state.paper.margin.top = `${value}${unit}`;
-    return this;
-  }
 
-  public setMargins(unit: 'cm', all: number, left?: number, right?: number, top?: number, bottom?: number): SmzDocumentBuilder {
-    const globalHeaderHeightCm = this._state.config.paper.headerHeightCm ? `${this._state.config.paper.headerHeightCm}cm` : null;
-    const headerHeight = this._isHeaderHeightUpdated ? null : globalHeaderHeightCm;
-    this.applyMargin(unit, headerHeight, all, left, right, top, bottom);
+  public setMargins(left?: number, right?: number, top?: number, bottom?: number): SmzDocumentBuilder {
+    this.applyMargin(left, right, top, bottom);
     return this;
   }
 
   public build(): SmzDocumentState {
-
-    // console.log('--------------------');
-    // console.log('--------------------');
-    // console.log('--------------------');
-    // console.log('totalColsCount', this._colsCount);
-    // console.log('--------------------');
 
     if (this._state.header != null) {
       const rows = this._state.header.rows;
@@ -268,6 +307,13 @@ export class SmzDocumentBuilder extends SmzBuilderUtilities<SmzDocumentBuilder> 
       rows.forEach(row => {
         normalizeColspan(rows, row, this._colsCount)
       });
+    }
+
+    this.updateHTMLOptions();
+    this.updateHtml2pdfOptions();
+
+    if (this._state.isDebug) {
+      console.log(this._state);
     }
 
     return this._state;

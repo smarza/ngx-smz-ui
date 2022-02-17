@@ -19,6 +19,13 @@ export class DemoFeatureSelectors {
     return results;
   }
 
+  @Selector([DemoFeatureState])
+  public static moreItems(state: DemoFeatureStateModel): DemoItem[] {
+    const items = state.items;
+    const results = [...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items];
+    return results.map((x, i) => ({...x, name: `${x.name} (${i})`}));
+  }
+
 
   @Selector([DemoFeatureState])
   public static tree(state: DemoFeatureStateModel): TreeNode[] {

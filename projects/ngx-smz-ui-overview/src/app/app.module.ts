@@ -3,7 +3,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } fr
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NgxSmzLayoutsModule, NgxSmzDialogsModule, NewAthenaLayoutModule } from 'ngx-smz-ui';
+import { NgxSmzLayoutsModule, NgxSmzDialogsModule, NewAthenaLayoutModule, AthenaLayoutModule } from 'ngx-smz-ui';
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
 import { smzAthenaConfig, smzLayoutsConfig } from '../globals/smz-layouts.config';

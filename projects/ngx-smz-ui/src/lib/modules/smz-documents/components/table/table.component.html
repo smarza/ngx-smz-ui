@@ -1,33 +1,53 @@
 <div
-  [ngStyle]="{ background: data.container.background }"
+  [style.background]="data.container.background"
   class="grid grid-nogutter items-stretch justify-start h-full w-full relative"
   [ngClass]="data.container.styles">
 
-  <table class="w-full h-full border-collapse table-fixed" cellspacing="0" cellpadding="0">
+  <table class="w-full h-full border-collapse table-fixed smz-document-table-tag" cellspacing="0" cellpadding="0">
 
+    <thead>
       <tr *ngIf="data?.header.isVisible" class="relative">
         <ng-container *ngFor="let column of data?.header.columns">
-          <th class="relative" [colSpan]="column.colspan" [rowSpan]="column.rowspan" [ngStyle]="{ height: column.height, width: column.width, background: column.headerStyles.background ?? data.header.background, color: column.headerStyles.color ?? data.header.color }" [ngClass]="column.headerStyles.styles ?? data.header.styles">
+          <th
+            class="relative"
+            [colSpan]="column.colspan"
+            [rowSpan]="column.rowspan"
+            [style.height]="column.height"
+            [style.width]="column.width"
+            [style.background]="column.headerStyles.background ?? data.header.background"
+            [style.color]="column.headerStyles.color ?? data.header.color"
+            [ngClass]="column.headerStyles.styles ?? data.header.styles">
             {{ column.value }}
           </th>
         </ng-container>
       </tr>
+    </thead>
 
-    <ng-container *ngFor="let row of data?.content.items$ | async; let index">
+    <tbody>
+      <ng-container *ngFor="let row of data?.content.items$ | async; let index">
 
-      <tr class="relative" [ngStyle]="{ background: data.content.background }">
+        <tr class="relative" [style.background]="data.content.background">
 
-        <ng-container *ngFor="let column of data?.header.columns">
+          <ng-container *ngFor="let column of data?.header.columns">
 
-          <td class="relative" [colSpan]="column.colspan" [rowSpan]="column.rowspan" [ngStyle]="{ height: column.height, width: column.width, background: column.contentStyles.background ?? data.content.background, color: column.contentStyles.color ?? data.content.color }" [ngClass]="column.contentStyles.styles ?? data.content.styles">
-            {{ (row | getData : column.property).result }}
-          </td>
+            <td
+              class="relative"
+              [colSpan]="column.colspan"
+              [rowSpan]="column.rowspan"
+              [style.height]="column.height"
+              [style.width]="column.width"
+              [style.background]="column.contentStyles.background ?? data.content.background"
+              [style.color]="column.contentStyles.color ?? data.content.color"
+              [ngClass]="column.contentStyles.styles ?? data.content.styles">
+              <div>{{ (row | getData : column.property).result }}</div>
+            </td>
 
-        </ng-container>
+          </ng-container>
 
-      </tr>
+        </tr>
 
-    </ng-container>
+      </ng-container>
+    </tbody>
 
   </table>
 

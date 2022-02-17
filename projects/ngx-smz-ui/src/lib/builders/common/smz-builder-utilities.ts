@@ -43,13 +43,13 @@ export class SmzBuilderUtilities<T> {
     return data;
   }
 
-  public for(items: any[], callback: (i: T, item: any) => T): T {
+  public for(items: any[], callback: (builder: T, item: any, index: number) => T): T {
 
     let result = this.that;
 
     items.forEach(
-      item => {
-        result = callback(result, item);
+      (item, i) => {
+        result = callback(result, item, i);
       }
     );
 

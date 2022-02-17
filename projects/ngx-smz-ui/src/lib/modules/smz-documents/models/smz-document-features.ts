@@ -2,7 +2,7 @@ import { Observable } from 'rxjs';
 import { SmzChart } from '../../smz-charts/models/chart';
 import { SmzDocumentCellConfig } from './smz-document';
 
-export type SmzDocumentFeatures = SmzDocumentTitle | SmzDocumentDivider | SmzDocumentField | SmzDocumentImage | SmzDocumentSpacer | SmzDocumentSubTitle | SmzDocumentFieldsGroup | SmzDocumentTable | SmzDocumentChart;
+export type SmzDocumentFeatures = SmzDocumentTitle | SmzDocumentDivider | SmzDocumentField | SmzDocumentImage | SmzDocumentSpacer | SmzDocumentSubTitle | SmzDocumentFieldsGroup | SmzDocumentTable | SmzDocumentChart | SmzDocumentPageBreak;
 
 export enum SmzDocumentFeatureDefinitions {
   DIVIDER,
@@ -13,7 +13,8 @@ export enum SmzDocumentFeatureDefinitions {
   SUB_TITLE,
   TITLE,
   TABLE,
-  CHART
+  CHART,
+  PAGE_BREAK
 
 }
 export interface SmzDocumentBaseCell {
@@ -44,6 +45,11 @@ export interface SmzDocumentSubTitle extends SmzDocumentBaseCell {
     styles?: string;
     color?: string;
   }
+}
+
+export interface SmzDocumentPageBreak extends SmzDocumentBaseCell {
+  type: SmzDocumentFeatureDefinitions.PAGE_BREAK;
+
 }
 
 export interface SmzDocumentDivider extends SmzDocumentBaseCell {

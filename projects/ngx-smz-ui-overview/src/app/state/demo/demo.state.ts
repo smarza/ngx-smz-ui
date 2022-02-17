@@ -1,13 +1,12 @@
 import { Action, State, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { DemoFeatureActions } from './demo.actions';
-import { ToastActions } from 'ngx-smz-ui';
 import { cloneDeep } from 'lodash-es';
 import { DemoItem } from '../../models/demo';
 import { Observable, of, throwError } from 'rxjs';
 import { DemoDataService } from './demo-data.service';
 import { catchError, tap } from 'rxjs/operators';
-import { removeElementFromArray } from 'ngx-smz-ui';
+import { removeElementFromArray, ToastActions } from 'ngx-smz-ui';
 import { TreeNode } from 'primeng/api/treenode';
 
 export const DemoFeatureName = 'DemoFeature';

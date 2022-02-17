@@ -314,7 +314,19 @@ export const TreeDemoData: DemoTreeNode[] = [
     expanded: false,
     children: [
       {
-        label: 'Demo', icon: 'fas fa-code', type: 'Demo',
+        label: 'HTML2PDF Demo', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'document',
+        notes: '',
+        data: DocumentsDemo[DemoKeys.DOCUMENTS_DEMO_HTML2PDF]
+      },
+      {
+        label: 'JSPDF Demo', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'document',
+        notes: '',
+        data: DocumentsDemo[DemoKeys.DOCUMENTS_DEMO_JSPDF]
+      },
+      {
+        label: 'Demo 1', icon: 'fas fa-code', type: 'Demo',
         demoType: 'document',
         notes: '',
         data: DocumentsDemo[DemoKeys.DOCUMENTS_DEMO_1]
@@ -324,6 +336,12 @@ export const TreeDemoData: DemoTreeNode[] = [
         demoType: 'document',
         notes: '',
         data: DocumentsDemo[DemoKeys.DOCUMENTS_DEMO_2]
+      },
+      {
+        label: 'Landscape With Page Breaks', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'document',
+        notes: '',
+        data: DocumentsDemo[DemoKeys.DOCUMENTS_DEMO_3]
       },
     ]
   },

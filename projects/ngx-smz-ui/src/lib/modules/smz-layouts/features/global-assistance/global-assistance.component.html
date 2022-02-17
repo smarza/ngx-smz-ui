@@ -2,7 +2,8 @@
 
   <h5 class="mt-4">Global Loading <span *ngIf="timer != null">{{ timer }}</span></h5>
   <div class="grid grid-nogutter gap-2">
-    <p-inputSwitch class="col-12" [(ngModel)]="globalIsLoading" (onChange)="changeGlobalLoading($event)"></p-inputSwitch>
+    <p-inputSwitch class="col-12" [(ngModel)]="globalIsLoading" (onChange)="changeGlobalLoading($event, 5)"></p-inputSwitch>
+    <p-inputSwitch class="col-12" [(ngModel)]="globalIsLoading" (onChange)="changeGlobalLoading($event, 60)"></p-inputSwitch>
     <button
       *ngFor="let loader of loaders"
       pButton pRipple type="button" [label]="loader.name" class="p-button-outlined mr-2 mb-2" (click)="onSetGlobalLoader(loader.id)">

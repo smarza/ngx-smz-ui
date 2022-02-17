@@ -7,18 +7,6 @@ export interface SmzDocumentConfig {
     container: string;
     paper: string;
   };
-  paper: {
-    headerHeightCm: number;
-    marginCm: {
-      left: number;
-      right: number;
-      top: number;
-      bottom: number;
-    }
-    width: number; // millimeters
-    orientation: "portrait" | "p" | "l" | "landscape";
-    format: string | number[];
-  };
   titles: {
     container: string;
     text: string;

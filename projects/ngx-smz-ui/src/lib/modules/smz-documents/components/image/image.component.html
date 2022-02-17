@@ -1,17 +1,11 @@
 <div
-  [ngStyle]="{ background: data.container.background }"
+  [style.background]="data.container.background"
   class="grid grid-nogutter items-start justify-center flex-col h-full relative"
   [ngClass]="data.container.styles">
 
   <img
     [src]="data.image.src"
     [ngClass]="data.image.styles"
-    [ngStyle]="{ width: data.image.width }"/>
-
-  <!-- <div
-    class="bg-no-repeat bg-center h-full"
-    [ngClass]="data.image.styles"
-    [ngStyle]="{ 'background-image': 'url('+ data.image.src + ')', width: data.image.width }">
-  </div> -->
+    [style.width]="data.image.width"/>
 
 </div>

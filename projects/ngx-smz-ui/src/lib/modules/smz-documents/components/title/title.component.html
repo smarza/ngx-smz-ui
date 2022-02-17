@@ -1,10 +1,10 @@
 <div
-  [ngStyle]="{ background: data.container.background }"
+  [style.background]="data.container.background"
   class="grid grid-nogutter items-center justify-center h-full relative"
   [ngClass]="data.container.styles">
 
   <div
-    [ngStyle]="{ color: data.text.color }"
+    [style.color]="data.text.color"
     [ngClass]="data.text.styles">
     {{ data.text.value }}
   </div>

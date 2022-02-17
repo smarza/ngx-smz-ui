@@ -6,6 +6,7 @@ import { SmzDocumentViewer } from './smz-document-viewer';
 
 export interface SmzDocumentState {
   isDebug: boolean;
+  renderer: SmzDocumentRenderers;
   header: SmzDocumentContent;
   content: SmzDocumentContent;
   config: SmzDocumentConfig;
@@ -18,7 +19,12 @@ export interface SmzDocumentState {
   paper: SmzDocumentPaper;
   viewer: SmzDocumentViewer;
   export: SmzDocumentExport;
+  userPreferences: {
+    unit: 'mm' | 'cm'
+  }
 }
+
+export type SmzDocumentRenderers = 'html2pdf' | 'jspdf';
 
 export type SmzDocumentFontFamilies = 'Roboto' | 'Open Sans';
 

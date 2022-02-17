@@ -55,25 +55,13 @@ export const rbkConfig: NgxRbkUtilsConfig = {
         defaultStyles: {
             globals: {
                 font: {
-                    scale: '0.7rem',
+                    scale: '1rem',
                     family: 'Roboto'
                 },
             },
             viewer: {
-                container: 'bg-gray-50',
-                paper: 'bg-white p-6 m-6 shadow-lg border border-solid border-white',
-            },
-            paper: {
-                marginCm: {
-                    top: 0.6,
-                    left: 0.6,
-                    right: 0.6,
-                    bottom: 0.6,
-                },
-                headerHeightCm: null,
-                width: 210,
-                orientation: 'portrait',
-                format: 'A4'
+                container: 'bg-surface-a',
+                paper: 'bg-white m-6 shadow-lg border border-solid border-white',
             },
             titles: {
                 container: 'bg-gray-200',

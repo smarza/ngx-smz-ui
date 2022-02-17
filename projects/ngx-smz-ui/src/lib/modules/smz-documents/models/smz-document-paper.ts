@@ -5,11 +5,5 @@ export interface SmzDocumentPaper {
     left: string;
     right: string;
   }
-  margin: {
-    top: string;
-    left: string;
-    right: string;
-    bottom: string;
-  }
 
 }

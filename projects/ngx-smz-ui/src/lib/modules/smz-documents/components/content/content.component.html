@@ -1,4 +1,4 @@
-<table class="w-full h-full border-collapse bg-white" cellspacing="0" cellpadding="0">
+<table class="w-full h-full border-collapse bg-white table-fixed" cellspacing="0" cellpadding="0">
 
   <ng-container *ngFor="let row of data?.rows">
 
@@ -6,7 +6,7 @@
 
       <ng-container *ngFor="let cell of row.cells">
 
-        <td class="relative" [colSpan]="cell.colspan" [rowSpan]="cell.rowspan" [ngStyle]="{ height: cell.height, width: cell.width }" [ngClass]="data.cellStyles">
+        <td class="relative" [style.height]="cell.height" [style.width]="cell.width" [colSpan]="cell.colspan" [rowSpan]="cell.rowspan" [ngClass]="data.cellStyles">
 
           <ng-container [ngSwitch]="cell.data?.type">
 
@@ -48,6 +48,10 @@
 
             <ng-container *ngSwitchCase="featureDefinitions.CHART">
               <smz-document-chart [data]="$any(cell.data)" [config]="config"></smz-document-chart>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="featureDefinitions.PAGE_BREAK">
+              <smz-document-page-break></smz-document-page-break>
             </ng-container>
 
             <ng-container *ngSwitchDefault>unknown cell data type</ng-container>

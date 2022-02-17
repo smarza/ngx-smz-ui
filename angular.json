@@ -183,7 +183,6 @@
             "polyfills": "projects/ngx-smz-ui-overview/src/polyfills.ts",
             "tsConfig": "projects/ngx-smz-ui-overview/tsconfig.json",
             "allowedCommonJsDependencies": [
-              "jspdf",
               "canvg",
               "raf",
               "core-js"
@@ -209,7 +208,11 @@
               "node_modules/highlight.js/styles/vs2015.css",
               "projects/ngx-smz-ui-overview/src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/@svgdotjs/svg.js/dist/svg.min.js",
+              "node_modules/@svgdotjs/svg.panzoom.js/dist/svg.panzoom.min.js",
+              "node_modules/html2pdf.js/dist/html2pdf.bundle.js"
+            ]
           },
           "configurations": {
             "production": {
