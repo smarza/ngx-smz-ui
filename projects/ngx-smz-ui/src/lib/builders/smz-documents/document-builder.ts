@@ -139,7 +139,7 @@ export class SmzDocumentBuilder extends SmzBuilderUtilities<SmzDocumentBuilder> 
       margin: this._state.export.htmlOptions.margin,
       filename: `${this._state.export.filename}.pdf`,
       pagebreak: {
-        mode: ['avoid-all', 'css', 'legacy'],
+        // mode: ['avoid-all', 'css', 'legacy'],
         avoid: ['tr', 'img', 'canvas'],
         before: ['.page-break-tag']
       },

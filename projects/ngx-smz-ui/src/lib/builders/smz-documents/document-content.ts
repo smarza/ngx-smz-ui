@@ -22,9 +22,10 @@ export class SmzDocumentContentBuilder extends SmzBuilderUtilities<SmzDocumentCo
     return this._documentBuilder;
   }
 }
-export class SmzDocumentRowBuilder {
+export class SmzDocumentRowBuilder extends SmzBuilderUtilities<SmzDocumentRowBuilder>{
+  protected that = this;
   constructor(private _contentBuilder: SmzDocumentContentBuilder, private _row: SmzDocumentRow, private _documentBuilder: SmzDocumentBuilder, private _content: SmzDocumentContent) {
-
+    super();
   }
 
   public title(text: string): SmzCellTitleBuilder {

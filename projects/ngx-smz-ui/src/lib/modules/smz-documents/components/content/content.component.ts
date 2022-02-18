@@ -1,11 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { SmzDocumentContent } from '../../models/smz-document';
 import { SmzDocumentConfig } from '../../models/smz-document-config';
 import { SmzDocumentFeatureDefinitions } from '../../models/smz-document-features';
 
 @Component({
   selector: 'smz-document-content',
-  templateUrl: 'content.component.html'
+  templateUrl: 'content.component.html',
+  styleUrls: ['content.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 
 export class SmzDocumentContentComponent implements OnInit {

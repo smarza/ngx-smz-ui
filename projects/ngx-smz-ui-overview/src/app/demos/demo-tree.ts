@@ -343,6 +343,12 @@ export const TreeDemoData: DemoTreeNode[] = [
         notes: '',
         data: DocumentsDemo[DemoKeys.DOCUMENTS_DEMO_3]
       },
+      {
+        label: 'Document With For and If', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'document',
+        notes: '',
+        data: DocumentsDemo[DemoKeys.DOCUMENTS_DEMO_FLUENT_UTILITIES]
+      },
     ]
   },
   {

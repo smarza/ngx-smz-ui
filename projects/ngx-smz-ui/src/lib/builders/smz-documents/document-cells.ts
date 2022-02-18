@@ -1,7 +1,7 @@
 import { SmzDocumentCell } from '../../modules/smz-documents/models/smz-document';
 import { SmzDocumentChart, SmzDocumentDivider, SmzDocumentFeatureDefinitions, SmzDocumentField, SmzDocumentFieldGroup, SmzDocumentFieldsGroup, SmzDocumentImage, SmzDocumentPageBreak, SmzDocumentSpacer, SmzDocumentSubTitle, SmzDocumentTable, SmzDocumentTableColumn, SmzDocumentTitle } from '../../modules/smz-documents/models/smz-document-features';
 import { SmzDocumentBuilder } from './document-builder';
-import { SmzDocumentBaseCellBuilder } from './document-base-cell';
+import { SmzDocumentBaseCellBuilder, SmzDocumentWidthTypes } from './document-base-cell';
 import { SmzDocumentRowBuilder } from './document-content';
 import cloneDeep from 'lodash-es/cloneDeep';
 import { Observable, of } from 'rxjs';
@@ -30,6 +30,10 @@ export class SmzCellTitleBuilder extends SmzDocumentBaseCellBuilder<SmzCellTitle
   public addContainerStyles(styleClass: string): SmzCellTitleBuilder {
     this._data.container.styles += ' ' + styleClass;
     return this.that;
+  }
+
+  public useBorder(): SmzCellTitleBuilder {
+    return this.addContainerStyles('smz-document-border');
   }
 
   public addTextStyles(styleClass: string): SmzCellTitleBuilder {
@@ -101,6 +105,10 @@ export class SmzCellFieldBuilder extends SmzDocumentBaseCellBuilder<SmzCellField
   public addContainerStyles(styleClass: string): SmzCellFieldBuilder {
     this._data.container.styles =+ ' ' + styleClass;
     return this.that;
+  }
+
+  public useBorder(): SmzCellFieldBuilder {
+    return this.addContainerStyles('smz-document-border');
   }
 
   public addLabelStyles(styleClass: string): SmzCellFieldBuilder {
@@ -181,6 +189,10 @@ export class SmzCellImageBuilder extends SmzDocumentBaseCellBuilder<SmzCellImage
     return this.that;
   }
 
+  public useBorder(): SmzCellImageBuilder {
+    return this.addContainerStyles('smz-document-border');
+  }
+
   public addImageStyles(styleClass: string): SmzCellImageBuilder {
     this._data.image.styles =+ ' ' + styleClass;
     return this.that;
@@ -242,6 +254,10 @@ export class SmzCellSubTitleBuilder extends SmzDocumentBaseCellBuilder<SmzCellSu
     return this.that;
   }
 
+  public useBorder(): SmzCellSubTitleBuilder {
+    return this.addContainerStyles('smz-document-border');
+  }
+
   public addTextStyles(styleClass: string): SmzCellSubTitleBuilder {
     this._data.text.styles =+ ' ' + styleClass;
     return this.that;
@@ -277,6 +293,10 @@ export class SmzCellFieldsGroupBuilder extends SmzDocumentBaseCellBuilder<SmzCel
     return this.that;
   }
 
+  public useBorder(): SmzCellFieldsGroupBuilder {
+    return this.addContainerStyles('smz-document-border');
+  }
+
   public setBackgroundColor(color: string): SmzCellFieldsGroupBuilder {
     this._data.container.background = `${color} !important`;
     return this.that;
@@ -307,7 +327,7 @@ export class SmzCellFieldGroupBuilder {
 
   }
 
-  public setWidth(width: 'auto' | 'col-1' | 'col-2' | 'col-3' | 'col-4' | 'col-5' | 'col-6' | 'col-7' | 'col-8' | 'col-9' | 'col-10' | 'col-11' | 'col-12'): SmzCellFieldGroupBuilder {
+  public setWidth(width: SmzDocumentWidthTypes): SmzCellFieldGroupBuilder {
     const newStyle = width === 'auto' ? 'col' : `${width}`;
     this._data.flexWidth = newStyle;
     return this;
@@ -332,6 +352,10 @@ export class SmzCellFieldGroupBuilder {
   public addContainerStyles(styleClass: string): SmzCellFieldGroupBuilder {
     this._data.container.styles =+ ' ' + styleClass;
     return this;
+  }
+
+  public useBorder(): SmzCellFieldGroupBuilder {
+    return this.addContainerStyles('smz-document-border');
   }
 
   public addLabelStyles(styleClass: string): SmzCellFieldGroupBuilder {
@@ -402,7 +426,7 @@ export class SmzCellTableBuilder extends SmzDocumentBaseCellBuilder<SmzCellTable
     _data.content = { styles: defaultConfig.tables.content };
   }
 
-  // public setWidth(width: 'auto' | 'col-1' | 'col-2' | 'col-3' | 'col-4' | 'col-5' | 'col-6' | 'col-7' | 'col-8' | 'col-9' | 'col-10' | 'col-11' | 'col-12'): SmzCellTableBuilder {
+  // public setWidth(width: SmzDocumentWidthTypes): SmzCellTableBuilder {
   //   let newWidth = 'unset';
 
   //   if (width !== 'auto')
@@ -423,6 +447,10 @@ export class SmzCellTableBuilder extends SmzDocumentBaseCellBuilder<SmzCellTable
   public addContainerStyles(styleClass: string): SmzCellTableBuilder {
     this._data.container.styles =+ ' ' + styleClass;
     return this.that;
+  }
+
+  public useBorder(): SmzCellTableBuilder {
+    return this.addContainerStyles('smz-document-border');
   }
 
   public setContainerBackgroundColor(color: string): SmzCellTableBuilder {
@@ -512,7 +540,7 @@ export class SmzCellTableColumnBuilder {
     return this;
   }
 
-  public setWidth(width: 'auto' | 'col-1' | 'col-2' | 'col-3' | 'col-4' | 'col-5' | 'col-6' | 'col-7' | 'col-8' | 'col-9' | 'col-10' | 'col-11' | 'col-12'): SmzCellTableColumnBuilder {
+  public setWidth(width: SmzDocumentWidthTypes): SmzCellTableColumnBuilder {
     let newWidth = 'unset';
 
     if (width !== 'auto')
@@ -573,12 +601,16 @@ export class SmzCellChartBuilder extends SmzDocumentBaseCellBuilder<SmzCellChart
     return this.that;
   }
 
+  public useBorder(): SmzCellChartBuilder {
+    return this.addContainerStyles('smz-document-border');
+  }
+
   public setContainerBackgroundColor(color: string): SmzCellChartBuilder {
     this._data.container.background = `${color} !important`;
     return this.that;
   }
 
-  public setWidth(width: 'auto' | 'col-1' | 'col-2' | 'col-3' | 'col-4' | 'col-5' | 'col-6' | 'col-7' | 'col-8' | 'col-9' | 'col-10' | 'col-11' | 'col-12'): SmzCellChartBuilder {
+  public setWidth(width: SmzDocumentWidthTypes): SmzCellChartBuilder {
     const newStyle = width === 'auto' ? 'col' : `${width}`;
     this._data.flexWidth = newStyle;
     return this;

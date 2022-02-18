@@ -59,17 +59,17 @@ export const DocumentsDemo: { [key: string]: () => void } = {
 
       .row()
         .image('assets/logo.png')
-          .setWidth('70%')
+          .setWidth('col-8')
           .setRowspan(3)
           .setImageWidth('40%')
           .row
         .field('OC-02382', 'Nº COMPRA')
-          .setWidth('15%')
+          .setWidth('col-2')
           .useCentralized()
           .useBold()
           .row
         .field('VERSÃO DE CONSULTA')
-          .setWidth('15%')
+          .setWidth('col-2')
           .useCentralized()
           .useAlert()
           .row
@@ -235,17 +235,17 @@ export const DocumentsDemo: { [key: string]: () => void } = {
 
         .row()
           .image('assets/logo.png')
-            .setWidth('70%')
+            .setWidth('col-8')
             .setRowspan(3)
             .setImageWidth('40%')
             .row
           .field('OC-02382', 'Nº COMPRA')
-            .setWidth('15%')
+            .setWidth('col-2')
             .useCentralized()
             .useBold()
             .row
           .field('VERSÃO DE CONSULTA')
-            .setWidth('15%')
+            .setWidth('col-2')
             .useCentralized()
             .useAlert()
             .row
@@ -449,17 +449,17 @@ Caso contrário, aguardamos a confirmação do envio em até 48 horas.
 
         .row()
           .image('assets/logo.png')
-            .setWidth('70%')
+            .setWidth('col-8')
             .setRowspan(3)
             .setImageWidth('40%')
             .row
           .field('OC-02382', 'Nº COMPRA')
-            .setWidth('15%')
+            .setWidth('col-2')
             .useCentralized()
             .useBold()
             .row
           .field('VERSÃO DE CONSULTA')
-            .setWidth('15%')
+            .setWidth('col-2')
             .useCentralized()
             .useAlert()
             .row
@@ -529,6 +529,63 @@ Caso contrário, aguardamos a confirmação do envio em até 48 horas.
         .document
       .build()
   },
+  //
+  [DemoKeys.DOCUMENTS_DEMO_FLUENT_UTILITIES]: () => {
+    return new SmzDocumentBuilder()
+    // .debugMode()
+    .setRenderer('html2pdf')
+    .setQuality(2)
+
+    .setUnit('cm')
+    .setMargins(1, 1, 1, 1)
+    .setFilename('html2pdf')
+    .setPage('a4', 'portrait')
+
+    .viewer()
+      .setZoom(1, 0.5, 5, 0.5)
+      .allowDownload()
+      .document
+
+    .content()
+
+      .row().subTitle('TÍTULO1').setBackgroundColor('red').row.content
+
+      .for(['AAA', 'BBB', 'CCC', 'DDD', 'EEE', 'FFF', 'GGG', 'HHH', 'III', 'A2', 'A3', 'A4', 'A5', 'A6'], (_, data: string, index: number) =>
+        (
+          _
+          .row()
+            .subTitle(data)
+            .row
+          .content
+          .if((index + 1) % 2 === 0)
+          .row().subTitle('---').row.content
+        .endIf
+        )
+      )
+
+    .document
+
+    .content()
+
+    .row().subTitle('TÍTULO2').setBackgroundColor('red').row.content
+
+    .for(['AAA', 'BBB', 'CCC', 'DDD', 'EEE', 'FFF', 'GGG', 'HHH', 'III'], (_, data: string, index: number) =>
+      (
+        _
+        .row()
+          .subTitle(data)
+          .row
+        .content
+        .if((index + 1) % 2 === 0)
+        .row().subTitle('---').row.content
+      .endIf
+      )
+    )
+
+    .document
+
+    .build()
+  },
 }
 
 function baseDocument(_: SmzDocumentBuilder, includePageBreaks: boolean): SmzDocumentBuilder {
@@ -538,17 +595,17 @@ function baseDocument(_: SmzDocumentBuilder, includePageBreaks: boolean): SmzDoc
 
     .row()
       .image('assets/logo.png')
-        .setWidth('70%')
+        .setWidth('col-8')
         .setRowspan(3)
         .setImageWidth('40%')
         .row
       .field('OC-02382', 'Nº COMPRA')
-        .setWidth('15%')
+        .setWidth('col-2')
         .useCentralized()
         .useBold()
         .row
       .field('VERSÃO DE CONSULTA')
-        .setWidth('15%')
+        .setWidth('col-2')
         .useCentralized()
         .useAlert()
         .row

@@ -20,7 +20,7 @@
         [style.padding-top]="state.export.margin.top + 'pt !important'"
         [style.padding-bottom]="state.export.margin.bottom + 'pt !important'"
         >
-        <div #paper [style.font-family]="state.globals.font.family" class="p-px">
+        <div #paper [style.font-family]="state.globals.font.family" [style.padding]="'4px !important'">
             <ng-content select="header"></ng-content>
             <ng-content select="content"></ng-content>
         </div>

@@ -19,12 +19,17 @@ export class SmzDocumentViewerBuilder extends SmzBuilderUtilities<SmzDocumentVie
   }
 
   public setZoom(initial: number, min?: number, max?: number, variation?: number): SmzDocumentViewerBuilder {
-    this._viewer.zoom.isEnabled = true;
+
+    if (!this._viewer.zoom.isEnabled) {
+      throw new Error(`You cannot setZoom() while calling disableZoomControls()`);
+    }
+
     this._viewer.zoom.min = min ?? initial;
     this._viewer.zoom.max = max ?? initial;
     this._viewer.zoom.initial = initial;
     this._viewer.zoom.variation = variation ?? initial;
     return this;
+
   }
 
   public disableZoomControls(): SmzDocumentViewerBuilder {

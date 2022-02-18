@@ -129,3 +129,13 @@
   bottom: -1px;
   border: solid 1px #424242;
 }
+
+.smz-document-borderless::after {
+  content: unset;
+  position: unset;
+  top: unset;
+  left: unset;
+  right: unset;
+  bottom: unset;
+  border: unset;
+}
