@@ -93,6 +93,12 @@ export const rbkConfig: NgxRbkUtilsConfig = {
                     columns: 'p-1 px-2 smz-document-border bg-gray-200'
                 },
                 content: 'p-1 px-2 smz-document-border'
+            },
+            charts: {
+                container: ''
+            },
+            contents: {
+                container: ''
             }
         }
     },

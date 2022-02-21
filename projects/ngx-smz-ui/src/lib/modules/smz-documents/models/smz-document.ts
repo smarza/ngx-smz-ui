@@ -40,6 +40,9 @@ export interface SmzDocumentContent {
   rows: SmzDocumentRow[];
   cellStyles: string;
   colsCount: number;
+  container?: {
+    styles?: string;
+  }
 }
 
 export interface SmzDocumentRow {

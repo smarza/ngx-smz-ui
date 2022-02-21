@@ -37,6 +37,14 @@ export interface SmzDocumentConfig {
     content: string
   };
 
+  contents: {
+    container: string;
+  };
+
+  charts: {
+    container: string;
+  };
+
   images: {
     container: string;
     styles: string;

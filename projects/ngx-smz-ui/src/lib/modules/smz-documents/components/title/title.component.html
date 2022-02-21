@@ -5,8 +5,9 @@
 
   <div
     [style.color]="data.text.color"
-    [ngClass]="data.text.styles">
-    {{ data.text.value }}
+    [ngClass]="data.text.styles"
+    [innerHtml]="data.text.value | safeHtml"
+    >
   </div>
 
 </div>

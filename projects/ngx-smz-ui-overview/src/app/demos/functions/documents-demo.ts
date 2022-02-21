@@ -627,7 +627,7 @@ function baseDocument(_: SmzDocumentBuilder, includePageBreaks: boolean): SmzDoc
       .content
 
     .row()
-      .title('ORDEM DE COMPRA 1')
+      .title('<i class="fa fa-bug mr-2"></i>ORDEM DE COMPRA 1')
         .addContainerStyles('outline outline-1 outline-offset-0 outline-yellow-400')
         .setBackgroundColor('#FDD835')
         .setTextColor('#212121')

@@ -1,4 +1,9 @@
-<table class="w-full h-full border-collapse bg-white table-fixed smz-document-content-tag" [ngClass]="{ 'border-dashed border-2 border-violet-500': isDebug }" cellspacing="0" cellpadding="0">
+<table
+  class="w-full h-full border-collapse bg-white smz-document-content-tag"
+  [ngClass]="data.container.styles"
+  cellspacing="0"
+  cellpadding="0"
+  >
 
   <ng-container *ngFor="let row of data?.rows">
 

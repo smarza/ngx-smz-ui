@@ -6,16 +6,16 @@
   <div *ngIf="data.label.isVisible"
     [ngClass]="data.label.styles"
     [style.color]="data.label.color"
+    [innerHtml]="data.label.value | safeHtml"
     >
-    {{ data.label.value }}
   </div>
 
   <div
     [style.font-weight]="data.text.fontWeight"
     [ngClass]="data.text.styles"
     [style.color]="data.text.color"
+    [innerHtml]="data.text.value | safeHtml"
     >
-    {{ data.text.value }}
   </div>
 
 </div>

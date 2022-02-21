@@ -6,16 +6,37 @@ import { SmzCellChartBuilder, SmzCellDividerBuilder, SmzCellFieldBuilder, SmzCel
 import { UUID } from 'angular2-uuid';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzChart } from '../../modules/smz-charts/models/chart';
+import { cloneDeep } from 'lodash-es';
 
 export class SmzDocumentContentBuilder extends SmzBuilderUtilities<SmzDocumentContentBuilder> {
   protected that = this;
   constructor(private _documentBuilder: SmzDocumentBuilder, private _content: SmzDocumentContent) {
     super();
+    const defaultConfig = cloneDeep(this._documentBuilder._state.config);
+    _content.container = { styles: defaultConfig.contents.container };
+
+    if (this._documentBuilder._state.isDebug) {
+      this._content.container.styles += ' border-dashed border-2 border-violet-500';
+    }
   }
   public row(): SmzDocumentRowBuilder {
     const row: SmzDocumentRow = { id: UUID.UUID(), cells: [] };
     this._content.rows.push(row)
     return new SmzDocumentRowBuilder(this, row, this._documentBuilder, this._content);
+  }
+
+  public overrideContainerStyles(styleClass: string): SmzDocumentContentBuilder {
+    this._content.container.styles = styleClass;
+    return this.that;
+  }
+
+  public addContainerStyles(styleClass: string): SmzDocumentContentBuilder {
+    this._content.container.styles += ' ' + styleClass;
+    return this.that;
+  }
+
+  public useFixedLayout(): SmzDocumentContentBuilder {
+    return this.addContainerStyles('table-fixed');
   }
 
   public get document(): SmzDocumentBuilder {

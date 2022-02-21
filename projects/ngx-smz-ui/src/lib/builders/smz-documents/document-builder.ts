@@ -271,6 +271,10 @@ export class SmzDocumentBuilder extends SmzBuilderUtilities<SmzDocumentBuilder> 
   }
 
   public debugMode(): SmzDocumentBuilder {
+    if (this._state.contents.length > 0) {
+      throw new Error(`You need set debugMode before add any contents.`);
+    }
+
     this._state.isDebug = true;
     return this;
   }
