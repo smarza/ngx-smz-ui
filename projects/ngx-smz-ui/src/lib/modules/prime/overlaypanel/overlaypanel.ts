@@ -40,7 +40,7 @@ import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
             transition('open => close', animate('{{hideTransitionParams}}')),
         ])
     ],
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./overlaypanel.css'],
     host: {
