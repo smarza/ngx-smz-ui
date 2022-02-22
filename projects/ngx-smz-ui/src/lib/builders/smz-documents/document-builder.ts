@@ -51,13 +51,16 @@ export class SmzDocumentBuilder extends SmzBuilderUtilities<SmzDocumentBuilder> 
         variation: 2.5 / 5
       },
       open: {
-        isEnabled: false
+        isEnabled: false,
+        label: 'Abrir'
       },
       print: {
-        isEnabled: false
+        isEnabled: false,
+        label: 'Imprimir'
       },
       download: {
-        isEnabled: false
+        isEnabled: false,
+        label: 'Exportar'
       },
       container: {
         styleClass: null
@@ -80,7 +83,8 @@ export class SmzDocumentBuilder extends SmzBuilderUtilities<SmzDocumentBuilder> 
         left: 1,
         bottom: 1,
         right: 1,
-      }
+      },
+      paddingCompensation: '4px !important'
     },
     userPreferences: {
       unit: 'mm'
@@ -140,7 +144,7 @@ export class SmzDocumentBuilder extends SmzBuilderUtilities<SmzDocumentBuilder> 
       filename: `${this._state.export.filename}.pdf`,
       pagebreak: {
         // mode: ['avoid-all', 'css', 'legacy'],
-        avoid: ['tr', 'img', 'canvas'],
+        avoid: ['tr', '.avoid-break', 'img', 'canvas'],
         before: ['.page-break-tag']
       },
       enableLinks: true,
@@ -190,6 +194,11 @@ export class SmzDocumentBuilder extends SmzBuilderUtilities<SmzDocumentBuilder> 
 
     this.initJsPDFOptions();
     this.applyConfig();
+  }
+
+  public setPaddingCompensation(pixels: number): SmzDocumentBuilder {
+    this._state.export.paddingCompensation = `${pixels}px !important`;
+    return this;
   }
 
   public setUnit(unit: 'mm' | 'cm'): SmzDocumentBuilder {

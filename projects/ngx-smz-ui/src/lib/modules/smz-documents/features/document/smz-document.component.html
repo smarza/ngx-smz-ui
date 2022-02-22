@@ -2,12 +2,12 @@
 
   <!-- HEADER -->
   <header>
-    <smz-document-content [data]="state.header" [config]="state.config" [isDebug]="state.isDebug"></smz-document-content>
+    <smz-document-content [data]="state.header" [config]="state.config" [isDebug]="state.isDebug" [state]="state"></smz-document-content>
   </header>
 
   <!-- PRINTABLE HEADER -->
   <section>
-    <smz-document-content [data]="state.header" [config]="state.config" [isDebug]="state.isDebug"></smz-document-content>
+    <smz-document-content [data]="state.header" [config]="state.config" [isDebug]="state.isDebug" [state]="state"></smz-document-content>
   </section>
 
   <!-- BODY -->
@@ -15,7 +15,7 @@
     <ng-container *ngFor="let content of state.contents">
 
       <ng-container [ngSwitch]="content.type">
-        <smz-document-content *ngSwitchCase="'content'" [data]="content" [config]="state.config" [isDebug]="state.isDebug"></smz-document-content>
+        <smz-document-content *ngSwitchCase="'content'" [data]="content" [config]="state.config" [isDebug]="state.isDebug" [state]="state"></smz-document-content>
         <smz-document-page-break *ngSwitchCase="'page-break'"></smz-document-page-break>
       </ng-container>
 

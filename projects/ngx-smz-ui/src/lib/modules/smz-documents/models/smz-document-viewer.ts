@@ -9,12 +9,15 @@ export interface SmzDocumentViewer {
   };
   open: {
     isEnabled: boolean;
+    label: string;
   };
   print: {
     isEnabled: boolean;
+    label: string;
   };
   download: {
     isEnabled: boolean;
+    label: string;
   };
   container: {
     styleClass: string;

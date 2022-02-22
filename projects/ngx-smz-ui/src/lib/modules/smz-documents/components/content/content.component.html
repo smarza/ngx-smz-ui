@@ -16,7 +16,7 @@
           <ng-container [ngSwitch]="cell.data?.type">
 
             <ng-container *ngSwitchCase="'content'">
-              <smz-document-content [data]="$any(cell.data)" [config]="config"></smz-document-content>
+              <smz-document-content [data]="$any(cell.data)" [config]="config" [state]="state"></smz-document-content>
             </ng-container>
 
             <ng-container *ngSwitchCase="featureDefinitions.TITLE">
@@ -52,7 +52,7 @@
             </ng-container>
 
             <ng-container *ngSwitchCase="featureDefinitions.CHART">
-              <smz-document-chart [data]="$any(cell.data)" [config]="config"></smz-document-chart>
+              <smz-document-chart [data]="$any(cell.data)" [config]="config" [state]="state"></smz-document-chart>
             </ng-container>
 
             <ng-container *ngSwitchCase="featureDefinitions.PAGE_BREAK">

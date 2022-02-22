@@ -6,9 +6,10 @@
   <smz-ui-chart
     class="w-full h-full"
     [ngClass]="data.flexWidth"
+    [responsive]="false"
     [type]="data.content.chartData.type"
     [data]="data.content.chartData.data"
-    [plugins]="plugins"
+    [plugins]="state.renderer === 'jspdf' ? plugins : []"
     [options]="data.content.chartData.config">
   </smz-ui-chart>
 

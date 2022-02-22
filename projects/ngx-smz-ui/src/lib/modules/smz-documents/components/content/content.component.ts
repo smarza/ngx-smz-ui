@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import { SmzDocumentContent } from '../../models/smz-document';
+import { SmzDocumentContent, SmzDocumentState } from '../../models/smz-document';
 import { SmzDocumentConfig } from '../../models/smz-document-config';
 import { SmzDocumentFeatureDefinitions } from '../../models/smz-document-features';
 
@@ -13,6 +13,7 @@ import { SmzDocumentFeatureDefinitions } from '../../models/smz-document-feature
 export class SmzDocumentContentComponent implements OnInit {
   @Input() public data: SmzDocumentContent;
   @Input() public config: SmzDocumentConfig;
+  @Input() public state: SmzDocumentState;
   @Input() public isDebug: boolean;
   public featureDefinitions = SmzDocumentFeatureDefinitions;
   constructor() { }

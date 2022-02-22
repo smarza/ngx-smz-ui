@@ -37,18 +37,21 @@ export class SmzDocumentViewerBuilder extends SmzBuilderUtilities<SmzDocumentVie
     return this;
   }
 
-  public allowOpen(): SmzDocumentViewerBuilder {
+  public allowOpen(label: string = 'Abrir'): SmzDocumentViewerBuilder {
     this._viewer.open.isEnabled = true;
+    this._viewer.open.label = label;
     return this;
   }
 
-  public allowPrint(): SmzDocumentViewerBuilder {
+  public allowPrint(label: string = 'Imprimir'): SmzDocumentViewerBuilder {
     this._viewer.print.isEnabled = true;
+    this._viewer.print.label = label;
     return this;
   }
 
-  public allowDownload(): SmzDocumentViewerBuilder {
+  public allowDownload(label: string = 'Exportar'): SmzDocumentViewerBuilder {
     this._viewer.download.isEnabled = true;
+    this._viewer.download.label = label;
     return this;
   }
 

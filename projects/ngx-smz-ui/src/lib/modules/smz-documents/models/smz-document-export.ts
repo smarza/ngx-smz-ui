@@ -10,5 +10,7 @@ export interface SmzDocumentExport {
     left: number;
     right: number;
     bottom: number;
-  }
+  },
+  // This Compensation is to correct the issue where the right border is cutted on the pdf
+  paddingCompensation: string;
 }

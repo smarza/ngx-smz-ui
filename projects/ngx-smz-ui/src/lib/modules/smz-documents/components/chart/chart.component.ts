@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { SmzDocumentState } from '../../models/smz-document';
 import { SmzDocumentConfig } from '../../models/smz-document-config';
 import { SmzDocumentChart } from '../../models/smz-document-features';
+
 
 @Component({
   selector: 'smz-document-chart',
@@ -10,6 +12,7 @@ import { SmzDocumentChart } from '../../models/smz-document-features';
 export class SmzDocumentChartComponent implements OnInit {
   @Input() public data: SmzDocumentChart;
   @Input() public config: SmzDocumentConfig;
+  @Input() public state: SmzDocumentState;
   public plugins = [
     {
       afterRender: function (c) {
