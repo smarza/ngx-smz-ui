@@ -92,5 +92,8 @@ export * from './lib/builders/smz-menu/menu-builder';
 export * from './lib/builders/smz-charts/public-api';
 export * from './lib/builders/smz-trees/tree-builder';
 
+export * from './lib/builders/smz-svgs/svg-builder';
+export * from './lib/builders/smz-svgs/svg-features';
+export * from './lib/builders/smz-svgs/svg-feature';
 
 export * from './lib/modules/smz-ui-block/public-api';

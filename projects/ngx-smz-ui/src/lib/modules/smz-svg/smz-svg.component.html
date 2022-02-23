@@ -1,5 +1,5 @@
-<div [ngClass]="data?.containerClass">
-  <div id="smz-svg-map" [ngClass]="{ 'border-2 border-red-800 border-solid': data?.debugMode }"></div>
+<div [ngClass]="state?.containerClass">
+  <div id="smz-svg-map" [ngClass]="{ 'border-2 border-red-800 border-solid': state?.isDebug }"></div>
 </div>
 
 <p-overlayPanel #op appendTo="body">
