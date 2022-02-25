@@ -22,6 +22,7 @@ export class SmzSvgFeatureBuilder extends SmzBuilderUtilities<SmzSvgFeatureBuild
       width,
       height,
       svgData,
+      position: { x: 0, y: 0 },
       adaptative: {
         enabled: false
       },

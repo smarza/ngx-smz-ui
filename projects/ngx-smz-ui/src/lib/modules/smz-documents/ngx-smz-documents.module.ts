@@ -44,7 +44,7 @@ import { SmzDocumentPageBreakComponent } from './components/page-break/page-brea
       ClickStopPropagationModule,
       NgxSmzDataPipesModule,
       TooltipModule,
-      SmzChartModule
+      SmzChartModule,
     ],
     exports: [SmzDocumentComponent],
     declarations: [

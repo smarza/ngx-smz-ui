@@ -114,6 +114,7 @@ export interface SmzDocumentTable extends SmzDocumentBaseCell {
 export interface SmzDocumentTableColumn extends SmzDocumentCellConfig {
   value: string;
   property: string;
+  dataTransform: (value: string) => string;
   headerStyles: {
     background?: string;
     color?: string;

@@ -513,6 +513,7 @@ export class SmzCellTableColumnBuilder {
       width: 'auto',
       value: label,
       property,
+      dataTransform: null,
       headerStyles: {
         styles: defaultConfig.tables.header.columns
       },
@@ -574,6 +575,11 @@ export class SmzCellTableColumnBuilder {
   public useCentralized(): SmzCellTableColumnBuilder {
     this._data.contentStyles.styles += ' items-center text-center';
     this._data.headerStyles.styles += ' items-center text-center';
+    return this;
+  }
+
+  public dataTransform(callback: (value: string) => string): SmzCellTableColumnBuilder {
+    this._data.dataTransform = callback;
     return this;
   }
 

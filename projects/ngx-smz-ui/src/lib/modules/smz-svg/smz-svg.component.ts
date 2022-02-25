@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild, AfterViewInit } from '@angular/core';
 import { SmzSVGWrapper } from './models/smz-svg-wrapper';
 import { SmzSvgState, SmzSvgPin, SmzSvgRoot, SmzSvgTooltipData } from './models/smz-svg';
 
@@ -15,64 +15,127 @@ import { OverlayPanel } from '../prime/overlaypanel/overlaypanel';
   changeDetection: ChangeDetectionStrategy.Default
 })
 
-export class SmzSvgComponent implements OnChanges {
+export class SmzSvgComponent implements OnChanges, AfterViewInit {
   @ViewChild(OverlayPanel) public overlayPanel: OverlayPanel;
   @Input() public state: SmzSvgState;
   public pins: SmzSvgPin[] = [];
   public draw: SmzSVGWrapper;
   public tooltipContent = '-';
   public isPanning: boolean = false;
+  public hasViewInit = false;
 
   constructor(public cdf: ChangeDetectorRef) {
+
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
     if (changes.state.currentValue != null) {
-      this.setupRoot(changes.state.currentValue);
-      this.setupPins(changes.state.currentValue);
 
-      this.hookEvents();
+      if (this.hasViewInit) {
+        this.initialize();
+      }
     }
   }
 
-  private setupRoot(data: SmzSvgState): void {
+  public ngAfterViewInit(): void {
 
-    const rootFeature = data.features.find(x => x.type === 'root') as SmzSvgRoot;
+    this.hasViewInit = true;
+
+    if (this.state != null) {
+      this.initialize();
+    }
+
+  }
+
+  public initialize(): void {
+
+    setTimeout(() => {
+
+      if (this.state.container.useWindowSize) {
+        const element = document.getElementById("smz-svg-container");
+        const size = element.getBoundingClientRect();
+
+        this.state.container.width = size.width;
+        this.state.container.height = size.height;
+      }
+
+      this.setupContainer();
+      this.setupRoot();
+      this.setupPins();
+
+      if (this.state.isDebug) {
+        this.buildGrid();
+      }
+
+      this.hookEvents();
+
+    }, 0);
+
+  }
+
+  private setupContainer(): void {
 
     // Draw the map
-    this.draw = SVG(rootFeature.svgData) as SmzSVGWrapper;
+    this.draw = SVG('<svg></svg>') as SmzSVGWrapper;
 
     this.draw.addTo('#smz-svg-map');
 
-    this.draw.size(rootFeature.width.toString(), rootFeature.height.toString());
+    this.draw.size(this.state.container.width, this.state.container.height);
+    this.draw.x(0);
+    this.draw.y(0);
+    this.draw.viewbox(0, 0, this.state.container.width, this.state.container.height);
 
     this.draw.zoom(1);
 
-    if (data.panZoom.enabled) {
-      this.draw.panZoom(data.panZoom);
+    if (this.state.panZoom.enabled) {
+      this.draw.panZoom(this.state.panZoom);
     }
 
-    if (data.isDebug) this.draw.addClass('border-2 border-red-500 border-solid');
+    if (this.state.isDebug) {
+      this.draw.addClass('border-2 border-red-500 border-solid');
+    }
+
+  }
+
+
+  private setupRoot(): void {
+
+    const rootFeature = this.state.features.find(x => x.type === 'root') as SmzSvgRoot;
+
+    const root = this.draw.svg(rootFeature.svgData);
+    root.node.lastElementChild.setAttribute('id', rootFeature.id);
+
+    this.draw
+      .find(`#${rootFeature.id}`)
+      .each(element => {
+        element
+          .size(rootFeature.width, rootFeature.height)
+          .center(this.state.container.width / 2, this.state.container.height / 2);
+
+        if (this.state.isDebug) {
+          element.addClass('border-2 border-red-400 border-solid');
+        }
+      });
 
     // const that = this;
 
     // loop over all regions
-    for (const region of this.draw.find('path')) {
+    for (const region of root.find('path')) {
 
       // paint each region blue
       region
         .fill('#15803d');
-        // .addClass('cursor-pointer')
-        // .mouseover(function (this: SmzSVGWrapper, event) {
-        //   // this.fill({ color: '#f06' });
-        //   // console.log(`   show ${region.id()}`);
-        //   // that.show(event, region.id());
-        // })
-        // .mouseout(function (this: SmzSVGWrapper) {
-        //   // this.fill({ color: '#15803d' });
-        //   // console.log(`hide ${region.id()}`);
-        //   // that.hide();
-        // });
+      // .addClass('cursor-pointer')
+      // .mouseover(function (this: SmzSVGWrapper, event) {
+      //   // this.fill({ color: '#f06' });
+      //   // console.log(`   show ${region.id()}`);
+      //   // that.show(event, region.id());
+      // })
+      // .mouseout(function (this: SmzSVGWrapper) {
+      //   // this.fill({ color: '#15803d' });
+      //   // console.log(`hide ${region.id()}`);
+      //   // that.hide();
+      // });
 
       // add a label to the center of each region
       // this.draw
@@ -84,13 +147,11 @@ export class SmzSvgComponent implements OnChanges {
       //   .center(region.cx(), region.cy());
     }
 
-    if (data.isDebug) this.buildGrid();
-
   }
 
-  public setupPins(data: SmzSvgState): void {
+  public setupPins(): void {
 
-    const pins = data.features.filter(x => x.type === 'pin') as SmzSvgPin[];
+    const pins = this.state.features.filter(x => x.type === 'pin') as SmzSvgPin[];
 
     this.pins = pins;
 
@@ -103,12 +164,12 @@ export class SmzSvgComponent implements OnChanges {
         .each(element => {
           element
             .fill({ color: pin.color, opacity: 1 })
-            .center(pin.position.x, pin.position.y)
             .size(pin.width)
+            .center(pin.position.x, pin.position.y)
 
-            if (pin.tooltip.enabled) {
-              this.addToolTip(element as SmzSVGWrapper, pin.tooltip);
-            }
+          if (pin.tooltip.enabled) {
+            this.addToolTip(element as SmzSVGWrapper, pin.tooltip);
+          }
         }
         )
     });
@@ -164,18 +225,39 @@ export class SmzSvgComponent implements OnChanges {
 
   public buildGrid(): void {
 
+    const rootFeature = this.state.features.find(x => x.type === 'root') as SmzSvgRoot;
+
     const gap = 30;
     const size = 5;
-    const maxX = this.state.container.width;
-    const maxY = this.state.container.height;
+    let startX = 0;
+    let endX = 0;
+    let startY = 0;
+    let endY = 0;
+
+    this.draw
+      .find(`#${rootFeature.id}`)
+      .each(element => {
+        startX = element.x() as number;
+        endX = startX + (element.width() as number);
+
+        startY = element.y() as number;
+        endY = startY + (element.height() as number);
+      });
+
+    if (this.state.isDebug) {
+      console.log(`startX: ${startX}`);
+      console.log(`endX: ${endX}`);
+      console.log(`startY: ${startY}`);
+      console.log(`endY: ${endY}`);
+    }
 
     const that = this;
 
-    for (let i = 0; i < maxX; i += gap) {
-      for (let j = 0; j < maxY; j += gap) {
+    for (let i = startX; i < endX; i += gap) {
+      for (let j = startY; j < endY; j += gap) {
         this.draw
           .circle(size)
-          .move(i, j)
+          .center(i, j)
           .data('key', { x: i, y: j })
           .data('text', 'Teste')
           .addClass('cursor-pointer')
@@ -246,10 +328,12 @@ export class SmzSvgComponent implements OnChanges {
             const newWidth = pin.width * newScale;
             const width = (newWidth > pin.adaptative.maxWidth) ? pin.adaptative.maxWidth : ((newWidth < pin.adaptative.minWidth) ? pin.adaptative.minWidth : newWidth);
 
-            element.size(width);
+            element
+              .size(width)
+              .center(pin.position.x, pin.position.y);
 
           })
 
-    });
+      });
   }
 }

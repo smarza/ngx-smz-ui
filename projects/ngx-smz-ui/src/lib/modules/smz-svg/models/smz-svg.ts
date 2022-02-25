@@ -18,8 +18,9 @@ export interface SmzSvgState {
   };
   containerClass: string;
   container: {
-    width: number;
-    height: number;
+    useWindowSize: boolean;
+    width?: number;
+    height?: number;
   }
 }
 
@@ -30,6 +31,8 @@ export interface SmzSvgBaseFeature {
   id: string;
   width: number;
   type?: SmzSvgFeatureTypes;
+  position: { x: number, y: number };
+
   // Se adapta ao alterar o zoom
   adaptative: {
     enabled: boolean;
@@ -44,12 +47,12 @@ export interface SmzSvgRoot extends SmzSvgBaseFeature {
   svgData: string;
   height: number;
 
+
 }
 
 export interface SmzSvgPin extends SmzSvgBaseFeature {
   type: 'pin';
   color?: string;
-  position: { x: number, y: number };
   width: number;
   svgData: string;
 

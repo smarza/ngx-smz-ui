@@ -39,7 +39,7 @@
               [style.background]="column.contentStyles.background ?? data.content.background"
               [style.color]="column.contentStyles.color ?? data.content.color"
               [ngClass]="column.contentStyles.styles ?? data.content.styles">
-              <div>{{ (row | getData : column.property).result }}</div>
+              <div [innerHtml]="((row | getData : column.property : column.dataTransform).result) | safeHtml"></div>
             </td>
 
           </ng-container>

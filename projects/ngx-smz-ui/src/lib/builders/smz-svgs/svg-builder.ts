@@ -1,14 +1,8 @@
 import { GlobalInjector } from '../../modules/smz-dialogs/services/global-injector';
 import { NgxRbkUtilsConfig } from '../../modules/rbk-utils/ngx-rbk-utils.config';
-import { SmzDocumentConfig } from '../../modules/smz-documents/models/smz-document-config';
-import cloneDeep from 'lodash-es/cloneDeep';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
-import { HTMLOptions, jsPDFOptions } from 'jspdf';
-import { SmzDocumentPageFormats, SmzPageFormatsInPt } from '../../modules/smz-documents/models/smz-page-formats';
-import { isArray } from '../../common/utils/utils';
-import { SmzSvgBaseFeature, SmzSvgFeature, SmzSvgState } from '../../modules/smz-svg/models/smz-svg';
+import { SmzSvgState } from '../../modules/smz-svg/models/smz-svg';
 import { SmzSvgFeatureBuilder } from './svg-feature';
-import { UUID } from 'angular2-uuid';
 
 export class SmzSvgBuilder extends SmzBuilderUtilities<SmzSvgBuilder> {
   protected that = this;
@@ -23,6 +17,7 @@ export class SmzSvgBuilder extends SmzBuilderUtilities<SmzSvgBuilder> {
     },
     containerClass: '',
     container: {
+      useWindowSize: true,
       width: 0,
       height: 0
     }
@@ -47,9 +42,10 @@ export class SmzSvgBuilder extends SmzBuilderUtilities<SmzSvgBuilder> {
     return this;
   }
 
-  public useWindowSize(): SmzSvgBuilder {
-    this._state.container.width = window.innerWidth;
-    this._state.container.height = window.innerHeight;
+  public setContainerSize(width: number, height: number): SmzSvgBuilder {
+    this._state.container.useWindowSize = false;
+    this._state.container.width = width;
+    this._state.container.height = height;
     return this;
   }
 
