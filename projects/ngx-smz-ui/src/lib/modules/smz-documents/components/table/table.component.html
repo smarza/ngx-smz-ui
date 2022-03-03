@@ -24,7 +24,7 @@
     </thead>
 
     <tbody>
-      <ng-container *ngFor="let row of data?.content.items$ | async; let index">
+      <ng-container *ngFor="let row of data?.content.items$ | async; let index = index">
 
         <tr class="relative" [style.background]="data.content.background">
 
@@ -39,7 +39,7 @@
               [style.background]="column.contentStyles.background ?? data.content.background"
               [style.color]="column.contentStyles.color ?? data.content.color"
               [ngClass]="column.contentStyles.styles ?? data.content.styles">
-              <div [innerHtml]="((row | getData : column.property : column.dataTransform).result) | safeHtml"></div>
+              <div [innerHtml]="((row | getData : column.property : column.dataTransform : index).result) | safeHtml"></div>
             </td>
 
           </ng-container>

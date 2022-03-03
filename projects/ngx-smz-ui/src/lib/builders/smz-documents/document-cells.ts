@@ -578,7 +578,7 @@ export class SmzCellTableColumnBuilder {
     return this;
   }
 
-  public dataTransform(callback: (value: string) => string): SmzCellTableColumnBuilder {
+  public dataTransform(callback: (value: string, row: any, index: number) => string): SmzCellTableColumnBuilder {
     this._data.dataTransform = callback;
     return this;
   }

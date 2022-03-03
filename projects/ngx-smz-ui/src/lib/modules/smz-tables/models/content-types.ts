@@ -27,7 +27,7 @@ export interface SmzTextContent {
 }
 
 export interface SmzDataTransform {
-  callback: (data: any, row: any) => string;
+  callback: (data: any, row: any, index: number) => string;
 }
 
 export interface SmzCalendarContent {

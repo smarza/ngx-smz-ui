@@ -175,7 +175,7 @@ export class SmzIconColumnBuilder extends SmzBaseColumnBuilder<SmzIconColumnBuil
 }
 
 export class SmzDataTransformColumnBuilder extends SmzBaseColumnBuilder<SmzDataTransformColumnBuilder> {
-  constructor(protected _table: SmzTableBuilder, protected _parent: SmzColumnCollectionBuilder, field: string, header: string, callback: (data: any, row: any) => string, width: string = 'auto') {
+  constructor(protected _table: SmzTableBuilder, protected _parent: SmzColumnCollectionBuilder, field: string, header: string, callback: (data: any, row: any, index: number) => string, width: string = 'auto') {
     super(_table, _parent, SmzContentType.DATA_TRANSFORM, SmzFilterType.NONE, field, header, false, width);
 
     (this._column.content.data as SmzDataTransform).callback = callback;
@@ -214,7 +214,7 @@ export class SmzColumnCollectionBuilder extends SmzBuilderUtilities<SmzColumnCol
     return new SmzCurrencyColumnBuilder(this._tableBuilder, this, field, header, width);
   }
 
-  public dataTransform(field: string, header: string, callback: (data: any, row: any) => string, width: string = 'auto'): SmzDataTransformColumnBuilder {
+  public dataTransform(field: string, header: string, callback: (data: any, row: any, index: number) => string, width: string = 'auto'): SmzDataTransformColumnBuilder {
     return new SmzDataTransformColumnBuilder(this._tableBuilder, this, field, header, callback, width);
   }
 
