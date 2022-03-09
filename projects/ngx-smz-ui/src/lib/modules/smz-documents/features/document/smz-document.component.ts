@@ -15,7 +15,7 @@ export class SmzDocumentComponent implements OnInit {
   constructor(@Self() private ngStyle: NgStyle) { }
 
   ngOnInit() {
-    // console.log(this.state);
+    console.log(this.state);
     this.updateHostClasses({ 'font-size': this.state.globals.font.scale });
   }
 

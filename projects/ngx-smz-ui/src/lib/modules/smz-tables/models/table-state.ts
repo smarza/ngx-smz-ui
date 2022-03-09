@@ -250,6 +250,10 @@ export interface SmzTableState {
      */
     scrollHeight: 'flex' | string;
     /**
+     * orientation of the scrolling, options are "vertical", "horizontal" and "both".
+     */
+     scrollDirection: 'vertical' | 'horizontal' | 'both';
+    /**
     * when enabled, columns can be resized using drag and drop.
     */
     resizableColumns: boolean;

@@ -35,6 +35,7 @@ export class SmzCloneTableItemsPipe implements PipeTransform {
 
           if (col.width == 'auto') {
             width = this.estimate(columnItems, col.field, context.state.caption.columnVisibility.showDropdownSelector, context.state.caption.columnVisibility.showColumnHideButton, col.isOrderable, col.filter?.type !== SmzFilterType.NONE);
+            col.width = width;
           }
 
           const visibleColumnsIndex = context.visibleColumns?.findIndex(x => x.field === col.field);
@@ -78,6 +79,8 @@ export class SmzCloneTableItemsPipe implements PipeTransform {
       context.state.frozen.width = `${frozenWidths.reduce((a,b) => a + b)}px`;
       // console.log('context.state.frozen.width: ', context.state.frozen.width);
     }
+
+    // console.log('context from items', context);
 
     return {
       showSkeleton,
@@ -173,7 +176,7 @@ export class SmzCloneTableItemsPipe implements PipeTransform {
 
       const finalCount = (maxCount * multiply) + headerButtonsCompensation;
 
-      // if (header === 'service') {
+      // if (header === 'area') {
       //   console.log('-----------')
       //   console.log(`${header} items`, items);
       //   console.log(`${header} maxCount => ${maxCount}`);

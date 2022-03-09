@@ -13,6 +13,14 @@ import { convertFormFeature } from '../smz-dialogs/dialog-input-conversion';
 import { UiDefinitionsDbSelectors } from '../../state/database/ui-definitions/ui-definitions.selectors';
 import { SmzBatchMenuBuilder } from './batch-menu-builder';
 
+// SCROLL TRUE =>
+//   MIN-WIDTH PODE TER PX
+//   MIN-WIDTH NÃO PODE SER AUTO
+
+// SCROLL FALSE =>
+//   MIN-WIDTH PODE SER PX
+//   MIN-WIDTH PODE SER AUTO
+
 export class SmzTableBuilder {
   public _state: SmzTableState = {
     columns: [],
@@ -137,6 +145,7 @@ export class SmzTableBuilder {
     viewport: {
       scrollable: false,
       scrollHeight: null,
+      scrollDirection: 'vertical',
       resizableColumns: false,
       columnResizeMode: 'fit'
     },
@@ -457,9 +466,16 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public useAutoWidth(samplesCount?: number): SmzTableBuilder {
+  public useEstimatedColWidth(samplesCount: number = 50): SmzTableBuilder {
+
+    if (!this._state.viewport.scrollable) {
+      throw Error('You need to call \'useScrolling\' before');
+    }
+
     this._state.styles.columnsWidth.estimate = true;
     this._state.styles.columnsWidth.samples = samplesCount;
+    this._state.viewport.scrollDirection = 'both';
+
     return this;
   }
 
@@ -601,10 +617,11 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public useScrolling(): SmzTableBuilder {
+  public useScrolling(direction: 'vertical' | 'horizontal' | 'both' = 'vertical'): SmzTableBuilder {
 
     this._state.viewport.scrollable = true;
     this._state.viewport.scrollHeight = 'flex';
+    this._state.viewport.scrollDirection = direction;
 
     return this;
   }

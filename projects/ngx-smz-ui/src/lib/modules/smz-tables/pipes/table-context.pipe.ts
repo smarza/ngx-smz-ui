@@ -24,9 +24,10 @@ export class SmzTableContextPipe implements PipeTransform {
 
       baseWidthIncrement = inputState.caption.columnVisibility?.showColumnHideButton ? 30 : 0;
       baseWidthIncrement += column.filter.type !== SmzFilterType.NONE ? 30 : 0;
+
       const width = column.width == null ? 'auto' : (column.width !== 'fit' ? column.width : `${(column.header.length * 15) + baseWidthIncrement}px`);
 
-      // console.log(column.field, column.width, width);
+      // console.log(`${column.field} >> type: ${column.width}; baseWidthIncrement: ${baseWidthIncrement}; width: ${width};`);
 
       const contextColumn: SmzTableContextColumn = {
         ...column,

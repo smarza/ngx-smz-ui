@@ -6,6 +6,7 @@ import { of } from 'rxjs';
 import { convertorTasks } from './../data/conversor-tasks';
 import { Observable } from 'rxjs/internal/Observable';
 import { DemoFeatureActions } from '@states/demo/demo.actions';
+import { LARGE_TABLE_DATA } from '../data/large-table';
 
 const store = GlobalInjector.instance.get(Store);
 
@@ -46,11 +47,12 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
       .setEmptyFeedbackMessage('Lista vazia')
       .setEmptyFeedbackExtraInfo('Clique abaixo para carregar novos dados.')
       .addEmptyFeedbackButton('Atualizar', () => console.log('---'))
+      .useScrolling()
+      .useEstimatedColWidth()
       .usePagination()
       .setPaginationDefaultRows(50)
       .setCustomInitialSorting({ field: 'number', order: -1 })
       .useStrippedStyle()
-      .useAutoWidth()
       .menu()
         .item('Consultar')
           .setCallback((event: any) => console.log('---'))
@@ -200,6 +202,45 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
             { label: 'Test 2', icon: 'fas fa-candy-cane', command: (event) => console.log('test2', event) },
           ];
         })
+      .build()
+  }
+  },
+  //
+  [DemoKeys.TABLE_AUTO_SIZED_COLUMNS]: {
+    items$: of(LARGE_TABLE_DATA),
+    code: () => {
+    return new SmzTableBuilder()
+        .setTitle('Auto Sized Columns with Large Data')
+        .enableGlobalFilter()
+        .enableClearFilters()
+        .usePagination()
+        .setEmptyFeedbackMessage('Sem Resultados')
+        .setEmptyFeedbackImage('assets/images/tables/empty-dark.svg')
+        .enableColumnVisibility(false)
+        .setPaginationDefaultRows(25)
+        .setPaginationPageOptions([10, 25, 50, 100, 200])
+        .useScrolling()
+        .useEstimatedColWidth()
+        .useGridStyle()
+        .setSize('small')
+        .useStrippedStyle()
+        .disableRowHoverEffect()
+        .columns()
+          .text('tag', 'tag', 'auto').columns
+          .text('plant', 'plant', 'auto').columns
+          .text('area', 'area', 'auto').columns
+          .text('unit', 'unit', 'auto').columns
+          .text('status', 'status', 'auto').columns
+          .text('service', 'service', 'auto').columns
+          .text('description', 'description', 'auto').columns
+          .text('location', 'location', 'auto').columns
+          .text('type', 'type', 'auto').columns
+          .text('panel', 'panel', 'auto').columns
+          .text('rack', 'rack', 'auto').columns
+          .text('slot', 'slot', 'auto').columns
+          .text('card', 'card', 'auto').columns
+          .text('channel', 'channel', 'auto').columns
+          .table
       .build()
   }
   },

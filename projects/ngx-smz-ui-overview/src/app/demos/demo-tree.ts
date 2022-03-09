@@ -601,6 +601,12 @@ export const TreeDemoData: DemoTreeNode[] = [
         notes: '',
         data: TablesDemo[DemoKeys.TABLE_DYNAMIC_MENU]
       },
+      {
+        label: 'Auto Sized Columns', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'table',
+        notes: '',
+        data: TablesDemo[DemoKeys.TABLE_AUTO_SIZED_COLUMNS]
+      },
     ]
   },
   {

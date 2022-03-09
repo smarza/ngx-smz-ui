@@ -13,6 +13,14 @@ export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T>> {
 
   constructor(protected _table: SmzTableBuilder, protected _parent: SmzColumnCollectionBuilder, type: SmzContentType, filterType: SmzFilterType, field: string, header: string, isOrderable: boolean, width: string = 'auto') {
 
+    if (this._table._state.viewport.scrollable && !this._table._state.styles.columnsWidth.estimate && (width === 'auto' || width === 'fit')) {
+      throw Error('You need to set a width in pixels for all columns while using \'useScrolling\' method');
+    }
+
+    if (this._table._state.viewport.scrollable && this._table._state.styles.columnsWidth.estimate && width === 'fit') {
+      throw Error('You can\'t set width FIT while using \'useEstimatedColWidth\' method. You have to set AUTO or specify a measure value (px, em, rem...).');
+    }
+
     const columnIndex = _table._state.columns.findIndex(c => c.field === field);
 
     if (columnIndex !== -1) {

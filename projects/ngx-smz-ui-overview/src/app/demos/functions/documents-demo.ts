@@ -542,7 +542,7 @@ function baseDocument(_: SmzDocumentBuilder, includePageBreaks: boolean): SmzDoc
   .header()
 
     .row()
-      .image('assets/logo.png')
+      .image('https://dev.varejofacil.tk/files/products/pyw937ns6zmedzf5bdmeglvcd2/8jd774ka2dgwa5bpbdnmgmt2fw/l9hyuymmyqae5qmrmbp8b7ls2a.jpg')
         .setWidth('col-8')
         .setRowspan(3)
         .setImageWidth('40%')

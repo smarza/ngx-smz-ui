@@ -76,7 +76,7 @@ export class SmzDocumentBuilder extends SmzBuilderUtilities<SmzDocumentBuilder> 
       jsPDFOptions: null,
       htmlOptions: null,
       html2pdfOptions: {
-        html2canvas: { scale: 1 }
+        html2canvas: { scale: 1, useCORS: false, allowTaint: false }
       },
       margin: {
         top: 1,

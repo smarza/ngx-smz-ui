@@ -4,7 +4,8 @@
   [ngClass]="data.container.styles">
 
   <img
-    [src]="data.image.src"
+    *ngIf="base64 != null"
+    [src]="base64 | safeUrl"
     [ngClass]="data.image.styles"
     [style.width]="data.image.width"/>
 
