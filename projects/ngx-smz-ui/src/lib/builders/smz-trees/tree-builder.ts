@@ -99,6 +99,11 @@ export class SmzTreeBuilder {
   }
 
   public setSelection(mode: 'single' | 'multiple' | 'checkbox', propagateUp: boolean = true, propagateDown: boolean = true): SmzTreeBuilder {
+
+    if (this._state.header.toolbar.nodeExpandButtons.isVisible) {
+      throw new Error(`You can't use Multiple or Checkbox selection mode with only nodeExpandButtons enabled.`);
+    }
+
     this._state.selection.mode = mode;
     this._state.selection.propagateUp = propagateUp;
     this._state.selection.propagateDown = propagateDown;
@@ -152,6 +157,11 @@ export class SmzTreeToolbarBuilder {
   public useNodeExpandButtons(expandLabel: string = '', collapseLabel: string = '',
      expandTooltip: string = 'Expandir nó selecionado', collapseTooltip: string = 'Colapsar nó selecionado',
      disabledTooltip: string = 'Selecione um nó da árvore'): SmzTreeToolbarBuilder {
+
+      if (this._treeBuilder._state.selection.mode !== 'single') {
+        throw new Error(`You can only useNodeExpandButtons with the single selection mode enabled.`);
+      }
+
     this._treeBuilder._state.header.toolbar.nodeExpandButtons = {
       isVisible: true,
       collapseLabel: collapseLabel,

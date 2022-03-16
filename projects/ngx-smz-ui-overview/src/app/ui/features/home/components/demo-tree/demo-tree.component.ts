@@ -14,7 +14,7 @@ import { DemoFeatureActions } from '@states/demo/demo.actions';
   template: `
   <div *ngIf="state != null" style="height: 675px;">
   <ng-container *ngClone="items$ | async as items">
-    <smz-ui-tree #smzTree [items]="items" [state]="state" (selectedNodes)="selectionChanged($event)" >
+    <smz-ui-tree #smzTree [items]="items" [state]="state" [selection]="selection" (selectedNodes)="selectionChanged($event)">
 
       <!-- <ng-template pTemplate="type:folder" let-node>
         <span>folder => {{ node.label }}</span>
@@ -33,7 +33,8 @@ import { DemoFeatureActions } from '@states/demo/demo.actions';
 
 export class DemoTreeComponent implements OnInit, OnChanges {
   @Select(DemoFeatureSelectors.tree) public items$: Observable<TreeNode[]>;
-  @Input() public node: DemoTreeNode
+  @Input() public node: DemoTreeNode;
+  public selection: string[] = ['IsometricsWithoutTags'];
   public state: SmzTreeState;
 
   constructor(private store: Store) {
@@ -46,6 +47,7 @@ export class DemoTreeComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.state = this.node.data() as any;
+    // console.log(this.state);
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -57,7 +59,7 @@ export class DemoTreeComponent implements OnInit, OnChanges {
   }
 
 
-  public selectionChanged(node: SmzTreeNode<any>): void {
+  public selectionChanged(node: SmzTreeNode[]): void {
 
     console.log('selectionChanged', node);
 

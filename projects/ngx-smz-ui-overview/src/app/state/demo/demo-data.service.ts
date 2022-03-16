@@ -36,7 +36,7 @@ export class DemoDataService extends BaseApiService {
   }
 
   public getTree(): Observable<TreeNode[]> {
-    return this.http.get<{data: TreeNode[]}>('assets/files.json').pipe(map(x => x.data));
+    return this.http.get<{data: TreeNode[]}>('assets/files_temp.json').pipe(map(x => x.data));
   }
 
 

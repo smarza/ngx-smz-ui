@@ -16,6 +16,7 @@ import { DemoDocumentComponent } from './components/demo-document/demo-document.
 import { DemoTreeComponent } from './components/demo-tree/demo-tree.component';
 import { DemoMenuComponent } from './components/demo-menu/demo-menu.component';
 import { TooltipModule } from 'primeng/tooltip';
+import { FormsModule } from '@angular/forms';
 
 const data: SmzRouteData = {
   layout: {
@@ -42,6 +43,7 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     ButtonModule,
+    FormsModule,
     NgxSmzFormsModule,
     NgxSmzDialogsModule,
     NgxSmzTreesModule,

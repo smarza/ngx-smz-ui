@@ -21,10 +21,12 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
   @Input() public styleClass = '';
   @Input() public inlineStyle = '';
   @Input() public appendTo = 'body';
-  @Input() public selection: SmzTreeNode;
+  public primeSelection: SmzTreeNode[] = [];
+  @Input() public selection: string[] = [];
+  @Input() public selectionKey: string = 'key';
 
   // Evento emitido quando o array de nodes selecionados é atualizado
-  @Output() public selectedNodes = new EventEmitter<SmzTreeNode>();
+  @Output() public selectedNodes = new EventEmitter<SmzTreeNode[]>();
 
   // Evento emitido quando um nó da árvore é selecionado ou é clicado com o botão direito do mouse
   @Output() public selectionChange = new EventEmitter<SmzTreeNode>();
@@ -68,18 +70,64 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
   private operationType: 'reorder' | 'move' | 'not-implemented' | 'none';
   private dropPlace: string;
 
-
   constructor(public cdr: ChangeDetectorRef) {
   }
 
   public ngOnInit(): void {
+    if (this.items != null) {
+      this.primeSelection = [];
+      this.checkNode(this.items, this.selection);
+      this.selectedNodes.emit(this.primeSelection);
+    }
+  }
 
+  checkNode(nodes: SmzTreeNode[], str: string[]) {
+    nodes.forEach(node => {
+      //check parent
+      if(str.includes(node[this.selectionKey])) {
+        this.primeSelection.push(node);
+      }
+
+      if(node.children != undefined){
+        node.children.forEach(child => {
+          //check child if the parent is not selected
+          if(str.includes(child[this.selectionKey]) && !str.includes(node[this.selectionKey])) {
+            node.partialSelected = true;
+            child.parent = node;
+          }
+
+          //check the child if the parent is selected
+          //push the parent in str to new iteration and mark all the childs
+          if(str.includes(node[this.selectionKey])){
+            child.parent = node;
+            str.push(child[this.selectionKey]);
+          }
+        });
+      }else{
+        return;
+      }
+
+      this.checkNode(node.children, str);
+
+      node.children.forEach(child => {
+        if(child.partialSelected) {
+          node.partialSelected = true;
+        }
+      });
+    });
   }
 
   public bind(): void {
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
+
+    if ((changes.items?.currentValue != null && this.selection != null) || (changes.selection?.currentValue != null && this.items != null)) {
+      this.primeSelection = [];
+      this.checkNode(this.items, this.selection);
+      this.selectedNodes.emit(this.primeSelection);
+    }
+
   }
 
   public ngAfterContentInit() {
@@ -143,11 +191,11 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
   }
 
   public onUnselected(event: { originalEvent: MouseEvent, node: SmzTreeNode }): void {
-    this.selectedNodes.emit(this.selection);
+    this.selectedNodes.emit(this.primeSelection);
   }
 
   public onSelected(event: { originalEvent: MouseEvent, node: SmzTreeNode }): void {
-    this.selectedNodes.emit(this.selection);
+    this.selectedNodes.emit(this.primeSelection);
     this.selectionChange.emit(event.node);
     if (!event.node.expanded) {
       event.node.expanded = true;
@@ -244,19 +292,19 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
   }
 
   public expandNode(): void {
-    if (this.selection != null) {
-      this.expandRecursive(this.selection, true);
+    if (this.primeSelection != null) {
+      this.expandRecursive(this.primeSelection as SmzTreeNode, true);
       setTimeout(() => {
-        this.nodeExpanded.emit({node: this.selection});
+        this.nodeExpanded.emit({ node: this.primeSelection as SmzTreeNode });
       }, 200);
     }
   }
 
   public collapseNode(): void {
-    if (this.selection != null) {
-      this.expandRecursive(this.selection, false);
+    if (this.primeSelection != null) {
+      this.expandRecursive(this.primeSelection as SmzTreeNode, false);
       setTimeout(() => {
-        this.nodeCollapsed.emit({node: this.selection});
+        this.nodeCollapsed.emit({ node: this.primeSelection as SmzTreeNode });
       }, 200);
     }
   }
