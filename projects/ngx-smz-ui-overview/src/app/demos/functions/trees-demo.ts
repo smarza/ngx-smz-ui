@@ -31,7 +31,6 @@ export const TreesDemo: { [key: string]: () => void } = {
       .toolbar('rounded-outlined')
         .setAlignment('end')
         .useTreeExpandButtons()
-        // .useNodeExpandButtons()
         .buttons()
           .button('', 'fas fa-coffee')
             .setCallback((event, data, node) => console.log(event))
@@ -50,10 +49,10 @@ export const TreesDemo: { [key: string]: () => void } = {
             .buttons
           .toolbar
         .tree
-        .dragAndDrop()
-          .canDrag('file').into('folder', 'disk')
-          .canDrag('folder').into('disk', 'folder')
-        .tree
+        // .dragAndDrop()
+        //   .canDrag('file').into('folder', 'disk')
+        //   .canDrag('folder').into('disk', 'folder')
+        // .tree
       .build()
   },
 }

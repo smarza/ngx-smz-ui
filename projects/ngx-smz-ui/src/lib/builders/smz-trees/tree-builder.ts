@@ -154,24 +154,24 @@ export class SmzTreeToolbarBuilder {
     return this;
   }
 
-  public useNodeExpandButtons(expandLabel: string = '', collapseLabel: string = '',
-     expandTooltip: string = 'Expandir nó selecionado', collapseTooltip: string = 'Colapsar nó selecionado',
-     disabledTooltip: string = 'Selecione um nó da árvore'): SmzTreeToolbarBuilder {
+  // public useNodeExpandButtons(expandLabel: string = '', collapseLabel: string = '',
+  //    expandTooltip: string = 'Expandir nó selecionado', collapseTooltip: string = 'Colapsar nó selecionado',
+  //    disabledTooltip: string = 'Selecione um nó da árvore'): SmzTreeToolbarBuilder {
 
-      if (this._treeBuilder._state.selection.mode !== 'single') {
-        throw new Error(`You can only useNodeExpandButtons with the single selection mode enabled.`);
-      }
+  //     if (this._treeBuilder._state.selection.mode !== 'single') {
+  //       throw new Error(`You can only useNodeExpandButtons with the single selection mode enabled.`);
+  //     }
 
-    this._treeBuilder._state.header.toolbar.nodeExpandButtons = {
-      isVisible: true,
-      collapseLabel: collapseLabel,
-      expandLabel: expandLabel,
-      expandTooltip: expandTooltip,
-      collapseTooltip: collapseTooltip,
-      disabledTooltip: disabledTooltip
-    };
-    return this;
-  }
+  //   this._treeBuilder._state.header.toolbar.nodeExpandButtons = {
+  //     isVisible: true,
+  //     collapseLabel: collapseLabel,
+  //     expandLabel: expandLabel,
+  //     expandTooltip: expandTooltip,
+  //     collapseTooltip: collapseTooltip,
+  //     disabledTooltip: disabledTooltip
+  //   };
+  //   return this;
+  // }
 
   public buttons(): SmzTreeToolbarButtonCollectionBuilder {
     this._treeBuilder._state.header.toolbar.items = [];

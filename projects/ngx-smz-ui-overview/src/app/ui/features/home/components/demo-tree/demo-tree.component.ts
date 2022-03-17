@@ -16,13 +16,13 @@ import { DemoFeatureActions } from '@states/demo/demo.actions';
   <ng-container *ngClone="items$ | async as items">
     <smz-ui-tree #smzTree [items]="items" [state]="state" [selection]="selection" (selectedNodes)="selectionChanged($event)">
 
-      <!-- <ng-template pTemplate="type:folder" let-node>
-        <span>folder => {{ node.label }}</span>
+      <ng-template pTemplate="type:AuditTemplate" let-node>
+        <span (click)="log(smzTree)">Template => {{ node.label }}</span>
       </ng-template>
 
       <ng-template pTemplate="type:disk" let-node>
         <span>disk => {{ node.label }}</span>
-      </ng-template> -->
+      </ng-template>
 
     </smz-ui-tree>
   </ng-container>
@@ -48,6 +48,10 @@ export class DemoTreeComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.state = this.node.data() as any;
     // console.log(this.state);
+  }
+
+  public log(event: any): void {
+    console.log(event);
   }
 
   ngOnChanges(changes: SimpleChanges) {
