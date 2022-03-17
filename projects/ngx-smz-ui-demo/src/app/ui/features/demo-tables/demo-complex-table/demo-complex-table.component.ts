@@ -31,7 +31,7 @@ export class DemoComplexTableComponent implements OnInit {
             .setSize('small')
             .useStrippedStyle()
             .disableRowHoverEffect()
-            .useAutoWidth()
+            .useEstimatedColWidth()
             .build();
     }
 

@@ -58,7 +58,6 @@ export class DemoTreesComponent implements OnInit {
       .toolbar('rounded-outlined')
         .setAlignment('end')
         .useTreeExpandButtons()
-        .useNodeExpandButtons()
         .buttons()
           .button('', 'fas fa-coffee')
             .setCallback((event, data, node) => console.log(event))

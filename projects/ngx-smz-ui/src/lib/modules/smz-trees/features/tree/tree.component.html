@@ -1,13 +1,13 @@
 <ng-container *ngIf="state; else noStateTemplate">
 
-    <!-- <ng-container
-        *ngIf="(state.emptyFeedback != null && (state.emptyFeedback.extraInfo || state.emptyFeedback.image || state.emptyFeedback.actionButton)) && (items != null && items.length === 0); else treeTemplate">
+    <ng-container
+        *ngIf="(state.emptyFeedback?.isFeatured) && (items != null && items.length === 0); else treeTemplate">
         <smz-data-info
-            [image]="context.state.emptyFeedback.image"
-            [message]="context.state.emptyFeedback.message"
-            [callbackInfo]="context.state.emptyFeedback.extraInfo"
-            [callbackLabel]="context.state.emptyFeedback.actionButton?.label"
-            (clicked)="context.state.emptyFeedback.actionButton?.callback()">
+            [image]="state.emptyFeedback.image"
+            [message]="state.emptyFeedback.message"
+            [callbackInfo]="state.emptyFeedback.extraInfo"
+            [callbackLabel]="state.emptyFeedback.actionButton?.label"
+            (clicked)="state.emptyFeedback.actionButton?.callback()">
 
             <ng-template pTemplate="actions">
                 <ng-container *ngTemplateOutlet="emptyActionsTemplate; context: { $implicit: {} }"></ng-container>
@@ -16,7 +16,7 @@
         </smz-data-info>
     </ng-container>
 
-    <ng-template #treeTemplate> -->
+    <ng-template #treeTemplate>
 
         <ng-container *ngIf="items != null">
             <p-contextMenu #cm [model]="menuItems" [appendTo]="appendTo" [styleClass]="menuItems == null || menuItems?.length === 0 ? 'invisible-important' : ''"></p-contextMenu>
@@ -142,20 +142,17 @@
                 </ng-container>
 
                 <ng-template pTemplate="empty">
-                    <tr>
-                        <!-- <td [attr.colspan]="context.columns.length + ((context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible) ? 1 : 0) + (context.state.caption.rowSelection.isEnabled ? 1 : 0)"
-                        [ngStyle]="{ 'text-align': 'center' }">{{ context.state.emptyFeedback.message }}</td> -->
-                    </tr>
+                    <div *ngIf="!state.emptyFeedback.isFeatured">{{ state.emptyFeedback.message }}</div>
                 </ng-template>
             </p-tree>
 
         </ng-container>
-    <!-- </ng-template> -->
+    </ng-template>
 
 </ng-container>
 
 <ng-template #noStateTemplate>
-    <!-- <ng-container *ngIf="emptyStateTemplate != null">
+    <ng-container *ngIf="emptyStateTemplate != null">
         <ng-container *ngTemplateOutlet="emptyStateTemplate; context: { $implicit: {} }"></ng-container>
-    </ng-container> -->
+    </ng-container>
 </ng-template>

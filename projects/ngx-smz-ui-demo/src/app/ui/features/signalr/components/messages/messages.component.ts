@@ -41,7 +41,7 @@ export class MessagesComponent
       .usePagination()
       .setPaginationDefaultRows(10)
       .useStrippedStyle()
-      .useAutoWidth()
+      .useEstimatedColWidth()
       .useTableEmptyMessage()
       .setSize('small')
       .columns()

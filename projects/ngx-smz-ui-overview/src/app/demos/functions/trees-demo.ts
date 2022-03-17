@@ -6,6 +6,10 @@ export const TreesDemo: { [key: string]: () => void } = {
   [DemoKeys.TREE_DEMO_1]: () => {
     return new SmzTreeBuilder()
       .setTitle('Sincronized Tree')
+      .emptyFeedback()
+        .setMessage('Lista vazia.')
+        .useTreeEmptyMessage()
+        .tree
       .useSincronization()
       .setSelection('checkbox')
       .menu()

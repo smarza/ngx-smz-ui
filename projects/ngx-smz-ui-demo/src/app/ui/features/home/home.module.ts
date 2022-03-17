@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home.component';
-import { NgxSmzTablesModule, NgxSmzTreesModule, SmzRouteData, NgxSmzDialogsModule, NgxSmzFormsModule } from 'ngx-smz-ui';
+import { NgxSmzTablesModule, NgxSmzTreesModule, SmzRouteData, NgxSmzDialogsModule, NgxSmzFormsModule, NgxSmzDataPipesModule } from 'ngx-smz-ui';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
 import { RbkAuthGuard, RbkDatabaseStateGuard, UI_DEFINITIONS_STATE_NAME } from 'ngx-smz-ui';
@@ -39,7 +39,8 @@ const routes: Routes = [
     NgxSmzDialogsModule,
     NgxSmzTreesModule,
     CodeBlockModule,
-    DemoTitlePipeModule
+    DemoTitlePipeModule,
+    NgxSmzDataPipesModule
   ],
   providers: [],
   bootstrap: [HomeComponent]

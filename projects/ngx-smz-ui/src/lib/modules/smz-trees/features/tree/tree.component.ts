@@ -55,6 +55,7 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
   public footerTemplate: TemplateRef<any>;
   public toolbarTemplate: TemplateRef<any>;
   public emptyStateTemplate: TemplateRef<any>;
+  public emptyActionsTemplate: TemplateRef<any>;
   public contentTemplates: { type: string, template: TemplateRef<any> }[] = [];
   public selectedItems: SmzTreeNode[];
   public documentClickListener = null;
@@ -93,6 +94,7 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
           //check child if the parent is not selected
           if(str.includes(child[this.selectionKey]) && !str.includes(node[this.selectionKey])) {
             node.partialSelected = true;
+            node.expanded = this.state.selection.expandNodes;
             child.parent = node;
           }
 
@@ -112,6 +114,7 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
       node.children.forEach(child => {
         if(child.partialSelected) {
           node.partialSelected = true;
+          node.expanded = this.state.selection.expandNodes;
         }
       });
     });
@@ -165,6 +168,10 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
 
           case 'emptyState':
             this.emptyStateTemplate = item.template;
+            break;
+
+          case 'emptyActions':
+            this.emptyActionsTemplate = item.template;
             break;
         }
 

@@ -66,11 +66,14 @@ export interface SmzTreeState {
       callback?: () => void;
     }
     image?: string;
+
+    isFeatured: boolean;
   };
   selection?: {
     mode?: 'single' | 'multiple' | 'checkbox';
     propagateUp?: boolean;
     propagateDown?: boolean;
+    expandNodes?: boolean;
   }
   loading?: {
     isLoading?: boolean;

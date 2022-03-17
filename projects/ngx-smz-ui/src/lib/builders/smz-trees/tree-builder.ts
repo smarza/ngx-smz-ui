@@ -33,13 +33,11 @@ export class SmzTreeBuilder {
       isVisible: false
     },
     emptyFeedback: {
-      actionButton: {
-        label: 'Criar',
-        callback: null
-      },
-      extraInfo: 'Extra info',
-      image: 'assets/images/empty.svg',
-      message: 'Mensagem de não existem itens'
+      actionButton: null,
+      extraInfo: null,
+      image: null,
+      message: 'Lista Vazia',
+      isFeatured: true
     },
     dragAndDrop: {
       draggable: false,
@@ -60,7 +58,8 @@ export class SmzTreeBuilder {
     selection: {
       mode: 'single',
       propagateDown: true,
-      propagateUp: true
+      propagateUp: true,
+      expandNodes: true
     },
     content: {
       sincronize: false
@@ -107,6 +106,13 @@ export class SmzTreeBuilder {
     this._state.selection.mode = mode;
     this._state.selection.propagateUp = propagateUp;
     this._state.selection.propagateDown = propagateDown;
+    return this;
+  }
+
+  public disableInitialNodeExpansion(): SmzTreeBuilder {
+
+    this._state.selection.expandNodes = false;
+
     return this;
   }
 
@@ -239,22 +245,43 @@ export class SmzTreeEmptyFeedbackBuilder {
   }
 
   public setExtraInfo(message: string): SmzTreeEmptyFeedbackBuilder {
+    if (!this._treeBuilder._state.emptyFeedback.isFeatured) {
+      throw Error('This feature is not compatible with \'useTreeEmptyMessage\'');
+    }
+
     this._treeBuilder._state.emptyFeedback.extraInfo = message;
     return this;
   }
 
   public setImage(path: string): SmzTreeEmptyFeedbackBuilder {
+    if (!this._treeBuilder._state.emptyFeedback.isFeatured) {
+      throw Error('This feature is not compatible with \'useTreeEmptyMessage\'');
+    }
+
     this._treeBuilder._state.emptyFeedback.image = path;
     return this;
   }
 
   public setButtonLabel(label: string): SmzTreeEmptyFeedbackBuilder {
+    if (!this._treeBuilder._state.emptyFeedback.isFeatured) {
+      throw Error('This feature is not compatible with \'useTreeEmptyMessage\'');
+    }
+
     this._treeBuilder._state.emptyFeedback.actionButton.label = label;
     return this;
   }
 
   public setButtonCallback(callback: () => void): SmzTreeEmptyFeedbackBuilder {
+    if (!this._treeBuilder._state.emptyFeedback.isFeatured) {
+      throw Error('This feature is not compatible with \'useTreeEmptyMessage\'');
+    }
+
     this._treeBuilder._state.emptyFeedback.actionButton.callback = callback;
+    return this;
+  }
+
+  public useTreeEmptyMessage(): SmzTreeEmptyFeedbackBuilder {
+    this._treeBuilder._state.emptyFeedback.isFeatured = false;
     return this;
   }
 

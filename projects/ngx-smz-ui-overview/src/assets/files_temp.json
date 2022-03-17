@@ -1,1437 +1,1254 @@
 {
   "data": [
     {
-      "label": "333",
-      "data": {
-        "name": "333",
-        "application": null,
-        "checks": [],
-        "id": "c599e68c-52a1-4da0-9c74-08da0802280f"
-      },
+      "label": "Documentação Técnica",
+      "data": null,
       "icon": null,
-      "expandedIcon": "far fa-folder-open",
-      "collapsedIcon": "far fa-folder",
+      "expandedIcon": "far fa-folder",
+      "collapsedIcon": "far fa-folder-open",
       "leaf": false,
-      "type": "AuditTemplate",
+      "type": "CheckGroup",
       "style": null,
       "styleClass": null,
       "draggable": false,
       "droppable": false,
-      "selectable": false,
-      "key": "c599e68c-52a1-4da0-9c74-08da0802280f",
-      "expanded": false,
-      "children": []
-    },
-    {
-      "label": "Auditoria de documentação técnica",
-      "data": {
-        "name": "Auditoria de documentação técnica",
-        "application": null,
-        "checks": [],
-        "id": "62dfddba-65d6-4e9a-9c6e-08da0802280f"
-      },
-      "icon": null,
-      "expandedIcon": "far fa-folder-open",
-      "collapsedIcon": "far fa-folder",
-      "leaf": false,
-      "type": "AuditTemplate",
-      "style": null,
-      "styleClass": null,
-      "draggable": false,
-      "droppable": false,
-      "selectable": false,
-      "key": "62dfddba-65d6-4e9a-9c6e-08da0802280f",
-      "expanded": false,
-      "children": []
-    },
-    {
-      "label": "Auditoria de instrumentos",
-      "data": {
-        "name": "Auditoria de instrumentos",
-        "application": null,
-        "checks": [
-          "CancelledInstruments",
-          "ProjectStructure",
-          "NameConvention",
-          "IoTypes",
-          "InstrumentsLocation",
-          "InstrumentsNoSpecNoFd",
-          "InstrumentsSpecNoFd",
-          "FdsNotFollowingN1710",
-          "ProfilesWithWiringAndNoDevicePanel",
-          "UnfilledProfiles",
-          "ProfilesWithWiringAndNoIoDefinition",
-          "ProfilesWithCsTagAndNoIoDefinition",
-          "ProfilesWithLocation_ECOS_SOS_PLC_AndWiring",
-          "ProfilesWithoutWiringAndIo",
-          "CableWithoutInstruments",
-          "IoMapping",
-          "InstrumentsNotConnected",
-          "PanelsNumberAMulticableIsConnected",
-          "MultiCableConnectedToMoreThanTwoPanels",
-          "TagsNotAssociatedWithCsTags",
-          "CsTagsNotAssociatedWithTags",
-          "TagListByLoop",
-          "InstrumentsWithoutHookUp",
-          "InstrumentsWithoutMandatoryFields",
-          "PanelsWithoutMandatoryFields",
-          "CablesWithoutMandatoryFields",
-          "DuplicateTags",
-          "DuplicateLines",
-          "DuplicateEquipments",
-          "DuplicatePanels",
-          "DuplicateLoops",
-          "DuplicateInstrumentsType",
-          "TagsWithTypicalErrors",
-          "LoopsWithTypicalErrors",
-          "TagsAssociatedWithWrongTypes",
-          "LoopsWithoutTags",
-          "LinesWithoutTags",
-          "EquipmentsWithoutTags",
-          "FlowChartsWithoutTags",
-          "TagsShouldNotBelongToALoop",
-          "LoopsWithoutDrawing",
-          "LinesWithPipeClassError",
-          "LinesWithDimensionError"
-        ],
-        "id": "61a88872-12f9-47c8-9c6d-08da0802280f"
-      },
-      "icon": null,
-      "expandedIcon": "far fa-folder-open",
-      "collapsedIcon": "far fa-folder",
-      "leaf": false,
-      "type": "AuditTemplate",
-      "style": null,
-      "styleClass": null,
-      "draggable": false,
-      "droppable": false,
-      "selectable": false,
-      "key": "61a88872-12f9-47c8-9c6d-08da0802280f",
+      "selectable": true,
+      "key": "DummyKey_69709f61-9ee9-4d7d-80ba-f061f7625c25",
       "expanded": false,
       "children": [
         {
-          "label": "Instrumentos",
+          "label": "Geral",
           "data": null,
           "icon": null,
           "expandedIcon": "far fa-folder",
           "collapsedIcon": "far fa-folder-open",
           "leaf": false,
-          "type": "CheckGroup",
+          "type": "CheckCategory",
           "style": null,
           "styleClass": null,
           "draggable": false,
           "droppable": false,
-          "selectable": false,
-          "key": "61a88872-12f9-47c8-9c6d-08da0802280f_Instrument",
+          "selectable": true,
+          "key": "DummyKey_32dc36bc-f016-43fd-9ce5-56119c3008e3",
           "expanded": false,
           "children": [
             {
-              "label": "Associação de Campos",
-              "data": null,
-              "icon": null,
-              "expandedIcon": "far fa-folder",
-              "collapsedIcon": "far fa-folder-open",
-              "leaf": false,
-              "type": "CheckCategory",
+              "label": "Isométricos sem Tags",
+              "data": {
+                "name": "Isométricos sem Tags",
+                "id": "IsometricsWithoutTags"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
               "style": null,
               "styleClass": null,
               "draggable": false,
               "droppable": false,
-              "selectable": false,
-              "key": "61a88872-12f9-47c8-9c6d-08da0802280f_Associação de Campos",
+              "selectable": true,
+              "key": "IsometricsWithoutTags",
               "expanded": false,
-              "children": [
-                {
-                  "label": "Equipamentos sem tags associados",
-                  "data": {
-                    "name": "Equipamentos sem tags associados",
-                    "id": "EquipmentsWithoutTags"
-                  },
-                  "icon": "far fa-question",
-                  "expandedIcon": null,
-                  "collapsedIcon": null,
-                  "leaf": true,
-                  "type": "Check",
-                  "style": null,
-                  "styleClass": null,
-                  "draggable": false,
-                  "droppable": false,
-                  "selectable": false,
-                  "key": "61a88872-12f9-47c8-9c6d-08da0802280f_EquipmentsWithoutTags",
-                  "expanded": false,
-                  "children": null
-                },
-                {
-                  "label": "Fluxogramas sem tags associados",
-                  "data": {
-                    "name": "Fluxogramas sem tags associados",
-                    "id": "FlowChartsWithoutTags"
-                  },
-                  "icon": "far fa-question",
-                  "expandedIcon": null,
-                  "collapsedIcon": null,
-                  "leaf": true,
-                  "type": "Check",
-                  "style": null,
-                  "styleClass": null,
-                  "draggable": false,
-                  "droppable": false,
-                  "selectable": false,
-                  "key": "61a88872-12f9-47c8-9c6d-08da0802280f_FlowChartsWithoutTags",
-                  "expanded": false,
-                  "children": null
-                },
-                {
-                  "label": "Linhas sem tags associados",
-                  "data": {
-                    "name": "Linhas sem tags associados",
-                    "id": "LinesWithoutTags"
-                  },
-                  "icon": "far fa-question",
-                  "expandedIcon": null,
-                  "collapsedIcon": null,
-                  "leaf": true,
-                  "type": "Check",
-                  "style": null,
-                  "styleClass": null,
-                  "draggable": false,
-                  "droppable": false,
-                  "selectable": false,
-                  "key": "61a88872-12f9-47c8-9c6d-08da0802280f_LinesWithoutTags",
-                  "expanded": false,
-                  "children": null
-                },
-                {
-                  "label": "Malhas sem loop drawing associado",
-                  "data": {
-                    "name": "Malhas sem loop drawing associado",
-                    "id": "LoopsWithoutDrawing"
-                  },
-                  "icon": "far fa-question",
-                  "expandedIcon": null,
-                  "collapsedIcon": null,
-                  "leaf": true,
-                  "type": "Check",
-                  "style": null,
-                  "styleClass": null,
-                  "draggable": false,
-                  "droppable": false,
-                  "selectable": false,
-                  "key": "61a88872-12f9-47c8-9c6d-08da0802280f_LoopsWithoutDrawing",
-                  "expanded": false,
-                  "children": null
-                },
-                {
-                  "label": "Malhas sem tags associados",
-                  "data": {
-                    "name": "Malhas sem tags associados",
-                    "id": "LoopsWithoutTags"
-                  },
-                  "icon": "far fa-question",
-                  "expandedIcon": null,
-                  "collapsedIcon": null,
-                  "leaf": true,
-                  "type": "Check",
-                  "style": null,
-                  "styleClass": null,
-                  "draggable": false,
-                  "droppable": false,
-                  "selectable": false,
-                  "key": "61a88872-12f9-47c8-9c6d-08da0802280f_LoopsWithoutTags",
-                  "expanded": false,
-                  "children": null
-                },
-                {
-                  "label": "Tags associados a Tipos de instrumento errados",
-                  "data": {
-                    "name": "Tags associados a Tipos de instrumento errados",
-                    "id": "TagsAssociatedWithWrongTypes"
-                  },
-                  "icon": "far fa-question",
-                  "expandedIcon": null,
-                  "collapsedIcon": null,
-                  "leaf": true,
-                  "type": "Check",
-                  "style": null,
-                  "styleClass": null,
-                  "draggable": false,
-                  "droppable": false,
-                  "selectable": false,
-                  "key": "61a88872-12f9-47c8-9c6d-08da0802280f_TagsAssociatedWithWrongTypes",
-                  "expanded": false,
-                  "children": null
-                },
-                {
-                  "label": "Tags que não deveriam pertencer a uma malha",
-                  "data": {
-                    "name": "Tags que não deveriam pertencer a uma malha",
-                    "id": "TagsShouldNotBelongToALoop"
-                  },
-                  "icon": "far fa-question",
-                  "expandedIcon": null,
-                  "collapsedIcon": null,
-                  "leaf": true,
-                  "type": "Check",
-                  "style": null,
-                  "styleClass": null,
-                  "draggable": false,
-                  "droppable": false,
-                  "selectable": false,
-                  "key": "61a88872-12f9-47c8-9c6d-08da0802280f_TagsShouldNotBelongToALoop",
-                  "expanded": false,
-                  "children": null
-                }
-              ]
+              "children": null
             },
             {
-              "label": "Campos Obrigatórios",
-              "data": null,
-              "icon": null,
-              "expandedIcon": "far fa-folder",
-              "collapsedIcon": "far fa-folder-open",
-              "leaf": false,
-              "type": "CheckCategory",
+              "label": "Listar P&IDs sem Tags",
+              "data": {
+                "name": "Listar P&IDs sem Tags",
+                "id": "PidsWithoutTags"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
               "style": null,
               "styleClass": null,
               "draggable": false,
               "droppable": false,
-              "selectable": false,
-              "key": "61a88872-12f9-47c8-9c6d-08da0802280f_Campos Obrigatórios",
+              "selectable": true,
+              "key": "PidsWithoutTags",
               "expanded": false,
-              "children": [
-                {
-                  "label": "Campos obrigatórios associados a cabos",
-                  "data": {
-                    "name": "Campos obrigatórios associados a cabos",
-                    "id": "CablesWithoutMandatoryFields"
-                  },
-                  "icon": "far fa-question",
-                  "expandedIcon": null,
-                  "collapsedIcon": null,
-                  "leaf": true,
-                  "type": "Check",
-                  "style": null,
-                  "styleClass": null,
-                  "draggable": false,
-                  "droppable": false,
-                  "selectable": false,
-                  "key": "61a88872-12f9-47c8-9c6d-08da0802280f_CablesWithoutMandatoryFields",
-                  "expanded": false,
-                  "children": null
-                },
-                {
-                  "label": "Campos obrigatórios associados a instrumentos",
-                  "data": {
-                    "name": "Campos obrigatórios associados a instrumentos",
-                    "id": "InstrumentsWithoutMandatoryFields"
-                  },
-                  "icon": "far fa-question",
-                  "expandedIcon": null,
-                  "collapsedIcon": null,
-                  "leaf": true,
-                  "type": "Check",
-                  "style": null,
-                  "styleClass": null,
-                  "draggable": false,
-                  "droppable": false,
-                  "selectable": false,
-                  "key": "61a88872-12f9-47c8-9c6d-08da0802280f_InstrumentsWithoutMandatoryFields",
-                  "expanded": false,
-                  "children": null
-                },
-                {
-                  "label": "Campos obrigatórios associados a painéis",
-                  "data": {
-                    "name": "Campos obrigatórios associados a painéis",
-                    "id": "PanelsWithoutMandatoryFields"
-                  },
-                  "icon": "far fa-question",
-                  "expandedIcon": null,
-                  "collapsedIcon": null,
-                  "leaf": true,
-                  "type": "Check",
-                  "style": null,
-                  "styleClass": null,
-                  "draggable": false,
-                  "droppable": false,
-                  "selectable": false,
-                  "key": "61a88872-12f9-47c8-9c6d-08da0802280f_PanelsWithoutMandatoryFields",
-                  "expanded": false,
-                  "children": null
-                }
-              ]
+              "children": null
             },
             {
-              "label": "Conexão",
-              "data": null,
-              "icon": null,
-              "expandedIcon": "far fa-folder",
-              "collapsedIcon": "far fa-folder-open",
-              "leaf": false,
-              "type": "CheckCategory",
+              "label": "Listar Fds sem Tags",
+              "data": {
+                "name": "Listar Fds sem Tags",
+                "id": "FdsWithoutTags"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
               "style": null,
               "styleClass": null,
               "draggable": false,
               "droppable": false,
-              "selectable": false,
-              "key": "61a88872-12f9-47c8-9c6d-08da0802280f_Conexão",
+              "selectable": true,
+              "key": "FdsWithoutTags",
               "expanded": false,
-              "children": [
-                {
-                  "label": "Cabos sem instrumento",
-                  "data": {
-                    "name": "Cabos sem instrumento",
-                    "id": "CableWithoutInstruments"
-                  },
-                  "icon": "far fa-question",
-                  "expandedIcon": null,
-                  "collapsedIcon": null,
-                  "leaf": true,
-                  "type": "Check",
-                  "style": null,
-                  "styleClass": null,
-                  "draggable": false,
-                  "droppable": false,
-                  "selectable": false,
-                  "key": "61a88872-12f9-47c8-9c6d-08da0802280f_CableWithoutInstruments",
-                  "expanded": false,
-                  "children": null
-                },
-                {
-                  "label": "Control System Tags não associados a Tags",
-                  "data": {
-                    "name": "Control System Tags não associados a Tags",
-                    "id": "CsTagsNotAssociatedWithTags"
-                  },
-                  "icon": "far fa-question",
-                  "expandedIcon": null,
-                  "collapsedIcon": null,
-                  "leaf": true,
-                  "type": "Check",
-                  "style": null,
-                  "styleClass": null,
-                  "draggable": false,
-                  "droppable": false,
-                  "selectable": false,
-                  "key": "61a88872-12f9-47c8-9c6d-08da0802280f_CsTagsNotAssociatedWithTags",
-                  "expanded": false,
-                  "children": null
-                },
-                {
-                  "label": "Instrumentos não conectados",
-                  "data": {
-                    "name": "Instrumentos não conectados",
-                    "id": "InstrumentsNotConnected"
-                  },
-                  "icon": "far fa-question",
-                  "expandedIcon": null,
-                  "collapsedIcon": null,
-                  "leaf": true,
-                  "type": "Check",
-                  "style": null,
-                  "styleClass": null,
-                  "draggable": false,
-                  "droppable": false,
-                  "selectable": false,
-                  "key": "61a88872-12f9-47c8-9c6d-08da0802280f_InstrumentsNotConnected",
-                  "expanded": false,
-                  "children": null
-                },
-                {
-                  "label": "Mapeamento de I/O",
-                  "data": {
-                    "name": "Mapeamento de I/O",
-                    "id": "IoMapping"
-                  },
-                  "icon": "far fa-question",
-                  "expandedIcon": null,
-                  "collapsedIcon": null,
-                  "leaf": true,
-                  "type": "Check",
-                  "style": null,
-                  "styleClass": null,
-                  "draggable": false,
-                  "droppable": false,
-                  "selectable": false,
-                  "key": "61a88872-12f9-47c8-9c6d-08da0802280f_IoMapping",
-                  "expanded": false,
-                  "children": null
-                },
-                {
-                  "label": "Multicabo conectados a mais de 2 painéis diferentes",
-                  "data": {
-                    "name": "Multicabo conectados a mais de 2 painéis diferentes",
-                    "id": "MultiCableConnectedToMoreThanTwoPanels"
-                  },
-                  "icon": "far fa-question",
-                  "expandedIcon": null,
-                  "collapsedIcon": null,
-                  "leaf": true,
-                  "type": "Check",
-                  "style": null,
-                  "styleClass": null,
-                  "draggable": false,
-                  "droppable": false,
-                  "selectable": false,
-                  "key": "61a88872-12f9-47c8-9c6d-08da0802280f_MultiCableConnectedToMoreThanTwoPanels",
-                  "expanded": false,
-                  "children": null
-                },
-                {
-                  "label": "Quantidade de painéis um multicabo (conectado a dois ou mais) esta conectado",
-                  "data": {
-                    "name": "Quantidade de painéis um multicabo (conectado a dois ou mais) esta conectado",
-                    "id": "PanelsNumberAMulticableIsConnected"
-                  },
-                  "icon": "far fa-question",
-                  "expandedIcon": null,
-                  "collapsedIcon": null,
-                  "leaf": true,
-                  "type": "Check",
-                  "style": null,
-                  "styleClass": null,
-                  "draggable": false,
-                  "droppable": false,
-                  "selectable": false,
-                  "key": "61a88872-12f9-47c8-9c6d-08da0802280f_PanelsNumberAMulticableIsConnected",
-                  "expanded": false,
-                  "children": null
-                },
-                {
-                  "label": "Tags não associados a Control System Tag",
-                  "data": {
-                    "name": "Tags não associados a Control System Tag",
-                    "id": "TagsNotAssociatedWithCsTags"
-                  },
-                  "icon": "far fa-question",
-                  "expandedIcon": null,
-                  "collapsedIcon": null,
-                  "leaf": true,
-                  "type": "Check",
-                  "style": null,
-                  "styleClass": null,
-                  "draggable": false,
-                  "droppable": false,
-                  "selectable": false,
-                  "key": "61a88872-12f9-47c8-9c6d-08da0802280f_TagsNotAssociatedWithCsTags",
-                  "expanded": false,
-                  "children": null
-                }
-              ]
+              "children": null
             },
             {
-              "label": "Duplicidade",
-              "data": null,
-              "icon": null,
-              "expandedIcon": "far fa-folder",
-              "collapsedIcon": "far fa-folder-open",
-              "leaf": false,
-              "type": "CheckCategory",
+              "label": "Lista de tags duplicadas na mesma instalação",
+              "data": {
+                "name": "Lista de tags duplicadas na mesma instalação",
+                "id": "DuplicateTagsSameInstallation"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
               "style": null,
               "styleClass": null,
               "draggable": false,
               "droppable": false,
-              "selectable": false,
-              "key": "61a88872-12f9-47c8-9c6d-08da0802280f_Duplicidade",
+              "selectable": true,
+              "key": "DuplicateTagsSameInstallation",
               "expanded": false,
-              "children": [
-                {
-                  "label": "Equipamentos duplicados",
-                  "data": {
-                    "name": "Equipamentos duplicados",
-                    "id": "DuplicateEquipments"
-                  },
-                  "icon": "far fa-question",
-                  "expandedIcon": null,
-                  "collapsedIcon": null,
-                  "leaf": true,
-                  "type": "Check",
-                  "style": null,
-                  "styleClass": null,
-                  "draggable": false,
-                  "droppable": false,
-                  "selectable": false,
-                  "key": "61a88872-12f9-47c8-9c6d-08da0802280f_DuplicateEquipments",
-                  "expanded": false,
-                  "children": null
-                },
-                {
-                  "label": "Linhas duplicadas",
-                  "data": {
-                    "name": "Linhas duplicadas",
-                    "id": "DuplicateLines"
-                  },
-                  "icon": "far fa-question",
-                  "expandedIcon": null,
-                  "collapsedIcon": null,
-                  "leaf": true,
-                  "type": "Check",
-                  "style": null,
-                  "styleClass": null,
-                  "draggable": false,
-                  "droppable": false,
-                  "selectable": false,
-                  "key": "61a88872-12f9-47c8-9c6d-08da0802280f_DuplicateLines",
-                  "expanded": false,
-                  "children": null
-                },
-                {
-                  "label": "Malhas duplicadas",
-                  "data": {
-                    "name": "Malhas duplicadas",
-                    "id": "DuplicateLoops"
-                  },
-                  "icon": "far fa-question",
-                  "expandedIcon": null,
-                  "collapsedIcon": null,
-                  "leaf": true,
-                  "type": "Check",
-                  "style": null,
-                  "styleClass": null,
-                  "draggable": false,
-                  "droppable": false,
-                  "selectable": false,
-                  "key": "61a88872-12f9-47c8-9c6d-08da0802280f_DuplicateLoops",
-                  "expanded": false,
-                  "children": null
-                },
-                {
-                  "label": "Painéis duplicados",
-                  "data": {
-                    "name": "Painéis duplicados",
-                    "id": "DuplicatePanels"
-                  },
-                  "icon": "far fa-question",
-                  "expandedIcon": null,
-                  "collapsedIcon": null,
-                  "leaf": true,
-                  "type": "Check",
-                  "style": null,
-                  "styleClass": null,
-                  "draggable": false,
-                  "droppable": false,
-                  "selectable": false,
-                  "key": "61a88872-12f9-47c8-9c6d-08da0802280f_DuplicatePanels",
-                  "expanded": false,
-                  "children": null
-                },
-                {
-                  "label": "Tipos de instrumento duplicados",
-                  "data": {
-                    "name": "Tipos de instrumento duplicados",
-                    "id": "DuplicateInstrumentsType"
-                  },
-                  "icon": "far fa-question",
-                  "expandedIcon": null,
-                  "collapsedIcon": null,
-                  "leaf": true,
-                  "type": "Check",
-                  "style": null,
-                  "styleClass": null,
-                  "draggable": false,
-                  "droppable": false,
-                  "selectable": false,
-                  "key": "61a88872-12f9-47c8-9c6d-08da0802280f_DuplicateInstrumentsType",
-                  "expanded": false,
-                  "children": null
-                }
-              ]
+              "children": null
             },
             {
-              "label": "Erros de Importação",
-              "data": null,
-              "icon": null,
-              "expandedIcon": "far fa-folder",
-              "collapsedIcon": "far fa-folder-open",
-              "leaf": false,
-              "type": "CheckCategory",
+              "label": "Documentos em preparação",
+              "data": {
+                "name": "Documentos em preparação",
+                "id": "DocumentsInPreparation"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
               "style": null,
               "styleClass": null,
               "draggable": false,
               "droppable": false,
-              "selectable": false,
-              "key": "61a88872-12f9-47c8-9c6d-08da0802280f_Erros de Importação",
+              "selectable": true,
+              "key": "DocumentsInPreparation",
               "expanded": false,
-              "children": [
-                {
-                  "label": "Malhas com erros típicos",
-                  "data": {
-                    "name": "Malhas com erros típicos",
-                    "id": "LoopsWithTypicalErrors"
-                  },
-                  "icon": "far fa-question",
-                  "expandedIcon": null,
-                  "collapsedIcon": null,
-                  "leaf": true,
-                  "type": "Check",
-                  "style": null,
-                  "styleClass": null,
-                  "draggable": false,
-                  "droppable": false,
-                  "selectable": false,
-                  "key": "61a88872-12f9-47c8-9c6d-08da0802280f_LoopsWithTypicalErrors",
-                  "expanded": false,
-                  "children": null
-                },
-                {
-                  "label": "Tags com erros típicos",
-                  "data": {
-                    "name": "Tags com erros típicos",
-                    "id": "TagsWithTypicalErrors"
-                  },
-                  "icon": "far fa-question",
-                  "expandedIcon": null,
-                  "collapsedIcon": null,
-                  "leaf": true,
-                  "type": "Check",
-                  "style": null,
-                  "styleClass": null,
-                  "draggable": false,
-                  "droppable": false,
-                  "selectable": false,
-                  "key": "61a88872-12f9-47c8-9c6d-08da0802280f_TagsWithTypicalErrors",
-                  "expanded": false,
-                  "children": null
-                }
-              ]
+              "children": null
             },
             {
-              "label": "Folha de Dados",
-              "data": null,
-              "icon": null,
-              "expandedIcon": "far fa-folder",
-              "collapsedIcon": "far fa-folder-open",
-              "leaf": false,
-              "type": "CheckCategory",
+              "label": "Documentos do projeto Digital Twin",
+              "data": {
+                "name": "Documentos do projeto Digital Twin",
+                "id": "DigitalTwinProject"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
               "style": null,
               "styleClass": null,
               "draggable": false,
               "droppable": false,
-              "selectable": false,
-              "key": "61a88872-12f9-47c8-9c6d-08da0802280f_Folha de Dados",
+              "selectable": true,
+              "key": "DigitalTwinProject",
               "expanded": false,
-              "children": [
-                {
-                  "label": "Folhas de Dados que não obedecem a N1710",
-                  "data": {
-                    "name": "Folhas de Dados que não obedecem a N1710",
-                    "id": "FdsNotFollowingN1710"
-                  },
-                  "icon": "far fa-question",
-                  "expandedIcon": null,
-                  "collapsedIcon": null,
-                  "leaf": true,
-                  "type": "Check",
-                  "style": null,
-                  "styleClass": null,
-                  "draggable": false,
-                  "droppable": false,
-                  "selectable": false,
-                  "key": "61a88872-12f9-47c8-9c6d-08da0802280f_FdsNotFollowingN1710",
-                  "expanded": false,
-                  "children": null
-                },
-                {
-                  "label": "Instrumentos com Spec e sem FD associada",
-                  "data": {
-                    "name": "Instrumentos com Spec e sem FD associada",
-                    "id": "InstrumentsSpecNoFd"
-                  },
-                  "icon": "far fa-question",
-                  "expandedIcon": null,
-                  "collapsedIcon": null,
-                  "leaf": true,
-                  "type": "Check",
-                  "style": null,
-                  "styleClass": null,
-                  "draggable": false,
-                  "droppable": false,
-                  "selectable": false,
-                  "key": "61a88872-12f9-47c8-9c6d-08da0802280f_InstrumentsSpecNoFd",
-                  "expanded": false,
-                  "children": null
-                },
-                {
-                  "label": "Instrumentos sem Spec e sem FD associadas",
-                  "data": {
-                    "name": "Instrumentos sem Spec e sem FD associadas",
-                    "id": "InstrumentsNoSpecNoFd"
-                  },
-                  "icon": "far fa-question",
-                  "expandedIcon": null,
-                  "collapsedIcon": null,
-                  "leaf": true,
-                  "type": "Check",
-                  "style": null,
-                  "styleClass": null,
-                  "draggable": false,
-                  "droppable": false,
-                  "selectable": false,
-                  "key": "61a88872-12f9-47c8-9c6d-08da0802280f_InstrumentsNoSpecNoFd",
-                  "expanded": false,
-                  "children": null
-                }
-              ]
-            },
-            {
-              "label": "Geral",
-              "data": null,
-              "icon": null,
-              "expandedIcon": "far fa-folder",
-              "collapsedIcon": "far fa-folder-open",
-              "leaf": false,
-              "type": "CheckCategory",
-              "style": null,
-              "styleClass": null,
-              "draggable": false,
-              "droppable": false,
-              "selectable": false,
-              "key": "61a88872-12f9-47c8-9c6d-08da0802280f_Geral",
-              "expanded": false,
-              "children": [
-                {
-                  "label": "Instrumentos Cancelados",
-                  "data": {
-                    "name": "Instrumentos Cancelados",
-                    "id": "CancelledInstruments"
-                  },
-                  "icon": "far fa-question",
-                  "expandedIcon": null,
-                  "collapsedIcon": null,
-                  "leaf": true,
-                  "type": "Check",
-                  "style": null,
-                  "styleClass": null,
-                  "draggable": false,
-                  "droppable": false,
-                  "selectable": false,
-                  "key": "61a88872-12f9-47c8-9c6d-08da0802280f_CancelledInstruments",
-                  "expanded": false,
-                  "children": null
-                },
-                {
-                  "label": "Tags duplicados",
-                  "data": {
-                    "name": "Tags duplicados",
-                    "id": "DuplicateTags"
-                  },
-                  "icon": "far fa-question",
-                  "expandedIcon": null,
-                  "collapsedIcon": null,
-                  "leaf": true,
-                  "type": "Check",
-                  "style": null,
-                  "styleClass": null,
-                  "draggable": false,
-                  "droppable": false,
-                  "selectable": false,
-                  "key": "61a88872-12f9-47c8-9c6d-08da0802280f_DuplicateTags",
-                  "expanded": false,
-                  "children": null
-                }
-              ]
-            },
-            {
-              "label": "Hook-up",
-              "data": null,
-              "icon": null,
-              "expandedIcon": "far fa-folder",
-              "collapsedIcon": "far fa-folder-open",
-              "leaf": false,
-              "type": "CheckCategory",
-              "style": null,
-              "styleClass": null,
-              "draggable": false,
-              "droppable": false,
-              "selectable": false,
-              "key": "61a88872-12f9-47c8-9c6d-08da0802280f_Hook-up",
-              "expanded": false,
-              "children": [
-                {
-                  "label": "Instrumentos sem Hook-up",
-                  "data": {
-                    "name": "Instrumentos sem Hook-up",
-                    "id": "InstrumentsWithoutHookUp"
-                  },
-                  "icon": "far fa-question",
-                  "expandedIcon": null,
-                  "collapsedIcon": null,
-                  "leaf": true,
-                  "type": "Check",
-                  "style": null,
-                  "styleClass": null,
-                  "draggable": false,
-                  "droppable": false,
-                  "selectable": false,
-                  "key": "61a88872-12f9-47c8-9c6d-08da0802280f_InstrumentsWithoutHookUp",
-                  "expanded": false,
-                  "children": null
-                }
-              ]
-            },
-            {
-              "label": "Instrument Types / Profiles",
-              "data": null,
-              "icon": null,
-              "expandedIcon": "far fa-folder",
-              "collapsedIcon": "far fa-folder-open",
-              "leaf": false,
-              "type": "CheckCategory",
-              "style": null,
-              "styleClass": null,
-              "draggable": false,
-              "droppable": false,
-              "selectable": false,
-              "key": "61a88872-12f9-47c8-9c6d-08da0802280f_Instrument Types / Profiles",
-              "expanded": false,
-              "children": [
-                {
-                  "label": "Perfil com CS Tag porém sem definição de I/O",
-                  "data": {
-                    "name": "Perfil com CS Tag porém sem definição de I/O",
-                    "id": "ProfilesWithCsTagAndNoIoDefinition"
-                  },
-                  "icon": "far fa-question",
-                  "expandedIcon": null,
-                  "collapsedIcon": null,
-                  "leaf": true,
-                  "type": "Check",
-                  "style": null,
-                  "styleClass": null,
-                  "draggable": false,
-                  "droppable": false,
-                  "selectable": false,
-                  "key": "61a88872-12f9-47c8-9c6d-08da0802280f_ProfilesWithCsTagAndNoIoDefinition",
-                  "expanded": false,
-                  "children": null
-                },
-                {
-                  "label": "Perfis com Localização = ECOS, SOS ou PLC, porém com Wiring",
-                  "data": {
-                    "name": "Perfis com Localização = ECOS, SOS ou PLC, porém com Wiring",
-                    "id": "ProfilesWithLocation_ECOS_SOS_PLC_AndWiring"
-                  },
-                  "icon": "far fa-question",
-                  "expandedIcon": null,
-                  "collapsedIcon": null,
-                  "leaf": true,
-                  "type": "Check",
-                  "style": null,
-                  "styleClass": null,
-                  "draggable": false,
-                  "droppable": false,
-                  "selectable": false,
-                  "key": "61a88872-12f9-47c8-9c6d-08da0802280f_ProfilesWithLocation_ECOS_SOS_PLC_AndWiring",
-                  "expanded": false,
-                  "children": null
-                },
-                {
-                  "label": "Perfis com WIRING e sem Device Panel",
-                  "data": {
-                    "name": "Perfis com WIRING e sem Device Panel",
-                    "id": "ProfilesWithWiringAndNoDevicePanel"
-                  },
-                  "icon": "far fa-question",
-                  "expandedIcon": null,
-                  "collapsedIcon": null,
-                  "leaf": true,
-                  "type": "Check",
-                  "style": null,
-                  "styleClass": null,
-                  "draggable": false,
-                  "droppable": false,
-                  "selectable": false,
-                  "key": "61a88872-12f9-47c8-9c6d-08da0802280f_ProfilesWithWiringAndNoDevicePanel",
-                  "expanded": false,
-                  "children": null
-                },
-                {
-                  "label": "Perfis com WIRING porém sem definição de I/O",
-                  "data": {
-                    "name": "Perfis com WIRING porém sem definição de I/O",
-                    "id": "ProfilesWithWiringAndNoIoDefinition"
-                  },
-                  "icon": "far fa-question",
-                  "expandedIcon": null,
-                  "collapsedIcon": null,
-                  "leaf": true,
-                  "type": "Check",
-                  "style": null,
-                  "styleClass": null,
-                  "draggable": false,
-                  "droppable": false,
-                  "selectable": false,
-                  "key": "61a88872-12f9-47c8-9c6d-08da0802280f_ProfilesWithWiringAndNoIoDefinition",
-                  "expanded": false,
-                  "children": null
-                },
-                {
-                  "label": "Perfis sem preenchimento",
-                  "data": {
-                    "name": "Perfis sem preenchimento",
-                    "id": "UnfilledProfiles"
-                  },
-                  "icon": "far fa-question",
-                  "expandedIcon": null,
-                  "collapsedIcon": null,
-                  "leaf": true,
-                  "type": "Check",
-                  "style": null,
-                  "styleClass": null,
-                  "draggable": false,
-                  "droppable": false,
-                  "selectable": false,
-                  "key": "61a88872-12f9-47c8-9c6d-08da0802280f_UnfilledProfiles",
-                  "expanded": false,
-                  "children": null
-                },
-                {
-                  "label": "Perfis Sem Wiring e I/O definidos",
-                  "data": {
-                    "name": "Perfis Sem Wiring e I/O definidos",
-                    "id": "ProfilesWithoutWiringAndIo"
-                  },
-                  "icon": "far fa-question",
-                  "expandedIcon": null,
-                  "collapsedIcon": null,
-                  "leaf": true,
-                  "type": "Check",
-                  "style": null,
-                  "styleClass": null,
-                  "draggable": false,
-                  "droppable": false,
-                  "selectable": false,
-                  "key": "61a88872-12f9-47c8-9c6d-08da0802280f_ProfilesWithoutWiringAndIo",
-                  "expanded": false,
-                  "children": null
-                }
-              ]
-            },
-            {
-              "label": "Loop",
-              "data": null,
-              "icon": null,
-              "expandedIcon": "far fa-folder",
-              "collapsedIcon": "far fa-folder-open",
-              "leaf": false,
-              "type": "CheckCategory",
-              "style": null,
-              "styleClass": null,
-              "draggable": false,
-              "droppable": false,
-              "selectable": false,
-              "key": "61a88872-12f9-47c8-9c6d-08da0802280f_Loop",
-              "expanded": false,
-              "children": [
-                {
-                  "label": "Lista de Tags por Loop",
-                  "data": {
-                    "name": "Lista de Tags por Loop",
-                    "id": "TagListByLoop"
-                  },
-                  "icon": "far fa-question",
-                  "expandedIcon": null,
-                  "collapsedIcon": null,
-                  "leaf": true,
-                  "type": "Check",
-                  "style": null,
-                  "styleClass": null,
-                  "draggable": false,
-                  "droppable": false,
-                  "selectable": false,
-                  "key": "61a88872-12f9-47c8-9c6d-08da0802280f_TagListByLoop",
-                  "expanded": false,
-                  "children": null
-                }
-              ]
-            },
-            {
-              "label": "Propriedades da Linha",
-              "data": null,
-              "icon": null,
-              "expandedIcon": "far fa-folder",
-              "collapsedIcon": "far fa-folder-open",
-              "leaf": false,
-              "type": "CheckCategory",
-              "style": null,
-              "styleClass": null,
-              "draggable": false,
-              "droppable": false,
-              "selectable": false,
-              "key": "61a88872-12f9-47c8-9c6d-08da0802280f_Propriedades da Linha",
-              "expanded": false,
-              "children": [
-                {
-                  "label": "Linhas com erro de dimensão",
-                  "data": {
-                    "name": "Linhas com erro de dimensão",
-                    "id": "LinesWithDimensionError"
-                  },
-                  "icon": "far fa-question",
-                  "expandedIcon": null,
-                  "collapsedIcon": null,
-                  "leaf": true,
-                  "type": "Check",
-                  "style": null,
-                  "styleClass": null,
-                  "draggable": false,
-                  "droppable": false,
-                  "selectable": false,
-                  "key": "61a88872-12f9-47c8-9c6d-08da0802280f_LinesWithDimensionError",
-                  "expanded": false,
-                  "children": null
-                },
-                {
-                  "label": "Linhas com erro no pipe class",
-                  "data": {
-                    "name": "Linhas com erro no pipe class",
-                    "id": "LinesWithPipeClassError"
-                  },
-                  "icon": "far fa-question",
-                  "expandedIcon": null,
-                  "collapsedIcon": null,
-                  "leaf": true,
-                  "type": "Check",
-                  "style": null,
-                  "styleClass": null,
-                  "draggable": false,
-                  "droppable": false,
-                  "selectable": false,
-                  "key": "61a88872-12f9-47c8-9c6d-08da0802280f_LinesWithPipeClassError",
-                  "expanded": false,
-                  "children": null
-                }
-              ]
-            },
-            {
-              "label": "Semente",
-              "data": null,
-              "icon": null,
-              "expandedIcon": "far fa-folder",
-              "collapsedIcon": "far fa-folder-open",
-              "leaf": false,
-              "type": "CheckCategory",
-              "style": null,
-              "styleClass": null,
-              "draggable": false,
-              "droppable": false,
-              "selectable": false,
-              "key": "61a88872-12f9-47c8-9c6d-08da0802280f_Semente",
-              "expanded": false,
-              "children": [
-                {
-                  "label": "Convenção de Nomes",
-                  "data": {
-                    "name": "Convenção de Nomes",
-                    "id": "NameConvention"
-                  },
-                  "icon": "far fa-question",
-                  "expandedIcon": null,
-                  "collapsedIcon": null,
-                  "leaf": true,
-                  "type": "Check",
-                  "style": null,
-                  "styleClass": null,
-                  "draggable": false,
-                  "droppable": false,
-                  "selectable": false,
-                  "key": "61a88872-12f9-47c8-9c6d-08da0802280f_NameConvention",
-                  "expanded": false,
-                  "children": null
-                },
-                {
-                  "label": "Estrutura de Projeto",
-                  "data": {
-                    "name": "Estrutura de Projeto",
-                    "id": "ProjectStructure"
-                  },
-                  "icon": "far fa-question",
-                  "expandedIcon": null,
-                  "collapsedIcon": null,
-                  "leaf": true,
-                  "type": "Check",
-                  "style": null,
-                  "styleClass": null,
-                  "draggable": false,
-                  "droppable": false,
-                  "selectable": false,
-                  "key": "61a88872-12f9-47c8-9c6d-08da0802280f_ProjectStructure",
-                  "expanded": false,
-                  "children": null
-                },
-                {
-                  "label": "Localização dos Instrumentos",
-                  "data": {
-                    "name": "Localização dos Instrumentos",
-                    "id": "InstrumentsLocation"
-                  },
-                  "icon": "far fa-question",
-                  "expandedIcon": null,
-                  "collapsedIcon": null,
-                  "leaf": true,
-                  "type": "Check",
-                  "style": null,
-                  "styleClass": null,
-                  "draggable": false,
-                  "droppable": false,
-                  "selectable": false,
-                  "key": "61a88872-12f9-47c8-9c6d-08da0802280f_InstrumentsLocation",
-                  "expanded": false,
-                  "children": null
-                },
-                {
-                  "label": "Tipos de I/O",
-                  "data": {
-                    "name": "Tipos de I/O",
-                    "id": "IoTypes"
-                  },
-                  "icon": "far fa-question",
-                  "expandedIcon": null,
-                  "collapsedIcon": null,
-                  "leaf": true,
-                  "type": "Check",
-                  "style": null,
-                  "styleClass": null,
-                  "draggable": false,
-                  "droppable": false,
-                  "selectable": false,
-                  "key": "61a88872-12f9-47c8-9c6d-08da0802280f_IoTypes",
-                  "expanded": false,
-                  "children": null
-                }
-              ]
+              "children": null
             }
           ]
         }
       ]
     },
     {
-      "label": "Auditoria de instrumentos simplificada",
-      "data": {
-        "name": "Auditoria de instrumentos simplificada",
-        "application": null,
-        "checks": [
-          "CancelledInstruments",
-          "ProjectStructure",
-          "NameConvention",
-          "IoTypes"
-        ],
-        "id": "3e0b592a-fa5c-4231-9c6f-08da0802280f"
-      },
+      "label": "Instrumentos",
+      "data": null,
       "icon": null,
-      "expandedIcon": "far fa-folder-open",
-      "collapsedIcon": "far fa-folder",
+      "expandedIcon": "far fa-folder",
+      "collapsedIcon": "far fa-folder-open",
       "leaf": false,
-      "type": "AuditTemplate",
+      "type": "CheckGroup",
       "style": null,
       "styleClass": null,
       "draggable": false,
       "droppable": false,
-      "selectable": false,
-      "key": "3e0b592a-fa5c-4231-9c6f-08da0802280f",
+      "selectable": true,
+      "key": "DummyKey_df004a28-bddc-4af5-a0c9-b7c35864b08e",
       "expanded": false,
       "children": [
         {
-          "label": "Instrumentos",
+          "label": "Associação de Campos",
           "data": null,
           "icon": null,
           "expandedIcon": "far fa-folder",
           "collapsedIcon": "far fa-folder-open",
           "leaf": false,
-          "type": "CheckGroup",
+          "type": "CheckCategory",
           "style": null,
           "styleClass": null,
           "draggable": false,
           "droppable": false,
-          "selectable": false,
-          "key": "3e0b592a-fa5c-4231-9c6f-08da0802280f_Instrument",
+          "selectable": true,
+          "key": "DummyKey_ade3788b-b60f-4b02-8f5d-b6f35928805b",
           "expanded": false,
           "children": [
             {
-              "label": "Geral",
-              "data": null,
-              "icon": null,
-              "expandedIcon": "far fa-folder",
-              "collapsedIcon": "far fa-folder-open",
-              "leaf": false,
-              "type": "CheckCategory",
+              "label": "Malhas sem loop drawing associado",
+              "data": {
+                "name": "Malhas sem loop drawing associado",
+                "id": "LoopsWithoutDrawing"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
               "style": null,
               "styleClass": null,
               "draggable": false,
               "droppable": false,
-              "selectable": false,
-              "key": "3e0b592a-fa5c-4231-9c6f-08da0802280f_Geral",
+              "selectable": true,
+              "key": "LoopsWithoutDrawing",
               "expanded": false,
-              "children": [
-                {
-                  "label": "Instrumentos Cancelados",
-                  "data": {
-                    "name": "Instrumentos Cancelados",
-                    "id": "CancelledInstruments"
-                  },
-                  "icon": "far fa-question",
-                  "expandedIcon": null,
-                  "collapsedIcon": null,
-                  "leaf": true,
-                  "type": "Check",
-                  "style": null,
-                  "styleClass": null,
-                  "draggable": false,
-                  "droppable": false,
-                  "selectable": false,
-                  "key": "3e0b592a-fa5c-4231-9c6f-08da0802280f_CancelledInstruments",
-                  "expanded": false,
-                  "children": null
-                }
-              ]
+              "children": null
             },
             {
-              "label": "Semente",
-              "data": null,
-              "icon": null,
-              "expandedIcon": "far fa-folder",
-              "collapsedIcon": "far fa-folder-open",
-              "leaf": false,
-              "type": "CheckCategory",
+              "label": "Tags que não deveriam pertencer a uma malha",
+              "data": {
+                "name": "Tags que não deveriam pertencer a uma malha",
+                "id": "TagsShouldNotBelongToALoop"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
               "style": null,
               "styleClass": null,
               "draggable": false,
               "droppable": false,
-              "selectable": false,
-              "key": "3e0b592a-fa5c-4231-9c6f-08da0802280f_Semente",
+              "selectable": true,
+              "key": "TagsShouldNotBelongToALoop",
               "expanded": false,
-              "children": [
-                {
-                  "label": "Convenção de Nomes",
-                  "data": {
-                    "name": "Convenção de Nomes",
-                    "id": "NameConvention"
-                  },
-                  "icon": "far fa-question",
-                  "expandedIcon": null,
-                  "collapsedIcon": null,
-                  "leaf": true,
-                  "type": "Check",
-                  "style": null,
-                  "styleClass": null,
-                  "draggable": false,
-                  "droppable": false,
-                  "selectable": false,
-                  "key": "3e0b592a-fa5c-4231-9c6f-08da0802280f_NameConvention",
-                  "expanded": false,
-                  "children": null
-                },
-                {
-                  "label": "Estrutura de Projeto",
-                  "data": {
-                    "name": "Estrutura de Projeto",
-                    "id": "ProjectStructure"
-                  },
-                  "icon": "far fa-question",
-                  "expandedIcon": null,
-                  "collapsedIcon": null,
-                  "leaf": true,
-                  "type": "Check",
-                  "style": null,
-                  "styleClass": null,
-                  "draggable": false,
-                  "droppable": false,
-                  "selectable": false,
-                  "key": "3e0b592a-fa5c-4231-9c6f-08da0802280f_ProjectStructure",
-                  "expanded": false,
-                  "children": null
-                },
-                {
-                  "label": "Tipos de I/O",
-                  "data": {
-                    "name": "Tipos de I/O",
-                    "id": "IoTypes"
-                  },
-                  "icon": "far fa-question",
-                  "expandedIcon": null,
-                  "collapsedIcon": null,
-                  "leaf": true,
-                  "type": "Check",
-                  "style": null,
-                  "styleClass": null,
-                  "draggable": false,
-                  "droppable": false,
-                  "selectable": false,
-                  "key": "3e0b592a-fa5c-4231-9c6f-08da0802280f_IoTypes",
-                  "expanded": false,
-                  "children": null
-                }
-              ]
+              "children": null
+            },
+            {
+              "label": "Fluxogramas sem tags associados",
+              "data": {
+                "name": "Fluxogramas sem tags associados",
+                "id": "FlowChartsWithoutTags"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
+              "style": null,
+              "styleClass": null,
+              "draggable": false,
+              "droppable": false,
+              "selectable": true,
+              "key": "FlowChartsWithoutTags",
+              "expanded": false,
+              "children": null
+            },
+            {
+              "label": "Equipamentos sem tags associados",
+              "data": {
+                "name": "Equipamentos sem tags associados",
+                "id": "EquipmentsWithoutTags"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
+              "style": null,
+              "styleClass": null,
+              "draggable": false,
+              "droppable": false,
+              "selectable": true,
+              "key": "EquipmentsWithoutTags",
+              "expanded": false,
+              "children": null
+            },
+            {
+              "label": "Linhas sem tags associados",
+              "data": {
+                "name": "Linhas sem tags associados",
+                "id": "LinesWithoutTags"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
+              "style": null,
+              "styleClass": null,
+              "draggable": false,
+              "droppable": false,
+              "selectable": true,
+              "key": "LinesWithoutTags",
+              "expanded": false,
+              "children": null
+            },
+            {
+              "label": "Malhas sem tags associados",
+              "data": {
+                "name": "Malhas sem tags associados",
+                "id": "LoopsWithoutTags"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
+              "style": null,
+              "styleClass": null,
+              "draggable": false,
+              "droppable": false,
+              "selectable": true,
+              "key": "LoopsWithoutTags",
+              "expanded": false,
+              "children": null
+            },
+            {
+              "label": "Tags associados a Tipos de instrumento errados",
+              "data": {
+                "name": "Tags associados a Tipos de instrumento errados",
+                "id": "TagsAssociatedWithWrongTypes"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
+              "style": null,
+              "styleClass": null,
+              "draggable": false,
+              "droppable": false,
+              "selectable": true,
+              "key": "TagsAssociatedWithWrongTypes",
+              "expanded": false,
+              "children": null
+            }
+          ]
+        },
+        {
+          "label": "Campos Obrigatórios",
+          "data": null,
+          "icon": null,
+          "expandedIcon": "far fa-folder",
+          "collapsedIcon": "far fa-folder-open",
+          "leaf": false,
+          "type": "CheckCategory",
+          "style": null,
+          "styleClass": null,
+          "draggable": false,
+          "droppable": false,
+          "selectable": true,
+          "key": "DummyKey_cf8cd7bf-15c4-4ee2-8214-052743f16e06",
+          "expanded": false,
+          "children": [
+            {
+              "label": "Campos obrigatórios associados a cabos",
+              "data": {
+                "name": "Campos obrigatórios associados a cabos",
+                "id": "CablesWithoutMandatoryFields"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
+              "style": null,
+              "styleClass": null,
+              "draggable": false,
+              "droppable": false,
+              "selectable": true,
+              "key": "CablesWithoutMandatoryFields",
+              "expanded": false,
+              "children": null
+            },
+            {
+              "label": "Campos obrigatórios associados a painéis",
+              "data": {
+                "name": "Campos obrigatórios associados a painéis",
+                "id": "PanelsWithoutMandatoryFields"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
+              "style": null,
+              "styleClass": null,
+              "draggable": false,
+              "droppable": false,
+              "selectable": true,
+              "key": "PanelsWithoutMandatoryFields",
+              "expanded": false,
+              "children": null
+            },
+            {
+              "label": "Campos obrigatórios associados a instrumentos",
+              "data": {
+                "name": "Campos obrigatórios associados a instrumentos",
+                "id": "InstrumentsWithoutMandatoryFields"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
+              "style": null,
+              "styleClass": null,
+              "draggable": false,
+              "droppable": false,
+              "selectable": true,
+              "key": "InstrumentsWithoutMandatoryFields",
+              "expanded": false,
+              "children": null
+            }
+          ]
+        },
+        {
+          "label": "Conexão",
+          "data": null,
+          "icon": null,
+          "expandedIcon": "far fa-folder",
+          "collapsedIcon": "far fa-folder-open",
+          "leaf": false,
+          "type": "CheckCategory",
+          "style": null,
+          "styleClass": null,
+          "draggable": false,
+          "droppable": false,
+          "selectable": true,
+          "key": "DummyKey_3f8f53fa-e6c7-4dd4-9388-bfeb5215341d",
+          "expanded": false,
+          "children": [
+            {
+              "label": "Control System Tags não associados a Tags",
+              "data": {
+                "name": "Control System Tags não associados a Tags",
+                "id": "CsTagsNotAssociatedWithTags"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
+              "style": null,
+              "styleClass": null,
+              "draggable": false,
+              "droppable": false,
+              "selectable": true,
+              "key": "CsTagsNotAssociatedWithTags",
+              "expanded": false,
+              "children": null
+            },
+            {
+              "label": "Tags não associados a Control System Tag",
+              "data": {
+                "name": "Tags não associados a Control System Tag",
+                "id": "TagsNotAssociatedWithCsTags"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
+              "style": null,
+              "styleClass": null,
+              "draggable": false,
+              "droppable": false,
+              "selectable": true,
+              "key": "TagsNotAssociatedWithCsTags",
+              "expanded": false,
+              "children": null
+            },
+            {
+              "label": "Multicabo conectados a mais de 2 painéis diferentes",
+              "data": {
+                "name": "Multicabo conectados a mais de 2 painéis diferentes",
+                "id": "MultiCableConnectedToMoreThanTwoPanels"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
+              "style": null,
+              "styleClass": null,
+              "draggable": false,
+              "droppable": false,
+              "selectable": true,
+              "key": "MultiCableConnectedToMoreThanTwoPanels",
+              "expanded": false,
+              "children": null
+            },
+            {
+              "label": "Quantidade de painéis um multicabo (conectado a dois ou mais) esta conectado",
+              "data": {
+                "name": "Quantidade de painéis um multicabo (conectado a dois ou mais) esta conectado",
+                "id": "PanelsNumberAMulticableIsConnected"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
+              "style": null,
+              "styleClass": null,
+              "draggable": false,
+              "droppable": false,
+              "selectable": true,
+              "key": "PanelsNumberAMulticableIsConnected",
+              "expanded": false,
+              "children": null
+            },
+            {
+              "label": "Instrumentos não conectados",
+              "data": {
+                "name": "Instrumentos não conectados",
+                "id": "InstrumentsNotConnected"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
+              "style": null,
+              "styleClass": null,
+              "draggable": false,
+              "droppable": false,
+              "selectable": true,
+              "key": "InstrumentsNotConnected",
+              "expanded": false,
+              "children": null
+            },
+            {
+              "label": "Mapeamento de I/O",
+              "data": {
+                "name": "Mapeamento de I/O",
+                "id": "IoMapping"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
+              "style": null,
+              "styleClass": null,
+              "draggable": false,
+              "droppable": false,
+              "selectable": true,
+              "key": "IoMapping",
+              "expanded": false,
+              "children": null
+            },
+            {
+              "label": "Cabos sem instrumento",
+              "data": {
+                "name": "Cabos sem instrumento",
+                "id": "CableWithoutInstruments"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
+              "style": null,
+              "styleClass": null,
+              "draggable": false,
+              "droppable": false,
+              "selectable": true,
+              "key": "CableWithoutInstruments",
+              "expanded": false,
+              "children": null
+            }
+          ]
+        },
+        {
+          "label": "Duplicidade",
+          "data": null,
+          "icon": null,
+          "expandedIcon": "far fa-folder",
+          "collapsedIcon": "far fa-folder-open",
+          "leaf": false,
+          "type": "CheckCategory",
+          "style": null,
+          "styleClass": null,
+          "draggable": false,
+          "droppable": false,
+          "selectable": true,
+          "key": "DummyKey_23d37fd2-1b83-4b05-8652-8edbfae7d281",
+          "expanded": false,
+          "children": [
+            {
+              "label": "Tipos de instrumento duplicados",
+              "data": {
+                "name": "Tipos de instrumento duplicados",
+                "id": "DuplicateInstrumentsType"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
+              "style": null,
+              "styleClass": null,
+              "draggable": false,
+              "droppable": false,
+              "selectable": true,
+              "key": "DuplicateInstrumentsType",
+              "expanded": false,
+              "children": null
+            },
+            {
+              "label": "Malhas duplicadas",
+              "data": {
+                "name": "Malhas duplicadas",
+                "id": "DuplicateLoops"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
+              "style": null,
+              "styleClass": null,
+              "draggable": false,
+              "droppable": false,
+              "selectable": true,
+              "key": "DuplicateLoops",
+              "expanded": false,
+              "children": null
+            },
+            {
+              "label": "Painéis duplicados",
+              "data": {
+                "name": "Painéis duplicados",
+                "id": "DuplicatePanels"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
+              "style": null,
+              "styleClass": null,
+              "draggable": false,
+              "droppable": false,
+              "selectable": true,
+              "key": "DuplicatePanels",
+              "expanded": false,
+              "children": null
+            },
+            {
+              "label": "Equipamentos duplicados",
+              "data": {
+                "name": "Equipamentos duplicados",
+                "id": "DuplicateEquipments"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
+              "style": null,
+              "styleClass": null,
+              "draggable": false,
+              "droppable": false,
+              "selectable": true,
+              "key": "DuplicateEquipments",
+              "expanded": false,
+              "children": null
+            },
+            {
+              "label": "Linhas duplicadas",
+              "data": {
+                "name": "Linhas duplicadas",
+                "id": "DuplicateLines"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
+              "style": null,
+              "styleClass": null,
+              "draggable": false,
+              "droppable": false,
+              "selectable": true,
+              "key": "DuplicateLines",
+              "expanded": false,
+              "children": null
+            }
+          ]
+        },
+        {
+          "label": "Erros de Importação",
+          "data": null,
+          "icon": null,
+          "expandedIcon": "far fa-folder",
+          "collapsedIcon": "far fa-folder-open",
+          "leaf": false,
+          "type": "CheckCategory",
+          "style": null,
+          "styleClass": null,
+          "draggable": false,
+          "droppable": false,
+          "selectable": true,
+          "key": "DummyKey_7d399868-05cb-4109-86e5-a11106bcf760",
+          "expanded": false,
+          "children": [
+            {
+              "label": "Malhas com erros típicos",
+              "data": {
+                "name": "Malhas com erros típicos",
+                "id": "LoopsWithTypicalErrors"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
+              "style": null,
+              "styleClass": null,
+              "draggable": false,
+              "droppable": false,
+              "selectable": true,
+              "key": "LoopsWithTypicalErrors",
+              "expanded": false,
+              "children": null
+            },
+            {
+              "label": "Tags com erros típicos",
+              "data": {
+                "name": "Tags com erros típicos",
+                "id": "TagsWithTypicalErrors"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
+              "style": null,
+              "styleClass": null,
+              "draggable": false,
+              "droppable": false,
+              "selectable": true,
+              "key": "TagsWithTypicalErrors",
+              "expanded": false,
+              "children": null
+            }
+          ]
+        },
+        {
+          "label": "Folha de Dados",
+          "data": null,
+          "icon": null,
+          "expandedIcon": "far fa-folder",
+          "collapsedIcon": "far fa-folder-open",
+          "leaf": false,
+          "type": "CheckCategory",
+          "style": null,
+          "styleClass": null,
+          "draggable": false,
+          "droppable": false,
+          "selectable": true,
+          "key": "DummyKey_74ebd9c3-996a-4ec2-829d-861a86dbc628",
+          "expanded": false,
+          "children": [
+            {
+              "label": "Folhas de Dados que não obedecem a N1710",
+              "data": {
+                "name": "Folhas de Dados que não obedecem a N1710",
+                "id": "FdsNotFollowingN1710"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
+              "style": null,
+              "styleClass": null,
+              "draggable": false,
+              "droppable": false,
+              "selectable": true,
+              "key": "FdsNotFollowingN1710",
+              "expanded": false,
+              "children": null
+            },
+            {
+              "label": "Instrumentos com Spec e sem FD associada",
+              "data": {
+                "name": "Instrumentos com Spec e sem FD associada",
+                "id": "InstrumentsSpecNoFd"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
+              "style": null,
+              "styleClass": null,
+              "draggable": false,
+              "droppable": false,
+              "selectable": true,
+              "key": "InstrumentsSpecNoFd",
+              "expanded": false,
+              "children": null
+            },
+            {
+              "label": "Instrumentos sem Spec e sem FD associadas",
+              "data": {
+                "name": "Instrumentos sem Spec e sem FD associadas",
+                "id": "InstrumentsNoSpecNoFd"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
+              "style": null,
+              "styleClass": null,
+              "draggable": false,
+              "droppable": false,
+              "selectable": true,
+              "key": "InstrumentsNoSpecNoFd",
+              "expanded": false,
+              "children": null
+            }
+          ]
+        },
+        {
+          "label": "Geral",
+          "data": null,
+          "icon": null,
+          "expandedIcon": "far fa-folder",
+          "collapsedIcon": "far fa-folder-open",
+          "leaf": false,
+          "type": "CheckCategory",
+          "style": null,
+          "styleClass": null,
+          "draggable": false,
+          "droppable": false,
+          "selectable": true,
+          "key": "DummyKey_3cff450d-97d6-45df-b2b2-937ac1a4c325",
+          "expanded": false,
+          "children": [
+            {
+              "label": "Tags duplicados",
+              "data": {
+                "name": "Tags duplicados",
+                "id": "DuplicateTags"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
+              "style": null,
+              "styleClass": null,
+              "draggable": false,
+              "droppable": false,
+              "selectable": true,
+              "key": "DuplicateTags",
+              "expanded": false,
+              "children": null
+            },
+            {
+              "label": "Instrumentos Cancelados",
+              "data": {
+                "name": "Instrumentos Cancelados",
+                "id": "CancelledInstruments"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
+              "style": null,
+              "styleClass": null,
+              "draggable": false,
+              "droppable": false,
+              "selectable": true,
+              "key": "CancelledInstruments",
+              "expanded": false,
+              "children": null
+            }
+          ]
+        },
+        {
+          "label": "Hook-up",
+          "data": null,
+          "icon": null,
+          "expandedIcon": "far fa-folder",
+          "collapsedIcon": "far fa-folder-open",
+          "leaf": false,
+          "type": "CheckCategory",
+          "style": null,
+          "styleClass": null,
+          "draggable": false,
+          "droppable": false,
+          "selectable": true,
+          "key": "DummyKey_21b505fd-aa3a-4d14-888b-fc2308106243",
+          "expanded": false,
+          "children": [
+            {
+              "label": "Instrumentos sem Hook-up",
+              "data": {
+                "name": "Instrumentos sem Hook-up",
+                "id": "InstrumentsWithoutHookUp"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
+              "style": null,
+              "styleClass": null,
+              "draggable": false,
+              "droppable": false,
+              "selectable": true,
+              "key": "InstrumentsWithoutHookUp",
+              "expanded": false,
+              "children": null
+            }
+          ]
+        },
+        {
+          "label": "Instrument Types / Profiles",
+          "data": null,
+          "icon": null,
+          "expandedIcon": "far fa-folder",
+          "collapsedIcon": "far fa-folder-open",
+          "leaf": false,
+          "type": "CheckCategory",
+          "style": null,
+          "styleClass": null,
+          "draggable": false,
+          "droppable": false,
+          "selectable": true,
+          "key": "DummyKey_5ce0fd7e-dae6-489c-a570-e656459a7313",
+          "expanded": false,
+          "children": [
+            {
+              "label": "Perfis Sem Wiring e I/O definidos",
+              "data": {
+                "name": "Perfis Sem Wiring e I/O definidos",
+                "id": "ProfilesWithoutWiringAndIo"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
+              "style": null,
+              "styleClass": null,
+              "draggable": false,
+              "droppable": false,
+              "selectable": true,
+              "key": "ProfilesWithoutWiringAndIo",
+              "expanded": false,
+              "children": null
+            },
+            {
+              "label": "Perfis com Localização = ECOS, SOS ou PLC, porém com Wiring",
+              "data": {
+                "name": "Perfis com Localização = ECOS, SOS ou PLC, porém com Wiring",
+                "id": "ProfilesWithLocation_ECOS_SOS_PLC_AndWiring"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
+              "style": null,
+              "styleClass": null,
+              "draggable": false,
+              "droppable": false,
+              "selectable": true,
+              "key": "ProfilesWithLocation_ECOS_SOS_PLC_AndWiring",
+              "expanded": false,
+              "children": null
+            },
+            {
+              "label": "Perfil com CS Tag porém sem definição de I/O",
+              "data": {
+                "name": "Perfil com CS Tag porém sem definição de I/O",
+                "id": "ProfilesWithCsTagAndNoIoDefinition"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
+              "style": null,
+              "styleClass": null,
+              "draggable": false,
+              "droppable": false,
+              "selectable": true,
+              "key": "ProfilesWithCsTagAndNoIoDefinition",
+              "expanded": false,
+              "children": null
+            },
+            {
+              "label": "Perfis com WIRING porém sem definição de I/O",
+              "data": {
+                "name": "Perfis com WIRING porém sem definição de I/O",
+                "id": "ProfilesWithWiringAndNoIoDefinition"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
+              "style": null,
+              "styleClass": null,
+              "draggable": false,
+              "droppable": false,
+              "selectable": true,
+              "key": "ProfilesWithWiringAndNoIoDefinition",
+              "expanded": false,
+              "children": null
+            },
+            {
+              "label": "Perfis sem preenchimento",
+              "data": {
+                "name": "Perfis sem preenchimento",
+                "id": "UnfilledProfiles"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
+              "style": null,
+              "styleClass": null,
+              "draggable": false,
+              "droppable": false,
+              "selectable": true,
+              "key": "UnfilledProfiles",
+              "expanded": false,
+              "children": null
+            },
+            {
+              "label": "Perfis com WIRING e sem Device Panel",
+              "data": {
+                "name": "Perfis com WIRING e sem Device Panel",
+                "id": "ProfilesWithWiringAndNoDevicePanel"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
+              "style": null,
+              "styleClass": null,
+              "draggable": false,
+              "droppable": false,
+              "selectable": true,
+              "key": "ProfilesWithWiringAndNoDevicePanel",
+              "expanded": false,
+              "children": null
+            }
+          ]
+        },
+        {
+          "label": "Loop",
+          "data": null,
+          "icon": null,
+          "expandedIcon": "far fa-folder",
+          "collapsedIcon": "far fa-folder-open",
+          "leaf": false,
+          "type": "CheckCategory",
+          "style": null,
+          "styleClass": null,
+          "draggable": false,
+          "droppable": false,
+          "selectable": true,
+          "key": "DummyKey_20e38d13-5014-4bbd-aac2-2002244c1487",
+          "expanded": false,
+          "children": [
+            {
+              "label": "Lista de Tags por Loop",
+              "data": {
+                "name": "Lista de Tags por Loop",
+                "id": "TagListByLoop"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
+              "style": null,
+              "styleClass": null,
+              "draggable": false,
+              "droppable": false,
+              "selectable": true,
+              "key": "TagListByLoop",
+              "expanded": false,
+              "children": null
+            }
+          ]
+        },
+        {
+          "label": "Propriedades da Linha",
+          "data": null,
+          "icon": null,
+          "expandedIcon": "far fa-folder",
+          "collapsedIcon": "far fa-folder-open",
+          "leaf": false,
+          "type": "CheckCategory",
+          "style": null,
+          "styleClass": null,
+          "draggable": false,
+          "droppable": false,
+          "selectable": true,
+          "key": "DummyKey_ec110331-ad24-48f1-9d80-25205f45a554",
+          "expanded": false,
+          "children": [
+            {
+              "label": "Linhas com erro de dimensão",
+              "data": {
+                "name": "Linhas com erro de dimensão",
+                "id": "LinesWithDimensionError"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
+              "style": null,
+              "styleClass": null,
+              "draggable": false,
+              "droppable": false,
+              "selectable": true,
+              "key": "LinesWithDimensionError",
+              "expanded": false,
+              "children": null
+            },
+            {
+              "label": "Linhas com erro no pipe class",
+              "data": {
+                "name": "Linhas com erro no pipe class",
+                "id": "LinesWithPipeClassError"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
+              "style": null,
+              "styleClass": null,
+              "draggable": false,
+              "droppable": false,
+              "selectable": true,
+              "key": "LinesWithPipeClassError",
+              "expanded": false,
+              "children": null
+            }
+          ]
+        },
+        {
+          "label": "Semente",
+          "data": null,
+          "icon": null,
+          "expandedIcon": "far fa-folder",
+          "collapsedIcon": "far fa-folder-open",
+          "leaf": false,
+          "type": "CheckCategory",
+          "style": null,
+          "styleClass": null,
+          "draggable": false,
+          "droppable": false,
+          "selectable": true,
+          "key": "DummyKey_c63b5fec-9dd3-489f-9c3b-97197005cf7a",
+          "expanded": false,
+          "children": [
+            {
+              "label": "Localização dos Instrumentos",
+              "data": {
+                "name": "Localização dos Instrumentos",
+                "id": "InstrumentsLocation"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
+              "style": null,
+              "styleClass": null,
+              "draggable": false,
+              "droppable": false,
+              "selectable": true,
+              "key": "InstrumentsLocation",
+              "expanded": false,
+              "children": null
+            },
+            {
+              "label": "Tipos de I/O",
+              "data": {
+                "name": "Tipos de I/O",
+                "id": "IoTypes"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
+              "style": null,
+              "styleClass": null,
+              "draggable": false,
+              "droppable": false,
+              "selectable": true,
+              "key": "IoTypes",
+              "expanded": false,
+              "children": null
+            },
+            {
+              "label": "Convenção de Nomes",
+              "data": {
+                "name": "Convenção de Nomes",
+                "id": "NameConvention"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
+              "style": null,
+              "styleClass": null,
+              "draggable": false,
+              "droppable": false,
+              "selectable": true,
+              "key": "NameConvention",
+              "expanded": false,
+              "children": null
+            },
+            {
+              "label": "Estrutura de Projeto",
+              "data": {
+                "name": "Estrutura de Projeto",
+                "id": "ProjectStructure"
+              },
+              "icon": "far fa-question",
+              "expandedIcon": null,
+              "collapsedIcon": null,
+              "leaf": true,
+              "type": "Check",
+              "style": null,
+              "styleClass": null,
+              "draggable": false,
+              "droppable": false,
+              "selectable": true,
+              "key": "ProjectStructure",
+              "expanded": false,
+              "children": null
             }
           ]
         }
       ]
-    },
-    {
-      "label": "dasd",
-      "data": {
-        "name": "dasd",
-        "application": null,
-        "checks": [],
-        "id": "db67269b-fc99-40fa-9c73-08da0802280f"
-      },
-      "icon": null,
-      "expandedIcon": "far fa-folder-open",
-      "collapsedIcon": "far fa-folder",
-      "leaf": false,
-      "type": "AuditTemplate",
-      "style": null,
-      "styleClass": null,
-      "draggable": false,
-      "droppable": false,
-      "selectable": false,
-      "key": "db67269b-fc99-40fa-9c73-08da0802280f",
-      "expanded": false,
-      "children": []
-    },
-    {
-      "label": "Novo 1",
-      "data": {
-        "name": "Novo 1",
-        "application": null,
-        "checks": [],
-        "id": "f01e39e1-e5b3-4587-9c71-08da0802280f"
-      },
-      "icon": null,
-      "expandedIcon": "far fa-folder-open",
-      "collapsedIcon": "far fa-folder",
-      "leaf": false,
-      "type": "AuditTemplate",
-      "style": null,
-      "styleClass": null,
-      "draggable": false,
-      "droppable": false,
-      "selectable": false,
-      "key": "f01e39e1-e5b3-4587-9c71-08da0802280f",
-      "expanded": false,
-      "children": []
-    },
-    {
-      "label": "sdas",
-      "data": {
-        "name": "sdas",
-        "application": null,
-        "checks": [],
-        "id": "c7740893-42ca-42f4-9c72-08da0802280f"
-      },
-      "icon": null,
-      "expandedIcon": "far fa-folder-open",
-      "collapsedIcon": "far fa-folder",
-      "leaf": false,
-      "type": "AuditTemplate",
-      "style": null,
-      "styleClass": null,
-      "draggable": false,
-      "droppable": false,
-      "selectable": false,
-      "key": "c7740893-42ca-42f4-9c72-08da0802280f",
-      "expanded": false,
-      "children": []
     }
   ]
 }

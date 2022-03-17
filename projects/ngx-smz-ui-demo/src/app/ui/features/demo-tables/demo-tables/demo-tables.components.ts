@@ -93,7 +93,7 @@ export class DemoTablesComponent implements OnInit {
       .setPaginationDefaultRows(50)
       .setCustomInitialSorting({ field: 'number', order: -1 })
       .useStrippedStyle()
-      .useAutoWidth()
+      .useEstimatedColWidth()
       .menu()
         .item('Consultar')
           .setCallback((event: any) => console.log('---'))

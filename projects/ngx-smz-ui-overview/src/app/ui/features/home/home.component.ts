@@ -26,11 +26,11 @@ export class HomeComponent
 
     this.treeState = new SmzTreeBuilder()
       .setTitle('Fluents')
+      .useSincronization()
       .enableFilter()
       .toolbar('rounded-outlined')
         .setAlignment('end')
         .useTreeExpandButtons()
-        .useNodeExpandButtons()
         .tree
         .menu()
         .item('Executar')
