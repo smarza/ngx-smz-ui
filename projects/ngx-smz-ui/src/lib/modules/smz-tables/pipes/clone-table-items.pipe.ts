@@ -80,11 +80,9 @@ export class SmzCloneTableItemsPipe implements PipeTransform {
       // console.log('context.state.frozen.width: ', context.state.frozen.width);
     }
 
-    // console.log('context from items', context);
-
     return {
       showSkeleton,
-      items: sincronize ? this.tableHelper.sincronize(tableKey, clonedItems) : clonedItems
+      items: sincronize && !showSkeleton ? this.tableHelper.sincronize(tableKey, clonedItems) : clonedItems
     };
   }
 

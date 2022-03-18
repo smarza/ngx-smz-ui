@@ -251,7 +251,7 @@
                     [ngClass]="{ 'highlight-row': item?.id === state.actions.rowBehavior.highlights }"
                     >
 
-                    <td *ngIf="context.state.caption.rowSelection.isEnabled"
+                    <td *ngIf="context.state.caption.rowSelection.isEnabled && !clonedData.showSkeleton"
                         clickStopPropagation
                         [ngClass]="{ 'opacity-50 pointer-events-none': editableService.context[item.id]?.hasErrors || editableService.context[item.id]?.isLoading }"
                         [ngStyle]="{ 'min-width': context.state.caption.rowSelection.columnWidth }"
@@ -259,7 +259,7 @@
                         <p-tableCheckbox [value]="item"></p-tableCheckbox>
                     </td>
 
-                    <td *ngIf="context.state.rowExpansion.isEnabled"
+                    <td *ngIf="context.state.rowExpansion.isEnabled && !clonedData.showSkeleton"
                         clickStopPropagation
                         [ngClass]="{ 'opacity-50 pointer-events-none': editableService.context[item.id]?.hasErrors || editableService.context[item.id]?.isLoading, 'grid grid-nogutter justify-center gap-2': context.state.rowExpansion.highlightNewItems && item._isNew }"
                         [ngStyle]="{ 'min-width': context.state.rowExpansion.columnWidth }"

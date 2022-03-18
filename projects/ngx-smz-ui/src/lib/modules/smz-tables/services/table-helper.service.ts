@@ -25,14 +25,12 @@ export class TableHelperService {
   }
 
   public sincronize(key: string, result: any[]): any[] {
-
     if (this.tables[key] == null) {
       this.add(key, result.map(x => ({...x, _isExpanded: false, _isNew: false })));
       return this.tables[key];
     }
     else {
       const resultCloned = cloneDeep(result);
-
       synchronizeTable(resultCloned, this.tables[key]);
 
       this.tables[key] = resultCloned;
