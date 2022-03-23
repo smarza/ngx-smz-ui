@@ -7,6 +7,11 @@ export namespace DemoFeatureActions {
     constructor() {}
   }
 
+  export class LoadAllSignalRDemo {
+    public static readonly type = '[DEMO] Load All SignalR Demo';
+    constructor() {}
+  }
+
   export class Update {
     public static readonly type = '[DEMO] Update';
     constructor(public data: DemoUpdateData) {}

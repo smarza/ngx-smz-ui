@@ -41,6 +41,7 @@ export class AppComponent {
           { label: 'Editable Table', icon: 'far fa-star', routerLink: ['editable-table'] },
           { label: 'Prime Table', icon: 'far fa-star', routerLink: ['tables', 'prime'] },
           { label: 'Complex Table', icon: 'far fa-star', routerLink: ['tables', 'complex'] },
+          { label: 'SignalR', icon: 'far fa-star', routerLink: ['tables', 'signalr'] },
         ]
       },
       {

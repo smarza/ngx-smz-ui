@@ -9,6 +9,7 @@ import { CountriesDbName } from '@states/database/countries/countries.state';
 import { DemoComplexTableComponent } from './demo-complex-table/demo-complex-table.component';
 import { DemoPrimeComponent } from './demo-prime/demo-prime.component';
 import { DemoTablesComponent } from './demo-tables/demo-tables.components';
+import { DemoSignalRTableComponent } from './demo-signalr-table/demo-signalr-table.components';
 
 const data: SmzRouteData = {
   layout: {
@@ -45,6 +46,12 @@ const routes: Routes = [
         component: DemoComplexTableComponent,
         data
       },
+      {
+        path: 'signalr',
+        canActivate: [RbkAuthGuard, RbkDatabaseStateGuard],
+        component: DemoSignalRTableComponent,
+        data
+      },
     ]
   }
 ];
@@ -61,7 +68,8 @@ const routes: Routes = [
   declarations: [
     DemoTablesComponent,
     DemoPrimeComponent,
-    DemoComplexTableComponent
+    DemoComplexTableComponent,
+    DemoSignalRTableComponent
   ],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

@@ -34,7 +34,18 @@ export class DemoFeatureState {
   public onLoad$(ctx: StateContext<DemoFeatureStateModel>): Observable<DemoItem[]> {
     return this.apiService.getAll().pipe(
       tap(results => {
+        ctx.patchState({
+          lastUpdated: new Date(),
+          items: results
+        });
+      })
+    );
+  }
 
+  @Action(DemoFeatureActions.LoadAllSignalRDemo)
+  public onLoadAllSignalRDemo$(ctx: StateContext<DemoFeatureStateModel>): Observable<DemoItem[]> {
+    return this.apiService.getAllSignalRDemo().pipe(
+      tap(results => {
         ctx.patchState({
           lastUpdated: new Date(),
           items: results
