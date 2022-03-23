@@ -390,8 +390,9 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
             this.changed.emit(response);
         }
 
-        if (this.rbkConfig.debugMode) {
+        if (this.config.isDebug) {
             console.group('UpdateHasChanges');
+            console.log('response', response);
             console.log('original', original);
             console.log('current', current);
             console.log('hasChanges', original !== current);
@@ -399,6 +400,44 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
         }
 
         this.viewdata.hasChanges = original !== current;
+
+        for (const group of this.config.groups)
+        {
+            for (const input of group.children)
+            {
+                if (input.dataDependency != null && input.dataDependency.length > 0) {
+
+                    input.dataDependency.forEach(dependency => {
+
+                        const value = response.data[dependency.propertyName];
+
+                        if (this.config.isDebug) {
+                            console.log(`Checking Dependency for ${input.propertyName}: If Input ${dependency.propertyName} (${value}) Matchs ${dependency.matchValues.join(', ') }}`);
+                        }
+
+                        const match = dependency.matchValues.some(x => x === value);
+
+                        if (dependency.condition === 'some' ? match : !match) {
+
+                            if (this.config.isDebug) {
+                                console.log(`   > YES => Dependency matched. Calling callback()...`, input);
+                            }
+
+                            dependency.callback(input);
+                        }
+                        else {
+                            if (this.config.isDebug) {
+                                console.log(`   > NO => Dependency doesn't match`);
+                            }
+                        }
+
+                    });
+
+                }
+            };
+        };
+
+
 
         this.cdf.markForCheck();
     }

@@ -261,11 +261,11 @@
 
                     <td *ngIf="context.state.rowExpansion.isEnabled && !clonedData.showSkeleton"
                         clickStopPropagation
-                        [ngClass]="{ 'opacity-50 pointer-events-none': editableService.context[item.id]?.hasErrors || editableService.context[item.id]?.isLoading, 'grid grid-nogutter justify-center gap-2': context.state.rowExpansion.highlightNewItems && item._isNew }"
+                        [ngClass]="{ 'opacity-50 pointer-events-none': editableService.context[item.id]?.hasErrors || editableService.context[item.id]?.isLoading, 'grid grid-nogutter justify-center items-center gap-2': context.state.rowExpansion.highlightNewItems && item._isNew }"
                         [ngStyle]="{ 'min-width': context.state.rowExpansion.columnWidth }"
                         >
                         <p-toggleButton [(ngModel)]="item._isExpanded" [onIcon]="'fas fa-chevron-down'" [offIcon]="'fas fa-chevron-right'" (onChange)="item._isNew = false"></p-toggleButton>
-                        <div *ngIf="context.state.rowExpansion.highlightNewItems && item._isNew" class="rounded bg-cyan-400 text-sm text-white px-2 py-0" (click)="item._isNew = false">{{ context.state.rowExpansion.highlightLabel }}</div>
+                        <div *ngIf="context.state.rowExpansion.highlightNewItems && item._isNew" class="rounded bg-cyan-400 text-sm text-white px-2 py-0 smz-table-new-tag" (click)="item._isNew = false">{{ context.state.rowExpansion.highlightLabel }}</div>
                     </td>
 
                     <ng-container *ngFor="let col of columns">

@@ -8,6 +8,7 @@ import { ChangeDetectorRef } from '@angular/core';
 export interface SmzForm<T>
 {
     _context?: SmzFormContext;
+    isDebug?: boolean;
     formId?: string;
     behaviors?: SmzFormsBehaviorsConfig;
     functions?: SmzFormCustomFunctions<T>;

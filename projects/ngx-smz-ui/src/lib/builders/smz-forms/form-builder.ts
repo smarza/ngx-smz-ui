@@ -13,6 +13,7 @@ import flatten from 'lodash-es/flatten';
 export class SmzFormBuilder<TResponse> {
   private defaultConfig = GlobalInjector.instance.get(SmzDialogsConfig);
   public _state: SmzForm<TResponse> = {
+    isDebug: false,
     formId: UUID.UUID(),
     groups: [],
     template: {
@@ -44,6 +45,11 @@ export class SmzFormBuilder<TResponse> {
     if (this._dialogBuilder) {
       this.createdByUiDefinitions = this._dialogBuilder.createdByUiDefinitions;
     }
+  }
+
+  public debugMode(): SmzFormBuilder<TResponse> {
+    this._state.isDebug = true;
+    return this;
   }
 
   public group(name: string = null): SmzFormGroupBuilder<TResponse> {

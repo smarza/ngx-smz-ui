@@ -80,7 +80,9 @@ export class SmzFormViewdata {
                     control.enable();
                 }
 
-                if (updateValue) CONTROL_FUNCTIONS[input.type].updateValue(control, input);
+                if (updateValue) {
+                    CONTROL_FUNCTIONS[input.type].updateValue(control, input);
+                };
             };
         };
 

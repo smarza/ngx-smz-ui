@@ -644,6 +644,20 @@ export class SmzFormInputBuilder<TResponse> {
     return this;
   }
 
+  public addDataDependency(inputDependencyName: string, condition: 'some' | 'none', matchValues: any[], callback: (control: SmzFormsBaseControl) => void): SmzFormInputBuilder<TResponse> {
+
+    if (this._input.dataDependency == null) this._input.dataDependency = [];
+
+    this._input.dataDependency.push({
+      propertyName: inputDependencyName,
+      condition,
+      matchValues,
+      callback
+    });
+
+    return this;
+  }
+
   public validators(): SmzFormInputValidatorBuilder<TResponse> {
     return new SmzFormInputValidatorBuilder(this, this._input);
   }

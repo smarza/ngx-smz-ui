@@ -514,5 +514,38 @@ Exame sem intercorrências.`)
         }})
       .build();
   },
+  [DemoKeys.FORMS_BEHAVIORS_DATA_DEPENDENCY]: () => {
+    return new SmzFormBuilder<any>()
+      .fromUiDefinition('entity')
+        .form
+      .debugMode()
+      .group()
+
+        // .text('scope', '')
+        //   .addDataDependency('type', 'some', [0], (input) => input.name = 'PBS Number')
+        //   .addDataDependency('type', 'some', [1], (input) => input.name = 'Hop Number')
+        //   .addDataDependency('type', 'some', [2], (input) => input.name = 'Current Number')
+        //   .validators().required()
+        //   .group
+
+        .text('name', 'Nome Original')
+          .addDataDependency('company', 'some', ['ideia', 'teste'], (input) => input.name = 'Igual a ideia')
+          .addDataDependency('company', 'none', ['ideia', 'teste'], (input) => input.name = 'Diferente de ideia')
+          .group
+
+        .dropdown('country', 'Países', [ { id: '55e08b38-cec6-4063-acd0-25747f31dc59', name: 'Brazil'}])
+          .validators().required()
+          .group
+
+        .form
+      .applyData({
+        name: 'Name',
+        company: 'Company',
+        country: {
+          name: 'Brazil',
+          id: '55e08b38-cec6-4063-acd0-25747f31dc59'
+        }})
+      .build();
+  },
 }
 
