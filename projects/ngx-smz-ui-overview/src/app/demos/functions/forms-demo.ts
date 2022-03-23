@@ -522,18 +522,19 @@ Exame sem intercorrências.`)
       .group()
 
         // .text('scope', '')
-        //   .addDataDependency('type', 'some', [0], (input) => input.name = 'PBS Number')
-        //   .addDataDependency('type', 'some', [1], (input) => input.name = 'Hop Number')
-        //   .addDataDependency('type', 'some', [2], (input) => input.name = 'Current Number')
+        //   .addDataDependency('typeId', 'some', [0], (input) => input.name = 'PBS Number')
+        //   .addDataDependency('typeId', 'some', [1], (input) => input.name = 'Hop Number')
+        //   .addDataDependency('typeId', 'some', [2], (input) => input.name = 'Current Number')
         //   .validators().required()
         //   .group
 
         .text('name', 'Nome Original')
           .addDataDependency('company', 'some', ['ideia', 'teste'], (input) => input.name = 'Igual a ideia')
           .addDataDependency('company', 'none', ['ideia', 'teste'], (input) => input.name = 'Diferente de ideia')
+          .addDataDependency('countryId', 'some', ['22e08b38-cec6-4063-acd0-25747f31dc22'], (input) => input.name = 'Denmark Ganhou')
           .group
 
-        .dropdown('country', 'Países', [ { id: '55e08b38-cec6-4063-acd0-25747f31dc59', name: 'Brazil'}])
+        .dropdown('country', 'Países', [ { id: '55e08b38-cec6-4063-acd0-25747f31dc59', name: 'Brazil'}, { id: '22e08b38-cec6-4063-acd0-25747f31dc22', name: 'Denmark'}])
           .validators().required()
           .group
 
