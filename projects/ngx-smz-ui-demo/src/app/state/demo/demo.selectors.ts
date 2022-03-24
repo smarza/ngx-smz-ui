@@ -1,8 +1,7 @@
 
 import { Selector } from '@ngxs/store';
-import { xor } from 'lodash';
-import { DemoItem } from '../../models/demo';
 import { DemoFeatureState, DemoFeatureStateModel } from './demo.state';
+import { EasyTableDemoData } from '../../ui/features/demo-tables/demo-easy-table/easy-table-model';
 
 export class DemoFeatureSelectors {
 
@@ -17,6 +16,11 @@ export class DemoFeatureSelectors {
     ]}));
     // console.log('DemoFeatureSelectors results', results);
     return results;
+  }
+
+  @Selector([DemoFeatureState])
+  public static allEasyTable(state: DemoFeatureStateModel): EasyTableDemoData[] {
+    return state.easyTableItems;
   }
 
 }

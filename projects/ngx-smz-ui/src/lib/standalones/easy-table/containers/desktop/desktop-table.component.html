@@ -1,0 +1,12 @@
+<ng-container *ngIf="state?.desktop as config">
+
+<div [ngClass]="config.containerStyleClass">
+
+  <table [ngClass]="config.tableStyleClass">
+    <thead et-desktop-head [state]="state" [ngClass]="config.head.styleClass"></thead>
+    <tbody et-desktop-body [state]="state" [data]="data" [ngClass]="config.body.styleClass"></tbody>
+  </table>
+
+</div>
+
+</ng-container>

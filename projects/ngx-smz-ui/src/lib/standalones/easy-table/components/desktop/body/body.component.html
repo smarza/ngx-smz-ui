@@ -1,0 +1,29 @@
+<ng-container *ngFor="let row of data; let even = even; let odd = odd">
+
+  <tr [ngClass]="even ? state.desktop.body.evenRow.styleClass : state.desktop.body.oddRow.styleClass">
+
+    <ng-container *ngFor="let column of state.desktop.body.columns; let index = index">
+
+      <td [ngClass]="column.styleClass">
+
+        <ng-container [ngSwitch]="column.content.type">
+
+          <ng-container *ngSwitchCase="type.TEXT">
+            <div [innerHtml]="row[index] | safeHtml"></div>
+          </ng-container>
+
+          <ng-container *ngSwitchCase="type.ACTION">
+            <smz-menu [callback]="$any(column.content).callback" [items]="$any(column.content).items" [data]="row"></smz-menu>
+          </ng-container>
+
+          <ng-container *ngSwitchDefault>-</ng-container>
+
+        </ng-container>
+
+      </td>
+
+    </ng-container>
+
+  </tr>
+
+</ng-container>

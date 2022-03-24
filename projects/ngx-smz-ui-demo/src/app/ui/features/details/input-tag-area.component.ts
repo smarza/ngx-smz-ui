@@ -9,15 +9,18 @@ import { FormControl, FormsModule, NgModel, ReactiveFormsModule } from '@angular
 import { Listbox, ListboxModule } from 'primeng/listbox';
 import { cloneDeep } from 'lodash-es';
 
+// TODO: O Angular 13.3.0 reclama do two way binding antigo (que funcionava no 13.0.1)
+// https://angular.io/guide/two-way-binding
+
 @Component({
     selector: 'smz-input-tag-area',
     template: `
-<textarea #inputArea id="inputArea" pInputTextarea smzSmartTag ([ngModel])="ngModel" [formControl]="control" [options]="config?.options" [rows]="rows" (tagTyped)="onTag($event)" class="col-12"></textarea>
+<!-- <textarea #inputArea id="inputArea" pInputTextarea smzSmartTag ([ngModel])="ngModel" [formControl]="control" [options]="config?.options" [rows]="rows" (tagTyped)="onTag($event)" class="col-12"></textarea>
 <p-overlayPanel #overlay appendTo="body" [style]="{width: '450px'}" (onHide)="onHideOverlay()" styleClass="tag-overlay">
 <ng-template pTemplate>
 <p-listbox *ngIf="currentTag" #listbox (keyup.enter)="onEnter($event)" styleClass="tag-dropdown" [options]="currentTag.data" [(ngModel)]="currentTagSelection" optionLabel="key"></p-listbox>
 </ng-template>
-</p-overlayPanel>
+</p-overlayPanel> -->
 `,
     styles: [
         '.p-overlaypanel.tag-overlay .p-overlaypanel-content { padding: 0; }',

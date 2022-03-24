@@ -8,17 +8,20 @@ import { Observable, of, throwError } from 'rxjs';
 import { DemoDataService } from './demo-data.service';
 import { catchError, tap } from 'rxjs/operators';
 import { removeElementFromArray } from 'ngx-smz-ui';
+import { EasyTableDemoData } from '../../ui/features/demo-tables/demo-easy-table/easy-table-model';
 
 export const DemoFeatureName = 'DemoFeature';
 
 export interface DemoFeatureStateModel {
   lastUpdated: Date | null;
   items: DemoItem[];
+  easyTableItems: EasyTableDemoData[];
 }
 
 export const getInitialState = (): DemoFeatureStateModel => ({
   lastUpdated: null,
-  items: null
+  items: null,
+  easyTableItems: null
 });
 
 @State<DemoFeatureStateModel>({
@@ -49,6 +52,17 @@ export class DemoFeatureState {
         ctx.patchState({
           lastUpdated: new Date(),
           items: results
+        });
+      })
+    );
+  }
+
+  @Action(DemoFeatureActions.LoadAllEasyTableDemo)
+  public onLoadAllEasyTableDemo$(ctx: StateContext<DemoFeatureStateModel>): Observable<EasyTableDemoData[]> {
+    return this.apiService.getAllEasyTableDemo().pipe(
+      tap(results => {
+        ctx.patchState({
+          easyTableItems: results
         });
       })
     );

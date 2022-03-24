@@ -529,9 +529,21 @@ Exame sem intercorrências.`)
         //   .group
 
         .text('name', 'Nome Original')
-          .addDataDependency('company', 'some', ['ideia', 'teste'], (input) => input.name = 'Igual a ideia')
-          .addDataDependency('company', 'none', ['ideia', 'teste'], (input) => input.name = 'Diferente de ideia')
-          .addDataDependency('countryId', 'some', ['22e08b38-cec6-4063-acd0-25747f31dc22'], (input) => input.name = 'Denmark Ganhou')
+          .addDataDependency('company', 'some', ['ideia', 'teste'], (input) => {
+            input.name = 'Igual a ideia';
+            input._inputFormControl.setValue('teste 1');
+            input._inputFormControl.enable();
+          })
+          .addDataDependency('company', 'none', ['ideia', 'teste'], (input) => {
+            input.name = 'Diferente de ideia';
+            input._inputFormControl.setValue('teste 2');
+            input._inputFormControl.enable();
+          })
+          .addDataDependency('countryId', 'some', ['22e08b38-cec6-4063-acd0-25747f31dc22'], (input) => {
+            input.name = 'Denmark Ganhou';
+            input._inputFormControl.setValue('teste 3 (blocked)');
+            input._inputFormControl.disable();
+          })
           .group
 
         .dropdown('country', 'Países', [ { id: '55e08b38-cec6-4063-acd0-25747f31dc59', name: 'Brazil'}, { id: '22e08b38-cec6-4063-acd0-25747f31dc22', name: 'Denmark'}])

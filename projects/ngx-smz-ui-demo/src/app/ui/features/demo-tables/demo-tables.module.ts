@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { RbkAuthGuard, RbkDatabaseStateGuard, UI_DEFINITIONS_STATE_NAME } from 'ngx-smz-ui';
+import { RbkAuthGuard, RbkDatabaseStateGuard, SmzEasyTableModule, UI_DEFINITIONS_STATE_NAME } from 'ngx-smz-ui';
 import { NgxSmzTablesModule, SmzRouteData } from 'ngx-smz-ui';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
@@ -10,6 +10,10 @@ import { DemoComplexTableComponent } from './demo-complex-table/demo-complex-tab
 import { DemoPrimeComponent } from './demo-prime/demo-prime.component';
 import { DemoTablesComponent } from './demo-tables/demo-tables.components';
 import { DemoSignalRTableComponent } from './demo-signalr-table/demo-signalr-table.components';
+import { DemoEasyTableComponent } from './demo-easy-table/demo-easy-table.component';
+import { ToggleButtonModule } from 'primeng/togglebutton';
+import { FormsModule } from '@angular/forms';
+import { MenuModule } from 'primeng/menu';
 
 const data: SmzRouteData = {
   layout: {
@@ -52,6 +56,12 @@ const routes: Routes = [
         component: DemoSignalRTableComponent,
         data
       },
+      {
+        path: 'easy',
+        canActivate: [RbkAuthGuard, RbkDatabaseStateGuard],
+        component: DemoEasyTableComponent,
+        data
+      },
     ]
   }
 ];
@@ -61,15 +71,20 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     ButtonModule,
+    FormsModule,
     NgxSmzTablesModule,
-    TableModule
+    TableModule,
+    ToggleButtonModule,
+    MenuModule,
+    SmzEasyTableModule
   ],
   exports: [],
   declarations: [
     DemoTablesComponent,
     DemoPrimeComponent,
     DemoComplexTableComponent,
-    DemoSignalRTableComponent
+    DemoSignalRTableComponent,
+    DemoEasyTableComponent
   ],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

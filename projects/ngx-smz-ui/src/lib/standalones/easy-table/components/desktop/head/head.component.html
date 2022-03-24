@@ -1,0 +1,5 @@
+<tr>
+  <ng-container *ngFor="let header of state.desktop.head.headers">
+    <th [ngClass]="header.widthClass + ' ' + header.styleClass">{{ header.label }}</th>
+  </ng-container>
+</tr>

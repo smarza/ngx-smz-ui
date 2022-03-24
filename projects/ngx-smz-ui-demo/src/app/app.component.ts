@@ -42,6 +42,7 @@ export class AppComponent {
           { label: 'Prime Table', icon: 'far fa-star', routerLink: ['tables', 'prime'] },
           { label: 'Complex Table', icon: 'far fa-star', routerLink: ['tables', 'complex'] },
           { label: 'SignalR', icon: 'far fa-star', routerLink: ['tables', 'signalr'] },
+          { label: 'Easy Table', icon: 'far fa-star', routerLink: ['tables', 'easy'] },
         ]
       },
       {

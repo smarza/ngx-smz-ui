@@ -1,0 +1,13 @@
+<ng-container *ngIf="state != null">
+
+<div class="">
+
+  <et-title [state]="state"></et-title>
+
+  <et-desktop-table *ngIf="state.desktop.enabled" [state]="state" [data]="dataService.viewport.items"></et-desktop-table>
+
+  <et-mobile-table  *ngIf="state.mobile.enabled" [state]="state" [data]="dataService.viewport.items"></et-mobile-table>
+
+</div>
+
+</ng-container>

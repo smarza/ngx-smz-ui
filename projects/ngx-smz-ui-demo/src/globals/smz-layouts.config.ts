@@ -52,7 +52,7 @@ export const smzLayoutsConfig: SmzLayoutsConfig = {
         position: 'bottom-right'
     },
     themes: {
-        content: SmzContentTheme.VELA_ORANGE,
+        content: SmzContentTheme.FLUENT_LIGHT,
         // custom:   {
         //     id: 'e-libra-mobile',
         //     name: 'e-Libra Mobile',
@@ -85,7 +85,7 @@ export const smzLayoutsConfig: SmzLayoutsConfig = {
         notFoundImagePath: 'assets/images/pages/bg-404.jpg',
     },
     assistance: {
-        isEnabled: true,
+        isEnabled: false,
         sidebarData: {
             position: 'right'
         },

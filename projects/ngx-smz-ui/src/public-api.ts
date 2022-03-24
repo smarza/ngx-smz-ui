@@ -97,3 +97,5 @@ export * from './lib/builders/smz-svgs/svg-features';
 export * from './lib/builders/smz-svgs/svg-feature';
 
 export * from './lib/modules/smz-ui-block/public-api';
+
+export * from './lib/standalones/easy-table/public-api';

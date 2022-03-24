@@ -1,7 +1,32 @@
-<h2>Signalr Demo Table</h2>
+<h2>Signalr Demo Table {{ isSmzTable ? 'SMZ TABLE' : 'HTML TABLE' }}</h2>
+<p-toggleButton [(ngModel)]="isSmzTable" onLabel="Smz Table" offLabel="Html Table"></p-toggleButton>
 
-<smz-ui-table
-  #smzTable
-  [items]="items$ | async"
-  [state]="tableState">
-</smz-ui-table>
+<ng-container *ngIf="isSmzTable">
+  <smz-ui-table
+    #smzTable
+    [dataSource$]="items$"
+    [state]="tableState">
+  </smz-ui-table>
+</ng-container>
+
+<ng-container *ngIf="!isSmzTable">
+
+    <table>
+      <tr>
+        <th>Company</th>
+        <th>Country</th>
+        <th>Amostragem</th>
+        <th>Menu</th>
+      </tr>
+      <tr *ngFor="let item of items">
+        <td>{{ item.name }}</td>
+        <td>{{ item.country.name }}</td>
+        <td>{{ item.sample }}</td>
+        <td>
+          <button type="button" pButton icon="pi pi-bars" label="Show" (click)="menu.toggle($event)"></button>
+          <p-menu #menu [popup]="true" [model]="menuItems"></p-menu>
+        </td>
+      </tr>
+    </table>
+
+  </ng-container>
