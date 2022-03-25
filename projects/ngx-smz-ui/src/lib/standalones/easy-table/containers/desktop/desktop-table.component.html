@@ -4,8 +4,10 @@
 
   <table [ngClass]="config.tableStyleClass">
     <thead et-desktop-head [state]="state" [ngClass]="config.head.styleClass"></thead>
-    <tbody et-desktop-body [state]="state" [data]="data" [ngClass]="config.body.styleClass"></tbody>
+    <tbody et-desktop-body [state]="state" [dataSource]="dataSource" [ngClass]="config.body.styleClass"></tbody>
   </table>
+
+  <et-pagination [state]="state" [dataSource]="dataSource"></et-pagination>
 
 </div>
 

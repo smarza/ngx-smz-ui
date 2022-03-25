@@ -18,6 +18,8 @@ import { MenuModule } from 'primeng/menu';
 const data: SmzRouteData = {
   layout: {
     mode: 'full',
+    contentPadding: '2em'
+
   },
   title: 'Demo Tables',
   appArea: 'demo-table',

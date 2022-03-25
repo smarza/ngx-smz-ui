@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { SafeContentPipeModule } from '../../common/pipes/safe-html.pipe';
 import { NgxSmzMenuModule } from '../../modules/smz-menu/smz-menu.module';
+import { PaginationComponent } from './components/common/pagination/pagination.component';
 import { TitleComponent } from './components/common/title/title.component';
 import { DesktopBodyComponent } from './components/desktop/body/body.component';
 import { DesktopHeadComponent } from './components/desktop/head/head.component';
@@ -30,6 +31,7 @@ import { TableDataSourceService } from './services/table-data-source.service';
 
     // Common Components
     TitleComponent,
+    PaginationComponent,
 
     // Desktop Components
     DesktopHeadComponent,

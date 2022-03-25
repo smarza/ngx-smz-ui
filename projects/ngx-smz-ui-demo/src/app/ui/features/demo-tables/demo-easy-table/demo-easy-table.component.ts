@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs';
-import { SmzEasyTableState, SmzEasyTableContentType, SmzEasyTableTextContent, SmzEasyTableActionContent } from 'ngx-smz-ui';
+import { SmzEasyTableState, SmzEasyTableContentType, SmzEasyTableTextContent, SmzEasyTableActionContent, ApplicationActions } from 'ngx-smz-ui';
 import { DemoTableDataService } from '../data-service/demo-tables-data-service';
 import { Select, Store } from '@ngxs/store';
 import { DemoFeatureSelectors } from '@states/demo/demo.selectors';
 import { DemoFeatureActions } from '@states/demo/demo.actions'
 import { EasyTableDemoData } from './easy-table-model';
+import { paginator } from '../../../../../../../ngx-smz-ui/src/lib/standalones/easy-table/services/table-data-utils';
 
 @Component({
   selector: 'app-demo-easy-table',
@@ -19,17 +20,21 @@ export class DemoEasyTableComponent implements OnInit, OnDestroy {
   public timer;
   constructor(private store: Store) {
 
+    this.store.dispatch(new ApplicationActions.StartGlobalLoading);
+
     setTimeout(() => {
 
       this.store.dispatch(new DemoFeatureActions.LoadAllEasyTableDemo());
 
-      setTimeout(() => {
+      this.store.dispatch(new ApplicationActions.StopGlobalLoading);
 
-        this.timer = setInterval(() => {
-          this.store.dispatch(new DemoFeatureActions.LoadAllEasyTableDemo());
-        }, 250);
+      // setTimeout(() => {
 
-      }, 2000);
+      //   this.timer = setInterval(() => {
+      //     this.store.dispatch(new DemoFeatureActions.LoadAllEasyTableDemo());
+      //   }, 1000);
+
+      // }, 2000);
 
     }, 1000);
   }
@@ -45,6 +50,7 @@ export class DemoEasyTableComponent implements OnInit, OnDestroy {
 
 const mockState: SmzEasyTableState = {
   title: 'Your Orders',
+  emptyMessage: 'Lista Vazia',
   desktop: {
     enabled: true,
     containerStyleClass: 'overflow-auto rounded-lg shadow hidden md:block',
@@ -123,4 +129,16 @@ const mockState: SmzEasyTableState = {
     head: null,
     body: null
   },
+  paginator: {
+    itemsPerPage: 10,
+    maxVisiblePages: 6,
+    labels: {
+      previous: 'Previous',
+      next: 'Next',
+      showing: 'Showing',
+      to: 'to',
+      of: 'of',
+      results: 'Results',
+    }
+  }
 }

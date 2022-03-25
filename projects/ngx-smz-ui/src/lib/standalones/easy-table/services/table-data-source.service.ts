@@ -3,13 +3,13 @@ import { Observable, Subscription } from 'rxjs';
 import { cloneDeep } from 'lodash';
 import { removeElementFromArray } from '../../../common/utils/utils';
 import { SmzEasyTableState } from '../models/smz-easy-table-state';
-import { SmzEasyTableData } from '../models/smz-easy-table-data';
+import { SmzEasyTableData, SmzEasyTableViewport } from '../models/smz-easy-table-data';
 import moment from 'moment';
+import { paginator } from './table-data-utils';
 
 @Injectable()
 export class TableDataSourceService {
-  public data: { showSkeleton: boolean, items: SmzEasyTableData[] } = { showSkeleton: true, items: [] };
-  public viewport: { original: any[], items: SmzEasyTableData[] } = { original: [], items: [] };
+  public viewport: SmzEasyTableViewport = { original: [], allTableData: [], paginator: null };
   public state: SmzEasyTableState;
   public source$: Observable<any[]>;
   public subscription: Subscription;
@@ -20,78 +20,37 @@ export class TableDataSourceService {
   }
 
   public setupListener(): void {
+
     if (this.source$ != null) {
 
       this.subscription = this.source$
-        .subscribe(newItems => {
-          console.log('from TableDataSourceService subscription', newItems);
+        .subscribe(data => {
 
-          const itemsToRemove: any[] = [];
-          const itemsToAdd: any[] = [];
+          console.group('subscription');
+          console.log('newData', data);
 
-          const showSkeleton = newItems == null;
-          this.data.showSkeleton = showSkeleton;
 
-          if (newItems == null) {
-            this.data.items = [];
-            this.cdr.markForCheck();
-            return;
-          }
+          const newData = data ?? [];
+          this.viewport.original = newData;
 
-          this.viewport.items.forEach((item, index) => {
-
-            const matchIndex = newItems.findIndex(x => x.id === item.id);
-
-            if (matchIndex !== -1) {
-              // Encontrou item nas duas listas
-              console.log('   >> updating', item.details);
-
-              // this.data.items[index] = { ...newItems[matchIndex] };
-              this.updateData(item, newItems[matchIndex]);
-            }
-            else {
-              // Item antigo foi removido
-              itemsToRemove.push(cloneDeep(item));
-            }
+          newData.forEach(newItem => {
+            const newTableItem = this.createTableData(newItem);
+            this.viewport.allTableData.push(newTableItem);
           });
-
-          newItems.forEach((newItem, index) => {
-
-            const match = this.data.items.some(x => x.id === newItem.id);
-
-            if (!match) {
-              // Item novo detectado
-              itemsToAdd.push(cloneDeep(newItem));
-            }
-
-          });
-
-          if (itemsToRemove.length > 0) {
-            console.log('Items antigos não existentes na lista nova: ', itemsToRemove);
-            itemsToRemove.forEach(x => {
-              removeElementFromArray(this.data.items, x, 'id');
-              removeElementFromArray(this.viewport.items, x, 'id')
-            });
-          }
-
-          if (itemsToAdd.length > 0) {
-            console.log('Items novo não existentes na lista antiga: ', itemsToAdd);
-            itemsToAdd.forEach(x => {
-              this.data.items.push(cloneDeep(x));
-              this.viewport.items.push(this.convertData(x));
-            });
-          }
 
           this.cdr.markForCheck();
 
-          // console.log('   >> results', this.viewport.items);
+          this.viewport.paginator = paginator(this.viewport.allTableData, 1, this.state.paginator.itemsPerPage, this.state.paginator.maxVisiblePages);
 
+
+          console.log('paginator', this.viewport.paginator);
+          console.groupEnd();
         });
 
     }
   }
 
-  public convertData(item: any): SmzEasyTableData {
+  public createTableData(item: any): SmzEasyTableData {
     return {
       id: item.id,
       0: `<b>${item.number}</b>`,
@@ -102,7 +61,7 @@ export class TableDataSourceService {
     };
   }
 
-  public updateData(item: any, updateData: any): void {
+  public updateTableData(item: any, updateData: any): void {
 
     item[0] = `<b>${updateData.number}</b>`;
     item[1] = updateData.details;

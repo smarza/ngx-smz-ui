@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SmzEasyTableState } from '../../models/smz-easy-table-state';
+import { TableDataSourceService } from '../../services/table-data-source.service';
 
 @Component({
   selector: 'et-desktop-table',
@@ -8,7 +9,7 @@ import { SmzEasyTableState } from '../../models/smz-easy-table-state';
 
 export class DesktopTableComponent implements OnInit {
   @Input() public state: SmzEasyTableState;
-  @Input() public data: any[];
+  @Input() public dataSource: TableDataSourceService;
   constructor() { }
 
   ngOnInit() { }

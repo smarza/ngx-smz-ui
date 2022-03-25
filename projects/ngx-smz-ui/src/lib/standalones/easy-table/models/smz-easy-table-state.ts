@@ -2,8 +2,10 @@ import { SmzEasyTableContentTypes } from './smz-easy-table-contents';
 
 export interface SmzEasyTableState {
   title: string;
+  emptyMessage: string;
   desktop: SmzEasyDesktopTable;
   mobile: SmzEasyMobileTable;
+  paginator: SmzEasyPaginator;
 
 }
 
@@ -46,4 +48,17 @@ export interface SmzEasyTableBody {
 export interface SmzEasyTableBodyColumn {
   styleClass: string;
   content: SmzEasyTableContentTypes;
+}
+
+export interface SmzEasyPaginator {
+  itemsPerPage: number;
+  maxVisiblePages: number;
+  labels: {
+    next: string;
+    previous: string;
+    showing: string;
+    to: string;
+    of: string;
+    results: string;
+  }
 }

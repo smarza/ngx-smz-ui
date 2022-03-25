@@ -4,9 +4,9 @@
 
   <et-title [state]="state"></et-title>
 
-  <et-desktop-table *ngIf="state.desktop.enabled" [state]="state" [data]="dataService.viewport.items"></et-desktop-table>
+  <et-desktop-table *ngIf="state.desktop.enabled" [state]="state" [dataSource]="dataService"></et-desktop-table>
 
-  <et-mobile-table  *ngIf="state.mobile.enabled" [state]="state" [data]="dataService.viewport.items"></et-mobile-table>
+  <et-mobile-table  *ngIf="state.mobile.enabled" [state]="state" [data]="[]"></et-mobile-table>
 
 </div>
 

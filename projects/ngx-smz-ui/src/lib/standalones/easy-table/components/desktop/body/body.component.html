@@ -1,4 +1,4 @@
-<ng-container *ngFor="let row of data; let even = even; let odd = odd">
+<ng-container *ngFor="let row of dataSource.viewport.paginator.data; let even = even; let odd = odd">
 
   <tr [ngClass]="even ? state.desktop.body.evenRow.styleClass : state.desktop.body.oddRow.styleClass">
 
@@ -26,4 +26,10 @@
 
   </tr>
 
+</ng-container>
+
+<ng-container *ngIf="dataSource.viewport.paginator.data?.length === 0">
+  <tr [ngClass]="state.desktop.body.evenRow.styleClass">
+    <td [colSpan]="state.desktop.body.columns?.length" class="text-center py-2">{{ state.emptyMessage }}</td>
+  </tr>
 </ng-container>
