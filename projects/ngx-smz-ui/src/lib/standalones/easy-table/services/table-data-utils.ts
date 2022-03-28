@@ -15,24 +15,24 @@ export function paginator(items: any[], currentPage: number, itemsPerPage: numbe
 	let min = page - gap;
 	if (min < 1) min = 1;
 	if (totalPages - min < maxVisiblePages) {
-		console.log('changing min');
+		// console.log('changing min');
 		min = maxVisiblePages - (totalPages - page - 1)
 	};
 
 	let max = page + gap - 1;
 	if ((max - min) < maxVisiblePages)  {
-		console.log('changing max');
+		// console.log('changing max');
 		max = min + maxVisiblePages - 1;
 	}
 
 	if (max > totalPages) {
-		console.log('changing both');
+		// console.log('changing both');
 		max = totalPages;
 		min = totalPages - maxVisiblePages + 1;
 	}
 
 	let count = max - min + 1;
-	console.log(`min: ${min} | max: ${max} | count: ${count}`);
+	// console.log(`min: ${min} | max: ${max} | count: ${count}`);
 
 	return {
 		page: page,

@@ -210,6 +210,12 @@ export const TreeDemoData: DemoTreeNode[] = [
             notes: 'The dialog will appear behind the frames',
             data: DialogsDemo[DemoKeys.DIALOGS_CONTROLS_BASE_Z_INDEX]
           },
+          {
+            label: 'Open Maximided', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'dialog',
+            notes: 'Press enter to confirm the dialog',
+            data: DialogsDemo[DemoKeys.DIALOGS_CONTROLS_OPEN_MAXIMIZED]
+          },
         ]
       },
       {
@@ -613,6 +619,12 @@ export const TreeDemoData: DemoTreeNode[] = [
         demoType: 'table',
         notes: '',
         data: TablesDemo[DemoKeys.TABLE_AUTO_SIZED_COLUMNS]
+      },
+      {
+        label: 'Multi-languages', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'table',
+        notes: '',
+        data: TablesDemo[DemoKeys.TABLE_MULTILANGUAGES]
       },
     ]
   },

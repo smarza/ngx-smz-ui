@@ -56,6 +56,10 @@ export class DialogService
         const componentFactory = this.componentFactoryResolver.resolveComponentFactory(DynamicDialogComponent);
         const componentRef = componentFactory.create(new DynamicDialogInjector(this.injector, map));
 
+        if (config.openMaximized) {
+            componentRef.instance.maximized = true;
+        }
+
         this.appRef.attachView(componentRef.hostView);
 
         const domElem = (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;

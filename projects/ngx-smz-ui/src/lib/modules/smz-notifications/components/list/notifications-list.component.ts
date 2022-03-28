@@ -52,7 +52,7 @@ export class NotificationsListComponent implements OnInit {
 
     return new SmzTableBuilder()
       .setSize('small')
-      .enableGlobalFilter('Pesquisar...')
+      .enableGlobalFilter()
       .expandGlobalFilterInput()
       .setEmptyFeedbackMessage(this.rbkConfig.notifications.emptyMessage)
       .useTableEmptyMessage()

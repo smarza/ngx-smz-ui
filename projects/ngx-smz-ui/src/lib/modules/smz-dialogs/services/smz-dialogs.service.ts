@@ -110,6 +110,7 @@ export class SmzDialogsService
             minimizeDockImagePath: behaviors.minimizeDockImagePath,
             minimizeLabel: behaviors.minimizeLabel,
             maximizable: behaviors.showMaximizeButton === true,
+            openMaximized: behaviors.openMaximized === true,
             closeOnEscape: behaviors.closeOnEscape,
             confirmOnEnter: behaviors.confirmOnEnter,
             showHeader: behaviors.showHeader,

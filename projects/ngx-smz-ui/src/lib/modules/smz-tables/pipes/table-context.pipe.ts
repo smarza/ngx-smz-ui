@@ -88,30 +88,49 @@ export class SmzTableContextPipe implements PipeTransform {
           hoverable: false,
         }
       },
+      locale: {
+        columnVisibility: {
+          placeholder: 'Colunas',
+          selectedItemsLabel: '{0} colunas visíveis',
+          pTooltip: 'Escolha as colunas que deseja visualizar na tabela.'
+        },
+        globalFilter: {
+          placeholder: 'Pesquisa Global'
+        },
+        dropdownFilter: {
+          placeholder: 'Todos'
+        },
+        clearFilters: {
+          label: 'Limpar Filtros'
+        },
+        rowSelection: {
+          label: 'Seleção'
+        },
+        paginator: {
+          template: 'Mostrando {first} a {last} de {totalRecords} itens'
+        }
+      },
       caption: {
         isVisible: false,
         title: '',
         toolbarAlignment: 'start',
         clearFilters: {
           isButtonVisible: true,
-          callback: null,
-          label: 'Limpar Filtro',
+          callback: null
         },
         columnVisibility: {
           showDropdownSelector: false,
-          showColumnHideButton: false
+          showColumnHideButton: false,
         },
         globalFilter: {
           isVisible: true,
           expanded: false,
-          placeholder: 'Pesquisa Global'
         },
         rowSelection: {
           isButtonVisible: true,
           columnWidth: '3em',
           callback: null,
           isEnabled: false,
-          label: 'Seleção'
         },
       },
       header: {
@@ -136,7 +155,6 @@ export class SmzTableContextPipe implements PipeTransform {
         rowsPerPageOptions: [5, 10, 50, 100, 500],
         pageReport: {
           isVisible: true,
-          template: 'Mostrando {first} a {last} de {totalRecords} itens'
         },
         state: { first: 0, rows: 10 }
       },

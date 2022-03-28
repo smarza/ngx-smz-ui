@@ -132,6 +132,7 @@ export interface SmzDialogBehaviors
     showConfirmButton?: boolean;
     showCloseButton?: boolean;
     showMaximizeButton?: boolean;
+    openMaximized?: boolean;
     showMinimizeButton?: boolean;
     minimizeLabel?: string;
     minimizeDockImagePath?: string;

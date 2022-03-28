@@ -77,12 +77,10 @@ export class SmzTableBuilder {
         isEnabled: false,
         callback: null,
         columnWidth: '3em',
-        label: ''
       },
       clearFilters: {
         callback: null,
         isButtonVisible: false,
-        label: '',
       },
       columnVisibility: {
         showDropdownSelector: false,
@@ -91,7 +89,6 @@ export class SmzTableBuilder {
       globalFilter: {
         isVisible: false,
         expanded: false,
-        placeholder: 'Pesquisa Global'
       },
       isVisible: false,
       title: null,
@@ -184,6 +181,8 @@ export class SmzTableBuilder {
       StateBuilderFunctions.createColumnsFromInputControls(this._state, inputConfigs, children);
     }
 
+    this.setLocale('pt-BR');
+
   }
 
   public setTitle(title: string): SmzTableBuilder {
@@ -192,11 +191,10 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public enableGlobalFilter(placeholder?: string): SmzTableBuilder {
+  public enableGlobalFilter(): SmzTableBuilder {
     this._state.caption.isVisible = true;
     this._state.caption.globalFilter.isVisible = true;
 
-    if (placeholder != null) this._state.caption.globalFilter.placeholder = placeholder;
     return this;
   }
 
@@ -217,19 +215,80 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public enableClearFilters(label: string = 'Limpar Filtros'): SmzTableBuilder {
+  public setLocale(language: 'pt-BR' | 'en-US'): SmzTableBuilder {
+
+    switch (language) {
+      case 'pt-BR':
+        this._state.locale = {
+          columnVisibility: {
+            placeholder: 'Colunas',
+            selectedItemsLabel: '{0} colunas visíveis',
+            pTooltip: 'Escolha as colunas que deseja visualizar na tabela.'
+          },
+          globalFilter: {
+            placeholder: 'Pesquisa Global'
+          },
+          dropdownFilter: {
+            placeholder: 'Todos'
+          },
+          clearFilters: {
+            label: 'Limpar Filtros'
+          },
+          rowSelection: {
+            label: 'Seleção'
+          },
+          paginator: {
+            template: 'Mostrando {first} a {last} de {totalRecords} itens'
+          }
+        };
+
+        break;
+
+      case 'en-US':
+
+        this._state.locale = {
+          columnVisibility: {
+            placeholder: 'Columns',
+            selectedItemsLabel: '{0} visible columns',
+            pTooltip: 'Choose the columns you want to view in the table.'
+          },
+          globalFilter: {
+            placeholder: 'Global Search'
+          },
+          dropdownFilter: {
+            placeholder: 'All'
+          },
+          clearFilters: {
+            label: 'Clear Filters'
+          },
+          rowSelection: {
+            label: 'Selection'
+          },
+          paginator: {
+            template: 'Showing {first} to {last} of {totalRecords} items'
+          }
+        };
+
+        break;
+
+      default:
+        break;
+    }
+
+    return this;
+  }
+
+  public enableClearFilters(): SmzTableBuilder {
     this._state.caption.isVisible = true;
-    this._state.caption.clearFilters.label = label;
     this._state.caption.clearFilters.isButtonVisible = true;
     return this;
   }
 
-  public enableClearFiltersWithoutLabel(): SmzTableBuilder {
-    this._state.caption.isVisible = true;
-    this._state.caption.clearFilters.label = null;
-    this._state.caption.clearFilters.isButtonVisible = true;
-    return this;
-  }
+  // public enableClearFiltersWithoutLabel(): SmzTableBuilder {
+  //   this._state.caption.isVisible = true;
+  //   this._state.caption.clearFilters.isButtonVisible = true;
+  //   return this;
+  // }
 
   public setClearFilterCallback(callback: () => void): SmzTableBuilder {
     if (!this._state.caption.clearFilters.isButtonVisible) {
@@ -250,10 +309,9 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public allowUserMultiSelection(label: string = 'Seleção', initialState: 'enabled' | 'disabled' = 'enabled'): SmzTableBuilder {
+  public allowUserMultiSelection(initialState: 'enabled' | 'disabled' = 'enabled'): SmzTableBuilder {
     this._state.caption.rowSelection.isEnabled = initialState === 'enabled';
     this._state.caption.rowSelection.isButtonVisible = true;
-    this._state.caption.rowSelection.label = label;
     this._state.caption.rowSelection.columnWidth = '3em';
     return this;
   }
@@ -385,10 +443,9 @@ export class SmzTableBuilder {
   public usePagination(): SmzTableBuilder {
     this._state.pagination.isVisible = true;
     this._state.pagination.rows = 10;
-    this._state.pagination.rowsPerPageOptions = [ 5, 10, 25, 50, 100 ];
+    this._state.pagination.rowsPerPageOptions = [5, 10, 25, 50, 100];
     this._state.pagination.pageReport = {
       isVisible: true,
-      template: 'Mostrando {first} a {last} de {totalRecords} itens'
     };
     this._state.pagination.state.rows = this._state.pagination.rows;
     return this;
@@ -446,7 +503,7 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public setCustomInitialSorting(data: { field?: string, mode?: 'single' | 'multiple', order?: 1 | -1, multiSortMeta?: { field: string, order: 1 | -1 } [] }): SmzTableBuilder {
+  public setCustomInitialSorting(data: { field?: string, mode?: 'single' | 'multiple', order?: 1 | -1, multiSortMeta?: { field: string, order: 1 | -1 }[] }): SmzTableBuilder {
     this._state.sort = data;
     return this;
   }
@@ -480,7 +537,7 @@ export class SmzTableBuilder {
   }
 
   public reorder(...properties: string[]): SmzTableBuilder {
-    this._state.columns = sortBy(this._state.columns, (c) => properties.indexOf(c.property) !== -1? properties.indexOf(c.property) : this._state.columns.length);
+    this._state.columns = sortBy(this._state.columns, (c) => properties.indexOf(c.property) !== -1 ? properties.indexOf(c.property) : this._state.columns.length);
     return this;
   }
 

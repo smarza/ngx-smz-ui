@@ -107,6 +107,28 @@ export interface SmzTableState {
     },
     mapResults: (data: any, change: EditableChanges<any>) => any
   }
+  locale?: {
+    columnVisibility?: {
+      placeholder: string;
+      selectedItemsLabel: string;
+      pTooltip: string;
+    };
+    globalFilter?: {
+      placeholder: string;
+    },
+    dropdownFilter?: {
+      placeholder: string;
+    },
+    clearFilters?: {
+      label: string;
+    },
+    rowSelection?: {
+      label: string;
+    },
+    paginator?: {
+      template: string;
+    }
+  }
 
   /**
    * Behavior of everything that is hosted in the caption area of the table
@@ -149,10 +171,6 @@ export interface SmzTableState {
        * If true the input will expand to 100% of the width table
        */
       expanded: boolean;
-      /**
-       * The input search placeholder
-       */
-       placeholder: string;
     };
     /**
      * Allows the end user to manually clear table filters
@@ -162,10 +180,6 @@ export interface SmzTableState {
        * Controls whether the clear filter button should be visible or not
        */
       isButtonVisible?: boolean;
-      /**
-       * Label of the button
-       */
-      label?: string;
       /**
        * callback to be called when the Clear Filter button is clicked
        */
@@ -180,10 +194,6 @@ export interface SmzTableState {
        * no selection and multi selection
        */
       isButtonVisible: boolean;
-      /**
-       * Label of the button
-       */
-      label?: string;
       /**
        * Width of the column that will host the checkboxes for each row,
        * indicating which isones are selected

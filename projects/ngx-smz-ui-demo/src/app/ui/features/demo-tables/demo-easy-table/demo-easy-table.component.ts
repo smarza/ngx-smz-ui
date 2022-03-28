@@ -28,13 +28,15 @@ export class DemoEasyTableComponent implements OnInit, OnDestroy {
 
       this.store.dispatch(new ApplicationActions.StopGlobalLoading);
 
-      // setTimeout(() => {
+      setTimeout(() => {
 
-      //   this.timer = setInterval(() => {
-      //     this.store.dispatch(new DemoFeatureActions.LoadAllEasyTableDemo());
-      //   }, 1000);
+        this.store.dispatch(new DemoFeatureActions.LoadAllEasyTableDemo());
 
-      // }, 2000);
+        this.timer = setInterval(() => {
+          this.store.dispatch(new DemoFeatureActions.LoadAllEasyTableDemo());
+        }, 10000);
+
+      }, 2000);
 
     }, 1000);
   }

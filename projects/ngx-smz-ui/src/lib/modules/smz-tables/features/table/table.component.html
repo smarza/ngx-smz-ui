@@ -31,7 +31,7 @@
             [rowsPerPageOptions]="context.state.pagination.rowsPerPageOptions"
             [loading]="loading"
             [paginator]="context.state.pagination.isVisible"
-            [currentPageReportTemplate]="context.state.pagination.pageReport.template"
+            [currentPageReportTemplate]="context.state.locale.paginator.template"
             [sortField]="context.state.sort.field"
             [sortMode]="context.state.sort.mode"
             [sortOrder]="context.state.sort.order"
@@ -67,21 +67,21 @@
                         styleClass="w-full"
                         [options]="context.hideableColumns"
                         [(ngModel)]="selectedColumns"
-                        placeholder="Colunas"
-                        [selectedItemsLabel]="'{0} colunas visíveis'"
+                        [placeholder]="context.state.locale.columnVisibility.placeholder"
+                        [selectedItemsLabel]="context.state.locale.columnVisibility.selectedItemsLabel"
                         optionLabel="name"
                         dataKey="field"
                         optionLabel="header"
                         [filter]="false"
                         (onChange)="updateColumnsVisibility(context)"
-                        pTooltip="Escolha as colunas que deseja visualizar na tabela.">
+                        [pTooltip]="context.state.locale.columnVisibility.pTooltip">
                     </p-multiSelect>
-                    <button *ngIf="context.state.caption.rowSelection.isButtonVisible" pButton [label]="context.state.caption.rowSelection.label" class="p-button-outlined" icon="fas fa-check-double" (click)="onRowSelection(context)" [disabled]="clonedData.showSkeleton"></button>
-                    <button *ngIf="context.state.caption.clearFilters.isButtonVisible" pButton [label]="context.state.caption.clearFilters.label" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(dt, context)" [disabled]="clonedData.showSkeleton"></button>
+                    <button *ngIf="context.state.caption.rowSelection.isButtonVisible" pButton [label]="context.state.locale.rowSelection.label" class="p-button-outlined" icon="fas fa-check-double" (click)="onRowSelection(context)" [disabled]="clonedData.showSkeleton"></button>
+                    <button *ngIf="context.state.caption.clearFilters.isButtonVisible" pButton [label]="context.state.locale.clearFilters.label" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(dt, context)" [disabled]="clonedData.showSkeleton"></button>
                     <button *ngIf="context.state.editable.creation.isButtonVisible" pButton [label]="context.state.editable.creation.buttonLabel" class="p-button-outlined" icon="fas fa-plus" (click)="editableService.onRowCreateInit(dt, context)" [disabled]="clonedData.showSkeleton || editableService.isEditing || editableService.isCreating || context.state.editable.creation.isButtonDisabled"></button>
                     <span *ngIf="context.state.caption.globalFilter.isVisible" class="p-input-icon-left col-12" [ngClass]="{ 'md:col-2': !context.state.caption.globalFilter.expanded }">
                         <i class="pi pi-search"></i>
-                        <input #inputGlobal pInputText type="text" styleClass="database-global-search" (input)="dt.filterGlobal(inputGlobal.value, 'contains')"  [disabled]="clonedData.showSkeleton" [placeholder]="context.state.caption.globalFilter.placeholder" />
+                        <input #inputGlobal pInputText type="text" styleClass="database-global-search" (input)="dt.filterGlobal(inputGlobal.value, 'contains')"  [disabled]="clonedData.showSkeleton" [placeholder]="context.state.locale.globalFilter.placeholder" />
                     </span>
                 </div>
 
@@ -176,7 +176,7 @@
                                                         </div>
                                                     </ng-template>
                                                     <ng-template pTemplate="filter" let-value let-filter="filter">
-                                                        <p-dropdown [ngModel]="value" [options]="(clonedData.items != null ? clonedData.items : []) | uniqueFilter : filterField + '.id' : filterField : null : null : false" placeholder="Todos" (onChange)="filter($event.value)" optionLabel="name" dataKey="id"></p-dropdown>
+                                                        <p-dropdown [ngModel]="value" [options]="(clonedData.items != null ? clonedData.items : []) | uniqueFilter : filterField + '.id' : filterField : null : null : false" [placeholder]="context.state.locale.dropdownFilter.placeholder" (onChange)="filter($event.value)" optionLabel="name" dataKey="id"></p-dropdown>
                                                     </ng-template>
                                                 </smz-column-filter>
                                             </ng-container>
@@ -191,7 +191,7 @@
                                                         </div>
                                                     </ng-template>
                                                     <ng-template pTemplate="filter" let-value let-filter="filter">
-                                                        <p-multiSelect [ngModel]="value" [options]="(clonedData.items != null ? clonedData.items : []) | uniqueFilter : filterField + '.id' : filterField : null : null : false" placeholder="Todos" (onChange)="filter($event.value)" optionLabel="name" dataKey="id"></p-multiSelect>
+                                                        <p-multiSelect [ngModel]="value" [options]="(clonedData.items != null ? clonedData.items : []) | uniqueFilter : filterField + '.id' : filterField : null : null : false" [placeholder]="context.state.locale.dropdownFilter.placeholder" (onChange)="filter($event.value)" optionLabel="name" dataKey="id"></p-multiSelect>
                                                     </ng-template>
                                                 </smz-column-filter>
                                             </ng-container>
@@ -206,7 +206,7 @@
                                                         </div>
                                                     </ng-template>
                                                     <ng-template pTemplate="filter" let-value let-filter="filter">
-                                                        <p-multiSelect [ngModel]="value" [options]="(clonedData.items != null ? clonedData.items : []) | uniqueFilter : filterField + '.id' : filterField : null : null : true" placeholder="Todos" (onChange)="filter($event.value)" optionLabel="name" dataKey="id"></p-multiSelect>
+                                                        <p-multiSelect [ngModel]="value" [options]="(clonedData.items != null ? clonedData.items : []) | uniqueFilter : filterField + '.id' : filterField : null : null : true" [placeholder]="context.state.locale.dropdownFilter.placeholder" (onChange)="filter($event.value)" optionLabel="name" dataKey="id"></p-multiSelect>
                                                     </ng-template>
                                                 </smz-column-filter>
                                             </ng-container>

@@ -18,6 +18,7 @@ export class DynamicDialogConfig {
 	transitionOptions?: string;
 	closable?: boolean;
 	maximizable?: boolean;
+	openMaximized?: boolean;
 	minimizable?: boolean;
 	minimizeDockImagePath?: string;
 	minimizeLabel?: string;

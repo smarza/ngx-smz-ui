@@ -26,22 +26,22 @@ export class TableDataSourceService {
       this.subscription = this.source$
         .subscribe(data => {
 
-          console.group('subscription');
+          console.groupCollapsed('subscription');
           console.log('newData', data);
-
 
           const newData = data ?? [];
           this.viewport.original = newData;
+
+          this.viewport.allTableData = [];
 
           newData.forEach(newItem => {
             const newTableItem = this.createTableData(newItem);
             this.viewport.allTableData.push(newTableItem);
           });
 
-          this.cdr.markForCheck();
-
           this.viewport.paginator = paginator(this.viewport.allTableData, 1, this.state.paginator.itemsPerPage, this.state.paginator.maxVisiblePages);
 
+          this.cdr.markForCheck();
 
           console.log('paginator', this.viewport.paginator);
           console.groupEnd();

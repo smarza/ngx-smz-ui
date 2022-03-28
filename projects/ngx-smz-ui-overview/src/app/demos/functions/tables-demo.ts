@@ -36,6 +36,31 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
   }
   },
   //
+  [DemoKeys.TABLE_MULTILANGUAGES]: {
+    items$: store.select(DemoFeatureSelectors.all),
+    code: () => {
+    return new SmzTableBuilder('entity')
+        .setTitle('Demo Table With Multilanguage en-US')
+        .enableClearFilters()
+        .enableColumnVisibility()
+        .enableGlobalFilter()
+        .setEmptyFeedbackMessage('Lista vazia')
+        .setEmptyFeedbackExtraInfo('Clique abaixo para carregar novos dados.')
+        .addEmptyFeedbackButton('Atualizar', () => console.log('---'))
+        .usePagination()
+        .setPaginationDefaultRows(50)
+        .setCustomInitialSorting({ field: 'number', order: -1 })
+        .useStrippedStyle()
+        .setLocale('en-US')
+        .menu()
+          .item('Consultar')
+            .setCallback((event: any) => console.log('---'))
+            .menu
+          .table
+      .build()
+  }
+  },
+  //
   [DemoKeys.TABLE_BASIC]: {
     items$: store.select(DemoFeatureSelectors.all),
     code: () => {

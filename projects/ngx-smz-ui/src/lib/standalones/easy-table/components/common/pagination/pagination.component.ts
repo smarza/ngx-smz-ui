@@ -23,8 +23,6 @@ export class PaginationComponent implements OnInit {
       this.state.paginator.itemsPerPage,
       this.state.paginator.maxVisiblePages
     );
-
-    console.log(this.dataSource.viewport.paginator);
   }
 
   public previous(): void {
@@ -34,8 +32,6 @@ export class PaginationComponent implements OnInit {
       this.state.paginator.itemsPerPage,
       this.state.paginator.maxVisiblePages
     );
-
-    console.log(this.dataSource.viewport.paginator);
   }
 
   public goTo(page: number): void {
@@ -45,8 +41,6 @@ export class PaginationComponent implements OnInit {
       this.state.paginator.itemsPerPage,
       this.state.paginator.maxVisiblePages
     );
-
-    console.log(this.dataSource.viewport.paginator);
   }
 
 }

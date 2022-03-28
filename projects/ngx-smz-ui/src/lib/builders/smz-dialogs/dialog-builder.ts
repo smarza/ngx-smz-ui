@@ -35,6 +35,7 @@ export class SmzDialogBuilder<TResponse> extends SmzBuilderUtilities<SmzDialogBu
       showSaveButton: false,
       confirmOnEnter: false,
       showMaximizeButton: false,
+      openMaximized: false,
       showMinimizeButton: false,
       minimizeLabel: null,
       minimizeDockImagePath: 'assets/images/dock/dialog.svg',
@@ -89,6 +90,11 @@ export class SmzDialogBuilder<TResponse> extends SmzBuilderUtilities<SmzDialogBu
 
   public allowMaximize(): SmzDialogBuilder<TResponse> {
     this._state.behaviors.showMaximizeButton = true;
+    return this;
+  }
+
+  public openMaximized(): SmzDialogBuilder<TResponse> {
+    this._state.behaviors.openMaximized = true;
     return this;
   }
 
