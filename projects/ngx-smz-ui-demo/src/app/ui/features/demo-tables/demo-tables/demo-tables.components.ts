@@ -253,7 +253,6 @@ export class DemoTablesComponent implements OnInit {
         clearFilters: {
           isButtonVisible: true,
           callback: null,
-          label: 'Limpar Filtro',
         },
         columnVisibility: {
           showDropdownSelector: true,
@@ -262,14 +261,12 @@ export class DemoTablesComponent implements OnInit {
         globalFilter: {
           isVisible: true,
           expanded: false,
-          placeholder: 'Pesquisa Global'
         },
         rowSelection: {
           isButtonVisible: true,
           columnWidth: '3em',
           callback: () => console.log('test'),
           isEnabled: false,
-          label: 'Seleção'
         },
       },
       emptyFeedback: {

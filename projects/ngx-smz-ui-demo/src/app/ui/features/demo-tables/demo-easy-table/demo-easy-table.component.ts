@@ -1,12 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs';
-import { SmzEasyTableState, SmzEasyTableContentType, SmzEasyTableTextContent, SmzEasyTableActionContent, ApplicationActions } from 'ngx-smz-ui';
+import { SmzEasyTableState, SmzEasyTableContentType, SmzEasyTableTextContent, SmzEasyTableActionContent, ApplicationActions, SmzEasyTableCustomContent, SmzEasyTableCalendarContent, SmzEasyTableDataTransformContent } from 'ngx-smz-ui';
 import { DemoTableDataService } from '../data-service/demo-tables-data-service';
 import { Select, Store } from '@ngxs/store';
 import { DemoFeatureSelectors } from '@states/demo/demo.selectors';
 import { DemoFeatureActions } from '@states/demo/demo.actions'
 import { EasyTableDemoData } from './easy-table-model';
-import { paginator } from '../../../../../../../ngx-smz-ui/src/lib/standalones/easy-table/services/table-data-utils';
+import { SimpleNamedEntity } from '../../../../../../../../dist/ngx-smz-ui/lib/common/models/simple-named-entity';
 
 @Component({
   selector: 'app-demo-easy-table',
@@ -34,7 +34,7 @@ export class DemoEasyTableComponent implements OnInit, OnDestroy {
 
         this.timer = setInterval(() => {
           this.store.dispatch(new DemoFeatureActions.LoadAllEasyTableDemo());
-        }, 10000);
+        }, 1000);
 
       }, 2000);
 
@@ -57,15 +57,17 @@ const mockState: SmzEasyTableState = {
     enabled: true,
     containerStyleClass: 'overflow-auto rounded-lg shadow hidden md:block',
     tableStyleClass: 'w-full',
+    layout: 'auto',
     head: {
       styleClass: 'bg-gray-50 border-b-2 border-gray-200',
       headers: [
-        { label: 'No.', widthClass: 'w-20', styleClass: 'p-3 text-sm font-semibold tracking-wide text-left' },
+        { label: 'No.', widthClass: '', styleClass: 'p-3 text-sm font-semibold tracking-wide text-left' },
         { label: 'Details', widthClass: '', styleClass: 'p-3 text-sm font-semibold tracking-wide text-left' },
-        { label: 'Status', widthClass: 'w-24', styleClass: 'p-3 text-sm font-semibold tracking-wide text-left' },
-        { label: 'Date', widthClass: 'w-24', styleClass: 'p-3 text-sm font-semibold tracking-wide text-left' },
-        { label: 'Total', widthClass: 'w-32', styleClass: 'p-3 text-sm font-semibold tracking-wide text-left' },
-        { label: 'Actions', widthClass: 'w-24', styleClass: 'p-3 text-sm font-semibold tracking-wide text-left' },
+        { label: 'Country', widthClass: '', styleClass: 'p-3 text-sm font-semibold tracking-wide text-left' },
+        { label: 'Status', widthClass: '', styleClass: 'p-3 text-sm font-semibold tracking-wide text-left' },
+        { label: 'Date', widthClass: '', styleClass: 'p-3 text-sm font-semibold tracking-wide text-left' },
+        { label: 'Total', widthClass: '', styleClass: 'p-3 text-sm font-semibold tracking-wide text-left' },
+        { label: 'Actions', widthClass: '', styleClass: 'p-3 text-sm font-semibold tracking-wide text-left' },
       ]
     },
     body: {
@@ -78,42 +80,59 @@ const mockState: SmzEasyTableState = {
       },
       columns: [
         {
-          styleClass: 'p-3 text-sm text-gray-700 whitespace-nowrap',
+          key: 'number',
+          styleClass: 'p-3 text-gray-700 whitespace-nowrap text-center',
           content: {
             type: SmzEasyTableContentType.TEXT,
             dataPath: 'number',
           } as SmzEasyTableTextContent
         },
         {
-          styleClass: 'p-3 text-sm text-gray-700 whitespace-nowrap',
+          key: 'details',
+          styleClass: 'p-3 text-gray-700',
           content: {
-            type: SmzEasyTableContentType.TEXT,
+            type: SmzEasyTableContentType.CUSTOM,
             dataPath: 'details',
-          } as SmzEasyTableTextContent
+          } as SmzEasyTableCustomContent
         },
         {
+          key: 'country',
           styleClass: 'p-3 text-sm text-gray-700 whitespace-nowrap',
           content: {
             type: SmzEasyTableContentType.TEXT,
-            dataPath: 'status.name',
+            dataPath: 'country.name',
           } as SmzEasyTableTextContent
         },
         {
-          styleClass: 'p-3 text-sm text-gray-700 whitespace-nowrap',
+          key: 'status',
+          styleClass: 'p-3 whitespace-nowrap',
           content: {
-            type: SmzEasyTableContentType.TEXT,
+            type: SmzEasyTableContentType.DATA_TRANSFORM,
+            dataPath: 'status',
+            styleClass: '',
+            callback: (data: SimpleNamedEntity, row, index) => { return `<div class="px-3 py-1 text-sm bg-slate-200 text-slate-800 rounded text-center"><strong>${data.name}</strong></div>` }
+          } as SmzEasyTableDataTransformContent
+        },
+        {
+          key: 'date',
+          styleClass: 'p-3 text-gray-700 whitespace-nowrap',
+          content: {
+            type: SmzEasyTableContentType.CALENDAR,
             dataPath: 'date',
-          } as SmzEasyTableTextContent
+            format: 'short'
+          } as SmzEasyTableCalendarContent
         },
         {
-          styleClass: 'p-3 text-sm text-gray-700 whitespace-nowrap',
+          key: 'total',
+          styleClass: 'p-3 text-gray-700 whitespace-nowrap',
           content: {
             type: SmzEasyTableContentType.TEXT,
             dataPath: 'total',
           } as SmzEasyTableTextContent
         },
         {
-          styleClass: 'p-3 text-sm text-gray-700 whitespace-nowrap',
+          key: 'actions',
+          styleClass: 'p-3 whitespace-nowrap text-center',
           content: {
             type: SmzEasyTableContentType.ACTION,
             items: [
@@ -132,7 +151,7 @@ const mockState: SmzEasyTableState = {
     body: null
   },
   paginator: {
-    itemsPerPage: 10,
+    itemsPerPage: 6,
     maxVisiblePages: 6,
     labels: {
       previous: 'Previous',

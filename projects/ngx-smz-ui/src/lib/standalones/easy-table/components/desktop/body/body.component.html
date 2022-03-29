@@ -12,6 +12,20 @@
             <div [innerHtml]="row[index] | safeHtml"></div>
           </ng-container>
 
+          <ng-container *ngSwitchCase="type.CUSTOM">
+            <div>
+                <ng-container *ngTemplateOutlet="contentService.contentTemplate; context: { $implicit: row[index], row: row, col: column }"></ng-container>
+            </div>
+          </ng-container>
+
+          <ng-container *ngSwitchCase="type.DATA_TRANSFORM">
+            <div [innerHtml]="$any(column.content).callback(row[index], row, index) | safeHtml" [ngClass]="$any(column.content).styleClass"></div>
+          </ng-container>
+
+          <ng-container *ngSwitchCase="type.CALENDAR">
+            <div>{{ row[index] | date: $any(column.content).format }}</div>
+          </ng-container>
+
           <ng-container *ngSwitchCase="type.ACTION">
             <smz-menu [callback]="$any(column.content).callback" [items]="$any(column.content).items" [data]="row"></smz-menu>
           </ng-container>

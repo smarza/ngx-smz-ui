@@ -13,6 +13,7 @@ export interface SmzEasyDesktopTable {
   enabled: boolean;
   containerStyleClass: string;
   tableStyleClass: string;
+  layout: 'fixed' | 'auto';
   head: SmzEasyTableHead;
   body: SmzEasyTableBody;
 }
@@ -47,6 +48,7 @@ export interface SmzEasyTableBody {
 
 export interface SmzEasyTableBodyColumn {
   styleClass: string;
+  key: string;
   content: SmzEasyTableContentTypes;
 }
 

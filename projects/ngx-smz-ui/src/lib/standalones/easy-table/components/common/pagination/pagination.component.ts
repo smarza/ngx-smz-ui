@@ -20,6 +20,7 @@ export class PaginationComponent implements OnInit {
     this.dataSource.viewport.paginator = paginator(
       this.dataSource.viewport.allTableData,
       this.dataSource.viewport.paginator.nextPage,
+      null,
       this.state.paginator.itemsPerPage,
       this.state.paginator.maxVisiblePages
     );
@@ -29,6 +30,7 @@ export class PaginationComponent implements OnInit {
     this.dataSource.viewport.paginator = paginator(
       this.dataSource.viewport.allTableData,
       this.dataSource.viewport.paginator.prePage,
+      null,
       this.state.paginator.itemsPerPage,
       this.state.paginator.maxVisiblePages
     );
@@ -38,6 +40,7 @@ export class PaginationComponent implements OnInit {
     this.dataSource.viewport.paginator = paginator(
       this.dataSource.viewport.allTableData,
       page,
+      null,
       this.state.paginator.itemsPerPage,
       this.state.paginator.maxVisiblePages
     );

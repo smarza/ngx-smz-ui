@@ -4,6 +4,7 @@ export interface EasyTableDemoData {
   number: number;
   details: string;
   status: SimpleNamedEntity;
+  country: SimpleNamedEntity;
   date: Date;
   total: number;
 }

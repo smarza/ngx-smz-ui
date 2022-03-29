@@ -2,9 +2,9 @@
 
 <div [ngClass]="config.containerStyleClass">
 
-  <table [ngClass]="config.tableStyleClass">
+  <table [ngClass]="config.tableStyleClass" [style.table-layout]="config.layout">
     <thead et-desktop-head [state]="state" [ngClass]="config.head.styleClass"></thead>
-    <tbody et-desktop-body [state]="state" [dataSource]="dataSource" [ngClass]="config.body.styleClass"></tbody>
+    <tbody et-desktop-body [state]="state" [dataSource]="dataSource" [ngClass]="config.body.styleClass" [contentService]="contentService"></tbody>
   </table>
 
   <et-pagination [state]="state" [dataSource]="dataSource"></et-pagination>

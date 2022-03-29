@@ -11,6 +11,12 @@ const status = [
   { id: 'delivered', name: 'Delivered' },
   { id: 'cancelled', name: 'Cancelled' },
   { id: 'processing', name: 'Processing' }
+];
+
+const country = [
+  { id: 'brasil', name: 'Brasil' },
+  { id: 'us', name: 'United States' },
+  { id: 'denmark', name: 'Denmark' }
 ]
 
 @Injectable({ providedIn: 'root' })
@@ -21,13 +27,22 @@ export class DemoDataService extends BaseApiService {
   constructor(private http: HttpClient) {
     super();
 
-    for (let index = 0; index < 100; index++) {
+    for (let index = 0; index < 1000; index++) {
       const total = Math.floor(Math.random() * 3000) + 1;
       const number = Math.floor(Math.random() * 200) + 100;
       const statusIndex = Math.floor(Math.random() * status.length) + 0;
+      const countryIndex = Math.floor(Math.random() * country.length) + 0;
 
       this.mockData.push(
-        { id: index.toString(), number, details: 'Kring New Fit office chair, mesh + PU, black', status: status[statusIndex], date: new Date(), total}
+        {
+          id: index.toString(),
+          number,
+          details: 'Kring New Fit office chair, mesh + PU, black',
+          status: status[statusIndex],
+          country: country[countryIndex],
+          date: new Date(),
+          total
+        }
       );
 
     }

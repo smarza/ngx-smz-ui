@@ -1,14 +1,40 @@
-import { Paginator } from '../models/smz-easy-table-data';
+import { Paginator, SmzEasyTableData } from '../models/smz-easy-table-data';
+import { cloneDeep } from 'lodash';
 
-export function paginator(items: any[], currentPage: number, itemsPerPage: number, maxVisiblePages: number): Paginator {
+export function paginator(items: any[], currentPage: number, currentPageItems: SmzEasyTableData[], itemsPerPage: number, maxVisiblePages: number): Paginator {
 	const page = currentPage || 1,
 		perPage = itemsPerPage || 10,
 		offset = (page - 1) * perPage,
-
-		paginatedItems = items.slice(offset).slice(0, itemsPerPage),
 		totalPages = Math.ceil(items.length / perPage);
 
-	console.log('------------------------');
+	const paginatedItems = currentPageItems ?? items.slice(offset).slice(0, itemsPerPage);
+
+	if (currentPageItems != null) {
+		// console.log('##############################');
+		// console.log('currentPageItems != null');
+		// console.log('before: ', cloneDeep(paginatedItems));
+
+		paginatedItems.forEach(item => {
+
+			const properties = Object.keys(item);
+
+			for (const property of properties) {
+				const matchIndex = items.findIndex(x => x.id === item.id);
+
+				if (matchIndex != null) {
+					if (item[property] !== items[matchIndex][property]) {
+						item[property] = items[matchIndex][property];
+					}
+				}
+
+			}
+
+		});
+
+		// console.log('after: ', cloneDeep(paginatedItems));
+	}
+
+	// console.log('------------------------');
 
 	const gap = (maxVisiblePages / 2);
 

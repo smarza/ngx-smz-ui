@@ -1,11 +1,11 @@
 import { ChangeDetectorRef, Injectable } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
-import { cloneDeep } from 'lodash';
-import { removeElementFromArray } from '../../../common/utils/utils';
 import { SmzEasyTableState } from '../models/smz-easy-table-state';
 import { SmzEasyTableData, SmzEasyTableViewport } from '../models/smz-easy-table-data';
 import moment from 'moment';
 import { paginator } from './table-data-utils';
+import { ObjectUtils } from 'primeng/utils';
+import { SmzEasyTableContentType } from '../models/smz-easy-table-contents';
 
 @Injectable()
 export class TableDataSourceService {
@@ -16,7 +16,6 @@ export class TableDataSourceService {
   public cdr: ChangeDetectorRef;
 
   constructor() {
-
   }
 
   public setupListener(): void {
@@ -26,8 +25,8 @@ export class TableDataSourceService {
       this.subscription = this.source$
         .subscribe(data => {
 
-          console.groupCollapsed('subscription');
-          console.log('newData', data);
+          // console.groupCollapsed('subscription');
+          // console.log('newData', data);
 
           const newData = data ?? [];
           this.viewport.original = newData;
@@ -39,35 +38,83 @@ export class TableDataSourceService {
             this.viewport.allTableData.push(newTableItem);
           });
 
-          this.viewport.paginator = paginator(this.viewport.allTableData, 1, this.state.paginator.itemsPerPage, this.state.paginator.maxVisiblePages);
+          const currentPage = this.viewport.paginator?.page ?? 1;
+          const currentPageItems = this.viewport.paginator?.data.length > 0 ? this.viewport.paginator?.data : null;
+
+          this.viewport.paginator = paginator(this.viewport.allTableData, currentPage, currentPageItems, this.state.paginator.itemsPerPage, this.state.paginator.maxVisiblePages);
 
           this.cdr.markForCheck();
 
-          console.log('paginator', this.viewport.paginator);
-          console.groupEnd();
+          // console.log('paginator', this.viewport.paginator);
+          // console.groupEnd();
         });
 
     }
   }
 
   public createTableData(item: any): SmzEasyTableData {
+
+    const result = {};
+
+    this.state.desktop.body.columns.forEach((column, i) => {
+
+      switch (column.content.type) {
+        case SmzEasyTableContentType.TEXT:
+          result[i] = ObjectUtils.resolveFieldData(item, column.content.dataPath);
+          break;
+
+        case SmzEasyTableContentType.CALENDAR:
+          result[i] = ObjectUtils.resolveFieldData(item, column.content.dataPath);
+          break;
+
+        case SmzEasyTableContentType.CUSTOM:
+          result[i] = ObjectUtils.resolveFieldData(item, column.content.dataPath);
+          break;
+
+        case SmzEasyTableContentType.DATA_TRANSFORM:
+          result[i] = ObjectUtils.resolveFieldData(item, column.content.dataPath);
+          break;
+
+        default:
+          result[i] = '-';
+          break;
+      }
+
+    })
+
     return {
       id: item.id,
-      0: `<b>${item.number}</b>`,
-      1: item.details,
-      2: item.status.name,
-      3: moment(item.date).calendar().toString(),
-      4: item.total
+      ...result,
     };
   }
 
   public updateTableData(item: any, updateData: any): void {
 
-    item[0] = `<b>${updateData.number}</b>`;
-    item[1] = updateData.details;
-    item[2] = updateData.status.name;
-    item[3] = moment(updateData.date).calendar().toString();
-    item[4] = updateData.total;
+    this.state.desktop.body.columns.forEach((column, i) => {
+
+      switch (column.content.type) {
+        case SmzEasyTableContentType.TEXT:
+          item[i] = ObjectUtils.resolveFieldData(updateData, column.content.dataPath);
+          break;
+
+        case SmzEasyTableContentType.CALENDAR:
+          item[i] = ObjectUtils.resolveFieldData(updateData, column.content.dataPath);
+          break;
+
+        case SmzEasyTableContentType.TEXT:
+          item[i] = ObjectUtils.resolveFieldData(updateData, column.content.dataPath);
+          break;
+
+        case SmzEasyTableContentType.DATA_TRANSFORM:
+            item[i] = ObjectUtils.resolveFieldData(updateData, column.content.dataPath);
+            break;
+
+        default:
+          item[i] = '-';
+          break;
+      }
+
+    })
 
   }
 
