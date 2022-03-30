@@ -1,15 +1,16 @@
 import { ChangeDetectorRef, Injectable } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { SmzEasyTableState } from '../models/smz-easy-table-state';
-import { SmzEasyTableData, SmzEasyTableViewport } from '../models/smz-easy-table-data';
-import moment from 'moment';
+import { GlobalSearchData, SmzEasyTableData, SmzEasyTableViewport } from '../models/smz-easy-table-data';
 import { paginator } from './table-data-utils';
 import { ObjectUtils } from 'primeng/utils';
 import { SmzEasyTableContentType } from '../models/smz-easy-table-contents';
+import { cloneDeep } from 'lodash-es';
+import { formatDate } from '@angular/common';
 
 @Injectable()
 export class TableDataSourceService {
-  public viewport: SmzEasyTableViewport = { original: [], allTableData: [], paginator: null };
+  public viewport: SmzEasyTableViewport = { original: [], allTableData: [], tableData: [], globalSearchData: [], paginator: null };
   public state: SmzEasyTableState;
   public source$: Observable<any[]>;
   public subscription: Subscription;
@@ -24,32 +25,33 @@ export class TableDataSourceService {
 
       this.subscription = this.source$
         .subscribe(data => {
-
-          // console.groupCollapsed('subscription');
-          // console.log('newData', data);
-
           const newData = data ?? [];
+
           this.viewport.original = newData;
 
           this.viewport.allTableData = [];
+          this.viewport.globalSearchData = [];
 
           newData.forEach(newItem => {
-            const newTableItem = this.createTableData(newItem);
-            this.viewport.allTableData.push(newTableItem);
+            const tableData = this.createTableData(newItem);
+            this.viewport.allTableData.push(tableData);
+            this.viewport.globalSearchData.push(this.createGlobalSearchData(cloneDeep(tableData)));
           });
 
-          const currentPage = this.viewport.paginator?.page ?? 1;
-          const currentPageItems = this.viewport.paginator?.data.length > 0 ? this.viewport.paginator?.data : null;
+          this.viewport.tableData = cloneDeep(this.viewport.allTableData);
 
-          this.viewport.paginator = paginator(this.viewport.allTableData, currentPage, currentPageItems, this.state.paginator.itemsPerPage, this.state.paginator.maxVisiblePages);
-
+          this.updatePaginator(this.viewport.paginator?.page ?? 1, true);
           this.cdr.markForCheck();
 
-          // console.log('paginator', this.viewport.paginator);
-          // console.groupEnd();
+          console.log('viewport', this.viewport);
         });
 
     }
+  }
+
+  public updatePaginator(currentPage: number, preserveCurrentItems: boolean): void {
+    const currentPageItems = this.viewport.paginator?.data.length > 0 ? this.viewport.paginator?.data : null;
+    this.viewport.paginator = paginator(this.viewport.tableData, currentPage, preserveCurrentItems ? currentPageItems : null, this.state.paginator.itemsPerPage, this.state.paginator.maxVisiblePages);
   }
 
   public createTableData(item: any): SmzEasyTableData {
@@ -80,11 +82,46 @@ export class TableDataSourceService {
           break;
       }
 
-    })
+    });
 
     return {
       id: item.id,
       ...result,
+    };
+  }
+
+  public createGlobalSearchData(item: SmzEasyTableData): GlobalSearchData {
+
+    let searchData = '';
+
+    this.state.desktop.body.columns.forEach((column, i) => {
+
+      switch (column.content.type) {
+        case SmzEasyTableContentType.TEXT:
+          searchData += `${item[i]}`.toLowerCase();
+          break;
+
+        case SmzEasyTableContentType.CALENDAR:
+          searchData += `${formatDate(item[i], column.content.format, this.state.locale.code)}`.toLowerCase();
+          break;
+
+        case SmzEasyTableContentType.CUSTOM:
+          const customResolve = ObjectUtils.resolveFieldData(item[i], column.content.searchPath);
+          searchData += `${customResolve ?? item[i]}`.toLowerCase();
+          break;
+
+        case SmzEasyTableContentType.DATA_TRANSFORM:
+          const transformResolve = ObjectUtils.resolveFieldData(item[i], column.content.searchPath);
+          searchData += `${transformResolve ?? item[i]}`.toLowerCase();
+          break;
+      }
+
+    });
+
+    return {
+      id: item.id,
+      searchData,
+      item
     };
   }
 
@@ -106,8 +143,8 @@ export class TableDataSourceService {
           break;
 
         case SmzEasyTableContentType.DATA_TRANSFORM:
-            item[i] = ObjectUtils.resolveFieldData(updateData, column.content.dataPath);
-            break;
+          item[i] = ObjectUtils.resolveFieldData(updateData, column.content.dataPath);
+          break;
 
         default:
           item[i] = '-';

@@ -1,3 +1,4 @@
+import { SmzEasyLocale } from './smz-easy-locale';
 import { SmzEasyTableContentTypes } from './smz-easy-table-contents';
 
 export interface SmzEasyTableState {
@@ -6,6 +7,7 @@ export interface SmzEasyTableState {
   desktop: SmzEasyDesktopTable;
   mobile: SmzEasyMobileTable;
   paginator: SmzEasyPaginator;
+  locale: SmzEasyLocale;
 
 }
 

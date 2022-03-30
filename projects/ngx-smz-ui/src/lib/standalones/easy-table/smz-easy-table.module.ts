@@ -1,8 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
 import { SafeContentPipeModule } from '../../common/pipes/safe-html.pipe';
 import { NgxSmzMenuModule } from '../../modules/smz-menu/smz-menu.module';
+import { GlobalSearchComponent } from './components/common/global-search/global-search.component';
 import { PaginationComponent } from './components/common/pagination/pagination.component';
 import { TitleComponent } from './components/common/title/title.component';
 import { DesktopBodyComponent } from './components/desktop/body/body.component';
@@ -18,7 +21,9 @@ import { TableDataSourceService } from './services/table-data-source.service';
     CommonModule,
     ButtonModule,
     NgxSmzMenuModule,
-    SafeContentPipeModule
+    SafeContentPipeModule,
+    InputTextModule,
+    FormsModule
   ],
   exports: [
     SmzEasyTableComponent
@@ -32,6 +37,7 @@ import { TableDataSourceService } from './services/table-data-source.service';
     // Common Components
     TitleComponent,
     PaginationComponent,
+    GlobalSearchComponent,
 
     // Desktop Components
     DesktopHeadComponent,

@@ -6,7 +6,6 @@ import { Select, Store } from '@ngxs/store';
 import { DemoFeatureSelectors } from '@states/demo/demo.selectors';
 import { DemoFeatureActions } from '@states/demo/demo.actions'
 import { EasyTableDemoData } from './easy-table-model';
-import { SimpleNamedEntity } from '../../../../../../../../dist/ngx-smz-ui/lib/common/models/simple-named-entity';
 
 @Component({
   selector: 'app-demo-easy-table',
@@ -28,15 +27,15 @@ export class DemoEasyTableComponent implements OnInit, OnDestroy {
 
       this.store.dispatch(new ApplicationActions.StopGlobalLoading);
 
-      setTimeout(() => {
+      // setTimeout(() => {
 
-        this.store.dispatch(new DemoFeatureActions.LoadAllEasyTableDemo());
+      //   this.store.dispatch(new DemoFeatureActions.LoadAllEasyTableDemo());
 
-        this.timer = setInterval(() => {
-          this.store.dispatch(new DemoFeatureActions.LoadAllEasyTableDemo());
-        }, 1000);
+      //   this.timer = setInterval(() => {
+      //     this.store.dispatch(new DemoFeatureActions.LoadAllEasyTableDemo());
+      //   }, 1000);
 
-      }, 2000);
+      // }, 2000);
 
     }, 1000);
   }
@@ -53,6 +52,12 @@ export class DemoEasyTableComponent implements OnInit, OnDestroy {
 const mockState: SmzEasyTableState = {
   title: 'Your Orders',
   emptyMessage: 'Lista Vazia',
+  locale: {
+    code: 'pt-BR',
+    globalSearch: {
+      placeholder: 'Pesquisa Global'
+    }
+  },
   desktop: {
     enabled: true,
     containerStyleClass: 'overflow-auto rounded-lg shadow hidden md:block',
@@ -93,11 +98,12 @@ const mockState: SmzEasyTableState = {
           content: {
             type: SmzEasyTableContentType.CUSTOM,
             dataPath: 'details',
+            searchPath: '',
           } as SmzEasyTableCustomContent
         },
         {
           key: 'country',
-          styleClass: 'p-3 text-sm text-gray-700 whitespace-nowrap',
+          styleClass: 'p-3 text-gray-700 whitespace-nowrap',
           content: {
             type: SmzEasyTableContentType.TEXT,
             dataPath: 'country.name',
@@ -109,8 +115,9 @@ const mockState: SmzEasyTableState = {
           content: {
             type: SmzEasyTableContentType.DATA_TRANSFORM,
             dataPath: 'status',
+            searchPath: 'name',
             styleClass: '',
-            callback: (data: SimpleNamedEntity, row, index) => { return `<div class="px-3 py-1 text-sm bg-slate-200 text-slate-800 rounded text-center"><strong>${data.name}</strong></div>` }
+            callback: (data: { id: string, name: string, background: string }, row, index) => { return `<div class="px-3 py-1 text-sm text-slate-800 rounded text-center ${data.background}"><strong>${data.name}</strong></div>` }
           } as SmzEasyTableDataTransformContent
         },
         {

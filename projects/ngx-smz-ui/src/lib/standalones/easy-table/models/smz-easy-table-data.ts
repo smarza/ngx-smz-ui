@@ -1,9 +1,17 @@
 export interface SmzEasyTableData { [key: string]: string };
 
 export interface SmzEasyTableViewport {
-  original: any[],
-  allTableData: SmzEasyTableData[];
-  paginator: Paginator
+  original: any[], // Array original recebido do projeto
+  allTableData: SmzEasyTableData[]; // Array original convertido para formato da tabela
+  tableData: SmzEasyTableData[]; // Array contendo apenas os elementos convertidos que estarão disponíveis para paginar
+  globalSearchData: GlobalSearchData[]; // Array otimizado para uso em busca global
+  paginator: Paginator;
+}
+
+export interface GlobalSearchData {
+  id: string;
+  searchData: string;
+  item: SmzEasyTableData;
 }
 
 export interface Paginator {

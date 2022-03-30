@@ -7,15 +7,15 @@
 
       <ng-container *ngSwitchCase="'details'">
 
-        <div class="grid grid-nogutter items-center justify-start gap-4">
+        <div class="grid grid-nogutter items-center justify-start gap-4 flex-nowrap">
 
           <i class="fab fa-amazon-pay text-4xl text-sky-500"></i>
 
           <div class="grid grid-nogutter flex-col items-start justify-start flex-wrap">
             <div class="font-bold">{{ item }}</div>
-            <div class="text-sm">item: {{ item | json }}</div>
+            <!-- <div class="text-sm">item: {{ item | json }}</div>
             <div class="text-sm">row: {{ row | json }}</div>
-            <div class="text-sm">col: {{ col | json }}</div>
+            <div class="text-sm">col: {{ col | json }}</div> -->
           </div>
 
         </div>

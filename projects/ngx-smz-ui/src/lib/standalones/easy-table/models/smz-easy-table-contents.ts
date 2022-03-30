@@ -35,6 +35,7 @@ export interface SmzEasyTableActionContent extends SmzEasyTableBaseContent {
 export interface SmzEasyTableCustomContent extends SmzEasyTableBaseContent {
   type: SmzEasyTableContentType.CUSTOM;
   dataPath: string;
+  searchPath: string;
 }
 
 export interface SmzEasyTableCalendarContent extends SmzEasyTableBaseContent {
@@ -46,6 +47,7 @@ export interface SmzEasyTableCalendarContent extends SmzEasyTableBaseContent {
 export interface SmzEasyTableDataTransformContent extends SmzEasyTableBaseContent {
   type: SmzEasyTableContentType.DATA_TRANSFORM;
   dataPath: string;
+  searchPath: string;
   callback: (data: any, row: any, index: number) => string;
   styleClass: string;
 }

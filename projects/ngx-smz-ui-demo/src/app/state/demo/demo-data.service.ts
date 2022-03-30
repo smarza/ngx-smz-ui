@@ -8,15 +8,25 @@ import { map, of } from 'rxjs';
 import { EasyTableDemoData } from '../../ui/features/demo-tables/demo-easy-table/easy-table-model';
 
 const status = [
-  { id: 'delivered', name: 'Delivered' },
-  { id: 'cancelled', name: 'Cancelled' },
-  { id: 'processing', name: 'Processing' }
+  { id: 'delivered', name: 'Delivered', background: 'bg-green-200' },
+  { id: 'cancelled', name: 'Cancelled', background: 'bg-slate-200' },
+  { id: 'processing', name: 'Processing', background: 'bg-blue-200' }
 ];
 
 const country = [
   { id: 'brasil', name: 'Brasil' },
   { id: 'us', name: 'United States' },
   { id: 'denmark', name: 'Denmark' }
+]
+
+const details = [
+  'Kring New Fit office chair, mesh + PU, black',
+  'Alprostadil injection, powder, lyophilized, for solution',
+  'Fosphenytoin sodium injection',
+  'Immune Globulin Subcutaneous (Human) - hipp), 16.5% solution',
+  'Methylprednisolone acetate injectable suspension',
+  'Conjugated estrogens/bazedoxifene',
+  'Dalteparin sodium injection'
 ]
 
 @Injectable({ providedIn: 'root' })
@@ -32,12 +42,13 @@ export class DemoDataService extends BaseApiService {
       const number = Math.floor(Math.random() * 200) + 100;
       const statusIndex = Math.floor(Math.random() * status.length) + 0;
       const countryIndex = Math.floor(Math.random() * country.length) + 0;
+      const detailsIndex = Math.floor(Math.random() * details.length) + 0;
 
       this.mockData.push(
         {
           id: index.toString(),
           number,
-          details: 'Kring New Fit office chair, mesh + PU, black',
+          details: details[detailsIndex],
           status: status[statusIndex],
           country: country[countryIndex],
           date: new Date(),

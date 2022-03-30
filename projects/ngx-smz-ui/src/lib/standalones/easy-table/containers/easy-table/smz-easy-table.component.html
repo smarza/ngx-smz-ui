@@ -1,12 +1,16 @@
 <ng-container *ngIf="state != null">
 
-<div class="">
+<div class="grid grid-nogutter items-start flex-col justify-start gap-2">
 
-  <et-title [state]="state"></et-title>
+  <et-title class="col-12" [state]="state"></et-title>
 
-  <et-desktop-table *ngIf="state.desktop.enabled" [state]="state" [dataSource]="dataService" [contentService]="contentService"></et-desktop-table>
+  <div class="col-12 grid grid-nogutter items-center justify-end">
+    <et-global-search class="col-4" [state]="state" [dataSource]="dataService"></et-global-search>
+  </div>
 
-  <et-mobile-table  *ngIf="state.mobile.enabled" [state]="state" [data]="[]"></et-mobile-table>
+  <et-desktop-table *ngIf="state.desktop.enabled" class="col-12" [state]="state" [dataSource]="dataService" [contentService]="contentService"></et-desktop-table>
+
+  <et-mobile-table  *ngIf="state.mobile.enabled" class="col-12" [state]="state" [data]="[]"></et-mobile-table>
 
 </div>
 

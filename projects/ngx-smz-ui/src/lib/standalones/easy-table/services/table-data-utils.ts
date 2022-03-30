@@ -1,11 +1,13 @@
 import { Paginator, SmzEasyTableData } from '../models/smz-easy-table-data';
-import { cloneDeep } from 'lodash';
 
-export function paginator(items: any[], currentPage: number, currentPageItems: SmzEasyTableData[], itemsPerPage: number, maxVisiblePages: number): Paginator {
+export function paginator(items: SmzEasyTableData[], currentPage: number, currentPageItems: SmzEasyTableData[], itemsPerPage: number, maxVisiblePages: number): Paginator {
 	const page = currentPage || 1,
 		perPage = itemsPerPage || 10,
 		offset = (page - 1) * perPage,
 		totalPages = Math.ceil(items.length / perPage);
+
+		// console.log('paginator items', items);
+		// console.log('paginator currentPageItems', currentPageItems);
 
 	const paginatedItems = currentPageItems ?? items.slice(offset).slice(0, itemsPerPage);
 
@@ -22,6 +24,13 @@ export function paginator(items: any[], currentPage: number, currentPageItems: S
 				const matchIndex = items.findIndex(x => x.id === item.id);
 
 				if (matchIndex != null) {
+					// console.log('##############################');
+					// console.log(`>>> property: ${property} => item: `, item);
+					// console.log('????? 1', item[property]);
+					// console.log(`>>> matchIndex: ${matchIndex} | property: ${property} => items: `, items);
+					// console.log('????? 2', items[matchIndex]);
+					// console.log('????? 3', items[matchIndex][property]);
+					// console.log('##############################');
 					if (item[property] !== items[matchIndex][property]) {
 						item[property] = items[matchIndex][property];
 					}

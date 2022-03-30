@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SmzEasyTableState } from '../../../models/smz-easy-table-state';
 import { TableDataSourceService } from '../../../services/table-data-source.service';
-import { paginator } from '../../../services/table-data-utils';
 
 @Component({
   selector: 'et-pagination',
@@ -17,33 +16,15 @@ export class PaginationComponent implements OnInit {
   }
 
   public next(): void {
-    this.dataSource.viewport.paginator = paginator(
-      this.dataSource.viewport.allTableData,
-      this.dataSource.viewport.paginator.nextPage,
-      null,
-      this.state.paginator.itemsPerPage,
-      this.state.paginator.maxVisiblePages
-    );
+    this.dataSource.updatePaginator(this.dataSource.viewport.paginator.nextPage, false);
   }
 
   public previous(): void {
-    this.dataSource.viewport.paginator = paginator(
-      this.dataSource.viewport.allTableData,
-      this.dataSource.viewport.paginator.prePage,
-      null,
-      this.state.paginator.itemsPerPage,
-      this.state.paginator.maxVisiblePages
-    );
+    this.dataSource.updatePaginator(this.dataSource.viewport.paginator.prePage, false);
   }
 
   public goTo(page: number): void {
-    this.dataSource.viewport.paginator = paginator(
-      this.dataSource.viewport.allTableData,
-      page,
-      null,
-      this.state.paginator.itemsPerPage,
-      this.state.paginator.maxVisiblePages
-    );
+    this.dataSource.updatePaginator(this.dataSource.viewport.paginator.page, false);
   }
 
 }
