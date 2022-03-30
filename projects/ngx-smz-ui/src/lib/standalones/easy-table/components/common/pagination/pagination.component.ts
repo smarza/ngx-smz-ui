@@ -16,15 +16,15 @@ export class PaginationComponent implements OnInit {
   }
 
   public next(): void {
-    this.dataSource.updatePaginator(this.dataSource.viewport.paginator.nextPage, false);
+    this.dataSource.createPaginator(this.dataSource.viewport.paginator.nextPage, false);
   }
 
   public previous(): void {
-    this.dataSource.updatePaginator(this.dataSource.viewport.paginator.prePage, false);
+    this.dataSource.createPaginator(this.dataSource.viewport.paginator.prePage, false);
   }
 
   public goTo(page: number): void {
-    this.dataSource.updatePaginator(this.dataSource.viewport.paginator.page, false);
+    this.dataSource.createPaginator(page, false);
   }
 
 }

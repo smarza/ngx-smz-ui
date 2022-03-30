@@ -30,7 +30,7 @@ export class GlobalSearchComponent implements OnInit {
     this.dataChanged
       .pipe( untilDestroyed(this), debounceTime(600))
       .subscribe((value) => {
-        this.search(value);
+        this.dataSource.executeGlobalSearch(value, true, false);
       })
   }
 
@@ -38,29 +38,5 @@ export class GlobalSearchComponent implements OnInit {
     this.dataChanged.next(event);
   }
 
-  public search(value: string): void {
-
-    if (isEmpty(value)) {
-      this.dataSource.viewport.tableData = this.dataSource.viewport.allTableData;
-      this.dataSource.updatePaginator(1, false);
-    }
-    else {
-
-      const words = value.toLocaleLowerCase().replace(/\s+/g, ' ').trim().split(' ');
-
-      let matchs = this.dataSource.viewport.globalSearchData;
-
-      words.forEach(word => {
-        matchs = matchs.filter(x => x.searchData.toLocaleLowerCase().includes(word));
-      });
-
-      const newTableData = matchs.map(x => x.item);
-
-      this.dataSource.viewport.tableData = newTableData;
-      this.dataSource.updatePaginator(1, false);
-    }
-
-    this.cdf.markForCheck();
-  }
 
 }

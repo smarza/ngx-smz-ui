@@ -4,7 +4,11 @@ export interface SmzEasyTableViewport {
   original: any[], // Array original recebido do projeto
   allTableData: SmzEasyTableData[]; // Array original convertido para formato da tabela
   tableData: SmzEasyTableData[]; // Array contendo apenas os elementos convertidos que estarão disponíveis para paginar
-  globalSearchData: GlobalSearchData[]; // Array otimizado para uso em busca global
+  search: {
+    globalSearchData: GlobalSearchData[]; // Array otimizado para uso em busca global
+    searchValue?: string;
+  }
+
   paginator: Paginator;
 }
 

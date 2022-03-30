@@ -5,12 +5,30 @@ import { GlobalSearchData, SmzEasyTableData, SmzEasyTableViewport } from '../mod
 import { paginator } from './table-data-utils';
 import { ObjectUtils } from 'primeng/utils';
 import { SmzEasyTableContentType } from '../models/smz-easy-table-contents';
-import { cloneDeep } from 'lodash-es';
+import { cloneDeep, isEmpty } from 'lodash-es';
 import { formatDate } from '@angular/common';
 
 @Injectable()
 export class TableDataSourceService {
-  public viewport: SmzEasyTableViewport = { original: [], allTableData: [], tableData: [], globalSearchData: [], paginator: null };
+  public viewport: SmzEasyTableViewport = {
+    original: [],
+    allTableData: [],
+    tableData: [],
+    search: { globalSearchData: [] },
+    paginator: {
+      page: null,
+      perPage: null,
+      prePage: null,
+      nextPage: null,
+      total: null,
+      totalPages: null,
+      maxVisiblePages: null,
+      showing: null,
+      to: null,
+      pages: [],
+      data: []
+    }
+  };
   public state: SmzEasyTableState;
   public source$: Observable<any[]>;
   public subscription: Subscription;
@@ -30,17 +48,18 @@ export class TableDataSourceService {
           this.viewport.original = newData;
 
           this.viewport.allTableData = [];
-          this.viewport.globalSearchData = [];
+          this.viewport.search.globalSearchData = [];
 
           newData.forEach(newItem => {
             const tableData = this.createTableData(newItem);
             this.viewport.allTableData.push(tableData);
-            this.viewport.globalSearchData.push(this.createGlobalSearchData(cloneDeep(tableData)));
+            this.viewport.search.globalSearchData.push(this.createGlobalSearchData(cloneDeep(tableData)));
           });
 
-          this.viewport.tableData = cloneDeep(this.viewport.allTableData);
+          // this.viewport.tableData = cloneDeep(this.viewport.allTableData);
 
-          this.updatePaginator(this.viewport.paginator?.page ?? 1, true);
+          this.executeGlobalSearch(this.viewport.search.searchValue, false, true);
+
           this.cdr.markForCheck();
 
           console.log('viewport', this.viewport);
@@ -49,9 +68,43 @@ export class TableDataSourceService {
     }
   }
 
-  public updatePaginator(currentPage: number, preserveCurrentItems: boolean): void {
+  public executeGlobalSearch(value: string, resetPagination: boolean, preserveCurrentItems: boolean): void {
+
+    this.viewport.search.searchValue = value;
+
+    if (isEmpty(value)) {
+      this.viewport.tableData = this.viewport.allTableData;
+      this.createPaginator(resetPagination ? 1 : (this.viewport.paginator?.page ?? 1), preserveCurrentItems);
+    }
+    else {
+
+      const words = value.toLocaleLowerCase().replace(/\s+/g, ' ').trim().split(' ');
+
+      let matchs = this.viewport.search.globalSearchData;
+
+      words.forEach(word => {
+        matchs = matchs.filter(x => x.searchData.toLocaleLowerCase().includes(word));
+      });
+
+      const newTableData = matchs.map(x => x.item);
+
+      this.viewport.tableData = newTableData;
+      this.createPaginator(resetPagination ? 1 : this.viewport.paginator.page, preserveCurrentItems);
+    }
+
+    this.cdr.markForCheck();
+  }
+
+  public createPaginator(currentPage: number, preserveCurrentItems: boolean): void {
     const currentPageItems = this.viewport.paginator?.data.length > 0 ? this.viewport.paginator?.data : null;
     this.viewport.paginator = paginator(this.viewport.tableData, currentPage, preserveCurrentItems ? currentPageItems : null, this.state.paginator.itemsPerPage, this.state.paginator.maxVisiblePages);
+  }
+
+  public updatePaginator(currentPage: number, preserveCurrentItems: boolean): void {
+    const currentPageItems = this.viewport.paginator?.data.length > 0 ? this.viewport.paginator?.data : null;
+    const paginatorData = paginator(this.viewport.tableData, currentPage, preserveCurrentItems ? currentPageItems : null, this.state.paginator.itemsPerPage, this.state.paginator.maxVisiblePages);
+
+    this.viewport.paginator.data = paginatorData.data;
   }
 
   public createTableData(item: any): SmzEasyTableData {
