@@ -1,3 +1,4 @@
+import { ObjectUtils } from 'primeng/utils';
 import { SimpleNamedEntity } from '../models/simple-named-entity';
 
 export type CollectionPredicate = (item?: any, index?: number, collection?: any[]) => boolean;
@@ -423,6 +424,22 @@ export function sortArray<T>(data: T[], property: string, order = 1): T[]
       return order;
     }
     if (Reflect.get(obj1 as Object, property) < Reflect.get(obj2 as Object, property))
+    {
+      return -order;
+    }
+    return 0;
+  });
+}
+
+export function sortArrayOfObjects<T>(data: T[], dataPath: string, order = 1): T[]
+{
+  return data.sort((obj1, obj2) =>
+  {
+    if (ObjectUtils.resolveFieldData(obj1, dataPath) > ObjectUtils.resolveFieldData(obj2, dataPath))
+    {
+      return order;
+    }
+    if (ObjectUtils.resolveFieldData(obj1, dataPath) < ObjectUtils.resolveFieldData(obj2, dataPath))
     {
       return -order;
     }

@@ -2,6 +2,7 @@ import { SmzEasyLocale } from './smz-easy-locale';
 import { SmzEasyTableContentTypes } from './smz-easy-table-contents';
 
 export interface SmzEasyTableState {
+  isDebug: boolean;
   title: string;
   emptyMessage: string;
   desktop: SmzEasyDesktopTable;
@@ -29,12 +30,18 @@ export interface SmzEasyMobileTable {
 export interface SmzEasyTableHead {
   styleClass: string;
   headers: SmzEasyTableHeader[];
+  sortMode: 'single' | 'multiple';
 }
 
 export interface SmzEasyTableHeader {
   label: string;
   widthClass: string;
   styleClass: string;
+  sort: {
+    isActive: boolean;
+    order: -1 | 1;
+    dataPath: string;
+  }
 }
 
 export interface SmzEasyTableBody {
@@ -52,17 +59,10 @@ export interface SmzEasyTableBodyColumn {
   styleClass: string;
   key: string;
   content: SmzEasyTableContentTypes;
+
 }
 
 export interface SmzEasyPaginator {
   itemsPerPage: number;
   maxVisiblePages: number;
-  labels: {
-    next: string;
-    previous: string;
-    showing: string;
-    to: string;
-    of: string;
-    results: string;
-  }
 }

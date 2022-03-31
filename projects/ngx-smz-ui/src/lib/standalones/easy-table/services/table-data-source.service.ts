@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Injectable } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, BehaviorSubject } from 'rxjs';
 import { SmzEasyTableState } from '../models/smz-easy-table-state';
 import { GlobalSearchData, SmzEasyTableData, SmzEasyTableViewport } from '../models/smz-easy-table-data';
 import { paginator } from './table-data-utils';
@@ -7,6 +7,7 @@ import { ObjectUtils } from 'primeng/utils';
 import { SmzEasyTableContentType } from '../models/smz-easy-table-contents';
 import { cloneDeep, isEmpty } from 'lodash-es';
 import { formatDate } from '@angular/common';
+import { sortArrayOfObjects } from '../../../common/utils/utils';
 
 @Injectable()
 export class TableDataSourceService {
@@ -31,7 +32,9 @@ export class TableDataSourceService {
   };
   public state: SmzEasyTableState;
   public source$: Observable<any[]>;
-  public subscription: Subscription;
+  public sourceSubscription: Subscription;
+  public internalSource$: BehaviorSubject<any[]> = new BehaviorSubject<any[]>(null);
+  public internalSourceSubscription: Subscription;
   public cdr: ChangeDetectorRef;
 
   constructor() {
@@ -41,40 +44,68 @@ export class TableDataSourceService {
 
     if (this.source$ != null) {
 
-      this.subscription = this.source$
+      this.sourceSubscription = this.source$
         .subscribe(data => {
-          const newData = data ?? [];
+          if (this.state.isDebug) console.log('New Data ############################');
+          const start = performance.now();
 
-          this.viewport.original = newData;
+          this.setupNewData(data, false);
 
-          this.viewport.allTableData = [];
-          this.viewport.search.globalSearchData = [];
+          const end = performance.now();
+          if (this.state.isDebug) console.log(`     >>>> New data execution total time: ${end - start} ms`);
+        });
 
-          newData.forEach(newItem => {
-            const tableData = this.createTableData(newItem);
-            this.viewport.allTableData.push(tableData);
-            this.viewport.search.globalSearchData.push(this.createGlobalSearchData(cloneDeep(tableData)));
-          });
-
-          // this.viewport.tableData = cloneDeep(this.viewport.allTableData);
-
-          this.executeGlobalSearch(this.viewport.search.searchValue, false, true);
-
-          this.cdr.markForCheck();
-
-          console.log('viewport', this.viewport);
+      this.internalSourceSubscription = this.internalSource$
+        .subscribe(data => {
+          if (data != null) {
+            this.setupNewData(data, true);
+          }
         });
 
     }
   }
 
-  public executeGlobalSearch(value: string, resetPagination: boolean, preserveCurrentItems: boolean): void {
+  public setupNewData(data: any[], resetPagination: boolean): void {
+    let sortedData = cloneDeep(data ?? []);
+
+    const start = performance.now();
+
+    this.state.desktop.head.headers.forEach(header => {
+      if (header.sort != null && header.sort.isActive) {
+        sortArrayOfObjects(sortedData, header.sort.dataPath, header.sort.order);
+      }
+    });
+
+    const end = performance.now();
+    if (this.state.isDebug) console.log(`     > Sort execution time: ${end - start} ms`);
+
+    const newData = sortedData;
+
+    this.viewport.original = newData;
+
+    this.viewport.allTableData = [];
+    this.viewport.search.globalSearchData = [];
+
+    newData.forEach(newItem => {
+      const tableData = this.createTableData(newItem);
+      this.viewport.allTableData.push(tableData);
+      this.viewport.search.globalSearchData.push(this.createGlobalSearchData(cloneDeep(tableData)));
+    });
+
+    this.executeGlobalSearch(this.viewport.search.searchValue, resetPagination);
+
+    this.cdr.markForCheck();
+  }
+
+  public executeGlobalSearch(value: string, resetPagination: boolean): void {
+
+    const start = performance.now();
 
     this.viewport.search.searchValue = value;
 
     if (isEmpty(value)) {
       this.viewport.tableData = this.viewport.allTableData;
-      this.createPaginator(resetPagination ? 1 : (this.viewport.paginator?.page ?? 1), preserveCurrentItems);
+      this.createPaginator(resetPagination ? 1 : (this.viewport.paginator?.page ?? 1), !resetPagination);
     }
     else {
 
@@ -89,10 +120,14 @@ export class TableDataSourceService {
       const newTableData = matchs.map(x => x.item);
 
       this.viewport.tableData = newTableData;
-      this.createPaginator(resetPagination ? 1 : this.viewport.paginator.page, preserveCurrentItems);
+      this.createPaginator(resetPagination ? 1 : this.viewport.paginator.page, !resetPagination);
     }
 
     this.cdr.markForCheck();
+
+    const end = performance.now();
+    if (this.state.isDebug) console.log(`     > Global Search execution time: ${end - start} ms`);
+
   }
 
   public createPaginator(currentPage: number, preserveCurrentItems: boolean): void {
@@ -209,8 +244,10 @@ export class TableDataSourceService {
   }
 
   public disconnect(): void {
-    if (this.subscription != null) {
-      this.subscription.unsubscribe();
+    if (this.sourceSubscription != null) {
+      this.sourceSubscription.unsubscribe();
     }
+
+    this.internalSourceSubscription.unsubscribe();
   }
 }

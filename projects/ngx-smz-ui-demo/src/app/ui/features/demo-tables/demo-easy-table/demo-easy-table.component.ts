@@ -33,11 +33,12 @@ export class DemoEasyTableComponent implements OnInit, OnDestroy {
 
         this.timer = setInterval(() => {
           this.store.dispatch(new DemoFeatureActions.LoadAllEasyTableDemo());
-        }, 5000);
+        }, 10000);
 
       }, 2000);
 
     }, 1000);
+
   }
 
   public ngOnInit(): void {
@@ -50,12 +51,21 @@ export class DemoEasyTableComponent implements OnInit, OnDestroy {
 }
 
 const mockState: SmzEasyTableState = {
+  isDebug: false,
   title: 'Your Orders',
   emptyMessage: 'Lista Vazia',
   locale: {
-    code: 'pt-BR',
+    code: 'en-US',
     globalSearch: {
-      placeholder: 'Pesquisa Global'
+      placeholder: 'Global Search'
+    },
+    paginator: {
+      previous: 'Previous',
+      next: 'Next',
+      showing: 'Showing',
+      to: 'to',
+      of: 'of',
+      results: 'Results',
     }
   },
   desktop: {
@@ -65,14 +75,15 @@ const mockState: SmzEasyTableState = {
     layout: 'auto',
     head: {
       styleClass: 'bg-gray-50 border-b-2 border-gray-200',
+      sortMode: 'multiple',
       headers: [
-        { label: 'No.', widthClass: '', styleClass: 'p-3 text-sm font-semibold tracking-wide text-left' },
-        { label: 'Details', widthClass: '', styleClass: 'p-3 text-sm font-semibold tracking-wide text-left' },
-        { label: 'Country', widthClass: '', styleClass: 'p-3 text-sm font-semibold tracking-wide text-left' },
-        { label: 'Status', widthClass: '', styleClass: 'p-3 text-sm font-semibold tracking-wide text-left' },
-        { label: 'Date', widthClass: '', styleClass: 'p-3 text-sm font-semibold tracking-wide text-left' },
-        { label: 'Total', widthClass: '', styleClass: 'p-3 text-sm font-semibold tracking-wide text-left' },
-        { label: 'Actions', widthClass: '', styleClass: 'p-3 text-sm font-semibold tracking-wide text-left' },
+        { label: 'No.', widthClass: 'col-1', styleClass: 'p-3 text-sm font-semibold tracking-wide text-left', sort: { isActive: true, order: -1, dataPath: 'number' } },
+        { label: 'Details', widthClass: 'col-6', styleClass: 'p-3 text-sm font-semibold tracking-wide text-left', sort: null },
+        { label: 'Country', widthClass: 'col-1', styleClass: 'p-3 text-sm font-semibold tracking-wide text-left', sort: { isActive: false, order: -1, dataPath: 'country.name' } },
+        { label: 'Status', widthClass: 'col-1', styleClass: 'p-3 text-sm font-semibold tracking-wide text-left', sort: null },
+        { label: 'Date', widthClass: 'col-1', styleClass: 'p-3 text-sm font-semibold tracking-wide text-left', sort: null },
+        { label: 'Total', widthClass: 'col-1', styleClass: 'p-3 text-sm font-semibold tracking-wide text-left', sort: null },
+        { label: 'Actions', widthClass: 'col-1', styleClass: 'p-3 text-sm font-semibold tracking-wide text-left', sort: null },
       ]
     },
     body: {
@@ -159,14 +170,6 @@ const mockState: SmzEasyTableState = {
   },
   paginator: {
     itemsPerPage: 6,
-    maxVisiblePages: 6,
-    labels: {
-      previous: 'Previous',
-      next: 'Next',
-      showing: 'Showing',
-      to: 'to',
-      of: 'of',
-      results: 'Results',
-    }
+    maxVisiblePages: 6
   }
 }

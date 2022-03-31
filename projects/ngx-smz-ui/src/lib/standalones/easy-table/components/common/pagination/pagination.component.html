@@ -7,7 +7,7 @@
       [disabled]="dataSource.viewport.paginator.prePage == null"
       [ngClass]="{ 'cursor-not-allowed': dataSource.viewport.paginator.prePage == null }"
       class="relative inline-flex items-center px-4 py-2 cursor-pointer border border-solid border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-      {{ state.paginator.labels.previous }}
+      {{ state.locale.paginator.previous }}
     </button>
 
     <button
@@ -15,7 +15,7 @@
       [disabled]="dataSource.viewport.paginator.nextPage == null"
       [ngClass]="{ 'cursor-not-allowed': dataSource.viewport.paginator.nextPage == null }"
       class="ml-3 relative inline-flex items-center px-4 py-2 cursor-pointer border border-solid border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-      {{ state.paginator.labels.next }}
+      {{ state.locale.paginator.next }}
     </button>
 
   </div>
@@ -24,13 +24,13 @@
 
     <div>
       <p class="text-sm text-gray-700">
-        {{ state.paginator.labels.showing }}
+        {{ state.locale.paginator.showing }}
         <span class="font-medium">{{ dataSource.viewport.paginator.showing }}</span>
-        {{ state.paginator.labels.to }}
+        {{ state.locale.paginator.to }}
         <span class="font-medium">{{ dataSource.viewport.paginator.to }}</span>
-        {{ state.paginator.labels.of }}
+        {{ state.locale.paginator.of }}
         <span class="font-medium">{{ dataSource.viewport.paginator.total }}</span>
-        {{ state.paginator.labels.results }}
+        {{ state.locale.paginator.results }}
       </p>
     </div>
 
@@ -43,7 +43,7 @@
           [ngClass]="{ 'cursor-not-allowed': dataSource.viewport.paginator.prePage == null }"
           class="relative inline-flex items-center px-2 py-2 rounded-l-md cursor-pointer border border-solid border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
 
-          <span class="sr-only">{{ state.paginator.labels.previous }}</span>
+          <span class="sr-only">{{ state.locale.paginator.previous }}</span>
 
           <!-- Heroicon name: solid/chevron-left -->
           <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -86,7 +86,7 @@
           [ngClass]="{ 'cursor-not-allowed': dataSource.viewport.paginator.nextPage == null }"
           class="relative inline-flex items-center px-2 py-2 rounded-r-md cursor-pointer border border-solid border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
 
-          <span class="sr-only">{{ state.paginator.labels.next }}</span>
+          <span class="sr-only">{{ state.locale.paginator.next }}</span>
           <!-- Heroicon name: solid/chevron-right -->
 
           <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
