@@ -1,6 +1,6 @@
 <tr>
   <ng-container *ngFor="let header of state.desktop.head.headers">
-    <th [ngClass]="header.widthClass + ' ' + header.styleClass">
+    <th *ngIf="header.isVisible" [ngClass]="header.widthClass + ' ' + header.styleClass">
       {{ header.label }}
       <et-sort [state]="state" [header]="header" [dataSource]="dataSource"></et-sort>
     </th>

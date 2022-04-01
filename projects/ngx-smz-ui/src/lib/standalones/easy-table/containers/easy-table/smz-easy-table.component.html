@@ -2,9 +2,9 @@
 
 <div class="grid grid-nogutter items-start flex-col justify-start gap-2">
 
-  <et-title class="col-12" [state]="state"></et-title>
+  <et-title *ngIf="state.title.isVisible" class="col-12" [state]="state"></et-title>
 
-  <div class="col-12 grid grid-nogutter items-center justify-end">
+  <div *ngIf="state.globalSearch.isEnabled" class="col-12 grid grid-nogutter items-center justify-end">
     <et-global-search class="col-4" [state]="state" [dataSource]="dataService"></et-global-search>
   </div>
 

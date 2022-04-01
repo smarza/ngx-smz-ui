@@ -19,11 +19,11 @@ export enum SmzEasyTableContentType {
 
 export interface SmzEasyTableBaseContent {
   type: SmzEasyTableContentType;
+  dataPath: string;
 }
 
 export interface SmzEasyTableTextContent extends SmzEasyTableBaseContent {
   type: SmzEasyTableContentType.TEXT;
-  dataPath: string;
 }
 
 export interface SmzEasyTableActionContent extends SmzEasyTableBaseContent {
@@ -34,20 +34,16 @@ export interface SmzEasyTableActionContent extends SmzEasyTableBaseContent {
 
 export interface SmzEasyTableCustomContent extends SmzEasyTableBaseContent {
   type: SmzEasyTableContentType.CUSTOM;
-  dataPath: string;
   searchPath: string;
 }
 
 export interface SmzEasyTableCalendarContent extends SmzEasyTableBaseContent {
   type: SmzEasyTableContentType.CALENDAR;
-  dataPath: string;
   format: 'shortDate' | 'short' | 'medium' | 'long' | 'mediumDate' | 'longDate' | 'shortTime';
 }
 
 export interface SmzEasyTableDataTransformContent extends SmzEasyTableBaseContent {
   type: SmzEasyTableContentType.DATA_TRANSFORM;
-  dataPath: string;
-  searchPath: string;
   callback: (data: any, row: any, index: number) => string;
   styleClass: string;
 }

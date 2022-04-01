@@ -3,12 +3,17 @@ import { SmzEasyTableContentTypes } from './smz-easy-table-contents';
 
 export interface SmzEasyTableState {
   isDebug: boolean;
-  title: string;
-  emptyMessage: string;
+  title: {
+    isVisible: boolean;
+    getText: () => string;
+  };
   desktop: SmzEasyDesktopTable;
   mobile: SmzEasyMobileTable;
   paginator: SmzEasyPaginator;
   locale: SmzEasyLocale;
+  globalSearch: {
+    isEnabled: boolean;
+  }
 
 }
 
@@ -29,19 +34,23 @@ export interface SmzEasyMobileTable {
 
 export interface SmzEasyTableHead {
   styleClass: string;
+  visibleCount: number;
   headers: SmzEasyTableHeader[];
   sortMode: 'single' | 'multiple';
 }
 
 export interface SmzEasyTableHeader {
+  key: string; // mesma key da column
+  isVisible: boolean;
   label: string;
   widthClass: string;
   styleClass: string;
   sort: {
     isActive: boolean;
     order: -1 | 1;
-    dataPath: string;
   }
+  searchPath: string;
+  sortPath: string;
 }
 
 export interface SmzEasyTableBody {
@@ -56,8 +65,9 @@ export interface SmzEasyTableBody {
 }
 
 export interface SmzEasyTableBodyColumn {
+  key: string; // mesma key do header
+  isVisible: boolean;
   styleClass: string;
-  key: string;
   content: SmzEasyTableContentTypes;
 
 }

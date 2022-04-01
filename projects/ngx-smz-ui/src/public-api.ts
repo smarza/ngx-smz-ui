@@ -96,6 +96,10 @@ export * from './lib/builders/smz-svgs/svg-builder';
 export * from './lib/builders/smz-svgs/svg-features';
 export * from './lib/builders/smz-svgs/svg-feature';
 
+export * from './lib/builders/smz-easy-tables/state-builder';
+export * from './lib/builders/smz-easy-tables/column-builder';
+export * from './lib/builders/smz-easy-tables/menu-builder';
+
 export * from './lib/modules/smz-ui-block/public-api';
 
 export * from './lib/standalones/easy-table/public-api';

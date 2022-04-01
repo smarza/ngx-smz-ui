@@ -10,5 +10,6 @@ export interface SmzEasyLocale {
     to: string;
     of: string;
     results: string;
-  }
+  };
+  emptyMessage: string;
 }

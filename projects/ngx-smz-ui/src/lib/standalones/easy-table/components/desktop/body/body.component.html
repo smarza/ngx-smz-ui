@@ -4,7 +4,7 @@
 
     <ng-container *ngFor="let column of state.desktop.body.columns; let index = index">
 
-      <td [ngClass]="column.styleClass">
+      <td *ngIf="column.isVisible" [ngClass]="column.styleClass">
 
         <ng-container [ngSwitch]="column.content.type">
 
@@ -44,6 +44,6 @@
 
 <ng-container *ngIf="dataSource.viewport.paginator.data?.length === 0">
   <tr [ngClass]="state.desktop.body.evenRow.styleClass">
-    <td [colSpan]="state.desktop.body.columns?.length" class="text-center py-2">{{ state.emptyMessage }}</td>
+    <td [colSpan]="state.desktop.head.visibleCount" class="text-center py-2">{{ state.locale.emptyMessage }}</td>
   </tr>
 </ng-container>

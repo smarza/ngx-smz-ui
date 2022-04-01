@@ -72,7 +72,7 @@ export class TableDataSourceService {
 
     this.state.desktop.head.headers.forEach(header => {
       if (header.sort != null && header.sort.isActive) {
-        sortArrayOfObjects(sortedData, header.sort.dataPath, header.sort.order);
+        sortArrayOfObjects(sortedData, header.sortPath, header.sort.order);
       }
     });
 
@@ -183,6 +183,7 @@ export class TableDataSourceService {
     let searchData = '';
 
     this.state.desktop.body.columns.forEach((column, i) => {
+      const searchPath = this.state.desktop.head.headers[i].searchPath;
 
       switch (column.content.type) {
         case SmzEasyTableContentType.TEXT:
@@ -194,12 +195,12 @@ export class TableDataSourceService {
           break;
 
         case SmzEasyTableContentType.CUSTOM:
-          const customResolve = ObjectUtils.resolveFieldData(item[i], column.content.searchPath);
+          const customResolve = ObjectUtils.resolveFieldData(item[i], searchPath);
           searchData += `${customResolve ?? item[i]}`.toLowerCase();
           break;
 
         case SmzEasyTableContentType.DATA_TRANSFORM:
-          const transformResolve = ObjectUtils.resolveFieldData(item[i], column.content.searchPath);
+          const transformResolve = ObjectUtils.resolveFieldData(item[i], searchPath);
           searchData += `${transformResolve ?? item[i]}`.toLowerCase();
           break;
       }
