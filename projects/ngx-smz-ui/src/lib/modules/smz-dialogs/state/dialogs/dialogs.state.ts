@@ -14,13 +14,13 @@ import { InputListBatchCrudComponent } from '../../../smz-forms/components/input
 export interface DialogsStateModel {
 }
 
-export const getInitialState = (): DialogsStateModel => ({
+export const getDialogsInitialState = (): DialogsStateModel => ({
 });
 
 // @dynamic
 @State<DialogsStateModel>({
   name: 'dialogs',
-  defaults: getInitialState()
+  defaults: getDialogsInitialState()
 })
 
 @Injectable()

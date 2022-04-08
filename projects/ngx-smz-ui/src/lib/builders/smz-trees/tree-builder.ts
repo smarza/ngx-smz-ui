@@ -33,7 +33,7 @@ export class SmzTreeBuilder {
       isVisible: false
     },
     emptyFeedback: {
-      actionButton: null,
+      actionButton: {},
       extraInfo: null,
       image: null,
       message: 'Lista Vazia',

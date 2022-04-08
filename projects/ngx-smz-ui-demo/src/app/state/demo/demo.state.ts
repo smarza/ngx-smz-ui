@@ -57,6 +57,17 @@ export class DemoFeatureState {
     );
   }
 
+  @Action(DemoFeatureActions.LoadAllEasyTableDemoStart)
+  public onLoadAllEasyTableDemoStart$(ctx: StateContext<DemoFeatureStateModel>): Observable<EasyTableDemoData[]> {
+    return this.apiService.getAllEasyTableDemo().pipe(
+      tap(results => {
+        ctx.patchState({
+          easyTableItems: results.slice(20, 22)
+        });
+      })
+    );
+  }
+
   @Action(DemoFeatureActions.LoadAllEasyTableDemo)
   public onLoadAllEasyTableDemo$(ctx: StateContext<DemoFeatureStateModel>): Observable<EasyTableDemoData[]> {
     return this.apiService.getAllEasyTableDemo().pipe(

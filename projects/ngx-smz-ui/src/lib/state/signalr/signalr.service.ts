@@ -20,7 +20,7 @@ export class SignalRService {
     if (exists) return of(true);
 
     const newConnection = new HubConnectionBuilder()
-      .configureLogging(signalR.LogLevel.Debug)
+      .configureLogging(signalR.LogLevel.None)
       .withUrl(`${environment.serverUrl}/${config.hub}`, { skipNegotiation: true, transport: signalR.HttpTransportType.WebSockets})
       // .withUrl(`https://localhost:7229/${config.hub}`, { skipNegotiation: true, transport: signalR.HttpTransportType.WebSockets})
       .withAutomaticReconnect(config.retryDelays)

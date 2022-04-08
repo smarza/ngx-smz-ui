@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, throttle } from 'rxjs';
 import { SmzEasyTableState, SmzEasyTableContentType, SmzEasyTableTextContent, SmzEasyTableActionContent, ApplicationActions, SmzEasyTableCustomContent, SmzEasyTableCalendarContent, SmzEasyTableDataTransformContent, SmzEasyTableBuilder } from 'ngx-smz-ui';
 import { DemoTableDataService } from '../data-service/demo-tables-data-service';
 import { Select, Store } from '@ngxs/store';
@@ -25,7 +25,7 @@ export class DemoEasyTableComponent implements OnInit, OnDestroy {
 
     setTimeout(() => {
 
-      this.store.dispatch(new DemoFeatureActions.LoadAllEasyTableDemo());
+      this.store.dispatch(new DemoFeatureActions.LoadAllEasyTableDemoStart());
 
       this.store.dispatch(new ApplicationActions.StopGlobalLoading);
 
@@ -35,11 +35,11 @@ export class DemoEasyTableComponent implements OnInit, OnDestroy {
 
         this.timer = setInterval(() => {
           this.store.dispatch(new DemoFeatureActions.LoadAllEasyTableDemo());
-        }, 10000);
+        }, 20);
 
-      }, 2000);
+      }, 5000);
 
-    }, 1000);
+    }, 2000);
 
   }
 
@@ -52,6 +52,12 @@ export class DemoEasyTableComponent implements OnInit, OnDestroy {
       .debugMode()
       .setTitle('Your Orders')
       .setLocale('en-US')
+      .paginator()
+        .disable()
+        .table
+      .optimize()
+        .setDataSourceOtimization('auto', 500, 300)
+        .table
       .menu()
         .item('Log')
           .setCallback((item) => console.log(item))
@@ -61,7 +67,7 @@ export class DemoEasyTableComponent implements OnInit, OnDestroy {
         .text('No.', 'number')
           .setHeaderStyles('p-3 text-sm font-semibold tracking-wide text-left')
           .setCellStyles('p-3 text-gray-700 whitespace-nowrap text-center')
-          .useSort('desc')
+          // .useSort('desc')
           .setWidth('col-1')
           .columns
         .custom('Details', 'details', 'details')
@@ -72,7 +78,7 @@ export class DemoEasyTableComponent implements OnInit, OnDestroy {
         .text('Country', 'country.name')
           .setHeaderStyles('p-3 text-sm font-semibold tracking-wide text-left')
           .setCellStyles('p-3 text-gray-700 whitespace-nowrap')
-          .useSort('asc')
+          // .useSort('asc')
           .setWidth('col-1')
           .columns
         .dataTransform('Status', 'status')
@@ -80,7 +86,7 @@ export class DemoEasyTableComponent implements OnInit, OnDestroy {
           .setSearchAndSortDataPath('status.name')
           .setHeaderStyles('p-3 text-sm font-semibold tracking-wide text-left')
           .setCellStyles('p-3 whitespace-nowrap')
-          .useSort('asc')
+          // .useSort('asc')
           .setWidth('col-1')
           .columns
         .date('Date', 'date')
@@ -121,6 +127,15 @@ const mockState: SmzEasyTableState = {
       results: 'Results',
     },
     emptyMessage: 'Lista Vazia',
+  },
+  config: {
+    dataIdProperty: 'id',
+    throttle: {
+      isEnabled: true,
+      interval: 500,
+      method: 'auto',
+      incrementPercentage: 120
+    }
   },
   desktop: {
     enabled: true,
@@ -231,10 +246,15 @@ const mockState: SmzEasyTableState = {
     body: null
   },
   paginator: {
+    isVisible: true,
     itemsPerPage: 6,
-    maxVisiblePages: 6
+    maxVisiblePages: 6,
+    showResults: true
   },
   globalSearch: {
-    isEnabled: true
+    isEnabled: true,
+    isOptimized: true,
+    interval: 1000,
+    incrementPercentage: 200
   }
 }

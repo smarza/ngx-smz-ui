@@ -12,6 +12,11 @@ export namespace DemoFeatureActions {
     constructor() {}
   }
 
+  export class LoadAllEasyTableDemoStart {
+    public static readonly type = '[DEMO] Load All Easy Table Demo Start';
+    constructor() {}
+  }
+
   export class LoadAllEasyTableDemo {
     public static readonly type = '[DEMO] Load All Easy Table Demo';
     constructor() {}

@@ -37,7 +37,7 @@ export class DemoDataService extends BaseApiService {
   constructor(private http: HttpClient) {
     super();
 
-    for (let index = 0; index < 10000; index++) {
+    for (let index = 0; index < 300; index++) {
       const total = Math.floor(Math.random() * 3000) + 1;
       const number = Math.floor(Math.random() * 200) + 100;
       const statusIndex = Math.floor(Math.random() * status.length) + 0;

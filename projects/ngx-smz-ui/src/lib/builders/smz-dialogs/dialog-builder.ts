@@ -11,6 +11,7 @@ import { SmzDialogUiDefinitionBuilder } from './dialog-ui-definition-builder';
 import { SmzTableState } from '../../modules/smz-tables/models/table-state';
 import { SmzDocumentState } from '../../modules/smz-documents/models/smz-document';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
+import { SmzPresetTypes } from '../../modules/smz-dialogs/models/smz-presets';
 
 export class SmzDialogBuilder<TResponse> extends SmzBuilderUtilities<SmzDialogBuilder<TResponse>> {
   protected that = this;
@@ -64,6 +65,7 @@ export class SmzDialogBuilder<TResponse> extends SmzBuilderUtilities<SmzDialogBu
       extraLarge: { row: 'col-6' },
       ...this.defaultConfig?.dialogs?.dialogTemplate
     },
+    presetId: null,
     features: []
   };
 
@@ -159,6 +161,11 @@ export class SmzDialogBuilder<TResponse> extends SmzBuilderUtilities<SmzDialogBu
       const template = getSmzTemplate(breakpoint, colType) as any;
       this._state.dialogTemplate = { ...this._state.dialogTemplate, ...template };
       return this;
+  }
+
+  public setPreset(preset: SmzPresetTypes): SmzDialogBuilder<TResponse> {
+    this._state.presetId = preset;
+    return this;
   }
 
   public buttons(): SmzDialogButtonsBuilder<TResponse> {

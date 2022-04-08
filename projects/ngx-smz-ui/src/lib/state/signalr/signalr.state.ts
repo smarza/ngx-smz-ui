@@ -25,7 +25,7 @@ export const getInitialSignalRState = (): SignalRStateModel => ({
 
 @Injectable()
 export class SignalRState {
-  constructor(private service: SignalRService, private rbkConfig: NgxRbkUtilsConfig) {}
+  constructor(private service: SignalRService, private rbkConfig: NgxRbkUtilsConfig) { }
 
   @Action(SignalRActions.Connect)
   public onConnect$(ctx: StateContext<SignalRStateModel>, action: SignalRActions.Connect): Observable<void> {
@@ -40,8 +40,10 @@ export class SignalRState {
 
           const payloads = cloneDeep(ctx.getState().payloads);
 
-        const newData = action.data.dataBehavior === 'store' ? payload : null;
+          const newData = action.data.dataBehavior === 'store' ? payload : null;
+
           payloads[key] = { config: action.data, data: newData };
+
           ctx.patchState({ payloads });
 
           if (action.data.dataBehavior === 'action') {

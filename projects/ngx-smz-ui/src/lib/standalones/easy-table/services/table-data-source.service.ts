@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Injectable } from '@angular/core';
-import { Observable, Subscription, BehaviorSubject } from 'rxjs';
+import { Observable, Subscription, BehaviorSubject, throttle, interval, throttleTime } from 'rxjs';
 import { SmzEasyTableState } from '../models/smz-easy-table-state';
 import { GlobalSearchData, SmzEasyTableData, SmzEasyTableViewport } from '../models/smz-easy-table-data';
 import { paginator } from './table-data-utils';
@@ -44,16 +44,15 @@ export class TableDataSourceService {
 
     if (this.source$ != null) {
 
-      this.sourceSubscription = this.source$
-        .subscribe(data => {
-          if (this.state.isDebug) console.log('New Data ############################');
-          const start = performance.now();
-
-          this.setupNewData(data, false);
-
-          const end = performance.now();
-          if (this.state.isDebug) console.log(`     >>>> New data execution total time: ${end - start} ms`);
-        });
+      if (this.state.config.throttle.isEnabled) {
+        this.sourceSubscription = this.source$
+          .pipe(throttleTime(this.state.config.throttle.interval))
+          .subscribe(data => this.processDataSource(data));
+      }
+      else {
+        this.sourceSubscription = this.source$
+        .subscribe(data => this.processDataSource(data));
+      }
 
       this.internalSourceSubscription = this.internalSource$
         .subscribe(data => {
@@ -62,6 +61,23 @@ export class TableDataSourceService {
           }
         });
 
+    }
+  }
+
+  private processDataSource(data: any[]): void {
+    if (this.state.isDebug) console.log('');
+    if (this.state.isDebug) console.log('New Data ############################');
+    const start = performance.now();
+
+    this.setupNewData(data, false);
+
+    const end = performance.now();
+    if (this.state.isDebug) console.log(`     >>>> New data execution total time: ${end - start} ms`);
+
+    if (this.state.config.throttle.method === 'auto') {
+      // O próximo intervalo de segurança será com base em 120% do último tempo de preparação do dado.
+      this.state.config.throttle.interval = (end - start) * (this.state.config.throttle.incrementPercentage / 100);
+      if (this.state.isDebug) console.log(`     >>>> Throttle was updated to: ${this.state.config.throttle.interval} ms`);
     }
   }
 
@@ -128,11 +144,33 @@ export class TableDataSourceService {
     const end = performance.now();
     if (this.state.isDebug) console.log(`     > Global Search execution time: ${end - start} ms`);
 
+    if (this.state.globalSearch.isOptimized) {
+      // O próximo intervalo de segurança será com base em 120% do último tempo de preparação do dado.
+      this.state.globalSearch.interval = (end - start) * (this.state.globalSearch.incrementPercentage / 100);
+      if (this.state.isDebug) console.log(`     >>>> Global Search Optimization was updated to: ${this.state.globalSearch.interval} ms`);
+    }
+
   }
 
   public createPaginator(currentPage: number, preserveCurrentItems: boolean): void {
-    const currentPageItems = this.viewport.paginator?.data.length > 0 ? this.viewport.paginator?.data : null;
-    this.viewport.paginator = paginator(this.viewport.tableData, currentPage, preserveCurrentItems ? currentPageItems : null, this.state.paginator.itemsPerPage, this.state.paginator.maxVisiblePages);
+
+    const currentPageItems = this.viewport.paginator.data.length > 0 ? this.viewport.paginator.data : null;
+
+    const newPaginator = paginator(this.viewport.tableData, currentPage, null, this.state.paginator.itemsPerPage, this.state.paginator.maxVisiblePages);
+
+    const newDataHash = newPaginator.data.map(x => x[this.state.config.dataIdProperty]).join();
+    const oldDataHash = this.viewport.paginator.data.map(x => x[this.state.config.dataIdProperty]).join();
+
+    if (newDataHash !== oldDataHash) {
+      // console.log(`${oldDataHash} !== ${newDataHash}`);
+      // console.log('new data.........');
+      this.viewport.paginator = newPaginator;
+    }
+    else {
+      // console.log(`${oldDataHash} === ${newDataHash}`);
+      this.viewport.paginator = paginator(this.viewport.tableData, currentPage, preserveCurrentItems ? currentPageItems : null, this.state.paginator.itemsPerPage, this.state.paginator.maxVisiblePages);
+    }
+
   }
 
   public updatePaginator(currentPage: number, preserveCurrentItems: boolean): void {
@@ -173,7 +211,7 @@ export class TableDataSourceService {
     });
 
     return {
-      id: item.id,
+      id: item[this.state.config.dataIdProperty],
       ...result,
     };
   }
@@ -208,7 +246,7 @@ export class TableDataSourceService {
     });
 
     return {
-      id: item.id,
+      id: item[this.state.config.dataIdProperty],
       searchData,
       item
     };

@@ -3,6 +3,8 @@ import { SmzEasyMenuTableBuilder } from './menu-builder';
 import { SmzEasyTableBodyColumn, SmzEasyTableHeader, SmzEasyTableState } from '../../standalones/easy-table/models/smz-easy-table-state';
 import { SmzEasyTableActionContent } from '../../standalones/easy-table/models/smz-easy-table-contents';
 import { SmzEasyColumnCollectionBuilder } from './column-builder';
+import { SmzEasyTablePaginatorBuilder } from './paginator-builder';
+import { SmzEasyTableOptimizationsBuilder } from './optimizations-builder';
 
 export class SmzEasyTableBuilder {
   public _state: SmzEasyTableState = {
@@ -12,6 +14,15 @@ export class SmzEasyTableBuilder {
       getText: null
     },
     locale: null,
+    config: {
+      dataIdProperty: 'id',
+      throttle: {
+        isEnabled: false,
+        interval: 500,
+        method: 'auto',
+        incrementPercentage: 200
+      }
+    },
     desktop: {
       enabled: true,
       containerStyleClass: 'overflow-auto rounded-lg shadow hidden md:block',
@@ -35,16 +46,21 @@ export class SmzEasyTableBuilder {
       }
     },
     mobile: {
-      enabled: true,
+      enabled: false,
       head: null,
       body: null
     },
     paginator: {
       itemsPerPage: 6,
-      maxVisiblePages: 6
+      maxVisiblePages: 6,
+      isVisible: true,
+      showResults: true,
     },
     globalSearch: {
-      isEnabled: true
+      isEnabled: true,
+      isOptimized: false,
+      interval: 1000,
+      incrementPercentage: 200
     }
   };
 
@@ -128,8 +144,16 @@ export class SmzEasyTableBuilder {
     return this;
   }
 
-  public setPagination(itemsPerPage: number): SmzEasyTableBuilder {
-    this._state.paginator.itemsPerPage = itemsPerPage;
+  public paginator(itemsPerPage: number = 10): SmzEasyTablePaginatorBuilder {
+    return new SmzEasyTablePaginatorBuilder(this, itemsPerPage);
+  }
+
+  public optimize(): SmzEasyTableOptimizationsBuilder {
+    return new SmzEasyTableOptimizationsBuilder(this);
+  }
+
+  public setDataIdProperty(property: string): SmzEasyTableBuilder {
+    this._state.config.dataIdProperty = property;
     return this;
   }
 

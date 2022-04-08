@@ -1,6 +1,6 @@
 <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
 
-  <div class="flex-1 flex justify-between sm:hidden">
+  <div *ngIf="state.paginator.isVisible" class="flex-1 flex justify-between sm:hidden">
 
     <button
       (click)="previous()"
@@ -24,17 +24,25 @@
 
     <div>
       <p class="text-sm text-gray-700">
-        {{ state.locale.paginator.showing }}
-        <span class="font-medium">{{ dataSource.viewport.paginator.showing }}</span>
-        {{ state.locale.paginator.to }}
-        <span class="font-medium">{{ dataSource.viewport.paginator.to }}</span>
-        {{ state.locale.paginator.of }}
-        <span class="font-medium">{{ dataSource.viewport.paginator.total }}</span>
-        {{ state.locale.paginator.results }}
+
+        <ng-container *ngIf="state.paginator.isVisible">
+          {{ state.locale.paginator.showing }}
+          <span class="font-medium">{{ dataSource.viewport.paginator.showing }}</span>
+          {{ state.locale.paginator.to }}
+          <span class="font-medium">{{ dataSource.viewport.paginator.to }}</span>
+          {{ state.locale.paginator.of }}
+        </ng-container>
+
+        <ng-container *ngIf="state.paginator.showResults">
+          <span class="font-medium">{{ dataSource.viewport.paginator.total }}</span>
+          {{ state.locale.paginator.results }}
+        </ng-container>
+
       </p>
+
     </div>
 
-    <div>
+    <div *ngIf="state.paginator.isVisible">
       <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
 
         <button

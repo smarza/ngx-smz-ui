@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { debounceTime, Subject } from 'rxjs';
+import { debounceTime, Subject, throttleTime } from 'rxjs';
 import { SmzEasyTableState } from '../../../models/smz-easy-table-state';
 import { TableDataSourceService } from '../../../services/table-data-source.service';
 
@@ -28,7 +28,7 @@ export class GlobalSearchComponent implements OnInit {
   ngOnInit()
   {
     this.dataChanged
-      .pipe( untilDestroyed(this), debounceTime(600))
+      .pipe( untilDestroyed(this), debounceTime(this.state.globalSearch.interval))
       .subscribe((value) => {
         this.dataSource.executeGlobalSearch(value, true);
       })

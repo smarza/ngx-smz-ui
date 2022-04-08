@@ -6,10 +6,15 @@ export const TreesDemo: { [key: string]: () => void } = {
   [DemoKeys.TREE_DEMO_1]: () => {
     return new SmzTreeBuilder()
       .setTitle('Sincronized Tree')
+      // .emptyFeedback()
+      //   .setMessage('Lista vazia.')
+      //   .useTreeEmptyMessage()
+      //   .tree
       .emptyFeedback()
-        .setMessage('Lista vazia.')
-        .useTreeEmptyMessage()
-        .tree
+        .setButtonLabel('Criar nova conexão')
+        .setMessage('Ainda não existem conexões cadastradas para esta UN')
+        .setButtonCallback(() => { console.log('Hello!'); })
+      .tree
       .useSincronization()
       .setSelection('checkbox')
       .menu()
