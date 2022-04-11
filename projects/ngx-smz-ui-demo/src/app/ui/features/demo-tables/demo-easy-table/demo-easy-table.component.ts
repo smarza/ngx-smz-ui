@@ -83,7 +83,7 @@ export class DemoEasyTableComponent implements OnInit, OnDestroy {
           .columns
         .dataTransform('Status', 'status')
           .setCallback((data: { id: string, name: string, background: string }, row, index) => { return `<div class="px-3 py-1 text-sm text-slate-800 rounded text-center ${data.background}"><strong>${data.name}</strong></div>` })
-          .setSearchAndSortDataPath('status.name')
+          .setSearchAndSortDataPath('name')
           .setHeaderStyles('p-3 text-sm font-semibold tracking-wide text-left')
           .setCellStyles('p-3 whitespace-nowrap')
           // .useSort('asc')

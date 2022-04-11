@@ -33,7 +33,7 @@
           {{ state.locale.paginator.of }}
         </ng-container>
 
-        <ng-container *ngIf="state.paginator.showResults">
+        <ng-container *ngIf="state.paginator.showResults && dataSource.viewport.paginator?.total > 0">
           <span class="font-medium">{{ dataSource.viewport.paginator.total }}</span>
           {{ state.locale.paginator.results }}
         </ng-container>

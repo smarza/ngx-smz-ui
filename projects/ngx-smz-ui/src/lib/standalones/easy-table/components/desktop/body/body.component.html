@@ -14,12 +14,12 @@
 
           <ng-container *ngSwitchCase="type.CUSTOM">
             <div>
-                <ng-container *ngTemplateOutlet="contentService.contentTemplate; context: { $implicit: row[index], row: row, col: column }"></ng-container>
+                <ng-container *ngTemplateOutlet="contentService.contentTemplate; context: { $implicit: row[index], row: row.raw, col: column }"></ng-container>
             </div>
           </ng-container>
 
           <ng-container *ngSwitchCase="type.DATA_TRANSFORM">
-            <div [innerHtml]="$any(column.content).callback(row[index], row, index) | safeHtml" [ngClass]="$any(column.content).styleClass"></div>
+            <div [innerHtml]="$any(column.content).callback(row[index], row.raw, index) | safeHtml" [ngClass]="$any(column.content).styleClass"></div>
           </ng-container>
 
           <ng-container *ngSwitchCase="type.CALENDAR">
@@ -27,7 +27,7 @@
           </ng-container>
 
           <ng-container *ngSwitchCase="type.ACTION">
-            <smz-menu [callback]="$any(column.content).callback" [items]="$any(column.content).items" [data]="row"></smz-menu>
+            <smz-menu [callback]="$any(column.content).callback" [items]="$any(column.content).items" [id]="row.id" [data]="row.raw"></smz-menu>
           </ng-container>
 
           <ng-container *ngSwitchDefault>-</ng-container>

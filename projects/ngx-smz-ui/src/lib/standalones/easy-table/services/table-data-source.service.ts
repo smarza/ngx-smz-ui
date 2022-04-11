@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Injectable } from '@angular/core';
+import { ChangeDetectorRef, Injectable, ViewChild } from '@angular/core';
 import { Observable, Subscription, BehaviorSubject, throttle, interval, throttleTime } from 'rxjs';
 import { SmzEasyTableState } from '../models/smz-easy-table-state';
 import { GlobalSearchData, SmzEasyTableData, SmzEasyTableViewport } from '../models/smz-easy-table-data';
@@ -212,6 +212,7 @@ export class TableDataSourceService {
 
     return {
       id: item[this.state.config.dataIdProperty],
+      raw: item,
       ...result,
     };
   }
@@ -280,6 +281,14 @@ export class TableDataSourceService {
 
     })
 
+  }
+
+  public getRawDataById(id: string): any {
+    // console.log('id', id);
+    // console.log('original', this.viewport.original);
+    // console.log('dataIdProperty', this.state.config.dataIdProperty);
+    // console.log('result index', this.viewport.original.findIndex(x => x[this.state.config.dataIdProperty] === id))
+    return this.viewport.original.find(x => x[this.state.config.dataIdProperty] === id);
   }
 
   public disconnect(): void {
