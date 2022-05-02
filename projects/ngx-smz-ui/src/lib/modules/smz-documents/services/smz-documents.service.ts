@@ -9,6 +9,7 @@ import { SmzDocumentState } from '../models/smz-document';
 declare var html2pdf: any;
 
 import * as html2pdf from 'html2pdf.js';
+import { SmzJsPdfUtils } from './jspdf-utils';
 
 window['html2canvas'] = html2canvas;
 
@@ -82,10 +83,15 @@ export class SmzDocumentsService {
 
         switch (state.renderer) {
           case 'html2pdf':
-
             const html2pdfData = html2pdf()
               .from(element.nativeElement)
-              .set(state.export.html2pdfOptions);
+              .set(state.export.html2pdfOptions)
+              .toPdf().get('pdf').then(function (pdf) {
+
+                if (state.summary.showPageNumbers)
+                  SmzJsPdfUtils.addPageNumbers(pdf, state);
+
+              })
 
             switch (action) {
               case 'open': {

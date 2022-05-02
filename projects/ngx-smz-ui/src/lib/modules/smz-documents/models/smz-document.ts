@@ -1,6 +1,7 @@
 import { SmzDocumentConfig } from './smz-document-config';
 import { SmzDocumentExport } from './smz-document-export';
 import { SmzDocumentFeatures } from './smz-document-features';
+import { SmzDocumentLocale } from './smz-document-locale';
 import { SmzDocumentPaper } from './smz-document-paper';
 import { SmzDocumentViewer } from './smz-document-viewer';
 
@@ -22,6 +23,7 @@ export interface SmzDocumentState {
   userPreferences: {
     unit: 'mm' | 'cm'
   }
+  locale: SmzDocumentLocale;
 }
 
 export type SmzDocumentRenderers = 'html2pdf' | 'jspdf';

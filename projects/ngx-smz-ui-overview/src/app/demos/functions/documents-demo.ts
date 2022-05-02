@@ -13,6 +13,7 @@ export const DocumentsDemo: { [key: string]: () => void } = {
       // .debugMode()
       .setRenderer('html2pdf')
       .setQuality(2)
+      .hidePageNumbers()
 
       .setUnit('cm')
       .setMargins(1, 1, 1, 1)

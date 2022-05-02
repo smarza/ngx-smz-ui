@@ -76,7 +76,12 @@ export class SmzTableContextPipe implements PipeTransform {
         },
         menu: {
           isVisible: false,
-          items: []
+          items: [],
+          styles: {
+            icon: 'fas fa-bars',
+            buttonClass: '',
+            styleClass: ''
+          }
         },
         batchActions: {
           isVisible: false,

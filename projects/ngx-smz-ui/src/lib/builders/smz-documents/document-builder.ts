@@ -10,6 +10,7 @@ import { HTMLOptions, jsPDFOptions } from 'jspdf';
 import { SmzDocumentPageFormats, SmzPageFormatsInPt } from '../../modules/smz-documents/models/smz-page-formats';
 import { isArray } from '../../common/utils/utils';
 import * as html2canvas from 'html2canvas';
+import { SmzDocumentLocale } from '../../modules/smz-documents/models/smz-document-locale';
 
 // HTML2PDF
 // https://ekoopmans.github.io/html2pdf.js/#usage
@@ -88,7 +89,8 @@ export class SmzDocumentBuilder extends SmzBuilderUtilities<SmzDocumentBuilder> 
     },
     userPreferences: {
       unit: 'mm'
-    }
+    },
+    locale: null,
   };
 
   private applyConfig(): void {
@@ -194,6 +196,7 @@ export class SmzDocumentBuilder extends SmzBuilderUtilities<SmzDocumentBuilder> 
 
     this.initJsPDFOptions();
     this.applyConfig();
+    this.setLocale('pt-BR');
   }
 
   public setPaddingCompensation(pixels: number): SmzDocumentBuilder {
@@ -316,6 +319,39 @@ export class SmzDocumentBuilder extends SmzBuilderUtilities<SmzDocumentBuilder> 
 
   public setMargins(left?: number, right?: number, top?: number, bottom?: number): SmzDocumentBuilder {
     this.applyMargin(left, right, top, bottom);
+    return this;
+  }
+
+  public setLocale(language: 'pt-BR' | 'en-US'): SmzDocumentBuilder {
+
+    switch (language) {
+      case 'pt-BR':
+        this._state.locale = {
+          code: language,
+          pageNumbers: {
+            page: 'Página',
+            of: 'de'
+          },
+        };
+
+        break;
+
+      case 'en-US':
+
+        this._state.locale = {
+          code: language,
+          pageNumbers: {
+            page: 'Page',
+            of: 'of'
+          },
+        };
+
+        break;
+
+      default:
+        break;
+    }
+
     return this;
   }
 

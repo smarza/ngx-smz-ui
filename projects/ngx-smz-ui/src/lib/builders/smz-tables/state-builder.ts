@@ -31,7 +31,12 @@ export class SmzTableBuilder {
       },
       menu: {
         isVisible: false,
-        items: []
+        items: [],
+        styles: {
+          icon: 'pi pi-bars',
+          styleClass: '',
+          buttonClass: ''
+        }
       },
       batchActions: {
         isVisible: false,
@@ -520,6 +525,23 @@ export class SmzTableBuilder {
 
   public setSize(size: 'small' | 'regular' | 'large'): SmzTableBuilder {
     this._state.styles.size = size;
+
+    switch (size) {
+      case 'small':
+        this._state.actions.menu.styles = { icon: 'fas fa-ellipsis-h', styleClass: 'p-button-text p-button-plain p-button-sm', buttonClass: 'p-0' };
+        break;
+
+      case 'regular':
+        this._state.actions.menu.styles = { icon: 'fas fa-bars', styleClass: '', buttonClass: '' };
+        break;
+
+      case 'large':
+        this._state.actions.menu.styles = { icon: 'fas fa-bars', styleClass: '', buttonClass: '' };
+        break;
+      default:
+        break;
+    }
+
     return this;
   }
 
