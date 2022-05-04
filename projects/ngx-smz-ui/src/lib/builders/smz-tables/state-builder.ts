@@ -24,6 +24,7 @@ import { SmzBatchMenuBuilder } from './batch-menu-builder';
 export class SmzTableBuilder {
   public _state: SmzTableState = {
     isValid: true,
+    isDebug: false,
     columns: [],
     actions: {
       customActions: {
@@ -756,12 +757,21 @@ export class SmzTableBuilder {
     return this;
   }
 
+  public debugMode(): SmzTableBuilder {
+    this._state.isDebug = true;
+    return this;
+  }
+
   public columns(): SmzColumnCollectionBuilder {
     return new SmzColumnCollectionBuilder(this);
   }
 
   public build(): SmzTableState {
-    console.log(this._state);
+
+    if (this._state.isDebug) {
+      console.log(this._state);
+    }
+
     return this._state;
   }
 }

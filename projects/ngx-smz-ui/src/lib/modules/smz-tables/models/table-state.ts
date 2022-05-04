@@ -458,7 +458,8 @@ export interface SmzTableState {
   /**
    * Validation
    */
-  isValid: boolean
+  isValid: boolean;
+  isDebug: boolean;
 
 }
 

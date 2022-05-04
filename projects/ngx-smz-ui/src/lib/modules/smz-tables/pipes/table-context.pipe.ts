@@ -70,6 +70,7 @@ export class SmzTableContextPipe implements PipeTransform {
 
     const state: SmzTableState = {
       isValid: true,
+      isDebug: false,
       actions: {
         customActions: {
           isVisible: false,
