@@ -69,6 +69,7 @@ export class SmzTableContextPipe implements PipeTransform {
     const hideableColumns = columns.map(x => ({ ...x, disabled: x?.isFrozen })) ?? [];
 
     const state: SmzTableState = {
+      isValid: true,
       actions: {
         customActions: {
           isVisible: false,
@@ -136,6 +137,7 @@ export class SmzTableContextPipe implements PipeTransform {
           columnWidth: '3em',
           callback: null,
           isEnabled: false,
+          validationMode: 'none'
         },
       },
       header: {

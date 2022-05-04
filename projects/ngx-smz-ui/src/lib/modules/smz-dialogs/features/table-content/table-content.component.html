@@ -1,1 +1,6 @@
+<ng-container *ngIf="onValidationError$ | async as onValidationError">
+  <div class="grid grid-nogutter items-center justify-end w-full">
+    <span *ngIf="onValidationError" style="color: red">* Precisa selecionar pelo menos um item</span>
+  </div>
+</ng-container>
 <smz-ui-table #smzdt [items]="items$ | async" [state]="state"></smz-ui-table>

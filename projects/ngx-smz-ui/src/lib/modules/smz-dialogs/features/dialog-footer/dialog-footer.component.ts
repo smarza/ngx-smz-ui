@@ -108,13 +108,17 @@ export class DialogFooterComponent implements OnInit {
             }
 
             this.dialogConfig.data.features
-                .filter(x => x.type === 'component')
+                .filter(x => x.type === 'component' || x.type === 'table')
                 .forEach(feature => {
                     const componentFeature = feature.data as ComponentData;
-                    // console.log('feature', componentFeature);
+
                     const injected = this.injectComponent.getComponent(componentFeature.componentId);
 
-                    // console.log('injected', injected);
+                    if (this.rbkConfig.debugMode) {
+                        console.log('feature', componentFeature);
+                        console.log('injected', injected);
+                        console.log('instance', injected.instance);
+                    }
 
                     if (injected != null) {
                         const instance = injected.instance as ComponentDataBase;
@@ -375,9 +379,9 @@ export class DialogFooterComponent implements OnInit {
                 }
             }
             else {
-                // console.log('   instance isValid', injectable.ref?.componentRef?.instance?.isValid);
 
                 if (this.rbkConfig.debugMode) {
+                    console.log('           >> instance', injectable.ref?.componentRef?.instance);
                     console.log('           >> injectable componentRef isValid', injectable.ref?.componentRef?.instance?.isValid);
                 }
 

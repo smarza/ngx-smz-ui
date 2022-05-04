@@ -126,6 +126,9 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
         this.selectedItems = [];
       }
 
+      // Se estiver com a validação desligada, considerar tabela como válida
+      this.state.isValid = newState.caption.rowSelection.validationMode === 'none';
+
       this.populateColumnVisibility(newState);
 
       this.editableService.state = this.state;
@@ -208,7 +211,7 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
     context.state.caption.rowSelection.isEnabled = !context.state.caption.rowSelection.isEnabled;
 
     if (context.state.caption.rowSelection.callback != null) {
-      context.state.caption.rowSelection.callback();
+      context.state.caption.rowSelection.callback(this.selectedItems);
     }
   }
 
@@ -216,8 +219,18 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
     this.state.pagination.state = event;
   }
 
-  public emitSelection(event: any): void {
+  public emitSelection(event: any[]): void {
     this.selectionChange.emit(event);
+
+    if (this.state.caption.rowSelection.isEnabled) {
+      if (this.state.caption.rowSelection.callback != null) {
+        this.state.caption.rowSelection.callback(this.selectedItems);
+      }
+    }
+
+    if (this.state.caption.rowSelection.validationMode === 'required') {
+      this.state.isValid = event.length > 0;
+    }
   }
 
   public onFilter(event: any): void {

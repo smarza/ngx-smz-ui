@@ -7,6 +7,7 @@ import { convertorTasks } from './../data/conversor-tasks';
 import { Observable } from 'rxjs/internal/Observable';
 import { DemoFeatureActions } from '@states/demo/demo.actions';
 import { LARGE_TABLE_DATA } from '../data/large-table';
+import { ConsoleLogger } from '@microsoft/signalr/dist/esm/Utils';
 
 const store = GlobalInjector.instance.get(Store);
 
@@ -21,6 +22,9 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
         .enableColumnVisibility()
         .enableGlobalFilter()
         .setSize('small')
+        .useGridStyle()
+        // .useScrolling()
+        // .useEstimatedColWidth()
         .setEmptyFeedbackMessage('Lista vazia')
         .setEmptyFeedbackExtraInfo('Clique abaixo para carregar novos dados.')
         .addEmptyFeedbackButton('Atualizar', () => console.log('---'))
@@ -36,8 +40,8 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
       .build()
   }
   },
-  //
-  [DemoKeys.TABLE_MULTILANGUAGES]: {
+
+  [DemoKeys.TABLE_MULTI_LANGUAGES]: {
     items$: store.select(DemoFeatureSelectors.all),
     code: () => {
     return new SmzTableBuilder('entity')
@@ -271,5 +275,38 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
       .build()
   }
   },
+    //
+    [DemoKeys.TABLE_MULTI_SELECTION]: {
+      items$: store.select(DemoFeatureSelectors.all),
+      code: () => {
+      return new SmzTableBuilder()
+        .setTitle('MOEDAS')
+        .setEmptyFeedbackMessage('Nenhum histórico encontrado')
+        .setEmptyFeedbackImage('')
+        .enableGlobalFilter()
+        .useStrippedStyle()
+        .allowDefaultMultiSelection()
+        .setMultiSelectionCallback((selection: any[]) => {
+          console.log('setMultiSelectionCallback', selection);
+        })
+        // .useScrolling()
+        // .useEstimatedColWidth()
+        .setSize('small')
+        .menu()
+          .item('Editar', 'pi pi-fw pi-pencil')
+            .setCallback((item: any): void => console.log(item))
+            .menu
+          .table
+        .columns()
+          .text('company', 'Código', '4em')
+            .disableFilter()
+            .columns
+          .text('name', 'Nome')
+            .disableFilter()
+            .columns
+          .table
+        .build()
+    }
+    },
 }
 

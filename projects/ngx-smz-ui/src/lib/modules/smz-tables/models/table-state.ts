@@ -213,13 +213,17 @@ export interface SmzTableState {
        * This can be used, for instance, in the case you want to open a
        * side bar when the multi selection is activated
        */
-      callback?: () => void;
+      callback?: (selection: any[]) => void;
       /**
        * Controls whether the multi selection is enabled or not
        * Use this when you want to control this through the code instead
        * of letting the user activate it with the dedicated button
        */
       isEnabled: boolean;
+      /**
+       *
+       */
+      validationMode: 'none' | 'required';
     };
   };
 
@@ -450,6 +454,11 @@ export interface SmzTableState {
     highlightNewItems?: boolean;
     highlightLabel?: string;
   };
+
+  /**
+   * Validation
+   */
+  isValid: boolean
 
 }
 

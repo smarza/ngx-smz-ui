@@ -1,6 +1,7 @@
 import { DemoKeys } from '@demos/demo-keys';
 import { Store } from '@ngxs/store';
-import { GlobalInjector, SmzDialogBuilder, SmzDialogsService, SmzFormsResponse, SmzFormViewdata, ToastActions } from 'ngx-smz-ui';
+import { DemoFeatureSelectors } from '@states/demo/demo.selectors';
+import { GlobalInjector, SmzDialogBuilder, SmzDialogsService, SmzFormsResponse, SmzFormViewdata, SmzTableBuilder, ToastActions } from 'ngx-smz-ui';
 import { Observable, of } from 'rxjs';
 import { DemoFeatureActions } from '../../state/demo/demo.actions';
 
@@ -431,6 +432,48 @@ export const DialogsDemo: { [key: string]: () => void } = {
 
           .form
           .dialog
+      .build()
+    );
+  },
+  //
+  [DemoKeys.DIALOGS_WITH_TABLE_SELECTION]: () => {
+    service.open(
+      new SmzDialogBuilder<void>()
+        .setTitle(`Form`)
+        .setLayout('EXTRA_SMALL', 'col-12')
+        .setLayout('EXTRA_LARGE', 'col-8')
+        .table(store.select(DemoFeatureSelectors.all), new SmzTableBuilder()
+          .setTitle('Selecione pelo menos um para validar o form')
+          .setEmptyFeedbackMessage('Nenhum histórico encontrado')
+          .setEmptyFeedbackImage('')
+          .enableGlobalFilter()
+          .useStrippedStyle()
+          .allowDefaultMultiSelection()
+          .setSelectionAsRequired()
+          .setMultiSelectionCallback((selection: any[]) => {
+            console.log('setMultiSelectionCallback', selection);
+          })
+          .setSize('small')
+          .menu()
+            .item('Logar')
+              .setCallback((item: any): void => console.log(item))
+              .menu
+            .table
+          .columns()
+            .text('company', 'Código', '4em')
+              .disableFilter()
+              .columns
+            .text('name', 'Nome')
+              .disableFilter()
+              .columns
+            .table
+          .build()
+        )
+      .buttons()
+        .confirm()
+          .dependsOnValidation()
+          .buttons
+        .dialog
       .build()
     );
   },

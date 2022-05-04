@@ -312,6 +312,16 @@ export const TreeDemoData: DemoTreeNode[] = [
           },
         ]
       },
+      {
+        label: 'Dialog With Tables', type: 'SubCategory',
+        children: [
+          {
+            label: 'Validating Selection', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'dialog',
+            data: DialogsDemo[DemoKeys.DIALOGS_WITH_TABLE_SELECTION]
+          },
+        ]
+      },
     ]
   },
   {
@@ -624,7 +634,13 @@ export const TreeDemoData: DemoTreeNode[] = [
         label: 'Multi-languages', icon: 'fas fa-code', type: 'Demo',
         demoType: 'table',
         notes: '',
-        data: TablesDemo[DemoKeys.TABLE_MULTILANGUAGES]
+        data: TablesDemo[DemoKeys.TABLE_MULTI_LANGUAGES]
+      },
+      {
+        label: 'Multi-selection', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'table',
+        notes: '',
+        data: TablesDemo[DemoKeys.TABLE_MULTI_SELECTION]
       },
     ]
   },

@@ -222,7 +222,7 @@
 
                     </ng-container>
 
-                    <th *ngIf="context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible|| context.state.editable.isEditable" [ngStyle]="{ 'min-width': context.state.actions.customActions.columnWidth + 'px'}"></th>
+                    <th *ngIf="context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible|| context.state.editable.isEditable" [ngStyle]="{ 'width': context.state.actions.customActions.columnWidth + 'px'}"></th>
                 </tr>
 
                 <tr *ngIf="context.state.actions.batchActions.isVisible">

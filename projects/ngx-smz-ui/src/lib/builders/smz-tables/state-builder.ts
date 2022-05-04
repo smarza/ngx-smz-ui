@@ -23,6 +23,7 @@ import { SmzBatchMenuBuilder } from './batch-menu-builder';
 
 export class SmzTableBuilder {
   public _state: SmzTableState = {
+    isValid: true,
     columns: [],
     actions: {
       customActions: {
@@ -82,6 +83,7 @@ export class SmzTableBuilder {
         isEnabled: false,
         callback: null,
         columnWidth: '3em',
+        validationMode: 'none'
       },
       clearFilters: {
         callback: null,
@@ -309,11 +311,19 @@ export class SmzTableBuilder {
     return this;
   }
 
+  /**
+   * Enables the checkbox for multiselection in the table
+   * The user cannot disable this feature
+   */
   public allowDefaultMultiSelection(): SmzTableBuilder {
     this._state.caption.rowSelection.isEnabled = true;
     return this;
   }
 
+    /**
+   * Enables the checkbox for multiselection in the table
+   * and a creates a button to allow the user to disable the selection mode
+   */
   public allowUserMultiSelection(initialState: 'enabled' | 'disabled' = 'enabled'): SmzTableBuilder {
     this._state.caption.rowSelection.isEnabled = initialState === 'enabled';
     this._state.caption.rowSelection.isButtonVisible = true;
@@ -321,8 +331,24 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public setMultiSelectionCallback(callback: () => void): SmzTableBuilder {
-    if (!this._state.caption.rowSelection.isButtonVisible) {
+  /**
+   * The table will emit a validation statement through the variable isValid
+   * So that the Dialog can control the submit button based on that
+   * If the user select one or more items the table will be valid
+   * otherwise the table is always invalid.
+   */
+  public setSelectionAsRequired(): SmzTableBuilder {
+    this._state.caption.rowSelection.validationMode = 'required';
+    this._state.isValid = false;
+    return this;
+  }
+
+  /**
+   * This callback is called when the user click on the selection activation button
+   * and everytime a selection changes
+   */
+  public setMultiSelectionCallback(callback: (selection: any[]) => void): SmzTableBuilder {
+    if (!this._state.caption.rowSelection.isEnabled) {
       throw Error('You need to call \'allowUserMultiSelection\' before');
     }
     this._state.caption.rowSelection.callback = callback;
@@ -528,7 +554,7 @@ export class SmzTableBuilder {
 
     switch (size) {
       case 'small':
-        this._state.actions.menu.styles = { icon: 'fas fa-ellipsis-h', styleClass: 'p-button-text p-button-plain p-button-sm', buttonClass: 'p-0' };
+        this._state.actions.menu.styles = { icon: 'fas fa-ellipsis-h', styleClass: 'p-button-text p-button-plain p-button-sm p-0 shadow-none hover:bg-inherit', buttonClass: 'p-0' };
         break;
 
       case 'regular':
@@ -612,11 +638,13 @@ export class SmzTableBuilder {
   }
 
   public menu(items: SmzMenuItem[] = null): SmzMenuTableBuilder {
+
+    this._state.actions.customActions.columnWidth += this._state.styles.size === 'small' ? 40 : 63;
+
     const menuBuilder = new SmzMenuTableBuilder(this);
 
     if (items != null) {
       this._state.actions.menu.isVisible = true;
-      this._state.actions.customActions.columnWidth += 63;
       this._state.actions.menu.items = items;
     }
 
@@ -630,7 +658,7 @@ export class SmzTableBuilder {
     }
 
     this._state.actions.menu.isVisible = true;
-    this._state.actions.customActions.columnWidth += 63;
+    this._state.actions.customActions.columnWidth += this._state.styles.size === 'small' ? 40 : 63;
     this._state.actions.menu.callback = callback;
     this._state.actions.menu.items = null;
 
@@ -733,6 +761,7 @@ export class SmzTableBuilder {
   }
 
   public build(): SmzTableState {
+    console.log(this._state);
     return this._state;
   }
 }
