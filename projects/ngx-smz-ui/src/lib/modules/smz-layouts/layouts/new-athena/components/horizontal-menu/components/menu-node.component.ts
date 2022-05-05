@@ -29,7 +29,7 @@ import { MenuItem } from 'primeng/api';
 
                     <ng-container *ngIf="subItem.expanded">
                       <ul smz-ui-athena-horizontal-menu-node [item]="subItem" [currentUrl]="currentUrl" (collapse)="collapse.emit()"
-                              role="menu" style="z-index: 100;"></ul>
+                              role="menu" style="z-index: 100;" class="smz-ui-athena-horizontal-menu-node"></ul>
                     </ng-container>
 
                 </li>
