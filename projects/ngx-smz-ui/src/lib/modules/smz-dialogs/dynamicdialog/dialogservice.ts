@@ -26,9 +26,6 @@ export class DialogService
         ref.instance.childComponentType = componentType;
         ref.instance.footerComponentType = DialogFooterComponent;
 
-        // console.log('ref', ref);
-        // console.log('this.dialogComponentRefMap', this.dialogComponentRefMap);
-
         return dialogRef;
     }
 

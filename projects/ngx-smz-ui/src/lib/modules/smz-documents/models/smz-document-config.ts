@@ -45,6 +45,10 @@ export interface SmzDocumentConfig {
     container: string;
   };
 
+  components: {
+    container: string;
+  };
+
   images: {
     container: string;
     styles: string;

@@ -61,7 +61,7 @@ export const rbkConfig: NgxRbkUtilsConfig = {
             },
             viewer: {
                 container: 'bg-surface-a',
-                paper: 'bg-white m-6 shadow-lg border border-solid border-white',
+                paper: 'bg-white text-black m-6 shadow-lg border border-solid border-white',
             },
             titles: {
                 container: 'bg-gray-200',
@@ -96,6 +96,9 @@ export const rbkConfig: NgxRbkUtilsConfig = {
             },
             charts: {
                 container: ''
+            },
+            components: {
+                container: 'bg-white text-black'
             },
             contents: {
                 container: ''

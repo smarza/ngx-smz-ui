@@ -365,6 +365,12 @@ export const TreeDemoData: DemoTreeNode[] = [
         notes: '',
         data: DocumentsDemo[DemoKeys.DOCUMENTS_DEMO_FLUENT_UTILITIES]
       },
+      {
+        label: 'Injecting Components', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'document',
+        notes: '',
+        data: DocumentsDemo[DemoKeys.DOCUMENTS_INJECTABLES]
+      },
     ]
   },
   {

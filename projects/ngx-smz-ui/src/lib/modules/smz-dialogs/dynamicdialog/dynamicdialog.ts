@@ -1,4 +1,4 @@
-import { Component, NgModule, Type, ComponentFactoryResolver, ViewChild, OnDestroy, ComponentRef, AfterViewInit, ChangeDetectorRef, Renderer2, NgZone, ElementRef, ChangeDetectionStrategy, ViewRef, HostListener, HostBinding, OnInit, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
+import { Component, NgModule, Type, ViewChild, OnDestroy, ComponentRef, AfterViewInit, ChangeDetectorRef, Renderer2, NgZone, ElementRef, ChangeDetectionStrategy, ViewRef, HostListener, HostBinding, OnInit, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { trigger, style, transition, animate, AnimationEvent, animation, useAnimation } from '@angular/animations';
 import { DynamicDialogContent, DynamicDialogFooter } from './dynamicdialogcontent';
 import { DynamicDialogConfig } from './dynamicdialog-config';
@@ -115,7 +115,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnInit, OnDestroy
 
     preMaximizePageY: number;
 
-    constructor(private componentFactoryResolver: ComponentFactoryResolver, private cd: ChangeDetectorRef, public renderer: Renderer2,
+    constructor(private cd: ChangeDetectorRef, public renderer: Renderer2,
         public config: DynamicDialogConfig, private dialogRef: DynamicDialogRef, public zone: NgZone, public dialogConfig: SmzDynamicDialogConfig, private rbkConfig: NgxRbkUtilsConfig, public primeNGConfig: PrimeNGConfig,
         public dockService: SmzDockService) { }
 
@@ -146,8 +146,6 @@ export class DynamicDialogComponent implements AfterViewInit, OnInit, OnDestroy
 
     loadChildComponent(componentType: Type<any>)
     {
-        let componentFactory = this.componentFactoryResolver.resolveComponentFactory(componentType);
-
         if (this.insertionPoint == null) {
             console.warn('insertionPoint null', componentType, this);
         }
@@ -155,14 +153,12 @@ export class DynamicDialogComponent implements AfterViewInit, OnInit, OnDestroy
             let viewContainerRef = this.insertionPoint.viewContainerRef;
             viewContainerRef.clear();
 
-            this.componentRef = viewContainerRef.createComponent(componentFactory);
+            this.componentRef = viewContainerRef.createComponent(componentType);
         }
     }
 
     loadFooterComponent(componentType: Type<any>)
     {
-        let componentFactory = this.componentFactoryResolver.resolveComponentFactory(componentType);
-
         if (this.insertionFooter == null) {
             console.warn('insertionFooter null', componentType, this);
         }
@@ -170,7 +166,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnInit, OnDestroy
             let viewContainerRef = this.insertionFooter.viewContainerRef;
             viewContainerRef.clear();
 
-            this.componentRef = viewContainerRef.createComponent(componentFactory);
+            this.componentRef = viewContainerRef.createComponent(componentType);
         }
 
     }

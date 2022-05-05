@@ -15,6 +15,10 @@ import { DemoChartComponent } from './components/demo-chart/demo-chart.component
 import { DemoDocumentComponent } from './components/demo-document/demo-document.component';
 import { DemoTreeComponent } from './components/demo-tree/demo-tree.component';
 import { DemoMenuComponent } from './components/demo-menu/demo-menu.component';
+import { DemoInjectable1Component } from './components/demo-injectable/demo-injectable-1.component';
+import { DemoInjectable2Component } from './components/demo-injectable/demo-injectable-2.component';
+import { DemoInjectable3Component } from './components/demo-injectable/demo-injectable-3.component';
+import { DemoInjectable4Component } from './components/demo-injectable/demo-injectable-4.component';
 import { TooltipModule } from 'primeng/tooltip';
 import { FormsModule } from '@angular/forms';
 
@@ -38,7 +42,19 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [HomeComponent, DemoFormComponent, DemoTableComponent, DemoChartComponent, DemoDocumentComponent, DemoTreeComponent, DemoMenuComponent],
+  declarations: [
+    HomeComponent,
+    DemoFormComponent,
+    DemoTableComponent,
+    DemoChartComponent,
+    DemoDocumentComponent,
+    DemoTreeComponent,
+    DemoMenuComponent,
+    DemoInjectable1Component,
+    DemoInjectable2Component,
+    DemoInjectable3Component,
+    DemoInjectable4Component
+  ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
@@ -57,7 +73,7 @@ const routes: Routes = [
     NgVarModule,
     NgxSmzMenuModule,
     TooltipModule,
-    NgxSmzUiBlockModule
+    NgxSmzUiBlockModule,
   ],
   providers: [],
   bootstrap: [HomeComponent]

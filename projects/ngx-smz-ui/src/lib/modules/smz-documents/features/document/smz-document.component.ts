@@ -1,5 +1,5 @@
 import { NgStyle } from '@angular/common';
-import { Component, Input, OnInit, Self } from '@angular/core';
+import { Component, Input, OnInit, Self, ChangeDetectorRef } from '@angular/core';
 import { SmzDocumentState } from '../../models/smz-document';
 import { SmzDocumentFeatureDefinitions } from '../../models/smz-document-features';
 
@@ -12,7 +12,7 @@ import { SmzDocumentFeatureDefinitions } from '../../models/smz-document-feature
 export class SmzDocumentComponent implements OnInit {
   @Input() public state: SmzDocumentState;
   public featureDefinitions = SmzDocumentFeatureDefinitions;
-  constructor(@Self() private ngStyle: NgStyle) { }
+  constructor(@Self() private ngStyle: NgStyle, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
     // console.log(this.state);
@@ -24,7 +24,6 @@ export class SmzDocumentComponent implements OnInit {
     // Propaga a nova classe de estilos para o elemento html do component
     this.ngStyle.ngStyle = data;
     this.ngStyle.ngDoCheck();
-
   }
 
   public onFileSent(file: File): void

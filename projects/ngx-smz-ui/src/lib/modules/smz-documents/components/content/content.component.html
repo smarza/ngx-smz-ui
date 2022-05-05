@@ -59,6 +59,10 @@
               <smz-document-page-break></smz-document-page-break>
             </ng-container>
 
+            <ng-container *ngSwitchCase="featureDefinitions.COMPONENT">
+              <smz-document-injectable [data]="$any(cell.data)" [config]="config" [state]="state"></smz-document-injectable>
+            </ng-container>
+
             <ng-container *ngSwitchDefault>unknown cell data type</ng-container>
 
           </ng-container>

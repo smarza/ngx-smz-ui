@@ -1,4 +1,4 @@
-import { Directive, ViewContainerRef, Input, ComponentFactoryResolver, AfterContentInit } from '@angular/core';
+import { Directive, ViewContainerRef, Input, AfterContentInit } from '@angular/core';
 import { takeWhile } from 'rxjs/operators';
 import { SmzDialogContext, SmzInjectable } from '../../../modules/smz-dialogs/models/smz-dialogs';
 import { InjectComponentService } from './inject-component.service';
@@ -13,7 +13,7 @@ export class InjectComponentDirective implements AfterContentInit
     @Input() public context: SmzDialogContext<any>;
     public isActive = true;
 
-    constructor(public viewContainerRef: ViewContainerRef, private _componentFactoryResolver: ComponentFactoryResolver, private service: InjectComponentService)
+    constructor(public viewContainerRef: ViewContainerRef, private service: InjectComponentService)
     {
 
     }
@@ -23,17 +23,13 @@ export class InjectComponentDirective implements AfterContentInit
 
         if (this.appInjectComponent != null && this.appInjectComponent.component != null)
         {
-            setTimeout(() =>
-            {
-                this.addComp();
-            }, 0);
+            setTimeout(() => this.addComp(), 0);
         }
     }
 
     public addComp(): void
     {
-        const componentFactory = this._componentFactoryResolver.resolveComponentFactory(this.appInjectComponent.component);
-        const componentRef = this.viewContainerRef.createComponent(componentFactory);
+        const componentRef = this.viewContainerRef.createComponent(this.appInjectComponent.component);
 
         this.appInjectComponent.inputs.forEach(i =>
         {

@@ -17,7 +17,7 @@ export class SmzDocumentViewerComponent implements OnInit, AfterViewInit, OnDest
     @ViewChild('paper', { static: true }) public paperElement: ElementRef;
     @Input() public state: SmzDocumentState;
     public now = moment().format('MMMM Do YYYY, h:mm:ss a');
-    constructor(private el: ElementRef, public documentService: SmzDocumentsService, private location: Location, private cdf: ChangeDetectorRef, private store: Store, private renderer: Renderer2) { }
+    constructor(private el: ElementRef, public documentService: SmzDocumentsService, private location: Location, private cdr: ChangeDetectorRef, private store: Store, private renderer: Renderer2) { }
 
     public ngOnInit(): void
     {

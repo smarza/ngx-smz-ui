@@ -1,8 +1,9 @@
 import { Observable } from 'rxjs';
+import { SmzInjectableComponent } from '../../../common/modules/inject-content/models/injectable.model';
 import { SmzChart } from '../../smz-charts/models/chart';
 import { SmzDocumentCellConfig } from './smz-document';
 
-export type SmzDocumentFeatures = SmzDocumentTitle | SmzDocumentDivider | SmzDocumentField | SmzDocumentImage | SmzDocumentSpacer | SmzDocumentSubTitle | SmzDocumentFieldsGroup | SmzDocumentTable | SmzDocumentChart | SmzDocumentPageBreak;
+export type SmzDocumentFeatures = SmzDocumentTitle | SmzDocumentDivider | SmzDocumentField | SmzDocumentImage | SmzDocumentSpacer | SmzDocumentSubTitle | SmzDocumentFieldsGroup | SmzDocumentTable | SmzDocumentChart | SmzDocumentPageBreak | SmzDocumentComponent;
 
 export enum SmzDocumentFeatureDefinitions {
   DIVIDER,
@@ -14,7 +15,8 @@ export enum SmzDocumentFeatureDefinitions {
   TITLE,
   TABLE,
   CHART,
-  PAGE_BREAK
+  PAGE_BREAK,
+  COMPONENT
 
 }
 export interface SmzDocumentBaseCell {
@@ -160,6 +162,18 @@ export interface SmzDocumentChart extends SmzDocumentBaseCell {
   }
   content?: {
     chartData?: SmzChart
+  }
+  flexWidth: string;
+}
+
+export interface SmzDocumentComponent extends SmzDocumentBaseCell {
+  type: SmzDocumentFeatureDefinitions.COMPONENT;
+  container?: {
+    background?: string;
+    styles?: string;
+  }
+  content?: {
+    component?: SmzInjectableComponent;
   }
   flexWidth: string;
 }

@@ -16,3 +16,13 @@ export interface ComponentDataBase {
 
     onValidationError$?: BehaviorSubject<boolean>;
 }
+
+export interface SmzInjectableComponent
+{
+    component: ComponentDataBase | any;
+    inputs: InjectableContentEntity[];
+    outputs?: InjectableOutput[];
+    ref?: { componentRef: any };
+    styleClass?: string;
+    componentId?: string;
+}

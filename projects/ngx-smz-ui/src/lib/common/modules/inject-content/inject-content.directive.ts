@@ -1,4 +1,4 @@
-import { Directive, ViewContainerRef, Input, ComponentFactoryResolver, AfterContentInit } from '@angular/core';
+import { Directive, ViewContainerRef, Input, AfterContentInit } from '@angular/core';
 import { InjectContentService } from './inject-content.service';
 import { InjectableContentEntity } from './models/inject-content.model';
 import { takeWhile } from 'rxjs/operators';
@@ -20,9 +20,8 @@ export class InjectContentDirective implements AfterContentInit
     @Input() public componentRef: { componentRef: any };
     public isActive = true;
 
-    constructor(public viewContainerRef: ViewContainerRef, private _componentFactoryResolver: ComponentFactoryResolver, private service: InjectContentService)
+    constructor(public viewContainerRef: ViewContainerRef, private service: InjectContentService)
     {
-
     }
 
     public ngAfterContentInit(): void
@@ -40,8 +39,7 @@ export class InjectContentDirective implements AfterContentInit
     public addComp(): void
     {
 
-        const componentFactory = this._componentFactoryResolver.resolveComponentFactory(this.appInjectContent);
-        const componentRef = this.viewContainerRef.createComponent(componentFactory);
+        const componentRef = this.viewContainerRef.createComponent(this.appInjectContent);
 
         this.inputs.forEach(i =>
         {

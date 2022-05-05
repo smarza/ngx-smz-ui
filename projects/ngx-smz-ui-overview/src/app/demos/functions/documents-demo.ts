@@ -4,12 +4,16 @@ import { SmzChart, SmzDocumentBuilder } from 'ngx-smz-ui';
 import { CountriesDbSelectors } from '@states/database/countries/countries.selectors';
 import { VERTICAL_BAR } from '@demos/data/chart-data-original';
 import { LINE } from '../../../../../ngx-smz-ui-dark-theme/src/app/demos/data/chart-data-original';
-import { buildSummaryReportDocument } from './functions/summary-report-document';
+import { buildSummaryReportDocument } from './summary-document/summary-report-document';
+import { DemoInjectable1Component } from '@features/home/components/demo-injectable/demo-injectable-1.component';
+import { DemoInjectable2Component } from '@features/home/components/demo-injectable/demo-injectable-2.component';
+import { DemoInjectable3Component } from '@features/home/components/demo-injectable/demo-injectable-3.component';
+import { DemoInjectable4Component } from '@features/home/components/demo-injectable/demo-injectable-4.component';
 
 export const DocumentsDemo: { [key: string]: () => void } = {
   //
   [DemoKeys.DOCUMENTS_DEMO_HTML2PDF]: () => {
-    return baseDocument(new SmzDocumentBuilder(), true)
+    return addDocumentContent(new SmzDocumentBuilder(), true)
       // .debugMode()
       .setRenderer('html2pdf')
       .setQuality(2)
@@ -29,7 +33,7 @@ export const DocumentsDemo: { [key: string]: () => void } = {
   },
   //
   [DemoKeys.DOCUMENTS_DEMO_JSPDF]: () => {
-    return baseDocument(new SmzDocumentBuilder(), false)
+    return addDocumentContent(new SmzDocumentBuilder(), false)
       .setRenderer('jspdf')
 
       .setUnit('cm')
@@ -47,191 +51,201 @@ export const DocumentsDemo: { [key: string]: () => void } = {
   //
   [DemoKeys.DOCUMENTS_DEMO_1]: () => {
     return new SmzDocumentBuilder()
-    // .setHeaderHeight('cm', 5.5)
-    // .setMargins('cm', 0.6)
-    // .setFilename('demo')
-    // .setPaperSize(297, 'landscape', 'A4')
+      .setRenderer('html2pdf')
+      .setQuality(2)
+      .hidePageNumbers()
 
-    .viewer()
-      .setZoom(1, 0.5, 5, 0.5)
-      .allowDownload()
-      .document
+      .setUnit('cm')
+      .setMargins(1, 1, 1, 1)
+      .setFilename('html2pdf')
+      .setPage('a4', 'landscape')
 
-    .header()
+      .viewer()
+         .setZoom(1, 0.5, 5, 0.5)
+         .allowDownload()
+         .document
 
-      .row()
-        .image('assets/logo.png')
-          .setWidth('col-8')
-          .setRowspan(3)
-          .setImageWidth('40%')
-          .row
-        .field('OC-02382', 'Nº COMPRA')
-          .setWidth('col-2')
-          .useCentralized()
-          .useBold()
-          .row
-        .field('VERSÃO DE CONSULTA')
-          .setWidth('col-2')
-          .useCentralized()
-          .useAlert()
-          .row
-        .content
+      .header()
 
-      .row()
-        .field('AGUARDANDO CONFIRMAÇÃO', 'STATUS')
-          .setColspan(2)
-          .useCentralized()
-          .useBold()
-          .row
-        .content
-
-      .row()
-        .field('04/10/2021 18:00', 'DATA DA EMISSÃO')
-          .setColspan(2)
-          .useCentralized()
-          .row
-        .content
-
-      .row()
-        .title('ORDEM DE COMPRA')
-          .setBackgroundColor('#FDD835')
-          .setTextColor('#212121')
-          .setColspan(3)
-          .row
-        .content
-
-      .document
-
-    .content()
-
-      .row()
-        .subTitle('COMPRADOR')
-          .row
-        .content
-
-      .row()
-        .group()
-          .setColspan(3)
-          .addField('TIG COMERCIO DE MOVEIS E DECORACOES EIRELLI', 'RAZÃO SOCIAL')
+         .row()
+         .image('assets/logo.png')
             .setWidth('col-8')
-            .group
-          .addField('01234567891012', 'CNPJ')
-            .setWidth('col-4')
-            .group
-          .addField('YASMIM.FREITAS', 'RESPONSÁVEL')
-            .group
-          .if(false)
-            .addField('21 7280-9395', 'TELEFONE')
-              .group
-            .endIf
-          .addField('ENCOMENDA@GRUPOIDEIA.COM.BR', 'EMAIL')
-            .group
-          .row
-        .content
-
-      .row()
-        .subTitle('FORNECEDOR')
-          .row
-        .content
-
-      .row()
-        .group()
-          .setColspan(3)
-          .addField('HOME SIER', 'FÁBRICA')
+            .setRowspan(3)
+            .setImageWidth('40%')
+            .row
+         .field('OC-02382', 'Nº COMPRA')
+            .setWidth('col-2')
+            .useCentralized()
             .useBold()
-            .setTextColor('blue')
-            .group
-          .addField('MAURY', 'REPRESENTANTE')
-            .group
-          .addField('21 99209-4433', 'TELEFONE')
-            .group
-          .addField('AFFARIVENDAS@OUTLOOK.COM', 'EMAIL')
-            .group
-          .row
-        .content
-
-      .row()
-        .subTitle('INFORMAÇÕES GERAIS')
-          .row
-        .content
-
-      .row()
-        .chart(VERTICAL_BAR as SmzChart)
-          .setWidth('col-5')
-          .row
-        .content
-
-      .row()
-        .group()
-          .setColspan(3)
-          .addField('ENCOMENDA DE MERCADORIA VENDIDA', 'NATUREZA')
-            .setWidth('col-6')
-            .useBold()
+            .row
+         .field('VERSÃO DE CONSULTA')
+            .setWidth('col-2')
+            .useCentralized()
             .useAlert()
-            .group
-          .addField('PV-002167', 'PEDIDO DE VENDA')
+            .row
+         .content
+
+         .row()
+         .field('AGUARDANDO CONFIRMAÇÃO', 'STATUS')
+            .setColspan(2)
+            .useCentralized()
             .useBold()
-            .group
-          .addField('04/02/2022', 'PREVISÃO DE CHEGADA')
-            .group
-          .addField(`
-  Se houver alguma dúvida, favor entrar em contato conosco imediatamente.
-  Caso contrário, aguardamos a confirmação do envio em até 48 horas.
+            .row
+         .content
 
-  ** Enviar o número do nosso pedido de venda e ordem de compra no corpo da nota fiscal, na confirmação e na embalagem da mercadoria.`, 'OBSERVAÇÕES')
-            .setWidth('col-12')
-            .group
-          .row
-        .content
+         .row()
+         .field('04/10/2021 18:00', 'DATA DA EMISSÃO')
+            .setColspan(2)
+            .useCentralized()
+            .row
+         .content
 
-      .row()
-        .subTitle('RELAÇÃO DE ITENS')
-          .row
-        .content
+         .row()
+         .title('ORDEM DE COMPRA')
+            .setBackgroundColor('#FDD835')
+            .setTextColor('#212121')
+            .setColspan(3)
+            .row
+         .content
 
-      .row()
-        .table()
-          .setSource(DemoFeatureSelectors.all)
-          .addColumn('name', 'Nome')
-            .table
-          .addColumn('company', 'Empresa')
-            .table
-          .row
-        .content
+         .document
 
-      .row()
-        .spacer()
-          .row
-        .content
+      .content()
 
-      .row()
+         .row()
+         .subTitle('COMPRADOR')
+            .row
+         .content
 
-        .field('FINAL DO DOCUMENTO')
-          .setBackgroundColor('#EEEEEE')
-          .useBold()
-          .row
-        .field('YASMIM.FREITAS', 'EMISSOR DO DOCUMENTO')
-          .setBackgroundColor('#EEEEEE')
-          .row
-        .field('4 DE OUT. DE 2021', 'DATA DA EMISSÃO')
-          .setBackgroundColor('#EEEEEE')
-          .row
-        .content
+         .row()
+         .group()
+            .setColspan(3)
+            .addField('TIG COMERCIO DE MOVEIS E DECORACOES EIRELLI', 'RAZÃO SOCIAL')
+               .setWidth('col-8')
+               .group
+            .addField('01234567891012', 'CNPJ')
+               .setWidth('col-4')
+               .group
+            .addField('YASMIM.FREITAS', 'RESPONSÁVEL')
+               .group
+            .if(false)
+               .addField('21 7280-9395', 'TELEFONE')
+               .group
+               .endIf
+            .addField('ENCOMENDA@GRUPOIDEIA.COM.BR', 'EMAIL')
+               .group
+            .row
+         .content
 
-      .document
+         .row()
+         .subTitle('FORNECEDOR')
+            .row
+         .content
+
+         .row()
+         .group()
+            .setColspan(3)
+            .addField('HOME SIER', 'FÁBRICA')
+               .useBold()
+               .setTextColor('blue')
+               .group
+            .addField('MAURY', 'REPRESENTANTE')
+               .group
+            .addField('21 99209-4433', 'TELEFONE')
+               .group
+            .addField('AFFARIVENDAS@OUTLOOK.COM', 'EMAIL')
+               .group
+            .row
+         .content
+
+         .row()
+         .subTitle('INFORMAÇÕES GERAIS')
+            .row
+         .content
+
+         .row()
+         .chart(VERTICAL_BAR as SmzChart)
+            .setWidth('col-5')
+            .row
+         .content
+
+         .row()
+         .group()
+            .setColspan(3)
+            .addField('ENCOMENDA DE MERCADORIA VENDIDA', 'NATUREZA')
+               .setWidth('col-6')
+               .useBold()
+               .useAlert()
+               .group
+            .addField('PV-002167', 'PEDIDO DE VENDA')
+               .useBold()
+               .group
+            .addField('04/02/2022', 'PREVISÃO DE CHEGADA')
+               .group
+            .addField(`
+   Se houver alguma dúvida, favor entrar em contato conosco imediatamente.
+   Caso contrário, aguardamos a confirmação do envio em até 48 horas.
+
+   ** Enviar o número do nosso pedido de venda e ordem de compra no corpo da nota fiscal, na confirmação e na embalagem da mercadoria.`, 'OBSERVAÇÕES')
+               .setWidth('col-12')
+               .group
+            .row
+         .content
+
+         .row()
+         .subTitle('RELAÇÃO DE ITENS')
+            .row
+         .content
+
+         .row()
+         .table()
+            .setSource(DemoFeatureSelectors.all)
+            .addColumn('name', 'Nome')
+               .table
+            .addColumn('company', 'Empresa')
+               .table
+            .row
+         .content
+
+         .row()
+         .spacer()
+            .row
+         .content
+
+         .row()
+
+         .field('FINAL DO DOCUMENTO')
+            .setBackgroundColor('#EEEEEE')
+            .useBold()
+            .row
+         .field('YASMIM.FREITAS', 'EMISSOR DO DOCUMENTO')
+            .setBackgroundColor('#EEEEEE')
+            .row
+         .field('4 DE OUT. DE 2021', 'DATA DA EMISSÃO')
+            .setBackgroundColor('#EEEEEE')
+            .row
+         .content
+
+         .document
       .build()
   },
+  //
   [DemoKeys.DOCUMENTS_DEMO_2]: () => {
     return new SmzDocumentBuilder()
       .debugMode()
-      // .setHeaderHeight('cm', 5.5)
-      // .setMargins('cm', 0.6)
-      .setFilename('demo-debug')
+      .setRenderer('html2pdf')
+      .setQuality(2)
+      .hidePageNumbers()
+
+      .setUnit('cm')
+      .setMargins(1, 1, 1, 1)
+      .setFilename('html2pdf')
+      .setPage('a4', 'landscape')
 
       .viewer()
-        .setZoom(1, 0.5, 5, 0.5)
-        .allowDownload()
-        .document
+         .setZoom(1, 0.5, 5, 0.5)
+         .allowDownload()
+         .document
 
       .header()
 
@@ -437,15 +451,19 @@ Caso contrário, aguardamos a confirmação do envio em até 48 horas.
   },
   [DemoKeys.DOCUMENTS_DEMO_3]: () => {
     return new SmzDocumentBuilder()
-      // .setHeaderHeight('cm', 5.5)
-      // .setMargins('cm', 0.6)
-      // .setFilename('demo')
-      // .setPaperSize(297, 'landscape', 'A4')
+      .setRenderer('html2pdf')
+      .setQuality(2)
+      .hidePageNumbers()
+
+      .setUnit('cm')
+      .setMargins(1, 1, 1, 1)
+      .setFilename('html2pdf')
+      .setPage('a4', 'landscape')
 
       .viewer()
-        .setZoom(1, 0.5, 5, 0.5)
-        .allowDownload()
-        .document
+         .setZoom(1, 0.5, 5, 0.5)
+         .allowDownload()
+         .document
 
       .header()
 
@@ -535,9 +553,92 @@ Caso contrário, aguardamos a confirmação do envio em até 48 horas.
   [DemoKeys.DOCUMENTS_DEMO_FLUENT_UTILITIES]: () => {
     return buildSummaryReportDocument(payload)
   },
+  //
+  [DemoKeys.DOCUMENTS_INJECTABLES]: () => {
+   return new SmzDocumentBuilder()
+   //   .debugMode()
+     .setRenderer('html2pdf')
+     .setQuality(2)
+     .hidePageNumbers()
+
+     .setUnit('cm')
+     .setMargins(1, 1, 1, 1)
+     .setFilename('html2pdf')
+     .setPage('a4', 'landscape')
+
+     .viewer()
+        .setZoom(1, 0.5, 5, 0.5)
+        .allowDownload()
+        .document
+
+     .header()
+
+       .row()
+         .title('DEMO DE DOCUMENTOS COM COMPONENTS INJETADOS')
+           .setBackgroundColor('#26A69A')
+           .setTextColor('#212121')
+           .setColspan(3)
+           .row
+         .content
+
+       .document
+
+     .content()
+
+       .row()
+         .subTitle('COMPONENTES INJETÁVEIS')
+           .row
+         .content
+
+       .row()
+         .component(DemoInjectable1Component)
+            .addInput('title', 'Ready to dive in?')
+            .addInput('subTitle', 'Start your free trial today.')
+            .row
+         .content
+
+      .row()
+         .component(DemoInjectable2Component)
+            .setColspan(2)
+            .setHeight('100px')
+            .row
+         .component(DemoInjectable3Component)
+            .setColspan(1)
+            .setHeight('100px')
+            .row
+         .content
+
+      .row()
+         .component(DemoInjectable4Component)
+            .row
+         .content
+
+       .row()
+         .spacer()
+           .row
+         .content
+
+       .row()
+
+         .field('FINAL DO DOCUMENTO')
+           .setBackgroundColor('#EEEEEE')
+           .useBold()
+           .row
+         .field('YASMIM.FREITAS', 'EMISSOR DO DOCUMENTO')
+           .setBackgroundColor('#EEEEEE')
+           .row
+         .field('4 DE OUT. DE 2021', 'DATA DA EMISSÃO')
+           .setBackgroundColor('#EEEEEE')
+           .row
+         .content
+
+       .document
+     .build()
+ },
+
 }
 
-function baseDocument(_: SmzDocumentBuilder, includePageBreaks: boolean): SmzDocumentBuilder {
+function addDocumentContent(_: SmzDocumentBuilder, includePageBreaks: boolean): SmzDocumentBuilder {
   return _
 
   .header()
