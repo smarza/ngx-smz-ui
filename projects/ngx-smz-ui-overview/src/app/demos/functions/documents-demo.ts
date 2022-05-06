@@ -449,6 +449,7 @@ Caso contrário, aguardamos a confirmação do envio em até 48 horas.
         .document
       .build()
   },
+  //
   [DemoKeys.DOCUMENTS_DEMO_3]: () => {
     return new SmzDocumentBuilder()
       .setRenderer('html2pdf')
@@ -615,6 +616,19 @@ Caso contrário, aguardamos a confirmação do envio em até 48 horas.
 
        .row()
          .spacer()
+           .row
+         .content
+
+      .row()
+         .table()
+           .setSource(DemoFeatureSelectors.moreItems)
+           .addColumn('name', 'Nome')
+             .table
+           .addColumn('company', 'Empresa')
+             .table
+            .addColumn('country.name', 'Site')
+             .dataTransform((data) => `<a href="https://www.google.com/search?q=${data}" target="_blank" class="text-blue-500 font-bold hover:underline">${data}</a>`)
+             .table
            .row
          .content
 
@@ -810,6 +824,9 @@ Caso contrário, aguardamos a confirmação do envio em até 48 horas.
         .addColumn('company', 'Empresa')
           .setWidth('col-10')
           .table
+         .addColumn('country.name', 'Site')
+          .dataTransform((data) => `<a href="https://www.google.com/search?q=${data}">${data}</a>`)
+          .table
         .row
       .content
 
@@ -834,7 +851,6 @@ Caso contrário, aguardamos a confirmação do envio em até 48 horas.
 
     .document
 }
-
 
 const payload = {
   "filename":"20220419_Teste",
