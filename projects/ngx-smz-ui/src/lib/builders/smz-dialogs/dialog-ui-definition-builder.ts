@@ -38,5 +38,6 @@ export class SmzDialogUiDefinitionBuilder<TResponse> extends SmzBaseUiDefinition
 
     return this._dialogBuilder;
   }
+
 }
 

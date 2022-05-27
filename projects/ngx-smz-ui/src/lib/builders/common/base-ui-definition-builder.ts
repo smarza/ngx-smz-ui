@@ -1,5 +1,6 @@
 import { getSmzTemplate } from '../smz-forms/form-group-builder';
 import { InputConversionOptions } from '../smz-dialogs/dialog-input-conversion';
+import { SmzControlTypes } from '../../modules/smz-forms/models/control-types';
 
 export class SmzBaseUiDefinitionBuilder<T> {
   protected that: T;
@@ -29,7 +30,7 @@ export class SmzBaseUiDefinitionBuilder<T> {
       this.uiDefinitionOptions.fieldsToConvert.push({originalName, newName});
     }
     else {
-      throw Error(`rename already used for the property name ${originalName}`)
+      throw Error(`rename already used for the property name ${originalName}`);
     }
     return this.that;
   }
@@ -40,9 +41,20 @@ export class SmzBaseUiDefinitionBuilder<T> {
       this.uiDefinitionOptions.fieldsToUseSelectors.push({propertyName, selector})
     }
     else {
-      throw Error(`useSelector already used for the property name ${propertyName}`)
+      throw Error(`useSelector already used for the property name ${propertyName}`);
     }
 
+    return this.that;
+  }
+
+  public override(propertyName: string, callback: (controls: SmzControlTypes) => void): T {
+    const field = this.uiDefinitionOptions.fieldsToOverwriteControl.find(x => x.propertyName == propertyName);
+    if (field == null) {
+      this.uiDefinitionOptions.fieldsToOverwriteControl.push({propertyName, callback});
+    }
+    else {
+      throw Error(`override already done for the property name ${propertyName}`);
+    }
     return this.that;
   }
 

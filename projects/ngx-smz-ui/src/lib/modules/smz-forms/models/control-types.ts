@@ -57,7 +57,8 @@ export enum SmzControlType
     LIST = 18,
     TAG_AREA = 19,
     CONTENT_MASK = 20,
-    TEXT_BUTTON = 21
+    TEXT_BUTTON = 21,
+    DECIMAL = 22, // APENAS PARA API (UI DEFINITION)
 }
 
 export interface SmzTextControl extends SmzFormsBaseControl

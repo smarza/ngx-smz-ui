@@ -287,6 +287,18 @@ function convertInputs(inputs: InputConfig[], store: Store, options: InputConver
       results.push(input);
     }
 
+    else if (config.controlType.id === `${SmzControlType.DECIMAL}`) {
+      const input: SmzNumberControl = {
+        ...convertBaseControl(config),
+        defaultValue: config.defaultValue,
+        type: SmzControlType.NUMBER,
+        useFraction: true,
+        minFractionDigits: 0,
+        maxFractionDigits: 10
+      };
+      results.push(input);
+    }
+
     else if (config.controlType.id === `${SmzControlType.PASSWORD}`) {
       const input: SmzPasswordControl = {
         ...convertBaseControl(config),
