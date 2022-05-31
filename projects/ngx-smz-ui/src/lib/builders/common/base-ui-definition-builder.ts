@@ -5,7 +5,7 @@ import { SmzControlTypes } from '../../modules/smz-forms/models/control-types';
 export class SmzBaseUiDefinitionBuilder<T> {
   protected that: T;
   protected updateEntity: any;
-  protected uiDefinitionOptions: InputConversionOptions = {fieldsToConvert : [], fieldsWithLayoutTemplates: [], fieldsToUseSelectors: [], fieldsToIgnore: []};
+  protected uiDefinitionOptions: InputConversionOptions = {fieldsToConvert : [], fieldsWithLayoutTemplates: [], fieldsToUseSelectors: [], fieldsToIgnore: [], fieldsToOverwriteControl: []};
   constructor() {
   }
 

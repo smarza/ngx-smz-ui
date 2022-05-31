@@ -47,7 +47,7 @@
   .p-datatable-header {
     padding: 1rem;
     text-align: left;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
 
   .p-paginator {
@@ -78,6 +78,13 @@
 
   .p-dropdown-label:not(.p-placeholder) {
     text-transform: uppercase;
+  }
+}
+
+.p-datatable.p-datatable-smz-ui-table.p-datatable-sm {
+
+  .p-datatable-header {
+    font-size: 1rem;
   }
 }
 
