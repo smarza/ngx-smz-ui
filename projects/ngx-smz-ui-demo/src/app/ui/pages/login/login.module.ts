@@ -1,10 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ButtonModule } from 'primeng/button';
-import { NgxSmzFormsModule } from '../../../smz-forms/smz-forms.module';
-import { SmzRouteData } from '../../core/models/route-layout-data';
-import { SmzLoginModule } from '../../features/login/login.module';
+import { SmzLoginModule } from 'ngx-smz-ui';
+import { SmzRouteData } from 'ngx-smz-ui';
 import { LoginComponent } from './login.component';
 
 const data: SmzRouteData = {
@@ -33,10 +31,8 @@ export const routerModuleForChildLoginModule = RouterModule.forChild(routes);
   imports: [
     CommonModule,
     routerModuleForChildLoginModule,
-    ButtonModule,
-    NgxSmzFormsModule,
     SmzLoginModule
   ],
-  exports: [LoginComponent]
+  exports: []
 })
 export class LoginModule { }

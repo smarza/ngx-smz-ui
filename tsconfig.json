@@ -14,6 +14,13 @@
     "module": "es2020",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "strictNullChecks": false,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "suppressImplicitAnyIndexErrors": true, // result[c.data.header.field] = c.data.header.label; Element implicitly has an 'any' type because index expression is not of type 'number'.ts(7015)
+    "preserveSymlinks": true,
     "lib": [
       "es2018",
       "dom"

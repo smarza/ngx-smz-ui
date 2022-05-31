@@ -1,5 +1,5 @@
 import { environment } from '../environments/environment';
-import { CustomError, GlobalInjector, LoginResponse, NgxRbkUtilsConfig } from 'ngx-smz-ui';
+import { CustomError, GlobalInjector, LoginResponse, NgxRbkUtilsConfig, SmzFormBuilder } from 'ngx-smz-ui';
 import { DemoFeatureName, DemoFeatureState, getInitialState as getFtDemoInitialState } from '../app/state/demo/demo.state';
 import { CountriesDbName, CountriesDbState, getInitialState as getDbCountriesInitialState } from '../app/state/database/countries/countries.state';
 import { CountriesDbActions } from '../app/state/database/countries/countries.actions';
@@ -9,6 +9,7 @@ import { ShopsDbName, ShopsDbState, getInitialState as getDbShopsInitialState } 
 import { ShopsDbActions } from '../app/state/database/shops/shops.actions';
 import { Store } from '@ngxs/store';
 import { Navigate } from '@ngxs/router-plugin';
+import { SmzLoginBuilder } from '../../../ngx-smz-ui/src/lib/builders/smz-login/state-builder';
 
 // ------------------------------------------
 // DATABASE STATES
@@ -82,7 +83,7 @@ export const rbkConfig: NgxRbkUtilsConfig = {
             { claimName: 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name', propertyName: 'username', type: 'string' },
             { claimName: 'rol', propertyName: 'roles', type: 'array' },
             { claimName: 'Picture', propertyName: 'picture', type: 'string' },
-        ]
+        ],
     },
     state: {
         database: {

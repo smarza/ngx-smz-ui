@@ -8,6 +8,7 @@ import { SmzFormUiDefinitionBuilder } from './form-ui-definition-builder';
 import { SimpleNamedEntity } from '../../common/models/simple-named-entity';
 import { isSimpleNamedEntity } from '../../common/utils/utils';
 import flatten from 'lodash-es/flatten';
+import { SmzLoginBuilder } from '../smz-login/state-builder';
 
 
 export class SmzFormBuilder<TResponse> {
@@ -135,6 +136,11 @@ export class SmzFormBuilder<TResponse> {
   //   this._state.behaviors.skipEmitChangesOnLoad = true;
   //   return this;
   // }
+
+  public enableSubmitOnEnter(): SmzFormBuilder<TResponse> {
+    this._state.behaviors.submitOnEnter = true;
+    return this;
+  }
 
   public emitChangesOnAllChanges(): SmzFormBuilder<TResponse> {
     this._state.behaviors.updateOn = 'change';

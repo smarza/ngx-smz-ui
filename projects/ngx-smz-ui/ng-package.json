@@ -15,7 +15,8 @@
     "./resources/assets/images/pages/*.*",
     "./resources/assets/images/avatar/*.*",
     "./resources/assets/images/tables/*.*",
-    "./resources/assets/images/dock/*.*"
+    "./resources/assets/images/dock/*.*",
+    "./tailwind.preset.js"
 ],
   "lib": {
     "entryFile": "src/public-api.ts"

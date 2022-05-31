@@ -3,6 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { HOME_PATH, SIGNALR_PATH, SVG_PATH } from '@routes';
 import { DemoNestedLayout1Component } from '@features/demo-nested-routes/demo-nested-layout-1.component';
 import { DemoNestedLayout2Component } from '@features/demo-nested-routes/demo-nested-layout-2.component';
+import { LoginModule } from './ui/pages/login/login.module';
+import { LOGIN_PAGE_PATH } from '../routes';
 
 const routes: Routes = [
   {
@@ -10,6 +12,7 @@ const routes: Routes = [
     redirectTo: HOME_PATH,
     pathMatch: 'full',
   },
+  { path: LOGIN_PAGE_PATH, loadChildren: (): Promise<LoginModule> => import('./ui/pages/login/login.module').then(m => m.LoginModule) },
   {
     path: HOME_PATH,
     loadChildren: () => import('./ui/features/home/home.module').then(m => m.HomeModule),

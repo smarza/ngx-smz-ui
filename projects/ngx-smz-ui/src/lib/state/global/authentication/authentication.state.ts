@@ -62,7 +62,7 @@ export class AuthenticationState {
 
     @Action(AuthenticationActions.RemoteLogin)
     public remoteLogin(ctx: StateContext<AuthenticationStateModel>, action: AuthenticationActions.RemoteLogin): Observable<LoginResponse> {
-        return this.authService.login(action.username, action.password, action.extraProperties).pipe(
+        return this.authService.login(action.data.username, action.data.password, action.data.extraProperties).pipe(
             tap((result: LoginResponse) => {
 
                 if (result.redirect == null) {

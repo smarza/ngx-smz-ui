@@ -34,6 +34,10 @@ export { SmzContentTheme, SmzContentThemes, ContentTheme } from './core/models/t
 // MODULES
 export * from './ngx-smz-layouts.module';
 
+export * from './features/login/login.module';
+export * from './features/login/login.component';
+export * from './features/login/login-state';
+
 // SERVICES
 export * from './core/services/menu-helper-service';
 export * from './features/theme-manager/theme-manager.service';

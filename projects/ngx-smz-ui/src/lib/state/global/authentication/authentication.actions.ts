@@ -1,3 +1,5 @@
+import { LoginPayload } from '../../../modules/rbk-utils/auth/auth.service';
+
 export namespace AuthenticationActions {
     export class LocalLogin {
         public static readonly type = '[Auth] Local Login';
@@ -15,7 +17,7 @@ export namespace AuthenticationActions {
 
     export class RemoteLogin {
         public static readonly type = '[Auth API] Remote Login';
-        constructor(public username: string, public password: string, public extraProperties: {[name: string]: string} = null) { }
+        constructor(public data: LoginPayload) { }
     }
 
     export class RemoteLoginSuccess {

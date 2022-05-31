@@ -6,6 +6,8 @@ import { NgxRbkUtilsConfig } from '../ngx-rbk-utils.config';
 import { LoginResponse } from './models';
 import { map } from 'rxjs/operators';
 
+export interface LoginPayload { username: string, password: string, extraProperties: {[name: string]: string} };
+
 @Injectable({ providedIn: 'root' })
 export class AuthService extends BaseApiService {
     constructor(private http: HttpClient, private rbkConfig: NgxRbkUtilsConfig) {
