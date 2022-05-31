@@ -31,6 +31,8 @@ export class DemoTablesComponent implements OnInit {
     // this.setupPaginationPersistence();
 
     this.emptyTableState = {
+      isDebug: false,
+      isValid: true,
       rowExpansion: null,
       emptyFeedback: {
         message: 'No itens to display',
@@ -163,6 +165,8 @@ export class DemoTablesComponent implements OnInit {
 
     this.tableState = {
       rowExpansion: null,
+      isDebug: false,
+      isValid: true,
       actions: {
         customActions: {
           isVisible: true,
@@ -170,6 +174,7 @@ export class DemoTablesComponent implements OnInit {
         },
         menu: {
           isVisible: true,
+          styles: { icon: '', buttonClass: '', styleClass: '' },
           items: [
             {
               conditional: { condition: (item: any) => (item.plant.name === 'P-76'), property: 'visible' },
@@ -267,6 +272,7 @@ export class DemoTablesComponent implements OnInit {
           columnWidth: '3em',
           callback: () => console.log('test'),
           isEnabled: false,
+          validationMode: 'none'
         },
       },
       emptyFeedback: {
