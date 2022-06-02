@@ -8,6 +8,8 @@ import { DemoDataService } from './demo-data.service';
 import { catchError, tap } from 'rxjs/operators';
 import { removeElementFromArray, ToastActions } from 'ngx-smz-ui';
 import { TreeNode } from 'primeng/api/treenode';
+import { Navigate } from '@ngxs/router-plugin';
+import { HOME_PATH } from '@routes';
 
 export const DemoFeatureName = 'DemoFeature';
 
@@ -15,12 +17,14 @@ export interface DemoFeatureStateModel {
   lastUpdated: Date | null;
   items: DemoItem[];
   tree: TreeNode[];
+  currentRouteKey: string;
 }
 
 export const getInitialState = (): DemoFeatureStateModel => ({
   lastUpdated: null,
   items: null,
-  tree: null
+  tree: null,
+  currentRouteKey: null
 });
 
 @State<DemoFeatureStateModel>({
@@ -136,6 +140,26 @@ export class DemoFeatureState {
           ctx.dispatch(new ToastActions.Error('Failure'));
         })
       );
+    }
+
+  }
+
+  @Action(DemoFeatureActions.SetRoute)
+  public onSetRoute(ctx: StateContext<DemoFeatureStateModel>, action: DemoFeatureActions.SetRoute): void {
+
+    if (ctx.getState().currentRouteKey != action.key) {
+
+      ctx.patchState({ currentRouteKey: action.key });
+
+      if (action.navigate) {
+        if (action.key != null) {
+          ctx.dispatch(new Navigate([HOME_PATH, { key: action.key }]));
+        }
+        else {
+          ctx.dispatch(new Navigate([HOME_PATH]));
+        }
+      }
+
     }
 
   }

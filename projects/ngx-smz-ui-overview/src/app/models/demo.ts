@@ -13,6 +13,7 @@ export interface DemoItem {
   name: string;
   company: string;
   country: SimpleNamedEntity;
+  html?: string;
 }
 
 export interface DemoUpdateData {

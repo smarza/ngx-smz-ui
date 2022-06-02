@@ -18,79 +18,92 @@ export const TreeDemoData: DemoTreeNode[] = [
         label: 'From model', icon: 'fas fa-code', type: 'Demo',
         demoType: 'chart',
         notes: '',
-        data: ChartsDemo[DemoKeys.CHARTS_FROM_MODEL]
+        data: ChartsDemo[DemoKeys.CHARTS_FROM_MODEL],
+        key: DemoKeys.CHARTS_FROM_MODEL.toString()
       },
       {
         label: 'Combo', icon: 'fas fa-code', type: 'Demo',
         demoType: 'chart',
         notes: '',
-        data: ChartsDemo[DemoKeys.CHARTS_COMBO]
+        data: ChartsDemo[DemoKeys.CHARTS_COMBO],
+        key: DemoKeys.CHARTS_COMBO.toString()
       },
       {
         label: 'Line Bar', icon: 'fas fa-code', type: 'Demo',
         demoType: 'chart',
         notes: '',
-        data: ChartsDemo[DemoKeys.CHARTS_LINE_BAR]
+        data: ChartsDemo[DemoKeys.CHARTS_LINE_BAR],
+        key: DemoKeys.CHARTS_LINE_BAR.toString()
       },
       {
         label: 'Rounded Bar', icon: 'fas fa-code', type: 'Demo',
         demoType: 'chart',
         notes: '',
-        data: ChartsDemo[DemoKeys.CHARTS_ROUNDED_BAR]
+        data: ChartsDemo[DemoKeys.CHARTS_ROUNDED_BAR],
+        key: DemoKeys.CHARTS_ROUNDED_BAR.toString()
       },
       {
         label: 'Stacked Bar', icon: 'fas fa-code', type: 'Demo',
         demoType: 'chart',
         notes: '',
-        data: ChartsDemo[DemoKeys.CHARTS_STACKED_BAR]
+        data: ChartsDemo[DemoKeys.CHARTS_STACKED_BAR],
+        key: DemoKeys.CHARTS_STACKED_BAR.toString()
       },
       {
         label: 'Vertical Bar', icon: 'fas fa-code', type: 'Demo',
         demoType: 'chart',
         notes: '',
-        data: ChartsDemo[DemoKeys.CHARTS_VERTICAL_BAR]
+        data: ChartsDemo[DemoKeys.CHARTS_VERTICAL_BAR],
+        key: DemoKeys.CHARTS_VERTICAL_BAR.toString()
       },
       {
         label: 'Bar', icon: 'fas fa-code', type: 'Demo',
         demoType: 'chart',
         notes: '',
-        data: ChartsDemo[DemoKeys.CHARTS_BAR]
+        data: ChartsDemo[DemoKeys.CHARTS_BAR],
+        key: DemoKeys.CHARTS_BAR.toString()
       },
       {
         label: 'Dougnut', icon: 'fas fa-code', type: 'Demo',
         demoType: 'chart',
         notes: '',
-        data: ChartsDemo[DemoKeys.CHARTS_DOUGNUT]
+        data: ChartsDemo[DemoKeys.CHARTS_DOUGNUT],
+        key: DemoKeys.CHARTS_DOUGNUT.toString()
       },
       {
         label: 'Pie', icon: 'fas fa-code', type: 'Demo',
         demoType: 'chart',
         notes: '',
-        data: ChartsDemo[DemoKeys.CHARTS_PIE]
+        data: ChartsDemo[DemoKeys.CHARTS_PIE],
+        key: DemoKeys.CHARTS_PIE.toString()
       },
       {
         label: 'Polar Area', icon: 'fas fa-code', type: 'Demo',
         demoType: 'chart',
         notes: '',
-        data: ChartsDemo[DemoKeys.CHARTS_POLAR_AREA]
+        data: ChartsDemo[DemoKeys.CHARTS_POLAR_AREA],
+        key: DemoKeys.CHARTS_POLAR_AREA.toString()
       },
       {
         label: 'Color Pallete', icon: 'fas fa-code', type: 'Demo',
         demoType: 'chart',
         notes: '',
-        data: ChartsDemo[DemoKeys.CHARTS_COLOR_PALLETE]
+        data: ChartsDemo[DemoKeys.CHARTS_COLOR_PALLETE],
+        key: DemoKeys.CHARTS_COLOR_PALLETE.toString()
       },
       {
         label: 'Sprint 1', icon: 'fas fa-code', type: 'Demo',
         demoType: 'chart',
         notes: '',
-        data: ChartsDemo[DemoKeys.CHARTS_SPRINTS_1]
+        data: ChartsDemo[DemoKeys.CHARTS_SPRINTS_1],
+        key: DemoKeys.CHARTS_SPRINTS_1.toString()
       },
       {
         label: 'Sprint 2', icon: 'fas fa-code', type: 'Demo',
         demoType: 'chart',
         notes: '',
-        data: ChartsDemo[DemoKeys.CHARTS_SPRINTS_2]
+        data: ChartsDemo[DemoKeys.CHARTS_SPRINTS_2],
+        key: DemoKeys.CHARTS_SPRINTS_2.toString()
       },
     ]
   },
@@ -102,13 +115,15 @@ export const TreeDemoData: DemoTreeNode[] = [
         label: 'Menu If True', icon: 'fas fa-code', type: 'Demo',
         demoType: 'menu',
         notes: 'kkkk',
-        data: MenusDemo[DemoKeys.MENU_IF_TRUE]
+        data: MenusDemo[DemoKeys.MENU_IF_TRUE],
+        key: DemoKeys.MENU_IF_TRUE.toString()
       },
       {
         label: 'Menu If False', icon: 'fas fa-code', type: 'Demo',
         demoType: 'menu',
         notes: '',
-        data: MenusDemo[DemoKeys.MENU_IF_FALSE]
+        data: MenusDemo[DemoKeys.MENU_IF_FALSE],
+        key: DemoKeys.MENU_IF_FALSE.toString()
       },
     ]
   },
@@ -147,13 +162,15 @@ export const TreeDemoData: DemoTreeNode[] = [
             label: 'Create', icon: 'fas fa-code', type: 'Demo',
             demoType: 'dialog',
             notes: '',
-            data: DialogsDemo[DemoKeys.DIALOGS_FROM_UI_DEFINITION_CREATE]
+            data: DialogsDemo[DemoKeys.DIALOGS_FROM_UI_DEFINITION_CREATE],
+            key: DemoKeys.DIALOGS_FROM_UI_DEFINITION_CREATE.toString()
           },
           {
             label: 'Update', icon: 'fas fa-code', type: 'Demo',
             demoType: 'dialog',
             notes: '',
-            data: DialogsDemo[DemoKeys.DIALOGS_FROM_UI_DEFINITION_UPDATE]
+            data: DialogsDemo[DemoKeys.DIALOGS_FROM_UI_DEFINITION_UPDATE],
+            key: DemoKeys.DIALOGS_FROM_UI_DEFINITION_UPDATE.toString()
           },
         ]
       },
@@ -163,23 +180,27 @@ export const TreeDemoData: DemoTreeNode[] = [
           {
             label: 'With Title', icon: 'fas fa-code', type: 'Demo',
             demoType: 'dialog',
-            data: DialogsDemo[DemoKeys.DIALOGS_HEADER_WITH_TITLE]
+            data: DialogsDemo[DemoKeys.DIALOGS_HEADER_WITH_TITLE],
+            key: DemoKeys.DIALOGS_HEADER_WITH_TITLE.toString()
           },
           {
             label: 'Hidden Header', icon: 'fas fa-code', type: 'Demo',
             demoType: 'dialog',
             notes: 'The dialog header should be hidden',
-            data: DialogsDemo[DemoKeys.DIALOGS_HEADER_HIDDEN]
+            data: DialogsDemo[DemoKeys.DIALOGS_HEADER_HIDDEN],
+            key: DemoKeys.DIALOGS_HEADER_HIDDEN.toString()
           },
           {
             label: 'With Maximize', icon: 'fas fa-code', type: 'Demo',
             demoType: 'dialog',
-            data: DialogsDemo[DemoKeys.DIALOGS_HEADER_WITH_MAXIMIZE]
+            data: DialogsDemo[DemoKeys.DIALOGS_HEADER_WITH_MAXIMIZE],
+            key: DemoKeys.DIALOGS_HEADER_WITH_MAXIMIZE.toString()
           },
           {
             label: 'With Minimize', icon: 'fas fa-code', type: 'Demo',
             demoType: 'dialog',
-            data: DialogsDemo[DemoKeys.DIALOGS_HEADER_WITH_MINIMIZE]
+            data: DialogsDemo[DemoKeys.DIALOGS_HEADER_WITH_MINIMIZE],
+            key: DemoKeys.DIALOGS_HEADER_WITH_MINIMIZE.toString()
           },
         ]
       },
@@ -190,31 +211,36 @@ export const TreeDemoData: DemoTreeNode[] = [
             label: 'Close on Escape', icon: 'fas fa-code', type: 'Demo',
             demoType: 'dialog',
             notes: 'Press escape to close the dialog',
-            data: DialogsDemo[DemoKeys.DIALOGS_CONTROLS_CLOSE_ON_ESCAPE]
+            data: DialogsDemo[DemoKeys.DIALOGS_CONTROLS_CLOSE_ON_ESCAPE],
+            key: DemoKeys.DIALOGS_CONTROLS_CLOSE_ON_ESCAPE.toString()
           },
           {
             label: 'Confirm on Enter', icon: 'fas fa-code', type: 'Demo',
             demoType: 'dialog',
             notes: 'Press enter to confirm the dialog',
-            data: DialogsDemo[DemoKeys.DIALOGS_CONTROLS_CONFIRM_ON_ENTER]
+            data: DialogsDemo[DemoKeys.DIALOGS_CONTROLS_CONFIRM_ON_ENTER],
+            key: DemoKeys.DIALOGS_CONTROLS_CONFIRM_ON_ENTER.toString()
           },
           {
             label: 'Dismissable Mask', icon: 'fas fa-code', type: 'Demo',
             demoType: 'dialog',
             notes: 'Click outside to close the dialog',
-            data: DialogsDemo[DemoKeys.DIALOGS_CONTROLS_DISMISSABLE_MASK]
+            data: DialogsDemo[DemoKeys.DIALOGS_CONTROLS_DISMISSABLE_MASK],
+            key: DemoKeys.DIALOGS_CONTROLS_DISMISSABLE_MASK.toString()
           },
           {
             label: 'Base z-index', icon: 'fas fa-code', type: 'Demo',
             demoType: 'dialog',
             notes: 'The dialog will appear behind the frames',
-            data: DialogsDemo[DemoKeys.DIALOGS_CONTROLS_BASE_Z_INDEX]
+            data: DialogsDemo[DemoKeys.DIALOGS_CONTROLS_BASE_Z_INDEX],
+            key: DemoKeys.DIALOGS_CONTROLS_BASE_Z_INDEX.toString()
           },
           {
             label: 'Open Maximided', icon: 'fas fa-code', type: 'Demo',
             demoType: 'dialog',
             notes: 'Press enter to confirm the dialog',
-            data: DialogsDemo[DemoKeys.DIALOGS_CONTROLS_OPEN_MAXIMIZED]
+            data: DialogsDemo[DemoKeys.DIALOGS_CONTROLS_OPEN_MAXIMIZED],
+            key: DemoKeys.DIALOGS_CONTROLS_OPEN_MAXIMIZED.toString()
           },
         ]
       },
@@ -224,7 +250,8 @@ export const TreeDemoData: DemoTreeNode[] = [
           {
             label: 'Test', icon: 'fas fa-code', type: 'Demo',
             demoType: 'dialog',
-            data: DialogsDemo[DemoKeys.DIALOGS_FOOTER_HIDDEN]
+            data: DialogsDemo[DemoKeys.DIALOGS_FOOTER_HIDDEN],
+            key: DemoKeys.DIALOGS_FOOTER_HIDDEN.toString()
           },
         ]
       },
@@ -235,49 +262,57 @@ export const TreeDemoData: DemoTreeNode[] = [
             label: 'Built-in Buttons', icon: 'fas fa-code', type: 'Demo',
             demoType: 'dialog',
             notes: 'By default, the built-in buttons visibility follows the configuration provided on the app module.',
-            data: DialogsDemo[DemoKeys.DIALOGS_BUTTONS_BUILT_IN]
+            data: DialogsDemo[DemoKeys.DIALOGS_BUTTONS_BUILT_IN],
+            key: DemoKeys.DIALOGS_BUTTONS_BUILT_IN.toString()
           },
           {
             label: 'Renaming Buttons', icon: 'fas fa-code', type: 'Demo',
             demoType: 'dialog',
             notes: 'The CANCEL and OK buttons should be renamed to NO and YES.',
-            data: DialogsDemo[DemoKeys.DIALOGS_BUTTONS_RENAMING]
+            data: DialogsDemo[DemoKeys.DIALOGS_BUTTONS_RENAMING],
+            key: DemoKeys.DIALOGS_BUTTONS_RENAMING.toString()
           },
           {
             label: 'Styling Buttons', icon: 'fas fa-code', type: 'Demo',
             demoType: 'dialog',
             notes: 'Some styling samples.',
-            data: DialogsDemo[DemoKeys.DIALOGS_BUTTONS_STYLING]
+            data: DialogsDemo[DemoKeys.DIALOGS_BUTTONS_STYLING],
+            key: DemoKeys.DIALOGS_BUTTONS_STYLING.toString()
           },
           {
             label: 'Custom Buttons', icon: 'fas fa-code', type: 'Demo',
             demoType: 'dialog',
             notes: 'Create unlimited buttons with custom buttons.',
-            data: DialogsDemo[DemoKeys.DIALOGS_BUTTONS_STYLING]
+            data: DialogsDemo[DemoKeys.DIALOGS_BUTTONS_STYLING],
+            key: DemoKeys.DIALOGS_BUTTONS_STYLING.toString()
           },
           {
             label: 'Reordering Custom Buttons', icon: 'fas fa-code', type: 'Demo',
             demoType: 'dialog',
             notes: 'By default, all custom buttons are placed at the right side of the built-in buttons.',
-            data: DialogsDemo[DemoKeys.DIALOGS_BUTTONS_REODERING]
+            data: DialogsDemo[DemoKeys.DIALOGS_BUTTONS_REODERING],
+            key: DemoKeys.DIALOGS_BUTTONS_REODERING.toString()
           },
           {
             label: 'Close Dialog', icon: 'fas fa-code', type: 'Demo',
             demoType: 'dialog',
             notes: 'By default, custom buttons doesn\'t close the dialog.',
-            data: DialogsDemo[DemoKeys.DIALOGS_BUTTONS_CLOSE_DIALOG]
+            data: DialogsDemo[DemoKeys.DIALOGS_BUTTONS_CLOSE_DIALOG],
+            key: DemoKeys.DIALOGS_BUTTONS_CLOSE_DIALOG.toString()
           },
           {
             label: 'Depends On Validation', icon: 'fas fa-code', type: 'Demo',
             demoType: 'dialog',
             notes: 'By default, custom buttons are clickable even if the content is not valid.',
-            data: DialogsDemo[DemoKeys.DIALOGS_BUTTONS_DEPENDS_ON_VALIDATION]
+            data: DialogsDemo[DemoKeys.DIALOGS_BUTTONS_DEPENDS_ON_VALIDATION],
+            key: DemoKeys.DIALOGS_BUTTONS_DEPENDS_ON_VALIDATION.toString()
           },
           {
             label: 'Block Ui', icon: 'fas fa-code', type: 'Demo',
             demoType: 'dialog',
             notes: 'Block Ui is a featured that customize an specific button to block the ui until an success or failure action is dispatched.',
-            data: DialogsDemo[DemoKeys.DIALOGS_BUTTONS_BLOCK_UI]
+            data: DialogsDemo[DemoKeys.DIALOGS_BUTTONS_BLOCK_UI],
+            key: DemoKeys.DIALOGS_BUTTONS_BLOCK_UI.toString()
           },
         ]
       },
@@ -288,7 +323,8 @@ export const TreeDemoData: DemoTreeNode[] = [
             label: 'Hidden Footer', icon: 'fas fa-code', type: 'Demo',
             demoType: 'dialog',
             notes: 'The dialog footer should be hidden',
-            data: DialogsDemo[DemoKeys.DIALOGS_FOOTER_HIDDEN]
+            data: DialogsDemo[DemoKeys.DIALOGS_FOOTER_HIDDEN],
+            key: DemoKeys.DIALOGS_FOOTER_HIDDEN.toString()
           },
         ]
       },
@@ -298,7 +334,8 @@ export const TreeDemoData: DemoTreeNode[] = [
           {
             label: 'If Title', icon: 'fas fa-code', type: 'Demo',
             demoType: 'dialog',
-            data: DialogsDemo[DemoKeys.DIALOGS_IF]
+            data: DialogsDemo[DemoKeys.DIALOGS_IF],
+            key: DemoKeys.DIALOGS_IF.toString()
           },
         ]
       },
@@ -308,7 +345,8 @@ export const TreeDemoData: DemoTreeNode[] = [
           {
             label: 'Validation', icon: 'fas fa-code', type: 'Demo',
             demoType: 'dialog',
-            data: DialogsDemo[DemoKeys.DIALOGS_WITH_FORM]
+            data: DialogsDemo[DemoKeys.DIALOGS_WITH_FORM],
+            key: DemoKeys.DIALOGS_WITH_FORM.toString()
           },
         ]
       },
@@ -318,7 +356,8 @@ export const TreeDemoData: DemoTreeNode[] = [
           {
             label: 'Validating Selection', icon: 'fas fa-code', type: 'Demo',
             demoType: 'dialog',
-            data: DialogsDemo[DemoKeys.DIALOGS_WITH_TABLE_SELECTION]
+            data: DialogsDemo[DemoKeys.DIALOGS_WITH_TABLE_SELECTION],
+            key: DemoKeys.DIALOGS_WITH_TABLE_SELECTION.toString()
           },
         ]
       },
@@ -333,43 +372,50 @@ export const TreeDemoData: DemoTreeNode[] = [
         label: 'HTML2PDF Demo', icon: 'fas fa-code', type: 'Demo',
         demoType: 'document',
         notes: '',
-        data: DocumentsDemo[DemoKeys.DOCUMENTS_DEMO_HTML2PDF]
+        data: DocumentsDemo[DemoKeys.DOCUMENTS_DEMO_HTML2PDF],
+        key: DemoKeys.DOCUMENTS_DEMO_HTML2PDF.toString()
       },
       {
         label: 'JSPDF Demo', icon: 'fas fa-code', type: 'Demo',
         demoType: 'document',
         notes: '',
-        data: DocumentsDemo[DemoKeys.DOCUMENTS_DEMO_JSPDF]
+        data: DocumentsDemo[DemoKeys.DOCUMENTS_DEMO_JSPDF],
+        key: DemoKeys.DOCUMENTS_DEMO_JSPDF.toString()
       },
       {
         label: 'Demo 1', icon: 'fas fa-code', type: 'Demo',
         demoType: 'document',
         notes: '',
-        data: DocumentsDemo[DemoKeys.DOCUMENTS_DEMO_1]
+        data: DocumentsDemo[DemoKeys.DOCUMENTS_DEMO_1],
+        key: DemoKeys.DOCUMENTS_DEMO_1.toString()
       },
       {
         label: 'Demo em Debug', icon: 'fas fa-code', type: 'Demo',
         demoType: 'document',
         notes: '',
-        data: DocumentsDemo[DemoKeys.DOCUMENTS_DEMO_2]
+        data: DocumentsDemo[DemoKeys.DOCUMENTS_DEMO_2],
+        key: DemoKeys.DOCUMENTS_DEMO_2.toString()
       },
       {
         label: 'Landscape With Page Breaks', icon: 'fas fa-code', type: 'Demo',
         demoType: 'document',
         notes: '',
-        data: DocumentsDemo[DemoKeys.DOCUMENTS_DEMO_3]
+        data: DocumentsDemo[DemoKeys.DOCUMENTS_DEMO_3],
+        key: DemoKeys.DOCUMENTS_DEMO_3.toString()
       },
       {
         label: 'Document With For and If', icon: 'fas fa-code', type: 'Demo',
         demoType: 'document',
         notes: '',
-        data: DocumentsDemo[DemoKeys.DOCUMENTS_DEMO_FLUENT_UTILITIES]
+        data: DocumentsDemo[DemoKeys.DOCUMENTS_DEMO_FLUENT_UTILITIES],
+        key: DemoKeys.DOCUMENTS_DEMO_FLUENT_UTILITIES.toString()
       },
       {
         label: 'Injecting Components', icon: 'fas fa-code', type: 'Demo',
         demoType: 'document',
         notes: '',
-        data: DocumentsDemo[DemoKeys.DOCUMENTS_INJECTABLES]
+        data: DocumentsDemo[DemoKeys.DOCUMENTS_INJECTABLES],
+        key: DemoKeys.DOCUMENTS_INJECTABLES.toString()
       },
     ]
   },
@@ -384,13 +430,15 @@ export const TreeDemoData: DemoTreeNode[] = [
             label: 'Create', icon: 'fas fa-code', type: 'Demo',
             demoType: 'form',
             notes: '',
-            data: FormsDemo[DemoKeys.FORMS_FROM_UI_DEFINITION_CREATE]
+            data: FormsDemo[DemoKeys.FORMS_FROM_UI_DEFINITION_CREATE],
+            key: DemoKeys.DOCUMENTS_INJECTABLES.toString()
           },
           {
             label: 'Update', icon: 'fas fa-code', type: 'Demo',
             demoType: 'form',
             notes: '',
-            data: FormsDemo[DemoKeys.FORMS_FROM_UI_DEFINITION_UPDATE]
+            data: FormsDemo[DemoKeys.FORMS_FROM_UI_DEFINITION_UPDATE],
+            key: DemoKeys.DOCUMENTS_INJECTABLES.toString()
           },
         ]
       },
@@ -401,7 +449,8 @@ export const TreeDemoData: DemoTreeNode[] = [
             label: 'Apply Data', icon: 'fas fa-code', type: 'Demo',
             demoType: 'form',
             notes: '',
-            data: FormsDemo[DemoKeys.FORMS_WITH_APPLY_DATA]
+            data: FormsDemo[DemoKeys.FORMS_WITH_APPLY_DATA],
+            key: DemoKeys.DOCUMENTS_INJECTABLES.toString()
           },
         ]
       },
@@ -412,7 +461,8 @@ export const TreeDemoData: DemoTreeNode[] = [
             label: 'Data Dependency', icon: 'fas fa-code', type: 'Demo',
             demoType: 'form',
             notes: '',
-            data: FormsDemo[DemoKeys.FORMS_BEHAVIORS_DATA_DEPENDENCY]
+            data: FormsDemo[DemoKeys.FORMS_BEHAVIORS_DATA_DEPENDENCY],
+            key: DemoKeys.DOCUMENTS_INJECTABLES.toString()
           },
         ]
       },
@@ -423,157 +473,183 @@ export const TreeDemoData: DemoTreeNode[] = [
             label: 'All Inputs', icon: 'fas fa-code', type: 'Demo',
             demoType: 'form',
             notes: '',
-            data: FormsDemo[DemoKeys.FORMS_ALL_INPUTS]
+            data: FormsDemo[DemoKeys.FORMS_ALL_INPUTS],
+            key: DemoKeys.FORMS_ALL_INPUTS.toString()
           },
           {
             label: 'All Inputs Disabled', icon: 'fas fa-code', type: 'Demo',
             demoType: 'form',
             notes: '',
-            data: FormsDemo[DemoKeys.FORMS_ALL_INPUTS_DISABLED]
+            data: FormsDemo[DemoKeys.FORMS_ALL_INPUTS_DISABLED],
+            key: DemoKeys.FORMS_ALL_INPUTS_DISABLED.toString()
           },
           {
             label: 'Calendar', icon: 'fas fa-code', type: 'Demo',
             demoType: 'form',
             notes: '',
-            data: FormsDemo[DemoKeys.FORMS_INPUT_CALENDAR]
+            data: FormsDemo[DemoKeys.FORMS_INPUT_CALENDAR],
+            key: DemoKeys.FORMS_INPUT_CALENDAR.toString()
           },
           {
             label: 'Checkbox', icon: 'fas fa-code', type: 'Demo',
             demoType: 'form',
             notes: '',
-            data: FormsDemo[DemoKeys.FORMS_INPUT_CHECKBOX]
+            data: FormsDemo[DemoKeys.FORMS_INPUT_CHECKBOX],
+            key: DemoKeys.FORMS_INPUT_CHECKBOX.toString()
           },
           {
             label: 'Checkbox Group', icon: 'fas fa-code', type: 'Demo',
             demoType: 'form',
             notes: '',
-            data: FormsDemo[DemoKeys.FORMS_INPUT_CHECKBOX_GROUP]
+            data: FormsDemo[DemoKeys.FORMS_INPUT_CHECKBOX_GROUP],
+            key: DemoKeys.FORMS_INPUT_CHECKBOX_GROUP.toString()
           },
           {
             label: 'Content Mask', icon: 'fas fa-code', type: 'Demo',
             demoType: 'form',
             notes: '',
-            data: FormsDemo[DemoKeys.FORMS_INPUT_CONTENT_MASK]
+            data: FormsDemo[DemoKeys.FORMS_INPUT_CONTENT_MASK],
+            key: DemoKeys.FORMS_INPUT_CONTENT_MASK.toString()
           },
           {
             label: 'Dropdown', icon: 'fas fa-code', type: 'Demo',
             demoType: 'form',
             notes: '',
-            data: FormsDemo[DemoKeys.FORMS_INPUT_DROPDOWN]
+            data: FormsDemo[DemoKeys.FORMS_INPUT_DROPDOWN],
+            key: DemoKeys.FORMS_INPUT_DROPDOWN.toString()
           },
           {
             label: 'Linked Dropdown', icon: 'fas fa-code', type: 'Demo',
             demoType: 'form',
             notes: '',
-            data: FormsDemo[DemoKeys.FORMS_INPUT_LINKED_DROPDOWN]
+            data: FormsDemo[DemoKeys.FORMS_INPUT_LINKED_DROPDOWN],
+            key: DemoKeys.FORMS_INPUT_LINKED_DROPDOWN.toString()
           },
           {
             label: 'Multiselect', icon: 'fas fa-code', type: 'Demo',
             demoType: 'form',
             notes: '',
-            data: FormsDemo[DemoKeys.FORMS_INPUT_MULTISELECT]
+            data: FormsDemo[DemoKeys.FORMS_INPUT_MULTISELECT],
+            key: DemoKeys.FORMS_INPUT_MULTISELECT.toString()
           },
           {
             label: 'Linked Multiselect', icon: 'fas fa-code', type: 'Demo',
             demoType: 'form',
             notes: '',
-            data: FormsDemo[DemoKeys.FORMS_INPUT_LINKED_MULTISELECT]
+            data: FormsDemo[DemoKeys.FORMS_INPUT_LINKED_MULTISELECT],
+            key: DemoKeys.FORMS_INPUT_LINKED_MULTISELECT.toString()
           },
           {
             label: 'Color Picker', icon: 'fas fa-code', type: 'Demo',
             demoType: 'form',
             notes: '',
-            data: FormsDemo[DemoKeys.FORMS_INPUT_COLOR_PICKER]
+            data: FormsDemo[DemoKeys.FORMS_INPUT_COLOR_PICKER],
+            key: DemoKeys.FORMS_INPUT_COLOR_PICKER.toString()
           },
           {
             label: 'Currency', icon: 'fas fa-code', type: 'Demo',
             demoType: 'form',
             notes: '',
-            data: FormsDemo[DemoKeys.FORMS_INPUT_CURRENCY]
+            data: FormsDemo[DemoKeys.FORMS_INPUT_CURRENCY],
+            key: DemoKeys.FORMS_INPUT_CURRENCY.toString()
           },
           {
             label: 'Number', icon: 'fas fa-code', type: 'Demo',
             demoType: 'form',
             notes: '',
-            data: FormsDemo[DemoKeys.FORMS_INPUT_NUMBER]
+            data: FormsDemo[DemoKeys.FORMS_INPUT_NUMBER],
+            key: DemoKeys.FORMS_INPUT_NUMBER.toString()
           },
           {
             label: 'Radio Group', icon: 'fas fa-code', type: 'Demo',
             demoType: 'form',
             notes: '',
-            data: FormsDemo[DemoKeys.FORMS_INPUT_RADIO_GROUP]
+            data: FormsDemo[DemoKeys.FORMS_INPUT_RADIO_GROUP],
+            key: DemoKeys.FORMS_INPUT_RADIO_GROUP.toString()
           },
           {
             label: 'Switch', icon: 'fas fa-code', type: 'Demo',
             demoType: 'form',
             notes: '',
-            data: FormsDemo[DemoKeys.FORMS_INPUT_SWITCH]
+            data: FormsDemo[DemoKeys.FORMS_INPUT_SWITCH],
+            key: DemoKeys.FORMS_INPUT_SWITCH.toString()
           },
           {
             label: 'Text Area', icon: 'fas fa-code', type: 'Demo',
             demoType: 'form',
             notes: '',
-            data: FormsDemo[DemoKeys.FORMS_INPUT_TEXT_AREA]
+            data: FormsDemo[DemoKeys.FORMS_INPUT_TEXT_AREA],
+            key: DemoKeys.FORMS_INPUT_TEXT_AREA.toString()
           },
           {
             label: 'Tag Area', icon: 'fas fa-code', type: 'Demo',
             demoType: 'form',
             notes: '',
-            data: FormsDemo[DemoKeys.FORMS_INPUT_TAG_AREA]
+            data: FormsDemo[DemoKeys.FORMS_INPUT_TAG_AREA],
+            key: DemoKeys.FORMS_INPUT_TAG_AREA.toString()
           },
           {
             label: 'Text', icon: 'fas fa-code', type: 'Demo',
             demoType: 'form',
             notes: '',
-            data: FormsDemo[DemoKeys.FORMS_INPUT_TEXT]
+            data: FormsDemo[DemoKeys.FORMS_INPUT_TEXT],
+            key: DemoKeys.FORMS_INPUT_TEXT.toString()
           },
           {
             label: 'Text Button', icon: 'fas fa-code', type: 'Demo',
             demoType: 'form',
             notes: '',
-            data: FormsDemo[DemoKeys.FORMS_INPUT_TEXT_BUTTON]
+            data: FormsDemo[DemoKeys.FORMS_INPUT_TEXT_BUTTON],
+            key: DemoKeys.FORMS_INPUT_TEXT_BUTTON.toString()
           },
           {
             label: 'File', icon: 'fas fa-code', type: 'Demo',
             demoType: 'form',
             notes: '',
-            data: FormsDemo[DemoKeys.FORMS_INPUT_FILE]
+            data: FormsDemo[DemoKeys.FORMS_INPUT_FILE],
+            key: DemoKeys.FORMS_INPUT_FILE.toString()
           },
           {
             label: 'List With Dialog Crud', icon: 'fas fa-code', type: 'Demo',
             demoType: 'form',
             notes: '',
-            data: FormsDemo[DemoKeys.FORMS_INPUT_LIST_DIALOG_CRUD]
+            data: FormsDemo[DemoKeys.FORMS_INPUT_LIST_DIALOG_CRUD],
+            key: DemoKeys.FORMS_INPUT_LIST_DIALOG_CRUD.toString()
           },
           {
             label: 'List With Inline Crud', icon: 'fas fa-code', type: 'Demo',
             demoType: 'form',
             notes: '',
-            data: FormsDemo[DemoKeys.FORMS_INPUT_LIST_INLINE_CRUD]
+            data: FormsDemo[DemoKeys.FORMS_INPUT_LIST_INLINE_CRUD],
+            key: DemoKeys.FORMS_INPUT_LIST_INLINE_CRUD.toString()
           },
           {
             label: 'List With Batch Crud', icon: 'fas fa-code', type: 'Demo',
             demoType: 'form',
             notes: '',
-            data: FormsDemo[DemoKeys.FORMS_INPUT_LIST_BATCH_CRUD]
+            data: FormsDemo[DemoKeys.FORMS_INPUT_LIST_BATCH_CRUD],
+            key: DemoKeys.FORMS_INPUT_LIST_BATCH_CRUD.toString()
           },
           {
             label: 'Mask', icon: 'fas fa-code', type: 'Demo',
             demoType: 'form',
             notes: '',
-            data: FormsDemo[DemoKeys.FORMS_INPUT_MASK]
+            data: FormsDemo[DemoKeys.FORMS_INPUT_MASK],
+            key: DemoKeys.FORMS_INPUT_MASK.toString()
           },
           {
             label: 'Password', icon: 'fas fa-code', type: 'Demo',
             demoType: 'form',
             notes: '',
-            data: FormsDemo[DemoKeys.FORMS_INPUT_PASSWORD]
+            data: FormsDemo[DemoKeys.FORMS_INPUT_PASSWORD],
+            key: DemoKeys.FORMS_INPUT_PASSWORD.toString()
           },
           {
             label: 'Password With Confirmation', icon: 'fas fa-code', type: 'Demo',
             demoType: 'form',
             notes: '',
-            data: FormsDemo[DemoKeys.FORMS_INPUT_PASSWORD_WITH_CONFIRMATION]
+            data: FormsDemo[DemoKeys.FORMS_INPUT_PASSWORD_WITH_CONFIRMATION],
+            key: DemoKeys.FORMS_INPUT_PASSWORD_WITH_CONFIRMATION.toString()
           },
         ]
       },
@@ -584,7 +660,8 @@ export const TreeDemoData: DemoTreeNode[] = [
             label: 'Custom Validator', icon: 'fas fa-code', type: 'Demo',
             demoType: 'form',
             notes: '',
-            data: ValidatorsDemo[DemoKeys.VALIDATORS_CUSTOM]
+            data: ValidatorsDemo[DemoKeys.VALIDATORS_CUSTOM],
+            key: DemoKeys.VALIDATORS_CUSTOM.toString()
           },
         ]
       },
@@ -598,55 +675,71 @@ export const TreeDemoData: DemoTreeNode[] = [
         label: 'Ui Definitions', icon: 'fas fa-code', type: 'Demo',
         demoType: 'table',
         notes: '',
-        data: TablesDemo[DemoKeys.TABLE_UI_DEFINITIONS]
+        data: TablesDemo[DemoKeys.TABLE_UI_DEFINITIONS],
+        key: DemoKeys.TABLE_UI_DEFINITIONS.toString()
       },
       {
         label: 'Basic', icon: 'fas fa-code', type: 'Demo',
         demoType: 'table',
         notes: '',
-        data: TablesDemo[DemoKeys.TABLE_BASIC]
+        data: TablesDemo[DemoKeys.TABLE_BASIC],
+        key: DemoKeys.TABLE_BASIC.toString()
+      },
+      {
+        label: 'Estimative Width', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'table',
+        notes: '',
+        data: TablesDemo[DemoKeys.TABLE_ESTIMATIVE_WIDTH],
+        key: DemoKeys.TABLE_ESTIMATIVE_WIDTH.toString()
       },
       {
         label: 'Conditional Columns', icon: 'fas fa-code', type: 'Demo',
         demoType: 'table',
         notes: '',
-        data: TablesDemo[DemoKeys.TABLE_IF]
+        data: TablesDemo[DemoKeys.TABLE_IF],
+        key: DemoKeys.TABLE_IF.toString()
       },
       {
         label: 'Filters: Array', icon: 'fas fa-code', type: 'Demo',
         demoType: 'table',
         notes: '',
-        data: TablesDemo[DemoKeys.TABLE_ARRAY_FILTER]
+        data: TablesDemo[DemoKeys.TABLE_ARRAY_FILTER],
+        key: DemoKeys.TABLE_ARRAY_FILTER.toString()
       },
       {
         label: 'Row Expansion', icon: 'fas fa-code', type: 'Demo',
         demoType: 'table',
         notes: '',
-        data: TablesDemo[DemoKeys.TABLE_ROW_EXPANSION]
+        data: TablesDemo[DemoKeys.TABLE_ROW_EXPANSION],
+        key: DemoKeys.TABLE_ROW_EXPANSION.toString()
       },
       {
         label: 'Dynamic Menu', icon: 'fas fa-code', type: 'Demo',
         demoType: 'table',
         notes: '',
-        data: TablesDemo[DemoKeys.TABLE_DYNAMIC_MENU]
+        data: TablesDemo[DemoKeys.TABLE_DYNAMIC_MENU],
+        key: DemoKeys.TABLE_DYNAMIC_MENU.toString()
       },
       {
         label: 'Auto Sized Columns', icon: 'fas fa-code', type: 'Demo',
         demoType: 'table',
         notes: '',
-        data: TablesDemo[DemoKeys.TABLE_AUTO_SIZED_COLUMNS]
+        data: TablesDemo[DemoKeys.TABLE_AUTO_SIZED_COLUMNS],
+        key: DemoKeys.TABLE_AUTO_SIZED_COLUMNS.toString()
       },
       {
         label: 'Multi-languages', icon: 'fas fa-code', type: 'Demo',
         demoType: 'table',
         notes: '',
-        data: TablesDemo[DemoKeys.TABLE_MULTI_LANGUAGES]
+        data: TablesDemo[DemoKeys.TABLE_MULTI_LANGUAGES],
+        key: DemoKeys.TABLE_MULTI_LANGUAGES.toString()
       },
       {
         label: 'Multi-selection', icon: 'fas fa-code', type: 'Demo',
         demoType: 'table',
         notes: '',
-        data: TablesDemo[DemoKeys.TABLE_MULTI_SELECTION]
+        data: TablesDemo[DemoKeys.TABLE_MULTI_SELECTION],
+        key: DemoKeys.TABLE_MULTI_SELECTION.toString()
       },
     ]
   },
@@ -659,7 +752,8 @@ export const TreeDemoData: DemoTreeNode[] = [
         label: 'Demo', icon: 'fas fa-code', type: 'Demo',
         demoType: 'tree',
         notes: '',
-        data: TreesDemo[DemoKeys.TREE_DEMO_1]
+        data: TreesDemo[DemoKeys.TREE_DEMO_1],
+        key: DemoKeys.TREE_DEMO_1.toString()
       },
     ]
   },

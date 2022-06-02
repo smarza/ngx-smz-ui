@@ -40,4 +40,9 @@ export namespace DemoFeatureActions {
     public static readonly type = '[DEMO] Block Ui Demo Success';
   }
 
+  export class SetRoute {
+    public static readonly type = '[DEMO] Set Route';
+    constructor(public key: string, public navigate: boolean) {}
+  }
+
 }

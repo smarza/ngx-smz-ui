@@ -1,10 +1,14 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { TreeDemoData } from '@demos/demo-tree';
 import { DemoTreeNode } from '@models/demo';
-import { Store } from '@ngxs/store';
-import { SmzTreeBuilder, SmzTreeState, SmzUiBlockService } from 'ngx-smz-ui';
+import { Select, Store } from '@ngxs/store';
+import { isArray, routerParamsDispatch, routerParamsListener, SmzTreeBuilder, SmzTreeState, SmzUiBlockService, sortArray } from 'ngx-smz-ui';
 import { DemoFeatureActions } from '../../../state/demo/demo.actions';
-import { sortArray } from '../../../../../../ngx-smz-ui/src/lib/common/utils/utils';
+import { DemoKeys } from '@demos/demo-keys';
+import { ActivatedRoute } from '@angular/router';
+import { HOME_PATH } from '@routes';
+import { DemoFeatureSelectors } from '@states/demo/demo.selectors';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -13,13 +17,14 @@ import { sortArray } from '../../../../../../ngx-smz-ui/src/lib/common/utils/uti
 })
 export class HomeComponent
 {
+  @Select(DemoFeatureSelectors.currentRouteKey) public currentRouteKey$: Observable<string[]>;
   public items: DemoTreeNode[] = sortArray(TreeDemoData, 'label');
   public treeState: SmzTreeState;
   public selectedNode: DemoTreeNode = null;
   public selectedTabIndex = 0;
   public isEditing = false;
 
-  constructor(private store: Store, public uiBlockService: SmzUiBlockService)
+  constructor(private store: Store, private route: ActivatedRoute, public uiBlockService: SmzUiBlockService, private cdf: ChangeDetectorRef)
   {
 
     this.store.dispatch(new DemoFeatureActions.LoadAll());
@@ -40,12 +45,33 @@ export class HomeComponent
         .tree
       .build();
 
+      routerParamsListener(HOME_PATH, route, (routeData: { key: string }) => {
+        if (routeData.key != null) {
+          this.store.dispatch(new DemoFeatureActions.SetRoute(routeData.key, false));
+        }
+      });
   }
 
-  public selectionChanged(node: DemoTreeNode): void {
-    if (node?.type === 'Demo') {
-      this.selectedTabIndex = 0;
-      this.selectedNode = node;
+  public onSelectedNodes(nodes: DemoTreeNode[]): void {
+
+    if (isArray(nodes) && nodes.length > 0) {
+      const node = nodes[0];
+      if (node?.type === 'Demo') {
+        setTimeout(() => {
+          this.selectedTabIndex = 0;
+          this.selectedNode = node;
+        }, 0);
+      }
+    }
+    else {
+      const node = nodes as DemoTreeNode;
+      if (node?.type === 'Demo') {
+        this.selectedTabIndex = 0;
+        this.selectedNode = node;
+
+        // Publicar alteração de rota na store
+        this.store.dispatch(new DemoFeatureActions.SetRoute(node.key, true));
+      }
     }
   }
 

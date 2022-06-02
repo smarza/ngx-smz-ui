@@ -114,6 +114,53 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
       .build()
     }
   },
+    //
+    [DemoKeys.TABLE_ESTIMATIVE_WIDTH]: {
+      items$: store.select(DemoFeatureSelectors.allWithHtmlTags),
+      code: () => {
+      return new SmzTableBuilder()
+        .setTitle('Demo With Fluent')
+        .enableClearFilters()
+        .enableGlobalFilter()
+        .useTableEmptyMessage()
+        .useScrolling()
+        .useEstimatedColWidth()
+        .setCustomInitialSorting({ field: 'number', order: -1 })
+        .useStrippedStyle()
+        .menu()
+          .item('Consultar')
+            .setCallback((event: any) => console.log('---'))
+            .menu
+          .table
+        .columns()
+          .text('name', 'Name', '40em')
+            .disableFilter()
+            .columns
+          .text('html', 'Html Content')
+            .disableFilter()
+            .columns
+          .text('country.name', 'Country')
+            .setFilter(SmzFilterType.MULTI_SELECT)
+            .disableSort()
+            .columns
+          .dataTransform('country.name.id', 'Super Country 2', (country: SimpleNamedEntity, row: any) => {
+              // console.log('dataTransform', country, row);
+              return `test: ${country?.name?.toUpperCase()}`;
+            })
+            .columns
+          .dataTransform('country', 'Super Country', (country: SimpleNamedEntity, row: any) => {
+              // console.log('dataTransform', country, row);
+              return `super: ${country?.name?.toUpperCase()}`;
+            })
+            .setFilter(SmzFilterType.MULTI_SELECT)
+            .columns
+          .dataTransform('roles', 'Perfis', (roles: SimpleNamedEntity[], row: any) => { return roles.map(x => x.name).join(', '); })
+            .setFilter(SmzFilterType.MULTI_SELECT_ARRAY)
+            .columns
+          .table
+        .build()
+      }
+    },
   //
   [DemoKeys.TABLE_ARRAY_FILTER]: {
     items$: of(convertorTasks),
@@ -275,38 +322,38 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
       .build()
   }
   },
-    //
-    [DemoKeys.TABLE_MULTI_SELECTION]: {
-      items$: store.select(DemoFeatureSelectors.all),
-      code: () => {
-      return new SmzTableBuilder()
-        .setTitle('MOEDAS')
-        .setEmptyFeedbackMessage('Nenhum histórico encontrado')
-        .setEmptyFeedbackImage('')
-        .enableGlobalFilter()
-        .useStrippedStyle()
-        .allowDefaultMultiSelection()
-        .setMultiSelectionCallback((selection: any[]) => {
-          console.log('setMultiSelectionCallback', selection);
-        })
-        // .useScrolling()
-        // .useEstimatedColWidth()
-        .setSize('small')
-        .menu()
-          .item('Editar', 'pi pi-fw pi-pencil')
-            .setCallback((item: any): void => console.log(item))
-            .menu
-          .table
-        .columns()
-          .text('company', 'Código', '4em')
-            .disableFilter()
-            .columns
-          .text('name', 'Nome')
-            .disableFilter()
-            .columns
-          .table
-        .build()
-    }
-    },
+  //
+  [DemoKeys.TABLE_MULTI_SELECTION]: {
+    items$: store.select(DemoFeatureSelectors.all),
+    code: () => {
+    return new SmzTableBuilder()
+      .setTitle('MOEDAS')
+      .setEmptyFeedbackMessage('Nenhum histórico encontrado')
+      .setEmptyFeedbackImage('')
+      .enableGlobalFilter()
+      .useStrippedStyle()
+      .allowDefaultMultiSelection()
+      .setMultiSelectionCallback((selection: any[]) => {
+        console.log('setMultiSelectionCallback', selection);
+      })
+      // .useScrolling()
+      // .useEstimatedColWidth()
+      .setSize('small')
+      .menu()
+        .item('Editar', 'pi pi-fw pi-pencil')
+          .setCallback((item: any): void => console.log(item))
+          .menu
+        .table
+      .columns()
+        .text('company', 'Código', '4em')
+          .disableFilter()
+          .columns
+        .text('name', 'Nome')
+          .disableFilter()
+          .columns
+        .table
+      .build()
+  }
+  },
 }
 
