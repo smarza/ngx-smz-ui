@@ -1,0 +1,88 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Build Watch Lib",
+			"type": "npm",
+			"script": "build-watch-lib",
+			"group": "build",
+			"isBackground": true,
+			"options": {
+				"statusbar": {
+					"hide" : true
+				}
+			},
+			"problemMatcher": {
+				"owner": "typescript",
+				"source": "ts",
+				"pattern":   {
+					"regexp": "^\\s*(?:ERROR in )?([^\\s].*)[\\(:](\\d+)[,:](\\d+)(?:\\):\\s+|\\s+-\\s+)(error|warning|info)\\s+TS(\\d+)\\s*:\\s*(.*)$",
+					"file": 1,
+					"line": 2,
+					"column": 3,
+					"severity": 4,
+					"code": 5,
+					"message": 6
+				},
+				"background": {
+					"activeOnStart": true,
+					"beginsPattern": {
+						"regexp": "Compiling\\.\\.\\.$"
+					},
+					"endsPattern": {
+						"regexp": "Compilation complete.*"
+					}
+				}
+			},
+			"presentation": {
+				"group": "groupA",
+				"reveal": "always",
+				"panel": "new"
+    	}
+		},
+		{
+			"label": "Start: Demo Overview",
+			"type": "npm",
+			"script": "start:overview",
+			"group": "none",
+			"isBackground": true,
+			"options": {
+				"statusbar": {
+					"hide" : true
+				}
+			},
+			"presentation": {
+				"group": "groupA",
+				"reveal": "always",
+				"panel": "new"
+    	},
+		},
+		{
+			"label": "Start: Demo Labs",
+			"type": "npm",
+			"script": "start",
+			"group": "none",
+			"isBackground": true,
+			"options": {
+				"statusbar": {
+					"hide" : true
+				}
+			},
+			"presentation": {
+				"group": "groupA",
+				"reveal": "always",
+				"panel": "new"
+    	},
+		},
+		{
+			"label": "Demo: Overview",
+			"dependsOrder": "sequence",
+			"dependsOn":["Build Watch Lib", "Start: Demo Overview"]
+		},
+		{
+			"label": "Demo: Labs",
+			"dependsOrder": "sequence",
+			"dependsOn":["Build Watch Lib", "Start: Demo Labs"]
+		}
+	]
+}
