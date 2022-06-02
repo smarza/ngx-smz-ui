@@ -5,7 +5,7 @@ import { SmzLoginBuilder } from '../../../../builders/smz-login/state-builder';
 import { SmzLoginState } from '../../features/login/login-state';
 
 @Component({
-  selector: 'smz-ui-login',
+  selector: 'smz-ui-login-page',
   templateUrl: './login.component.html',
 })
 export class LoginComponent {
