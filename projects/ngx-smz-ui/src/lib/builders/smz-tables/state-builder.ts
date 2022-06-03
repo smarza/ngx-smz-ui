@@ -140,8 +140,11 @@ export class SmzTableBuilder {
       size: 'regular',
       columnsWidth: {
         estimate: false,
-        samples: null
-      }
+        samples: null,
+        maxWidth: null,
+        behavior: 'min-width'
+      },
+      tableStyleClass: ''
     },
     frozen: {
       isEnabled: false,
@@ -321,10 +324,10 @@ export class SmzTableBuilder {
     return this;
   }
 
-    /**
-   * Enables the checkbox for multiselection in the table
-   * and a creates a button to allow the user to disable the selection mode
-   */
+  /**
+ * Enables the checkbox for multiselection in the table
+ * and a creates a button to allow the user to disable the selection mode
+ */
   public allowUserMultiSelection(initialState: 'enabled' | 'disabled' = 'enabled'): SmzTableBuilder {
     this._state.caption.rowSelection.isEnabled = initialState === 'enabled';
     this._state.caption.rowSelection.isButtonVisible = true;
@@ -572,15 +575,41 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public useEstimatedColWidth(samplesCount: number = 50): SmzTableBuilder {
+  public useEstimatedColWidth(maxWidthPx?: number): SmzTableBuilder {
 
-    if (!this._state.viewport.scrollable) {
-      throw Error('You need to call \'useScrolling\' before');
-    }
+    this._state.viewport.scrollable = true;
+    this._state.viewport.scrollHeight = 'flex';
+    this._state.viewport.scrollDirection = 'both';
 
     this._state.styles.columnsWidth.estimate = true;
+    this._state.styles.columnsWidth.samples = 50;
+    this._state.styles.columnsWidth.behavior = 'min-width';
+    this._state.styles.columnsWidth.maxWidth = maxWidthPx;
+
+    return this;
+  }
+
+  public setEstimatedSamplesCount(samplesCount: number): SmzTableBuilder {
+
+    if (!this._state.styles.columnsWidth.estimate) {
+      throw Error('You need to call \'useEstimatedColWidth\' before');
+    }
+
     this._state.styles.columnsWidth.samples = samplesCount;
-    this._state.viewport.scrollDirection = 'both';
+
+    return this;
+  }
+
+  // public setColumnWidthBehavior(behavior: 'width' | 'min-width'): SmzTableBuilder {
+
+  //   this._state.styles.columnsWidth.behavior = behavior;
+
+  //   return this;
+  // }
+
+  public setTableStyleClass(styleClass: string): SmzTableBuilder {
+
+    this._state.styles.tableStyleClass = styleClass;
 
     return this;
   }
@@ -725,7 +754,11 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public useScrolling(direction: 'vertical' | 'horizontal' | 'both' = 'vertical'): SmzTableBuilder {
+  public setScrollDirection(direction: 'vertical' | 'horizontal' | 'both' = 'vertical'): SmzTableBuilder {
+
+    if (this._state.styles.columnsWidth.estimate) {
+      throw Error('You can\'t use \'setScrollDirection\' while using \'useEstimatedColWidth\'');
+    }
 
     this._state.viewport.scrollable = true;
     this._state.viewport.scrollHeight = 'flex';
@@ -734,28 +767,30 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public setVerticalScrollHeight(height: string): SmzTableBuilder {
+  public useVerticalScrollHeight(height: string): SmzTableBuilder {
 
-    if (!this._state.viewport.scrollable) {
-      throw Error('You need to call \'useScrolling\' before');
+    if (this._state.styles.columnsWidth.estimate) {
+      throw Error('You can\'t use \'useVerticalScrollHeight\' while using \'useEstimatedColWidth\'');
     }
 
+    this._state.viewport.scrollable = true;
+    this._state.viewport.scrollDirection = 'vertical';
     this._state.viewport.scrollHeight = height;
 
     return this;
   }
 
-  public enableResizableColumns(mode: 'fit' | 'expand' = 'fit'): SmzTableBuilder {
+  // public enableResizableColumns(mode: 'fit' | 'expand' = 'fit'): SmzTableBuilder {
 
-    if (!this._state.viewport.scrollable) {
-      throw Error('You need to call \'useScrolling\' before');
-    }
+  //   if (!this._state.viewport.scrollable) {
+  //     throw Error('You need to call \'useScrolling\' before');
+  //   }
 
-    this._state.viewport.resizableColumns = true;
-    this._state.viewport.columnResizeMode = mode;
+  //   this._state.viewport.resizableColumns = true;
+  //   this._state.viewport.columnResizeMode = mode;
 
-    return this;
-  }
+  //   return this;
+  // }
 
   public debugMode(): SmzTableBuilder {
     this._state.isDebug = true;
@@ -772,6 +807,92 @@ export class SmzTableBuilder {
       console.log(this._state);
     }
 
+    this._state.columns.forEach(col => {
+
+      col.content.ngStyle = applyTableContentNgStyle(this._state, null, col.width);
+
+      if (this._state.isDebug) {
+        col.headerStyleClass = col.headerStyleClass + ' border border-1 border-red-300';
+      }
+
+      if (this._state.viewport.scrollable && col.width?.includes('%')) {
+        throw Error('You cannot set any column width with percentage while using scrollable table.');
+      }
+
+    });
+
     return this._state;
   }
+}
+
+export function applyTableContentNgStyle(state: SmzTableState, size: number, finalWidth?: string): any {
+
+  const behavior = state.styles.columnsWidth.behavior;
+  const isScrollable = state.viewport.scrollable;
+  const isEstimated = state.styles.columnsWidth.estimate;
+  const hasGlobalMaxWidth = state.styles.columnsWidth.maxWidth != null;
+  const globalMaxWidth = state.styles.columnsWidth.maxWidth;
+  const maxWidthStyle = `${state.styles.columnsWidth.maxWidth}px`;
+  const sizeStyle = `${size}px`;
+
+  if (state.isDebug) {
+    console.log('___________________');
+    console.log('applyTableContentNgStyle');
+    console.log('behavior', behavior);
+    console.log('isScrollable', isScrollable);
+    console.log('hasMaxWidth', hasGlobalMaxWidth);
+    console.log('width', size);
+    console.log('global maxWidth', state.styles.columnsWidth.maxWidth);
+  }
+
+  let minWidth = '';
+  let width = '';
+  let maxWidth = '';
+
+  if (finalWidth && !hasGlobalMaxWidth) {
+    // Estimativa desligada
+    // Valor máximo global não definido
+    // Replicar igualmente o width da col definido para todos os parâmetros do html
+    if (state.isDebug) console.log(0);
+    minWidth = finalWidth;
+    width = finalWidth;
+    maxWidth = finalWidth;
+  }
+  else if (finalWidth && hasGlobalMaxWidth) {
+    // Estimativa desligada
+    // Valor máximo global definido
+    // Se a col estiver com auto => todos os parametros serão iguais ao máximo
+    // Se a col estiver com valores definidos => usar valores definidos
+    if (state.isDebug) console.log(1);
+    minWidth = finalWidth == 'auto' ? maxWidthStyle : finalWidth;
+    width = finalWidth == 'auto' ? maxWidthStyle : finalWidth;
+    maxWidth = finalWidth == 'auto' ? maxWidthStyle : finalWidth;
+  }
+  else if (isScrollable && hasGlobalMaxWidth) {
+    if (state.isDebug) console.log(2);
+    minWidth = size < globalMaxWidth ? sizeStyle : maxWidthStyle;
+    width = size < globalMaxWidth ? sizeStyle : maxWidthStyle;
+    maxWidth = size < globalMaxWidth ? sizeStyle: maxWidthStyle;
+  }
+  else if (isScrollable && !hasGlobalMaxWidth) {
+    if (state.isDebug) console.log(3);
+    minWidth = sizeStyle;
+    width = sizeStyle;
+    maxWidth = sizeStyle;
+  }
+  else if (!isScrollable && hasGlobalMaxWidth) {
+    if (state.isDebug) console.log(4);
+    minWidth = size < globalMaxWidth ? sizeStyle : maxWidthStyle;
+    width = size < globalMaxWidth ? sizeStyle : maxWidthStyle;
+    maxWidth = maxWidthStyle;
+  }
+
+  switch (behavior) {
+    case 'min-width':
+      return { 'min-width': minWidth, 'width': width, 'max-width': maxWidth };
+
+    case 'width':
+      return { 'width': width, 'max-width': maxWidth };
+  }
+
 }

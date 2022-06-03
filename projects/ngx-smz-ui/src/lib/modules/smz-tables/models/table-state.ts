@@ -403,7 +403,11 @@ export interface SmzTableState {
     columnsWidth?: {
       estimate: boolean;
       samples: number;
+      maxWidth: number;
+      behavior: 'width' | 'min-width';
     };
+
+    tableStyleClass: string;
   },
   /**
    * Settings for Frozen Columns

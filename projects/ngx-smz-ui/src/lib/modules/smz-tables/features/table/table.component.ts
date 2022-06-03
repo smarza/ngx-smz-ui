@@ -1,5 +1,5 @@
 import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewChild, OnDestroy } from '@angular/core';
-import { FilterMatchMode, PrimeTemplate } from 'primeng/api';
+import { PrimeTemplate } from 'primeng/api';
 import { SmzContentType } from '../../models/content-types';
 import { SmzFilterType } from '../../models/filter-types';
 import { SmzTableState, SmzTableContext } from '../../models/table-state';
@@ -9,7 +9,6 @@ import { TableEditableService } from '../../services/table-editable.service';
 import { TableFormsService } from '../../services/table-forms.service';
 import { Table } from 'primeng/table';
 import { SmzDialogsConfig } from '../../../smz-dialogs/smz-dialogs.config';
-import { filter } from 'rxjs/operators';
 import { uuidv4 } from '../../../../common/utils/utils';
 import { TableHelperService } from '../../services/table-helper.service';
 
@@ -81,6 +80,8 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
 
   public ngOnInit(): void {
   }
+
+  public getWidthStyle(value) { console.log(`getWidthStyle(${value})`); return { [this.state.styles.columnsWidth.behavior]: value }}
 
   public bind(): void {
   }

@@ -32,7 +32,7 @@ export class SmzTableContextPipe implements PipeTransform {
       const contextColumn: SmzTableContextColumn = {
         ...column,
         width,
-        content: column.content ?? { type: SmzContentType.TEXT, styleClass: '', data: { } },
+        content: column.content ?? { type: SmzContentType.TEXT, styleClass: '', data: { }, ngStyle: {} },
         filter: column.filter ?? { type: SmzFilterType.NONE, isGlobalFilterable: false }
       };
 
@@ -179,7 +179,8 @@ export class SmzTableContextPipe implements PipeTransform {
         }
       },
       styles: inputState.styles ?? {
-        striped: false
+        striped: false,
+        tableStyleClass: ''
       },
       frozen: {
         isEnabled: false,

@@ -25,6 +25,7 @@ export namespace StateBuilderFunctions {
         field: converted.field(input),
         property: converted.property(input),
         header: input.name,
+        headerStyleClass: '',
         content: converted.content(input),
         editable: {
           ...converted.editable(child),

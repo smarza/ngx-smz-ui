@@ -14,7 +14,7 @@ export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T>> {
   constructor(protected _table: SmzTableBuilder, protected _parent: SmzColumnCollectionBuilder, type: SmzContentType, filterType: SmzFilterType, field: string, header: string, isOrderable: boolean, width: string = 'auto') {
 
     if (this._table._state.viewport.scrollable && !this._table._state.styles.columnsWidth.estimate && (width === 'auto' || width === 'fit')) {
-      throw Error('You need to set a width in pixels for all columns while using \'useScrolling\' method');
+      throw Error('You need to set a width in pixels for all columns while using \'useScrolling\' method. Or enable the \'useEstimatedColWidth\' method.');
     }
 
     if (this._table._state.viewport.scrollable && this._table._state.styles.columnsWidth.estimate && width === 'fit') {
@@ -37,10 +37,12 @@ export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T>> {
           field: field,
           property: field.split('.')[0],
           header: header,
+          headerStyleClass: '',
           content: {
             type: type,
             styleClass: '',
-            data: { matches: [] }
+            data: { matches: [] },
+            ngStyle: {}
           },
           editable: {
             type: SmzEditableType.NONE,

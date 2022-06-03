@@ -23,7 +23,7 @@
             editMode="row"
             [value]="clonedData.items"
             [(selection)]="selectedItems"
-
+            [tableStyleClass]="context.state.styles.tableStyleClass"
             [styleClass]="'p-datatable-smz-ui-table' + (context.state.styles.striped ? ' p-datatable-striped' : '') + (context.state.styles.showGrid ? ' p-datatable-show-grid' : '') + (context.state.styles.size === 'small' ? ' p-datatable-sm' : '') + (context.state.styles.size === 'large' ? ' p-datatable-lg' : '')"
             [rowHover]="context.state.actions.rowBehavior.hoverable"
             [rows]="context.state.pagination.rows"
@@ -99,26 +99,26 @@
             <ng-template pTemplate="header" let-columns>
                 <tr [ngClass]="{ 'invisible-header': !context.state.header.isVisible }">
 
-                    <th *ngIf="context.state.caption.rowSelection.isEnabled" [ngStyle]="{ 'min-width': context.state.caption.rowSelection.columnWidth }">
+                    <th *ngIf="context.state.caption.rowSelection.isEnabled" [ngStyle]="getWidthStyle(context.state.caption.rowSelection.columnWidth)">
                         <ng-container *ngIf="!context.state.actions.batchActions.isVisible">
                             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                         </ng-container>
                     </th>
 
-                    <th *ngIf="context.state.rowExpansion.isEnabled" [ngStyle]="{ 'min-width': context.state.rowExpansion.columnWidth }">
+                    <th *ngIf="context.state.rowExpansion.isEnabled" [ngStyle]="getWidthStyle(context.state.rowExpansion.columnWidth)">
                     </th>
 
                     <ng-container *ngFor="let col of columns">
 
                         <ng-container *ngIf="context.state.viewport.resizableColumns; else nonResizable">
                             <ng-container *ngIf="col.isOrderable">
-                                <th [pSortableColumn]="col.field" pResizableColumn [ngStyle]="{ 'min-width': col.width }">
+                                <th [pSortableColumn]="col.field" pResizableColumn [ngStyle]="col.content.ngStyle" [ngClass]="col.headerStyleClass">
                                     <ng-container *ngTemplateOutlet="headerContent"></ng-container>
                                 </th>
                             </ng-container>
 
                             <ng-container *ngIf="!col.isOrderable">
-                                <th pResizableColumn [ngStyle]="{ 'min-width': col.width }">
+                                <th pResizableColumn [ngStyle]="col.content.ngStyle" [ngClass]="col.headerStyleClass">
                                     <ng-container *ngTemplateOutlet="headerContent"></ng-container>
                                 </th>
                             </ng-container>
@@ -126,13 +126,13 @@
 
                         <ng-template #nonResizable>
                             <ng-container *ngIf="col.isOrderable">
-                                <th [pSortableColumn]="col.field" [ngStyle]="{ 'min-width': col.width }">
+                                <th [pSortableColumn]="col.field" [ngStyle]="col.content.ngStyle" [ngClass]="col.headerStyleClass">
                                     <ng-container *ngTemplateOutlet="headerContent"></ng-container>
                                 </th>
                             </ng-container>
 
                             <ng-container *ngIf="!col.isOrderable">
-                                <th [ngStyle]="{ 'min-width': col.width }">
+                                <th [ngStyle]="col.content.ngStyle" [ngClass]="col.headerStyleClass">
                                     <ng-container *ngTemplateOutlet="headerContent"></ng-container>
                                 </th>
                             </ng-container>
@@ -254,7 +254,7 @@
                     <td *ngIf="context.state.caption.rowSelection.isEnabled && !clonedData.showSkeleton"
                         clickStopPropagation
                         [ngClass]="{ 'opacity-50 pointer-events-none': editableService.context[item.id]?.hasErrors || editableService.context[item.id]?.isLoading }"
-                        [ngStyle]="{ 'min-width': context.state.caption.rowSelection.columnWidth }"
+                        [ngStyle]="getWidthStyle(context.state.caption.rowSelection.columnWidth)"
                         >
                         <p-tableCheckbox [value]="item"></p-tableCheckbox>
                     </td>
@@ -262,7 +262,7 @@
                     <td *ngIf="context.state.rowExpansion.isEnabled && !clonedData.showSkeleton"
                         clickStopPropagation
                         [ngClass]="{ 'opacity-50 pointer-events-none': editableService.context[item.id]?.hasErrors || editableService.context[item.id]?.isLoading, 'grid grid-nogutter justify-start items-center gap-2': context.state.rowExpansion.highlightNewItems && item._isNew }"
-                        [ngStyle]="{ 'min-width': context.state.rowExpansion.columnWidth }"
+                        [ngStyle]="getWidthStyle(context.state.rowExpansion.columnWidth)"
                         >
                         <p-toggleButton [(ngModel)]="item._isExpanded" [onIcon]="'fas fa-chevron-down'" [offIcon]="'fas fa-chevron-right'" (onChange)="item._isNew = false"></p-toggleButton>
                         <div *ngIf="context.state.rowExpansion.highlightNewItems && item._isNew" class="rounded bg-cyan-400 text-sm text-white px-2 py-0 smz-table-new-tag" (click)="item._isNew = false">{{ context.state.rowExpansion.highlightLabel }}</div>
@@ -271,15 +271,12 @@
                     <ng-container *ngFor="let col of columns">
 
                         <ng-container *ngIf="clonedData.showSkeleton; else dataTemplate">
-                            <td [ngStyle]="{ 'min-width': col.width }"><p-skeleton width="100%" height="1rem"></p-skeleton></td>
+                            <td [ngStyle]="col.content.ngStyle"><p-skeleton width="100%" height="1rem"></p-skeleton></td>
                         </ng-container>
 
                         <ng-template #dataTemplate>
 
-                            <td
-                                [ngClass]="{ 'opacity-50 pointer-events-none': editableService.context[item.id]?.hasErrors || editableService.context[item.id]?.isLoading }"
-                                [ngStyle]="{ 'min-width': col.width }"
-                                >
+                            <td [ngClass]="{ 'opacity-50 pointer-events-none': editableService.context[item.id]?.hasErrors || editableService.context[item.id]?.isLoading }" [ngStyle]="col.content.ngStyle">
                                 <span class="p-column-title">{{ col.header }}</span>
 
                                 <p-cellEditor>

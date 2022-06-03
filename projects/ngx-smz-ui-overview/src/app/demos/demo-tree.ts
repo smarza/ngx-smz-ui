@@ -672,6 +672,33 @@ export const TreeDemoData: DemoTreeNode[] = [
     type: 'Category',
     children: [
       {
+        label: 'Layouts',
+        type: 'Category',
+        children: [
+          {
+            label: 'Vanila', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'table',
+            notes: '',
+            data: TablesDemo[DemoKeys.TABLE_LAYOUT_VANILA],
+            key: DemoKeys.TABLE_LAYOUT_VANILA.toString()
+          },
+          {
+            label: 'Estimating', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'table',
+            notes: '',
+            data: TablesDemo[DemoKeys.TABLE_LAYOUT_ESTIMATING],
+            key: DemoKeys.TABLE_LAYOUT_ESTIMATING.toString()
+          },
+          {
+            label: 'Estimating With Max Width', icon: 'fas fa-code', type: 'Demo',
+            demoType: 'table',
+            notes: '',
+            data: TablesDemo[DemoKeys.TABLE_LAYOUT_ESTIMATING_WITH_MAX_WIDTH],
+            key: DemoKeys.TABLE_LAYOUT_ESTIMATING_WITH_MAX_WIDTH.toString()
+          },
+        ]
+      },
+      {
         label: 'Ui Definitions', icon: 'fas fa-code', type: 'Demo',
         demoType: 'table',
         notes: '',

@@ -13,6 +13,7 @@ interface ContentConvertionData {
     type: SmzContentType;
     styleClass: string;
     data?: SmzContentTypes;
+    ngStyle: { [style: string]: any } | null;
   };
   editable: (input: SmzControlTypes) => {
     property: string;
@@ -34,7 +35,7 @@ export const ContentConvertions: ContentConvertionData[] = [
     isOrderable: true,
     isGlobalFilterable: true,
     filterType: SmzFilterType.TEXT,
-    content: () => ({ type: SmzContentType.TEXT, styleClass: '', data: null }),
+    content: () => ({ type: SmzContentType.TEXT, styleClass: '', data: null, ngStyle: {} }),
     editable: (input: SmzControlTypes) => (
       {
         property: input.propertyName,
@@ -51,7 +52,7 @@ export const ContentConvertions: ContentConvertionData[] = [
     isOrderable: false,
     isGlobalFilterable: true,
     filterType: SmzFilterType.MULTI_SELECT,
-    content: () => ({ type: SmzContentType.TEXT, styleClass: '', data: null }),
+    content: () => ({ type: SmzContentType.TEXT, styleClass: '', data: null, ngStyle: {} }),
     editable: (input: SmzDropDownControl<never>) => (
       {
         property: input.propertyName,
@@ -68,7 +69,7 @@ export const ContentConvertions: ContentConvertionData[] = [
     isOrderable: true,
     isGlobalFilterable: true,
     filterType: SmzFilterType.TEXT,
-    content: () => ({ type: SmzContentType.TEXT, styleClass: '', data: null }),
+    content: () => ({ type: SmzContentType.TEXT, styleClass: '', data: null, ngStyle: {} }),
     editable: (input: SmzControlTypes) => (
       {
         property: input.propertyName,
@@ -85,7 +86,7 @@ export const ContentConvertions: ContentConvertionData[] = [
     isOrderable: true,
     isGlobalFilterable: true,
     filterType: SmzFilterType.DATE,
-    content: () => ({ type: SmzContentType.CALENDAR, styleClass: '', data: { format: 'shortDate' } }),
+    content: () => ({ type: SmzContentType.CALENDAR, styleClass: '', data: { format: 'shortDate' }, ngStyle: {} }),
     editable: (input: SmzControlTypes) => (
       {
         property: input.propertyName,
@@ -107,7 +108,7 @@ export const ContentConvertions: ContentConvertionData[] = [
         { icon: 'fas fa-toggle-on', class: 'text-green-500', value: true },
         { icon: 'fas fa-toggle-off', class: 'text-gray-300', value: false }
       ]
-    } }),
+    }, ngStyle: {} }),
     editable: (input: SmzControlTypes) => (
       {
         property: input.propertyName,
@@ -129,7 +130,7 @@ export const ContentConvertions: ContentConvertionData[] = [
         { icon: 'fas fa-toggle-on', class: 'text-green-500', value: true },
         { icon: 'fas fa-toggle-off', class: 'text-gray-300', value: false }
       ]
-    } }),
+    }, ngStyle: {} }),
     editable: (input: SmzControlTypes) => (
       {
         property: input.propertyName,
@@ -146,7 +147,7 @@ export const ContentConvertions: ContentConvertionData[] = [
     isOrderable: true,
     isGlobalFilterable: true,
     filterType: SmzFilterType.NUMERIC,
-    content: () => ({ type: SmzContentType.TEXT, styleClass: '', data: null }),
+    content: () => ({ type: SmzContentType.TEXT, styleClass: '', data: null, ngStyle: {} }),
     editable: (input: SmzControlTypes) => (
       {
         property: input.propertyName,

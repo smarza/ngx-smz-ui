@@ -83,6 +83,18 @@
 			"label": "Demo: Labs",
 			"dependsOrder": "sequence",
 			"dependsOn":["Build Watch Lib", "Start: Demo Labs"]
+		},
+		{
+			"label": "Build: Prod",
+			"type": "npm",
+			"script": "build-prod-lib",
+			"group": "none",
+			"isBackground": true,
+			"presentation": {
+				"group": "groupA",
+				"reveal": "always",
+				"panel": "new"
+    	},
 		}
 	]
 }

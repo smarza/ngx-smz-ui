@@ -17,6 +17,10 @@ export interface SmzTableColumn {
    */
   header: string;
   /**
+   * Style class for header containers
+   */
+  headerStyleClass: string;
+  /**
    * Constrols the visibility of the sort icon the column header
    */
   isOrderable?: boolean;
@@ -58,6 +62,10 @@ export interface SmzTableColumn {
      * Extra data needed for the selected content type
      */
     data?: SmzContentTypes;
+    /**
+     * The object that will be applied to the ngStyle of the column
+     */
+    ngStyle: { [style: string]: any } | null;
   };
 
   /**
