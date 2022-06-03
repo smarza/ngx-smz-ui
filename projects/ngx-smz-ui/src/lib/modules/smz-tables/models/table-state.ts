@@ -405,6 +405,8 @@ export interface SmzTableState {
       samples: number;
       maxWidth: number;
       behavior: 'width' | 'min-width';
+      estimateFontBase: string;
+      estimatePadding: number;
     };
 
     tableStyleClass: string;

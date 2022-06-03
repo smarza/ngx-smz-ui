@@ -142,7 +142,9 @@ export class SmzTableBuilder {
         estimate: false,
         samples: null,
         maxWidth: null,
-        behavior: 'min-width'
+        behavior: 'min-width',
+        estimateFontBase: 'bold 14px sans-serif',
+        estimatePadding: 36 // Pouco mais do que 1 rem (padrão da lib) | 1 rem = 32 px
       },
       tableStyleClass: ''
     },
@@ -607,6 +609,28 @@ export class SmzTableBuilder {
   //   return this;
   // }
 
+  public setEstimatedFontBase(fontBase: string): SmzTableBuilder {
+
+    if (!this._state.styles.columnsWidth.estimate) {
+      throw Error('You need to call \'useEstimatedColWidth\' before');
+    }
+
+    this._state.styles.columnsWidth.estimateFontBase = fontBase;
+
+    return this;
+  }
+
+  public setEstimatedPadding(padding: number): SmzTableBuilder {
+
+    if (!this._state.styles.columnsWidth.estimate) {
+      throw Error('You need to call \'useEstimatedColWidth\' before');
+    }
+
+    this._state.styles.columnsWidth.estimatePadding = padding;
+
+    return this;
+  }
+
   public setTableStyleClass(styleClass: string): SmzTableBuilder {
 
     this._state.styles.tableStyleClass = styleClass;
@@ -803,10 +827,6 @@ export class SmzTableBuilder {
 
   public build(): SmzTableState {
 
-    if (this._state.isDebug) {
-      console.log(this._state);
-    }
-
     this._state.columns.forEach(col => {
 
       col.content.ngStyle = applyTableContentNgStyle(this._state, null, col.width);
@@ -821,6 +841,10 @@ export class SmzTableBuilder {
 
     });
 
+    if (this._state.isDebug) {
+      console.log(this._state);
+    }
+
     return this._state;
   }
 }
@@ -829,7 +853,6 @@ export function applyTableContentNgStyle(state: SmzTableState, size: number, fin
 
   const behavior = state.styles.columnsWidth.behavior;
   const isScrollable = state.viewport.scrollable;
-  const isEstimated = state.styles.columnsWidth.estimate;
   const hasGlobalMaxWidth = state.styles.columnsWidth.maxWidth != null;
   const globalMaxWidth = state.styles.columnsWidth.maxWidth;
   const maxWidthStyle = `${state.styles.columnsWidth.maxWidth}px`;

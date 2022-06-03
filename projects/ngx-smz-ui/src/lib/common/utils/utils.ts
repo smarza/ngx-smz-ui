@@ -386,3 +386,17 @@ export function setNestedObject(obj, path, value) {
 
     schema[pList[len - 1]] = value;
 }
+
+export function longestStringInArray(array: string[]): string
+{
+  var max_str = array[0].length;
+  var ans = array[0];
+  for (var i = 1; i < array.length; i++) {
+      var maxi = array[i].length;
+      if (maxi > max_str) {
+          ans = array[i];
+          max_str = maxi;
+      }
+  }
+  return ans;
+}

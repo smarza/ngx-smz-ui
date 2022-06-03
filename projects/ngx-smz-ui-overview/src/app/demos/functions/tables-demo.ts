@@ -116,7 +116,7 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
     code: () => {
     return new SmzTableBuilder()
       .debugMode()
-      .setTitle('')
+      .setTitle('Vanila')
 
       // -----------------------------------------------------------------------------------
       // Exemplo: padrão
@@ -136,6 +136,10 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
           .menu
         .table
       .columns()
+        .text('country.name', 'Auto', 'auto')
+          .setFilter(SmzFilterType.MULTI_SELECT)
+          .disableSort()
+          .columns
         .dataTransform('name', 'Auto', (data: any, row: any) => `123456789`, 'auto')
           .columns
         .dataTransform('country', 'Auto', (country: SimpleNamedEntity, row: any) => (`Super duper: ${country?.name?.toUpperCase()}`))
@@ -156,7 +160,7 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
     code: () => {
     return new SmzTableBuilder()
       .debugMode()
-      .setTitle('')
+      .setTitle('Estimating')
 
       // -----------------------------------------------------------------------------------
       // Exemplo: utilizando estimativa de largura baseada em amostragem do conteúdo real
@@ -176,6 +180,10 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
           .menu
         .table
       .columns()
+        .text('country.name', 'Estimated (no max)', 'auto')
+            .setFilter(SmzFilterType.MULTI_SELECT)
+            .disableSort()
+          .columns
         .dataTransform('name', 'Estimated (no max)', (data: any, row: any) => `123456789`, 'auto')
           .columns
         .dataTransform('country', 'Estimated (no max)', (country: SimpleNamedEntity, row: any) => (`Super duper: ${country?.name?.toUpperCase()}`))
@@ -196,7 +204,7 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
     code: () => {
     return new SmzTableBuilder()
       .debugMode()
-      .setTitle('')
+      .setTitle('Estimating With Max Width')
 
       // -----------------------------------------------------------------------------------
       // Exemplo: utilizando estimativa de largura baseada em amostragem do conteúdo real e tamanho máximo de coluna
@@ -216,6 +224,10 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
           .menu
         .table
       .columns()
+        .text('country.name', 'Estimated', 'auto')
+            .setFilter(SmzFilterType.MULTI_SELECT)
+            .disableSort()
+          .columns
         .dataTransform('name', 'Estimated', (data: any, row: any) => `123456789`, 'auto')
           .columns
         .dataTransform('country', 'Estimated (max 200px)', (country: SimpleNamedEntity, row: any) => (`Super duper mega power blast: ${country?.name?.toUpperCase()}`))
@@ -238,52 +250,7 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
     return new SmzTableBuilder()
       .debugMode()
       .setTitle('')
-
-      // -----------------------------------------------------------------------------------
-      // Exemplo 1
-      // -----------------------------------------------------------------------------------
-      // - A largura da tabela ocupará sempre 100% do container.
-      // - Colunas com valores definidos serão respeitadas, exceto se a tabela precisar de espaço para ocupar a largura completa.
-      // - Colunas com largura 'auto' ocuparão o espaço disponível de acordo com as regras do navegador
-      // - Recomenda-se que pelo menos uma coluna seja definida como 'auto', caso contrário as colunas definidas poderão ser distorcidas.
-      // ---> default
-      // Sem métodos
-
-                // -----------------------------------------------------------------------------------
-                // Exemplo 2: definindo maximo de coluna
-                // -----------------------------------------------------------------------------------
-                // - A largura da tabela ocupará sempre 100% do container.
-                // - Colunas com valores definidos não serão tratadas.
-                // - Apenas colunas com auto receberão serão limitadas a largura máxima.
-                // - Pra funcionar corretamente pelo menos uma coluna no final teria que ser convertida para auto (a lib faria isso).
-                // --->
-                // .setMaxColumnWidth(200)
-
-      // -----------------------------------------------------------------------------------
-      // Exemplo 3: utilizando estimativa de largura baseada em amostragem do conteúdo real
-      // -----------------------------------------------------------------------------------
-      // - A largura da tabela poderá ser menor ou maior que o container.
-      // - Se a soma das larguras das colunas ultrapassarem a largura do container a tabela entrará em scroll horizontal.
-      // - Colunas com largura 'auto' serão estimadas.
-      // - Colunas com largura definida não serão estimadas.
-      // ---> useEstimatedColWidth(maxWidthPx?: number)
-      // .useScrolling()
-      // .useEstimatedColWidth()
-
-      // -----------------------------------------------------------------------------------
-      // Exemplo 4: utilizando estimativa de largura baseada em amostragem do conteúdo real e tamanho máximo de coluna
-      // -----------------------------------------------------------------------------------
-      // - A largura da tabela poderá ser menor ou maior que o container.
-      // - Se a soma das larguras das colunas ultrapassarem a largura do container a tabela entrará em scroll horizontal.
-      // - Colunas com largura 'auto' serão estimadas mas não ultrapassarão o valor máximo global.
-      // - Colunas com largura definida não serão estimadas, nem respeitarão o valor máximo global.
-      // // ---> useEstimatedColWidth(maxWidthPx?: number)
-      // .useScrolling()
-      // .useEstimatedColWidth()
-      // .setMaxColumnWidth(150)
-
-
-
+      .useEstimatedColWidth(500)
       .useTableEmptyMessage()
       .useStrippedStyle()
       .menu()
