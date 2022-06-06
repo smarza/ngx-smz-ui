@@ -25,12 +25,12 @@ export class AppComponent {
         items: [
           { label: 'Charts', icon: 'far fa-chart', routerLink: ['charts'] },
           { label: 'Chart Colors', icon: 'far fa-chart', routerLink: ['charts', 'colors'] },
-          { label: 'Tag Area', icon: 'far fa-tree', routerLink: ['tag-area'] },
-          { label: 'Trees', icon: 'far fa-tree', routerLink: ['trees'] },
+          { label: 'Tag Area', icon: 'fas fa-tree', routerLink: ['tag-area'] },
+          { label: 'Trees', icon: 'fas fa-tree', routerLink: ['trees'] },
           { label: 'Side Content', icon: 'far fa-star', routerLink: ['side-content'] },
           { label: 'SignalR', icon: 'far fa-chart', routerLink: [SIGNALR_PATH] },
           { label: 'SVG', icon: 'far fa-chart', routerLink: [SVG_PATH] },
-          { label: 'Tag Area', icon: 'far fa-tree', routerLink: ['tag-area'] },
+          { label: 'Tag Area', icon: 'fas fa-tree', routerLink: ['tag-area'] },
         ]
       },
       {

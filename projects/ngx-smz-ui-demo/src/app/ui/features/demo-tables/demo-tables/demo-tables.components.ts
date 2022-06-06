@@ -239,7 +239,7 @@ export class DemoTablesComponent implements OnInit {
                   transforms: [
                     (item: any) => (item.plant.name !== 'P-74' ?
                       { icon: 'far fa-angry' } :
-                      { icon: 'fal fa-grin-tongue-wink' })
+                      { icon: 'fas fa-grin-tongue-wink' })
                   ],},
               ]
             },

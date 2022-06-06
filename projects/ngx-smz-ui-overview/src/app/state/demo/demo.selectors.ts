@@ -24,7 +24,7 @@ export class DemoFeatureSelectors {
 
   @Selector([DemoFeatureState])
   public static icons(state: DemoFeatureStateModel): any[] {
-    return FontAwesomeMigrations;
+    return FontAwesomeMigrations.map((x, index) => ({ id: index.toString(), ...x}));
   }
 
   @Selector([DemoFeatureState])

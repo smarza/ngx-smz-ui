@@ -18,17 +18,19 @@ export const IconsDemo: { [key: string]: { items$: Observable<any[]>, code: () =
       .useStrippedStyle()
       .setSize('small')
       .columns()
-        .text('font5', 'Font Awesome 5', '150px')
+        .dataTransform('font5Name', 'Font Awesome 5', (data, row) => (`<i class="${row.font5}"></i>`), '150px')
+          .addStyles('text-2xl text-center')
+          .columns
+        .text('font5', '')
           .disableFilter()
           .disableSort()
-          .addStyles('text-2xl')
-        .columns
-          .dataTransform('font5Name', '', (data, row) => (new RegExp('(?<=\=")(.*?)(?=\">)').exec(row.font5)[0].toString()))
           .columns
-        .text('font6', 'Font Awesome 6', '200px')
-          .addStyles('text-2xl')
+        .dataTransform('font6Name', 'Font Awesome 6', (data, row) => (`<i class="${row.font6}"></i>`), '150px')
+          .addStyles('text-2xl text-center')
           .columns
-        .dataTransform('font6Name', '', (data, row) => (new RegExp('(?<=\=")(.*?)(?=\">)').exec(row.font6)[0].toString()))
+        .text('font6', '')
+          .disableFilter()
+          .disableSort()
           .columns
         .table
       .build()
