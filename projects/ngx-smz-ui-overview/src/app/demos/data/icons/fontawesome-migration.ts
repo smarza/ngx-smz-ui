@@ -31,6 +31,7 @@ export const FontAwesomeMigrations = [
   { font5: 'fas fa-archive', font6: 'fa-solid fa-box-archive'},
   { font5: 'fas fa-bars', font6: 'fa-solid fa-bars'},
   { font5: 'fas fa-biohazard', font6: 'fa-solid fa-biohazard'},
+
   { font5: 'fas fa-bug', font6: 'fa-solid fa-bug' },
   { font5: 'fas fa-candy-cane', font6: 'fa-solid fa-candy-cane'},
   { font5: 'fas fa-cash-register', font6: 'fa-solid fa-cash-register'},

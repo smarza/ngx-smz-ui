@@ -71,7 +71,7 @@
                                     type="button"
                                     [ngClass]="{ 'p-button-text': toolbar.buttonType.endsWith('borderless'), 'p-button-outlined': toolbar.buttonType.endsWith('outlined'), 'p-button-rounded': toolbar.buttonType.startsWith('rounded'), 'p-button-secondary': true }"
                                     [label]="toolbar.nodeExpandButtons.expandLabel"
-                                    icon="fas fa-angle-down"
+                                    icon="fa-solid fa-angle-down"
                                     (click)="expandNode()"
                                     [pTooltip]="selection != null ? toolbar.nodeExpandButtons.expandTooltip : toolbar.nodeExpandButtons.disabledTooltip"
                                     [disabled]="selection == null">
@@ -84,7 +84,7 @@
                                     type="button"
                                     [ngClass]="{ 'p-button-text': toolbar.buttonType.endsWith('borderless'), 'p-button-outlined': toolbar.buttonType.endsWith('outlined'), 'p-button-rounded': toolbar.buttonType.startsWith('rounded'), 'p-button-secondary': true }"
                                     [label]="toolbar.nodeExpandButtons.collapseLabel"
-                                    icon="fas fa-angle-up"
+                                    icon="fa-solid fa-angle-up"
                                     (click)="collapseNode()"
                                     [pTooltip]="selection != null ? toolbar.nodeExpandButtons.collapseTooltip : toolbar.nodeExpandButtons.disabledTooltip"
                                     [disabled]="selection == null">
@@ -97,7 +97,7 @@
                                     type="button"
                                     [ngClass]="{ 'p-button-text': toolbar.buttonType.endsWith('borderless'), 'p-button-outlined': toolbar.buttonType.endsWith('outlined'), 'p-button-rounded': toolbar.buttonType.startsWith('rounded'), 'p-button-secondary': true }"
                                     [label]="toolbar.treeExpandButtons.expandLabel"
-                                    icon="fas fa-angle-double-down"
+                                    icon="fa-solid fa-angles-down"
                                     (click)="expandAll()"
                                     [pTooltip]="">
                                 </button>
@@ -109,7 +109,7 @@
                                     type="button"
                                     [ngClass]="{ 'p-button-text': toolbar.buttonType.endsWith('borderless'), 'p-button-outlined': toolbar.buttonType.endsWith('outlined'), 'p-button-rounded': toolbar.buttonType.startsWith('rounded'), 'p-button-secondary': true }"
                                     [label]="toolbar.treeExpandButtons.collapseLabel"
-                                    icon="fas fa-angle-double-up"
+                                    icon="fa-solid fa-angles-up"
                                     (click)="collapseAll()"
                                     [pTooltip]="">
                                 </button>

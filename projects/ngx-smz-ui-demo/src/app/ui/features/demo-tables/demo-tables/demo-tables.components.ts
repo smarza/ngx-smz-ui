@@ -189,10 +189,10 @@ export class DemoTablesComponent implements OnInit {
                       { icon: 'far fa-lightbulb grey-text', command: (event) => { console.log('Habilitar', event); } })
                   ],
                 },
-                { label: 'Editar', icon: 'fas fa-biohazard', command: (event) => this.test(event) },
+                { label: 'Editar', icon: 'fa-solid fa-biohazard', command: (event) => this.test(event) },
                 { label: 'Apagar', icon: 'fas fa-candy-cane', command: (event) => this.test(event) },
-                { label: 'Teste', icon: 'fab fa-cloudversify', command: (event) => { this.toggleVisibility('plant.name'); } },
-                { label: 'Copy Description', icon: 'far fa-copy', command: (event) => {
+                { label: 'Teste', icon: 'fa-brands fa-cloudversify', command: (event) => { this.toggleVisibility('plant.name'); } },
+                { label: 'Copy Description', icon: 'fa-solid fa-copy', command: (event) => {
                   this.copy(`O processo de merge para o arquivo Task1_Proj1.env falhou. Erro desconhecido. ExitCode: 1
                   Saída:
                   Total of 2 file(s).
@@ -238,8 +238,8 @@ export class DemoTablesComponent implements OnInit {
                   command: (event) => { console.log('Condicional 3', event); },
                   transforms: [
                     (item: any) => (item.plant.name !== 'P-74' ?
-                      { icon: 'far fa-angry' } :
-                      { icon: 'fas fa-grin-tongue-wink' })
+                      { icon: 'fa-solid fa-face-angry' } :
+                      { icon: 'fa-solid fa-face-grin-tongue-wink' })
                   ],},
               ]
             },

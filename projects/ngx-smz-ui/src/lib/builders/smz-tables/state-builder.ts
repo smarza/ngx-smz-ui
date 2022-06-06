@@ -564,11 +564,11 @@ export class SmzTableBuilder {
         break;
 
       case 'regular':
-        this._state.actions.menu.styles = { icon: 'fas fa-bars', styleClass: '', buttonClass: '' };
+        this._state.actions.menu.styles = { icon: 'fa-solid fa-bars', styleClass: '', buttonClass: '' };
         break;
 
       case 'large':
-        this._state.actions.menu.styles = { icon: 'fas fa-bars', styleClass: '', buttonClass: '' };
+        this._state.actions.menu.styles = { icon: 'fa-solid fa-bars', styleClass: '', buttonClass: '' };
         break;
       default:
         break;

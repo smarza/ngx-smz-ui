@@ -34,7 +34,7 @@ export class NotificationsListComponent implements OnInit {
     },
     {
       status: NotificationFolderStatus[NotificationFolder.ARCHIVED],
-      icon: 'fas fa-archive',
+      icon: 'fa-solid fa-box-archive',
       tooltip: 'Arquivados',
       rebuild: () => this.setupArchivedTable(),
       count$: this.store.select(NotificationsUiSelectors.archivedCount)
@@ -80,7 +80,7 @@ export class NotificationsListComponent implements OnInit {
         }
       })
       .batchMenu()
-        .item('', 'fas fa-archive', 'Arquivar Seleção')
+        .item('', 'fa-solid fa-box-archive', 'Arquivar Seleção')
           .setCallback((event: NotificationData[]) => this.archive(event))
           .menu
         .item('', 'fas fa-trash', 'Excluir Seleção')

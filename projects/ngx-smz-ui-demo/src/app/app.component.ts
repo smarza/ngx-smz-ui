@@ -25,24 +25,24 @@ export class AppComponent {
         items: [
           { label: 'Charts', icon: 'far fa-chart', routerLink: ['charts'] },
           { label: 'Chart Colors', icon: 'far fa-chart', routerLink: ['charts', 'colors'] },
-          { label: 'Tag Area', icon: 'fas fa-tree', routerLink: ['tag-area'] },
-          { label: 'Trees', icon: 'fas fa-tree', routerLink: ['trees'] },
-          { label: 'Side Content', icon: 'far fa-star', routerLink: ['side-content'] },
+          { label: 'Tag Area', icon: 'fa-solid fa-tree', routerLink: ['tag-area'] },
+          { label: 'Trees', icon: 'fa-solid fa-tree', routerLink: ['trees'] },
+          { label: 'Side Content', icon: 'fa-solid fa-star', routerLink: ['side-content'] },
           { label: 'SignalR', icon: 'far fa-chart', routerLink: [SIGNALR_PATH] },
           { label: 'SVG', icon: 'far fa-chart', routerLink: [SVG_PATH] },
-          { label: 'Tag Area', icon: 'fas fa-tree', routerLink: ['tag-area'] },
+          { label: 'Tag Area', icon: 'fa-solid fa-tree', routerLink: ['tag-area'] },
         ]
       },
       {
         label: 'Tables',
         icon: 'pi-home',
         items: [
-          { label: 'Table', icon: 'far fa-star', routerLink: ['tables'] },
-          { label: 'Editable Table', icon: 'far fa-star', routerLink: ['editable-table'] },
-          { label: 'Prime Table', icon: 'far fa-star', routerLink: ['tables', 'prime'] },
-          { label: 'Complex Table', icon: 'far fa-star', routerLink: ['tables', 'complex'] },
-          { label: 'SignalR', icon: 'far fa-star', routerLink: ['tables', 'signalr'] },
-          { label: 'Easy Table', icon: 'far fa-star', routerLink: ['tables', 'easy'] },
+          { label: 'Table', icon: 'fa-solid fa-star', routerLink: ['tables'] },
+          { label: 'Editable Table', icon: 'fa-solid fa-star', routerLink: ['editable-table'] },
+          { label: 'Prime Table', icon: 'fa-solid fa-star', routerLink: ['tables', 'prime'] },
+          { label: 'Complex Table', icon: 'fa-solid fa-star', routerLink: ['tables', 'complex'] },
+          { label: 'SignalR', icon: 'fa-solid fa-star', routerLink: ['tables', 'signalr'] },
+          { label: 'Easy Table', icon: 'fa-solid fa-star', routerLink: ['tables', 'easy'] },
         ]
       },
       {
@@ -51,13 +51,13 @@ export class AppComponent {
         items: [
           { label: 'Details 1', routerLink: ['details'] },
           { label: 'Details 2', routerLink: ['details', 'again'] },
-          { label: 'Faqs', icon: 'far fa-star', routerLink: ['faqs'] },
+          { label: 'Faqs', icon: 'fa-solid fa-star', routerLink: ['faqs'] },
           { label: 'Home', routerLink: ['home'] },
           { label: 'Landing', routerLink: ['landing'] },
-          { label: 'Ng Dom', icon: 'far fa-star', routerLink: ['ng-dom'] },
-          { label: 'Nested Routes 1', icon: 'far fa-star', routerLink: ['nested'] },
-          { label: 'Nested Routes 2', icon: 'far fa-star', routerLink: ['nested', 'layout' ] },
-          { label: 'Nested Routes 3 With Layouts', icon: 'far fa-star', routerLink: ['nested-routes'] },
+          { label: 'Ng Dom', icon: 'fa-solid fa-star', routerLink: ['ng-dom'] },
+          { label: 'Nested Routes 1', icon: 'fa-solid fa-star', routerLink: ['nested'] },
+          { label: 'Nested Routes 2', icon: 'fa-solid fa-star', routerLink: ['nested', 'layout' ] },
+          { label: 'Nested Routes 3 With Layouts', icon: 'fa-solid fa-star', routerLink: ['nested-routes'] },
           { label: 'Resolvers', routerLink: ['resolvers'] }
         ]
       },
