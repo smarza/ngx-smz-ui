@@ -110,7 +110,7 @@ const getAllFiles = function(dirPath, arrayOfFiles) {
 
       const filename = path.join(__dirname, dirPath, "/", file);
 
-      if (filename.endsWith("ts") || filename.endsWith("js") || filename.endsWith("html")) {
+      if (filename.endsWith("ts") || filename.endsWith("html")) {
         if (!filename.includes("fontawesome-migration.ts")) {
           arrayOfFiles.push(filename)
         }
@@ -125,7 +125,7 @@ const getAllFiles = function(dirPath, arrayOfFiles) {
 
 async function run() {
   try {
-    const allFilePaths = getAllFiles("./projects/ngx-smz-ui-overview");
+    const allFilePaths = getAllFiles("./projects/ngx-smz-ui");
 
     console.log(`Iterating into ${allFilePaths.length} files.`);
 
