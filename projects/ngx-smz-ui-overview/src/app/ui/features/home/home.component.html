@@ -27,6 +27,7 @@
           <ng-container [ngSwitch]="selectedNode?.demoType">
             <app-demo-form *ngSwitchCase="'form'"  [node]="selectedNode"></app-demo-form>
             <app-demo-table *ngSwitchCase="'table'" [node]="selectedNode"></app-demo-table>
+            <app-demo-icons *ngSwitchCase="'icons'" [node]="selectedNode"></app-demo-icons>
             <app-demo-chart *ngSwitchCase="'chart'" [node]="selectedNode"></app-demo-chart>
             <app-demo-document *ngSwitchCase="'document'" [node]="selectedNode"></app-demo-document>
             <app-demo-menu *ngSwitchCase="'menu'" [node]="selectedNode"></app-demo-menu>

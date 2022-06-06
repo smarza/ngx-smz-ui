@@ -8,6 +8,7 @@ import { ChartsDemo } from './functions/charts-demo';
 import { DocumentsDemo } from './functions/documents-demo';
 import { TreesDemo } from './functions/trees-demo';
 import { MenusDemo } from './functions/menus-demo';
+import { IconsDemo } from './functions/icons-demo';
 
 export const TreeDemoData: DemoTreeNode[] = [
   {
@@ -124,6 +125,19 @@ export const TreeDemoData: DemoTreeNode[] = [
         notes: '',
         data: MenusDemo[DemoKeys.MENU_IF_FALSE],
         key: DemoKeys.MENU_IF_FALSE.toString()
+      },
+    ]
+  },
+  {
+    label: 'Icons',
+    type: 'Category',
+    children: [
+      {
+        label: 'Font Awesome 6', icon: 'fas fa-code', type: 'Demo',
+        demoType: 'icons',
+        notes: 'kkkk',
+        data: IconsDemo[DemoKeys.ICONS_FONTAWESOME_6],
+        key: DemoKeys.ICONS_FONTAWESOME_6.toString()
       },
     ]
   },

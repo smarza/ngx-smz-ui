@@ -5,6 +5,7 @@ import { DemoFeatureState, DemoFeatureStateModel } from './demo.state';
 import { TreeNode } from 'primeng/api/treenode';
 import { RouterParamsState, RouterParamsStateModel } from 'ngx-smz-ui';
 import { HOME_PATH } from '@routes';
+import { FontAwesomeMigrations } from '../../demos/data/icons/fontawesome-migration';
 
 export class DemoFeatureSelectors {
 
@@ -19,6 +20,11 @@ export class DemoFeatureSelectors {
     ]}));
     // console.log('DemoFeatureSelectors results', results);
     return results;
+  }
+
+  @Selector([DemoFeatureState])
+  public static icons(state: DemoFeatureStateModel): any[] {
+    return FontAwesomeMigrations;
   }
 
   @Selector([DemoFeatureState])

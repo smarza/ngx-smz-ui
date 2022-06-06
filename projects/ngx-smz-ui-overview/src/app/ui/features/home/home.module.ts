@@ -11,6 +11,7 @@ import { CountriesDbName } from '@states/database/countries/countries.state';
 import { TabViewModule } from 'primeng/tabview';
 import { DemoFormComponent } from './components/demo-form/demo-form.component';
 import { DemoTableComponent } from './components/demo-table/demo-table.component';
+import { DemoIconsComponent } from './components/demo-icons/demo-icons.component';
 import { DemoChartComponent } from './components/demo-chart/demo-chart.component';
 import { DemoDocumentComponent } from './components/demo-document/demo-document.component';
 import { DemoTreeComponent } from './components/demo-tree/demo-tree.component';
@@ -53,7 +54,8 @@ const routes: Routes = [
     DemoInjectable1Component,
     DemoInjectable2Component,
     DemoInjectable3Component,
-    DemoInjectable4Component
+    DemoInjectable4Component,
+    DemoIconsComponent
   ],
   imports: [
     CommonModule,
