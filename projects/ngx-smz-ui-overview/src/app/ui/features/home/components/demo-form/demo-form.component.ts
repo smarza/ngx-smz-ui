@@ -10,9 +10,9 @@ import { FormGroupComponent, SmzForm, SmzDialogsService, SmzDialogBuilder, SmzFo
     <button *ngIf="form != null" pButton pRipple type="button" label="Anular Config" class="p-button-danger" (click)="clear()"></button>
     <button *ngIf="form == null && node != null" pButton pRipple type="button" label="Recriar Config" class="p-button-success" (click)="build()"></button>
     <i *ngIf="!formComponent.viewdata?.form?.touched" class="fa-solid fa-face-meh text-2xl" pTooltip="Ainda não foi tocado"></i>
-    <i *ngIf="formComponent.isValid" class="fas fa-check text-green-500 text-2xl" pTooltip="Válido"></i>
-    <i *ngIf="!formComponent.isValid" class="fas fa-times text-red-500 text-2xl" pTooltip="Com erros"></i>
-    <i class="fas fa-cash-register text-gray-100 text-2xl" [ngClass]="{ 'text-blue-500': formComponent?.viewdata?.hasChanges }" [pTooltip]="formComponent?.viewdata?.hasChanges ? 'Modificado' : 'Não modificado'"></i>
+    <i *ngIf="formComponent.isValid" class="fa-solid fa-check text-green-500 text-2xl" pTooltip="Válido"></i>
+    <i *ngIf="!formComponent.isValid" class="fa-solid fa-xmark text-red-500 text-2xl" pTooltip="Com erros"></i>
+    <i class="fa-solid fa-cash-register text-gray-100 text-2xl" [ngClass]="{ 'text-blue-500': formComponent?.viewdata?.hasChanges }" [pTooltip]="formComponent?.viewdata?.hasChanges ? 'Modificado' : 'Não modificado'"></i>
   </div>
 
   <smz-form-group [config]="form" #formComponent (statusChanges)="onStatusChanges($event)"></smz-form-group>

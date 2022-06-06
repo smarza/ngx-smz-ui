@@ -7,11 +7,11 @@ import { TableDataSourceService } from '../../../services/table-data-source.serv
   template: `
   <ng-container *ngIf="header.sort != null">
 
-    <i *ngIf="!header.sort.isActive" class="fas fa-sort cursor-pointer" (click)="toggle()"></i>
+    <i *ngIf="!header.sort.isActive" class="fa-solid fa-sort cursor-pointer" (click)="toggle()"></i>
 
     <ng-container *ngIf="header.sort.isActive">
-      <i *ngIf="header.sort.order === 1" class="fas fa-sort-alpha-up cursor-pointer" (click)="toggle()"></i>
-      <i *ngIf="header.sort.order === -1" class="fas fa-sort-alpha-down-alt cursor-pointer" (click)="toggle()"></i>
+      <i *ngIf="header.sort.order === 1" class="fa-solid fa-arrow-up-a-z cursor-pointer" (click)="toggle()"></i>
+      <i *ngIf="header.sort.order === -1" class="fa-solid fa-sort-alpha-down-alt cursor-pointer" (click)="toggle()"></i>
     </ng-container>
 
   </ng-container>
@@ -58,4 +58,4 @@ export class SortComponent implements OnInit {
     this.cdf.markForCheck();
   }
 
-}
+};

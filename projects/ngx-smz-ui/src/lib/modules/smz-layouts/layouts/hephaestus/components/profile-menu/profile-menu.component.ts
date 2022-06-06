@@ -13,7 +13,7 @@ import { SmzLayoutsConfig } from '../../../../core/globals/smz-layouts.config';
       <ng-container *ngIf="userData$ | async as userdata">
         <span class="username">{{ config.profileMessage }}{{ userdata[config.usernameProperty] }}</span>
         <img *ngIf="config.useAvatar && userdata[config.avatarProperty]" [src]="(userdata[config.avatarProperty] ) | safeUrl" class="profile-image">
-        <i *ngIf="!config.useAvatar || (config.useAvatar && !userdata[config.avatarProperty])" class="fas fa-user-circle profile-image profile-icon-menu"></i>
+        <i *ngIf="!config.useAvatar || (config.useAvatar && !userdata[config.avatarProperty])" class="fa-solid fa-circle-user profile-image profile-icon-menu"></i>
         <i class="profile-submenu-icon pi pi-angle-down"></i>
       </ng-container>
     </a>

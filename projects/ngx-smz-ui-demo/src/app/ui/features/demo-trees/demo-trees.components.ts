@@ -59,17 +59,17 @@ export class DemoTreesComponent implements OnInit {
         .setAlignment('end')
         .useTreeExpandButtons()
         .buttons()
-          .button('', 'fas fa-coffee')
+          .button('', 'fa-solid fa-mug-saucer')
             .setCallback((event, data, node) => console.log(event))
             .setTooltip('Button 1 awesome tooltip')
             .setColor('danger')
             .buttons
-          .button('', 'fas fa-hamburger')
+          .button('', 'fa-solid fa-burger')
             .setCallback((event, data, node) => console.log('Button 2'))
             .setTooltip('Button 2 awesome tooltip')
             .setColor('warning')
             .buttons
-          .button('', 'fas fa-pizza-slice')
+          .button('', 'fa-solid fa-pizza-slice')
             .setCallback((event, data, node) => console.log('Button 3'))
             .setTooltip('Button 3 awesome tooltip')
             .setColor('success')
@@ -82,4 +82,9 @@ export class DemoTreesComponent implements OnInit {
         .tree
       .build();
   }
+}
+
+}
+}
+
 }

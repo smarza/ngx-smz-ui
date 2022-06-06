@@ -560,7 +560,7 @@ export class SmzTableBuilder {
 
     switch (size) {
       case 'small':
-        this._state.actions.menu.styles = { icon: 'fas fa-ellipsis-h', styleClass: 'p-button-text p-button-plain p-button-sm p-0 shadow-none hover:bg-inherit', buttonClass: 'p-0' };
+        this._state.actions.menu.styles = { icon: 'fa-solid fa-ellipsis', styleClass: 'p-button-text p-button-plain p-button-sm p-0 shadow-none hover:bg-inherit', buttonClass: 'p-0' };
         break;
 
       case 'regular':

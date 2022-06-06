@@ -417,7 +417,7 @@ export class SmzFormGroupBuilder<TResponse> {
         isButtonValid: false,
         buttonMessages: [],
         hideName: false,
-        icon: 'fas fa-redo',
+        icon: 'fa-solid fa-rotate-right',
         placeholder: '',
         styleClass: 'p-button-success',
         clearButtonMessageOnChanges: true

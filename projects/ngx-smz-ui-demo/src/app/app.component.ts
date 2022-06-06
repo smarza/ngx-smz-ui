@@ -18,7 +18,7 @@ export class AppComponent {
     this.themeManager.createCss('assets/priority-styles.css');
 
     this.menuService.setMenu([
-      { label: 'Click me', icon: 'fas fa-check-double', routerLink: ['details', 'again'] },
+      { label: 'Click me', icon: 'fa-solid fa-check-double', routerLink: ['details', 'again'] },
       {
         label: 'Demos',
         icon: 'pi-home',

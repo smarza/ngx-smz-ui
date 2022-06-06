@@ -16,7 +16,7 @@ export class AppComponent {
     this.menuService.setProfile([ { label: 'Logout', icon: 'pi-power-off', routerLink: ['/login'] } ]);
 
     this.menuService.setMenu([
-      { label: 'Click me', icon: 'fas fa-check-double', routerLink: ['details', 'again'] },
+      { label: 'Click me', icon: 'fa-solid fa-check-double', routerLink: ['details', 'again'] },
       {
         label: 'Demos',
         icon: 'pi-home',
