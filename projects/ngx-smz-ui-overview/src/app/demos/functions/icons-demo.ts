@@ -47,19 +47,8 @@ export const IconsDemo: { [key: string]: { items$: Observable<any[]>, code: () =
       .useStrippedStyle()
       .setSize('small')
       .columns()
-        .dataTransform('font5Name', 'Font Awesome 5', (data, row) => (`<i class="${row.font5}"></i>`), '150px')
+        .dataTransform('icon', 'Font Awesome 6 Animate', (data, row) => (`<i class="${row.icon}"></i>`))
           .addStyles('text-2xl text-center')
-          .columns
-        .text('font5', '')
-          .disableFilter()
-          .disableSort()
-          .columns
-        .dataTransform('font6Name', 'Font Awesome 6', (data, row) => (`<i class="${row.font6}"></i>`), '150px')
-          .addStyles('text-2xl text-center')
-          .columns
-        .text('font6', '')
-          .disableFilter()
-          .disableSort()
           .columns
         .table
       .build()
