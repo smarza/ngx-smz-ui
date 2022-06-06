@@ -133,11 +133,18 @@ export const TreeDemoData: DemoTreeNode[] = [
     type: 'Category',
     children: [
       {
-        label: 'Font Awesome 6', icon: 'fa-solid fa-code', type: 'Demo',
+        label: 'Font Awesome 5 to 6', icon: 'fa-solid fa-code', type: 'Demo',
         demoType: 'icons',
         notes: 'kkkk',
         data: IconsDemo[DemoKeys.ICONS_FONTAWESOME_6],
         key: DemoKeys.ICONS_FONTAWESOME_6.toString()
+      },
+      {
+        label: 'Font Awesome 6 Spin', icon: 'fa-solid fa-code', type: 'Demo',
+        demoType: 'icons',
+        notes: 'kkkk',
+        data: IconsDemo[DemoKeys.ICONS_FONTAWESOME_6_SPIN],
+        key: DemoKeys.ICONS_FONTAWESOME_6_SPIN.toString()
       },
     ]
   },

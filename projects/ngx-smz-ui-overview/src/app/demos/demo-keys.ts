@@ -90,5 +90,6 @@ export const enum DemoKeys {
   MENU_IF_TRUE,
   MENU_IF_FALSE,
   ICONS_FONTAWESOME_6,
+  ICONS_FONTAWESOME_6_SPIN
 
 }
