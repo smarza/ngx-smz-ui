@@ -105,8 +105,8 @@ export const ContentConvertions: ContentConvertionData[] = [
     filterType: SmzFilterType.BOOLEAN,
     content: () => ({ type: SmzContentType.ICON, styleClass: '', data: {
       matches: [
-        { icon: 'fas fa-toggle-on', class: 'text-green-500', value: true },
-        { icon: 'fas fa-toggle-off', class: 'text-gray-300', value: false }
+        { icon: 'fa-solid fa-toggle-on', class: 'text-green-500', value: true },
+        { icon: 'fa-solid fa-toggle-off', class: 'text-gray-300', value: false }
       ]
     }, ngStyle: {} }),
     editable: (input: SmzControlTypes) => (
@@ -127,8 +127,8 @@ export const ContentConvertions: ContentConvertionData[] = [
     filterType: SmzFilterType.BOOLEAN,
     content: () => ({ type: SmzContentType.ICON, styleClass: '', data: {
       matches: [
-        { icon: 'fas fa-toggle-on', class: 'text-green-500', value: true },
-        { icon: 'fas fa-toggle-off', class: 'text-gray-300', value: false }
+        { icon: 'fa-solid fa-toggle-on', class: 'text-green-500', value: true },
+        { icon: 'fa-solid fa-toggle-off', class: 'text-gray-300', value: false }
       ]
     }, ngStyle: {} }),
     editable: (input: SmzControlTypes) => (

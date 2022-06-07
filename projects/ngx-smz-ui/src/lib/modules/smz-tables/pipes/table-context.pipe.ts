@@ -80,7 +80,7 @@ export class SmzTableContextPipe implements PipeTransform {
           isVisible: false,
           items: [],
           styles: {
-            icon: 'fas fa-bars',
+            icon: 'fa-solid fa-bars',
             buttonClass: '',
             styleClass: ''
           }

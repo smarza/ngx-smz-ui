@@ -387,8 +387,8 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
         .allowDefaultRowExpansion()
         .dynamicMenu((row: any) => {
           return [
-            { label: 'Test 1', icon: 'fas fa-biohazard', command: (event) => console.log('test1', event) },
-            { label: 'Test 2', icon: 'fas fa-candy-cane', command: (event) => console.log('test2', event) },
+            { label: 'Test 1', icon: 'fa-solid fa-biohazard', command: (event) => console.log('test1', event) },
+            { label: 'Test 2', icon: 'fa-solid fa-candy-cane', command: (event) => console.log('test2', event) },
           ];
         })
       .build()

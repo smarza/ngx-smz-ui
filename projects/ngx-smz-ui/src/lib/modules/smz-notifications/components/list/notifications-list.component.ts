@@ -27,14 +27,14 @@ export class NotificationsListComponent implements OnInit {
   public folders = [
     {
       status: NotificationFolderStatus[NotificationFolder.INBOX],
-      icon: 'fas fa-inbox',
+      icon: 'fa-solid fa-inbox',
       tooltip: 'Caixa de Entrada',
       rebuild: () => this.setupInboxTable(),
       count$: this.store.select(NotificationsUiSelectors.inboxCount)
     },
     {
       status: NotificationFolderStatus[NotificationFolder.ARCHIVED],
-      icon: 'fas fa-archive',
+      icon: 'fa-solid fa-box-archive',
       tooltip: 'Arquivados',
       rebuild: () => this.setupArchivedTable(),
       count$: this.store.select(NotificationsUiSelectors.archivedCount)
@@ -80,10 +80,10 @@ export class NotificationsListComponent implements OnInit {
         }
       })
       .batchMenu()
-        .item('', 'fas fa-archive', 'Arquivar Seleção')
+        .item('', 'fa-solid fa-box-archive', 'Arquivar Seleção')
           .setCallback((event: NotificationData[]) => this.archive(event))
           .menu
-        .item('', 'fas fa-trash', 'Excluir Seleção')
+        .item('', 'fa-solid fa-trash', 'Excluir Seleção')
           .setCallback((event: NotificationData[]) => this.batchRemove(event))
           .menu
         .table
@@ -96,10 +96,10 @@ export class NotificationsListComponent implements OnInit {
     this.tableState = this.buildBaseTable()
       .setTitle(`Arquivados`)
       .batchMenu()
-        .item('', 'fas fa-inbox', 'Mover Seleção para Caixa de Entrada')
+        .item('', 'fa-solid fa-inbox', 'Mover Seleção para Caixa de Entrada')
           .setCallback((event: NotificationData[]) => this.moveToInbox(event))
           .menu
-        .item('', 'fas fa-trash', 'Excluir Seleção')
+        .item('', 'fa-solid fa-trash', 'Excluir Seleção')
           .setCallback((event: NotificationData[]) => this.batchRemove(event))
           .menu
         .table

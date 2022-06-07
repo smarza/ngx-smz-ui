@@ -185,14 +185,14 @@ export class DemoTablesComponent implements OnInit {
                   // conditional: { condition: (item: any) => (item.isActive), property: 'visible' },
                   transforms: [
                     (item: any) => (item.isActive ?
-                      { icon: 'fas fa-lightbulb green-text', command: (event) => { console.log('Desabilitar', event); } } :
+                      { icon: 'fa-solid fa-lightbulb green-text', command: (event) => { console.log('Desabilitar', event); } } :
                       { icon: 'far fa-lightbulb grey-text', command: (event) => { console.log('Habilitar', event); } })
                   ],
                 },
-                { label: 'Editar', icon: 'fas fa-biohazard', command: (event) => this.test(event) },
-                { label: 'Apagar', icon: 'fas fa-candy-cane', command: (event) => this.test(event) },
-                { label: 'Teste', icon: 'fab fa-cloudversify', command: (event) => { this.toggleVisibility('plant.name'); } },
-                { label: 'Copy Description', icon: 'far fa-copy', command: (event) => {
+                { label: 'Editar', icon: 'fa-solid fa-biohazard', command: (event) => this.test(event) },
+                { label: 'Apagar', icon: 'fa-solid fa-candy-cane', command: (event) => this.test(event) },
+                { label: 'Teste', icon: 'fa-brands fa-cloudversify', command: (event) => { this.toggleVisibility('plant.name'); } },
+                { label: 'Copy Description', icon: 'fa-solid fa-copy', command: (event) => {
                   this.copy(`O processo de merge para o arquivo Task1_Proj1.env falhou. Erro desconhecido. ExitCode: 1
                   Saída:
                   Total of 2 file(s).
@@ -231,15 +231,15 @@ export class DemoTablesComponent implements OnInit {
             {
               label: 'Avançado',
               items: [
-                { label: 'Avançado 1', icon: 'fas fa-charging-station', command: (event) => { console.log('Avançado 1'); } },
+                { label: 'Avançado 1', icon: 'fa-solid fa-charging-station', command: (event) => { console.log('Avançado 1'); } },
                 {
                   label: 'Avançado (P-74)',
                   conditional: { condition: (item: any) => (item.plant.name !== 'P-74'), property: 'disabled' },
                   command: (event) => { console.log('Condicional 3', event); },
                   transforms: [
                     (item: any) => (item.plant.name !== 'P-74' ?
-                      { icon: 'far fa-angry' } :
-                      { icon: 'fal fa-grin-tongue-wink' })
+                      { icon: 'fa-solid fa-face-angry' } :
+                      { icon: 'fa-solid fa-face-grin-tongue-wink' })
                   ],},
               ]
             },
@@ -314,7 +314,7 @@ export class DemoTablesComponent implements OnInit {
           content: {
             type: SmzContentType.ICON,
             styleClass: '',
-            data: { matches: [ { icon: 'fas fa-check', class: 'green-text darken-3', value: true }, { icon: 'fas fa-times', class: 'red-text darken-2', value: false } ] }
+            data: { matches: [ { icon: 'fa-solid fa-check', class: 'green-text darken-3', value: true }, { icon: 'fa-solid fa-xmark', class: 'red-text darken-2', value: false } ] }
           },
           filter: {
             type: SmzFilterType.BOOLEAN,

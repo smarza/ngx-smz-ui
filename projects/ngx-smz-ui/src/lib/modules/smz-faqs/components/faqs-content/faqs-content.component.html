@@ -3,9 +3,9 @@
     <div class="col-12">
         <h3>{{ manager.config.placeholders.searchTitle }}</h3>
         <div class="p-inputgroup">
-            <span class="p-inputgroup-addon"><i class="fas fa-search"></i></span>
+            <span class="p-inputgroup-addon"><i class="fa-solid fa-magnifying-glass"></i></span>
             <input type="text" [(ngModel)]="keywords" pInputText [placeholder]="manager.config.placeholders.searchPlaceholder">
-            <button pButton [disabled]="keywords === ''" (click)="keywords = ''" type="button" icon="fas fa-times" class="p-button-warn"></button>
+            <button pButton [disabled]="keywords === ''" (click)="keywords = ''" type="button" icon="fa-solid fa-xmark" class="p-button-warn"></button>
         </div>
     </div>
 
@@ -49,4 +49,6 @@
             >
     </smz-icon-message>
 </ng-template>
+
+plate>
 

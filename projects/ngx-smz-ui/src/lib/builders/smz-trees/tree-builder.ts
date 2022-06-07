@@ -52,7 +52,7 @@ export class SmzTreeBuilder {
       textPlaceholder: 'Filtro...'
     },
     loading: {
-      icon: 'fas fa-circle-notch fa-spin',
+      icon: 'fa-solid fa-circle-notch fa-spin',
       isLoading: false,
     },
     selection: {

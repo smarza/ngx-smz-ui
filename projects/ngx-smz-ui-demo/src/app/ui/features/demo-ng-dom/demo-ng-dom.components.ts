@@ -14,7 +14,7 @@ export class DemoNgDomComponent implements OnInit {
 
   public innerHtml = `
   <section class="grid grid-nogutter justify-start flex-col gap-3 col-12">
-    <h4><i class="fas fa-bug mr-2 text-3xl text-red-500"></i>Html externo</h4>
+    <h4><i class="fa-solid fa-bug mr-2 text-3xl text-red-500"></i>Html externo</h4>
     <div id="inner-html-dom" class="border-2 border-solid border-blue-300 p-1 flex-grow grid grid-nogutter flex-col justify-center"></div>
   </section>
   `;

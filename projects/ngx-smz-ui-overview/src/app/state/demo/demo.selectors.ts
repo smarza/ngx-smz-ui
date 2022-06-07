@@ -5,6 +5,8 @@ import { DemoFeatureState, DemoFeatureStateModel } from './demo.state';
 import { TreeNode } from 'primeng/api/treenode';
 import { RouterParamsState, RouterParamsStateModel } from 'ngx-smz-ui';
 import { HOME_PATH } from '@routes';
+import { FontAwesomeMigrations } from '../../demos/data/icons/fontawesome-migration';
+import { SpecialIcons } from '../../demos/data/icons/especial-icons';
 
 export class DemoFeatureSelectors {
 
@@ -19,6 +21,16 @@ export class DemoFeatureSelectors {
     ]}));
     // console.log('DemoFeatureSelectors results', results);
     return results;
+  }
+
+  @Selector([DemoFeatureState])
+  public static migrationIcons(state: DemoFeatureStateModel): any[] {
+    return FontAwesomeMigrations.map((x, index) => ({ id: index.toString(), ...x}));
+  }
+
+  @Selector([DemoFeatureState])
+  public static specialIcons(state: DemoFeatureStateModel): any[] {
+    return SpecialIcons.map((x, index) => ({ id: index.toString(), ...x}));
   }
 
   @Selector([DemoFeatureState])
