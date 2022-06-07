@@ -24,7 +24,7 @@ export class AthenaTopbarComponent implements OnInit, AfterContentInit
 {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
   @Select(LayoutUiSelectors.topbarTitle) public topbarTitle$: Observable<string>;
-  @Select(LayoutUiSelectors.appLayoutLogo) public appLogo$: Observable<SmzAppLogo>;
+  @Select(LayoutUiSelectors.appContentLogo) public appLogo$: Observable<SmzAppLogo>;
   @Select(UiAthenaSelectors.layout) public layout$: Observable<AthenaLayout>;
   @Input() public notifications: SmzNotification[];
   @Input() public profile: MenuItem[];

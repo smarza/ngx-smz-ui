@@ -24,7 +24,7 @@ export class HephaestusSidebarComponent implements OnInit, AfterContentInit
   @Select(UiHephaestusSelectors.layout) public layout$: Observable<HephaestusLayout>;
   @Select(LayoutUiSelectors.appName) public appName$: Observable<string>;
   @Select(RouterState.state) public currentRoute$: Observable<any>;
-  @Select(LayoutUiSelectors.appLayoutLogo) public appLayoutLogo$: Observable<SmzAppLogo>;
+  @Select(LayoutUiSelectors.appContentLogo) public appLayoutLogo$: Observable<SmzAppLogo>;
   public headerExtrasTemplate: TemplateRef<any>;
   @Input() public menu: MenuItem[];
   public isAnyMenuExpanded = false;

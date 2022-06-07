@@ -17,7 +17,8 @@
     "build-prod-demo": "ng build ngx-smz-ui-demo --configuration=production --stats-json",
     "build-prod-overview": "ng build ngx-smz-ui-overview --configuration=production --stats-json",
     "build-prod-modules": "ng build ngx-smz-ui-modules --configuration=production --stats-json",
-    "analyze": "webpack-bundle-analyzer dist/ngx-smz-ui-demo/stats.json --port 8889"
+    "analyze": "webpack-bundle-analyzer dist/ngx-smz-ui-demo/stats.json --port 8889",
+    "publish": "cd ./dist/ngx-smz-ui && npm publish"
   },
   "private": true,
   "dependencies": {

@@ -15,7 +15,7 @@ window['html2canvas'] = html2canvas;
 
 const INITIAL_ZOOM = 1;
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class SmzDocumentsService {
   public showDownloadControl: boolean; // deixar o usuário baixar o pdf
   public showExportControl: boolean; // exportar o pdf em formato blob para o component pai
@@ -50,11 +50,13 @@ export class SmzDocumentsService {
   public generate(action: "open" | "print" | "download"): void {
     this.store.dispatch(new ApplicationActions.StartGlobalLoading());
 
+    window.scrollTo(0, 0);
+
     setTimeout(() => {
       this.generatePdf(action, this.paperElement, this.state).then(() => {
         this.store.dispatch(new ApplicationActions.StopGlobalLoading());
       });
-    }, 0);
+    }, 100);
   }
 
   public moreZoom(): void {

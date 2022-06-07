@@ -95,6 +95,55 @@
 				"reveal": "always",
 				"panel": "new"
     	},
-		}
+			"options": {
+				"statusbar": {
+					"hide" : true
+				}
+			},
+			"problemMatcher": {
+				"owner": "typescript",
+				"source": "ts",
+				"pattern":   {
+					"regexp": "^\\s*(?:ERROR in )?([^\\s].*)[\\(:](\\d+)[,:](\\d+)(?:\\):\\s+|\\s+-\\s+)(error|warning|info)\\s+TS(\\d+)\\s*:\\s*(.*)$",
+					"file": 1,
+					"line": 2,
+					"column": 3,
+					"severity": 4,
+					"code": 5,
+					"message": 6
+				},
+				"background": {
+					"activeOnStart": true,
+					"beginsPattern": {
+						"regexp": "Building\\.\\.\\.$"
+					},
+					"endsPattern": {
+						"regexp": "Build at.*"
+					}
+				}
+			},
+		},
+		{
+			"label": "Publish",
+			"type": "npm",
+			"script": "publish",
+			"group": "none",
+			"isBackground": true,
+			"presentation": {
+				"group": "groupA",
+				"reveal": "always",
+				"panel": "new"
+    	},
+			"options": {
+				"statusbar": {
+					"hide" : true
+				}
+			}
+		},
+		{
+			"label": "Lib: Publish",
+			"dependsOrder": "sequence",
+			"dependsOn":["Build: Prod", "Publish"]
+		},
 	]
 }
