@@ -14,7 +14,8 @@ import { MenuType } from '../../../../core/models/menu-types';
 @Component({
   selector: 'smz-ui-hephaestus-topbar',
   templateUrl: './topbar.component.html',
-  styleUrls: ['./topbar.component.scss']
+  styleUrls: ['./topbar.component.scss'],
+  host: { 'class': 'z-10' }
 })
 export class HephaestusTopbarComponent implements OnInit, AfterContentInit
 {

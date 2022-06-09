@@ -13,22 +13,24 @@ export class UiHephaestusSelectors
     public static state(state: UiHephaestusStateModel, uiState: UiStateModel): LayoutState
     {
         const layoutTone = uiState.state.contentTone;
-        console.log("🚀 ~ file: ui-layout.selectors.ts ~ line 16 ~ layoutTone", layoutTone)
+
         const layoutClass = `layout-${state.config.menu}`;
         const sidebarClass = `${layoutClass}-${state.config.sidebarState}`;
         const mobileSidebarClass = state.config.mobileSidebarState === SidebarState.ACTIVE ? `layout-mobile-${state.config.mobileSidebarState}` : '';
         const isOverlayVisible = (state.config.menu === MenuType.OVERLAY && state.config.sidebarState === SidebarState.ACTIVE) ||
                                  (state.config.menu === MenuType.SLIM && state.config.mobileSidebarState === SidebarState.ACTIVE);
 
+        const schemaClass = `layout-sidebar-schema-${layoutTone}${uiState.themes.theme.isDimmed ? ' dimmed-schema' : ''}`;
+
         const layout: LayoutState = {
             ...state.state,
-            wrapperClass: `layout-sidebar-schema-${layoutTone} ${layoutClass} ${sidebarClass} ${mobileSidebarClass}`,
+            wrapperClass: `${schemaClass} ${layoutClass} ${sidebarClass} ${mobileSidebarClass}`,
             isOverlayVisible,
         };
 
         // console.log('state', state);
         // console.log('layout', layout);
-        console.log('uiState', uiState);
+        // console.log('uiState', uiState);
 
         return layout;
     }

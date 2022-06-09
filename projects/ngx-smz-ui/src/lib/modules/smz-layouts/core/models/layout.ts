@@ -14,6 +14,7 @@ export interface LayoutState {
     contentTone: ThemeToneType;
     layoutTone: ThemeToneType;
     schemaTone: ThemeToneType;
+    isDimmed: boolean;
 }
 
 export interface LoaderData {

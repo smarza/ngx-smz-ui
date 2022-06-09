@@ -5,6 +5,7 @@ import { Assistance } from '../../../modules/smz-layouts/core/models/assistance'
 import { SmzAppLogo } from '../../../modules/smz-layouts/core/models/logo';
 import { SmzToastData } from '../../../modules/smz-layouts/core/models/toasts';
 import { BreadcrumbsData } from '../../../modules/smz-layouts/core/models/breadcrumbs';
+import { SmzContentTheme } from '../../../modules/smz-layouts/core/models/themes';
 export class LayoutUiSelectors
 {
 
@@ -33,6 +34,12 @@ export class LayoutUiSelectors
     }
 
     @Selector([LayoutUiState])
+    public static contentThemeState(state: UiStateModel): SmzContentTheme
+    {
+        return state.themes.content;
+    }
+
+    @Selector([LayoutUiState])
     public static contentClass(state: UiStateModel): string
     {
         return state.state.contentClass;
@@ -47,7 +54,6 @@ export class LayoutUiSelectors
     @Selector([LayoutUiState])
     public static appContentLogo(state: UiStateModel): SmzAppLogo
     {
-        console.log("🚀 ~ file: layout.selectors.ts ~ line 52 ~ state.state.contentTone", state.state.contentTone);
         return {
             horizontal: state.appLogo.horizontal[state.state.contentTone],
             vertical: state.appLogo.vertical[state.state.contentTone],

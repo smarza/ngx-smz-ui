@@ -2,11 +2,6 @@
 @import "./styles.scss";
 @import "./styles/schema.scss";
 
-.clear-overlay {
-    background-color: unset;
-    z-index: 998;
-}
-
 .layout-wrapper.layout-slim .layout-content-wrapper .p-component-overlay {
     display: none;
 }

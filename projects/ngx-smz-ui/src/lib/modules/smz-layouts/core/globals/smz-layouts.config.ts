@@ -21,6 +21,7 @@ export class SmzLayoutsConfig {
         content: SmzContentTheme;
         schema?: ColorSchemaDefinition | string;
         custom?: ColorSchema;
+        forceDimmer?: boolean;
     };
     toast: {
         position: EdgePositionType;

@@ -36,7 +36,7 @@ export const smzLayoutsConfig: SmzLayoutsConfig = {
             light: 'assets/layout/images/icon-light.svg'
         },
     },
-    appName: 'Demo App',
+    appName: 'Demo App 1',
     useAvatar: true,
     avatarProperty: 'picture',
     usernameProperty: 'username',
@@ -52,7 +52,7 @@ export const smzLayoutsConfig: SmzLayoutsConfig = {
         position: 'bottom-right'
     },
     themes: {
-        content: SmzContentTheme.SAGA_GREEN,
+        content: SmzContentTheme.CUSTOM_LIGHT_DIMMED,
     },
     loader: {
         type: SmzLoader.CUBE,

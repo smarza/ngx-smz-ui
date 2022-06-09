@@ -21,6 +21,7 @@ export const getInitialState = (): UiAthenaStateModel => ({
     contentTone: null,
     layoutTone: null,
     schemaTone: null,
+    isDimmed: false,
   }
 });
 

@@ -6,7 +6,7 @@ import { LayoutState, LoaderData } from '../../../modules/smz-layouts/core/model
 import { LayoutUiActions } from './layout.actions';
 import { cloneDeep } from 'lodash-es';
 import { SmzLayoutsConfig } from '../../../modules/smz-layouts/core/globals/smz-layouts.config';
-import { SmzContentTheme, SmzContentThemes } from '../../../modules/smz-layouts/core/models/themes';
+import { ContentTheme, SmzContentTheme, SmzContentThemes } from '../../../modules/smz-layouts/core/models/themes';
 import { LogoResource } from '../../../modules/smz-layouts/core/models/logo';
 import { SmzToastData } from '../../../modules/smz-layouts/core/models/toasts';
 import { ColorSchemaDefinition, SmzColorSchemas } from '../../../modules/smz-layouts/core/models/color-schemas';
@@ -16,6 +16,7 @@ export interface UiStateModel {
   assistance: Assistance;
   themes: {
     content: SmzContentTheme;
+    theme: ContentTheme;
     schema: ColorSchemaDefinition | string;
   };
   toast: SmzToastData;
@@ -30,6 +31,7 @@ export const getInitialState = (): UiStateModel => ({
   assistance: null,
   themes: {
     content: null,
+    theme: null,
     schema: null,
   },
   toast: {
@@ -49,7 +51,8 @@ export const getInitialState = (): UiStateModel => ({
     footerText: '',
     contentTone: null,
     layoutTone: null,
-    schemaTone: null
+    schemaTone: null,
+    isDimmed: false
   },
   appLogo: null,
   lastUserMouseEvent: 'mouseenter',
@@ -84,7 +87,8 @@ export class LayoutUiState {
       {
         assistance: this.config.assistance,
         themes: {
-          content: this.config.themes.content,
+          content: null,
+          theme: null,
           schema,
         },
         appLogo: this.config.appLogo,
@@ -97,6 +101,7 @@ export class LayoutUiState {
       });
 
     ctx.dispatch(new LayoutUiActions.SetContentTheme(this.config.themes.content));
+
     ctx.dispatch(new LayoutUiActions.SetColorSchema(schema));
   }
 
@@ -112,7 +117,11 @@ export class LayoutUiState {
     const state = ctx.getState().state;
     const contentTheme = SmzContentThemes.find(x => x.id === action.data);
 
-    ctx.patchState({ themes: { ...themes, content: action.data }, state: { ...state, contentTone: contentTheme.tone } });
+    if (this.config.themes.forceDimmer) {
+      contentTheme.isDimmed = true;
+    }
+
+    ctx.patchState({ themes: { ...themes, content: action.data, theme: contentTheme }, state: { ...state, contentTone: contentTheme.tone } });
   }
 
   @Action(LayoutUiActions.SetColorSchema)

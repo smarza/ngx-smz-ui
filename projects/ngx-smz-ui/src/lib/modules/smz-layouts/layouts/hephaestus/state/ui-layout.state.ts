@@ -21,7 +21,8 @@ export const getInitialState = (): UiHephaestusStateModel => ({
     footerText: '',
     contentTone: null,
     layoutTone: null,
-    schemaTone: null
+    schemaTone: null,
+    isDimmed: false,
   }
 });
 

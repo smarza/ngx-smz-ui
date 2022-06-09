@@ -13,6 +13,7 @@ import { UiHephaestusSelectors } from './state/ui-layout.selectors';
 import { HephaestusLayout } from './layout.config';
 import { SmzNotification } from '../../core/models/notifications';
 import { SidebarState } from '../../core/models/sidebar-states';
+import { SmzContentTheme } from '../../core/models/themes';
 
 @Component({
   selector: 'smz-ui-hephaestus-layout',

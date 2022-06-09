@@ -17,8 +17,7 @@
     "build-prod-demo": "ng build ngx-smz-ui-demo --configuration=production --stats-json",
     "build-prod-overview": "ng build ngx-smz-ui-overview --configuration=production --stats-json",
     "build-prod-modules": "ng build ngx-smz-ui-modules --configuration=production --stats-json",
-    "analyze": "webpack-bundle-analyzer dist/ngx-smz-ui-demo/stats.json --port 8889",
-    "publish": "cd ./dist/ngx-smz-ui && npm publish"
+    "analyze": "webpack-bundle-analyzer dist/ngx-smz-ui-demo/stats.json --port 8889"
   },
   "private": true,
   "dependencies": {
@@ -36,10 +35,10 @@
     "@fortawesome/fontawesome-free": "^6.1.1",
     "@microsoft/signalr": "^6.0.1",
     "@ngneat/tailwind": "^7.0.3",
-    "@ngneat/until-destroy": "^9.0.0",
+    "@ngneat/until-destroy": "^9.2.0",
     "@ngxs/devtools-plugin": "^3.7.3",
-    "@ngxs/router-plugin": "^3.7.3",
-    "@ngxs/store": "^3.7.3",
+    "@ngxs/router-plugin": "^3.7.4",
+    "@ngxs/store": "^3.7.4",
     "@svgdotjs/svg.js": "^3.1.2",
     "@svgdotjs/svg.panzoom.js": "^2.1.2",
     "acorn": "^7.0.0",

@@ -16,7 +16,8 @@ import { NgxRbkUtilsConfig } from '../../../../../rbk-utils/ngx-rbk-utils.config
 @Component({
   selector: 'smz-ui-hephaestus-sidebar',
   templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss']
+  styleUrls: ['./sidebar.component.scss'],
+  host: { 'class': 'z-30' }
 })
 export class HephaestusSidebarComponent implements OnInit, AfterContentInit
 {
