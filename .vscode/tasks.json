@@ -130,9 +130,9 @@
 			"group": "none",
 			"isBackground": true,
 			"presentation": {
-				"group": "groupA",
+				"group": "groupRelease",
 				"reveal": "always",
-				"panel": "new"
+				"panel": "shared"
     	},
 			"options": {
 				"statusbar": {
@@ -143,16 +143,16 @@
 		{
 			"label": "Lib: Publish",
 			"dependsOrder": "sequence",
-			"dependsOn":["Version", "Commit"] // , "Build: Prod", "Publish"]
+			"dependsOn":["Version", "Commit", "Build: Prod", "Publish"]
 		},
 		{
 			"label": "Version",
 			"type": "shell",
 			"command": "cd projects/ngx-smz-ui && npm version ${input:newVersionType}",
 			"presentation": {
-				"group": "groupA",
+				"group": "groupRelease",
 				"reveal": "always",
-				"panel": "new"
+				"panel": "shared"
     	},
 			"options": {
 				"statusbar": {
@@ -165,7 +165,7 @@
 			"type": "shell",
 			"command": "git add . && git commit -m \"feat: ${input:newVersionType} | ${input:newVersionDescription}\"",
 			"presentation": {
-				"group": "groupA",
+				"group": "groupRelease",
 				"reveal": "always",
 				"panel": "shared"
     	},
