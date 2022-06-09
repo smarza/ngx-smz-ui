@@ -143,7 +143,51 @@
 		{
 			"label": "Lib: Publish",
 			"dependsOrder": "sequence",
-			"dependsOn":["Build: Prod", "Publish"]
+			"dependsOn":["Version", "Commit"] // , "Build: Prod", "Publish"]
 		},
-	]
+		{
+			"label": "Version",
+			"type": "shell",
+			"command": "cd projects/ngx-smz-ui && npm version ${input:newVersionType}",
+			"presentation": {
+				"group": "groupA",
+				"reveal": "always",
+				"panel": "new"
+    	},
+			"options": {
+				"statusbar": {
+					"hide" : true
+				}
+			}
+		},
+		{
+			"label": "Commit",
+			"type": "shell",
+			"command": "git add . && git commit -m \"feat: ${input:newVersionType} | ${input:newVersionDescription}\"",
+			"presentation": {
+				"group": "groupA",
+				"reveal": "always",
+				"panel": "shared"
+    	},
+			"options": {
+				"statusbar": {
+					"hide" : true
+				}
+			}
+		}
+	],
+	"inputs": [
+		{
+				"id": "newVersionType",
+				"description": "patch, minor, major, prepatch, preminor, premajor or prerelease",
+				"default": "patch",
+				"type": "promptString"
+		},
+		{
+			"id": "newVersionDescription",
+			"description": "New version description",
+			"default": "Release",
+			"type": "promptString"
+	},
+]
 }
