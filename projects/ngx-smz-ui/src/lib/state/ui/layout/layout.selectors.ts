@@ -47,11 +47,34 @@ export class LayoutUiSelectors
     @Selector([LayoutUiState])
     public static appContentLogo(state: UiStateModel): SmzAppLogo
     {
+        console.log("🚀 ~ file: layout.selectors.ts ~ line 52 ~ state.state.contentTone", state.state.contentTone);
         return {
             horizontal: state.appLogo.horizontal[state.state.contentTone],
             vertical: state.appLogo.vertical[state.state.contentTone],
             icon: state.appLogo.icon[state.state.contentTone],
             typo: state.appLogo.typo[state.state.contentTone]
+        };
+    }
+
+    @Selector([LayoutUiState])
+    public static appDarkLogo(state: UiStateModel): SmzAppLogo
+    {
+        return {
+            horizontal: state.appLogo.horizontal.dark,
+            vertical: state.appLogo.vertical.dark,
+            icon: state.appLogo.icon.dark,
+            typo: state.appLogo.typo.dark
+        };
+    }
+
+    @Selector([LayoutUiState])
+    public static appLightLogo(state: UiStateModel): SmzAppLogo
+    {
+        return {
+            horizontal: state.appLogo.horizontal.light,
+            vertical: state.appLogo.vertical.light,
+            icon: state.appLogo.icon.light,
+            typo: state.appLogo.typo.light
         };
     }
 

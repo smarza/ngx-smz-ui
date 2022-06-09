@@ -10,8 +10,10 @@ export class UiHephaestusSelectors
 {
 
     @Selector([UiHephaestusState, LayoutUiState])
-    public static state(state: UiHephaestusStateModel, ui: UiStateModel): LayoutState
+    public static state(state: UiHephaestusStateModel, uiState: UiStateModel): LayoutState
     {
+        const layoutTone = uiState.state.contentTone;
+        console.log("🚀 ~ file: ui-layout.selectors.ts ~ line 16 ~ layoutTone", layoutTone)
         const layoutClass = `layout-${state.config.menu}`;
         const sidebarClass = `${layoutClass}-${state.config.sidebarState}`;
         const mobileSidebarClass = state.config.mobileSidebarState === SidebarState.ACTIVE ? `layout-mobile-${state.config.mobileSidebarState}` : '';
@@ -20,9 +22,13 @@ export class UiHephaestusSelectors
 
         const layout: LayoutState = {
             ...state.state,
-            wrapperClass: `${layoutClass} ${sidebarClass} ${mobileSidebarClass}`,
+            wrapperClass: `layout-sidebar-schema-${layoutTone} ${layoutClass} ${sidebarClass} ${mobileSidebarClass}`,
             isOverlayVisible,
         };
+
+        // console.log('state', state);
+        // console.log('layout', layout);
+        console.log('uiState', uiState);
 
         return layout;
     }
