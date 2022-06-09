@@ -24,9 +24,7 @@ export class DemoComplexTableComponent implements OnInit {
             .usePagination()
             .setEmptyFeedbackMessage('Nenhum Resultado')
             .enableColumnVisibility(true)
-            .useScrolling()
-            .setVerticalScrollHeight('400px')
-            .enableResizableColumns('expand')
+            .useEstimatedColWidth(300)
             .useGridStyle()
             .setSize('small')
             .useStrippedStyle()
@@ -65,8 +63,9 @@ export class DemoComplexTableComponent implements OnInit {
               header: key,
               isVisible: true,
               isFrozen,
-              content: { type: SmzContentType.TEXT, data: null, styleClass: '' },
+              content: { type: SmzContentType.TEXT, data: null, styleClass: '', ngStyle: {} },
               width: 'fit',
+              headerStyleClass: ''
             });
           console.log(key, columns[columns.length - 1]);
         }

@@ -1,10 +1,10 @@
 import { SmzLayoutsConfig, SmzContentTheme, SmzLoader, HephaestusLayout, MenuType, SidebarState, AthenaLayout, ColorSchemaDefinition } from 'ngx-smz-ui';
 
 export const smzHephaestusConfig: HephaestusLayout = {
-    menu: MenuType.SLIM,
+    menu: MenuType.STATIC,
     sidebarState: SidebarState.ACTIVE,
     mobileSidebarState: SidebarState.INACTIVE,
-    sidebarWidth: '16rem',
+    sidebarWidth: '20rem',
     sidebarSlimWidth: '8rem',
 };
 
@@ -52,7 +52,7 @@ export const smzLayoutsConfig: SmzLayoutsConfig = {
         position: 'bottom-right'
     },
     themes: {
-        content: SmzContentTheme.ARYA_GREEN,
+        content: SmzContentTheme.SAGA_GREEN,
     },
     loader: {
         type: SmzLoader.CUBE,
@@ -66,7 +66,7 @@ export const smzLayoutsConfig: SmzLayoutsConfig = {
         notFoundImagePath: 'assets/images/pages/bg-404.jpg',
     },
     assistance: {
-        isEnabled: false,
+        isEnabled: true,
         sidebarData: {
             position: 'right'
         },

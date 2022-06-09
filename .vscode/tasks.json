@@ -75,12 +75,12 @@
     	},
 		},
 		{
-			"label": "Demo: Overview",
+			"label": "Demo: Overview 4104",
 			"dependsOrder": "sequence",
 			"dependsOn":["Build Watch Lib", "Start: Demo Overview"]
 		},
 		{
-			"label": "Demo: Labs",
+			"label": "Demo: Labs 4103",
 			"dependsOrder": "sequence",
 			"dependsOn":["Build Watch Lib", "Start: Demo Labs"]
 		},

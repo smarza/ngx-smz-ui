@@ -83,8 +83,3 @@ export class DemoTreesComponent implements OnInit {
       .build();
   }
 }
-
-}
-}
-
-}

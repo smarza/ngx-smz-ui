@@ -301,7 +301,8 @@ export class DemoTablesComponent implements OnInit {
         multiSortMeta: null
       },
       styles: {
-        striped: true
+        striped: true,
+        tableStyleClass: ''
       },
       columns: [
         {
@@ -314,12 +315,14 @@ export class DemoTablesComponent implements OnInit {
           content: {
             type: SmzContentType.ICON,
             styleClass: '',
-            data: { matches: [ { icon: 'fa-solid fa-check', class: 'green-text darken-3', value: true }, { icon: 'fa-solid fa-xmark', class: 'red-text darken-2', value: false } ] }
+            data: { matches: [ { icon: 'fa-solid fa-check', class: 'green-text darken-3', value: true }, { icon: 'fa-solid fa-xmark', class: 'red-text darken-2', value: false } ] },
+            ngStyle: {},
           },
           filter: {
             type: SmzFilterType.BOOLEAN,
             isGlobalFilterable: false
           },
+          headerStyleClass: ''
         },
         {
           field: 'number',
@@ -331,11 +334,13 @@ export class DemoTablesComponent implements OnInit {
           content: {
             type: SmzContentType.TEXT,
             styleClass: '',
+            ngStyle: {},
           },
           filter: {
             type: SmzFilterType.TEXT,
             isGlobalFilterable: true
           },
+          headerStyleClass: ''
         },
         {
           field: 'plant.name',
@@ -347,11 +352,13 @@ export class DemoTablesComponent implements OnInit {
           content: {
             type: SmzContentType.TEXT,
             styleClass: '',
+            ngStyle: {},
           },
           filter: {
             type: SmzFilterType.DROPDOWN,
             isGlobalFilterable: true
           },
+          headerStyleClass: ''
         },
         {
           field: 'campaign.name',
@@ -362,11 +369,13 @@ export class DemoTablesComponent implements OnInit {
           content: {
             type: SmzContentType.TEXT,
             styleClass: '',
+            ngStyle: {},
           },
           filter: {
             type: SmzFilterType.MULTI_SELECT,
             isGlobalFilterable: true
           },
+          headerStyleClass: ''
         },
         {
           field: 'description',
@@ -377,11 +386,13 @@ export class DemoTablesComponent implements OnInit {
           content: {
             type: SmzContentType.TEXT,
             styleClass: '',
+            ngStyle: {},
           },
           filter: {
             type: SmzFilterType.NONE,
             isGlobalFilterable: true
           },
+          headerStyleClass: ''
         },
         {
           field: 'date',
@@ -394,11 +405,13 @@ export class DemoTablesComponent implements OnInit {
             type: SmzContentType.CALENDAR,
             data: { format: 'shortTime' },
             styleClass: '',
+            ngStyle: {},
           },
           filter: {
             type: SmzFilterType.DATE,
             isGlobalFilterable: true
           },
+          headerStyleClass: ''
         },
       ],
     };
