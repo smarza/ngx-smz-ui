@@ -126,7 +126,7 @@
 		{
 			"label": "Publish",
 			"type": "shell",
-			"command": "cd./dist/ngx-smz-ui && npm publish",
+			"command": "cd dist/ngx-smz-ui && npm publish",
 			"group": "none",
 			"isBackground": true,
 			"presentation": {
