@@ -52,7 +52,7 @@ export const smzLayoutsConfig: SmzLayoutsConfig = {
         position: 'bottom-right'
     },
     themes: {
-        content: SmzContentTheme.CUSTOM_LIGHT_DIMMED,
+        content: SmzContentTheme.CUSTOM_LIGHT_DIMMED
     },
     loader: {
         type: SmzLoader.CUBE,
