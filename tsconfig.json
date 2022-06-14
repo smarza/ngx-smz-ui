@@ -10,7 +10,7 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "importHelpers": true,
-    "target": "es2015",
+    "target": "es2020",
     "module": "es2020",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -22,7 +22,7 @@
     "suppressImplicitAnyIndexErrors": true, // result[c.data.header.field] = c.data.header.label; Element implicitly has an 'any' type because index expression is not of type 'number'.ts(7015)
     "preserveSymlinks": true,
     "lib": [
-      "es2018",
+      "es2020",
       "dom"
     ],
   },
