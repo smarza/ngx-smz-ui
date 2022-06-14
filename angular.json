@@ -392,7 +392,7 @@
           "options": {
             "main": "projects/ngx-smz-ui-dark-theme/src/test.ts",
             "polyfills": "projects/ngx-smz-ui-dark-theme/src/polyfills.ts",
-            "tsConfig": "projects/ngx-smz-ui-dark-theme/tsconfig.spec.json",
+            "tsConfig": "projects/ngx-smz-ui-dark-theme/tsconfig.json",
             "karmaConfig": "projects/ngx-smz-ui-dark-theme/karma.conf.js",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -625,7 +625,7 @@
           "options": {
             "main": "projects/ngx-smz-ui-modules/src/test.ts",
             "polyfills": "projects/ngx-smz-ui-modules/src/polyfills.ts",
-            "tsConfig": "projects/ngx-smz-ui-modules/tsconfig.spec.json",
+            "tsConfig": "projects/ngx-smz-ui-modules/tsconfig.json",
             "karmaConfig": "projects/ngx-smz-ui-modules/karma.conf.js",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -641,7 +641,6 @@
       }
     }
   },
-  "defaultProject": "ngx-smz-ui",
   "cli": {
     "analytics": false
   }
