@@ -148,7 +148,7 @@
 		{
 			"label": "Version",
 			"type": "shell",
-			"command": "cd projects/ngx-smz-ui && npm version ${input:newVersionType} && rm package-lock.json",
+			"command": "cd projects/ngx-smz-ui && npm version ${input:newVersionType}",
 			"presentation": {
 				"group": "groupRelease",
 				"reveal": "always",
