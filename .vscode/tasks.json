@@ -141,9 +141,9 @@
 			}
 		},
 		{
-			"label": "Lib: Publish",
+			"label": "Lib: Release",
 			"dependsOrder": "sequence",
-			"dependsOn":["Version", "Commit", "Build: Prod", "Publish"]
+			"dependsOn":["Version", "Commit", "Build: Prod"]
 		},
 		{
 			"label": "Version",
