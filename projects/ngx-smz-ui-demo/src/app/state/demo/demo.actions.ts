@@ -19,7 +19,10 @@ export namespace DemoFeatureActions {
 
   export class LoadAllEasyTableDemo {
     public static readonly type = '[DEMO] Load All Easy Table Demo';
-    constructor() {}
+  }
+
+  export class LoadTreeDemo {
+    public static readonly type = '[DEMO] Load All Tree Demo';
   }
 
   export class Update {

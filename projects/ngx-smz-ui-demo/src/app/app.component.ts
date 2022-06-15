@@ -27,6 +27,7 @@ export class AppComponent {
           { label: 'Chart Colors', icon: 'far fa-chart', routerLink: ['charts', 'colors'] },
           { label: 'Tag Area', icon: 'fa-solid fa-tree', routerLink: ['tag-area'] },
           { label: 'Trees', icon: 'fa-solid fa-tree', routerLink: ['trees'] },
+          { label: 'Tree With Details', icon: 'fa-solid fa-tree', routerLink: ['tree-with-details'] },
           { label: 'Side Content', icon: 'fa-solid fa-star', routerLink: ['side-content'] },
           { label: 'SignalR', icon: 'far fa-chart', routerLink: [SIGNALR_PATH] },
           { label: 'SVG', icon: 'far fa-chart', routerLink: [SVG_PATH] },

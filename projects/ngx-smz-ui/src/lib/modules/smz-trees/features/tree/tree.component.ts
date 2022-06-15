@@ -129,6 +129,7 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
       this.primeSelection = [];
       this.checkNode(this.items, this.selection);
       this.selectedNodes.emit(this.primeSelection);
+      this.selectionChange.emit(null);
     }
 
   }

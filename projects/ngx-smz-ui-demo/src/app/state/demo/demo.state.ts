@@ -9,6 +9,7 @@ import { DemoDataService } from './demo-data.service';
 import { catchError, tap } from 'rxjs/operators';
 import { removeElementFromArray } from 'ngx-smz-ui';
 import { EasyTableDemoData } from '../../ui/features/demo-tables/demo-easy-table/easy-table-model';
+import { TreeNode } from 'primeng/api';
 
 export const DemoFeatureName = 'DemoFeature';
 
@@ -16,12 +17,14 @@ export interface DemoFeatureStateModel {
   lastUpdated: Date | null;
   items: DemoItem[];
   easyTableItems: EasyTableDemoData[];
+  tree: TreeNode[];
 }
 
 export const getInitialState = (): DemoFeatureStateModel => ({
   lastUpdated: null,
   items: null,
-  easyTableItems: null
+  easyTableItems: null,
+  tree: null
 });
 
 @State<DemoFeatureStateModel>({
@@ -74,6 +77,17 @@ export class DemoFeatureState {
       tap(results => {
         ctx.patchState({
           easyTableItems: results
+        });
+      })
+    );
+  }
+
+  @Action(DemoFeatureActions.LoadTreeDemo)
+  public onLoadTreeDemo$(ctx: StateContext<DemoFeatureStateModel>): Observable<TreeNode[]> {
+    return this.apiService.getTree().pipe(
+      tap(results => {
+        ctx.patchState({
+          tree: results
         });
       })
     );

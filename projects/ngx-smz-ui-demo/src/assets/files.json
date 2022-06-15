@@ -8,6 +8,7 @@
             "expanded": true,
             "draggable": false,
             "droppable": true,
+            "key": "1",
             "children": [
                 {
                     "label": "Documents",
@@ -17,6 +18,7 @@
                     "collapsedIcon": "pi pi-folder",
                     "draggable": true,
                     "droppable": true,
+                    "key": "2",
                     "children": [
                         {
                             "label": "Work",
@@ -26,6 +28,7 @@
                             "collapsedIcon": "pi pi-folder",
                             "draggable": true,
                             "droppable": true,
+                            "key": "3",
                             "children": [
                                 {
                                     "label": "Expenses.doc",
@@ -33,7 +36,8 @@
                                     "icon": "pi pi-file",
                                     "data": {},
                                     "draggable": true,
-                                    "droppable": true
+                                    "droppable": true,
+                                    "key": "4"
                                 },
                                 {
                                     "label": "Resume.doc",
@@ -41,7 +45,8 @@
                                     "type": "file",
                                     "data": {},
                                     "draggable": true,
-                                    "droppable": true
+                                    "droppable": true,
+                                    "key": "5"
                                 }
                             ]
                         },
@@ -53,12 +58,14 @@
                             "droppable": true,
                             "expandedIcon": "pi pi-folder-open",
                             "collapsedIcon": "pi pi-folder",
+                            "key": "6",
                             "children": [
                                 {
                                     "label": "Invoices.txt",
                                     "icon": "pi pi-file",
                                     "draggable": true,
                                     "droppable": true,
+                                    "key": "7",
                                     "data": {}
                                 }
                             ]
@@ -73,6 +80,7 @@
                     "draggable": true,
                     "droppable": true,
                     "collapsedIcon": "pi pi-folder",
+                    "key": "8",
                     "children": [
                         {
                             "label": "barcelona.jpg",
@@ -80,6 +88,7 @@
                             "type": "file",
                             "draggable": true,
                             "droppable": true,
+                            "key": "9",
                             "data": {}
                         },
                         {
@@ -88,6 +97,7 @@
                             "type": "file",
                             "draggable": true,
                             "droppable": true,
+                            "key": "10",
                             "data": {}
                         },
                         {
@@ -96,6 +106,7 @@
                             "type": "file",
                             "draggable": true,
                             "droppable": true,
+                            "key": "11",
                             "data": {}
                         }
                     ]
@@ -108,6 +119,7 @@
                     "droppable": true,
                     "expandedIcon": "pi pi-folder-open",
                     "collapsedIcon": "pi pi-folder",
+                    "key": "12",
                     "children": [
                         {
                             "label": "Al Pacino",
@@ -115,6 +127,7 @@
                             "type": "folder",
                             "draggable": true,
                             "droppable": true,
+                            "key": "13",
                             "children": [
                                 {
                                     "label": "Scarface",
@@ -122,6 +135,7 @@
                                     "type": "file",
                                     "draggable": true,
                                     "droppable": true,
+                                    "key": "14",
                                     "data": {}
                                 },
                                 {
@@ -130,6 +144,7 @@
                                     "type": "file",
                                     "draggable": true,
                                     "droppable": true,
+                                    "key": "15",
                                     "data": {}
                                 }
                             ]
@@ -140,6 +155,7 @@
                             "type": "folder",
                             "draggable": true,
                             "droppable": true,
+                            "key": "16",
                             "children": [
                                 {
                                     "label": "Goodfellas",
@@ -147,6 +163,7 @@
                                     "type": "file",
                                     "draggable": true,
                                     "droppable": true,
+                                    "key": "17",
                                     "data": "Goodfellas Movie"
                                 },
                                 {
@@ -155,6 +172,7 @@
                                     "icon": "pi pi-video",
                                     "draggable": true,
                                     "droppable": true,
+                                    "key": "18",
                                     "data": "Untouchables Movie"
                                 }
                             ]
@@ -171,6 +189,7 @@
             "expanded": true,
             "draggable": false,
             "droppable": true,
+            "key": "19",
             "children": [
                 {
                     "label": "Folder 1",
@@ -180,6 +199,7 @@
                     "collapsedIcon": "pi pi-folder",
                     "draggable": true,
                     "droppable": true,
+                    "key": "20",
                     "children": null
                 },
                 {
@@ -190,6 +210,7 @@
                     "collapsedIcon": "pi pi-folder",
                     "draggable": true,
                     "droppable": true,
+                    "key": "21",
                     "children": null
                 },
                 {
@@ -200,6 +221,7 @@
                     "collapsedIcon": "pi pi-folder",
                     "draggable": true,
                     "droppable": true,
+                    "key": "22",
                     "children": null
                 },
                 {
@@ -210,6 +232,7 @@
                     "collapsedIcon": "pi pi-folder",
                     "draggable": true,
                     "droppable": true,
+                    "key": "23",
                     "children": null
                 },
                 {
@@ -220,6 +243,7 @@
                     "collapsedIcon": "pi pi-folder",
                     "draggable": true,
                     "droppable": true,
+                    "key": "24",
                     "children": null
                 },
                 {
@@ -230,6 +254,7 @@
                     "collapsedIcon": "pi pi-folder",
                     "draggable": true,
                     "droppable": true,
+                    "key": "25",
                     "children": null
                 },
                 {
@@ -240,6 +265,7 @@
                     "collapsedIcon": "pi pi-folder",
                     "draggable": true,
                     "droppable": true,
+                    "key": "26",
                     "children": null
                 }
             ]

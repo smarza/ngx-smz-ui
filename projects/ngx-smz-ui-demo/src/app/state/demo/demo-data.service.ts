@@ -6,6 +6,7 @@ import { environment } from '../../../environments/environment';
 import { DemoCreationData, DemoItem, DemoUpdateData } from '../../models/demo';
 import { map, of } from 'rxjs';
 import { EasyTableDemoData } from '../../ui/features/demo-tables/demo-easy-table/easy-table-model';
+import { TreeNode } from 'primeng/api/treenode';
 
 const status = [
   { id: 'delivered', name: 'Delivered', background: 'bg-green-200' },
@@ -84,6 +85,10 @@ export class DemoDataService extends BaseApiService {
           return {...item, status: updateStatus ? status[statusIndex] : item.status, total: Math.floor(Math.random() * 3000) + 1 }
         }))
       );
+  }
+
+  public getTree(): Observable<TreeNode[]> {
+    return this.http.get<{data: TreeNode[]}>('assets/files.json').pipe(map(x => x.data));
   }
 
   public create(data: DemoCreationData): Observable<DemoItem> {

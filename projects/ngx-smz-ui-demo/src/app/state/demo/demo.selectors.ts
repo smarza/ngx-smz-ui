@@ -2,6 +2,7 @@
 import { Selector } from '@ngxs/store';
 import { DemoFeatureState, DemoFeatureStateModel } from './demo.state';
 import { EasyTableDemoData } from '../../ui/features/demo-tables/demo-easy-table/easy-table-model';
+import { TreeNode } from 'primeng/api';
 
 export class DemoFeatureSelectors {
 
@@ -21,6 +22,11 @@ export class DemoFeatureSelectors {
   @Selector([DemoFeatureState])
   public static allEasyTable(state: DemoFeatureStateModel): EasyTableDemoData[] {
     return state.easyTableItems;
+  }
+
+  @Selector([DemoFeatureState])
+  public static tree(state: DemoFeatureStateModel): TreeNode[] {
+    return state.tree;
   }
 
 }

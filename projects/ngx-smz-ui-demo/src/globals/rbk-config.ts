@@ -9,7 +9,7 @@ import { ShopsDbName, ShopsDbState, getInitialState as getDbShopsInitialState } 
 import { ShopsDbActions } from '../app/state/database/shops/shops.actions';
 import { Store } from '@ngxs/store';
 import { Navigate } from '@ngxs/router-plugin';
-import { SmzLoginBuilder } from '../../../ngx-smz-ui/src/lib/builders/smz-login/state-builder';
+import { TreeDemoFeatureName, TreeDemoFeatureState, getInitialState as getFtTreeDemoInitialState } from '../app/state/tree-demo/tree-demo.state';
 
 // ------------------------------------------
 // DATABASE STATES
@@ -110,6 +110,10 @@ export const rbkConfig: NgxRbkUtilsConfig = {
             [DemoFeatureName]: {
                 state: DemoFeatureState,
                 clearFunction: getFtDemoInitialState
+            },
+            [TreeDemoFeatureName]: {
+                state: TreeDemoFeatureState,
+                clearFunction: getFtTreeDemoInitialState
             },
         },
     },

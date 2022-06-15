@@ -1,0 +1,18 @@
+<smz-ui-tree-with-details [state]="state">
+
+    <!-- CONTEÚDOS COM OVERRIDE -->
+    <ng-template pTemplate="details" let-item let-type="type">
+
+      <ng-container [ngSwitch]="type">
+        <ng-container *ngSwitchCase="'file'">
+          >> is file.
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'folder'">
+          -- is folder.
+        </ng-container>
+      </ng-container>
+
+    </ng-template>
+
+</smz-ui-tree-with-details>

@@ -42,6 +42,10 @@ const routes: Routes = [
     loadChildren: () => import('@features/demo-trees/demo-trees.module').then(m => m.DemoTreesModule),
   },
   {
+    path: 'tree-with-details',
+    loadChildren: () => import('@features/demo-tree-with-details/demo-tree-with-details.module').then(m => m.DemoTreeWithDetailsModule),
+  },
+  {
     path: 'ng-dom',
     loadChildren: () => import('@features/demo-ng-dom/demo-ng-dom.module').then(m => m.DemoNgDomModule),
   },
