@@ -7,7 +7,7 @@
     <div smzUiBlock #treeContainer [component]="treeContainer" class="h-full w-full rounded p-2 bg-surface-a text-text-color border border-solid border-surface-d">
 
       <div class="h-full">
-          <smz-ui-tree [items]="items" [state]="state.treeState" (selectionChange)="selectionChanged($event)" styleClass="border-none"></smz-ui-tree>
+          <smz-ui-tree [items]="items | treeItems : state.tree.selectableTypes : state.tree.allowAllNodesToBeClicked" [state]="state.tree.state" (selectionChange)="selectionChanged($event)" [styleClass]="state.tree.styleClass"></smz-ui-tree>
       </div>
     </div>
   </div>
@@ -17,10 +17,10 @@
     <div class="h-full items-stretch flex-col grid justify-start grid-nogutter p-2 rounded w-full overflow-y-auto bg-surface-a text-text-color border border-solid border-surface-d">
 
     <!-- CONTEÚDO -->
-    <ng-container *ngIf="state.selectedNode != null; else noSelectionTemplate">
+    <ng-container *ngIf="state.context.selectedNode != null; else noSelectionTemplate">
 
       <ng-container *ngIf="detailsTemplate != null">
-        <ng-container *ngTemplateOutlet="detailsTemplate; context: { $implicit: state.selectedNode, type: state.selectedNode.type }"></ng-container>
+        <ng-container *ngTemplateOutlet="detailsTemplate; context: { $implicit: state.context.selectedNode, type: state.context.selectedNode.type }"></ng-container>
       </ng-container>
 
     </ng-container>
@@ -29,7 +29,7 @@
 
       <ng-container *ngIf="items != null">
         <ng-container *ngIf="emptySelectionTemplate != null; else defaultEmptySelectionTemplate">
-          <ng-container *ngTemplateOutlet="emptySelectionTemplate; context: { $implicit: state.selectedNode, type: state.selectedNode.type }"></ng-container>
+          <ng-container *ngTemplateOutlet="emptySelectionTemplate; context: { $implicit: state.context.selectedNode, type: state.context.selectedNode.type }"></ng-container>
         </ng-container>
 
         <ng-template #defaultEmptySelectionTemplate>

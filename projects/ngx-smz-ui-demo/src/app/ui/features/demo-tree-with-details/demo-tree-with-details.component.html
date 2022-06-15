@@ -1,4 +1,4 @@
-<smz-ui-tree-with-details [state]="state">
+<smz-ui-tree-with-details [state]="state" (selectionChange)="onSelectionChanged($event)" (detailsChange)="onDetailsChanged()">
 
     <!-- CONTEÚDOS COM OVERRIDE -->
     <ng-template pTemplate="details" let-item let-type="type">

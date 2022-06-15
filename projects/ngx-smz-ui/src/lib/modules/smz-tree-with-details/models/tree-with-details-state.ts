@@ -4,7 +4,14 @@ import { SmzTreeState } from '../../smz-trees/models/tree-state';
 
 export interface SmzTreeWithDetailsState {
   items$: Observable<TreeNode[]>;
-  treeState: SmzTreeState;
-  typesWithDetails: string[];
-  selectedNode?: TreeNode;
+  tree: {
+    state: SmzTreeState;
+    styleClass: string;
+    selectableTypes: string[];
+    allowAllNodesToBeClicked: boolean;
+  }
+
+  context: {
+    selectedNode: TreeNode;
+  }
 }

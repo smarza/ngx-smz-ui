@@ -54,6 +54,7 @@ export class TreeDemoFeatureState {
       collapsedIcon: 'pi pi-folder',
       draggable: false,
       droppable: false,
+      selectable: false,
       key,
       children: null
     };

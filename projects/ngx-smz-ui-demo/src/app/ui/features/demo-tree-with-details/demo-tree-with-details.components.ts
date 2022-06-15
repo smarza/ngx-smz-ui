@@ -15,11 +15,19 @@ export class DemoTreeWithDetailsComponent implements OnInit {
   public state: SmzTreeWithDetailsState;
   constructor(private store: Store) {
 
+    const allowAllNodesToBeClicked = false;
+
     this.state = {
       items$: this.store.select(TreeDemoFeatureSelectors.all),
-      treeState: this.getState(),
-      typesWithDetails: ['file', 'folder'],
-      selectedNode: null
+      tree: {
+        state: this.getState(),
+        selectableTypes: ['file', 'folder'],
+        allowAllNodesToBeClicked,
+        styleClass: `border-none ${allowAllNodesToBeClicked ? '' : 'disable-focus'}`
+      },
+      context: {
+        selectedNode: null
+      }
     };
 
     this.store.dispatch(TreeDemoFeatureActions.LoadAll);
@@ -69,5 +77,13 @@ export class DemoTreeWithDetailsComponent implements OnInit {
           .canDrag('folder').into('disk', 'folder')
         .tree
       .build();
+  }
+
+  public onDetailsChanged(): void {
+    console.log('onDetailsChanged');
+  }
+
+  public onSelectionChanged(node: TreeNode): void {
+    console.log('onSelectionChanged', node);
   }
 }

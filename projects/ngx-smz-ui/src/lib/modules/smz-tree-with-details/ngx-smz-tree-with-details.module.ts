@@ -9,10 +9,12 @@ import { SmzTreeWithDetailsComponent } from './features/tree-with-details/tree-w
 import { NgxSmzTreesModule } from '../smz-trees/ngx-smz-trees.module';
 import { NgCloneModule } from '../../common/directives/ng-clone/ng-clone.module';
 import { NgxSmzUiBlockModule } from '../smz-ui-block/smz-ui-block.module';
+import { TreeItemsPipe } from './pipes/tree-items.pipe';
 
 @NgModule({
     declarations: [
-      SmzTreeWithDetailsComponent
+      SmzTreeWithDetailsComponent,
+      TreeItemsPipe
     ],
     imports: [
         CommonModule,
