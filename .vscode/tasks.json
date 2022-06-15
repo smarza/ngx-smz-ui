@@ -143,12 +143,12 @@
 		{
 			"label": "Lib: Release",
 			"dependsOrder": "sequence",
-			"dependsOn":["Version", "Commit"]
+			"dependsOn":["Version", "Commit", "Build: Prod", "Publish"]
 		},
 		{
 			"label": "Version",
 			"type": "shell",
-			"command": "cd projects/ngx-smz-ui && npm version ${input:newVersionType}",
+			"command": "cd projects/ngx-smz-ui && npm version ${input:newVersionType} && rm package-lock.json",
 			"presentation": {
 				"group": "groupRelease",
 				"reveal": "always",
@@ -156,7 +156,7 @@
     	},
 			"options": {
 				"statusbar": {
-					"hide" : true
+					"hide" : false
 				}
 			}
 		},
