@@ -1,3 +1,9 @@
+import { cloneDeep } from 'lodash-es';
+import groupBy from 'lodash-es/groupBy';
+import mapValues from 'lodash-es/mapValues';
+import { ObjectUtils } from 'primeng/utils';
+import { SmzTreeNode } from '../../modules/smz-trees/models/tree-node';
+import { SmzTreeGroup, SmzTreeGroupData, SmzTreeGroupNodeConfig } from '../../modules/smz-trees/models/tree-state';
 import { FormGroupConfig } from '../smz-dialogs/dialog-input-conversion';
 
 /*
@@ -35,3 +41,40 @@ export function fixDate(date: FormGroupConfig): Date {
   }
 }
 
+export function groupTreeNode(items: any[], endNode: SmzTreeGroupNodeConfig, data: SmzTreeGroupData): SmzTreeNode[] {
+
+  const result: SmzTreeNode[] = [];
+
+  const grouped = groupBy(items, (i) => {
+    return ObjectUtils.resolveFieldData(i, data.keyPropertyValue);
+  });
+
+  mapValues(grouped, uniques =>
+  {
+      const unique = cloneDeep(uniques[0]);
+
+      const node: SmzTreeNode = {
+          ...data.nodeOverrides,
+          type: data.type,
+          label: ObjectUtils.resolveFieldData(unique, data.labelProperty),
+          key:  ObjectUtils.resolveFieldData(unique, data.keyPropertyValue),
+          data:  ObjectUtils.resolveFieldData(unique, data.keyPropertyData),
+          children: data.group != null ?
+            groupTreeNode(uniques, endNode, data.group) :
+            uniques.map((x => ({
+              ...endNode.nodeOverrides,
+              type: endNode.type,
+              label:  ObjectUtils.resolveFieldData(x, endNode.labelProperty),
+              key: ObjectUtils.resolveFieldData(x, endNode.keyPropertyValue),
+              data: x,
+              children: null
+            }))),
+      };
+
+      result.push(node as any);
+  });
+
+  // console.log('result', result);
+
+  return result;
+}

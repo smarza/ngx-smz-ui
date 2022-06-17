@@ -13,12 +13,12 @@ import { TreeModule } from 'primeng/tree';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { SharedModule } from 'primeng/api';
 import { NgxSmzMenuModule } from '../smz-menu/smz-menu.module';
-import { SmzSincronizeTreePipe } from './pipes/sincronize-tree.pipe';
+import { SmzDataTransformTreePipe } from './pipes/data-transform-tree.pipe';
 
 @NgModule({
     declarations: [
         SmzTreeComponent,
-        SmzSincronizeTreePipe
+        SmzDataTransformTreePipe
     ],
     imports: [
         CommonModule,

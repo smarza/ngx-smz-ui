@@ -43,7 +43,11 @@ export class DemoFeatureState {
 
         ctx.patchState({
           lastUpdated: new Date(),
-          items: results
+          items: [...results,
+            { name: 'Name A', company: 'ACME Inc', country: {name: 'Paris', id: '209de553-37ce-4293-9644-64436fde2b6e'}, id: '16a6064f-780f-4a29-a4cb-42f5d6fd7964', roles: [] },
+            { name: 'Name B', company: 'ACME Inc', country: {name: 'Paris', id: '209de553-37ce-4293-9644-64436fde2b6e'}, id: '74992fc1-b2e3-4550-9c83-70bc7ebbd52a', roles: [] },
+            { name: 'Name C', company: 'ACME Inc', country: {name: 'Paris', id: '209de553-37ce-4293-9644-64436fde2b6e'}, id: '5dcbb315-c0a6-44e8-8bb0-735fad05322d', roles: [] }
+          ]
         });
       })
     );

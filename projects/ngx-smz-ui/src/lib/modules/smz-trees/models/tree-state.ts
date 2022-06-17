@@ -1,3 +1,4 @@
+import { TreeNode } from 'primeng/api';
 import { SmzTreeMenuItem } from './tree-menu-item';
 import { SmzTreeToolbarButton } from './tree-toolbar-button';
 
@@ -93,9 +94,27 @@ export interface SmzTreeState {
   }
   content: {
     sincronize: boolean;
+    dataTransform?: (items: any[]) => TreeNode[];
   }
 }
 
 export interface SmzTreeContext {
   state: SmzTreeState;
+}
+
+export interface SmzTreeGroup {
+  endNode: SmzTreeGroupNodeConfig;
+  group: SmzTreeGroupData;
+}
+
+export interface SmzTreeGroupNodeConfig {
+  keyPropertyValue: string;
+  labelProperty: string;
+  type: string;
+  nodeOverrides: Partial<TreeNode>;
+}
+
+export interface SmzTreeGroupData extends SmzTreeGroupNodeConfig {
+  keyPropertyData: string;
+  group: SmzTreeGroupData;
 }

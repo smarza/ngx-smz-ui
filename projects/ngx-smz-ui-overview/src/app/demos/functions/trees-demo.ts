@@ -1,9 +1,18 @@
 import { DemoKeys } from '@demos/demo-keys';
-import { SmzTreeBuilder } from 'ngx-smz-ui';
+import { Store } from '@ngxs/store';
+import { DemoFeatureActions } from '@states/demo/demo.actions';
+import { DemoFeatureSelectors } from '@states/demo/demo.selectors';
+import { GlobalInjector, SmzTreeBuilder } from 'ngx-smz-ui';
+import { Observable } from 'rxjs';
 
-export const TreesDemo: { [key: string]: () => void } = {
+const store = GlobalInjector.instance.get(Store);
+
+export const TreesDemo:{ [key: string]: { items$: Observable<any[]>, code: () => void } } = {
   //
-  [DemoKeys.TREE_DEMO_1]: () => {
+  [DemoKeys.TREE_DEMO_1]: {
+    items$: store.select(DemoFeatureSelectors.tree),
+    code: () => {
+    store.dispatch(new DemoFeatureActions.LoadTree());
     return new SmzTreeBuilder()
       .setTitle('Sincronized Tree')
       // .emptyFeedback()
@@ -63,6 +72,44 @@ export const TreesDemo: { [key: string]: () => void } = {
         //   .canDrag('folder').into('disk', 'folder')
         // .tree
       .build()
+    }
+  },
+  //
+  [DemoKeys.TREE_DATA_TRANSFORM]: {
+    items$: store.select(DemoFeatureSelectors.all),
+    code: () => {
+    return new SmzTreeBuilder()
+      .setTitle('Tree with Data Transform')
+      .useSincronization()
+      .dataTransform({
+        endNode: {
+          keyPropertyValue: 'id', labelProperty: 'name', type: 'item', nodeOverrides: { selectable: true },
+        },
+        group: {
+          keyPropertyValue: 'country.id', keyPropertyData: 'country', labelProperty: 'country.name', type: 'country', nodeOverrides: { selectable: false },
+          group: {
+            keyPropertyValue: 'company', keyPropertyData: 'company', labelProperty: 'company', type: 'company', nodeOverrides: { selectable: false },
+            group: null
+          }
+        }
+      })
+      .menu()
+        .item('Country')
+          .setCallback(node => console.log('Country: ', node))
+          .showForTypes('country')
+          .menu
+        .item('Company')
+          .setCallback(node => console.log('Company: ', node))
+          .showForTypes('company')
+          .menu
+        .item('Item')
+          .showForTypes('item')
+          .setCallback(node => console.log('Item: ', node))
+          .menu
+        .tree
+      .enableFilter()
+      .build()
+    }
   },
 }
 

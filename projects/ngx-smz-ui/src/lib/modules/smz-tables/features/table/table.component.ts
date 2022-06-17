@@ -81,7 +81,10 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
   public ngOnInit(): void {
   }
 
-  public getWidthStyle(value) { console.log(`getWidthStyle(${value})`); return { [this.state.styles.columnsWidth.behavior]: value }}
+  public getWidthStyle(value) {
+    // console.log(`getWidthStyle(${value})`);
+    return { [this.state.styles.columnsWidth.behavior]: value }
+  }
 
   public bind(): void {
   }

@@ -17,7 +17,7 @@ export class DemoFeatureSelectors {
       { id: '2', name: 'teste 2'},
       { id: '3', name: 'teste 3'},
       { id: '4', name: 'teste 4'},
-      { id: index, name: `index ${index}`}
+      { id: index.toString(), name: `index ${index}`}
     ]}));
     // console.log('DemoFeatureSelectors results', results);
     return results;
@@ -90,7 +90,7 @@ export class DemoFeatureSelectors {
       { id: '2', name: 'teste 2'},
       { id: '3', name: 'teste 3'},
       { id: '4', name: 'teste 4'},
-      { id: index, name: `index ${index}`},
+      { id: index.toString(), name: `index ${index}`},
     ],
       html: `<div class="grid grid-nogutter items-center justify-start gap-2">
         <i class="fab fa-angellist text-2xl text-primary-color"></i>

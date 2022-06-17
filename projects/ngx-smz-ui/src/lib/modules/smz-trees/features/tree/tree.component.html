@@ -20,7 +20,7 @@
 
         <ng-container *ngIf="items != null">
             <p-contextMenu #cm [model]="menuItems" [appendTo]="appendTo" [styleClass]="menuItems == null || menuItems?.length === 0 ? 'invisible-important' : ''"></p-contextMenu>
-            <p-tree #dt [value]="state.content.sincronize ? (items | sincronizeTree : treeKey) : items"
+            <p-tree #dt [value]="items | dataTransformTree : state : treeKey"
                 scrollHeight="flex"
                 [contextMenu]="cm"
                 [selectionMode]="state.selection.mode"

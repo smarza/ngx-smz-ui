@@ -14,6 +14,7 @@ export interface DemoItem {
   company: string;
   country: SimpleNamedEntity;
   html?: string;
+  roles?: SimpleNamedEntity[];
 }
 
 export interface DemoUpdateData {

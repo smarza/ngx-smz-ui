@@ -803,6 +803,13 @@ export const TreeDemoData: DemoTreeNode[] = [
         data: TreesDemo[DemoKeys.TREE_DEMO_1],
         key: DemoKeys.TREE_DEMO_1.toString()
       },
+      {
+        label: 'Data Transform', icon: 'fa-solid fa-code', type: 'Demo',
+        demoType: 'tree',
+        notes: '',
+        data: TreesDemo[DemoKeys.TREE_DATA_TRANSFORM],
+        key: DemoKeys.TREE_DATA_TRANSFORM.toString()
+      },
     ]
   },
 ];

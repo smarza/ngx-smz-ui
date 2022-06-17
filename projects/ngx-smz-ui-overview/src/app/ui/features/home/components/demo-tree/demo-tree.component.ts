@@ -32,40 +32,36 @@ import { DemoFeatureActions } from '@states/demo/demo.actions';
 })
 
 export class DemoTreeComponent implements OnInit, OnChanges {
-  @Select(DemoFeatureSelectors.tree) public items$: Observable<TreeNode[]>;
+  public items$: Observable<TreeNode[]>;
   @Input() public node: DemoTreeNode;
   public selection: string[] = ['IsometricsWithoutTags'];
   public state: SmzTreeState;
 
   constructor(private store: Store) {
-    this.store.dispatch(new DemoFeatureActions.LoadTree());
-
-    // setTimeout(() => {
-    //   store.dispatch(new DemoFeatureActions.LoadTree());
-    // }, 6000);
   }
 
   ngOnInit() {
-    this.state = this.node.data() as any;
-    // console.log(this.state);
+    this.updateData(this.node);
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.node != null) {
+      const node = changes.node.currentValue;
+      this.updateData(node);
+    }
+  }
+
+  updateData(node: any): void {
+    const event = node.data;
+    this.state = event.code();
+    this.items$ = event.items$;
   }
 
   public log(event: any): void {
     console.log(event);
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes.node != null) {
-      const node = changes.node.currentValue;
-      this.state = node.data();
-    }
-
-  }
-
-
   public selectionChanged(node: SmzTreeNode[]): void {
-
     console.log('selectionChanged', node);
-
   }
 }
