@@ -20,7 +20,7 @@ export class BoilerplateService {
 
     constructor(private titleService: TitleService, private store: Store, private rbkConfig: NgxRbkUtilsConfig, private actions$: Actions) { }
 
-    public init(): void {
+    public init(callback: () => void): void {
         // if (this.rbkConfig.debugMode) console.log('[Boilerplate Service] Initializing Service');
         this.killSubscriptions();
 
@@ -43,6 +43,10 @@ export class BoilerplateService {
         });
 
         this.store.dispatch(new AuthenticationActions.LocalLogin());
+
+        if (callback != null) {
+            callback();
+        }
     }
 
     private killSubscriptions(): void {
