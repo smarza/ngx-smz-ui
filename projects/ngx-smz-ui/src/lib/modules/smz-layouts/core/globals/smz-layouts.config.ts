@@ -22,6 +22,11 @@ export class SmzLayoutsConfig {
         schema?: ColorSchemaDefinition | string;
         custom?: ColorSchema;
         forceDimmer?: boolean;
+        system?: {
+            enabled: boolean;
+            light: SmzContentTheme;
+            dark: SmzContentTheme;
+        };
     };
     toast: {
         position: EdgePositionType;

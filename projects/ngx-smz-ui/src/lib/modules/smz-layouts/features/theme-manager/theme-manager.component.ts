@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store, } from '@ngxs/store';
+import { LayoutUiActions } from '../../../../state/ui/layout/layout.actions';
 import { LayoutUiSelectors } from '../../../../state/ui/layout/layout.selectors';
+import { SmzLayoutsConfig } from '../../core/globals/smz-layouts.config';
 import { ThemeManagerService } from './theme-manager.service';
 
 @Component({
@@ -13,7 +15,7 @@ export class ThemeManagerComponent implements OnInit
   public currentContentTheme: string;
   public contentLink: HTMLLinkElement;
 
-  constructor(private store: Store, private themeManagerService: ThemeManagerService)
+  constructor(private store: Store, private themeManagerService: ThemeManagerService, public readonly config: SmzLayoutsConfig)
   {
     this.contentLink = this.themeManagerService._document.createElement('link');
     this.contentLink.setAttribute('rel', 'stylesheet');
@@ -38,6 +40,20 @@ export class ThemeManagerComponent implements OnInit
           // console.log(this.themeManagerService._document.styleSheets);
         }
       });
+
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+        const systemColor = event.matches ? "dark" : "light";
+
+        switch (systemColor) {
+          case 'dark':
+            this.store.dispatch(new LayoutUiActions.SetContentTheme( this.config.themes.system.dark));
+            break;
+
+          case 'light':
+            this.store.dispatch(new LayoutUiActions.SetContentTheme( this.config.themes.system.light));
+            break;
+        }
+    });
   }
 
   ngOnInit(): void

@@ -77,11 +77,12 @@ export class LayoutUiState {
   public onInitialize(ctx: StateContext<UiStateModel>): void {
     const state = ctx.getState().state;
 
+    let schema = this.config.themes.schema;
+
     if (this.config.themes.custom) {
       SmzColorSchemas.push(this.config.themes.custom);
+      schema = this.config.themes.custom.id;
     }
-
-    const schema = this.config.themes.custom ? this.config.themes.custom.id : this.config.themes.schema;
 
     ctx.patchState(
       {
@@ -100,7 +101,23 @@ export class LayoutUiState {
         loader: this.config.loader,
       });
 
-    ctx.dispatch(new LayoutUiActions.SetContentTheme(this.config.themes.content));
+    let content  =this.config.themes.content;
+
+    if (this.config.themes.system?.enabled) {
+      const systemColor = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+
+      switch (systemColor) {
+        case 'dark':
+          content = this.config.themes.system.dark;
+          break;
+
+        case 'light':
+          content = this.config.themes.system.light;
+          break;
+      }
+    }
+
+    ctx.dispatch(new LayoutUiActions.SetContentTheme(content));
 
     ctx.dispatch(new LayoutUiActions.SetColorSchema(schema));
   }
