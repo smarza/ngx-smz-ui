@@ -1,4 +1,4 @@
-# NGX-RBK-UTILSxx
+# NGX-RBK-UTILS
 # 1. Setup
 
 * Install and setup all dependencies needed by the library
