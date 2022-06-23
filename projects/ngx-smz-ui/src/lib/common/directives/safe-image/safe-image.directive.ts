@@ -1,11 +1,10 @@
 import { AfterViewInit, Directive, ElementRef, Input, NgModule, OnChanges, SimpleChanges } from '@angular/core';
 import { isEmpty } from '../../../builders/common/utils';
-import { environment } from '@environments/environment';
 
 @Directive({
-  selector: "img[serverImage]",
+  selector: "img[safeImage]",
 })
-export class ServerImageDirective implements AfterViewInit, OnChanges {
+export class SafeImageDirective implements AfterViewInit, OnChanges {
   constructor(private el: ElementRef) { }
   @Input() public path;
   @Input() public placeholder = 'assets/images/placeholder.jpeg';
@@ -24,15 +23,8 @@ export class ServerImageDirective implements AfterViewInit, OnChanges {
 
     const img = new Image();
 
-    if (environment.serverUrl == null) {
-      throw Error("ServerPathPipe needs a property named 'serverUrl' on environment constant");
-    }
-
     if (isEmpty(this.path)) {
       this.path = this.placeholder;
-    }
-    else {
-      this.path = `${environment.serverUrl}/${this.path}`;
     }
 
     img.onload = () => {
@@ -54,8 +46,8 @@ export class ServerImageDirective implements AfterViewInit, OnChanges {
 
 @NgModule({
   imports: [],
-  exports: [ServerImageDirective],
-  declarations: [ServerImageDirective],
+  exports: [SafeImageDirective],
+  declarations: [SafeImageDirective],
   providers: [],
 })
-export class NgxSmzServerImageModule { }
+export class NgxSmzSafeImageModule { }

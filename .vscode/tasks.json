@@ -124,7 +124,12 @@
 			},
 		},
 		{
-			"label": "Publish",
+			"label": "Lib: Release",
+			"dependsOrder": "sequence",
+			"dependsOn":["Version", "Commit", "Build: Prod"]
+		},
+		{
+			"label": "Lib: Publish",
 			"type": "shell",
 			"command": "cd dist/ngx-smz-ui;npm publish",
 			"group": "none",
@@ -136,14 +141,9 @@
     	},
 			"options": {
 				"statusbar": {
-					"hide" : true
+					"hide" : false
 				}
 			}
-		},
-		{
-			"label": "Lib: Release",
-			"dependsOrder": "sequence",
-			"dependsOn":["Version", "Commit", "Build: Prod"]
 		},
 		{
 			"label": "Version",
