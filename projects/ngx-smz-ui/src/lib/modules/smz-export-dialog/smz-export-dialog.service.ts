@@ -27,11 +27,11 @@ export class SmzExportDialogService {
       .allowMaximize()
       .dismissableMask()
       .document(documentState)
+      .setMinHeight(80)
       .buttons()
         .confirm().hide().buttons
         .cancel().hide().buttons
         .close().callback(() => {
-          console.log('close');
           this.store.dispatch(new LayoutUiActions.HideExportDialog)
         }).buttons
         .dialog

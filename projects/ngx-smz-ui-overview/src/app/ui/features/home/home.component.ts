@@ -46,8 +46,13 @@ export class HomeComponent
       .build();
 
       routerParamsListener(HOME_PATH, route, (routeData: { key: string }) => {
-        if (routeData.key != null) {
-          this.store.dispatch(new DemoFeatureActions.SetRoute(routeData.key, false));
+        this.store.dispatch(new DemoFeatureActions.SetRoute(routeData.key, false));
+
+        if (routeData.key == null) {
+          setTimeout(() => {
+            this.selectedTabIndex = 0;
+            this.selectedNode = null;
+          }, 0);
         }
       });
   }
