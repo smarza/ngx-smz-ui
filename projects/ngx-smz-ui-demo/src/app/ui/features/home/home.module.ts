@@ -8,6 +8,7 @@ import { RbkAuthGuard, RbkDatabaseStateGuard, UI_DEFINITIONS_STATE_NAME } from '
 import { CodeBlockModule } from '../../components/code-block/code-block.module';
 import { DemoTitlePipeModule } from '../../pipes/demo-title.pipe';
 import { CountriesDbName } from '@states/database/countries/countries.state';
+import { NgxSmzServerImageModule } from '../../../../../../ngx-smz-ui/src/lib/common/directives/server-image/server-image.directive';
 
 
 const data: SmzRouteData = {
@@ -40,7 +41,8 @@ const routes: Routes = [
     NgxSmzTreesModule,
     CodeBlockModule,
     DemoTitlePipeModule,
-    NgxSmzDataPipesModule
+    NgxSmzDataPipesModule,
+    NgxSmzServerImageModule
   ],
   providers: [],
   bootstrap: [HomeComponent]

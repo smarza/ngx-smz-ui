@@ -72,6 +72,8 @@ export * from './lib/common/directives/ng-var/ng-var.directive';
 export * from './lib/common/directives/ng-clone/ng-clone.module';
 export * from './lib/common/directives/ng-clone/ng-clone.directive';
 
+export * from './lib/common/directives/server-image/server-image.directive';
+
 // DIALOG STUFFS
 
 export * from './lib/common/modules/inject-content/public-api';

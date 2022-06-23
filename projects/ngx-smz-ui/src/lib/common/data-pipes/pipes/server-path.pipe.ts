@@ -19,4 +19,5 @@ export class ServerPathPipe implements PipeTransform
 
         return `${environment.serverUrl}/${url}`;
     }
+
 }
