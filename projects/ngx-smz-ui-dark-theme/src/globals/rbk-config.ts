@@ -34,7 +34,7 @@ export const rbkConfig: NgxRbkUtilsConfig = {
     applicationName: environment.production ? 'DarkTheme' : 'DarkTheme DEV',
     useTitleService: true,
     uiDefinitions: {
-        url: `${environment.domainApi}/api/ui-definitions`,
+        url: `${environment.serverUrl}/api/ui-definitions`,
         httpBehavior: {
             authentication: false,
             compression: true,
@@ -44,7 +44,7 @@ export const rbkConfig: NgxRbkUtilsConfig = {
         }
     },
     diagnostics: {
-        // url: `${environment.domainApi}/api/diagnostics`
+        // url: `${environment.serverUrl}/api/diagnostics`
         url: null
     },
     notifications: {

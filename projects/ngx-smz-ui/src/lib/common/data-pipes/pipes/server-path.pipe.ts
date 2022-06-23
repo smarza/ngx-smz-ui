@@ -13,8 +13,10 @@ export class ServerPathPipe implements PipeTransform
         if (isEmpty(url))
             return placeholderPath;
 
-        console.log('environment', environment);
-        console.log('environment.serverUrl', environment.serverUrl);
-        return `${environment.serverUrl}/${url}`
+        if (environment.serverUrl == null) {
+            throw Error("ServerPathPipe needs a property named 'serverUrl' on environment constant");
+        }
+
+        return `${environment.serverUrl}/${url}`;
     }
 }

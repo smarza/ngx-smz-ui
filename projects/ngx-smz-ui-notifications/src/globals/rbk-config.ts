@@ -35,7 +35,7 @@ export const rbkConfig: NgxRbkUtilsConfig = {
     applicationName: environment.production ? 'Notifications' : 'Notifications DEV',
     useTitleService: true,
     uiDefinitions: {
-        url: `${environment.domainApi}/api/ui-definitions`,
+        url: `${environment.serverUrl}/api/ui-definitions`,
         httpBehavior: {
             authentication: false,
             compression: true,
@@ -45,11 +45,11 @@ export const rbkConfig: NgxRbkUtilsConfig = {
         }
     },
     diagnostics: {
-        // url: `${environment.domainApi}/api/diagnostics`
+        // url: `${environment.serverUrl}/api/diagnostics`
         url: null
     },
     notifications: {
-        url: `${environment.domainApi}/api/notifications`,
+        url: `${environment.serverUrl}/api/notifications`,
         updateMethod: 'interval',
         updateRate: 100000,
         httpBehavior: {

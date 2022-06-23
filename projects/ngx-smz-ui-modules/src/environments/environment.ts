@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   version: 'development_v',
   databaseCacheTimeout: 2,
-  domainApi: 'https://localhost:44376',
+  serverUrl: 'https://localhost:44376',
   authenticationApi: 'https://localhost:44376',
   applicationId: 'SMZ-UI-MODULES'
 };

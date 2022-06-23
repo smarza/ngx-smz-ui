@@ -32,7 +32,7 @@ const details = [
 
 @Injectable({ providedIn: 'root' })
 export class DemoDataService extends BaseApiService {
-  private endpoint = `${environment.domainApi}/api/demo`;
+  private endpoint = `${environment.serverUrl}/api/demo`;
   private mockData: EasyTableDemoData[] = [];
 
   constructor(private http: HttpClient) {
