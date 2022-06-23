@@ -12,6 +12,7 @@
     "./resources/assets/scss/documents/*.*",
     "./resources/assets/scss/prime-grid/*.*",
     "./resources/assets/fonts/*.*",
+    "./resources/assets/images/*.*",
     "./resources/assets/images/pages/*.*",
     "./resources/assets/images/avatar/*.*",
     "./resources/assets/images/tables/*.*",

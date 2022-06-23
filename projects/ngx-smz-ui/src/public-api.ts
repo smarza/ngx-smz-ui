@@ -42,6 +42,7 @@ export { DescribeArrayPipe } from './lib/common/data-pipes/pipes/describe-array.
 export { CalendarPipe } from './lib/common/data-pipes/pipes/calendar.pipe';
 export { SmzGetDataPipe } from './lib/common/data-pipes/pipes/get-data.pipe';
 export { JoinPipe } from './lib/common/data-pipes/pipes/join.pipe';
+export { ServerPathPipe } from './lib/common/data-pipes/pipes/server-path.pipe';
 export { DescribeSimpleNamedPipe } from './lib/common/data-pipes/pipes/describe-simple-named.pipe';
 export { DescribeAnyPipe } from './lib/common/data-pipes/pipes/describe-any.pipe';
 export { StateBuilderPipe } from './lib/common/data-pipes/pipes/state-builder.pipe';

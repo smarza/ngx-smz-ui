@@ -81,14 +81,29 @@ export const TreesDemo:{ [key: string]: { items$: Observable<any[]>, code: () =>
     return new SmzTreeBuilder()
       .setTitle('Tree with Data Transform')
       .useSincronization()
+      .setSelection('checkbox')
       .dataTransform({
+        // NÓ FINAL
         endNode: {
-          keyPropertyValue: 'id', labelProperty: 'name', type: 'item', nodeOverrides: { selectable: true },
+          keyPropertyValue: 'id',
+          labelProperty: 'name',
+          type: 'item',
+          nodeOverrides: { selectable: true },
         },
+        // AGRUPAR POR COUNTRY
         group: {
-          keyPropertyValue: 'country.id', keyPropertyData: 'country', labelProperty: 'country.name', type: 'country', nodeOverrides: { selectable: false },
+          keyPropertyValue: 'country.id',
+          keyPropertyData: 'country',
+          labelProperty: 'country.name',
+          type: 'country',
+          nodeOverrides: { selectable: false },
+          // AGRUPAR POR COMPANY
           group: {
-            keyPropertyValue: 'company', keyPropertyData: 'company', labelProperty: 'company', type: 'company', nodeOverrides: { selectable: false },
+            keyPropertyValue: 'company',
+            keyPropertyData: 'company',
+            labelProperty: 'company',
+            type: 'company',
+            nodeOverrides: { selectable: false },
             group: null
           }
         }
