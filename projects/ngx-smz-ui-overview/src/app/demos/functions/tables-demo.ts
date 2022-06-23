@@ -466,37 +466,38 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
       .build()
   }
   },
+  //
+  [DemoKeys.TABLE_EXPORT]: {
+    items$: store.select(DemoFeatureSelectors.all),
+    code: () => {
+    return new SmzTableBuilder()
+      .setTitle('Demo With Export')
+      .enableGlobalFilter()
+      .useTableEmptyMessage()
+      .usePagination()
+      .setPaginationDefaultRows(10)
+      .setCustomInitialSorting({ field: 'number', order: -1 })
+      .useStrippedStyle()
+      .enableExport()
+      .columns()
+        .text('name', 'Name', '40em')
+          .disableFilter()
+          .columns
+        .text('country.name', 'Country')
+          .setFilter(SmzFilterType.MULTI_SELECT)
+          .disableSort()
+          .columns
+        .dataTransform('country.id', 'Super Country 2', (country: SimpleNamedEntity, row: any) => (`test: ${row.country?.name?.toUpperCase()}`))
+          .columns
+        .dataTransform('country', 'Super Country', (country: SimpleNamedEntity, row: any) => (`super: ${country?.name?.toUpperCase()}`))
+          .setFilter(SmzFilterType.MULTI_SELECT)
+          .columns
+        .dataTransform('roles', 'Perfis', (roles: SimpleNamedEntity[], row: any) => { return roles.map(x => x.name).join(', '); })
+          .setFilter(SmzFilterType.MULTI_SELECT_ARRAY)
+          .ignoreOnExport()
+          .columns
+        .table
+      .build()
+    }
+  },
 }
-
-        // .setMaxColumnWidth(500)
-        // .setColumnWidthBehavior('min-width')
-        //
-        // .setMaxColumnWidth(500)
-        // .setColumnWidthBehavior('width')
-        // //
-        // .useScrolling()
-        // .useEstimatedColWidth()
-        // .setMaxColumnWidth(500)
-        // .setColumnWidthBehavior('min-width')
-        // //
-        // .useScrolling()
-        // .useEstimatedColWidth()
-        // .setMaxColumnWidth(200)
-        // .setColumnWidthBehavior('width')
-
-        // Auto fica por conta do html
-        // px ten
-        // .setColumnWidthBehavior('min-width')
-
-        // Auto fica por conta do html
-        // px tenta fazer o mais perto do valor definido
-        // .setColumnWidthBehavior('width')
-        // .setTableStyleClass('min-w-0 break-all')
-        // //
-        // .useScrolling()
-        // .useEstimatedColWidth()
-        // .setColumnWidthBehavior('min-width')
-        // //
-        // .useScrolling()
-        // .useEstimatedColWidth()
-        // .setColumnWidthBehavior('width')

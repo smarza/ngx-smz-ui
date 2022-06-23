@@ -789,6 +789,13 @@ export const TreeDemoData: DemoTreeNode[] = [
         data: TablesDemo[DemoKeys.TABLE_MULTI_SELECTION],
         key: DemoKeys.TABLE_MULTI_SELECTION.toString()
       },
+      {
+        label: 'Export', icon: 'fa-solid fa-code', type: 'Demo',
+        demoType: 'table',
+        notes: '',
+        data: TablesDemo[DemoKeys.TABLE_EXPORT],
+        key: DemoKeys.TABLE_EXPORT.toString()
+      },
     ]
   },
   {

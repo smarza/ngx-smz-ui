@@ -86,6 +86,9 @@ export class SmzTableBuilder {
         columnWidth: '3em',
         validationMode: 'none'
       },
+      export: {
+        isButtonVisible: false,
+      },
       clearFilters: {
         callback: null,
         isButtonVisible: false,
@@ -244,6 +247,9 @@ export class SmzTableBuilder {
           dropdownFilter: {
             placeholder: 'Todos'
           },
+          export: {
+            label: 'Exportar',
+          },
           clearFilters: {
             label: 'Limpar Filtros'
           },
@@ -271,6 +277,9 @@ export class SmzTableBuilder {
           dropdownFilter: {
             placeholder: 'All'
           },
+          export: {
+            label: 'Export',
+          },
           clearFilters: {
             label: 'Clear Filters'
           },
@@ -297,11 +306,11 @@ export class SmzTableBuilder {
     return this;
   }
 
-  // public enableClearFiltersWithoutLabel(): SmzTableBuilder {
-  //   this._state.caption.isVisible = true;
-  //   this._state.caption.clearFilters.isButtonVisible = true;
-  //   return this;
-  // }
+  public enableExport(): SmzTableBuilder {
+    this._state.caption.isVisible = true;
+    this._state.caption.export.isButtonVisible = true;
+    return this;
+  }
 
   public setClearFilterCallback(callback: () => void): SmzTableBuilder {
     if (!this._state.caption.clearFilters.isButtonVisible) {

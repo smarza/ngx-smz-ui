@@ -26,6 +26,7 @@ export * from './lib/modules/smz-menu/public-api';
 export * from './lib/modules/smz-dock/public-api';
 // export * from './lib/modules/smz-notifications/public-api';
 export * from './lib/modules/smz-documents/public-api';
+export * from './lib/modules/smz-export-dialog/public-api';
 
 // Verificar se já resolveram o issue para publicar com esse módulo
 export * from './lib/modules/smz-svg/public-api';

@@ -128,6 +128,9 @@ export interface SmzTableState {
     dropdownFilter?: {
       placeholder: string;
     },
+    export?: {
+      label: string;
+    },
     clearFilters?: {
       label: string;
     },
@@ -181,6 +184,15 @@ export interface SmzTableState {
        */
       expanded: boolean;
     };
+    /**
+     * Allows the end user to export the table content
+     */
+    export?: {
+      /**
+       * Controls whether the export button should be visible or not
+       */
+      isButtonVisible?: boolean;
+    }
     /**
      * Allows the end user to manually clear table filters
      */
@@ -275,7 +287,7 @@ export interface SmzTableState {
     /**
      * orientation of the scrolling, options are "vertical", "horizontal" and "both".
      */
-     scrollDirection: 'vertical' | 'horizontal' | 'both';
+    scrollDirection: 'vertical' | 'horizontal' | 'both';
     /**
     * when enabled, columns can be resized using drag and drop.
     */
@@ -426,9 +438,9 @@ export interface SmzTableState {
      */
     width?: string;
   };
-    /**
-   * Allows the user to expand a row to show some content
-   */
+  /**
+ * Allows the user to expand a row to show some content
+ */
   rowExpansion: {
     /**
      * Controls the visibility of the button that expand or collapse the row content

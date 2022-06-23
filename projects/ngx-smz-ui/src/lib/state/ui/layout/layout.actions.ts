@@ -1,3 +1,4 @@
+import { SmzExportDialogData } from '../../../modules/smz-export-dialog/smz-export-dialog.model';
 import { BreadcrumbsData } from '../../../modules/smz-layouts/core/models/breadcrumbs';
 import { ColorSchemaDefinition } from '../../../modules/smz-layouts/core/models/color-schemas';
 import { SmzLoader } from '../../../modules/smz-layouts/core/models/loaders';
@@ -88,6 +89,17 @@ export namespace LayoutUiActions
     {
         public static readonly type = '[LAYOUT UI] SetB readcrumbs';
         constructor(public data: BreadcrumbsData) {}
+    }
+
+    export class ShowExportDialog
+    {
+        public static readonly type = '[LAYOUT UI] Show Export Dialog';
+        constructor(public data: SmzExportDialogData) {}
+    }
+
+    export class HideExportDialog
+    {
+        public static readonly type = '[LAYOUT UI] Hide Export Dialog';
     }
 
 }

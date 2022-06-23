@@ -78,6 +78,7 @@
                     </p-multiSelect>
                     <button *ngIf="context.state.caption.rowSelection.isButtonVisible" pButton [label]="context.state.locale.rowSelection.label" class="p-button-outlined" icon="fa-solid fa-check-double" (click)="onRowSelection(context)" [disabled]="clonedData.showSkeleton"></button>
                     <button *ngIf="context.state.caption.clearFilters.isButtonVisible" pButton [label]="context.state.locale.clearFilters.label" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(dt, context)" [disabled]="clonedData.showSkeleton"></button>
+                    <button *ngIf="context.state.caption.export.isButtonVisible" pButton [label]="context.state.locale.export.label" class="p-button-outlined" icon="fa-solid fa-file-export" (click)="export(context, clonedData.items)" [disabled]="clonedData.showSkeleton"></button>
                     <button *ngIf="context.state.editable.creation.isButtonVisible" pButton [label]="context.state.editable.creation.buttonLabel" class="p-button-outlined" icon="fa-solid fa-plus" (click)="editableService.onRowCreateInit(dt, context)" [disabled]="clonedData.showSkeleton || editableService.isEditing || editableService.isCreating || context.state.editable.creation.isButtonDisabled"></button>
                     <span *ngIf="context.state.caption.globalFilter.isVisible" class="p-input-icon-left col-12" [ngClass]="{ 'md:col-2': !context.state.caption.globalFilter.expanded }">
                         <i class="pi pi-search"></i>

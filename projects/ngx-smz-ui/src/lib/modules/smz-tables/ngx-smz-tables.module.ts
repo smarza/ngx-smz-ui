@@ -49,7 +49,7 @@ import { SmzSincronizeTablePipe } from './pipes/sincronize-table.pipe';
         SmzContentErrorsPipe,
         ValidationMessagesComponent,
         ValidationMessagesPipe,
-        SmzSincronizeTablePipe
+        SmzSincronizeTablePipe,
     ],
     imports: [
         CommonModule,

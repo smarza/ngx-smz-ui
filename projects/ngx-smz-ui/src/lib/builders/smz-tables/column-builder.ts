@@ -23,6 +23,8 @@ export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T>> {
 
     const columnIndex = _table._state.columns.findIndex(c => c.field === field);
 
+    const isExportable = type !== SmzContentType.CUSTOM && type !== SmzContentType.ICON;
+
     if (columnIndex !== -1) {
         // JÁ EXISTE UMA COLUNA
         this._column = this._table._state.columns[columnIndex];
@@ -57,6 +59,7 @@ export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T>> {
             defaultCreationValue: null
           },
           isOrderable,
+          isExportable,
           filter: {
             isGlobalFilterable: true,
             type: filterType
@@ -101,6 +104,11 @@ export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T>> {
 
   public disableFilter(): SmzBaseColumnBuilder<T> {
     this._column.filter.type = SmzFilterType.NONE;
+    return this;
+  }
+
+  public ignoreOnExport(): SmzBaseColumnBuilder<T> {
+    this._column.isExportable = false;
     return this;
   }
 
