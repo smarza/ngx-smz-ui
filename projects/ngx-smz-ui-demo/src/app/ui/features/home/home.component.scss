@@ -1,0 +1,14 @@
+app-home {
+  .p-autocomplete::before {
+    font: var(--fa-font-solid);
+    content: "\f002";
+
+    position: absolute;
+    top: 15px;
+    left: 11px;
+  }
+
+  .p-autocomplete-input {
+    padding-left: 31px;
+  }
+}

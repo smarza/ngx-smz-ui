@@ -208,7 +208,7 @@ export class SmzTableContextPipe implements PipeTransform {
 
     context.state.frozen.isEnabled = frozenColumns?.length > 0;
 
-    // console.log('pipe context', context);
+    console.log('pipe context', context);
 
     return context;
   }

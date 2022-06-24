@@ -500,4 +500,49 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
       .build()
     }
   },
+  //
+  [DemoKeys.TABLE_EDITABLE]: {
+    items$: store.select(DemoFeatureSelectors.all),
+    code: () => {
+    return new SmzTableBuilder()
+      .setTitle('Editable Table')
+      .enableGlobalFilter()
+      .useTableEmptyMessage()
+      .usePagination()
+      .setPaginationDefaultRows(10)
+      .setCustomInitialSorting({ field: 'number', order: -1 })
+      .useStrippedStyle()
+      .enableExport()
+      .setUpdateAction(DemoFeatureActions.Update)
+      .setCreationAction(DemoFeatureActions.Create)
+      .setRemoveAction(DemoFeatureActions.Remove)
+      .customizeEditableResults((data: any) => {
+        console.log('customizing', data);
+        return data;
+      })
+      .columns()
+        .text('name', 'Name', '16em')
+          .disableFilter()
+          .editable()
+            .text()
+            .column
+          .columns
+        .text('company', 'Company', '30em')
+          .disableFilter()
+          .editable()
+            .text()
+            .column
+          .columns
+        .text('country.name', 'Country')
+          .setFilter(SmzFilterType.MULTI_SELECT)
+          .disableSort()
+          .editable()
+            .dropdown('country')
+            .setSelector(DemoFeatureSelectors.countries)
+            .column
+          .columns
+        .table
+      .build()
+    }
+  },
 }

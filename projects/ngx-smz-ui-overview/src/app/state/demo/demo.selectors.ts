@@ -7,6 +7,7 @@ import { RouterParamsState, RouterParamsStateModel } from 'ngx-smz-ui';
 import { HOME_PATH } from '@routes';
 import { FontAwesomeMigrations } from '../../demos/data/icons/fontawesome-migration';
 import { SpecialIcons } from '../../demos/data/icons/especial-icons';
+import { uniqBy } from 'lodash-es';
 
 export class DemoFeatureSelectors {
 
@@ -26,6 +27,11 @@ export class DemoFeatureSelectors {
   @Selector([DemoFeatureState])
   public static migrationIcons(state: DemoFeatureStateModel): any[] {
     return FontAwesomeMigrations.map((x, index) => ({ id: index.toString(), ...x}));
+  }
+
+  @Selector([DemoFeatureState])
+  public static countries(state: DemoFeatureStateModel): any[] {
+    return uniqBy(state.items.map(x => x.country), 'id');
   }
 
   @Selector([DemoFeatureState])
