@@ -2,7 +2,7 @@ import { Store } from '@ngxs/store';
 import { flatten, sortBy } from 'lodash-es';
 import { GlobalInjector } from '../../../lib/common/services/global-injector';
 import { SmzMenuItem } from '../../modules/smz-menu/models/smz-menu-item';
-import { defaultMapResults, EditableChanges } from '../../modules/smz-tables/models/editable-model';
+import { flattenMapResults, EditableChanges } from '../../modules/smz-tables/models/editable-model';
 import { SmzTableState } from '../../modules/smz-tables/models/table-state';
 import { StateBuilderFunctions } from './state-builder-functions';
 import { SmzColumnCollectionBuilder } from './column-builder';
@@ -76,7 +76,7 @@ export class SmzTableBuilder {
         creation: null,
         remove: null,
       },
-      mapResults: (data, changes: EditableChanges<any>) => defaultMapResults(data, changes)
+      mapResults: []
     },
     caption: {
       rowSelection: {
@@ -744,8 +744,16 @@ export class SmzTableBuilder {
     return batchMenuBuilder;
   }
 
-  public customizeEditableResults<T>(mapFunction: (data: T, changeS: EditableChanges<T>) => any): SmzTableBuilder {
-    this._state.editable.mapResults = mapFunction;
+  public flatEditableResults<T>(): SmzTableBuilder {
+
+    this._state.editable.mapResults.push((data, changes: EditableChanges<any>) => flattenMapResults(data, changes));
+
+    return this;
+  }
+
+  public customizeEditableResults<T>(mapFunction: (data: T, changes: EditableChanges<T>) => any): SmzTableBuilder {
+
+    this._state.editable.mapResults.push(mapFunction);
 
     return this;
   }

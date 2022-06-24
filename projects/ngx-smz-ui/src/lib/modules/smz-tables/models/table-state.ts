@@ -114,7 +114,7 @@ export interface SmzTableState {
       creation: any,
       remove: any,
     },
-    mapResults: (data: any, change: EditableChanges<any>) => any
+    mapResults: Array<(data: any, change: EditableChanges<any>) => any>
   }
   locale?: {
     columnVisibility?: {

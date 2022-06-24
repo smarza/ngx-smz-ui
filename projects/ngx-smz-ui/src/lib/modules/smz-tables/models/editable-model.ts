@@ -38,7 +38,7 @@ export interface EditableSaveEvent
     data: any;
 }
 
-export function defaultMapResults(data: any, changes: EditableChanges<any>) {
+export function flattenMapResults(data: any, changes: EditableChanges<any>) {
 
     // console.log('defaultMapResults');
     // console.log('data', data);

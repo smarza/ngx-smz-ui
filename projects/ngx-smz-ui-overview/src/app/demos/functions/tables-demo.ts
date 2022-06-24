@@ -414,6 +414,11 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
         .setSize('small')
         .useStrippedStyle()
         .disableRowHoverEffect()
+        .menu()
+          .item('Consultar')
+            .setCallback((event: any) => console.log('---'))
+            .menu
+          .table
         .columns()
           .text('tag', 'tag', 'auto').columns
           .text('plant', 'plant', 'auto').columns
@@ -516,6 +521,7 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
       .setUpdateAction(DemoFeatureActions.Update)
       .setCreationAction(DemoFeatureActions.Create)
       .setRemoveAction(DemoFeatureActions.Remove)
+      .flatEditableResults()
       .customizeEditableResults((data: any) => {
         console.log('customizing', data);
         return data;

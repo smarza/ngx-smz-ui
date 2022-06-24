@@ -5,15 +5,3 @@
   height="600px"
   frameborder="0">
 </iframe> -->
-
-<!-- <img [src]="'assets/logo.png' | serverPath"/> -->
-
-<img serverImage [path]="imagePath" placeholder="assets/mountains.png"/>
-
-<p-autoComplete
-  [(ngModel)]="selectedCountry"
-  [suggestions]="filteredCountries"
-  (completeMethod)="filterCountry($event)"
-  field="name"
-  [minLength]="1"
-></p-autoComplete>
