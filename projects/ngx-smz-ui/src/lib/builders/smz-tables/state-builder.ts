@@ -2,7 +2,6 @@ import { Store } from '@ngxs/store';
 import { flatten, sortBy } from 'lodash-es';
 import { GlobalInjector } from '../../../lib/common/services/global-injector';
 import { SmzMenuItem } from '../../modules/smz-menu/models/smz-menu-item';
-import { flattenMapResults, EditableChanges } from '../../modules/smz-tables/models/editable-model';
 import { SmzTableState } from '../../modules/smz-tables/models/table-state';
 import { StateBuilderFunctions } from './state-builder-functions';
 import { SmzColumnCollectionBuilder } from './column-builder';
@@ -12,6 +11,7 @@ import { SmzControlTypes } from '../../modules/smz-forms/models/control-types';
 import { convertFormFeature } from '../smz-dialogs/dialog-input-conversion';
 import { UiDefinitionsDbSelectors } from '../../state/database/ui-definitions/ui-definitions.selectors';
 import { SmzBatchMenuBuilder } from './batch-menu-builder';
+import { SmzEditableTableBuilder } from './editable-builder';
 
 // SCROLL TRUE =>
 //   MIN-WIDTH PODE TER PX
@@ -748,55 +748,15 @@ export class SmzTableBuilder {
     return batchMenuBuilder;
   }
 
-  public useFlattenEditableResults<T>(): SmzTableBuilder {
+  public editable(): SmzEditableTableBuilder {
 
-    this._state.editable.mapResults.push((data, changes: EditableChanges<any>) => flattenMapResults(data, changes));
+    if (!this._state.caption.rowSelection.isEnabled) {
+      throw Error('You need to call \'allowDefaultMultiSelection\' or \'allowUserMultiSelection\' before');
+    }
 
-    return this;
-  }
+    const editableBuilder = new SmzEditableTableBuilder(this);
 
-  public customizeEditableResults<T>(mapFunction: (data: T, changes: EditableChanges<T>) => any): SmzTableBuilder {
-
-    this._state.editable.mapResults.push(mapFunction);
-
-    return this;
-  }
-
-  public setUpdateAction(action: any, claim?: string): SmzTableBuilder {
-
-    if (!this._state.editable.isEditable) this._state.actions.customActions.columnWidth += 150;
-
-    this._state.editable.actions.update = action;
-    this._state.editable.update.isButtonVisible = true;
-    this._state.editable.update.accessClaim = claim;
-    this._state.editable.isEditable = true;
-
-    return this;
-  }
-
-  public setCreationAction(action: any, claim?: string): SmzTableBuilder {
-
-    if (!this._state.editable.isEditable) this._state.actions.customActions.columnWidth += 150;
-
-    this._state.editable.actions.creation = action;
-    this._state.editable.creation.isButtonVisible = true;
-    this._state.editable.creation.accessClaim = claim;
-    this._state.editable.isEditable = true;
-
-    return this;
-  }
-
-  public setRemoveAction(action: any, claim?: string, overrideActionData?: (row: any) => any): SmzTableBuilder {
-
-    if (!this._state.editable.isEditable) this._state.actions.customActions.columnWidth += 150;
-
-    this._state.editable.actions.remove = action;
-    this._state.editable.remove.isButtonVisible = true;
-    this._state.editable.remove.accessClaim = claim;
-    this._state.editable.remove.overrideActionDataCallback = overrideActionData;
-    this._state.editable.isEditable = true;
-
-    return this;
+    return editableBuilder;
   }
 
   public setScrollDirection(direction: 'vertical' | 'horizontal' | 'both' = 'vertical'): SmzTableBuilder {
