@@ -588,6 +588,10 @@ export class SmzTableBuilder {
 
   public useEstimatedColWidth(maxWidthPx?: number): SmzTableBuilder {
 
+    if (this._state.editable.isEditable) {
+      throw Error('You can\'t use \'useEstimatedColWidth\' while using \'editable Table\'');
+    }
+
     this._state.viewport.scrollable = true;
     this._state.viewport.scrollHeight = 'flex';
     this._state.viewport.scrollDirection = 'both';
@@ -744,7 +748,7 @@ export class SmzTableBuilder {
     return batchMenuBuilder;
   }
 
-  public flatEditableResults<T>(): SmzTableBuilder {
+  public useFlattenEditableResults<T>(): SmzTableBuilder {
 
     this._state.editable.mapResults.push((data, changes: EditableChanges<any>) => flattenMapResults(data, changes));
 

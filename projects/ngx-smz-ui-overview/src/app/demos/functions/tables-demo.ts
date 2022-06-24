@@ -521,7 +521,7 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
       .setUpdateAction(DemoFeatureActions.Update)
       .setCreationAction(DemoFeatureActions.Create)
       .setRemoveAction(DemoFeatureActions.Remove)
-      .flatEditableResults()
+      .useFlattenEditableResults()
       .customizeEditableResults((data: any) => {
         console.log('customizing', data);
         return data;
