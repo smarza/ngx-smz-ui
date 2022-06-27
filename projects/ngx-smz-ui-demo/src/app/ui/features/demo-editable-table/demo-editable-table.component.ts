@@ -43,9 +43,11 @@ export class DemoEditableTableComponent implements OnInit {
   public setupFromUiDefinitions(): void {
     this.tableState = new SmzTableBuilder('service')
         .setTitle('Demo From Ui Definitions')
-        .setUpdateAction(DemoFeatureActions.Update)
-        .setCreationAction(DemoFeatureActions.Create)
-        .setRemoveAction(DemoFeatureActions.Remove)
+        .editable()
+          .setUpdateAction(DemoFeatureActions.Update)
+          .setCreationAction(DemoFeatureActions.Create)
+          .setRemoveAction(DemoFeatureActions.Remove)
+          .table
       .build();
   }
 
@@ -53,9 +55,11 @@ export class DemoEditableTableComponent implements OnInit {
 
     this.tableState = new SmzTableBuilder('entity')
       .setTitle('Demo From Ui Definitions With Customization')
-      .setUpdateAction(DemoFeatureActions.Update)
-      .setCreationAction(DemoFeatureActions.Create)
-      .setRemoveAction(DemoFeatureActions.Remove)
+      .editable()
+        .setUpdateAction(DemoFeatureActions.Update)
+        .setCreationAction(DemoFeatureActions.Create)
+        .setRemoveAction(DemoFeatureActions.Remove)
+        .table
       .usePagination()
       .columns()
         .text('name', 'Name', '10em')
@@ -77,14 +81,13 @@ export class DemoEditableTableComponent implements OnInit {
 
     this.tableState = new SmzTableBuilder()
       .setTitle('Demo From Ui Definitions With Customization')
-      .setUpdateAction(DemoFeatureActions.Update)
-      .setCreationAction(DemoFeatureActions.Create)
-      .setRemoveAction(DemoFeatureActions.Remove)
+      .editable()
+        .setUpdateAction(DemoFeatureActions.Update)
+        .setCreationAction(DemoFeatureActions.Create)
+        .setRemoveAction(DemoFeatureActions.Remove)
+        .addMappingResults((data: any) => { return data; })
+        .table
       .usePagination()
-      .customizeEditableResults((data: any) => {
-        console.log('customizing', data);
-        return data;
-      })
       .columns()
         .text('name', 'Name', '10em')
           .editable()
@@ -115,13 +118,12 @@ export class DemoEditableTableComponent implements OnInit {
 
     this.tableState = new SmzTableBuilder('entity')
       .setTitle('Entidades')
-      .setCreationAction(DemoFeatureActions.Create)
-      .setUpdateAction(DemoFeatureActions.Update)
-      .setRemoveAction(DemoFeatureActions.Remove)
-      .customizeEditableResults((data: any) => {
-        console.log('data', data);
-        return data;
-      })
+      .editable()
+        .setCreationAction(DemoFeatureActions.Create)
+        .setUpdateAction(DemoFeatureActions.Update)
+        .setRemoveAction(DemoFeatureActions.Remove)
+        .addMappingResults((data: any) => { return data; })
+        .table
       .build();
 
       // console.log(this.tableState);

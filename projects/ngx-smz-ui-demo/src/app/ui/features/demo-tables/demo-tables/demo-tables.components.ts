@@ -171,6 +171,7 @@ export class DemoTablesComponent implements OnInit {
         customActions: {
           isVisible: true,
           columnWidth: 60,
+          ngStyle: null
         },
         menu: {
           isVisible: true,
@@ -272,7 +273,8 @@ export class DemoTablesComponent implements OnInit {
           columnWidth: '3em',
           callback: () => console.log('test'),
           isEnabled: false,
-          validationMode: 'none'
+          validationMode: 'none',
+          ngStyle: null
         },
       },
       emptyFeedback: {
