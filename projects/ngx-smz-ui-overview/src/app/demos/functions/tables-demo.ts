@@ -20,7 +20,6 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
         .enableClearFilters()
         .enableColumnVisibility()
         .enableGlobalFilter()
-        .setSize('small')
         .useGridStyle()
         .setEmptyFeedbackMessage('Lista vazia')
         .setEmptyFeedbackExtraInfo('Clique abaixo para carregar novos dados.')
@@ -74,7 +73,6 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
       .setEmptyFeedbackMessage('Lista vazia')
       .setEmptyFeedbackExtraInfo('Clique abaixo para carregar novos dados.')
       .addEmptyFeedbackButton('Atualizar', () => console.log('---'))
-      .useEstimatedColWidth()
       .usePagination()
       .setPaginationDefaultRows(50)
       .setCustomInitialSorting({ field: 'number', order: -1 })
@@ -85,22 +83,16 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
           .menu
         .table
       .columns()
-        .text('name', 'Name', '40em')
+        .text('name', 'Name', '300px')
           .disableFilter()
           .columns
         .text('country.name', 'Country')
           .setFilter(SmzFilterType.MULTI_SELECT)
           .disableSort()
           .columns
-        .dataTransform('country.name.id', 'Super Country 2', (country: SimpleNamedEntity, row: any) => {
-            // console.log('dataTransform', country, row);
-            return `test: ${country?.name?.toUpperCase()}`;
-          })
+        .dataTransform('country.name', 'Super Country 2', (country: SimpleNamedEntity, row: any) => `test: ${row.country?.name?.toUpperCase()}`)
           .columns
-        .dataTransform('country', 'Super Country', (country: SimpleNamedEntity, row: any) => {
-            // console.log('dataTransform', country, row);
-            return `super: ${country?.name?.toUpperCase()}`;
-          })
+        .dataTransform('country', 'Super Country', (country: SimpleNamedEntity, row: any) => `super: ${country?.name?.toUpperCase()}`)
           .setFilter(SmzFilterType.MULTI_SELECT)
           .columns
         .dataTransform('roles', 'Perfis', (roles: SimpleNamedEntity[], row: any) => { return roles.map(x => x.name).join(', '); })
@@ -411,7 +403,6 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
         .setPaginationPageOptions([10, 25, 50, 100, 200])
         .useEstimatedColWidth()
         .useGridStyle()
-        .setSize('small')
         .useStrippedStyle()
         .disableRowHoverEffect()
         .menu()
@@ -449,19 +440,14 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
       .enableGlobalFilter()
       .useStrippedStyle()
       .allowDefaultMultiSelection()
-      .setMultiSelectionCallback((selection: any[]) => {
-        console.log('setMultiSelectionCallback', selection);
-      })
-      // .useScrolling()
-      // .useEstimatedColWidth()
-      .setSize('small')
+      .setMultiSelectionCallback((selection: any[]) => {console.log('setMultiSelectionCallback', selection) })
       .menu()
         .item('Editar', 'pi pi-fw pi-pencil')
           .setCallback((item: any): void => console.log(item))
           .menu
         .table
       .columns()
-        .text('company', 'Código', '4em')
+        .text('company', 'Código', '16em')
           .disableFilter()
           .columns
         .text('name', 'Nome')
@@ -510,6 +496,7 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
     items$: store.select(DemoFeatureSelectors.all),
     code: () => {
     return new SmzTableBuilder()
+      .debugMode()
       .setTitle('Editable Table')
       .enableGlobalFilter()
       .useTableEmptyMessage()
@@ -518,14 +505,16 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
       .setCustomInitialSorting({ field: 'number', order: -1 })
       .useStrippedStyle()
       .enableExport()
-      .setUpdateAction(DemoFeatureActions.Update)
-      .setCreationAction(DemoFeatureActions.Create)
-      .setRemoveAction(DemoFeatureActions.Remove)
-      .useFlattenEditableResults()
-      .customizeEditableResults((data: any) => {
-        console.log('customizing', data);
-        return data;
-      })
+      .editable()
+        .setUpdateAction(DemoFeatureActions.Update)
+        .setCreationAction(DemoFeatureActions.Create)
+        .setRemoveAction(DemoFeatureActions.Remove)
+        .useFlattenResults()
+        .addMappingResults((data: any) => {
+          console.log('customizing', data);
+          return data;
+        })
+        .table
       .columns()
         .text('name', 'Name', '16em')
           .disableFilter()
@@ -548,6 +537,69 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
             .column
           .columns
         .table
+      .build()
+    }
+  },
+  //
+  [DemoKeys.TABLE_LAYOUT_SIZE_SMALL]: {
+    items$: store.select(DemoFeatureSelectors.all),
+    code: () => {
+    return new SmzTableBuilder('entity')
+        .setTitle('Table size: small')
+        .enableClearFilters()
+        .enableColumnVisibility()
+        .enableGlobalFilter()
+        .useGridStyle()
+        .setSize('small')
+        .setCustomInitialSorting({ field: 'number', order: -1 })
+        .useStrippedStyle()
+        .menu()
+          .item('Consultar')
+            .setCallback((event: any) => console.log('---'))
+            .menu
+          .table
+      .build()
+    }
+  },
+  //
+  [DemoKeys.TABLE_LAYOUT_SIZE_REGULAR]: {
+    items$: store.select(DemoFeatureSelectors.all),
+    code: () => {
+    return new SmzTableBuilder('entity')
+        .setTitle('Table size: regular')
+        .enableClearFilters()
+        .enableColumnVisibility()
+        .enableGlobalFilter()
+        .useGridStyle()
+        .setSize('regular')
+        .setCustomInitialSorting({ field: 'number', order: -1 })
+        .useStrippedStyle()
+        .menu()
+          .item('Consultar')
+            .setCallback((event: any) => console.log('---'))
+            .menu
+          .table
+      .build()
+    }
+  },
+  //
+  [DemoKeys.TABLE_LAYOUT_SIZE_LARGE]: {
+    items$: store.select(DemoFeatureSelectors.all),
+    code: () => {
+    return new SmzTableBuilder('entity')
+        .setTitle('Table size: large')
+        .enableClearFilters()
+        .enableColumnVisibility()
+        .enableGlobalFilter()
+        .useGridStyle()
+        .setSize('large')
+        .setCustomInitialSorting({ field: 'number', order: -1 })
+        .useStrippedStyle()
+        .menu()
+          .item('Consultar')
+            .setCallback((event: any) => console.log('---'))
+            .menu
+          .table
       .build()
     }
   },

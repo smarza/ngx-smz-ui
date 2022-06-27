@@ -100,14 +100,13 @@
             <ng-template pTemplate="header" let-columns>
                 <tr [ngClass]="{ 'invisible-header': !context.state.header.isVisible }">
 
-                    <th *ngIf="context.state.caption.rowSelection.isEnabled" [ngStyle]="getWidthStyle(context.state.caption.rowSelection.columnWidth)">
+                    <th *ngIf="context.state.caption.rowSelection.isEnabled" [ngStyle]="context.state.caption.rowSelection.ngStyle">
                         <ng-container *ngIf="!context.state.actions.batchActions.isVisible">
                             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                         </ng-container>
                     </th>
 
-                    <th *ngIf="context.state.rowExpansion.isEnabled" [ngStyle]="getWidthStyle(context.state.rowExpansion.columnWidth)">
-                    </th>
+                    <th *ngIf="context.state.rowExpansion.isEnabled" [ngStyle]="context.state.rowExpansion.ngStyle"></th>
 
                     <ng-container *ngFor="let col of columns">
 
@@ -223,11 +222,13 @@
 
                     </ng-container>
 
-                    <th *ngIf="context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible|| context.state.editable.isEditable" [ngStyle]="{ 'width': context.state.actions.customActions.columnWidth + 'px'}"></th>
+                    <th *ngIf="context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible|| context.state.editable.isEditable" [ngStyle]="context.state.editable.isEditable ? context.state.editable.ngStyle : context.state.actions.customActions.ngStyle"></th>
+
                 </tr>
 
                 <tr *ngIf="context.state.actions.batchActions.isVisible">
-                    <th [attr.colspan]="columns.length + ((context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible || context.state.editable.isEditable) ? 1 : 0) + (context.state.caption.rowSelection.isEnabled ? 1 : 0) + (context.state.rowExpansion.isEnabled ? 1 : 0)">
+                    <th [attr.colspan]="columns.length + ((context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible || context.state.editable.isEditable) ? 1 : 0) + (context.state.caption.rowSelection.isEnabled ? 1 : 0) + (context.state.rowExpansion.isEnabled ? 1 : 0)"
+                    [ngStyle]="context.state.actions.customActions.ngStyle">
                         <div class="grid grid-nogutter items-center justify-start">
                             <p-tableHeaderCheckbox class="mr-4"></p-tableHeaderCheckbox>
                             <ng-container *ngIf="selectedItems?.length > 0">
@@ -255,7 +256,7 @@
                     <td *ngIf="context.state.caption.rowSelection.isEnabled && !clonedData.showSkeleton"
                         clickStopPropagation
                         [ngClass]="{ 'opacity-50 pointer-events-none': editableService.context[item.id]?.hasErrors || editableService.context[item.id]?.isLoading }"
-                        [ngStyle]="getWidthStyle(context.state.caption.rowSelection.columnWidth)"
+                        [ngStyle]="context.state.caption.rowSelection.ngStyle"
                         >
                         <p-tableCheckbox [value]="item"></p-tableCheckbox>
                     </td>
@@ -263,7 +264,7 @@
                     <td *ngIf="context.state.rowExpansion.isEnabled && !clonedData.showSkeleton"
                         clickStopPropagation
                         [ngClass]="{ 'opacity-50 pointer-events-none': editableService.context[item.id]?.hasErrors || editableService.context[item.id]?.isLoading, 'grid grid-nogutter justify-start items-center gap-2': context.state.rowExpansion.highlightNewItems && item._isNew }"
-                        [ngStyle]="getWidthStyle(context.state.rowExpansion.columnWidth)"
+                        [ngStyle]="context.state.rowExpansion.ngStyle"
                         >
                         <p-toggleButton [(ngModel)]="item._isExpanded" [onIcon]="'fa-solid fa-chevron-down'" [offIcon]="'fa-solid fa-chevron-right'" (onChange)="item._isNew = false"></p-toggleButton>
                         <div *ngIf="context.state.rowExpansion.highlightNewItems && item._isNew" class="rounded bg-cyan-400 text-sm text-white px-2 py-0 smz-table-new-tag" (click)="item._isNew = false">{{ context.state.rowExpansion.highlightLabel }}</div>
@@ -417,7 +418,7 @@
 
                     <ng-container *ngIf="context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible || context.state.editable.isEditable">
 
-                        <td>
+                        <td [ngStyle]="context.state.actions.customActions.ngStyle">
 
                             <div class="grid grid-nogutter items-center justify-end">
                                 <ng-container *ngIf="clonedData.showSkeleton; else menuTemplate">

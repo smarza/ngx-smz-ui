@@ -720,6 +720,33 @@ export const TreeDemoData: DemoTreeNode[] = [
         ]
       },
       {
+        label: 'Sizes',
+        type: 'Category',
+        children: [
+          {
+            label: 'Size: Small', icon: 'fa-solid fa-code', type: 'Demo',
+            demoType: 'table',
+            notes: '',
+            data: TablesDemo[DemoKeys.TABLE_LAYOUT_SIZE_SMALL],
+            key: DemoKeys.TABLE_LAYOUT_SIZE_SMALL.toString()
+          },
+          {
+            label: 'Size: Regular', icon: 'fa-solid fa-code', type: 'Demo',
+            demoType: 'table',
+            notes: '',
+            data: TablesDemo[DemoKeys.TABLE_LAYOUT_SIZE_REGULAR],
+            key: DemoKeys.TABLE_LAYOUT_SIZE_REGULAR.toString()
+          },
+          {
+            label: 'Size: Large', icon: 'fa-solid fa-code', type: 'Demo',
+            demoType: 'table',
+            notes: '',
+            data: TablesDemo[DemoKeys.TABLE_LAYOUT_SIZE_LARGE],
+            key: DemoKeys.TABLE_LAYOUT_SIZE_LARGE.toString()
+          },
+        ]
+      },
+      {
         label: 'Ui Definitions', icon: 'fa-solid fa-code', type: 'Demo',
         demoType: 'table',
         notes: '',

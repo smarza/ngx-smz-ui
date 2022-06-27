@@ -48,6 +48,7 @@ export interface SmzTableState {
        * Items for the buttons
        */
       items: SmzMenuItem[];
+      ngStyle: { [style: string]: any } | null;
     };
 
     /**
@@ -62,6 +63,7 @@ export interface SmzTableState {
        * Width of pixels the column containing the custom actions
        */
       columnWidth: number;
+      ngStyle: { [style: string]: any } | null;
     };
 
     /**
@@ -114,7 +116,8 @@ export interface SmzTableState {
       creation: any,
       remove: any,
     },
-    mapResults: Array<(data: any, change: EditableChanges<any>) => any>
+    mapResults: Array<(data: any, change: EditableChanges<any>) => any>,
+    ngStyle: { [style: string]: any } | null;
   }
   locale?: {
     columnVisibility?: {
@@ -236,6 +239,8 @@ export interface SmzTableState {
        *
        */
       validationMode: 'none' | 'required';
+
+      ngStyle: { [style: string]: any } | null;
     };
   };
 
@@ -453,7 +458,7 @@ export interface SmzTableState {
     /**
      * Width of the column that will host the toggle button
      */
-    columnWidth?: string;
+    columnWidth?: number;
     /**
      * This callback is executed when you expand/collapse the row
      * This can be used, for instance, in the case you want to proccess some data
@@ -471,6 +476,7 @@ export interface SmzTableState {
     sincronize?: boolean;
     highlightNewItems?: boolean;
     highlightLabel?: string;
+    ngStyle: { [style: string]: any } | null;
   };
 
   /**
