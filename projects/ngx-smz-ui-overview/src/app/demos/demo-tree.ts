@@ -830,6 +830,13 @@ export const TreeDemoData: DemoTreeNode[] = [
         data: TablesDemo[DemoKeys.TABLE_EDITABLE],
         key: DemoKeys.TABLE_EDITABLE.toString()
       },
+      {
+        label: 'Amostragens de Corrosão', icon: 'fa-solid fa-code', type: 'Demo',
+        demoType: 'table',
+        notes: '',
+        data: TablesDemo[DemoKeys.TABLE_EDITABLE_PARTIAL],
+        key: DemoKeys.TABLE_EDITABLE_PARTIAL.toString()
+      },
     ]
   },
   {

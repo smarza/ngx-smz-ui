@@ -8,6 +8,7 @@ import { SmzTableBuilder } from './state-builder';
 export class SmzEditableTableBuilder {
   constructor(private _tableBuilder: SmzTableBuilder) {
     _tableBuilder._state.editable.isEditable = true;
+    this._tableBuilder._state.actions.customActions.columnWidth += 150;
   }
 
   public useFlattenResults<T>(): SmzEditableTableBuilder {
@@ -34,7 +35,6 @@ export class SmzEditableTableBuilder {
     this._tableBuilder._state.editable.actions.update = action;
     this._tableBuilder._state.editable.update.isButtonVisible = true;
     this._tableBuilder._state.editable.update.accessClaim = claim;
-    this._tableBuilder._state.actions.customActions.columnWidth += 70;
 
     return this;
   }
@@ -44,7 +44,6 @@ export class SmzEditableTableBuilder {
     this._tableBuilder._state.editable.actions.remove = action;
     this._tableBuilder._state.editable.remove.isButtonVisible = true;
     this._tableBuilder._state.editable.remove.accessClaim = claim;
-    this._tableBuilder._state.actions.customActions.columnWidth += 70;
     this._tableBuilder._state.editable.remove.overrideActionDataCallback = overrideActionData;
 
     return this;

@@ -7,6 +7,7 @@ import { convertorTasks } from './../data/conversor-tasks';
 import { Observable } from 'rxjs/internal/Observable';
 import { DemoFeatureActions } from '@states/demo/demo.actions';
 import { LARGE_TABLE_DATA } from '../data/large-table';
+import { EditableTablePartialData, EditableTablePartialLevels } from '../data/tables/editable-table-partial-data';
 
 const store = GlobalInjector.instance.get(Store);
 
@@ -534,6 +535,53 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
           .editable()
             .dropdown('country')
             .setSelector(DemoFeatureSelectors.countries)
+            .column
+          .columns
+        .table
+      .build()
+    }
+  },
+  //
+  [DemoKeys.TABLE_EDITABLE_PARTIAL]: {
+    items$: of(EditableTablePartialData),
+    code: () => {
+    return new SmzTableBuilder()
+      .setTitle('Partial Editable Table')
+      .enableGlobalFilter()
+      .useTableEmptyMessage()
+      .usePagination()
+      .setPaginationDefaultRows(10)
+      .setCustomInitialSorting({ field: 'number', order: -1 })
+      .useStrippedStyle()
+      .disableRowHoverEffect()
+      .editable()
+        .setUpdateAction(DemoFeatureActions.Update)
+        .useFlattenResults()
+        .addMappingResults((data: any) => {
+          console.log('customizing', data);
+          return data;
+        })
+        .table
+      .columns()
+        // .text('plant.name', 'Planta', '10em')
+        //   .disableFilter()
+        //   .columns
+        .text('name', 'Name', '16em')
+          .columns
+        .text('function.name', 'Função', '16em')
+          .setFilter(SmzFilterType.MULTI_SELECT)
+          .columns
+        .text('value', 'Amostra de Corrosão', '12m')
+          .disableFilter()
+          .editable()
+            .text()
+            .column
+          .columns
+        .text('level.name', 'Característica', '16m')
+          .setFilter(SmzFilterType.MULTI_SELECT)
+          .editable()
+            .dropdown('level')
+            .setOptions(EditableTablePartialLevels)
             .column
           .columns
         .table

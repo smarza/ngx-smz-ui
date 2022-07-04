@@ -287,6 +287,7 @@
                                     <ng-template pTemplate="input">
                                         <ng-container [ngSwitch]="col.editable.type">
                                             <ng-container *ngSwitchCase="editableTypes.none">
+                                                <smz-table-content class="cursor-default" [col]="col" [contentTypes]="contentTypes" [item]="item" [rowIndex]="rowIndex" [contentTemplate]="contentTemplate"></smz-table-content>
                                             </ng-container>
 
                                             <ng-container *ngSwitchCase="editableTypes.custom">
@@ -369,44 +370,7 @@
 
                                     <!-- CELULAR COM CONTEÚDO -->
                                     <ng-template pTemplate="output">
-                                        <ng-container [ngSwitch]="col.content.type">
-                                            <ng-container *ngSwitchCase="contentTypes.custom">
-                                                <div [ngClass]="col.content.styleClass">
-                                                    <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: item, col: col }"></ng-container>
-                                                </div>
-                                            </ng-container>
-
-                                            <ng-container *ngSwitchCase="contentTypes.currency">
-                                                <div [ngClass]="col.content.styleClass">
-                                                    R$ {{ (item | tableContent : col.field).result }}
-                                                </div>
-                                            </ng-container>
-
-                                            <ng-container *ngSwitchCase="contentTypes.calendar">
-                                                <div [ngClass]="col.content.styleClass">
-                                                    {{ (item | tableContent : col.field).result | date: col.content.data['format'] }}
-                                                </div>
-                                            </ng-container>
-
-                                            <ng-container *ngSwitchCase="contentTypes.text">
-                                                <div [innerHtml]="(item | tableContent : col.field).result" [ngClass]="col.content.styleClass"></div>
-                                            </ng-container>
-
-                                            <ng-container *ngSwitchCase="contentTypes.dataTransform">
-                                                <ng-container *ngIf="(item | tableContent : col.field) as contentData">
-                                                    <div [innerHtml]="$any(col.content.data).callback(contentData.result, item, rowIndex)" [ngClass]="col.content.styleClass"></div>
-                                                </ng-container>
-                                            </ng-container>
-
-                                            <ng-container *ngSwitchCase="contentTypes.icon">
-                                                <div [ngClass]="col.content.styleClass">
-                                                    <ng-container *ngIf="(col.content.data['matches'] | contentIconMatches : (item | tableContent : col.field).result) as match">
-                                                        <i *ngIf="match != null" [ngClass]="match.icon + ' ' + match.class" [pTooltip]="match.tooltip"></i>
-                                                    </ng-container>
-                                                </div>
-                                            </ng-container>
-                                        </ng-container>
-
+                                        <smz-table-content [col]="col" [contentTypes]="contentTypes" [item]="item" [rowIndex]="rowIndex" [contentTemplate]="contentTemplate"></smz-table-content>
                                     </ng-template>
                                 </p-cellEditor>
 

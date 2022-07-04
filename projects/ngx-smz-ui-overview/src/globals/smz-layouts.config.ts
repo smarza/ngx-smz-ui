@@ -53,9 +53,9 @@ export const smzLayoutsConfig: SmzLayoutsConfig = {
         position: 'bottom-right'
     },
     themes: {
-        content: SmzContentTheme.VELA_ORANGE,
+        content: SmzContentTheme.TAILWIND_LIGHT,
         system: {
-            enabled: true,
+            enabled: false,
             dark: SmzContentTheme.VELA_BLUE,
             light: SmzContentTheme.MDC_LIGHT_DEEPPURPLE
         }
@@ -72,7 +72,7 @@ export const smzLayoutsConfig: SmzLayoutsConfig = {
         notFoundImagePath: 'assets/images/pages/bg-404.jpg',
     },
     assistance: {
-        isEnabled: true,
+        isEnabled: false,
         sidebarData: {
             position: 'right'
         },
