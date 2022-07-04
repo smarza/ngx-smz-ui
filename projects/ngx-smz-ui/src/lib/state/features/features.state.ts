@@ -18,8 +18,13 @@ export class FeaturesState {
     public clear(ctx: StateContext<any>): void {
         const newState = {};
 
-        for (const stateConfig of Object.keys(this.rbkConfig.state.feature)) {
-            newState[stateConfig] = this.rbkConfig.state.feature[stateConfig].clearFunction();
+        for (const stateConfig of Object.keys(this.rbkConfig.state.database)) {
+            if (this.rbkConfig.state.feature[stateConfig].clearFunction != null) {
+                newState[stateConfig] = this.rbkConfig.state.feature[stateConfig].clearFunction();
+            }
+            if (this.rbkConfig.state.feature[stateConfig].clearAction != null) {
+                ctx.dispatch(this.rbkConfig.state.feature[stateConfig].clearAction);
+            }
         }
 
         ctx.patchState(newState);
