@@ -2,7 +2,7 @@ import { SmzFaqsConfig } from 'ngx-smz-ui';
 import { environment } from '../environments/environment';
 
 export const smzFaqsConfig: SmzFaqsConfig = {
-  endpoint: `${environment.domainApi}/api/faqs`,
+  endpoint: `${environment.serverUrl}/api/faqs`,
   databaseCacheTimeout: environment.databaseCacheTimeout,
   creationClaim: 'EDIT_CUSTOMERS_DETAILS',
   placeholders: {

@@ -34,6 +34,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { NgxSmzMenuModule } from '../smz-menu/smz-menu.module';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { SmzSincronizeTablePipe } from './pipes/sincronize-table.pipe';
+import { SmzTableContentComponent } from './components/table-content/table-content.component';
 
 @NgModule({
     declarations: [
@@ -49,7 +50,8 @@ import { SmzSincronizeTablePipe } from './pipes/sincronize-table.pipe';
         SmzContentErrorsPipe,
         ValidationMessagesComponent,
         ValidationMessagesPipe,
-        SmzSincronizeTablePipe
+        SmzSincronizeTablePipe,
+        SmzTableContentComponent
     ],
     imports: [
         CommonModule,

@@ -1,6 +1,6 @@
 import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewChild, OnDestroy } from '@angular/core';
 import { PrimeTemplate } from 'primeng/api';
-import { SmzContentType } from '../../models/content-types';
+import { SmzContentType, SmzDataTransform } from '../../models/content-types';
 import { SmzFilterType } from '../../models/filter-types';
 import { SmzTableState, SmzTableContext } from '../../models/table-state';
 import { SmzTableColumn } from '../../models/table-column';
@@ -11,6 +11,10 @@ import { Table } from 'primeng/table';
 import { SmzDialogsConfig } from '../../../smz-dialogs/smz-dialogs.config';
 import { uuidv4 } from '../../../../common/utils/utils';
 import { TableHelperService } from '../../services/table-helper.service';
+import { SmzExportDialogData } from '../../../smz-export-dialog/smz-export-dialog.model';
+import cloneDeep from 'lodash-es/cloneDeep';
+import { Store } from '@ngxs/store';
+import { LayoutUiActions } from '../../../../state/ui/layout/layout.actions';
 
 @Component({
   selector: 'smz-ui-table',
@@ -71,7 +75,7 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
     multiselect: SmzFilterType.MULTI_SELECT,
     multiselect_array: SmzFilterType.MULTI_SELECT_ARRAY
   }
-  constructor(public cdr: ChangeDetectorRef, public editableService: TableEditableService, public formsService: TableFormsService, public dialogConfig: SmzDialogsConfig, private tableHelper: TableHelperService) {
+  constructor(public cdr: ChangeDetectorRef, public editableService: TableEditableService, public formsService: TableFormsService, public dialogConfig: SmzDialogsConfig, private tableHelper: TableHelperService, private store: Store) {
     this.editableService.cdr = this.cdr;
     this.editableService.createEvent = this.create;
     this.editableService.updateEvent = this.update;
@@ -79,14 +83,6 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
   }
 
   public ngOnInit(): void {
-  }
-
-  public getWidthStyle(value) {
-    // console.log(`getWidthStyle(${value})`);
-    return { [this.state.styles.columnsWidth.behavior]: value }
-  }
-
-  public bind(): void {
   }
 
   public updateColumnsVisibility(context: SmzTableContext): void {
@@ -209,6 +205,19 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
     if (context.state.caption?.clearFilters?.callback != null) {
       context.state.caption.clearFilters.callback();
     }
+  }
+
+  public export(context: SmzTableContext, items: any[]): void {
+    const exportData: SmzExportDialogData = {
+      title: context.state.caption.title,
+      filename: context.state.caption.title,
+      columns: context.columns
+        .filter(x => x.isExportable)
+        .map(x => ({field: x.field, header: x.header, isDataTransform: x.content.type === SmzContentType.DATA_TRANSFORM, callback: x.content.type === SmzContentType.DATA_TRANSFORM ? (x.content.data as SmzDataTransform).callback : null})),
+      items: cloneDeep(items)
+    };
+
+    this.store.dispatch(new LayoutUiActions.ShowExportDialog(exportData));
   }
 
   public onRowSelection(context: SmzTableContext): void {

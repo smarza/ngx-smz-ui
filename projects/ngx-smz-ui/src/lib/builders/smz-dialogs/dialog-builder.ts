@@ -66,7 +66,8 @@ export class SmzDialogBuilder<TResponse> extends SmzBuilderUtilities<SmzDialogBu
       ...this.defaultConfig?.dialogs?.dialogTemplate
     },
     presetId: null,
-    features: []
+    features: [],
+    contentClass: ''
   };
 
   public createdByUiDefinitions = false;
@@ -108,6 +109,12 @@ export class SmzDialogBuilder<TResponse> extends SmzBuilderUtilities<SmzDialogBu
 
   public setMinimizeDockImage(imagePath: string): SmzDialogBuilder<TResponse> {
     this._state.behaviors.minimizeDockImagePath = imagePath;
+    return this;
+  }
+
+  public setMinHeight(percentageOfScreen: 50 | 60 | 70 | 80): SmzDialogBuilder<TResponse> {
+    const styleClass = ['min-h-[50vh]', 'min-h-[60vh]', 'min-h-[70vh]', 'min-h-[80vh]'];
+    this._state.contentClass = `min-h-[${percentageOfScreen}vh]`;
     return this;
   }
 

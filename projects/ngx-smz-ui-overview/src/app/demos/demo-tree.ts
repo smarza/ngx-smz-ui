@@ -720,6 +720,33 @@ export const TreeDemoData: DemoTreeNode[] = [
         ]
       },
       {
+        label: 'Sizes',
+        type: 'Category',
+        children: [
+          {
+            label: 'Size: Small', icon: 'fa-solid fa-code', type: 'Demo',
+            demoType: 'table',
+            notes: '',
+            data: TablesDemo[DemoKeys.TABLE_LAYOUT_SIZE_SMALL],
+            key: DemoKeys.TABLE_LAYOUT_SIZE_SMALL.toString()
+          },
+          {
+            label: 'Size: Regular', icon: 'fa-solid fa-code', type: 'Demo',
+            demoType: 'table',
+            notes: '',
+            data: TablesDemo[DemoKeys.TABLE_LAYOUT_SIZE_REGULAR],
+            key: DemoKeys.TABLE_LAYOUT_SIZE_REGULAR.toString()
+          },
+          {
+            label: 'Size: Large', icon: 'fa-solid fa-code', type: 'Demo',
+            demoType: 'table',
+            notes: '',
+            data: TablesDemo[DemoKeys.TABLE_LAYOUT_SIZE_LARGE],
+            key: DemoKeys.TABLE_LAYOUT_SIZE_LARGE.toString()
+          },
+        ]
+      },
+      {
         label: 'Ui Definitions', icon: 'fa-solid fa-code', type: 'Demo',
         demoType: 'table',
         notes: '',
@@ -788,6 +815,27 @@ export const TreeDemoData: DemoTreeNode[] = [
         notes: '',
         data: TablesDemo[DemoKeys.TABLE_MULTI_SELECTION],
         key: DemoKeys.TABLE_MULTI_SELECTION.toString()
+      },
+      {
+        label: 'Export', icon: 'fa-solid fa-code', type: 'Demo',
+        demoType: 'table',
+        notes: '',
+        data: TablesDemo[DemoKeys.TABLE_EXPORT],
+        key: DemoKeys.TABLE_EXPORT.toString()
+      },
+      {
+        label: 'Editable', icon: 'fa-solid fa-code', type: 'Demo',
+        demoType: 'table',
+        notes: '',
+        data: TablesDemo[DemoKeys.TABLE_EDITABLE],
+        key: DemoKeys.TABLE_EDITABLE.toString()
+      },
+      {
+        label: 'Amostragens de Corrosão', icon: 'fa-solid fa-code', type: 'Demo',
+        demoType: 'table',
+        notes: '',
+        data: TablesDemo[DemoKeys.TABLE_EDITABLE_PARTIAL],
+        key: DemoKeys.TABLE_EDITABLE_PARTIAL.toString()
       },
     ]
   },

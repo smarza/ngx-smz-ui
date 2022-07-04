@@ -2,7 +2,6 @@ import { Store } from '@ngxs/store';
 import { flatten, sortBy } from 'lodash-es';
 import { GlobalInjector } from '../../../lib/common/services/global-injector';
 import { SmzMenuItem } from '../../modules/smz-menu/models/smz-menu-item';
-import { defaultMapResults, EditableChanges } from '../../modules/smz-tables/models/editable-model';
 import { SmzTableState } from '../../modules/smz-tables/models/table-state';
 import { StateBuilderFunctions } from './state-builder-functions';
 import { SmzColumnCollectionBuilder } from './column-builder';
@@ -12,6 +11,7 @@ import { SmzControlTypes } from '../../modules/smz-forms/models/control-types';
 import { convertFormFeature } from '../smz-dialogs/dialog-input-conversion';
 import { UiDefinitionsDbSelectors } from '../../state/database/ui-definitions/ui-definitions.selectors';
 import { SmzBatchMenuBuilder } from './batch-menu-builder';
+import { SmzEditableTableBuilder } from './editable-builder';
 
 // SCROLL TRUE =>
 //   MIN-WIDTH PODE TER PX
@@ -30,6 +30,7 @@ export class SmzTableBuilder {
       customActions: {
         columnWidth: 0,
         isVisible: false,
+        ngStyle: null
       },
       menu: {
         isVisible: false,
@@ -42,7 +43,8 @@ export class SmzTableBuilder {
       },
       batchActions: {
         isVisible: false,
-        items: []
+        items: [],
+        ngStyle: null
       },
       rowBehavior: {
         clickCallback: null,
@@ -76,7 +78,8 @@ export class SmzTableBuilder {
         creation: null,
         remove: null,
       },
-      mapResults: (data, changes: EditableChanges<any>) => defaultMapResults(data, changes)
+      mapResults: [],
+      ngStyle: null
     },
     caption: {
       rowSelection: {
@@ -84,7 +87,11 @@ export class SmzTableBuilder {
         isEnabled: false,
         callback: null,
         columnWidth: '3em',
-        validationMode: 'none'
+        validationMode: 'none',
+        ngStyle: null
+      },
+      export: {
+        isButtonVisible: false,
       },
       clearFilters: {
         callback: null,
@@ -163,9 +170,10 @@ export class SmzTableBuilder {
       isButtonVisible: false,
       isEnabled: false,
       callback: null,
-      columnWidth: '3em',
+      columnWidth: 75,
       label: '',
-      sincronize: false
+      sincronize: false,
+      ngStyle: null
     },
   };
 
@@ -244,6 +252,9 @@ export class SmzTableBuilder {
           dropdownFilter: {
             placeholder: 'Todos'
           },
+          export: {
+            label: 'Exportar',
+          },
           clearFilters: {
             label: 'Limpar Filtros'
           },
@@ -271,6 +282,9 @@ export class SmzTableBuilder {
           dropdownFilter: {
             placeholder: 'All'
           },
+          export: {
+            label: 'Export',
+          },
           clearFilters: {
             label: 'Clear Filters'
           },
@@ -297,11 +311,11 @@ export class SmzTableBuilder {
     return this;
   }
 
-  // public enableClearFiltersWithoutLabel(): SmzTableBuilder {
-  //   this._state.caption.isVisible = true;
-  //   this._state.caption.clearFilters.isButtonVisible = true;
-  //   return this;
-  // }
+  public enableExport(): SmzTableBuilder {
+    this._state.caption.isVisible = true;
+    this._state.caption.export.isButtonVisible = true;
+    return this;
+  }
 
   public setClearFilterCallback(callback: () => void): SmzTableBuilder {
     if (!this._state.caption.clearFilters.isButtonVisible) {
@@ -382,7 +396,7 @@ export class SmzTableBuilder {
     this._state.rowExpansion.isEnabled = initialState === 'enabled';
     this._state.rowExpansion.isButtonVisible = true;
     this._state.rowExpansion.label = label;
-    this._state.rowExpansion.columnWidth = '3em';
+    this._state.rowExpansion.columnWidth = 75;
     this._state.rowExpansion.sincronize = true;
     this._state.rowExpansion.highlightNewItems = true;
     this._state.rowExpansion.highlightLabel = 'NOVO';
@@ -421,11 +435,11 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public setRowExpansionColumnWidth(width: string): SmzTableBuilder {
+  public setRowExpansionColumnWidth(pixels: number): SmzTableBuilder {
     if (!this._state.rowExpansion.isButtonVisible) {
       throw Error('You need to call \'allowRowExpansion\' before');
     }
-    this._state.rowExpansion.columnWidth = width;
+    this._state.rowExpansion.columnWidth = pixels;
     return this;
   }
 
@@ -579,6 +593,10 @@ export class SmzTableBuilder {
 
   public useEstimatedColWidth(maxWidthPx?: number): SmzTableBuilder {
 
+    if (this._state.editable.isEditable) {
+      throw Error('You can\'t use \'useEstimatedColWidth\' while using \'editable Table\'');
+    }
+
     this._state.viewport.scrollable = true;
     this._state.viewport.scrollHeight = 'flex';
     this._state.viewport.scrollDirection = 'both';
@@ -693,7 +711,21 @@ export class SmzTableBuilder {
 
   public menu(items: SmzMenuItem[] = null): SmzMenuTableBuilder {
 
-    this._state.actions.customActions.columnWidth += this._state.styles.size === 'small' ? 40 : 63;
+    switch (this._state.styles.size) {
+      case 'small':
+        this._state.actions.customActions.columnWidth += 50;
+        break;
+
+      case 'regular':
+        this._state.actions.customActions.columnWidth += 65;
+        break;
+
+      case 'large':
+        this._state.actions.customActions.columnWidth += 70;
+        break;
+      default:
+        break;
+    }
 
     const menuBuilder = new SmzMenuTableBuilder(this);
 
@@ -735,47 +767,19 @@ export class SmzTableBuilder {
     return batchMenuBuilder;
   }
 
-  public customizeEditableResults<T>(mapFunction: (data: T, changeS: EditableChanges<T>) => any): SmzTableBuilder {
-    this._state.editable.mapResults = mapFunction;
+  public editable(): SmzEditableTableBuilder {
 
-    return this;
-  }
+    if (this._state.editable.isEditable) {
+      throw Error('You cannot call \'editable\' twice');
+    }
 
-  public setUpdateAction(action: any, claim?: string): SmzTableBuilder {
+    if (this._state.styles.columnsWidth.estimate) {
+      throw Error('You can\'t use \'editable\' while using \'useEstimatedColWidth\'');
+    }
 
-    if (!this._state.editable.isEditable) this._state.actions.customActions.columnWidth += 150;
+    const editableBuilder = new SmzEditableTableBuilder(this);
 
-    this._state.editable.actions.update = action;
-    this._state.editable.update.isButtonVisible = true;
-    this._state.editable.update.accessClaim = claim;
-    this._state.editable.isEditable = true;
-
-    return this;
-  }
-
-  public setCreationAction(action: any, claim?: string): SmzTableBuilder {
-
-    if (!this._state.editable.isEditable) this._state.actions.customActions.columnWidth += 150;
-
-    this._state.editable.actions.creation = action;
-    this._state.editable.creation.isButtonVisible = true;
-    this._state.editable.creation.accessClaim = claim;
-    this._state.editable.isEditable = true;
-
-    return this;
-  }
-
-  public setRemoveAction(action: any, claim?: string, overrideActionData?: (row: any) => any): SmzTableBuilder {
-
-    if (!this._state.editable.isEditable) this._state.actions.customActions.columnWidth += 150;
-
-    this._state.editable.actions.remove = action;
-    this._state.editable.remove.isButtonVisible = true;
-    this._state.editable.remove.accessClaim = claim;
-    this._state.editable.remove.overrideActionDataCallback = overrideActionData;
-    this._state.editable.isEditable = true;
-
-    return this;
+    return editableBuilder;
   }
 
   public setScrollDirection(direction: 'vertical' | 'horizontal' | 'both' = 'vertical'): SmzTableBuilder {
@@ -840,6 +844,22 @@ export class SmzTableBuilder {
       }
 
     });
+
+    const selectionWidth = this._state.caption.rowSelection.columnWidth;
+    this._state.caption.rowSelection.ngStyle = applyTableContentNgStyle(this._state, null, selectionWidth);
+
+    const customWidth = this._state.actions.customActions.columnWidth;
+
+    // Ajuste de largura da coluna de botões editáveis
+    this._state.editable.ngStyle = applyTableContentNgStyle(this._state, customWidth, null);
+
+    // Ajuste de largura da coluna de botões customizáveis
+    this._state.actions.customActions.ngStyle = applyTableContentNgStyle(this._state, customWidth, null);
+    this._state.actions.batchActions.ngStyle = applyTableContentNgStyle(this._state, customWidth, null);
+
+    // Ajuste de largura da coluna do botão expansor de linhas
+    const expansionWidth = this._state.rowExpansion.columnWidth;
+    this._state.rowExpansion.ngStyle = applyTableContentNgStyle(this._state, expansionWidth, null);
 
     if (this._state.isDebug) {
       console.log(this._state);
@@ -908,6 +928,12 @@ export function applyTableContentNgStyle(state: SmzTableState, size: number, fin
     minWidth = size < globalMaxWidth ? sizeStyle : maxWidthStyle;
     width = size < globalMaxWidth ? sizeStyle : maxWidthStyle;
     maxWidth = maxWidthStyle;
+  }
+  else {
+    if (state.isDebug) console.log(5);
+    minWidth = sizeStyle;
+    width = sizeStyle;
+    maxWidth = sizeStyle;
   }
 
   switch (behavior) {

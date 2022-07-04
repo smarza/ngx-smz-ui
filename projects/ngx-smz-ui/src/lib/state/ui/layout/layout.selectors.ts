@@ -6,6 +6,8 @@ import { SmzAppLogo } from '../../../modules/smz-layouts/core/models/logo';
 import { SmzToastData } from '../../../modules/smz-layouts/core/models/toasts';
 import { BreadcrumbsData } from '../../../modules/smz-layouts/core/models/breadcrumbs';
 import { SmzContentTheme } from '../../../modules/smz-layouts/core/models/themes';
+import { SmzExportDialogData } from '../../../modules/smz-export-dialog/smz-export-dialog.model';
+
 export class LayoutUiSelectors
 {
 
@@ -117,5 +119,11 @@ export class LayoutUiSelectors
     public static breadcrumbs(state: UiStateModel): BreadcrumbsData
     {
         return state.breadcrumbs;
+    }
+
+    @Selector([LayoutUiState])
+    public static exportData(state: UiStateModel): SmzExportDialogData
+    {
+        return state.exportData;
     }
 }

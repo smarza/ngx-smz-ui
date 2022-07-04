@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home.component';
-import { NgxSmzTablesModule, NgxSmzTreesModule, SmzRouteData, NgxSmzDialogsModule, NgxSmzFormsModule, NgxSmzDataPipesModule } from 'ngx-smz-ui';
+import { NgxSmzTablesModule, NgxSmzTreesModule, SmzRouteData, NgxSmzDialogsModule, NgxSmzFormsModule, NgxSmzDataPipesModule, NgxSmzServerImageModule } from 'ngx-smz-ui';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
 import { RbkAuthGuard, RbkDatabaseStateGuard, UI_DEFINITIONS_STATE_NAME } from 'ngx-smz-ui';
 import { CodeBlockModule } from '../../components/code-block/code-block.module';
 import { DemoTitlePipeModule } from '../../pipes/demo-title.pipe';
 import { CountriesDbName } from '@states/database/countries/countries.state';
-
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { FormsModule } from '@angular/forms';
 
 const data: SmzRouteData = {
   layout: {
@@ -40,7 +41,10 @@ const routes: Routes = [
     NgxSmzTreesModule,
     CodeBlockModule,
     DemoTitlePipeModule,
-    NgxSmzDataPipesModule
+    NgxSmzDataPipesModule,
+    NgxSmzServerImageModule,
+    AutoCompleteModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [HomeComponent]

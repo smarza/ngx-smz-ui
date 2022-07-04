@@ -8,7 +8,7 @@ import { BaseApiService } from 'ngx-smz-ui';
 
 @Injectable({ providedIn: 'root' })
 export class TreeDemoDataService extends BaseApiService {
-  private endpoint = `${environment.domainApi}/api/demo`;
+  private endpoint = `${environment.serverUrl}/api/demo`;
 
   constructor(private http: HttpClient) {
     super();

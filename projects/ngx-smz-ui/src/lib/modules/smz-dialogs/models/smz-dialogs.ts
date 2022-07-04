@@ -61,6 +61,8 @@ export interface SmzDialog<T>
     */
     domElementId?: string;
 
+    contentClass?: string;
+
 }
 
 export interface SmzDialogPreset

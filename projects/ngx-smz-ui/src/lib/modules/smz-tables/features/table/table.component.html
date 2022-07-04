@@ -78,6 +78,7 @@
                     </p-multiSelect>
                     <button *ngIf="context.state.caption.rowSelection.isButtonVisible" pButton [label]="context.state.locale.rowSelection.label" class="p-button-outlined" icon="fa-solid fa-check-double" (click)="onRowSelection(context)" [disabled]="clonedData.showSkeleton"></button>
                     <button *ngIf="context.state.caption.clearFilters.isButtonVisible" pButton [label]="context.state.locale.clearFilters.label" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(dt, context)" [disabled]="clonedData.showSkeleton"></button>
+                    <button *ngIf="context.state.caption.export.isButtonVisible" pButton [label]="context.state.locale.export.label" class="p-button-outlined" icon="fa-solid fa-file-export" (click)="export(context, clonedData.items)" [disabled]="clonedData.showSkeleton"></button>
                     <button *ngIf="context.state.editable.creation.isButtonVisible" pButton [label]="context.state.editable.creation.buttonLabel" class="p-button-outlined" icon="fa-solid fa-plus" (click)="editableService.onRowCreateInit(dt, context)" [disabled]="clonedData.showSkeleton || editableService.isEditing || editableService.isCreating || context.state.editable.creation.isButtonDisabled"></button>
                     <span *ngIf="context.state.caption.globalFilter.isVisible" class="p-input-icon-left col-12" [ngClass]="{ 'md:col-2': !context.state.caption.globalFilter.expanded }">
                         <i class="pi pi-search"></i>
@@ -99,14 +100,13 @@
             <ng-template pTemplate="header" let-columns>
                 <tr [ngClass]="{ 'invisible-header': !context.state.header.isVisible }">
 
-                    <th *ngIf="context.state.caption.rowSelection.isEnabled" [ngStyle]="getWidthStyle(context.state.caption.rowSelection.columnWidth)">
+                    <th *ngIf="context.state.caption.rowSelection.isEnabled" [ngStyle]="context.state.caption.rowSelection.ngStyle">
                         <ng-container *ngIf="!context.state.actions.batchActions.isVisible">
                             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                         </ng-container>
                     </th>
 
-                    <th *ngIf="context.state.rowExpansion.isEnabled" [ngStyle]="getWidthStyle(context.state.rowExpansion.columnWidth)">
-                    </th>
+                    <th *ngIf="context.state.rowExpansion.isEnabled" [ngStyle]="context.state.rowExpansion.ngStyle"></th>
 
                     <ng-container *ngFor="let col of columns">
 
@@ -222,11 +222,13 @@
 
                     </ng-container>
 
-                    <th *ngIf="context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible|| context.state.editable.isEditable" [ngStyle]="{ 'width': context.state.actions.customActions.columnWidth + 'px'}"></th>
+                    <th *ngIf="context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible|| context.state.editable.isEditable" [ngStyle]="context.state.editable.isEditable ? context.state.editable.ngStyle : context.state.actions.customActions.ngStyle"></th>
+
                 </tr>
 
                 <tr *ngIf="context.state.actions.batchActions.isVisible">
-                    <th [attr.colspan]="columns.length + ((context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible || context.state.editable.isEditable) ? 1 : 0) + (context.state.caption.rowSelection.isEnabled ? 1 : 0) + (context.state.rowExpansion.isEnabled ? 1 : 0)">
+                    <th [attr.colspan]="columns.length + ((context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible || context.state.editable.isEditable) ? 1 : 0) + (context.state.caption.rowSelection.isEnabled ? 1 : 0) + (context.state.rowExpansion.isEnabled ? 1 : 0)"
+                    [ngStyle]="context.state.actions.customActions.ngStyle">
                         <div class="grid grid-nogutter items-center justify-start">
                             <p-tableHeaderCheckbox class="mr-4"></p-tableHeaderCheckbox>
                             <ng-container *ngIf="selectedItems?.length > 0">
@@ -254,7 +256,7 @@
                     <td *ngIf="context.state.caption.rowSelection.isEnabled && !clonedData.showSkeleton"
                         clickStopPropagation
                         [ngClass]="{ 'opacity-50 pointer-events-none': editableService.context[item.id]?.hasErrors || editableService.context[item.id]?.isLoading }"
-                        [ngStyle]="getWidthStyle(context.state.caption.rowSelection.columnWidth)"
+                        [ngStyle]="context.state.caption.rowSelection.ngStyle"
                         >
                         <p-tableCheckbox [value]="item"></p-tableCheckbox>
                     </td>
@@ -262,7 +264,7 @@
                     <td *ngIf="context.state.rowExpansion.isEnabled && !clonedData.showSkeleton"
                         clickStopPropagation
                         [ngClass]="{ 'opacity-50 pointer-events-none': editableService.context[item.id]?.hasErrors || editableService.context[item.id]?.isLoading, 'grid grid-nogutter justify-start items-center gap-2': context.state.rowExpansion.highlightNewItems && item._isNew }"
-                        [ngStyle]="getWidthStyle(context.state.rowExpansion.columnWidth)"
+                        [ngStyle]="context.state.rowExpansion.ngStyle"
                         >
                         <p-toggleButton [(ngModel)]="item._isExpanded" [onIcon]="'fa-solid fa-chevron-down'" [offIcon]="'fa-solid fa-chevron-right'" (onChange)="item._isNew = false"></p-toggleButton>
                         <div *ngIf="context.state.rowExpansion.highlightNewItems && item._isNew" class="rounded bg-cyan-400 text-sm text-white px-2 py-0 smz-table-new-tag" (click)="item._isNew = false">{{ context.state.rowExpansion.highlightLabel }}</div>
@@ -285,6 +287,7 @@
                                     <ng-template pTemplate="input">
                                         <ng-container [ngSwitch]="col.editable.type">
                                             <ng-container *ngSwitchCase="editableTypes.none">
+                                                <smz-table-content class="cursor-default" [col]="col" [contentTypes]="contentTypes" [item]="item" [rowIndex]="rowIndex" [contentTemplate]="contentTemplate"></smz-table-content>
                                             </ng-container>
 
                                             <ng-container *ngSwitchCase="editableTypes.custom">
@@ -367,44 +370,7 @@
 
                                     <!-- CELULAR COM CONTEÚDO -->
                                     <ng-template pTemplate="output">
-                                        <ng-container [ngSwitch]="col.content.type">
-                                            <ng-container *ngSwitchCase="contentTypes.custom">
-                                                <div [ngClass]="col.content.styleClass">
-                                                    <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: item, col: col }"></ng-container>
-                                                </div>
-                                            </ng-container>
-
-                                            <ng-container *ngSwitchCase="contentTypes.currency">
-                                                <div [ngClass]="col.content.styleClass">
-                                                    R$ {{ (item | tableContent : col.field).result }}
-                                                </div>
-                                            </ng-container>
-
-                                            <ng-container *ngSwitchCase="contentTypes.calendar">
-                                                <div [ngClass]="col.content.styleClass">
-                                                    {{ (item | tableContent : col.field).result | date: col.content.data['format'] }}
-                                                </div>
-                                            </ng-container>
-
-                                            <ng-container *ngSwitchCase="contentTypes.text">
-                                                <div [innerHtml]="(item | tableContent : col.field).result" [ngClass]="col.content.styleClass"></div>
-                                            </ng-container>
-
-                                            <ng-container *ngSwitchCase="contentTypes.dataTransform">
-                                                <ng-container *ngIf="(item | tableContent : col.field) as contentData">
-                                                    <div [innerHtml]="$any(col.content.data).callback(contentData.result, item, rowIndex)" [ngClass]="col.content.styleClass"></div>
-                                                </ng-container>
-                                            </ng-container>
-
-                                            <ng-container *ngSwitchCase="contentTypes.icon">
-                                                <div [ngClass]="col.content.styleClass">
-                                                    <ng-container *ngIf="(col.content.data['matches'] | contentIconMatches : (item | tableContent : col.field).result) as match">
-                                                        <i *ngIf="match != null" [ngClass]="match.icon + ' ' + match.class" [pTooltip]="match.tooltip"></i>
-                                                    </ng-container>
-                                                </div>
-                                            </ng-container>
-                                        </ng-container>
-
+                                        <smz-table-content [col]="col" [contentTypes]="contentTypes" [item]="item" [rowIndex]="rowIndex" [contentTemplate]="contentTemplate"></smz-table-content>
                                     </ng-template>
                                 </p-cellEditor>
 
@@ -416,7 +382,7 @@
 
                     <ng-container *ngIf="context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible || context.state.editable.isEditable">
 
-                        <td>
+                        <td [ngStyle]="context.state.actions.customActions.ngStyle">
 
                             <div class="grid grid-nogutter items-center justify-end">
                                 <ng-container *ngIf="clonedData.showSkeleton; else menuTemplate">

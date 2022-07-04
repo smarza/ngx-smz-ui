@@ -460,7 +460,7 @@ export const DialogsDemo: { [key: string]: () => void } = {
               .menu
             .table
           .columns()
-            .text('company', 'Código', '4em')
+            .text('company', 'Código', '16em')
               .disableFilter()
               .columns
             .text('name', 'Nome')

@@ -9,7 +9,7 @@ import { map } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class DemoDataService extends BaseApiService {
-  private endpoint = `${environment.domainApi}/api/demo`;
+  private endpoint = `${environment.serverUrl}/api/demo`;
 
   constructor(private http: HttpClient) {
     super();

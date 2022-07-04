@@ -11,6 +11,7 @@ import { LogoResource } from '../../../modules/smz-layouts/core/models/logo';
 import { SmzToastData } from '../../../modules/smz-layouts/core/models/toasts';
 import { ColorSchemaDefinition, SmzColorSchemas } from '../../../modules/smz-layouts/core/models/color-schemas';
 import { BreadcrumbsData } from '../../../modules/smz-layouts/core/models/breadcrumbs';
+import { SmzExportDialogData } from '../../../modules/smz-export-dialog/smz-export-dialog.model';
 
 export interface UiStateModel {
   assistance: Assistance;
@@ -25,6 +26,7 @@ export interface UiStateModel {
   appLogo: LogoResource;
   lastUserMouseEvent: 'mouseenter' | 'mouseleave';
   breadcrumbs: BreadcrumbsData;
+  exportData: SmzExportDialogData;
 }
 
 export const getInitialState = (): UiStateModel => ({
@@ -59,7 +61,8 @@ export const getInitialState = (): UiStateModel => ({
   breadcrumbs: {
     item: null,
     parent: null
-  }
+  },
+  exportData: null
 });
 
 // @dynamic
@@ -230,6 +233,16 @@ export class LayoutUiState {
       item: { ...action.data.item, command: undefined, items: undefined },
     }
     ctx.patchState({ breadcrumbs: cloneDeep(data) });
+  }
+
+  @Action(LayoutUiActions.ShowExportDialog)
+  public onShowExportDialog(ctx: StateContext<UiStateModel>, action: LayoutUiActions.ShowExportDialog): void {
+    ctx.patchState({ exportData: action.data });
+  }
+
+  @Action(LayoutUiActions.HideExportDialog)
+  public onHideExportDialog(ctx: StateContext<UiStateModel>): void {
+    ctx.patchState({ exportData: null });
   }
 
 }

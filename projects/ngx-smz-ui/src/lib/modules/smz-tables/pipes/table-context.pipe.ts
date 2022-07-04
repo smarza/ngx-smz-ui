@@ -75,6 +75,7 @@ export class SmzTableContextPipe implements PipeTransform {
         customActions: {
           isVisible: false,
           columnWidth: 63,
+          ngStyle: null
         },
         menu: {
           isVisible: false,
@@ -87,7 +88,8 @@ export class SmzTableContextPipe implements PipeTransform {
         },
         batchActions: {
           isVisible: false,
-          items: []
+          items: [],
+          ngStyle: null
         },
         rowBehavior: {
           isClickable: false,
@@ -138,7 +140,8 @@ export class SmzTableContextPipe implements PipeTransform {
           columnWidth: '3em',
           callback: null,
           isEnabled: false,
-          validationMode: 'none'
+          validationMode: 'none',
+          ngStyle: null
         },
       },
       header: {
@@ -187,13 +190,14 @@ export class SmzTableContextPipe implements PipeTransform {
       },
       rowExpansion: {
         isButtonVisible: true,
-        columnWidth: '3em',
+        columnWidth: 75,
         callback: null,
         isEnabled: false,
         label: 'Seleção',
         sincronize: false,
         highlightNewItems: false,
-        highlightLabel: 'NOVO'
+        highlightLabel: 'NOVO',
+        ngStyle: null
       },
     };
 

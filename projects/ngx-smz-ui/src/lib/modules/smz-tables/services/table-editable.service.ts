@@ -12,6 +12,7 @@ import { TableFormsService } from './table-forms.service';
 import { Store } from '@ngxs/store';
 import { AuthenticationSelectors } from '../../../state/global/authentication/authentication.selectors';
 import { Confirmable } from '../../smz-dialogs/decorators/confirmable.decorator';
+import { cloneDeep } from 'lodash-es';
 
 // SERVIÇO COM INSTANCIAS DIFERENTES POR TABELA
 @Injectable()
@@ -268,7 +269,8 @@ export class TableEditableService {
         }
 
         // MAPEAR PARAMETROS PARA A ACTION
-        const params = this.state.editable.mapResults(row, changes);
+        let params = cloneDeep(row);
+        this.state.editable.mapResults.forEach(callback => { params = callback(params, changes); });
 
         // ACTION DE UPDATE
         const action = this.state.editable.actions.update;
@@ -362,7 +364,8 @@ export class TableEditableService {
         const action = this.state.editable.actions.creation;
 
         // MAPEAR PARAMETROS PARA A ACTION
-        const params = this.state.editable.mapResults(row, changes);
+        let params = cloneDeep(row);
+        this.state.editable.mapResults.forEach(callback => { params = callback(params, changes); });
 
         // SE HABILITADO, CRIAR ACTION PARA DISPATCH NA STORE
         const dispatchData = new action(params);

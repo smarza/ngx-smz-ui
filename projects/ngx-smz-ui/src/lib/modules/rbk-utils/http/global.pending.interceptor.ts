@@ -17,6 +17,7 @@ export class GlobalPendingInterceptorService implements HttpInterceptor {
     }
 
     public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
         const loadingType = request.headers.get(LOADING_BEHAVIOR_HEADER);
 
         if (loadingType === 'global') {
@@ -26,6 +27,7 @@ export class GlobalPendingInterceptorService implements HttpInterceptor {
             if (this.pendingRequests === 1) {
                 // if after a timer there still are pending request ongoing, set the isLoading flag
                 if (this.pendingRequests > 0) {
+
                     this.store.dispatch(new ApplicationActions.StartGlobalLoading());
                 }
             }
@@ -38,13 +40,18 @@ export class GlobalPendingInterceptorService implements HttpInterceptor {
                     return throwError(error);
                 }),
                 finalize(() => {
+
                     this.pendingRequests--;
 
                     if (this.pendingRequests === 0) {
-                        setTimeout(() => {
-                            this.store.dispatch(new ApplicationActions.StopGlobalLoading());
-                        }, 0);
 
+                        setTimeout(() => {
+
+                            if (this.pendingRequests === 0) {
+                                this.store.dispatch(new ApplicationActions.StopGlobalLoading());
+                            }
+
+                        }, 0);
                     }
                 })
             );

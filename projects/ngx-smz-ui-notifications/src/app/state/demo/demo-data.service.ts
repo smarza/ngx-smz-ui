@@ -7,7 +7,7 @@ import { DemoCreationData, DemoItem, DemoUpdateData } from '../../models/demo';
 
 @Injectable({ providedIn: 'root' })
 export class DemoDataService extends BaseApiService {
-  private endpoint = `${environment.domainApi}/api/demo`;
+  private endpoint = `${environment.serverUrl}/api/demo`;
 
   constructor(private http: HttpClient) {
     super();

@@ -1,7 +1,66 @@
+import { EditableChanges, flattenMapResults } from '../../modules/smz-tables/models/editable-model';
 import { SmzDropdownEditable, SmzEditableType } from '../../modules/smz-tables/models/editable-types';
 import { SmzTableEditableColumn } from '../../modules/smz-tables/models/table-column';
 import { SmzBaseColumnBuilder } from './column-builder';
 import { SmzTableBuilder } from './state-builder';
+
+
+export class SmzEditableTableBuilder {
+  constructor(private _tableBuilder: SmzTableBuilder) {
+    _tableBuilder._state.editable.isEditable = true;
+    this._tableBuilder._state.actions.customActions.columnWidth += 150;
+  }
+
+  public useFlattenResults<T>(): SmzEditableTableBuilder {
+    this._tableBuilder._state.editable.mapResults.push((data, changes: EditableChanges<any>) => flattenMapResults(data, changes));
+    return this;
+  }
+
+  public addMappingResults<T>(mapFunction: (data: T, changes: EditableChanges<T>) => any): SmzEditableTableBuilder {
+    this._tableBuilder._state.editable.mapResults.push(mapFunction);
+    return this;
+  }
+
+  public setCreationAction(action: any, claim?: string): SmzEditableTableBuilder {
+
+    this._tableBuilder._state.editable.actions.creation = action;
+    this._tableBuilder._state.editable.creation.isButtonVisible = true;
+    this._tableBuilder._state.editable.creation.accessClaim = claim;
+
+    return this;
+  }
+
+  public setUpdateAction(action: any, claim?: string): SmzEditableTableBuilder {
+
+    this._tableBuilder._state.editable.actions.update = action;
+    this._tableBuilder._state.editable.update.isButtonVisible = true;
+    this._tableBuilder._state.editable.update.accessClaim = claim;
+
+    return this;
+  }
+
+  public setRemoveAction(action: any, claim?: string, overrideActionData?: (row: any) => any): SmzEditableTableBuilder {
+
+    this._tableBuilder._state.editable.actions.remove = action;
+    this._tableBuilder._state.editable.remove.isButtonVisible = true;
+    this._tableBuilder._state.editable.remove.accessClaim = claim;
+    this._tableBuilder._state.editable.remove.overrideActionDataCallback = overrideActionData;
+
+    return this;
+  }
+
+  public get table(): SmzTableBuilder {
+
+    const actions = this._tableBuilder._state.editable.actions;
+    if (actions.creation == null && actions.remove == null && actions.update == null) {
+      throw Error('You did not set any actions at editable builder.');
+    }
+
+    return this._tableBuilder;
+  }
+
+}
+
 
 export abstract class SmzBaseEditableBuilder<T extends SmzBaseEditableBuilder<T>> {
 

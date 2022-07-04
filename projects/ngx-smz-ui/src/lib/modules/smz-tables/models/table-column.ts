@@ -24,6 +24,10 @@ export interface SmzTableColumn {
    * Constrols the visibility of the sort icon the column header
    */
   isOrderable?: boolean;
+  /**
+   * Constrols the visibility of the column on exports
+   */
+  isExportable?: boolean;
 
   /**
    * Width of the column, always use the value and the unit, ie. '100px' or '6em'.
