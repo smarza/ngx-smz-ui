@@ -109,7 +109,8 @@ export class NgxRbkUtilsConfig {
 export interface DatabaseStateParameters {
     state: any;
     loadAction?: any;
+    clearAction?: any;
     successAction?: any;
-    clearFunction: () => {};
+    clearFunction?: () => {};
     cacheTimeout?: number;
 }

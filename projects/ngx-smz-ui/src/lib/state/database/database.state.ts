@@ -21,7 +21,12 @@ export class DatabaseState {
         const newState = {};
 
         for (const stateConfig of Object.keys(this.rbkConfig.state.database)) {
-            newState[stateConfig] = this.rbkConfig.state.database[stateConfig].clearFunction();
+            if (this.rbkConfig.state.database[stateConfig].clearFunction != null) {
+                newState[stateConfig] = this.rbkConfig.state.database[stateConfig].clearFunction();
+            }
+            if (this.rbkConfig.state.database[stateConfig].clearAction != null) {
+                ctx.dispatch(this.rbkConfig.state.database[stateConfig].clearAction);
+            }
         }
 
         ctx.patchState(newState);
