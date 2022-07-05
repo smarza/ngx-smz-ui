@@ -18,7 +18,7 @@ export class FeaturesState {
     public clear(ctx: StateContext<any>): void {
         const newState = {};
 
-        for (const stateConfig of Object.keys(this.rbkConfig.state.database)) {
+        for (const stateConfig of Object.keys(this.rbkConfig.state.feature)) {
             if (this.rbkConfig.state.feature[stateConfig].clearFunction != null) {
                 newState[stateConfig] = this.rbkConfig.state.feature[stateConfig].clearFunction();
             }
