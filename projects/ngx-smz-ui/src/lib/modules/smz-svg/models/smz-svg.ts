@@ -1,4 +1,5 @@
 import { MouseButton } from '@svgdotjs/svg.panzoom.js';
+import { BehaviorSubject } from 'rxjs';
 import { SmzSVGWrapper } from './smz-svg-wrapper';
 
 export interface SmzSvgState {
@@ -21,6 +22,12 @@ export interface SmzSvgState {
     useWindowSize: boolean;
     width?: number;
     height?: number;
+  },
+  dispatch: {
+    zoomToId: BehaviorSubject<{ elementId: string, zoom: number }>;
+    zoomToPosition: BehaviorSubject<{ x: number, y: number, zoom: number }>;
+    draw: BehaviorSubject<{ callback: (draw: SmzSVGWrapper) => void }>;
+    reset: BehaviorSubject<void>;
   }
 }
 
@@ -33,6 +40,10 @@ export interface SmzSvgBaseFeature {
   type?: SmzSvgFeatureTypes;
   position: { x: number, y: number };
 
+  // Anchor === 'container' => O position será relativa a todo o container
+  // Anchor === 'root' => O position será relativa ao svg importado no root
+  anchor: SmzSvgAnchorTypes;
+
   // Se adapta ao alterar o zoom
   adaptative: {
     enabled: boolean;
@@ -40,14 +51,13 @@ export interface SmzSvgBaseFeature {
     maxWidth?: number;
   };
   tooltip: SmzSvgTooltipData;
+  transform: (feature: SmzSvgFeature, draw: SmzSVGWrapper) => void;
 }
 
 export interface SmzSvgRoot extends SmzSvgBaseFeature {
   type: 'root';
   svgData: string;
   height: number;
-
-
 }
 
 export interface SmzSvgPin extends SmzSvgBaseFeature {
@@ -72,3 +82,5 @@ interface marginOptions {
   right: number
   bottom: number
 }
+
+export type SmzSvgAnchorTypes = 'container' | 'root';

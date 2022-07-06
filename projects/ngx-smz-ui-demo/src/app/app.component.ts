@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { SIGNALR_PATH, SVG_PATH } from '@routes';
+import { SIGNALR_PATH, SVG_DEMO_PATH, SVG_GCAB_PATH, SVG_PATH, SVG_PLAYGROUND_PATH } from '@routes';
 import { MenuHelperService, ThemeManagerService, BoilerplateService, ToastActions } from 'ngx-smz-ui';
 
 const test = { status: 1 };
@@ -30,8 +30,16 @@ export class AppComponent {
             { label: 'Tree With Details', icon: 'fa-solid fa-tree', routerLink: ['tree-with-details'] },
             { label: 'Side Content', icon: 'fa-solid fa-star', routerLink: ['side-content'] },
             { label: 'SignalR', icon: 'far fa-chart', routerLink: [SIGNALR_PATH] },
-            { label: 'SVG', icon: 'far fa-chart', routerLink: [SVG_PATH] },
             { label: 'Tag Area', icon: 'fa-solid fa-tree', routerLink: ['tag-area'] },
+            {
+              label: 'Svgs',
+              icon: 'pi-home',
+              items: [
+                { label: 'Demo Lib', icon: 'far fa-chart', routerLink: [SVG_PATH, SVG_DEMO_PATH] },
+                { label: 'Playground', icon: 'far fa-chart', routerLink: [SVG_PATH, SVG_PLAYGROUND_PATH] },
+                { label: 'Gcab', icon: 'far fa-chart', routerLink: [SVG_PATH, SVG_GCAB_PATH] },
+              ]
+            },
           ]
         },
         {

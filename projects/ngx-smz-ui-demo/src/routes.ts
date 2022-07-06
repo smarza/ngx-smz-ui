@@ -11,6 +11,10 @@ export const HTMLS_PATH = 'htmls';
 export const SIGNALR_PATH = 'signalr';
 export const SVG_PATH = 'svg';
 
+export const SVG_DEMO_PATH = 'demo';
+export const SVG_PLAYGROUND_PATH = 'playground';
+export const SVG_GCAB_PATH = 'gcab';
+
 
 // PAGES
 export const LOGIN_PAGE_PATH = 'login';

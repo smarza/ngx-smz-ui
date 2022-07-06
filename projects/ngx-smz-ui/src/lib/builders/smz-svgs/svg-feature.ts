@@ -1,7 +1,7 @@
 
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzSvgBuilder } from './svg-builder';
-import { SmzSvgPin, SmzSvgRoot, SmzSvgState } from '../../modules/smz-svg/models/smz-svg';
+import { SmzSvgAnchorTypes, SmzSvgPin, SmzSvgRoot, SmzSvgState } from '../../modules/smz-svg/models/smz-svg';
 import { SmzSvgPinBuilder, SmzSvgRootBuilder } from './svg-features';
 
 export class SmzSvgFeatureBuilder extends SmzBuilderUtilities<SmzSvgFeatureBuilder> {
@@ -23,12 +23,14 @@ export class SmzSvgFeatureBuilder extends SmzBuilderUtilities<SmzSvgFeatureBuild
       height,
       svgData,
       position: { x: 0, y: 0 },
+      anchor: 'root',
       adaptative: {
         enabled: false
       },
       tooltip: {
         enabled: false
-      }
+      },
+      transform: null
     };
 
     this._state.features.push(newFeature);
@@ -44,12 +46,14 @@ export class SmzSvgFeatureBuilder extends SmzBuilderUtilities<SmzSvgFeatureBuild
       width,
       svgData,
       position: { x: 0, y: 0 },
+      anchor: 'root',
       adaptative: {
         enabled: false
       },
       tooltip: {
         enabled: false
-      }
+      },
+      transform: null
     };
 
     this._state.features.push(newFeature);

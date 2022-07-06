@@ -59,6 +59,7 @@
     "primeicons": "^5.0.0",
     "primeng": "^13.0.3",
     "rxjs": "~7.4.0",
+    "svg-pan-zoom": "^3.6.1",
     "tslib": "^2.3.1",
     "zone.js": "~0.11.4"
   },

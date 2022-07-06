@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { SmzSVGWrapper } from './models/smz-svg-wrapper';
 import { SmzSvgState, SmzSvgPin, SmzSvgRoot, SmzSvgTooltipData } from './models/smz-svg';
 
@@ -7,7 +7,8 @@ import '@svgdotjs/svg.panzoom.js';
 import { NumberAlias } from '@svgdotjs/svg.js';
 import { Point } from '@svgdotjs/svg.js';
 import { OverlayPanel } from '../prime/overlaypanel/overlaypanel';
-
+import { filter } from 'rxjs';
+import { Matrix } from '@svgdotjs/svg.js';
 
 @Component({
   selector: 'smz-svg',
@@ -15,7 +16,7 @@ import { OverlayPanel } from '../prime/overlaypanel/overlaypanel';
   changeDetection: ChangeDetectionStrategy.Default
 })
 
-export class SmzSvgComponent implements OnChanges, AfterViewInit {
+export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
   @ViewChild(OverlayPanel) public overlayPanel: OverlayPanel;
   @Input() public state: SmzSvgState;
   public pins: SmzSvgPin[] = [];
@@ -68,6 +69,7 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit {
       }
 
       this.hookEvents();
+      this.setupDispatchListeners();
 
     }, 0);
 
@@ -81,9 +83,6 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit {
     this.draw.addTo('#smz-svg-map');
 
     this.draw.size(this.state.container.width, this.state.container.height);
-    this.draw.x(0);
-    this.draw.y(0);
-    this.draw.viewbox(0, 0, this.state.container.width, this.state.container.height);
 
     this.draw.zoom(1);
 
@@ -95,8 +94,79 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit {
       this.draw.addClass('border-2 border-red-500 border-solid');
     }
 
+    this.reset();
+
   }
 
+  public reset(): void {
+    this.draw.animate().viewbox(0, 0,  this.state.container.width, this.state.container.height);
+  }
+
+  private setupDispatchListeners(): void {
+    this.state.dispatch.zoomToId.pipe(filter(x => x != null)).subscribe((event) => { this.zoomToId(event.elementId, event.zoom) });
+    this.state.dispatch.zoomToPosition.pipe(filter(x => x != null)).subscribe((event) => { this.zoomToPosition(event.x, event.y, event.zoom) });
+    this.state.dispatch.draw.pipe(filter(x => x != null)).subscribe((event) => { event.callback(this.draw); });
+    this.state.dispatch.reset.pipe(filter(x => x !== null)).subscribe(() => { this.reset(); });
+  }
+
+  public zoomToId(elementId: string, factor: number): void {
+
+    try {
+      let element;
+
+      this.draw
+        .find(`#${elementId}`)
+        .each(item => {
+          element = item;
+        });
+
+      const relativeViewbox = element.rbox(this.draw);
+      console.log('relativeViewbox', relativeViewbox);
+
+      const newViewBox = this.applyZoomFactor(relativeViewbox.x, relativeViewbox.y, relativeViewbox.w, relativeViewbox.h, factor);
+      console.log('newViewBox', newViewBox);
+      this.draw.animate().viewbox(newViewBox.x, newViewBox.y, newViewBox.width, newViewBox.height);
+
+    } catch (error) {
+      console.log(`Cant't execute zoomToId Event`, elementId, error);
+    }
+
+  }
+
+  public zoomToPosition(x: number, y: number, factor: number): void {
+    try {
+
+      const newViewBox = this.applyZoomFactor(x, y, this.state.container.width / 4,  this.state.container.height / 4, factor);
+      console.log(`x: ${x}, y: ${y}, factor: ${factor}`);
+      console.log('newViewBox', newViewBox);
+      this.draw.animate().viewbox(newViewBox.x, newViewBox.y, newViewBox.width, newViewBox.height);
+
+    } catch (error) {
+      console.log(`Cant't execute zoomToPosition Event`, x, y, error);
+    }
+
+  }
+
+  private normalizeFactor(input: number): number {
+    return 1 / input;
+  }
+
+  private applyZoomFactor(x: number, y: number, width: number, height: number, factor: number): { x: number, y: number, width: number, height: number } {
+    factor = this.normalizeFactor(factor);
+
+    const w =  width * factor;
+    const h =  height * factor;
+
+    if (factor > 1) {
+      console.log('>');
+      return { x: x - ((w - width) / 2), y: y - ((h - height) / 2), width: w, height: h }
+    }
+    else {
+      console.log('<');
+      return { x: x + ((width - w) / 2), y: y + ((height - h) / 2), width: w, height: h }
+    }
+
+  }
 
   private setupRoot(): void {
 
@@ -120,33 +190,31 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit {
     // const that = this;
 
     // loop over all regions
-    for (const region of root.find('path')) {
-
-      // paint each region blue
-      region
-        .fill('#15803d');
-      // .addClass('cursor-pointer')
-      // .mouseover(function (this: SmzSVGWrapper, event) {
-      //   // this.fill({ color: '#f06' });
-      //   // console.log(`   show ${region.id()}`);
-      //   // that.show(event, region.id());
-      // })
-      // .mouseout(function (this: SmzSVGWrapper) {
-      //   // this.fill({ color: '#15803d' });
-      //   // console.log(`hide ${region.id()}`);
-      //   // that.hide();
-      // });
-
-      // add a label to the center of each region
-      // this.draw
-      //   .text(region.id())
-      //   .font({ size: '0.7em', family: 'Open Sans' })
-      //   .addClass('cursor-pointer')
-      //   .fill({ color: 'white', opacity: 1 })
-      //   .stroke({ color: '#f06', opacity: 1, width: 0 })
-      //   .center(region.cx(), region.cy());
+    if (rootFeature.transform != null){
+      rootFeature.transform(rootFeature, this.draw);
     }
 
+  }
+
+  private getRootContainer() {
+    const rootFeature = this.state.features.find(x => x.type === 'root') as SmzSvgRoot;
+
+    let startX = 0;
+    let endX = 0;
+    let startY = 0;
+    let endY = 0;
+
+    this.draw
+      .find(`#${rootFeature.id}`)
+      .each(element => {
+        startX = element.x() as number;
+        endX = startX + (element.width() as number);
+
+        startY = element.y() as number;
+        endY = startY + (element.height() as number);
+      });
+
+    return [ startX, endX, startY, endY ] as const;
   }
 
   public setupPins(): void {
@@ -154,6 +222,8 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit {
     const pins = this.state.features.filter(x => x.type === 'pin') as SmzSvgPin[];
 
     this.pins = pins;
+
+    const [startX, endX, startY, endY ] = this.getRootContainer();
 
     pins.forEach(pin => {
       const svg = this.draw.svg(pin.svgData)
@@ -164,8 +234,17 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit {
         .each(element => {
           element
             .fill({ color: pin.color, opacity: 1 })
-            .size(pin.width)
-            .center(pin.position.x, pin.position.y)
+            .size(pin.width);
+
+            switch (pin.anchor) {
+              case 'root':
+                element.center(startX + pin.position.x, startY + pin.position.y);
+                break;
+
+              case 'container':
+                element.center(pin.position.x, pin.position.y);
+                break;
+            }
 
           if (pin.tooltip.enabled) {
             this.addToolTip(element as SmzSVGWrapper, pin.tooltip);
@@ -205,17 +284,12 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit {
     element
       .addClass('cursor-pointer')
       .mouseover(function (this: SmzSVGWrapper, event) {
-        // this.fill({ color: '#f06' });
-        // console.log(`   show ${element.id()}`);
-
         if (!that.isPanning) {
           that.show(event, tooltip.data);
         }
 
       })
       .mouseout(function (this: SmzSVGWrapper) {
-        // this.fill({ color: '#15803d' });
-        // console.log(`hide ${element.id()}`);
         if (!that.isPanning) {
           that.hide();
         }
@@ -225,31 +299,10 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit {
 
   public buildGrid(): void {
 
-    const rootFeature = this.state.features.find(x => x.type === 'root') as SmzSvgRoot;
-
     const gap = 30;
     const size = 5;
-    let startX = 0;
-    let endX = 0;
-    let startY = 0;
-    let endY = 0;
 
-    this.draw
-      .find(`#${rootFeature.id}`)
-      .each(element => {
-        startX = element.x() as number;
-        endX = startX + (element.width() as number);
-
-        startY = element.y() as number;
-        endY = startY + (element.height() as number);
-      });
-
-    if (this.state.isDebug) {
-      console.log(`startX: ${startX}`);
-      console.log(`endX: ${endX}`);
-      console.log(`startY: ${startY}`);
-      console.log(`endY: ${endY}`);
-    }
+    const [startX, endX, startY, endY ] = this.getRootContainer();
 
     const that = this;
 
@@ -283,17 +336,6 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit {
 
   }
 
-  public zoom(level: NumberAlias, point?: { x: number, y: number }): void {
-
-    if (point != null) {
-      const newPoint = new Point(point.x, point.y);
-      this.draw?.animate().zoom(level, newPoint);
-    }
-    else {
-      this.draw?.animate().zoom(level);
-    }
-  }
-
   public show(event: MouseEvent, content: string): void {
 
     this.tooltipContent = content;
@@ -316,6 +358,8 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit {
 
     const zoom = zoomEvent.detail.level;
 
+    const [startX, endX, startY, endY ] = this.getRootContainer();
+
     this.state.features
       .filter(x => x.adaptative.enabled)
       .forEach(pin => {
@@ -328,12 +372,27 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit {
             const newWidth = pin.width * newScale;
             const width = (newWidth > pin.adaptative.maxWidth) ? pin.adaptative.maxWidth : ((newWidth < pin.adaptative.minWidth) ? pin.adaptative.minWidth : newWidth);
 
-            element
-              .size(width)
-              .center(pin.position.x, pin.position.y);
+            element.size(width);
+
+            switch (pin.anchor) {
+              case 'root':
+                element.center(startX + pin.position.x, startY + pin.position.y);
+                break;
+
+              case 'container':
+                element.center(pin.position.x, pin.position.y);
+                break;
+            }
 
           })
 
       });
+  }
+
+  public ngOnDestroy(): void {
+    this.state.dispatch.zoomToId.unsubscribe();
+    this.state.dispatch.zoomToPosition.unsubscribe();
+    this.state.dispatch.draw.unsubscribe();
+    this.state.dispatch.reset.unsubscribe();
   }
 }

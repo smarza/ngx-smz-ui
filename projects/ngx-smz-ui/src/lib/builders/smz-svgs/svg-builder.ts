@@ -3,6 +3,8 @@ import { NgxRbkUtilsConfig } from '../../modules/rbk-utils/ngx-rbk-utils.config'
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzSvgState } from '../../modules/smz-svg/models/smz-svg';
 import { SmzSvgFeatureBuilder } from './svg-feature';
+import { BehaviorSubject } from 'rxjs';
+import { SmzSvgDispatchBuilder } from './svg-dispatch';
 
 export class SmzSvgBuilder extends SmzBuilderUtilities<SmzSvgBuilder> {
   protected that = this;
@@ -20,6 +22,12 @@ export class SmzSvgBuilder extends SmzBuilderUtilities<SmzSvgBuilder> {
       useWindowSize: true,
       width: 0,
       height: 0
+    },
+    dispatch: {
+      zoomToId: new BehaviorSubject(null),
+      zoomToPosition: new BehaviorSubject(null),
+      draw: new BehaviorSubject(null),
+      reset: new BehaviorSubject(null)
     }
   };
 
@@ -87,6 +95,10 @@ export class SmzSvgBuilder extends SmzBuilderUtilities<SmzSvgBuilder> {
 
   public feature(): SmzSvgFeatureBuilder {
     return new SmzSvgFeatureBuilder(this, this._state);
+  }
+
+  public dispatch(): SmzSvgDispatchBuilder {
+    return new SmzSvgDispatchBuilder(this, this._state);
   }
 
   public build(): SmzSvgState {

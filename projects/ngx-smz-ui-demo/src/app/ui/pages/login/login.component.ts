@@ -37,9 +37,9 @@ export class LoginComponent {
             .password('password', 'Senha')
               .validators().required()
               .group
-            .addPasswordConfirmation('password', 'Confirme a Senha')
-              .validators().required()
-              .group
+            // .addPasswordConfirmation('password', 'Confirme a Senha')
+            //   .validators().required()
+            //   .group
             .form
           .build()
       )
