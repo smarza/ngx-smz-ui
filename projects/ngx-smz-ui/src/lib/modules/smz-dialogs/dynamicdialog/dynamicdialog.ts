@@ -34,8 +34,11 @@ const hideAnimation = animation([
                         <button [ngClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'" type="button" (click)="minimize()" (keydown.enter)="minimize()" *ngIf="config.minimizable !== false">
                             <span class="p-dialog-header-close-icon pi pi-minus"></span>
                         </button>
-                        <button [ngClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'" type="button" (click)="maximize()" (keydown.enter)="maximize()" *ngIf="config.maximizable !== false">
-                            <span class="p-dialog-header-close-icon" [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
+                        <button [ngClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'" type="button" (click)="maximize()" (keydown.enter)="maximize()" *ngIf="config.maximizable !== false && !maximized">
+                            <span class="p-dialog-header-close-icon" [ngClass]="maximizeIcon"></span>
+                        </button>
+                        <button [ngClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'" type="button" (click)="maximize()" (keydown.enter)="maximize()" *ngIf="maximized && !config.blockRestoreButton">
+                            <span class="p-dialog-header-close-icon" [ngClass]="minimizeIcon"></span>
                         </button>
                         <button [ngClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'" type="button" (click)="hide()" (keydown.enter)="hide()" *ngIf="config.closable !== false">
                             <span class="p-dialog-header-close-icon pi pi-times"></span>

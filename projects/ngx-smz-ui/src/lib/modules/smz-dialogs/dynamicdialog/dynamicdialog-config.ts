@@ -19,6 +19,7 @@ export class DynamicDialogConfig {
 	closable?: boolean;
 	maximizable?: boolean;
 	openMaximized?: boolean;
+	blockRestoreButton?: boolean;
 	minimizable?: boolean;
 	minimizeDockImagePath?: string;
 	minimizeLabel?: string;

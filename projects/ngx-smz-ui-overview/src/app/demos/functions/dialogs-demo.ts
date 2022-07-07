@@ -120,18 +120,29 @@ export const DialogsDemo: { [key: string]: () => void } = {
       .build()
     );
   },
-    //
-    [DemoKeys.DIALOGS_CONTROLS_OPEN_MAXIMIZED]: () => {
-      service.open(
-        new SmzDialogBuilder<void>()
-          .setTitle(`Some Title Here`)
-          .setLayout('EXTRA_SMALL', 'col-12')
-          .setLayout('EXTRA_LARGE', 'col-8')
-          .allowMaximize()
-          .openMaximized()
-        .build()
-      );
-    },
+  //
+  [DemoKeys.DIALOGS_CONTROLS_OPEN_MAXIMIZED]: () => {
+    service.open(
+      new SmzDialogBuilder<void>()
+        .setTitle(`Some Title Here`)
+        .setLayout('EXTRA_SMALL', 'col-12')
+        .setLayout('EXTRA_LARGE', 'col-8')
+        .openMaximized()
+      .build()
+    );
+  },
+  //
+  [DemoKeys.DIALOGS_CONTROLS_HIDE_RESTORE_BUTTON]: () => {
+    service.open(
+      new SmzDialogBuilder<void>()
+        .setTitle(`Some Title Here`)
+        .setLayout('EXTRA_SMALL', 'col-12')
+        .setLayout('EXTRA_LARGE', 'col-8')
+        .openMaximized()
+        .hideRestoreButton()
+      .build()
+    );
+  },
   //
   [DemoKeys.DIALOGS_FOOTER_HIDDEN]: () => {
     service.open(

@@ -263,6 +263,13 @@ export const TreeDemoData: DemoTreeNode[] = [
             data: DialogsDemo[DemoKeys.DIALOGS_CONTROLS_OPEN_MAXIMIZED],
             key: DemoKeys.DIALOGS_CONTROLS_OPEN_MAXIMIZED.toString()
           },
+          {
+            label: 'Open Maximided Blocking Restore', icon: 'fa-solid fa-code', type: 'Demo',
+            demoType: 'dialog',
+            notes: 'Press enter to confirm the dialog',
+            data: DialogsDemo[DemoKeys.DIALOGS_CONTROLS_HIDE_RESTORE_BUTTON],
+            key: DemoKeys.DIALOGS_CONTROLS_HIDE_RESTORE_BUTTON.toString()
+          },
         ]
       },
       {

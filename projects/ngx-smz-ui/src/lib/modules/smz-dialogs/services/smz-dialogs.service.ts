@@ -111,6 +111,7 @@ export class SmzDialogsService
             minimizeLabel: behaviors.minimizeLabel,
             maximizable: behaviors.showMaximizeButton === true,
             openMaximized: behaviors.openMaximized === true,
+            blockRestoreButton: behaviors.hideRestoreButton === true,
             closeOnEscape: behaviors.closeOnEscape,
             confirmOnEnter: behaviors.confirmOnEnter,
             showHeader: behaviors.showHeader,
