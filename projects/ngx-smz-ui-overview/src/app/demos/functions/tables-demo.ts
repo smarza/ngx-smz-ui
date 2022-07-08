@@ -546,9 +546,10 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
     items$: of(EditableTablePartialData),
     code: () => {
     return new SmzTableBuilder()
-      .setTitle('Partial Editable Table')
+      .setTitle('Amostragens')
       .enableGlobalFilter()
       .useTableEmptyMessage()
+      .setEmptyFeedbackMessage('<b>Nenhuma amostragem localizada.</b><br><div class="text-sm mt-2">Refine sua busca para filtrar as amostragens.</div>')
       .usePagination()
       .setPaginationDefaultRows(10)
       .setCustomInitialSorting({ field: 'number', order: -1 })
@@ -563,21 +564,22 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
         })
         .table
       .columns()
-        // .text('plant.name', 'Planta', '10em')
-        //   .disableFilter()
-        //   .columns
-        .text('name', 'Name', '16em')
+        .text('module', 'Módulo', '12em')
+          .columns
+        .text('section', 'Seção', '12em')
+          .columns
+        .text('system', 'Sistema', '16em')
           .columns
         .text('function.name', 'Função', '16em')
           .setFilter(SmzFilterType.MULTI_SELECT)
           .columns
-        .text('value', 'Amostra de Corrosão', '12m')
+        .dataTransform('value', 'Corrosão', (value) => `<strong>${value.toFixed(2)} %</strong>`, '12em')
           .disableFilter()
           .editable()
             .text()
             .column
           .columns
-        .text('level.name', 'Característica', '16m')
+        .dataTransform('level.name', 'Característica', (value) => `<strong>${value}</strong>`, '16m')
           .setFilter(SmzFilterType.MULTI_SELECT)
           .editable()
             .dropdown('level')

@@ -77,8 +77,8 @@ export abstract class SmzBaseEditableBuilder<T extends SmzBaseEditableBuilder<T>
       defaultCreationValue: null
     };
 
-    this._table._state.editable.update.isButtonVisible = true;
-    this._table._state.editable.creation.isButtonVisible = true;
+    // this._table._state.editable.update.isButtonVisible = false;
+    // this._table._state.editable.creation.isButtonVisible = false;
     this._parent._column.editable = this._editable;
     this._table._state.editable.isEditable = true;
   }
