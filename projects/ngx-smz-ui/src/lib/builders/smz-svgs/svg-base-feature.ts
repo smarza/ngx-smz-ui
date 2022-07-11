@@ -73,6 +73,12 @@ export class SmzSvgBaseFeatureBuilder<T> extends SmzBuilderUtilities<T> {
 
   public setData(data: any): T {
     this._feature.data = data;
+    this._feature.id = data.id;
+    return this.that;
+  }
+
+  public setId(id: string): T {
+    this._feature.id = id;
     return this.that;
   }
 

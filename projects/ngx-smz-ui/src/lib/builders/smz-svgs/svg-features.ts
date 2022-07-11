@@ -1,9 +1,7 @@
 import { SmzSvgFeature, SmzSvgPin, SmzSvgRoot, SmzSvgAnchorTypes } from '../../modules/smz-svg/models/smz-svg';
-import { SmzSVGWrapper } from '../../modules/smz-svg/models/smz-svg-wrapper';
 import { SmzSvgBaseFeatureBuilder } from './svg-base-feature';
 import { SmzSvgBuilder } from './svg-builder';
 import { SmzSvgFeatureBuilder } from './svg-feature';
-
 
 
 export class SmzSvgRootBuilder extends SmzSvgBaseFeatureBuilder<SmzSvgRootBuilder> {
