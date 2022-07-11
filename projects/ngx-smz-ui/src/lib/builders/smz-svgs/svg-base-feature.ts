@@ -45,13 +45,13 @@ export class SmzSvgBaseFeatureBuilder<T> extends SmzBuilderUtilities<T> {
     return this.that;
   }
 
-  public allowClick(callback: (id: string, svg: SmzSVGWrapper, data: any) => void): T {
+  public setClickCallback(callback: (id: string, svg: SmzSVGWrapper, data: any) => void): T {
     this._feature.click.enabled = true;
     this._feature.click.callback = callback;
     return this.that;
   }
 
-  public allowDbClick(callback: (id: string, svg: SmzSVGWrapper, data: any) => void): T {
+  public setDbClickCallback(callback: (id: string, svg: SmzSVGWrapper, data: any) => void): T {
     this._feature.dbClick.enabled = true;
     this._feature.dbClick.callback = callback;
     return this.that;
