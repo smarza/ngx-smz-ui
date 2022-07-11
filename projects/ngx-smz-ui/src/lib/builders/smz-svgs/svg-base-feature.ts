@@ -86,6 +86,11 @@ export class SmzSvgBaseFeatureBuilder<T> extends SmzBuilderUtilities<T> {
     return this.that;
   }
 
+  public setFocusApproximation(approximation: number): T {
+    this._feature.focus.zoom = approximation;
+    return this.that;
+  }
+
   public get feature(): SmzSvgFeatureBuilder {
     return this._featureBuilder;
   }

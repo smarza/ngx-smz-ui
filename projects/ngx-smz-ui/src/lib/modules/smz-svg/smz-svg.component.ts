@@ -221,6 +221,13 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
           }
         });
       }
+      else {
+        svg.click(function (this: SmzSVGWrapper, event) {
+          if (feature.click.navigate) {
+            that.state.dispatch.zoomToId.next({ elementId: feature.id, zoom: feature.focus.zoom });
+          }
+        });
+      }
 
     }
 
@@ -230,6 +237,13 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
         svg.dblclick(function (this: SmzSVGWrapper, event) {
           feature.dbClick.callback(feature.id, svg, feature.data);
 
+          if (feature.dbClick.navigate) {
+            that.state.dispatch.zoomToId.next({ elementId: feature.id, zoom: feature.focus.zoom });
+          }
+        });
+      }
+      else {
+        svg.dblclick(function (this: SmzSVGWrapper, event) {
           if (feature.dbClick.navigate) {
             that.state.dispatch.zoomToId.next({ elementId: feature.id, zoom: feature.focus.zoom });
           }
