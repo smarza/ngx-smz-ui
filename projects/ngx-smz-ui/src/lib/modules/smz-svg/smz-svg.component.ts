@@ -1,14 +1,12 @@
 import { Component, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { SmzSVGWrapper } from './models/smz-svg-wrapper';
-import { SmzSvgState, SmzSvgPin, SmzSvgRoot, SmzSvgTooltipData } from './models/smz-svg';
+import { SmzSvgState, SmzSvgPin, SmzSvgRoot, SmzSvgTooltipData, SmzSvgFeature } from './models/smz-svg';
 
 import { SVG } from '@svgdotjs/svg.js';
 import '@svgdotjs/svg.panzoom.js';
-import { NumberAlias } from '@svgdotjs/svg.js';
-import { Point } from '@svgdotjs/svg.js';
 import { OverlayPanel } from '../prime/overlaypanel/overlaypanel';
 import { filter } from 'rxjs';
-import { Matrix } from '@svgdotjs/svg.js';
+import { isEmpty } from '../../builders/common/utils';
 
 @Component({
   selector: 'smz-svg',
@@ -121,10 +119,8 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
         });
 
       const relativeViewbox = element.rbox(this.draw);
-      console.log('relativeViewbox', relativeViewbox);
 
       const newViewBox = this.applyZoomFactor(relativeViewbox.x, relativeViewbox.y, relativeViewbox.w, relativeViewbox.h, factor);
-      console.log('newViewBox', newViewBox);
       this.draw.animate().viewbox(newViewBox.x, newViewBox.y, newViewBox.width, newViewBox.height);
 
     } catch (error) {
@@ -137,8 +133,7 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
     try {
 
       const newViewBox = this.applyZoomFactor(x, y, this.state.container.width / 4,  this.state.container.height / 4, factor);
-      console.log(`x: ${x}, y: ${y}, factor: ${factor}`);
-      console.log('newViewBox', newViewBox);
+
       this.draw.animate().viewbox(newViewBox.x, newViewBox.y, newViewBox.width, newViewBox.height);
 
     } catch (error) {
@@ -158,11 +153,9 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
     const h =  height * factor;
 
     if (factor > 1) {
-      console.log('>');
       return { x: x - ((w - width) / 2), y: y - ((h - height) / 2), width: w, height: h }
     }
     else {
-      console.log('<');
       return { x: x + ((width - w) / 2), y: y + ((height - h) / 2), width: w, height: h }
     }
 
@@ -187,11 +180,65 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
         }
       });
 
-    // const that = this;
+    this.setupFeature(rootFeature, root);
 
-    // loop over all regions
-    if (rootFeature.transform != null){
-      rootFeature.transform(rootFeature, this.draw);
+  }
+
+  private setupFeature(feature: SmzSvgFeature, svg: SmzSVGWrapper): void {
+
+    const that = this;
+
+    if (feature.transform != null){
+      feature.transform(feature, svg);
+    }
+
+    if (!isEmpty(feature.styleClass)) {
+      svg.addClass(feature.styleClass);
+    }
+
+    if (!isEmpty(feature.color)) {
+      svg.fill(feature.color);
+    }
+
+    if (!isEmpty(feature.stroke)) {
+      svg.stroke(feature.stroke);
+    }
+
+    if (feature.highlight?.enabled) {
+      svg
+        .mouseover(function (this: SmzSVGWrapper, event) { this.fill({ color: feature.highlight.color }) })
+        .mouseout(function (this: SmzSVGWrapper) { this.fill({ color: feature.color }) });
+    }
+
+    if (feature.click?.enabled) {
+
+      if (feature.click.callback != null) {
+        svg.click(function (this: SmzSVGWrapper, event) {
+          feature.click.callback(feature.id, svg, feature.data);
+
+          if (feature.click.navigate) {
+            that.state.dispatch.zoomToId.next({ elementId: feature.id, zoom: feature.focus.zoom });
+          }
+        });
+      }
+
+    }
+
+    if (feature.dbClick?.enabled) {
+
+      if (feature.dbClick.callback != null) {
+        svg.dblclick(function (this: SmzSVGWrapper, event) {
+          feature.dbClick.callback(feature.id, svg, feature.data);
+
+          if (feature.dbClick.navigate) {
+            that.state.dispatch.zoomToId.next({ elementId: feature.id, zoom: feature.focus.zoom });
+          }
+        });
+      }
+    }
+
+    if (feature.tooltip?.enabled) {
+      this.addToolTip(svg, feature.tooltip);
     }
 
   }
@@ -246,9 +293,7 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
                 break;
             }
 
-          if (pin.tooltip.enabled) {
-            this.addToolTip(element as SmzSVGWrapper, pin.tooltip);
-          }
+          this.setupFeature(pin, element as SmzSVGWrapper);
         }
         )
     });

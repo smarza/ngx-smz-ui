@@ -30,7 +30,28 @@ export class SmzSvgFeatureBuilder extends SmzBuilderUtilities<SmzSvgFeatureBuild
       tooltip: {
         enabled: false
       },
-      transform: null
+      color: null,
+      stroke: null,
+      transform: null,
+      styleClass: null,
+      highlight: {
+        enabled: false,
+        color: null
+      },
+      click: {
+        enabled: false,
+        navigate: false,
+        callback: null
+      },
+      dbClick: {
+        enabled: false,
+        navigate: false,
+        callback: null
+      },
+      focus: {
+        zoom: 0.7
+      },
+      data: null
     };
 
     this._state.features.push(newFeature);
@@ -53,7 +74,28 @@ export class SmzSvgFeatureBuilder extends SmzBuilderUtilities<SmzSvgFeatureBuild
       tooltip: {
         enabled: false
       },
-      transform: null
+      color: null,
+      stroke: null,
+      transform: null,
+      styleClass: null,
+      highlight: {
+        enabled: false,
+        color: null
+      },
+      click: {
+        enabled: false,
+        navigate: false,
+        callback: null
+      },
+      dbClick: {
+        enabled: false,
+        navigate: false,
+        callback: null
+      },
+      focus: {
+        zoom: 0.7
+      },
+      data: null
     };
 
     this._state.features.push(newFeature);

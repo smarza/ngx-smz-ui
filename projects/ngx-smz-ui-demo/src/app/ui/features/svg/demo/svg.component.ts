@@ -38,6 +38,8 @@ export class SvgComponent implements OnInit, AfterViewInit {
             .usePan()
             .feature()
               .root(svg, width, height)
+                .setColor('#15803d')
+                .styleClass('cursor-pointer')
                 .transform((feature: SmzSvgRoot, draw: SmzSVGWrapper) => {
                   const root = draw.findOne(`#${feature.id}`) as Container;
 
@@ -141,7 +143,14 @@ export class SvgComponent implements OnInit, AfterViewInit {
         width: 20,
         adaptative: { enabled: true, minWidth: 10, maxWidth: 50 },
         tooltip: { enabled: true, data: `Conteúdo para pin: ${id}` },
-        transform: null
+        transform: null,
+        stroke: null,
+        styleClass: null,
+        click: null,
+        dbClick: null,
+        focus: null,
+        highlight: null,
+        data: null
       });
 
     }

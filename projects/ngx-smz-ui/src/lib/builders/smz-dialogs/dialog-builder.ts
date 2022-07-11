@@ -103,6 +103,11 @@ export class SmzDialogBuilder<TResponse> extends SmzBuilderUtilities<SmzDialogBu
   }
 
   public hideRestoreButton(): SmzDialogBuilder<TResponse> {
+
+    if (this._state.behaviors.showMaximizeButton) {
+      throw new Error(`You cannot set hide restore button 'hideRestoreButton' on maximizable dialogs.`);
+    }
+
     this._state.behaviors.hideRestoreButton = true;
     return this;
   }

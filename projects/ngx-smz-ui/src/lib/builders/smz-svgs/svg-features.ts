@@ -6,18 +6,14 @@ import { SmzSvgFeatureBuilder } from './svg-feature';
 
 
 
-export class SmzSvgRootBuilder {
+export class SmzSvgRootBuilder extends SmzSvgBaseFeatureBuilder<SmzSvgRootBuilder> {
   protected that = this;
   constructor(public _featureBuilder: SmzSvgFeatureBuilder, public _feature: SmzSvgRoot, public _svgBuilder: SmzSvgBuilder) {
+    super(_featureBuilder, _feature, _svgBuilder);
   }
 
   public overrideContainerStyles(styleClass: string): SmzSvgRootBuilder {
     // this.feature.root.container.styles = styleClass;
-    return this.that;
-  }
-
-  public transform(callback: (feature: SmzSvgFeature, draw: SmzSVGWrapper) => void) {
-    this._feature.transform = callback;
     return this.that;
   }
 

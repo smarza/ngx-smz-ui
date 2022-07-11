@@ -1,11 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, ElementRef, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { Point, ViewBox } from '@svgdotjs/svg.js';
-import { NumberAlias } from '@svgdotjs/svg.js';
-import { Container, Element } from '@svgdotjs/svg.js';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Element } from '@svgdotjs/svg.js';
 import { SVG } from '@svgdotjs/svg.js';
 import { SmzSVGWrapper } from 'ngx-smz-ui';
-import * as SvgPanZoom from 'svg-pan-zoom';
 
 @Component({
   selector: 'app-svg-playground',

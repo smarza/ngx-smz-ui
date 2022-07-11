@@ -52,6 +52,27 @@ export interface SmzSvgBaseFeature {
   };
   tooltip: SmzSvgTooltipData;
   transform: (feature: SmzSvgFeature, draw: SmzSVGWrapper) => void;
+  color: string;
+  stroke: string;
+  styleClass: string;
+  highlight: {
+    enabled: boolean;
+    color: string;
+  };
+  click: {
+    enabled: boolean;
+    navigate: boolean;
+    callback: (id: string, svg: SmzSVGWrapper, data: any) => void
+  };
+  dbClick: {
+    enabled: boolean;
+    navigate: boolean;
+    callback: (id: string, svg: SmzSVGWrapper, data: any) => void
+  };
+  focus: {
+    zoom: number;
+  };
+  data: any;
 }
 
 export interface SmzSvgRoot extends SmzSvgBaseFeature {
@@ -62,7 +83,6 @@ export interface SmzSvgRoot extends SmzSvgBaseFeature {
 
 export interface SmzSvgPin extends SmzSvgBaseFeature {
   type: 'pin';
-  color?: string;
   width: number;
   svgData: string;
 
