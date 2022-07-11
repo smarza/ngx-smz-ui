@@ -40,10 +40,9 @@ export class SvgComponent implements OnInit, AfterViewInit {
               .root(svg, width, height)
                 .setColor('#15803d')
                 .styleClass('cursor-pointer')
-                .transform((feature: SmzSvgRoot, draw: SmzSVGWrapper) => {
-                  const root = draw.findOne(`#${feature.id}`) as Container;
+                .transform((container: Container, elementId: string, feature: SmzSvgRoot, draw: SmzSVGWrapper) => {
 
-                  for (const region of root.find('path')) {
+                  for (const region of container.find('path')) {
 
                     // paint each region blue
                     region
@@ -79,6 +78,7 @@ export class SvgComponent implements OnInit, AfterViewInit {
                   .setAnchor(item.anchor)
                   .useTooltip(item.tooltip.data)
                   .useAdaptative(item.adaptative.minWidth, item.adaptative.maxWidth)
+                  .setData(item)
                   .feature
                 )
                 .pin(locationPin, 20)
@@ -131,7 +131,7 @@ export class SvgComponent implements OnInit, AfterViewInit {
     for (let i = 0; i < count; i++) {
       const x = Math.floor(Math.random() * 1000) + 1;
       const y = Math.floor(Math.random() * 1000) + 1;
-      const id = `pin_${i}`;
+      const id = `4506f82f-6408-4dae-7af0-08da5ddc8b1d${i}`;
 
       results.push({
         type: 'pin',

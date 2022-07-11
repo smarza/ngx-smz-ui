@@ -7,6 +7,7 @@ import '@svgdotjs/svg.panzoom.js';
 import { OverlayPanel } from '../prime/overlaypanel/overlaypanel';
 import { filter } from 'rxjs';
 import { isEmpty } from '../../builders/common/utils';
+import { Container } from '@svgdotjs/svg.js';
 
 @Component({
   selector: 'smz-svg',
@@ -113,7 +114,7 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
       let element;
 
       this.draw
-        .find(`#${elementId}`)
+        .find(`#PIN_${elementId}`)
         .each(item => {
           element = item;
         });
@@ -166,10 +167,10 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
     const rootFeature = this.state.features.find(x => x.type === 'root') as SmzSvgRoot;
 
     const root = this.draw.svg(rootFeature.svgData);
-    root.node.lastElementChild.setAttribute('id', rootFeature.id);
+    root.node.lastElementChild.setAttribute('id', `PIN_${rootFeature.id}`);
 
     this.draw
-      .find(`#${rootFeature.id}`)
+      .find(`#PIN_${rootFeature.id}`)
       .each(element => {
         element
           .size(rootFeature.width, rootFeature.height)
@@ -189,7 +190,8 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
     const that = this;
 
     if (feature.transform != null){
-      feature.transform(feature, svg);
+      const container = this.draw.findOne(`#PIN_${feature.id}`) as Container;
+      feature.transform(container, `PIN_${feature.id}`, feature, svg);
     }
 
     if (!isEmpty(feature.styleClass)) {
@@ -266,7 +268,7 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
     let endY = 0;
 
     this.draw
-      .find(`#${rootFeature.id}`)
+      .find(`#PIN_${rootFeature.id}`)
       .each(element => {
         startX = element.x() as number;
         endX = startX + (element.width() as number);
@@ -288,10 +290,10 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
 
     pins.forEach(pin => {
       const svg = this.draw.svg(pin.svgData)
-      svg.node.lastElementChild.setAttribute('id', pin.id);
+      svg.node.lastElementChild.setAttribute('id', `PIN_${pin.id}`);
 
       this.draw
-        .find(`#${pin.id}`)
+        .find(`#PIN_${pin.id}`)
         .each(element => {
           element
             .fill({ color: pin.color, opacity: 1 })
@@ -424,7 +426,7 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
       .forEach(pin => {
 
         this.draw
-          .find(`#${pin.id}`)
+          .find(`#PIN_${pin.id}`)
           .each(element => {
 
             const newScale = 1 / zoom;

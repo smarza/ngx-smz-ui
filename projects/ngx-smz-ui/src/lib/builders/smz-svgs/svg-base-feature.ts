@@ -4,6 +4,7 @@ import { SmzSvgFeatureBuilder } from './svg-feature';
 import { SmzSvgBuilder } from './svg-builder';
 import { SmzSVGWrapper } from '../../modules/smz-svg/models/smz-svg-wrapper';
 import { isEmpty } from '../common/utils';
+import { Container } from '@svgdotjs/svg.js';
 
 export class SmzSvgBaseFeatureBuilder<T> extends SmzBuilderUtilities<T> {
   protected that: T;
@@ -24,7 +25,7 @@ export class SmzSvgBaseFeatureBuilder<T> extends SmzBuilderUtilities<T> {
     return this.that;
   }
 
-  public transform(callback: (feature: SmzSvgFeature, draw: SmzSVGWrapper) => void) {
+  public transform(callback: (container: Container, elementId: string, feature: SmzSvgFeature, draw: SmzSVGWrapper) => void) {
     this._feature.transform = callback;
     return this.that;
   }

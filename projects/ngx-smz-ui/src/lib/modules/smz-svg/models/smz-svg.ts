@@ -1,3 +1,4 @@
+import { Container } from '@svgdotjs/svg.js';
 import { MouseButton } from '@svgdotjs/svg.panzoom.js';
 import { BehaviorSubject } from 'rxjs';
 import { SmzSVGWrapper } from './smz-svg-wrapper';
@@ -51,7 +52,7 @@ export interface SmzSvgBaseFeature {
     maxWidth?: number;
   };
   tooltip: SmzSvgTooltipData;
-  transform: (feature: SmzSvgFeature, draw: SmzSVGWrapper) => void;
+  transform: (container: Container, elementId: string, feature: SmzSvgFeature, draw: SmzSVGWrapper) => void;
   color: string;
   stroke: string;
   styleClass: string;
