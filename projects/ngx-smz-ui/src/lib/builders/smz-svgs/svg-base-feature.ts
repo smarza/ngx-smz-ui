@@ -30,7 +30,7 @@ export class SmzSvgBaseFeatureBuilder<T> extends SmzBuilderUtilities<T> {
     return this.that;
   }
 
-  public styleClass(styleClass: string): T {
+  public setStyleClass(styleClass: string): T {
     this._feature.styleClass = styleClass;
     return this.that;
   }
@@ -49,16 +49,18 @@ export class SmzSvgBaseFeatureBuilder<T> extends SmzBuilderUtilities<T> {
   public setClickCallback(callback: (id: string, svg: SmzSVGWrapper, data: any) => void): T {
     this._feature.click.enabled = true;
     this._feature.click.callback = callback;
+    this._feature.styleClass = `${this._feature.styleClass} cursor-pointer`;
     return this.that;
   }
 
   public setDbClickCallback(callback: (id: string, svg: SmzSVGWrapper, data: any) => void): T {
     this._feature.dbClick.enabled = true;
     this._feature.dbClick.callback = callback;
+    this._feature.styleClass = `${this._feature.styleClass} cursor-pointer`;
     return this.that;
   }
 
-  public setNavigation(behavior: 'onClick' | 'onDbClick'): T {
+  public setFocus(behavior: 'onClick' | 'onDbClick'): T {
 
     if (behavior === 'onClick') {
       this._feature.click.enabled = true;
@@ -68,6 +70,8 @@ export class SmzSvgBaseFeatureBuilder<T> extends SmzBuilderUtilities<T> {
       this._feature.dbClick.enabled = true;
       this._feature.dbClick.navigate = true;
     }
+
+    this._feature.styleClass = `${this._feature.styleClass} cursor-pointer`;
 
     return this.that;
   }
