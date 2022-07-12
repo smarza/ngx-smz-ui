@@ -39,7 +39,7 @@ export class SvgComponent implements OnInit, AfterViewInit {
             .feature()
               .root(svg, width, height)
                 .setColor('#15803d')
-                .styleClass('cursor-pointer')
+                .setStyleClass('cursor-pointer')
                 .transform((container: Container, elementId: string, feature: SmzSvgRoot, draw: SmzSVGWrapper) => {
 
                   for (const region of container.find('path')) {

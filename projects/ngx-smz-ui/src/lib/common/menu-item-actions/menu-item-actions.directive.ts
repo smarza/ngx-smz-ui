@@ -20,6 +20,9 @@ export class MenuItemActionsDirective {
     @HostListener('click', ['$event'])
     public onClick(event: any): void {
 
+        if (this.item.disabled)
+            return ;
+
 
         if (this.item.command != null) {
             this.item.command(this.item);

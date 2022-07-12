@@ -48,7 +48,7 @@ export class HephaestusMenuExpandableItemComponent implements OnInit {
   selector: 'smz-ui-hephaestus-menu-item',
   template: `
       <li [ngClass]="{ 'active-menuitem': currentUrl | urlChecker : item.routerLink }">
-        <a class="p-ripple" [ngClass]="{ 'active-route': currentUrl | urlChecker : item.routerLink }" menuItemAction [item]="item" [parent]="parent" [breadcrumbs]="true" [tabindex]="index">
+        <a class="p-ripple" [ngClass]="{ 'active-route': currentUrl | urlChecker : item.routerLink, 'opacity-50 hover:bg-inherit select-none focus:shadow-none cursor-default': item.disabled }" menuItemAction [item]="item" [parent]="parent" [breadcrumbs]="true" [tabindex]="index">
             <i class="layout-menuitem-icon pi pi-fw" [ngClass]="item.icon"></i>
             <span class="layout-menuitem-text">{{ item.label }}</span>
             <span class="p-ink"></span>

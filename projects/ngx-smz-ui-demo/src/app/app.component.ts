@@ -84,6 +84,8 @@ export class AppComponent {
           icon: 'pi-home',
           items: [
             { label: 'Console Log', icon: 'pi-home', command: () => console.log('Console Log') },
+            { label: 'Disabled with command', icon: 'pi-home', command: () => console.log('Console Log'), disabled: true },
+            { label: 'Disabled with routerLink', icon: 'pi-home', routerLink: ['nested-routes'], disabled: true },
           ]
         },
         {
