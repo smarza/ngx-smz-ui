@@ -12,6 +12,7 @@ import { SmzGetDataPipe } from './pipes/get-data.pipe';
 import { JoinPipe } from './pipes/join.pipe';
 import { StateBuilderPipe } from './pipes/state-builder.pipe';
 import { ServerPathPipe } from './pipes/server-path.pipe';
+import { SimpleCalendarPipe } from './pipes/simple-calendar.pipe';
 
 @NgModule({
     imports: [
@@ -29,7 +30,8 @@ import { ServerPathPipe } from './pipes/server-path.pipe';
         SmzGetDataPipe,
         JoinPipe,
         StateBuilderPipe,
-        ServerPathPipe
+        ServerPathPipe,
+        SimpleCalendarPipe
     ],
     exports: [
         ClonePipe,
@@ -43,7 +45,8 @@ import { ServerPathPipe } from './pipes/server-path.pipe';
         SmzGetDataPipe,
         JoinPipe,
         StateBuilderPipe,
-        ServerPathPipe
+        ServerPathPipe,
+        SimpleCalendarPipe
     ],
 })
 export class NgxSmzDataPipesModule { }

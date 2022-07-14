@@ -5,7 +5,7 @@ export interface DemoTreeNode extends TreeNode {
   notes?: string;
   data?: any;
   children?: DemoTreeNode[];
-  demoType?: 'dialog' | 'form' | 'table' | 'chart' | 'document' | 'tree' | 'menu' | 'icons';
+  demoType?: 'dialog' | 'form' | 'table' | 'chart' | 'document' | 'tree' | 'menu' | 'icons' | 'comments';
 }
 
 export interface DemoItem {

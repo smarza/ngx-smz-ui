@@ -1,4 +1,3 @@
-import { ClickStopPropagationModule } from './lib/common/stop-click-propagation/click-stop-propagation.module';
 /*
  * Public API Surface of ngx-smz-ui
  */
@@ -27,6 +26,7 @@ export * from './lib/modules/smz-dock/public-api';
 // export * from './lib/modules/smz-notifications/public-api';
 export * from './lib/modules/smz-documents/public-api';
 export * from './lib/modules/smz-export-dialog/public-api';
+export * from './lib/modules/smz-comments/public-api';
 
 // Verificar se já resolveram o issue para publicar com esse módulo
 export * from './lib/modules/smz-svg/public-api';
@@ -41,6 +41,7 @@ export { SafeUrlPipe } from './lib/common/data-pipes/pipes/safe-url.pipe';
 export { UniqueFilterPipe } from './lib/common/data-pipes/pipes/unique-filter.pipe';
 export { DescribeArrayPipe } from './lib/common/data-pipes/pipes/describe-array.pipe';
 export { CalendarPipe } from './lib/common/data-pipes/pipes/calendar.pipe';
+export { SimpleCalendarPipe } from './lib/common/data-pipes/pipes/simple-calendar.pipe';
 export { SmzGetDataPipe } from './lib/common/data-pipes/pipes/get-data.pipe';
 export { JoinPipe } from './lib/common/data-pipes/pipes/join.pipe';
 export { ServerPathPipe } from './lib/common/data-pipes/pipes/server-path.pipe';
@@ -111,3 +112,5 @@ export * from './lib/modules/smz-ui-block/public-api';
 export * from './lib/standalones/easy-table/public-api';
 
 export * from './lib/builders/smz-login/state-builder';
+
+export * from './lib/builders/smz-comments/comments-builder';

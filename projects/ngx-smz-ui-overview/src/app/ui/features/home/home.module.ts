@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home.component';
-import { NgxSmzTablesModule, NgxSmzTreesModule, SmzRouteData, NgxSmzDialogsModule, NgxSmzFormsModule, SmzChartModule, NgxSmzDocumentsModule, NgCloneModule, NgVarModule, NgxSmzMenuModule, NgxSmzUiBlockModule } from 'ngx-smz-ui';
+import { NgxSmzTablesModule, NgxSmzTreesModule, SmzRouteData, NgxSmzDialogsModule, NgxSmzFormsModule, SmzChartModule, NgxSmzDocumentsModule, NgCloneModule, NgVarModule, NgxSmzMenuModule, NgxSmzUiBlockModule, NgxSmzCommentsModule } from 'ngx-smz-ui';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
 import { RbkAuthGuard, RbkDatabaseStateGuard, UI_DEFINITIONS_STATE_NAME } from 'ngx-smz-ui';
@@ -14,6 +14,7 @@ import { DemoTableComponent } from './components/demo-table/demo-table.component
 import { DemoIconsComponent } from './components/demo-icons/demo-icons.component';
 import { DemoChartComponent } from './components/demo-chart/demo-chart.component';
 import { DemoDocumentComponent } from './components/demo-document/demo-document.component';
+import { DemoCommentsComponent } from './components/demo-comments/demo-comments.component';
 import { DemoTreeComponent } from './components/demo-tree/demo-tree.component';
 import { DemoMenuComponent } from './components/demo-menu/demo-menu.component';
 import { DemoInjectable1Component } from './components/demo-injectable/demo-injectable-1.component';
@@ -51,6 +52,7 @@ const routes: Routes = [
     DemoDocumentComponent,
     DemoTreeComponent,
     DemoMenuComponent,
+    DemoCommentsComponent,
     DemoInjectable1Component,
     DemoInjectable2Component,
     DemoInjectable3Component,
@@ -76,6 +78,7 @@ const routes: Routes = [
     NgxSmzMenuModule,
     TooltipModule,
     NgxSmzUiBlockModule,
+    NgxSmzCommentsModule
   ],
   providers: [],
   bootstrap: [HomeComponent]

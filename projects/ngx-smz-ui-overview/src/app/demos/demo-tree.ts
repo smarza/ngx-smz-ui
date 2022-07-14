@@ -9,6 +9,7 @@ import { DocumentsDemo } from './functions/documents-demo';
 import { TreesDemo } from './functions/trees-demo';
 import { MenusDemo } from './functions/menus-demo';
 import { IconsDemo } from './functions/icons-demo';
+import { CommentsDemo } from './functions/comments-demo';
 
 export const TreeDemoData: DemoTreeNode[] = [
   {
@@ -444,6 +445,20 @@ export const TreeDemoData: DemoTreeNode[] = [
         notes: '',
         data: DocumentsDemo[DemoKeys.DOCUMENTS_INJECTABLES],
         key: DemoKeys.DOCUMENTS_INJECTABLES.toString()
+      },
+    ]
+  },
+  {
+    label: 'Comments',
+    type: 'Category',
+    expanded: false,
+    children: [
+      {
+        label: 'Section', icon: 'fa-solid fa-code', type: 'Demo',
+        demoType: 'comments',
+        notes: '',
+        data: CommentsDemo[DemoKeys.COMMENTS_SECTION],
+        key: DemoKeys.COMMENTS_SECTION.toString()
       },
     ]
   },

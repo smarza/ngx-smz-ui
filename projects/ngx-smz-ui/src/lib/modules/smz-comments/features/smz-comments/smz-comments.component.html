@@ -1,0 +1,30 @@
+
+<ng-container *ngIf="data.length > 0; else elseEmpty">
+  <p-tree [value]="data">
+      <ng-template let-node pTemplate="default">
+          <div class="ui comments">
+              <div class="comment">
+                  <a class="avatar">
+                      <div class="comments__avatar" [innerHTML]="node.data.avatar | safeHtml"></div>
+                  </a>
+                  <div class="content">
+                      <a class="author">{{ node.data.employee }}</a>
+                      <div class="metadata">
+                          <span class="date">{{ node.data.date | simpleCalendar : 'fromNow' }}</span>
+                      </div>
+                      <div class="text">
+                          <div [innerHTML]="node.label | safeHtml"></div>
+                      </div>
+                      <div class="actions">
+                          <a *ngIf="state.response.enabled" class="reply" (click)="showCreateDialog(node)">{{ state.locale.answser }}</a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </ng-template>
+  </p-tree>
+</ng-container>
+
+<ng-template #elseEmpty>
+  <smz-icon-message [icon]="'far fa-comment'" [message]="state.locale.emptyMessage" [comment]="state.locale.firstMessage"></smz-icon-message>
+</ng-template>
