@@ -283,7 +283,7 @@ export class SmzTreeEmptyFeedbackBuilder {
     return this;
   }
 
-  public setButtonCallback(callback: () => void): SmzTreeEmptyFeedbackBuilder {
+  public setButtonCallback(callback: (event?: MouseEvent) => void): SmzTreeEmptyFeedbackBuilder {
     if (!this._treeBuilder._state.emptyFeedback.isFeatured) {
       throw Error('This feature is not compatible with \'useTreeEmptyMessage\'');
     }

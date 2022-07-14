@@ -335,7 +335,7 @@ export interface SmzTableState {
       /**
        * Callback to be executed on the button is clicked
        */
-      callback: () => void;
+      callback: (event?: MouseEvent) => void;
     }[]
     image?: string;
   };

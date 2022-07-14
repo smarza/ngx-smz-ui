@@ -10,7 +10,7 @@
         <button *ngIf="callbackLabel != null" pButton type="button" class="p-button" [label]="callbackLabel" (click)="clicked.emit()"></button>
         <ng-container *ngIf="actions">
           <ng-container *ngFor="let action of actions">
-            <button pButton type="button" class="p-button" [label]="action.label" [icon]="action.icon" (click)="action.callback()"></button>
+            <button pButton type="button" class="p-button" [label]="action.label" [icon]="action.icon" (click)="action.callback($event)"></button>
           </ng-container>
         </ng-container>
       </div>
