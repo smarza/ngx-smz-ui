@@ -7,7 +7,7 @@
 
       <div class="grid grid-nogutter items-center justify-center mt-2 gap-2">
         <ng-container *ngTemplateOutlet="actionsTemplate; context: { $implicit: { } }"></ng-container>
-        <button *ngIf="callbackLabel != null" pButton type="button" class="p-button" [label]="callbackLabel" (click)="clicked.emit()"></button>
+        <button *ngIf="callbackLabel != null" pButton type="button" class="p-button" [label]="callbackLabel" (click)="clicked.emit($event)"></button>
         <ng-container *ngIf="actions">
           <ng-container *ngFor="let action of actions">
             <button pButton type="button" class="p-button" [label]="action.label" [icon]="action.icon" (click)="action.callback($event)"></button>

@@ -7,7 +7,7 @@
             [message]="state.emptyFeedback.message"
             [callbackInfo]="state.emptyFeedback.extraInfo"
             [callbackLabel]="state.emptyFeedback.actionButton?.label"
-            (clicked)="state.emptyFeedback.actionButton?.callback()">
+            (clicked)="state.emptyFeedback.actionButton?.callback($event)">
 
             <ng-template pTemplate="actions">
                 <ng-container *ngTemplateOutlet="emptyActionsTemplate; context: { $implicit: {} }"></ng-container>

@@ -22,7 +22,7 @@ export const TreesDemo:{ [key: string]: { items$: Observable<any[]>, code: () =>
       .emptyFeedback()
         .setButtonLabel('Criar nova conexão')
         .setMessage('Ainda não existem conexões cadastradas para esta UN')
-        .setButtonCallback(() => { console.log('Hello!'); })
+        .setButtonCallback((event) => { console.log('Hello!', event); })
       .tree
       .useSincronization()
       .setSelection('checkbox')

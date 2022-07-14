@@ -13,7 +13,7 @@ export class SmzDataInfoComponent implements OnInit, AfterContentInit {
   @Input() public actions: { label: string, icon?: string, callback: (event: MouseEvent) => void }[];
   @Input() public callbackInfo: string;
   @Input() public callbackLabel: string;
-  @Output() public clicked: EventEmitter<void> = new EventEmitter<void>();
+  @Output() public clicked: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
   public actionsTemplate: TemplateRef<any>;
   public ngOnInit(): void {
 
