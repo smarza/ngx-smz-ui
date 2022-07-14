@@ -8,6 +8,7 @@ import { OverlayPanel } from '../prime/overlaypanel/overlaypanel';
 import { filter } from 'rxjs';
 import { isEmpty } from '../../builders/common/utils';
 import { Container } from '@svgdotjs/svg.js';
+import { GetElementsByParentId } from './utils/smz-svg-helper';
 
 @Component({
   selector: 'smz-svg',
@@ -101,11 +102,31 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
     this.draw.animate().viewbox(0, 0,  this.state.container.width, this.state.container.height);
   }
 
+  public updateScopes(scopes: string[]): void {
+
+    // TO SHOW
+    this.state.features
+      .filter(x => scopes.some(scope => scope === x.scope))
+      .forEach(feature => {
+        GetElementsByParentId(this.draw, feature.id)
+          .forEach(element => element.show())
+      });
+
+    // TO HIDE
+    this.state.features
+      .filter(x => scopes.every(scope => scope !== x.scope))
+      .forEach(feature => {
+        GetElementsByParentId(this.draw, feature.id)
+          .forEach(element => element.hide())
+      });
+  }
+
   private setupDispatchListeners(): void {
     this.state.dispatch.zoomToId.pipe(filter(x => x != null)).subscribe((event) => { this.zoomToId(event.elementId, event.zoom) });
     this.state.dispatch.zoomToPosition.pipe(filter(x => x != null)).subscribe((event) => { this.zoomToPosition(event.x, event.y, event.zoom) });
     this.state.dispatch.draw.pipe(filter(x => x != null)).subscribe((event) => { event.callback(this.draw); });
     this.state.dispatch.reset.pipe(filter(x => x !== null)).subscribe(() => { this.reset(); });
+    this.state.dispatch.setScopes.pipe(filter(x => x !== null)).subscribe((scopes) => { this.updateScopes(scopes); });
   }
 
   public zoomToId(elementId: string, factor: number): void {
@@ -206,6 +227,10 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
       svg.stroke(feature.stroke);
     }
 
+    if (feature.scope != null) {
+      svg.hide();
+    }
+
     if (feature.highlight?.enabled) {
       svg
         .mouseover(function (this: SmzSVGWrapper, event) { this.fill({ color: feature.highlight.color }) })
@@ -295,6 +320,7 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
       this.draw
         .find(`#PIN_${pin.id}`)
         .each(element => {
+
           element
             .fill({ color: pin.color, opacity: 1 })
             .size(pin.width);
@@ -310,7 +336,7 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
             }
 
           this.setupFeature(pin, element as SmzSVGWrapper);
-        }
+          }
         )
     });
 
@@ -455,5 +481,6 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
     this.state.dispatch.zoomToPosition.unsubscribe();
     this.state.dispatch.draw.unsubscribe();
     this.state.dispatch.reset.unsubscribe();
+    this.state.dispatch.setScopes.unsubscribe();
   }
 }

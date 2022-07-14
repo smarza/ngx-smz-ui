@@ -102,6 +102,11 @@ export class SmzSvgBaseFeatureBuilder<T> extends SmzBuilderUtilities<T> {
     return this.that;
   }
 
+  public setScope(scope: string): T {
+    this._feature.scope = scope;
+    return this.that;
+  }
+
   public get feature(): SmzSvgFeatureBuilder {
     return this._featureBuilder;
   }

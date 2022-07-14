@@ -29,6 +29,11 @@ export interface SmzSvgState {
     zoomToPosition: BehaviorSubject<{ x: number, y: number, zoom: number }>;
     draw: BehaviorSubject<{ callback: (draw: SmzSVGWrapper) => void }>;
     reset: BehaviorSubject<void>;
+    setScopes: BehaviorSubject<string[]>;
+  }
+  scope: {
+    all: string[];
+    current: string;
   }
 }
 
@@ -74,6 +79,7 @@ export interface SmzSvgBaseFeature {
     zoom: number;
   };
   data: any;
+  scope: string;
 }
 
 export interface SmzSvgRoot extends SmzSvgBaseFeature {

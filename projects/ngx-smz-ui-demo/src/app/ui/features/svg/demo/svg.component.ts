@@ -1,8 +1,9 @@
 import { Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
-import { SmzSvgComponent, SmzSvgState, SmzSvgPin, SmzSvgBuilder, SmzSvgFeature, SmzSVGWrapper, SmzSvgRoot } from 'ngx-smz-ui';
+import { SmzSvgComponent, SmzSvgState, SmzSvgPin, SmzSvgBuilder, SmzSvgFeature, SmzSVGWrapper, SmzSvgRoot, GetElementsByParentId } from 'ngx-smz-ui';
 import { Container, Point } from '@svgdotjs/svg.js';
+import { List } from '@svgdotjs/svg.js';
 
 @Component({
   selector: 'app-svg',
@@ -32,7 +33,7 @@ export class SvgComponent implements OnInit, AfterViewInit {
           const [ width, height ] = [ 500, 500 ];
 
           const stateBuilder: SmzSvgBuilder = new SmzSvgBuilder()
-            // .debugMode()
+            .debugMode()
             .setContainerStyles('absolute inset-0 overflow-hidden bg-sky-500')
             .useMouseZoom(0.5, 10, 0.25)
             .usePan()
@@ -42,37 +43,45 @@ export class SvgComponent implements OnInit, AfterViewInit {
                 .setStyleClass('cursor-pointer')
                 .transform((container: Container, elementId: string, feature: SmzSvgRoot, draw: SmzSVGWrapper) => {
 
-                  for (const region of container.find('path')) {
+                  GetElementsByParentId(container, 'STATES')
+                    .each((region) => {
 
-                    // paint each region blue
-                    region
-                      .fill('#15803d')
-                      .addClass('cursor-pointer')
-                      .mouseover(function (this: SmzSVGWrapper, event) {
-                        this.fill({ color: '#f06' });
-                      })
-                      .mouseout(function (this: SmzSVGWrapper) {
-                        this.fill({ color: '#15803d' });
-                      })
-                      .click((event) => {
-                        this.state.dispatch.zoomToId.next({ elementId: region.node.id, zoom: 0.7 });
-                      });
+                      // paint each region blue
+                      region
+                        .fill('#15803d')
+                        .addClass('cursor-pointer')
+                        .mouseover(function (this: SmzSVGWrapper, event) {
+                          this.fill({ color: '#f06' });
+                        })
+                        .mouseout(function (this: SmzSVGWrapper) {
+                          this.fill({ color: '#15803d' });
+                        })
+                        .click((event) => {
+                          console.log(feature);
+                          console.log(region);
+                          console.log(region.node.id);
+                          this.state.dispatch.zoomToId.next({ elementId: region.node.id, zoom: 0.7 });
+                          // this.state.dispatch.setScopes.next(['A'])
+                        });
 
-                    // add a label to the center of each region
-                    const relativeViewbox = region.rbox(draw);
+                      // add a label to the center of each region
+                      const relativeViewbox = region.rbox(draw);
 
-                    draw
-                      .text(`${region.id()}`)
-                      .font({ size: '3px', family: 'Open Sans' })
-                      .fill({ color: 'white', opacity: 1 })
-                      .stroke({ color: '#f06', opacity: 1, width: 0 })
-                      .center(relativeViewbox.cx, relativeViewbox.cy);
-                  }
+                      draw
+                        .text(`${region.id()}`)
+                        .font({ size: '3px', family: 'Open Sans' })
+                        .fill({ color: 'white', opacity: 1 })
+                        .stroke({ color: '#f06', opacity: 1, width: 0 })
+                        .center(relativeViewbox.cx, relativeViewbox.cy);
+
+                  });
+
                 })
                 .feature
-              .for(this.makeGhostPin(50), (_, item: SmzSvgPin) =>
+              .for(this.makeGhostPin(10), (_, item: SmzSvgPin) =>
                 _
                 .pin(item.svgData, item.width)
+                  .setScope('A')
                   .setColor(item.color)
                   .setPosition(item.position.x, item.position.y)
                   .setAnchor(item.anchor)
@@ -82,6 +91,7 @@ export class SvgComponent implements OnInit, AfterViewInit {
                   .feature
                 )
                 .pin(locationPin, 20)
+                  .setScope('B')
                   .setColor('#FFEB3B')
                   .setPosition(0, 0)
                   .setAnchor('root')
@@ -89,6 +99,7 @@ export class SvgComponent implements OnInit, AfterViewInit {
                   .useAdaptative(5, 50)
                   .feature
                 .pin(locationPin, 20)
+                  .setScope('C')
                   .setColor('red')
                   .setPosition(width / 2, height / 2)
                   .setAnchor('root')
@@ -150,7 +161,8 @@ export class SvgComponent implements OnInit, AfterViewInit {
         dbClick: null,
         focus: null,
         highlight: null,
-        data: null
+        data: null,
+        scope: null
       });
 
     }

@@ -5,6 +5,7 @@ import { SmzSvgState } from '../../modules/smz-svg/models/smz-svg';
 import { SmzSvgFeatureBuilder } from './svg-feature';
 import { BehaviorSubject } from 'rxjs';
 import { SmzSvgDispatchBuilder } from './svg-dispatch';
+import uniq from 'lodash-es/uniq';
 
 export class SmzSvgBuilder extends SmzBuilderUtilities<SmzSvgBuilder> {
   protected that = this;
@@ -27,7 +28,12 @@ export class SmzSvgBuilder extends SmzBuilderUtilities<SmzSvgBuilder> {
       zoomToId: new BehaviorSubject(null),
       zoomToPosition: new BehaviorSubject(null),
       draw: new BehaviorSubject(null),
-      reset: new BehaviorSubject(null)
+      reset: new BehaviorSubject(null),
+      setScopes: new BehaviorSubject(null)
+    },
+    scope: {
+      all: [],
+      current: null
     }
   };
 
@@ -102,6 +108,12 @@ export class SmzSvgBuilder extends SmzBuilderUtilities<SmzSvgBuilder> {
   }
 
   public build(): SmzSvgState {
+
+    this._state.scope.all = uniq(
+      this._state.features
+        .filter(x => x.scope != null)
+        .map(x => x.scope)
+      );
 
     if (this._state.isDebug) {
       console.log(this._state);
