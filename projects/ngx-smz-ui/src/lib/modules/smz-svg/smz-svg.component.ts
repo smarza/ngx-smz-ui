@@ -1,14 +1,14 @@
 import { Component, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { SmzSVGWrapper } from './models/smz-svg-wrapper';
-import { SmzSvgState, SmzSvgPin, SmzSvgRoot, SmzSvgTooltipData, SmzSvgFeature } from './models/smz-svg';
+import { SmzSvgState, SmzSvgPin, SmzSvgRoot, SmzSvgTooltipData, SmzSvgFeature, SmzSvgBaseFeature } from './models/smz-svg';
 
 import { SVG } from '@svgdotjs/svg.js';
 import '@svgdotjs/svg.panzoom.js';
 import { OverlayPanel } from '../prime/overlaypanel/overlaypanel';
 import { filter } from 'rxjs';
 import { isEmpty } from '../../builders/common/utils';
-import { Container } from '@svgdotjs/svg.js';
-import { GetElementsByParentId } from './utils/smz-svg-helper';
+import { Container, Element } from '@svgdotjs/svg.js';
+import { GetElementById, GetElementsByParentId } from './utils/smz-svg-helper';
 
 @Component({
   selector: 'smz-svg',
@@ -106,18 +106,16 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
 
     // TO SHOW
     this.state.features
-      .filter(x => scopes.some(scope => scope === x.scope))
+      .filter(x => x.scope != null && scopes.some(scope => scope === x.scope))
       .forEach(feature => {
-        GetElementsByParentId(this.draw, feature.id)
-          .forEach(element => element.show())
+        GetElementById(this.draw, `PIN_${feature.id}`)?.show();
       });
 
     // TO HIDE
     this.state.features
-      .filter(x => scopes.every(scope => scope !== x.scope))
+      .filter(x => x.scope != null && scopes.every(scope => scope !== x.scope))
       .forEach(feature => {
-        GetElementsByParentId(this.draw, feature.id)
-          .forEach(element => element.hide())
+        GetElementById(this.draw, `PIN_${feature.id}`)?.hide();
       });
   }
 
@@ -125,17 +123,22 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
     this.state.dispatch.zoomToId.pipe(filter(x => x != null)).subscribe((event) => { this.zoomToId(event.elementId, event.zoom) });
     this.state.dispatch.zoomToPosition.pipe(filter(x => x != null)).subscribe((event) => { this.zoomToPosition(event.x, event.y, event.zoom) });
     this.state.dispatch.draw.pipe(filter(x => x != null)).subscribe((event) => { event.callback(this.draw); });
-    this.state.dispatch.reset.pipe(filter(x => x !== null)).subscribe(() => { this.reset(); });
-    this.state.dispatch.setScopes.pipe(filter(x => x !== null)).subscribe((scopes) => { this.updateScopes(scopes); });
+    this.state.dispatch.reset.pipe(filter(x => x != null)).subscribe(() => { this.reset(); });
+    this.state.dispatch.setScopes.pipe(filter(x => x != null)).subscribe((scopes) => { this.updateScopes(scopes); });
   }
 
   public zoomToId(elementId: string, factor: number): void {
 
     try {
+      const feature = this.state.features.find(x => x._childrenIds.some(id => id === elementId));
+
+      if (feature == null)
+        return;
+
       let element;
 
-      this.draw
-        .find(`#PIN_${elementId}`)
+      feature._element
+        .find(`#${elementId}`)
         .each(item => {
           element = item;
         });
@@ -183,6 +186,25 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
 
   }
 
+  public updateChildrenIds(feature: SmzSvgBaseFeature): void {
+    feature._childrenIds = [];
+    feature._childrenIds.push(feature._element.id());
+    this.recursive(feature._childrenIds, feature._element);
+  }
+
+  public recursive(ids: string[], element: Element): void {
+    let children = element.children();
+
+    children?.forEach(child => {
+      ids.push(child.id());
+
+      if (child.children()?.length > 0) {
+        this.recursive(ids, child);
+      }
+    })
+
+  }
+
   private setupRoot(): void {
 
     const rootFeature = this.state.features.find(x => x.type === 'root') as SmzSvgRoot;
@@ -191,16 +213,20 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
     root.node.lastElementChild.setAttribute('id', `PIN_${rootFeature.id}`);
 
     this.draw
-      .find(`#PIN_${rootFeature.id}`)
-      .each(element => {
-        element
-          .size(rootFeature.width, rootFeature.height)
-          .center(this.state.container.width / 2, this.state.container.height / 2);
+    .find(`#PIN_${rootFeature.id}`)
+    .each(element => {
 
-        if (this.state.isDebug) {
-          element.addClass('border-2 border-red-400 border-solid');
-        }
-      });
+      rootFeature._element = element;
+      this.updateChildrenIds(rootFeature);
+
+      element
+        .size(rootFeature.width, rootFeature.height)
+        .center(this.state.container.width / 2, this.state.container.height / 2);
+
+      if (this.state.isDebug) {
+        element.addClass('border-2 border-red-400 border-solid');
+      }
+    });
 
     this.setupFeature(rootFeature, root);
 
@@ -292,15 +318,13 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
     let startY = 0;
     let endY = 0;
 
-    this.draw
-      .find(`#PIN_${rootFeature.id}`)
-      .each(element => {
-        startX = element.x() as number;
-        endX = startX + (element.width() as number);
+    const element = rootFeature._element;
 
-        startY = element.y() as number;
-        endY = startY + (element.height() as number);
-      });
+    startX = element.x() as number;
+    endX = startX + (element.width() as number);
+
+    startY = element.y() as number;
+    endY = startY + (element.height() as number);
 
     return [ startX, endX, startY, endY ] as const;
   }
@@ -320,6 +344,9 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
       this.draw
         .find(`#PIN_${pin.id}`)
         .each(element => {
+
+          pin._element = element;
+          this.updateChildrenIds(pin);
 
           element
             .fill({ color: pin.color, opacity: 1 })
@@ -451,27 +478,23 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
       .filter(x => x.adaptative.enabled)
       .forEach(pin => {
 
-        this.draw
-          .find(`#PIN_${pin.id}`)
-          .each(element => {
+        const element = pin._element;
 
-            const newScale = 1 / zoom;
-            const newWidth = pin.width * newScale;
-            const width = (newWidth > pin.adaptative.maxWidth) ? pin.adaptative.maxWidth : ((newWidth < pin.adaptative.minWidth) ? pin.adaptative.minWidth : newWidth);
+        const newScale = 1 / zoom;
+        const newWidth = pin.width * newScale;
+        const width = (newWidth > pin.adaptative.maxWidth) ? pin.adaptative.maxWidth : ((newWidth < pin.adaptative.minWidth) ? pin.adaptative.minWidth : newWidth);
 
-            element.size(width);
+        element.size(width);
 
-            switch (pin.anchor) {
-              case 'root':
-                element.center(startX + pin.position.x, startY + pin.position.y);
-                break;
+        switch (pin.anchor) {
+          case 'root':
+            element.center(startX + pin.position.x, startY + pin.position.y);
+            break;
 
-              case 'container':
-                element.center(pin.position.x, pin.position.y);
-                break;
-            }
-
-          })
+          case 'container':
+            element.center(pin.position.x, pin.position.y);
+            break;
+        }
 
       });
   }

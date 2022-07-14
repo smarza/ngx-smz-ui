@@ -33,7 +33,7 @@ export class SvgComponent implements OnInit, AfterViewInit {
           const [ width, height ] = [ 500, 500 ];
 
           const stateBuilder: SmzSvgBuilder = new SmzSvgBuilder()
-            .debugMode()
+            // .debugMode()
             .setContainerStyles('absolute inset-0 overflow-hidden bg-sky-500')
             .useMouseZoom(0.5, 10, 0.25)
             .usePan()
@@ -46,7 +46,6 @@ export class SvgComponent implements OnInit, AfterViewInit {
                   GetElementsByParentId(container, 'STATES')
                     .each((region) => {
 
-                      // paint each region blue
                       region
                         .fill('#15803d')
                         .addClass('cursor-pointer')
@@ -57,12 +56,11 @@ export class SvgComponent implements OnInit, AfterViewInit {
                           this.fill({ color: '#15803d' });
                         })
                         .click((event) => {
-                          console.log(feature);
-                          console.log(region);
-                          console.log(region.node.id);
-                          this.state.dispatch.zoomToId.next({ elementId: region.node.id, zoom: 0.7 });
-                          // this.state.dispatch.setScopes.next(['A'])
+                          this.state.dispatch.setScopes.next(['A', 'B', 'C']);
                         });
+                        // .dblclick((event) => {
+                        //   this.state.dispatch.zoomToId.next({ elementId: region.node.id, zoom: 0.7 });
+                        // });
 
                       // add a label to the center of each region
                       const relativeViewbox = region.rbox(draw);
@@ -145,6 +143,8 @@ export class SvgComponent implements OnInit, AfterViewInit {
       const id = `4506f82f-6408-4dae-7af0-08da5ddc8b1d${i}`;
 
       results.push({
+        _element: null,
+        _childrenIds: [],
         type: 'pin',
         id,
         svgData: ghost,

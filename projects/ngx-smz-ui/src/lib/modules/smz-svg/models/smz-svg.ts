@@ -1,4 +1,4 @@
-import { Container } from '@svgdotjs/svg.js';
+import { Container, Element } from '@svgdotjs/svg.js';
 import { MouseButton } from '@svgdotjs/svg.panzoom.js';
 import { BehaviorSubject } from 'rxjs';
 import { SmzSVGWrapper } from './smz-svg-wrapper';
@@ -41,6 +41,8 @@ export interface SmzSvgState {
 export type SmzSvgFeature = SmzSvgRoot | SmzSvgPin;
 export type SmzSvgFeatureTypes = 'root' | 'pin';
 export interface SmzSvgBaseFeature {
+  _element: Element;
+  _childrenIds: string[];
   id: string;
   width: number;
   type?: SmzSvgFeatureTypes;

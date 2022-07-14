@@ -17,6 +17,8 @@ export class SmzSvgFeatureBuilder extends SmzBuilderUtilities<SmzSvgFeatureBuild
   public root(svgData: string, width: number, height: number): SmzSvgRootBuilder {
 
     const newFeature: SmzSvgRoot = {
+      _element: null,
+      _childrenIds: [],
       id: `${this._state.features.length}`,
       type: 'root',
       width,
@@ -63,6 +65,8 @@ export class SmzSvgFeatureBuilder extends SmzBuilderUtilities<SmzSvgFeatureBuild
   public pin(svgData: string, width: number): SmzSvgPinBuilder {
 
     const newFeature: SmzSvgPin = {
+      _element: null,
+      _childrenIds: [],
       id: `${this._state.features.length}`,
       type: 'pin',
       width,
