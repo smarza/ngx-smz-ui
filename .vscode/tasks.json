@@ -126,7 +126,12 @@
 		{
 			"label": "Lib: Release",
 			"dependsOrder": "sequence",
-			"dependsOn":["Version", "Commit", "Build: Prod"]
+			"dependsOn":["Version", "Commit"]
+		},
+		{
+			"label": "Lib: Build Prod",
+			"dependsOrder": "sequence",
+			"dependsOn":["Build: Prod"]
 		},
 		{
 			"label": "Lib: Publish",
