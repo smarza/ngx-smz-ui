@@ -15,18 +15,18 @@ export class UiNotificationsService extends BaseApiService {
 
     public all(data: NotificationGetRequest): Observable<NotificationData[]> {
         return this.http.post<NotificationData[]>(`${this.rbkConfig.notifications.url}/all`, data,
-            this.generateDefaultHeaders(this.rbkConfig.notifications.httpBehavior))
+            this.generateDefaultHeaders({...this.rbkConfig.notifications.httpBehavior, errorHandlingType: 'none' }))
             .pipe(fixDates());
     }
 
     public update(data: NotificationUpdateRequest): Observable<void> {
         return this.http.put<void>(`${this.rbkConfig.notifications.url}/update`, data,
-            this.generateDefaultHeaders(this.rbkConfig.notifications.httpBehavior));
+            this.generateDefaultHeaders({...this.rbkConfig.notifications.httpBehavior, errorHandlingType: 'toast' }));
     }
 
     public delete(data: NotificationDeleteRequest): Observable<void> {
         return this.http.post<void>(`${this.rbkConfig.notifications.url}/delete`, data,
-            this.generateDefaultHeaders(this.rbkConfig.notifications.httpBehavior));
+            this.generateDefaultHeaders({...this.rbkConfig.notifications.httpBehavior, errorHandlingType: 'toast' }));
     }
 }
 
