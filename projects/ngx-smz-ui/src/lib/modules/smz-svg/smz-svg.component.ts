@@ -104,19 +104,22 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
 
   public updateScopes(scopes: string[]): void {
 
+    // HIDE ALL
+    this.state.features
+    .filter(x => x.scopes != null)
+    .forEach(feature => {
+      GetElementById(this.draw, `PIN_${feature.id}`)?.hide();
+    });
+
     // TO SHOW
     this.state.features
-      .filter(x => x.scope != null && scopes.some(scope => scope === x.scope))
+      .filter(x => x.scopes != null && scopes.some(scope => x.scopes.includes(scope)))
       .forEach(feature => {
         GetElementById(this.draw, `PIN_${feature.id}`)?.show();
       });
 
-    // TO HIDE
-    this.state.features
-      .filter(x => x.scope != null && scopes.every(scope => scope !== x.scope))
-      .forEach(feature => {
-        GetElementById(this.draw, `PIN_${feature.id}`)?.hide();
-      });
+    this.state.scope.current = scopes;
+
   }
 
   private setupDispatchListeners(): void {
@@ -253,7 +256,7 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
       svg.stroke(feature.stroke);
     }
 
-    if (feature.scope != null) {
+    if (feature.scopes?.length > 0) {
       svg.hide();
     }
 

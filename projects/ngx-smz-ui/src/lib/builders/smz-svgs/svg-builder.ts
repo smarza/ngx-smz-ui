@@ -109,11 +109,16 @@ export class SmzSvgBuilder extends SmzBuilderUtilities<SmzSvgBuilder> {
 
   public build(): SmzSvgState {
 
-    this._state.scope.all = uniq(
-      this._state.features
-        .filter(x => x.scope != null)
-        .map(x => x.scope)
-      );
+    const all = [];
+
+    this._state.features
+      .filter(x => x.scopes != null)
+      .map(x => x.scopes)
+      .forEach((scopes) => {
+        all.push(...scopes);
+      })
+
+    this._state.scope.all = uniq(all);
 
     if (this._state.isDebug) {
       console.log(this._state);

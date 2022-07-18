@@ -56,7 +56,7 @@ export class SvgComponent implements OnInit, AfterViewInit {
                           this.fill({ color: '#15803d' });
                         })
                         .click((event) => {
-                          this.state.dispatch.setScopes.next(['A', 'B', 'C']);
+                          this.state.dispatch.setScopes.next(['A']);
                         });
                         // .dblclick((event) => {
                         //   this.state.dispatch.zoomToId.next({ elementId: region.node.id, zoom: 0.7 });
@@ -79,7 +79,7 @@ export class SvgComponent implements OnInit, AfterViewInit {
               .for(this.makeGhostPin(10), (_, item: SmzSvgPin) =>
                 _
                 .pin(item.svgData, item.width)
-                  .setScope('A')
+                  .addScope('A')
                   .setColor(item.color)
                   .setPosition(item.position.x, item.position.y)
                   .setAnchor(item.anchor)
@@ -89,7 +89,8 @@ export class SvgComponent implements OnInit, AfterViewInit {
                   .feature
                 )
                 .pin(locationPin, 20)
-                  .setScope('B')
+                  .addScope('A')
+                  .addScope('B')
                   .setColor('#FFEB3B')
                   .setPosition(0, 0)
                   .setAnchor('root')
@@ -97,7 +98,8 @@ export class SvgComponent implements OnInit, AfterViewInit {
                   .useAdaptative(5, 50)
                   .feature
                 .pin(locationPin, 20)
-                  .setScope('C')
+                  .addScope('A')
+                  .addScope('C')
                   .setColor('red')
                   .setPosition(width / 2, height / 2)
                   .setAnchor('root')
@@ -162,7 +164,7 @@ export class SvgComponent implements OnInit, AfterViewInit {
         focus: null,
         highlight: null,
         data: null,
-        scope: null
+        scopes: []
       });
 
     }

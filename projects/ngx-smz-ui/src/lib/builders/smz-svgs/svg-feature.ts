@@ -54,7 +54,7 @@ export class SmzSvgFeatureBuilder extends SmzBuilderUtilities<SmzSvgFeatureBuild
         zoom: 0.7
       },
       data: null,
-      scope: null
+      scopes: null
     };
 
     this._state.features.push(newFeature);
@@ -101,7 +101,7 @@ export class SmzSvgFeatureBuilder extends SmzBuilderUtilities<SmzSvgFeatureBuild
         zoom: 0.7
       },
       data: null,
-      scope: null
+      scopes: []
     };
 
     this._state.features.push(newFeature);

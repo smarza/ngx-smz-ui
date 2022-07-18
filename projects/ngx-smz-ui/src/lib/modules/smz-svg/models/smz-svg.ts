@@ -33,7 +33,7 @@ export interface SmzSvgState {
   }
   scope: {
     all: string[];
-    current: string;
+    current: string[];
   }
 }
 
@@ -81,7 +81,7 @@ export interface SmzSvgBaseFeature {
     zoom: number;
   };
   data: any;
-  scope: string;
+  scopes: string[];
 }
 
 export interface SmzSvgRoot extends SmzSvgBaseFeature {
