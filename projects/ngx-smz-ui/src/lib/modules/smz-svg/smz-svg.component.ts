@@ -477,18 +477,21 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
 
   public buildGrid(): void {
 
+    const rootFeature = this.state.features.find(x => x.type === 'root') as SmzSvgRoot;
+
     const gap = 30;
     const size = 5;
 
-    const [startX, endX, startY, endY ] = this.getRootContainer();
-
+    const [startX, endX, startY, endY] = this.getRootContainer();
+    console.log('root', startX, endX, startY, endY);
     const that = this;
 
     for (let i = startX; i < endX; i += gap) {
       for (let j = startY; j < endY; j += gap) {
-        this.draw
-          .circle(size)
-          .center(i, j)
+        const circle = this.draw.circle(size).center(i, j);
+        const relative = circle.rbox(rootFeature._element);
+
+        circle
           .data('key', { x: i, y: j })
           .data('text', 'Teste')
           .addClass('cursor-pointer')
@@ -497,7 +500,7 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
 
             if (!that.isPanning) {
               this.fill({ color: 'red' });
-              that.show(event, `Point: ${JSON.stringify(this.data('key'))}`);
+              that.show(event, `Point: ${JSON.stringify(this.data('key'))} | Relative => cx: ${relative.cx} ; cy: ${relative.cy}`);
             }
 
           })

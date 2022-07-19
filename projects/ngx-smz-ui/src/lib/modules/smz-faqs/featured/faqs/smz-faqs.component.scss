@@ -26,6 +26,7 @@ smz-faqs {
         transform: translateX(100%);
         -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
+        overflow: inherit;
     }
 
     .layout-config .layout-config-content-wrapper {

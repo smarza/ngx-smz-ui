@@ -1,9 +1,8 @@
 import { Component, ViewChild, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
-import { SmzSvgComponent, SmzSvgState, SmzSvgPin, SmzSvgBuilder, SmzSvgFeature, SmzSVGWrapper, SmzSvgRoot, GetElementsByParentId } from 'ngx-smz-ui';
-import { Container, Point } from '@svgdotjs/svg.js';
-import { List } from '@svgdotjs/svg.js';
+import { SmzSvgComponent, SmzSvgState, SmzSvgPin, SmzSvgBuilder, SmzSVGWrapper, SmzSvgRoot, GetElementsByParentId } from 'ngx-smz-ui';
+import { Container } from '@svgdotjs/svg.js';
 
 @Component({
   selector: 'app-svg',
@@ -30,16 +29,18 @@ export class SvgComponent implements OnInit, AfterViewInit {
             C298,0,384,86,384,192L384,192z"/>
           </svg>`;
 
+          const markSvgData = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>';
+
           const [ width, height ] = [ 700, 700 ];
 
           const stateBuilder: SmzSvgBuilder = new SmzSvgBuilder()
             .debugMode()
-            .setContainerStyles('absolute inset-0 overflow-hidden bg-sky-500')
+            .setContainerStyles('absolute inset-0 overflow-hidden bg-sky-500 cursor-move')
             .useMouseZoom(1, 40, 0.1)
             .usePan()
-            .setInitialScopes([])
+            .setInitialScopes(['mark'])
             .executeAfterInit(() => {
-              this.state.dispatch.setScopes.next(['GHOST']);
+              // this.state.dispatch.setScopes.next(['GHOST']);
 
               // setTimeout(() => {
               //   this.state.dispatch.zoomToId.next({ elementId: '4506f82f-6408-4dae-7af0-08da5ddc8b1d2', zoom: 0.2 });
@@ -49,51 +50,63 @@ export class SvgComponent implements OnInit, AfterViewInit {
             .feature()
               .root(svg, width, height)
                 .setColor('#15803d')
-                .setStyleClass('cursor-pointer')
+                .setStyleClass('w-screen h-screen')
                 .transform((container: Container, elementId: string, feature: SmzSvgRoot, draw: SmzSVGWrapper) => {
 
                   GetElementsByParentId(container, 'STATES')
                     .each((region) => {
 
                       region
-                        .fill('#15803d')
-                        .addClass('cursor-pointer')
-                        .mouseover(function (this: SmzSVGWrapper, event) {
-                          this.fill({ color: '#f06' });
-                        })
-                        .mouseout(function (this: SmzSVGWrapper) {
-                          this.fill({ color: '#15803d' });
-                        })
-                        .dblclick((event) => {
-                          this.state.dispatch.zoomToId.next({ elementId: region.node.id, zoom: 0.3 });
-                        });
+                        .fill('#15803d');
+                        // .addClass('cursor-pointer')
+                        // .mouseover(function (this: SmzSVGWrapper, event) {
+                        //   this.fill({ color: '#f06' });
+                        // })
+                        // .mouseout(function (this: SmzSVGWrapper) {
+                        //   this.fill({ color: '#15803d' });
+                        // })
+                        // .dblclick((event) => {
+                        //   this.state.dispatch.zoomToId.next({ elementId: region.node.id, zoom: 0.3 });
+                        // });
 
                       // add a label to the center of each region
-                      const relativeViewbox = region.rbox(draw);
+                      // const relativeViewbox = region.rbox(draw);
 
-                      draw
-                        .text(`${region.id()}`)
-                        .font({ size: '3px', family: 'Open Sans' })
-                        .fill({ color: 'white', opacity: 1 })
-                        .stroke({ color: '#f06', opacity: 1, width: 0 })
-                        .center(relativeViewbox.cx, relativeViewbox.cy);
+                      // draw
+                      //   .text(`${region.id()}`)
+                      //   .font({ size: '3px', family: 'Open Sans' })
+                      //   .fill({ color: 'white', opacity: 1 })
+                      //   .stroke({ color: '#f06', opacity: 1, width: 0 })
+                      //   .center(relativeViewbox.cx, relativeViewbox.cy);
 
                   });
 
                 })
                 .feature
-              .for(this.makeGhostPin(1), (_, item: SmzSvgPin) =>
-                _
-                .pin(item.svgData, item.width)
-                  .addScope('GHOST')
-                  .setColor(item.color)
-                  .setPosition(item.position.x, item.position.y)
-                  .setAnchor(item.anchor)
-                  .useTooltip(item.tooltip.data)
-                  .useAdaptative(item.adaptative.minWidth, item.adaptative.maxWidth)
-                  .setData(item)
-                  .feature
-                )
+              .pin(markSvgData, 10)
+                .addScope('mark')
+                .setColor('red')
+                .setPosition(800, 400)
+                .setAnchor('container')
+              .feature
+              .pin(markSvgData, 10)
+                .addScope('mark')
+                .setColor('yellow')
+                .setPosition(800, 400)
+                .setAnchor('root')
+              .feature
+              // .for(this.makeGhostPin(1), (_, item: SmzSvgPin) =>
+              //   _
+              //   .pin(item.svgData, item.width)
+              //     .addScope('GHOST')
+              //     .setColor(item.color)
+              //     .setPosition(item.position.x, item.position.y)
+              //     .setAnchor(item.anchor)
+              //     .useTooltip(item.tooltip.data)
+              //     .useAdaptative(item.adaptative.minWidth, item.adaptative.maxWidth)
+              //     .setData(item)
+              //     .feature
+              //   )
                 // .pin(locationPin, 20)
                 //   .addScope('A')
                 //   .addScope('B')

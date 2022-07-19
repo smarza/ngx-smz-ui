@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { TreeNode } from 'primeng/api';
 import { CommentsUiActions } from '../../../../state/ui/comments/comments.actions';
@@ -12,7 +12,9 @@ import { SmzCommentsState } from '../../models/smz-comments-state';
 @Component({
   selector: 'smz-comments',
   templateUrl: 'smz-comments.component.html',
-  changeDetection: ChangeDetectionStrategy.Default
+  styleUrls: ['./smz-comments.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Default,
+  encapsulation: ViewEncapsulation.None
 })
 
 export class SmzCommentsComponent {
