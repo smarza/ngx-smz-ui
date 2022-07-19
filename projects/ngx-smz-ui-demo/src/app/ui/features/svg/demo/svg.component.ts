@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { SmzSvgComponent, SmzSvgState, SmzSvgPin, SmzSvgBuilder, SmzSvgFeature, SmzSVGWrapper, SmzSvgRoot, GetElementsByParentId } from 'ngx-smz-ui';
@@ -14,7 +14,7 @@ export class SvgComponent implements OnInit, AfterViewInit {
   public state: SmzSvgState;
   public mapData$: Observable<SmzSvgState>;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private cdr: ChangeDetectorRef) {
     const headers = new HttpHeaders();
     headers.set('Accept', 'image/svg+xml');
 
@@ -30,13 +30,22 @@ export class SvgComponent implements OnInit, AfterViewInit {
             C298,0,384,86,384,192L384,192z"/>
           </svg>`;
 
-          const [ width, height ] = [ 500, 500 ];
+          const [ width, height ] = [ 700, 700 ];
 
           const stateBuilder: SmzSvgBuilder = new SmzSvgBuilder()
-            // .debugMode()
+            .debugMode()
             .setContainerStyles('absolute inset-0 overflow-hidden bg-sky-500')
-            .useMouseZoom(0.5, 10, 0.25)
+            .useMouseZoom(1, 40, 0.1)
             .usePan()
+            .setInitialScopes([])
+            .executeAfterInit(() => {
+              this.state.dispatch.setScopes.next(['GHOST']);
+
+              // setTimeout(() => {
+              //   this.state.dispatch.zoomToId.next({ elementId: '4506f82f-6408-4dae-7af0-08da5ddc8b1d2', zoom: 0.2 });
+              // }, 1000);
+
+            })
             .feature()
               .root(svg, width, height)
                 .setColor('#15803d')
@@ -55,12 +64,9 @@ export class SvgComponent implements OnInit, AfterViewInit {
                         .mouseout(function (this: SmzSVGWrapper) {
                           this.fill({ color: '#15803d' });
                         })
-                        .click((event) => {
-                          this.state.dispatch.setScopes.next(['A']);
+                        .dblclick((event) => {
+                          this.state.dispatch.zoomToId.next({ elementId: region.node.id, zoom: 0.3 });
                         });
-                        // .dblclick((event) => {
-                        //   this.state.dispatch.zoomToId.next({ elementId: region.node.id, zoom: 0.7 });
-                        // });
 
                       // add a label to the center of each region
                       const relativeViewbox = region.rbox(draw);
@@ -76,10 +82,10 @@ export class SvgComponent implements OnInit, AfterViewInit {
 
                 })
                 .feature
-              .for(this.makeGhostPin(10), (_, item: SmzSvgPin) =>
+              .for(this.makeGhostPin(1), (_, item: SmzSvgPin) =>
                 _
                 .pin(item.svgData, item.width)
-                  .addScope('A')
+                  .addScope('GHOST')
                   .setColor(item.color)
                   .setPosition(item.position.x, item.position.y)
                   .setAnchor(item.anchor)
@@ -88,24 +94,26 @@ export class SvgComponent implements OnInit, AfterViewInit {
                   .setData(item)
                   .feature
                 )
-                .pin(locationPin, 20)
-                  .addScope('A')
-                  .addScope('B')
-                  .setColor('#FFEB3B')
-                  .setPosition(0, 0)
-                  .setAnchor('root')
-                  .useTooltip('Este é o pin do canto superior esquerdo')
-                  .useAdaptative(5, 50)
-                  .feature
-                .pin(locationPin, 20)
-                  .addScope('A')
-                  .addScope('C')
-                  .setColor('red')
-                  .setPosition(width / 2, height / 2)
-                  .setAnchor('root')
-                  .useTooltip('Este é o pin central')
-                  .useAdaptative(5, 50)
-                  .feature
+                // .pin(locationPin, 20)
+                //   .addScope('A')
+                //   .addScope('B')
+                //   .setColor('#FFEB3B')
+                //   .setPosition(0, 0)
+                //   .setAnchor('root')
+                //   .useTooltip('Este é o pin do canto superior esquerdo')
+                //   .useAdaptative(5, 50)
+                //   .feature
+                // .pin(locationPin, 20)
+                //   .addScope('A')
+                //   .addScope('C')
+                //   .setColor('red')
+                //   // .setFocus('onClick')
+                //   // .setFocusApproximation(0.2)
+                //   .setPosition(width / 2, height / 2)
+                //   .setAnchor('root')
+                //   .useTooltip('Este é o pin central')
+                //   .useAdaptative(5, 50)
+                //   .feature
               .svg
 
           this.state = stateBuilder.build();
@@ -116,6 +124,12 @@ export class SvgComponent implements OnInit, AfterViewInit {
   }
 
   public ngOnInit(): void {
+
+    // setTimeout(() => {
+    //   console.log('reset');
+    //   this.state.dispatch.reset.next();
+    // }, 5000);
+
   }
 
   public reset(): void {
@@ -130,7 +144,8 @@ export class SvgComponent implements OnInit, AfterViewInit {
     this.state.dispatch.zoomToPosition.next({ x: 500, y: 500, zoom: 1 });
   }
 
-  ngAfterViewInit(): void {
+  public ngAfterViewInit(): void {
+
   }
 
   public makeGhostPin(count: number): SmzSvgPin[] {
@@ -147,6 +162,7 @@ export class SvgComponent implements OnInit, AfterViewInit {
       results.push({
         _element: null,
         _childrenIds: [],
+        _visible: true,
         type: 'pin',
         id,
         svgData: ghost,

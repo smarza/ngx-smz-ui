@@ -16,7 +16,7 @@
                           <div [innerHTML]="node.label | safeHtml"></div>
                       </div>
                       <div class="actions">
-                          <a *ngIf="state.response.enabled" class="reply" (click)="showCreateDialog(node)">{{ state.locale.answser }}</a>
+                          <a *ngIf="state.response.enabled" class="cursor-pointer" (click)="showCreateDialog(node)">{{ state.locale.answser }}</a>
                       </div>
                   </div>
               </div>

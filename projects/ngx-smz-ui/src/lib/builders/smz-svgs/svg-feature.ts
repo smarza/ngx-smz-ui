@@ -19,6 +19,7 @@ export class SmzSvgFeatureBuilder extends SmzBuilderUtilities<SmzSvgFeatureBuild
     const newFeature: SmzSvgRoot = {
       _element: null,
       _childrenIds: [],
+      _visible: true,
       id: `${this._state.features.length}`,
       type: 'root',
       width,
@@ -27,7 +28,7 @@ export class SmzSvgFeatureBuilder extends SmzBuilderUtilities<SmzSvgFeatureBuild
       position: { x: 0, y: 0 },
       anchor: 'root',
       adaptative: {
-        enabled: false
+        enabled: false,
       },
       tooltip: {
         enabled: false
@@ -67,6 +68,7 @@ export class SmzSvgFeatureBuilder extends SmzBuilderUtilities<SmzSvgFeatureBuild
     const newFeature: SmzSvgPin = {
       _element: null,
       _childrenIds: [],
+      _visible: true,
       id: `${this._state.features.length}`,
       type: 'pin',
       width,

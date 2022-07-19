@@ -8,7 +8,8 @@ import { OverlayPanel } from '../prime/overlaypanel/overlaypanel';
 import { filter } from 'rxjs';
 import { isEmpty } from '../../builders/common/utils';
 import { Container, Element } from '@svgdotjs/svg.js';
-import { GetElementById, GetElementsByParentId } from './utils/smz-svg-helper';
+import { GetElementById } from './utils/smz-svg-helper';
+import { Wait } from '../../common/utils/utils';
 
 @Component({
   selector: 'smz-svg',
@@ -69,8 +70,14 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
       }
 
       this.hookEvents();
+
+      this.updateScopes(this.state.scope.current);
+
       this.setupDispatchListeners();
 
+      setTimeout(() => {
+        this.state.init.afterInit();
+      }, 0);
     }, 0);
 
   }
@@ -94,28 +101,41 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
       this.draw.addClass('border-2 border-red-500 border-solid');
     }
 
-    this.reset();
+    if (this.state.init.reset) {
+      this.reset();
+    }
 
   }
 
   public reset(): void {
-    this.draw.animate().viewbox(0, 0,  this.state.container.width, this.state.container.height);
+    if (this.state.isDebug) {
+      console.log('Resetting svg position');
+    }
+
+    this.draw.animate(this.state.performance.animationTime).viewbox(0, 0, this.state.container.width, this.state.container.height);
+
+    setTimeout(() => {
+      this.adjustPinScale2();
+    }, this.state.performance.animationTime);
+
   }
 
   public updateScopes(scopes: string[]): void {
 
     // HIDE ALL
     this.state.features
-    .filter(x => x.scopes != null)
-    .forEach(feature => {
-      GetElementById(this.draw, `PIN_${feature.id}`)?.hide();
-    });
+      .filter(x => x.scopes != null)
+      .forEach(feature => {
+        GetElementById(this.draw, `PIN_${feature.id}`)?.hide();
+        feature._visible = false;
+      });
 
     // TO SHOW
     this.state.features
       .filter(x => x.scopes != null && scopes.some(scope => x.scopes.includes(scope)))
       .forEach(feature => {
         GetElementById(this.draw, `PIN_${feature.id}`)?.show();
+        feature._visible = true;
       });
 
     this.state.scope.current = scopes;
@@ -123,33 +143,70 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
   }
 
   private setupDispatchListeners(): void {
+    let isFirst = true;
     this.state.dispatch.zoomToId.pipe(filter(x => x != null)).subscribe((event) => { this.zoomToId(event.elementId, event.zoom) });
     this.state.dispatch.zoomToPosition.pipe(filter(x => x != null)).subscribe((event) => { this.zoomToPosition(event.x, event.y, event.zoom) });
     this.state.dispatch.draw.pipe(filter(x => x != null)).subscribe((event) => { event.callback(this.draw); });
-    this.state.dispatch.reset.pipe(filter(x => x != null)).subscribe(() => { this.reset(); });
+    this.state.dispatch.reset.subscribe(() => {
+      if (!isFirst) {
+        this.reset();
+      }
+      isFirst = false;
+    });
     this.state.dispatch.setScopes.pipe(filter(x => x != null)).subscribe((scopes) => { this.updateScopes(scopes); });
   }
 
   public zoomToId(elementId: string, factor: number): void {
 
     try {
-      const feature = this.state.features.find(x => x._childrenIds.some(id => id === elementId));
+      const featureById = this.state.features.findIndex(x => x.id === elementId);
+      const feature = featureById != -1 ? this.state.features[featureById] : this.state.features.find(x => x._childrenIds.some(id => id === elementId));
 
-      if (feature == null)
+      if (feature == null) {
+        if (this.state.isDebug) {
+          console.warn(`SVG > zoomToId > Elemento com ${elementId} não foi encontrado.`, feature);
+        }
         return;
+      }
+
+      if (!feature._visible) {
+        if (this.state.isDebug) {
+          console.warn(`SVG > zoomToId > Elemento com ${elementId} não está visível.`, feature);
+        }
+        return;
+      }
 
       let element;
 
-      feature._element
+      if (featureById != -1) {
+        // O Id é da propria feature.
+        element = feature._element;
+      }
+      else {
+        // O Id provavelmente é de algum elemento dentro da feature.
+        feature._element
         .find(`#${elementId}`)
         .each(item => {
           element = item;
         });
+      }
+
+      // Nenhum elemento encontrado.
+      if (element == null) {
+        if (this.state.isDebug) {
+          console.warn(`SVG > zoomToId > Nenhum elemento encontrado para o id ${elementId}`, feature);
+        }
+        return;
+      }
 
       const relativeViewbox = element.rbox(this.draw);
 
       const newViewBox = this.applyZoomFactor(relativeViewbox.x, relativeViewbox.y, relativeViewbox.w, relativeViewbox.h, factor);
-      this.draw.animate().viewbox(newViewBox.x, newViewBox.y, newViewBox.width, newViewBox.height);
+      this.draw.animate(this.state.performance.animationTime).viewbox(newViewBox.x, newViewBox.y, newViewBox.width, newViewBox.height);
+
+      setTimeout(() => {
+        this.adjustPinScale2();
+      }, this.state.performance.animationTime);
 
     } catch (error) {
       console.log(`Cant't execute zoomToId Event`, elementId, error);
@@ -162,7 +219,11 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
 
       const newViewBox = this.applyZoomFactor(x, y, this.state.container.width / 4,  this.state.container.height / 4, factor);
 
-      this.draw.animate().viewbox(newViewBox.x, newViewBox.y, newViewBox.width, newViewBox.height);
+      this.draw.animate(this.state.performance.animationTime).viewbox(newViewBox.x, newViewBox.y, newViewBox.width, newViewBox.height);
+
+      setTimeout(() => {
+        this.adjustPinScale2();
+      }, this.state.performance.animationTime);
 
     } catch (error) {
       console.log(`Cant't execute zoomToPosition Event`, x, y, error);
@@ -172,6 +233,10 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
 
   private normalizeFactor(input: number): number {
     return 1 / input;
+  }
+
+  private convertFactorToZoom(factor: number): number {
+    return (1 / factor);
   }
 
   private applyZoomFactor(x: number, y: number, width: number, height: number, factor: number): { x: number, y: number, width: number, height: number } {
@@ -375,22 +440,18 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
   public hookEvents(): void {
 
     this.draw.on('panStart', (event) => {
-      // console.log('panStart event', event);
       this.isPanning = true;
       this.hide();
-      // event.preventDefault();
     });
 
-    this.draw.on('panEnd', (event) => {
-      // console.log('panEnd event', event);
-      this.isPanning = false;
-      // event.preventDefault();
-    });
+    this.draw.on('panEnd', (event) => { this.isPanning = false; });
 
-    this.draw.on('zoom', (event) => {
-      this.adjustPinScale(event);
-      // event.preventDefault();
-    });
+    const WaitZoom = new Wait();
+
+    this.draw.on('zoom', (event) => WaitZoom.throttle(() => {
+      // this.adjustPinScale1((event as any).detail.level);
+      this.adjustPinScale2();
+    }, this.state.performance.zoomDebounce));
 
   }
 
@@ -471,9 +532,10 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
 
   }
 
-  public adjustPinScale(zoomEvent: any): void {
-
-    const zoom = zoomEvent.detail.level;
+  public adjustPinScale1(zoom: number): void {
+    if (this.state.isDebug) {
+      console.log(`adjustPinScale1 = ${zoom}`);
+    }
 
     const [startX, endX, startY, endY ] = this.getRootContainer();
 
@@ -488,6 +550,59 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
         const width = (newWidth > pin.adaptative.maxWidth) ? pin.adaptative.maxWidth : ((newWidth < pin.adaptative.minWidth) ? pin.adaptative.minWidth : newWidth);
 
         element.size(width);
+
+        switch (pin.anchor) {
+          case 'root':
+            element.center(startX + pin.position.x, startY + pin.position.y);
+            break;
+
+          case 'container':
+            element.center(pin.position.x, pin.position.y);
+            break;
+        }
+
+      });
+  }
+
+  public adjustPinScale2(): void {
+
+    const [startX, endX, startY, endY ] = this.getRootContainer();
+
+    if (this.state.isDebug) {
+      console.log(` ` );
+      console.log(`adjustPinScale2 #####` );
+      console.log(`adjustPinScale2`, startX, endX, startY, endY );
+    }
+
+    // const viewbox = this.draw.viewbox();
+    // console.log('viewbox', viewbox);
+
+    this.state.features
+      .filter(x => x.adaptative.enabled)
+      .forEach(pin => {
+
+        const element = pin._element;
+
+        const relative = element.rbox().w;
+        if (this.state.isDebug) console.log('   > relative', relative);
+
+        const width = pin.width;
+        if (this.state.isDebug) console.log('   > width', width);
+
+        const factor = relative / width;
+        if (this.state.isDebug) console.log('   > factor', factor);
+
+        if (relative > pin.adaptative.maxWidth) {
+          // Manter tamanho máximo
+          element.size(pin.adaptative.maxWidth / factor);
+        }
+        else if (relative < pin.adaptative.minWidth) {
+          // Manter tamanho mínimo
+          element.size(pin.adaptative.minWidth / factor);
+        }
+        else {
+          // Deixar como está
+        }
 
         switch (pin.anchor) {
           case 'root':

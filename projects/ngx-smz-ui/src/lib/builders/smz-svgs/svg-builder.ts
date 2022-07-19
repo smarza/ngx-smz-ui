@@ -33,7 +33,15 @@ export class SmzSvgBuilder extends SmzBuilderUtilities<SmzSvgBuilder> {
     },
     scope: {
       all: [],
-      current: null
+      current: []
+    },
+    init: {
+      reset: true,
+      afterInit: () => {}
+    },
+    performance: {
+      zoomDebounce: 100,
+      animationTime: 150
     }
   };
 
@@ -66,6 +74,47 @@ export class SmzSvgBuilder extends SmzBuilderUtilities<SmzSvgBuilder> {
   public usePan(): SmzSvgBuilder {
     this._state.panZoom.enabled = true;
     this._state.panZoom.panning = true;
+    return this;
+  }
+
+  public avoidResetOnInit(): SmzSvgBuilder {
+    this._state.init.reset = false;
+    return this;
+  }
+
+  public executeAfterInit(callback: () => void): SmzSvgBuilder {
+    this._state.init.afterInit = callback;
+    return this;
+  }
+
+  public setInitialScopes(scopes: string[]): SmzSvgBuilder {
+    this._state.scope.current = scopes;
+    return this;
+  }
+
+  public enhancePerformance(): SmzSvgBuilder {
+    this._state.performance.zoomDebounce = 400;
+    this._state.performance.animationTime = 50;
+    return this;
+  }
+
+  public setZoomDebounce(milliseconds: number): SmzSvgBuilder {
+
+    if (milliseconds >= 0) {
+      throw new Error(`You cannot set Zoom Debounce bellow zero`);
+    }
+
+    this._state.performance.zoomDebounce = milliseconds;
+    return this;
+  }
+
+  public setAnimationTime(milliseconds: number): SmzSvgBuilder {
+
+    if (milliseconds >= 0) {
+      throw new Error(`You cannot set Animation Time bellow zero`);
+    }
+
+    this._state.performance.animationTime = milliseconds;
     return this;
   }
 

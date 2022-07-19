@@ -35,6 +35,14 @@ export interface SmzSvgState {
     all: string[];
     current: string[];
   }
+  init: {
+    reset: boolean;
+    afterInit: () => void
+  }
+  performance: {
+    zoomDebounce: number;
+    animationTime: number;
+  }
 }
 
 
@@ -43,6 +51,7 @@ export type SmzSvgFeatureTypes = 'root' | 'pin';
 export interface SmzSvgBaseFeature {
   _element: Element;
   _childrenIds: string[];
+  _visible: boolean;
   id: string;
   width: number;
   type?: SmzSvgFeatureTypes;

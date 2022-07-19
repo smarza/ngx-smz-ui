@@ -387,16 +387,54 @@ export function setNestedObject(obj, path, value) {
     schema[pList[len - 1]] = value;
 }
 
-export function longestStringInArray(array: string[]): string
-{
-  var max_str = array[0].length;
-  var ans = array[0];
-  for (var i = 1; i < array.length; i++) {
-      var maxi = array[i].length;
-      if (maxi > max_str) {
-          ans = array[i];
-          max_str = maxi;
-      }
-  }
-  return ans;
+export function longestStringInArray(array: string[]): string {
+    var max_str = array[0].length;
+    var ans = array[0];
+    for (var i = 1; i < array.length; i++) {
+        var maxi = array[i].length;
+        if (maxi > max_str) {
+            ans = array[i];
+            max_str = maxi;
+        }
+    }
+    return ans;
+}
+
+export function debounce(func, wait, immediate?) {
+    var timeout;
+    return function () {
+        var context = this, args = arguments;
+        var later = function () {
+            timeout = null;
+            if (!immediate) func.apply(context, args);
+        };
+        var callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        if (callNow) func.apply(context, args);
+    };
+}
+
+export class Wait {
+    throttlePause;
+    debounceTimer;
+
+    throttle = (callback, time) => {
+        if (this.throttlePause) return;
+
+        this.throttlePause = true;
+        setTimeout(() => {
+            callback();
+            this.throttlePause = false;
+        }, time);
+    };
+
+    debounce = (callback, time) => {
+        window.clearTimeout(this.debounceTimer);
+        this.debounceTimer = window.setTimeout(callback, time);
+    };
+
+    constructor() {
+
+    }
 }
