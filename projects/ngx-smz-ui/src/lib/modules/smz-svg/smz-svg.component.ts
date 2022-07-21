@@ -483,7 +483,7 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
     const size = 5;
 
     const [startX, endX, startY, endY] = this.getRootContainer();
-    console.log('root', startX, endX, startY, endY);
+    // console.log('root', startX, endX, startY, endY);
     const that = this;
 
     for (let i = startX; i < endX; i += gap) {
