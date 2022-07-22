@@ -85,6 +85,7 @@ export * from './lib/common/models/simple-named-entity';
 export * from './lib/common/models/templates';
 export * from './lib/common/utils/utils';
 export * from './lib/common/utils/pretty-json';
+export * from './lib/common/utils/base64-helper';
 
 export * from './lib/common/pipes/templates.pipe';
 

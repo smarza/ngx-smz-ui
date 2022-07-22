@@ -6,7 +6,7 @@ export namespace ExcelsUiActions
     export class GenerateTable
     {
         public static readonly type = '[Excels API] Generate Table';
-        constructor(public data: SmzCreateExcelTable) { }
+        constructor(public data: SmzCreateExcelTable, public downloadAfter?: boolean) { }
     }
 
     export class GenerateTableSuccess

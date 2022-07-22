@@ -78,3 +78,9 @@ export enum SmzExcelSortDefinitions {
   Ascending = 0,
   Descending = 1
 }
+
+export enum SmzExcelColorDefinitions {
+  Red = '',
+  Blue = '',
+  LightCoral = 'lightcoral',
+}

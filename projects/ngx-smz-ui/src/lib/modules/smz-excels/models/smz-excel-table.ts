@@ -1,25 +1,23 @@
-import { SmzExcelDataDefinitions, SmzExcelFontDefinitions, SmzExcelSortDefinitions, SmzExcelThemeDefinitions } from './smz-excel-definitions';
+import { SmzExcelColorDefinitions, SmzExcelDataDefinitions, SmzExcelFontDefinitions, SmzExcelSortDefinitions, SmzExcelThemeDefinitions } from './smz-excel-definitions';
 
 export interface SmzExcelsDetails {
-  fileStream: File;
-  contentType: string;
-  filename: string;
+  file: string;
+  fileName: string;
+  fileExtension: string;
 }
 
 export interface SmzCreateExcelTable {
   workbookModel: {
     fileName: string;
-    theme: SmzExcelThemeDefinitions;
     title: string;
     author: string;
     company: string;
-    dateCreated: string;
     comments: string;
     isDraft: boolean;
     watermark: {
       text: string;
       alpha: number;
-      textColor: string;
+      textColor: SmzExcelColorDefinitions;
       font: SmzExcelFontDefinitions;
       rotationAngle: number;
       fontSize: number
@@ -37,6 +35,8 @@ export interface SmzExcelTableSheet {
   sortOrder: SmzExcelSortDefinitions;
   header: SmzExcelHeader;
   columns: SmzExcelColumn[];
+  theme: SmzExcelThemeDefinitions;
+  tabColor: SmzExcelColorDefinitions;
 }
 
 export interface SmzExcelHeader {
@@ -47,6 +47,9 @@ export interface SmzExcelHeader {
 export interface SmzExcelColumn {
   data: string[];
   style: SmzExcelStyle;
+  dataType: SmzExcelDataDefinitions;
+  dataFormat?: string;
+  maxWidth?: number;
 }
 
 export interface SmzExcelStyle {
@@ -54,7 +57,4 @@ export interface SmzExcelStyle {
   fontSize: number;
   bold: boolean;
   italic: boolean;
-  dataType: SmzExcelDataDefinitions;
-  dataFormat: string;
-  maxWidth: number
 }

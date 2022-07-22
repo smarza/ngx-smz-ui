@@ -1,20 +1,19 @@
 import { SmzCreateExcelTable } from './smz-excel-table';
-import { SmzExcelDataDefinitions, SmzExcelFontDefinitions, SmzExcelSortDefinitions, SmzExcelThemeDefinitions } from './smz-excel-definitions';
+import { SmzExcelColorDefinitions, SmzExcelDataDefinitions, SmzExcelFontDefinitions, SmzExcelSortDefinitions, SmzExcelThemeDefinitions } from './smz-excel-definitions';
+import moment from 'moment';
 
 export const SmzExcelMockData: SmzCreateExcelTable = {
   workbookModel: {
-    fileName: 'MyOutput.xlsx',
-    theme: SmzExcelThemeDefinitions.TableStyleLight2,
+    fileName: 'MyOutput',
     title: 'Basniak\'s Awesome Table',
     author: 'Basniak',
-    dateCreated: '19/07/2022 12:34',
     company: 'Basniak\'s awesome library',
     comments: 'Awesome Excel Generation',
     isDraft: true,
     watermark: {
       text: 'Rascunho',
       alpha: 0.3,
-      textColor: 'lightcoral',
+      textColor: SmzExcelColorDefinitions.LightCoral,
       font: SmzExcelFontDefinitions.CourierNew,
       rotationAngle: 45,
       fontSize: 80
@@ -27,6 +26,8 @@ export const SmzExcelMockData: SmzCreateExcelTable = {
         ignoreBlanks: true,
         sortColumn: 2,
         sortOrder: SmzExcelSortDefinitions.Ascending,
+        theme: SmzExcelThemeDefinitions.TableStyleLight3,
+        tabColor: SmzExcelColorDefinitions.LightCoral,
         header: {
           data: ['Tag', 'Plant', 'Numbers', 'Dates'],
           style: {
@@ -34,12 +35,10 @@ export const SmzExcelMockData: SmzCreateExcelTable = {
             fontSize: 14,
             bold: true,
             italic: false,
-            dataType: SmzExcelDataDefinitions.Text,
-            dataFormat: null,
-            maxWidth: null
           }
         },
         columns: [
+
           // TAG
           {
             data: ['string muito muito muito muito longa', 'b', 'c', 'd', 'e', 'string muito muito muito muito longa', 'b', 'c', 'd', 'e', 'string muito muito muito muito longa', 'b', 'c', 'd', 'e', 'string muito muito muito muito longa', 'b', 'c', 'd', 'e'],
@@ -48,10 +47,10 @@ export const SmzExcelMockData: SmzCreateExcelTable = {
               fontSize: 12,
               bold: false,
               italic: false,
-              dataType: SmzExcelDataDefinitions.Text,
-              dataFormat: null,
-              maxWidth: null
-            }
+            },
+            dataType: SmzExcelDataDefinitions.Text,
+            dataFormat: undefined,
+            maxWidth: undefined
           },
           // PLANT
           {
@@ -61,10 +60,10 @@ export const SmzExcelMockData: SmzCreateExcelTable = {
               fontSize: 12,
               bold: false,
               italic: false,
-              dataType: SmzExcelDataDefinitions.Text,
-              dataFormat: null,
-              maxWidth: null
-            }
+            },
+            dataType: SmzExcelDataDefinitions.Text,
+            dataFormat: undefined,
+            maxWidth: undefined
           },
           // NUMBERS
           {
@@ -74,23 +73,23 @@ export const SmzExcelMockData: SmzCreateExcelTable = {
               fontSize: 12,
               bold: false,
               italic: false,
-              dataType: SmzExcelDataDefinitions.DateTime,
-              dataFormat: '0.00',
-              maxWidth: null
-            }
+            },
+            dataType: SmzExcelDataDefinitions.DateTime,
+            dataFormat: '0.00',
+            maxWidth: undefined
           },
           // DATES
           {
-            data: ["12/10/1977", "18/10/2005", "16/10/1987"],
+            data: ["12/10/1977", "10/10/2005", "10/10/1987"],
             style: {
               font: SmzExcelFontDefinitions.Calibri,
               fontSize: 12,
               bold: false,
               italic: false,
-              dataType: SmzExcelDataDefinitions.DateTime,
-              dataFormat: 'dd/MM/yyyy',
-              maxWidth: null
-            }
+            },
+            dataType: SmzExcelDataDefinitions.DateTime,
+            dataFormat: 'dd/MM/yyyy',
+            maxWidth: undefined
           },
         ]
       }

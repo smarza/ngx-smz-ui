@@ -1,6 +1,7 @@
 import { ObjectUtils } from 'primeng/utils';
 import { mergeMap, of } from 'rxjs';
 import { SimpleNamedEntity } from '../models/simple-named-entity';
+import { b64toBlob, handleBase64 } from './base64-helper';
 
 export type CollectionPredicate = (item?: any, index?: number, collection?: any[]) => boolean;
 
@@ -437,4 +438,8 @@ export class Wait {
     constructor() {
 
     }
+}
+
+export function downloadBase64File(base64: string, fileName: string, extension: string): void {
+    handleBase64(b64toBlob(base64), `${fileName}.${extension}`);
 }
