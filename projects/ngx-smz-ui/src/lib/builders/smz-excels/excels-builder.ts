@@ -21,6 +21,11 @@ export class SmzExcelsBuilder {
 
   }
 
+  public setFilename(fileName: string): SmzExcelsBuilder {
+    this._state.workbookModel.fileName = fileName ?? 'excel';
+    return this;
+  }
+
   public setTitle(title: string): SmzExcelsBuilder {
     this._state.workbookModel.title = title;
     return this;
@@ -59,7 +64,7 @@ export class SmzExcelsBuilder {
   public sheet(name: string): SmzExcelsSheetsBuilder {
 
     const sheet: SmzExcelTableSheet = {
-      name,
+      name: name?.slice(0, 30) ?? 'Excel',
       shouldSort: false,
       matchCase: false,
       ignoreBlanks: true,

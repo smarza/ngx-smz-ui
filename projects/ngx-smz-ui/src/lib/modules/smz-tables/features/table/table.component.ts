@@ -3,7 +3,7 @@ import { PrimeTemplate } from 'primeng/api';
 import { ExportableContentTypeOf, SmzContentType, SmzDataTransform, SmzExportableContentType } from '../../models/content-types';
 import { SmzFilterType } from '../../models/filter-types';
 import { SmzTableState, SmzTableContext } from '../../models/table-state';
-import { SmzTableColumn, SmzTableContextColumn } from '../../models/table-column';
+import { SmzTableColumn } from '../../models/table-column';
 import { SmzEditableType } from '../../models/editable-types';
 import { TableEditableService } from '../../services/table-editable.service';
 import { TableFormsService } from '../../services/table-forms.service';
@@ -250,7 +250,7 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
     const plainItems = cloneDeep(visibleItems).map((item, index) => (this.convertExportableItem(columns, item, index)));
 
     const data: SmzCreateExcelTable = new SmzExcelsBuilder()
-      .setTitle(this.state.caption.title)
+      .setFilename(this.state.caption.title)
       .setAuthor(username)
       .sheet(this.state.caption.title)
         .table()

@@ -75,7 +75,7 @@ export class SmzExcelsTableColumnsBuilder extends SmzBuilderUtilities<SmzExcelsT
 
     this._dataProperties.forEach((propertyPath, index) => {
       this._state.columns[index].data = items
-        .map(x => ObjectUtils.resolveFieldData(x, propertyPath).toString())
+        .map(x => ObjectUtils.resolveFieldData(x, propertyPath)?.toString() ?? '')
     });
 
     return this;
