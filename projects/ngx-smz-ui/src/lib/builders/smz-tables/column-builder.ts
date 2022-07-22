@@ -1,4 +1,4 @@
-import { SmzContentType, SmzDataTransform, SmzIconContent } from '../../modules/smz-tables/models/content-types';
+import { SmzContentType, SmzDataTransform, SmzExportableContentType, SmzIconContent } from '../../modules/smz-tables/models/content-types';
 import { SmzEditableType } from '../../modules/smz-tables/models/editable-types';
 import { SmzFilterType } from '../../modules/smz-tables/models/filter-types';
 import { SmzTableColumn } from '../../modules/smz-tables/models/table-column';
@@ -96,7 +96,6 @@ export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T>> {
     return this;
   }
 
-
   public ignoreOnGlobalFilter(): SmzBaseColumnBuilder<T> {
     this._column.filter.isGlobalFilterable = false;
     return this;
@@ -112,12 +111,24 @@ export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T>> {
     return this;
   }
 
+  public exportAs(type: SmzExportableContentType): SmzBaseColumnBuilder<T> {
+    this._column.content.exportAs = type;
+    return this;
+  }
+
   public editable(): SmzEditableCollectionBuilder {
     const editableBuilder = new SmzEditableCollectionBuilder(this._table, this);
     return editableBuilder;
   }
 
   public get columns(): SmzColumnCollectionBuilder {
+
+    const columnsWithSameNameCount = this._table._state.columns.filter(x => x.header == this._column.header).length;
+
+    if (columnsWithSameNameCount > 1) {
+      throw Error(`You can´t set more than one column with the same name. ${this._column.header}`);
+    }
+
     return this._parent;
   }
 }

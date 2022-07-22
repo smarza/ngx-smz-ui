@@ -1,6 +1,6 @@
 import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewChild, OnDestroy } from '@angular/core';
 import { PrimeTemplate } from 'primeng/api';
-import { SmzContentType, SmzDataTransform } from '../../models/content-types';
+import { ExportableContentTypeOf, SmzContentType, SmzDataTransform, SmzExportableContentType } from '../../models/content-types';
 import { SmzFilterType } from '../../models/filter-types';
 import { SmzTableState, SmzTableContext } from '../../models/table-state';
 import { SmzTableColumn, SmzTableContextColumn } from '../../models/table-column';
@@ -11,7 +11,7 @@ import { Table } from 'primeng/table';
 import { SmzDialogsConfig } from '../../../smz-dialogs/smz-dialogs.config';
 import { uuidv4 } from '../../../../common/utils/utils';
 import { TableHelperService } from '../../services/table-helper.service';
-import { SmzExportDialogData } from '../../../smz-export-dialog/smz-export-dialog.model';
+import { SmzExportableColumn, SmzExportDialogData } from '../../../smz-export-dialog/smz-export-dialog.model';
 import cloneDeep from 'lodash-es/cloneDeep';
 import { Store } from '@ngxs/store';
 import { LayoutUiActions } from '../../../../state/ui/layout/layout.actions';
@@ -20,6 +20,7 @@ import { SmzExcelsBuilder } from '../../../../builders/smz-excels/excels-builder
 import { SmzCreateExcelTable } from '../../../smz-excels/models/smz-excel-table';
 import { AuthenticationSelectors } from '../../../../state/global/authentication/authentication.selectors';
 import { SmzExcelFontDefinitions, SmzExcelThemeDefinitions } from '../../../smz-excels/models/smz-excel-definitions';
+import { ObjectUtils } from 'primeng/utils';
 
 @Component({
   selector: 'smz-ui-table',
@@ -218,17 +219,36 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
       filename: context.state.caption.title,
       columns: context.columns
         .filter(x => x.isExportable)
-        .map(x => ({field: x.field, header: x.header, isDataTransform: x.content.type === SmzContentType.DATA_TRANSFORM, callback: x.content.type === SmzContentType.DATA_TRANSFORM ? (x.content.data as SmzDataTransform).callback : null})),
+        .map(x => ({
+          field: x.field,
+          header: x.header,
+          isDataTransform: x.content.type === SmzContentType.DATA_TRANSFORM,
+          callback: x.content.type === SmzContentType.DATA_TRANSFORM ? (x.content.data as SmzDataTransform).callback : null,
+          type: x.content.exportAs ? x.content.exportAs : ExportableContentTypeOf[x.content.type]
+        })),
       items: cloneDeep(items)
     };
 
     this.store.dispatch(new LayoutUiActions.ShowExportDialog(exportData));
   }
 
-  public exportToExcel(table: any, context: SmzTableContext, items: any[]): void {
+  public exportToExcel(table: Table, context: SmzTableContext, items: any[]): void {
     console.log('exportToExcel', context, items, table);
 
     const username = this.store.selectSnapshot(AuthenticationSelectors.username);
+
+    const columns = context.visibleColumns
+      .filter(x => x.isExportable)
+      .map(x => ({
+        field: x.field,
+        header: x.header,
+        isDataTransform: x.content.type === SmzContentType.DATA_TRANSFORM,
+        callback: x.content.type === SmzContentType.DATA_TRANSFORM ? (x.content.data as SmzDataTransform).callback : null,
+        type: x.content.exportAs ? x.content.exportAs : ExportableContentTypeOf[x.content.type]
+      }));
+
+    const visibleItems = table.filteredValue?.length > 0 ? table.filteredValue : items;
+    const plainItems = cloneDeep(visibleItems).map((item, index) => (this.convertExportableItem(columns, item, index)));
 
     const data: SmzCreateExcelTable = new SmzExcelsBuilder()
       .setTitle(this.state.caption.title)
@@ -242,11 +262,13 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
             .apply
           .setTheme(SmzExcelThemeDefinitions.TableStyleLight20)
           .columns()
-            .for(context.visibleColumns, (_, column: SmzTableContextColumn, index) => {
+            .for(columns, (_, column: SmzExportableColumn) => {
 
-              switch (column.content.type) {
-                case SmzContentType.TEXT:
-                  return _.text(column.header, column.field)
+              const normalizedField = column.field.replace(/\.+/g, '');
+
+              switch (column.type) {
+                case SmzExportableContentType.TEXT:
+                  return _.text(column.header, normalizedField)
                   .column
 
                 default:
@@ -254,16 +276,38 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
               }
 
             })
-            .setData(items)
+            .setData(plainItems)
             .table
           .sheets
         .excels
       .build();
 
-      console.log('payload', data);
-
     this.smzExcelService.generate(data);
 
+  }
+
+  private convertExportableItem(columns: SmzExportableColumn[], item: any, index: number): any {
+    const result = {};
+
+    columns.forEach(column => {
+
+      const normalizedField = column.field.replace(/\.+/g, '');
+
+      if (column.isDataTransform) {
+        result[normalizedField] = column.callback(this.resolveData(item, column.field).result, item, index);
+      }
+      else {
+        result[normalizedField] = this.resolveData(item, column.field).result;
+      }
+
+    });
+
+    return result;
+  }
+
+  private resolveData(data: any, field: string): { result: string } {
+    if (data == null) return { result: '' };
+    return { result: ObjectUtils.resolveFieldData(data, field) };
   }
 
   public onRowSelection(context: SmzTableContext): void {

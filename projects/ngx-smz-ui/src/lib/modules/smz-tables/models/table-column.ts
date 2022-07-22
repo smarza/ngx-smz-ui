@@ -1,5 +1,5 @@
 import { SmzFormsValidatorsPreset } from '../../smz-forms/models/controls';
-import { SmzContentType, SmzContentTypes } from "./content-types";
+import { SmzContentType, SmzContentTypes, SmzExportableContentType } from "./content-types";
 import { SmzEditableType, SmzEditableTypes } from "./editable-types";
 import { SmzFilterType } from "./filter-types";
 
@@ -59,6 +59,10 @@ export interface SmzTableColumn {
      */
     type: SmzContentType;
     /**
+     * Type of data that will be exported to the excel file
+     */
+     exportAs?: SmzExportableContentType;
+    /**
      * Styles Classes that will be inserted in the main div of the cell
      */
      styleClass: string;
@@ -70,6 +74,7 @@ export interface SmzTableColumn {
      * The object that will be applied to the ngStyle of the column
      */
     ngStyle: { [style: string]: any } | null;
+
   };
 
   /**

@@ -8,6 +8,15 @@ export type SmzContentTypes =
   SmzDataTransform |
   SmzMaskContent;
 
+export enum SmzExportableContentType {
+  NONE = 0,
+  TEXT = 1,
+  NUMBER = 2,
+  DATETIME = 3,
+  BOOLEAN = 4,
+
+}
+
 export enum SmzContentType {
   CUSTOM = 0,
   TEXT = 12,
@@ -15,6 +24,15 @@ export enum SmzContentType {
   ICON = 18,
   CURRENCY = 4,
   DATA_TRANSFORM = 5
+}
+
+export const ExportableContentTypeOf: { [key: string]: SmzExportableContentType } = {
+  [SmzContentType.TEXT]: SmzExportableContentType.TEXT,
+  [SmzContentType.CALENDAR]: SmzExportableContentType.DATETIME,
+  [SmzContentType.CURRENCY]: SmzExportableContentType.NUMBER,
+  [SmzContentType.CUSTOM]: SmzExportableContentType.NONE,
+  [SmzContentType.DATA_TRANSFORM]: SmzExportableContentType.TEXT,
+  [SmzContentType.ICON]: SmzExportableContentType.NONE,
 }
 
 export const FromControlTypeToContentType = [
