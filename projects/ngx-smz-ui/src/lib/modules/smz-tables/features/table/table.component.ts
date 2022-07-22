@@ -233,7 +233,6 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
   }
 
   public exportToExcel(table: Table, context: SmzTableContext, items: any[]): void {
-    console.log('exportToExcel', context, items, table);
 
     const username = this.store.selectSnapshot(AuthenticationSelectors.username);
 

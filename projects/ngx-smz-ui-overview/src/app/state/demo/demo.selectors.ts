@@ -107,4 +107,24 @@ export class DemoFeatureSelectors {
     return results;
   }
 
+  @Selector([DemoFeatureState])
+  public static excelDemo(state: DemoFeatureStateModel): DemoItem[] {
+    console.log(state.items);
+
+    const results = state.items.map((x, index) => ({ ...x, roles: [
+        { id: '1', name: 'teste 1'},
+        { id: '2', name: 'teste 2'},
+        { id: '3', name: 'teste 3'},
+        { id: '4', name: 'teste 4'},
+        { id: index.toString(), name: `index ${index}`},
+      ],
+      price: Math.floor(Math.random() * 1000) + 1,
+      html: `<div class="grid grid-nogutter items-center justify-start gap-2">
+        <i class="fab fa-angellist text-2xl text-primary-color"></i>
+        <div class="font-bold">${x.name}</div>
+      </div>`
+    }));
+    return results;
+  }
+
 }

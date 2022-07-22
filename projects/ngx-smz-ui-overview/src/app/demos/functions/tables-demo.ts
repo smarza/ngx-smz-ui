@@ -494,7 +494,7 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
   },
   //
   [DemoKeys.TABLE_EXPORT_EXCEL]: {
-    items$: store.select(DemoFeatureSelectors.all),
+    items$: store.select(DemoFeatureSelectors.excelDemo),
     code: () => {
     return new SmzTableBuilder()
       .setTitle('Export to Excel Demo')
@@ -508,16 +508,11 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
       .enableExportToExcel()
       .columns()
         .text('name', 'Name', '20em')
-          .disableFilter()
           .columns
         .text('country.name', 'Country')
           .setFilter(SmzFilterType.MULTI_SELECT)
-          .disableSort()
           .columns
-        .dataTransform('country.id', 'Country 2', (country: SimpleNamedEntity, row: any) => (`test: ${row.country?.name?.toUpperCase()}`))
-          .columns
-        .dataTransform('country', 'Country 3', (country: SimpleNamedEntity, row: any) => (`super: ${country?.name?.toUpperCase()}`))
-          .setFilter(SmzFilterType.MULTI_SELECT)
+        .currency('price', 'Preço')
           .columns
         .dataTransform('roles', 'Não exportável', (roles: SimpleNamedEntity[], row: any) => { return roles.map(x => x.name).join(', '); })
           .setFilter(SmzFilterType.MULTI_SELECT_ARRAY)

@@ -15,6 +15,7 @@ export interface DemoItem {
   country: SimpleNamedEntity;
   html?: string;
   roles?: SimpleNamedEntity[];
+  price?: number;
 }
 
 export interface DemoUpdateData {
