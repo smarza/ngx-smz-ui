@@ -3,7 +3,7 @@ import { PrimeTemplate } from 'primeng/api';
 import { SmzContentType, SmzDataTransform } from '../../models/content-types';
 import { SmzFilterType } from '../../models/filter-types';
 import { SmzTableState, SmzTableContext } from '../../models/table-state';
-import { SmzTableColumn } from '../../models/table-column';
+import { SmzTableColumn, SmzTableContextColumn } from '../../models/table-column';
 import { SmzEditableType } from '../../models/editable-types';
 import { TableEditableService } from '../../services/table-editable.service';
 import { TableFormsService } from '../../services/table-forms.service';
@@ -16,6 +16,10 @@ import cloneDeep from 'lodash-es/cloneDeep';
 import { Store } from '@ngxs/store';
 import { LayoutUiActions } from '../../../../state/ui/layout/layout.actions';
 import { SmzExcelService } from '../../../smz-excels/services/smz-excel-service';
+import { SmzExcelsBuilder } from '../../../../builders/smz-excels/excels-builder';
+import { SmzCreateExcelTable } from '../../../smz-excels/models/smz-excel-table';
+import { AuthenticationSelectors } from '../../../../state/global/authentication/authentication.selectors';
+import { SmzExcelFontDefinitions, SmzExcelThemeDefinitions } from '../../../smz-excels/models/smz-excel-definitions';
 
 @Component({
   selector: 'smz-ui-table',
@@ -223,7 +227,42 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
 
   public exportToExcel(table: any, context: SmzTableContext, items: any[]): void {
     console.log('exportToExcel', context, items, table);
-    this.smzExcelService.mock();
+
+    const username = this.store.selectSnapshot(AuthenticationSelectors.username);
+
+    const data: SmzCreateExcelTable = new SmzExcelsBuilder()
+      .setTitle(this.state.caption.title)
+      .setAuthor(username)
+      .sheet(this.state.caption.title)
+        .table()
+          .headerStyles()
+            .setFont(SmzExcelFontDefinitions.Calibri)
+            .setFontSize(14)
+            .enableBold()
+            .apply
+          .setTheme(SmzExcelThemeDefinitions.TableStyleLight20)
+          .columns()
+            .for(context.visibleColumns, (_, column: SmzTableContextColumn, index) => {
+
+              switch (column.content.type) {
+                case SmzContentType.TEXT:
+                  return _.text(column.header, column.field)
+                  .column
+
+                default:
+                  return _;
+              }
+
+            })
+            .setData(items)
+            .table
+          .sheets
+        .excels
+      .build();
+
+      console.log('payload', data);
+
+    this.smzExcelService.generate(data);
 
   }
 

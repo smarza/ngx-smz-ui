@@ -14,16 +14,20 @@ export interface SmzCreateExcelTable {
     company: string;
     comments: string;
     isDraft: boolean;
-    watermark: {
-      text: string;
-      alpha: number;
-      textColor: SmzExcelColorDefinitions;
-      font: SmzExcelFontDefinitions;
-      rotationAngle: number;
-      fontSize: number
-    };
+    watermark: SmzExcelWatermarkSheet;
     sheets: SmzExcelTableSheet[];
   }
+}
+
+export interface SmzExcelWatermarkSheet {
+
+    text: string;
+    alpha: number;
+    textColor: SmzExcelColorDefinitions;
+    font: SmzExcelFontDefinitions;
+    rotationAngle: number;
+    fontSize: number
+
 }
 
 export interface SmzExcelTableSheet {
