@@ -90,7 +90,10 @@ export class SmzTableBuilder {
         validationMode: 'none',
         ngStyle: null
       },
-      export: {
+      exportToPdf: {
+        isButtonVisible: false,
+      },
+      exportToExcel: {
         isButtonVisible: false,
       },
       clearFilters: {
@@ -252,8 +255,11 @@ export class SmzTableBuilder {
           dropdownFilter: {
             placeholder: 'Todos'
           },
-          export: {
-            label: 'Exportar',
+          exportToPdf: {
+            label: 'Exportar PDF',
+          },
+          exportToExcel: {
+            label: 'Exportar EXCEL',
           },
           clearFilters: {
             label: 'Limpar Filtros'
@@ -282,8 +288,11 @@ export class SmzTableBuilder {
           dropdownFilter: {
             placeholder: 'All'
           },
-          export: {
-            label: 'Export',
+          exportToPdf: {
+            label: 'Export PDF',
+          },
+          exportToExcel: {
+            label: 'Export EXCEL',
           },
           clearFilters: {
             label: 'Clear Filters'
@@ -311,11 +320,18 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public enableExport(): SmzTableBuilder {
+  public enableExportToPdf(): SmzTableBuilder {
     this._state.caption.isVisible = true;
-    this._state.caption.export.isButtonVisible = true;
+    this._state.caption.exportToPdf.isButtonVisible = true;
     return this;
   }
+
+  public enableExportToExcel(): SmzTableBuilder {
+    this._state.caption.isVisible = true;
+    this._state.caption.exportToExcel.isButtonVisible = true;
+    return this;
+  }
+
 
   public setClearFilterCallback(callback: () => void): SmzTableBuilder {
     if (!this._state.caption.clearFilters.isButtonVisible) {

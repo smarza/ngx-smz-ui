@@ -459,18 +459,52 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
   }
   },
   //
-  [DemoKeys.TABLE_EXPORT]: {
+  [DemoKeys.TABLE_EXPORT_PDF]: {
     items$: store.select(DemoFeatureSelectors.all),
     code: () => {
     return new SmzTableBuilder()
-      .setTitle('Demo With Export')
+      .setTitle('Export to PDF Demo')
       .enableGlobalFilter()
       .useTableEmptyMessage()
       .usePagination()
       .setPaginationDefaultRows(10)
       .setCustomInitialSorting({ field: 'number', order: -1 })
       .useStrippedStyle()
-      .enableExport()
+      .enableExportToPdf()
+      .columns()
+        .text('name', 'Name', '40em')
+          .disableFilter()
+          .columns
+        .text('country.name', 'Country')
+          .setFilter(SmzFilterType.MULTI_SELECT)
+          .disableSort()
+          .columns
+        .dataTransform('country.id', 'Super Country 2', (country: SimpleNamedEntity, row: any) => (`test: ${row.country?.name?.toUpperCase()}`))
+          .columns
+        .dataTransform('country', 'Super Country', (country: SimpleNamedEntity, row: any) => (`super: ${country?.name?.toUpperCase()}`))
+          .setFilter(SmzFilterType.MULTI_SELECT)
+          .columns
+        .dataTransform('roles', 'Perfis', (roles: SimpleNamedEntity[], row: any) => { return roles.map(x => x.name).join(', '); })
+          .setFilter(SmzFilterType.MULTI_SELECT_ARRAY)
+          .ignoreOnExport()
+          .columns
+        .table
+      .build()
+    }
+  },
+  //
+  [DemoKeys.TABLE_EXPORT_EXCEL]: {
+    items$: store.select(DemoFeatureSelectors.all),
+    code: () => {
+    return new SmzTableBuilder()
+      .setTitle('Export to Excel Demo')
+      .enableGlobalFilter()
+      .useTableEmptyMessage()
+      .usePagination()
+      .setPaginationDefaultRows(10)
+      .setCustomInitialSorting({ field: 'number', order: -1 })
+      .useStrippedStyle()
+      .enableExportToExcel()
       .columns()
         .text('name', 'Name', '40em')
           .disableFilter()
@@ -505,7 +539,6 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
       .setPaginationDefaultRows(10)
       .setCustomInitialSorting({ field: 'number', order: -1 })
       .useStrippedStyle()
-      .enableExport()
       .editable()
         .setUpdateAction(DemoFeatureActions.Update)
         .setCreationAction(DemoFeatureActions.Create)

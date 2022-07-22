@@ -131,7 +131,10 @@ export interface SmzTableState {
     dropdownFilter?: {
       placeholder: string;
     },
-    export?: {
+    exportToPdf?: {
+      label: string;
+    },
+    exportToExcel?: {
       label: string;
     },
     clearFilters?: {
@@ -188,9 +191,18 @@ export interface SmzTableState {
       expanded: boolean;
     };
     /**
-     * Allows the end user to export the table content
+     * Allows the end user to export the table content to PDF
      */
-    export?: {
+    exportToPdf?: {
+      /**
+       * Controls whether the export button should be visible or not
+       */
+      isButtonVisible?: boolean;
+    }
+    /**
+     * Allows the end user to export the table content to EXCEL
+     */
+     exportToExcel?: {
       /**
        * Controls whether the export button should be visible or not
        */

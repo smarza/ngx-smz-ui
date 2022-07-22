@@ -207,7 +207,7 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
     }
   }
 
-  public export(context: SmzTableContext, items: any[]): void {
+  public exportToPdf(context: SmzTableContext, items: any[]): void {
     const exportData: SmzExportDialogData = {
       title: context.state.caption.title,
       filename: context.state.caption.title,
@@ -218,6 +218,10 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
     };
 
     this.store.dispatch(new LayoutUiActions.ShowExportDialog(exportData));
+  }
+
+  public exportToExcel(table: any, context: SmzTableContext, items: any[]): void {
+    console.log('exportToExcel', context, items, table);
   }
 
   public onRowSelection(context: SmzTableContext): void {

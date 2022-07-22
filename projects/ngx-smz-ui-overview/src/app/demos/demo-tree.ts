@@ -839,11 +839,18 @@ export const TreeDemoData: DemoTreeNode[] = [
         key: DemoKeys.TABLE_MULTI_SELECTION.toString()
       },
       {
-        label: 'Export', icon: 'fa-solid fa-code', type: 'Demo',
+        label: 'Export PDF', icon: 'fa-solid fa-code', type: 'Demo',
         demoType: 'table',
         notes: '',
-        data: TablesDemo[DemoKeys.TABLE_EXPORT],
-        key: DemoKeys.TABLE_EXPORT.toString()
+        data: TablesDemo[DemoKeys.TABLE_EXPORT_PDF],
+        key: DemoKeys.TABLE_EXPORT_PDF.toString()
+      },
+      {
+        label: 'Export EXCEL', icon: 'fa-solid fa-code', type: 'Demo',
+        demoType: 'table',
+        notes: '',
+        data: TablesDemo[DemoKeys.TABLE_EXPORT_EXCEL],
+        key: DemoKeys.TABLE_EXPORT_EXCEL.toString()
       },
       {
         label: 'Editable', icon: 'fa-solid fa-code', type: 'Demo',
