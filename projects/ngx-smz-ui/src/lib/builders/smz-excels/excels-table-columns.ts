@@ -3,8 +3,9 @@ import { ObjectUtils } from 'primeng/utils';
 import { SmzExcelDataDefinitions, SmzExcelFontDefinitions } from '../../modules/smz-excels/models/smz-excel-definitions';
 import { SmzExcelColumn, SmzExcelTableSheet, SmzExcelWatermarkSheet } from '../../modules/smz-excels/models/smz-excel-table';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
-import { SmzExcelsTableColumnContentBuilder } from './excels-table-column-content';
+import { SmzExcelsTableBaseColumnContentBuilder, SmzExcelsTableColumnContentNumberBuilder, SmzExcelsTableColumnContentTextBuilder } from './excels-table-base-column-content';
 import { SmzExcelsTablesBuilder } from './excels-tables';
+import { toString } from '../../common/utils/utils';
 
 export class SmzExcelsTableColumnsBuilder extends SmzBuilderUtilities<SmzExcelsTableColumnsBuilder> {
 
@@ -27,7 +28,7 @@ export class SmzExcelsTableColumnsBuilder extends SmzBuilderUtilities<SmzExcelsT
     super();
   }
 
-  public text(header: string, dataPropertyPath: string, sort?: boolean): SmzExcelsTableColumnContentBuilder {
+  public text(header: string, dataPropertyPath: string, sort?: boolean): SmzExcelsTableColumnContentTextBuilder {
 
     this._state.header.data.push(header);
     this._dataProperties.push(dataPropertyPath);
@@ -43,7 +44,26 @@ export class SmzExcelsTableColumnsBuilder extends SmzBuilderUtilities<SmzExcelsT
 
     this._state.columns.push(text);
 
-    return new SmzExcelsTableColumnContentBuilder(this, text);
+    return new SmzExcelsTableColumnContentTextBuilder(this, text);
+  }
+
+  public number(header: string, dataPropertyPath: string, sort?: boolean): SmzExcelsTableColumnContentNumberBuilder {
+
+    this._state.header.data.push(header);
+    this._dataProperties.push(dataPropertyPath);
+
+    const text: SmzExcelColumn = {
+      ...cloneDeep(this.defaultColumn),
+      dataType: SmzExcelDataDefinitions.Number,
+      dataFormat: undefined,
+    };
+
+    if (sort)
+      this._sort();
+
+    this._state.columns.push(text);
+
+    return new SmzExcelsTableColumnContentNumberBuilder(this, text);
   }
 
   public setData(items: any[]): SmzExcelsTableColumnsBuilder
@@ -55,7 +75,7 @@ export class SmzExcelsTableColumnsBuilder extends SmzBuilderUtilities<SmzExcelsT
 
     this._dataProperties.forEach((propertyPath, index) => {
       this._state.columns[index].data = items
-        .map(x => ObjectUtils.resolveFieldData(x, propertyPath))
+        .map(x => ObjectUtils.resolveFieldData(x, propertyPath).toString())
     });
 
     return this;

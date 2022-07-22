@@ -270,6 +270,12 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
                   return _.text(column.header, normalizedField)
                   .column
 
+                case SmzExportableContentType.NUMBER:
+                  return _
+                    .number(column.header, normalizedField)
+                      .setFormat('R$ 00.0')
+                    .column
+
                 default:
                   return _;
               }

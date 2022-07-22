@@ -109,8 +109,6 @@ export class DemoFeatureSelectors {
 
   @Selector([DemoFeatureState])
   public static excelDemo(state: DemoFeatureStateModel): DemoItem[] {
-    console.log(state.items);
-
     const results = state.items.map((x, index) => ({ ...x, roles: [
         { id: '1', name: 'teste 1'},
         { id: '2', name: 'teste 2'},

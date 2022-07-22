@@ -118,10 +118,3 @@ export * from './lib/builders/smz-login/state-builder';
 export * from './lib/builders/smz-comments/comments-builder';
 
 export * from './lib/builders/smz-excels/excels-builder';
-export * from './lib/builders/smz-excels/excels-draft';
-export * from './lib/builders/smz-excels/excels-sheets';
-export * from './lib/builders/smz-excels/excels-styles';
-export * from './lib/builders/smz-excels/excels-table-column-content';
-export * from './lib/builders/smz-excels/excels-table-columns';
-export * from './lib/builders/smz-excels/excels-table-columns';
-export * from './lib/builders/smz-excels/excels-tables';
