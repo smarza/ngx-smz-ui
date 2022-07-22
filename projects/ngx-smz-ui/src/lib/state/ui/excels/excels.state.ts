@@ -30,9 +30,11 @@ export class ExcelsUiState
     @Action(ExcelsUiActions.GenerateTable)
     public onCreate$(ctx: StateContext<ExcelsUiStateModel>, action: ExcelsUiActions.GenerateTable): Observable<SmzExcelsDetails>
     {
+        console.log('ExcelsUiActions.GenerateTable');
         return this.apiService.generateTables(action.data).pipe(
             tap((result: SmzExcelsDetails) =>
             {
+                console.log('result', result);
                 ctx.dispatch(new ExcelsUiActions.GenerateTableSuccess(result));
             })
         );
@@ -42,7 +44,7 @@ export class ExcelsUiState
     @Action(ExcelsUiActions.GenerateTableSuccess)
     public onCreateSuccess(ctx: StateContext<ExcelsUiStateModel>, action: ExcelsUiActions.GenerateTableSuccess): void
     {
-
+        console.log('ExcelsUiActions.GenerateTableSuccess');
     }
 
 }

@@ -10,7 +10,7 @@ import { SmzCreateExcelTable, SmzExcelsDetails } from '../../../modules/smz-exce
 })
 export class ExcelsService extends BaseApiService
 {
-    private endpoint = `${environment.serverUrl}/api/excels`;
+    private endpoint = `${environment.serverUrl}/api/excel`;
 
     constructor(private http: HttpClient)
     {

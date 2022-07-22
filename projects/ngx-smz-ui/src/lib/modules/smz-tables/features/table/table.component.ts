@@ -15,6 +15,7 @@ import { SmzExportDialogData } from '../../../smz-export-dialog/smz-export-dialo
 import cloneDeep from 'lodash-es/cloneDeep';
 import { Store } from '@ngxs/store';
 import { LayoutUiActions } from '../../../../state/ui/layout/layout.actions';
+import { SmzExcelService } from '../../../smz-excels/services/smz-excel-service';
 
 @Component({
   selector: 'smz-ui-table',
@@ -75,7 +76,7 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
     multiselect: SmzFilterType.MULTI_SELECT,
     multiselect_array: SmzFilterType.MULTI_SELECT_ARRAY
   }
-  constructor(public cdr: ChangeDetectorRef, public editableService: TableEditableService, public formsService: TableFormsService, public dialogConfig: SmzDialogsConfig, private tableHelper: TableHelperService, private store: Store) {
+  constructor(public cdr: ChangeDetectorRef, public editableService: TableEditableService, public formsService: TableFormsService, public dialogConfig: SmzDialogsConfig, private tableHelper: TableHelperService, private store: Store, private smzExcelService: SmzExcelService) {
     this.editableService.cdr = this.cdr;
     this.editableService.createEvent = this.create;
     this.editableService.updateEvent = this.update;
@@ -222,6 +223,8 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
 
   public exportToExcel(table: any, context: SmzTableContext, items: any[]): void {
     console.log('exportToExcel', context, items, table);
+    this.smzExcelService.mock();
+
   }
 
   public onRowSelection(context: SmzTableContext): void {

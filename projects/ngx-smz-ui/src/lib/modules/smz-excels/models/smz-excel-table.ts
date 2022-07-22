@@ -1,3 +1,5 @@
+import { SmzExcelDataDefinitions, SmzExcelFontDefinitions, SmzExcelSortDefinitions, SmzExcelThemeDefinitions } from './smz-excel-definitions';
+
 export interface SmzExcelsDetails {
   fileStream: File;
   contentType: string;
@@ -7,18 +9,18 @@ export interface SmzExcelsDetails {
 export interface SmzCreateExcelTable {
   workbookModel: {
     fileName: string;
-    theme: number;
+    theme: SmzExcelThemeDefinitions;
     title: string;
     author: string;
     company: string;
     dateCreated: string;
     comments: string;
-    isDraft: true;
+    isDraft: boolean;
     watermark: {
       text: string;
       alpha: number;
       textColor: string;
-      font: number;
+      font: SmzExcelFontDefinitions;
       rotationAngle: number;
       fontSize: number
     };
@@ -28,11 +30,11 @@ export interface SmzCreateExcelTable {
 
 export interface SmzExcelTableSheet {
   name: string;
-  shouldSort: true;
-  matchCase: true;
-  ignoreBlanks: true;
+  shouldSort: boolean;
+  matchCase: boolean;
+  ignoreBlanks: boolean;
   sortColumn: number;
-  sortOrder: number;
+  sortOrder: SmzExcelSortDefinitions;
   header: SmzExcelHeader;
   columns: SmzExcelColumn[];
 }
@@ -48,11 +50,11 @@ export interface SmzExcelColumn {
 }
 
 export interface SmzExcelStyle {
-  font: number;
+  font: SmzExcelFontDefinitions;
   fontSize: number;
-  bold: true;
-  italic: true;
-  dataType: number;
+  bold: boolean;
+  italic: boolean;
+  dataType: SmzExcelDataDefinitions;
   dataFormat: string;
   maxWidth: number
 }
