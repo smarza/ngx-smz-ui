@@ -1,3 +1,4 @@
+import { ObjectUtils } from 'primeng/utils';
 import { SmzContentType, SmzDataTransform, SmzExportableContentSource, SmzExportableContentType, SmzIconContent } from '../../modules/smz-tables/models/content-types';
 import { SmzEditableType } from '../../modules/smz-tables/models/editable-types';
 import { SmzFilterType } from '../../modules/smz-tables/models/filter-types';
@@ -47,7 +48,7 @@ export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T>> {
           export: {
             exportAs: undefined,
             isExportable: true,
-            dataSource: SmzExportableContentSource.DATA,
+            dataCallback: (data, item, index) => item == null ? '' : ObjectUtils.resolveFieldData(item, field)
           },
           editable: {
             type: SmzEditableType.NONE,
@@ -226,7 +227,8 @@ export class SmzDataTransformColumnBuilder extends SmzBaseColumnBuilder<SmzDataT
     super(_table, _parent, SmzContentType.DATA_TRANSFORM, SmzFilterType.NONE, field, header, false, width);
 
     (this._column.content.data as SmzDataTransform).callback = callback;
-    this._column.export.dataSource = SmzExportableContentSource.DATA_TRANSFORM;
+
+    this._column.export.dataCallback = callback;
     this._column.export.exportAs = SmzExportableContentType.TEXT;
   }
 
@@ -235,8 +237,13 @@ export class SmzDataTransformColumnBuilder extends SmzBaseColumnBuilder<SmzDataT
     return this;
   }
 
+  public setExportTransform(callback: (data: any, row: any, index: number) => any): SmzDataTransformColumnBuilder {
+    this._column.export.dataCallback = callback;
+    return this;
+  }
+
   public ignoreTransformOnExport(): SmzDataTransformColumnBuilder {
-    this._column.export.dataSource = SmzExportableContentSource.DATA;
+    this._column.export.dataCallback = (data) => data == null ? '' : ObjectUtils.resolveFieldData(data, this._column.field);
     return this;
   }
 

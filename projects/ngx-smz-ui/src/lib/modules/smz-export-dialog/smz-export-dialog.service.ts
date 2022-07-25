@@ -47,12 +47,7 @@ export class SmzExportDialogService {
 
       const normalizedField = column.field.replace(/\.+/g, '');
 
-      if (column.dataSource === SmzExportableContentSource.DATA_TRANSFORM) {
-        result[normalizedField] = column.callback(this.resolveData(item, column.field).result, item, index);
-      }
-      else {
-        result[normalizedField] = this.resolveData(item, column.field).result;
-      }
+      result[normalizedField] = column.callback(this.resolveData(item, column.field).result, item, index);
 
     });
 

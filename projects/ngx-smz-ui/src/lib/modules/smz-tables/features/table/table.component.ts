@@ -228,8 +228,7 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
         .map(x => ({
           field: x.field,
           header: x.header,
-          dataSource: x.export.dataSource ?? SmzExportableContentSource.DATA,
-          callback: x.content.type === SmzContentType.DATA_TRANSFORM ? (x.content.data as SmzDataTransform).callback : null,
+          callback: x.export.dataCallback,
           type: x.export.exportAs
         })),
       items: cloneDeep(items)
@@ -247,16 +246,12 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
       .map(x => ({
         field: x.field,
         header: x.header,
-        dataSource: x.export.dataSource ?? SmzExportableContentSource.DATA,
-        callback: x.content.type === SmzContentType.DATA_TRANSFORM ? (x.content.data as SmzDataTransform).callback : null,
+        callback: x.export.dataCallback,
         type: x.export.exportAs
       }));
 
     const visibleItems = table.filteredValue?.length > 0 ? table.filteredValue : items;
     const plainItems = cloneDeep(visibleItems).map((item, index) => (this.convertExportableItem(columns, item, index)));
-
-    console.log('context.visibleColumns', context.visibleColumns);
-    console.log('columns', columns);
 
     const data: SmzCreateExcelTable = new SmzExcelsBuilder()
       .setFilename(this.state.caption.title ?? '')
@@ -328,14 +323,7 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
     columns.forEach(column => {
 
       const normalizedField = column.field.replace(/\.+/g, '');
-      let result;
-
-      if (column.dataSource === SmzExportableContentSource.DATA_TRANSFORM) {
-        result = column.callback(this.resolveData(item, column.field).result, item, index);
-      }
-      else {
-        result = this.resolveData(item, column.field).result;
-      }
+      const result = column.callback(this.resolveData(item, column.field).result, item, index);
 
       switch (column.type) {
         case SmzExportableContentType.BOOLEAN:

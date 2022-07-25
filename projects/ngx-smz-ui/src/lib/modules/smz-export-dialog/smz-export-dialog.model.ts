@@ -10,7 +10,6 @@ export interface SmzExportDialogData {
 export interface SmzExportableColumn {
   field: string;
   header: string;
-  callback: any;
+  callback: (data: any, row: any, index: number) => any;
   type: SmzExportableContentType;
-  dataSource: SmzExportableContentSource;
 }

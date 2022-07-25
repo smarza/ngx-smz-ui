@@ -33,10 +33,7 @@ export interface SmzTableColumn {
      * Type of data that will be exported to the excel file
      */
     exportAs?: SmzExportableContentType;
-    /**
-     * Type of data that will be exported to the excel file
-     */
-    dataSource?: SmzExportableContentSource;
+
     dataCallback?: (data: any, row: any, index: number) => string;
   }
 
