@@ -24,10 +24,21 @@ export interface SmzTableColumn {
    * Constrols the visibility of the sort icon the column header
    */
   isOrderable?: boolean;
-  /**
-   * Constrols the visibility of the column on exports
-   */
-  isExportable?: boolean;
+  export: {
+    /**
+     * Constrols the visibility of the column on exports
+     */
+    isExportable?: boolean;
+    /**
+     * Type of data that will be exported to the excel file
+     */
+    exportAs?: SmzExportableContentType;
+    /**
+     * Type of data that will be exported to the excel file
+     */
+    dataSource?: SmzExportableContentSource;
+    dataCallback?: (data: any, row: any, index: number) => string;
+  }
 
   /**
    * Width of the column, always use the value and the unit, ie. '100px' or '6em'.
@@ -59,17 +70,9 @@ export interface SmzTableColumn {
      */
     type: SmzContentType;
     /**
-     * Type of data that will be exported to the excel file
-     */
-     exportAs?: SmzExportableContentType;
-    /**
-     * Type of data that will be exported to the excel file
-     */
-    exportSource?: SmzExportableContentSource;
-    /**
      * Styles Classes that will be inserted in the main div of the cell
      */
-     styleClass: string;
+    styleClass: string;
     /**
      * Extra data needed for the selected content type
      */

@@ -31,15 +31,6 @@ export enum SmzContentType {
   DATA_TRANSFORM = 5
 }
 
-export const ExportableContentTypeOf: { [key: string]: SmzExportableContentType } = {
-  [SmzContentType.TEXT]: SmzExportableContentType.TEXT,
-  [SmzContentType.CALENDAR]: SmzExportableContentType.DATETIME,
-  [SmzContentType.CURRENCY]: SmzExportableContentType.NUMBER,
-  [SmzContentType.CUSTOM]: SmzExportableContentType.NONE,
-  [SmzContentType.DATA_TRANSFORM]: SmzExportableContentType.TEXT,
-  [SmzContentType.ICON]: SmzExportableContentType.NONE,
-}
-
 export const FromControlTypeToContentType = [
  { from: SmzControlType.TEXT, to: SmzContentType.TEXT },
  { from: SmzControlType.DROPDOWN, to: SmzContentType.TEXT },

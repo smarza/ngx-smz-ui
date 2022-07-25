@@ -27,6 +27,9 @@ export namespace StateBuilderFunctions {
         header: input.name,
         headerStyleClass: '',
         content: converted.content(input),
+        export: {
+
+        },
         editable: {
           ...converted.editable(child),
         },

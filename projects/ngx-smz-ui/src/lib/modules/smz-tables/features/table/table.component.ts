@@ -1,6 +1,6 @@
 import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewChild, OnDestroy, inject, DEFAULT_CURRENCY_CODE, Inject, LOCALE_ID } from '@angular/core';
 import { PrimeTemplate } from 'primeng/api';
-import { ExportableContentTypeOf, SmzContentType, SmzDataTransform, SmzExportableContentSource, SmzExportableContentType } from '../../models/content-types';
+import { SmzContentType, SmzDataTransform, SmzExportableContentSource, SmzExportableContentType } from '../../models/content-types';
 import { SmzFilterType } from '../../models/filter-types';
 import { SmzTableState, SmzTableContext } from '../../models/table-state';
 import { SmzTableColumn } from '../../models/table-column';
@@ -224,13 +224,13 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
       title: context.state.caption.title,
       filename: context.state.caption.title,
       columns: context.columns
-        .filter(x => x.isExportable)
+        .filter(x => x.export.isExportable)
         .map(x => ({
           field: x.field,
           header: x.header,
-          dataSource: x.content.exportSource ?? SmzExportableContentSource.DATA,
+          dataSource: x.export.dataSource ?? SmzExportableContentSource.DATA,
           callback: x.content.type === SmzContentType.DATA_TRANSFORM ? (x.content.data as SmzDataTransform).callback : null,
-          type: x.content.exportAs ? x.content.exportAs : ExportableContentTypeOf[x.content.type]
+          type: x.export.exportAs
         })),
       items: cloneDeep(items)
     };
@@ -243,17 +243,20 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
     const username = this.store.selectSnapshot(AuthenticationSelectors.username);
 
     const columns = context.visibleColumns
-      .filter(x => x.isExportable)
+      .filter(x => x.export.isExportable)
       .map(x => ({
         field: x.field,
         header: x.header,
-        dataSource: x.content.exportSource ?? SmzExportableContentSource.DATA,
+        dataSource: x.export.dataSource ?? SmzExportableContentSource.DATA,
         callback: x.content.type === SmzContentType.DATA_TRANSFORM ? (x.content.data as SmzDataTransform).callback : null,
-        type: x.content.exportAs ? x.content.exportAs : ExportableContentTypeOf[x.content.type]
+        type: x.export.exportAs
       }));
 
     const visibleItems = table.filteredValue?.length > 0 ? table.filteredValue : items;
     const plainItems = cloneDeep(visibleItems).map((item, index) => (this.convertExportableItem(columns, item, index)));
+
+    console.log('context.visibleColumns', context.visibleColumns);
+    console.log('columns', columns);
 
     const data: SmzCreateExcelTable = new SmzExcelsBuilder()
       .setFilename(this.state.caption.title ?? '')

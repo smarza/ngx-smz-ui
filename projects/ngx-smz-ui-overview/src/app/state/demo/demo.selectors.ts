@@ -109,6 +109,13 @@ export class DemoFeatureSelectors {
 
   @Selector([DemoFeatureState])
   public static excelDemo(state: DemoFeatureStateModel): DemoItem[] {
+
+    const status = [
+      { id: 'delivered', name: 'Delivered', background: 'bg-green-200' },
+      { id: 'cancelled', name: 'Cancelled', background: 'bg-slate-200' },
+      { id: 'processing', name: 'Processing', background: 'bg-blue-200' }
+    ];
+
     const results = state.items.map((x, index) => ({ ...x, roles: [
         { id: '1', name: 'teste 1'},
         { id: '2', name: 'teste 2'},
@@ -117,6 +124,8 @@ export class DemoFeatureSelectors {
         { id: index.toString(), name: `index ${index}`},
       ],
       isActive: Math.floor(Math.random() * 1000) + 1 > 500,
+      isAutoTask: Math.floor(Math.random() * 1000) + 1 > 500,
+      status: status[Math.floor(Math.random() * status.length) + 0],
       price: Math.floor(Math.random() * 1000) + 1,
       html: `<div class="grid grid-nogutter items-center justify-start gap-2">
         <i class="fab fa-angellist text-2xl text-primary-color"></i>

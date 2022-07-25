@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { DemoItem, DemoTreeNode } from '@models/demo';
 import { SmzTableState } from 'ngx-smz-ui';
 import { Observable } from 'rxjs';
@@ -13,6 +13,18 @@ import { Observable } from 'rxjs';
       <div>{{ item | json }}</div>
     </div>
   </ng-template>
+    <!-- CONTEÚDOS COM OVERRIDE -->
+    <ng-template pTemplate="content" let-item let-col="col">
+
+    <ng-container [ngSwitch]="col.field">
+
+      <ng-container *ngSwitchCase="'status'">
+        <div class="px-3 py-1 text-sm text-slate-800 rounded text-center" [ngClass]="item.status.background"><strong>{{ item.status.name }}</strong></div>
+      </ng-container>
+
+    </ng-container>
+
+    </ng-template>
 </smz-ui-table>`,
   changeDetection: ChangeDetectionStrategy.OnPush
 })

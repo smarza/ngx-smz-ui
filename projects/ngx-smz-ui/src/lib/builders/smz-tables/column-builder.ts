@@ -6,7 +6,6 @@ import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzEditableCollectionBuilder } from './editable-builder';
 import { SmzTableBuilder } from './state-builder';
 
-
 export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T>> {
   protected that: T;
 
@@ -23,8 +22,6 @@ export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T>> {
     }
 
     const columnIndex = _table._state.columns.findIndex(c => c.field === field);
-
-    const isExportable = type !== SmzContentType.CUSTOM && type !== SmzContentType.ICON;
 
     if (columnIndex !== -1) {
         // JÁ EXISTE UMA COLUNA
@@ -46,7 +43,11 @@ export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T>> {
             styleClass: '',
             data: { matches: [] },
             ngStyle: {},
-            exportSource: SmzExportableContentSource.DATA
+          },
+          export: {
+            exportAs: undefined,
+            isExportable: true,
+            dataSource: SmzExportableContentSource.DATA,
           },
           editable: {
             type: SmzEditableType.NONE,
@@ -61,7 +62,6 @@ export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T>> {
             defaultCreationValue: null
           },
           isOrderable,
-          isExportable,
           filter: {
             isGlobalFilterable: true,
             type: filterType
@@ -109,12 +109,12 @@ export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T>> {
   }
 
   public ignoreOnExport(): T {
-    this._column.isExportable = false;
+    this._column.export.isExportable = false;
     return this.that;
   }
 
   public exportAs(type: SmzExportableContentType): T {
-    this._column.content.exportAs = type;
+    this._column.export.exportAs = type;
     return this.that;
   }
 
@@ -139,6 +139,8 @@ export class SmzDateColumnBuilder extends SmzBaseColumnBuilder<SmzDateColumnBuil
   protected that = this;
   constructor(protected _table: SmzTableBuilder, protected _parent: SmzColumnCollectionBuilder, field: string, header: string, width: string = 'auto') {
     super(_table, _parent, SmzContentType.CALENDAR, SmzFilterType.DATE, field, header, true, width);
+
+    this._column.export.exportAs = SmzExportableContentType.DATETIME;
   }
 
   public setDateFormat(format: 'shortDate' | 'short' | 'medium' | 'long' | 'mediumDate' | 'longDate' | 'shortTime'): SmzDateColumnBuilder {
@@ -157,6 +159,8 @@ export class SmzCurrencyColumnBuilder extends SmzBaseColumnBuilder<SmzCurrencyCo
   protected that = this;
   constructor(protected _table: SmzTableBuilder, protected _parent: SmzColumnCollectionBuilder, field: string, header: string, width: string = 'auto') {
     super(_table, _parent, SmzContentType.CURRENCY, SmzFilterType.TEXT, field, header, true, width);
+
+    this._column.export.exportAs = SmzExportableContentType.NUMBER;
   }
 
 }
@@ -165,6 +169,8 @@ export class SmzTextColumnBuilder extends SmzBaseColumnBuilder<SmzTextColumnBuil
   protected that = this;
   constructor(protected _table: SmzTableBuilder, protected _parent: SmzColumnCollectionBuilder, field: string, header: string, width: string = 'auto') {
     super(_table, _parent, SmzContentType.TEXT, SmzFilterType.TEXT, field, header, true, width);
+
+    this._column.export.exportAs = SmzExportableContentType.TEXT;
   }
 
   public setFilter(type: SmzFilterType): SmzTextColumnBuilder {
@@ -178,6 +184,8 @@ export class SmzCustomColumnBuilder extends SmzBaseColumnBuilder<SmzCustomColumn
   protected that = this;
   constructor(protected _table: SmzTableBuilder, protected _parent: SmzColumnCollectionBuilder, field: string, header: string, width: string = 'auto') {
     super(_table, _parent, SmzContentType.CUSTOM, SmzFilterType.TEXT, field, header, false, width);
+
+    this._column.export.exportAs = SmzExportableContentType.NONE;
   }
 
   public setFilter(type: SmzFilterType): SmzCustomColumnBuilder {
@@ -196,6 +204,8 @@ export class SmzIconColumnBuilder extends SmzBaseColumnBuilder<SmzIconColumnBuil
   protected that = this;
   constructor(protected _table: SmzTableBuilder, protected _parent: SmzColumnCollectionBuilder, field: string, header: string, width: string = 'auto') {
     super(_table, _parent, SmzContentType.ICON, SmzFilterType.NONE, field, header, false, width);
+
+    this._column.export.exportAs = SmzExportableContentType.NONE;
   }
 
   public addIconConfiguration(icon: string, value: any, styleClass: string = null, tooltip: string = null): SmzIconColumnBuilder {
@@ -216,7 +226,8 @@ export class SmzDataTransformColumnBuilder extends SmzBaseColumnBuilder<SmzDataT
     super(_table, _parent, SmzContentType.DATA_TRANSFORM, SmzFilterType.NONE, field, header, false, width);
 
     (this._column.content.data as SmzDataTransform).callback = callback;
-    this._column.content.exportSource = SmzExportableContentSource.DATA_TRANSFORM;
+    this._column.export.dataSource = SmzExportableContentSource.DATA_TRANSFORM;
+    this._column.export.exportAs = SmzExportableContentType.TEXT;
   }
 
   public setFilter(type: SmzFilterType): SmzDataTransformColumnBuilder {
@@ -225,7 +236,7 @@ export class SmzDataTransformColumnBuilder extends SmzBaseColumnBuilder<SmzDataT
   }
 
   public ignoreTransformOnExport(): SmzDataTransformColumnBuilder {
-    this._column.content.exportSource = SmzExportableContentSource.DATA;
+    this._column.export.dataSource = SmzExportableContentSource.DATA;
     return this;
   }
 

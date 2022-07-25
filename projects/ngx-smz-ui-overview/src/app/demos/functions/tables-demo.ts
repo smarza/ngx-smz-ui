@@ -512,7 +512,16 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
           .exportAs(SmzExportableContentType.BOOLEAN)
           .ignoreTransformOnExport()
           .columns
+        .icon('isAutoTask', 'Disponibilidade')
+          .addIconConfiguration('fas fa-lock', false, 'red-text', 'Tarefa com gerenciamento automático (edição parcialmente bloqueada)')
+          .addIconConfiguration('fas fa-lock-open', true, 'green-text', 'Tarefa criada manualmente (edição permitida)')
+          .ignoreOnGlobalFilter()
+          .exportAs(SmzExportableContentType.BOOLEAN)
+          .columns
         .text('name', 'Name', '20em')
+          .columns
+        .custom('status', 'Status', '10em')
+          .exportAs(SmzExportableContentType.TEXT)
           .columns
         .text('country.name', 'Country')
           .setFilter(SmzFilterType.MULTI_SELECT)
