@@ -17,6 +17,11 @@ export enum SmzExportableContentType {
 
 }
 
+export enum SmzExportableContentSource {
+  DATA = 0,
+  DATA_TRANSFORM = 1,
+}
+
 export enum SmzContentType {
   CUSTOM = 0,
   TEXT = 12,

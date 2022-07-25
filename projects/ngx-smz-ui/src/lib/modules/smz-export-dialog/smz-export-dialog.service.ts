@@ -8,6 +8,7 @@ import { SmzExportDialogData } from './smz-export-dialog.model';
 import { SmzDialogBuilder } from '../../builders/smz-dialogs/dialog-builder';
 import { Store } from '@ngxs/store';
 import { LayoutUiActions } from '../../state/ui/layout/layout.actions';
+import { SmzExportableContentSource } from '../smz-tables/public-api';
 
 @Injectable()
 export class SmzExportDialogService {
@@ -46,7 +47,7 @@ export class SmzExportDialogService {
 
       const normalizedField = column.field.replace(/\.+/g, '');
 
-      if (column.isDataTransform) {
+      if (column.dataSource === SmzExportableContentSource.DATA_TRANSFORM) {
         result[normalizedField] = column.callback(this.resolveData(item, column.field).result, item, index);
       }
       else {

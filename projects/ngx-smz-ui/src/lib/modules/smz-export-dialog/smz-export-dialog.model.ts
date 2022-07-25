@@ -1,4 +1,4 @@
-import { SmzContentType, SmzExportableContentType } from '../smz-tables/models/content-types';
+import { SmzContentType, SmzExportableContentSource, SmzExportableContentType } from '../smz-tables/models/content-types';
 
 export interface SmzExportDialogData {
   title: string;
@@ -10,7 +10,7 @@ export interface SmzExportDialogData {
 export interface SmzExportableColumn {
   field: string;
   header: string;
-  isDataTransform: boolean;
   callback: any;
   type: SmzExportableContentType;
+  dataSource: SmzExportableContentSource;
 }

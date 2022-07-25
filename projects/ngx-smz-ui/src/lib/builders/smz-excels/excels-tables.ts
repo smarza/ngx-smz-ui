@@ -1,5 +1,5 @@
-import { SmzExcelColorDefinitions, SmzExcelFontDefinitions, SmzExcelThemeDefinitions } from '../../modules/smz-excels/models/smz-excel-definitions';
-import { SmzExcelTableSheet, SmzExcelWatermarkSheet } from '../../modules/smz-excels/models/smz-excel-table';
+import { SmzExcelThemeDefinitions } from '../../modules/smz-excels/models/smz-excel-definitions';
+import { SmzExcelTableSheet } from '../../modules/smz-excels/models/smz-excel-table';
 import { SmzExcelsSheetsBuilder } from './excels-sheets';
 import { SmzExcelsStylesBuilder } from './excels-styles';
 import { SmzExcelsTableColumnsBuilder } from './excels-table-columns';
@@ -9,18 +9,6 @@ export class SmzExcelsTablesBuilder {
 
   constructor(private _builder: SmzExcelsSheetsBuilder, private _state: SmzExcelTableSheet) {
 
-  }
-
-  // public enableSort(): SmzExcelsTablesBuilder {
-  //   this._state.shouldSort = true;
-  //   this._state.shouldSort = true;
-  //   this._state.matchCase = false;
-  //   return this;
-  // }
-
-  public setTabColor(tabColor: SmzExcelColorDefinitions): SmzExcelsTablesBuilder {
-    this._state.tabColor = tabColor;
-    return this;
   }
 
   public setTheme(theme: SmzExcelThemeDefinitions): SmzExcelsTablesBuilder {

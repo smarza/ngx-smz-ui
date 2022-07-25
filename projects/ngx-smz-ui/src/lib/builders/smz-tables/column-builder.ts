@@ -1,4 +1,4 @@
-import { SmzContentType, SmzDataTransform, SmzExportableContentType, SmzIconContent } from '../../modules/smz-tables/models/content-types';
+import { SmzContentType, SmzDataTransform, SmzExportableContentSource, SmzExportableContentType, SmzIconContent } from '../../modules/smz-tables/models/content-types';
 import { SmzEditableType } from '../../modules/smz-tables/models/editable-types';
 import { SmzFilterType } from '../../modules/smz-tables/models/filter-types';
 import { SmzTableColumn } from '../../modules/smz-tables/models/table-column';
@@ -44,7 +44,8 @@ export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T>> {
             type: type,
             styleClass: '',
             data: { matches: [] },
-            ngStyle: {}
+            ngStyle: {},
+            exportSource: SmzExportableContentSource.DATA
           },
           editable: {
             type: SmzEditableType.NONE,
@@ -212,6 +213,11 @@ export class SmzDataTransformColumnBuilder extends SmzBaseColumnBuilder<SmzDataT
 
   public setFilter(type: SmzFilterType): SmzDataTransformColumnBuilder {
     this._column.filter.type = type;
+    return this;
+  }
+
+  public useDataAsExportSource(): SmzDataTransformColumnBuilder {
+    this._column.content.exportSource = SmzExportableContentSource.DATA;
     return this;
   }
 

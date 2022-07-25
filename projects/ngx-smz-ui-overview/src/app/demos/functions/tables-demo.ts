@@ -1,7 +1,7 @@
 import { DemoKeys } from '@demos/demo-keys';
 import { Store } from '@ngxs/store';
 import { DemoFeatureSelectors } from '@states/demo/demo.selectors';
-import { GlobalInjector, SimpleNamedEntity, SmzFilterType, SmzTableBuilder } from 'ngx-smz-ui';
+import { GlobalInjector, SimpleNamedEntity, SmzExportableContentType, SmzFilterType, SmzTableBuilder } from 'ngx-smz-ui';
 import { of } from 'rxjs';
 import { convertorTasks } from './../data/conversor-tasks';
 import { Observable } from 'rxjs/internal/Observable';
@@ -508,6 +508,10 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
       .useStrippedStyle()
       .enableExportToExcel()
       .columns()
+        .dataTransform('isActive', 'Atividade', (data, row) => data ? 'Sim' : 'Não')
+          .useDataAsExportSource()
+          .exportAs(SmzExportableContentType.BOOLEAN)
+          .columns
         .text('name', 'Name', '20em')
           .columns
         .text('country.name', 'Country')

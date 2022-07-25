@@ -1,5 +1,5 @@
 import { SmzCreateExcelTable } from './smz-excel-table';
-import { SmzExcelColorDefinitions, SmzExcelDataDefinitions, SmzExcelFontDefinitions, SmzExcelSortDefinitions, SmzExcelThemeDefinitions } from './smz-excel-definitions';
+import { SmzExcelColorDefinitions, SmzExcelDataDefinitions, SmzExcelFontDefinitions, SmzExcelSortOrderDefinitions, SmzExcelThemeDefinitions } from './smz-excel-definitions';
 import moment from 'moment';
 
 export const SmzExcelMockData: SmzCreateExcelTable = {
@@ -25,7 +25,7 @@ export const SmzExcelMockData: SmzCreateExcelTable = {
         matchCase: false,
         ignoreBlanks: true,
         sortColumn: 2,
-        sortOrder: SmzExcelSortDefinitions.Ascending,
+        sortOrder: SmzExcelSortOrderDefinitions.Ascending,
         theme: SmzExcelThemeDefinitions.TableStyleLight3,
         tabColor: SmzExcelColorDefinitions.LightCoral,
         header: {

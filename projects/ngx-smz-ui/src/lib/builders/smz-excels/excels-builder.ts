@@ -1,10 +1,11 @@
-import { SmzCommentsState } from '../../modules/smz-comments/models/smz-comments-state';
-import { SmzExcelColorDefinitions, SmzExcelDataDefinitions, SmzExcelFontDefinitions, SmzExcelSortDefinitions, SmzExcelThemeDefinitions } from '../../modules/smz-excels/models/smz-excel-definitions';
+import { SmzExcelColorDefinitions, SmzExcelFontDefinitions, SmzExcelSortOrderDefinitions, SmzExcelThemeDefinitions } from '../../modules/smz-excels/models/smz-excel-definitions';
 import { SmzCreateExcelTable, SmzExcelTableSheet } from '../../modules/smz-excels/models/smz-excel-table';
+import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzExcelsDraftBuilder } from './excels-draft';
 import { SmzExcelsSheetsBuilder } from './excels-sheets';
 
-export class SmzExcelsBuilder {
+export class SmzExcelsBuilder extends SmzBuilderUtilities<SmzExcelsBuilder> {
+  protected that = this;
   public _state: SmzCreateExcelTable = {
     workbookModel: {
       fileName: 'excel',
@@ -18,7 +19,7 @@ export class SmzExcelsBuilder {
     }
   };
   constructor() {
-
+    super();
   }
 
   public setFilename(fileName: string): SmzExcelsBuilder {
@@ -52,7 +53,7 @@ export class SmzExcelsBuilder {
     this._state.workbookModel.watermark = {
       text,
       alpha: 0.3,
-      textColor: SmzExcelColorDefinitions.LightCoral,
+      textColor: SmzExcelColorDefinitions.Red,
       font: SmzExcelFontDefinitions.CourierNew,
       rotationAngle: 45,
       fontSize: 80
@@ -69,9 +70,9 @@ export class SmzExcelsBuilder {
       matchCase: false,
       ignoreBlanks: true,
       sortColumn: undefined,
-      sortOrder: SmzExcelSortDefinitions.Ascending,
-      theme: SmzExcelThemeDefinitions.TableStyleLight3,
-      tabColor: SmzExcelColorDefinitions.LightCoral,
+      sortOrder: SmzExcelSortOrderDefinitions.Ascending,
+      theme: SmzExcelThemeDefinitions.None,
+      tabColor: SmzExcelColorDefinitions.NoColor,
       header: {
         data: [],
         style: {

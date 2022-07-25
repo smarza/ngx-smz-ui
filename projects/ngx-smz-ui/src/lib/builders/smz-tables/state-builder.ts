@@ -244,6 +244,7 @@ export class SmzTableBuilder {
     switch (language) {
       case 'pt-BR':
         this._state.locale = {
+          language,
           columnVisibility: {
             placeholder: 'Colunas',
             selectedItemsLabel: '{0} colunas visíveis',
@@ -277,6 +278,7 @@ export class SmzTableBuilder {
       case 'en-US':
 
         this._state.locale = {
+          language,
           columnVisibility: {
             placeholder: 'Columns',
             selectedItemsLabel: '{0} visible columns',

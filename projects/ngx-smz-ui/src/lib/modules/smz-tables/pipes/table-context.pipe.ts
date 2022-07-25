@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { cloneDeep } from 'lodash-es';
 import { mergeDeep } from '../../../common/utils/deep-merge';
-import { SmzContentType } from '../models/content-types';
+import { SmzContentType, SmzExportableContentSource } from '../models/content-types';
 import { SmzFilterType } from '../models/filter-types';
 import { SmzTableContextColumn } from '../models/table-column';
 import { SmzTableState, SmzTableContext } from '../models/table-state';
@@ -32,7 +32,7 @@ export class SmzTableContextPipe implements PipeTransform {
       const contextColumn: SmzTableContextColumn = {
         ...column,
         width,
-        content: column.content ?? { type: SmzContentType.TEXT, styleClass: '', data: { }, ngStyle: {} },
+        content: column.content ?? { type: SmzContentType.TEXT, styleClass: '', data: { }, ngStyle: {}, exportSource: SmzExportableContentSource.DATA },
         filter: column.filter ?? { type: SmzFilterType.NONE, isGlobalFilterable: false }
       };
 
@@ -98,6 +98,7 @@ export class SmzTableContextPipe implements PipeTransform {
         }
       },
       locale: {
+        language: 'pt-BR',
         columnVisibility: {
           placeholder: 'Colunas',
           selectedItemsLabel: '{0} colunas visíveis',

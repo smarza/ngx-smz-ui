@@ -1,4 +1,4 @@
-import { SmzExcelColorDefinitions, SmzExcelDataDefinitions, SmzExcelFontDefinitions, SmzExcelSortDefinitions, SmzExcelThemeDefinitions } from './smz-excel-definitions';
+import { SmzExcelColorDefinitions, SmzExcelDataDefinitions, SmzExcelFontDefinitions, SmzExcelSortOrderDefinitions, SmzExcelThemeDefinitions } from './smz-excel-definitions';
 
 export interface SmzExcelsDetails {
   file: string;
@@ -26,21 +26,22 @@ export interface SmzExcelWatermarkSheet {
     textColor: SmzExcelColorDefinitions;
     font: SmzExcelFontDefinitions;
     rotationAngle: number;
-    fontSize: number
+    fontSize: number;
 
 }
 
 export interface SmzExcelTableSheet {
   name: string;
+  tabColor: SmzExcelColorDefinitions;
   shouldSort: boolean;
   matchCase: boolean;
   ignoreBlanks: boolean;
   sortColumn: number;
-  sortOrder: SmzExcelSortDefinitions;
+  sortOrder: SmzExcelSortOrderDefinitions;
   header: SmzExcelHeader;
   columns: SmzExcelColumn[];
   theme: SmzExcelThemeDefinitions;
-  tabColor: SmzExcelColorDefinitions;
+
 }
 
 export interface SmzExcelHeader {
@@ -53,7 +54,7 @@ export interface SmzExcelColumn {
   style: SmzExcelStyle;
   dataType: SmzExcelDataDefinitions;
   dataFormat?: string;
-  maxWidth?: number;
+  maxWidth: number;
 }
 
 export interface SmzExcelStyle {

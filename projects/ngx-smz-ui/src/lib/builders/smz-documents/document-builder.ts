@@ -9,8 +9,6 @@ import { SmzDocumentViewerBuilder } from './document-viewer';
 import { HTMLOptions, jsPDFOptions } from 'jspdf';
 import { SmzDocumentPageFormats, SmzPageFormatsInPt } from '../../modules/smz-documents/models/smz-page-formats';
 import { isArray } from '../../common/utils/utils';
-import * as html2canvas from 'html2canvas';
-import { SmzDocumentLocale } from '../../modules/smz-documents/models/smz-document-locale';
 
 // HTML2PDF
 // https://ekoopmans.github.io/html2pdf.js/#usage

@@ -1,5 +1,5 @@
 import { SmzFormsValidatorsPreset } from '../../smz-forms/models/controls';
-import { SmzContentType, SmzContentTypes, SmzExportableContentType } from "./content-types";
+import { SmzContentType, SmzContentTypes, SmzExportableContentSource, SmzExportableContentType } from "./content-types";
 import { SmzEditableType, SmzEditableTypes } from "./editable-types";
 import { SmzFilterType } from "./filter-types";
 
@@ -62,6 +62,10 @@ export interface SmzTableColumn {
      * Type of data that will be exported to the excel file
      */
      exportAs?: SmzExportableContentType;
+    /**
+     * Type of data that will be exported to the excel file
+     */
+    exportSource?: SmzExportableContentSource;
     /**
      * Styles Classes that will be inserted in the main div of the cell
      */

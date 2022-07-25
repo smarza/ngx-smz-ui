@@ -120,6 +120,7 @@ export interface SmzTableState {
     ngStyle: { [style: string]: any } | null;
   }
   locale?: {
+    language: string,
     columnVisibility?: {
       placeholder: string;
       selectedItemsLabel: string;
@@ -145,7 +146,7 @@ export interface SmzTableState {
     },
     paginator?: {
       template: string;
-    }
+    },
   }
 
   /**

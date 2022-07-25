@@ -116,6 +116,7 @@ export class DemoFeatureSelectors {
         { id: '4', name: 'teste 4'},
         { id: index.toString(), name: `index ${index}`},
       ],
+      isActive: Math.floor(Math.random() * 1000) + 1 > 500,
       price: Math.floor(Math.random() * 1000) + 1,
       html: `<div class="grid grid-nogutter items-center justify-start gap-2">
         <i class="fab fa-angellist text-2xl text-primary-color"></i>

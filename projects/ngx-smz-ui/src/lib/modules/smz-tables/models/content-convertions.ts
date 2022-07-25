@@ -1,7 +1,7 @@
 import { InputConfig } from '../../../builders/smz-dialogs/dialog-input-conversion';
 import { SmzControlType, SmzControlTypes, SmzDropDownControl } from '../../smz-forms/models/control-types';
 import { SmzFormsValidatorsPreset } from '../../smz-forms/models/controls';
-import { SmzContentType, SmzContentTypes } from './content-types';
+import { SmzContentType, SmzContentTypes, SmzExportableContentSource, SmzExportableContentType } from './content-types';
 import { SmzDropdownEditable, SmzEditableType, SmzEditableTypes } from './editable-types';
 import { SmzFilterType } from './filter-types';
 
@@ -14,6 +14,8 @@ interface ContentConvertionData {
     styleClass: string;
     data?: SmzContentTypes;
     ngStyle: { [style: string]: any } | null;
+    exportAs: SmzExportableContentType;
+    exportSource: SmzExportableContentSource;
   };
   editable: (input: SmzControlTypes) => {
     property: string;
@@ -35,7 +37,7 @@ export const ContentConvertions: ContentConvertionData[] = [
     isOrderable: true,
     isGlobalFilterable: true,
     filterType: SmzFilterType.TEXT,
-    content: () => ({ type: SmzContentType.TEXT, styleClass: '', data: null, ngStyle: {} }),
+    content: () => ({ type: SmzContentType.TEXT, styleClass: '', data: null, ngStyle: {}, exportAs: null, exportSource: SmzExportableContentSource.DATA }),
     editable: (input: SmzControlTypes) => (
       {
         property: input.propertyName,
@@ -52,7 +54,7 @@ export const ContentConvertions: ContentConvertionData[] = [
     isOrderable: false,
     isGlobalFilterable: true,
     filterType: SmzFilterType.MULTI_SELECT,
-    content: () => ({ type: SmzContentType.TEXT, styleClass: '', data: null, ngStyle: {} }),
+    content: () => ({ type: SmzContentType.TEXT, styleClass: '', data: null, ngStyle: {}, exportAs: null, exportSource: SmzExportableContentSource.DATA }),
     editable: (input: SmzDropDownControl<never>) => (
       {
         property: input.propertyName,
@@ -69,7 +71,7 @@ export const ContentConvertions: ContentConvertionData[] = [
     isOrderable: true,
     isGlobalFilterable: true,
     filterType: SmzFilterType.TEXT,
-    content: () => ({ type: SmzContentType.TEXT, styleClass: '', data: null, ngStyle: {} }),
+    content: () => ({ type: SmzContentType.TEXT, styleClass: '', data: null, ngStyle: {}, exportAs: null, exportSource: SmzExportableContentSource.DATA }),
     editable: (input: SmzControlTypes) => (
       {
         property: input.propertyName,
@@ -86,7 +88,7 @@ export const ContentConvertions: ContentConvertionData[] = [
     isOrderable: true,
     isGlobalFilterable: true,
     filterType: SmzFilterType.DATE,
-    content: () => ({ type: SmzContentType.CALENDAR, styleClass: '', data: { format: 'shortDate' }, ngStyle: {} }),
+    content: () => ({ type: SmzContentType.CALENDAR, styleClass: '', data: { format: 'shortDate' }, ngStyle: {}, exportAs: null, exportSource: SmzExportableContentSource.DATA }),
     editable: (input: SmzControlTypes) => (
       {
         property: input.propertyName,
@@ -108,7 +110,7 @@ export const ContentConvertions: ContentConvertionData[] = [
         { icon: 'fa-solid fa-toggle-on', class: 'text-green-500', value: true },
         { icon: 'fa-solid fa-toggle-off', class: 'text-gray-300', value: false }
       ]
-    }, ngStyle: {} }),
+    }, ngStyle: {}, exportAs: null, exportSource: SmzExportableContentSource.DATA }),
     editable: (input: SmzControlTypes) => (
       {
         property: input.propertyName,
@@ -130,7 +132,7 @@ export const ContentConvertions: ContentConvertionData[] = [
         { icon: 'fa-solid fa-toggle-on', class: 'text-green-500', value: true },
         { icon: 'fa-solid fa-toggle-off', class: 'text-gray-300', value: false }
       ]
-    }, ngStyle: {} }),
+    }, ngStyle: {}, exportAs: null, exportSource: SmzExportableContentSource.DATA }),
     editable: (input: SmzControlTypes) => (
       {
         property: input.propertyName,
@@ -147,7 +149,7 @@ export const ContentConvertions: ContentConvertionData[] = [
     isOrderable: true,
     isGlobalFilterable: true,
     filterType: SmzFilterType.NUMERIC,
-    content: () => ({ type: SmzContentType.TEXT, styleClass: '', data: null, ngStyle: {} }),
+    content: () => ({ type: SmzContentType.TEXT, styleClass: '', data: null, ngStyle: {}, exportAs: null, exportSource: SmzExportableContentSource.DATA }),
     editable: (input: SmzControlTypes) => (
       {
         property: input.propertyName,

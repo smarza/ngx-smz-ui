@@ -1,11 +1,10 @@
 import { cloneDeep } from 'lodash-es';
 import { ObjectUtils } from 'primeng/utils';
-import { SmzExcelDataDefinitions, SmzExcelFontDefinitions } from '../../modules/smz-excels/models/smz-excel-definitions';
-import { SmzExcelColumn, SmzExcelTableSheet, SmzExcelWatermarkSheet } from '../../modules/smz-excels/models/smz-excel-table';
+import { SmzExcelDataDefinitions, SmzExcelFontDefinitions, SmzExcelSortOrderDefinitions } from '../../modules/smz-excels/models/smz-excel-definitions';
+import { SmzExcelColumn, SmzExcelTableSheet } from '../../modules/smz-excels/models/smz-excel-table';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
-import { SmzExcelsTableBaseColumnContentBuilder, SmzExcelsTableColumnContentNumberBuilder, SmzExcelsTableColumnContentTextBuilder } from './excels-table-base-column-content';
+import { SmzExcelsTableColumnBooleanBuilder, SmzExcelsTableColumnNumberBuilder, SmzExcelsTableColumnTextBuilder } from './excels-table-base-column-content';
 import { SmzExcelsTablesBuilder } from './excels-tables';
-import { toString } from '../../common/utils/utils';
 
 export class SmzExcelsTableColumnsBuilder extends SmzBuilderUtilities<SmzExcelsTableColumnsBuilder> {
 
@@ -28,42 +27,49 @@ export class SmzExcelsTableColumnsBuilder extends SmzBuilderUtilities<SmzExcelsT
     super();
   }
 
-  public text(header: string, dataPropertyPath: string, sort?: boolean): SmzExcelsTableColumnContentTextBuilder {
+  public text(header: string, dataPropertyPath: string, sort?: SmzExcelSortOrderDefinitions): SmzExcelsTableColumnTextBuilder {
 
     this._state.header.data.push(header);
     this._dataProperties.push(dataPropertyPath);
 
-    const text: SmzExcelColumn = {
-      ...cloneDeep(this.defaultColumn),
-      dataType: SmzExcelDataDefinitions.Text,
-      dataFormat: undefined,
-    };
+    const text: SmzExcelColumn = { ...cloneDeep(this.defaultColumn) };
 
-    if (sort)
-      this._sort();
+    if (sort != null)
+      this._sort(sort);
 
     this._state.columns.push(text);
 
-    return new SmzExcelsTableColumnContentTextBuilder(this, text);
+    return new SmzExcelsTableColumnTextBuilder(this, text);
   }
 
-  public number(header: string, dataPropertyPath: string, sort?: boolean): SmzExcelsTableColumnContentNumberBuilder {
+  public number(header: string, dataPropertyPath: string, sort?: SmzExcelSortOrderDefinitions): SmzExcelsTableColumnNumberBuilder {
 
     this._state.header.data.push(header);
     this._dataProperties.push(dataPropertyPath);
 
-    const text: SmzExcelColumn = {
-      ...cloneDeep(this.defaultColumn),
-      dataType: SmzExcelDataDefinitions.Number,
-      dataFormat: undefined,
-    };
+    const text: SmzExcelColumn = { ...cloneDeep(this.defaultColumn) };
 
-    if (sort)
-      this._sort();
+    if (sort != null)
+      this._sort(sort);
 
     this._state.columns.push(text);
 
-    return new SmzExcelsTableColumnContentNumberBuilder(this, text);
+    return new SmzExcelsTableColumnNumberBuilder(this, text);
+  }
+
+  public boolean(header: string, dataPropertyPath: string, sort?: SmzExcelSortOrderDefinitions): SmzExcelsTableColumnBooleanBuilder {
+
+    this._state.header.data.push(header);
+    this._dataProperties.push(dataPropertyPath);
+
+    const text: SmzExcelColumn = { ...cloneDeep(this.defaultColumn) };
+
+    if (sort != null)
+      this._sort(sort);
+
+    this._state.columns.push(text);
+
+    return new SmzExcelsTableColumnBooleanBuilder(this, text);
   }
 
   public setData(items: any[]): SmzExcelsTableColumnsBuilder
@@ -81,9 +87,9 @@ export class SmzExcelsTableColumnsBuilder extends SmzBuilderUtilities<SmzExcelsT
     return this;
   }
 
-  private _sort(): void {
+  private _sort(order: SmzExcelSortOrderDefinitions): void {
     this._state.shouldSort = true;
-    this._state.shouldSort = true;
+    this._state.sortOrder = order;
     this._state.matchCase = false;
     this._state.sortColumn = this._state.header.data.length;
   }

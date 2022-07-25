@@ -1,6 +1,6 @@
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewChild, OnDestroy } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewChild, OnDestroy, inject, DEFAULT_CURRENCY_CODE, Inject, LOCALE_ID } from '@angular/core';
 import { PrimeTemplate } from 'primeng/api';
-import { ExportableContentTypeOf, SmzContentType, SmzDataTransform, SmzExportableContentType } from '../../models/content-types';
+import { ExportableContentTypeOf, SmzContentType, SmzDataTransform, SmzExportableContentSource, SmzExportableContentType } from '../../models/content-types';
 import { SmzFilterType } from '../../models/filter-types';
 import { SmzTableState, SmzTableContext } from '../../models/table-state';
 import { SmzTableColumn } from '../../models/table-column';
@@ -21,6 +21,7 @@ import { SmzCreateExcelTable } from '../../../smz-excels/models/smz-excel-table'
 import { AuthenticationSelectors } from '../../../../state/global/authentication/authentication.selectors';
 import { SmzExcelFontDefinitions, SmzExcelThemeDefinitions } from '../../../smz-excels/models/smz-excel-definitions';
 import { ObjectUtils } from 'primeng/utils';
+import { SmzLayoutsConfig } from '../../../smz-layouts/core/globals/smz-layouts.config';
 
 @Component({
   selector: 'smz-ui-table',
@@ -81,7 +82,11 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
     multiselect: SmzFilterType.MULTI_SELECT,
     multiselect_array: SmzFilterType.MULTI_SELECT_ARRAY
   }
-  constructor(public cdr: ChangeDetectorRef, public editableService: TableEditableService, public formsService: TableFormsService, public dialogConfig: SmzDialogsConfig, private tableHelper: TableHelperService, private store: Store, private smzExcelService: SmzExcelService) {
+  constructor(
+    public cdr: ChangeDetectorRef,
+    public editableService: TableEditableService,
+    public formsService: TableFormsService, public dialogConfig: SmzDialogsConfig, private tableHelper: TableHelperService,
+    private store: Store, private smzExcelService: SmzExcelService, private layoutConfig: SmzLayoutsConfig) {
     this.editableService.cdr = this.cdr;
     this.editableService.createEvent = this.create;
     this.editableService.updateEvent = this.update;
@@ -222,7 +227,7 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
         .map(x => ({
           field: x.field,
           header: x.header,
-          isDataTransform: x.content.type === SmzContentType.DATA_TRANSFORM,
+          dataSource: x.content.exportSource ?? SmzExportableContentSource.DATA,
           callback: x.content.type === SmzContentType.DATA_TRANSFORM ? (x.content.data as SmzDataTransform).callback : null,
           type: x.content.exportAs ? x.content.exportAs : ExportableContentTypeOf[x.content.type]
         })),
@@ -241,7 +246,7 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
       .map(x => ({
         field: x.field,
         header: x.header,
-        isDataTransform: x.content.type === SmzContentType.DATA_TRANSFORM,
+        dataSource: x.content.exportSource ?? SmzExportableContentSource.DATA,
         callback: x.content.type === SmzContentType.DATA_TRANSFORM ? (x.content.data as SmzDataTransform).callback : null,
         type: x.content.exportAs ? x.content.exportAs : ExportableContentTypeOf[x.content.type]
       }));
@@ -250,8 +255,14 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
     const plainItems = cloneDeep(visibleItems).map((item, index) => (this.convertExportableItem(columns, item, index)));
 
     const data: SmzCreateExcelTable = new SmzExcelsBuilder()
-      .setFilename(this.state.caption.title)
+      .setFilename(this.state.caption.title ?? '')
       .setAuthor(username)
+      .if(this.layoutConfig.appName != null)
+        .setCompany(this.layoutConfig.appName)
+        .endIf
+      .if(this.layoutConfig.footer?.leftSideText != null)
+        .setComments(this.layoutConfig.footer?.leftSideText)
+        .endIf
       .sheet(this.state.caption.title)
         .table()
           .headerStyles()
@@ -267,13 +278,29 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
 
               switch (column.type) {
                 case SmzExportableContentType.TEXT:
-                  return _.text(column.header, normalizedField)
-                  .column
+                  return _
+                    .text(column.header, normalizedField)
+                      .if(this.state.styles.columnsWidth?.maxWidth != null)
+                        .setMaxWidthInPixels(this.state.styles.columnsWidth.maxWidth)
+                        .endIf
+                      .column
 
                 case SmzExportableContentType.NUMBER:
+
                   return _
                     .number(column.header, normalizedField)
-                      .setFormat('R$ 00.0')
+                      .if(this.state.styles.columnsWidth?.maxWidth != null)
+                        .setMaxWidthInPixels(this.state.styles.columnsWidth.maxWidth)
+                        .endIf
+                    .column
+
+                case SmzExportableContentType.BOOLEAN:
+
+                  return _
+                    .boolean(column.header, normalizedField)
+                      .if(this.state.styles.columnsWidth?.maxWidth != null)
+                        .setMaxWidthInPixels(this.state.styles.columnsWidth.maxWidth)
+                        .endIf
                     .column
 
                 default:
@@ -298,7 +325,7 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
 
       const normalizedField = column.field.replace(/\.+/g, '');
 
-      if (column.isDataTransform) {
+      if (column.dataSource === SmzExportableContentSource.DATA_TRANSFORM) {
         result[normalizedField] = column.callback(this.resolveData(item, column.field).result, item, index);
       }
       else {
