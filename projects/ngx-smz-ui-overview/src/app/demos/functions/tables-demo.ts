@@ -509,8 +509,8 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
       .enableExportToExcel()
       .columns()
         .dataTransform('isActive', 'Atividade', (data, row) => data ? 'Sim' : 'Não')
-          .useDataAsExportSource()
           .exportAs(SmzExportableContentType.BOOLEAN)
+          .ignoreTransformOnExport()
           .columns
         .text('name', 'Name', '20em')
           .columns

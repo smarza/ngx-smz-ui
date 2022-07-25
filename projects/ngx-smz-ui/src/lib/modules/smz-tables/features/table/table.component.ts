@@ -22,6 +22,7 @@ import { AuthenticationSelectors } from '../../../../state/global/authentication
 import { SmzExcelFontDefinitions, SmzExcelThemeDefinitions } from '../../../smz-excels/models/smz-excel-definitions';
 import { ObjectUtils } from 'primeng/utils';
 import { SmzLayoutsConfig } from '../../../smz-layouts/core/globals/smz-layouts.config';
+import { isBoolean } from 'lodash-es';
 
 @Component({
   selector: 'smz-ui-table',
@@ -319,22 +320,35 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
   }
 
   private convertExportableItem(columns: SmzExportableColumn[], item: any, index: number): any {
-    const result = {};
+    const results = {};
 
     columns.forEach(column => {
 
       const normalizedField = column.field.replace(/\.+/g, '');
+      let result;
 
       if (column.dataSource === SmzExportableContentSource.DATA_TRANSFORM) {
-        result[normalizedField] = column.callback(this.resolveData(item, column.field).result, item, index);
+        result = column.callback(this.resolveData(item, column.field).result, item, index);
       }
       else {
-        result[normalizedField] = this.resolveData(item, column.field).result;
+        result = this.resolveData(item, column.field).result;
+      }
+
+      switch (column.type) {
+        case SmzExportableContentType.BOOLEAN:
+          results[normalizedField] = isBoolean(result) ? result : '';
+          break;
+        case SmzExportableContentType.NONE:
+          results[normalizedField] = '';
+          break;
+        default:
+          results[normalizedField] = result;
+          break;
       }
 
     });
 
-    return result;
+    return results;
   }
 
   private resolveData(data: any, field: string): { result: string } {
