@@ -1,21 +1,22 @@
-import { SmzExcelColorDefinitions, SmzExcelFontDefinitions, SmzExcelSortOrderDefinitions, SmzExcelThemeDefinitions } from '../../modules/smz-excels/models/smz-excel-definitions';
-import { SmzCreateExcelTable, SmzExcelTableSheet } from '../../modules/smz-excels/models/smz-excel-table';
+import { SmzExcelColorDefinitions, SmzExcelFontDefinitions, SmzExcelSortOrderDefinitions, SmzExcelThemeDefinitions, SmzExcelTypeDefinitions } from '../../modules/smz-excels/models/smz-excel-definitions';
+import { SmzExcelState, SmzExcelTableSheet } from '../../modules/smz-excels/models/smz-excel-table';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzExcelsDraftBuilder } from './excels-draft';
 import { SmzExcelsSheetsBuilder } from './excels-sheets';
 
 export class SmzExcelsBuilder extends SmzBuilderUtilities<SmzExcelsBuilder> {
   protected that = this;
-  public _state: SmzCreateExcelTable = {
+  public _state: SmzExcelState = {
     workbookModel: {
       fileName: 'excel',
-      title: '',
+      info: '',
       author: '',
       company: '',
       comments: '',
       isDraft: false,
       watermark: undefined,
-      sheets: []
+      tables: [],
+      charts: []
     }
   };
   constructor() {
@@ -27,8 +28,8 @@ export class SmzExcelsBuilder extends SmzBuilderUtilities<SmzExcelsBuilder> {
     return this;
   }
 
-  public setTitle(title: string): SmzExcelsBuilder {
-    this._state.workbookModel.title = title;
+  public setInfo(title: string): SmzExcelsBuilder {
+    this._state.workbookModel.info = title;
     return this;
   }
 
@@ -66,6 +67,8 @@ export class SmzExcelsBuilder extends SmzBuilderUtilities<SmzExcelsBuilder> {
 
     const sheet: SmzExcelTableSheet = {
       name: name?.slice(0, 30) ?? 'Excel',
+      sheetType: SmzExcelTypeDefinitions.Table,
+      tabIndex: this._state.workbookModel.tables.length + this._state.workbookModel.charts.length,
       shouldSort: false,
       matchCase: false,
       ignoreBlanks: true,
@@ -85,12 +88,12 @@ export class SmzExcelsBuilder extends SmzBuilderUtilities<SmzExcelsBuilder> {
       columns: []
     };
 
-    this._state.workbookModel.sheets.push(sheet);
+    this._state.workbookModel.tables.push(sheet);
 
     return new SmzExcelsSheetsBuilder(this, sheet);
   }
 
-  public build(): SmzCreateExcelTable {
+  public build(): SmzExcelState {
     return this._state;
   }
 }

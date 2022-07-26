@@ -1,4 +1,4 @@
-import { SmzCreateExcelTable, SmzExcelsDetails } from '../../../modules/smz-excels/models/smz-excel-table';
+import { SmzExcelState, SmzExcelsDetails } from '../../../modules/smz-excels/models/smz-excel-table';
 
 
 export namespace ExcelsUiActions
@@ -6,7 +6,7 @@ export namespace ExcelsUiActions
     export class GenerateTable
     {
         public static readonly type = '[Excels API] Generate Table';
-        constructor(public data: SmzCreateExcelTable, public downloadAfter?: boolean) { }
+        constructor(public data: SmzExcelState, public downloadAfter?: boolean) { }
     }
 
     export class GenerateTableSuccess

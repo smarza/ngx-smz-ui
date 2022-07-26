@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, ofActionSuccessful, Store } from '@ngxs/store';
-import { SmzCreateExcelTable, SmzExcelsDetails } from '../models/smz-excel-table';
+import { SmzExcelState, SmzExcelsDetails } from '../models/smz-excel-table';
 import { take } from 'rxjs/operators';
 import { ExcelsUiActions } from '../../../state/ui/excels/excels.actions';
 import { SmzExcelMockData } from '../models/smz-excel-mock';
@@ -10,7 +10,7 @@ import { ExcelsService } from '../../../state/ui/excels/excels.service';
 export class SmzExcelService {
   constructor(private store: Store, private actions$: Actions, private excelsService: ExcelsService) { }
 
-  public generate(data: SmzCreateExcelTable): void {
+  public generate(data: SmzExcelState): void {
     this.store.dispatch(new ExcelsUiActions.GenerateTable(data, true));
   }
 

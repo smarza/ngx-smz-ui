@@ -17,7 +17,7 @@ import { Store } from '@ngxs/store';
 import { LayoutUiActions } from '../../../../state/ui/layout/layout.actions';
 import { SmzExcelService } from '../../../smz-excels/services/smz-excel-service';
 import { SmzExcelsBuilder } from '../../../../builders/smz-excels/excels-builder';
-import { SmzCreateExcelTable } from '../../../smz-excels/models/smz-excel-table';
+import { SmzExcelState } from '../../../smz-excels/models/smz-excel-table';
 import { AuthenticationSelectors } from '../../../../state/global/authentication/authentication.selectors';
 import { SmzExcelFontDefinitions, SmzExcelThemeDefinitions } from '../../../smz-excels/models/smz-excel-definitions';
 import { ObjectUtils } from 'primeng/utils';
@@ -251,9 +251,12 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
       }));
 
     const visibleItems = table.filteredValue?.length > 0 ? table.filteredValue : items;
-    const plainItems = cloneDeep(visibleItems).map((item, index) => (this.convertExportableItem(columns, item, index)));
+    const plainItems = cloneDeep(visibleItems).map((item, index) => (this.getExportableData(columns, item, index)));
 
-    const data: SmzCreateExcelTable = new SmzExcelsBuilder()
+    console.log('columns', columns);
+    console.log('plainItems', plainItems);
+
+    const data: SmzExcelState = new SmzExcelsBuilder()
       .setFilename(this.state.caption.title ?? '')
       .setAuthor(username)
       .if(this.layoutConfig.appName != null)
@@ -317,25 +320,43 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
 
   }
 
-  private convertExportableItem(columns: SmzExportableColumn[], item: any, index: number): any {
+  private getExportableData(columns: SmzExportableColumn[], item: any, index: number): any {
+
+    console.log('######');
+
     const results = {};
 
     columns.forEach(column => {
 
       const normalizedField = column.field.replace(/\.+/g, '');
-      const result = column.callback(this.resolveData(item, column.field).result, item, index);
+      const resolve = this.resolveData(item, column.field).result;
+      const result = column.callback(resolve, item, index);
+
+      // console.log('   column: ', column);
+      // console.log('   field: ', normalizedField);
+      // console.log('   resolve: ', resolve);
+      // console.log('   result: ', result);
 
       switch (column.type) {
         case SmzExportableContentType.BOOLEAN:
+          console.log('BOOLEAN');
           results[normalizedField] = isBoolean(result) ? result : '';
           break;
+        case SmzExportableContentType.TEXT:
+            console.log('TEXT');
+            results[normalizedField] = result?.toString() ?? '';
+            break;
         case SmzExportableContentType.NONE:
+          console.log('NONE');
           results[normalizedField] = '';
           break;
         default:
+          console.log('DEFAULT');
           results[normalizedField] = result;
           break;
       }
+
+      // console.log('    > ', results[normalizedField]);
 
     });
 

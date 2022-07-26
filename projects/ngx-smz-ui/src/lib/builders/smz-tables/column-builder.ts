@@ -25,54 +25,56 @@ export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T>> {
     const columnIndex = _table._state.columns.findIndex(c => c.field === field);
 
     if (columnIndex !== -1) {
-        // JÁ EXISTE UMA COLUNA
-        this._column = this._table._state.columns[columnIndex];
-        this._column.width = width;
-        this._column.header = header;
-        this._column.content.type = type;
+      // JÁ EXISTE UMA COLUNA
+      this._column = this._table._state.columns[columnIndex];
+      this._column.width = width;
+      this._column.header = header;
+      this._column.content.type = type;
     }
     else {
-        // NÃO EXISTE A COLUNA AINDA
+      // NÃO EXISTE A COLUNA AINDA
 
-        this._column = {
-          field: field,
-          property: field.split('.')[0],
-          header: header,
-          headerStyleClass: '',
-          content: {
-            type: type,
-            styleClass: '',
-            data: { matches: [] },
-            ngStyle: {},
+      this._column = {
+        field: field,
+        property: field.split('.')[0],
+        header: header,
+        headerStyleClass: '',
+        content: {
+          type: type,
+          styleClass: '',
+          data: { matches: [] },
+          ngStyle: {},
+        },
+        export: {
+          exportAs: undefined,
+          isExportable: true,
+          dataCallback: (data, item, index) => {
+            return item == null ? '' : ObjectUtils.resolveFieldData(item, field);
+          }
+        },
+        editable: {
+          type: SmzEditableType.NONE,
+          data: {
+            rows: 5,
+            options: []
           },
-          export: {
-            exportAs: undefined,
-            isExportable: true,
-            dataCallback: (data, item, index) => item == null ? '' : ObjectUtils.resolveFieldData(item, field)
+          property: null,
+          validatorsPreset: {
+            isRequired: false,
           },
-          editable: {
-            type: SmzEditableType.NONE,
-            data: {
-              rows: 5,
-              options: []
-            },
-            property: null,
-            validatorsPreset: {
-              isRequired: false,
-            },
-            defaultCreationValue: null
-          },
-          isOrderable,
-          filter: {
-            isGlobalFilterable: true,
-            type: filterType
-          },
-          isVisible: true,
-          isFrozen: false,
-          width: width
-        };
+          defaultCreationValue: null
+        },
+        isOrderable,
+        filter: {
+          isGlobalFilterable: true,
+          type: filterType
+        },
+        isVisible: true,
+        isFrozen: false,
+        width: width
+      };
 
-        this._table._state.columns.push(this._column);
+      this._table._state.columns.push(this._column);
 
     }
 
@@ -100,6 +102,11 @@ export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T>> {
   }
 
   public ignoreOnGlobalFilter(): T {
+
+    if (!this._column.filter.isGlobalFilterable) {
+      throw Error(`You can remove the call ignoreOnGlobalFilter for the field ${this._column.field} because it's already ignored on global filter.`);
+    }
+
     this._column.filter.isGlobalFilterable = false;
     return this.that;
   }
@@ -111,11 +118,21 @@ export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T>> {
 
   public ignoreOnExport(): T {
     this._column.export.isExportable = false;
+    this._column.export.exportAs = SmzExportableContentType.NONE;
     return this.that;
   }
 
   public exportAs(type: SmzExportableContentType): T {
+
     this._column.export.exportAs = type;
+
+    if (type === SmzExportableContentType.NONE) {
+      this._column.export.isExportable = false;
+    }
+    else {
+      this._column.export.isExportable = true;
+    }
+
     return this.that;
   }
 
@@ -187,6 +204,8 @@ export class SmzCustomColumnBuilder extends SmzBaseColumnBuilder<SmzCustomColumn
     super(_table, _parent, SmzContentType.CUSTOM, SmzFilterType.TEXT, field, header, false, width);
 
     this._column.export.exportAs = SmzExportableContentType.NONE;
+    this._column.export.isExportable = false;
+    this._column.filter.isGlobalFilterable = false;
   }
 
   public setFilter(type: SmzFilterType): SmzCustomColumnBuilder {
@@ -199,6 +218,26 @@ export class SmzCustomColumnBuilder extends SmzBaseColumnBuilder<SmzCustomColumn
     return this;
   }
 
+  public setExportTransform(callback: (data: any, row: any, index: number) => any): SmzCustomColumnBuilder {
+
+    if (this._column.export.exportAs === SmzExportableContentType.NONE) {
+      throw new Error(`You need to setExportAs before setExportTransform for the field ${this._column.field}`);
+    }
+
+    this._column.export.dataCallback = callback;
+    return this;
+  }
+
+  public forceGlobalFilter(): SmzCustomColumnBuilder {
+
+    if (this._column.filter.isGlobalFilterable) {
+      throw Error(`You can remove the call forceGlobalFilter because the field ${this._column.field} is already on global filter.`);
+    }
+
+    this._column.filter.isGlobalFilterable = true;
+    return this;
+  }
+
 }
 
 export class SmzIconColumnBuilder extends SmzBaseColumnBuilder<SmzIconColumnBuilder> {
@@ -207,6 +246,8 @@ export class SmzIconColumnBuilder extends SmzBaseColumnBuilder<SmzIconColumnBuil
     super(_table, _parent, SmzContentType.ICON, SmzFilterType.NONE, field, header, false, width);
 
     this._column.export.exportAs = SmzExportableContentType.NONE;
+    this._column.export.isExportable = false;
+    this._column.filter.isGlobalFilterable = false;
   }
 
   public addIconConfiguration(icon: string, value: any, styleClass: string = null, tooltip: string = null): SmzIconColumnBuilder {
@@ -216,6 +257,26 @@ export class SmzIconColumnBuilder extends SmzBaseColumnBuilder<SmzIconColumnBuil
   }
   public setFilter(type: SmzFilterType): SmzIconColumnBuilder {
     this._column.filter.type = type;
+    return this;
+  }
+
+  public setExportTransform(callback: (data: any, row: any, index: number) => any): SmzIconColumnBuilder {
+
+    if (this._column.export.exportAs === SmzExportableContentType.NONE) {
+      throw new Error(`You need to setExportAs before setExportTransform for the field ${this._column.field}`);
+    }
+
+    this._column.export.dataCallback = callback;
+    return this;
+  }
+
+  public forceGlobalFilter(): SmzIconColumnBuilder {
+
+    if (this._column.filter.isGlobalFilterable) {
+      throw Error(`You can remove the call forceGlobalFilter because the field ${this._column.field} is already on global filter.`);
+    }
+
+    this._column.filter.isGlobalFilterable = true;
     return this;
   }
 
@@ -238,12 +299,24 @@ export class SmzDataTransformColumnBuilder extends SmzBaseColumnBuilder<SmzDataT
   }
 
   public setExportTransform(callback: (data: any, row: any, index: number) => any): SmzDataTransformColumnBuilder {
+
+    if (this._column.export.exportAs === SmzExportableContentType.NONE) {
+      throw new Error(`You need to setExportAs before setExportTransform for the field ${this._column.field}`);
+    }
+
     this._column.export.dataCallback = callback;
     return this;
   }
 
   public ignoreTransformOnExport(): SmzDataTransformColumnBuilder {
-    this._column.export.dataCallback = (data) => data == null ? '' : ObjectUtils.resolveFieldData(data, this._column.field);
+
+    if (this._column.export.exportAs === SmzExportableContentType.NONE) {
+      throw new Error(`You need to setExportAs before ignoreTransformOnExport for the field ${this._column.field}`);
+    }
+
+    this._column.export.dataCallback = (data, item, index) => {
+      return item == null ? '' : ObjectUtils.resolveFieldData(item, this._column.field);
+    };
     return this;
   }
 

@@ -515,22 +515,24 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
         .icon('isAutoTask', 'Disponibilidade')
           .addIconConfiguration('fas fa-lock', false, 'red-text', 'Tarefa com gerenciamento automático (edição parcialmente bloqueada)')
           .addIconConfiguration('fas fa-lock-open', true, 'green-text', 'Tarefa criada manualmente (edição permitida)')
-          .ignoreOnGlobalFilter()
-          .exportAs(SmzExportableContentType.BOOLEAN)
+          .exportAs(SmzExportableContentType.TEXT)
+          .setExportTransform(x => x ? 'Ok' : 'No')
           .columns
         .text('name', 'Name', '20em')
           .columns
         .custom('status', 'Status', '10em')
           .exportAs(SmzExportableContentType.TEXT)
+          .setExportTransform(x => x.name)
           .columns
         .text('country.name', 'Country')
           .setFilter(SmzFilterType.MULTI_SELECT)
           .columns
         .currency('price', 'Preço')
           .columns
-        .dataTransform('roles', 'Não exportável', (roles: SimpleNamedEntity[], row: any) => { return roles.map(x => x.name).join(', '); })
+        .dataTransform('roles', 'Permissões', (roles: SimpleNamedEntity[], row: any) => { return roles.map(x => x.name).join(', '); })
           .setFilter(SmzFilterType.MULTI_SELECT_ARRAY)
-          .ignoreOnExport()
+          .exportAs(SmzExportableContentType.TEXT)
+          .setExportTransform(x => x.length > 0 ? `Contém ${x.length} permissões` : `Nenhuma permissão`)
           .columns
         .table
       .build()

@@ -1,9 +1,15 @@
+export enum SmzExcelTypeDefinitions {
+  Table = 0,
+  Chart = 1,
+}
+
 export enum SmzExcelDataDefinitions {
   Text = 0,
   Number = 1,
   DateTime = 2,
   Boolean = 3,
-  TimeSpan = 4
+  TimeSpan = 4,
+  HyperLink = 5,
 }
 
 export enum SmzExcelFontDefinitions {

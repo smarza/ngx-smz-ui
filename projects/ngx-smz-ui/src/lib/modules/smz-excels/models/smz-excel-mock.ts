@@ -1,11 +1,10 @@
-import { SmzCreateExcelTable } from './smz-excel-table';
-import { SmzExcelColorDefinitions, SmzExcelDataDefinitions, SmzExcelFontDefinitions, SmzExcelSortOrderDefinitions, SmzExcelThemeDefinitions } from './smz-excel-definitions';
-import moment from 'moment';
+import { SmzExcelState } from './smz-excel-table';
+import { SmzExcelColorDefinitions, SmzExcelDataDefinitions, SmzExcelFontDefinitions, SmzExcelSortOrderDefinitions, SmzExcelThemeDefinitions, SmzExcelTypeDefinitions } from './smz-excel-definitions';
 
-export const SmzExcelMockData: SmzCreateExcelTable = {
+export const SmzExcelMockData: SmzExcelState = {
   workbookModel: {
     fileName: 'MyOutput',
-    title: 'Basniak\'s Awesome Table',
+    info: 'Basniak\'s Awesome Table',
     author: 'Basniak',
     company: 'Basniak\'s awesome library',
     comments: 'Awesome Excel Generation',
@@ -18,9 +17,11 @@ export const SmzExcelMockData: SmzCreateExcelTable = {
       rotationAngle: 45,
       fontSize: 80
     },
-    sheets: [
+    tables: [
       {
         name: 'Custom Spreadsheet Name',
+        sheetType: SmzExcelTypeDefinitions.Table,
+        tabIndex: 0,
         shouldSort: true,
         matchCase: false,
         ignoreBlanks: true,
@@ -38,7 +39,6 @@ export const SmzExcelMockData: SmzCreateExcelTable = {
           }
         },
         columns: [
-
           // TAG
           {
             data: ['string muito muito muito muito longa', 'b', 'c', 'd', 'e', 'string muito muito muito muito longa', 'b', 'c', 'd', 'e', 'string muito muito muito muito longa', 'b', 'c', 'd', 'e', 'string muito muito muito muito longa', 'b', 'c', 'd', 'e'],
@@ -93,6 +93,7 @@ export const SmzExcelMockData: SmzCreateExcelTable = {
           },
         ]
       }
-    ]
+    ],
+    charts: []
   }
 }

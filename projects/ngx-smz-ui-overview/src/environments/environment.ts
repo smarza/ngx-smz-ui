@@ -8,8 +8,8 @@ export const environment = {
   databaseCacheTimeout: 2,
   // serverUrl: 'https://lib.horizon-solutions.tk',
   // authenticationApi: 'https://lib.horizon-solutions.tk',
-  serverUrl: 'https://localhost:44339',
-  authenticationApi: 'https://localhost:44339',
+  serverUrl: 'http://localhost:44339',
+  authenticationApi: 'http://localhost:44339',
   applicationId: 'SMZ-UI-OVERVIEW'
 };
 
