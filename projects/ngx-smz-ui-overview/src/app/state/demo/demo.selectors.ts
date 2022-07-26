@@ -129,8 +129,14 @@ export class DemoFeatureSelectors {
       price: Math.floor(Math.random() * 1000) + 1,
       html: `<div class="grid grid-nogutter items-center justify-start gap-2">
         <i class="fab fa-angellist text-2xl text-primary-color"></i>
-        <div class="font-bold">${x.name}</div>
-      </div>`
+        <a class="font-bold" href="https://www.google.com.br" target="_blank">${x.name}</a>
+      </div>`,
+      htmls: `<div class="grid grid-nogutter items-center justify-start gap-2">
+      <i class="fab fa-angellist text-2xl text-primary-color"></i>
+      <a class="font-bold" href="https://www.google.com.br" target="_blank">1. Pesquisa ${x.name}</a>
+      <i class="fab fa-angellist text-2xl text-primary-color"></i>
+      <a class="font-bold" href="https://www.youtube.com.br" target="_blank">2. Vídeo ${x.name}</a>
+    </div>`
     }));
     return results;
   }

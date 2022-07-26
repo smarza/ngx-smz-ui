@@ -14,6 +14,7 @@ export enum SmzExportableContentType {
   NUMBER = 2,
   DATETIME = 3,
   BOOLEAN = 4,
+  HYPERLINK = 5
 
 }
 

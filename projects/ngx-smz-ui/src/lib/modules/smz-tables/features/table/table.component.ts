@@ -153,15 +153,15 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
 
     if (changes.items != null) {
 
-        setTimeout(() => {
-          if (this.table != null && this.table.onPageChange != null) {
-            // ATUALIZAR PAGINA ATUAL NO PAGINADOR DO PRIME
-            this.table.onPageChange(this.state.pagination.state);
+      setTimeout(() => {
+        if (this.table != null && this.table.onPageChange != null) {
+          // ATUALIZAR PAGINA ATUAL NO PAGINADOR DO PRIME
+          this.table.onPageChange(this.state.pagination.state);
 
-            // PROPAGAR ALTERAÇÕES
-            this.cdr.markForCheck();
-          }
-        }, 0);
+          // PROPAGAR ALTERAÇÕES
+          this.cdr.markForCheck();
+        }
+      }, 0);
 
     }
 
@@ -253,8 +253,8 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
     const visibleItems = table.filteredValue?.length > 0 ? table.filteredValue : items;
     const plainItems = cloneDeep(visibleItems).map((item, index) => (this.getExportableData(columns, item, index)));
 
-    console.log('columns', columns);
-    console.log('plainItems', plainItems);
+    // console.log('columns', columns);
+    // console.log('plainItems', plainItems);
 
     const data: SmzExcelState = new SmzExcelsBuilder()
       .setFilename(this.state.caption.title ?? '')
@@ -267,7 +267,7 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
         .endIf
       .sheet(this.state.caption.title)
         .table()
-          .headerStyles()
+          .headers()
             .setFont(SmzExcelFontDefinitions.Calibri)
             .setFontSize(14)
             .enableBold()
@@ -294,7 +294,7 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
                       .if(this.state.styles.columnsWidth?.maxWidth != null)
                         .setMaxWidthInPixels(this.state.styles.columnsWidth.maxWidth)
                         .endIf
-                    .column
+                      .column
 
                 case SmzExportableContentType.BOOLEAN:
 
@@ -303,7 +303,16 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
                       .if(this.state.styles.columnsWidth?.maxWidth != null)
                         .setMaxWidthInPixels(this.state.styles.columnsWidth.maxWidth)
                         .endIf
-                    .column
+                      .column
+
+                case SmzExportableContentType.HYPERLINK:
+
+                  return _
+                    .hyperlink(column.header, normalizedField)
+                      .if(this.state.styles.columnsWidth?.maxWidth != null)
+                        .setMaxWidthInPixels(this.state.styles.columnsWidth.maxWidth)
+                        .endIf
+                      .column
 
                 default:
                   return _;
@@ -322,7 +331,7 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
 
   private getExportableData(columns: SmzExportableColumn[], item: any, index: number): any {
 
-    console.log('######');
+    // console.log('######');
 
     const results = {};
 
@@ -339,19 +348,42 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
 
       switch (column.type) {
         case SmzExportableContentType.BOOLEAN:
-          console.log('BOOLEAN');
+          // console.log('BOOLEAN');
           results[normalizedField] = isBoolean(result) ? result : '';
           break;
         case SmzExportableContentType.TEXT:
-            console.log('TEXT');
-            results[normalizedField] = result?.toString() ?? '';
-            break;
+          // console.log('TEXT');
+          results[normalizedField] = result?.toString() ?? '';
+          break;
+        case SmzExportableContentType.HYPERLINK:
+          // console.log('HYPERLINK');
+
+          try {
+            const regex = /<a\s+(?:[^>]*?\s+)?href="([^"]*)"/gm;
+            const matches = [];
+            let match;
+
+            while (match = regex.exec((result as string).toString())) {
+              matches.push(match[1]);
+            }
+
+            if (matches.length > 0) {
+              results[normalizedField] = matches.join(';');
+            }
+            else {
+              results[normalizedField] = '';
+            }
+          } catch (error) {
+            console.warn(`Could not perform regex on the hyperlink ${column.field}`);
+          }
+
+          break;
         case SmzExportableContentType.NONE:
-          console.log('NONE');
+          // console.log('NONE');
           results[normalizedField] = '';
           break;
         default:
-          console.log('DEFAULT');
+          // console.log('DEFAULT');
           results[normalizedField] = result;
           break;
       }

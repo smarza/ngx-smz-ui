@@ -534,6 +534,12 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
           .exportAs(SmzExportableContentType.TEXT)
           .setExportTransform(x => x.length > 0 ? `Contém ${x.length} permissões` : `Nenhuma permissão`)
           .columns
+        .text('html', 'Link')
+          .exportAs(SmzExportableContentType.HYPERLINK)
+          .columns
+        .text('htmls', 'Links')
+          .exportAs(SmzExportableContentType.HYPERLINK)
+          .columns
         .table
       .build()
     }

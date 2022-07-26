@@ -20,7 +20,7 @@ export class SmzExcelsTablesBuilder {
     return new SmzExcelsTableColumnsBuilder(this, this._state);
   }
 
-  public headerStyles(): SmzExcelsStylesBuilder<SmzExcelsTablesBuilder> {
+  public headers(): SmzExcelsStylesBuilder<SmzExcelsTablesBuilder> {
     return new SmzExcelsStylesBuilder<SmzExcelsTablesBuilder>(this, this._state.header.style);
   }
 

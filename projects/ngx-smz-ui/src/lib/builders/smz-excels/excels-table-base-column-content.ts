@@ -94,3 +94,28 @@ export class SmzExcelsTableColumnBooleanBuilder extends SmzBuilderUtilities<SmzE
   }
 
 }
+
+export class SmzExcelsTableColumnHyperlinkBuilder extends SmzBuilderUtilities<SmzExcelsTableColumnHyperlinkBuilder> {
+  protected that = this;
+
+  constructor(protected _builder: SmzExcelsTableColumnsBuilder, protected _state: SmzExcelColumn) {
+    super();
+
+    this._state.dataType = SmzExcelDataDefinitions.HyperLink;
+  }
+
+  public setMaxWidthInPixels(maxWidth: number, resolution: number = undefined): SmzExcelsTableColumnHyperlinkBuilder {
+    this._state.maxWidth = getWidthInPoints(maxWidth, resolution);
+    return this.that;
+  }
+
+  public setMaxWidthInPoints(maxWidth: number): SmzExcelsTableColumnHyperlinkBuilder {
+    this._state.maxWidth = maxWidth;
+    return this.that;
+  }
+
+  public get column(): SmzExcelsTableColumnsBuilder {
+    return this._builder;
+  }
+
+}
