@@ -297,7 +297,6 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
         .icon('isAutoTask', 'Gerenciamento', '6em')
           .addIconConfiguration('fas fa-lock', true, 'red-text', 'Tarefa com gerenciamento automático (edição parcialmente bloqueada)')
           .addIconConfiguration('fas fa-lock-open', false, 'green-text', 'Tarefa criada manualmente (edição permitida)')
-          .ignoreOnGlobalFilter()
           .columns
         .table
       .build()
