@@ -1,7 +1,7 @@
 import { cloneDeep } from 'lodash-es';
 import { ObjectUtils } from 'primeng/utils';
 import { SmzExcelDataDefinitions, SmzExcelFontDefinitions, SmzExcelSortOrderDefinitions } from '../../modules/smz-excels/models/smz-excel-definitions';
-import { SmzExcelColumn, SmzExcelTableSheet } from '../../modules/smz-excels/models/smz-excel-table';
+import { SmzExcelColumn, SmzExcelState, SmzExcelTableSheet } from '../../modules/smz-excels/models/smz-excel-table';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzExcelsTableColumnBooleanBuilder, SmzExcelsTableColumnHyperlinkBuilder, SmzExcelsTableColumnNumberBuilder, SmzExcelsTableColumnTextBuilder } from './excels-table-base-column-content';
 import { SmzExcelsTablesBuilder } from './excels-tables';
@@ -23,7 +23,7 @@ export class SmzExcelsTableColumnsBuilder extends SmzBuilderUtilities<SmzExcelsT
     maxWidth: undefined
   };
 
-  constructor(private _builder: SmzExcelsTablesBuilder, private _state: SmzExcelTableSheet) {
+  constructor(private _builder: SmzExcelsTablesBuilder, private _: SmzExcelState, private _state: SmzExcelTableSheet) {
     super();
   }
 
@@ -90,14 +90,28 @@ export class SmzExcelsTableColumnsBuilder extends SmzBuilderUtilities<SmzExcelsT
   public setData(items: any[]): SmzExcelsTableColumnsBuilder
   {
 
+    if (this._.isDebug) {
+      console.log('SmzExcelsTableColumnsBuilder > setData');
+      console.log('items', items);
+      console.log('_dataProperties', this._dataProperties);
+      console.log('this', this);
+    }
+
     if (this._dataProperties.length === 0) {
       throw new Error(`Excel Builder => You need to set at least one column before set the data.`);
     }
 
-    this._dataProperties.forEach((propertyPath, index) => {
-      this._state.columns[index].data = items
-        .map(x => ObjectUtils.resolveFieldData(x, propertyPath)?.toString() ?? '')
-    });
+    try {
+      this._dataProperties.forEach((propertyPath, index) => {
+        this._state.columns[index].data = items
+          .map(x => ObjectUtils.resolveFieldData(x, propertyPath)?.toString() ?? '')
+      });
+    } catch (error) {
+      console.warn(`Can't resolve all items on SmzExcelsTableColumnsBuilder.setData()`, error);
+      console.log('items', items);
+      console.log('_dataProperties', this._dataProperties);
+      console.log('this', this);
+    }
 
     return this;
   }

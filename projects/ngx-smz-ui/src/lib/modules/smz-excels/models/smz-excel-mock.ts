@@ -2,6 +2,7 @@ import { SmzExcelState } from './smz-excel-table';
 import { SmzExcelColorDefinitions, SmzExcelDataDefinitions, SmzExcelFontDefinitions, SmzExcelSortOrderDefinitions, SmzExcelThemeDefinitions, SmzExcelTypeDefinitions } from './smz-excel-definitions';
 
 export const SmzExcelMockData: SmzExcelState = {
+  isDebug: true,
   workbookModel: {
     fileName: 'MyOutput',
     info: 'Basniak\'s Awesome Table',

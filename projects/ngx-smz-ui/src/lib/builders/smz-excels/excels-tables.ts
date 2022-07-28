@@ -1,5 +1,5 @@
 import { SmzExcelThemeDefinitions } from '../../modules/smz-excels/models/smz-excel-definitions';
-import { SmzExcelTableSheet } from '../../modules/smz-excels/models/smz-excel-table';
+import { SmzExcelState, SmzExcelTableSheet } from '../../modules/smz-excels/models/smz-excel-table';
 import { SmzExcelsSheetsBuilder } from './excels-sheets';
 import { SmzExcelsStylesBuilder } from './excels-styles';
 import { SmzExcelsTableColumnsBuilder } from './excels-table-columns';
@@ -7,7 +7,7 @@ import { SmzExcelsTableColumnsBuilder } from './excels-table-columns';
 export class SmzExcelsTablesBuilder {
 
 
-  constructor(private _builder: SmzExcelsSheetsBuilder, private _state: SmzExcelTableSheet) {
+  constructor(private _builder: SmzExcelsSheetsBuilder, private _: SmzExcelState, private _state: SmzExcelTableSheet) {
 
   }
 
@@ -17,7 +17,7 @@ export class SmzExcelsTablesBuilder {
   }
 
   public columns(): SmzExcelsTableColumnsBuilder {
-    return new SmzExcelsTableColumnsBuilder(this, this._state);
+    return new SmzExcelsTableColumnsBuilder(this, this._, this._state);
   }
 
   public headers(): SmzExcelsStylesBuilder<SmzExcelsTablesBuilder> {

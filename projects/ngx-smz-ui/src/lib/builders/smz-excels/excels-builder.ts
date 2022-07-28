@@ -7,6 +7,7 @@ import { SmzExcelsSheetsBuilder } from './excels-sheets';
 export class SmzExcelsBuilder extends SmzBuilderUtilities<SmzExcelsBuilder> {
   protected that = this;
   public _state: SmzExcelState = {
+    isDebug: false,
     workbookModel: {
       fileName: 'excel',
       info: '',
@@ -90,10 +91,22 @@ export class SmzExcelsBuilder extends SmzBuilderUtilities<SmzExcelsBuilder> {
 
     this._state.workbookModel.tables.push(sheet);
 
-    return new SmzExcelsSheetsBuilder(this, sheet);
+    return new SmzExcelsSheetsBuilder(this, this._state, sheet);
+  }
+
+  public debugMode(): SmzExcelsBuilder {
+    this._state.isDebug = true;
+    return this;
   }
 
   public build(): SmzExcelState {
+
+    if (this._state.isDebug) {
+      console.log('SmzExcelState > build');
+      console.log('state', this._state);
+      console.log('this', this);
+    }
+
     return this._state;
   }
 }

@@ -259,6 +259,9 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
     const data: SmzExcelState = new SmzExcelsBuilder()
       .setFilename(this.state.caption.title ?? '')
       .setAuthor(username)
+      .if(this.state.isDebug)
+        .debugMode()
+        .endIf
       .if(this.layoutConfig.appName != null)
         .setCompany(this.layoutConfig.appName)
         .endIf
