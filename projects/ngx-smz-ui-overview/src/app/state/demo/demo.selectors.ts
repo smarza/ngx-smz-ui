@@ -7,7 +7,7 @@ import { RouterParamsState, RouterParamsStateModel } from 'ngx-smz-ui';
 import { HOME_PATH } from '@routes';
 import { FontAwesomeMigrations } from '../../demos/data/icons/fontawesome-migration';
 import { SpecialIcons } from '../../demos/data/icons/especial-icons';
-import { uniqBy } from 'lodash-es';
+import { cloneDeep, uniqBy } from 'lodash-es';
 
 export class DemoFeatureSelectors {
 
@@ -138,7 +138,14 @@ export class DemoFeatureSelectors {
       <a class="font-bold" href="https://www.youtube.com.br" target="_blank">2. Vídeo ${x.name}</a>
     </div>`
     }));
-    return results;
+
+    const finalResults = [];
+
+    for (let index = 0; index < 9300; index++) {
+      finalResults.push(...cloneDeep(results));
+    }
+
+    return finalResults;
   }
 
 }

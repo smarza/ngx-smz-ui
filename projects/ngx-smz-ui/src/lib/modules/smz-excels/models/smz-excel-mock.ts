@@ -3,6 +3,7 @@ import { SmzExcelColorDefinitions, SmzExcelDataDefinitions, SmzExcelFontDefiniti
 
 export const SmzExcelMockData: SmzExcelState = {
   isDebug: true,
+  isRequestLimitExceeded: false,
   workbookModel: {
     fileName: 'MyOutput',
     info: 'Basniak\'s Awesome Table',

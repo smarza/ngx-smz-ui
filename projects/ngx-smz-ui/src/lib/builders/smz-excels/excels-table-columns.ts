@@ -3,7 +3,7 @@ import { ObjectUtils } from 'primeng/utils';
 import { SmzExcelDataDefinitions, SmzExcelFontDefinitions, SmzExcelSortOrderDefinitions } from '../../modules/smz-excels/models/smz-excel-definitions';
 import { SmzExcelColumn, SmzExcelState, SmzExcelTableSheet } from '../../modules/smz-excels/models/smz-excel-table';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
-import { SmzExcelsTableColumnBooleanBuilder, SmzExcelsTableColumnHyperlinkBuilder, SmzExcelsTableColumnNumberBuilder, SmzExcelsTableColumnTextBuilder } from './excels-table-base-column-content';
+import { SmzExcelsTableColumnAutoDetectBuilder, SmzExcelsTableColumnBooleanBuilder, SmzExcelsTableColumnHyperlinkBuilder, SmzExcelsTableColumnNumberBuilder, SmzExcelsTableColumnTextBuilder } from './excels-table-base-column-content';
 import { SmzExcelsTablesBuilder } from './excels-tables';
 
 export class SmzExcelsTableColumnsBuilder extends SmzBuilderUtilities<SmzExcelsTableColumnsBuilder> {
@@ -26,6 +26,22 @@ export class SmzExcelsTableColumnsBuilder extends SmzBuilderUtilities<SmzExcelsT
   constructor(private _builder: SmzExcelsTablesBuilder, private _: SmzExcelState, private _state: SmzExcelTableSheet) {
     super();
   }
+
+  public auto(header: string, dataPropertyPath: string, sort?: SmzExcelSortOrderDefinitions): SmzExcelsTableColumnAutoDetectBuilder {
+
+    this._state.header.data.push(header);
+    this._dataProperties.push(dataPropertyPath);
+
+    const column: SmzExcelColumn = { ...cloneDeep(this.defaultColumn) };
+
+    if (sort != null)
+      this._sort(sort);
+
+    this._state.columns.push(column);
+
+    return new SmzExcelsTableColumnAutoDetectBuilder(this, column);
+  }
+
 
   public text(header: string, dataPropertyPath: string, sort?: SmzExcelSortOrderDefinitions): SmzExcelsTableColumnTextBuilder {
 

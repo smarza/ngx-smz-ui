@@ -497,12 +497,13 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
     items$: store.select(DemoFeatureSelectors.excelDemo),
     code: () => {
     return new SmzTableBuilder()
+      // .debugMode()
       .setTitle('Export to Excel Demo')
       .enableGlobalFilter()
       .enableColumnVisibility()
       .useTableEmptyMessage()
       .usePagination()
-      .setPaginationDefaultRows(10)
+      .setPaginationDefaultRows(2)
       .setCustomInitialSorting({ field: 'number', order: -1 })
       .useStrippedStyle()
       .enableExportToExcel()
@@ -537,7 +538,7 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
           .exportAs(SmzExportableContentType.HYPERLINK)
           .columns
         .text('htmls', 'Links')
-          .exportAs(SmzExportableContentType.HYPERLINK)
+          .exportAs(SmzExportableContentType.AUTODETECT)
           .columns
         .table
       .build()

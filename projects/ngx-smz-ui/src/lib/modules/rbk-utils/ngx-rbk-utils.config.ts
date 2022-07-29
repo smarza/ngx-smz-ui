@@ -12,7 +12,8 @@ export class NgxRbkUtilsConfig {
         url: string;
     };
     public excels?: {
-        url: string;
+        url?: string;
+        requestLimit?: number;
     };
     public notifications: {
         url: string;

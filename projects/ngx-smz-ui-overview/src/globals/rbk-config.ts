@@ -48,6 +48,9 @@ export const rbkConfig: NgxRbkUtilsConfig = {
         // url: `${environment.serverUrl}/api/diagnostics`
         url: null
     },
+    excels: {
+        requestLimit: 30000000
+    },
     notifications: {
         url: null
     },

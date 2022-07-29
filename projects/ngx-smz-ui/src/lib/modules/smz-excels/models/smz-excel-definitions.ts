@@ -10,6 +10,7 @@ export enum SmzExcelDataDefinitions {
   Boolean = 3,
   TimeSpan = 4,
   HyperLink = 5,
+  AutoDetect = 6
 }
 
 export enum SmzExcelFontDefinitions {

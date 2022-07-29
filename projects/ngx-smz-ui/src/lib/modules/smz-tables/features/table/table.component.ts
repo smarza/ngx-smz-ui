@@ -23,6 +23,7 @@ import { SmzExcelFontDefinitions, SmzExcelThemeDefinitions } from '../../../smz-
 import { ObjectUtils } from 'primeng/utils';
 import { SmzLayoutsConfig } from '../../../smz-layouts/core/globals/smz-layouts.config';
 import { isBoolean } from 'lodash-es';
+import { ApplicationActions } from '../../../../state/global/application/application.actions';
 
 @Component({
   selector: 'smz-ui-table',
@@ -239,97 +240,111 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
 
   public exportToExcel(table: Table, context: SmzTableContext, items: any[]): void {
 
-    const username = this.store.selectSnapshot(AuthenticationSelectors.username);
+    this.store.dispatch(new ApplicationActions.StartGlobalLoading());
 
-    const columns = context.visibleColumns
-      .filter(x => x.export.isExportable)
-      .map(x => ({
-        field: x.field,
-        header: x.header,
-        callback: x.export.dataCallback,
-        type: x.export.exportAs
-      }));
+    setTimeout(() => {
 
-    const visibleItems = table.filteredValue?.length > 0 ? table.filteredValue : items;
-    const plainItems = cloneDeep(visibleItems).map((item, index) => (this.getExportableData(columns, item, index)));
+      const username = this.store.selectSnapshot(AuthenticationSelectors.username);
 
-    // console.log('columns', columns);
-    // console.log('plainItems', plainItems);
+      const columns = context.visibleColumns
+        .filter(x => x.export.isExportable)
+        .map(x => ({
+          field: x.field,
+          header: x.header,
+          callback: x.export.dataCallback,
+          type: x.export.exportAs
+        }));
 
-    const data: SmzExcelState = new SmzExcelsBuilder()
-      .setFilename(this.state.caption.title ?? '')
-      .setAuthor(username)
-      .if(this.state.isDebug)
-        .debugMode()
-        .endIf
-      .if(this.layoutConfig.appName != null)
-        .setCompany(this.layoutConfig.appName)
-        .endIf
-      .if(this.layoutConfig.footer?.leftSideText != null)
-        .setComments(this.layoutConfig.footer?.leftSideText)
-        .endIf
-      .sheet(this.state.caption.title)
-        .table()
-          .headers()
-            .setFont(SmzExcelFontDefinitions.Calibri)
-            .setFontSize(14)
-            .enableBold()
-            .apply
-          .setTheme(SmzExcelThemeDefinitions.TableStyleLight20)
-          .columns()
-            .for(columns, (_, column: SmzExportableColumn) => {
+      const visibleItems = table.filteredValue?.length > 0 ? table.filteredValue : items;
+      const plainItems = cloneDeep(visibleItems).map((item, index) => (this.getExportableData(columns, item, index)));
 
-              const normalizedField = column.field.replace(/\.+/g, '');
+      // console.log('columns', columns);
+      // console.log('plainItems', plainItems);
 
-              switch (column.type) {
-                case SmzExportableContentType.TEXT:
-                  return _
-                    .text(column.header, normalizedField)
-                      .if(this.state.styles.columnsWidth?.maxWidth != null)
-                        .setMaxWidthInPixels(this.state.styles.columnsWidth.maxWidth)
-                        .endIf
-                      .column
+      const data: SmzExcelState = new SmzExcelsBuilder()
+        .setFilename(this.state.caption.title ?? '')
+        .setAuthor(username)
+        .if(this.state.isDebug)
+          .debugMode()
+          .endIf
+        .if(this.layoutConfig.appName != null)
+          .setCompany(this.layoutConfig.appName)
+          .endIf
+        .if(this.layoutConfig.footer?.leftSideText != null)
+          .setComments(this.layoutConfig.footer?.leftSideText)
+          .endIf
+        .sheet(this.state.caption.title)
+          .table()
+            .headers()
+              .setFont(SmzExcelFontDefinitions.Calibri)
+              .setFontSize(14)
+              .enableBold()
+              .apply
+            .setTheme(SmzExcelThemeDefinitions.TableStyleLight20)
+            .columns()
+              .for(columns, (_, column: SmzExportableColumn) => {
 
-                case SmzExportableContentType.NUMBER:
+                const normalizedField = column.field.replace(/\.+/g, '');
 
-                  return _
-                    .number(column.header, normalizedField)
-                      .if(this.state.styles.columnsWidth?.maxWidth != null)
-                        .setMaxWidthInPixels(this.state.styles.columnsWidth.maxWidth)
-                        .endIf
-                      .column
+                switch (column.type) {
+                  case SmzExportableContentType.AUTODETECT:
+                    return _
+                      .auto(column.header, normalizedField)
+                        .if(this.state.styles.columnsWidth?.maxWidth != null)
+                          .setMaxWidthInPixels(this.state.styles.columnsWidth.maxWidth)
+                          .endIf
+                        .column
 
-                case SmzExportableContentType.BOOLEAN:
+                  case SmzExportableContentType.TEXT:
+                    return _
+                      .text(column.header, normalizedField)
+                        .if(this.state.styles.columnsWidth?.maxWidth != null)
+                          .setMaxWidthInPixels(this.state.styles.columnsWidth.maxWidth)
+                          .endIf
+                        .column
 
-                  return _
-                    .boolean(column.header, normalizedField)
-                      .if(this.state.styles.columnsWidth?.maxWidth != null)
-                        .setMaxWidthInPixels(this.state.styles.columnsWidth.maxWidth)
-                        .endIf
-                      .column
+                  case SmzExportableContentType.NUMBER:
 
-                case SmzExportableContentType.HYPERLINK:
+                    return _
+                      .number(column.header, normalizedField)
+                        .if(this.state.styles.columnsWidth?.maxWidth != null)
+                          .setMaxWidthInPixels(this.state.styles.columnsWidth.maxWidth)
+                          .endIf
+                        .column
 
-                  return _
-                    .hyperlink(column.header, normalizedField)
-                      .if(this.state.styles.columnsWidth?.maxWidth != null)
-                        .setMaxWidthInPixels(this.state.styles.columnsWidth.maxWidth)
-                        .endIf
-                      .column
+                  case SmzExportableContentType.BOOLEAN:
 
-                default:
-                  return _;
-              }
+                    return _
+                      .boolean(column.header, normalizedField)
+                        .if(this.state.styles.columnsWidth?.maxWidth != null)
+                          .setMaxWidthInPixels(this.state.styles.columnsWidth.maxWidth)
+                          .endIf
+                        .column
 
-            })
-            .setData(plainItems)
-            .table
-          .sheets
-        .excels
-      .build();
+                  case SmzExportableContentType.HYPERLINK:
 
-    this.smzExcelService.generate(data);
+                    return _
+                      .hyperlink(column.header, normalizedField)
+                        .if(this.state.styles.columnsWidth?.maxWidth != null)
+                          .setMaxWidthInPixels(this.state.styles.columnsWidth.maxWidth)
+                          .endIf
+                        .column
 
+                  default:
+                    return _;
+                }
+
+              })
+              .setData(plainItems)
+              .table
+            .sheets
+          .excels
+        .build();
+
+      this.store.dispatch(new ApplicationActions.StopGlobalLoading());
+
+      this.smzExcelService.generate(data);
+    }, 200);
   }
 
   private getExportableData(columns: SmzExportableColumn[], item: any, index: number): any {

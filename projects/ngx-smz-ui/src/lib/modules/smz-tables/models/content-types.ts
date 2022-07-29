@@ -14,7 +14,8 @@ export enum SmzExportableContentType {
   NUMBER = 2,
   DATETIME = 3,
   BOOLEAN = 4,
-  HYPERLINK = 5
+  HYPERLINK = 5,
+  AUTODETECT = 6
 
 }
 
@@ -31,11 +32,6 @@ export enum SmzContentType {
   CURRENCY = 4,
   DATA_TRANSFORM = 5
 }
-
-export const FromControlTypeToContentType = [
- { from: SmzControlType.TEXT, to: SmzContentType.TEXT },
- { from: SmzControlType.DROPDOWN, to: SmzContentType.TEXT },
-];
 
 export interface SmzTextContent {
 

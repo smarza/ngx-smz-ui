@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { State, Action, StateContext } from '@ngxs/store';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { downloadBase64File } from '../../../common/utils/utils';
 import { NgxRbkUtilsConfig } from '../../../modules/rbk-utils/ngx-rbk-utils.config';
@@ -32,17 +32,28 @@ export class ExcelsUiState
     @Action(ExcelsUiActions.GenerateTable)
     public onCreate$(ctx: StateContext<ExcelsUiStateModel>, action: ExcelsUiActions.GenerateTable): Observable<SmzExcelsDetails>
     {
-        return this.apiService.generateTables(action.data).pipe(
-            tap((result: SmzExcelsDetails) =>
-            {
-                if (action.downloadAfter) {
-                    downloadBase64File(result.file, result.fileName, result.fileExtension);
-                }
 
-                ctx.dispatch(new ExcelsUiActions.GenerateTableSuccess(result));
-                ctx.dispatch(new ToastActions.Success('Excel criado com sucesso'));
-            })
-        );
+        if (action.data.isRequestLimitExceeded) {
+            ctx.dispatch(new ExcelsUiActions.GenerateTableSuccess(null));
+            ctx.dispatch(new ToastActions.Warning('Não foi possível gerar o excel pois ultrapassou o limite de tamanho.'));
+            return of();
+        }
+        else {
+            return this.apiService.generateTables(action.data).pipe(
+                tap((result: SmzExcelsDetails) =>
+                {
+                    if (action.downloadAfter) {
+                        downloadBase64File(result.file, result.fileName, result.fileExtension);
+                    }
+                    else {
+                        ctx.dispatch(new ExcelsUiActions.GenerateTableSuccess(result));
+                    }
+
+                    ctx.dispatch(new ToastActions.Success('Excel gerado com sucesso.'));
+                })
+            );
+        }
+
 
     }
 

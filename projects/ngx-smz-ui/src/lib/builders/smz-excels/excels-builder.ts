@@ -1,3 +1,6 @@
+import { Store } from '@ngxs/store';
+import { GlobalInjector } from '../../common/services/global-injector';
+import { NgxRbkUtilsConfig } from '../../modules/rbk-utils/ngx-rbk-utils.config';
 import { SmzExcelColorDefinitions, SmzExcelFontDefinitions, SmzExcelSortOrderDefinitions, SmzExcelThemeDefinitions, SmzExcelTypeDefinitions } from '../../modules/smz-excels/models/smz-excel-definitions';
 import { SmzExcelState, SmzExcelTableSheet } from '../../modules/smz-excels/models/smz-excel-table';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
@@ -6,8 +9,10 @@ import { SmzExcelsSheetsBuilder } from './excels-sheets';
 
 export class SmzExcelsBuilder extends SmzBuilderUtilities<SmzExcelsBuilder> {
   protected that = this;
+  private defaultConfig = GlobalInjector.instance.get(NgxRbkUtilsConfig);
   public _state: SmzExcelState = {
     isDebug: false,
+    isRequestLimitExceeded: false,
     workbookModel: {
       fileName: 'excel',
       info: '',
@@ -101,10 +106,25 @@ export class SmzExcelsBuilder extends SmzBuilderUtilities<SmzExcelsBuilder> {
 
   public build(): SmzExcelState {
 
+    const size = new TextEncoder().encode(JSON.stringify(this._state)).length;
+
     if (this._state.isDebug) {
       console.log('SmzExcelState > build');
       console.log('state', this._state);
       console.log('this', this);
+
+      const kiloBytes = size / 1024;
+      const megaBytes = kiloBytes / 1024;
+
+      console.log(`Size: ${size}`);
+      console.log(`-> KiloBytes: ${kiloBytes}`);
+      console.log(`-> MegaBytes: ${megaBytes}`);
+    }
+
+    const requestLimit = this.defaultConfig.excels?.requestLimit ?? 30000000;
+
+    if (size > requestLimit) {
+      this._state.isRequestLimitExceeded = true;
     }
 
     return this._state;

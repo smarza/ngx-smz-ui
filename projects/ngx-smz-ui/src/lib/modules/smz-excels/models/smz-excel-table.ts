@@ -7,6 +7,7 @@ export interface SmzExcelsDetails {
 }
 
 export interface SmzExcelState {
+  isRequestLimitExceeded: boolean;
   isDebug: boolean;
   workbookModel: SmzExcelWorkbook;
 }
