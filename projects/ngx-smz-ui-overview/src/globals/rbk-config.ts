@@ -49,7 +49,7 @@ export const rbkConfig: NgxRbkUtilsConfig = {
         url: null
     },
     excels: {
-        requestLimit: 30000000
+        requestLimit: 4294967295
     },
     notifications: {
         url: null

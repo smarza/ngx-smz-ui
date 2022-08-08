@@ -143,10 +143,21 @@ export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T>> {
 
   public get columns(): SmzColumnCollectionBuilder {
 
-    const columnsWithSameNameCount = this._table._state.columns.filter(x => x.header == this._column.header).length;
 
-    if (columnsWithSameNameCount > 1) {
-      throw Error(`You can´t set more than one column with the same name. ${this._column.header}`);
+    if (this._table._state.caption.exportToExcel.isButtonVisible) {
+
+      const columnsWithSameNameCount = this._table._state.columns.filter(x => x.header == this._column.header).length;
+
+      if (columnsWithSameNameCount > 1) {
+        throw Error(`You can´t set more than one column with the same header name. ${this._column.header}`);
+      }
+
+    }
+
+    const columnsWithSameFieldNameCount = this._table._state.columns.filter(x => x.field == this._column.field).length;
+
+    if (columnsWithSameFieldNameCount > 1) {
+      throw Error(`You can´t set more than one column with the same field name. ${this._column.field}`);
     }
 
     return this._parent;
@@ -210,6 +221,11 @@ export class SmzCustomColumnBuilder extends SmzBaseColumnBuilder<SmzCustomColumn
 
   public setFilter(type: SmzFilterType): SmzCustomColumnBuilder {
     this._column.filter.type = type;
+
+    if (type === SmzFilterType.TEXT) {
+      this._column.filter.isGlobalFilterable = true;
+    }
+
     return this;
   }
 

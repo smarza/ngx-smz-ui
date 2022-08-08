@@ -141,7 +141,7 @@ export class DemoFeatureSelectors {
 
     const finalResults = [];
 
-    for (let index = 0; index < 9300; index++) {
+    for (let index = 0; index < 5; index++) {
       finalResults.push(...cloneDeep(results));
     }
 

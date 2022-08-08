@@ -416,7 +416,7 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
           .text('plant', 'plant', 'auto').columns
           .text('area', 'area', 'auto').columns
           .text('unit', 'unit', 'auto').columns
-          .text('status', 'status', 'auto').columns
+          .text('status.name', 'status', 'auto').columns
           .text('service', 'service', 'auto').columns
           .text('description', 'description', 'auto').columns
           .text('location', 'location', 'auto').columns
@@ -497,7 +497,7 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
     items$: store.select(DemoFeatureSelectors.excelDemo),
     code: () => {
     return new SmzTableBuilder()
-      // .debugMode()
+      .debugMode()
       .setTitle('Export to Excel Demo')
       .enableGlobalFilter()
       .enableColumnVisibility()
@@ -520,7 +520,8 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
           .columns
         .text('name', 'Name', '20em')
           .columns
-        .custom('status', 'Status', '10em')
+        .custom('status.name', 'Status', '10em')
+          .setFilter(SmzFilterType.TEXT)
           .exportAs(SmzExportableContentType.TEXT)
           .setExportTransform(x => x.name)
           .columns

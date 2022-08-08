@@ -18,7 +18,7 @@ import { Observable } from 'rxjs';
 
     <ng-container [ngSwitch]="col.field">
 
-      <ng-container *ngSwitchCase="'status'">
+      <ng-container *ngSwitchCase="'status.name'">
         <div class="px-3 py-1 text-sm text-slate-800 rounded text-center" [ngClass]="item.status.background"><strong>{{ item.status.name }}</strong></div>
       </ng-container>
 
