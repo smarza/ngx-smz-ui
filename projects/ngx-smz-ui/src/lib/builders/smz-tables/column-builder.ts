@@ -212,7 +212,7 @@ export class SmzTextColumnBuilder extends SmzBaseColumnBuilder<SmzTextColumnBuil
 export class SmzCustomColumnBuilder extends SmzBaseColumnBuilder<SmzCustomColumnBuilder> {
   protected that = this;
   constructor(protected _table: SmzTableBuilder, protected _parent: SmzColumnCollectionBuilder, field: string, header: string, width: string = 'auto') {
-    super(_table, _parent, SmzContentType.CUSTOM, SmzFilterType.TEXT, field, header, false, width);
+    super(_table, _parent, SmzContentType.CUSTOM, SmzFilterType.NONE, field, header, false, width);
 
     this._column.export.exportAs = SmzExportableContentType.NONE;
     this._column.export.isExportable = false;
