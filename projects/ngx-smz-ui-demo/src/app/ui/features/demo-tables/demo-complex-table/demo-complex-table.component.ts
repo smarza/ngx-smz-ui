@@ -65,7 +65,10 @@ export class DemoComplexTableComponent implements OnInit {
               isFrozen,
               content: { type: SmzContentType.TEXT, data: null, styleClass: '', ngStyle: {} },
               width: 'fit',
-              headerStyleClass: ''
+              headerStyleClass: '',
+              export: {
+                isExportable: false
+              }
             });
           console.log(key, columns[columns.length - 1]);
         }

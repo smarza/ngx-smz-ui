@@ -34,11 +34,11 @@ export class SvgComponent implements OnInit, AfterViewInit {
           const [ width, height ] = [ 700, 700 ];
 
           const stateBuilder: SmzSvgBuilder = new SmzSvgBuilder()
-            .debugMode()
+            // .debugMode()
             .setContainerStyles('absolute inset-0 overflow-hidden bg-sky-500 cursor-move')
             .useMouseZoom(1, 40, 0.1)
             .usePan()
-            .setInitialScopes(['mark'])
+            .setInitialScopes(['mark', 'GHOST'])
             .executeAfterInit(() => {
               // this.state.dispatch.setScopes.next(['GHOST']);
 
@@ -83,50 +83,50 @@ export class SvgComponent implements OnInit, AfterViewInit {
 
                 })
                 .feature
-              .pin(markSvgData, 10)
+              .pin(markSvgData, 100)
                 .addScope('mark')
                 .setColor('red')
                 .setPosition(800, 400)
                 .setAnchor('container')
               .feature
-              .pin(markSvgData, 10)
+              .pin(markSvgData, 20)
                 .addScope('mark')
                 .setColor('yellow')
                 .setPosition(800, 400)
                 .setAnchor('root')
               .feature
-              // .for(this.makeGhostPin(1), (_, item: SmzSvgPin) =>
-              //   _
-              //   .pin(item.svgData, item.width)
-              //     .addScope('GHOST')
-              //     .setColor(item.color)
-              //     .setPosition(item.position.x, item.position.y)
-              //     .setAnchor(item.anchor)
-              //     .useTooltip(item.tooltip.data)
-              //     .useAdaptative(item.adaptative.minWidth, item.adaptative.maxWidth)
-              //     .setData(item)
-              //     .feature
-              //   )
-                // .pin(locationPin, 20)
-                //   .addScope('A')
-                //   .addScope('B')
-                //   .setColor('#FFEB3B')
-                //   .setPosition(0, 0)
-                //   .setAnchor('root')
-                //   .useTooltip('Este é o pin do canto superior esquerdo')
-                //   .useAdaptative(5, 50)
-                //   .feature
-                // .pin(locationPin, 20)
-                //   .addScope('A')
-                //   .addScope('C')
-                //   .setColor('red')
-                //   // .setFocus('onClick')
-                //   // .setFocusApproximation(0.2)
-                //   .setPosition(width / 2, height / 2)
-                //   .setAnchor('root')
-                //   .useTooltip('Este é o pin central')
-                //   .useAdaptative(5, 50)
-                //   .feature
+              .for(this.makeGhostPin(5), (_, item: SmzSvgPin) =>
+                _
+                .pin(item.svgData, item.width)
+                  .addScope('GHOST')
+                  .setColor(item.color)
+                  .setPosition(item.position.x, item.position.y)
+                  .setAnchor(item.anchor)
+                  .useTooltip(item.tooltip.data)
+                  .useAdaptative(item.adaptative.minWidth, item.adaptative.maxWidth)
+                  .setData(item)
+                  .feature
+                )
+                .pin(locationPin, 20)
+                  .addScope('A')
+                  .addScope('B')
+                  .setColor('#FFEB3B')
+                  .setPosition(0, 0)
+                  .setAnchor('root')
+                  .useTooltip('Este é o pin do canto superior esquerdo')
+                  .useAdaptative(5, 50)
+                  .feature
+                .pin(locationPin, 20)
+                  .addScope('A')
+                  .addScope('C')
+                  .setColor('red')
+                  // .setFocus('onClick')
+                  // .setFocusApproximation(0.2)
+                  .setPosition(width / 2, height / 2)
+                  .setAnchor('root')
+                  .useTooltip('Este é o pin central')
+                  .useAdaptative(5, 50)
+                  .feature
               .svg
 
           this.state = stateBuilder.build();
@@ -168,6 +168,7 @@ export class SvgComponent implements OnInit, AfterViewInit {
     const results: SmzSvgPin[] = [];
 
     for (let i = 0; i < count; i++) {
+      const width = Math.floor(Math.random() * 100) + 1;
       const x = Math.floor(Math.random() * 1000) + 1;
       const y = Math.floor(Math.random() * 1000) + 1;
       const id = `4506f82f-6408-4dae-7af0-08da5ddc8b1d${i}`;
@@ -182,8 +183,8 @@ export class SvgComponent implements OnInit, AfterViewInit {
         color: `#${Math.floor(Math.random() * 16777215).toString(16)}`,
         position: { x, y },
         anchor: 'container',
-        width: 20,
-        adaptative: { enabled: true, minWidth: 10, maxWidth: 50 },
+        width,
+        adaptative: { enabled: true, minWidth: 0, maxWidth: 100 },
         tooltip: { enabled: true, data: `Conteúdo para pin: ${id}` },
         transform: null,
         stroke: null,

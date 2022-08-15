@@ -324,7 +324,10 @@ export class DemoTablesComponent implements OnInit {
             type: SmzFilterType.BOOLEAN,
             isGlobalFilterable: false
           },
-          headerStyleClass: ''
+          headerStyleClass: '',
+          export: {
+            isExportable: false
+          }
         },
         {
           field: 'number',
@@ -342,7 +345,10 @@ export class DemoTablesComponent implements OnInit {
             type: SmzFilterType.TEXT,
             isGlobalFilterable: true
           },
-          headerStyleClass: ''
+          headerStyleClass: '',
+          export: {
+            isExportable: false
+          }
         },
         {
           field: 'plant.name',
@@ -360,7 +366,10 @@ export class DemoTablesComponent implements OnInit {
             type: SmzFilterType.DROPDOWN,
             isGlobalFilterable: true
           },
-          headerStyleClass: ''
+          headerStyleClass: '',
+          export: {
+            isExportable: false
+          }
         },
         {
           field: 'campaign.name',
@@ -377,7 +386,10 @@ export class DemoTablesComponent implements OnInit {
             type: SmzFilterType.MULTI_SELECT,
             isGlobalFilterable: true
           },
-          headerStyleClass: ''
+          headerStyleClass: '',
+          export: {
+            isExportable: false
+          }
         },
         {
           field: 'description',
@@ -394,7 +406,10 @@ export class DemoTablesComponent implements OnInit {
             type: SmzFilterType.NONE,
             isGlobalFilterable: true
           },
-          headerStyleClass: ''
+          headerStyleClass: '',
+          export: {
+            isExportable: false
+          }
         },
         {
           field: 'date',
@@ -413,7 +428,10 @@ export class DemoTablesComponent implements OnInit {
             type: SmzFilterType.DATE,
             isGlobalFilterable: true
           },
-          headerStyleClass: ''
+          headerStyleClass: '',
+          export: {
+            isExportable: false
+          }
         },
       ],
     };
