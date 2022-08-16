@@ -20,7 +20,7 @@ export class DemoFeatureSelectors {
       { id: '4', name: 'teste 4'},
       { id: index.toString(), name: `index ${index}`}
     ]}));
-    // console.log('DemoFeatureSelectors results', results);
+    console.log('DemoFeatureSelectors results', results);
     return results;
   }
 

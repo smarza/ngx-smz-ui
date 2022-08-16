@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { SmzTreeBuilder, SmzTreeState, SmzTreeWithDetailsState } from 'ngx-smz-ui';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { SmzTreeBuilder, SmzTreeState, SmzTreeWithDetailsState, SmzUiBlockService } from 'ngx-smz-ui';
 import { Store } from '@ngxs/store';
 import { TreeDemoFeatureSelectors } from '../../../state/tree-demo/tree-demo.selectors';
 import { TreeDemoFeatureActions } from '@states/tree-demo/tree-demo.actions';
@@ -8,12 +8,12 @@ import { TreeNode } from 'primeng/api';
 @Component({
   selector: 'app-demo-tree-with-details',
   templateUrl: './demo-tree-with-details.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.Default
 })
 
 export class DemoTreeWithDetailsComponent implements OnInit {
   public state: SmzTreeWithDetailsState;
-  constructor(private store: Store) {
+  constructor(private store: Store, private uiBlockService: SmzUiBlockService, private cdr: ChangeDetectorRef) {
 
     const allowAllNodesToBeClicked = false;
 
@@ -81,9 +81,29 @@ export class DemoTreeWithDetailsComponent implements OnInit {
 
   public onDetailsChanged(): void {
     console.log('onDetailsChanged');
+
+    setTimeout(() => {
+      this.uiBlockService.blockAll();
+
+      this.cdr.markForCheck();
+
+      console.log('blocks 1', this.uiBlockService.blocks);
+    }, 200);
+
+
   }
 
   public onSelectionChanged(node: TreeNode): void {
     console.log('onSelectionChanged', node);
+  }
+
+  public unblock(): void {
+    setTimeout(() => {
+      this.uiBlockService.unBlockAll();
+
+      this.cdr.markForCheck();
+
+      console.log('blocks 2', this.uiBlockService.blocks);
+    }, 200);
   }
 }
