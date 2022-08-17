@@ -4,6 +4,7 @@ import { HephaestusTopbarComponent } from './topbar.component';
 import { SidebarModule } from 'primeng/sidebar';
 import { HephaestusProfileMenuModule } from '../profile-menu/profile-menu.module';
 import { HephaestusNotificationsModule } from '../notifications/notifications.module';
+import { ButtonModule } from 'primeng/button';
 
 @NgModule({
   declarations: [HephaestusTopbarComponent],
@@ -12,6 +13,7 @@ import { HephaestusNotificationsModule } from '../notifications/notifications.mo
     SidebarModule,
     HephaestusProfileMenuModule,
     HephaestusNotificationsModule,
+    ButtonModule
   ],
   exports: [HephaestusTopbarComponent]
 })

@@ -879,18 +879,14 @@ a {
   .layout-wrapper.layout-static .layout-content-wrapper {
     margin-left: var(--sidebar-width);
   }
-  .layout-wrapper.layout-static-inactive .layout-topbar .menu-button i:before {
-    content: "";
-  }
+
   .layout-wrapper.layout-static-inactive .layout-sidebar {
     transform: translateX(-100%);
   }
   .layout-wrapper.layout-static-inactive .layout-content-wrapper {
     margin-left: 0;
   }
-  .layout-wrapper.layout-overlay .layout-topbar .menu-button i:before {
-    content: "";
-  }
+
   .layout-wrapper.layout-overlay .layout-content-wrapper {
     margin-left: 0;
   }
@@ -934,9 +930,7 @@ a {
     width: 100%;
     padding: 0.5rem 0;
   }
-  .layout-wrapper .layout-topbar .menu-button i:before {
-    content: "";
-  }
+
   .layout-wrapper .layout-topbar .mobile-logo {
     display: block;
     width: 2rem;

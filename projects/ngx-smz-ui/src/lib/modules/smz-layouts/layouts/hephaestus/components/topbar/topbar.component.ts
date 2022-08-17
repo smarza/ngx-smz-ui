@@ -1,5 +1,6 @@
 import { AfterContentInit, Component, ContentChildren, Input, OnInit, QueryList, TemplateRef } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
+import { Location } from '@angular/common';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { MenuItem, PrimeTemplate } from 'primeng/api';
 import { Observable } from 'rxjs';
@@ -10,6 +11,7 @@ import { SmzNotification } from '../../../../core/models/notifications';
 import { UiHephaestusSelectors } from '../../state/ui-layout.selectors';
 import { MenuType } from '../../../../core/models/menu-types';
 import { HephaestusLayout } from '../../layout.config';
+import { SidebarState } from '../../../../core/models/sidebar-states';
 
 @UntilDestroy()
 @Component({
@@ -26,7 +28,8 @@ export class HephaestusTopbarComponent implements OnInit, AfterContentInit
   @Select(LayoutUiSelectors.topbarTitle) public topbarTitle$: Observable<string>;
   @Select(UiHephaestusSelectors.layout) public layout$: Observable<HephaestusLayout>;
   public headerExtrasTemplate: TemplateRef<any>;
-  constructor(public readonly config: SmzLayoutsConfig, private store: Store) { }
+  public sideBaseStateActive = SidebarState.ACTIVE;
+  constructor(public readonly config: SmzLayoutsConfig, private store: Store, private location: Location) { }
 
   ngOnInit(): void
   {
@@ -68,6 +71,10 @@ export class HephaestusTopbarComponent implements OnInit, AfterContentInit
       this.store.dispatch(new UiHephaestusActions.ToggleMobileSidebar);
     }
 
+  }
+
+  public navigateBack(): void {
+    this.location.back();
   }
 
 }

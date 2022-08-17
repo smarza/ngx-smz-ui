@@ -9,5 +9,9 @@ export const defaultHephaestusConfig: HephaestusLayout = {
     mobileSidebarState: SidebarState.INACTIVE,
     sidebarWidth: '16rem',
     sidebarSlimWidth: '6rem',
-    topbarMenuCloseIcon: 'pi pi-chevron-left'
+    topbarMenuIcon: {
+        toOpen: 'pi pi-chevron-right',
+        toClose: 'pi pi-chevron-left'
+    },
+    enableNavigationBack: false
 }

@@ -7,7 +7,12 @@ export class HephaestusLayout {
     mobileSidebarState: HephaestusSidebarStates;
     sidebarWidth: string;
     sidebarSlimWidth: string;
-    topbarMenuCloseIcon?: string;
+    topbarMenuIcon?: {
+        toClose: string,
+        toOpen: string
+    };
+
+    enableNavigationBack?: boolean;
 
 }
 
