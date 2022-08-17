@@ -9,6 +9,7 @@ import { UiHephaestusActions } from '../../state/ui-layout.actions';
 import { SmzNotification } from '../../../../core/models/notifications';
 import { UiHephaestusSelectors } from '../../state/ui-layout.selectors';
 import { MenuType } from '../../../../core/models/menu-types';
+import { HephaestusLayout } from '../../layout.config';
 
 @UntilDestroy()
 @Component({
@@ -23,6 +24,7 @@ export class HephaestusTopbarComponent implements OnInit, AfterContentInit
   @Input() public notifications: SmzNotification[];
   @Input() public profile: MenuItem[];
   @Select(LayoutUiSelectors.topbarTitle) public topbarTitle$: Observable<string>;
+  @Select(UiHephaestusSelectors.layout) public layout$: Observable<HephaestusLayout>;
   public headerExtrasTemplate: TemplateRef<any>;
   constructor(public readonly config: SmzLayoutsConfig, private store: Store) { }
 

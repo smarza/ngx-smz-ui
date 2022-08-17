@@ -6,6 +6,7 @@ export const smzHephaestusConfig: HephaestusLayout = {
     mobileSidebarState: SidebarState.INACTIVE,
     sidebarWidth: '20rem',
     sidebarSlimWidth: '8rem',
+    topbarMenuCloseIcon: 'fa-solid fa-hand-back-fist'
 };
 
 export const smzAthenaConfig: AthenaLayout = {

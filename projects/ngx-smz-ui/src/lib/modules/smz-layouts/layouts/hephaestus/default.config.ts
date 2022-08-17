@@ -9,4 +9,5 @@ export const defaultHephaestusConfig: HephaestusLayout = {
     mobileSidebarState: SidebarState.INACTIVE,
     sidebarWidth: '16rem',
     sidebarSlimWidth: '6rem',
+    topbarMenuCloseIcon: 'pi pi-chevron-left'
 }

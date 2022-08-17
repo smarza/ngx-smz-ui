@@ -1,7 +1,7 @@
 <div class="layout-topbar">
     <div class="topbar-left">
         <a tabindex="0" class="menu-button" (click)="toggle()">
-            <i class="pi pi-chevron-left"></i>
+            <i [ngClass]="(layout$ | async).topbarMenuCloseIcon"></i>
         </a>
         <!-- <button pButton pRipple type="button" label="Voltar" icon="fa-solid fa-angle-left" class="p-button-rounded p-button-text p-button-plain" (click)="navigateBack()"></button> -->
         <span class="topbar-separator"></span>
