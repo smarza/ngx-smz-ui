@@ -605,6 +605,10 @@ export class SmzFormInputBuilder<TResponse> {
     if (this._input.validatorsPreset == null) {
       this._input.validatorsPreset = { isRequired: false, max: null, maxLength: null, min: null, minLength: null };
     }
+
+    if (this._input.advancedSettings == null) {
+      this._input.advancedSettings = { };
+    }
   }
 
   public setLayout(breakpoint: 'EXTRA_SMALL' | 'SMALL' | 'MEDIUM' | 'LARGE' | 'EXTRA_LARGE',

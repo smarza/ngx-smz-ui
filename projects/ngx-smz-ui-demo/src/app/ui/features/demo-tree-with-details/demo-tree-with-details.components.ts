@@ -82,13 +82,13 @@ export class DemoTreeWithDetailsComponent implements OnInit {
   public onDetailsChanged(): void {
     console.log('onDetailsChanged');
 
-    setTimeout(() => {
-      this.uiBlockService.blockAll();
+    // setTimeout(() => {
+    //   this.uiBlockService.blockAll();
 
-      this.cdr.markForCheck();
+    //   this.cdr.markForCheck();
 
-      console.log('blocks 1', this.uiBlockService.blocks);
-    }, 200);
+    //   console.log('blocks 1', this.uiBlockService.blocks);
+    // }, 200);
 
 
   }
@@ -97,13 +97,13 @@ export class DemoTreeWithDetailsComponent implements OnInit {
     console.log('onSelectionChanged', node);
   }
 
-  public unblock(): void {
-    setTimeout(() => {
-      this.uiBlockService.unBlockAll();
+  // public unblock(): void {
+  //   setTimeout(() => {
+  //     this.uiBlockService.unBlockAll();
 
-      this.cdr.markForCheck();
+  //     this.cdr.markForCheck();
 
-      console.log('blocks 2', this.uiBlockService.blocks);
-    }, 200);
-  }
+  //     console.log('blocks 2', this.uiBlockService.blocks);
+  //   }, 200);
+  // }
 }
