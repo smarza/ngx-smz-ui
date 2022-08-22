@@ -13,6 +13,7 @@ import { Store } from '@ngxs/store';
 import { AuthenticationSelectors } from '../../../state/global/authentication/authentication.selectors';
 import { Confirmable } from '../../smz-dialogs/decorators/confirmable.decorator';
 import { cloneDeep } from 'lodash-es';
+import { SmzTableContextColumn } from '../models/table-column';
 
 // SERVIÇO COM INSTANCIAS DIFERENTES POR TABELA
 @Injectable()
@@ -60,11 +61,13 @@ export class TableEditableService {
 
     }
 
-    public onRowCreateInit(table: Table, context: SmzTableContext): void {
+    public onRowCreateInit(table: Table, columns: SmzTableContextColumn[]): void {
+
+        this.state.editable.creation.onInit();
 
         let creationValues = { id: UUID.UUID() };
 
-        context.columns
+        columns
             .filter(x => x.editable != null)
             .forEach(x => {
                 creationValues[x.property] = x.editable.defaultCreationValue;
@@ -88,6 +91,8 @@ export class TableEditableService {
 
     @Confirmable('Tem certeza de que deseja excluir este item ?', 'Confirmação', true)
     public onRowRemove(event: MouseEvent, table: Table, row: any): void {
+
+        this.state.editable.remove.onInit(row);
 
         // CONFIGURAR ITEM NOVO PARA SER UM ELEMENTO CRIAÇÃO
         this.onRowEditInit(row, 'delete');
@@ -158,6 +163,8 @@ export class TableEditableService {
     }
 
     public onRowEditInit(row: any, type: 'create' | 'update' | 'delete' = 'update'): void {
+
+        this.state.editable.update.onInit(row);
 
         // SINALIZAR SE A ROW SERÁ DE CRIAÇÃO OU EDIÇÃO
         row['_context'] = { isUpdating: type === 'update', isCreating: type === 'create', isDeleting: type === 'delete' };

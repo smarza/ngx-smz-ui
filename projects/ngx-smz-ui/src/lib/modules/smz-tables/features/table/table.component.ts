@@ -3,7 +3,7 @@ import { PrimeTemplate } from 'primeng/api';
 import { SmzContentType, SmzDataTransform, SmzExportableContentSource, SmzExportableContentType } from '../../models/content-types';
 import { SmzFilterType } from '../../models/filter-types';
 import { SmzTableState, SmzTableContext } from '../../models/table-state';
-import { SmzTableColumn } from '../../models/table-column';
+import { SmzTableColumn, SmzTableContextColumn } from '../../models/table-column';
 import { SmzEditableType } from '../../models/editable-types';
 import { TableEditableService } from '../../services/table-editable.service';
 import { TableFormsService } from '../../services/table-forms.service';
@@ -96,6 +96,11 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
   }
 
   public ngOnInit(): void {
+  }
+
+  public InitCreation(): void {
+    this.editableService.onRowCreateInit(this.table, this.state.columns);
+    this.cdr.markForCheck();
   }
 
   public updateColumnsVisibility(context: SmzTableContext): void {

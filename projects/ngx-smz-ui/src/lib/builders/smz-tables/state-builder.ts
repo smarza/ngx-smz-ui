@@ -58,19 +58,22 @@ export class SmzTableBuilder {
       update: {
         isButtonVisible: false,
         isButtonDisabled: false,
-        accessClaim: null
+        accessClaim: null,
+        onInit: () => {}
       },
       creation: {
         isButtonVisible: false,
         isButtonDisabled: false,
         buttonLabel: 'Criar',
-        accessClaim: null
+        accessClaim: null,
+        onInit: () => {}
       },
       remove: {
         isButtonVisible: false,
         isButtonDisabled: false,
         accessClaim: null,
-        overrideActionDataCallback: null
+        overrideActionDataCallback: null,
+        onInit: () => {}
       },
       actions:
       {

@@ -126,7 +126,7 @@ export class SmzFormGroupBuilder<TResponse> {
       }
 
       input = {
-        propertyName: property, type: SmzControlType.LINKED_DROPDOWN, name: label, advancedSettings: { overrideResponseFormat: 'flat' },
+        propertyName: property, type: SmzControlType.LINKED_DROPDOWN, name: label, advancedSettings: { overrideResponseFormat: this.form._state.behaviors.flattenResponse ? 'flat' : 'object' },
         defaultValue: defaultValue, options: options, dependsOn: { propertyName: dependsOn, formId: this._formBuilder._state.formId }
       };
 

@@ -161,6 +161,7 @@ Exame sem intercorrências.`)
   //
   [DemoKeys.FORMS_INPUT_LINKED_DROPDOWN]: () => {
     return new SmzFormBuilder<any>()
+      .disableFlattenResponse()
       .group()
         .setLayout('EXTRA_SMALL', 'col-12')
         .dropdown('input1', 'I\'m required', [{ id: 'A', name: 'Group A'}, { id: 'B', name: 'Group B'}])

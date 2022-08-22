@@ -499,7 +499,6 @@ function mapResponseValue(input: SmzControlTypes, value: any, formFlattenRespons
 
     if (returnFlatten)
     {
-
         if (isArray(value))
         {
             return { [flatPropertyName(input.propertyName, true)]: value.map(x => x.id) };

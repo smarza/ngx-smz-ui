@@ -98,18 +98,21 @@ export interface SmzTableState {
       isButtonVisible: boolean;
       isButtonDisabled: boolean;
       accessClaim: string;
+      onInit: (row: any) => void
     },
     creation: {
       isButtonVisible: boolean;
       isButtonDisabled: boolean;
       buttonLabel: string;
       accessClaim: string;
+      onInit: () => void
     },
     remove: {
       isButtonVisible: boolean;
       isButtonDisabled: boolean;
       accessClaim: string;
       overrideActionDataCallback: (row: any) => any
+      onInit: (row: any) => void
     },
     actions: {
       update: any,

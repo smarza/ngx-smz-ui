@@ -30,12 +30,22 @@ export class SmzEditableTableBuilder {
     return this;
   }
 
+  public onCreationInit(onInit: () => void): SmzEditableTableBuilder {
+    this._tableBuilder._state.editable.creation.onInit = onInit;
+    return this;
+  }
+
   public setUpdateAction(action: any, claim?: string): SmzEditableTableBuilder {
 
     this._tableBuilder._state.editable.actions.update = action;
     this._tableBuilder._state.editable.update.isButtonVisible = true;
     this._tableBuilder._state.editable.update.accessClaim = claim;
 
+    return this;
+  }
+
+  public onUpdateInit(onInit: (row: any) => void): SmzEditableTableBuilder {
+    this._tableBuilder._state.editable.update.onInit = onInit;
     return this;
   }
 
@@ -46,6 +56,11 @@ export class SmzEditableTableBuilder {
     this._tableBuilder._state.editable.remove.accessClaim = claim;
     this._tableBuilder._state.editable.remove.overrideActionDataCallback = overrideActionData;
 
+    return this;
+  }
+
+  public onRemoveInit(onInit: (row: any) => void): SmzEditableTableBuilder {
+    this._tableBuilder._state.editable.remove.onInit = onInit;
     return this;
   }
 
