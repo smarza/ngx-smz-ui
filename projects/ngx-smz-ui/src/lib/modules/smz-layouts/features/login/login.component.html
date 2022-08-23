@@ -3,11 +3,15 @@
   <img *ngIf="state.logo.customPath != null" [ngClass]="state.logo.styleClass" class="object-fill ml-auto mr-auto" [src]="state.logo.customPath" />
   <img *ngIf="state.logo.customPath == null" [ngClass]="state.logo.styleClass" class="object-fill ml-auto mr-auto" [src]="(appLogo$ | async)[state.logo.type]" />
 
-  <div class="w-full grid grid-nogutter flex-col items-stretch justify-center gap-4 p-6">
+  <div *ngIf="state.isFormVisible" class="w-full grid grid-nogutter flex-col items-stretch justify-center gap-4 p-6">
     <div *ngIf="state.message" class="ml-auto mr-auto">{{ state.message }}</div>
     <smz-form-group #formComponent (submit)="login($event)" [config]="state.form"></smz-form-group>
-    <button pButton class="" [disabled]="!formComponent.isValid" type="button" label="ENTRAR" (click)="login(formComponent.getData())"></button>
+    <button pButton class="" [disabled]="!formComponent.isValid" type="button" [label]="state.loginButtonLabel" (click)="login(formComponent.getData())"></button>
     <div *ngIf="state.extraInfo" class="text-sm ml-auto mr-auto">{{ state.extraInfo }}</div>
   </div>
+
+  <ng-container *ngIf="extraTemplate != null">
+    <ng-container *ngTemplateOutlet="extraTemplate; context: { $implicit: state }"></ng-container>
+  </ng-container>
 
 </div>

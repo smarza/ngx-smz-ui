@@ -3,9 +3,11 @@ import { SmzAppLogo } from '../../core/models/logo';
 
 export interface SmzLoginState<TResponse, TPayload> {
   isDebug: boolean;
+  loginButtonLabel: string;
   message: string;
   extraInfo: string;
   form: SmzForm<TResponse>;
+  isFormVisible: boolean;
   logo: {
     type: 'horizontal' | 'vertical' | 'icon' | 'typo';
     customPath?: string;

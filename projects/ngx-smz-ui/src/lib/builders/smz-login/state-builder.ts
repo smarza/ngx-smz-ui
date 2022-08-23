@@ -7,7 +7,8 @@ import { SmzLoginState } from '../../modules/smz-layouts/features/login/login-st
 export class SmzLoginBuilder<TResponse, TPayload> {
   public _state: SmzLoginState<TResponse, TPayload> = {
     isDebug: false,
-    message: 'Entre com as suas credenciais',
+    message: null,
+    loginButtonLabel: 'ENTRAR',
     extraInfo: null,
     logo: {
       type: 'vertical',
@@ -45,6 +46,7 @@ export class SmzLoginBuilder<TResponse, TPayload> {
         }
       ],
     },
+    isFormVisible: true,
     callbacks: {
       payload: (response: TResponse) => (null),
       submit: (response: TResponse) => { }
@@ -66,6 +68,11 @@ export class SmzLoginBuilder<TResponse, TPayload> {
 
   public setMessage(message: string): SmzLoginBuilder<TResponse, TPayload> {
     this._state.message = message;
+    return this;
+  }
+
+  public setLoginButtonLabel(label: string): SmzLoginBuilder<TResponse, TPayload> {
+    this._state.loginButtonLabel = label;
     return this;
   }
 

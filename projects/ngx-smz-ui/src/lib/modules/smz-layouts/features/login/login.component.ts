@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, HostBinding, Input, OnInit, ChangeDetectionStrategy, TemplateRef, ContentChildren, QueryList, AfterContentInit, forwardRef } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { SmzLayoutsConfig } from '../../core/globals/smz-layouts.config';
 import { LayoutUiSelectors } from '../../../../state/ui/layout/layout.selectors';
@@ -9,16 +9,19 @@ import { SmzFormsResponse } from '../../../smz-forms/models/smz-forms';
 import { NgxRbkUtilsConfig } from '../../../rbk-utils/ngx-rbk-utils.config';
 import { SmzLoginState } from './login-state';
 import { SmzLoginBuilder } from '../../../../builders/smz-login/state-builder';
+import { PrimeTemplate } from 'primeng/api';
 
 @Component({
   selector: 'smz-ui-login',
   templateUrl: './login.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SmzLoginComponent implements OnInit {
+export class SmzLoginComponent implements OnInit, AfterContentInit {
+  @ContentChildren(forwardRef(() => PrimeTemplate)) templates: QueryList<PrimeTemplate>;
   @Select(LayoutUiSelectors.appContentLogo) public appLogo$: Observable<SmzAppLogo>;
   @Input() public state: SmzLoginState<any, any> = this.buildState();
   public baseClass = 'fixed inset-0';
+  public extraTemplate: TemplateRef<any>;
 
   constructor(public readonly config: SmzLayoutsConfig, private store: Store, public rbkConfig: NgxRbkUtilsConfig) {}
 
@@ -36,6 +39,18 @@ export class SmzLoginComponent implements OnInit {
     const isAuthenticated = this.store.selectSnapshot(this.state.isAuthenticatedSelector);
 
     if (isAuthenticated) this.store.dispatch(new this.state.actions.logout);
+  }
+
+
+  public ngAfterContentInit() {
+    this.templates.forEach((item) => {
+      switch (item.getType()) {
+
+        case 'extra':
+          this.extraTemplate = item.template;
+          break;
+      }
+    });
   }
 
   public login(form: SmzFormsResponse<SmzLoginData>): void {

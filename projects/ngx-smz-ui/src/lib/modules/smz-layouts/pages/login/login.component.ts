@@ -19,6 +19,7 @@ export class LoginComponent {
   public buildState(): SmzLoginState<unknown, unknown> {
 
     return new SmzLoginBuilder()
+      .setMessage('Entre com as suas credenciais')
       .setPayloadCallback((response: any) => ({ username: response.username, password: response.password, extraProperties: { applicationId: this.rbkConfig.authentication?.refreshToken?.extraProperties?.applicationId, domain: 'BUZIOS' } }))
       .build();
 
