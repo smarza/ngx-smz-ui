@@ -39,6 +39,9 @@ export const routerModuleForChildLoginModule = RouterModule.forChild(routes);
     NgxSmzFormsModule,
     SmzLoginModule
   ],
-  exports: [LoginComponent]
+  exports: [
+    LoginComponent,
+    SharedModule
+  ]
 })
 export class LoginModule { }
