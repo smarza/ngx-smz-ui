@@ -24,6 +24,16 @@ export class DropdownComponent implements OnInit
     {
         this.dropdownService.registryDependsOnData(this.input, this.formId);
         this.formsVisibility.registryDependsOnData(this.input, this.formId);
+
+        if (this.input.defaultValue != null) {
+            const option = this.input.options.find(x => x.id === this.input.defaultValue);
+
+            if (option != null) {
+                setTimeout(() => {
+                    this.dropdownService.setValue(this.input, this.formId, { value : option, originalEvent: null });
+                }, 0);
+            }
+        }
     }
 
     public emitChange(input: SmzDropDownControl<any>, formId: string, event: any): void

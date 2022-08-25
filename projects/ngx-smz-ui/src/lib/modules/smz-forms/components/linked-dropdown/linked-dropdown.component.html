@@ -1,3 +1,5 @@
+<ng-container *ngIf="options$ | async as options">
+
 <div class="ui-g ui-fluid">
     <div class="ui-g-12 grid-nogutter" [ngStyle]="{ padding: 0 }">
         <label class="smz__input_name" [innerHTML]="input.name"></label>
@@ -5,7 +7,7 @@
             <p-dropdown
                 fxFlex="grow"
                 class="col-12 grid-nogutter smz__input_value"
-                [options]="service.observers[formId + input.propertyName]?.options | async"
+                [options]="options"
                 [formControl]="control"
                 optionLabel="name"
                 [autoDisplayFirst]="false"
@@ -21,3 +23,5 @@
         </div>
     </div>
 </div>
+
+</ng-container>

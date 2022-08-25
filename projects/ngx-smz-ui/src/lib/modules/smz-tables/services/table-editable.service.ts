@@ -109,7 +109,7 @@ export class TableEditableService {
         // ACTION DE EXCLUIR
         const action = this.state.editable.actions.remove;
 
-        const override = this.state.editable.remove.overrideActionDataCallback;
+        const override = this.state.editable.remove.overrideActionPayloadCallback;
 
         // ACTION INSTANCIADA COM PARAMETROS
         const dispatchData = new action(override != null ? override(row) : row.id);
@@ -277,7 +277,15 @@ export class TableEditableService {
 
         // MAPEAR PARAMETROS PARA A ACTION
         let params = cloneDeep(row);
-        this.state.editable.mapResults.forEach(callback => { params = callback(params, changes); });
+        const override = this.state.editable.update.overrideActionPayloadCallback;
+
+        // ACTION INSTANCIADA COM PARAMETROS
+        if (override != null) {
+            params = override(params);
+        }
+        else {
+            this.state.editable.mapResults.forEach(callback => { params = callback(params, changes); });
+        }
 
         // ACTION DE UPDATE
         const action = this.state.editable.actions.update;
@@ -372,7 +380,15 @@ export class TableEditableService {
 
         // MAPEAR PARAMETROS PARA A ACTION
         let params = cloneDeep(row);
-        this.state.editable.mapResults.forEach(callback => { params = callback(params, changes); });
+        const override = this.state.editable.creation.overrideActionPayloadCallback;
+
+        // ACTION INSTANCIADA COM PARAMETROS
+        if (override != null) {
+            params = override(params);
+        }
+        else {
+            this.state.editable.mapResults.forEach(callback => { params = callback(params, changes); });
+        }
 
         // SE HABILITADO, CRIAR ACTION PARA DISPATCH NA STORE
         const dispatchData = new action(params);

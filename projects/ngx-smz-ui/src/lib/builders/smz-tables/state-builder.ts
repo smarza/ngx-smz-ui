@@ -59,6 +59,7 @@ export class SmzTableBuilder {
         isButtonVisible: false,
         isButtonDisabled: false,
         accessClaim: null,
+        overrideActionPayloadCallback: null,
         onInit: () => {}
       },
       creation: {
@@ -66,13 +67,14 @@ export class SmzTableBuilder {
         isButtonDisabled: false,
         buttonLabel: 'Criar',
         accessClaim: null,
+        overrideActionPayloadCallback: null,
         onInit: () => {}
       },
       remove: {
         isButtonVisible: false,
         isButtonDisabled: false,
         accessClaim: null,
-        overrideActionDataCallback: null,
+        overrideActionPayloadCallback: null,
         onInit: () => {}
       },
       actions:
