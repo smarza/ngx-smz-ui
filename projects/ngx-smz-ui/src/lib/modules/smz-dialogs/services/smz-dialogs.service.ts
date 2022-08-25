@@ -43,6 +43,7 @@ const BASE_DIALOG: SmzDialog<any> = {
         builtInButtons: {},
         customButtons: [],
         customButtonsOrder: 'first',
+        topbarButtons: [],
         featureTemplate: {},
         dialogTemplate: {},
     }
@@ -284,6 +285,7 @@ export class SmzDialogsService
             customButtons: data.customButtons ?? [],
             customButtonsOrder: data.customButtonsOrder ?? 'first',
             featureTemplate: preset.features.featureTemplate,
+            topbarButtons: data.topbarButtons ?? [],
             dialogTemplate: mergeClone(data.dialogTemplate, preset.dialog.dialogTemplate),
         }
 
@@ -338,6 +340,7 @@ export class SmzDialogsService
             builtInButtons: mergeClone(this.moduleConfig.dialogs.builtInButtons, data.builtInButtons),
             customButtons: data.customButtons ?? [],
             customButtonsOrder: data.customButtonsOrder ?? 'first',
+            topbarButtons: data.topbarButtons ?? [],
             featureTemplate: this.moduleConfig.dialogs.featureTemplate,
             dialogTemplate: mergeClone(this.moduleConfig.dialogs.dialogTemplate, data.dialogTemplate),
         };

@@ -28,6 +28,7 @@ export class SmzDialogBuilder<TResponse> extends SmzBuilderUtilities<SmzDialogBu
     },
     customButtons: [],
     customButtonsOrder: 'last',
+    topbarButtons: [],
     behaviors: {
       showCancelButton: true,
       showConfirmButton: true,

@@ -50,6 +50,10 @@ export interface SmzDialog<T>
     /**
     * Responsividade e largura do Dialogo na tela.
     */
+    /**
+    * Criar botões customizados extras.
+    */
+    topbarButtons?: SmzDialogTopbarButton[];
     dialogTemplate?: SmzTemplate;
     /**
     * Código do Preset que será utilizado para configurar o dialogo.
@@ -101,6 +105,7 @@ export interface SmzDialogContext<T>
     builtInButtons: SmzDialogButtonsPreset;
     customButtons: SmzDialogCustomButton<T>[];
     customButtonsOrder: 'first' | 'last';
+    topbarButtons: SmzDialogTopbarButton[];
     advancedResponse: { [key: string] : any }; // cada formulário armazena suas respostas separadamente pelo form id. Atenção: os components injetáveis sempre armazenam em objetos com o nome do component (case sensitive)
     simpleResponse: any; // todos os formulários armazenam as respostas na raiz. Atenção: os components injetáveis sempre armazenam em objetos com o nome do component (case sensitive)
     featureTemplate: SmzTemplate;
@@ -181,6 +186,14 @@ export interface SmzDialogCustomButton<T>
         erroredAction: any;
     }
 
+}
+
+export interface SmzDialogTopbarButton
+{
+    class?: string;
+    onClick: () => void;
+    visible?: boolean;
+    tooltip?: string;
 }
 
 export interface SmzDialogTable {

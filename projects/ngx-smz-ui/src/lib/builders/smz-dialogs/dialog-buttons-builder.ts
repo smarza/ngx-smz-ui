@@ -1,4 +1,4 @@
-import { SmzDialogCustomButton } from '../../modules/smz-dialogs/models/smz-dialogs';
+import { SmzDialogCustomButton, SmzDialogTopbarButton } from '../../modules/smz-dialogs/models/smz-dialogs';
 import { SmzDialogBuilder } from './dialog-builder';
 
 export class SmzDialogButtonsBuilder<TResponse> {
@@ -46,6 +46,10 @@ export class SmzDialogButtonsBuilder<TResponse> {
       this._dialogBuilder._state.builtInButtons.saveName = name;
     }
     return new SmzDialogSaveButtonBuilder(this);
+  }
+
+  public topbar(): SmzDialogTopbarButtonBuilder<TResponse> {
+    return new SmzDialogTopbarButtonBuilder(this);
   }
 
   public get dialog(): SmzDialogBuilder<TResponse> {
@@ -223,6 +227,48 @@ export class SmzDialogSaveButtonBuilder<TResponse> {
   }
 
   public get buttons(): SmzDialogButtonsBuilder<TResponse> {
+    return this._dialogButtonsBuilder;
+  }
+}
+
+export class SmzDialogTopbarButtonBuilder<TResponse> {
+  private _button: SmzDialogTopbarButton = {
+    class: '',
+    onClick: () => {},
+    visible: true,
+    tooltip: null
+  };
+  constructor(public _dialogButtonsBuilder: SmzDialogButtonsBuilder<TResponse>) {
+
+  }
+
+  public hide(): SmzDialogTopbarButtonBuilder<TResponse> {
+    this._button.visible = false;
+    return this;
+  }
+
+  public setCallback(callback: () => void): SmzDialogTopbarButtonBuilder<TResponse> {
+    this._button.onClick = callback;
+    return this;
+  }
+
+  public setIcon(icon: string): SmzDialogTopbarButtonBuilder<TResponse> {
+    this._button.class = `${icon} ${this._button.class}`;
+    return this;
+  }
+
+  public setClass(styleClass: string): SmzDialogTopbarButtonBuilder<TResponse> {
+    this._button.class = `${styleClass} ${this._button.class}`;
+    return this;
+  }
+
+  public setTooltip(tooltip: string): SmzDialogTopbarButtonBuilder<TResponse> {
+    this._button.tooltip = tooltip;
+    return this;
+  }
+
+  public get buttons(): SmzDialogButtonsBuilder<TResponse> {
+    this._dialogButtonsBuilder.dialog._state.topbarButtons.push(this._button);
     return this._dialogButtonsBuilder;
   }
 }

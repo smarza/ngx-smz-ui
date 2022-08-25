@@ -238,6 +238,27 @@ export const DialogsDemo: { [key: string]: () => void } = {
     );
   },
   //
+  [DemoKeys.DIALOGS_TOPBAR_BUTTONS]: () => {
+    service.open(
+      new SmzDialogBuilder<void>()
+        .setTitle(`Some Title Here`)
+        .buttons()
+          .topbar()
+            .setIcon('fa-solid fa-question')
+            .setCallback(() => { console.log('Help'); })
+            .setTooltip('Ajuda')
+            .buttons
+          .topbar()
+            .setIcon('fa-solid fa-bug')
+            .setCallback(() => { console.log('Report'); })
+            .setTooltip('Reportar Bug')
+            .setClass('text-red-500')
+            .buttons
+          .dialog
+      .build()
+    );
+  },
+  //
   [DemoKeys.DIALOGS_BUTTONS_REODERING]: () => {
     service.open(
       new SmzDialogBuilder<void>()

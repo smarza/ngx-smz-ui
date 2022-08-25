@@ -337,6 +337,13 @@ export const TreeDemoData: DemoTreeNode[] = [
             key: DemoKeys.DIALOGS_BUTTONS_DEPENDS_ON_VALIDATION.toString()
           },
           {
+            label: 'Topbar Buttons', icon: 'fa-solid fa-code', type: 'Demo',
+            demoType: 'dialog',
+            notes: 'Create unlimited topbar buttons.',
+            data: DialogsDemo[DemoKeys.DIALOGS_TOPBAR_BUTTONS],
+            key: DemoKeys.DIALOGS_TOPBAR_BUTTONS.toString()
+          },
+          {
             label: 'Block Ui', icon: 'fa-solid fa-code', type: 'Demo',
             demoType: 'dialog',
             notes: 'Block Ui is a featured that customize an specific button to block the ui until an success or failure action is dispatched.',

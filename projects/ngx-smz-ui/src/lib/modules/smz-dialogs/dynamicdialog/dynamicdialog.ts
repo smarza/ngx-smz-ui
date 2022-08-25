@@ -10,6 +10,7 @@ import { SmzDynamicDialogConfig } from '../models/smz-dialogs';
 import { NgxRbkUtilsConfig } from '../../rbk-utils/ngx-rbk-utils.config';
 import { PrimeNGConfig } from 'primeng/api';
 import { SmzDockService } from '../../smz-dock/services/smz-dock.service';
+import { TooltipModule } from 'primeng/tooltip';
 
 const showAnimation = animation([
     style({ transform: '{{transform}}', opacity: 0 }),
@@ -31,6 +32,11 @@ const hideAnimation = animation([
                 <div class="p-dialog-header" [ngStyle]="config.headerStyle" *ngIf="config.showHeader === false ? false: true">
                     <span class="p-dialog-title">{{config.header}}</span>
                     <div class="p-dialog-header-icons" [ngClass]="{ 'disable-a': dialogConfig.data._context.isGlobalDisabled }">
+                        <ng-container *ngFor="let topbarButton of dialogConfig.data.topbarButtons">
+                            <button [ngClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'" type="button" (click)="topbarButton.onClick()" *ngIf="topbarButton.visible" [pTooltip]="topbarButton.tooltip">
+                                <span [ngClass]="topbarButton.class"></span>
+                            </button>
+                        </ng-container>
                         <button [ngClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'" type="button" (click)="minimize()" (keydown.enter)="minimize()" *ngIf="config.minimizable !== false">
                             <span class="p-dialog-header-close-icon pi pi-minus"></span>
                         </button>
@@ -419,7 +425,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnInit, OnDestroy
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [CommonModule, TooltipModule],
     declarations: [DynamicDialogComponent, DynamicDialogContent, DynamicDialogFooter],
     entryComponents: [DynamicDialogComponent]
 })
