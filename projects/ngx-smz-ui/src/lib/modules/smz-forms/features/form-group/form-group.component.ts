@@ -26,6 +26,9 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
     @Input() public config: SmzForm<any>;
     @Output() public statusChanges: EventEmitter<SmzFormsResponse<any>> = new EventEmitter<SmzFormsResponse<any>>();
     @Output() public changed: EventEmitter<SmzFormsResponse<any>> = new EventEmitter<SmzFormsResponse<any>>();
+
+    // Emite quando o valor anterior for diferente do atual
+    @Output() public onChange: EventEmitter<SmzFormsResponse<any>> = new EventEmitter<SmzFormsResponse<any>>();
     @Output() public submit: EventEmitter<SmzFormsResponse<any>> = new EventEmitter<SmzFormsResponse<any>>();
     private isFirstUpdate = true;
     private emitChanges = true;
@@ -400,6 +403,10 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
         }
 
         this.viewdata.hasChanges = original !== current;
+
+        if (this.viewdata.hasChanges) {
+            this.onChange.emit(response);
+        }
 
         for (const group of this.config.groups)
         {

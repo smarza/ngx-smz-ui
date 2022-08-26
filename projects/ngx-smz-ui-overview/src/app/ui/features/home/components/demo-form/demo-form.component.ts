@@ -15,7 +15,7 @@ import { FormGroupComponent, SmzForm, SmzDialogsService, SmzDialogBuilder, SmzFo
     <i class="fa-solid fa-cash-register text-gray-100 text-2xl" [ngClass]="{ 'text-blue-500': formComponent?.viewdata?.hasChanges }" [pTooltip]="formComponent?.viewdata?.hasChanges ? 'Modificado' : 'Não modificado'"></i>
   </div>
 
-  <smz-form-group [config]="form" #formComponent (statusChanges)="onStatusChanges($event)"></smz-form-group>
+  <smz-form-group [config]="form" #formComponent (onChange)="onStatusChanges($event)"></smz-form-group>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -78,9 +78,9 @@ export class DemoFormComponent implements OnInit, OnChanges {
     this.form = this.node.data() as any;
     this.cdf.markForCheck();
 
-    setTimeout(() => {
-      console.log('form', this.form);
-    }, 2000);
+    // setTimeout(() => {
+    //   console.log('form', this.form);
+    // }, 2000);
   }
 
   public clear(): void {
