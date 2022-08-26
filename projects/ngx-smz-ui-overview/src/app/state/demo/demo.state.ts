@@ -87,7 +87,7 @@ export class DemoFeatureState {
 
   @Action(DemoFeatureActions.Update)
   public onUpdate$(ctx: StateContext<DemoFeatureStateModel>, action: DemoFeatureActions.Update): Observable<DemoItem> {
-
+    console.log('Update', action.data);
     return this.apiService.update(action.data).pipe(
       tap(result => {
 

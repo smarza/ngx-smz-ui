@@ -550,7 +550,7 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
     items$: store.select(DemoFeatureSelectors.all),
     code: () => {
     return new SmzTableBuilder()
-      .debugMode()
+      // .debugMode()
       .setTitle('Editable Table')
       .enableGlobalFilter()
       .useTableEmptyMessage()
@@ -579,6 +579,13 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
           .disableFilter()
           .editable()
             .text()
+            .column
+          .columns
+        .text('price', 'Price', '15em')
+          .disableFilter()
+          .editable()
+            .number()
+              .setDecimal(2)
             .column
           .columns
         .text('country.name', 'Country')

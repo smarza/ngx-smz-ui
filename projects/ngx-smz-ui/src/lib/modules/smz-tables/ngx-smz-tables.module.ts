@@ -35,6 +35,7 @@ import { NgxSmzMenuModule } from '../smz-menu/smz-menu.module';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { SmzSincronizeTablePipe } from './pipes/sincronize-table.pipe';
 import { SmzTableContentComponent } from './components/table-content/table-content.component';
+import { NgVarModule } from '../../common/directives/ng-var/ng-var.module';
 
 @NgModule({
     declarations: [
@@ -75,7 +76,8 @@ import { SmzTableContentComponent } from './components/table-content/table-conte
         InputSwitchModule,
         InputNumberModule,
         NgxSmzMenuModule,
-        ToggleButtonModule
+        ToggleButtonModule,
+        NgVarModule
     ],
     exports: [
         SmzTableComponent,

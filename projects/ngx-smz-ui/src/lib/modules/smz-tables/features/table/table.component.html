@@ -91,7 +91,7 @@
                     <ng-container *ngTemplateOutlet="toolbarTemplate; context: { $implicit: dt }"></ng-container>
                 </div>
 
-                <!-- <button type="button" pButton pRipple icon="pi pi-file-pdf" label="Exportar"
+                <!-- <button type="button" pButton icon="pi pi-file-pdf" label="Exportar"
                     (click)="tableExporter.exportPdf(dt, context, dt.filteredValue != null ? dt.filteredValue : clonedData.items, context.state.title != null ? context.state.title : 'Exportação')"
                     class="p-button-warning mr-2" pTooltip="Exportar para PDF" tooltipPosition="bottom">
                 </button> -->
@@ -216,7 +216,7 @@
                                     </ng-container>
                                 </ng-container>
 
-                                <button *ngIf="context.state.caption.columnVisibility.showColumnHideButton" pButton pRipple type="button" icon="fa-solid fa-eye-slash" class="p-button-rounded p-button-text p-button-plain" (click)="hideColumn(col, context)"></button>
+                                <button *ngIf="context.state.caption.columnVisibility.showColumnHideButton" pButton type="button" icon="fa-solid fa-eye-slash" class="p-button-rounded p-button-text p-button-plain" (click)="hideColumn(col, context)"></button>
 
                             </div>
                         </ng-template>
@@ -312,7 +312,20 @@
                                                 <ng-container *ngIf="editableService.context[item.id]?.form as form">
                                                     <ng-container *ngIf="form.controls[col.editable.property] as control">
                                                         <div class="relative w-full">
-                                                            <p-inputNumber [formControl]="$any(control)" [mode]="$any(col.editable.data).mode" [minFractionDigits]="$any(col.editable.data).minFractionDigits" [maxFractionDigits]="$any(col.editable.data).maxFractionDigits"></p-inputNumber>
+                                                            <p-inputNumber
+                                                                *ngVar="col.editable.data as numberData"
+                                                                [formControl]="$any(control)"
+                                                                [mode]="numberData.mode"
+                                                                [minFractionDigits]="numberData.minFractionDigits"
+                                                                [maxFractionDigits]="numberData.maxFractionDigits"
+                                                                [currency]="numberData.currency"
+                                                                [useGrouping]="numberData.useGrouping"
+                                                                [allowEmpty]="numberData.allowEmpty"
+                                                                [showClear]="numberData.showClear"
+                                                                [showButtons]="numberData.showButtons"
+                                                                [prefix]="numberData.prefix"
+                                                                [suffix]="numberData.suffix">
+                                                            </p-inputNumber>
                                                             <smz-validation-messages [errors]="control.errors" [messages]="dialogConfig.forms.validationMessages" [isFormInvalid]="form.invalid" [isFormDirty]="form.dirty"></smz-validation-messages>
                                                         </div>
                                                     </ng-container>
@@ -396,8 +409,8 @@
 
                                     <!-- SEM EDITAR -->
                                     <ng-container *ngIf="!editing">
-                                        <button *ngIf="context.state.editable.update.isButtonVisible" pButton pRipple type="button" icon="pi pi-pencil" (click)="editableService.onRowEditInit(item)" class="p-button-rounded p-button-text mx-1" [disabled]="editableService.isEditing || editableService.isCreating || context.state.editable.update.isButtonDisabled" pInitEditableRow></button>
-                                        <button *ngIf="context.state.editable.remove.isButtonVisible" pButton pRipple type="button" icon="pi pi-trash" (click)="editableService.onRowRemove($event, dt, item)" class="p-button-rounded p-button-text p-button-secondary mx-1" [disabled]="editableService.isEditing || editableService.isCreating || context.state.editable.remove.isButtonDisabled"></button>
+                                        <button *ngIf="context.state.editable.update.isButtonVisible" pButton type="button" icon="pi pi-pencil" (click)="editableService.onRowEditInit(item)" class="p-button-rounded p-button-text mx-1" [disabled]="editableService.isEditing || editableService.isCreating || context.state.editable.update.isButtonDisabled" pInitEditableRow></button>
+                                        <button *ngIf="context.state.editable.remove.isButtonVisible" pButton type="button" icon="pi pi-trash" (click)="editableService.onRowRemove($event, dt, item)" class="p-button-rounded p-button-text p-button-secondary mx-1" [disabled]="editableService.isEditing || editableService.isCreating || context.state.editable.remove.isButtonDisabled"></button>
                                     </ng-container>
 
                                     <!-- EDITANDO -->
@@ -406,7 +419,7 @@
                                         <ng-container *ngIf="editableService.context[item.id] as editableContext">
                                             <!-- COM LOADING -->
                                             <ng-container *ngIf="editableContext.isLoading">
-                                                <button pButton pRipple type="button" icon="fa-solid fa-rotate fa-spin" [disabled]="true" class="p-button-rounded p-button-text p-button-info mr-2"></button>
+                                                <button pButton type="button" icon="fa-solid fa-rotate fa-spin" [disabled]="true" class="p-button-rounded p-button-text p-button-info mr-2"></button>
                                             </ng-container>
 
                                             <!-- SEM LOADING -->
@@ -417,14 +430,14 @@
 
                                                     <!-- CRIANDO -->
                                                     <ng-container *ngIf="item._context?.isCreating">
-                                                        <button pButton pRipple type="button" icon="pi pi-check" (click)="editableService.onRowCreateSave($event, dt, editableRowElement, item)" [disabled]="!editableContext.hasChanged || !editableService.context[item.id]?.form.valid" class="p-button-rounded p-button-text p-button-success mr-2"></button>
-                                                        <button pButton pRipple type="button" icon="pi pi-times" (click)="editableService.onRowCreateCancel($event, dt, item)" class="p-button-rounded p-button-text p-button-danger"></button>
+                                                        <button pButton type="button" icon="pi pi-check" (click)="editableService.onRowCreateSave($event, dt, editableRowElement, item)" [disabled]="!editableContext.hasChanged || !editableService.context[item.id]?.form.valid" class="p-button-rounded p-button-text p-button-success mr-2"></button>
+                                                        <button pButton type="button" icon="pi pi-times" (click)="editableService.onRowCreateCancel($event, dt, item)" class="p-button-rounded p-button-text p-button-danger"></button>
                                                     </ng-container>
 
                                                     <!-- ATUALIZANDO -->
                                                     <ng-container *ngIf="item._context?.isUpdating">
-                                                        <button pButton pRipple type="button" icon="pi pi-check" (click)="editableService.onRowEditSave($event, dt, editableRowElement, item)" [disabled]="!editableContext.hasChanged || !editableService.context[item.id]?.form.valid" class="p-button-rounded p-button-text p-button-success mr-2"></button>
-                                                        <button pButton pRipple type="button" icon="pi pi-times" (click)="editableService.onRowEditCancel($event, dt, item)" class="p-button-rounded p-button-text p-button-danger"></button>
+                                                        <button pButton type="button" icon="pi pi-check" (click)="editableService.onRowEditSave($event, dt, editableRowElement, item)" [disabled]="!editableContext.hasChanged || !editableService.context[item.id]?.form.valid" class="p-button-rounded p-button-text p-button-success mr-2"></button>
+                                                        <button pButton type="button" icon="pi pi-times" (click)="editableService.onRowEditCancel($event, dt, item)" class="p-button-rounded p-button-text p-button-danger"></button>
                                                     </ng-container>
 
                                                 </ng-container>
@@ -436,13 +449,13 @@
                                                             <div [innerHtml]="editableContext.errors | contentErrors"></div>
                                                         </ng-template>
                                                     </p-overlayPanel>
-                                                    <button pButton pRipple type="button" icon="fas fa-exclamation-triangle" [disabled]="false" class="p-button-rounded p-button-text p-button-danger mr-2" (click)="errorsOverlay.toggle($event)"></button>
+                                                    <button pButton type="button" icon="fas fa-exclamation-triangle" [disabled]="false" class="p-button-rounded p-button-text p-button-danger mr-2" (click)="errorsOverlay.toggle($event)"></button>
 
                                                     <!-- CRIANDO -->
-                                                    <button *ngIf="item._context?.isCreating" pButton pRipple type="button" icon="pi pi-times" (click)="editableService.onRowCreateCancel($event, dt, item)" class="p-button-rounded p-button-text p-button-danger"></button>
+                                                    <button *ngIf="item._context?.isCreating" pButton type="button" icon="pi pi-times" (click)="editableService.onRowCreateCancel($event, dt, item)" class="p-button-rounded p-button-text p-button-danger"></button>
 
                                                     <!-- ATUALIZANDO -->
-                                                    <button *ngIf="item._context?.isUpdating" pButton pRipple type="button" icon="pi pi-times" (click)="editableService.onRowEditCancel($event, dt, item)" class="p-button-rounded p-button-text p-button-danger"></button>
+                                                    <button *ngIf="item._context?.isUpdating" pButton type="button" icon="pi pi-times" (click)="editableService.onRowEditCancel($event, dt, item)" class="p-button-rounded p-button-text p-button-danger"></button>
 
                                                 </ng-container>
                                             </ng-container>

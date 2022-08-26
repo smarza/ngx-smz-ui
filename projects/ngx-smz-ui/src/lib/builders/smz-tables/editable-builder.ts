@@ -1,5 +1,5 @@
 import { EditableChanges, flattenMapResults } from '../../modules/smz-tables/models/editable-model';
-import { SmzDropdownEditable, SmzEditableType } from '../../modules/smz-tables/models/editable-types';
+import { SmzDropdownEditable, SmzEditableType, SmzNumberEditable } from '../../modules/smz-tables/models/editable-types';
 import { SmzTableEditableColumn } from '../../modules/smz-tables/models/table-column';
 import { SmzBaseColumnBuilder } from './column-builder';
 import { SmzTableBuilder } from './state-builder';
@@ -172,6 +172,10 @@ export class SmzEditableCollectionBuilder {
     return new SmzDropdownEditableBuilder(this._table, this._parent, property);
   }
 
+  public number(property: string = this._parent._column.field): SmzNumberEditableBuilder {
+    return new SmzNumberEditableBuilder(this._table, this._parent, property);
+  }
+
   public get column(): SmzBaseColumnBuilder<any> {
     return this._parent;
   }
@@ -213,4 +217,84 @@ export class SmzDropdownEditableBuilder extends SmzBaseEditableBuilder<SmzDropdo
 
     return this;
   }
+}
+
+export class SmzNumberEditableBuilder extends SmzBaseEditableBuilder<SmzNumberEditableBuilder> {
+  constructor(protected _table: SmzTableBuilder, protected _parent: SmzBaseColumnBuilder<any>, property: string) {
+    super(_table, _parent, SmzEditableType.NUMBER, property, {
+      mode: 'decimal',
+      minFractionDigits: null,
+      maxFractionDigits: null,
+      currency: undefined,
+      useGrouping: false,
+      allowEmpty: true,
+      showClear: false,
+      showButtons: false,
+      prefix: null,
+      suffix: null
+    });
+  }
+
+  public setDecimal(digits: number): SmzNumberEditableBuilder {
+    const data: SmzNumberEditable = this._editable.data as SmzNumberEditable;
+
+    data.mode = 'decimal';
+    data.minFractionDigits = digits;
+    data.maxFractionDigits = digits;
+
+    return this;
+  }
+
+  public setFraction(minFractionDigits: number, maxFractionDigits: number): SmzNumberEditableBuilder {
+    const data: SmzNumberEditable = this._editable.data as SmzNumberEditable;
+
+    data.mode = 'decimal';
+    data.minFractionDigits = minFractionDigits;
+    data.maxFractionDigits = maxFractionDigits;
+
+    return this;
+  }
+
+  public addPrefix(prefix: string): SmzNumberEditableBuilder {
+    const data: SmzNumberEditable = this._editable.data as SmzNumberEditable;
+    data.prefix = prefix;
+
+    return this;
+  }
+
+  public addSufix(suffix: string): SmzNumberEditableBuilder {
+    const data: SmzNumberEditable = this._editable.data as SmzNumberEditable;
+    data.suffix = suffix;
+
+    return this;
+  }
+
+  public showSpinners(): SmzNumberEditableBuilder {
+    const data: SmzNumberEditable = this._editable.data as SmzNumberEditable;
+    data.showButtons = true;
+
+    return this;
+  }
+
+  public showClear(): SmzNumberEditableBuilder {
+    const data: SmzNumberEditable = this._editable.data as SmzNumberEditable;
+    data.showClear = true;
+
+    return this;
+  }
+
+  public forbidEmpty(): SmzNumberEditableBuilder {
+    const data: SmzNumberEditable = this._editable.data as SmzNumberEditable;
+    data.allowEmpty = false;
+
+    return this;
+  }
+
+  public useGrouping(): SmzNumberEditableBuilder {
+    const data: SmzNumberEditable = this._editable.data as SmzNumberEditable;
+    data.useGrouping = true;
+
+    return this;
+  }
+
 }

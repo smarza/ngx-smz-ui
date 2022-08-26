@@ -19,7 +19,8 @@ export class DemoFeatureSelectors {
       { id: '3', name: 'teste 3'},
       { id: '4', name: 'teste 4'},
       { id: index.toString(), name: `index ${index}`}
-    ]}));
+    ],
+    price: Math.floor(Math.random() * 1000) + 1}));
     console.log('DemoFeatureSelectors results', results);
     return results;
   }
