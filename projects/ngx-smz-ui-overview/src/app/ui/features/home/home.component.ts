@@ -1,14 +1,15 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnChanges } from '@angular/core';
 import { TreeDemoData } from '@demos/demo-tree';
 import { DemoTreeNode } from '@models/demo';
 import { Select, Store } from '@ngxs/store';
-import { isArray, routerParamsListener, SmzTreeBuilder, SmzTreeState, SmzUiBlockService, sortArray } from 'ngx-smz-ui';
+import { SmzRoute, isArray, routerParamsListener, SmzTreeBuilder, SmzTreeState, SmzUiBlockService, sortArray } from 'ngx-smz-ui';
 import { ActivatedRoute } from '@angular/router';
 import { HOME_PATH } from '@routes';
 import { DemoFeatureSelectors } from '@states/demo/demo.selectors';
 import { Observable } from 'rxjs';
 import { DemoFeatureActions } from '@states/demo/demo.actions';
 
+// @SmzRoute()
 @Component({
   selector: 'app-home',
   templateUrl: `home.component.html`,
@@ -44,16 +45,16 @@ export class HomeComponent
         .tree
       .build();
 
-      routerParamsListener(HOME_PATH, route, (routeData: { key: string }) => {
-        this.store.dispatch(new DemoFeatureActions.SetRoute(routeData.key, false));
+      // routerParamsListener(HOME_PATH, route, (routeData: { key: string }) => {
+      //   this.store.dispatch(new DemoFeatureActions.SetRoute(routeData.key, false));
 
-        if (routeData.key == null) {
-          setTimeout(() => {
-            this.selectedTabIndex = 0;
-            this.selectedNode = null;
-          }, 0);
-        }
-      });
+      //   if (routeData.key == null) {
+      //     setTimeout(() => {
+      //       this.selectedTabIndex = 0;
+      //       this.selectedNode = null;
+      //     }, 0);
+      //   }
+      // });
   }
 
   public onSelectedNodes(nodes: DemoTreeNode[]): void {

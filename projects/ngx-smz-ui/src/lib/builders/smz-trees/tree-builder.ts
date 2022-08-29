@@ -1,8 +1,8 @@
 import { TreeNode } from 'primeng/api';
 import { SmzTreeMenuItem } from '../../modules/smz-trees/models/tree-menu-item';
-import { SmzTreeGroup, SmzTreeState } from '../../modules/smz-trees/models/tree-state';
+import { SmzTreeState } from '../../modules/smz-trees/models/tree-state';
 import { SmzTreeToolbarButton } from '../../modules/smz-trees/models/tree-toolbar-button';
-import { groupTreeNode } from '../common/utils';
+import { SmzDataSourceTreeBuilder } from './data-source-tree-builder';
 
 export class SmzTreeBuilder {
   public _state: SmzTreeState = {
@@ -138,15 +138,9 @@ export class SmzTreeBuilder {
     return this;
   }
 
-  public dataTransform(data: SmzTreeGroup): SmzTreeBuilder {
-
-    this._state.content.dataTransform = (items: any[]) => {
-      const root = groupTreeNode(items, data.endNode, data.group);
-      return root;
-    }
-    return this;
+  public dataSource(): SmzDataSourceTreeBuilder {
+    return new SmzDataSourceTreeBuilder(this);
   }
-
 
   public build(): SmzTreeState {
     return this._state;

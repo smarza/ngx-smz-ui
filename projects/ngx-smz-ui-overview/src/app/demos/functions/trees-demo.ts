@@ -75,57 +75,75 @@ export const TreesDemo:{ [key: string]: { items$: Observable<any[]>, code: () =>
     }
   },
   //
-  [DemoKeys.TREE_DATA_TRANSFORM]: {
+  [DemoKeys.TREE_DATA_TRANSFORM_USING_GROUPS]: {
     items$: store.select(DemoFeatureSelectors.all),
     code: () => {
     return new SmzTreeBuilder()
       .setTitle('Tree with Data Transform')
       .useSincronization()
       .setSelection('checkbox')
-      .dataTransform({
-        // NÓ FINAL
-        endNode: {
-          keyPropertyValue: 'id',
-          labelProperty: 'name',
-          type: 'item',
-          nodeOverrides: { selectable: true },
-        },
-        // AGRUPAR POR COUNTRY
-        group: {
-          keyPropertyValue: 'country.id',
-          keyPropertyData: 'country',
-          labelProperty: 'country.name',
-          type: 'country',
-          nodeOverrides: { selectable: false },
-          // AGRUPAR POR COMPANY
+      .dataSource()
+        .grouping({
+          // NÓ FINAL
+          endNode: {
+            keyPropertyValue: 'id',
+            labelProperty: 'name',
+            type: 'item',
+            nodeOverrides: { selectable: true },
+          },
+          // AGRUPAR POR COUNTRY
           group: {
-            keyPropertyValue: 'company',
-            keyPropertyData: 'company',
-            labelProperty: 'company',
-            type: 'company',
+            keyPropertyValue: 'country.id',
+            keyPropertyData: 'country',
+            labelProperty: 'country.name',
+            type: 'country',
             nodeOverrides: { selectable: false },
-            group: null
+            // AGRUPAR POR COMPANY
+            group: {
+              keyPropertyValue: 'company',
+              keyPropertyData: 'company',
+              labelProperty: 'company',
+              type: 'company',
+              nodeOverrides: { selectable: false },
+              group: null
+            }
           }
-        }
-      })
-      .menu()
-        .item('Country')
-          .setCallback(node => console.log('Country: ', node))
-          .showForTypes('country')
-          .menu
-        .item('Company')
-          .setCallback(node => console.log('Company: ', node))
-          .showForTypes('company')
-          .menu
-        .item('Item')
-          .showForTypes('item')
-          .setCallback(node => console.log('Item: ', node))
-          .menu
+        })
         .tree
       .enableFilter()
       .build()
     }
   },
+  //
+  [DemoKeys.TREE_DATA_TRANSFORM_USING_FLAT_ARRAYS]: {
+    items$: store.select(DemoFeatureSelectors.all),
+    code: () => {
+    return new SmzTreeBuilder()
+      .setTitle('Tree with Data Transform')
+      .useSincronization()
+      .setSelection('checkbox')
+      .dataSource()
+        .flat('id', 'name')
+        .tree
+      .enableFilter()
+      .build()
+    }
+  },
+    //
+    [DemoKeys.TREE_DATA_TRANSFORM_USING_FLAT_ARRAYS_WITH_ROOT]: {
+      items$: store.select(DemoFeatureSelectors.all),
+      code: () => {
+      return new SmzTreeBuilder()
+        .setTitle('Tree with Data Transform')
+        .useSincronization()
+        .setSelection('checkbox')
+        .dataSource()
+          .flatWithRoot('Libra xyz', 'id', 'name', { expanded: true })
+          .tree
+        .enableFilter()
+        .build()
+      }
+    },
 }
 
 

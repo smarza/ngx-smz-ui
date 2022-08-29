@@ -1,5 +1,9 @@
 <smz-ui-tree-with-details [state]="state" (selectionChange)="onSelectionChanged($event)" (detailsChange)="onDetailsChanged()">
 
+  <ng-template pTemplate="type:folder" let-node>
+    <span>folder => {{ node.label }}</span>
+  </ng-template>
+
     <!-- CONTEÚDOS COM OVERRIDE -->
     <ng-template pTemplate="details" let-item let-type="type">
 

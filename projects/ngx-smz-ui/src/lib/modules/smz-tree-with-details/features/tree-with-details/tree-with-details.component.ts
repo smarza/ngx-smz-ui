@@ -17,6 +17,7 @@ export class SmzTreeWithDetailsComponent implements OnInit, AfterContentInit {
   @Output() public detailsChange = new EventEmitter<SmzTreeNode>();
   public detailsTemplate: TemplateRef<any>;
   public emptySelectionTemplate: TemplateRef<any>;
+  public headerTemplate: TemplateRef<any>;
   public contentTemplates: { type: string, template: TemplateRef<any> }[] = [];
 
   constructor(public cdr: ChangeDetectorRef) {
@@ -49,7 +50,14 @@ export class SmzTreeWithDetailsComponent implements OnInit, AfterContentInit {
           case 'EmptySelection':
             this.emptySelectionTemplate = item.template;
             break;
+
+          case 'header':
+            this.headerTemplate = item.template;
+            break;
+
         }
+
+        console.log(this.contentTemplates);
 
       }
 

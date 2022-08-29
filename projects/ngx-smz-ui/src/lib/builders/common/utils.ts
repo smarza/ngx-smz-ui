@@ -1,6 +1,7 @@
 import { cloneDeep } from 'lodash-es';
 import groupBy from 'lodash-es/groupBy';
 import mapValues from 'lodash-es/mapValues';
+import { TreeNode } from 'primeng/api/treenode';
 import { ObjectUtils } from 'primeng/utils';
 import { SmzTreeNode } from '../../modules/smz-trees/models/tree-node';
 import { SmzTreeGroup, SmzTreeGroupData, SmzTreeGroupNodeConfig } from '../../modules/smz-trees/models/tree-state';
@@ -41,12 +42,31 @@ export function fixDate(date: FormGroupConfig): Date {
   }
 }
 
-export function groupTreeNode(items: any[], endNode: SmzTreeGroupNodeConfig, data: SmzTreeGroupData): SmzTreeNode[] {
+export function groupTreeNode(items: any[], endNode: SmzTreeGroupNodeConfig, group: SmzTreeGroupData): SmzTreeNode[] {
 
   const result: SmzTreeNode[] = [];
 
+  if (group == null) {
+
+    items.forEach(item => {
+      const node: SmzTreeNode = {
+        ...group.nodeOverrides,
+        type: group.type,
+        label:  ObjectUtils.resolveFieldData(item, endNode.labelProperty),
+        key: ObjectUtils.resolveFieldData(item, endNode.keyPropertyValue),
+        data:  item,
+        children: [],
+      };
+
+      result.push(node as any);
+    });
+
+    return result;
+
+  }
+
   const grouped = groupBy(items, (i) => {
-    return ObjectUtils.resolveFieldData(i, data.keyPropertyValue);
+    return ObjectUtils.resolveFieldData(i, group.keyPropertyValue);
   });
 
   mapValues(grouped, uniques =>
@@ -54,13 +74,13 @@ export function groupTreeNode(items: any[], endNode: SmzTreeGroupNodeConfig, dat
       const unique = cloneDeep(uniques[0]);
 
       const node: SmzTreeNode = {
-          ...data.nodeOverrides,
-          type: data.type,
-          label: ObjectUtils.resolveFieldData(unique, data.labelProperty),
-          key:  ObjectUtils.resolveFieldData(unique, data.keyPropertyValue),
-          data:  ObjectUtils.resolveFieldData(unique, data.keyPropertyData),
-          children: data.group != null ?
-            groupTreeNode(uniques, endNode, data.group) :
+          ...group.nodeOverrides,
+          type: group.type,
+          label: ObjectUtils.resolveFieldData(unique, group.labelProperty),
+          key:  ObjectUtils.resolveFieldData(unique, group.keyPropertyValue),
+          data:  ObjectUtils.resolveFieldData(unique, group.keyPropertyData),
+          children: group.group != null ?
+            groupTreeNode(uniques, endNode, group.group) :
             uniques.map((x => ({
               ...endNode.nodeOverrides,
               type: endNode.type,
@@ -77,4 +97,53 @@ export function groupTreeNode(items: any[], endNode: SmzTreeGroupNodeConfig, dat
   // console.log('result', result);
 
   return result;
+}
+
+export function arrayToTreeNodeWithRoot(items: any[], endNode: SmzTreeGroupNodeConfig, rootName: string, overrides: Partial<TreeNode<any>> = {}): SmzTreeNode[] {
+
+  const rootNode = {
+    ...overrides,
+    type: 'root',
+    label:  rootName,
+    key: 'root',
+    data:  null,
+    children: [],
+  };
+
+  const result: SmzTreeNode[] = [rootNode];
+
+  items.forEach(item => {
+    const node: SmzTreeNode = {
+      ...endNode.nodeOverrides,
+      type: endNode.type,
+      label:  ObjectUtils.resolveFieldData(item, endNode.labelProperty),
+      key: ObjectUtils.resolveFieldData(item, endNode.keyPropertyValue),
+      data:  item,
+      children: null,
+    };
+
+    rootNode.children.push(node as any);
+  });
+
+  return result;
+}
+
+export function arrayToTreeNode(items: any[], endNode: SmzTreeGroupNodeConfig): SmzTreeNode[] {
+
+const result: SmzTreeNode[] = [];
+
+items.forEach(item => {
+  const node: SmzTreeNode = {
+    ...endNode.nodeOverrides,
+    type: endNode.type,
+    label:  ObjectUtils.resolveFieldData(item, endNode.labelProperty),
+    key: ObjectUtils.resolveFieldData(item, endNode.keyPropertyValue),
+    data:  item,
+    children: null,
+  };
+
+  result.push(node as any);
+});
+
+return result;
 }

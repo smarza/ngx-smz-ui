@@ -888,11 +888,32 @@ export const TreeDemoData: DemoTreeNode[] = [
         key: DemoKeys.TREE_DEMO_1.toString()
       },
       {
-        label: 'Data Transform', icon: 'fa-solid fa-code', type: 'Demo',
-        demoType: 'tree',
-        notes: '',
-        data: TreesDemo[DemoKeys.TREE_DATA_TRANSFORM],
-        key: DemoKeys.TREE_DATA_TRANSFORM.toString()
+        label: 'Source data',
+        type: 'Category',
+        expanded: false,
+        children: [
+          {
+            label: 'Group Array', icon: 'fa-solid fa-code', type: 'Demo',
+            demoType: 'tree',
+            notes: '',
+            data: TreesDemo[DemoKeys.TREE_DATA_TRANSFORM_USING_GROUPS],
+            key: DemoKeys.TREE_DATA_TRANSFORM_USING_GROUPS.toString()
+          },
+          {
+            label: 'Flat Array', icon: 'fa-solid fa-code', type: 'Demo',
+            demoType: 'tree',
+            notes: '',
+            data: TreesDemo[DemoKeys.TREE_DATA_TRANSFORM_USING_FLAT_ARRAYS],
+            key: DemoKeys.TREE_DATA_TRANSFORM_USING_FLAT_ARRAYS.toString()
+          },
+          {
+            label: 'Flat Array With Root', icon: 'fa-solid fa-code', type: 'Demo',
+            demoType: 'tree',
+            notes: '',
+            data: TreesDemo[DemoKeys.TREE_DATA_TRANSFORM_USING_FLAT_ARRAYS_WITH_ROOT],
+            key: DemoKeys.TREE_DATA_TRANSFORM_USING_FLAT_ARRAYS_WITH_ROOT.toString()
+          },
+        ]
       },
     ]
   },
