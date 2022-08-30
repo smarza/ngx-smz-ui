@@ -14,4 +14,8 @@ export interface SmzTreeWithDetailsState {
   context: {
     selectedNode: TreeNode;
   }
+
+  behavior: {
+    emitDetailsAfterCycle: boolean;
+  }
 }

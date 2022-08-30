@@ -50,6 +50,11 @@
                 <ng-template pTemplate="header" *ngIf="state.header.isVisible">
 
                     <ng-container *ngIf="state.header.toolbar as toolbar">
+
+                        <div *ngIf="headerTemplate != null" class="grid grid-nogutter items-center w-full justify-start">
+                            <ng-container *ngTemplateOutlet="headerTemplate; context: { $implicit: dt }"></ng-container>
+                        </div>
+
                         <div class="grid grid-nogutter justify-start items-center mb-2 gap-2">
                             <h3 *ngIf="state.header.title != null" class="m-2 col">{{state.header.title}}</h3>
                             <div class="grid grid-nogutter justify-start items-center gap-2">

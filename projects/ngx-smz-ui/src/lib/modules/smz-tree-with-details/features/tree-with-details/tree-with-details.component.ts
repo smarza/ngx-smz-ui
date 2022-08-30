@@ -67,7 +67,20 @@ export class SmzTreeWithDetailsComponent implements OnInit, AfterContentInit {
   public selectionChanged(node: TreeNode): void {
     if (this.state.tree.selectableTypes.some(x => x === node?.type)) {
       this.state.context.selectedNode = node;
-      this.detailsChange.emit(this.state.context.selectedNode);
+
+      if (this.state.behavior.emitDetailsAfterCycle) {
+        this.detailsChange.emit();
+        this.cdr.markForCheck();
+
+        setTimeout(() => {
+          this.detailsChange.emit(this.state.context.selectedNode);
+          this.cdr.markForCheck();
+        }, 0);
+      }
+      else {
+        this.detailsChange.emit(this.state.context.selectedNode);
+      }
+
     }
     else {
       this.state.context.selectedNode = null;

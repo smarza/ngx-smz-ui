@@ -11,7 +11,7 @@ export class SmzTreeBuilder {
       items: []
     },
     header: {
-      isVisible: false,
+      isVisible: true,
       title: null,
       toolbar: {
         alignment: 'start',
@@ -77,14 +77,27 @@ export class SmzTreeBuilder {
     return new SmzTreeMenuBuilder(this);
   }
 
+  public hideHeader(): SmzTreeBuilder {
+    this._state.header.isVisible = false;
+    return this;
+  }
+
   public setTitle(title: string): SmzTreeBuilder {
-    this._state.header.isVisible = true;
+
+    if (!this._state.header.isVisible) {
+      throw new Error(`You can't call setTitle() because the header is hidden.`);
+    }
+
     this._state.header.title = title;
     return this;
   }
 
   public toolbar(type: 'rounded-outlined' | 'rounded-filled' | 'rounded-borderless' | 'square-outlined' | 'square-filled' | 'square-borderless'): SmzTreeToolbarBuilder {
-    this._state.header.toolbar.isVisible = true;
+
+    if (!this._state.header.isVisible) {
+      throw new Error(`You can't call toolbar() because the header is hidden.`);
+    }
+
     this._state.header.toolbar.buttonType = type;
     return new SmzTreeToolbarBuilder(this);
   }

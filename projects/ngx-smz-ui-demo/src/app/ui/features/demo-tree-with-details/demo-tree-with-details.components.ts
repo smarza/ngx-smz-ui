@@ -27,6 +27,9 @@ export class DemoTreeWithDetailsComponent implements OnInit {
       },
       context: {
         selectedNode: null
+      },
+      behavior: {
+        emitDetailsAfterCycle: true
       }
     };
 
