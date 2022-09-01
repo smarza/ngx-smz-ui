@@ -14,8 +14,10 @@
 
         <ng-container *ngSwitchCase="'folder'">
           -- is folder.
-          <button pButton (click)="block()">block</button>
-          <button pButton (click)="unblock()">unblock</button>
+          <div class="grid grid-nogutter items-start justify-start gap-2">
+            <button class="col-4 p-button-danger" pButton (click)="block()" label="Block"></button>
+            <button class="col-4 p-button-success" pButton (click)="unblock()" label="Unblock"></button>
+          </div>
         </ng-container>
       </ng-container>
 

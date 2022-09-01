@@ -12,7 +12,7 @@ export interface SmzUiBlockConfig {
   template: `
   <ng-container *ngFor="let block of service.blocks">
     <p-blockUI [target]="block.component" [blocked]="block.blocked">
-      <i class="pi pi-lock" style="font-size: 3rem"></i>
+      <i class="pi pi-lock" style="font-size: 2rem"></i>
     </p-blockUI>
   </ng-container>
   `

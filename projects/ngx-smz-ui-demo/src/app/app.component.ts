@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { SIGNALR_PATH, SVG_DEMO_PATH, SVG_GCAB_PATH, SVG_PATH, SVG_PLAYGROUND_PATH } from '@routes';
-import { MenuHelperService, ThemeManagerService, BoilerplateService, ToastActions } from 'ngx-smz-ui';
+import { MenuHelperService, ThemeManagerService, BoilerplateService } from 'ngx-smz-ui';
 
 const test = { status: 1 };
 
@@ -174,6 +174,10 @@ export class AppComponent {
       // }, 5000);
 
     });
+  }
+
+  public log(event: any): void {
+    console.log(event);
   }
 
 }

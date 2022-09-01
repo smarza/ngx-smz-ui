@@ -10,12 +10,18 @@ export class SmzUiBlockService {
   public onChanges: BehaviorSubject<void> = new BehaviorSubject<void>(null);
   constructor() { }
 
-  public add(key: string, component: any): void {
+  public add(key: string, component: any): SmzUiBlockConfig {
     const match = this.blocks.find(x => x.key === key);
 
     if (match == null) {
-      this.blocks.push({key, component, blocked: false});
+      const newBlock: SmzUiBlockConfig = {key, component, blocked: false};
+      this.blocks.push(newBlock);
+      return newBlock;
     }
+    else {
+      return match;
+    }
+
   }
 
   public update(key: string, component: any, blocked: boolean): void {

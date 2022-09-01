@@ -19,6 +19,8 @@ export interface SimpleParentEntity<T>
 
 export const nameof = <T>(name: Extract<keyof T, string>): string => name;
 
+export const namesof = <T, U>(first: Extract<keyof T, string>, second: Extract<keyof U, string>): string => `${first}.${second}`;
+
 /*
     Map {property_name}.id properties to {property_name}Id in Javascript objects
 */

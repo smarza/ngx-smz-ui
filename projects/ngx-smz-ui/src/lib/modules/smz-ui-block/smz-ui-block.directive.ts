@@ -19,7 +19,9 @@ export class SmzUiBlockDirective implements OnInit, OnDestroy {
       return this.el.nativeElement;
     };
 
-    this.service.add(this.key, this.component);
+    this.component['block'] = this.service.add(this.key, this.component);
+
+    this.cdr.markForCheck();
   }
 
   public ngOnDestroy(): void {
