@@ -30,6 +30,9 @@ export class DemoTreeWithDetailsComponent implements OnInit {
       },
       behavior: {
         emitDetailsAfterCycle: true
+      },
+      styleClass: {
+        content: 'gap-3 p-6 overflow-y-auto'
       }
     };
 
@@ -100,13 +103,11 @@ export class DemoTreeWithDetailsComponent implements OnInit {
     console.log('onSelectionChanged', node);
   }
 
-  // public unblock(): void {
-  //   setTimeout(() => {
-  //     this.uiBlockService.unBlockAll();
+  public unblock(): void {
+    this.uiBlockService.unBlockAll();
+  }
 
-  //     this.cdr.markForCheck();
-
-  //     console.log('blocks 2', this.uiBlockService.blocks);
-  //   }, 200);
-  // }
+  public block(): void {
+    this.uiBlockService.blockAll();
+  }
 }

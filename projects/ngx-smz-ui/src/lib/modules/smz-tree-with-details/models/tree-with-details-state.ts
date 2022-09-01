@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { SmzTreeState } from '../../smz-trees/models/tree-state';
 
 export interface SmzTreeWithDetailsState {
-  items$: Observable<TreeNode[]>;
+  items$: Observable<TreeNode[]> | any;
   tree: {
     state: SmzTreeState;
     styleClass: string;
@@ -17,5 +17,8 @@ export interface SmzTreeWithDetailsState {
 
   behavior: {
     emitDetailsAfterCycle: boolean;
+  }
+  styleClass: {
+    content: string;
   }
 }

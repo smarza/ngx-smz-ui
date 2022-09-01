@@ -8,7 +8,7 @@ import { SmzTreeWithDetailsState } from '../../models/tree-with-details-state';
   templateUrl: './tree-with-details.component.html',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { class: 'absolute inset-0 p-10' },
+  host: { class: 'absolute inset-0' },
 })
 export class SmzTreeWithDetailsComponent implements OnInit, AfterContentInit {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
@@ -56,8 +56,6 @@ export class SmzTreeWithDetailsComponent implements OnInit, AfterContentInit {
             break;
 
         }
-
-        console.log(this.contentTemplates);
 
       }
 

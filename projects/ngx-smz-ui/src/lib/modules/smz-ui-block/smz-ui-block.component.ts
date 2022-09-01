@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { SmzUiBlockService } from './smz-ui-block.service';
 
 export interface SmzUiBlockConfig {
@@ -20,7 +20,11 @@ export interface SmzUiBlockConfig {
 
 export class SmzUiBlockComponent implements OnInit {
 
-  constructor(public service: SmzUiBlockService) { }
+  constructor(public service: SmzUiBlockService, private cdf: ChangeDetectorRef) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.service.onChanges.subscribe(() => {
+      this.cdf.markForCheck()
+    });
+  }
 }

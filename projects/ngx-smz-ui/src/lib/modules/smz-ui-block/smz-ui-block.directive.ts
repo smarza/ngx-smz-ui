@@ -1,4 +1,4 @@
-import { Directive, ElementRef, OnInit, Input, OnDestroy } from '@angular/core';
+import { Directive, ElementRef, OnInit, Input, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { SmzUiBlockService } from './smz-ui-block.service';
 import { UUID } from 'angular2-uuid';
 
@@ -10,10 +10,11 @@ export class SmzUiBlockDirective implements OnInit, OnDestroy {
   public key: string = UUID.UUID();
   @Input() public component: any;
 
-  constructor(public el: ElementRef, private service: SmzUiBlockService) {
+  constructor(public el: ElementRef, private service: SmzUiBlockService, private cdr: ChangeDetectorRef) {
   }
 
   public ngOnInit(): void {
+
     this.component['getBlockableElement'] = (): HTMLElement => {
       return this.el.nativeElement;
     };

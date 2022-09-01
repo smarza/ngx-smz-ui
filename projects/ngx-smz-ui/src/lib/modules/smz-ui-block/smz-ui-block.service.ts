@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { removeElementFromArray } from '../../common/utils/utils';
 import { SmzUiBlockConfig } from './smz-ui-block.component';
 
@@ -6,6 +7,7 @@ import { SmzUiBlockConfig } from './smz-ui-block.component';
 export class SmzUiBlockService {
   public blocks: SmzUiBlockConfig[] = [];
   public blocked: boolean = false;
+  public onChanges: BehaviorSubject<void> = new BehaviorSubject<void>(null);
   constructor() { }
 
   public add(key: string, component: any): void {
@@ -34,11 +36,13 @@ export class SmzUiBlockService {
   public blockAll(): void {
     this.blocks.forEach(x => x.blocked = true);
     this.blocked = true;
+    this.onChanges.next();
   }
 
   public unBlockAll(): void {
     this.blocks.forEach(x => x.blocked = false);
     this.blocked = false;
+    this.onChanges.next();
   }
 
 }
