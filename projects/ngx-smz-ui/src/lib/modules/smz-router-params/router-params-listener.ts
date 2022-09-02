@@ -3,9 +3,12 @@ import { RouterParamsActions } from './state/router-params/router-params.actions
 import { Store } from '@ngxs/store';
 
 import { GlobalInjector } from '../../common/services/global-injector';
+import { isEmpty } from 'lodash-es';
+import { isNumeric } from '../../common/utils/utils';
 
 export function routerParamsListener(key: string, route: ActivatedRoute, callback?: (data) => void): void {
   route.paramMap.subscribe(params => {
+
     const data = mapParamsToObject<any>(params);
 
     if (key != null && key !== '') {
@@ -19,8 +22,8 @@ export function routerParamsListener(key: string, route: ActivatedRoute, callbac
 
 export function routerParamsDispatch(action: any, route: ActivatedRoute, property?: string): void {
   route.paramMap.subscribe(params => {
-    const data = mapParamsToObject<any>(params);
 
+    const data = mapParamsToObject<any>(params);
     const store = GlobalInjector.instance.get(Store);
 
     try {
@@ -42,11 +45,18 @@ export function mapParamsToObject<T>(params: ParamMap): T {
   for (let key of params.keys) {
     const value = params.get(key);
 
-    if (value.includes(',')) {
+    if (key.includes('Array') || value.includes(',')) {
       // is array
-      const values = value.split(',');
 
-      result[key] = values.map(x => (typeof Number(x) === 'number') ? Number(x) : x);
+      if (isEmpty(value)) {
+        result[key] = [];
+      }
+      else {
+        const values = value.split(',');
+        result[key] = values.map(x => {
+          return (isNumeric(x)) ? Number(x) : x;
+        });
+      }
     }
     else if (value === 'null') {
       // is null
@@ -57,7 +67,7 @@ export function mapParamsToObject<T>(params: ParamMap): T {
       result[key] = (value === 'true');
     }
     else {
-      result[key] = isNaN(value as any) ? value : Number(value);
+      result[key] = isNumeric(value) ? Number(value) : value;
     }
   }
 
