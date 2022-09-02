@@ -41,6 +41,7 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
   @Input() public loading: boolean = false;
   @Output() public selectionChange: EventEmitter<any> = new EventEmitter<any>();
   @Output() public filterChange: EventEmitter<any> = new EventEmitter<any>();
+  @Output() public columnVisibilityChange: EventEmitter<string[]> = new EventEmitter<string[]>();
   @Output() public create: EventEmitter<any> = new EventEmitter<any>();
   @Output() public update: EventEmitter<any> = new EventEmitter<any>();
   @Output() public delete: EventEmitter<any> = new EventEmitter<any>();
@@ -103,12 +104,18 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
     this.cdr.markForCheck();
   }
 
-  public updateColumnsVisibility(context: SmzTableContext): void {
+  public updateColumnsVisibility(): void {
     this.state.columns.forEach(x => {
       x.isVisible = this.selectedColumns?.findIndex(c => c.field === x.field) !== -1;
     });
 
     this.state = { ...this.state };
+
+    this.columnVisibilityChange.emit(
+      this.state.columns
+        .filter(x => x.isVisible)
+        .map(x => x.field)
+      );
 
     // context.visibleColumns = context.columns.filter(x => this.selectedColumns.findIndex(c => c.field === x.field) !== -1);
   }

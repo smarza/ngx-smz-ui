@@ -1,95 +1,87 @@
-import {
-  InjectableType,
-  ɵComponentType as ComponentType,
-  ɵDirectiveType as DirectiveType,
-} from '@angular/core';
-import { Subscription } from 'rxjs';
-import { GlobalInjector } from '../../rbk-utils/misc/global.injector';
-import { routerParamsListener } from '../router-params-listener';
-import { ActivatedRoute } from '@angular/router';
+// import { ɵComponentType as ComponentType } from '@angular/core';
+// import { ActivatedRoute } from '@angular/router';
+// import { GlobalInjector } from '../../rbk-utils/misc/global.injector';
+// import { routerParamsListener } from '../router-params-listener';
+// import { getSymbol, completeSubjectOnTheInstance, markAsDecorated } from './internals';
 
-import {
-  getSymbol,
-  UntilDestroyOptions,
-  completeSubjectOnTheInstance,
-  markAsDecorated,
-} from './internals';
+// export const ANNOTATIONS = '__annotations__';
+// export const PARAMETERS = '__parameters__';
+// export const PROP_METADATA = '__prop__metadata__';
 
-function unsubscribe(property: unknown): void {
-  if (property instanceof Subscription) {
-    property.unsubscribe();
-  }
-}
+// export interface SmzRouteOptions {
+//   selector: string;
+// }
 
-function unsubscribeIfPropertyIsArrayLike(property: unknown[]): void {
-  Array.isArray(property) && property.forEach(unsubscribe);
-}
+// export function SmzRoute(options: SmzRouteOptions = { selector: 'test' }): ClassDecorator {
+//   return (target: any) => {
+//     console.log('SmzRoute');
+//     decorateComponent(target, options);
+//     markAsDecorated(target);
+//   };
+// }
 
-function decorateNgOnDestroy(
-  ngOnDestroy: (() => void) | null | undefined,
-  options: UntilDestroyOptions
-) {
-  return function (this: any) {
-    // Invoke the original `ngOnDestroy` if it exists
-    ngOnDestroy && ngOnDestroy.call(this);
+// function decorateComponent<T>(
+//   target: ComponentType<T>,
+//   options: SmzRouteOptions
+// ): void {
+//   console.log('decorateComponent');
 
-    // It's important to use `this` instead of caching instance
-    // that may lead to memory leaks
-    completeSubjectOnTheInstance(this, getSymbol());
+//   target.prototype.route = GlobalInjector.instance.get(ActivatedRoute);
+//   target.prototype.smzOnRouteChange = decorateSmzOnRouteChange(target.prototype.smzOnRouteChange, options);
+//   target.prototype.ngAfterViewInit = decorateNgAfterViewInit(target.prototype.ngAfterViewInit, options);
+// }
 
-    // Check if subscriptions are pushed to some array
-    if (options.arrayName) {
-      unsubscribeIfPropertyIsArrayLike(this[options.arrayName]);
-    }
+// function decorateNgAfterViewInit(
+//   ngAfterViewInit: (() => void) | null | undefined,
+//   options: SmzRouteOptions,
+// ) {
+//   return function (this: any) {
+//     // Invoke the original `ngOnInit` if it exists
+//     ngAfterViewInit && ngAfterViewInit.call(this);
 
-    // Loop through the properties and find subscriptions
-    if (options.checkProperties) {
-      for (const property in this) {
-        if (options.blackList?.includes(property)) {
-          continue;
-        }
+//     // It's important to use `this` instead of caching instance
+//     // that may lead to memory leaks
+//     completeSubjectOnTheInstance(this, getSymbol());
 
-        unsubscribe(this[property]);
-      }
-    }
-  };
-}
+//     console.log(' this >', this);
+//     console.log(' this .route >', this.route);
+//     routerParamsListener(options.selector, this.route, (routeData: { key: string }) => {
+//       this.smzOnRouteChange(routeData);
+//     });
 
-function decorateNgRoute(
-  call: (() => void) | null | undefined) {
-  return function (this: any) {
-    console.log('call', call);
-    console.log('this', this);
-  };
-}
+//   };
+// }
 
-function decorateProviderDirectiveOrComponent<T>(
-  type: InjectableType<T> | DirectiveType<T> | ComponentType<T>,
-  options: UntilDestroyOptions
-): void {
+// function decorateSmzOnRouteChange(
+//   smzOnRouteChange: ((events: any) => void) | null | undefined,
+//   options: SmzRouteOptions,
+// ) {
+//   return function (this: any, events) {
+//     // Invoke the original `ngOnInit` if it exists
+//     smzOnRouteChange && smzOnRouteChange.call(this, events);
 
-  console.log('decorateProviderDirectiveOrComponent', type);
-  console.log('prototype', type.prototype);
-  console.log('prototype constructor', decorateNgRoute(type.prototype));
-  console.log('name', type.name);
-  // type.prototype.ngOnDestroy = decorateNgOnDestroy(type.prototype.ngOnDestroy, options);
+//     // It's important to use `this` instead of caching instance
+//     // that may lead to memory leaks
+//     completeSubjectOnTheInstance(this, getSymbol());
 
-  // const route = GlobalInjector.instance.get(ActivatedRoute);
+//     console.log('Executing... smzOnRouteChange()', events);
 
-  // routerParamsListener(type.name, route, (routeData: { key: string }) => {
-  //   console.log('route listener', routeData);
-  // });
+//   };
+// }
 
-  setTimeout(() => {
-    console.log('prototype', type.prototype);
-  }, 2000);
-}
+// function decorateConstructor(
+//   constructor: (() => void) | null | undefined,
+//   options: SmzRouteOptions,
+// ) {
+//   return function (this: any) {
+//     // Invoke the original `ngOnInit` if it exists
+//     constructor && constructor.call(this);
 
-export function SmzRoute(options: UntilDestroyOptions = {}): ClassDecorator {
-  return (type: any) => {
-    console.log(type);
-    decorateProviderDirectiveOrComponent(type, options);
+//     // It's important to use `this` instead of caching instance
+//     // that may lead to memory leaks
+//     completeSubjectOnTheInstance(this, getSymbol());
 
-    markAsDecorated(type);
-  };
-}
+//     console.log('Executing... decorateConstructor()');
+
+//   };
+// }

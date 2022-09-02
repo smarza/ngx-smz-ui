@@ -17,8 +17,11 @@ export interface SimpleParentEntity<T>
     data: SimpleEntity<T>[];
 }
 
+// nameof<SimpleNamedEntity>('name');
 export const nameof = <T>(name: Extract<keyof T, string>): string => name;
 
+
+// namesof<SmzRouteData, SimpleNamedEntity>('title', 'name');
 export const namesof = <T, U>(first: Extract<keyof T, string>, second: Extract<keyof U, string>): string => `${first}.${second}`;
 
 /*

@@ -1,21 +1,20 @@
-import { ChangeDetectorRef, Component, OnChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { TreeDemoData } from '@demos/demo-tree';
 import { DemoTreeNode } from '@models/demo';
 import { Select, Store } from '@ngxs/store';
-import { SmzRoute, isArray, routerParamsListener, SmzTreeBuilder, SmzTreeState, SmzUiBlockService, sortArray } from 'ngx-smz-ui';
+import { isArray, routerParamsListener, SmzTreeBuilder, SmzTreeState, SmzUiBlockService, sortArray } from 'ngx-smz-ui';
 import { ActivatedRoute } from '@angular/router';
-import { HOME_PATH } from '@routes';
 import { DemoFeatureSelectors } from '@states/demo/demo.selectors';
 import { Observable } from 'rxjs';
 import { DemoFeatureActions } from '@states/demo/demo.actions';
+import { HOME_PATH } from '@routes';
 
-// @SmzRoute()
 @Component({
   selector: 'app-home',
   templateUrl: `home.component.html`,
   host: { 'class': 'absolute inset-0 p-3' }
 })
-export class HomeComponent
+export class HomeComponent implements OnInit
 {
   @Select(DemoFeatureSelectors.currentRouteKey) public currentRouteKey$: Observable<string[]>;
   public items: DemoTreeNode[] = sortArray(TreeDemoData, 'label');
@@ -23,6 +22,20 @@ export class HomeComponent
   public selectedNode: DemoTreeNode = null;
   public selectedTabIndex = 0;
   public isEditing = false;
+
+  // @SmzRouteParams('key', { observable: true , inherit: true, pipe: [] }) public key$: Observable<any>;
+
+  // @SmzRouteParams('key', { observable: true , inherit: true, pipe: [
+  //   tap((event) => {
+  //     event.this.store.dispatch(new DemoFeatureActions.SetRoute(event.value, false));
+
+  //     if (event.value == null) {
+  //       setTimeout(() => {
+  //         event.this.selectedTabIndex = 0;
+  //         event.this.selectedNode = null;
+  //       }, 0);
+  //     }
+  // })] }) public key$: Observable<any>;
 
   constructor(private store: Store, private route: ActivatedRoute, public uiBlockService: SmzUiBlockService, private cdf: ChangeDetectorRef)
   {
@@ -45,16 +58,20 @@ export class HomeComponent
         .tree
       .build();
 
-      // routerParamsListener(HOME_PATH, route, (routeData: { key: string }) => {
-      //   this.store.dispatch(new DemoFeatureActions.SetRoute(routeData.key, false));
+      routerParamsListener(HOME_PATH, route, (routeData: { key: string }) => {
+        this.store.dispatch(new DemoFeatureActions.SetRoute(routeData.key, false));
 
-      //   if (routeData.key == null) {
-      //     setTimeout(() => {
-      //       this.selectedTabIndex = 0;
-      //       this.selectedNode = null;
-      //     }, 0);
-      //   }
-      // });
+        if (routeData.key == null) {
+          setTimeout(() => {
+            this.selectedTabIndex = 0;
+            this.selectedNode = null;
+          }, 0);
+        }
+      });
+  }
+
+  public ngOnInit(): void {
+
   }
 
   public onSelectedNodes(nodes: DemoTreeNode[]): void {

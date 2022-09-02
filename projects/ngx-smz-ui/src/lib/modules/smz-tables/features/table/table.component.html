@@ -73,7 +73,7 @@
                         dataKey="field"
                         optionLabel="header"
                         [filter]="false"
-                        (onChange)="updateColumnsVisibility(context)"
+                        (onChange)="updateColumnsVisibility()"
                         [pTooltip]="context.state.locale.columnVisibility.pTooltip">
                     </p-multiSelect>
                     <button *ngIf="context.state.caption.rowSelection.isButtonVisible" pButton [label]="context.state.locale.rowSelection.label" class="p-button-outlined" icon="fa-solid fa-check-double" (click)="onRowSelection(context)" [disabled]="clonedData.showSkeleton"></button>

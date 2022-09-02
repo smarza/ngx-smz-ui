@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: '**', redirectTo: 'notfound' },
 ];
 
-export const routerModuleForRootNgxSmzLayoutsModule = RouterModule.forRoot(routes);
+export const routerModuleForRootNgxSmzLayoutsModule = RouterModule.forRoot(routes, { paramsInheritanceStrategy: 'always' });
 
 @NgModule({
   imports: [routerModuleForRootNgxSmzLayoutsModule],
