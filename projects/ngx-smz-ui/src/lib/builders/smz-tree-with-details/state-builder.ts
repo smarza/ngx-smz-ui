@@ -1,6 +1,7 @@
 import { SmzTreeWithDetailsState } from '../../modules/smz-tree-with-details/models/tree-with-details-state';
 import { SmzTreeState } from '../../modules/smz-trees/models/tree-state';
 import { TreeNode } from 'primeng/api';
+import { Observable } from 'rxjs';
 
 export class SmzTreeWithDetailsBuilder {
   public _state: SmzTreeWithDetailsState = {
@@ -34,6 +35,11 @@ export class SmzTreeWithDetailsBuilder {
 
   public setTree(treeState: SmzTreeState): SmzTreeWithDetailsBuilder {
     this._state.tree.state = treeState;
+    return this;
+  }
+
+  public setSource(items$: Observable<any>): SmzTreeWithDetailsBuilder {
+    this._state.items$ = items$;
     return this;
   }
 
