@@ -118,3 +118,5 @@ export * from './lib/builders/smz-login/state-builder';
 export * from './lib/builders/smz-comments/comments-builder';
 
 export * from './lib/builders/smz-excels/excels-builder';
+
+export * from './lib/builders/smz-tree-with-details/state-builder';
