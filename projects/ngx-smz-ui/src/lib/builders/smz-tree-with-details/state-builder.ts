@@ -29,10 +29,6 @@ export class SmzTreeWithDetailsBuilder {
     this.setLocale('pt-BR');
   }
 
-  public setTitle(): SmzTreeWithDetailsBuilder {
-    return this;
-  }
-
   public setTree(treeState: SmzTreeState): SmzTreeWithDetailsBuilder {
     this._state.tree.state = treeState;
     return this;
