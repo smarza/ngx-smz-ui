@@ -366,6 +366,7 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
     /** Restaura últimos dados salvos */
     public undoChanges(): void
     {
+        this.clearFormValues();
         this.viewdata.updateFormValues();
         this.resetState();
     }
@@ -375,6 +376,13 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
     {
         const data = this.getData().data;
         this.originalState = JSON.stringify(data).replace(/['"]+/g, '');
+
+        if (this.config.isDebug) {
+            console.groupCollapsed('resetState()');
+            console.log('data', data);
+            console.log('originalState', this.originalState);
+            console.groupEnd();
+        }
 
         this.updateHasChanges();
     }
@@ -394,7 +402,7 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
         }
 
         if (this.config.isDebug) {
-            console.group('UpdateHasChanges');
+            console.groupCollapsed('UpdateHasChanges');
             console.log('response', response);
             console.log('original', original);
             console.log('current', current);

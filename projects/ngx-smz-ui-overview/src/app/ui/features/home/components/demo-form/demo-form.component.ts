@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { DemoTreeNode } from '@models/demo';
-import { FormGroupComponent, SmzForm, SmzDialogsService, SmzDialogBuilder, SmzFormsResponse } from 'ngx-smz-ui';
+import { FormGroupComponent, SmzForm, SmzDialogsService, SmzDialogBuilder, SmzFormsResponse, SmzUiBlockService } from 'ngx-smz-ui';
 
 @Component({
   selector: 'app-demo-form',
@@ -13,6 +13,8 @@ import { FormGroupComponent, SmzForm, SmzDialogsService, SmzDialogBuilder, SmzFo
     <i *ngIf="formComponent.isValid" class="fa-solid fa-check text-green-500 text-2xl" pTooltip="Válido"></i>
     <i *ngIf="!formComponent.isValid" class="fa-solid fa-xmark text-red-500 text-2xl" pTooltip="Com erros"></i>
     <i class="fa-solid fa-cash-register text-gray-100 text-2xl" [ngClass]="{ 'text-blue-500': formComponent?.viewdata?.hasChanges }" [pTooltip]="formComponent?.viewdata?.hasChanges ? 'Modificado' : 'Não modificado'"></i>
+    <div class="col"></div>
+    <smz-ui-form-submit [form]="formComponent" (save)="onSave($event)"></smz-ui-form-submit>
   </div>
 
   <smz-form-group [config]="form" #formComponent (onChange)="onStatusChanges($event)"></smz-form-group>
@@ -25,7 +27,7 @@ export class DemoFormComponent implements OnInit, OnChanges {
   @Input() public node: DemoTreeNode
   public form: SmzForm<any>;
 
-  constructor(private dialog: SmzDialogsService, private cdf: ChangeDetectorRef) { }
+  constructor(private dialog: SmzDialogsService, private cdf: ChangeDetectorRef, private uiBlockService: SmzUiBlockService) { }
 
   ngOnInit() {
     this.build();
@@ -57,6 +59,12 @@ export class DemoFormComponent implements OnInit, OnChanges {
   public onValuesChanged(event: any): void {
     console.log('onValuesChanged', event);
   }
+
+  public onSave(event: any): void {
+    console.log('onSave', event);
+    this.uiBlockService.unBlockAll();
+  }
+
 
   public log(): void {
     const data = this.formComponent.getData();

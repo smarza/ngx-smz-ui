@@ -6,6 +6,7 @@ import { SmzQuickAction } from '../directives/transfer-value-acessor';
 import { SmzFormsResponse } from './smz-forms';
 import { SmzFormViewdata } from './form-viewdata';
 import { Observable } from 'rxjs';
+import { ChangeDetectorRef } from '@angular/core';
 
 export type SmzControlTypes =
     SmzCalendarControl |
@@ -224,6 +225,8 @@ export interface SmzFileControl extends SmzFormsBaseControl
     _fileExtension?: string;
     _fileType?: string;
     _clearMethod?: () => void;
+    _setFile?: (event: File[], _cdf: ChangeDetectorRef) => void;
+    _cdf?: ChangeDetectorRef;
 }
 
 export interface SmzRadioControl<T> extends SmzFormsBaseControl

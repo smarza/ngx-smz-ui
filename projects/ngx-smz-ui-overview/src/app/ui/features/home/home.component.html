@@ -20,7 +20,7 @@
 
   <!-- DETAILS -->
   <div class="h-full col-12 lg:col-9 p-2">
-    <div smzUiBlock #tabContainer [component]="tabContainer" class="h-full items-stretch flex-col grid justify-start grid-nogutter py-3 rounded shadow-md w-full overflow-y-auto">
+    <div #tabContainer class="h-full items-stretch flex-col grid justify-start grid-nogutter py-3 rounded shadow-md w-full overflow-y-auto">
       <p-tabView [(activeIndex)]="selectedTabIndex">
 
         <p-tabPanel header="Exemplo" [disabled]="selectedNode == null">

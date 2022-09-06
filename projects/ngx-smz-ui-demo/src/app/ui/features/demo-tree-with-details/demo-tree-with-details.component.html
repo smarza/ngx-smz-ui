@@ -9,7 +9,21 @@
 
       <ng-container [ngSwitch]="type">
         <ng-container *ngSwitchCase="'file'">
-          >> is file.
+
+          <div class="grid grid-nogutter flex-col justify-start gap-2">
+
+            <!-- HEADER -->
+            <div class="col grid grid-nogutter items-center justify-between">
+              <h3 class="m-0">Detalhes</h3>
+              <smz-ui-form-submit [form]="formComponent" (save)="updateModel($event)"></smz-ui-form-submit>
+            </div>
+
+            <!-- CONTEÚDO -->
+            <div class="relative col">
+              <smz-form-group #formComponent [config]="formStateBuilderFunction | stateBuilder : item"></smz-form-group>
+            </div>
+          </div>
+
         </ng-container>
 
         <ng-container *ngSwitchCase="'folder'">

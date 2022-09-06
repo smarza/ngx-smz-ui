@@ -120,6 +120,21 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
         updateValue: (control: AbstractControl, input: SmzFileControl) =>
         {
             control.patchValue(input.defaultValue);
+
+            // if (!isEmpty(input.defaultValue)) {
+
+            //     // console.log('FILE updateValue', control, input);
+            //     const file = dataURLtoFile(input.defaultValue, input.name);
+
+            //     setTimeout(() => {
+            //         input._setFile([file], input._cdf);
+            //     }, 200);
+
+            // }
+            // else {
+            //     control.patchValue(input.defaultValue);
+            // }
+
         },
         getValue: (form: FormGroup, input: SmzFileControl, flattenResponse: boolean) =>
         {
@@ -133,6 +148,8 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
             {
                 response[`${input.propertyName}Filename`] = input._fileName;
             }
+
+            // console.log('getValue _file response', response);
 
             return response;
 

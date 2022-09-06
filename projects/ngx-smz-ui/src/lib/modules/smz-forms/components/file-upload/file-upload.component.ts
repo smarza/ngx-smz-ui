@@ -20,16 +20,16 @@ export class FileUploadComponent {
     public files: File[] = [];
     public isZoomActive = false;
 
-    constructor(private cdf: ChangeDetectorRef, private store: Store) { }
+    constructor(public cdf: ChangeDetectorRef, private store: Store) { }
 
     public ngOnInit(): void {
-        this.input._clearMethod = () => { this.clear(); };
-
-        // this.input._inputFormControl.markAsTouched();
+        this.input._clearMethod = () => { this.clear(false); };
+        this.input._cdf = this.cdf;
+        this.input._setFile = (event: File[], cdf: ChangeDetectorRef) => { this.onFilesDropped(event, false,true, cdf); };
     }
 
-    public log(event: any): void {
-        console.log(event);
+    public log(): void {
+        console.log(this.form);
     }
 
     public applyZoom(): void {
@@ -47,10 +47,10 @@ export class FileUploadComponent {
     public onInputFiles(event: any): void {
 
         const files: File[] = event.srcElement.files;
-        this.onFilesDropped(files);
+        this.onFilesDropped(files, true, true, this.cdf);
     }
 
-    public onFilesDropped(event: File[]): void {
+    public onFilesDropped(event: File[], markAsTouched: boolean, emitEvent: boolean, cdf: ChangeDetectorRef): void {
 
         this.files = [];
         const errors: Message[] = [];
@@ -64,28 +64,30 @@ export class FileUploadComponent {
         this.errors = errors;
 
         if (errors.length === 0) {
-            this.onFileChange(this.files);
-
-            this.cdf.markForCheck();
+            this.onFileChange(this.files, emitEvent, cdf);
         }
 
-        this.input._inputFormControl.markAsTouched();
+        if (markAsTouched) {
+            this.input._inputFormControl.markAsTouched();
+        }
+
+        this.cdf.markForCheck();
 
     }
 
-    public clear(): void {
+    public clear(emitEvent: boolean): void {
         this.files = [];
         this.errors = [];
         this.input._file = null;
         this.input._fileName = null;
         this.input._base64 = null;
         this.selectChange.emit([]);
-        this.form.controls[this.input.propertyName].setValue(null);
+        this.form.controls[this.input.propertyName].setValue(null, { emitEvent });
 
         this.cdf.markForCheck();
     }
 
-    public onFileChange(event: File[]): void {
+    public onFileChange(event: File[], emitEvent: boolean, cdf: ChangeDetectorRef): void {
 
         if (event.length > 0) {
             const file = event[0];
@@ -94,22 +96,24 @@ export class FileUploadComponent {
 
             this.input._base64 = null;
 
-            reader.onload = (event: ProgressEvent<FileReader>): void => {
-                this.input._base64 = event.target.result as string
-            };
+            cdf.markForCheck();
 
-            this.input._fileExtension = this.getFileExtension(file);
+            reader.onload = (event: ProgressEvent<FileReader>): void => {
+                this.input._base64 = event.target.result as string;
+
+                this.input._file = file;
+                this.input._fileName = file.name;
+                this.input['hasFile'] = file.name;
+
+                this.input._fileType = this.getTypeClass(file.type);
+                this.input._fileExtension = this.getFileExtension(file);
+
+                this.form.controls[this.input.propertyName].setValue(file, { emitEvent });
+                cdf.markForCheck();
+            };
 
             reader.readAsDataURL(file);
 
-            this.input._file = file;
-            this.input._fileName = file.name;
-            this.input['hasFile'] = file.name;
-
-            this.input._fileType = this.getTypeClass(file.type);
-            this.input._fileExtension = this.getFileExtension(file);
-
-            this.form.controls[this.input.propertyName].setValue(file);
         }
         else {
             this.input['hasFile'] = null;
@@ -118,7 +122,7 @@ export class FileUploadComponent {
             this.input._base64 = null;
             this.input._fileType = null;
             this.input._fileExtension = null;
-            this.form.controls[this.input.propertyName].setValue(null);
+            this.form.controls[this.input.propertyName].setValue(null, { emitEvent });
         }
     }
 

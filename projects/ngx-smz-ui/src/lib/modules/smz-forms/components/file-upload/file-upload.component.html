@@ -4,7 +4,7 @@
         <label class="smz__input_name" [innerHTML]="input.name"></label>
 
         <!-- ZONA DE DROPPING -->
-        <div *ngIf="input._file == null" SmzDragDrop (fileDropped)="input.isDisabled ? notAllowed() : onFilesDropped($event)" class="file_upload__drag-container grid grid-nogutter items-center justify-center mt-1  mb-1">
+        <div *ngIf="input._file == null" SmzDragDrop (fileDropped)="input.isDisabled ? notAllowed() : onFilesDropped($event, true, true, this.cdf)" class="file_upload__drag-container grid grid-nogutter items-center justify-center mt-1  mb-1">
             <div class="grid grid-nogutter flex-col items-center justify-center pt-3 pb-3">
                 <!-- ICONE DE UPLOAD -->
                 <i [ngClass]="input.dragIconClass" class="text-4xl mb-2"></i>
@@ -109,7 +109,7 @@
 
             <!-- NOME E TAMANHO DO ARQUIVO -->
             <div class="grid grid-nogutter flex-col items-start justify-end ml-3">
-                <span>{{ input._file.name | fileNameShorten : input.shortenLength : input.shortenSeparator }} <i class="far fa-trash-alt hvr hvr-grow text-red-500 clickable ml-2 mb-1" (click)="clear()"></i></span>
+                <span>{{ input._file.name | fileNameShorten : input.shortenLength : input.shortenSeparator }} <i class="far fa-trash-alt hvr hvr-grow text-red-500 clickable ml-2 mb-1" (click)="clear(true)"></i></span>
                 <span *ngIf="input.showFileSize"><small>{{ formatBytes(input._file.size) }}</small></span>
             </div>
 
