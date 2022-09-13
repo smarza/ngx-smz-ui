@@ -335,6 +335,10 @@ export function capitalizeFirstLetter(value: string, charsLimit = 0): string {
 
 }
 
+export function capitalizeWithSlash(value: string): string {
+    return value?.replace(/\s+/g, '_')?.toUpperCase();
+}
+
 export function removeElementFromArray(arr: any[], value: string, prop?: string): void {
     const property = prop != null ? prop : 'id';
 
