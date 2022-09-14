@@ -321,12 +321,12 @@ export function uuidv4(): string {
 
 export function capitalizeFirstLetter(value: string, charsLimit = 0): string {
     // console.log('-----');
-    const words = value.toLowerCase().split(" ");
+    const words = value?.toLowerCase().split(" ");
     // console.log(value, words);
 
     return words.map((word) => {
         if (word?.length > charsLimit) {
-            return word[0].toUpperCase() + word.substring(1).toLowerCase();
+            return word[0]?.toUpperCase() + word.substring(1).toLowerCase();
         }
         else {
             return word;
