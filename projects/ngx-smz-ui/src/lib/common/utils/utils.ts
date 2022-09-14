@@ -320,6 +320,9 @@ export function uuidv4(): string {
 }
 
 export function capitalizeFirstLetter(value: string, charsLimit = 0): string {
+    if (value == null)
+        return '';
+
     // console.log('-----');
     const words = value?.toLowerCase().split(" ");
     // console.log(value, words);
