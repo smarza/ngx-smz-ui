@@ -66,7 +66,8 @@ export class NgxRbkUtilsConfig {
             extraProperties?: {[name: string]: string};
         };
         accessTokenClaims?: { claimName: string; propertyName: string; type: 'string' | 'array' } [],
-        useWindowsAuthentication?: boolean
+        useWindowsAuthentication?: boolean,
+        showAuthPages?: boolean
     };
     public httpBehaviors: {
         defaultParameters: HttpBehaviorParameters;

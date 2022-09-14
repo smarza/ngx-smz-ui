@@ -92,6 +92,7 @@ export * from './lib/common/pipes/templates.pipe';
 // RBK
 
 export * from './lib/modules/rbk-utils/public-api';
+export * from './lib/modules/smz-access/public-api';
 
 // BUILDERS
 export * from './lib/builders/smz-documents/document-builder';

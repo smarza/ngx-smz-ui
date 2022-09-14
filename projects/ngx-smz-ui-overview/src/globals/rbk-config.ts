@@ -139,7 +139,8 @@ export const rbkConfig: NgxRbkUtilsConfig = {
             { claimName: 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name', propertyName: 'username', type: 'string' },
             { claimName: 'rol', propertyName: 'roles', type: 'array' },
             { claimName: 'Picture', propertyName: 'picture', type: 'string' },
-        ]
+        ],
+        showAuthPages: true
     },
     state: {
         database: {
