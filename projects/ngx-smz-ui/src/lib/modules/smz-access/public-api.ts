@@ -8,6 +8,7 @@ export * from './modules/roles/roles.module';
 export * from './models/add-claim-to-user';
 export * from './models/claim-access-type';
 export * from './models/auth-claim-definitions';
+export * from './models/claim-override';
 export * from './models/claim-details';
 export * from './models/create-claim';
 export * from './models/create-role';
