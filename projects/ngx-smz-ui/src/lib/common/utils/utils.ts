@@ -342,6 +342,10 @@ export function capitalizeWithSlash(value: string): string {
     return value?.replace(/\s+/g, '_')?.toUpperCase();
 }
 
+export function breakLinesForHtml(value: string): string {
+    return value?.replace(/\n/g, '<br>');
+}
+
 export function removeElementFromArray(arr: any[], value: string, prop?: string): void {
     const property = prop != null ? prop : 'id';
 
