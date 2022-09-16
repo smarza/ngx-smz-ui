@@ -12,7 +12,7 @@
 
         `npm install ngx-rbk-utils`
 
-* Import the `NgxRbkUtilsModule` in your `AppModule` and pass the `buildState()` function in the `NgxsModule.forRoot()` method. Also import the `ToastModule` from `primeng`. Also add a provider for `NgxRbkUtilsConfig`
+* Import the `NgxRbkUtilsModule` in your `AppModule` and pass the `buildState()` function in the `NgxsModule.forRoot()` method. Also import the `SmzToastModule` from `primeng`. Also add a provider for `NgxRbkUtilsConfig`
 
    > IMPORTANT: you must import the module BEFORE all other `ngxs` modules
 

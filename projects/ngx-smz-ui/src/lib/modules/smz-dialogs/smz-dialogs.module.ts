@@ -5,7 +5,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { DialogModule } from 'primeng/dialog';
-import { ToastModule } from 'primeng/toast';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { MessageModule } from 'primeng/message';
@@ -39,6 +38,7 @@ import { DialogsState } from './state/dialogs/dialogs.state';
 import { NgxSmzDocumentsModule } from '../smz-documents/ngx-smz-documents.module';
 import { DocumentContentComponent } from './features/document-content/document-content.component';
 import { ContextMenuService } from 'primeng/api';
+import { SmzToastModule } from '../smz-toast/toast';
 
 const defaultDialogsModuleConfig: SmzDialogsConfig = {
     dialogs: {
@@ -101,7 +101,7 @@ export const ngxsModuleForFeatureDialogsState = NgxsModule.forFeature([DialogsSt
         DialogModule,
         ngxsModuleForFeatureDialogsState,
         OverlayPanelModule,
-        ToastModule,
+        SmzToastModule,
         TableModule,
         ButtonModule,
         MessageModule,

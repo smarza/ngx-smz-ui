@@ -28,6 +28,7 @@ export * from './lib/modules/smz-documents/public-api';
 export * from './lib/modules/smz-export-dialog/public-api';
 export * from './lib/modules/smz-comments/public-api';
 export * from './lib/modules/smz-excels/public-api';
+export * from './lib/modules/smz-toast/public_api';
 
 // Verificar se já resolveram o issue para publicar com esse módulo
 export * from './lib/modules/smz-svg/public-api';
