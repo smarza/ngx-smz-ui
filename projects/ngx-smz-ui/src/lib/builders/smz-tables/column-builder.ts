@@ -30,6 +30,7 @@ export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T>> {
       this._column.width = width;
       this._column.header = header;
       this._column.content.type = type;
+      this._column.content.data = { matches: [] }
     }
     else {
       // NÃO EXISTE A COLUNA AINDA
