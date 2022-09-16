@@ -68,7 +68,7 @@ export class SmzFormBuilder<TResponse> {
     return this;
   }
 
-  public applyValues(...values: SimpleNamedEntity[]): SmzFormBuilder<TResponse> {
+  public applyValues(...values: { propertyName: string, value: any }[]): SmzFormBuilder<TResponse> {
 
     if (this._state.groups.length === 0) {
       throw Error("You need to have at least one group to applyValues");
@@ -76,8 +76,8 @@ export class SmzFormBuilder<TResponse> {
 
     this._state.groups.forEach(group => {
       group.children.forEach(input => {
-        const value = values.find(x => x.id === input.propertyName);
-        if (value != null) input.defaultValue = value.name;
+        const value = values.find(x => x.propertyName === input.propertyName);
+        if (value != null) input.defaultValue = value.value;
       });
     });
 
