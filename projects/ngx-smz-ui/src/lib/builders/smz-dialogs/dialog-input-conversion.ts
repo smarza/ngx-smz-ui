@@ -246,7 +246,7 @@ function convertInputs(inputs: InputConfig[], store: Store, options: InputConver
 
       const input: SmzDropDownControl<any> = {
         ...convertBaseControl(config),
-        defaultValue: config.required ? list[0].id : config.defaultValue,
+        defaultValue: config.required ? (list?.length > 0 ? list[0].id : null) : config.defaultValue,
         type: SmzControlType.DROPDOWN,
         filterMatchMode: config.filterMatchMode,
         showFilter: config.showFilter,
