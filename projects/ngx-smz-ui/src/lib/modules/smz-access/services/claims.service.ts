@@ -6,7 +6,8 @@ import { BaseApiService } from '../../rbk-utils/http/base-api.service';
 import { ClaimDetails } from '../models/claim-details';
 import { CreateClaim } from '../models/create-claim';
 import { UpdateClaim } from '../models/update-claim';
-
+import { ProtectClaim } from '../models/protect-claim';
+import { UnprotectClaim } from '../models/unprotect-claim';
 
 @Injectable({ providedIn: 'root' })
 export class ClaimsService extends BaseApiService {
@@ -24,6 +25,12 @@ export class ClaimsService extends BaseApiService {
   }
   public update(data: UpdateClaim): Observable<ClaimDetails> {
     return this.http.put<ClaimDetails>(`${this.endpoint}`, data, this.generateDefaultHeaders({}));
+  }
+  public protect(data: ProtectClaim): Observable<ClaimDetails> {
+    return this.http.post<ClaimDetails>(`${this.endpoint}/protect`, data, this.generateDefaultHeaders({}));
+  }
+  public unprotect(data: UnprotectClaim): Observable<ClaimDetails> {
+    return this.http.post<ClaimDetails>(`${this.endpoint}/unprotect`, data, this.generateDefaultHeaders({}));
   }
   public delete(id: string): Observable<void> {
     return this.http.delete<void>(`${this.endpoint}/${id}`, this.generateDefaultHeaders({}));

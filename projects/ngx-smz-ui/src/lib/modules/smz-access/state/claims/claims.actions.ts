@@ -1,4 +1,6 @@
 import { CreateClaim } from '../../models/create-claim';
+import { ProtectClaim } from '../../models/protect-claim';
+import { UnprotectClaim } from '../../models/unprotect-claim';
 import { UpdateClaim } from '../../models/update-claim';
 
 export namespace ClaimsActions {
@@ -16,6 +18,18 @@ export namespace ClaimsActions {
     public static readonly type = '[Claims API] Update';
 
     constructor(public data: UpdateClaim) {}
+  }
+
+  export class Protect {
+    public static readonly type = '[Claims API] Protect';
+
+    constructor(public data: ProtectClaim) {}
+  }
+
+  export class Unprotect {
+    public static readonly type = '[Claims API] Unprotect';
+
+    constructor(public data: UnprotectClaim) {}
   }
 
   export class Delete {

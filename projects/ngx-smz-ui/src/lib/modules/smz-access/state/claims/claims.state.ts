@@ -61,6 +61,28 @@ export class ClaimsState {
     );
   }
 
+  @Action(ClaimsActions.Protect)
+  public protect$(ctx: StateContext<ClaimsStateModel>, action: ClaimsActions.Protect): Observable<ClaimDetails> {
+    return this.apiService.protect(action.data).pipe(
+      tap((result: ClaimDetails) => {
+        ctx.patchState({
+          items: replaceItem(ctx.getState().items, result)
+        });
+      })
+    );
+  }
+
+  @Action(ClaimsActions.Unprotect)
+  public unprotect$(ctx: StateContext<ClaimsStateModel>, action: ClaimsActions.Unprotect): Observable<ClaimDetails> {
+    return this.apiService.unprotect(action.data).pipe(
+      tap((result: ClaimDetails) => {
+        ctx.patchState({
+          items: replaceItem(ctx.getState().items, result)
+        });
+      })
+    );
+  }
+
   @Action(ClaimsActions.Delete)
   public delete$(ctx: StateContext<ClaimsStateModel>, action: ClaimsActions.Delete): Observable<void> {
     return this.apiService.delete(action.id).pipe(
