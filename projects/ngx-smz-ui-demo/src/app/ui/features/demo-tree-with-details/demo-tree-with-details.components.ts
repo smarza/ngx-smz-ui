@@ -19,6 +19,7 @@ export class DemoTreeWithDetailsComponent implements OnInit {
     const allowAllNodesToBeClicked = false;
 
     this.state = {
+      isDebug: false,
       items$: this.store.select(TreeDemoFeatureSelectors.all),
       tree: {
         state: this.getState(),
@@ -34,7 +35,8 @@ export class DemoTreeWithDetailsComponent implements OnInit {
       },
       styleClass: {
         content: 'gap-3 p-6 overflow-y-auto'
-      }
+      },
+      locale: null
     };
 
     this.store.dispatch(TreeDemoFeatureActions.LoadAll);
