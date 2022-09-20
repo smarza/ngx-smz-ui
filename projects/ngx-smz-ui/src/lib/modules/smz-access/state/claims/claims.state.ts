@@ -6,6 +6,7 @@ import { ClaimsActions } from './claims.actions';
 import { ClaimsService } from '../../services/claims.service';
 import { ClaimDetails } from '../../models/claim-details';
 import { replaceItem } from '../../../../common/utils/utils';
+import { ToastActions } from '../../../../../lib/state/global/application/application.actions.toast';
 
 export const CLAIMS_STATE_NAME = 'claims';
 
@@ -46,6 +47,7 @@ export class ClaimsState {
         ctx.patchState({
           items: [ result, ...ctx.getState().items ]
         });
+        ctx.dispatch(new ToastActions.Success('Acesso criado com sucesso'))
       })
     );
   }
@@ -57,6 +59,7 @@ export class ClaimsState {
         ctx.patchState({
           items: replaceItem(ctx.getState().items, result)
         });
+        ctx.dispatch(new ToastActions.Success('Acesso atualizado com sucesso'))
       })
     );
   }
@@ -68,6 +71,7 @@ export class ClaimsState {
         ctx.patchState({
           items: replaceItem(ctx.getState().items, result)
         });
+        ctx.dispatch(new ToastActions.Success('Acesso protegido com sucesso'))
       })
     );
   }
@@ -79,6 +83,7 @@ export class ClaimsState {
         ctx.patchState({
           items: replaceItem(ctx.getState().items, result)
         });
+        ctx.dispatch(new ToastActions.Success('Acesso desprotegido com sucesso'))
       })
     );
   }
@@ -90,6 +95,7 @@ export class ClaimsState {
         ctx.patchState({
           items: [ ...ctx.getState().items.filter(x => x.id !== action.id) ]
         });
+        ctx.dispatch(new ToastActions.Success('Acesso excluído com sucesso'))
       })
     );
   }

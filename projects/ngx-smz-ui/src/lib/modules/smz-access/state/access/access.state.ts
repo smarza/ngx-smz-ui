@@ -6,6 +6,7 @@ import { AccessActions } from './access.actions';
 import { AccessService } from '../../services/access.service';
 import { SimpleNamedEntity } from '../../../../common/models/simple-named-entity';
 import { ClaimOverride } from '../../models/claim-override';
+import { ToastActions } from '../../../../../lib/state/global/application/application.actions.toast';
 
 export const ACCESS_STATE_NAME = 'access';
 
@@ -30,6 +31,7 @@ export class AccessState {
     return this.apiService.updateUserRoles(action.data).pipe(
       tap((results: SimpleNamedEntity[]) => {
         ctx.dispatch(new AccessActions.UpdateUserRolesSuccess(action.data.username, results));
+        ctx.dispatch(new ToastActions.Success('Permissões do usuário atualizadas com sucesso'));
       })
     );
   }
@@ -39,6 +41,7 @@ export class AccessState {
     return this.apiService.addClaimToUser(action.data).pipe(
       tap((results: ClaimOverride[]) => {
         ctx.dispatch(new AccessActions.UpdateUserClaimsSuccess(action.data.username, results));
+        ctx.dispatch(new ToastActions.Success('Acesso do usuário criado com sucesso'));
       })
     );
   }
@@ -48,6 +51,7 @@ export class AccessState {
     return this.apiService.removeClaimFromUser(action.data).pipe(
       tap((results: ClaimOverride[]) => {
         ctx.dispatch(new AccessActions.UpdateUserClaimsSuccess(action.data.username, results));
+        ctx.dispatch(new ToastActions.Success('Acesso do usuário excluído com sucesso'));
       })
     );
   }

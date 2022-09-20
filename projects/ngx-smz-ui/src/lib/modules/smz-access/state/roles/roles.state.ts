@@ -6,6 +6,7 @@ import { RolesActions } from './roles.actions';
 import { RolesService } from '../../services/roles.service';
 import { RolesDetails } from '../../models/roles-details';
 import { replaceItem } from '../../../../common/utils/utils';
+import { ToastActions } from '../../../../../lib/state/global/application/application.actions.toast';
 
 export const ROLES_STATE_NAME = 'roles';
 
@@ -46,6 +47,7 @@ export class RolesState {
         ctx.patchState({
           items: [ result, ...ctx.getState().items ]
         });
+        ctx.dispatch(new ToastActions.Success('Permissão criada com sucesso'));
       })
     );
   }
@@ -57,6 +59,7 @@ export class RolesState {
         ctx.patchState({
           items: replaceItem(ctx.getState().items, result)
         });
+        ctx.dispatch(new ToastActions.Success('Permissão atualizada com sucesso'));
       })
     );
   }
@@ -68,6 +71,7 @@ export class RolesState {
         ctx.patchState({
           items: [ ...ctx.getState().items.filter(x => x.id !== action.id) ]
         });
+        ctx.dispatch(new ToastActions.Success('Permissão excluída com sucesso'));
       })
     );
   }
@@ -79,6 +83,7 @@ export class RolesState {
         ctx.patchState({
           items: replaceItem(ctx.getState().items, result)
         });
+        ctx.dispatch(new ToastActions.Success('Acessos da Permissão atualizados com sucesso'));
       })
     );
   }

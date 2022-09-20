@@ -34,6 +34,7 @@ export class RolesPageComponent implements OnInit {
       .enableClearFilters()
       .enableGlobalFilter()
       .useStrippedStyle()
+      .useTableEmptyMessage()
       .setSize('regular')
       .menu()
         .item('Editar')

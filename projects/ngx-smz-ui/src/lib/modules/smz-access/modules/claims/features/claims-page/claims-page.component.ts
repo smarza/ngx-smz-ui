@@ -11,6 +11,8 @@ import { UpdateClaimDialog } from '../../functions/update-claim-dialog';
 import { Confirmable } from '../../../../../smz-dialogs/decorators/confirmable.decorator';
 import { ClaimsActions } from '../../../../state/claims/claims.actions';
 import { CreateClaimDialog } from '../../functions/create-claim-dialog';
+import { AuthenticationSelectors } from '../../../../../../state/global/authentication/authentication.selectors';
+import { AuthClaimDefinitions } from '../../../../models/auth-claim-definitions';
 
 @UntilDestroy()
 @Component({
@@ -27,7 +29,8 @@ export class ClaimsPageComponent implements OnInit {
   }
 
   public buildTableState(): SmzTableState {
-
+    const canOverideClaimProtection = this.store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(AuthClaimDefinitions.CAN_OVERRIDE_CLAIM_PROTECTION)) as boolean;
+    console.log('canOverideClaimProtection', canOverideClaimProtection);
     return new SmzTableBuilder()
       .setTitle('Gerenciamento de Acessos')
       .enableClearFilters()
@@ -38,8 +41,17 @@ export class ClaimsPageComponent implements OnInit {
         .item('Editar')
           .setCallback((claim: ClaimDetails) => this.dialogs.open(UpdateClaimDialog(claim)))
           .menu
+        .item('Proteger', 'fa-solid fa-lock text-red-500')
+          .setVisibilityRule((claim: ClaimDetails): boolean => (!claim.isProtected && canOverideClaimProtection))
+          .setCallback((claim: ClaimDetails) => this.store.dispatch(new ClaimsActions.Protect({id: claim.id})))
+          .menu
+        .item('Desproteger', 'fa-solid fa-lock-open text-green-500')
+          .setVisibilityRule((claim: ClaimDetails): boolean => (claim.isProtected && canOverideClaimProtection))
+          .setCallback((claim: ClaimDetails) => this.store.dispatch(new ClaimsActions.Unprotect({id: claim.id})))
+          .menu
         .separator()
         .item('Excluir', 'fa-solid fa-trash')
+          .setActivationRule((claim: ClaimDetails) => claim.isProtected)
           .setCallback((claim: ClaimDetails) => this.showDeleteConfirmation(claim))
           .menu
         .table
@@ -47,6 +59,10 @@ export class ClaimsPageComponent implements OnInit {
         .text('description', 'Descrição')
           .columns
         .text('name', 'Chave')
+          .columns
+        .icon('isProtected', 'Proteção')
+          .addIconConfiguration('fa-solid fa-lock text-red-500 text-lg', true)
+          .addIconConfiguration('fa-solid fa-lock-open text-green-500 text-lg', false)
           .columns
         .table
       .build();
