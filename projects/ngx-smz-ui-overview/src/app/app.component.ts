@@ -16,8 +16,8 @@ export class AppComponent {
         { label: 'Logout', icon: 'pi-power-off', routerLink: ['/login'] },
         // { label: 'Acessos', icon: 'fa-solid fa-circle', routerLink: CLAIMS_PAGE_ROUTE, claim: AuthClaimDefinitions.MANAGE_CLAIMS },
         // { label: 'Permissões', icon: 'fa-solid fa-circle', routerLink: ROLES_PAGE_ROUTE, claim: AuthClaimDefinitions.MANAGE_ROLES },
-        { label: 'Acessos', icon: 'fa-solid fa-circle', routerLink: CLAIMS_PAGE_ROUTE },
-        { label: 'Permissões', icon: 'fa-solid fa-circle', routerLink: ROLES_PAGE_ROUTE },
+        { label: 'Permissões de Acesso', icon: 'fa-solid fa-circle', routerLink: CLAIMS_PAGE_ROUTE },
+        { label: 'Regras de Acesso', icon: 'fa-solid fa-circle', routerLink: ROLES_PAGE_ROUTE },
       ]);
     });
   }

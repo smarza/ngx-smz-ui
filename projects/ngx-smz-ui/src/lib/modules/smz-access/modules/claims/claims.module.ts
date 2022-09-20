@@ -15,7 +15,7 @@ const data: SmzRouteData = {
     mode: 'full',
     contentPadding: '2em'
   },
-  title: 'Gerenciamento de Acessos',
+  title: 'Permissões de Acesso',
   appArea: 'Claims',
   clearReusableRoutes: true,
   requiredStates: [CLAIMS_STATE_NAME]

@@ -12,7 +12,7 @@ export function UpdateClaimDialog(claim: ClaimDetails): SmzDialog<UpdateClaim> {
   const store = GlobalInjector.instance.get(Store);
 
   return new SmzDialogBuilder<UpdateClaim>()
-    .setTitle('Criar Acesso')
+    .setTitle('Criar Permissão de Acesso')
     .setLayout('LARGE', 'col-4')
     .setLayout('MEDIUM', 'col-6')
     .setLayout('SMALL', 'col-12')

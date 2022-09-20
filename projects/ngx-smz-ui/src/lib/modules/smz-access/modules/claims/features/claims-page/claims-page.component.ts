@@ -30,9 +30,9 @@ export class ClaimsPageComponent implements OnInit {
 
   public buildTableState(): SmzTableState {
     const canOverideClaimProtection = this.store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(AuthClaimDefinitions.CAN_OVERRIDE_CLAIM_PROTECTION)) as boolean;
-    console.log('canOverideClaimProtection', canOverideClaimProtection);
+
     return new SmzTableBuilder()
-      .setTitle('Gerenciamento de Acessos')
+      .setTitle('Gerenciar Permissões de Acesso')
       .enableClearFilters()
       .enableGlobalFilter()
       .useStrippedStyle()
@@ -68,7 +68,7 @@ export class ClaimsPageComponent implements OnInit {
       .build();
   }
 
-  @Confirmable('Tem certeza de que deseja excluir esse acesso ?', 'Atenção', true)
+  @Confirmable('Tem certeza de que deseja excluir essa permissão de acesso ?', 'Atenção', true)
   public showDeleteConfirmation(claim: ClaimDetails): void {
     this.store.dispatch(new ClaimsActions.Delete(claim.id));
   }

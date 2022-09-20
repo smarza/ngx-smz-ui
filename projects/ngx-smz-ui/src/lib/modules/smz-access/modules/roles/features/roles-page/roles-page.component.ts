@@ -30,17 +30,17 @@ export class RolesPageComponent implements OnInit {
   public buildTableState(): SmzTableState {
 
     return new SmzTableBuilder()
-      .setTitle('Gerenciamento de Permissões')
+      .setTitle('Gerenciar Regras de Acesso')
       .enableClearFilters()
       .enableGlobalFilter()
       .useStrippedStyle()
       .useTableEmptyMessage()
       .setSize('regular')
       .menu()
-        .item('Editar')
+        .item('Editar Regra')
           .setCallback((role: RolesDetails) => this.dialogs.open(UpdateRoleDialog(role)))
           .menu
-        .item('Alterar Acessos')
+        .item('Editar Permissões')
           .setCallback((role: RolesDetails) => this.dialogs.open(UpdateRoleClaimsDialog(role)))
           .menu
         .separator()
@@ -49,15 +49,15 @@ export class RolesPageComponent implements OnInit {
           .menu
         .table
       .columns()
-        .text('name', 'Nome')
+        .text('name', 'Permissão')
           .columns
-        .custom('claims', 'Permissões')
+        .custom('claims', 'Regras de Acesso')
           .columns
         .table
       .build();
   }
 
-  @Confirmable('Tem certeza de que deseja excluir essa permissão ?', 'Atenção', true)
+  @Confirmable('Tem certeza de que deseja excluir essa regra de acesso ?', 'Atenção', true)
   public showDeleteConfirmation(role: RolesDetails): void {
     this.store.dispatch(new RolesActions.Delete(role.id));
   }

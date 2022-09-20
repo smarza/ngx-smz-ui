@@ -31,7 +31,7 @@ export class AccessState {
     return this.apiService.updateUserRoles(action.data).pipe(
       tap((results: SimpleNamedEntity[]) => {
         ctx.dispatch(new AccessActions.UpdateUserRolesSuccess(action.data.username, results));
-        ctx.dispatch(new ToastActions.Success('Permissões do usuário atualizadas com sucesso'));
+        ctx.dispatch(new ToastActions.Success('Regras de acesso do usuário atualizadas com sucesso'));
       })
     );
   }
@@ -41,7 +41,7 @@ export class AccessState {
     return this.apiService.addClaimToUser(action.data).pipe(
       tap((results: ClaimOverride[]) => {
         ctx.dispatch(new AccessActions.UpdateUserClaimsSuccess(action.data.username, results));
-        ctx.dispatch(new ToastActions.Success('Acesso do usuário criado com sucesso'));
+        ctx.dispatch(new ToastActions.Success('Permissões de acesso do usuário criada com sucesso'));
       })
     );
   }
@@ -51,7 +51,7 @@ export class AccessState {
     return this.apiService.removeClaimFromUser(action.data).pipe(
       tap((results: ClaimOverride[]) => {
         ctx.dispatch(new AccessActions.UpdateUserClaimsSuccess(action.data.username, results));
-        ctx.dispatch(new ToastActions.Success('Acesso do usuário excluído com sucesso'));
+        ctx.dispatch(new ToastActions.Success('Permissões de acesso do usuário excluída com sucesso'));
       })
     );
   }

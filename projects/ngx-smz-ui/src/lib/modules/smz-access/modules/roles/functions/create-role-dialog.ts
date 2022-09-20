@@ -12,7 +12,7 @@ export function CreateRoleDialog(): SmzDialog<CreateRole> {
   const store = GlobalInjector.instance.get(Store);
 
   return new SmzDialogBuilder<CreateRole>()
-    .setTitle('Criar Permissão')
+    .setTitle('Criar Regra de Acesso')
     .setLayout('LARGE', 'col-4')
     .setLayout('MEDIUM', 'col-6')
     .setLayout('SMALL', 'col-12')

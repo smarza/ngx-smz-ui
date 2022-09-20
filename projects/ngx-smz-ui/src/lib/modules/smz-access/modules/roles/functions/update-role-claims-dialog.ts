@@ -14,7 +14,7 @@ export function UpdateRoleClaimsDialog(role: RolesDetails): SmzDialog<UpdateRole
   const claims = store.selectSnapshot(ClaimsSelectors.all).map(x => ({ id: x.id, name: x.description }));
 
   return new SmzDialogBuilder<UpdateRoleClaims>()
-    .setTitle('Editar Permissões de Usuário')
+    .setTitle('Editar permissões de acesso do Usuário')
     .setLayout('LARGE', 'col-4')
     .setLayout('MEDIUM', 'col-6')
     .setLayout('SMALL', 'col-12')
@@ -25,11 +25,11 @@ export function UpdateRoleClaimsDialog(role: RolesDetails): SmzDialog<UpdateRole
         .text(nameof<RolesDetails>('id'), '')
           .hide()
           .group
-        .text(nameof<RolesDetails>('name'), 'Permissão')
+        .text(nameof<RolesDetails>('name'), 'Regra de Acesso')
           .disable()
           .excludeFromResponse()
           .group
-        .multiselect('claims', 'Permissões', claims, role.claims.map(x => x.id))
+        .multiselect('claims', 'Permissões de Acesso', claims, role.claims.map(x => x.id))
           .validators().required()
           .group
         .form

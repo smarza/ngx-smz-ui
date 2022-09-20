@@ -47,7 +47,7 @@ export class ClaimsState {
         ctx.patchState({
           items: [ result, ...ctx.getState().items ]
         });
-        ctx.dispatch(new ToastActions.Success('Acesso criado com sucesso'))
+        ctx.dispatch(new ToastActions.Success('Permissão de acesso criada com sucesso'))
       })
     );
   }
@@ -59,7 +59,7 @@ export class ClaimsState {
         ctx.patchState({
           items: replaceItem(ctx.getState().items, result)
         });
-        ctx.dispatch(new ToastActions.Success('Acesso atualizado com sucesso'))
+        ctx.dispatch(new ToastActions.Success('Permissão de acesso atualizada com sucesso'))
       })
     );
   }
@@ -71,7 +71,7 @@ export class ClaimsState {
         ctx.patchState({
           items: replaceItem(ctx.getState().items, result)
         });
-        ctx.dispatch(new ToastActions.Success('Acesso protegido com sucesso'))
+        ctx.dispatch(new ToastActions.Success('Permissão de acesso protegida com sucesso'))
       })
     );
   }
@@ -83,7 +83,7 @@ export class ClaimsState {
         ctx.patchState({
           items: replaceItem(ctx.getState().items, result)
         });
-        ctx.dispatch(new ToastActions.Success('Acesso desprotegido com sucesso'))
+        ctx.dispatch(new ToastActions.Success('Permissão de acesso desprotegida com sucesso'))
       })
     );
   }
@@ -95,7 +95,7 @@ export class ClaimsState {
         ctx.patchState({
           items: [ ...ctx.getState().items.filter(x => x.id !== action.id) ]
         });
-        ctx.dispatch(new ToastActions.Success('Acesso excluído com sucesso'))
+        ctx.dispatch(new ToastActions.Success('Permissão de acesso excluída com sucesso'))
       })
     );
   }

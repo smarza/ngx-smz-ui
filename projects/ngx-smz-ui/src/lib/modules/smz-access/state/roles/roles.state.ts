@@ -47,7 +47,7 @@ export class RolesState {
         ctx.patchState({
           items: [ result, ...ctx.getState().items ]
         });
-        ctx.dispatch(new ToastActions.Success('Permissão criada com sucesso'));
+        ctx.dispatch(new ToastActions.Success('Regra de acesso criada com sucesso'));
       })
     );
   }
@@ -59,7 +59,7 @@ export class RolesState {
         ctx.patchState({
           items: replaceItem(ctx.getState().items, result)
         });
-        ctx.dispatch(new ToastActions.Success('Permissão atualizada com sucesso'));
+        ctx.dispatch(new ToastActions.Success('Regra de acesso atualizada com sucesso'));
       })
     );
   }
@@ -71,7 +71,7 @@ export class RolesState {
         ctx.patchState({
           items: [ ...ctx.getState().items.filter(x => x.id !== action.id) ]
         });
-        ctx.dispatch(new ToastActions.Success('Permissão excluída com sucesso'));
+        ctx.dispatch(new ToastActions.Success('Regra de acesso excluída com sucesso'));
       })
     );
   }
@@ -83,7 +83,7 @@ export class RolesState {
         ctx.patchState({
           items: replaceItem(ctx.getState().items, result)
         });
-        ctx.dispatch(new ToastActions.Success('Acessos da Permissão atualizados com sucesso'));
+        ctx.dispatch(new ToastActions.Success('Regras de acesso atualizadas com sucesso'));
       })
     );
   }
