@@ -21,9 +21,12 @@ import { AuthClaimDefinitions } from '../../../../models/auth-claim-definitions'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ClaimsPageComponent implements OnInit {
-  @Select(ClaimsSelectors.all) public claims$: Observable<ClaimDetails[]>;
+  public claims$: Observable<ClaimDetails[]>;
   public tableState: SmzTableState = this.buildTableState();
-  constructor(private store: Store, private dialogs: SmzDialogsService) { }
+  constructor(private store: Store, private dialogs: SmzDialogsService) {
+    const canOverideClaimProtection = this.store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(AuthClaimDefinitions.CAN_OVERRIDE_CLAIM_PROTECTION)) as boolean;
+    this.claims$ = this.store.select(canOverideClaimProtection ? ClaimsSelectors.all : ClaimsSelectors.allUnprotected);
+  }
 
   public ngOnInit(): void {
   }
