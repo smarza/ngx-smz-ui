@@ -14,6 +14,7 @@
             appendTo="body"
             [filter]="input.showFilter ? true : false"
             [filterMatchMode]="input.filterMatchMode != null ? input.filterMatchMode : 'contains'"
+            [showClear]="input.showClear"
             [emptyMessage]="input.emptyMessage"
             [emptyFilterMessage]="input.emptyFilterMessage">
         </p-multiSelect>
