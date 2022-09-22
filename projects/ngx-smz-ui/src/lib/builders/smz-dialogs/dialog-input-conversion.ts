@@ -251,6 +251,7 @@ function convertInputs(inputs: InputConfig[], store: Store, options: InputConver
         filterMatchMode: config.filterMatchMode,
         showFilter: config.showFilter,
         options: list,
+        showClear: config.required ? false : true
       };
       results.push(input);
     }
@@ -273,7 +274,8 @@ function convertInputs(inputs: InputConfig[], store: Store, options: InputConver
         defaultLabel: '',
         filterMatchMode: config.filterMatchMode,
         showFilter: config.showFilter,
-        options: getInputOptions(config, store, options)
+        options: getInputOptions(config, store, options),
+        showClear: config.required ? false : true
       };
       results.push(input);
     }
@@ -379,7 +381,8 @@ function convertInputs(inputs: InputConfig[], store: Store, options: InputConver
         type: SmzControlType.DROPDOWN,
         filterMatchMode: config.filterMatchMode,
         showFilter: config.showFilter,
-        options: data.parentData
+        options: data.parentData,
+        showClear: config.required ? false : true
       };
 
       const childInput: SmzLinkedDropDownControl<any> = {
@@ -389,7 +392,8 @@ function convertInputs(inputs: InputConfig[], store: Store, options: InputConver
         filterMatchMode: config.filterMatchMode,
         showFilter: config.showFilter,
         dependsOn: { propertyName: childConfig.linkedPropertyName },
-        options: data.childrenData
+        options: data.childrenData,
+        showClear: config.required ? false : true
       };
 
       results.push(parentInput);

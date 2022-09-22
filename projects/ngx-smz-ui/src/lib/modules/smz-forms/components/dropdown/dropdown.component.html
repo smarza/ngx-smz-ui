@@ -15,6 +15,7 @@
         [filterMatchMode]="input.filterMatchMode != null ? input.filterMatchMode : 'contains'"
         (onChange)="emitChange(input, formId, $event)"
         [emptyMessage]="input.emptyMessage"
+        [showClear]="input.showClear"
         [emptyFilterMessage]="input.emptyFilterMessage">
         </p-dropdown>
     <smz-validation-messages [input]="input" [control]="control" [behaviors]="behaviors"></smz-validation-messages>

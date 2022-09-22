@@ -759,6 +759,11 @@ export class SmzFormDropdownBuilder<T, TResponse> extends SmzFormInputBuilder<TR
     this._dropdownInput.showFilter = true;
     return this;
   }
+
+  public showClear(): SmzFormDropdownBuilder<T,TResponse> {
+    this._dropdownInput.showClear = true;
+    return this;
+  }
 }
 
 export class SmzFormLinkedDropdownBuilder<T,TResponse> extends SmzFormInputBuilder<TResponse> {
@@ -773,6 +778,11 @@ export class SmzFormLinkedDropdownBuilder<T,TResponse> extends SmzFormInputBuild
 
   public showFilter(): SmzFormLinkedDropdownBuilder<T,TResponse> {
     this._linkedDropdownInput.showFilter = true;
+    return this;
+  }
+
+  public showClear(): SmzFormLinkedDropdownBuilder<T,TResponse> {
+    this._linkedDropdownInput.showClear = true;
     return this;
   }
 
@@ -793,6 +803,11 @@ export class SmzFormLinkedMultiselectBuilder<T,TResponse> extends SmzFormInputBu
     return this;
   }
 
+  public showClear(): SmzFormLinkedMultiselectBuilder<T,TResponse> {
+    this._linkedMultiselectInput.showClear = true;
+    return this;
+  }
+
 }
 
 export class SmzFormMultiselectBuilder<T,TResponse> extends SmzFormInputBuilder<TResponse> {
@@ -807,6 +822,11 @@ export class SmzFormMultiselectBuilder<T,TResponse> extends SmzFormInputBuilder<
 
   public showFilter(): SmzFormMultiselectBuilder<T,TResponse> {
     this._multiselectInput.showFilter = true;
+    return this;
+  }
+
+  public showClear(): SmzFormMultiselectBuilder<T,TResponse> {
+    this._multiselectInput.showClear = true;
     return this;
   }
 }

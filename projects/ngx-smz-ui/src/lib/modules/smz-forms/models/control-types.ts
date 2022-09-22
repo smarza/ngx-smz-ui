@@ -257,6 +257,7 @@ export interface SmzDropDownControl<T> extends SmzFormsBaseControl
     filterMatchMode?: 'contains' | string;
     emptyMessage?: string;
     emptyFilterMessage?: string;
+    showClear?: boolean;
 
 }
 
@@ -269,6 +270,7 @@ export interface SmzLinkedDropDownControl<T> extends SmzFormsBaseControl
     dependsOn?: { propertyName: string, formId?: string };
     emptyMessage?: string;
     emptyFilterMessage?: string;
+    showClear?: boolean;
 }
 
 export interface SmzLinkedMultiSelectControl<T> extends SmzFormsBaseControl
@@ -281,6 +283,7 @@ export interface SmzLinkedMultiSelectControl<T> extends SmzFormsBaseControl
     defaultLabel?: string;
     emptyMessage?: string;
     emptyFilterMessage?: string;
+    showClear?: boolean;
 
 }
 
@@ -293,5 +296,6 @@ export interface SmzMultiSelectControl<T> extends SmzFormsBaseControl
     defaultLabel?: string;
     emptyMessage?: string;
     emptyFilterMessage?: string;
+    showClear?: boolean;
 
 }
