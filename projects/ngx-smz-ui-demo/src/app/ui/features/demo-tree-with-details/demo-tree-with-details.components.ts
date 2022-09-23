@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { SmzForm, SmzFormBuilder, SmzTreeBuilder, SmzTreeState, SmzTreeWithDetailsState, SmzUiBlockService } from 'ngx-smz-ui';
+import { SmzForm, SmzFormBuilder, SmzTreeBuilder, SmzTreeState, SmzTreeWithDetailsBuilder, SmzTreeWithDetailsState, SmzUiBlockService } from 'ngx-smz-ui';
 import { Store } from '@ngxs/store';
 import { TreeDemoFeatureSelectors } from '../../../state/tree-demo/tree-demo.selectors';
 import { TreeDemoFeatureActions } from '@states/tree-demo/tree-demo.actions';
@@ -16,6 +16,7 @@ export class DemoTreeWithDetailsComponent implements OnInit {
   public formStateBuilderFunction = buildForm;
   constructor(private store: Store, private uiBlockService: SmzUiBlockService, private cdr: ChangeDetectorRef) {
 
+    // const t = new SmzTreeWithDetailsBuilder
     const allowAllNodesToBeClicked = false;
 
     this.state = {

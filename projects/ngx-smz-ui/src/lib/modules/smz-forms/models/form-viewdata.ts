@@ -8,6 +8,7 @@ import { SmzForm, SmzFormsResponse } from './smz-forms';
 export class SmzFormViewdata {
     public isValid: boolean = false;
     public hasChanges: boolean = false;
+    public originalState: string = '';
 
     constructor(
         public config: SmzForm<any>,
@@ -57,6 +58,24 @@ export class SmzFormViewdata {
         };
 
         this.isValid = response.isValid;
+
+        const current = JSON.stringify(response.data).replace(/['"]+/g, '');
+
+        // originalState está null aqui
+        if (this.originalState === '') {
+            this.originalState = current;
+        }
+
+        if (this.config.isDebug) {
+            console.groupCollapsed('UpdateHasChanges');
+            console.log('response', response);
+            console.log('original', this.originalState);
+            console.log('current', current);
+            console.log('hasChanges', this.originalState !== current);
+            console.groupEnd();
+        }
+
+        this.hasChanges = this.originalState !== current;
 
         response.hasUnsavedChanges = this.hasChanges;
 

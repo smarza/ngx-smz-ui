@@ -32,7 +32,6 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
     @Output() public submit: EventEmitter<SmzFormsResponse<any>> = new EventEmitter<SmzFormsResponse<any>>();
     private isFirstUpdate = true;
     private emitChanges = true;
-    private originalState: string = '';
     public controlTypes = SmzControlType;
     public isInitialized = false;
     public configHasErrors = false;
@@ -375,12 +374,12 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
     public resetState(): void
     {
         const data = this.getData().data;
-        this.originalState = JSON.stringify(data).replace(/['"]+/g, '');
+        this.viewdata.originalState = JSON.stringify(data).replace(/['"]+/g, '');
 
         if (this.config.isDebug) {
             console.groupCollapsed('resetState()');
             console.log('data', data);
-            console.log('originalState', this.originalState);
+            console.log('originalState', this.viewdata.originalState);
             console.groupEnd();
         }
 
@@ -390,27 +389,14 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
     /** Atualiza o hasChanges */
     public updateHasChanges(): void
     {
+        const hadChangedBefore = this.viewdata.hasChanges;
 
         const response = this.getData();
 
-        const original = this.originalState;
-
-        const current = JSON.stringify(response.data).replace(/['"]+/g, '');
-
-        if (this.viewdata.hasChanges === false && original !== current) {
+        if (hadChangedBefore === false && this.viewdata.hasChanges) {
             this.changed.emit(response);
         }
 
-        if (this.config.isDebug) {
-            console.groupCollapsed('UpdateHasChanges');
-            console.log('response', response);
-            console.log('original', original);
-            console.log('current', current);
-            console.log('hasChanges', original !== current);
-            console.groupEnd();
-        }
-
-        this.viewdata.hasChanges = original !== current;
 
         if (this.viewdata.hasChanges) {
             this.onChange.emit(response);

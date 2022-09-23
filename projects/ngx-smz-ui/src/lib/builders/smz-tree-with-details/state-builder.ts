@@ -39,8 +39,12 @@ export class SmzTreeWithDetailsBuilder {
     return this;
   }
 
-  public addSelectableTypes(type: string): SmzTreeWithDetailsBuilder {
-    this._state.tree.selectableTypes.push(type);
+  public addSelectableTypes(...types: string[]): SmzTreeWithDetailsBuilder {
+
+    types.forEach(type => {
+      this._state.tree.selectableTypes.push(type);
+    });
+
     return this;
   }
 
