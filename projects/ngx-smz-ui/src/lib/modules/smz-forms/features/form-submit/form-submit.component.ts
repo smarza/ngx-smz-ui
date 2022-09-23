@@ -11,6 +11,15 @@ import { FormGroupComponent } from '../form-group/form-group.component';
 
 export class FormSubmitComponent implements OnInit, OnChanges, OnDestroy {
   @Input() public form: FormGroupComponent;
+  @Input() public unBlockOnSave = true;
+  @Input() public useBlockUi = true;
+
+  @Input() public resetLabel: string;
+  @Input() public resetStyleClass: string = 'p-button-rounded p-button-danger p-button-text';
+  @Input() public resetIcon: string = 'pi pi-times';
+  @Input() public saveLabel: string;
+  @Input() public saveStyleClass: string = 'p-button-rounded p-button-text';
+  @Input() public saveIcon: string = 'pi pi-check';
   @Output() public save: EventEmitter<any> = new EventEmitter<any>();
   public response: SmzFormsResponse<any>;
   public hook: Subscription;
@@ -32,6 +41,10 @@ export class FormSubmitComponent implements OnInit, OnChanges, OnDestroy {
       this.hook = this.form.statusChanges.subscribe((event) => {
         this.response = event;
 
+        if (!this.useBlockUi) {
+          return;
+        }
+
         if (event.hasUnsavedChanges) {
           this.uiBlockService.blockAll();
         }
@@ -51,6 +64,10 @@ export class FormSubmitComponent implements OnInit, OnChanges, OnDestroy {
   public submitSave(): void {
     setTimeout(() => {
       this.save.emit(this.response?.data);
+
+      if (this.useBlockUi && this.unBlockOnSave) {
+        this.uiBlockService.unBlockAll();
+      }
     }, 0);
   }
 
