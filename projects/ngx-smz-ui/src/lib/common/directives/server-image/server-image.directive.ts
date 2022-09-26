@@ -12,6 +12,7 @@ export class ServerImageDirective implements AfterViewInit, OnChanges {
   @Input() public path;
   @Input() public placeholder = 'assets/images/placeholder.jpeg';
   @Input() public maximize = false;
+  @Input() public title = '';
   public currentSrc;
   constructor(private el: ElementRef, private dialogs: SmzDialogsService) { }
 
@@ -36,6 +37,7 @@ export class ServerImageDirective implements AfterViewInit, OnChanges {
             return ;
 
         this.dialogs.open(new SmzDialogBuilder()
+          .setTitle(this.title)
           .allowMaximize()
           .setLayout('EXTRA_LARGE', 'col-8')
           .setLayout('LARGE', 'col-10')
