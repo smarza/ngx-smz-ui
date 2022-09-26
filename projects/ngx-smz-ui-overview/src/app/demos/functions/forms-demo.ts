@@ -107,7 +107,7 @@ Exame sem intercorrências.`).disable().validators().required().group
       .group()
         .setLayout('EXTRA_SMALL', 'col-12')
         .checkbox('input1', 'I\'m not required')
-        .group
+          .group
         .checkbox('input2', 'I\'m required')
           .validators()
           .required()

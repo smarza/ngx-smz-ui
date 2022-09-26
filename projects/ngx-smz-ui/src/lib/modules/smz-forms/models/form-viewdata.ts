@@ -33,7 +33,7 @@ export class SmzFormViewdata {
                 // console.log(`> ${input.propertyName}`, input);
 
                 if (input.advancedSettings == null || !input.advancedSettings.excludeFromResponse) {
-                    // console.log(1);
+
                     const value = CONTROL_FUNCTIONS[input.type].getValue(this.form, input, formFlattenResponse);
 
                     if (input.visibilityDependsOn == null || input.isVisible) {
@@ -44,6 +44,9 @@ export class SmzFormViewdata {
                         }
                         else if (input.type === SmzControlType.TEXT_BUTTON) {
                             response.isValid = response.isValid && input._inputFormControl.valid && (input as SmzTextButtonControl).isButtonValid;
+                        }
+                        else if (input.type === SmzControlType.CHECKBOX) {
+                            response.isValid = response.isValid && value[input.propertyName] != null;
                         }
                         else if (!input.isDisabled) {
                             // Refletindo a validação do angular na resposta
@@ -57,6 +60,7 @@ export class SmzFormViewdata {
             };
         };
 
+        // console.log('response.isValid', response.isValid);
         this.isValid = response.isValid;
 
         const current = JSON.stringify(response.data).replace(/['"]+/g, '');
