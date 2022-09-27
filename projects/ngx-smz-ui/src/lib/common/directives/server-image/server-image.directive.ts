@@ -13,6 +13,7 @@ export class ServerImageDirective implements AfterViewInit, OnChanges {
   @Input() public placeholder = 'assets/images/placeholder.jpeg';
   @Input() public maximize = false;
   @Input() public title = '';
+  @Input() public useServerPath = true;
   public currentSrc;
   constructor(private el: ElementRef, private dialogs: SmzDialogsService) { }
 
@@ -51,14 +52,14 @@ export class ServerImageDirective implements AfterViewInit, OnChanges {
 
     const img = new Image();
 
-    if (environment.serverUrl == null) {
+    if (this.useServerPath && environment.serverUrl == null) {
       throw Error("ServerPathPipe needs a property named 'serverUrl' on environment constant");
     }
 
     if (isEmpty(this.path)) {
       this.path = this.placeholder;
     }
-    else {
+    else if (this.useServerPath){
       this.path = `${environment.serverUrl}/${this.path}`;
     }
 

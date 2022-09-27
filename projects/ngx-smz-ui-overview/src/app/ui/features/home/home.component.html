@@ -33,6 +33,7 @@
             <app-demo-comments *ngSwitchCase="'comments'" [node]="selectedNode"></app-demo-comments>
             <app-demo-menu *ngSwitchCase="'menu'" [node]="selectedNode"></app-demo-menu>
             <app-demo-tree *ngSwitchCase="'tree'" [node]="selectedNode"></app-demo-tree>
+            <app-demo-cards *ngSwitchCase="'cards'" [node]="selectedNode"></app-demo-cards>
             <div *ngSwitchCase="'dialog'">
               <button pButton pRipple type="button" label="Abrir Dialogo" class="p-button-success" (click)="selectedNode.data()"></button>
             </div>

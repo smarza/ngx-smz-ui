@@ -1,0 +1,9 @@
+<img
+  serverImage
+  [path]="(data | cardContent : content.dataPath).result"
+  [maximize]="true"
+  [placeholder]="'assets/images/placeholder.jpeg'"
+  [title]="content.title.isVisible ? content.title.getText(data) : null"
+  [useServerPath]="content.useServerPath"
+  class="h-28 w-36 object-cover"
+>

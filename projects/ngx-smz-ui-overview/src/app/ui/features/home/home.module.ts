@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home.component';
-import { NgxSmzTablesModule, NgxSmzTreesModule, SmzRouteData, NgxSmzDialogsModule, NgxSmzFormsModule, SmzChartModule, NgxSmzDocumentsModule, NgCloneModule, NgVarModule, NgxSmzMenuModule, NgxSmzUiBlockModule, NgxSmzCommentsModule } from 'ngx-smz-ui';
+import { NgxSmzCardsModule, NgxSmzTablesModule, NgxSmzTreesModule, SmzRouteData, NgxSmzDialogsModule, NgxSmzFormsModule, SmzChartModule, NgxSmzDocumentsModule, NgCloneModule, NgVarModule, NgxSmzMenuModule, NgxSmzUiBlockModule, NgxSmzCommentsModule } from 'ngx-smz-ui';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
 import { RbkAuthGuard, RbkDatabaseStateGuard, UI_DEFINITIONS_STATE_NAME } from 'ngx-smz-ui';
@@ -21,6 +21,7 @@ import { DemoInjectable1Component } from './components/demo-injectable/demo-inje
 import { DemoInjectable2Component } from './components/demo-injectable/demo-injectable-2.component';
 import { DemoInjectable3Component } from './components/demo-injectable/demo-injectable-3.component';
 import { DemoInjectable4Component } from './components/demo-injectable/demo-injectable-4.component';
+import { DemoCardsComponent } from './components/demo-cards/demo-cards.component';
 import { TooltipModule } from 'primeng/tooltip';
 import { FormsModule } from '@angular/forms';
 
@@ -31,13 +32,13 @@ const data: SmzRouteData = {
   title: 'Home',
   appArea: 'home',
   clearReusableRoutes: true,
-  requiredStates: [UI_DEFINITIONS_STATE_NAME, CountriesDbName]
+  // requiredStates: [UI_DEFINITIONS_STATE_NAME, CountriesDbName]
 };
 
 const routes: Routes = [
   {
     path: '',
-    canActivate: [RbkAuthGuard, RbkDatabaseStateGuard],
+    // canActivate: [RbkAuthGuard, RbkDatabaseStateGuard],
     component: HomeComponent,
     data
   },
@@ -57,7 +58,8 @@ const routes: Routes = [
     DemoInjectable2Component,
     DemoInjectable3Component,
     DemoInjectable4Component,
-    DemoIconsComponent
+    DemoIconsComponent,
+    DemoCardsComponent
   ],
   imports: [
     CommonModule,
@@ -78,7 +80,9 @@ const routes: Routes = [
     NgxSmzMenuModule,
     TooltipModule,
     NgxSmzUiBlockModule,
-    NgxSmzCommentsModule
+    NgxSmzCommentsModule,
+    NgxSmzCardsModule
+
   ],
   providers: [],
   bootstrap: [HomeComponent]

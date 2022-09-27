@@ -10,6 +10,7 @@ import { TreesDemo } from './functions/trees-demo';
 import { MenusDemo } from './functions/menus-demo';
 import { IconsDemo } from './functions/icons-demo';
 import { CommentsDemo } from './functions/comments-demo';
+import { CardsDemo } from './functions/cards-demo';
 
 export const TreeDemoData: DemoTreeNode[] = [
   {
@@ -914,6 +915,20 @@ export const TreeDemoData: DemoTreeNode[] = [
             key: DemoKeys.TREE_DATA_TRANSFORM_USING_FLAT_ARRAYS_WITH_ROOT.toString()
           },
         ]
+      },
+    ]
+  },
+  {
+    label: 'Cards',
+    type: 'Category',
+    expanded: false,
+    children: [
+      {
+        label: 'Sample', icon: 'fa-solid fa-code', type: 'Demo',
+        demoType: 'cards',
+        notes: '',
+        data: CardsDemo[DemoKeys.CARDS_SAMPLE],
+        key: DemoKeys.CARDS_SAMPLE.toString()
       },
     ]
   },
