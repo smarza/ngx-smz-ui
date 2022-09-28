@@ -11,7 +11,7 @@ import { SvgGcabComponent } from './gcab/svg-gcab.component';
 const routes: Routes = [
   {
     path: 'demo',
-    // canActivate: [RbkAuthGuard, RbkDatabaseStateGuard],
+    canActivate: [RbkAuthGuard, RbkDatabaseStateGuard],
     component: SvgComponent,
     data: {
       layout: {
@@ -26,7 +26,7 @@ const routes: Routes = [
   },
   {
     path: 'playground',
-    // canActivate: [RbkAuthGuard, RbkDatabaseStateGuard],
+    canActivate: [RbkAuthGuard, RbkDatabaseStateGuard],
     component: SvgPlaygroundComponent,
     data: {
       layout: {
@@ -41,7 +41,7 @@ const routes: Routes = [
   },
   {
     path: 'gcab',
-    // canActivate: [RbkAuthGuard, RbkDatabaseStateGuard],
+    canActivate: [RbkAuthGuard, RbkDatabaseStateGuard],
     component: SvgGcabComponent,
     data: {
       layout: {

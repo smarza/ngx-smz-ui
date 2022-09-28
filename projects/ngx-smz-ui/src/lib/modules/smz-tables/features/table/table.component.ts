@@ -45,6 +45,7 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
   @Output() public create: EventEmitter<any> = new EventEmitter<any>();
   @Output() public update: EventEmitter<any> = new EventEmitter<any>();
   @Output() public delete: EventEmitter<any> = new EventEmitter<any>();
+  public globalSearchInput = '';
   public contentTemplate: TemplateRef<any>;
   public editableTemplate: TemplateRef<any>;
   public actionsTemplate: TemplateRef<any>;
@@ -225,11 +226,15 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
   }
 
   public clear(dt: any, context: SmzTableContext): void {
+    this.globalSearchInput = '';
+
     dt.clear();
 
     if (context.state.caption?.clearFilters?.callback != null) {
       context.state.caption.clearFilters.callback();
     }
+
+    this.cdr.markForCheck();
   }
 
   public exportToPdf(context: SmzTableContext, items: any[]): void {

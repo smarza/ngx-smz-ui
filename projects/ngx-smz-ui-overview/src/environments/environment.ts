@@ -6,12 +6,12 @@ export const environment = {
   production: false,
   version: 'development_v',
   databaseCacheTimeout: 2,
-  // serverUrl: 'https://lib.horizon-solutions.tk',
-  // authenticationApi: 'https://lib.horizon-solutions.tk',
+  serverUrl: 'https://lib.horizon-solutions.ml',
+  authenticationApi: 'https://lib.horizon-solutions.ml',
   // serverUrl: 'http://localhost:44339',
   // authenticationApi: 'http://localhost:44339',
-  serverUrl: 'https://reefkeeper.com.br',
-  authenticationApi: 'https://reefkeeper.com.br',
+  // serverUrl: 'https://reefkeeper.com.br',
+  // authenticationApi: 'https://reefkeeper.com.br',
   applicationId: 'SMZ-UI-OVERVIEW'
 };
 

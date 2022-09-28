@@ -411,11 +411,11 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
     pins.forEach(pin => {
       pin.isDisabled = true;
 
-      if (pin.position.callback != null) {
+      if (pin.dynamicBuild?.callback != null) {
 
         const container = this.draw.findOne(`#PIN_${root.id}`) as Container;
 
-        const pinElement = pin.position.callback(container, pin);
+        const pinElement = pin.dynamicBuild.callback(container, pin);
 
         if (pinElement.node.lastElementChild == null) {
           pinElement.node.setAttribute('id', `PIN_${pin.id}`);
@@ -431,15 +431,10 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
         }
 
         elements.each(element => {
-            console.log(3, element);
             pin._element = element;
-            // pin._element.node.lastElementChild.setAttribute('id', `PIN_${pin.id}`);
-
             this.updateChildrenIds(pin);
-
             this.setupFeature(pin, pin._element as SmzSVGWrapper);
-            }
-          )
+          });
 
       }
       else {

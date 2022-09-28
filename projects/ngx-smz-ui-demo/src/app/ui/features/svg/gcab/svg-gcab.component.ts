@@ -46,8 +46,6 @@ export class SvgGcabComponent implements OnInit, AfterViewInit {
   }
 
   private setupFlowchartState(): SmzSvgState {
-    // eslint-disable-next-line max-len
-    const markSvgData = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path class="bounce" d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>';
 
     const state: SmzSvgState = new SmzSvgBuilder()
       .setContainerSize(window.innerWidth*0.85, window.innerHeight*0.75)
@@ -60,10 +58,10 @@ export class SvgGcabComponent implements OnInit, AfterViewInit {
         .root(this.flowchart, window.innerWidth*0.75, window.innerHeight*0.85)
         .transform(this.getRootTransformation())
         .feature
-      .pin(markSvgData, 0)
+      .pin(null, 0)
         .setId(this.status.id)
         .addScope('current')
-        .setDynamicPosition(this.getMarkPosition())
+        .setDynamicBuild(this.getMarkPosition())
         .feature
       .svg
       .build();

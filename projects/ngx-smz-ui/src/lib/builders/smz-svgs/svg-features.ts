@@ -34,8 +34,8 @@ export class SmzSvgPinBuilder extends SmzSvgBaseFeatureBuilder<SmzSvgPinBuilder>
     return this.that;
   }
 
-  public setDynamicPosition(callback: (rootContainer: Container, feature: SmzSvgBaseFeature) => Element): SmzSvgPinBuilder {
-    this._feature.position.callback = callback;
+  public setDynamicBuild(callback: (rootContainer: Container, feature: SmzSvgBaseFeature) => Element): SmzSvgPinBuilder {
+    this._feature.dynamicBuild.callback = callback;
     return this.that;
   }
 

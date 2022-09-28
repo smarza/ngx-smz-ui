@@ -32,13 +32,13 @@ const data: SmzRouteData = {
   title: 'Home',
   appArea: 'home',
   clearReusableRoutes: true,
-  // requiredStates: [UI_DEFINITIONS_STATE_NAME, CountriesDbName]
+  requiredStates: [UI_DEFINITIONS_STATE_NAME, CountriesDbName]
 };
 
 const routes: Routes = [
   {
     path: '',
-    // canActivate: [RbkAuthGuard, RbkDatabaseStateGuard],
+    canActivate: [RbkAuthGuard, RbkDatabaseStateGuard],
     component: HomeComponent,
     data
   },

@@ -55,10 +55,12 @@ export interface SmzSvgBaseFeature {
   id: string;
   width: number;
   type?: SmzSvgFeatureTypes;
-  position: {
-    x: number,
-    y: number,
+  dynamicBuild: {
     callback: (rootContainer: Container, feature: SmzSvgBaseFeature) => Element
+  }
+  position: {
+    x: number;
+    y: number;
   };
 
   // Anchor === 'container' => O position será relativa a todo o container

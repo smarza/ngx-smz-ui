@@ -78,7 +78,7 @@
               "dist/ngx-smz-ui/resources/assets/scss/styles.scss",
               "dist/ngx-smz-ui/resources/assets/scss/fontawesome-free.scss",
               "node_modules/highlight.js/styles/vs2015.css",
-              "projects/ngx-smz-ui-overview/src/styles.scss"
+              "projects/ngx-smz-ui-demo/src/styles.scss"
             ],
             "scripts": [
               "node_modules/@svgdotjs/svg.js/dist/svg.min.js",
