@@ -1,3 +1,13 @@
-<ng-container *ngFor="let column of columns">
-  {{ column.content.dataPath }}
+<ng-container [ngSwitch]="state.types.list">
+
+  <ng-container *ngSwitchCase="type.RAW">
+    <smz-raw-type [state]="state" [data]="data" [mode]="mode"></smz-raw-type>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="type.IMAGE_WITH_DETAILS">
+    <smz-image-with-details-type [state]="state" [data]="data" [mode]="mode"></smz-image-with-details-type>
+  </ng-container>
+
+  <ng-container *ngSwitchDefault></ng-container>
+
 </ng-container>

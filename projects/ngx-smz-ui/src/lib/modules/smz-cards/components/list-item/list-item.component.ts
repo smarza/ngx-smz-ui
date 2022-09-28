@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { SmzCardsColumn } from '../../models/smz-cards-state';
+import { SmzCardsState } from '../../models/smz-cards-state';
+import { SmzCardsType, SmzCardsView } from '../../models/smz-cards-types';
 
 @Component({
   selector: 'smz-list-item',
@@ -8,8 +9,10 @@ import { SmzCardsColumn } from '../../models/smz-cards-state';
 })
 
 export class SmzListItemComponent implements OnInit {
-  @Input() public columns: SmzCardsColumn[];
+  @Input() public state: SmzCardsState<unknown>;
   @Input() public data: unknown;
+  public type = SmzCardsType;
+  public mode = SmzCardsView.LIST;
   constructor() { }
 
   ngOnInit() { }

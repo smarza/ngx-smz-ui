@@ -5,6 +5,7 @@ import { SmzCardsState } from '../../modules/smz-cards/models/smz-cards-state';
 import { SmzCardsMenuBuilder } from './menu-builder';
 import { SmzCardsColumnCollectionBuilder } from './column-builder';
 import { Observable } from 'rxjs';
+import { SmzCardsType } from '../../modules/smz-cards/models/smz-cards-types';
 
 export class SmzCardsBuilder<T> {
   public _state: SmzCardsState<T> = {
@@ -15,7 +16,11 @@ export class SmzCardsBuilder<T> {
       getText: null
     },
     locale: null,
-    columns: []
+    columns: [],
+    types: {
+      grid: SmzCardsType.RAW,
+      list: SmzCardsType.RAW
+    }
   };
 
   public _tempMenu: { column: SmzEasyTableBodyColumn, header: SmzEasyTableHeader } = null;
@@ -46,6 +51,22 @@ export class SmzCardsBuilder<T> {
     this._state.title.isVisible = true;
     this._state.title.getText = callback;
 
+    return this;
+  }
+
+  public setType(type: SmzCardsType): SmzCardsBuilder<T> {
+    this._state.types.grid = type;
+    this._state.types.list = type;
+    return this;
+  }
+
+  public setGridType(type: SmzCardsType): SmzCardsBuilder<T> {
+    this._state.types.grid = type;
+    return this;
+  }
+
+  public setListType(type: SmzCardsType): SmzCardsBuilder<T> {
+    this._state.types.list = type;
     return this;
   }
 

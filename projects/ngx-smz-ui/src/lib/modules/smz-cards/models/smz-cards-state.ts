@@ -1,5 +1,6 @@
 import { Observable } from 'rxjs';
 import { SmzCardsContentTypes } from './smz-cards-contents';
+import { SmzCardsType } from './smz-cards-types';
 export interface SmzCardsState<T> {
   items$: Observable<T[]>;
   isDebug: boolean;
@@ -10,6 +11,11 @@ export interface SmzCardsState<T> {
   locale: SmzCardsLocale;
 
   columns: SmzCardsColumn[];
+
+  types: {
+    grid: SmzCardsType;
+    list: SmzCardsType;
+  }
 }
 
 export interface SmzCardsLocale {
