@@ -1,4 +1,5 @@
-import { SmzSvgFeature, SmzSvgPin, SmzSvgRoot, SmzSvgAnchorTypes } from '../../modules/smz-svg/models/smz-svg';
+import { Container, Element } from '@svgdotjs/svg.js';
+import { SmzSvgFeature, SmzSvgPin, SmzSvgRoot, SmzSvgAnchorTypes, SmzSvgBaseFeature } from '../../modules/smz-svg/models/smz-svg';
 import { SmzSvgBaseFeatureBuilder } from './svg-base-feature';
 import { SmzSvgBuilder } from './svg-builder';
 import { SmzSvgFeatureBuilder } from './svg-feature';
@@ -30,6 +31,11 @@ export class SmzSvgPinBuilder extends SmzSvgBaseFeatureBuilder<SmzSvgPinBuilder>
   public setPosition(x: number, y: number): SmzSvgPinBuilder {
     this._feature.position.x = x;
     this._feature.position.y = y;
+    return this.that;
+  }
+
+  public setDynamicPosition(callback: (rootContainer: Container, feature: SmzSvgBaseFeature) => Element): SmzSvgPinBuilder {
+    this._feature.position.callback = callback;
     return this.that;
   }
 

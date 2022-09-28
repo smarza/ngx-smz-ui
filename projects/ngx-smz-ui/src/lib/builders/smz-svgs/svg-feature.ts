@@ -25,7 +25,7 @@ export class SmzSvgFeatureBuilder extends SmzBuilderUtilities<SmzSvgFeatureBuild
       width,
       height,
       svgData,
-      position: { x: 0, y: 0 },
+      position: { x: 0, y: 0, callback: null },
       anchor: 'root',
       adaptative: {
         enabled: false,
@@ -73,7 +73,7 @@ export class SmzSvgFeatureBuilder extends SmzBuilderUtilities<SmzSvgFeatureBuild
       type: 'pin',
       width,
       svgData,
-      position: { x: 0, y: 0 },
+      position: { x: 0, y: 0, callback: null },
       anchor: 'root',
       adaptative: {
         enabled: false

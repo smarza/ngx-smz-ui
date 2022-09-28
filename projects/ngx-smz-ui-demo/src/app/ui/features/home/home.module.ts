@@ -24,7 +24,7 @@ const data: SmzRouteData = {
 const routes: Routes = [
   {
     path: '',
-    canActivate: [RbkAuthGuard, RbkDatabaseStateGuard],
+    canActivate: [],
     component: HomeComponent,
     data
   },

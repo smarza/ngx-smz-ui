@@ -400,39 +400,57 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
   public setupPins(): void {
 
     const pins = this.state.features.filter(x => x.type === 'pin') as SmzSvgPin[];
+    const root = this.state.features.find(x => x.type == 'root');
 
     this.pins = pins;
 
     const [startX, endX, startY, endY ] = this.getRootContainer();
 
     pins.forEach(pin => {
-      const svg = this.draw.svg(pin.svgData)
-      svg.node.lastElementChild.setAttribute('id', `PIN_${pin.id}`);
 
-      this.draw
-        .find(`#PIN_${pin.id}`)
-        .each(element => {
+      if (pin.position.callback != null) {
 
-          pin._element = element;
-          this.updateChildrenIds(pin);
+        const container = this.draw.findOne(`#PIN_${root.id}`) as Container;
+        pin._element = pin.position.callback(container, pin);
+        pin._element.node.lastElementChild.setAttribute('id', `PIN_${pin.id}`);
 
-          element
-            .fill({ color: pin.color, opacity: 1 })
-            .size(pin.width);
+        pin._element
+          .fill({ color: pin.color, opacity: 1 })
+          .size(pin.width);
 
-            switch (pin.anchor) {
-              case 'root':
-                element.center(startX + pin.position.x, startY + pin.position.y);
-                break;
+        this.setupFeature(pin, pin._element as SmzSVGWrapper);
 
-              case 'container':
-                element.center(pin.position.x, pin.position.y);
-                break;
+      }
+      else {
+        const svg = this.draw.svg(pin.svgData)
+        svg.node.lastElementChild.setAttribute('id', `PIN_${pin.id}`);
+
+        this.draw
+          .find(`#PIN_${pin.id}`)
+          .each(element => {
+
+            pin._element = element;
+            this.updateChildrenIds(pin);
+
+            element
+              .fill({ color: pin.color, opacity: 1 })
+              .size(pin.width);
+
+              switch (pin.anchor) {
+                case 'root':
+                  element.center(startX + pin.position.x, startY + pin.position.y);
+                  break;
+
+                case 'container':
+                  element.center(pin.position.x, pin.position.y);
+                  break;
+              }
+
+            this.setupFeature(pin, element as SmzSVGWrapper);
             }
+          )
+      }
 
-          this.setupFeature(pin, element as SmzSVGWrapper);
-          }
-        )
     });
 
   }

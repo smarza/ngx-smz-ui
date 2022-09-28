@@ -55,7 +55,11 @@ export interface SmzSvgBaseFeature {
   id: string;
   width: number;
   type?: SmzSvgFeatureTypes;
-  position: { x: number, y: number };
+  position: {
+    x: number,
+    y: number,
+    callback: (rootContainer: Container, feature: SmzSvgBaseFeature) => Element
+  };
 
   // Anchor === 'container' => O position será relativa a todo o container
   // Anchor === 'root' => O position será relativa ao svg importado no root

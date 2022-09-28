@@ -181,7 +181,7 @@ export class SvgComponent implements OnInit, AfterViewInit {
         id,
         svgData: ghost,
         color: `#${Math.floor(Math.random() * 16777215).toString(16)}`,
-        position: { x, y },
+        position: { x, y, callback: null },
         anchor: 'container',
         width,
         adaptative: { enabled: true, minWidth: 0, maxWidth: 100 },
