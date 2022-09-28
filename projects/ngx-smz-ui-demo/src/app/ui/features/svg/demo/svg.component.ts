@@ -194,7 +194,8 @@ export class SvgComponent implements OnInit, AfterViewInit {
         focus: null,
         highlight: null,
         data: null,
-        scopes: []
+        scopes: [],
+        isDisabled: false
       });
 
     }

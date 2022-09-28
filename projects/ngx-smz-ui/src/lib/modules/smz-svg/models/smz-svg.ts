@@ -95,6 +95,7 @@ export interface SmzSvgBaseFeature {
   };
   data: any;
   scopes: string[];
+  isDisabled: boolean;
 }
 
 export interface SmzSvgRoot extends SmzSvgBaseFeature {

@@ -376,6 +376,8 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
       this.addToolTip(svg, feature.tooltip);
     }
 
+    feature.isDisabled = false;
+
   }
 
   private getRootContainer() {
@@ -407,18 +409,37 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
     const [startX, endX, startY, endY ] = this.getRootContainer();
 
     pins.forEach(pin => {
+      pin.isDisabled = true;
 
       if (pin.position.callback != null) {
 
         const container = this.draw.findOne(`#PIN_${root.id}`) as Container;
-        pin._element = pin.position.callback(container, pin);
-        pin._element.node.lastElementChild.setAttribute('id', `PIN_${pin.id}`);
 
-        pin._element
-          .fill({ color: pin.color, opacity: 1 })
-          .size(pin.width);
+        const pinElement = pin.position.callback(container, pin);
 
-        this.setupFeature(pin, pin._element as SmzSVGWrapper);
+        if (pinElement.node.lastElementChild == null) {
+          pinElement.node.setAttribute('id', `PIN_${pin.id}`);
+        }
+        else {
+          pinElement.node.lastElementChild.setAttribute('id', `PIN_${pin.id}`);
+        }
+
+        const elements = this.draw.find(`#PIN_${pin.id}`);
+
+        if (elements.length === 0) {
+          throw new Error(`You cannot return a null element at the setDynamicPosition Callback.`);
+        }
+
+        elements.each(element => {
+            console.log(3, element);
+            pin._element = element;
+            // pin._element.node.lastElementChild.setAttribute('id', `PIN_${pin.id}`);
+
+            this.updateChildrenIds(pin);
+
+            this.setupFeature(pin, pin._element as SmzSVGWrapper);
+            }
+          )
 
       }
       else {
@@ -593,10 +614,10 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
       console.log(` ` );
       console.log(`adjustPinScale2 #####` );
       console.log(`adjustPinScale2`, startX, endX, startY, endY );
-    }
 
-    // const viewbox = this.draw.viewbox();
-    // console.log('viewbox', viewbox);
+      const viewbox = this.draw.viewbox();
+      console.log('-viewbox', viewbox);
+    }
 
     this.state.features
       .filter(x => x.adaptative.enabled)

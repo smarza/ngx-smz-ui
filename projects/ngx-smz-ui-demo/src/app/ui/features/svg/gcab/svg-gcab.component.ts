@@ -5,7 +5,7 @@ import { Container } from '@svgdotjs/svg.js';
 import { NumberAlias } from '@svgdotjs/svg.js';
 import { Element } from '@svgdotjs/svg.js';
 import { SVG } from '@svgdotjs/svg.js';
-import { SmzSvgBuilder, SmzSvgRoot, SmzSvgState, SmzSVGWrapper } from 'ngx-smz-ui';
+import { SmzSvgBaseFeature, SmzSvgBuilder, SmzSvgRoot, SmzSvgState, SmzSVGWrapper } from 'ngx-smz-ui';
 
 @Component({
   selector: 'app-svg-gcab',
@@ -22,7 +22,6 @@ import { SmzSvgBuilder, SmzSvgRoot, SmzSvgState, SmzSVGWrapper } from 'ngx-smz-u
 export class SvgGcabComponent implements OnInit, AfterViewInit {
   public flowchart: string;
   public flowchartState: SmzSvgState;
-  public pinSize = 30;
   public status = {
     color: "#FB8C00",
     hasFlowchart: true,
@@ -61,11 +60,9 @@ export class SvgGcabComponent implements OnInit, AfterViewInit {
         .root(this.flowchart, window.innerWidth*0.75, window.innerHeight*0.85)
         .transform(this.getRootTransformation())
         .feature
-      .pin(markSvgData, this.pinSize)
+      .pin(markSvgData, 0)
         .setId(this.status.id)
         .addScope('current')
-        .setColor('red')
-        .setAnchor('container')
         .setDynamicPosition(this.getMarkPosition())
         .feature
       .svg
@@ -83,63 +80,22 @@ export class SvgGcabComponent implements OnInit, AfterViewInit {
   public getRootTransformation(): (container: Container, elementId: string, feature: SmzSvgRoot, draw: SmzSVGWrapper) => void {
 
     return (container: Container, elementId: string, feature: SmzSvgRoot, draw: SmzSVGWrapper) => {
-
-      console.log('state', this.status);
-
-      return;
-
       const box = GetElementByStatusId(container, this.status.id);
 
-      if (box == null) {
+      if (box == null || box.node.children.length < 2) {
+        throw new Error(`Não foi possível encontrar o nó do estado no svg ou ele não possui os elementos rect e g`);
         return;
       }
 
-      const child = box.node.children[0];
-
-      child.setAttribute('style', `fill:${this.status.color};stroke:red`);
-      child.setAttribute('class', 'cursor-pointer');
-
-      const markSvgData = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path class="bounce" d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>';
-      const svg = SVG(markSvgData);
-
-      const [diffPosX, diffPosY, width, height] = [ child.getAttribute('x'), child.getAttribute('y'), child.getAttribute('width'), child.getAttribute('height') ];
-
-      console.log('diffPosX', diffPosX);
-      console.log('diffPosY', diffPosY);
-      console.log('width', width);
-      console.log('height', height);
-
-      svg
-        .fill({ color: 'red', opacity: 1 })
-        .center(Number(diffPosX) + (Number(width) / 2) - (this.pinSize / 2), Number(diffPosY) - (Number(height) / 2) - (this.pinSize / 2))
-        .size(this.pinSize);
-
-      const pinElement = document.createElement('div');
-      pinElement.innerHTML = markSvgData;
-
-      svg.node.lastElementChild.setAttribute('id', `PIN_${this.status.id}`);
-
-      box.add(svg);
-      // const pin = this.flowchartState.features.find(x => x.id === this.status.id);
-      // pin.position = { x: diffPosX, y: diffPosY };
-      // pin.position = { x: 399, y: 220 };
-
-      // pin.position = { x: 388 + (this.pinSize / 2), y: 210 + (this.pinSize / 2) };
-
-      // console.log('position', pin.position);
-
+      box.node.children[0].setAttribute('style', `fill:${this.status.color};stroke:red`);
     };
   }
 
-  public getMarkPosition(): (container: Container, elementId: string, feature: SmzSvgRoot, draw: SmzSVGWrapper) => void {
+  public getMarkPosition(): (rootContainer: Container, feature: SmzSvgBaseFeature) => Element {
 
-    return (container: Container, elementId: string, feature: SmzSvgRoot, draw: SmzSVGWrapper) => {
+    return (rootContainer: Container, feature: SmzSvgBaseFeature): Element => {
 
-      console.log('state', this.status);
-
-      return;
-
-      const box = GetElementByStatusId(container, this.status.id);
+      const box = GetElementByStatusId(rootContainer, this.status.id);
 
       if (box == null) {
         return;
@@ -147,38 +103,29 @@ export class SvgGcabComponent implements OnInit, AfterViewInit {
 
       const child = box.node.children[0];
 
-      child.setAttribute('style', `fill:${this.status.color};stroke:red`);
-      child.setAttribute('class', 'cursor-pointer');
+      const [posX, posY, width, height, radius ] = [ Number(child.getAttribute('x')), Number(child.getAttribute('y')), Number(child.getAttribute('width')), Number(child.getAttribute('height')), Number(child.getAttribute('rx')) ];
 
-      const markSvgData = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path class="bounce" d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>';
-      const svg = SVG(markSvgData);
+      const xGrowRate = 1.5;
+      const YGrowRate = 1.8;
 
-      const [diffPosX, diffPosY, width, height] = [ child.getAttribute('x'), child.getAttribute('y'), child.getAttribute('width'), child.getAttribute('height') ];
+      const [ newWidth, newHeight ] = [ (width * xGrowRate), (height * YGrowRate)];
+      const [ newPosX, newPosY ] = [ (posX - (width * (xGrowRate - 1) / 2)), (posY - (height * (YGrowRate - 1) / 2))];
 
-      console.log('diffPosX', diffPosX);
-      console.log('diffPosY', diffPosY);
-      console.log('width', width);
-      console.log('height', height);
+      const rect = SVG().rect(newWidth, newHeight);
 
-      svg
-        .fill({ color: 'red', opacity: 1 })
-        .center(Number(diffPosX) + (Number(width) / 2) - (this.pinSize / 2), Number(diffPosY) - (Number(height) / 2) - (this.pinSize / 2))
-        .size(this.pinSize);
+      rect
+        .radius(radius * (YGrowRate))
+        .fill({ color: this.status.color, opacity: 0.4 })
+        .x(newPosX)
+        .y(newPosY)
+        .addClass('cursor-pointer animate__animated animate__infinite animate__flash animate__slow');
 
-      const pinElement = document.createElement('div');
-      pinElement.innerHTML = markSvgData;
+      box.add(rect);
 
-      svg.node.lastElementChild.setAttribute('id', `PIN_${this.status.id}`);
+      box.front();
 
-      box.add(svg);
-      // const pin = this.flowchartState.features.find(x => x.id === this.status.id);
-      // pin.position = { x: diffPosX, y: diffPosY };
-      // pin.position = { x: 399, y: 220 };
 
-      // pin.position = { x: 388 + (this.pinSize / 2), y: 210 + (this.pinSize / 2) };
-
-      // console.log('position', pin.position);
-
+      return rect;
     };
   }
 
