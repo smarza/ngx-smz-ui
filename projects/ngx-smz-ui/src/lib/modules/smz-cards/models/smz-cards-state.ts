@@ -1,6 +1,8 @@
 import { Observable } from 'rxjs';
+import { SmzMenuItem } from '../../smz-menu/models/smz-menu-item';
 import { SmzCardsContentTypes } from './smz-cards-contents';
 import { SmzCardsType } from './smz-cards-types';
+import { SmzCardsTypes } from './types/smz-cards-types';
 export interface SmzCardsState<T> {
   items$: Observable<T[]>;
   isDebug: boolean;
@@ -9,12 +11,17 @@ export interface SmzCardsState<T> {
     getText: () => string;
   };
   locale: SmzCardsLocale;
-
   columns: SmzCardsColumn[];
-
-  types: {
-    grid: SmzCardsType;
-    list: SmzCardsType;
+  grid: {
+    type: SmzCardsType;
+    config: SmzCardsTypes;
+  }
+  list: {
+    type: SmzCardsType;
+    config: SmzCardsTypes;
+  }
+  menu: {
+    callback: (row: T) => SmzMenuItem[];
   }
 }
 

@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { SmzCardsState } from '../../../models/smz-cards-state';
 import { SmzCardsView } from '../../../models/smz-cards-types';
+import { ImageWithDetails } from '../../../models/types/smz-cards-types';
 
 @Component({
   selector: 'smz-image-with-details-type',
@@ -10,6 +11,7 @@ import { SmzCardsView } from '../../../models/smz-cards-types';
 
 export class SmzImageWithDetailsTypeComponent implements OnInit {
   @Input() public state: SmzCardsState<unknown>;
+  @Input() public config: ImageWithDetails;
   @Input() public data: unknown;
   @Input() public mode: SmzCardsView;
   public modes = SmzCardsView;

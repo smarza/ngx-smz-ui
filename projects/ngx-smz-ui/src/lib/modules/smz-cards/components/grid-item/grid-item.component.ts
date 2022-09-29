@@ -7,7 +7,7 @@ import { SmzCardsType, SmzCardsView } from '../../models/smz-cards-types';
   selector: 'smz-grid-item',
   templateUrl: 'grid-item.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { class: 'col-12 lg:col-6 xl:col-4 p-2' }
+  host: { class: 'col-12 lg:col-6 xl:col-3 p-2' }
 })
 
 export class SmzGridItemComponent implements OnInit {

@@ -6,6 +6,8 @@ import { SmzCardsMenuBuilder } from './menu-builder';
 import { SmzCardsColumnCollectionBuilder } from './column-builder';
 import { Observable } from 'rxjs';
 import { SmzCardsType } from '../../modules/smz-cards/models/smz-cards-types';
+import { SmzCardsTypes, ImageWithDetails } from '../../modules/smz-cards/models/types/smz-cards-types';
+import { SmzCardsContentType, SmzCardsImageContent } from '../../modules/smz-cards/models/smz-cards-contents';
 
 export class SmzCardsBuilder<T> {
   public _state: SmzCardsState<T> = {
@@ -17,13 +19,18 @@ export class SmzCardsBuilder<T> {
     },
     locale: null,
     columns: [],
-    types: {
-      grid: SmzCardsType.RAW,
-      list: SmzCardsType.RAW
+    grid: {
+      type: SmzCardsType.RAW,
+      config: null
+    },
+    list: {
+      type: SmzCardsType.RAW,
+      config: null
+    },
+    menu: {
+      callback: null
     }
   };
-
-  public _tempMenu: { column: SmzEasyTableBodyColumn, header: SmzEasyTableHeader } = null;
 
   constructor(uiDefinitionName?: string) {
 
@@ -55,18 +62,18 @@ export class SmzCardsBuilder<T> {
   }
 
   public setType(type: SmzCardsType): SmzCardsBuilder<T> {
-    this._state.types.grid = type;
-    this._state.types.list = type;
+    this._state.grid.type = type;
+    this._state.list.type = type;
     return this;
   }
 
   public setGridType(type: SmzCardsType): SmzCardsBuilder<T> {
-    this._state.types.grid = type;
+    this._state.grid.type = type;
     return this;
   }
 
   public setListType(type: SmzCardsType): SmzCardsBuilder<T> {
-    this._state.types.list = type;
+    this._state.list.type = type;
     return this;
   }
 
@@ -126,8 +133,8 @@ export class SmzCardsBuilder<T> {
 
   public menu(items?: SmzMenuItem[]): SmzCardsMenuBuilder {
 
-    if (this._tempMenu != null && (this._tempMenu.column?.content as SmzEasyTableActionContent)?.callback != null) {
-      throw Error('[Smz Eazy Table] You can\'t call \'menu\' while using dynamic menu.');
+    if (this._state.menu?.callback != null) {
+      throw Error('[Smz Cards] You can\'t call \'menu\' because it is already set.');
     }
 
     return new SmzCardsMenuBuilder(this, items);
@@ -148,11 +155,40 @@ export class SmzCardsBuilder<T> {
       console.log(this._state);
     }
 
-
     if (this._state.items$ == null) {
       throw Error('[Smz Cards] You can\'t call \'build()\' without setting the source.');
     }
 
+    this._state.grid.config = GetTypeConfig(this._state.grid.type, this._state);
+    this._state.list.config = GetTypeConfig(this._state.list.type, this._state);
+
     return this._state;
+  }
+}
+
+function GetTypeConfig(type: SmzCardsType, state: SmzCardsState<unknown>): SmzCardsTypes {
+  try {
+    switch (type) {
+      case SmzCardsType.RAW:
+        return null;
+
+      case SmzCardsType.IMAGE_WITH_DETAILS:
+        const image = state.columns.find(x => x.content.type == SmzCardsContentType.IMAGE && x.isVisible);
+        const texts = state.columns.filter(x => x.content.type !== SmzCardsContentType.IMAGE && x.isVisible);
+
+        const result: ImageWithDetails = {
+          image: {
+            content: (image.content as SmzCardsImageContent),
+          },
+          texts
+        };
+        return result;
+
+      default:
+        return null;
+    }
+  } catch (error) {
+    console.error(error);
+    throw Error(`[Smz Cards] Error while trying to build the config for the type ${type}`);
   }
 }

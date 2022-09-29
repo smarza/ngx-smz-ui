@@ -1,81 +1,39 @@
 import { MenuItem } from 'primeng/api';
-import { uuidv4 } from '../../common/utils/utils';
 import { SmzMenuItem } from '../../modules/smz-menu/models/smz-menu-item';
-import { SmzEasyTableActionContent, SmzEasyTableContentType } from '../../standalones/easy-table/models/smz-easy-table-contents';
-import { SmzEasyTableBodyColumn, SmzEasyTableHeader } from '../../standalones/easy-table/models/smz-easy-table-state';
-import { SmzDocumentWidthTypes } from '../smz-documents/document-base-cell';
 import { SmzCardsBuilder } from './state-builder';
 
 export class SmzCardsMenuBuilder {
+  public items: SmzMenuItem[] = [];
   constructor(private _cardsBuilder: SmzCardsBuilder<any>, items: SmzMenuItem[] = []) {
-
-    const key = uuidv4();
-
-    const column: SmzEasyTableBodyColumn = { key, isVisible: true, styleClass: '', content: {
-      type: SmzEasyTableContentType.ACTION,
-      items: items,
-      dataPath: ''
-    } };
-
-    const header: SmzEasyTableHeader = { key, isVisible: true, label: '', widthClass: '', styleClass: '', sort: null, searchPath: '', sortPath: '' };
-
-    this._cardsBuilder._tempMenu = {
-      header,
-      column
-    };
-
+    this.items = items;
+    _cardsBuilder._state.menu.callback = null;
   }
 
-  public setHeader(header: string): SmzCardsMenuBuilder {
-    this._cardsBuilder._tempMenu.header.label = header;
-    return this;
-  }
-
-  public setWidth(widthClass: SmzDocumentWidthTypes): SmzCardsMenuBuilder {
-    this._cardsBuilder._tempMenu.header.widthClass = widthClass;
-    return this;
-  }
-
-  public setHeaderStyles(styleClass: string): SmzCardsMenuBuilder {
-    this._cardsBuilder._tempMenu.header.styleClass = styleClass;
-    return this;
-  }
-
-  public useDynamic(callback: (row: any) => SmzMenuItem[]): SmzCardsMenuBuilder {
-
-    if ((this._cardsBuilder._tempMenu.column?.content as SmzEasyTableActionContent)?.items != null && (this._cardsBuilder._tempMenu.column?.content as SmzEasyTableActionContent)?.items.length > 0) {
-      throw Error('[Smz Eazy Table] You can\'t call \'dynamicMenu\' if the menu items are already set.');
-    }
-
-    (this._cardsBuilder._tempMenu.column.content as SmzEasyTableActionContent).callback = callback;
-    (this._cardsBuilder._tempMenu.column.content as SmzEasyTableActionContent).items = null;
-
+  public useDynamic(callback: (row: unknown) => SmzMenuItem[]): SmzCardsMenuBuilder {
+    this._cardsBuilder._state.menu.callback = callback;
     return this;
   }
 
   public item(label: string, icon: string = null, tooltip: string = null): SmzMenuItemCardsBuilder {
 
-    if ((this._cardsBuilder._tempMenu.column?.content as SmzEasyTableActionContent)?.callback != null) {
-      throw Error('[Smz Eazy Table] You can\'t call \'item\' while using dynamic menu.');
-    }
-
     const item: SmzMenuItem = { label, icon, tooltip, transforms: [], visible: true, disabled: false };
-    (this._cardsBuilder._tempMenu.column.content as SmzEasyTableActionContent).items.push(item);
+    this.items.push(item);
 
     return new SmzMenuItemCardsBuilder(this, null, item);
   }
 
   public separator(): SmzCardsMenuBuilder {
+    this.items.push({ separator: true });
 
-    if ((this._cardsBuilder._tempMenu.column?.content as SmzEasyTableActionContent)?.callback != null) {
-      throw Error('[Smz Eazy Table] You can\'t call \'separator\' while using dynamic menu.');
-    }
-
-    (this._cardsBuilder._tempMenu.column.content as SmzEasyTableActionContent).items.push({ separator: true });
     return this;
   }
 
   public get table(): SmzCardsBuilder<any> {
+
+    if (this._cardsBuilder._state.menu.callback == null) {
+      this._cardsBuilder._state.menu.callback = () => this.items;
+    }
+
     return this._cardsBuilder;
   }
 

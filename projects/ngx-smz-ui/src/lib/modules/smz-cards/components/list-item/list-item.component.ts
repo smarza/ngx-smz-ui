@@ -5,7 +5,8 @@ import { SmzCardsType, SmzCardsView } from '../../models/smz-cards-types';
 @Component({
   selector: 'smz-list-item',
   templateUrl: 'list-item.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { class: 'col-12' }
 })
 
 export class SmzListItemComponent implements OnInit {

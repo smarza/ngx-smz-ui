@@ -1,11 +1,82 @@
 <ng-container [ngSwitch]="mode">
 
 <ng-container *ngSwitchCase="modes.GRID">
-  grid image
+
+  <div class="h-full grid grid-nogutter flex-col items-start justify-start gap-1" [ngClass]="{ 'border border-red-500 border-solid': state.isDebug }">
+
+    <!-- IMAGE -->
+    <img
+      serverImage
+      [path]="(data | cardsContent : config.image.content.dataPath).result"
+      [maximize]="true"
+      [placeholder]="'assets/images/placeholder.jpeg'"
+      [title]="config.image.content.title.isVisible ? config.image.content.title.getText(data) : null"
+      [useServerPath]="config.image.content.useServerPath"
+      class="h-60 w-full object-cover rounded-lg"
+    >
+
+    <!-- DETAILS -->
+    <ng-container *ngFor="let column of config.texts; let i = index">
+
+      <ng-container [ngSwitch]="i">
+
+        <ng-container *ngSwitchCase="0">
+            <!-- PRIMEIRO -->
+            <div
+              contentSelector [column]="column" [data]="data" [index]="i"
+              [ngClass]="column.styleClass ?? 'font-bold'"
+            ></div>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="1">
+          <!-- SEGUNDO -->
+          <div
+            contentSelector [column]="column" [data]="data" [index]="i"
+            [ngClass]="column.styleClass ?? 'text-sm'"
+          ></div>
+        </ng-container>
+
+        <ng-container *ngSwitchDefault>
+          <!-- OUTROS -->
+          <div
+            contentSelector [column]="column" [data]="data" [index]="i"
+            [ngClass]="column.styleClass ?? 'text-sm'"
+          ></div>
+        </ng-container>
+
+      </ng-container>
+
+    </ng-container>
+
+    <div class="col"></div>
+
+    <!-- ACTIONS -->
+    <ng-container *ngIf="state.menu.callback(data) as menu">
+
+      <ng-container *ngIf="menu.length < 3; else menuButtonTemplate">
+        <!-- MENU ITEMS -->
+        <div class="grid grid-nogutter items-center justify-start gap-1">
+          <ng-container *ngFor="let menuItem of menu; let i = index">
+            <button pButton pRipple type="button" [label]="menuItem.label" class="p-button-outlined p-button-sm" [ngClass]="menuItem.styleClass" (click)="menuItem.command(data)"></button>
+          </ng-container>
+        </div>
+      </ng-container>
+
+      <ng-template #menuButtonTemplate>
+        <!-- MENU BUTTON -->
+        <smz-menu [items]="menu" [data]="data"></smz-menu>
+      </ng-template>
+
+    </ng-container>
+
+  </div>
+
 </ng-container>
 
 <ng-container *ngSwitchCase="modes.LIST">
+
   list image
+
 </ng-container>
 
 </ng-container>

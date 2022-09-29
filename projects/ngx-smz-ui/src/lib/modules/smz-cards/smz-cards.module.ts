@@ -9,11 +9,13 @@ import { DropdownModule } from 'primeng/dropdown';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { SmzGridItemComponent } from './components/grid-item/grid-item.component';
 import { SmzListItemComponent } from './components/list-item/list-item.component';
-import { SmzCardContentPipe } from './pipes/card-content.pipe';
+import { SmzCardsContentPipe } from './pipes/card-content.pipe';
 import { SmzImageContentComponent } from './components/contents/image/image-content.component';
 import { SmzTextContentComponent } from './components/contents/text/text-content.component';
 import { SmzImageWithDetailsTypeComponent } from './components/types/image-with-details/image-with-details-type.component';
 import { SmzRawTypeComponent } from './components/types/raw/raw-type.component';
+import { SmzCardsContentSelectorDirective } from './directives/content-selector.directive';
+import { NgxSmzMenuModule } from '../smz-menu/smz-menu.module';
 
 @NgModule({
   imports: [
@@ -23,7 +25,8 @@ import { SmzRawTypeComponent } from './components/types/raw/raw-type.component';
     InputTextModule,
     DropdownModule,
     MultiSelectModule,
-    NgxSmzServerImageModule
+    NgxSmzServerImageModule,
+    NgxSmzMenuModule
   ],
   exports: [SmzCardsComponent],
   declarations: [
@@ -35,7 +38,10 @@ import { SmzRawTypeComponent } from './components/types/raw/raw-type.component';
     SmzGridItemComponent,
 
     // Pipes
-    SmzCardContentPipe,
+    SmzCardsContentPipe,
+
+    // Directives
+    SmzCardsContentSelectorDirective,
 
     // Content Components
     SmzTextContentComponent,

@@ -17,7 +17,7 @@ export const SmzCardsDemo: SmzCardsDemoData[] = [
     },
     notes: "Descemos a iluminação em 2%",
     date: new Date("2022-09-21T11:00:00Z"),
-    imagePath: "files\\storage\\tank_logs\\ef24cb31-2167-4ddd-84cf-15b4bda20ac1.png",
+    imagePath: "https:\\\\reefkeeper.com.br\\files\\storage\\tank_logs\\ef24cb31-2167-4ddd-84cf-15b4bda20ac1.png",
     id: "7572b0ef-a826-4459-35e1-08da9c8f3ece"
   },
   {
@@ -28,7 +28,7 @@ export const SmzCardsDemo: SmzCardsDemoData[] = [
     },
     notes: "Descemos novamente a iluminação em 2%",
     date: new Date("2022-09-22T11:39:47.688Z"),
-    imagePath: "files\\storage\\tank_logs\\a9893b5a-bb1b-4146-94f9-ef4201bb0e19.png",
+    imagePath: "https:\\\\reefkeeper.com.br\\files\\storage\\tank_logs\\a9893b5a-bb1b-4146-94f9-ef4201bb0e19.png",
     id: "2b920950-554b-4153-35e2-08da9c8f3ece"
   },
   {
@@ -50,7 +50,7 @@ export const SmzCardsDemo: SmzCardsDemoData[] = [
     },
     notes: null,
     date: new Date("2022-09-18T03:00:00Z"),
-    imagePath: "files\\storage\\tank_logs\\c74aa1a3-3f43-4df3-97e9-f10f85abb2f8.png",
+    imagePath: "https:\\\\reefkeeper.com.br\\files\\storage\\tank_logs\\c74aa1a3-3f43-4df3-97e9-f10f85abb2f8.png",
     id: "eeeeda39-49bf-4678-2c24-08da9ca9dd78"
   },
   {

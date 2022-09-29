@@ -1,32 +1,13 @@
-<ng-container [ngSwitch]="state.types.grid">
+<ng-container [ngSwitch]="state.grid.type">
 
   <ng-container *ngSwitchCase="type.RAW">
     <smz-raw-type [state]="state" [data]="data" [mode]="mode"></smz-raw-type>
   </ng-container>
 
   <ng-container *ngSwitchCase="type.IMAGE_WITH_DETAILS">
-    <smz-image-with-details-type [state]="state" [data]="data" [mode]="mode"></smz-image-with-details-type>
+    <smz-image-with-details-type [config]="state.grid.config" [state]="state" [data]="data" [mode]="mode"></smz-image-with-details-type>
   </ng-container>
 
   <ng-container *ngSwitchDefault></ng-container>
 
 </ng-container>
-
-<!-- <div class="col-12 md:col-4">
-  <ng-container *ngFor="let column of columns">
-
-    <ng-container [ngSwitch]="column.content.type">
-
-      <ng-container *ngSwitchCase="type.TEXT">
-        <smz-text-content [content]="$any(column.content)" [data]="data"></smz-text-content>
-      </ng-container>
-
-      <ng-container *ngSwitchCase="type.IMAGE">
-        <smz-image-content [content]="$any(column.content)" [data]="data"></smz-image-content>
-      </ng-container>
-
-      <ng-container *ngSwitchDefault></ng-container>
-
-    </ng-container>
-  </ng-container>
-</div> -->
