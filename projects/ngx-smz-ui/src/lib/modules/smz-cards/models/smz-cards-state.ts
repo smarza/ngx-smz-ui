@@ -15,10 +15,22 @@ export interface SmzCardsState<T> {
   grid: {
     type: SmzCardsType;
     config: SmzCardsTypes;
+    styleClass: {
+      all: string;
+      layout: string;
+      padding: string;
+      general: string;
+    }
   }
   list: {
     type: SmzCardsType;
     config: SmzCardsTypes;
+    styleClass: {
+      all: string;
+      layout: string;
+      padding: string;
+      general: string;
+    }
   }
   menu: {
     callback: (row: T) => SmzMenuItem[];
@@ -31,6 +43,7 @@ export interface SmzCardsState<T> {
     paginator: boolean;
     showGlobalFilter: boolean;
     filterBy: string;
+    layout: 'grid' | 'list';
   }
 }
 

@@ -19,11 +19,23 @@ export class SmzCardsBuilder<T> {
     columns: [],
     grid: {
       type: SmzCardsType.RAW,
-      config: null
+      config: null,
+      styleClass: {
+        all: '',
+        layout: 'col-12 lg:col-6 xl:col-3',
+        padding: 'p-2',
+        general: ''
+      }
     },
     list: {
       type: SmzCardsType.RAW,
-      config: null
+      config: null,
+      styleClass: {
+        all: '',
+        layout: 'col-12',
+        padding: 'px-0 pt-4',
+        general: ''
+      }
     },
     menu: {
       callback: null,
@@ -35,7 +47,8 @@ export class SmzCardsBuilder<T> {
       rowsPerPage: 9,
       paginator: true,
       showGlobalFilter: false,
-      filterBy: ''
+      filterBy: '',
+      layout: 'grid'
     }
   };
 
@@ -61,6 +74,16 @@ export class SmzCardsBuilder<T> {
     return this;
   }
 
+  public useGridAsDefault(): SmzCardsBuilder<T> {
+    this._state.view.layout = 'grid';
+    return this;
+  }
+
+  public useListAsDefault(): SmzCardsBuilder<T> {
+    this._state.view.layout = 'list';
+    return this;
+  }
+
   public setDynamicTitle(callback: () => string): SmzCardsBuilder<T> {
     this._state.title.isVisible = true;
     this._state.title.getText = callback;
@@ -79,8 +102,38 @@ export class SmzCardsBuilder<T> {
     return this;
   }
 
+  public setGridLayout(styleClass: string): SmzCardsBuilder<T> {
+    this._state.grid.styleClass.layout = styleClass;
+    return this;
+  }
+
+  public setGridPadding(styleClass: string): SmzCardsBuilder<T> {
+    this._state.grid.styleClass.padding = styleClass;
+    return this;
+  }
+
+  public setGridStyles(styleClass: string): SmzCardsBuilder<T> {
+    this._state.grid.styleClass.general = styleClass;
+    return this;
+  }
+
   public setListType(type: SmzCardsType): SmzCardsBuilder<T> {
     this._state.list.type = type;
+    return this;
+  }
+
+  public setListLayout(styleClass: string): SmzCardsBuilder<T> {
+    this._state.list.styleClass.layout = styleClass;
+    return this;
+  }
+
+  public setListPadding(styleClass: string): SmzCardsBuilder<T> {
+    this._state.list.styleClass.padding = styleClass;
+    return this;
+  }
+
+  public setListStyles(styleClass: string): SmzCardsBuilder<T> {
+    this._state.list.styleClass.general = styleClass;
     return this;
   }
 
@@ -184,6 +237,12 @@ export class SmzCardsBuilder<T> {
 
     this._state.grid.config = GetTypeConfig(this._state.grid.type, this._state);
     this._state.list.config = GetTypeConfig(this._state.list.type, this._state);
+
+    let styles = this._state.grid.styleClass;
+    this._state.grid.styleClass.all = `${styles.layout} ${styles.padding} ${styles.general}`;
+
+    styles = this._state.list.styleClass;
+    this._state.list.styleClass.all = `${styles.layout} ${styles.padding} ${styles.general}`;
 
     return this._state;
   }

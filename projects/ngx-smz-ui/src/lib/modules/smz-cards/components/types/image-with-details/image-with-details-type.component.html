@@ -2,7 +2,7 @@
 
 <ng-container *ngSwitchCase="modes.GRID">
 
-  <div class="h-full grid grid-nogutter flex-col items-start justify-start gap-1 relative" [ngClass]="{ 'border border-red-500 border-solid': state.isDebug }">
+  <div class="h-full grid grid-nogutter flex-col items-start justify-start gap-2 relative" [ngClass]="{ 'border border-red-500 border-solid': state.isDebug }">
 
     <!-- IMAGE -->
     <img
@@ -78,7 +78,80 @@
 
 <ng-container *ngSwitchCase="modes.LIST">
 
-  list image
+  <div class="grid grid-nogutter items-start justify-start gap-4 relative" [ngClass]="{ 'border border-red-500 border-solid': state.isDebug }">
+
+    <!-- IMAGE -->
+    <img
+      serverImage
+      [path]="(data | cardsContent : config.image.content.dataPath).result"
+      [maximize]="true"
+      [placeholder]="'assets/images/placeholder.jpeg'"
+      [title]="config.image.content.title.isVisible ? config.image.content.title.getText(data) : null"
+      [useServerPath]="config.image.content.useServerPath"
+      class="h-44 w-44 object-cover rounded-lg"
+      [ngClass]="config.image.column.styleClass"
+    >
+
+    <div class="h-full grid grid-nogutter flex-col items-start justify-start gap-2 relative">
+      <!-- DETAILS -->
+      <ng-container *ngFor="let column of config.texts; let i = index">
+
+        <ng-container [ngSwitch]="i">
+
+          <ng-container *ngSwitchCase="0">
+              <!-- PRIMEIRO -->
+              <div
+                contentSelector [column]="column" [data]="data" [index]="i"
+                [ngClass]="column.styleClass ?? 'font-bold'"
+              ></div>
+          </ng-container>
+
+          <ng-container *ngSwitchCase="1">
+            <!-- SEGUNDO -->
+            <div
+              contentSelector [column]="column" [data]="data" [index]="i"
+              [ngClass]="column.styleClass ?? 'text-sm'"
+            ></div>
+          </ng-container>
+
+          <ng-container *ngSwitchDefault>
+            <!-- OUTROS -->
+            <div
+              contentSelector [column]="column" [data]="data" [index]="i"
+              [ngClass]="column.styleClass ?? 'text-sm'"
+            ></div>
+          </ng-container>
+
+        </ng-container>
+
+      </ng-container>
+
+      <div class="col"></div>
+
+      <!-- ACTIONS -->
+      <ng-container *ngIf="state.menu.callback(data) as menu">
+
+        <ng-container *ngIf="menu.length < 3; else menuButtonTemplate">
+          <!-- MENU ITEMS -->
+          <div class="grid grid-nogutter items-center justify-start gap-1">
+            <ng-container *ngFor="let menuItem of menu; let i = index">
+              <button pButton pRipple type="button" [label]="menuItem.label" [icon]="menuItem.icon" [pTooltip]="menuItem.tooltip" class="p-button-outlined p-button-sm px-3 py-2" [ngClass]="menuItem.styleClass" (click)="menuItem.command(data)"></button>
+            </ng-container>
+          </div>
+        </ng-container>
+
+        <ng-template #menuButtonTemplate>
+          <!-- MENU BUTTON -->
+          <div class="grid grid-nogutter items-center justify-end gap-1 col-12 absolute top-2 right-2">
+            <smz-menu [items]="menu" [data]="data" [icon]="state.menu.icon" [styleClass]="state.menu.styleClass" [buttonClass]="state.menu.buttonClass"></smz-menu>
+          </div>
+        </ng-template>
+
+      </ng-container>
+    </div>
+  </div>
+
+  <div class="w-full border-b border-solid border-gray-100 pt-4"></div>
 
 </ng-container>
 

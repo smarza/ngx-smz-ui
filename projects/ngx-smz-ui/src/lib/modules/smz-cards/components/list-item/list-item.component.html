@@ -5,7 +5,7 @@
   </ng-container>
 
   <ng-container *ngSwitchCase="type.IMAGE_WITH_DETAILS">
-    <smz-image-with-details-type [config]="state.list.config" [data]="data" [mode]="mode"></smz-image-with-details-type>
+    <smz-image-with-details-type [config]="state.list.config" [state]="state" [data]="data" [mode]="mode"></smz-image-with-details-type>
   </ng-container>
 
   <ng-container *ngSwitchDefault></ng-container>
