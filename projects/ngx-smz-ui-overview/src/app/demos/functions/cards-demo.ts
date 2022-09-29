@@ -28,7 +28,7 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
             .columns
           .text(namesof<SmzCardsDemoData, SimpleNamedEntity>('type', 'name'))
             .enableGlobalFilter()
-            .setStyles('px-2 py-1 text-xs bg-green-200 rounded')
+            .setStyles('px-2 py-1 text-xs bg-green-200 text-surface-50 rounded')
             .columns
           .text(nameof<SmzCardsDemoData>('notes'))
             .shorten(60)
