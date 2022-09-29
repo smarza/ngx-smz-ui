@@ -24,12 +24,13 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
             .setCallback((date) => moment(date).format('lll'))
             .columns
           .text(namesof<SmzCardsDemoData, SimpleNamedEntity>('type', 'name'))
+            .enableGlobalFilter()
             .setStyles('px-2 py-1 text-xs bg-green-200 rounded')
             .columns
           .text(nameof<SmzCardsDemoData>('notes'))
             .shorten(60)
             .columns
-          .table
+          .cards
         .menu()
           .item('Consultar')
             .setCallback((event: any) => console.log('--- Consultar'))
@@ -37,7 +38,7 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
           .item('Apagar', 'fa-solid fa-trash')
             .setCallback((event: any) => console.log('--- Apagar'))
             .menu
-          .table
+          .cards
       .build()
   }
   },

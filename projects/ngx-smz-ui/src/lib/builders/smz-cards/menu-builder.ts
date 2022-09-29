@@ -37,6 +37,20 @@ export class SmzCardsMenuBuilder {
     return this._cardsBuilder;
   }
 
+  public setButtonClass(style: string): SmzCardsMenuBuilder {
+    this._cardsBuilder._state.menu.buttonClass = style;
+    return this;
+  }
+
+  public setIcon(style: string): SmzCardsMenuBuilder {
+    this._cardsBuilder._state.menu.icon = style;
+    return this;
+  }
+
+  public setStyleClass(style: string): SmzCardsMenuBuilder {
+    this._cardsBuilder._state.menu.styleClass = style;
+    return this;
+  }
 }
 
 export class SmzMenuItemCardsBuilder {

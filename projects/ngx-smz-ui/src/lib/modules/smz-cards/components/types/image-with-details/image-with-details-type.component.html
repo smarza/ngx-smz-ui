@@ -2,7 +2,7 @@
 
 <ng-container *ngSwitchCase="modes.GRID">
 
-  <div class="h-full grid grid-nogutter flex-col items-start justify-start gap-1" [ngClass]="{ 'border border-red-500 border-solid': state.isDebug }">
+  <div class="h-full grid grid-nogutter flex-col items-start justify-start gap-1 relative" [ngClass]="{ 'border border-red-500 border-solid': state.isDebug }">
 
     <!-- IMAGE -->
     <img
@@ -13,6 +13,7 @@
       [title]="config.image.content.title.isVisible ? config.image.content.title.getText(data) : null"
       [useServerPath]="config.image.content.useServerPath"
       class="h-60 w-full object-cover rounded-lg"
+      [ngClass]="config.image.column.styleClass"
     >
 
     <!-- DETAILS -->
@@ -64,7 +65,9 @@
 
       <ng-template #menuButtonTemplate>
         <!-- MENU BUTTON -->
-        <smz-menu [items]="menu" [data]="data"></smz-menu>
+        <div class="grid grid-nogutter items-center justify-end gap-1 col-12 absolute top-2 right-2">
+          <smz-menu [items]="menu" [data]="data" [icon]="state.menu.icon" [styleClass]="state.menu.styleClass" [buttonClass]="state.menu.buttonClass"></smz-menu>
+        </div>
       </ng-template>
 
     </ng-container>

@@ -39,6 +39,13 @@ export abstract class SmzCardsBaseColumnBuilder<T extends SmzCardsBaseColumnBuil
     return this;
   }
 
+  public enableGlobalFilter(): SmzCardsBaseColumnBuilder<T> {
+    const isFilterEmpty = this._builder._state.view.filterBy === '' ? true : false;
+    this._builder._state.view.filterBy = `${this._builder._state.view.filterBy}${isFilterEmpty ? '' : ','}${this._column.content.dataPath}`;
+
+    return this;
+  }
+
   public setStyles(styleClass: string): SmzCardsBaseColumnBuilder<T> {
     this._column.styleClass = styleClass;
     return this;

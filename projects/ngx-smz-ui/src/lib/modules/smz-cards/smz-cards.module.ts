@@ -17,6 +17,7 @@ import { SmzRawTypeComponent } from './components/types/raw/raw-type.component';
 import { SmzCardsContentSelectorDirective } from './directives/content-selector.directive';
 import { NgxSmzMenuModule } from '../smz-menu/smz-menu.module';
 import { TooltipModule } from 'primeng/tooltip';
+import { SafeContentPipeModule } from '../../common/pipes/safe-html.pipe';
 
 @NgModule({
   imports: [
@@ -28,7 +29,8 @@ import { TooltipModule } from 'primeng/tooltip';
     MultiSelectModule,
     NgxSmzServerImageModule,
     NgxSmzMenuModule,
-    TooltipModule
+    TooltipModule,
+    SafeContentPipeModule
   ],
   exports: [SmzCardsComponent],
   declarations: [

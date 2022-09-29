@@ -26,7 +26,16 @@ export class SmzCardsBuilder<T> {
       config: null
     },
     menu: {
-      callback: null
+      callback: null,
+      buttonClass: 'p-0',
+      styleClass: 'p-button-rounded p-button-text p-button-plain',
+      icon: 'fa-solid fa-ellipsis-vertical'
+    },
+    view: {
+      rowsPerPage: 9,
+      paginator: true,
+      showGlobalFilter: false,
+      filterBy: ''
     }
   };
 
@@ -72,6 +81,18 @@ export class SmzCardsBuilder<T> {
 
   public setListType(type: SmzCardsType): SmzCardsBuilder<T> {
     this._state.list.type = type;
+    return this;
+  }
+
+  public setRowsPerPage(rows: number): SmzCardsBuilder<T> {
+    this._state.view.rowsPerPage = rows;
+
+    return this;
+  }
+
+  public hidePaginator(): SmzCardsBuilder<T> {
+    this._state.view.paginator = false;
+
     return this;
   }
 
@@ -157,6 +178,10 @@ export class SmzCardsBuilder<T> {
       throw Error('[Smz Cards] You can\'t call \'build()\' without setting the source.');
     }
 
+    if (this._state.view.filterBy != '') {
+      this._state.view.showGlobalFilter = true;
+    }
+
     this._state.grid.config = GetTypeConfig(this._state.grid.type, this._state);
     this._state.list.config = GetTypeConfig(this._state.list.type, this._state);
 
@@ -176,7 +201,8 @@ function GetTypeConfig(type: SmzCardsType, state: SmzCardsState<unknown>): SmzCa
 
         const result: ImageWithDetails = {
           image: {
-            content: (image.content as SmzCardsImageContent),
+            column: image,
+            content: image.content as SmzCardsImageContent,
           },
           texts
         };

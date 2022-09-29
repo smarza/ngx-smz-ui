@@ -5,7 +5,13 @@ import { SmzCardsState } from 'ngx-smz-ui';
 @Component({
   selector: 'app-demo-cards',
   template: `
-  <smz-ui-cards *ngIf="state != null" [state]="state"></smz-ui-cards>
+  <smz-ui-cards *ngIf="state != null" [state]="state">
+
+  <ng-template pTemplate="header" let-node>
+    <span>teste</span>
+  </ng-template>
+
+  </smz-ui-cards>
 `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })

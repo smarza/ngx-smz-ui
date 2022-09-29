@@ -22,6 +22,15 @@ export interface SmzCardsState<T> {
   }
   menu: {
     callback: (row: T) => SmzMenuItem[];
+    styleClass: string;
+    buttonClass: string;
+    icon: string;
+  }
+  view: {
+    rowsPerPage: number;
+    paginator: boolean;
+    showGlobalFilter: boolean;
+    filterBy: string;
   }
 }
 

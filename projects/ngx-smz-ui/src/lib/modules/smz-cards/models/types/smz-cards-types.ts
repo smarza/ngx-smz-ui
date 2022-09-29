@@ -6,6 +6,7 @@ export type SmzCardsTypes =
 
   export interface ImageWithDetails {
     image: {
+      column: SmzCardsColumn;
       content: SmzCardsImageContent;
     };
     texts: SmzCardsColumn[];

@@ -1,10 +1,25 @@
 <ng-container *ngIf="state != null">
 <ng-container *ngIf="state.items$ | async as items">
 
-  <p-dataView #dv [value]="items" [paginator]="true" [rows]="9" filterBy="name" layout="grid">
+  <p-dataView #dv [value]="items" [paginator]="state.view.paginator" [rows]="state.view.rowsPerPage" [filterBy]="state.view.filterBy" layout="grid">
     <ng-template pTemplate="header">
-        <div class="flex flex-column md:flex-row md:justify-content-between">
-            <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+        <div class="grid grid-nogutter lg:flex-row xl:flex-row md:flex-col sm:flex-col items-center justify-between gap-2">
+            <div class="grid grid-nogutter items-center justify-start gap-2">
+              <div *ngIf="state.title.isVisible" class="text-lg" [innerHtml]="state.title.getText() | safeHtml"></div>
+            </div>
+
+            <div class="grid grid-nogutter items-center justify-end gap-3">
+              <ng-container *ngIf="headerTemplate != null">
+                <ng-container *ngTemplateOutlet="headerTemplate; context: { $implicit: state }"></ng-container>
+              </ng-container>
+
+              <span *ngIf="state.view.showGlobalFilter" class="p-input-icon-left mb-2 md:mb-0">
+                <i class="pi pi-search"></i>
+                <input type="search" pInputText [placeholder]="state.locale.globalSearch.placeholder" (input)="dv.filter($any($event.target).value)">
+              </span>
+
+              <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+            </div>
         </div>
     </ng-template>
 
