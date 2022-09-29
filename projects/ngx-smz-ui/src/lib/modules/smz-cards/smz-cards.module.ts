@@ -18,10 +18,12 @@ import { SmzCardsContentSelectorDirective } from './directives/content-selector.
 import { NgxSmzMenuModule } from '../smz-menu/smz-menu.module';
 import { TooltipModule } from 'primeng/tooltip';
 import { SafeContentPipeModule } from '../../common/pipes/safe-html.pipe';
+import { SharedModule } from 'primeng/api';
 
 @NgModule({
   imports: [
     CommonModule,
+    SharedModule,
     DataViewModule,
     ButtonModule,
     InputTextModule,
@@ -32,7 +34,7 @@ import { SafeContentPipeModule } from '../../common/pipes/safe-html.pipe';
     TooltipModule,
     SafeContentPipeModule
   ],
-  exports: [SmzCardsComponent],
+  exports: [SmzCardsComponent, SharedModule],
   declarations: [
     // Features
     SmzCardsComponent,

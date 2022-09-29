@@ -189,7 +189,7 @@ export class SmzCardsImageColumnBuilder extends SmzCardsBaseColumnBuilder<SmzCar
     return this;
   }
 
-  public setDynamicTitle(callback: (item: unknown) => string): SmzCardsImageColumnBuilder {
+  public setDynamicTitle(callback: (item: any) => string): SmzCardsImageColumnBuilder {
 
     const entity = (this._column.content as SmzCardsImageContent);
 
