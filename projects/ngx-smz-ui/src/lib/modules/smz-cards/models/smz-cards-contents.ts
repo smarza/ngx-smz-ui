@@ -20,6 +20,8 @@ export interface SmzCardsBaseContent {
 
 export interface SmzCardsTextContent extends SmzCardsBaseContent {
   type: SmzCardsContentType.TEXT;
+  maxLength: number;
+  shortenSuffix: string;
 }
 
 export interface SmzCardsCustomContent extends SmzCardsBaseContent {

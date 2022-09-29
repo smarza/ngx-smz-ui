@@ -30,7 +30,12 @@ export class SmzCardsContentSelectorDirective implements AfterViewInit, OnChange
 
     switch (content.type) {
       case SmzCardsContentType.TEXT:
-        // value = this.getValue(this.data, content.dataPath);
+        value = this.getValue(this.data, content.dataPath);
+
+        if (content.maxLength != null && value.length > content.maxLength) {
+          value = `${value.slice(0, content.maxLength - 1)}${content.shortenSuffix}`;
+        }
+
         break;
 
       case SmzCardsContentType.DATA_TRANSFORM:

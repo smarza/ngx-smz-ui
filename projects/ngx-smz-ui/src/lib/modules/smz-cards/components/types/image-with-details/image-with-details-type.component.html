@@ -57,7 +57,7 @@
         <!-- MENU ITEMS -->
         <div class="grid grid-nogutter items-center justify-start gap-1">
           <ng-container *ngFor="let menuItem of menu; let i = index">
-            <button pButton pRipple type="button" [label]="menuItem.label" class="p-button-outlined p-button-sm" [ngClass]="menuItem.styleClass" (click)="menuItem.command(data)"></button>
+            <button pButton pRipple type="button" [label]="menuItem.label" [icon]="menuItem.icon" [pTooltip]="menuItem.tooltip" class="p-button-outlined p-button-sm px-3 py-2" [ngClass]="menuItem.styleClass" (click)="menuItem.command(data)"></button>
           </ng-container>
         </div>
       </ng-container>

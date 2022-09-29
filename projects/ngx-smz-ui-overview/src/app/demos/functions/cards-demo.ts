@@ -21,12 +21,13 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
             .setDynamicTitle((item: SmzCardsDemoData) => item.date == null ? '' : moment(item.date).format('l'))
             .columns
           .dataTransform(nameof<SmzCardsDemoData>('date'))
-            .setCallback((date) => moment(date).format('l'))
+            .setCallback((date) => moment(date).format('lll'))
             .columns
           .text(namesof<SmzCardsDemoData, SimpleNamedEntity>('type', 'name'))
-            .setCellStyles('px-2 py-1 text-xs bg-green-200 rounded')
+            .setStyles('px-2 py-1 text-xs bg-green-200 rounded')
             .columns
           .text(nameof<SmzCardsDemoData>('notes'))
+            .shorten(60)
             .columns
           .table
         .menu()

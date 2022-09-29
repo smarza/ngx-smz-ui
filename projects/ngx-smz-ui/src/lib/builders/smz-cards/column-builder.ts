@@ -4,8 +4,6 @@ import { SmzCardsColumn } from '../../modules/smz-cards/models/smz-cards-state';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzCardsBuilder } from './state-builder';
 
-
-
 export abstract class SmzCardsBaseColumnBuilder<T extends SmzCardsBaseColumnBuilder<T>> {
 
   public _column: SmzCardsColumn = null;
@@ -24,7 +22,7 @@ export abstract class SmzCardsBaseColumnBuilder<T extends SmzCardsBaseColumnBuil
       const content: SmzCardsBaseContent = { type, dataPath: '' };
 
         // NÃO EXISTE A COLUNA AINDA
-        this._column = { key, isVisible: true, styleClass: '', content: content as SmzCardsContentTypes };
+        this._column = { key, isVisible: true, styleClass: null, content: content as SmzCardsContentTypes };
         this._table._state.columns.push(this._column);
 
     }
@@ -41,7 +39,7 @@ export abstract class SmzCardsBaseColumnBuilder<T extends SmzCardsBaseColumnBuil
     return this;
   }
 
-  public setCellStyles(styleClass: string): SmzCardsBaseColumnBuilder<T> {
+  public setStyles(styleClass: string): SmzCardsBaseColumnBuilder<T> {
     this._column.styleClass = styleClass;
     return this;
   }
@@ -86,7 +84,19 @@ export class SmzCardsTextColumnBuilder extends SmzCardsBaseColumnBuilder<SmzCard
   constructor(protected _table: SmzCardsBuilder<unknown>, protected _parent: SmzCardsColumnCollectionBuilder, dataPath: string, key: string = uuidv4()) {
     super(_table, _parent, SmzCardsContentType.TEXT, key);
 
-    (this._column.content as SmzCardsTextContent).dataPath = dataPath;
+    const content = this._column.content as SmzCardsTextContent;
+    content.dataPath = dataPath;
+    content.maxLength = null;
+    content.shortenSuffix = '...';
+  }
+
+  public shorten(length: number, suffix = '...'): SmzCardsTextColumnBuilder {
+    const content = this._column.content as SmzCardsTextContent;
+
+    content.maxLength = length;
+    content.shortenSuffix = suffix;
+
+    return this;
   }
 
 }

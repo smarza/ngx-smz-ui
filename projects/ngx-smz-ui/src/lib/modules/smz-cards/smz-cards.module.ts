@@ -16,6 +16,7 @@ import { SmzImageWithDetailsTypeComponent } from './components/types/image-with-
 import { SmzRawTypeComponent } from './components/types/raw/raw-type.component';
 import { SmzCardsContentSelectorDirective } from './directives/content-selector.directive';
 import { NgxSmzMenuModule } from '../smz-menu/smz-menu.module';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import { NgxSmzMenuModule } from '../smz-menu/smz-menu.module';
     DropdownModule,
     MultiSelectModule,
     NgxSmzServerImageModule,
-    NgxSmzMenuModule
+    NgxSmzMenuModule,
+    TooltipModule
   ],
   exports: [SmzCardsComponent],
   declarations: [
