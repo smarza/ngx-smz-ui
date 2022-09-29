@@ -10,7 +10,7 @@ import { SmzCardsState } from '../../models/smz-cards-state';
 })
 
 export class SmzCardsComponent implements OnInit {
-  @Input() public state: SmzCardsState<unknown>;
+  @Input() public state: SmzCardsState<any>;
   constructor() { }
   ngOnInit() {
     if (this.state?.isDebug) {

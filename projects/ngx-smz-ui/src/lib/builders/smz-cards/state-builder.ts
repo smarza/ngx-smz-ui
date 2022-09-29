@@ -1,6 +1,4 @@
 import { SmzMenuItem } from '../../modules/smz-menu/models/smz-menu-item';
-import { SmzEasyTableBodyColumn, SmzEasyTableHeader } from '../../standalones/easy-table/models/smz-easy-table-state';
-import { SmzEasyTableActionContent } from '../../standalones/easy-table/models/smz-easy-table-contents';
 import { SmzCardsState } from '../../modules/smz-cards/models/smz-cards-state';
 import { SmzCardsMenuBuilder } from './menu-builder';
 import { SmzCardsColumnCollectionBuilder } from './column-builder';

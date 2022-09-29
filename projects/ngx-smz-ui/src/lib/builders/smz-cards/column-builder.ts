@@ -8,14 +8,14 @@ export abstract class SmzCardsBaseColumnBuilder<T extends SmzCardsBaseColumnBuil
 
   public _column: SmzCardsColumn = null;
 
-  constructor(protected _table: SmzCardsBuilder<unknown>, protected _parent: SmzCardsColumnCollectionBuilder, type: SmzCardsContentType, key: string) {
+  constructor(protected _builder: SmzCardsBuilder<unknown>, protected _parent: SmzCardsColumnCollectionBuilder, type: SmzCardsContentType, key: string) {
 
-    const columnIndex = _table._state.columns.findIndex(c => c.key === key);
+    const columnIndex = _builder._state.columns.findIndex(c => c.key === key);
 
     if (columnIndex !== -1) {
 
         // JÁ EXISTE UMA COLUNA
-        this._column = this._table._state.columns[columnIndex];
+        this._column = this._builder._state.columns[columnIndex];
     }
     else {
 
@@ -23,7 +23,7 @@ export abstract class SmzCardsBaseColumnBuilder<T extends SmzCardsBaseColumnBuil
 
         // NÃO EXISTE A COLUNA AINDA
         this._column = { key, isVisible: true, styleClass: null, content: content as SmzCardsContentTypes };
-        this._table._state.columns.push(this._column);
+        this._builder._state.columns.push(this._column);
 
     }
 
@@ -51,38 +51,38 @@ export abstract class SmzCardsBaseColumnBuilder<T extends SmzCardsBaseColumnBuil
 
 export class SmzCardsColumnCollectionBuilder extends SmzBuilderUtilities<SmzCardsColumnCollectionBuilder> {
   protected that = this;
-  constructor(private _tableBuilder: SmzCardsBuilder<unknown>) {
+  constructor(private _cardsBuilder: SmzCardsBuilder<unknown>) {
     super();
   }
 
   public text(dataPath: string, key: string = uuidv4()): SmzCardsTextColumnBuilder {
-    return new SmzCardsTextColumnBuilder(this._tableBuilder, this, dataPath, key);
+    return new SmzCardsTextColumnBuilder(this._cardsBuilder, this, dataPath, key);
   }
 
   public custom(dataPath: string, key: string): SmzCardsCustomColumnBuilder {
-    return new SmzCardsCustomColumnBuilder(this._tableBuilder, this, dataPath, key);
+    return new SmzCardsCustomColumnBuilder(this._cardsBuilder, this, dataPath, key);
   }
 
   public date(dataPath: string, key: string = uuidv4()): SmzCardsDateColumnBuilder {
-    return new SmzCardsDateColumnBuilder(this._tableBuilder, this, dataPath, key);
+    return new SmzCardsDateColumnBuilder(this._cardsBuilder, this, dataPath, key);
   }
 
   public dataTransform(dataPath: string, key: string = uuidv4()): SmzCardsDataTransformColumnBuilder {
-    return new SmzCardsDataTransformColumnBuilder(this._tableBuilder, this, dataPath, key);
+    return new SmzCardsDataTransformColumnBuilder(this._cardsBuilder, this, dataPath, key);
   }
 
   public image(dataPath: string, key: string = uuidv4()): SmzCardsImageColumnBuilder {
-    return new SmzCardsImageColumnBuilder(this._tableBuilder, this, dataPath, key);
+    return new SmzCardsImageColumnBuilder(this._cardsBuilder, this, dataPath, key);
   }
 
-  public get table(): SmzCardsBuilder<unknown> {
-    return this._tableBuilder;
+  public get cards(): SmzCardsBuilder<unknown> {
+    return this._cardsBuilder;
   }
 }
 
 export class SmzCardsTextColumnBuilder extends SmzCardsBaseColumnBuilder<SmzCardsTextColumnBuilder> {
-  constructor(protected _table: SmzCardsBuilder<unknown>, protected _parent: SmzCardsColumnCollectionBuilder, dataPath: string, key: string = uuidv4()) {
-    super(_table, _parent, SmzCardsContentType.TEXT, key);
+  constructor(protected _builder: SmzCardsBuilder<unknown>, protected _parent: SmzCardsColumnCollectionBuilder, dataPath: string, key: string = uuidv4()) {
+    super(_builder, _parent, SmzCardsContentType.TEXT, key);
 
     const content = this._column.content as SmzCardsTextContent;
     content.dataPath = dataPath;
@@ -102,8 +102,8 @@ export class SmzCardsTextColumnBuilder extends SmzCardsBaseColumnBuilder<SmzCard
 }
 
 export class SmzCardsDateColumnBuilder extends SmzCardsBaseColumnBuilder<SmzCardsDateColumnBuilder> {
-  constructor(protected _table: SmzCardsBuilder<unknown>, protected _parent: SmzCardsColumnCollectionBuilder, dataPath: string, key: string = uuidv4()) {
-    super(_table, _parent, SmzCardsContentType.CALENDAR, key);
+  constructor(protected _builder: SmzCardsBuilder<unknown>, protected _parent: SmzCardsColumnCollectionBuilder, dataPath: string, key: string = uuidv4()) {
+    super(_builder, _parent, SmzCardsContentType.CALENDAR, key);
 
     (this._column.content as SmzCardsCalendarContent).dataPath = dataPath;
   }
@@ -116,8 +116,8 @@ export class SmzCardsDateColumnBuilder extends SmzCardsBaseColumnBuilder<SmzCard
 }
 
 export class SmzCardsCustomColumnBuilder extends SmzCardsBaseColumnBuilder<SmzCardsCustomColumnBuilder> {
-  constructor(protected _table: SmzCardsBuilder<unknown>, protected _parent: SmzCardsColumnCollectionBuilder, dataPath: string, key: string = uuidv4()) {
-    super(_table, _parent, SmzCardsContentType.CUSTOM, key);
+  constructor(protected _builder: SmzCardsBuilder<unknown>, protected _parent: SmzCardsColumnCollectionBuilder, dataPath: string, key: string = uuidv4()) {
+    super(_builder, _parent, SmzCardsContentType.CUSTOM, key);
 
     (this._column.content as SmzCardsCustomContent).dataPath = dataPath;
     (this._column.content as SmzCardsCustomContent).searchPath = dataPath;
@@ -131,8 +131,8 @@ export class SmzCardsCustomColumnBuilder extends SmzCardsBaseColumnBuilder<SmzCa
 }
 
 export class SmzCardsDataTransformColumnBuilder extends SmzCardsBaseColumnBuilder<SmzCardsDataTransformColumnBuilder> {
-  constructor(protected _table: SmzCardsBuilder<unknown>, protected _parent: SmzCardsColumnCollectionBuilder, dataPath: string, key: string = uuidv4()) {
-    super(_table, _parent, SmzCardsContentType.DATA_TRANSFORM, key);
+  constructor(protected _builder: SmzCardsBuilder<unknown>, protected _parent: SmzCardsColumnCollectionBuilder, dataPath: string, key: string = uuidv4()) {
+    super(_builder, _parent, SmzCardsContentType.DATA_TRANSFORM, key);
 
     (this._column.content as SmzCardsDataTransformContent).dataPath = dataPath;
     // this._header.searchPath = dataPath;
@@ -153,8 +153,8 @@ export class SmzCardsDataTransformColumnBuilder extends SmzCardsBaseColumnBuilde
 }
 
 export class SmzCardsImageColumnBuilder extends SmzCardsBaseColumnBuilder<SmzCardsImageColumnBuilder> {
-  constructor(protected _table: SmzCardsBuilder<unknown>, protected _parent: SmzCardsColumnCollectionBuilder, dataPath: string, key: string = uuidv4()) {
-    super(_table, _parent, SmzCardsContentType.IMAGE, key);
+  constructor(protected _builder: SmzCardsBuilder<unknown>, protected _parent: SmzCardsColumnCollectionBuilder, dataPath: string, key: string = uuidv4()) {
+    super(_builder, _parent, SmzCardsContentType.IMAGE, key);
 
     this._column.content = {
       ...this._column.content,

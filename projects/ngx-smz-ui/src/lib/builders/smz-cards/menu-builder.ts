@@ -9,7 +9,7 @@ export class SmzCardsMenuBuilder {
     _cardsBuilder._state.menu.callback = null;
   }
 
-  public useDynamic(callback: (row: unknown) => SmzMenuItem[]): SmzCardsMenuBuilder {
+  public useDynamic(callback: (row: any) => SmzMenuItem[]): SmzCardsMenuBuilder {
     this._cardsBuilder._state.menu.callback = callback;
     return this;
   }
@@ -28,7 +28,7 @@ export class SmzCardsMenuBuilder {
     return this;
   }
 
-  public get table(): SmzCardsBuilder<any> {
+  public get cards(): SmzCardsBuilder<any> {
 
     if (this._cardsBuilder._state.menu.callback == null) {
       this._cardsBuilder._state.menu.callback = () => this.items;
