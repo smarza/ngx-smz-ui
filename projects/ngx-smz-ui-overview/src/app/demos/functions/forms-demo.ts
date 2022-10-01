@@ -153,6 +153,7 @@ Exame sem intercorrências.`)
       .group()
         .setLayout('EXTRA_SMALL', 'col-12')
         .dropdown('input1', 'I\'m required', [{ id: '1', name: 'Option 1'}, { id: '2', name: 'Option 2'}, { id: '3', name: 'Option 3'}])
+          .showFilter()
           .validators().required()
           .group
       .form

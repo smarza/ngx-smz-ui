@@ -16,7 +16,8 @@
         (onChange)="emitChange(input, formId, $event)"
         [emptyMessage]="input.emptyMessage"
         [showClear]="input.showClear"
-        [emptyFilterMessage]="input.emptyFilterMessage">
+        [emptyFilterMessage]="input.emptyFilterMessage"
+        [autofocusFilter]="input.autofocusFilter">
         </p-dropdown>
     <smz-validation-messages [input]="input" [control]="control" [behaviors]="behaviors"></smz-validation-messages>
   </div>

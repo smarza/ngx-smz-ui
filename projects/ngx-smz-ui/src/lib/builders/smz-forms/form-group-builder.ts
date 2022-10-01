@@ -757,6 +757,18 @@ export class SmzFormDropdownBuilder<T, TResponse> extends SmzFormInputBuilder<TR
 
   public showFilter(): SmzFormDropdownBuilder<T,TResponse> {
     this._dropdownInput.showFilter = true;
+    this._dropdownInput.autofocusFilter = false;
+    return this;
+  }
+
+  public autofocusFilter(): SmzFormDropdownBuilder<T,TResponse> {
+
+    if (!this._dropdownInput.showFilter) {
+      throw Error("You need to call `showFilter` before enabling the autofocusFilter");
+    }
+
+    this._dropdownInput.autofocusFilter = true;
+
     return this;
   }
 
@@ -778,6 +790,18 @@ export class SmzFormLinkedDropdownBuilder<T,TResponse> extends SmzFormInputBuild
 
   public showFilter(): SmzFormLinkedDropdownBuilder<T,TResponse> {
     this._linkedDropdownInput.showFilter = true;
+    this._linkedDropdownInput.autofocusFilter = false;
+    return this;
+  }
+
+  public autofocusFilter(): SmzFormLinkedDropdownBuilder<T,TResponse> {
+
+    if (!this._linkedDropdownInput.showFilter) {
+      throw Error("You need to call `showFilter` before enabling the autofocusFilter");
+    }
+
+    this._linkedDropdownInput.autofocusFilter = true;
+
     return this;
   }
 
@@ -800,6 +824,18 @@ export class SmzFormLinkedMultiselectBuilder<T,TResponse> extends SmzFormInputBu
 
   public showFilter(): SmzFormLinkedMultiselectBuilder<T,TResponse> {
     this._linkedMultiselectInput.showFilter = true;
+    this._linkedMultiselectInput.autofocusFilter = false;
+    return this;
+  }
+
+  public autofocusFilter(): SmzFormLinkedMultiselectBuilder<T,TResponse> {
+
+    if (!this._linkedMultiselectInput.showFilter) {
+      throw Error("You need to call `showFilter` before enabling the autofocusFilter");
+    }
+
+    this._linkedMultiselectInput.autofocusFilter = true;
+
     return this;
   }
 
@@ -822,6 +858,18 @@ export class SmzFormMultiselectBuilder<T,TResponse> extends SmzFormInputBuilder<
 
   public showFilter(): SmzFormMultiselectBuilder<T,TResponse> {
     this._multiselectInput.showFilter = true;
+    this._multiselectInput.autofocusFilter = false;
+    return this;
+  }
+
+  public autofocusFilter(): SmzFormMultiselectBuilder<T,TResponse> {
+
+    if (!this._multiselectInput.showFilter) {
+      throw Error("You need to call `showFilter` before enabling the autofocusFilter");
+    }
+
+    this._multiselectInput.autofocusFilter = true;
+
     return this;
   }
 

@@ -57,7 +57,9 @@
               "jspdf",
               "canvg",
               "raf",
-              "core-js"
+              "core-js",
+              "rgbcolor",
+              "moment"
             ],
             "aot": true,
             "assets": [
@@ -185,7 +187,9 @@
             "allowedCommonJsDependencies": [
               "canvg",
               "raf",
-              "core-js"
+              "core-js",
+              "rgbcolor",
+              "moment"
             ],
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -299,7 +303,9 @@
               "jspdf",
               "canvg",
               "raf",
-              "core-js"
+              "core-js",
+              "rgbcolor",
+              "moment"
             ],
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -534,7 +540,9 @@
               "jspdf",
               "canvg",
               "raf",
-              "core-js"
+              "core-js",
+              "rgbcolor",
+              "moment"
             ],
             "inlineStyleLanguage": "scss",
             "assets": [

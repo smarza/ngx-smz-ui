@@ -16,7 +16,8 @@
             [filterMatchMode]="input.filterMatchMode != null ? input.filterMatchMode : 'contains'"
             [showClear]="input.showClear"
             [emptyMessage]="input.emptyMessage"
-            [emptyFilterMessage]="input.emptyFilterMessage">
+            [emptyFilterMessage]="input.emptyFilterMessage"
+            [autofocusFilter]="input.autofocusFilter">
           </p-multiSelect>
           <smz-validation-messages [input]="input" [control]="control" [behaviors]="behaviors"></smz-validation-messages>
       </div>
