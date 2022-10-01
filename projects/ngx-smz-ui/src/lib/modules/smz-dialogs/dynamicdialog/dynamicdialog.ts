@@ -426,7 +426,6 @@ export class DynamicDialogComponent implements AfterViewInit, OnInit, OnDestroy
 
 @NgModule({
     imports: [CommonModule, TooltipModule],
-    declarations: [DynamicDialogComponent, DynamicDialogContent, DynamicDialogFooter],
-    entryComponents: [DynamicDialogComponent]
+    declarations: [DynamicDialogComponent, DynamicDialogContent, DynamicDialogFooter]
 })
 export class DynamicDialogModule { }

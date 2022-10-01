@@ -641,7 +641,6 @@
       }
     }
   },
-  "defaultProject": "ngx-smz-ui",
   "cli": {
     "analytics": false
   }

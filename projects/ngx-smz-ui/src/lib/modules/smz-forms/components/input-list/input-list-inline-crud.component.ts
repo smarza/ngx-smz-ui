@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, ValidatorFn } from '@angular/forms';
+import { UntypedFormControl, ValidatorFn } from '@angular/forms';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { SmzControlType, SmzTextControl } from '../../models/control-types';
 import { SmzForm } from '../../models/smz-forms';
@@ -57,7 +57,7 @@ export class InputListInlineCrudComponent implements OnInit {
 }
 
 function unique(options: string[]): ValidatorFn {
-  return (control: FormControl): { [key: string]: any } => {
+  return (control: UntypedFormControl): { [key: string]: any } => {
       const input = control.value;
 
       if (options.findIndex(x => x.toLowerCase() === input.toLowerCase()) !== -1) {

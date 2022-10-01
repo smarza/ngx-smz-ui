@@ -1,6 +1,6 @@
 import { Component, Output, EventEmitter, Input, ChangeDetectorRef } from '@angular/core';
 import { SmzFileControl } from '../../models/control-types';
-import { AbstractControl, FormGroup } from '@angular/forms';
+import { AbstractControl, UntypedFormGroup } from '@angular/forms';
 import { SmzFormsBehaviorsConfig } from '../../models/behaviors';
 import { Message } from 'primeng/api';
 import { Store } from '@ngxs/store';
@@ -12,7 +12,7 @@ import { ToastActions } from '../../../../state/global/application/application.a
 })
 export class FileUploadComponent {
     @Input() public input: SmzFileControl;
-    @Input() public form: FormGroup;
+    @Input() public form: UntypedFormGroup;
     @Input() public control: any;
     @Input() public behaviors: SmzFormsBehaviorsConfig;
     @Output() public selectChange: EventEmitter<File[]> = new EventEmitter<File[]>();

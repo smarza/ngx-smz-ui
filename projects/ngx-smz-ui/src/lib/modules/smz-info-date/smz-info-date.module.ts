@@ -9,13 +9,10 @@ import { TooltipModule } from 'primeng/tooltip';
         SmzInfoDateComponent,
         SmzInfoDatePipe
     ],
-    entryComponents: [
-        SmzInfoDateComponent,
-    ],
     imports: [
         CommonModule,
         TooltipModule
     ],
-    exports: [SmzInfoDateComponent],
+    exports: [SmzInfoDateComponent]
 })
 export class SmzInfoDateModule { }

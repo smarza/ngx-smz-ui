@@ -1,4 +1,4 @@
-import { AbstractControl, FormGroup } from '@angular/forms';
+import { AbstractControl, UntypedFormGroup } from '@angular/forms';
 import { SmzControlType, SmzControlTypes, SmzCalendarControl, SmzCurrencyControl, SmzPasswordControl, SmzSwitchControl, SmzTextControl, SmzCheckBoxControl, SmzCheckBoxGroupControl, SmzColorPickerControl, SmzDropDownControl, SmzFileControl, SmzLinkedDropDownControl, SmzMultiSelectControl, SmzNumberControl, SmzRadioControl, SmzTextAreaControl, SmzMaskControl, SmzLinkedMultiSelectControl, SmzListControl, SmzTagAreaControl, SmzContentMaskControl, SmzTextButtonControl } from './control-types';
 import { SmzDialogsConfig } from '../../smz-dialogs/smz-dialogs.config';
 import { flatten, isArray } from '../../../common/utils/utils';
@@ -12,7 +12,7 @@ export interface SmzControlTypeFunctionsDefinitions
     initialize: (input: SmzControlTypes, config: SmzDialogsConfig) => void;
     clear: (control: AbstractControl, clearMethod?: () => void) => void;
     updateValue: (control: AbstractControl, input: SmzControlTypes) => void;
-    getValue: (form: FormGroup, input: SmzControlTypes, flattenResponse: boolean) => any;
+    getValue: (form: UntypedFormGroup, input: SmzControlTypes, flattenResponse: boolean) => any;
 
 }
 
@@ -22,7 +22,7 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
         initialize: (input: SmzCalendarControl, config: SmzDialogsConfig) => { },
         clear: (control: AbstractControl) => { control.patchValue(''); },
         updateValue: (control: AbstractControl, input: SmzCalendarControl) => { control.patchValue(input.defaultValue); },
-        getValue: (form: FormGroup, input: SmzCalendarControl, flattenResponse: boolean) =>
+        getValue: (form: UntypedFormGroup, input: SmzCalendarControl, flattenResponse: boolean) =>
         {
             const value = form.get(input.propertyName).value;
             // console.log('getValue CALENDAR', value);
@@ -33,7 +33,7 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
         initialize: (input: SmzCheckBoxControl, config: SmzDialogsConfig) => { },
         clear: (control: AbstractControl) => { control.patchValue(''); },
         updateValue: (control: AbstractControl, input: SmzCheckBoxControl) => { control.patchValue(input.defaultValue); },
-        getValue: (form: FormGroup, input: SmzCheckBoxControl, flattenResponse: boolean) =>
+        getValue: (form: UntypedFormGroup, input: SmzCheckBoxControl, flattenResponse: boolean) =>
         {
             const value = form.get(input.propertyName).value;
             // console.log('getValue CHECKBOX', value, value ?? false);
@@ -44,7 +44,7 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
         initialize: (input: SmzCheckBoxGroupControl<any>, config: SmzDialogsConfig) => { },
         clear: (control: AbstractControl) => { control.patchValue(''); },
         updateValue: (control: AbstractControl, input: SmzCheckBoxGroupControl<any>) => { control.patchValue(input.defaultValue); },
-        getValue: (form: FormGroup, input: SmzCheckBoxGroupControl<any>, flattenResponse: boolean) =>
+        getValue: (form: UntypedFormGroup, input: SmzCheckBoxGroupControl<any>, flattenResponse: boolean) =>
         {
             const values = form.get(input.propertyName).value ?? [];
             const options = input.options.filter(x => values.includes(x.id));
@@ -56,7 +56,7 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
         initialize: (input: SmzColorPickerControl, config: SmzDialogsConfig) => { },
         clear: (control: AbstractControl) => { control.patchValue(''); },
         updateValue: (control: AbstractControl, input: SmzColorPickerControl) => { control.patchValue(input.defaultValue); },
-        getValue: (form: FormGroup, input: SmzColorPickerControl, flattenResponse: boolean) =>
+        getValue: (form: UntypedFormGroup, input: SmzColorPickerControl, flattenResponse: boolean) =>
         {
             const value = form.get(input.propertyName).value;
             // console.log('getValue COLOR_PICKER', value);
@@ -68,7 +68,7 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
         initialize: (input: SmzCurrencyControl, config: SmzDialogsConfig) => { },
         clear: (control: AbstractControl) => { control.patchValue(''); },
         updateValue: (control: AbstractControl, input: SmzCurrencyControl) => { control.patchValue(input.defaultValue); },
-        getValue: (form: FormGroup, input: SmzCurrencyControl, flattenResponse: boolean) =>
+        getValue: (form: UntypedFormGroup, input: SmzCurrencyControl, flattenResponse: boolean) =>
         {
             const value = form.get(input.propertyName).value;
             // console.log('getValue CURRENCY', value);
@@ -99,7 +99,7 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
             }
 
         },
-        getValue: (form: FormGroup, input: SmzDropDownControl<any>, flattenResponse: boolean) =>
+        getValue: (form: UntypedFormGroup, input: SmzDropDownControl<any>, flattenResponse: boolean) =>
         {
             const value = form.get(input.propertyName).value;
             // console.log('getValue DROPDOWN', value);
@@ -136,7 +136,7 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
             // }
 
         },
-        getValue: (form: FormGroup, input: SmzFileControl, flattenResponse: boolean) =>
+        getValue: (form: UntypedFormGroup, input: SmzFileControl, flattenResponse: boolean) =>
         {
             const value = input.outputFormat == null || input.outputFormat === 'base64' ? input._base64 : input._file;
 
@@ -172,7 +172,7 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
                 control.patchValue(input.defaultValue);
             }
         },
-        getValue: (form: FormGroup, input: SmzLinkedDropDownControl<any>, flattenResponse: boolean) =>
+        getValue: (form: UntypedFormGroup, input: SmzLinkedDropDownControl<any>, flattenResponse: boolean) =>
         {
             const value = form.get(input.propertyName).value;
             // console.log('getValue DROPLINKED_DROPDOWNDOWN', value);
@@ -207,7 +207,7 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
                 control.patchValue(value ?? '');
             }
         },
-        getValue: (form: FormGroup, input: SmzMultiSelectControl<any>, flattenResponse: boolean) =>
+        getValue: (form: UntypedFormGroup, input: SmzMultiSelectControl<any>, flattenResponse: boolean) =>
         {
             const value = form.get(input.propertyName).value;
             // console.log('getValue MULTI_SELECT', value);
@@ -237,7 +237,7 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
                 control.patchValue(input.defaultValue);
             }
         },
-        getValue: (form: FormGroup, input: SmzLinkedDropDownControl<any>, flattenResponse: boolean) =>
+        getValue: (form: UntypedFormGroup, input: SmzLinkedDropDownControl<any>, flattenResponse: boolean) =>
         {
             const value = form.get(input.propertyName).value;
             // console.log('getValue DROPLINKED_DROPDOWNDOWN', value);
@@ -248,7 +248,7 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
         initialize: (input: SmzNumberControl, config: SmzDialogsConfig) => { },
         clear: (control: AbstractControl) => { control.patchValue(''); },
         updateValue: (control: AbstractControl, input: SmzNumberControl) => { control.patchValue(input.defaultValue); },
-        getValue: (form: FormGroup, input: SmzNumberControl, flattenResponse: boolean) =>
+        getValue: (form: UntypedFormGroup, input: SmzNumberControl, flattenResponse: boolean) =>
         {
             const value = Number(form.get(input.propertyName).value);
             // console.log('getValue NUMBER', value);
@@ -276,7 +276,7 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
         },
         clear: (control: AbstractControl) => { control.patchValue(''); },
         updateValue: (control: AbstractControl, input: SmzPasswordControl) => { control.patchValue(input.defaultValue); },
-        getValue: (form: FormGroup, input: SmzPasswordControl, flattenResponse: boolean) =>
+        getValue: (form: UntypedFormGroup, input: SmzPasswordControl, flattenResponse: boolean) =>
         {
             const value = form.get(input.propertyName).value;
             // console.log('getValue PASSWORD', value);
@@ -287,7 +287,7 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
         initialize: (input: SmzRadioControl<any>, config: SmzDialogsConfig) => { },
         clear: (control: AbstractControl) => { control.patchValue(''); },
         updateValue: (control: AbstractControl, input: SmzRadioControl<any>) => { control.patchValue(input.defaultValue); },
-        getValue: (form: FormGroup, input: SmzRadioControl<any>, flattenResponse: boolean) =>
+        getValue: (form: UntypedFormGroup, input: SmzRadioControl<any>, flattenResponse: boolean) =>
         {
             const value = form.get(input.propertyName).value;
             // console.log('getValue RADIO', value);
@@ -299,7 +299,7 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
         initialize: (input: SmzSwitchControl, config: SmzDialogsConfig) => { },
         clear: (control: AbstractControl) => { control.patchValue(false); },
         updateValue: (control: AbstractControl, input: SmzSwitchControl) => { control.patchValue(input.defaultValue ?? false); },
-        getValue: (form: FormGroup, input: SmzSwitchControl, flattenResponse: boolean) =>
+        getValue: (form: UntypedFormGroup, input: SmzSwitchControl, flattenResponse: boolean) =>
         {
             const value = form.get(input.propertyName).value;
             // console.log('getValue SWITCH', value);
@@ -315,7 +315,7 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
         },
         clear: (control: AbstractControl) => { control.patchValue(''); },
         updateValue: (control: AbstractControl, input: SmzListControl) => { control.patchValue(input.defaultValue); },
-        getValue: (form: FormGroup, input: SmzListControl, flattenResponse: boolean) =>
+        getValue: (form: UntypedFormGroup, input: SmzListControl, flattenResponse: boolean) =>
         {
             const value = form.get(input.propertyName).value;
             // console.log('getValue LIST BEFORE', value);
@@ -329,7 +329,7 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
         updateValue: (control: AbstractControl, input: SmzTextControl) => {
             control.patchValue(input.defaultValue);
         },
-        getValue: (form: FormGroup, input: SmzTextControl, flattenResponse: boolean) =>
+        getValue: (form: UntypedFormGroup, input: SmzTextControl, flattenResponse: boolean) =>
         {
             let value = form.get(input.propertyName).value;
             // console.log('getValue TEXT BEFORE', value);
@@ -346,7 +346,7 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
         },
         clear: (control: AbstractControl) => { control.patchValue(''); },
         updateValue: (control: AbstractControl, input: SmzTextButtonControl) => { control.patchValue(input.defaultValue); },
-        getValue: (form: FormGroup, input: SmzTextButtonControl, flattenResponse: boolean) =>
+        getValue: (form: UntypedFormGroup, input: SmzTextButtonControl, flattenResponse: boolean) =>
         {
             let value = form.get(input.propertyName).value;
             return mapResponseValue(input, value, false);
@@ -356,7 +356,7 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
         initialize: (input: SmzTextAreaControl, config: SmzDialogsConfig) => { },
         clear: (control: AbstractControl) => { control.patchValue(''); },
         updateValue: (control: AbstractControl, input: SmzTextAreaControl) => { control.patchValue(input.defaultValue); },
-        getValue: (form: FormGroup, input: SmzTextAreaControl, flattenResponse: boolean) =>
+        getValue: (form: UntypedFormGroup, input: SmzTextAreaControl, flattenResponse: boolean) =>
         {
             let value = form.get(input.propertyName).value;
             value = executeTextPattern(value, input.exportPattern);
@@ -403,7 +403,7 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
             const mapped = mapInputContentMaskText(input);
             control.patchValue(mapped);
         },
-        getValue: (form: FormGroup, input: SmzContentMaskControl, flattenResponse: boolean) =>
+        getValue: (form: UntypedFormGroup, input: SmzContentMaskControl, flattenResponse: boolean) =>
         {
             let value = form.get(input.propertyName).value;
 
@@ -465,7 +465,7 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
         },
         clear: (control: AbstractControl) => { control.patchValue(''); },
         updateValue: (control: AbstractControl, input: SmzTagAreaControl) => { control.patchValue(input.defaultValue); },
-        getValue: (form: FormGroup, input: SmzTagAreaControl, flattenResponse: boolean) =>
+        getValue: (form: UntypedFormGroup, input: SmzTagAreaControl, flattenResponse: boolean) =>
         {
             let value = form.get(input.propertyName).value;
 
@@ -496,7 +496,7 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
         initialize: (input: SmzMaskControl, config: SmzDialogsConfig) => { },
         clear: (control: AbstractControl) => { control.patchValue(''); },
         updateValue: (control: AbstractControl, input: SmzMaskControl) => { control.patchValue(input.defaultValue); },
-        getValue: (form: FormGroup, input: SmzMaskControl, flattenResponse: boolean) =>
+        getValue: (form: UntypedFormGroup, input: SmzMaskControl, flattenResponse: boolean) =>
         {
             let value = form.get(input.propertyName).value;
             value = executeTextPattern(value, input.exportPattern);

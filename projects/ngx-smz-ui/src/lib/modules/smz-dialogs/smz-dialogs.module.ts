@@ -120,8 +120,7 @@ export const ngxsModuleForFeatureDialogsState = NgxsModule.forFeature([DialogsSt
         NgxSmzTablesModule,
         NgxSmzDocumentsModule
     ],
-    entryComponents: [DialogContentManagerComponent, MessageContentComponent, HtmlContentComponent, DialogFooterComponent, TableContentComponent, DocumentContentComponent],
-    providers: [SmzDynamicDialogConfig, DynamicDialogConfig, DynamicDialogRef, ContextMenuService],
+    providers: [SmzDynamicDialogConfig, DynamicDialogConfig, DynamicDialogRef, ContextMenuService]
 })
 
 export class NgxSmzDialogsModule

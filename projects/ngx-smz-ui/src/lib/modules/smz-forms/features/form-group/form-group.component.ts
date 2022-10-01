@@ -1,5 +1,5 @@
 import { ViewEncapsulation, Component, OnInit, AfterViewInit, OnDestroy, Input, Output, EventEmitter, OnChanges, SimpleChanges, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
-import { FormGroup, FormBuilder, AbstractControlOptions } from '@angular/forms';
+import { FormGroup, UntypedFormBuilder, AbstractControlOptions } from '@angular/forms';
 import { debounceTime, takeWhile } from 'rxjs/operators';
 import { InjectableDialogComponentInterface } from '../../../../common/modules/inject-content/models/injectable-dialog-component.interface';
 import { SmzControlType, SmzFileControl } from '../../models/control-types';
@@ -36,7 +36,7 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
     public isInitialized = false;
     public configHasErrors = false;
 
-    constructor(public fb: FormBuilder, private cdf: ChangeDetectorRef, public manager: SmzFormsManagerService, public configService: SmzDialogsConfig, public rbkConfig: NgxRbkUtilsConfig)
+    constructor(public fb: UntypedFormBuilder, private cdf: ChangeDetectorRef, public manager: SmzFormsManagerService, public configService: SmzDialogsConfig, public rbkConfig: NgxRbkUtilsConfig)
     {
 
     }

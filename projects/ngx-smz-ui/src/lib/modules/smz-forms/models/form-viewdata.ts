@@ -1,5 +1,5 @@
 import { ChangeDetectorRef } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { SmzFormsManagerService } from '../services/smz-forms-manager.service';
 import { CONTROL_FUNCTIONS } from './control-type-functions';
 import { SmzControlType, SmzControlTypes, SmzTextButtonControl } from './control-types';
@@ -12,7 +12,7 @@ export class SmzFormViewdata {
 
     constructor(
         public config: SmzForm<any>,
-        public form: FormGroup,
+        public form: UntypedFormGroup,
         public manager: SmzFormsManagerService,
         public cdf: ChangeDetectorRef
     ) { }

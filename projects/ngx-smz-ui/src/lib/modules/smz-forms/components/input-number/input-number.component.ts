@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { SmzFormsBehaviorsConfig } from '../../models/behaviors';
 import { SmzNumberControl } from '../../models/control-types';
 
@@ -12,7 +12,7 @@ export class InputNumberComponent
     @Input() public input: SmzNumberControl;
     @Input() public control: any;
     @Input() public behaviors: SmzFormsBehaviorsConfig;
-    @Input() public form: FormGroup;
+    @Input() public form: UntypedFormGroup;
     constructor() { }
 
     public onInput(event: any) {

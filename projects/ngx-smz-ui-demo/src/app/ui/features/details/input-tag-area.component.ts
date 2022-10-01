@@ -5,7 +5,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { OverlayPanel, OverlayPanelModule } from 'primeng/overlaypanel';
 import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
-import { FormControl, FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormControl, FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { Listbox, ListboxModule } from 'primeng/listbox';
 import { cloneDeep } from 'lodash-es';
 
@@ -35,7 +35,7 @@ export class SmzInputTagArea implements AfterViewInit, OnDestroy {
     @ViewChild('listbox') public listboxElement: Listbox;
     @Input() public config: SmzSmartTagConfig;
     @Input() public rows: number = 5;
-    @Input() public control: FormControl;
+    @Input() public control: UntypedFormControl;
 
     public currentTag: SmzSmartTagOptions;
     public currentTagPosition: number;

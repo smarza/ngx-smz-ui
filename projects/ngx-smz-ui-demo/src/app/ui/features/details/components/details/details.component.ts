@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { UiActions, Confirmable } from 'ngx-smz-ui';
 import { SmzSmartTagConfig, SmzSmartTagOptions } from '../../smart-tag.directive';
 
@@ -15,7 +15,7 @@ export class DetailsComponent implements OnInit {
 
   public config: SmzSmartTagConfig;
 
-  public inputControl = new FormControl('Início_==_fim.');
+  public inputControl = new UntypedFormControl('Início_==_fim.');
   constructor() {
 
     this.config = {

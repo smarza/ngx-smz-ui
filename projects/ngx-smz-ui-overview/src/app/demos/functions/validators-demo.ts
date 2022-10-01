@@ -1,7 +1,7 @@
 import { DemoKeys } from '@demos/demo-keys';
 import { Store } from '@ngxs/store';
 import { GlobalInjector, SmzDialogsService, SmzFormBuilder } from 'ngx-smz-ui';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 
 export const ValidatorsDemo: { [key: string]: () => void } = {
   //
@@ -11,7 +11,7 @@ export const ValidatorsDemo: { [key: string]: () => void } = {
         .setLayout('EXTRA_SMALL', 'col-12')
         .text('input1', 'My Value must be 123')
           .validators()
-          .custom((control: FormControl): { [key: string]: any } => {
+          .custom((control: UntypedFormControl): { [key: string]: any } => {
                 if (control.value === '123') return null;
                 return { 'testValidation': true };
               }

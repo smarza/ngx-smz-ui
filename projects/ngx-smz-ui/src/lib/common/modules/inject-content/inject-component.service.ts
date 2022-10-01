@@ -1,5 +1,4 @@
 import { ComponentRef, Injectable, NgZone } from '@angular/core';
-import { ɵmarkDirty } from '@angular/core';
 
 @Injectable({
     providedIn: 'root'
@@ -21,7 +20,7 @@ export class InjectComponentService
     {
         var component = this.componentRefs.get(key);
         component.instance[input] = value;
-        ɵmarkDirty(component.instance);
+        // ɵmarkDirty(component.instance);
     }
 
     public deleteComponent(key:string): void

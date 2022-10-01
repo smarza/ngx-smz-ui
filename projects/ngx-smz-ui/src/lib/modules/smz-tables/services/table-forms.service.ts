@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ObjectUtils } from 'primeng/utils';
 import { SmzEditableType } from '../models/editable-types';
 import { SmzTableState } from '../models/table-state';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { SmzTableColumn } from '../models/table-column';
 
 // SERVIÇO COM INSTANCIAS DIFERENTES POR TABELA
@@ -14,8 +14,8 @@ export class TableFormsService {
 
     constructor() { }
 
-    public createForm(row: any): FormGroup {
-        const form: FormGroup = new FormGroup({});
+    public createForm(row: any): UntypedFormGroup {
+        const form: UntypedFormGroup = new UntypedFormGroup({});
 
         // PERCORRER COLUNAS EDITÁVEIS
         this.state.columns
@@ -29,7 +29,7 @@ export class TableFormsService {
                 const validators = this.getValidators(col);
 
                 // CRIAR CONTROL
-                form.addControl(col.editable.property, new FormControl(value, validators));
+                form.addControl(col.editable.property, new UntypedFormControl(value, validators));
             });
 
         // console.log('form', form);

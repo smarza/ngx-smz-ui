@@ -221,7 +221,6 @@ export const defaultFormsModuleConfig: SmzFormsConfig = {
         InputTextButtonComponent,
         FormSubmitComponent,
     ],
-    entryComponents: [FormGroupComponent, InputListDialogCrudComponent, InputListInlineCrudComponent],
     exports: [
         CalendarComponent,
         CheckBoxComponent,
@@ -245,7 +244,6 @@ export const defaultFormsModuleConfig: SmzFormsConfig = {
         FormSubmitComponent,
     ],
     providers: [DialogService]
-
 })
 export class NgxSmzFormsModule {
     constructor(injector: Injector) {

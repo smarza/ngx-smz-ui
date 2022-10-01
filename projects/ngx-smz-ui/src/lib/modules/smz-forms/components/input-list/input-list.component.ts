@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Actions, ofActionDispatched, Store } from '@ngxs/store';
 import { take } from 'rxjs/operators';
 import { Confirmable } from '../../../smz-dialogs/decorators/confirmable.decorator';
@@ -18,8 +18,8 @@ export class InputListComponent {
   @Input() public behaviors: SmzFormsBehaviorsConfig;
   public current: string = null;
   public isInlineEditingEnabled = false;
-  public editForm: FormGroup = null;
-  constructor(private cdf: ChangeDetectorRef, private store: Store, private actions$: Actions, public fb: FormBuilder) {
+  public editForm: UntypedFormGroup = null;
+  constructor(private cdf: ChangeDetectorRef, private store: Store, private actions$: Actions, public fb: UntypedFormBuilder) {
   }
 
   public onClick(event: { option: string, value: string }): void {
@@ -187,10 +187,10 @@ export class InputListComponent {
 
   }
 
-  public createEditForm(defaultValue: string): FormGroup {
+  public createEditForm(defaultValue: string): UntypedFormGroup {
 
-    const form: FormGroup =  new FormGroup({
-        value: new FormControl(defaultValue, [Validators.required, unique(this.input.options)]),
+    const form: UntypedFormGroup =  new UntypedFormGroup({
+        value: new UntypedFormControl(defaultValue, [Validators.required, unique(this.input.options)]),
       });
 
       return form;
@@ -210,7 +210,7 @@ function move(input, from, to) {
 }
 
 function unique(options: string[]): ValidatorFn {
-  return (control: FormControl): { [key: string]: any } => {
+  return (control: UntypedFormControl): { [key: string]: any } => {
       const input = control.value;
 
       if (options.findIndex(x => x.toLowerCase() === input.toLowerCase()) !== -1) {

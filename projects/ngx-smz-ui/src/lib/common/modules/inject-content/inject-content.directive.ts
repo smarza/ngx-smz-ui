@@ -2,7 +2,7 @@ import { Directive, ViewContainerRef, Input, AfterContentInit } from '@angular/c
 import { InjectContentService } from './inject-content.service';
 import { InjectableContentEntity } from './models/inject-content.model';
 import { takeWhile } from 'rxjs/operators';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { SmzForm, SmzFormsResponse } from '../../../modules/smz-forms/models/smz-forms';
 
 @Directive({
@@ -15,7 +15,7 @@ export class InjectContentDirective implements AfterContentInit
     @Input() public config: SmzForm<any>;
     @Input() public inputs: InjectableContentEntity[];
     @Input() public outputs: string[];
-    @Input() public form: FormGroup;
+    @Input() public form: UntypedFormGroup;
     @Input() public data: () => SmzFormsResponse<any>;
     @Input() public componentRef: { componentRef: any };
     public isActive = true;

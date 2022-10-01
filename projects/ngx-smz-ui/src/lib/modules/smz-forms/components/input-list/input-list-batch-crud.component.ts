@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, ValidatorFn } from '@angular/forms';
+import { UntypedFormControl, ValidatorFn } from '@angular/forms';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { DialogCrudStateService } from '../../../smz-dialogs/state/dialogs/dialog-crud-state.service';
 import { SmzControlType, SmzTextControl } from '../../models/control-types';
@@ -63,7 +63,7 @@ export class InputListBatchCrudComponent implements OnInit {
 }
 
 function unique(options: string[]): ValidatorFn {
-  return (control: FormControl): { [key: string]: any } => {
+  return (control: UntypedFormControl): { [key: string]: any } => {
       const input: string[] = control.value.split('\n');
       var hasError = false;
 
