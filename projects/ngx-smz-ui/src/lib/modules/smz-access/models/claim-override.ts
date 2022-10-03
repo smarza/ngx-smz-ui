@@ -4,4 +4,5 @@ export interface ClaimOverride {
   claim: SimpleNamedEntity;
   name: string;
   access: { id: number, name: string };
+  isProtected: boolean;
 }
