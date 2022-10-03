@@ -12,7 +12,7 @@ const routes: Routes = [
     redirectTo: HOME_PATH,
     pathMatch: 'full',
   },
-  { path: LOGIN_PAGE_PATH, loadChildren: (): Promise<LoginModule> => import('./ui/pages/login/login.module').then(m => m.LoginModule) },
+  { path: LOGIN_PAGE_PATH, loadChildren: () => LoginModule },
   {
     path: HOME_PATH,
     loadChildren: () => import('./ui/features/home/home.module').then(m => m.HomeModule),

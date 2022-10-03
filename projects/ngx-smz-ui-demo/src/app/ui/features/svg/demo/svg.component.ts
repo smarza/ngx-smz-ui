@@ -1,7 +1,7 @@
 import { Component, ViewChild, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
-import { SmzSvgComponent, SmzSvgState, SmzSvgPin, SmzSvgBuilder, SmzSVGWrapper, SmzSvgRoot, GetElementsByParentId } from 'ngx-smz-ui';
+import { SmzSvgComponent, SmzSvgState, SmzSvgPin, SmzSvgBuilder, SmzSVGWrapper, SmzSvgRoot, GetElementsByParentId, SmzSvgBaseFeature } from 'ngx-smz-ui';
 import { Container } from '@svgdotjs/svg.js';
 
 @Component({
@@ -181,7 +181,7 @@ export class SvgComponent implements OnInit, AfterViewInit {
         id,
         svgData: ghost,
         color: `#${Math.floor(Math.random() * 16777215).toString(16)}`,
-        position: { x, y, callback: null },
+        position: { x, y },
         anchor: 'container',
         width,
         adaptative: { enabled: true, minWidth: 0, maxWidth: 100 },
@@ -195,7 +195,10 @@ export class SvgComponent implements OnInit, AfterViewInit {
         highlight: null,
         data: null,
         scopes: [],
-        isDisabled: false
+        isDisabled: false,
+        dynamicBuild: {
+          callback: null
+        }
       });
 
     }

@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit
   constructor(private store: Store, private route: ActivatedRoute, public uiBlockService: SmzUiBlockService, private cdf: ChangeDetectorRef)
   {
 
-    // this.store.dispatch(new DemoFeatureActions.LoadAll());
+    this.store.dispatch(new DemoFeatureActions.LoadAll());
 
     this.treeState = new SmzTreeBuilder()
       .setTitle('Fluents')
