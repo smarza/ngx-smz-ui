@@ -7,4 +7,10 @@ export namespace RouterParamsActions
         constructor(public key: any, public data: any) { }
 
     }
+
+    export class UpdateQueryParams
+    {
+        public static readonly type = '[Router Params] Update Query Params';
+        constructor(public data: any) { }
+    }
 }

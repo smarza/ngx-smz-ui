@@ -78,7 +78,7 @@
 
 <ng-container *ngSwitchCase="modes.LIST">
 
-  <div class="grid grid-nogutter items-start justify-start gap-4 relative" [ngClass]="{ 'border border-red-500 border-solid': state.isDebug }">
+  <div class="grid grid-nogutter items-start justify-start gap-4 relative col" [ngClass]="{ 'border border-red-500 border-solid': state.isDebug }">
 
     <!-- IMAGE -->
     <img
@@ -92,7 +92,7 @@
       [ngClass]="config.image.column.styleClass"
     >
 
-    <div class="h-full grid grid-nogutter flex-col items-start justify-start gap-2 relative">
+    <div class="h-full grid grid-nogutter flex-col items-start justify-start gap-2 relative col">
       <!-- DETAILS -->
       <ng-container *ngFor="let column of config.texts; let i = index">
 

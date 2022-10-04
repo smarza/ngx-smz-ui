@@ -38,6 +38,9 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
           .item('Consultar')
             .setCallback((event: any) => console.log('--- Consultar'))
             .menu
+          .item('Atualizar')
+            .setCallback((event: any) => console.log('--- Atualizar'))
+            .menu
           .item('Apagar', 'fa-solid fa-trash')
             .setCallback((event: any) => console.log('--- Apagar'))
             .menu
