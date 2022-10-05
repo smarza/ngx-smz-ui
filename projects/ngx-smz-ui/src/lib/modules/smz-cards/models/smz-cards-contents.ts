@@ -13,8 +13,9 @@ export interface SmzCardsBaseContent {
   key: string;
   type: SmzCardsContentType;
   dataPath: string;
-  isVisible: boolean;
   styleClass: string;
+  hideInGrid: boolean;
+  hideInList: boolean;
 }
 
 export interface SmzCardsTextContent extends SmzCardsBaseContent {

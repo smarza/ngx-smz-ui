@@ -19,14 +19,14 @@
     </ng-container>
 
     <!-- TITLE -->
-    <div *ngIf="template.title as title" contentSelector [content]="title" [data]="data" [ngClass]="template.title.styleClass ?? 'font-bold'"></div>
+    <div *ngIf="template.title && !template.title.hideInGrid" contentSelector [content]="template.title" [data]="data" [ngClass]="template.title.styleClass ?? 'font-bold'"></div>
 
     <!-- SUBTITLE -->
-    <div *ngIf="template.subTitle as subTitle" contentSelector [content]="subTitle" [data]="data" [ngClass]="subTitle.styleClass ?? 'text-sm'"></div>
+    <div *ngIf="template.subTitle && !template.subTitle.hideInGrid" contentSelector [content]="template.subTitle" [data]="data" [ngClass]="template.subTitle.styleClass ?? 'text-sm'"></div>
 
     <!-- OTHERS -->
     <ng-container *ngFor="let other of template.others let i = index">
-      <div contentSelector [content]="other" [data]="data" [ngClass]="other.styleClass ?? 'text-sm'"></div>
+      <div *ngIf="!other.hideInGrid" contentSelector [content]="other" [data]="data" [ngClass]="other.styleClass ?? 'text-sm'"></div>
     </ng-container>
 
     <div class="col"></div>
@@ -72,14 +72,14 @@
     <div class="h-full grid grid-nogutter flex-col items-start justify-start gap-2 relative  col">
 
       <!-- TITLE -->
-      <div *ngIf="template.title as title" contentSelector [content]="title" [data]="data" [ngClass]="template.title.styleClass ?? 'font-bold'"></div>
+      <div *ngIf="template.title && !template.title.hideInList" contentSelector [content]="template.title" [data]="data" [ngClass]="template.title.styleClass ?? 'font-bold'"></div>
 
       <!-- SUBTITLE -->
-      <div *ngIf="template.subTitle as subTitle" contentSelector [content]="subTitle" [data]="data" [ngClass]="subTitle.styleClass ?? 'text-sm'"></div>
+      <div *ngIf="template.subTitle && !template.subTitle.hideInList" contentSelector [content]="template.subTitle" [data]="data" [ngClass]="template.subTitle.styleClass ?? 'text-sm'"></div>
 
       <!-- OTHERS -->
       <ng-container *ngFor="let other of template.others let i = index">
-        <div contentSelector [content]="other" [data]="data" [ngClass]="other.styleClass ?? 'text-sm'"></div>
+        <div *ngIf="!other.hideInList" contentSelector [content]="other" [data]="data" [ngClass]="other.styleClass ?? 'text-sm'"></div>
       </ng-container>
 
       <div class="col"></div>

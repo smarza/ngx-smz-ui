@@ -70,11 +70,14 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
             .title(nameof<SmzCardsDemoData>('date'), 'Elemento')
               .transform((date) => moment(date).format('lll'))
               .template
-            // .subTitle(namesof<SmzCardsDemoData, SimpleNamedEntity>('type', 'name'))
-            //   .enableGlobalFilter()
-            //   .template
+            .subTitle(namesof<SmzCardsDemoData, SimpleNamedEntity>('type', 'name'))
+              .enableGlobalFilter()
+              .template
             .addTag(namesof<SmzCardsDemoData, SimpleNamedEntity>('type', 'name'))
               .setStyles('bg-green-200 text-surface-50')
+              .template
+            .addTag(nameof<SmzCardsDemoData>('notes'))
+              .transform((date) => null)
               .template
             .addInfo(nameof<SmzCardsDemoData>('notes'), 'Último', 'bg-blue-500')
               .transform((date) => '6 gotas')
@@ -84,9 +87,11 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
               .template
             .addInfo(nameof<SmzCardsDemoData>('date'), 'Início')
               .transform((date) => moment(date).format('lll'))
+              .hideInGrid()
               .template
             .addInfo(nameof<SmzCardsDemoData>('date'), 'Final')
               .transform((date) => moment(date).format('lll'))
+              .hideInGrid()
               .template
             .template
           .cards

@@ -5,25 +5,25 @@
   <div class="h-full grid grid-nogutter flex-col items-start justify-start gap-0 relative rounded-lg p-3 border-0 border-l-8" [ngClass]="template.cardStyleClass + ' ' + template.verticalBarStyleClass + (state.isDebug ? ' border border-red-500 border-solid' : '')">
 
     <!-- TITLE -->
-    <ng-container *ngIf="template.title as title">
-      <div class="text-xs text-surface-600">{{ title.caption }}</div>
-      <div contentSelector [content]="title.content" [data]="data" [ngClass]="template.title.content.styleClass ?? 'font-bold'"></div>
+    <ng-container *ngIf="template.title && !template.title.content.hideInGrid">
+      <div class="text-xs text-surface-600">{{ template.title.caption }}</div>
+      <div contentSelector [content]="template.title.content" [data]="data" [ngClass]="template.title.content.styleClass ?? 'font-bold'"></div>
     </ng-container>
 
     <!-- SUBTITLE -->
-    <div *ngIf="template.subTitle as subTitle" contentSelector [content]="subTitle" [data]="data" class="mt-1" [ngClass]="subTitle.styleClass ?? 'text-sm'"></div>
+    <div *ngIf="template.subTitle  && !template.subTitle.hideInGrid" contentSelector [content]="template.subTitle" [data]="data" class="mt-1" [ngClass]="template.subTitle.styleClass ?? 'text-sm'"></div>
 
     <!-- TAGS -->
     <div class="col-12 grid grid-nogutter items-center justify-start gap-2 mt-2">
-      <ng-container *ngFor="let other of template.tags let i = index">
-        <div contentSelector [content]="other" [data]="data" class="px-2 py-1 text-xs bg-gray-200 text-surface-50 rounded" [ngClass]="other.styleClass ?? 'text-sm'"></div>
+      <ng-container *ngFor="let tag of template.tags let i = index">
+        <div *ngIf="!tag.hideInGrid" contentSelector [content]="tag" [data]="data" class="px-2 py-1 text-xs bg-gray-200 text-surface-50 rounded" [ngClass]="tag.styleClass ?? 'text-sm'"></div>
       </ng-container>
     </div>
 
     <!-- INFOS -->
     <div class="col-12 grid grid-nogutter items-center justify-start mt-2 gap-3">
       <ng-container *ngFor="let info of template.infos let i = index">
-        <div class="grid grid-nogutter items-center justify-start gap-2 mr-3">
+        <div *ngIf="!info.content.hideInGrid" class="grid grid-nogutter items-center justify-start gap-2 mr-3">
           <div class="rounded-2xl h-4 w-4 bg-gray-200" [ngClass]="info.bulletStyleClass"></div>
           <div class="grid grid-nogutter flex-col items-start justify-start gap-0">
             <div class="text-xs text-surface-600">{{ info.caption }}</div>
@@ -60,25 +60,25 @@
     <div class="h-full grid grid-nogutter flex-col items-start justify-start gap-0 relative rounded-lg p-3 border-0 border-l-8 col" [ngClass]="template.cardStyleClass + ' ' + template.verticalBarStyleClass + (state.isDebug ? ' border border-red-500 border-solid' : '')">
 
       <!-- TITLE -->
-      <ng-container *ngIf="template.title as title">
-        <div class="text-xs text-surface-600">{{ title.caption }}</div>
-        <div contentSelector [content]="title.content" [data]="data" [ngClass]="template.title.content.styleClass ?? 'font-bold'"></div>
+      <ng-container *ngIf="template.title && !template.title.content.hideInList">
+        <div class="text-xs text-surface-600">{{ template.title.caption }}</div>
+        <div contentSelector [content]="template.title.content" [data]="data" [ngClass]="template.title.content.styleClass ?? 'font-bold'"></div>
       </ng-container>
 
       <!-- SUBTITLE -->
-      <div *ngIf="template.subTitle as subTitle" contentSelector [content]="subTitle" [data]="data" class="mt-1" [ngClass]="subTitle.styleClass ?? 'text-sm'"></div>
+      <div *ngIf="template.subTitle  && !template.subTitle.hideInList" contentSelector [content]="template.subTitle" [data]="data" class="mt-1" [ngClass]="template.subTitle.styleClass ?? 'text-sm'"></div>
 
       <!-- TAGS -->
       <div class="col-12 grid grid-nogutter items-center justify-start gap-2 mt-2">
-        <ng-container *ngFor="let other of template.tags let i = index">
-          <div contentSelector [content]="other" [data]="data" class="px-2 py-1 text-xs bg-gray-200 text-surface-50 rounded" [ngClass]="other.styleClass ?? 'text-sm'"></div>
+        <ng-container *ngFor="let tag of template.tags let i = index">
+          <div *ngIf="!tag.hideInList" contentSelector [content]="tag" [data]="data" class="px-2 py-1 text-xs bg-gray-200 text-surface-50 rounded" [ngClass]="tag.styleClass ?? 'text-sm'"></div>
         </ng-container>
       </div>
 
       <!-- INFOS -->
       <div class="col-12 grid grid-nogutter items-center justify-start mt-2 gap-3">
         <ng-container *ngFor="let info of template.infos let i = index">
-          <div class="grid grid-nogutter items-center justify-start gap-2 mr-3">
+          <div *ngIf="!info.content.hideInList" class="grid grid-nogutter items-center justify-start gap-2 mr-3">
             <div class="rounded-2xl h-4 w-4 bg-gray-200" [ngClass]="info.bulletStyleClass"></div>
             <div class="grid grid-nogutter flex-col items-start justify-start gap-0">
               <div class="text-xs text-surface-600">{{ info.caption }}</div>

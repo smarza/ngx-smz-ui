@@ -3,25 +3,30 @@ import { SmzCardsBaseContent, SmzCardsContentType, SmzCardsImageContent, SmzCard
 import { SmzCardsBuilder } from './state-builder';
 
 export abstract class SmzCardsBaseBuilder<T extends SmzCardsBaseBuilder<T, TViewData>, TViewData> {
-
+  protected that: T;
   constructor(protected _builder: SmzCardsBuilder<unknown>, protected _parent: TViewData, protected _content: SmzCardsBaseContent, key: string) {
   }
 
-  public hide(): SmzCardsBaseBuilder<T, TViewData> {
-    this._content.isVisible = false;
-    return this;
+  public hideInList(): T {
+    this._content.hideInList = true;
+    return this.that;
   }
 
-  public enableGlobalFilter(): SmzCardsBaseBuilder<T, TViewData> {
+  public hideInGrid(): T{
+    this._content.hideInGrid = true;
+    return this.that;
+  }
+
+  public enableGlobalFilter(): T {
     const isFilterEmpty = this._builder._state.view.filterBy === '' ? true : false;
     this._builder._state.view.filterBy = `${this._builder._state.view.filterBy}${isFilterEmpty ? '' : ','}${this._content.dataPath}`;
 
-    return this;
+    return this.that;
   }
 
-  public setStyles(styleClass: string): SmzCardsBaseBuilder<T, TViewData> {
+  public setStyles(styleClass: string): T {
     this._content.styleClass = styleClass;
-    return this;
+    return this.that;
   }
 
   public get template(): TViewData {
@@ -30,7 +35,7 @@ export abstract class SmzCardsBaseBuilder<T extends SmzCardsBaseBuilder<T, TView
 }
 
 export class SmzCardsTextBuilder<TViewData> extends SmzCardsBaseBuilder<SmzCardsTextBuilder<TViewData>, TViewData> {
-
+  protected that = this;
   constructor(protected _builder: SmzCardsBuilder<unknown>, protected _parent: TViewData, protected _content: SmzCardsTextContent, dataPath: string, key: string = uuidv4()) {
     super(_builder, _parent, _content, key);
 
@@ -54,6 +59,7 @@ export class SmzCardsTextBuilder<TViewData> extends SmzCardsBaseBuilder<SmzCards
 }
 
 export class SmzCardsImageBuilder<TViewData> extends SmzCardsBaseBuilder<SmzCardsImageBuilder<TViewData>, TViewData> {
+  protected that = this;
   constructor(protected _builder: SmzCardsBuilder<unknown>, protected _parent: TViewData, protected _content: SmzCardsImageContent, dataPath: string, key: string = uuidv4()) {
     super(_builder, _parent, _content, key);
 
