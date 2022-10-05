@@ -31,25 +31,20 @@
 
     <div class="col"></div>
 
-    <!-- ACTIONS -->
-    <ng-container *ngIf="state.menu.callback(data) as menu">
-
-      <ng-container *ngIf="menu.length <= state.menu.collapseLimit; else menuButtonTemplate">
-        <!-- MENU ITEMS -->
-        <div class="grid grid-nogutter items-center justify-start gap-1">
-          <ng-container *ngFor="let menuItem of menu; let i = index">
-            <button pButton pRipple type="button" [label]="menuItem.label" [icon]="menuItem.icon" [pTooltip]="menuItem.tooltip" class="p-button-outlined p-button-sm px-3 py-2" [ngClass]="menuItem.styleClass" (click)="menuItem.command(data)"></button>
-          </ng-container>
-        </div>
-      </ng-container>
-
-      <ng-template #menuButtonTemplate>
-        <!-- MENU BUTTON -->
+    <!-- MENU -->
+    <ng-container *ngIf="state.menu.callback != null && state.menu.callback(data) as menu">
         <div class="grid grid-nogutter items-center justify-end gap-1 col-12 absolute top-2 right-2">
           <smz-menu [items]="menu" [data]="data" [icon]="state.menu.icon" [styleClass]="state.menu.styleClass" [buttonClass]="state.menu.buttonClass"></smz-menu>
         </div>
-      </ng-template>
+    </ng-container>
 
+    <!-- BUTTONS -->
+    <ng-container *ngIf="state.buttons.callback != null && state.buttons.callback(data) as buttons">
+      <div class="grid grid-nogutter items-center justify-start gap-1">
+        <ng-container *ngFor="let button of buttons; let i = index">
+          <button pButton pRipple type="button" [label]="button.label" [icon]="button.icon" [pTooltip]="button.tooltip" class="p-button-outlined p-button-sm px-3 py-2" [ngClass]="button.styleClass" (click)="button.command(data)"></button>
+        </ng-container>
+      </div>
     </ng-container>
 
   </div>
@@ -89,26 +84,22 @@
 
       <div class="col"></div>
 
-      <!-- ACTIONS -->
-      <ng-container *ngIf="state.menu.callback(data) as menu">
-
-        <ng-container *ngIf="menu.length <= state.menu.collapseLimit; else menuButtonTemplate">
-          <!-- MENU ITEMS -->
-          <div class="grid grid-nogutter items-center justify-start gap-1">
-            <ng-container *ngFor="let menuItem of menu; let i = index">
-              <button pButton pRipple type="button" [label]="menuItem.label" [icon]="menuItem.icon" [pTooltip]="menuItem.tooltip" class="p-button-outlined p-button-sm px-3 py-2" [ngClass]="menuItem.styleClass" (click)="menuItem.command(data)"></button>
-            </ng-container>
-          </div>
-        </ng-container>
-
-        <ng-template #menuButtonTemplate>
-          <!-- MENU BUTTON -->
-          <div class="grid grid-nogutter items-center justify-end gap-1 col-12 absolute top-2 right-2">
-            <smz-menu [items]="menu" [data]="data" [icon]="state.menu.icon" [styleClass]="state.menu.styleClass" [buttonClass]="state.menu.buttonClass"></smz-menu>
-          </div>
-        </ng-template>
-
+      <!-- MENU -->
+      <ng-container *ngIf="state.menu.callback != null && state.menu.callback(data) as menu">
+        <div class="grid grid-nogutter items-center justify-end gap-1 col-12 absolute top-2 right-2">
+          <smz-menu [items]="menu" [data]="data" [icon]="state.menu.icon" [styleClass]="state.menu.styleClass" [buttonClass]="state.menu.buttonClass"></smz-menu>
+        </div>
       </ng-container>
+
+      <!-- BUTTONS -->
+      <ng-container *ngIf="state.buttons.callback != null && state.buttons.callback(data) as buttons">
+        <div class="grid grid-nogutter items-center justify-start gap-1">
+          <ng-container *ngFor="let button of buttons; let i = index">
+            <button pButton pRipple type="button" [label]="button.label" [icon]="button.icon" [pTooltip]="button.tooltip" class="p-button-outlined p-button-sm px-3 py-2" [ngClass]="button.styleClass" (click)="button.command(data)"></button>
+          </ng-container>
+        </div>
+      </ng-container>
+
     </div>
   </div>
 

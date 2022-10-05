@@ -39,14 +39,16 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
           .setLayout('col-12')
           .setPadding('px-0 pt-4')
           .cards
-        .menu()
-          .setCollapse(2)
+        .buttons()
           .item('Consultar')
             .setCallback((event: any) => console.log('--- Consultar'))
             .menu
+          .cards
+        .menu()
           .item('Atualizar')
             .setCallback((event: any) => console.log('--- Atualizar'))
             .menu
+          .separator()
           .item('Apagar', 'fa-solid fa-trash')
             .setCallback((event: any) => console.log('--- Apagar'))
             .menu

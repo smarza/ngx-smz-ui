@@ -13,13 +13,8 @@ export interface SmzCardsState<T> {
   template: SmzCardsTemplates;
   grid: SmzCardView;
   list: SmzCardView;
-  menu: {
-    collapseLimit: number;
-    callback: (row: T) => SmzMenuItem[];
-    styleClass: string;
-    buttonClass: string;
-    icon: string;
-  }
+  buttons: SmzCardActions<T>;
+  menu: SmzCardActions<T>;
   view: {
     rowsPerPage: number;
     paginator: boolean;
@@ -27,6 +22,13 @@ export interface SmzCardsState<T> {
     filterBy: string;
     layout: 'grid' | 'list';
   }
+}
+
+export interface SmzCardActions<T> {
+  callback: (row: T) => SmzMenuItem[];
+  styleClass: string;
+  buttonClass: string;
+  icon: string;
 }
 
 export interface SmzCardView {

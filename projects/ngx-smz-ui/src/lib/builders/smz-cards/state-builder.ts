@@ -34,8 +34,13 @@ export class SmzCardsBuilder<T> {
         general: ''
       }
     },
+    buttons: {
+      callback: null,
+      buttonClass: 'p-0',
+      styleClass: 'p-button-rounded p-button-text p-button-plain',
+      icon: 'fa-solid fa-ellipsis-vertical'
+    },
     menu: {
-      collapseLimit: 3,
       callback: null,
       buttonClass: 'p-0',
       styleClass: 'p-button-rounded p-button-text p-button-plain',
@@ -155,13 +160,22 @@ export class SmzCardsBuilder<T> {
     return this;
   }
 
+  public buttons(items?: SmzMenuItem[]): SmzCardsMenuBuilder {
+
+    if (this._state.buttons?.callback != null) {
+      throw Error('[Smz Cards] You can\'t call \'buttons\' because it is already set.');
+    }
+
+    return new SmzCardsMenuBuilder(this, this._state.buttons, items);
+  }
+
   public menu(items?: SmzMenuItem[]): SmzCardsMenuBuilder {
 
     if (this._state.menu?.callback != null) {
       throw Error('[Smz Cards] You can\'t call \'menu\' because it is already set.');
     }
 
-    return new SmzCardsMenuBuilder(this, items);
+    return new SmzCardsMenuBuilder(this, this._state.menu, items);
   }
 
   public debugMode(): SmzCardsBuilder<T> {

@@ -1,16 +1,17 @@
 import { MenuItem } from 'primeng/api';
+import { SmzCardActions } from '../../modules/smz-cards/models/smz-cards-state';
 import { SmzMenuItem } from '../../modules/smz-menu/models/smz-menu-item';
 import { SmzCardsBuilder } from './state-builder';
 
 export class SmzCardsMenuBuilder {
   public items: SmzMenuItem[] = [];
-  constructor(private _cardsBuilder: SmzCardsBuilder<any>, items: SmzMenuItem[] = []) {
+  constructor(private _cardsBuilder: SmzCardsBuilder<any>, protected _action: SmzCardActions<any>, items: SmzMenuItem[] = []) {
     this.items = items;
-    _cardsBuilder._state.menu.callback = null;
+    _action.callback = null;
   }
 
   public useDynamic(callback: (row: any) => SmzMenuItem[]): SmzCardsMenuBuilder {
-    this._cardsBuilder._state.menu.callback = callback;
+    this._action.callback = callback;
     return this;
   }
 
@@ -24,36 +25,30 @@ export class SmzCardsMenuBuilder {
 
   public separator(): SmzCardsMenuBuilder {
     this.items.push({ separator: true });
-
-    return this;
-  }
-
-  public setCollapse(menuItemCount: number): SmzCardsMenuBuilder {
-    this._cardsBuilder._state.menu.collapseLimit = menuItemCount;
     return this;
   }
 
   public get cards(): SmzCardsBuilder<any> {
 
-    if (this._cardsBuilder._state.menu.callback == null) {
-      this._cardsBuilder._state.menu.callback = () => this.items;
+    if (this._action.callback == null) {
+      this._action.callback = () => this.items;
     }
 
     return this._cardsBuilder;
   }
 
   public setButtonClass(style: string): SmzCardsMenuBuilder {
-    this._cardsBuilder._state.menu.buttonClass = style;
+    this._action.buttonClass = style;
     return this;
   }
 
   public setIcon(style: string): SmzCardsMenuBuilder {
-    this._cardsBuilder._state.menu.icon = style;
+    this._action.icon = style;
     return this;
   }
 
   public setStyleClass(style: string): SmzCardsMenuBuilder {
-    this._cardsBuilder._state.menu.styleClass = style;
+    this._action.styleClass = style;
     return this;
   }
 }
