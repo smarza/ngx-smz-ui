@@ -1,8 +1,7 @@
 import { Observable } from 'rxjs';
 import { SmzMenuItem } from '../../smz-menu/models/smz-menu-item';
-import { SmzCardsContentTypes } from './smz-cards-contents';
-import { SmzCardsType } from './smz-cards-types';
-import { SmzCardsTypes } from './types/smz-cards-types';
+import { SmzCardsTemplates } from './smz-cards-templates';
+
 export interface SmzCardsState<T> {
   items$: Observable<T[]>;
   isDebug: boolean;
@@ -11,28 +10,11 @@ export interface SmzCardsState<T> {
     getText: () => string;
   };
   locale: SmzCardsLocale;
-  columns: SmzCardsColumn[];
-  grid: {
-    type: SmzCardsType;
-    config: SmzCardsTypes;
-    styleClass: {
-      all: string;
-      layout: string;
-      padding: string;
-      general: string;
-    }
-  }
-  list: {
-    type: SmzCardsType;
-    config: SmzCardsTypes;
-    styleClass: {
-      all: string;
-      layout: string;
-      padding: string;
-      general: string;
-    }
-  }
+  template: SmzCardsTemplates;
+  grid: SmzCardView;
+  list: SmzCardView;
   menu: {
+    collapseLimit: number;
     callback: (row: T) => SmzMenuItem[];
     styleClass: string;
     buttonClass: string;
@@ -44,6 +26,15 @@ export interface SmzCardsState<T> {
     showGlobalFilter: boolean;
     filterBy: string;
     layout: 'grid' | 'list';
+  }
+}
+
+export interface SmzCardView {
+  styleClass: {
+    all: string;
+    layout: string;
+    padding: string;
+    general: string;
   }
 }
 
@@ -61,12 +52,4 @@ export interface SmzCardsLocale {
     results: string;
   };
   emptyMessage: string;
-}
-
-export interface SmzCardsColumn {
-  key: string; // mesma key do header
-  isVisible: boolean;
-  styleClass: string;
-  content: SmzCardsContentTypes;
-
 }

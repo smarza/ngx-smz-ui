@@ -1,11 +1,10 @@
 import { SmzMenuItem } from '../../modules/smz-menu/models/smz-menu-item';
 import { SmzCardsState } from '../../modules/smz-cards/models/smz-cards-state';
 import { SmzCardsMenuBuilder } from './menu-builder';
-import { SmzCardsColumnCollectionBuilder } from './column-builder';
 import { Observable } from 'rxjs';
-import { SmzCardsType } from '../../modules/smz-cards/models/smz-cards-types';
-import { SmzCardsTypes, ImageWithDetails } from '../../modules/smz-cards/models/types/smz-cards-types';
-import { SmzCardsContentType, SmzCardsImageContent } from '../../modules/smz-cards/models/smz-cards-contents';
+import { SmzCardsTemplate } from '../../modules/smz-cards/models/smz-cards-templates';
+import { SmzCardsTemplateBuilder, SmzCardViewBuilder } from './template-builder';
+import { cloneDeep } from 'lodash-es';
 
 export class SmzCardsBuilder<T> {
   public _state: SmzCardsState<T> = {
@@ -16,10 +15,10 @@ export class SmzCardsBuilder<T> {
       getText: null
     },
     locale: null,
-    columns: [],
+    template: {
+      type: null,
+    },
     grid: {
-      type: SmzCardsType.RAW,
-      config: null,
       styleClass: {
         all: '',
         layout: 'col-12 lg:col-6 xl:col-3',
@@ -28,16 +27,15 @@ export class SmzCardsBuilder<T> {
       }
     },
     list: {
-      type: SmzCardsType.RAW,
-      config: null,
       styleClass: {
         all: '',
-        layout: 'col-12',
-        padding: 'px-0 pt-4',
+        layout: 'col-12 lg:col-6 xl:col-3',
+        padding: 'p-2',
         general: ''
       }
     },
     menu: {
+      collapseLimit: 3,
       callback: null,
       buttonClass: 'p-0',
       styleClass: 'p-button-rounded p-button-text p-button-plain',
@@ -74,14 +72,16 @@ export class SmzCardsBuilder<T> {
     return this;
   }
 
-  public useGridAsDefault(): SmzCardsBuilder<T> {
-    this._state.view.layout = 'grid';
-    return this;
+  public template(): SmzCardsTemplateBuilder {
+    return new SmzCardsTemplateBuilder(this, this._state.template);
   }
 
-  public useListAsDefault(): SmzCardsBuilder<T> {
-    this._state.view.layout = 'list';
-    return this;
+  public grid(): SmzCardViewBuilder {
+    return new SmzCardViewBuilder(this, this._state.grid, 'grid');
+  }
+
+  public list(): SmzCardViewBuilder {
+    return new SmzCardViewBuilder(this, this._state.list, 'list');
   }
 
   public setDynamicTitle(callback: () => string): SmzCardsBuilder<T> {
@@ -91,61 +91,13 @@ export class SmzCardsBuilder<T> {
     return this;
   }
 
-  public setType(type: SmzCardsType): SmzCardsBuilder<T> {
-    this._state.grid.type = type;
-    this._state.list.type = type;
-    return this;
-  }
-
-  public setGridType(type: SmzCardsType): SmzCardsBuilder<T> {
-    this._state.grid.type = type;
-    return this;
-  }
-
-  public setGridLayout(styleClass: string): SmzCardsBuilder<T> {
-    this._state.grid.styleClass.layout = styleClass;
-    return this;
-  }
-
-  public setGridPadding(styleClass: string): SmzCardsBuilder<T> {
-    this._state.grid.styleClass.padding = styleClass;
-    return this;
-  }
-
-  public setGridStyles(styleClass: string): SmzCardsBuilder<T> {
-    this._state.grid.styleClass.general = styleClass;
-    return this;
-  }
-
-  public setListType(type: SmzCardsType): SmzCardsBuilder<T> {
-    this._state.list.type = type;
-    return this;
-  }
-
-  public setListLayout(styleClass: string): SmzCardsBuilder<T> {
-    this._state.list.styleClass.layout = styleClass;
-    return this;
-  }
-
-  public setListPadding(styleClass: string): SmzCardsBuilder<T> {
-    this._state.list.styleClass.padding = styleClass;
-    return this;
-  }
-
-  public setListStyles(styleClass: string): SmzCardsBuilder<T> {
-    this._state.list.styleClass.general = styleClass;
-    return this;
-  }
-
   public setRowsPerPage(rows: number): SmzCardsBuilder<T> {
     this._state.view.rowsPerPage = rows;
-
     return this;
   }
 
   public hidePaginator(): SmzCardsBuilder<T> {
     this._state.view.paginator = false;
-
     return this;
   }
 
@@ -212,10 +164,6 @@ export class SmzCardsBuilder<T> {
     return new SmzCardsMenuBuilder(this, items);
   }
 
-  public columns(): SmzCardsColumnCollectionBuilder {
-    return new SmzCardsColumnCollectionBuilder(this);
-  }
-
   public debugMode(): SmzCardsBuilder<T> {
     this._state.isDebug = true;
     return this;
@@ -224,54 +172,21 @@ export class SmzCardsBuilder<T> {
   public build(): SmzCardsState<T> {
 
     if (this._state.isDebug) {
-      console.log(this._state);
+      console.log(cloneDeep(this._state));
     }
 
     if (this._state.items$ == null) {
       throw Error('[Smz Cards] You can\'t call \'build()\' without setting the source.');
     }
 
+    if (this._state.template.type == null) {
+      throw Error('[Smz Cards] You need to set a template.');
+    }
+
     if (this._state.view.filterBy != '') {
       this._state.view.showGlobalFilter = true;
     }
 
-    this._state.grid.config = GetTypeConfig(this._state.grid.type, this._state);
-    this._state.list.config = GetTypeConfig(this._state.list.type, this._state);
-
-    let styles = this._state.grid.styleClass;
-    this._state.grid.styleClass.all = `${styles.layout} ${styles.padding} ${styles.general}`;
-
-    styles = this._state.list.styleClass;
-    this._state.list.styleClass.all = `${styles.layout} ${styles.padding} ${styles.general}`;
-
     return this._state;
-  }
-}
-
-function GetTypeConfig(type: SmzCardsType, state: SmzCardsState<unknown>): SmzCardsTypes {
-  try {
-    switch (type) {
-      case SmzCardsType.RAW:
-        return null;
-
-      case SmzCardsType.IMAGE_WITH_DETAILS:
-        const image = state.columns.find(x => x.content.type == SmzCardsContentType.IMAGE && x.isVisible);
-        const texts = state.columns.filter(x => x.content.type !== SmzCardsContentType.IMAGE && x.isVisible);
-
-        const result: ImageWithDetails = {
-          image: {
-            column: image,
-            content: image.content as SmzCardsImageContent,
-          },
-          texts
-        };
-        return result;
-
-      default:
-        return null;
-    }
-  } catch (error) {
-    console.error(error);
-    throw Error(`[Smz Cards] Error while trying to build the config for the type ${type}`);
   }
 }

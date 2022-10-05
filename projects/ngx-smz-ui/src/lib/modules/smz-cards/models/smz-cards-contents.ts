@@ -1,43 +1,32 @@
 export type SmzCardsContentTypes =
   SmzCardsTextContent |
-  SmzCardsCalendarContent |
   SmzCardsCustomContent |
-  SmzCardsDataTransformContent |
   SmzCardsImageContent;
 
 export enum SmzCardsContentType {
   CUSTOM = 0,
   TEXT = 1,
-  CALENDAR = 2,
-  DATA_TRANSFORM = 3,
-  IMAGE = 4
+  IMAGE = 2
 }
 
 export interface SmzCardsBaseContent {
+  key: string;
   type: SmzCardsContentType;
   dataPath: string;
+  isVisible: boolean;
+  styleClass: string;
 }
 
 export interface SmzCardsTextContent extends SmzCardsBaseContent {
   type: SmzCardsContentType.TEXT;
   maxLength: number;
   shortenSuffix: string;
+  callback?: (data: any, row: any) => string;
 }
 
 export interface SmzCardsCustomContent extends SmzCardsBaseContent {
   type: SmzCardsContentType.CUSTOM;
   searchPath: string;
-}
-
-export interface SmzCardsCalendarContent extends SmzCardsBaseContent {
-  type: SmzCardsContentType.CALENDAR;
-  format: 'shortDate' | 'short' | 'medium' | 'long' | 'mediumDate' | 'longDate' | 'shortTime';
-}
-
-export interface SmzCardsDataTransformContent extends SmzCardsBaseContent {
-  type: SmzCardsContentType.DATA_TRANSFORM;
-  callback: (data: any, row: any, index: number) => string;
-  styleClass: string;
 }
 
 export interface SmzCardsImageContent extends SmzCardsBaseContent {

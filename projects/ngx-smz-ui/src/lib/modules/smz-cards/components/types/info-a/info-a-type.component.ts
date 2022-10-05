@@ -1,19 +1,20 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { SmzCardsState } from '../../../models/smz-cards-state';
-import { RawTemplate } from '../../../models/smz-cards-templates';
 import { SmzCardsView } from '../../../models/smz-cards-types';
+import { InfoATemplate } from '../../../models/smz-cards-templates';
 
 @Component({
-  selector: 'smz-raw-type',
-  templateUrl: 'raw-type.component.html',
+  selector: 'smz-info-a-type',
+  templateUrl: 'info-a-type.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class SmzRawTypeComponent implements OnInit {
+export class SmzInfoATypeComponent implements OnInit {
   @Input() public state: SmzCardsState<unknown>;
-  @Input() public template: RawTemplate;
+  @Input() public template: InfoATemplate;
   @Input() public data: unknown;
   @Input() public mode: SmzCardsView;
+  public InfoATemplate: InfoATemplate;
   public modes = SmzCardsView;
   constructor() { }
 

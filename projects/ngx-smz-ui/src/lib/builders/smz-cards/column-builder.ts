@@ -1,201 +1,136 @@
 import { uuidv4 } from '../../common/utils/utils';
-import { SmzCardsBaseContent, SmzCardsCalendarContent, SmzCardsContentType, SmzCardsContentTypes, SmzCardsCustomContent, SmzCardsDataTransformContent, SmzCardsImageContent, SmzCardsTextContent } from '../../modules/smz-cards/models/smz-cards-contents';
-import { SmzCardsColumn } from '../../modules/smz-cards/models/smz-cards-state';
-import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
+import { SmzCardsBaseContent, SmzCardsContentType, SmzCardsImageContent, SmzCardsTextContent } from '../../modules/smz-cards/models/smz-cards-contents';
 import { SmzCardsBuilder } from './state-builder';
 
-export abstract class SmzCardsBaseColumnBuilder<T extends SmzCardsBaseColumnBuilder<T>> {
+export abstract class SmzCardsBaseColumnBuilder<T extends SmzCardsBaseColumnBuilder<T, TViewData>, TViewData> {
 
-  public _column: SmzCardsColumn = null;
-
-  constructor(protected _builder: SmzCardsBuilder<unknown>, protected _parent: SmzCardsColumnCollectionBuilder, type: SmzCardsContentType, key: string) {
-
-    const columnIndex = _builder._state.columns.findIndex(c => c.key === key);
-
-    if (columnIndex !== -1) {
-
-        // JÁ EXISTE UMA COLUNA
-        this._column = this._builder._state.columns[columnIndex];
-    }
-    else {
-
-      const content: SmzCardsBaseContent = { type, dataPath: '' };
-
-        // NÃO EXISTE A COLUNA AINDA
-        this._column = { key, isVisible: true, styleClass: null, content: content as SmzCardsContentTypes };
-        this._builder._state.columns.push(this._column);
-
-    }
-
+  constructor(protected _builder: SmzCardsBuilder<unknown>, protected _parent: TViewData, protected _content: SmzCardsBaseContent, key: string) {
   }
 
-  // public useSort(order: 'asc' | 'desc'): SmzCardsBaseColumnBuilder<T> {
-  //   this._header.sort = { isActive: true, order: order === 'asc' ? 1 : -1 };
-  //   return this;
-  // }
-
-  public hide(): SmzCardsBaseColumnBuilder<T> {
-    this._column.isVisible = false;
+  public hide(): SmzCardsBaseColumnBuilder<T, TViewData> {
+    this._content.isVisible = false;
     return this;
   }
 
-  public enableGlobalFilter(): SmzCardsBaseColumnBuilder<T> {
+  public enableGlobalFilter(): SmzCardsBaseColumnBuilder<T, TViewData> {
     const isFilterEmpty = this._builder._state.view.filterBy === '' ? true : false;
-    this._builder._state.view.filterBy = `${this._builder._state.view.filterBy}${isFilterEmpty ? '' : ','}${this._column.content.dataPath}`;
+    this._builder._state.view.filterBy = `${this._builder._state.view.filterBy}${isFilterEmpty ? '' : ','}${this._content.dataPath}`;
 
     return this;
   }
 
-  public setStyles(styleClass: string): SmzCardsBaseColumnBuilder<T> {
-    this._column.styleClass = styleClass;
+  public setStyles(styleClass: string): SmzCardsBaseColumnBuilder<T, TViewData> {
+    this._content.styleClass = styleClass;
     return this;
   }
 
-  public get columns(): SmzCardsColumnCollectionBuilder {
+  public get template(): TViewData {
     return this._parent;
   }
 }
 
-export class SmzCardsColumnCollectionBuilder extends SmzBuilderUtilities<SmzCardsColumnCollectionBuilder> {
-  protected that = this;
-  constructor(private _cardsBuilder: SmzCardsBuilder<unknown>) {
-    super();
+export class SmzCardsTextColumnBuilder<TViewData> extends SmzCardsBaseColumnBuilder<SmzCardsTextColumnBuilder<TViewData>, TViewData> {
+
+  constructor(protected _builder: SmzCardsBuilder<unknown>, protected _parent: TViewData, protected _content: SmzCardsTextContent, dataPath: string, key: string = uuidv4()) {
+    super(_builder, _parent, _content, key);
+
+    this._content.type = SmzCardsContentType.TEXT;
+    this._content.dataPath = dataPath;
+    this._content.maxLength = null;
+    this._content.shortenSuffix = '...';
   }
 
-  public text(dataPath: string, key: string = uuidv4()): SmzCardsTextColumnBuilder {
-    return new SmzCardsTextColumnBuilder(this._cardsBuilder, this, dataPath, key);
+  public shorten(length: number, suffix = '...'): SmzCardsTextColumnBuilder<TViewData> {
+    this._content.maxLength = length;
+    this._content.shortenSuffix = suffix;
+    return this;
   }
 
-  public custom(dataPath: string, key: string): SmzCardsCustomColumnBuilder {
-    return new SmzCardsCustomColumnBuilder(this._cardsBuilder, this, dataPath, key);
-  }
-
-  public date(dataPath: string, key: string = uuidv4()): SmzCardsDateColumnBuilder {
-    return new SmzCardsDateColumnBuilder(this._cardsBuilder, this, dataPath, key);
-  }
-
-  public dataTransform(dataPath: string, key: string = uuidv4()): SmzCardsDataTransformColumnBuilder {
-    return new SmzCardsDataTransformColumnBuilder(this._cardsBuilder, this, dataPath, key);
-  }
-
-  public image(dataPath: string, key: string = uuidv4()): SmzCardsImageColumnBuilder {
-    return new SmzCardsImageColumnBuilder(this._cardsBuilder, this, dataPath, key);
-  }
-
-  public get cards(): SmzCardsBuilder<unknown> {
-    return this._cardsBuilder;
-  }
-}
-
-export class SmzCardsTextColumnBuilder extends SmzCardsBaseColumnBuilder<SmzCardsTextColumnBuilder> {
-  constructor(protected _builder: SmzCardsBuilder<unknown>, protected _parent: SmzCardsColumnCollectionBuilder, dataPath: string, key: string = uuidv4()) {
-    super(_builder, _parent, SmzCardsContentType.TEXT, key);
-
-    const content = this._column.content as SmzCardsTextContent;
-    content.dataPath = dataPath;
-    content.maxLength = null;
-    content.shortenSuffix = '...';
-  }
-
-  public shorten(length: number, suffix = '...'): SmzCardsTextColumnBuilder {
-    const content = this._column.content as SmzCardsTextContent;
-
-    content.maxLength = length;
-    content.shortenSuffix = suffix;
-
+  public transform(callback: (data: any, row: any) => string, key: string = uuidv4()): SmzCardsTextColumnBuilder<TViewData> {
+    this._content.callback = callback;
     return this;
   }
 
 }
 
-export class SmzCardsDateColumnBuilder extends SmzCardsBaseColumnBuilder<SmzCardsDateColumnBuilder> {
-  constructor(protected _builder: SmzCardsBuilder<unknown>, protected _parent: SmzCardsColumnCollectionBuilder, dataPath: string, key: string = uuidv4()) {
-    super(_builder, _parent, SmzCardsContentType.CALENDAR, key);
+// export class SmzCardsDateColumnBuilder extends SmzCardsBaseColumnBuilder<SmzCardsDateColumnBuilder> {
+//   constructor(protected _builder: SmzCardsBuilder<unknown>, protected _parent: SmzCardsColumnCollectionBuilder, dataPath: string, key: string = uuidv4()) {
+//     super(_builder, _parent, SmzCardsContentType.CALENDAR, key);
 
-    (this._column.content as SmzCardsCalendarContent).dataPath = dataPath;
-  }
+//     (this._column.content as SmzCardsCalendarContent).dataPath = dataPath;
+//   }
 
-  public setDateFormat(format: 'shortDate' | 'short' | 'medium' | 'long' | 'mediumDate' | 'longDate' | 'shortTime'): SmzCardsDateColumnBuilder {
-    (this._column.content as SmzCardsCalendarContent).format = format;
-    return this;
-  }
+//   public setDateFormat(format: 'shortDate' | 'short' | 'medium' | 'long' | 'mediumDate' | 'longDate' | 'shortTime'): SmzCardsDateColumnBuilder {
+//     (this._column.content as SmzCardsCalendarContent).format = format;
+//     return this;
+//   }
 
-}
+// }
 
-export class SmzCardsCustomColumnBuilder extends SmzCardsBaseColumnBuilder<SmzCardsCustomColumnBuilder> {
-  constructor(protected _builder: SmzCardsBuilder<unknown>, protected _parent: SmzCardsColumnCollectionBuilder, dataPath: string, key: string = uuidv4()) {
-    super(_builder, _parent, SmzCardsContentType.CUSTOM, key);
+// export class SmzCardsCustomColumnBuilder extends SmzCardsBaseColumnBuilder<SmzCardsCustomColumnBuilder> {
+//   constructor(protected _builder: SmzCardsBuilder<unknown>, protected _parent: SmzCardsColumnCollectionBuilder, dataPath: string, key: string = uuidv4()) {
+//     super(_builder, _parent, SmzCardsContentType.CUSTOM, key);
 
-    (this._column.content as SmzCardsCustomContent).dataPath = dataPath;
-    (this._column.content as SmzCardsCustomContent).searchPath = dataPath;
-  }
+//     (this._column.content as SmzCardsCustomContent).dataPath = dataPath;
+//     (this._column.content as SmzCardsCustomContent).searchPath = dataPath;
+//   }
 
-  public setSearchDataPath(dataPath: string): SmzCardsCustomColumnBuilder {
-    (this._column.content as SmzCardsCustomContent).searchPath = dataPath;
-    return this;
-  }
+//   public setSearchDataPath(dataPath: string): SmzCardsCustomColumnBuilder {
+//     (this._column.content as SmzCardsCustomContent).searchPath = dataPath;
+//     return this;
+//   }
 
-}
+// }
 
-export class SmzCardsDataTransformColumnBuilder extends SmzCardsBaseColumnBuilder<SmzCardsDataTransformColumnBuilder> {
-  constructor(protected _builder: SmzCardsBuilder<unknown>, protected _parent: SmzCardsColumnCollectionBuilder, dataPath: string, key: string = uuidv4()) {
-    super(_builder, _parent, SmzCardsContentType.DATA_TRANSFORM, key);
+// export class SmzCardsDataTransformColumnBuilder extends SmzCardsBaseColumnBuilder<SmzCardsDataTransformColumnBuilder> {
+//   constructor(protected _builder: SmzCardsBuilder<unknown>, protected _parent: SmzCardsColumnCollectionBuilder, dataPath: string, key: string = uuidv4()) {
+//     super(_builder, _parent, SmzCardsContentType.DATA_TRANSFORM, key);
 
-    (this._column.content as SmzCardsDataTransformContent).dataPath = dataPath;
-    // this._header.searchPath = dataPath;
-    (this._column.content as SmzCardsDataTransformContent).callback = () => '';
-  }
+//     (this._column.content as SmzCardsDataTransformContent).dataPath = dataPath;
+//     // this._header.searchPath = dataPath;
+//     (this._column.content as SmzCardsDataTransformContent).callback = () => '';
+//   }
 
-  public setCallback(callback: (data: any, row: any, index: number) => string, key: string = uuidv4()): SmzCardsDataTransformColumnBuilder {
-    (this._column.content as SmzCardsDataTransformContent).callback = callback;
-    return this;
-  }
+//   public setCallback(callback: (data: any, row: any, index: number) => string, key: string = uuidv4()): SmzCardsDataTransformColumnBuilder {
+//     (this._column.content as SmzCardsDataTransformContent).callback = callback;
+//     return this;
+//   }
 
-  // public setSearchAndSortDataPath(dataPath: string): SmzCardsDataTransformColumnBuilder {
-  //   this._header.searchPath = dataPath;
-  //   this._header.sortPath = dataPath;
-  //   return this;
-  // }
+//   // public setSearchAndSortDataPath(dataPath: string): SmzCardsDataTransformColumnBuilder {
+//   //   this._header.searchPath = dataPath;
+//   //   this._header.sortPath = dataPath;
+//   //   return this;
+//   // }
 
-}
+// }
 
-export class SmzCardsImageColumnBuilder extends SmzCardsBaseColumnBuilder<SmzCardsImageColumnBuilder> {
-  constructor(protected _builder: SmzCardsBuilder<unknown>, protected _parent: SmzCardsColumnCollectionBuilder, dataPath: string, key: string = uuidv4()) {
-    super(_builder, _parent, SmzCardsContentType.IMAGE, key);
+export class SmzCardsImageColumnBuilder<TViewData> extends SmzCardsBaseColumnBuilder<SmzCardsImageColumnBuilder<TViewData>, TViewData> {
+  constructor(protected _builder: SmzCardsBuilder<unknown>, protected _parent: TViewData, protected _content: SmzCardsImageContent, dataPath: string, key: string = uuidv4()) {
+    super(_builder, _parent, _content, key);
 
-    this._column.content = {
-      ...this._column.content,
-      dataPath,
-      useServerPath: false,
-      title: {
+      this._content.type = SmzCardsContentType.IMAGE;
+      this._content.dataPath = dataPath;
+      this._content.useServerPath = false;
+      this._content.title = {
         isVisible: false,
         getText: null
-      }
-    } as SmzCardsImageContent;
+      };
   }
 
-  public useServerPath(): SmzCardsImageColumnBuilder {
-    (this._column.content as SmzCardsImageContent).useServerPath = true;
+  public useServerPath(): SmzCardsImageColumnBuilder<TViewData> {
+    this._content.useServerPath = true;
     return this;
   }
 
-  public setTitle(title: string): SmzCardsImageColumnBuilder {
-
-    const entity = (this._column.content as SmzCardsImageContent);
-
-    entity.title.isVisible = true;
-    entity.title.getText = () => title;
-
+  public setTitle(title: string): SmzCardsImageColumnBuilder<TViewData> {
+    this._content.title.isVisible = true;
+    this._content.title.getText = () => title;
     return this;
   }
 
-  public setDynamicTitle(callback: (item: any) => string): SmzCardsImageColumnBuilder {
-
-    const entity = (this._column.content as SmzCardsImageContent);
-
-    entity.title.isVisible = true;
-    entity.title.getText = callback;
-
+  public setDynamicTitle(callback: (item: any) => string): SmzCardsImageColumnBuilder<TViewData> {
+    this._content.title.isVisible = true;
+    this._content.title.getText = callback;
     return this;
   }
 

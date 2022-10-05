@@ -28,6 +28,11 @@ export class SmzCardsMenuBuilder {
     return this;
   }
 
+  public setCollapse(menuItemCount: number): SmzCardsMenuBuilder {
+    this._cardsBuilder._state.menu.collapseLimit = menuItemCount;
+    return this;
+  }
+
   public get cards(): SmzCardsBuilder<any> {
 
     if (this._cardsBuilder._state.menu.callback == null) {

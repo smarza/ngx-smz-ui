@@ -19,6 +19,8 @@ import { NgxSmzMenuModule } from '../smz-menu/smz-menu.module';
 import { TooltipModule } from 'primeng/tooltip';
 import { SafeContentPipeModule } from '../../common/pipes/safe-html.pipe';
 import { SharedModule } from 'primeng/api';
+import { SmzInfoATypeComponent } from './components/types/info-a/info-a-type.component';
+import { NgxSmzDataPipesModule } from '../../common/data-pipes/data-pipes.module';
 
 @NgModule({
   imports: [
@@ -32,7 +34,8 @@ import { SharedModule } from 'primeng/api';
     NgxSmzServerImageModule,
     NgxSmzMenuModule,
     TooltipModule,
-    SafeContentPipeModule
+    SafeContentPipeModule,
+    NgxSmzDataPipesModule
   ],
   exports: [SmzCardsComponent, SharedModule],
   declarations: [
@@ -56,6 +59,7 @@ import { SharedModule } from 'primeng/api';
     // Type Components
     SmzRawTypeComponent,
     SmzImageWithDetailsTypeComponent,
+    SmzInfoATypeComponent
   ],
   providers: [],
 })

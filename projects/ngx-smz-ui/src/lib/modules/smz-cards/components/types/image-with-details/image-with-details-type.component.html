@@ -5,48 +5,28 @@
   <div class="h-full grid grid-nogutter flex-col items-start justify-start gap-2 relative" [ngClass]="{ 'border border-red-500 border-solid': state.isDebug }">
 
     <!-- IMAGE -->
-    <img
-      serverImage
-      [path]="(data | cardsContent : config.image.content.dataPath).result"
-      [maximize]="true"
-      [placeholder]="'assets/images/placeholder.jpeg'"
-      [title]="config.image.content.title.isVisible ? config.image.content.title.getText(data) : null"
-      [useServerPath]="config.image.content.useServerPath"
-      class="h-60 w-full object-cover rounded-lg"
-      [ngClass]="config.image.column.styleClass"
-    >
+    <ng-container *ngIf="template.image as image">
+      <img
+        serverImage
+        [path]="(data | cardsContent : image.dataPath).result"
+        [maximize]="true"
+        [placeholder]="'assets/images/placeholder.jpeg'"
+        [title]="image.title.isVisible ? image.title.getText(data) : null"
+        [useServerPath]="image.useServerPath"
+        class="h-60 w-full object-cover rounded-lg"
+        [ngClass]="image.styleClass"
+      >
+    </ng-container>
+
+    <!-- TITLE -->
+    <div *ngIf="template.title as title" contentSelector [content]="title" [data]="data" [ngClass]="template.title.styleClass ?? 'font-bold'"></div>
+
+    <!-- SUBTITLE -->
+    <div *ngIf="template.subTitle as subTitle" contentSelector [content]="subTitle" [data]="data" [ngClass]="subTitle.styleClass ?? 'text-sm'"></div>
 
     <!-- DETAILS -->
-    <ng-container *ngFor="let column of config.texts; let i = index">
-
-      <ng-container [ngSwitch]="i">
-
-        <ng-container *ngSwitchCase="0">
-            <!-- PRIMEIRO -->
-            <div
-              contentSelector [column]="column" [data]="data" [index]="i"
-              [ngClass]="column.styleClass ?? 'font-bold'"
-            ></div>
-        </ng-container>
-
-        <ng-container *ngSwitchCase="1">
-          <!-- SEGUNDO -->
-          <div
-            contentSelector [column]="column" [data]="data" [index]="i"
-            [ngClass]="column.styleClass ?? 'text-sm'"
-          ></div>
-        </ng-container>
-
-        <ng-container *ngSwitchDefault>
-          <!-- OUTROS -->
-          <div
-            contentSelector [column]="column" [data]="data" [index]="i"
-            [ngClass]="column.styleClass ?? 'text-sm'"
-          ></div>
-        </ng-container>
-
-      </ng-container>
-
+    <ng-container *ngFor="let other of template.others let i = index">
+      <div contentSelector [content]="other" [data]="data" [ngClass]="other.styleClass ?? 'text-sm'"></div>
     </ng-container>
 
     <div class="col"></div>
@@ -54,7 +34,7 @@
     <!-- ACTIONS -->
     <ng-container *ngIf="state.menu.callback(data) as menu">
 
-      <ng-container *ngIf="menu.length < 3; else menuButtonTemplate">
+      <ng-container *ngIf="menu.length <= state.menu.collapseLimit; else menuButtonTemplate">
         <!-- MENU ITEMS -->
         <div class="grid grid-nogutter items-center justify-start gap-1">
           <ng-container *ngFor="let menuItem of menu; let i = index">
@@ -81,49 +61,30 @@
   <div class="grid grid-nogutter items-start justify-start gap-4 relative col" [ngClass]="{ 'border border-red-500 border-solid': state.isDebug }">
 
     <!-- IMAGE -->
-    <img
-      serverImage
-      [path]="(data | cardsContent : config.image.content.dataPath).result"
-      [maximize]="true"
-      [placeholder]="'assets/images/placeholder.jpeg'"
-      [title]="config.image.content.title.isVisible ? config.image.content.title.getText(data) : null"
-      [useServerPath]="config.image.content.useServerPath"
-      class="h-44 w-44 object-cover rounded-lg"
-      [ngClass]="config.image.column.styleClass"
-    >
+    <ng-container *ngIf="template.image as image">
+      <img
+        serverImage
+        [path]="(data | cardsContent : image.dataPath).result"
+        [maximize]="true"
+        [placeholder]="'assets/images/placeholder.jpeg'"
+        [title]="image.title.isVisible ? image.title.getText(data) : null"
+        [useServerPath]="image.useServerPath"
+        class="h-44 w-44 object-cover rounded-lg"
+        [ngClass]="image.styleClass"
+      >
+    </ng-container>
 
-    <div class="h-full grid grid-nogutter flex-col items-start justify-start gap-2 relative col">
+    <div class="h-full grid grid-nogutter flex-col items-start justify-start gap-2 relative  col">
+
+      <!-- TITLE -->
+      <div *ngIf="template.title as title" contentSelector [content]="title" [data]="data" [ngClass]="template.title.styleClass ?? 'font-bold'"></div>
+
+      <!-- SUBTITLE -->
+      <div *ngIf="template.subTitle as subTitle" contentSelector [content]="subTitle" [data]="data" [ngClass]="subTitle.styleClass ?? 'text-sm'"></div>
+
       <!-- DETAILS -->
-      <ng-container *ngFor="let column of config.texts; let i = index">
-
-        <ng-container [ngSwitch]="i">
-
-          <ng-container *ngSwitchCase="0">
-              <!-- PRIMEIRO -->
-              <div
-                contentSelector [column]="column" [data]="data" [index]="i"
-                [ngClass]="column.styleClass ?? 'font-bold'"
-              ></div>
-          </ng-container>
-
-          <ng-container *ngSwitchCase="1">
-            <!-- SEGUNDO -->
-            <div
-              contentSelector [column]="column" [data]="data" [index]="i"
-              [ngClass]="column.styleClass ?? 'text-sm'"
-            ></div>
-          </ng-container>
-
-          <ng-container *ngSwitchDefault>
-            <!-- OUTROS -->
-            <div
-              contentSelector [column]="column" [data]="data" [index]="i"
-              [ngClass]="column.styleClass ?? 'text-sm'"
-            ></div>
-          </ng-container>
-
-        </ng-container>
-
+      <ng-container *ngFor="let other of template.others let i = index">
+        <div contentSelector [content]="other" [data]="data" [ngClass]="other.styleClass ?? 'text-sm'"></div>
       </ng-container>
 
       <div class="col"></div>
@@ -131,7 +92,7 @@
       <!-- ACTIONS -->
       <ng-container *ngIf="state.menu.callback(data) as menu">
 
-        <ng-container *ngIf="menu.length < 3; else menuButtonTemplate">
+        <ng-container *ngIf="menu.length <= state.menu.collapseLimit; else menuButtonTemplate">
           <!-- MENU ITEMS -->
           <div class="grid grid-nogutter items-center justify-start gap-1">
             <ng-container *ngFor="let menuItem of menu; let i = index">
@@ -150,8 +111,6 @@
       </ng-container>
     </div>
   </div>
-
-  <div class="w-full border-b border-solid border-b-surface-100 pt-4"></div>
 
 </ng-container>
 

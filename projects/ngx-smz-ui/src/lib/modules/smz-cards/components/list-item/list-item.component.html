@@ -1,13 +1,19 @@
-<ng-container [ngSwitch]="state.list.type">
+<ng-container [ngSwitch]="state.template.type">
 
   <ng-container *ngSwitchCase="type.RAW">
-    <smz-raw-type [state]="state" [data]="data" [mode]="mode"></smz-raw-type>
+    <smz-raw-type [state]="state" [data]="data" [template]="$any(state.template)" [mode]="mode"></smz-raw-type>
   </ng-container>
 
   <ng-container *ngSwitchCase="type.IMAGE_WITH_DETAILS">
-    <smz-image-with-details-type [config]="state.list.config" [state]="state" [data]="data" [mode]="mode"></smz-image-with-details-type>
+    <smz-image-with-details-type [state]="state" [template]="$any(state.template)" [data]="data" [mode]="mode"></smz-image-with-details-type>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="type.INFO_A">
+    <smz-info-a-type [state]="state" [data]="data" [template]="$any(state.template)" [mode]="mode"></smz-info-a-type>
   </ng-container>
 
   <ng-container *ngSwitchDefault></ng-container>
 
 </ng-container>
+
+<div class="w-full border-b border-solid border-b-surface-100 pt-4"></div>

@@ -1,16 +1,15 @@
 import { AfterViewInit, Directive, ElementRef, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { SmzCardsColumn } from '../models/smz-cards-state';
 import { ObjectUtils } from 'primeng/utils';
-import { SmzCardsContentType } from '../models/smz-cards-contents';
+import { SmzCardsContentType, SmzCardsContentTypes } from '../models/smz-cards-contents';
 
 @Directive({
   selector: "div[contentSelector]",
 })
 export class SmzCardsContentSelectorDirective implements AfterViewInit, OnChanges {
 
-  @Input() public column: SmzCardsColumn;
+  @Input() public content: SmzCardsContentTypes;
   @Input() public data: any;
-  @Input() public index: number;
+  @Input() public callback: (data: any, row: any) => string;
   constructor(private el: ElementRef) { }
 
   public ngOnChanges(changes: SimpleChanges): void {
@@ -24,22 +23,20 @@ export class SmzCardsContentSelectorDirective implements AfterViewInit, OnChange
   }
   public setupInnerHtml() {
 
-    const content = this.column.content;
+    const content = this.content;
 
     let value = this.getValue(this.data, content.dataPath);
 
     switch (content.type) {
       case SmzCardsContentType.TEXT:
-        value = this.getValue(this.data, content.dataPath);
+        if (content.callback != null) {
+          value =  content.callback(value, this.data);
+        }
 
         if (content.maxLength != null && value.length > content.maxLength) {
           value = `${value.slice(0, content.maxLength - 1)}${content.shortenSuffix}`;
         }
 
-        break;
-
-      case SmzCardsContentType.DATA_TRANSFORM:
-        value = content.callback(value, this.data, this.index);
         break;
 
       default:
