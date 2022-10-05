@@ -9,10 +9,10 @@ const store = GlobalInjector.instance.get(Store);
 
 export const CardsDemo: { [key: string]: { code: () => void } } = {
   //
-  [DemoKeys.CARDS_SAMPLE]: {
+  [DemoKeys.CARDS_IMAGE_WITH_DETAILS]: {
     code: () => {
     return new SmzCardsBuilder<SmzCardsDemoData>()
-        .setTitle('Demo Cards')
+        .setTitle('Demo Cards | Image with Details')
         .setSource(of(SmzCardsDemo))
         .template()
           .imageWithDetails()
@@ -33,6 +33,65 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
           .cards
         .grid()
           .setLayout('col-12 lg:col-6 xl:col-3')
+          .setPadding('p-2')
+          .cards
+        .list()
+          .setLayout('col-12')
+          .setPadding('px-0 pt-4')
+          .cards
+        .buttons()
+          .item('Consultar')
+            .setCallback((event: any) => console.log('--- Consultar'))
+            .menu
+          .cards
+        .menu()
+          .item('Atualizar')
+            .setCallback((event: any) => console.log('--- Atualizar'))
+            .menu
+          .separator()
+          .item('Apagar', 'fa-solid fa-trash')
+            .setCallback((event: any) => console.log('--- Apagar'))
+            .menu
+          .cards
+      .build()
+  }
+  },
+  //
+  [DemoKeys.CARDS_INFO_A]: {
+    code: () => {
+    return new SmzCardsBuilder<SmzCardsDemoData>()
+        .setTitle('Demo Cards | Info A')
+        .setSource(of(SmzCardsDemo))
+        .template()
+          .infoA()
+            .setBulletsStyles('bg-red-500')
+            .setVerticalBarStyles('border-red-500')
+            .setCardStyles('bg-surface-50')
+            .title(nameof<SmzCardsDemoData>('date'), 'Elemento')
+              .transform((date) => moment(date).format('lll'))
+              .template
+            // .subTitle(namesof<SmzCardsDemoData, SimpleNamedEntity>('type', 'name'))
+            //   .enableGlobalFilter()
+            //   .template
+            .addTag(namesof<SmzCardsDemoData, SimpleNamedEntity>('type', 'name'))
+              .setStyles('bg-green-200 text-surface-50')
+              .template
+            .addInfo(nameof<SmzCardsDemoData>('notes'), 'Último', 'bg-blue-500')
+              .transform((date) => '6 gotas')
+              .template
+            .addInfo(nameof<SmzCardsDemoData>('notes'), 'Acumulado', 'bg-green-500')
+              .transform((date) => '0.050 gotas')
+              .template
+            .addInfo(nameof<SmzCardsDemoData>('date'), 'Início')
+              .transform((date) => moment(date).format('lll'))
+              .template
+            .addInfo(nameof<SmzCardsDemoData>('date'), 'Final')
+              .transform((date) => moment(date).format('lll'))
+              .template
+            .template
+          .cards
+        .grid()
+          .setLayout('col-12 lg:col-6 xl:col-4')
           .setPadding('p-2')
           .cards
         .list()

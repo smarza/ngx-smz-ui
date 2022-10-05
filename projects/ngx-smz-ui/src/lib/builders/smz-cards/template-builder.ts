@@ -3,7 +3,7 @@ import { ImageWithDetailsTemplate, InfoATemplate, RawTemplate, SmzCardsTemplate,
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzCardsBuilder } from './state-builder';
 import { SmzCardsImageContent, SmzCardsTextContent } from '../../modules/smz-cards/models/smz-cards-contents';
-import { SmzCardsImageColumnBuilder, SmzCardsTextColumnBuilder } from './column-builder';
+import { SmzCardsImageBuilder, SmzCardsTextBuilder } from './column-builder';
 
 export abstract class SmzCardsBaseTemplateBuilder<T extends SmzCardsBaseTemplateBuilder<T>> {
 
@@ -107,37 +107,97 @@ export class SmzCardsImageWithDetailsBuilder extends SmzCardsBaseTemplateBuilder
     _template.others = [];
   }
 
-  public image(dataPath: string): SmzCardsImageColumnBuilder<SmzCardsImageWithDetailsBuilder> {
+  public image(dataPath: string): SmzCardsImageBuilder<SmzCardsImageWithDetailsBuilder> {
     this._template.image = {} as SmzCardsImageContent;
-    return new SmzCardsImageColumnBuilder<SmzCardsImageWithDetailsBuilder>(this._builder, this, this._template.image, dataPath);
+    return new SmzCardsImageBuilder<SmzCardsImageWithDetailsBuilder>(this._builder, this, this._template.image, dataPath);
   }
 
-  public title(dataPath: string): SmzCardsTextColumnBuilder<SmzCardsImageWithDetailsBuilder> {
+  public title(dataPath: string): SmzCardsTextBuilder<SmzCardsImageWithDetailsBuilder> {
     this._template.title = {} as SmzCardsTextContent;
-    return new SmzCardsTextColumnBuilder<SmzCardsImageWithDetailsBuilder>(this._builder, this, this._template.title as SmzCardsTextContent, dataPath);
+    return new SmzCardsTextBuilder<SmzCardsImageWithDetailsBuilder>(this._builder, this, this._template.title as SmzCardsTextContent, dataPath);
   }
 
-  public subTitle(dataPath: string): SmzCardsTextColumnBuilder<SmzCardsImageWithDetailsBuilder> {
+  public subTitle(dataPath: string): SmzCardsTextBuilder<SmzCardsImageWithDetailsBuilder> {
     this._template.subTitle = {} as SmzCardsTextContent;
-    return new SmzCardsTextColumnBuilder<SmzCardsImageWithDetailsBuilder>(this._builder, this, this._template.subTitle as SmzCardsTextContent, dataPath);
+    return new SmzCardsTextBuilder<SmzCardsImageWithDetailsBuilder>(this._builder, this, this._template.subTitle as SmzCardsTextContent, dataPath);
   }
 
-  public addText(dataPath: string): SmzCardsTextColumnBuilder<SmzCardsImageWithDetailsBuilder> {
+  public addText(dataPath: string): SmzCardsTextBuilder<SmzCardsImageWithDetailsBuilder> {
     const content = {} as SmzCardsTextContent;
     this._template.others.push(content);
-    return new SmzCardsTextColumnBuilder<SmzCardsImageWithDetailsBuilder>(this._builder, this, content, dataPath);
+    return new SmzCardsTextBuilder<SmzCardsImageWithDetailsBuilder>(this._builder, this, content, dataPath);
   }
 
 }
 
 export class SmzCardsInfoABuilder extends SmzCardsBaseTemplateBuilder<SmzCardsInfoABuilder> {
+  private _bulletStyleClass: string;
   constructor(protected _builder: SmzCardsBuilder<unknown>, protected _parent: SmzCardsTemplateBuilder, protected _template: InfoATemplate) {
     super(_builder, _parent, _template);
+
     _template.type = SmzCardsTemplate.INFO_A;
+    _template.tags = [];
+    _template.infos = [];
   }
 
-  public test(): SmzCardsInfoABuilder {
+  public setVerticalBarStyles(verticalBarStyleClass: string): SmzCardsInfoABuilder {
+    this._template.verticalBarStyleClass = verticalBarStyleClass;
     return this;
+  }
+
+  public setCardStyles(cardStyleClass: string): SmzCardsInfoABuilder {
+    this._template.cardStyleClass = cardStyleClass;
+    return this;
+  }
+
+  public setBulletsStyles(bulletStyleClass: string): SmzCardsInfoABuilder {
+    this._bulletStyleClass = bulletStyleClass;
+
+    return this;
+  }
+
+  public title(dataPath: string, caption: string = ''): SmzCardsTextBuilder<SmzCardsInfoABuilder> {
+    this._template.title = {
+      caption,
+      content: {} as SmzCardsTextContent
+    }
+    return new SmzCardsTextBuilder<SmzCardsInfoABuilder>(this._builder, this, this._template.title.content, dataPath);
+  }
+
+  public subTitle(dataPath: string): SmzCardsTextBuilder<SmzCardsInfoABuilder> {
+    this._template.subTitle = {} as SmzCardsTextContent;
+    return new SmzCardsTextBuilder<SmzCardsInfoABuilder>(this._builder, this, this._template.subTitle, dataPath);
+  }
+
+  public addTag(dataPath: string): SmzCardsTextBuilder<SmzCardsInfoABuilder> {
+    const content = {} as SmzCardsTextContent;
+    this._template.tags.push(content);
+    return new SmzCardsTextBuilder<SmzCardsInfoABuilder>(this._builder, this, content, dataPath);
+  }
+
+  public addInfo(dataPath: string, caption: string = '', bulletStyleClass?: string): SmzCardsTextBuilder<SmzCardsInfoABuilder> {
+    const info = {
+      caption,
+      bulletStyleClass,
+      content: {} as SmzCardsTextContent
+    }
+    this._template.infos.push(info);
+    return new SmzCardsTextBuilder<SmzCardsInfoABuilder>(this._builder, this, info.content, dataPath);
+  }
+
+  public get template(): SmzCardsTemplateBuilder {
+
+    if (this._bulletStyleClass != null) {
+      if (this._template.infos.length === 0) {
+        throw Error('[Smz Cards] You can\'t call \'setBullets\' because there is no info yet.');
+      }
+
+      this._template.infos
+        .filter(x => x.bulletStyleClass == null)
+        .forEach(x => x.bulletStyleClass = this._bulletStyleClass);
+    }
+
+    return this._parent;
   }
 
 }

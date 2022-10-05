@@ -8,6 +8,10 @@
     <smz-image-with-details-type [state]="state" [template]="$any(state.template)" [data]="data" [mode]="mode"></smz-image-with-details-type>
   </ng-container>
 
+  <ng-container *ngSwitchCase="type.INFO_A">
+    <smz-info-a-type [state]="state" [template]="$any(state.template)" [data]="data" [mode]="mode"></smz-info-a-type>
+  </ng-container>
+
   <ng-container *ngSwitchDefault></ng-container>
 
 </ng-container>

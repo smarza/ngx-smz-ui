@@ -1,4 +1,4 @@
-import { SmzCardsContentTypes, SmzCardsImageContent } from './smz-cards-contents';
+import { SmzCardsContentTypes, SmzCardsImageContent, SmzCardsTextContent } from './smz-cards-contents';
 
 export interface SmzCardsBaseTemplate {
   type: SmzCardsTemplate;
@@ -31,10 +31,16 @@ export interface ImageWithDetailsTemplate extends SmzCardsBaseTemplate {
 export interface InfoATemplate extends SmzCardsBaseTemplate {
   type: SmzCardsTemplate.INFO_A;
   verticalBarStyleClass: string;
-  header: SmzCardsContentTypes;
-  subHeader: SmzCardsContentTypes;
+  cardStyleClass: string;
+  title: {
+    caption: string;
+    content: SmzCardsTextContent;
+  };
+  subTitle: SmzCardsTextContent;
+  tags: SmzCardsTextContent[];
   infos: {
     bulletStyleClass: string;
-    content: SmzCardsContentTypes;
+    caption: string;
+    content: SmzCardsTextContent;
   }[];
 }

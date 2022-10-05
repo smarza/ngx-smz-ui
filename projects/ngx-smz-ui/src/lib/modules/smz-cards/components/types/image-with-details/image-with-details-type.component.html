@@ -24,7 +24,7 @@
     <!-- SUBTITLE -->
     <div *ngIf="template.subTitle as subTitle" contentSelector [content]="subTitle" [data]="data" [ngClass]="subTitle.styleClass ?? 'text-sm'"></div>
 
-    <!-- DETAILS -->
+    <!-- OTHERS -->
     <ng-container *ngFor="let other of template.others let i = index">
       <div contentSelector [content]="other" [data]="data" [ngClass]="other.styleClass ?? 'text-sm'"></div>
     </ng-container>
@@ -77,7 +77,7 @@
       <!-- SUBTITLE -->
       <div *ngIf="template.subTitle as subTitle" contentSelector [content]="subTitle" [data]="data" [ngClass]="subTitle.styleClass ?? 'text-sm'"></div>
 
-      <!-- DETAILS -->
+      <!-- OTHERS -->
       <ng-container *ngFor="let other of template.others let i = index">
         <div contentSelector [content]="other" [data]="data" [ngClass]="other.styleClass ?? 'text-sm'"></div>
       </ng-container>

@@ -924,11 +924,18 @@ export const TreeDemoData: DemoTreeNode[] = [
     expanded: false,
     children: [
       {
-        label: 'Sample', icon: 'fa-solid fa-code', type: 'Demo',
+        label: 'Image with Details', icon: 'fa-solid fa-code', type: 'Demo',
         demoType: 'cards',
         notes: '',
-        data: CardsDemo[DemoKeys.CARDS_SAMPLE],
-        key: DemoKeys.CARDS_SAMPLE.toString()
+        data: CardsDemo[DemoKeys.CARDS_IMAGE_WITH_DETAILS],
+        key: DemoKeys.CARDS_IMAGE_WITH_DETAILS.toString()
+      },
+      {
+        label: 'Info A', icon: 'fa-solid fa-code', type: 'Demo',
+        demoType: 'cards',
+        notes: '',
+        data: CardsDemo[DemoKeys.CARDS_INFO_A],
+        key: DemoKeys.CARDS_INFO_A.toString()
       },
     ]
   },

@@ -2,7 +2,54 @@
 
 <ng-container *ngSwitchCase="modes.GRID">
 
-  <div class="h-full grid grid-nogutter flex-col items-start justify-start gap-2 relative" [ngClass]="{ 'border border-red-500 border-solid': state.isDebug }">
+  <div class="h-full grid grid-nogutter flex-col items-start justify-start gap-0 relative rounded-lg p-3 border-0 border-l-8" [ngClass]="template.cardStyleClass + ' ' + template.verticalBarStyleClass + (state.isDebug ? ' border border-red-500 border-solid' : '')">
+
+    <!-- TITLE -->
+    <ng-container *ngIf="template.title as title">
+      <div class="text-xs text-surface-600">{{ title.caption }}</div>
+      <div contentSelector [content]="title.content" [data]="data" [ngClass]="template.title.content.styleClass ?? 'font-bold'"></div>
+    </ng-container>
+
+    <!-- SUBTITLE -->
+    <div *ngIf="template.subTitle as subTitle" contentSelector [content]="subTitle" [data]="data" class="mt-1" [ngClass]="subTitle.styleClass ?? 'text-sm'"></div>
+
+    <!-- TAGS -->
+    <div class="col-12 grid grid-nogutter items-center justify-start gap-2 mt-2">
+      <ng-container *ngFor="let other of template.tags let i = index">
+        <div contentSelector [content]="other" [data]="data" class="px-2 py-1 text-xs bg-gray-200 text-surface-50 rounded" [ngClass]="other.styleClass ?? 'text-sm'"></div>
+      </ng-container>
+    </div>
+
+    <!-- INFOS -->
+    <div class="col-12 grid grid-nogutter items-center justify-start mt-2 gap-3">
+      <ng-container *ngFor="let info of template.infos let i = index">
+        <div class="grid grid-nogutter items-center justify-start gap-2 mr-3">
+          <div class="rounded-2xl h-4 w-4 bg-gray-200" [ngClass]="info.bulletStyleClass"></div>
+          <div class="grid grid-nogutter flex-col items-start justify-start gap-0">
+            <div class="text-xs text-surface-600">{{ info.caption }}</div>
+            <div contentSelector [content]="info.content" [data]="data" class="" [ngClass]="info.content.styleClass ?? 'text-sm'"></div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+
+    <div class="col mt-2"></div>
+
+    <!-- MENU -->
+    <ng-container *ngIf="state.menu.callback != null && state.menu.callback(data) as menu">
+        <div class="grid grid-nogutter items-center justify-end gap-1 col-12 absolute top-2 right-2">
+          <smz-menu [items]="menu" [data]="data" [icon]="state.menu.icon" [styleClass]="state.menu.styleClass" [buttonClass]="state.menu.buttonClass"></smz-menu>
+        </div>
+    </ng-container>
+
+    <!-- BUTTONS -->
+    <ng-container *ngIf="state.buttons.callback != null && state.buttons.callback(data) as buttons">
+      <div class="grid grid-nogutter items-center justify-start gap-1">
+        <ng-container *ngFor="let button of buttons; let i = index">
+          <button pButton pRipple type="button" [label]="button.label" [icon]="button.icon" [pTooltip]="button.tooltip" class="p-button-outlined p-button-sm px-3 py-2" [ngClass]="button.styleClass" (click)="button.command(data)"></button>
+        </ng-container>
+      </div>
+    </ng-container>
 
   </div>
 
@@ -10,9 +57,56 @@
 
 <ng-container *ngSwitchCase="modes.LIST">
 
-  <div class="grid grid-nogutter items-start justify-start gap-4 relative" [ngClass]="{ 'border border-red-500 border-solid': state.isDebug }">
+    <div class="h-full grid grid-nogutter flex-col items-start justify-start gap-0 relative rounded-lg p-3 border-0 border-l-8 col" [ngClass]="template.cardStyleClass + ' ' + template.verticalBarStyleClass + (state.isDebug ? ' border border-red-500 border-solid' : '')">
 
-  </div>
+      <!-- TITLE -->
+      <ng-container *ngIf="template.title as title">
+        <div class="text-xs text-surface-600">{{ title.caption }}</div>
+        <div contentSelector [content]="title.content" [data]="data" [ngClass]="template.title.content.styleClass ?? 'font-bold'"></div>
+      </ng-container>
+
+      <!-- SUBTITLE -->
+      <div *ngIf="template.subTitle as subTitle" contentSelector [content]="subTitle" [data]="data" class="mt-1" [ngClass]="subTitle.styleClass ?? 'text-sm'"></div>
+
+      <!-- TAGS -->
+      <div class="col-12 grid grid-nogutter items-center justify-start gap-2 mt-2">
+        <ng-container *ngFor="let other of template.tags let i = index">
+          <div contentSelector [content]="other" [data]="data" class="px-2 py-1 text-xs bg-gray-200 text-surface-50 rounded" [ngClass]="other.styleClass ?? 'text-sm'"></div>
+        </ng-container>
+      </div>
+
+      <!-- INFOS -->
+      <div class="col-12 grid grid-nogutter items-center justify-start mt-2 gap-3">
+        <ng-container *ngFor="let info of template.infos let i = index">
+          <div class="grid grid-nogutter items-center justify-start gap-2 mr-3">
+            <div class="rounded-2xl h-4 w-4 bg-gray-200" [ngClass]="info.bulletStyleClass"></div>
+            <div class="grid grid-nogutter flex-col items-start justify-start gap-0">
+              <div class="text-xs text-surface-600">{{ info.caption }}</div>
+              <div contentSelector [content]="info.content" [data]="data" class="" [ngClass]="info.content.styleClass ?? 'text-sm'"></div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+
+      <div class="col mt-2"></div>
+
+      <!-- MENU -->
+      <ng-container *ngIf="state.menu.callback != null && state.menu.callback(data) as menu">
+          <div class="grid grid-nogutter items-center justify-end gap-1 col-12 absolute top-2 right-2">
+            <smz-menu [items]="menu" [data]="data" [icon]="state.menu.icon" [styleClass]="state.menu.styleClass" [buttonClass]="state.menu.buttonClass"></smz-menu>
+          </div>
+      </ng-container>
+
+      <!-- BUTTONS -->
+      <ng-container *ngIf="state.buttons.callback != null && state.buttons.callback(data) as buttons">
+        <div class="grid grid-nogutter items-center justify-start gap-1">
+          <ng-container *ngFor="let button of buttons; let i = index">
+            <button pButton pRipple type="button" [label]="button.label" [icon]="button.icon" [pTooltip]="button.tooltip" class="p-button-outlined p-button-sm px-3 py-2" [ngClass]="button.styleClass" (click)="button.command(data)"></button>
+          </ng-container>
+        </div>
+      </ng-container>
+
+    </div>
 
 </ng-container>
 
