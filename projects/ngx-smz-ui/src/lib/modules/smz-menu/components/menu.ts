@@ -29,6 +29,8 @@ import { ZIndexUtils } from "primeng/utils";
 import { RouterModule } from "@angular/router";
 import { RippleModule } from "primeng/ripple";
 import { TooltipModule } from "primeng/tooltip";
+import { SmzMenuItem } from '../models/smz-menu-item';
+import { ConfirmableFunction, CriticalConfirmableFunction } from '../../smz-dialogs/decorators/confirmable.decorator';
 
 @Component({
   selector: "[smzMenuItemContent]",
@@ -264,7 +266,8 @@ export class Menu implements OnDestroy {
     this.hide();
   }
 
-  itemClick(event: MouseEvent, item: MenuItem) {
+  itemClick(event: MouseEvent, item: SmzMenuItem) {
+
     if (item.disabled) {
       event.preventDefault();
       return;
@@ -275,7 +278,17 @@ export class Menu implements OnDestroy {
     }
 
     if (item.command) {
-      item.command(this.rowData);
+
+      if (item.confirmable?.isCritical) {
+        CriticalConfirmableFunction(item.confirmable.title, item.confirmable.message, () => { item.command(this.rowData) })
+      }
+      else if (item.confirmable != null && item.confirmable.isCritical === false) {
+        ConfirmableFunction(item.confirmable.title, item.confirmable.message, () => { item.command(this.rowData) })
+      }
+      else {
+        item.command(this.rowData);
+      }
+
     }
 
     if (this.popup) {

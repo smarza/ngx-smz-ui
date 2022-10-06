@@ -17,7 +17,7 @@ export class SmzCardsMenuBuilder {
 
   public item(label: string, icon: string = null, tooltip: string = null): SmzMenuItemCardsBuilder {
 
-    const item: SmzMenuItem = { label, icon, tooltip, transforms: [], visible: true, disabled: false };
+    const item: SmzMenuItem = { label, icon, tooltip, transforms: [], visible: true, disabled: false, confirmable: null };
     this.items.push(item);
 
     return new SmzMenuItemCardsBuilder(this, null, item);
@@ -62,7 +62,7 @@ export class SmzMenuItemCardsBuilder {
     if (this._item.items == null) {
       this._item.items = [];
     }
-    const item: SmzMenuItem = { label, icon, transforms: [] };
+    const item: SmzMenuItem = { label, icon, transforms: [], confirmable: null };
     this._item.items.push(item);
 
     return new SmzMenuItemCardsBuilder(this._menuBuilder, this, item);
@@ -100,6 +100,24 @@ export class SmzMenuItemCardsBuilder {
 
   public addTransformRule<T>(callback: (item: T) => Partial<MenuItem>): SmzMenuItemCardsBuilder {
     this._item.transforms.push(callback);
+    return this;
+  }
+
+  public askForConfirmation(title: string, message: string): SmzMenuItemCardsBuilder {
+    this._item.confirmable = {
+      title,
+      message,
+      isCritical: false
+    };
+    return this;
+  }
+
+  public askForCriticalConfirmation(title: string, message: string): SmzMenuItemCardsBuilder {
+    this._item.confirmable = {
+      title,
+      message,
+      isCritical: true
+    };
     return this;
   }
 

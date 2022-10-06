@@ -47,3 +47,43 @@ export function Confirmable(
     return descriptor;
   };
 }
+
+export function ConfirmableFunction(title: string, message: string, callback: () => void) {
+  const store = GlobalInjector.instance.get(Store);
+  const actions$ = GlobalInjector.instance.get(Actions);
+
+  let isConfirming = true;
+
+  actions$.pipe(ofActionSuccessful(DialogsActions.ConfirmationSuccess), take(1), takeWhile(x => isConfirming)).subscribe(() => {
+    isConfirming = false;
+    callback();
+    return true;
+  });
+
+  actions$.pipe(ofActionSuccessful(DialogsActions.ConfirmationFailure), take(1), takeWhile(x => isConfirming)).subscribe(() => {
+    isConfirming = false;
+    return null;
+  });
+
+  store.dispatch(new DialogsActions.Confirmation(title ?? 'Mensagem', [message], false));
+}
+
+export function CriticalConfirmableFunction(title: string, message: string, callback: () => void) {
+  const store = GlobalInjector.instance.get(Store);
+  const actions$ = GlobalInjector.instance.get(Actions);
+
+  let isConfirming = true;
+
+  actions$.pipe(ofActionSuccessful(DialogsActions.ConfirmationSuccess), take(1), takeWhile(x => isConfirming)).subscribe(() => {
+    isConfirming = false;
+    callback();
+    return true;
+  });
+
+  actions$.pipe(ofActionSuccessful(DialogsActions.ConfirmationFailure), take(1), takeWhile(x => isConfirming)).subscribe(() => {
+    isConfirming = false;
+    return null;
+  });
+
+  store.dispatch(new DialogsActions.Confirmation(title ?? 'Mensagem', [message], true));
+}

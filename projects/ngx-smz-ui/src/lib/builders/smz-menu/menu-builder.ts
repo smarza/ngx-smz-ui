@@ -76,6 +76,24 @@ export class SmzMenuItemBuilder {
     return this;
   }
 
+  public askForConfirmation(title: string, message: string): SmzMenuItemBuilder {
+    this._item.confirmable = {
+      title,
+      message,
+      isCritical: false
+    };
+    return this;
+  }
+
+  public askForCriticalConfirmation(title: string, message: string): SmzMenuItemBuilder {
+    this._item.confirmable = {
+      title,
+      message,
+      isCritical: true
+    };
+    return this;
+  }
+
   public get menu(): SmzMenuBuilder {
     return this._menuBuilder;
   }

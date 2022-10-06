@@ -105,16 +105,21 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
           .cards
         .buttons()
           .item('Consultar')
-            .setCallback((event: any) => console.log('--- Consultar'))
+            .setCallback((event: any) => console.log('--- Consultar', event))
+            .menu
+          .item('Confirmar')
+            .askForConfirmation('Atenção', 'Confirma?')
+            .setCallback((event: any) => console.log('--- Confirmar', event))
             .menu
           .cards
         .menu()
           .item('Atualizar')
-            .setCallback((event: any) => console.log('--- Atualizar'))
+            .setCallback((event: any) => console.log('--- Atualizar', event))
             .menu
           .separator()
           .item('Apagar', 'fa-solid fa-trash')
-            .setCallback((event: any) => console.log('--- Apagar'))
+            .askForCriticalConfirmation('Atenção', 'Apaga ???')
+            .setCallback((event: any) => console.log('--- Apagar', event))
             .menu
           .cards
       .build()

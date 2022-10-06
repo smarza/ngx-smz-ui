@@ -42,7 +42,7 @@
     <ng-container *ngIf="state.buttons.callback != null && state.buttons.callback(data) as buttons">
       <div class="grid grid-nogutter items-center justify-start gap-1">
         <ng-container *ngFor="let button of buttons; let i = index">
-          <button pButton pRipple type="button" [label]="button.label" [icon]="button.icon" [pTooltip]="button.tooltip" class="p-button-outlined p-button-sm px-3 py-2" [ngClass]="button.styleClass" (click)="button.command(data)"></button>
+          <button *ngIf="button.visible" pButton type="button" buttonAction [item]="button" [data]="data" [label]="button.label" [icon]="button.icon" [disabled]="button.disabled" [pTooltip]="button.tooltip" class="p-button-outlined p-button-sm px-3 py-2" [ngClass]="button.styleClass"></button>
         </ng-container>
       </div>
     </ng-container>
@@ -95,7 +95,7 @@
       <ng-container *ngIf="state.buttons.callback != null && state.buttons.callback(data) as buttons">
         <div class="grid grid-nogutter items-center justify-start gap-1">
           <ng-container *ngFor="let button of buttons; let i = index">
-            <button pButton pRipple type="button" [label]="button.label" [icon]="button.icon" [pTooltip]="button.tooltip" class="p-button-outlined p-button-sm px-3 py-2" [ngClass]="button.styleClass" (click)="button.command(data)"></button>
+            <button *ngIf="button.visible" pButton type="button" buttonAction [item]="button" [data]="data" [label]="button.label" [icon]="button.icon" [disabled]="button.disabled" [pTooltip]="button.tooltip" class="p-button-outlined p-button-sm px-3 py-2" [ngClass]="button.styleClass"></button>
           </ng-container>
         </div>
       </ng-container>
