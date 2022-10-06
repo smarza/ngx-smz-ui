@@ -10,7 +10,8 @@ export const smzHephaestusConfig: HephaestusLayout = {
         toClose: 'fa-solid fa-hand-back-fist',
         toOpen: 'fa-solid fa-person-digging'
     },
-    enableNavigationBack: true
+    enableNavigationBack: true,
+    hideSidebarAfterNavigationEnd: true
 };
 
 export const smzAthenaConfig: AthenaLayout = {
@@ -71,7 +72,7 @@ export const smzLayoutsConfig: SmzLayoutsConfig = {
         notFoundImagePath: 'assets/images/pages/bg-404.jpg',
     },
     assistance: {
-        isEnabled: false,
+        isEnabled: true,
         sidebarData: {
             position: 'right'
         },

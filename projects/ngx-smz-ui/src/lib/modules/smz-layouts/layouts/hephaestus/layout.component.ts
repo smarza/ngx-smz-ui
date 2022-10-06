@@ -13,6 +13,7 @@ import { UiHephaestusSelectors } from './state/ui-layout.selectors';
 import { HephaestusLayout } from './layout.config';
 import { SmzNotification } from '../../core/models/notifications';
 import { SidebarState } from '../../core/models/sidebar-states';
+import { MenuType } from '../../core/models/menu-types';
 
 @Component({
   selector: 'smz-ui-hephaestus-layout',
@@ -37,6 +38,28 @@ export class HephaestusLayoutComponent implements OnInit, AfterContentInit {
   constructor(public readonly config: SmzLayoutsConfig, public readonly layout: HephaestusLayout, public readonly routerListener: RouterDataListenerService, private store: Store, public cdr: ChangeDetectorRef) {
     this.store.dispatch(new LayoutUiActions.Initialize());
     this.store.dispatch(new UiHephaestusActions.Initialize(config, layout));
+
+    if (this.layout.hideSidebarAfterNavigationEnd) {
+      this.config._internal = {
+        ...this.config._internal,
+        specificThemeNavigationEndCallback: () => {
+
+          const layout = this.store.selectSnapshot(UiHephaestusSelectors.layout);
+
+          if (layout.menu === MenuType.STATIC && layout.sidebarState === SidebarState.ACTIVE) {
+
+            const width = window.innerWidth;
+
+            if (width <= 991) {
+              // Mobile
+              this.store.dispatch(new UiHephaestusActions.HideSidebar());
+            }
+          }
+
+        }
+      }
+    }
+
   }
 
   public ngOnInit(): void {

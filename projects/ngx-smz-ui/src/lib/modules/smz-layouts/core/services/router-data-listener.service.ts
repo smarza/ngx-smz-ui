@@ -36,6 +36,11 @@ export class RouterDataListenerService
             if (this.config.debugMode) console.log('ApplicationActions.SetLogExtraData > urlAfterRedirects', event.urlAfterRedirects);
             this.store.dispatch(new ApplicationActions.SetLogExtraData(event.urlAfterRedirects));
           }
+
+          if (this.config._internal?.specificThemeNavigationEndCallback != null) {
+            this.config._internal.specificThemeNavigationEndCallback();
+          }
+
         }),
         map((event) =>
         {

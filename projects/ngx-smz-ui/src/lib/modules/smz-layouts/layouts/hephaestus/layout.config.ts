@@ -13,6 +13,7 @@ export class HephaestusLayout {
     };
 
     enableNavigationBack?: boolean;
+    hideSidebarAfterNavigationEnd?: boolean;
 
 }
 

@@ -44,4 +44,7 @@ export class SmzLayoutsConfig {
      * Flag para indicar se a store de UI deverá atualizar as atividades de entrada e saída do mouse na aplicação
      */
     monitoreMouseEvents?: boolean;
+    _internal?: {
+        specificThemeNavigationEndCallback?: () => void
+    }
 }

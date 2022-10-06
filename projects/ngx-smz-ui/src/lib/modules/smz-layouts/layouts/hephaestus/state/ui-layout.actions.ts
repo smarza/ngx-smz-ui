@@ -1,7 +1,6 @@
 import { SmzLayoutsConfig } from '../../../core/globals/smz-layouts.config';
 import { HephaestusLayout, HephaestusMenuTypes } from '../layout.config';
 
-
 export namespace UiHephaestusActions
 {
 
