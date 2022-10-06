@@ -1,4 +1,4 @@
-import { AfterViewInit, Directive, ElementRef, HostListener, Input, NgModule, OnChanges, SimpleChanges } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, HostBinding, HostListener, Input, NgModule, OnChanges, SimpleChanges } from '@angular/core';
 import { isEmpty } from '../../../builders/common/utils';
 import { environment } from '@environments/environment';
 import { SmzDialogsService } from '../../../modules/smz-dialogs/public-api';
@@ -6,14 +6,22 @@ import { SmzDialogBuilder } from '../../../builders/smz-dialogs/dialog-builder';
 
 @Directive({
   selector: "img[serverImage]",
+  host: {
+    '(error)':'updateUrl()',
+    '(load)': 'load()',
+    '[src]':'src'
+   }
 })
 export class ServerImageDirective implements AfterViewInit, OnChanges {
 
-  @Input() public path;
+  @Input() public src: string;
+  @Input() public path: string;
   @Input() public placeholder = 'assets/images/placeholder.jpeg';
+  @Input() public errorPlaceholder = 'assets/images/error-placeholder.jpeg';
   @Input() public maximize = false;
   @Input() public title = '';
   @Input() public useServerPath = true;
+  @HostBinding('class') public className;
   public currentSrc;
   constructor(private el: ElementRef, private dialogs: SmzDialogsService) { }
 
@@ -29,6 +37,14 @@ export class ServerImageDirective implements AfterViewInit, OnChanges {
     if (this.maximize) {
       this.el.nativeElement.classList.add('cursor-zoom-in');
     }
+  }
+
+  public updateUrl() {
+    this.src = this.errorPlaceholder;
+  }
+
+  public load(){
+    this.className = 'image-loaded';
   }
 
   @HostListener('click', ['$event'])
@@ -68,7 +84,7 @@ export class ServerImageDirective implements AfterViewInit, OnChanges {
     };
 
     img.onerror = () => {
-      this.setImage(this.placeholder);
+      this.setImage(this.errorPlaceholder);
     };
 
     img.src = this.path;

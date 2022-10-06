@@ -28,7 +28,7 @@ export const SmzCardsDemo: SmzCardsDemoData[] = [
     },
     notes: "Descemos novamente a iluminação em 2%",
     date: new Date("2022-09-22T11:39:47.688Z"),
-    imagePath: "https:\\\\reefkeeper.com.br\\files\\storage\\tank_logs\\a9893b5a-bb1b-4146-94f9-ef4201bb0e19.png",
+    imagePath: "https:\\\\reefkeeper.com.br\\files\\storage\\tank_logs\\a9893b5a-bb1b-4146-94f9-ef4201bb0e192.png",
     id: "2b920950-554b-4153-35e2-08da9c8f3ece"
   },
   {

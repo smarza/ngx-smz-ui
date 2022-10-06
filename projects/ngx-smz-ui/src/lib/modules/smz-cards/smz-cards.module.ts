@@ -22,6 +22,7 @@ import { SharedModule } from 'primeng/api';
 import { SmzInfoATypeComponent } from './components/types/info-a/info-a-type.component';
 import { NgxSmzDataPipesModule } from '../../common/data-pipes/data-pipes.module';
 import { ButtonActionsDirective } from './directives/button-actions.directive';
+import { ImgPlaceholderDirective } from './directives/img-placeholder.directive';
 
 @NgModule({
   imports: [
@@ -53,6 +54,7 @@ import { ButtonActionsDirective } from './directives/button-actions.directive';
     // Directives
     SmzCardsContentSelectorDirective,
     ButtonActionsDirective,
+    ImgPlaceholderDirective,
 
     // Content Components
     SmzTextContentComponent,
