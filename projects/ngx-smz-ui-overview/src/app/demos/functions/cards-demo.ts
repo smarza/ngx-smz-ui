@@ -20,6 +20,7 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
             .setContentStyles('px-3 py-2')
             .image(nameof<SmzCardsDemoData>('imagePath'))
               .setDynamicTitle((item: SmzCardsDemoData) => item.date == null ? '' : moment(item.date).format('l'))
+              .setStyles('rounded-b-none')
               .template
             .title(nameof<SmzCardsDemoData>('date'))
               .transform((date) => moment(date).format('lll'))

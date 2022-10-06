@@ -18,7 +18,7 @@
       >
     </ng-container>
 
-    <div class="grid grid-nogutter flex-col items-start justify-start gap-2" [ngClass]="template.contentStyleClass">
+    <div class="grid grid-nogutter flex-col items-start justify-start gap-2 col" [ngClass]="template.contentStyleClass">
 
       <!-- TITLE -->
       <div *ngIf="template.title && !template.title.hideInGrid" contentSelector [content]="template.title" [data]="data" [ngClass]="template.title.styleClass ?? 'font-bold'"></div>
