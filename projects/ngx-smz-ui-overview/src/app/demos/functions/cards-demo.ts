@@ -16,6 +16,8 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
         .setSource(of(SmzCardsDemo))
         .template()
           .imageWithDetails()
+            .setCardStyles('bg-surface-card rounded-lg shadow-md')
+            .setContentStyles('px-3 py-2')
             .image(nameof<SmzCardsDemoData>('imagePath'))
               .setDynamicTitle((item: SmzCardsDemoData) => item.date == null ? '' : moment(item.date).format('l'))
               .template
@@ -73,11 +75,11 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
             .subTitle(namesof<SmzCardsDemoData, SimpleNamedEntity>('type', 'name'))
               .enableGlobalFilter()
               .template
-            .addTag(namesof<SmzCardsDemoData, SimpleNamedEntity>('type', 'name'))
-              .setStyles('bg-green-200 text-surface-50')
-              .template
             .addTag(nameof<SmzCardsDemoData>('notes'))
               .transform((date) => null)
+              .template
+            .addTag(namesof<SmzCardsDemoData, SimpleNamedEntity>('type', 'name'))
+              .setStyles('bg-green-200 text-surface-50')
               .template
             .addInfo(nameof<SmzCardsDemoData>('notes'), 'Último', 'bg-blue-500')
               .transform((date) => '6 gotas')

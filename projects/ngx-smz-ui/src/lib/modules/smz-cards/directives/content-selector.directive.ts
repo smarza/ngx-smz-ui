@@ -47,11 +47,11 @@ export class SmzCardsContentSelectorDirective implements AfterViewInit, OnChange
   }
 
   private hide() {
-    this.el.nativeElement.classList.add('invisible');
+    this.el.nativeElement.classList.add('hidden');
   }
 
   private show() {
-    this.el.nativeElement.classList.remove('invisible');
+    this.el.nativeElement.classList.remove('hidden');
   }
 
   private setInnerHtml(html: string) {

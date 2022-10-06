@@ -107,6 +107,16 @@ export class SmzCardsImageWithDetailsBuilder extends SmzCardsBaseTemplateBuilder
     _template.others = [];
   }
 
+  public setCardStyles(cardStyleClass: string): SmzCardsImageWithDetailsBuilder {
+    this._template.cardStyleClass = cardStyleClass;
+    return this;
+  }
+
+  public setContentStyles(contentStyleClass: string): SmzCardsImageWithDetailsBuilder {
+    this._template.contentStyleClass = contentStyleClass;
+    return this;
+  }
+
   public image(dataPath: string): SmzCardsImageBuilder<SmzCardsImageWithDetailsBuilder> {
     this._template.image = {} as SmzCardsImageContent;
     return new SmzCardsImageBuilder<SmzCardsImageWithDetailsBuilder>(this._builder, this, this._template.image, dataPath);

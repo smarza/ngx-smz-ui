@@ -22,6 +22,8 @@ export interface RawTemplate extends SmzCardsBaseTemplate {
 
 export interface ImageWithDetailsTemplate extends SmzCardsBaseTemplate {
   type: SmzCardsTemplate.IMAGE_WITH_DETAILS;
+  cardStyleClass: string;
+  contentStyleClass: string;
   image: SmzCardsImageContent;
   title: SmzCardsContentTypes;
   subTitle: SmzCardsContentTypes;

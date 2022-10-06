@@ -2,7 +2,7 @@
 
 <ng-container *ngSwitchCase="modes.GRID">
 
-  <div class="h-full grid grid-nogutter flex-col items-start justify-start gap-2 relative" [ngClass]="{ 'border border-red-500 border-solid': state.isDebug }">
+  <div class="h-full grid grid-nogutter flex-col items-start justify-start gap-2 relative" [ngClass]="template.cardStyleClass + (state.isDebug ? ' border border-red-500 border-solid' : '')">
 
     <!-- IMAGE -->
     <ng-container *ngIf="template.image as image">
@@ -13,83 +13,25 @@
         [placeholder]="'assets/images/placeholder.jpeg'"
         [title]="image.title.isVisible ? image.title.getText(data) : null"
         [useServerPath]="image.useServerPath"
-        class="h-60 w-full object-cover rounded-lg"
+        class="h-60 w-full object-cover rounded-lg border-0"
         [ngClass]="image.styleClass"
       >
     </ng-container>
 
-    <!-- TITLE -->
-    <div *ngIf="template.title && !template.title.hideInGrid" contentSelector [content]="template.title" [data]="data" [ngClass]="template.title.styleClass ?? 'font-bold'"></div>
-
-    <!-- SUBTITLE -->
-    <div *ngIf="template.subTitle && !template.subTitle.hideInGrid" contentSelector [content]="template.subTitle" [data]="data" [ngClass]="template.subTitle.styleClass ?? 'text-sm'"></div>
-
-    <!-- OTHERS -->
-    <ng-container *ngFor="let other of template.others let i = index">
-      <div *ngIf="!other.hideInGrid" contentSelector [content]="other" [data]="data" [ngClass]="other.styleClass ?? 'text-sm'"></div>
-    </ng-container>
-
-    <div class="col"></div>
-
-    <!-- MENU -->
-    <ng-container *ngIf="state.menu.callback != null && state.menu.callback(data) as menu">
-        <div class="grid grid-nogutter items-center justify-end gap-1 col-12 absolute top-2 right-2">
-          <smz-menu [items]="menu" [data]="data" [icon]="state.menu.icon" [styleClass]="state.menu.styleClass" [buttonClass]="state.menu.buttonClass"></smz-menu>
-        </div>
-    </ng-container>
-
-    <!-- BUTTONS -->
-    <ng-container *ngIf="state.buttons.callback != null && state.buttons.callback(data) as buttons">
-      <div class="grid grid-nogutter items-center justify-start gap-1">
-        <ng-container *ngFor="let button of buttons; let i = index">
-          <button *ngIf="button.visible" pButton type="button" buttonAction [item]="button" [data]="data" [label]="button.label" [icon]="button.icon" [disabled]="button.disabled" [pTooltip]="button.tooltip" class="p-button-outlined p-button-sm px-3 py-2" [ngClass]="button.styleClass"></button>
-        </ng-container>
-      </div>
-    </ng-container>
-
-  </div>
-
-</ng-container>
-
-<ng-container *ngSwitchCase="modes.LIST">
-
-  <div class="grid grid-nogutter items-start justify-start gap-4 relative col" [ngClass]="{ 'border border-red-500 border-solid': state.isDebug }">
-
-    <!-- IMAGE -->
-    <ng-container *ngIf="template.image as image">
-      <img
-        serverImage
-        [path]="(data | cardsContent : image.dataPath).result"
-        [maximize]="true"
-        [placeholder]="'assets/images/placeholder.jpeg'"
-        [title]="image.title.isVisible ? image.title.getText(data) : null"
-        [useServerPath]="image.useServerPath"
-        class="h-44 w-44 object-cover rounded-lg"
-        [ngClass]="image.styleClass"
-      >
-    </ng-container>
-
-    <div class="h-full grid grid-nogutter flex-col items-start justify-start gap-2 relative  col">
+    <div class="grid grid-nogutter flex-col items-start justify-start gap-2" [ngClass]="template.contentStyleClass">
 
       <!-- TITLE -->
-      <div *ngIf="template.title && !template.title.hideInList" contentSelector [content]="template.title" [data]="data" [ngClass]="template.title.styleClass ?? 'font-bold'"></div>
+      <div *ngIf="template.title && !template.title.hideInGrid" contentSelector [content]="template.title" [data]="data" [ngClass]="template.title.styleClass ?? 'font-bold'"></div>
 
       <!-- SUBTITLE -->
-      <div *ngIf="template.subTitle && !template.subTitle.hideInList" contentSelector [content]="template.subTitle" [data]="data" [ngClass]="template.subTitle.styleClass ?? 'text-sm'"></div>
+      <div *ngIf="template.subTitle && !template.subTitle.hideInGrid" contentSelector [content]="template.subTitle" [data]="data" [ngClass]="template.subTitle.styleClass ?? 'text-sm'"></div>
 
       <!-- OTHERS -->
       <ng-container *ngFor="let other of template.others let i = index">
-        <div *ngIf="!other.hideInList" contentSelector [content]="other" [data]="data" [ngClass]="other.styleClass ?? 'text-sm'"></div>
+        <div *ngIf="!other.hideInGrid" contentSelector [content]="other" [data]="data" [ngClass]="other.styleClass ?? 'text-sm'"></div>
       </ng-container>
 
       <div class="col"></div>
-
-      <!-- MENU -->
-      <ng-container *ngIf="state.menu.callback != null && state.menu.callback(data) as menu">
-        <div class="grid grid-nogutter items-center justify-end gap-1 col-12 absolute top-2 right-2">
-          <smz-menu [items]="menu" [data]="data" [icon]="state.menu.icon" [styleClass]="state.menu.styleClass" [buttonClass]="state.menu.buttonClass"></smz-menu>
-        </div>
-      </ng-container>
 
       <!-- BUTTONS -->
       <ng-container *ngIf="state.buttons.callback != null && state.buttons.callback(data) as buttons">
@@ -101,6 +43,69 @@
       </ng-container>
 
     </div>
+
+    <!-- MENU -->
+    <ng-container *ngIf="state.menu.callback != null && state.menu.callback(data) as menu">
+      <div class="grid grid-nogutter items-center justify-end gap-1 col-12 absolute top-2 right-2">
+        <smz-menu [items]="menu" [data]="data" [icon]="state.menu.icon" [styleClass]="state.menu.styleClass" [buttonClass]="state.menu.buttonClass"></smz-menu>
+      </div>
+    </ng-container>
+
+  </div>
+
+</ng-container>
+
+<ng-container *ngSwitchCase="modes.LIST">
+
+  <div class="grid grid-nogutter items-start justify-start gap-4 relative col" [ngClass]="template.cardStyleClass + (state.isDebug ? ' border border-red-500 border-solid' : '')">
+
+    <!-- IMAGE -->
+    <ng-container *ngIf="template.image as image">
+      <img
+        serverImage
+        [path]="(data | cardsContent : image.dataPath).result"
+        [maximize]="true"
+        [placeholder]="'assets/images/placeholder.jpeg'"
+        [title]="image.title.isVisible ? image.title.getText(data) : null"
+        [useServerPath]="image.useServerPath"
+        class="h-44 w-44 object-cover rounded-lg border-0"
+        [ngClass]="image.styleClass"
+      >
+    </ng-container>
+
+    <div class="h-full grid grid-nogutter flex-col items-start justify-start gap-2 relative col" [ngClass]="template.contentStyleClass">
+
+        <!-- TITLE -->
+        <div *ngIf="template.title && !template.title.hideInList" contentSelector [content]="template.title" [data]="data" [ngClass]="template.title.styleClass ?? 'font-bold'"></div>
+
+        <!-- SUBTITLE -->
+        <div *ngIf="template.subTitle && !template.subTitle.hideInList" contentSelector [content]="template.subTitle" [data]="data" [ngClass]="template.subTitle.styleClass ?? 'text-sm'"></div>
+
+        <!-- OTHERS -->
+        <ng-container *ngFor="let other of template.others let i = index">
+          <div *ngIf="!other.hideInList" contentSelector [content]="other" [data]="data" [ngClass]="other.styleClass ?? 'text-sm'"></div>
+        </ng-container>
+
+        <div class="col"></div>
+
+        <!-- BUTTONS -->
+        <ng-container *ngIf="state.buttons.callback != null && state.buttons.callback(data) as buttons">
+          <div class="grid grid-nogutter items-center justify-start gap-1">
+            <ng-container *ngFor="let button of buttons; let i = index">
+              <button *ngIf="button.visible" pButton type="button" buttonAction [item]="button" [data]="data" [label]="button.label" [icon]="button.icon" [disabled]="button.disabled" [pTooltip]="button.tooltip" class="p-button-outlined p-button-sm px-3 py-2" [ngClass]="button.styleClass"></button>
+            </ng-container>
+          </div>
+        </ng-container>
+
+      </div>
+
+      <!-- MENU -->
+      <ng-container *ngIf="state.menu.callback != null && state.menu.callback(data) as menu">
+        <div class="grid grid-nogutter items-center justify-end gap-1 col-12 absolute top-2 right-2">
+          <smz-menu [items]="menu" [data]="data" [icon]="state.menu.icon" [styleClass]="state.menu.styleClass" [buttonClass]="state.menu.buttonClass"></smz-menu>
+        </div>
+      </ng-container>
+
   </div>
 
 </ng-container>
