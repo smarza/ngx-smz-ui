@@ -78,7 +78,7 @@ export class SmzCardsTextBuilder<TViewData> extends SmzCardsBaseBuilder<SmzCards
         const icon = this._iconConfigurations.find(x => x.value === value);
 
         if (icon == null) {
-          return '';
+          return null;
         }
         else if (icon.appendText == null) {
           return `<i class="${icon.icon} ${icon.styleClass}"></i>`;
