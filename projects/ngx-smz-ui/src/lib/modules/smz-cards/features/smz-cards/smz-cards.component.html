@@ -19,6 +19,10 @@
               </span>
 
               <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+
+              <ng-container *ngIf="state.sources.length > 0">
+                <p-dropdown [options]="state.sources" dataKey="key" [(ngModel)]="state.selectedSource" optionLabel="label" (onChange)="updateMainSource($event)"></p-dropdown>
+              </ng-container>
             </div>
         </div>
     </ng-template>

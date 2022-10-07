@@ -2,7 +2,7 @@ import { DemoKeys } from '@demos/demo-keys';
 import { Store } from '@ngxs/store';
 import { GlobalInjector, nameof, namesof, SmzCardsBuilder, SimpleNamedEntity, SmzCardsTemplate } from 'ngx-smz-ui';
 import { of } from 'rxjs';
-import { SmzCardsDemo, SmzCardsDemoData } from '../data/cards/cards-data';
+import { SmzCardsArchivedDemo, SmzCardsDemo, SmzCardsDemoData } from '../data/cards/cards-data';
 import * as moment from 'moment';
 
 const store = GlobalInjector.instance.get(Store);
@@ -130,6 +130,70 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
           .item('Apagar', 'fa-solid fa-trash')
             .askForCriticalConfirmation('Atenção', 'Apaga ???')
             .setCallback((event: any) => console.log('--- Apagar', event))
+            .menu
+          .cards
+      .build()
+  }
+  },
+  //
+  [DemoKeys.CARDS_WITH_MULTIPLE_SOURCES]: {
+    code: () => {
+    return new SmzCardsBuilder<SmzCardsDemoData>()
+        .setTitle('Demo Cards | Multiple Sources')
+        .sources()
+          .addSource(of(SmzCardsDemo), 'Em atividade')
+            .setAsDefault()
+            .source
+          .addSource(of(SmzCardsArchivedDemo), 'Arquivados')
+            .source
+          .cards
+        .template()
+          .imageWithDetails()
+            .setCardStyles('bg-surface-card rounded-lg shadow-md')
+            .setContentStyles('px-3 py-2')
+            .image(nameof<SmzCardsDemoData>('imagePath'))
+              .setDynamicTitle((item: SmzCardsDemoData) => item.date == null ? '' : moment(item.date).format('l'))
+              .setStyles('rounded-b-none')
+              .template
+            .title(nameof<SmzCardsDemoData>('date'))
+              .transform((date) => moment(date).format('lll'))
+              .template
+            .subTitle(namesof<SmzCardsDemoData, SimpleNamedEntity>('type', 'name'))
+              .transform((date) => 'Sub título aqui')
+              .template
+            .addTag(namesof<SmzCardsDemoData, SimpleNamedEntity>('type', 'name'))
+              .setStyles('px-2 py-1 text-xs bg-green-200 text-surface-600 rounded')
+              .template
+            .addTag(nameof<SmzCardsDemoData>('isArchived'))
+              .setStyles('px-2 py-1 text-xs bg-amber-200 text-surface-600 rounded')
+              .addIconConfiguration('fa-solid fa-box-archive', true, 'text-red-500 text-xs', 'Arquivado')
+              .addIconConfiguration('fa-solid fa-box-archive', false, 'text-surface-100 text-xs')
+              .template
+            .addText(nameof<SmzCardsDemoData>('notes'))
+              .shorten(60)
+              .template
+            .template
+          .cards
+        .grid()
+          .setLayout('col-12 lg:col-6 xl:col-3')
+          .setPadding('p-2')
+          .cards
+        .list()
+          .setLayout('col-12')
+          .setPadding('px-0 pt-4')
+          .cards
+        .buttons()
+          .item('Consultar')
+            .setCallback((event: any) => console.log('--- Consultar'))
+            .menu
+          .cards
+        .menu()
+          .item('Atualizar')
+            .setCallback((event: any) => console.log('--- Atualizar'))
+            .menu
+          .separator()
+          .item('Apagar', 'fa-solid fa-trash')
+            .setCallback((event: any) => console.log('--- Apagar'))
             .menu
           .cards
       .build()

@@ -4,6 +4,8 @@ import { SmzCardsTemplates } from './smz-cards-templates';
 
 export interface SmzCardsState<T> {
   items$: Observable<T[]>;
+  sources: SmzCardsSource<T>[]
+  selectedSource: SmzCardsSource<T>;
   isDebug: boolean;
   title: {
     isVisible: boolean;
@@ -22,6 +24,13 @@ export interface SmzCardsState<T> {
     filterBy: string;
     layout: 'grid' | 'list';
   }
+}
+
+export interface SmzCardsSource<T> {
+  isDefault: boolean;
+  label: string;
+  items$: Observable<T[]>;
+  claims?: string[];
 }
 
 export interface SmzCardActions<T> {

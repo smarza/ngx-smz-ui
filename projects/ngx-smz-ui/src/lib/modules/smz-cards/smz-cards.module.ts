@@ -23,6 +23,7 @@ import { SmzInfoATypeComponent } from './components/types/info-a/info-a-type.com
 import { NgxSmzDataPipesModule } from '../../common/data-pipes/data-pipes.module';
 import { ButtonActionsDirective } from './directives/button-actions.directive';
 import { ImgPlaceholderDirective } from './directives/img-placeholder.directive';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -32,6 +33,7 @@ import { ImgPlaceholderDirective } from './directives/img-placeholder.directive'
     ButtonModule,
     InputTextModule,
     DropdownModule,
+    FormsModule,
     MultiSelectModule,
     NgxSmzServerImageModule,
     NgxSmzMenuModule,

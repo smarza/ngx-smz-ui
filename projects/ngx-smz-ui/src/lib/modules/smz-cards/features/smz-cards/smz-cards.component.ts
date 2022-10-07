@@ -1,6 +1,6 @@
-import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, Input, OnInit, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Input, OnInit, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { PrimeTemplate } from 'primeng/api';
-import { SmzCardsState } from '../../models/smz-cards-state';
+import { SmzCardsSource, SmzCardsState } from '../../models/smz-cards-state';
 
 @Component({
   selector: 'smz-ui-cards',
@@ -15,7 +15,7 @@ export class SmzCardsComponent implements OnInit, AfterContentInit {
   @Input() public state: SmzCardsState<any>;
   public headerTemplate: TemplateRef<any>;
   public contentTemplates: { type: string, template: TemplateRef<any> }[] = [];
-  constructor() { }
+  constructor(private cdr: ChangeDetectorRef) { }
   ngOnInit() {
     if (this.state?.isDebug) {
       console.log('state', this.state);
@@ -48,5 +48,10 @@ export class SmzCardsComponent implements OnInit, AfterContentInit {
       }
 
     });
+  }
+
+  public updateMainSource(event: { value: SmzCardsSource<any> }): void {
+    this.state.items$ = event.value.items$;
+    this.cdr.markForCheck();
   }
 }

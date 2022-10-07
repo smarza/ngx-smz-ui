@@ -2,13 +2,15 @@ import { SmzMenuItem } from '../../modules/smz-menu/models/smz-menu-item';
 import { SmzCardsState } from '../../modules/smz-cards/models/smz-cards-state';
 import { SmzCardsMenuBuilder } from './menu-builder';
 import { Observable } from 'rxjs';
-import { SmzCardsTemplate } from '../../modules/smz-cards/models/smz-cards-templates';
 import { SmzCardsTemplateBuilder, SmzCardViewBuilder } from './template-builder';
 import { cloneDeep } from 'lodash-es';
+import { SmzCardsSourcesBuilder } from './source-builder';
 
 export class SmzCardsBuilder<T> {
   public _state: SmzCardsState<T> = {
     items$: null,
+    sources: [],
+    selectedSource: null,
     isDebug: false,
     title: {
       isVisible: false,
@@ -66,8 +68,17 @@ export class SmzCardsBuilder<T> {
   }
 
   public setSource(items$: Observable<T[]>): SmzCardsBuilder<T> {
+
+    if (this._state.sources.length > 0) {
+      throw Error(`You can't call setSource() after sources().`);
+    }
+
     this._state.items$ = items$;
     return this;
+  }
+
+  public sources(): SmzCardsSourcesBuilder<T> {
+    return new SmzCardsSourcesBuilder<T>(this);
   }
 
   public setTitle(title: string): SmzCardsBuilder<T> {
@@ -185,20 +196,26 @@ export class SmzCardsBuilder<T> {
 
   public build(): SmzCardsState<T> {
 
-    if (this._state.isDebug) {
-      console.log(cloneDeep(this._state));
-    }
-
-    if (this._state.items$ == null) {
-      throw Error('[Smz Cards] You can\'t call \'build()\' without setting the source.');
-    }
-
     if (this._state.template.type == null) {
       throw Error('[Smz Cards] You need to set a template.');
     }
 
     if (this._state.view.filterBy != '') {
       this._state.view.showGlobalFilter = true;
+    }
+
+    if (this._state.sources.length > 0) {
+      const defaultSource = this._state.sources.find(x => x.isDefault);
+      this._state.selectedSource = defaultSource;
+      this._state.items$ = defaultSource.items$;
+    }
+
+    if (this._state.items$ == null) {
+      throw Error('[Smz Cards] You can\'t call \'build()\' without setting the source.');
+    }
+
+    if (this._state.isDebug) {
+      console.log(cloneDeep(this._state));
     }
 
     return this._state;

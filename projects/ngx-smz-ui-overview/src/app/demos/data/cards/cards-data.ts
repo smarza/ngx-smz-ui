@@ -37,18 +37,6 @@ export const SmzCardsDemo: SmzCardsDemoData[] = [
   {
     tankId: "87549138-5447-4730-769c-08da9316733c",
     type: {
-      id: 2,
-      name: "Mudança"
-    },
-    notes: "TPA de 20 Litros no sump com sal AF Reef Salt Probiotics.",
-    date: new Date("2022-09-21T22:00:00Z"),
-    imagePath: "",
-    id: "b4b58ba5-462d-4966-35e3-08da9c8f3ece",
-    isArchived: true
-  },
-  {
-    tankId: "87549138-5447-4730-769c-08da9316733c",
-    type: {
       id: 1,
       name: "Registro Geral"
     },
@@ -57,6 +45,21 @@ export const SmzCardsDemo: SmzCardsDemoData[] = [
     imagePath: "https:\\\\reefkeeper.com.br\\files\\storage\\tank_logs\\c74aa1a3-3f43-4df3-97e9-f10f85abb2f8.png",
     id: "eeeeda39-49bf-4678-2c24-08da9ca9dd78",
     isArchived: false
+  },
+];
+
+export const SmzCardsArchivedDemo: SmzCardsDemoData[] = [
+  {
+    tankId: "87549138-5447-4730-769c-08da9316733c",
+    type: {
+      id: 2,
+      name: "Mudança"
+    },
+    notes: "TPA de 20 Litros no sump com sal AF Reef Salt Probiotics.",
+    date: new Date("2022-09-21T22:00:00Z"),
+    imagePath: "",
+    id: "b4b58ba5-462d-4966-35e3-08da9c8f3ece",
+    isArchived: true
   },
   {
     tankId: "87549138-5447-4730-769c-08da9316733c",

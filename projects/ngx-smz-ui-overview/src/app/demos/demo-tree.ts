@@ -924,18 +924,39 @@ export const TreeDemoData: DemoTreeNode[] = [
     expanded: false,
     children: [
       {
-        label: 'Image with Details', icon: 'fa-solid fa-code', type: 'Demo',
-        demoType: 'cards',
-        notes: '',
-        data: CardsDemo[DemoKeys.CARDS_IMAGE_WITH_DETAILS],
-        key: DemoKeys.CARDS_IMAGE_WITH_DETAILS.toString()
+        label: 'Templates',
+        type: 'Category',
+        expanded: false,
+        children: [
+          {
+            label: 'Image with Details', icon: 'fa-solid fa-code', type: 'Demo',
+            demoType: 'cards',
+            notes: '',
+            data: CardsDemo[DemoKeys.CARDS_IMAGE_WITH_DETAILS],
+            key: DemoKeys.CARDS_IMAGE_WITH_DETAILS.toString()
+          },
+          {
+            label: 'Info A', icon: 'fa-solid fa-code', type: 'Demo',
+            demoType: 'cards',
+            notes: '',
+            data: CardsDemo[DemoKeys.CARDS_INFO_A],
+            key: DemoKeys.CARDS_INFO_A.toString()
+          },
+        ]
       },
       {
-        label: 'Info A', icon: 'fa-solid fa-code', type: 'Demo',
-        demoType: 'cards',
-        notes: '',
-        data: CardsDemo[DemoKeys.CARDS_INFO_A],
-        key: DemoKeys.CARDS_INFO_A.toString()
+        label: 'Features',
+        type: 'Category',
+        expanded: false,
+        children: [
+          {
+            label: 'Multiple Sources', icon: 'fa-solid fa-code', type: 'Demo',
+            demoType: 'cards',
+            notes: '',
+            data: CardsDemo[DemoKeys.CARDS_WITH_MULTIPLE_SOURCES],
+            key: DemoKeys.CARDS_WITH_MULTIPLE_SOURCES.toString()
+          },
+        ]
       },
     ]
   },
