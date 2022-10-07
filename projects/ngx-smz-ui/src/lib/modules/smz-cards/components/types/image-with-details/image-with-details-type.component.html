@@ -26,6 +26,13 @@
       <!-- SUBTITLE -->
       <div *ngIf="template.subTitle && !template.subTitle.hideInGrid" contentSelector [content]="template.subTitle" [data]="data" [ngClass]="template.subTitle.styleClass ?? 'text-sm'"></div>
 
+      <!-- TAGS -->
+      <div class="col-12 grid grid-nogutter items-center justify-start gap-2">
+        <ng-container *ngFor="let tag of template.tags let i = index">
+          <div *ngIf="!tag.hideInGrid" contentSelector [content]="tag" [data]="data" class="px-2 py-1 text-xs bg-gray-200 text-surface-50 rounded" [ngClass]="tag.styleClass ?? 'text-sm'"></div>
+        </ng-container>
+      </div>
+
       <!-- OTHERS -->
       <ng-container *ngFor="let other of template.others let i = index">
         <div *ngIf="!other.hideInGrid" contentSelector [content]="other" [data]="data" [ngClass]="other.styleClass ?? 'text-sm'"></div>
@@ -80,6 +87,13 @@
 
         <!-- SUBTITLE -->
         <div *ngIf="template.subTitle && !template.subTitle.hideInList" contentSelector [content]="template.subTitle" [data]="data" [ngClass]="template.subTitle.styleClass ?? 'text-sm'"></div>
+
+        <!-- TAGS -->
+        <div class="col-12 grid grid-nogutter items-center justify-start gap-2">
+          <ng-container *ngFor="let tag of template.tags let i = index">
+            <div *ngIf="!tag.hideInList" contentSelector [content]="tag" [data]="data" class="px-2 py-1 text-xs bg-gray-200 text-surface-50 rounded" [ngClass]="tag.styleClass ?? 'text-sm'"></div>
+          </ng-container>
+        </div>
 
         <!-- OTHERS -->
         <ng-container *ngFor="let other of template.others let i = index">

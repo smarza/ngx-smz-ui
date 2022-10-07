@@ -26,8 +26,15 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
               .transform((date) => moment(date).format('lll'))
               .template
             .subTitle(namesof<SmzCardsDemoData, SimpleNamedEntity>('type', 'name'))
-              .enableGlobalFilter()
-              .setStyles('px-2 py-1 text-xs bg-green-200 text-surface-50 rounded')
+              .transform((date) => 'Sub título aqui')
+              .template
+            .addTag(namesof<SmzCardsDemoData, SimpleNamedEntity>('type', 'name'))
+              .setStyles('px-2 py-1 text-xs bg-green-200 text-surface-600 rounded')
+              .template
+            .addTag(nameof<SmzCardsDemoData>('isArchived'))
+              .setStyles('px-2 py-1 text-xs bg-amber-200 text-surface-600 rounded')
+              .addIconConfiguration('fa-solid fa-box-archive', true, 'text-red-500 text-xs', 'Arquivado')
+              .addIconConfiguration('fa-solid fa-box-archive', false, 'text-surface-100 text-xs')
               .template
             .addText(nameof<SmzCardsDemoData>('notes'))
               .shorten(60)

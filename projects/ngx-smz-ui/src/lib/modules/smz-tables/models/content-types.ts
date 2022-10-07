@@ -1,5 +1,3 @@
-import { SmzControlType } from '../../smz-forms/models/control-types';
-
 export type SmzContentTypes =
   SmzTextContent |
   SmzCalendarContent |
@@ -62,5 +60,4 @@ export interface SmzIconContentMatch {
   class: string;
   value: any;
   tooltip?: string;
-
 }

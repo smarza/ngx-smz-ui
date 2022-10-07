@@ -1,5 +1,6 @@
 import { uuidv4 } from '../../common/utils/utils';
 import { SmzCardsBaseContent, SmzCardsContentType, SmzCardsImageContent, SmzCardsTextContent } from '../../modules/smz-cards/models/smz-cards-contents';
+import { SmzCardsIconContent } from '../../modules/smz-cards/models/smz-cards-templates';
 import { SmzCardsBuilder } from './state-builder';
 
 export abstract class SmzCardsBaseBuilder<T extends SmzCardsBaseBuilder<T, TViewData>, TViewData> {
@@ -36,6 +37,8 @@ export abstract class SmzCardsBaseBuilder<T extends SmzCardsBaseBuilder<T, TView
 
 export class SmzCardsTextBuilder<TViewData> extends SmzCardsBaseBuilder<SmzCardsTextBuilder<TViewData>, TViewData> {
   protected that = this;
+  private _iconConfigurations: SmzCardsIconContent[] = [];
+
   constructor(protected _builder: SmzCardsBuilder<unknown>, protected _parent: TViewData, protected _content: SmzCardsTextContent, dataPath: string, key: string = uuidv4()) {
     super(_builder, _parent, _content, key);
 
@@ -52,8 +55,44 @@ export class SmzCardsTextBuilder<TViewData> extends SmzCardsBaseBuilder<SmzCards
   }
 
   public transform(callback: (data: any, row: any) => string, key: string = uuidv4()): SmzCardsTextBuilder<TViewData> {
+    if (this._iconConfigurations.length > 0) {
+      throw Error(`You can't call transform while using addIconConfiguration.`);
+    }
+
     this._content.callback = callback;
     return this;
+  }
+
+  public addIconConfiguration(icon: string, value: any, styleClass: string = '', appendText: string = null): SmzCardsTextBuilder<TViewData> {
+    if (this._content.callback != null) {
+      throw Error(`You can't call addIconConfiguration while using transform.`);
+    }
+    this._iconConfigurations.push({ icon, value, styleClass: styleClass, appendText });
+    return this;
+  }
+
+  public get template(): TViewData {
+
+    if (this._iconConfigurations.length > 0) {
+      this._content.callback = (value: any): string => {
+        const icon = this._iconConfigurations.find(x => x.value === value);
+
+        if (icon == null) {
+          return '';
+        }
+        else if (icon.appendText == null) {
+          return `<i class="${icon.icon} ${icon.styleClass}"></i>`;
+        }
+        else {
+          const iconHtml = `<i class="${icon.icon}"></i>`;
+          const begin = icon.appendText == null ? '' : `<div class="grid grid-nogutter items-center justify-start gap-1 ${icon.styleClass}">`;
+          const end = icon.appendText == null ? '' : `<div>${icon.appendText}</div></div>`;
+          return `${begin}${iconHtml}${end}`;
+        }
+      }
+    }
+
+    return this._parent;
   }
 
 }

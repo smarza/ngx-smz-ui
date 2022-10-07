@@ -27,6 +27,7 @@ export interface ImageWithDetailsTemplate extends SmzCardsBaseTemplate {
   image: SmzCardsImageContent;
   title: SmzCardsContentTypes;
   subTitle: SmzCardsContentTypes;
+  tags: SmzCardsTextContent[];
   others: SmzCardsContentTypes[];
 }
 
@@ -45,4 +46,13 @@ export interface InfoATemplate extends SmzCardsBaseTemplate {
     caption: string;
     content: SmzCardsTextContent;
   }[];
+}
+
+export interface SmzCardsIconContent {
+  icon: string;
+  styleClass: string;
+  value: any;
+  tooltip?: string;
+  appendText: string;
+
 }

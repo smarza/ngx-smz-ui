@@ -104,6 +104,7 @@ export class SmzCardsImageWithDetailsBuilder extends SmzCardsBaseTemplateBuilder
   constructor(protected _builder: SmzCardsBuilder<unknown>, protected _parent: SmzCardsTemplateBuilder, protected _template: ImageWithDetailsTemplate) {
     super(_builder, _parent, _template);
     _template.type = SmzCardsTemplate.IMAGE_WITH_DETAILS;
+    _template.tags = [];
     _template.others = [];
   }
 
@@ -130,6 +131,12 @@ export class SmzCardsImageWithDetailsBuilder extends SmzCardsBaseTemplateBuilder
   public subTitle(dataPath: string): SmzCardsTextBuilder<SmzCardsImageWithDetailsBuilder> {
     this._template.subTitle = {} as SmzCardsTextContent;
     return new SmzCardsTextBuilder<SmzCardsImageWithDetailsBuilder>(this._builder, this, this._template.subTitle as SmzCardsTextContent, dataPath);
+  }
+
+  public addTag(dataPath: string): SmzCardsTextBuilder<SmzCardsImageWithDetailsBuilder> {
+    const content = {} as SmzCardsTextContent;
+    this._template.tags.push(content);
+    return new SmzCardsTextBuilder<SmzCardsImageWithDetailsBuilder>(this._builder, this, content, dataPath);
   }
 
   public addText(dataPath: string): SmzCardsTextBuilder<SmzCardsImageWithDetailsBuilder> {
