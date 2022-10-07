@@ -205,7 +205,7 @@ export class SmzCardsBuilder<T> {
     }
 
     if (this._state.sources.length > 0) {
-      const defaultSource = this._state.sources.find(x => x.isDefault);
+      const defaultSource = this._state.sources.some(x => x.isDefault) ? this._state.sources.find(x => x.isDefault) : this._state.sources[0];
       this._state.selectedSource = defaultSource;
       this._state.items$ = defaultSource.items$;
     }

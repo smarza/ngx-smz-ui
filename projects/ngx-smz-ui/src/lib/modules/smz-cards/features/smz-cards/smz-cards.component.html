@@ -1,7 +1,7 @@
 <ng-container *ngIf="state != null">
 <ng-container *ngIf="state.items$ | async as items">
 
-  <p-dataView #dv [value]="items" [paginator]="state.view.paginator" [rows]="state.view.rowsPerPage" [filterBy]="state.view.filterBy" [layout]="state.view.layout">
+  <p-dataView #dv [value]="items" [paginator]="state.view.paginator" [rows]="state.view.rowsPerPage" [filterBy]="state.view.filterBy" [layout]="state.view.layout" [emptyMessage]="state.locale.emptyMessage">
     <ng-template pTemplate="header">
         <div class="grid grid-nogutter lg:flex-row xl:flex-row md:flex-col sm:flex-col items-center justify-between gap-2">
             <div class="grid grid-nogutter items-center justify-start gap-2">

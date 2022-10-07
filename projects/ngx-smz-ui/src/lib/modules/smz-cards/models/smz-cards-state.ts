@@ -30,7 +30,6 @@ export interface SmzCardsSource<T> {
   isDefault: boolean;
   label: string;
   items$: Observable<T[]>;
-  claims?: string[];
 }
 
 export interface SmzCardActions<T> {
