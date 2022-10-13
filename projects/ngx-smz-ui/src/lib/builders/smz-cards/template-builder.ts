@@ -5,12 +5,12 @@ import { SmzCardsBuilder } from './state-builder';
 import { SmzCardsImageContent, SmzCardsTextContent } from '../../modules/smz-cards/models/smz-cards-contents';
 import { SmzCardsImageBuilder, SmzCardsTextBuilder } from './column-builder';
 
-export abstract class SmzCardsBaseTemplateBuilder<T extends SmzCardsBaseTemplateBuilder<T>> {
+export abstract class SmzCardsBaseTemplateBuilder<TBuilder, T extends SmzCardsBaseTemplateBuilder<TBuilder, T>> {
 
-  constructor(protected _builder: SmzCardsBuilder<unknown>, protected _parent: SmzCardsTemplateBuilder, protected _template: SmzCardsTemplates) {
+  constructor(protected _builder: TBuilder, protected _parent: SmzCardsTemplateBuilder<TBuilder>, protected _template: SmzCardsTemplates) {
   }
 
-  public get template(): SmzCardsTemplateBuilder {
+  public get template(): SmzCardsTemplateBuilder<TBuilder> {
     return this._parent;
   }
 }
@@ -51,105 +51,105 @@ export class SmzCardViewBuilder extends SmzBuilderUtilities<SmzCardViewBuilder> 
   }
 }
 
-export class SmzCardsTemplateBuilder extends SmzBuilderUtilities<SmzCardsTemplateBuilder> {
+export class SmzCardsTemplateBuilder<TBuilder> extends SmzBuilderUtilities<SmzCardsTemplateBuilder<TBuilder>> {
   protected that = this;
   private hasTemplate = false;
-  constructor(private _cardsBuilder: SmzCardsBuilder<unknown>, private _template: SmzCardsTemplates) {
+  constructor(private _builder: TBuilder, private _template: SmzCardsTemplates) {
     super();
   }
 
-  public raw(): SmzCardsRawBuilder {
+  public raw(): SmzCardsRawBuilder<TBuilder> {
     if (this.hasTemplate) {
       throw Error('[Smz Cards] You cannot set more than one templete.');
     }
     this.hasTemplate = true;
-    return new SmzCardsRawBuilder(this._cardsBuilder, this, this._template as RawTemplate);
+    return new SmzCardsRawBuilder(this._builder, this, this._template as RawTemplate);
   }
 
-  public imageWithDetails(): SmzCardsImageWithDetailsBuilder {
+  public imageWithDetails(): SmzCardsImageWithDetailsBuilder<TBuilder> {
     if (this.hasTemplate) {
       throw Error('[Smz Cards] You cannot set more than one templete.');
     }
     this.hasTemplate = true;
-    return new SmzCardsImageWithDetailsBuilder(this._cardsBuilder, this, this._template as ImageWithDetailsTemplate);
+    return new SmzCardsImageWithDetailsBuilder(this._builder, this, this._template as ImageWithDetailsTemplate);
   }
 
-  public infoA(): SmzCardsInfoABuilder {
+  public infoA(): SmzCardsInfoABuilder<TBuilder> {
     if (this.hasTemplate) {
       throw Error('[Smz Cards] You cannot set more than one templete.');
     }
     this.hasTemplate = true;
-    return new SmzCardsInfoABuilder(this._cardsBuilder, this, this._template as InfoATemplate);
+    return new SmzCardsInfoABuilder(this._builder, this, this._template as InfoATemplate);
   }
 
-  public get cards(): SmzCardsBuilder<unknown> {
-    return this._cardsBuilder;
+  public get cards(): TBuilder {
+    return this._builder;
   }
 }
 
-export class SmzCardsRawBuilder extends SmzCardsBaseTemplateBuilder<SmzCardsRawBuilder> {
-  constructor(protected _builder: SmzCardsBuilder<unknown>, protected _parent: SmzCardsTemplateBuilder, protected _template: RawTemplate) {
+export class SmzCardsRawBuilder<TBuilder> extends SmzCardsBaseTemplateBuilder<TBuilder, SmzCardsRawBuilder<TBuilder>> {
+  constructor(protected _builder: TBuilder, protected _parent: SmzCardsTemplateBuilder<TBuilder>, protected _template: RawTemplate) {
     super(_builder, _parent, _template);
     _template.type = SmzCardsTemplate.RAW;
   }
 
-  public test(): SmzCardsRawBuilder {
+  public test(): SmzCardsRawBuilder<TBuilder> {
     return this;
   }
 
 }
 
 
-export class SmzCardsImageWithDetailsBuilder extends SmzCardsBaseTemplateBuilder<SmzCardsImageWithDetailsBuilder> {
-  constructor(protected _builder: SmzCardsBuilder<unknown>, protected _parent: SmzCardsTemplateBuilder, protected _template: ImageWithDetailsTemplate) {
+export class SmzCardsImageWithDetailsBuilder<TBuilder> extends SmzCardsBaseTemplateBuilder<TBuilder, SmzCardsImageWithDetailsBuilder<TBuilder>> {
+  constructor(protected _builder: TBuilder, protected _parent: SmzCardsTemplateBuilder<TBuilder>, protected _template: ImageWithDetailsTemplate) {
     super(_builder, _parent, _template);
     _template.type = SmzCardsTemplate.IMAGE_WITH_DETAILS;
     _template.tags = [];
     _template.others = [];
   }
 
-  public setCardStyles(cardStyleClass: string): SmzCardsImageWithDetailsBuilder {
+  public setCardStyles(cardStyleClass: string): SmzCardsImageWithDetailsBuilder<TBuilder> {
     this._template.cardStyleClass = cardStyleClass;
     return this;
   }
 
-  public setContentStyles(contentStyleClass: string): SmzCardsImageWithDetailsBuilder {
+  public setContentStyles(contentStyleClass: string): SmzCardsImageWithDetailsBuilder<TBuilder> {
     this._template.contentStyleClass = contentStyleClass;
     return this;
   }
 
-  public image(dataPath: string): SmzCardsImageBuilder<SmzCardsImageWithDetailsBuilder> {
+  public image(dataPath: string): SmzCardsImageBuilder<TBuilder, SmzCardsImageWithDetailsBuilder<TBuilder>> {
     this._template.image = {} as SmzCardsImageContent;
-    return new SmzCardsImageBuilder<SmzCardsImageWithDetailsBuilder>(this._builder, this, this._template.image, dataPath);
+    return new SmzCardsImageBuilder<TBuilder, SmzCardsImageWithDetailsBuilder<TBuilder>>(this._builder, this, this._template.image, dataPath);
   }
 
-  public title(dataPath: string): SmzCardsTextBuilder<SmzCardsImageWithDetailsBuilder> {
+  public title(dataPath: string): SmzCardsTextBuilder<TBuilder, SmzCardsImageWithDetailsBuilder<TBuilder>> {
     this._template.title = {} as SmzCardsTextContent;
-    return new SmzCardsTextBuilder<SmzCardsImageWithDetailsBuilder>(this._builder, this, this._template.title as SmzCardsTextContent, dataPath);
+    return new SmzCardsTextBuilder<TBuilder, SmzCardsImageWithDetailsBuilder<TBuilder>>(this._builder, this, this._template.title as SmzCardsTextContent, dataPath);
   }
 
-  public subTitle(dataPath: string): SmzCardsTextBuilder<SmzCardsImageWithDetailsBuilder> {
+  public subTitle(dataPath: string): SmzCardsTextBuilder<TBuilder, SmzCardsImageWithDetailsBuilder<TBuilder>> {
     this._template.subTitle = {} as SmzCardsTextContent;
-    return new SmzCardsTextBuilder<SmzCardsImageWithDetailsBuilder>(this._builder, this, this._template.subTitle as SmzCardsTextContent, dataPath);
+    return new SmzCardsTextBuilder<TBuilder, SmzCardsImageWithDetailsBuilder<TBuilder>>(this._builder, this, this._template.subTitle as SmzCardsTextContent, dataPath);
   }
 
-  public addTag(dataPath: string): SmzCardsTextBuilder<SmzCardsImageWithDetailsBuilder> {
+  public addTag(dataPath: string): SmzCardsTextBuilder<TBuilder, SmzCardsImageWithDetailsBuilder<TBuilder>> {
     const content = {} as SmzCardsTextContent;
     this._template.tags.push(content);
-    return new SmzCardsTextBuilder<SmzCardsImageWithDetailsBuilder>(this._builder, this, content, dataPath);
+    return new SmzCardsTextBuilder<TBuilder, SmzCardsImageWithDetailsBuilder<TBuilder>>(this._builder, this, content, dataPath);
   }
 
-  public addText(dataPath: string): SmzCardsTextBuilder<SmzCardsImageWithDetailsBuilder> {
+  public addText(dataPath: string): SmzCardsTextBuilder<TBuilder, SmzCardsImageWithDetailsBuilder<TBuilder>> {
     const content = {} as SmzCardsTextContent;
     this._template.others.push(content);
-    return new SmzCardsTextBuilder<SmzCardsImageWithDetailsBuilder>(this._builder, this, content, dataPath);
+    return new SmzCardsTextBuilder<TBuilder, SmzCardsImageWithDetailsBuilder<TBuilder>>(this._builder, this, content, dataPath);
   }
 
 }
 
-export class SmzCardsInfoABuilder extends SmzCardsBaseTemplateBuilder<SmzCardsInfoABuilder> {
+export class SmzCardsInfoABuilder<TBuilder> extends SmzCardsBaseTemplateBuilder<TBuilder, SmzCardsInfoABuilder<TBuilder>> {
   private _bulletStyleClass: string;
-  constructor(protected _builder: SmzCardsBuilder<unknown>, protected _parent: SmzCardsTemplateBuilder, protected _template: InfoATemplate) {
+  constructor(protected _builder: TBuilder, protected _parent: SmzCardsTemplateBuilder<TBuilder>, protected _template: InfoATemplate) {
     super(_builder, _parent, _template);
 
     _template.type = SmzCardsTemplate.INFO_A;
@@ -157,52 +157,52 @@ export class SmzCardsInfoABuilder extends SmzCardsBaseTemplateBuilder<SmzCardsIn
     _template.infos = [];
   }
 
-  public setVerticalBarStyles(verticalBarStyleClass: string): SmzCardsInfoABuilder {
+  public setVerticalBarStyles(verticalBarStyleClass: string): SmzCardsInfoABuilder<TBuilder> {
     this._template.verticalBarStyleClass = verticalBarStyleClass;
     return this;
   }
 
-  public setCardStyles(cardStyleClass: string): SmzCardsInfoABuilder {
+  public setCardStyles(cardStyleClass: string): SmzCardsInfoABuilder<TBuilder> {
     this._template.cardStyleClass = cardStyleClass;
     return this;
   }
 
-  public setBulletsStyles(bulletStyleClass: string): SmzCardsInfoABuilder {
+  public setBulletsStyles(bulletStyleClass: string): SmzCardsInfoABuilder<TBuilder> {
     this._bulletStyleClass = bulletStyleClass;
 
     return this;
   }
 
-  public title(dataPath: string, caption: string = ''): SmzCardsTextBuilder<SmzCardsInfoABuilder> {
+  public title(dataPath: string, caption: string = ''): SmzCardsTextBuilder<TBuilder, SmzCardsInfoABuilder<TBuilder>> {
     this._template.title = {
       caption,
       content: {} as SmzCardsTextContent
     }
-    return new SmzCardsTextBuilder<SmzCardsInfoABuilder>(this._builder, this, this._template.title.content, dataPath);
+    return new SmzCardsTextBuilder<TBuilder, SmzCardsInfoABuilder<TBuilder>>(this._builder, this, this._template.title.content, dataPath);
   }
 
-  public subTitle(dataPath: string): SmzCardsTextBuilder<SmzCardsInfoABuilder> {
+  public subTitle(dataPath: string): SmzCardsTextBuilder<TBuilder, SmzCardsInfoABuilder<TBuilder>> {
     this._template.subTitle = {} as SmzCardsTextContent;
-    return new SmzCardsTextBuilder<SmzCardsInfoABuilder>(this._builder, this, this._template.subTitle, dataPath);
+    return new SmzCardsTextBuilder<TBuilder, SmzCardsInfoABuilder<TBuilder>>(this._builder, this, this._template.subTitle, dataPath);
   }
 
-  public addTag(dataPath: string): SmzCardsTextBuilder<SmzCardsInfoABuilder> {
+  public addTag(dataPath: string): SmzCardsTextBuilder<TBuilder, SmzCardsInfoABuilder<TBuilder>> {
     const content = {} as SmzCardsTextContent;
     this._template.tags.push(content);
-    return new SmzCardsTextBuilder<SmzCardsInfoABuilder>(this._builder, this, content, dataPath);
+    return new SmzCardsTextBuilder<TBuilder, SmzCardsInfoABuilder<TBuilder>>(this._builder, this, content, dataPath);
   }
 
-  public addInfo(dataPath: string, caption: string = '', bulletStyleClass?: string): SmzCardsTextBuilder<SmzCardsInfoABuilder> {
+  public addInfo(dataPath: string, caption: string = '', bulletStyleClass?: string): SmzCardsTextBuilder<TBuilder, SmzCardsInfoABuilder<TBuilder>> {
     const info = {
       caption,
       bulletStyleClass,
       content: {} as SmzCardsTextContent
     }
     this._template.infos.push(info);
-    return new SmzCardsTextBuilder<SmzCardsInfoABuilder>(this._builder, this, info.content, dataPath);
+    return new SmzCardsTextBuilder<TBuilder, SmzCardsInfoABuilder<TBuilder>>(this._builder, this, info.content, dataPath);
   }
 
-  public get template(): SmzCardsTemplateBuilder {
+  public get template(): SmzCardsTemplateBuilder<TBuilder> {
 
     if (this._bulletStyleClass != null) {
       if (this._template.infos.length === 0) {

@@ -60,7 +60,7 @@ export class SmzCardsBuilder<T> {
   constructor(uiDefinitionName?: string) {
 
     if (uiDefinitionName) {
-      throw Error(`[Smz Eazy Table] Ui Definition integration is not implemented yet.`);
+      throw Error(`[SmzCards] Ui Definition integration is not implemented yet.`);
     }
 
     this.setLocale('pt-BR');
@@ -88,7 +88,7 @@ export class SmzCardsBuilder<T> {
     return this;
   }
 
-  public template(): SmzCardsTemplateBuilder {
+  public template(): SmzCardsTemplateBuilder<SmzCardsBuilder<T>> {
     return new SmzCardsTemplateBuilder(this, this._state.template);
   }
 

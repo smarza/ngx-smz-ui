@@ -30,6 +30,7 @@ export * from './lib/modules/smz-comments/public-api';
 export * from './lib/modules/smz-excels/public-api';
 export * from './lib/modules/smz-toast/public_api';
 export * from './lib/modules/smz-cards/public-api';
+export * from './lib/modules/smz-timeline/public-api';
 
 // Verificar se já resolveram o issue para publicar com esse módulo
 export * from './lib/modules/smz-svg/public-api';
@@ -126,3 +127,4 @@ export * from './lib/builders/smz-excels/excels-builder';
 export * from './lib/builders/smz-tree-with-details/state-builder';
 
 export * from './lib/builders/smz-cards/state-builder';
+export * from './lib/builders/smz-timeline/state-builder';

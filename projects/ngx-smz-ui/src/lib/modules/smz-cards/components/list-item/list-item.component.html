@@ -1,15 +1,15 @@
-<ng-container [ngSwitch]="state.template.type">
+<ng-container [ngSwitch]="template.type">
 
   <ng-container *ngSwitchCase="type.RAW">
-    <smz-raw-type [state]="state" [data]="data" [template]="$any(state.template)" [mode]="mode"></smz-raw-type>
+    <smz-raw-type [data]="data" [template]="$any(template)" [menu]="menu" [buttons]="buttons" [mode]="mode" [isDebug]="isDebug"></smz-raw-type>
   </ng-container>
 
   <ng-container *ngSwitchCase="type.IMAGE_WITH_DETAILS">
-    <smz-image-with-details-type [state]="state" [template]="$any(state.template)" [data]="data" [mode]="mode"></smz-image-with-details-type>
+    <smz-image-with-details-type [template]="$any(template)" [menu]="menu" [buttons]="buttons" [data]="data" [mode]="mode" [isDebug]="isDebug"></smz-image-with-details-type>
   </ng-container>
 
   <ng-container *ngSwitchCase="type.INFO_A">
-    <smz-info-a-type [state]="state" [data]="data" [template]="$any(state.template)" [mode]="mode"></smz-info-a-type>
+    <smz-info-a-type [data]="data" [template]="$any(template)" [menu]="menu" [buttons]="buttons" [mode]="mode" [isDebug]="isDebug"></smz-info-a-type>
   </ng-container>
 
   <ng-container *ngSwitchDefault></ng-container>

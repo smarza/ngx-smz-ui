@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { SmzCardsState } from '../../models/smz-cards-state';
+import { SmzCardActions } from '../../models/smz-cards-state';
 import { SmzCardsView } from '../../models/smz-cards-types';
-import { SmzCardsTemplate } from '../../models/smz-cards-templates';
+import { SmzCardsTemplate, SmzCardsTemplates } from '../../models/smz-cards-templates';
 
 @Component({
   selector: 'smz-list-item',
@@ -10,7 +10,10 @@ import { SmzCardsTemplate } from '../../models/smz-cards-templates';
 })
 
 export class SmzListItemComponent implements OnInit {
-  @Input() public state: SmzCardsState<unknown>;
+  @Input() public isDebug: boolean = false;
+  @Input() public template: SmzCardsTemplates;
+  @Input() public buttons: SmzCardActions<any>;
+  @Input() public menu: SmzCardActions<any>;
   @Input() public data: unknown;
   public type = SmzCardsTemplate;
   public mode = SmzCardsView.LIST;

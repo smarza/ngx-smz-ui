@@ -1,17 +1,17 @@
 import { DemoKeys } from '@demos/demo-keys';
 import { Store } from '@ngxs/store';
-import { GlobalInjector, nameof, namesof, SmzCardsBuilder, SimpleNamedEntity, SmzCardsTemplate } from 'ngx-smz-ui';
+import { GlobalInjector, nameof, namesof, SmzTimelineBuilder, SimpleNamedEntity } from 'ngx-smz-ui';
 import { of } from 'rxjs';
 import { SmzCardsArchivedDemo, SmzCardsDemo, SmzCardsDemoData } from '../data/cards/cards-data';
 import * as moment from 'moment';
 
 const store = GlobalInjector.instance.get(Store);
 
-export const CardsDemo: { [key: string]: { code: () => void } } = {
+export const TimelineDemo: { [key: string]: { code: () => void } } = {
   //
-  [DemoKeys.CARDS_IMAGE_WITH_DETAILS]: {
+  [DemoKeys.TIMELINE_IMAGE_WITH_DETAILS]: {
     code: () => {
-    return new SmzCardsBuilder<SmzCardsDemoData>()
+    return new SmzTimelineBuilder<SmzCardsDemoData>()
         .setTitle('Demo Cards | Image with Details')
         .setSource(of(SmzCardsDemo))
         .template()
@@ -41,19 +41,22 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
               .template
             .template
           .cards
-        .grid()
-          .setLayout('col-12 lg:col-6 xl:col-3')
-          .setPadding('p-2')
-          .cards
-        .list()
-          .setLayout('col-12')
-          .setPadding('px-0 pt-4')
-          .cards
+        .view()
+          .setAlign('alternate')
+          .setLayout('vertical')
+          .styleEvent('')
+          .styleTimeline('')
+          .addGap()
+          .timeline
+        .marker()
+          .style('')
+          .setIcon('fa-solid fa-bug')
+          .timeline
         .buttons()
           .item('Consultar')
             .setCallback((event: any) => console.log('--- Consultar'))
             .menu
-          .cards
+          .timeline
         .menu()
           .item('Atualizar')
             .setCallback((event: any) => console.log('--- Atualizar'))
@@ -62,14 +65,14 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
           .item('Apagar', 'fa-solid fa-trash')
             .setCallback((event: any) => console.log('--- Apagar'))
             .menu
-          .cards
+          .timeline
       .build()
   }
   },
   //
-  [DemoKeys.CARDS_INFO_A]: {
+  [DemoKeys.TIMELINE_INFO_A]: {
     code: () => {
-    return new SmzCardsBuilder<SmzCardsDemoData>()
+    return new SmzTimelineBuilder<SmzCardsDemoData>()
         .setTitle('Demo Cards | Info A')
         .setSource(of(SmzCardsDemo))
         .template()
@@ -105,14 +108,17 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
               .template
             .template
           .cards
-        .grid()
-          .setLayout('col-12 lg:col-6 xl:col-4')
-          .setPadding('p-2')
-          .cards
-        .list()
-          .setLayout('col-12')
-          .setPadding('px-0 pt-4')
-          .cards
+        .view()
+          .setAlign('alternate')
+          .setLayout('vertical')
+          .styleEvent('')
+          .styleTimeline('')
+          .addGap()
+          .timeline
+        .marker()
+          .style('')
+          .setIcon('fa-solid fa-bug')
+          .timeline
         .buttons()
           .item('Consultar')
             .setCallback((event: any) => console.log('--- Consultar', event))
@@ -121,7 +127,7 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
             .askForConfirmation('Atenção', 'Confirma?')
             .setCallback((event: any) => console.log('--- Confirmar', event))
             .menu
-          .cards
+          .timeline
         .menu()
           .item('Atualizar')
             .setCallback((event: any) => console.log('--- Atualizar', event))
@@ -131,14 +137,14 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
             .askForCriticalConfirmation('Atenção', 'Apaga ???')
             .setCallback((event: any) => console.log('--- Apagar', event))
             .menu
-          .cards
+          .timeline
       .build()
   }
   },
   //
-  [DemoKeys.CARDS_WITH_MULTIPLE_SOURCES]: {
+  [DemoKeys.TIMELINE_WITH_MULTIPLE_SOURCES]: {
     code: () => {
-    return new SmzCardsBuilder<SmzCardsDemoData>()
+    return new SmzTimelineBuilder<SmzCardsDemoData>()
         .setTitle('Demo Cards | Multiple Sources')
         .sources()
           .addSource(of(SmzCardsDemo), 'Em atividade')
@@ -146,7 +152,7 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
             .source
           .addSource(of(SmzCardsArchivedDemo), 'Arquivados')
             .source
-          .cards
+          .timeline
         .template()
           .imageWithDetails()
             .setCardStyles('bg-surface-card rounded-lg shadow-md')
@@ -174,19 +180,22 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
               .template
             .template
           .cards
-        .grid()
-          .setLayout('col-12 lg:col-6 xl:col-3')
-          .setPadding('p-2')
-          .cards
-        .list()
-          .setLayout('col-12')
-          .setPadding('px-0 pt-4')
-          .cards
+        .view()
+          .setAlign('alternate')
+          .setLayout('vertical')
+          .styleEvent('')
+          .styleTimeline('')
+          .addGap()
+          .timeline
+        .marker()
+          .style('')
+          .setIcon('fa-solid fa-bug')
+          .timeline
         .buttons()
           .item('Consultar')
             .setCallback((event: any) => console.log('--- Consultar'))
             .menu
-          .cards
+          .timeline
         .menu()
           .item('Atualizar')
             .setCallback((event: any) => console.log('--- Atualizar'))
@@ -195,7 +204,7 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
           .item('Apagar', 'fa-solid fa-trash')
             .setCallback((event: any) => console.log('--- Apagar'))
             .menu
-          .cards
+          .timeline
       .build()
   }
   },

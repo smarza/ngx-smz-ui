@@ -28,11 +28,11 @@
     </ng-template>
 
     <ng-template let-item pTemplate="listItem">
-      <smz-list-item *ngIf="state.template != null" [state]="state" [data]="item" [ngClass]="state.list.styleClass.all"></smz-list-item>
+      <smz-list-item *ngIf="state.template != null" [isDebug]="state.isDebug" [template]="state.template" [data]="item" [menu]="state.menu" [buttons]="state.buttons" [ngClass]="state.list.styleClass.all"></smz-list-item>
     </ng-template>
 
     <ng-template let-item pTemplate="gridItem">
-      <smz-grid-item *ngIf="state.template != null" [state]="state" [data]="item" [ngClass]="state.grid.styleClass.all"></smz-grid-item>
+      <smz-grid-item *ngIf="state.template != null" [isDebug]="state.isDebug" [template]="state.template" [data]="item" [menu]="state.menu" [buttons]="state.buttons" [ngClass]="state.grid.styleClass.all"></smz-grid-item>
     </ng-template>
 
 </p-dataView>

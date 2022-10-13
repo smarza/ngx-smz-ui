@@ -3,9 +3,9 @@ import { SmzCardsBaseContent, SmzCardsContentType, SmzCardsImageContent, SmzCard
 import { SmzCardsIconContent } from '../../modules/smz-cards/models/smz-cards-templates';
 import { SmzCardsBuilder } from './state-builder';
 
-export abstract class SmzCardsBaseBuilder<T extends SmzCardsBaseBuilder<T, TViewData>, TViewData> {
+export abstract class SmzCardsBaseBuilder<TBuilder, T extends SmzCardsBaseBuilder<TBuilder, T, TViewData>, TViewData> {
   protected that: T;
-  constructor(protected _builder: SmzCardsBuilder<unknown>, protected _parent: TViewData, protected _content: SmzCardsBaseContent, key: string) {
+  constructor(protected _builder: TBuilder, protected _parent: TViewData, protected _content: SmzCardsBaseContent, key: string) {
   }
 
   public hideInList(): T {
@@ -18,12 +18,12 @@ export abstract class SmzCardsBaseBuilder<T extends SmzCardsBaseBuilder<T, TView
     return this.that;
   }
 
-  public enableGlobalFilter(): T {
-    const isFilterEmpty = this._builder._state.view.filterBy === '' ? true : false;
-    this._builder._state.view.filterBy = `${this._builder._state.view.filterBy}${isFilterEmpty ? '' : ','}${this._content.dataPath}`;
+  // public enableGlobalFilter(): T {
+  //   const isFilterEmpty = this._builder._state.view.filterBy === '' ? true : false;
+  //   this._builder._state.view.filterBy = `${this._builder._state.view.filterBy}${isFilterEmpty ? '' : ','}${this._content.dataPath}`;
 
-    return this.that;
-  }
+  //   return this.that;
+  // }
 
   public setStyles(styleClass: string): T {
     this._content.styleClass = styleClass;
@@ -35,11 +35,11 @@ export abstract class SmzCardsBaseBuilder<T extends SmzCardsBaseBuilder<T, TView
   }
 }
 
-export class SmzCardsTextBuilder<TViewData> extends SmzCardsBaseBuilder<SmzCardsTextBuilder<TViewData>, TViewData> {
+export class SmzCardsTextBuilder<TBuilder, TViewData> extends SmzCardsBaseBuilder<TBuilder, SmzCardsTextBuilder<TBuilder, TViewData>, TViewData> {
   protected that = this;
   private _iconConfigurations: SmzCardsIconContent[] = [];
 
-  constructor(protected _builder: SmzCardsBuilder<unknown>, protected _parent: TViewData, protected _content: SmzCardsTextContent, dataPath: string, key: string = uuidv4()) {
+  constructor(protected _builder: TBuilder, protected _parent: TViewData, protected _content: SmzCardsTextContent, dataPath: string, key: string = uuidv4()) {
     super(_builder, _parent, _content, key);
 
     this._content.type = SmzCardsContentType.TEXT;
@@ -48,13 +48,13 @@ export class SmzCardsTextBuilder<TViewData> extends SmzCardsBaseBuilder<SmzCards
     this._content.shortenSuffix = '...';
   }
 
-  public shorten(length: number, suffix = '...'): SmzCardsTextBuilder<TViewData> {
+  public shorten(length: number, suffix = '...'): SmzCardsTextBuilder<TBuilder, TViewData> {
     this._content.maxLength = length;
     this._content.shortenSuffix = suffix;
     return this;
   }
 
-  public transform(callback: (data: any, row: any) => string, key: string = uuidv4()): SmzCardsTextBuilder<TViewData> {
+  public transform(callback: (data: any, row: any) => string, key: string = uuidv4()): SmzCardsTextBuilder<TBuilder, TViewData> {
     if (this._iconConfigurations.length > 0) {
       throw Error(`You can't call transform while using addIconConfiguration.`);
     }
@@ -63,7 +63,7 @@ export class SmzCardsTextBuilder<TViewData> extends SmzCardsBaseBuilder<SmzCards
     return this;
   }
 
-  public addIconConfiguration(icon: string, value: any, styleClass: string = '', appendText: string = null): SmzCardsTextBuilder<TViewData> {
+  public addIconConfiguration(icon: string, value: any, styleClass: string = '', appendText: string = null): SmzCardsTextBuilder<TBuilder, TViewData> {
     if (this._content.callback != null) {
       throw Error(`You can't call addIconConfiguration while using transform.`);
     }
@@ -97,9 +97,9 @@ export class SmzCardsTextBuilder<TViewData> extends SmzCardsBaseBuilder<SmzCards
 
 }
 
-export class SmzCardsImageBuilder<TViewData> extends SmzCardsBaseBuilder<SmzCardsImageBuilder<TViewData>, TViewData> {
+export class SmzCardsImageBuilder<TBuilder, TViewData> extends SmzCardsBaseBuilder<TBuilder, SmzCardsImageBuilder<TBuilder, TViewData>, TViewData> {
   protected that = this;
-  constructor(protected _builder: SmzCardsBuilder<unknown>, protected _parent: TViewData, protected _content: SmzCardsImageContent, dataPath: string, key: string = uuidv4()) {
+  constructor(protected _builder: TBuilder, protected _parent: TViewData, protected _content: SmzCardsImageContent, dataPath: string, key: string = uuidv4()) {
     super(_builder, _parent, _content, key);
 
       this._content.type = SmzCardsContentType.IMAGE;
@@ -111,18 +111,18 @@ export class SmzCardsImageBuilder<TViewData> extends SmzCardsBaseBuilder<SmzCard
       };
   }
 
-  public useServerPath(): SmzCardsImageBuilder<TViewData> {
+  public useServerPath(): SmzCardsImageBuilder<TBuilder, TViewData> {
     this._content.useServerPath = true;
     return this;
   }
 
-  public setTitle(title: string): SmzCardsImageBuilder<TViewData> {
+  public setTitle(title: string): SmzCardsImageBuilder<TBuilder, TViewData> {
     this._content.title.isVisible = true;
     this._content.title.getText = () => title;
     return this;
   }
 
-  public setDynamicTitle(callback: (item: any) => string): SmzCardsImageBuilder<TViewData> {
+  public setDynamicTitle(callback: (item: any) => string): SmzCardsImageBuilder<TBuilder, TViewData> {
     this._content.title.isVisible = true;
     this._content.title.getText = callback;
     return this;

@@ -11,6 +11,7 @@ import { MenusDemo } from './functions/menus-demo';
 import { IconsDemo } from './functions/icons-demo';
 import { CommentsDemo } from './functions/comments-demo';
 import { CardsDemo } from './functions/cards-demo';
+import { TimelineDemo } from './functions/timeline-demo';
 
 export const TreeDemoData: DemoTreeNode[] = [
   {
@@ -955,6 +956,48 @@ export const TreeDemoData: DemoTreeNode[] = [
             notes: '',
             data: CardsDemo[DemoKeys.CARDS_WITH_MULTIPLE_SOURCES],
             key: DemoKeys.CARDS_WITH_MULTIPLE_SOURCES.toString()
+          },
+        ]
+      },
+    ]
+  },
+    {
+    label: 'Timeline',
+    type: 'Category',
+    expanded: false,
+    children: [
+      {
+        label: 'Templates',
+        type: 'Category',
+        expanded: false,
+        children: [
+          {
+            label: 'Image with Details', icon: 'fa-solid fa-code', type: 'Demo',
+            demoType: 'timeline',
+            notes: '',
+            data: TimelineDemo[DemoKeys.TIMELINE_IMAGE_WITH_DETAILS],
+            key: DemoKeys.TIMELINE_IMAGE_WITH_DETAILS.toString()
+          },
+          {
+            label: 'Info A', icon: 'fa-solid fa-code', type: 'Demo',
+            demoType: 'timeline',
+            notes: '',
+            data: TimelineDemo[DemoKeys.TIMELINE_INFO_A],
+            key: DemoKeys.TIMELINE_INFO_A.toString()
+          },
+        ]
+      },
+      {
+        label: 'Features',
+        type: 'Category',
+        expanded: false,
+        children: [
+          {
+            label: 'Multiple Sources', icon: 'fa-solid fa-code', type: 'Demo',
+            demoType: 'timeline',
+            notes: '',
+            data: TimelineDemo[DemoKeys.TIMELINE_WITH_MULTIPLE_SOURCES],
+            key: DemoKeys.TIMELINE_WITH_MULTIPLE_SOURCES.toString()
           },
         ]
       },

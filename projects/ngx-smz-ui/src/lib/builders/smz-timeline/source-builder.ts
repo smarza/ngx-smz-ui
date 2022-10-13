@@ -1,33 +1,33 @@
-import { SmzCardsSource } from '../../modules/smz-cards/models/smz-cards-state';
-import { SmzCardsBuilder } from './state-builder';
 import { Observable } from 'rxjs';
 import { Store } from '@ngxs/store';
 import { GlobalInjector } from '../../common/services/global-injector';
-import { AuthenticationSelectors } from '../../state/global/authentication/authentication.selectors';
+import { AuthenticationSelectors } from '../../modules/rbk-utils/public-api';
+import { SmzTimelineBuilder } from './state-builder';
+import { SmzCardsSource } from '../../modules/smz-cards/models/smz-cards-state';
 
-export class SmzCardsSourcesBuilder<TItem> {
-  constructor(private _builder: SmzCardsBuilder<TItem>) {
+export class SmzTimelineSourcesBuilder<TItem> {
+  constructor(private _builder: SmzTimelineBuilder<TItem>) {
     if (this._builder._state.items$ != null) {
       throw Error(`You can't call sources() after setSource().`);
     }
   }
 
-  public addSource(items$: Observable<TItem[]>, label: string): SmzCardsSourceBuilder<TItem> {
-    return new SmzCardsSourceBuilder<TItem>(this._builder, this, items$, label);
+  public addSource(items$: Observable<TItem[]>, label: string): SmzTimelineSourceBuilder<TItem> {
+    return new SmzTimelineSourceBuilder<TItem>(this._builder, this, items$, label);
   }
 
-  public get cards(): SmzCardsBuilder<any> {
+  public get timeline(): SmzTimelineBuilder<any> {
 
     return this._builder;
   }
 }
 
-export class SmzCardsSourceBuilder<TItem> {
+export class SmzTimelineSourceBuilder<TItem> {
   private sourceData: SmzCardsSource<TItem>;
   private allowed: string[] = [];
   private restricted: string[] = [];
 
-  constructor(protected _cardsBuilder: SmzCardsBuilder<TItem>, protected _sourcesBuilder: SmzCardsSourcesBuilder<TItem>, items$: Observable<TItem[]>, label: string) {
+  constructor(protected _cardsBuilder: SmzTimelineBuilder<TItem>, protected _sourcesBuilder: SmzTimelineSourcesBuilder<TItem>, items$: Observable<TItem[]>, label: string) {
     this.sourceData = {
       items$,
       isDefault: this._cardsBuilder._state.sources.length === 0,
@@ -35,23 +35,23 @@ export class SmzCardsSourceBuilder<TItem> {
     };
   }
 
-  public setAsDefault(): SmzCardsSourceBuilder<TItem> {
+  public setAsDefault(): SmzTimelineSourceBuilder<TItem> {
     this._cardsBuilder._state.sources.forEach(x => x.isDefault = false);
     this.sourceData.isDefault = true;
     return this;
   }
 
-  public allowTo(allowedClaim: string): SmzCardsSourceBuilder<TItem> {
+  public allowTo(allowedClaim: string): SmzTimelineSourceBuilder<TItem> {
     this.allowed.push(allowedClaim);
     return this;
   }
 
-  public restrictTo(restrictedClaim: string): SmzCardsSourceBuilder<TItem> {
+  public restrictTo(restrictedClaim: string): SmzTimelineSourceBuilder<TItem> {
     this.restricted.push(restrictedClaim);
     return this;
   }
 
-  public get source(): SmzCardsSourcesBuilder<TItem> {
+  public get source(): SmzTimelineSourcesBuilder<TItem> {
 
     if (this.allowed.length === 0 && this.restricted.length === 0) {
       this._cardsBuilder._state.sources.push(this.sourceData);

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home.component';
-import { NgxSmzCardsModule, NgxSmzTablesModule, NgxSmzTreesModule, SmzRouteData, NgxSmzDialogsModule, NgxSmzFormsModule, SmzChartModule, NgxSmzDocumentsModule, NgCloneModule, NgVarModule, NgxSmzMenuModule, NgxSmzUiBlockModule, NgxSmzCommentsModule } from 'ngx-smz-ui';
+import { NgxSmzCardsModule, NgxSmzTablesModule, NgxSmzTreesModule, SmzRouteData, NgxSmzDialogsModule, NgxSmzFormsModule, SmzChartModule, NgxSmzDocumentsModule, NgCloneModule, NgVarModule, NgxSmzMenuModule, NgxSmzUiBlockModule, NgxSmzCommentsModule, NgxSmzTimelineModule } from 'ngx-smz-ui';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
 import { RbkAuthGuard, RbkDatabaseStateGuard, UI_DEFINITIONS_STATE_NAME } from 'ngx-smz-ui';
@@ -24,6 +24,7 @@ import { DemoInjectable4Component } from './components/demo-injectable/demo-inje
 import { DemoCardsComponent } from './components/demo-cards/demo-cards.component';
 import { TooltipModule } from 'primeng/tooltip';
 import { FormsModule } from '@angular/forms';
+import { DemoTimelineComponent } from './components/demo-timeline/demo-timeline.component';
 
 const data: SmzRouteData = {
   layout: {
@@ -59,7 +60,8 @@ const routes: Routes = [
     DemoInjectable3Component,
     DemoInjectable4Component,
     DemoIconsComponent,
-    DemoCardsComponent
+    DemoCardsComponent,
+    DemoTimelineComponent
   ],
   imports: [
     CommonModule,
@@ -81,7 +83,8 @@ const routes: Routes = [
     TooltipModule,
     NgxSmzUiBlockModule,
     NgxSmzCommentsModule,
-    NgxSmzCardsModule
+    NgxSmzCardsModule,
+    NgxSmzTimelineModule
 
   ],
   providers: [],

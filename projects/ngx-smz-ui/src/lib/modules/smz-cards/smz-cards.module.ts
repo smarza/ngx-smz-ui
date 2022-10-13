@@ -41,7 +41,7 @@ import { FormsModule } from '@angular/forms';
     SafeContentPipeModule,
     NgxSmzDataPipesModule
   ],
-  exports: [SmzCardsComponent, SharedModule],
+  exports: [SmzCardsComponent, SmzGridItemComponent, SharedModule],
   declarations: [
     // Features
     SmzCardsComponent,
