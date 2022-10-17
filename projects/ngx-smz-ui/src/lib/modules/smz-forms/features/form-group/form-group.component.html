@@ -117,7 +117,7 @@
     </ng-container>
 
     <ng-container *ngIf="input.type == controlTypes.COLOR_PICKER">
-        <smz-color-picker [input]="input" [control]="viewdata.form.controls[input.propertyName]" [behaviors]="config.behaviors"></smz-color-picker>
+        <smz-color-picker [input]="input" [control]="$any(viewdata.form.controls[input.propertyName])" [behaviors]="config.behaviors"></smz-color-picker>
     </ng-container>
 
     <ng-container *ngIf="input.type == controlTypes.TEXT_BUTTON">

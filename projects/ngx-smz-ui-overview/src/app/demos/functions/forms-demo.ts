@@ -95,9 +95,8 @@ Exame sem intercorrências.`).disable().validators().required().group
         .calendar('input4', `moment(new Date()).endOf('month').toDate()`, moment(new Date()).endOf('month').toDate())
         .group
         .calendar('input5', 'I\'m required')
-          .validators()
-            .required()
-        .group
+          .validators().required().input
+          .group
       .form
       .build();
   },
@@ -109,8 +108,7 @@ Exame sem intercorrências.`).disable().validators().required().group
         .checkbox('input1', 'I\'m not required')
           .group
         .checkbox('input2', 'I\'m required')
-          .validators()
-          .required()
+          .validators().required().input
         .group
       .form
       .build();
@@ -121,8 +119,7 @@ Exame sem intercorrências.`).disable().validators().required().group
       .group()
         .setLayout('EXTRA_SMALL', 'col-12')
         .checkboxGroup('input1', 'I\'m required', [{ id: '1', name: 'Option 1'}, { id: '2', name: 'Option 2'}, { id: '3', name: 'Option 3'}])
-          .validators()
-          .required()
+          .validators().required().input
         .group
       .form
       .build();
@@ -141,8 +138,7 @@ Realizados os registros pressóricos em:
 <monitoredData id="6416118c-b362-4467-6ae4-08d9b8dd31bd">Monitoração ambulatorial da pressão arterial</monitoredData>
 Na sequência, foi realizada a coronariografia direita.
 Exame sem intercorrências.`)
-          .validators()
-          .required()
+          .validators().required().input
         .group
       .form
       .build();
@@ -154,7 +150,7 @@ Exame sem intercorrências.`)
         .setLayout('EXTRA_SMALL', 'col-12')
         .dropdown('input1', 'I\'m required', [{ id: '1', name: 'Option 1'}, { id: '2', name: 'Option 2'}, { id: '3', name: 'Option 3'}])
           .showFilter()
-          .validators().required()
+          .validators().required().input
           .group
       .form
       .build();
@@ -166,13 +162,11 @@ Exame sem intercorrências.`)
       .group()
         .setLayout('EXTRA_SMALL', 'col-12')
         .dropdown('input1', 'I\'m required', [{ id: 'A', name: 'Group A'}, { id: 'B', name: 'Group B'}], 'B')
-          .validators()
-          .required()
-        .group
+          .validators().required().input
+          .group
         .linkedDropdown('input2', 'input1', 'I\'m required', [{ parentId: 'A', data: [{ id: 'A1', name: 'Option A1' }, { id: 'A2', name: 'Option A2' }]}, { parentId: 'B', data: [{ id: 'B1', name: 'Option B1' }, { id: 'B2', name: 'Option B2' }]}], 'B2')
-          .validators()
-          .required()
-        .group
+          .validators().required().input
+          .group
       .form
       .build();
   },
@@ -182,9 +176,8 @@ Exame sem intercorrências.`)
       .group()
         .setLayout('EXTRA_SMALL', 'col-12')
         .multiselect('input1', 'I\'m required', [{ id: '1', name: 'Option 1'}, { id: '2', name: 'Option 2'}, { id: '3', name: 'Option 3'}])
-          .validators()
-          .required()
-        .group
+          .validators().required().input
+          .group
       .form
       .build();
   },
@@ -194,13 +187,11 @@ Exame sem intercorrências.`)
       .group()
         .setLayout('EXTRA_SMALL', 'col-12')
         .dropdown('input1', 'I\'m required', [{ id: 'A', name: 'Group A'}, { id: 'B', name: 'Group B'}])
-          .validators()
-          .required()
-        .group
+          .validators().required().input
+          .group
         .linkedMultiselect('input2', 'input1', 'I\'m required', [{ parentId: 'A', data: [{ id: 'A1', name: 'Option A1' }, { id: 'A2', name: 'Option A2' }]}, { parentId: 'B', data: [{ id: 'B1', name: 'Option B1' }, { id: 'B2', name: 'Option B2' }]}])
-          .validators()
-          .required()
-        .group
+          .validators().required().input
+          .group
         .form
       .build();
   },
@@ -210,11 +201,10 @@ Exame sem intercorrências.`)
       .group()
         .setLayout('EXTRA_SMALL', 'col-12')
         .colorPicker('input1', 'I\'m not required')
-        .group
+          .group
         .colorPicker('input2', 'I\'m required')
-          .validators()
-          .required()
-        .group
+          .validators().required().input
+          .group
         .form
       .build();
   },
@@ -224,11 +214,10 @@ Exame sem intercorrências.`)
       .group()
         .setLayout('EXTRA_SMALL', 'col-12')
         .currency('input1', 'I\'m not required')
-        .group
+          .group
         .currency('input2', 'I\'m required')
-          .validators()
-          .required()
-        .group
+          .validators().required().input
+          .group
         .form
       .build();
   },
@@ -241,13 +230,12 @@ Exame sem intercorrências.`)
         .number('input1', 'I\'m not required')
           .group
         .number('input2', 'I\'m required')
-          .validators()
-          .required()
-        .group
+          .validators().required().input
+          .group
         .number('input3', 'Fraction Number')
           .setFraction(2)
           .setLocale('pt-BR')
-        .group
+          .group
         .form
       .build();
   },
@@ -267,8 +255,10 @@ Exame sem intercorrências.`)
       .group()
         .setLayout('EXTRA_SMALL', 'col-12')
         .switch('isContracted', 'IsContracted')
+          .validators().required().input
+          .group
+        .switch('isContracted2', 'This input is disabled', true)
           .disable()
-          .validators().required()
           .group
         .form
       .build();
@@ -286,12 +276,12 @@ Exame sem intercorrências.`)
     return new SmzFormBuilder<any>()
       .group()
         .setLayout('EXTRA_SMALL', 'col-12')
-        .text('input1', 'I\'m not required')
-        .group
+          .text('input1', 'I\'m not required')
+            .group
         .text('input2', 'I\'m required', 'sample')
-          .validators()
-            .required()
-        .group
+            .autoFocus()
+            .validators().required().input
+            .group
         .form
       .build();
   },
@@ -325,35 +315,29 @@ Exame sem intercorrências.`)
 
           })
           .useLabel('Buscar')
-          .validators()
-            .required()
+          .validators().required().input
           .group
         .form
 
       .group('Preenchimento automático')
         .text('name', 'Nome')
           .disable()
-          .validators()
-            .required()
+          .validators().required().input
           .group
         .text('email', 'Email')
           .disable()
-          .validators()
-            .required()
-            .email()
+          .validators().required().email().input
           .group
         .text('sector', 'Gerência')
           .disable()
-          .validators()
-            .required()
+          .validators().required().input
           .group
 
         // OCULTOS
         .text('identifier', 'Identificador')
           .disable()
           .hide()
-          .validators()
-            .required()
+          .validators().required().input
           .group
         .switch('isContracted', 'IsContracted')
           .disable()
@@ -451,8 +435,7 @@ Exame sem intercorrências.`)
       .group()
         .setLayout('EXTRA_SMALL', 'col-12')
         .password('password', 'Password')
-          .validators()
-          .required()
+          .validators().required().input
         .group
         .form
       .build();
@@ -463,12 +446,10 @@ Exame sem intercorrências.`)
       .group()
         .setLayout('EXTRA_SMALL', 'col-12')
         .password('password', 'Password')
-          .validators()
-            .required()
+          .validators().required().input
         .group
         .addPasswordConfirmation('password', 'Confirmation')
-          .validators()
-            .required()
+          .validators().required().input
         .group
         .form
       .build();
@@ -495,7 +476,7 @@ Exame sem intercorrências.`)
       .form
       .group()
         .dropdown('country', 'Países', [ { id: '55e08b38-cec6-4063-acd0-25747f31dc59', name: 'Brazil'}])
-          .validators().required()
+          .validators().required().input
           .group
         .form
       .build();
@@ -507,7 +488,7 @@ Exame sem intercorrências.`)
       .form
       .group()
         .dropdown('country', 'Países', [ { id: '55e08b38-cec6-4063-acd0-25747f31dc59', name: 'Brazil'}])
-          .validators().required()
+          .validators().required().input
           .group
         .form
       .applyData({
@@ -552,7 +533,7 @@ Exame sem intercorrências.`)
           .group
 
         .dropdown('country', 'Países', [ { id: '55e08b38-cec6-4063-acd0-25747f31dc59', name: 'Brazil'}, { id: '22e08b38-cec6-4063-acd0-25747f31dc22', name: 'Denmark'}])
-          .validators().required()
+          .validators().required().input
           .group
 
         .form

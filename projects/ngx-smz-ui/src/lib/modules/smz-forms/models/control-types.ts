@@ -67,7 +67,7 @@ export interface SmzTextControl extends SmzFormsBaseControl
     defaultValue?: string;
     exportPattern?: SmzTextPattern;
     hideName?: boolean;
-
+    autoFocus?: boolean;
 }
 
 export interface SmzTextButtonControl extends SmzFormsBaseControl

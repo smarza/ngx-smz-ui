@@ -1,8 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AbstractControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { SmzFormsBehaviorsConfig } from '../../models/behaviors';
 import { SmzColorPickerControl } from '../../models/control-types';
 
+@UntilDestroy()
 @Component({
   selector: 'smz-color-picker',
   templateUrl: './color-picker.component.html',
@@ -10,7 +12,7 @@ import { SmzColorPickerControl } from '../../models/control-types';
 export class ColorPickerComponent implements OnInit
 {
     @Input() public input: SmzColorPickerControl;
-    @Input() public control: any;
+    @Input() public control: UntypedFormControl;
     @Input() public behaviors: SmzFormsBehaviorsConfig;
     public color: string;
     constructor() { }
@@ -18,17 +20,24 @@ export class ColorPickerComponent implements OnInit
     public ngOnInit(): void
     {
         this.color = this.control.value;
+
+        this.control.valueChanges.pipe(untilDestroyed(this)).subscribe(event => {
+            console.log('valueChanges >>>', event);
+
+            if (event != this.color) {
+                console.log('changed');
+                this.onPickerChange(event);
+            }
+        });
     }
 
     public onPickerChange(event: any): void
     {
-        // console.log('onPickerChange', event);
-        this.color = event.value;
+        this.color = event;
     }
 
     public onInputChange(event: any): void
     {
-        console.log('onInputChange', event);
         this.control.setValue(event);
     }
 
