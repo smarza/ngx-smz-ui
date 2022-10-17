@@ -509,6 +509,36 @@ export const DialogsDemo: { [key: string]: () => void } = {
       .build()
     );
   },
+  //
+  [DemoKeys.DIALOGS_HELP_CUSTOM_BUTTON]: () => {
+    service.open(
+      new SmzDialogBuilder<void>()
+        .setLayout('EXTRA_SMALL', 'col-12')
+        .setLayout('EXTRA_LARGE', 'col-8')
+        .buttons()
+          .help()
+            .addSourceFromCustomData('<html><body><b>Teste</b></body></html>')
+          .buttons
+        .dialog
+      .build()
+    );
+  },
+  //
+  [DemoKeys.DIALOGS_HELP_ASSETS_BUTTON]: () => {
+    service.open(
+      new SmzDialogBuilder<void>()
+        .setLayout('EXTRA_SMALL', 'col-12')
+        .setLayout('EXTRA_LARGE', 'col-8')
+        .buttons()
+          .help()
+            .addSourceFromAssets('help/role-claims/index.html')
+            .setTitle('Help')
+            .setTooltip('Help')
+          .buttons
+        .dialog
+      .build()
+    );
+  },
 }
 
 function ExecuteBlockUiDemo(value: Number): void {

@@ -1,5 +1,10 @@
+import { HttpClient } from '@angular/common/http';
+import { GlobalInjector } from '../../common/services/global-injector';
 import { SmzDialogCustomButton, SmzDialogTopbarButton } from '../../modules/smz-dialogs/models/smz-dialogs';
+import { SmzDialogsService } from '../../modules/smz-dialogs/services/smz-dialogs.service';
 import { SmzDialogBuilder } from './dialog-builder';
+import { environment } from '@environments/environment';
+import { getSmzTemplate } from '../smz-forms/form-group-builder';
 
 export class SmzDialogButtonsBuilder<TResponse> {
   constructor(public _dialogBuilder: SmzDialogBuilder<TResponse>) {
@@ -50,6 +55,10 @@ export class SmzDialogButtonsBuilder<TResponse> {
 
   public topbar(): SmzDialogTopbarButtonBuilder<TResponse> {
     return new SmzDialogTopbarButtonBuilder(this);
+  }
+
+  public help(): SmzDialogHelpButtonBuilder<TResponse> {
+    return new SmzDialogHelpButtonBuilder(this);
   }
 
   public get dialog(): SmzDialogBuilder<TResponse> {
@@ -273,3 +282,86 @@ export class SmzDialogTopbarButtonBuilder<TResponse> {
   }
 }
 
+export class SmzDialogHelpButtonBuilder<TResponse> {
+  private _button: SmzDialogTopbarButton = {
+    class: 'fa-solid fa-question',
+    onClick: () => {},
+    visible: true,
+    tooltip: 'Ajuda'
+  };
+
+  private _path: string = null;
+  private _data: string = null;
+  private _title = 'Ajuda';
+
+  constructor(public _dialogButtonsBuilder: SmzDialogButtonsBuilder<TResponse>) {
+
+  }
+
+  public addSourceFromServer(path: string): SmzDialogHelpButtonBuilder<TResponse> {
+    this._path = `${environment.serverUrl}/${path}`;
+    return this;
+  }
+
+  public addSourceFromAssets(path: string): SmzDialogHelpButtonBuilder<TResponse> {
+    this._path = `assets/${path}`;
+    return this;
+  }
+
+  public addSourceFromCustomData(data: string): SmzDialogHelpButtonBuilder<TResponse> {
+    this._data = data
+    return this;
+  }
+
+  public setClass(styleClass: string): SmzDialogHelpButtonBuilder<TResponse> {
+    this._button.class = `${styleClass} ${this._button.class}`;
+    return this;
+  }
+
+  public setTitle(title: string): SmzDialogHelpButtonBuilder<TResponse> {
+    this._title = title;
+    return this;
+  }
+
+  public setTooltip(tooltip: string): SmzDialogHelpButtonBuilder<TResponse> {
+    this._button.tooltip = tooltip;
+    return this;
+  }
+
+  public get buttons(): SmzDialogButtonsBuilder<TResponse> {
+
+    this._button.onClick = () => {
+      const dialogs = GlobalInjector.instance.get(SmzDialogsService);
+
+      if(this._path !== null) {
+        const http = GlobalInjector.instance.get(HttpClient);
+        http.get(this._path, { responseType: 'text'}).subscribe(data => {
+          dialogs.open(new SmzDialogBuilder()
+          .setTitle(this._title)
+          .allowMaximize()
+          .html([data])
+          .setLayout('EXTRA_SMALL', 'col-12')
+          .setLayout('EXTRA_LARGE', 'col-6')
+          .hideFooter()
+          .build());
+        });
+      }
+      else if (this._data !== null) {
+        dialogs.open(new SmzDialogBuilder()
+        .setTitle(this._title)
+        .allowMaximize()
+        .html([this._data])
+        .setLayout('EXTRA_SMALL', 'col-12')
+        .setLayout('EXTRA_LARGE', 'col-6')
+        .hideFooter()
+        .build());
+      }
+      else {
+        throw Error('No source added!');
+      }
+    };
+
+    this._dialogButtonsBuilder.dialog._state.topbarButtons.push(this._button);
+    return this._dialogButtonsBuilder;
+  }
+}

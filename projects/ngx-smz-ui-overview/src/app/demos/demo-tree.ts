@@ -352,6 +352,20 @@ export const TreeDemoData: DemoTreeNode[] = [
             data: DialogsDemo[DemoKeys.DIALOGS_BUTTONS_BLOCK_UI],
             key: DemoKeys.DIALOGS_BUTTONS_BLOCK_UI.toString()
           },
+          {
+            label: 'Help Button custom', icon: 'fa-solid fa-code', type: 'Demo',
+            demoType: 'dialog',
+            notes: 'Help button on the topbar showing custom html content',
+            data: DialogsDemo[DemoKeys.DIALOGS_HELP_CUSTOM_BUTTON],
+            key: DemoKeys.DIALOGS_HELP_CUSTOM_BUTTON.toString()
+          },
+          {
+            label: 'Help Button assets', icon: 'fa-solid fa-code', type: 'Demo',
+            demoType: 'dialog',
+            notes: 'Help button on the topbar showing html content from assets folder',
+            data: DialogsDemo[DemoKeys.DIALOGS_HELP_ASSETS_BUTTON],
+            key: DemoKeys.DIALOGS_HELP_ASSETS_BUTTON.toString()
+          },
         ]
       },
       {
