@@ -4,16 +4,16 @@
         [id]="input.propertyName"
         class="smz__input_value"
         appendTo="body"
-        [formControl]="control"
-        (onChange)="onPickerChange($event)">
+        [formControl]="control">
     </p-colorPicker>
     <div class="flex-grow">
         <input
+        #colorinput
         class="smz__input_value colorpicker-hexa-input ml-2"
         pInputText
         [disabled]="input.isDisabled"
         [(ngModel)]="color"
-        (ngModelChange)="onInputChange($event)"
+        (keyup)="onInputChange(colorinput.value)"
         (blur)="markAsTouched()"/>
     </div>
     <smz-validation-messages [input]="input" [control]="control" [behaviors]="behaviors"></smz-validation-messages>
