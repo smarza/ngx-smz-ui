@@ -286,12 +286,12 @@ Exame sem intercorrências.`)
     return new SmzFormBuilder<any>()
       .group()
         .setLayout('EXTRA_SMALL', 'col-12')
-        .text('input1', 'I\'m not required')
-        .group
+          .text('input1', 'I\'m not required')
+            .group
         .text('input2', 'I\'m required', 'sample')
-          .validators()
-            .required()
-        .group
+            .autoFocus()
+            .validators().required()
+            .group
         .form
       .build();
   },

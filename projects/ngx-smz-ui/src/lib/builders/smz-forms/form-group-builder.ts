@@ -1032,6 +1032,11 @@ export class SmzFormTextBuilder<TResponse> extends SmzFormInputBuilder<TResponse
     this._textInput.exportPattern = format;
     return this;
   }
+
+  public autoFocus(): SmzFormTextBuilder<TResponse> {
+    this._textInput.autoFocus = true;
+    return this;
+  }
 }
 
 
