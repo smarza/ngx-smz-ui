@@ -1,3 +1,4 @@
+import { TreeNode } from 'primeng/api';
 import { ObjectUtils } from 'primeng/utils';
 import { mergeMap, of } from 'rxjs';
 import { SimpleNamedEntity } from '../models/simple-named-entity';
@@ -323,9 +324,7 @@ export function capitalizeFirstLetter(value: string, charsLimit = 0): string {
     if (value == null)
         return '';
 
-    // console.log('-----');
     const words = value?.toLowerCase().split(" ");
-    // console.log(value, words);
 
     return words.map((word) => {
         if (word?.length > charsLimit) {
@@ -466,3 +465,43 @@ export const base64ToFile = async (url, filename, mimeType) => {
     const buf = await res.arrayBuffer();
     return new File([buf], filename, { type: mimeType });
   };
+
+export function getTreeNodeFromKey(elements: TreeNode[], key: string){
+
+if (elements != null)
+{
+    var i;
+    var result = null;
+
+    for(i=0; result == null && i < elements.length; i++){
+        result = searchTreeNode(elements[i], key);
+
+        if (result != null) {
+            return result;
+        }
+    }
+}
+
+return null;
+}
+
+function searchTreeNode(element, key){
+
+if(element.key == key)
+{
+    return element;
+}
+else if (element.children != null)
+{
+    var i;
+    var result = null;
+
+    for(i=0; result == null && i < element.children.length; i++){
+        result = searchTreeNode(element.children[i], key);
+    }
+
+    return result;
+}
+
+return null;
+}

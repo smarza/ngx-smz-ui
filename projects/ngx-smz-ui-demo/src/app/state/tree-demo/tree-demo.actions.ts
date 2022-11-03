@@ -9,6 +9,7 @@ export namespace TreeDemoFeatureActions {
 
   export class Update {
     public static readonly type = '[TREE DEMO] Update';
+    constructor(public data: { key: string, name: string }) {}
   }
 
   export class Create {

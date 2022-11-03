@@ -4,7 +4,7 @@ import { SmzTreeDragEvent, SmzTreeDragResult } from '../../models/drag-and-drop'
 import { SmzTreeMenuItem } from '../../models/tree-menu-item';
 import { SmzTreeNode } from '../../models/tree-node';
 import { SmzTreeContext, SmzTreeState } from '../../models/tree-state';
-import { uuidv4 } from '../../../../common/utils/utils';
+import { getTreeNodeFromKey, isArray, uuidv4 } from '../../../../common/utils/utils';
 
 @Component({
   selector: 'smz-ui-tree',
@@ -124,14 +124,48 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
+    const itemsHaveChanged = changes.items?.currentValue != null;
+    const selectionHasChanged = changes.selection?.currentValue != null;
+    const hasSelection = this.selection != null;
+    const hasItems = this.items != null;
 
-    if ((changes.items?.currentValue != null && this.selection != null) || (changes.selection?.currentValue != null && this.items != null)) {
-      this.primeSelection = [];
-      this.checkNode(this.items, this.selection);
-      this.selectedNodes.emit(this.primeSelection);
-      this.selectionChange.emit(null);
+    // console.log('-------------------');
+    // console.log('itemsHaveChanged', itemsHaveChanged, changes.items?.currentValue);
+    // console.log('selectionHasChanged', selectionHasChanged, changes.selection?.currentValue);
+    // console.log('hasSelection', hasSelection, this.selection);
+    // console.log('hasItems', hasItems, this.items);
+    // console.log('primeSelection', this.primeSelection);
+
+    if ((itemsHaveChanged && hasSelection) || (selectionHasChanged && hasItems)) {
+
+      if (this.selection.length > 0) {
+        this.primeSelection = [];
+        this.checkNode(this.items, this.selection);
+        this.selectedNodes.emit(this.primeSelection);
+        this.selectionChange.emit(null);
+      }
+      else {
+
+        // Pegar último node selecionado
+        const lastSelection = isArray(this.primeSelection) ? null : this.primeSelection as SmzTreeNode<any>;
+
+        if (lastSelection != null) {
+          // console.log('lastSelection', lastSelection);
+
+          const key = lastSelection.key;
+
+          // Buscar node selecionado na nova árvore
+          const newNode = getTreeNodeFromKey(this.items, key);
+
+          if (newNode != null) {
+            // console.log('newNode', newNode);
+            this.selectionChange.emit(newNode);
+          }
+        }
+
+      }
+
     }
-
   }
 
   public ngAfterContentInit() {
@@ -203,7 +237,10 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
   }
 
   public onSelected(event: { originalEvent: MouseEvent, node: SmzTreeNode }): void {
+    // console.log('onSelected primeSelection', this.primeSelection);
+
     this.selectedNodes.emit(this.primeSelection);
+
     this.selectionChange.emit(event.node);
     if (!event.node.expanded) {
       event.node.expanded = true;

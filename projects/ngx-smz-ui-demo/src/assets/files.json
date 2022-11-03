@@ -34,7 +34,7 @@
                                     "label": "Expenses.doc",
                                     "type": "file",
                                     "icon": "pi pi-file",
-                                    "data": {},
+                                    "data": { "name": "Expenses data" },
                                     "draggable": true,
                                     "droppable": true,
                                     "key": "4"
@@ -43,7 +43,7 @@
                                     "label": "Resume.doc",
                                     "icon": "pi pi-file",
                                     "type": "file",
-                                    "data": {},
+                                    "data": { "name": "Resume data" },
                                     "draggable": true,
                                     "droppable": true,
                                     "key": "5"
@@ -89,7 +89,7 @@
                             "draggable": true,
                             "droppable": true,
                             "key": "9",
-                            "data": {}
+                            "data": { "name": "Barcelona data" }
                         },
                         {
                             "label": "logo.jpg",
@@ -98,7 +98,7 @@
                             "draggable": true,
                             "droppable": true,
                             "key": "10",
-                            "data": {}
+                            "data": { "name": "Logo data" }
                         },
                         {
                             "label": "primeui.png",
@@ -107,7 +107,7 @@
                             "draggable": true,
                             "droppable": true,
                             "key": "11",
-                            "data": {}
+                            "data": { "name": "Prime data" }
                         }
                     ]
                 },
@@ -136,7 +136,7 @@
                                     "draggable": true,
                                     "droppable": true,
                                     "key": "14",
-                                    "data": {}
+                                    "data": { "name": "Scarface data" }
                                 },
                                 {
                                     "label": "Serpico",
@@ -145,7 +145,7 @@
                                     "draggable": true,
                                     "droppable": true,
                                     "key": "15",
-                                    "data": {}
+                                    "data": { "name": "Serpico data" }
                                 }
                             ]
                         },
@@ -164,7 +164,7 @@
                                     "draggable": true,
                                     "droppable": true,
                                     "key": "17",
-                                    "data": "Goodfellas Movie"
+                                    "data": { "name": "Goodfellas Movie" }
                                 },
                                 {
                                     "label": "Untouchables",
@@ -173,7 +173,7 @@
                                     "draggable": true,
                                     "droppable": true,
                                     "key": "18",
-                                    "data": "Untouchables Movie"
+                                    "data": { "name": "Untouchables Movie" }
                                 }
                             ]
                         }

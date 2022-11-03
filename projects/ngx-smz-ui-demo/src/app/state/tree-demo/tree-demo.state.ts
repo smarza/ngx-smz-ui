@@ -6,7 +6,7 @@ import { TreeNode } from 'primeng/api';
 import { TreeDemoDataService } from './tree-demo-data.service';
 import { TreeDemoFeatureActions } from './tree-demo.actions';
 import { cloneDeep } from 'lodash-es';
-import { removeElementFromArray, ToastActions } from 'ngx-smz-ui';
+import { getTreeNodeFromKey, removeElementFromArray, ToastActions } from 'ngx-smz-ui';
 
 export const TreeDemoFeatureName = 'TreeDemoFeature';
 
@@ -79,27 +79,25 @@ export class TreeDemoFeatureState {
   //   ctx.dispatch(new ToastActions.Success('Item criado com sucesso'));
   // }
 
-  // @Action(TreeDemoFeatureActions.Update)
-  // public onUpdate$(ctx: StateContext<DemoFeatureStateModel>, action: TreeDemoFeatureActions.Update): Observable<DemoItem> {
+  @Action(TreeDemoFeatureActions.Update)
+  public onUpdate$(ctx: StateContext<TreeDemoFeatureStateModel>, action: TreeDemoFeatureActions.Update): void {
+    const items = cloneDeep(ctx.getState().items);
 
-  //   console.log('onUpdate action', action.data);
-  //   return of();
-  //   return this.apiService.update(action.data).pipe(
-  //     tap(result => {
+    const item = getTreeNodeFromKey(items, action.data.key);
 
-  //       const items = cloneDeep(ctx.getState().items);
-  //       const itemIndex = items.findIndex(x => x.id == action.data.id);
-  //       items[itemIndex] = { ...result };
+    if (item != null) {
+      item.data.name = action.data.name;
 
-  //       ctx.patchState({
-  //         lastUpdated: new Date(),
-  //         items: items
-  //       });
+      ctx.patchState({
+        lastUpdated: new Date(),
+        items: items
+      });
 
-  //       ctx.dispatch(new ToastActions.Success('Item atualizado com sucesso'));
-  //     })
-  //   );
-  // }
+      ctx.dispatch(new ToastActions.Success('Item atualizado com sucesso'));
+    }
+
+  }
+
 
   @Action(TreeDemoFeatureActions.Remove)
   public onRemove$(ctx: StateContext<TreeDemoFeatureStateModel>, action: TreeDemoFeatureActions.Remove): void {

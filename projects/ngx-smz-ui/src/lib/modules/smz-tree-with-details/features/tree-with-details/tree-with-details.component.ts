@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, TemplateRef, AfterContentInit, ContentChildren, QueryList, ViewEncapsulation, Output, EventEmitter } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, TemplateRef, AfterContentInit, ContentChildren, QueryList, ViewEncapsulation, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { PrimeTemplate, TreeNode } from 'primeng/api';
 import { SmzTreeNode } from '../../../smz-trees/models/tree-node';
 import { SmzTreeWithDetailsState } from '../../models/tree-with-details-state';
@@ -10,7 +10,7 @@ import { SmzTreeWithDetailsState } from '../../models/tree-with-details-state';
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'absolute inset-0' },
 })
-export class SmzTreeWithDetailsComponent implements OnInit, AfterContentInit {
+export class SmzTreeWithDetailsComponent implements OnInit, AfterContentInit, OnChanges {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
   @Input() public state: SmzTreeWithDetailsState;
   @Output() public selectionChange = new EventEmitter<SmzTreeNode>();
@@ -24,6 +24,10 @@ export class SmzTreeWithDetailsComponent implements OnInit, AfterContentInit {
   }
 
   public ngOnInit(): void {
+  }
+
+  public ngOnChanges(changes: SimpleChanges): void {
+
   }
 
   public ngAfterContentInit() {
@@ -64,6 +68,8 @@ export class SmzTreeWithDetailsComponent implements OnInit, AfterContentInit {
 
   public selectionChanged(node: TreeNode): void {
 
+    // console.log('selectionChanged ::', node);
+
     this.state.context.selectedNode = null;
 
     if (this.state.tree.selectableTypes.some(x => x === node?.type)) {
@@ -74,17 +80,18 @@ export class SmzTreeWithDetailsComponent implements OnInit, AfterContentInit {
 
         setTimeout(() => {
           this.state.context.selectedNode = node;
-          this.detailsChange.emit(this.state.context.selectedNode);
+          this.detailsChange.emit(node);
           this.cdr.markForCheck();
         }, 0);
       }
       else {
-        this.detailsChange.emit(this.state.context.selectedNode);
+        this.detailsChange.emit(node);
       }
 
     }
 
-    this.selectionChange.emit(this.state.context.selectedNode);
+    this.selectionChange.emit(node);
+
   }
 
 }

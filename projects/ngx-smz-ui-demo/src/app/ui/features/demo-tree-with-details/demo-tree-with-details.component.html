@@ -4,6 +4,10 @@
     <span>folder => {{ node.label }}</span>
   </ng-template>
 
+  <ng-template pTemplate="type:file" let-node>
+    <span>file => {{ node.label }} ({{ node.data?.name }})</span>
+  </ng-template>
+
     <!-- CONTEÚDOS COM OVERRIDE -->
     <ng-template pTemplate="details" let-item let-type="type">
 

@@ -29,19 +29,21 @@ export class TreeHelperService {
 
     if (this.trees[key] == null) {
       this.add(key, result);
-      return this.trees[key];
     }
     else {
       const resultCloned = cloneDeep(result);
+
       synchronizeTrees(resultCloned, this.trees[key]);
       this.trees[key] = resultCloned;
-      return this.trees[key];
     }
+
+    return this.trees[key];
   }
 
 }
 
 export function synchronizeTrees(destinationTree: SmzTreeNode[], sourceTree: SmzTreeNode[]): void {
+
   for (const treeNode of destinationTree) {
     const geminiNode = sourceTree.find(x => x.key === treeNode.key);
     if (geminiNode != null) {
