@@ -9,14 +9,20 @@ import { TreeHelperService } from '../services/tree-helper.service';
 
 export class SmzDataTransformTreePipe implements PipeTransform {
   constructor(private treeHelper: TreeHelperService) {}
-  transform(items: any[], state: SmzTreeState, key: string): any[] {
+  transform(items: any[], state: SmzTreeState, key: string, that: any): any[] {
+
+    const bindedItems = [];
 
     if (state.content.dataTransform == null) {
-      return this.response(items, state.content.sincronize, key);
+      bindedItems.push(...this.response(items, state.content.sincronize, key));
     }
     else {
-      return this.response(state.content.dataTransform(items), state.content.sincronize, key);
+      bindedItems.push(...this.response(state.content.dataTransform(items), state.content.sincronize, key));
     }
+
+    that.sincronizeItems(bindedItems);
+
+    return bindedItems;
 
   }
 

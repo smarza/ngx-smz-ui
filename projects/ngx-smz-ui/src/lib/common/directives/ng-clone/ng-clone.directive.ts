@@ -6,7 +6,9 @@ import cloneDeep from 'lodash-es/cloneDeep';
 })
 export class NgCloneDirective {
   @Input() public set ngClone(context: unknown) {
-    this.context.$implicit = this.context.ngClone = cloneDeep(context);
+    const cloned = cloneDeep(context);
+
+    this.context.$implicit = this.context.ngClone = cloned;
 
     if (!this.hasView) {
       this.vcRef.createEmbeddedView(this.templateRef, this.context);

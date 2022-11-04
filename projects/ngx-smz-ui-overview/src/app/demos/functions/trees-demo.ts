@@ -51,7 +51,10 @@ export const TreesDemo:{ [key: string]: { items$: Observable<any[]>, code: () =>
         .useTreeExpandButtons()
         .buttons()
           .button('', 'fa-solid fa-mug-saucer')
-            .setCallback((event, data, node) => console.log(event))
+            .setCallback((event, data, node) => {
+              console.log(node);
+              node[0].expanded = !node[0].expanded;
+            })
             .setTooltip('Button 1 awesome tooltip')
             .setColor('danger')
             .buttons
@@ -111,6 +114,10 @@ export const TreesDemo:{ [key: string]: { items$: Observable<any[]>, code: () =>
         })
         .tree
       .enableFilter()
+      .toolbar('rounded-outlined')
+        .setAlignment('end')
+        .useTreeExpandButtons()
+        .tree
       .build()
     }
   },

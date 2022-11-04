@@ -14,7 +14,7 @@
       "droppable": false,
       "selectable": true,
       "key": "DummyKey_69709f61-9ee9-4d7d-80ba-f061f7625c25",
-      "expanded": false,
+      "expanded": true,
       "children": [
         {
           "label": "Geral",

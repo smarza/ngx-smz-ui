@@ -6,6 +6,7 @@ import { SmzDataSourceTreeBuilder } from './data-source-tree-builder';
 
 export class SmzTreeBuilder {
   public _state: SmzTreeState = {
+    isDebug: false,
     menu: {
       isVisible: false,
       items: []
@@ -69,6 +70,11 @@ export class SmzTreeBuilder {
   };
   constructor() {
 
+  }
+
+  public debugMode(): SmzTreeBuilder {
+    this._state.isDebug = true;
+    return this;
   }
 
   public menu(): SmzTreeMenuBuilder {
@@ -156,6 +162,11 @@ export class SmzTreeBuilder {
   }
 
   public build(): SmzTreeState {
+
+    if (this._state.isDebug) {
+      console.log(this._state);
+    }
+
     return this._state;
   }
 }
@@ -233,7 +244,7 @@ export class SmzTreeToolbarButtonBuilder {
 
   }
 
-  public setCallback(callback: (event: MouseEvent, items: TreeNode[], node: TreeNode) => void): SmzTreeToolbarButtonBuilder {
+  public setCallback(callback: (event: MouseEvent, items: TreeNode[], nodes: TreeNode[]) => void): SmzTreeToolbarButtonBuilder {
     this._button.callback = callback;
     return this;
   }

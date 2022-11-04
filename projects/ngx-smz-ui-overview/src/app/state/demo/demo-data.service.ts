@@ -39,5 +39,4 @@ export class DemoDataService extends BaseApiService {
     return this.http.get<{data: TreeNode[]}>('assets/files_temp.json').pipe(map(x => x.data));
   }
 
-
 }

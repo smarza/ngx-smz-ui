@@ -5,11 +5,12 @@ import { SmzTreeMenuItem } from '../../models/tree-menu-item';
 import { SmzTreeNode } from '../../models/tree-node';
 import { SmzTreeContext, SmzTreeState } from '../../models/tree-state';
 import { getTreeNodeFromKey, isArray, uuidv4 } from '../../../../common/utils/utils';
+import { TreeHelperService } from '../../services/tree-helper.service';
 
 @Component({
   selector: 'smz-ui-tree',
   templateUrl: './tree.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
   providers: [TreeDragDropService]
 })
 export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
@@ -17,6 +18,7 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
   @Input() public state: SmzTreeState;
   @Input() public items: SmzTreeNode[] = [];
+  public treeItems: SmzTreeNode[] = [];
   @Input() public loading: boolean = false;
   @Input() public styleClass = '';
   @Input() public inlineStyle = '';
@@ -71,18 +73,42 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
   private operationType: 'reorder' | 'move' | 'not-implemented' | 'none';
   private dropPlace: string;
 
-  constructor(public cdr: ChangeDetectorRef) {
+  constructor(public cdr: ChangeDetectorRef, private treeHelper: TreeHelperService) {
   }
 
   public ngOnInit(): void {
-    if (this.items != null) {
+    if (this.treeItems != null) {
       this.primeSelection = [];
-      this.checkNode(this.items, this.selection);
+      this.checkNode(this.treeItems, this.selection);
       this.selectedNodes.emit(this.primeSelection);
     }
   }
 
+  private transformItems(items: any[]): void {
+
+    if (this.state.isDebug) {
+      console.log('---- transformItems', items);
+    }
+
+    const bindedItems = [];
+
+    if (this.state.content.dataTransform == null) {
+      bindedItems.push(...this.response(items, this.state.content.sincronize, this.treeKey));
+    }
+    else {
+      bindedItems.push(...this.response(this.state.content.dataTransform(items), this.state.content.sincronize, this.treeKey));
+    }
+
+    this.treeItems = bindedItems;
+  }
+
+  private response(nodes: SmzTreeNode[], sincronize: boolean, key: string): SmzTreeNode[] {
+    return sincronize ? this.treeHelper.sincronize(key, nodes): nodes;
+  }
+
+
   checkNode(nodes: SmzTreeNode[], str: string[]) {
+
     nodes.forEach(node => {
       //check parent
       if(str.includes(node[this.selectionKey])) {
@@ -127,20 +153,26 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
     const itemsHaveChanged = changes.items?.currentValue != null;
     const selectionHasChanged = changes.selection?.currentValue != null;
     const hasSelection = this.selection != null;
-    const hasItems = this.items != null;
+    const hasItems = this.treeItems != null;
 
-    // console.log('-------------------');
-    // console.log('itemsHaveChanged', itemsHaveChanged, changes.items?.currentValue);
-    // console.log('selectionHasChanged', selectionHasChanged, changes.selection?.currentValue);
-    // console.log('hasSelection', hasSelection, this.selection);
-    // console.log('hasItems', hasItems, this.items);
-    // console.log('primeSelection', this.primeSelection);
+    if (this.state.isDebug) {
+      console.log('-------------------');
+      console.log('itemsHaveChanged', itemsHaveChanged, changes.items?.currentValue);
+      console.log('selectionHasChanged', selectionHasChanged, changes.selection?.currentValue);
+      console.log('hasSelection', hasSelection, this.selection);
+      console.log('hasItems', hasItems, this.items);
+      console.log('primeSelection', this.primeSelection);
+    }
+
+    if (itemsHaveChanged) {
+      this.transformItems(changes.items?.currentValue);
+    }
 
     if ((itemsHaveChanged && hasSelection) || (selectionHasChanged && hasItems)) {
 
       if (this.selection.length > 0) {
         this.primeSelection = [];
-        this.checkNode(this.items, this.selection);
+        this.checkNode(this.treeItems, this.selection);
         this.selectedNodes.emit(this.primeSelection);
         this.selectionChange.emit(null);
       }
@@ -155,7 +187,7 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
           const key = lastSelection.key;
 
           // Buscar node selecionado na nova árvore
-          const newNode = getTreeNodeFromKey(this.items, key);
+          const newNode = getTreeNodeFromKey(this.treeItems, key);
 
           if (newNode != null) {
             // console.log('newNode', newNode);
@@ -317,7 +349,7 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
 
 
   public expandAll(): void {
-    this.items.forEach(node => {
+    this.treeItems?.forEach(node => {
       this.expandRecursive(node, true);
     });
 
@@ -327,7 +359,7 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
   }
 
   public collapseAll(): void {
-    this.items.forEach(node => {
+    this.treeItems?.forEach(node => {
       this.expandRecursive(node, false);
     });
 
@@ -537,9 +569,10 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
       };
     }
 
-  public onToolbarButtonClick(event: MouseEvent, button: any): void {
+  public onToolbarButtonClick(event: MouseEvent, button: any, items: any): void {
     if(button.callback != null) {
-      button.callback(event, this.items, null);
+      button.callback(event, this.treeItems, items);
+      this.cdr.markForCheck();
     }
   }
 }

@@ -3,6 +3,8 @@ import { SmzTreeMenuItem } from './tree-menu-item';
 import { SmzTreeToolbarButton } from './tree-toolbar-button';
 
 export interface SmzTreeState {
+  isDebug?: boolean;
+
   header?: {
     isVisible?: boolean;
     title?: string,

@@ -3,11 +3,7 @@ import { DemoTreeNode } from '@models/demo';
 import { SmzTreeNode, SmzTreeState } from 'ngx-smz-ui';
 import { TreeNode } from 'primeng/api/treenode';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
-import { Select, Store } from '@ngxs/store';
-import { DemoFeatureSelectors } from '@states/demo/demo.selectors';
-import { DemoFeatureActions } from '@states/demo/demo.actions';
+import { Store } from '@ngxs/store';
 
 @Component({
   selector: 'app-demo-tree',
