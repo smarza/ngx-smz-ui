@@ -7,7 +7,7 @@ import { ChangeDetectorRef } from '@angular/core';
 
 export interface SmzForm<T>
 {
-    _context?: SmzFormContext;
+    context?: SmzFormContext<T>;
     isDebug?: boolean;
     formId?: string;
     behaviors?: SmzFormsBehaviorsConfig;
@@ -18,10 +18,12 @@ export interface SmzForm<T>
 
 }
 
-export interface SmzFormContext {
+export interface SmzFormContext<T> {
     applyGlobalStyles: boolean;
     form: UntypedFormGroup;
     cdf: ChangeDetectorRef;
+    data: () => SmzFormsResponse<T>;
+    valid: () => boolean;
 }
 
 export interface SmzFormGroup

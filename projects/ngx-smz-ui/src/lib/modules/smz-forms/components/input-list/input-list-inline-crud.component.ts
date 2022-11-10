@@ -17,7 +17,7 @@ import { DialogCrudStateService } from '../../../smz-dialogs/state/dialogs/dialo
 
 export class InputListInlineCrudComponent implements OnInit {
   @ViewChild('formComponent') public formComponent: any;
-  public form: SmzForm<never> = null;
+  public form: SmzForm<any> = null;
   constructor(public dialogCrudService: DialogCrudStateService, public config: DynamicDialogConfig) { }
 
   public ngOnInit(): void

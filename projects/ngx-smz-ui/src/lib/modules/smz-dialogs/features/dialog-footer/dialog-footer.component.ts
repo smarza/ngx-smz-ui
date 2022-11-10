@@ -84,7 +84,7 @@ export class DialogFooterComponent implements OnInit {
                 .filter(x => x.type === 'form')
                 .forEach(feature => {
                     const formFeature = feature.data as SmzForm<never>;
-                    const form = formFeature._context.form;
+                    const form = formFeature.context.form;
 
                     if (this.rbkConfig.debugMode) {
                         console.log('               > formFeature:', formFeature);
@@ -99,7 +99,7 @@ export class DialogFooterComponent implements OnInit {
                         }
                         control.markAsTouched({ onlySelf: true });
 
-                        formFeature._context.cdf.markForCheck();
+                        formFeature.context.cdf.markForCheck();
                     });
                 });
 

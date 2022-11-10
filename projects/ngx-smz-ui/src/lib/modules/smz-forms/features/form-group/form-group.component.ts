@@ -68,7 +68,7 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
             // console.log(this.config);
             const controlsConfig = {};
 
-            if (this.config._context == null || this.config._context?.applyGlobalStyles)
+            if (this.config.context == null || this.config.context?.applyGlobalStyles)
             {
                 this.manager.setupGlobalStyles();
             }
@@ -154,15 +154,17 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
             const options: AbstractControlOptions = { updateOn: this.config?.behaviors?.updateOn ?? 'change' };
             this.viewdata = new SmzFormViewdata(this.config, this.fb.group(controlsConfig, options), this.manager, this.cdf);
 
-            if (this.config._context == null) {
-                this.config._context = {
+            if (this.config.context == null) {
+                this.config.context = {
                     applyGlobalStyles: null,
                     form: this.viewdata.form,
-                    cdf: this.cdf
+                    cdf: this.cdf,
+                    data: () => this.viewdata.getData<any>(),
+                    valid: () => this.viewdata?.isValid
                 };
             }
             else {
-                this.config._context.form = this.viewdata.form;
+                this.config.context.form = this.viewdata.form;
             }
 
             this.linkInputControls();

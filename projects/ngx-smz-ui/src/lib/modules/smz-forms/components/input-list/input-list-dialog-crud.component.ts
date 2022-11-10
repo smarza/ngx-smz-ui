@@ -21,7 +21,7 @@ import { SmzForm } from '../../models/smz-forms';
 
 export class InputListDialogCrudComponent implements OnInit {
   @ViewChild('formComponent') public formComponent: any;
-  public form: SmzForm<never> = null;
+  public form: SmzForm<any> = null;
   constructor(public dialogCrudService: DialogCrudStateService, public config: DynamicDialogConfig) { }
 
   public ngOnInit(): void

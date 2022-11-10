@@ -22,7 +22,7 @@ import { FormGroupComponent } from '../../features/form-group/form-group.compone
 
 export class InputListBatchCrudComponent implements OnInit {
   @ViewChild('formComponent') public formComponent: FormGroupComponent;
-  public form: SmzForm<never> = null;
+  public form: SmzForm<any> = null;
   constructor(public dialogCrudService: DialogCrudStateService, public config: DynamicDialogConfig) { }
 
   public ngOnInit(): void

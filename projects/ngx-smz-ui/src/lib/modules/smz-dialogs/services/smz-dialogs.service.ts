@@ -301,17 +301,19 @@ export class SmzDialogsService
                 {
                     const form = feature.data as SmzForm<any>;
 
-                    if (form._context == null)
+                    if (form.context == null)
                     {
-                        form._context = {
+                        form.context = {
                             applyGlobalStyles: false,
                             form: null,
-                            cdf: null
+                            cdf: null,
+                            data: () => null,
+                            valid: () => false
                         };
                     }
                     else
                     {
-                        form._context.applyGlobalStyles = true;
+                        form.context.applyGlobalStyles = true;
                     }
 
                 }
