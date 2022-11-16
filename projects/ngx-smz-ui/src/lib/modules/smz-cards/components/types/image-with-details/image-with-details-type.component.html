@@ -5,11 +5,11 @@
   <div class="h-full grid grid-nogutter flex-col items-start justify-start gap-2 relative" [ngClass]="template.cardStyleClass + (isDebug ? ' border border-red-500 border-solid' : '')">
 
     <!-- IMAGE -->
-    <ng-container *ngIf="template.image as image">
+    <ng-container *ngIf="template.image | transformContent : data as image">
       <img
         serverImage
-        [path]="(data | cardsContent : image.dataPath).result"
-        [maximize]="true"
+        [path]="image.transform.override ? image.transform.override.dataPath : (data | cardsContent : image.dataPath).result"
+        [maximize]="image.maximize"
         [placeholder]="'assets/images/placeholder.jpeg'"
         [title]="image.title.isVisible ? image.title.getText(data) : null"
         [useServerPath]="image.useServerPath"
@@ -67,11 +67,11 @@
   <div class="grid grid-nogutter items-start justify-start gap-4 relative col" [ngClass]="template.cardStyleClass + (isDebug ? ' border border-red-500 border-solid' : '')">
 
     <!-- IMAGE -->
-    <ng-container *ngIf="template.image as image">
+    <ng-container *ngIf="template.image | transformContent : data as image">
       <img
         serverImage
-        [path]="(data | cardsContent : image.dataPath).result"
-        [maximize]="true"
+        [path]="image.transform.override ? image.transform.override.dataPath : (data | cardsContent : image.dataPath).result"
+        [maximize]="image.maximize"
         [placeholder]="'assets/images/placeholder.jpeg'"
         [title]="image.title.isVisible ? image.title.getText(data) : null"
         [useServerPath]="image.useServerPath"

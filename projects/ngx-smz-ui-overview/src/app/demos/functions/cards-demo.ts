@@ -21,6 +21,18 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
             .image(nameof<SmzCardsDemoData>('imagePath'))
               .setDynamicTitle((item: SmzCardsDemoData) => item.date == null ? '' : moment(item.date).format('l'))
               .setStyles('rounded-b-none')
+              .transform((item: SmzCardsDemoData, content) => {
+                if (!item.showAsImage) {
+                  content.maximize = false;
+                  content.useServerPath = false;
+
+                  content.transform.override = {
+                    dataPath: 'assets/logo-documento.png'
+                  };
+                }
+
+                return content;
+              })
               .template
             .title(nameof<SmzCardsDemoData>('date'))
               .transform((date) => moment(date).format('lll'))

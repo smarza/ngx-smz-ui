@@ -37,4 +37,13 @@ export interface SmzCardsImageContent extends SmzCardsBaseContent {
     isVisible: boolean;
     getText: (item) => string;
   };
+
+  maximize: boolean;
+
+  transform: {
+    callback: (item, content: SmzCardsImageContent) => SmzCardsImageContent;
+    override: {
+      dataPath: string;
+    }
+  };
 }

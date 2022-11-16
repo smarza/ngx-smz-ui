@@ -109,10 +109,20 @@ export class SmzCardsImageBuilder<TBuilder, TViewData> extends SmzCardsBaseBuild
         isVisible: false,
         getText: null
       };
+      this._content.maximize = true;
+      this._content.transform = {
+        callback: null,
+        override: null
+      };
   }
 
   public useServerPath(): SmzCardsImageBuilder<TBuilder, TViewData> {
     this._content.useServerPath = true;
+    return this;
+  }
+
+  public disableMaximize(): SmzCardsImageBuilder<TBuilder, TViewData> {
+    this._content.maximize = false;
     return this;
   }
 
@@ -125,6 +135,11 @@ export class SmzCardsImageBuilder<TBuilder, TViewData> extends SmzCardsBaseBuild
   public setDynamicTitle(callback: (item: any) => string): SmzCardsImageBuilder<TBuilder, TViewData> {
     this._content.title.isVisible = true;
     this._content.title.getText = callback;
+    return this;
+  }
+
+  public transform(callback: (item: any, content: SmzCardsImageContent) => SmzCardsImageContent): SmzCardsImageBuilder<TBuilder, TViewData> {
+    this._content.transform.callback = callback;
     return this;
   }
 

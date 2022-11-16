@@ -24,6 +24,7 @@ import { NgxSmzDataPipesModule } from '../../common/data-pipes/data-pipes.module
 import { ButtonActionsDirective } from './directives/button-actions.directive';
 import { ImgPlaceholderDirective } from './directives/img-placeholder.directive';
 import { FormsModule } from '@angular/forms';
+import { SmzCardsTransformContentPipe } from './pipes/transform-content.pipe';
 
 @NgModule({
   imports: [
@@ -52,6 +53,7 @@ import { FormsModule } from '@angular/forms';
 
     // Pipes
     SmzCardsContentPipe,
+    SmzCardsTransformContentPipe,
 
     // Directives
     SmzCardsContentSelectorDirective,

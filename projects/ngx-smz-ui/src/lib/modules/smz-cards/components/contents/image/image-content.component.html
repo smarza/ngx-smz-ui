@@ -1,9 +1,11 @@
-<img
+<ng-container *ngIf="content | transformContent : data as image">
+  <img
   serverImage
-  [path]="(data | cardsContent : content.dataPath).result"
-  [maximize]="true"
+  [path]="content.transform.override ? content.transform.override.dataPath : (data | cardsContent : image.dataPath).result"
+  [maximize]="image.maximize"
   [placeholder]="'assets/images/placeholder.jpeg'"
-  [title]="content.title.isVisible ? content.title.getText(data) : null"
-  [useServerPath]="content.useServerPath"
+  [title]="image.title.isVisible ? image.title.getText(data) : null"
+  [useServerPath]="image.useServerPath"
   class="h-28 w-36 object-cover"
->
+  >
+</ng-container>
