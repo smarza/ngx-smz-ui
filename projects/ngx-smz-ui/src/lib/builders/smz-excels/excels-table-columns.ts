@@ -3,7 +3,7 @@ import { ObjectUtils } from 'primeng/utils';
 import { SmzExcelDataDefinitions, SmzExcelFontDefinitions, SmzExcelSortOrderDefinitions } from '../../modules/smz-excels/models/smz-excel-definitions';
 import { SmzExcelColumn, SmzExcelState, SmzExcelTableSheet } from '../../modules/smz-excels/models/smz-excel-table';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
-import { SmzExcelsTableColumnAutoDetectBuilder, SmzExcelsTableColumnBooleanBuilder, SmzExcelsTableColumnHyperlinkBuilder, SmzExcelsTableColumnNumberBuilder, SmzExcelsTableColumnTextBuilder } from './excels-table-base-column-content';
+import { SmzExcelsTableColumnAutoDetectBuilder, SmzExcelsTableColumnHyperlinkBuilder, SmzExcelsTableColumnNumberBuilder, SmzExcelsTableColumnTextBuilder } from './excels-table-base-column-content';
 import { SmzExcelsTablesBuilder } from './excels-tables';
 
 export class SmzExcelsTableColumnsBuilder extends SmzBuilderUtilities<SmzExcelsTableColumnsBuilder> {
@@ -17,10 +17,13 @@ export class SmzExcelsTableColumnsBuilder extends SmzBuilderUtilities<SmzExcelsT
       fontSize: 12,
       bold: false,
       italic: false,
+      underline: false,
+      fontColor: null
     },
     dataType: SmzExcelDataDefinitions.Text,
     dataFormat: undefined,
-    maxWidth: undefined
+    maxWidth: undefined,
+    hasSubTotal: false
   };
 
   constructor(private _builder: SmzExcelsTablesBuilder, private _: SmzExcelState, private _state: SmzExcelTableSheet) {
@@ -34,8 +37,8 @@ export class SmzExcelsTableColumnsBuilder extends SmzBuilderUtilities<SmzExcelsT
 
     const column: SmzExcelColumn = { ...cloneDeep(this.defaultColumn) };
 
-    if (sort != null)
-      this._sort(sort);
+    // if (sort != null)
+    //   this._sort(sort);
 
     this._state.columns.push(column);
 
@@ -50,8 +53,8 @@ export class SmzExcelsTableColumnsBuilder extends SmzBuilderUtilities<SmzExcelsT
 
     const column: SmzExcelColumn = { ...cloneDeep(this.defaultColumn) };
 
-    if (sort != null)
-      this._sort(sort);
+    // if (sort != null)
+    //   this._sort(sort);
 
     this._state.columns.push(column);
 
@@ -65,27 +68,12 @@ export class SmzExcelsTableColumnsBuilder extends SmzBuilderUtilities<SmzExcelsT
 
     const column: SmzExcelColumn = { ...cloneDeep(this.defaultColumn) };
 
-    if (sort != null)
-      this._sort(sort);
+    // if (sort != null)
+    //   this._sort(sort);
 
     this._state.columns.push(column);
 
     return new SmzExcelsTableColumnNumberBuilder(this, column);
-  }
-
-  public boolean(header: string, dataPropertyPath: string, sort?: SmzExcelSortOrderDefinitions): SmzExcelsTableColumnBooleanBuilder {
-
-    this._state.header.data.push(header);
-    this._dataProperties.push(dataPropertyPath);
-
-    const column: SmzExcelColumn = { ...cloneDeep(this.defaultColumn) };
-
-    if (sort != null)
-      this._sort(sort);
-
-    this._state.columns.push(column);
-
-    return new SmzExcelsTableColumnBooleanBuilder(this, column);
   }
 
   public hyperlink(header: string, dataPropertyPath: string, sort?: SmzExcelSortOrderDefinitions): SmzExcelsTableColumnHyperlinkBuilder {
@@ -95,8 +83,8 @@ export class SmzExcelsTableColumnsBuilder extends SmzBuilderUtilities<SmzExcelsT
 
     const column: SmzExcelColumn = { ...cloneDeep(this.defaultColumn) };
 
-    if (sort != null)
-      this._sort(sort);
+    // if (sort != null)
+    //   this._sort(sort);
 
     this._state.columns.push(column);
 
@@ -132,12 +120,12 @@ export class SmzExcelsTableColumnsBuilder extends SmzBuilderUtilities<SmzExcelsT
     return this;
   }
 
-  private _sort(order: SmzExcelSortOrderDefinitions): void {
-    this._state.shouldSort = true;
-    this._state.sortOrder = order;
-    this._state.matchCase = false;
-    this._state.sortColumn = this._state.header.data.length;
-  }
+  // private _sort(order: SmzExcelSortOrderDefinitions): void {
+  //   this._state.shouldSort = true;
+  //   this._state.sortOrder = order;
+  //   this._state.matchCase = false;
+  //   this._state.sortColumn = this._state.header.data.length;
+  // }
 
   public get table(): SmzExcelsTablesBuilder {
     return this._builder;

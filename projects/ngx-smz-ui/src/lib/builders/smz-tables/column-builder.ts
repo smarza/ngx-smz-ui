@@ -40,6 +40,7 @@ export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T>> {
         property: field.split('.')[0],
         header: header,
         headerStyleClass: '',
+        hasSubTotal: false,
         content: {
           type: type,
           styleClass: '',
@@ -99,6 +100,15 @@ export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T>> {
 
   public addStyles(styleClass: string): T {
     this._column.content.styleClass = styleClass;
+    return this.that;
+  }
+
+  public useSubTotal(): T {
+    if (!this._table._state.caption.exportToExcel.isButtonVisible) {
+      throw Error('You need to call \'enableExportToExcel\' before');
+    }
+
+    this._column.hasSubTotal = true;
     return this.that;
   }
 

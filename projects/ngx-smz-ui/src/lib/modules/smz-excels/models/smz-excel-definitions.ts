@@ -7,21 +7,16 @@ export enum SmzExcelDataDefinitions {
   Text = 0,
   Number = 1,
   DateTime = 2,
-  Boolean = 3,
-  TimeSpan = 4,
-  HyperLink = 5,
-  AutoDetect = 6
+  HyperLink = 3,
+  AutoDetect = 4
 }
 
 export enum SmzExcelFontDefinitions {
   Arial = 0,
-  ArialBold = 1,
-  ArialNarrow = 2,
-  Calibri = 3,
-  CalibriLight = 4,
-  CourierNew = 5,
-  TimesNewRoman = 6,
-  Georgia = 7
+  Calibri = 1,
+  CalibriLight = 2,
+  CourierNew = 3,
+  TimesNewRoman = 4,
 }
 
 export enum SmzExcelThemeDefinitions {

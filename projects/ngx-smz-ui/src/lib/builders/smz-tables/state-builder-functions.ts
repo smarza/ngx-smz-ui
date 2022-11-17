@@ -27,6 +27,7 @@ export namespace StateBuilderFunctions {
         header: input.name,
         headerStyleClass: '',
         content: converted.content(input),
+        hasSubTotal: false,
         export: {
 
         },

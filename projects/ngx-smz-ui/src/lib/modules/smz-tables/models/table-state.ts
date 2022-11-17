@@ -213,6 +213,9 @@ export interface SmzTableState {
        * Controls whether the export button should be visible or not
        */
       isButtonVisible?: boolean;
+      exportHyperLinkAsHtml?: boolean;
+      globalDateFormat?: string;
+      globalNewLineSeparator?: string;
     }
     /**
      * Allows the end user to manually clear table filters

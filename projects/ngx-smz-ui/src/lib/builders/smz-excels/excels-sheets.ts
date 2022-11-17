@@ -12,8 +12,8 @@ export class SmzExcelsSheetsBuilder extends SmzBuilderUtilities<SmzExcelsSheetsB
     super();
   }
 
-  public setColor(tabColor: SmzExcelColorDefinitions): SmzExcelsSheetsBuilder {
-    this._state.tabColor = tabColor;
+  public setColor(hexColor: string): SmzExcelsSheetsBuilder {
+    this._state.tabColor = hexColor;
     return this;
   }
 

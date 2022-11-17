@@ -8,13 +8,13 @@ export class SmzExcelsDraftBuilder {
 
   }
 
-  public setOpacity(opacity: number): SmzExcelsDraftBuilder {
-    this._state.alpha = opacity;
-    return this;
-  }
+  // public setOpacity(opacity: number): SmzExcelsDraftBuilder {
+  //   this._state.alpha = opacity;
+  //   return this;
+  // }
 
-  public setColor(textColor: SmzExcelColorDefinitions): SmzExcelsDraftBuilder {
-    this._state.textColor = textColor;
+  public setColor(hexColor: string): SmzExcelsDraftBuilder {
+    this._state.fontColor = hexColor;
     return this;
   }
 

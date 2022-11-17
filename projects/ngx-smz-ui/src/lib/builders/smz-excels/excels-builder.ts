@@ -15,11 +15,15 @@ export class SmzExcelsBuilder extends SmzBuilderUtilities<SmzExcelsBuilder> {
     isRequestLimitExceeded: false,
     workbookModel: {
       fileName: 'excel',
-      info: '',
+      title: '',
       author: '',
       company: '',
       comments: '',
-      isDraft: false,
+      globalColumnBehavior: {
+        date: { format: 'dd/MM/yyyy' },
+        hyperlink: { isHtml: false },
+        newLineSeparator: null
+      },
       watermark: undefined,
       tables: [],
       charts: []
@@ -35,7 +39,7 @@ export class SmzExcelsBuilder extends SmzBuilderUtilities<SmzExcelsBuilder> {
   }
 
   public setInfo(title: string): SmzExcelsBuilder {
-    this._state.workbookModel.info = title;
+    this._state.workbookModel.title = title;
     return this;
   }
 
@@ -54,20 +58,30 @@ export class SmzExcelsBuilder extends SmzBuilderUtilities<SmzExcelsBuilder> {
     return this;
   }
 
-  public draft(text: string): SmzExcelsDraftBuilder {
-    this._state.workbookModel.isDraft = true;
-
-    this._state.workbookModel.watermark = {
-      text,
-      alpha: 0.3,
-      textColor: SmzExcelColorDefinitions.Red,
-      font: SmzExcelFontDefinitions.CourierNew,
-      rotationAngle: 45,
-      fontSize: 80
-    };
-
-    return new SmzExcelsDraftBuilder(this, this._state.workbookModel.watermark);
+  public setGlobalDateFormat(format: string): SmzExcelsBuilder {
+    this._state.workbookModel.globalColumnBehavior.date.format = format;
+    return this;
   }
+
+  public setGlobalHyperlinkAsHtml(): SmzExcelsBuilder {
+    this._state.workbookModel.globalColumnBehavior.hyperlink.isHtml = true;
+    return this;
+  }
+
+  // public draft(text: string): SmzExcelsDraftBuilder {
+  //   this._state.workbookModel.isDraft = true;
+
+  //   this._state.workbookModel.watermark = {
+  //     text,
+  //     alpha: 0.3,
+  //     textColor: SmzExcelColorDefinitions.Red,
+  //     font: SmzExcelFontDefinitions.CourierNew,
+  //     rotationAngle: 45,
+  //     fontSize: 80
+  //   };
+
+  //   return new SmzExcelsDraftBuilder(this, this._state.workbookModel.watermark);
+  // }
 
   public sheet(name: string): SmzExcelsSheetsBuilder {
 
@@ -75,20 +89,18 @@ export class SmzExcelsBuilder extends SmzBuilderUtilities<SmzExcelsBuilder> {
       name: name?.slice(0, 30) ?? 'Excel',
       sheetType: SmzExcelTypeDefinitions.Table,
       tabIndex: this._state.workbookModel.tables.length + this._state.workbookModel.charts.length,
-      shouldSort: false,
-      matchCase: false,
-      ignoreBlanks: true,
-      sortColumn: undefined,
-      sortOrder: SmzExcelSortOrderDefinitions.Ascending,
       theme: SmzExcelThemeDefinitions.None,
-      tabColor: SmzExcelColorDefinitions.NoColor,
+      tabColor: null,
       header: {
         data: [],
+        rowHeight: 0,
         style: {
           font: SmzExcelFontDefinitions.Calibri,
           fontSize: 14,
           bold: true,
           italic: false,
+          underline: false,
+          fontColor: null
         }
       },
       columns: []

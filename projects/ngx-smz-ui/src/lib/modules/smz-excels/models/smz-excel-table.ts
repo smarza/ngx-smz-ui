@@ -14,30 +14,35 @@ export interface SmzExcelState {
 
 export interface SmzExcelWorkbook {
     fileName: string;
-    info: string;
+    title: string;
     author: string;
     company: string;
     comments: string;
-    isDraft: boolean;
+    globalColumnBehavior: SmzExcelGlobalColumnBehavior;
     watermark: SmzExcelWatermarkSheet;
     tables: SmzExcelTableSheet[];
     charts: SmzExcelChartSheet[];
 }
 
+export interface SmzExcelGlobalColumnBehavior {
+  date: { format: string }
+  hyperlink: { isHtml: boolean }
+  newLineSeparator: string;
+}
+
 export interface SmzExcelWatermarkSheet {
 
     text: string;
-    alpha: number;
-    textColor: SmzExcelColorDefinitions;
+    fontColor: string;
     font: SmzExcelFontDefinitions;
-    rotationAngle: number;
     fontSize: number;
+    rotationAngle: number;
 
 }
 
 export interface SmzExcelBaseSheet {
   name: string;
-  tabColor: SmzExcelColorDefinitions;
+  tabColor: string;
   sheetType: SmzExcelTypeDefinitions;
   tabIndex: number;
 
@@ -45,11 +50,6 @@ export interface SmzExcelBaseSheet {
 
 export interface SmzExcelTableSheet extends SmzExcelBaseSheet {
   sheetType: SmzExcelTypeDefinitions.Table;
-  shouldSort: boolean;
-  matchCase: boolean;
-  ignoreBlanks: boolean;
-  sortColumn: number;
-  sortOrder: SmzExcelSortOrderDefinitions;
   header: SmzExcelHeader;
   columns: SmzExcelColumn[];
   theme: SmzExcelThemeDefinitions;
@@ -63,6 +63,7 @@ export interface SmzExcelChartSheet extends SmzExcelBaseSheet  {
 
 export interface SmzExcelHeader {
   data: string[];
+  rowHeight: number;
   style: SmzExcelStyle;
 }
 
@@ -72,6 +73,7 @@ export interface SmzExcelColumn {
   dataType: SmzExcelDataDefinitions;
   dataFormat?: string;
   maxWidth: number;
+  hasSubTotal: boolean;
 }
 
 export interface SmzExcelStyle {
@@ -79,4 +81,6 @@ export interface SmzExcelStyle {
   fontSize: number;
   bold: boolean;
   italic: boolean;
+  underline: boolean;
+  fontColor: string;
 }

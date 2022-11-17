@@ -24,6 +24,7 @@ export interface SmzTableColumn {
    * Constrols the visibility of the sort icon the column header
    */
   isOrderable?: boolean;
+  hasSubTotal: boolean;
   export: {
     /**
      * Constrols the visibility of the column on exports

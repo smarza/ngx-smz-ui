@@ -290,6 +290,12 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
         .if(this.layoutConfig.footer?.leftSideText != null)
           .setComments(this.layoutConfig.footer?.leftSideText)
           .endIf
+        .if(context.state.caption.exportToExcel?.globalDateFormat != null)
+          .setGlobalDateFormat(context.state.caption.exportToExcel?.globalDateFormat)
+          .endIf
+        .if(context.state.caption.exportToExcel?.exportHyperLinkAsHtml)
+          .setGlobalHyperlinkAsHtml()
+          .endIf
         .sheet(this.state.caption.title)
           .table()
             .headers()
@@ -332,7 +338,7 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
                   case SmzExportableContentType.BOOLEAN:
 
                     return _
-                      .boolean(column.header, normalizedField)
+                      .text(column.header, normalizedField)
                         .if(this.state.styles.columnsWidth?.maxWidth != null)
                           .setMaxWidthInPixels(this.state.styles.columnsWidth.maxWidth)
                           .endIf

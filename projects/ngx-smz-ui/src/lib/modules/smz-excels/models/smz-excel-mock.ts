@@ -6,16 +6,19 @@ export const SmzExcelMockData: SmzExcelState = {
   isRequestLimitExceeded: false,
   workbookModel: {
     fileName: 'MyOutput',
-    info: 'Basniak\'s Awesome Table',
+    title: 'Basniak\'s Awesome Table',
     author: 'Basniak',
     company: 'Basniak\'s awesome library',
     comments: 'Awesome Excel Generation',
-    isDraft: true,
+    globalColumnBehavior: {
+      date: { format: 'dd/MM/yyyy' },
+      hyperlink: { isHtml: true },
+      newLineSeparator: null
+    },
     watermark: {
       text: 'Rascunho',
-      alpha: 0.3,
-      textColor: SmzExcelColorDefinitions.LightCoral,
-      font: SmzExcelFontDefinitions.CourierNew,
+      fontColor: '66000000',
+      font: SmzExcelFontDefinitions.Calibri,
       rotationAngle: 45,
       fontSize: 80
     },
@@ -24,20 +27,18 @@ export const SmzExcelMockData: SmzExcelState = {
         name: 'Custom Spreadsheet Name',
         sheetType: SmzExcelTypeDefinitions.Table,
         tabIndex: 0,
-        shouldSort: true,
-        matchCase: false,
-        ignoreBlanks: true,
-        sortColumn: 2,
-        sortOrder: SmzExcelSortOrderDefinitions.Ascending,
         theme: SmzExcelThemeDefinitions.TableStyleLight3,
-        tabColor: SmzExcelColorDefinitions.LightCoral,
+        tabColor: null,
         header: {
           data: ['Tag', 'Plant', 'Numbers', 'Dates'],
+          rowHeight: 0,
           style: {
             font: SmzExcelFontDefinitions.Calibri,
             fontSize: 14,
             bold: true,
             italic: false,
+            underline: false,
+            fontColor: null
           }
         },
         columns: [
@@ -49,10 +50,13 @@ export const SmzExcelMockData: SmzExcelState = {
               fontSize: 12,
               bold: false,
               italic: false,
+              underline: false,
+              fontColor: null
             },
             dataType: SmzExcelDataDefinitions.Text,
             dataFormat: undefined,
-            maxWidth: undefined
+            maxWidth: undefined,
+            hasSubTotal: false
           },
           // PLANT
           {
@@ -62,10 +66,13 @@ export const SmzExcelMockData: SmzExcelState = {
               fontSize: 12,
               bold: false,
               italic: false,
+              underline: false,
+              fontColor: null
             },
             dataType: SmzExcelDataDefinitions.Text,
             dataFormat: undefined,
-            maxWidth: undefined
+            maxWidth: undefined,
+            hasSubTotal: false
           },
           // NUMBERS
           {
@@ -75,10 +82,13 @@ export const SmzExcelMockData: SmzExcelState = {
               fontSize: 12,
               bold: false,
               italic: false,
+              underline: false,
+              fontColor: null
             },
             dataType: SmzExcelDataDefinitions.DateTime,
             dataFormat: '0.00',
-            maxWidth: undefined
+            maxWidth: undefined,
+            hasSubTotal: false
           },
           // DATES
           {
@@ -88,10 +98,13 @@ export const SmzExcelMockData: SmzExcelState = {
               fontSize: 12,
               bold: false,
               italic: false,
+              underline: false,
+              fontColor: null
             },
             dataType: SmzExcelDataDefinitions.DateTime,
             dataFormat: 'dd/MM/yyyy',
-            maxWidth: undefined
+            maxWidth: undefined,
+            hasSubTotal: false
           },
         ]
       }

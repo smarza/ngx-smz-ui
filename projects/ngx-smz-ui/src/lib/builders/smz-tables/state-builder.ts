@@ -100,6 +100,8 @@ export class SmzTableBuilder {
       },
       exportToExcel: {
         isButtonVisible: false,
+        exportHyperLinkAsHtml: false,
+        globalDateFormat: null
       },
       clearFilters: {
         callback: null,
@@ -339,6 +341,32 @@ export class SmzTableBuilder {
     return this;
   }
 
+  public useExportedHyperlinkAsHtml(): SmzTableBuilder {
+    if (!this._state.caption.exportToExcel.isButtonVisible) {
+      throw Error('You need to call \'enableExportToExcel\' before');
+    }
+
+    this._state.caption.exportToExcel.exportHyperLinkAsHtml = true;
+    return this;
+  }
+
+  public setExportedDateFormat(format: string): SmzTableBuilder {
+    if (!this._state.caption.exportToExcel.isButtonVisible) {
+      throw Error('You need to call \'enableExportToExcel\' before');
+    }
+
+    this._state.caption.exportToExcel.globalDateFormat = format;
+    return this;
+  }
+
+  public setExportedNewLineSeparator(separator: string): SmzTableBuilder {
+    if (!this._state.caption.exportToExcel.isButtonVisible) {
+      throw Error('You need to call \'enableExportToExcel\' before');
+    }
+
+    this._state.caption.exportToExcel.globalNewLineSeparator = separator;
+    return this;
+  }
 
   public setClearFilterCallback(callback: () => void): SmzTableBuilder {
     if (!this._state.caption.clearFilters.isButtonVisible) {
