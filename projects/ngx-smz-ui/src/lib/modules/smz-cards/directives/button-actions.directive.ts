@@ -1,18 +1,27 @@
-import { Directive, EventEmitter, HostListener, Input, Output } from '@angular/core';
+import { Directive, HostListener, Input, OnInit } from '@angular/core';
 import { Navigate } from '@ngxs/router-plugin';
 import { Store } from '@ngxs/store';
-import { MenuItem } from 'primeng/api';
 import { ConfirmableFunction, CriticalConfirmableFunction } from '../../smz-dialogs/decorators/confirmable.decorator';
 import { SmzMenuItem } from '../../smz-menu/models/smz-menu-item';
-
 
 @Directive({
     selector: '[buttonAction]'
 })
-export class ButtonActionsDirective {
+export class ButtonActionsDirective implements OnInit {
     @Input() public item: SmzMenuItem;
     @Input() public data: any;
     constructor(private store: Store) {
+    }
+
+    public ngOnInit(): void {
+        this.applyFeatures();
+    }
+
+    public applyFeatures(): void {
+        if (this.item.conditional?.condition) {
+            const condition = this.item.conditional.condition(this.data);
+            Reflect.set(this.item, this.item.conditional.property ?? 'visible', condition);
+        }
     }
 
     @HostListener('click', ['$event'])

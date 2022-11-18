@@ -79,11 +79,17 @@ export class SmzMenuItemCardsBuilder {
   }
 
   public setVisibilityRule<T>(callback: (item: T) => boolean): SmzMenuItemCardsBuilder {
+    if (this._item.conditional?.condition != null) {
+      throw Error(`You can't call setVisibilityRule() while calling setActivationRule()`);
+    }
     this._item.conditional = { condition: callback, property: 'visible' };
     return this;
   }
 
   public setActivationRule<T>(callback: (item: T) => boolean): SmzMenuItemCardsBuilder {
+    if (this._item.conditional?.condition != null) {
+      throw Error(`You can't call setActivationRule() while calling setVisibilityRule()`);
+    }
     this._item.conditional = { condition: callback, property: 'disabled' };
     return this;
   }

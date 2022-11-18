@@ -65,14 +65,27 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
           .item('Consultar')
             .setCallback((event: any) => console.log('--- Consultar'))
             .menu
+          .item('Apagar Enabled', 'fa-solid fa-trash')
+            .setCallback((event: any) => console.log('--- Apagar'))
+            .setActivationRule(() => false)
+            .menu
+          .item('Apagar Disabled', 'fa-solid fa-trash')
+            .setCallback((event: any) => console.log('--- Apagar'))
+            .setActivationRule(() => true)
+            .menu
           .cards
         .menu()
           .item('Atualizar')
             .setCallback((event: any) => console.log('--- Atualizar'))
             .menu
           .separator()
-          .item('Apagar', 'fa-solid fa-trash')
+          .item('Apagar Enabled', 'fa-solid fa-trash')
             .setCallback((event: any) => console.log('--- Apagar'))
+            .setActivationRule(() => false)
+            .menu
+          .item('Apagar Disabled', 'fa-solid fa-trash')
+            .setCallback((event: any) => console.log('--- Apagar'))
+            .setActivationRule(() => true)
             .menu
           .cards
       .build()
