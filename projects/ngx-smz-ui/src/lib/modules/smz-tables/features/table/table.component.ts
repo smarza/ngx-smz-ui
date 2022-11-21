@@ -293,6 +293,9 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
         .if(context.state.caption.exportToExcel?.globalDateFormat != null)
           .setGlobalDateFormat(context.state.caption.exportToExcel?.globalDateFormat)
           .endIf
+        .if(context.state.caption.exportToExcel?.globalNewLineSeparator != null)
+          .setGlobalNewLineSeparator(context.state.caption.exportToExcel?.globalNewLineSeparator)
+          .endIf
         .if(context.state.caption.exportToExcel?.exportHyperLinkAsHtml)
           .setGlobalHyperlinkAsHtml()
           .endIf

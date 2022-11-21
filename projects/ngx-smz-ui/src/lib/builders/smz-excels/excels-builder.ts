@@ -63,6 +63,11 @@ export class SmzExcelsBuilder extends SmzBuilderUtilities<SmzExcelsBuilder> {
     return this;
   }
 
+  public setGlobalNewLineSeparator(separator: string): SmzExcelsBuilder {
+    this._state.workbookModel.globalColumnBehavior.newLineSeparator = separator;
+    return this;
+  }
+
   public setGlobalHyperlinkAsHtml(): SmzExcelsBuilder {
     this._state.workbookModel.globalColumnBehavior.hyperlink.isHtml = true;
     return this;
