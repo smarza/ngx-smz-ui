@@ -62,6 +62,7 @@ export class DemoComplexTableComponent implements OnInit {
               filter: { isGlobalFilterable: true, type: SmzFilterType.TEXT },
               header: key,
               isVisible: true,
+              hasSubTotal: false,
               isFrozen,
               content: { type: SmzContentType.TEXT, data: null, styleClass: '', ngStyle: {} },
               width: 'fit',

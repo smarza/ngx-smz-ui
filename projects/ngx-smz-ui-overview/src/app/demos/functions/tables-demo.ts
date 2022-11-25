@@ -33,6 +33,12 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
           .item('Consultar')
             .setCallback((event: any) => console.log('---'))
             .menu
+          .for(['Button A', 'Button B'], (_, item: string) =>
+            _
+            .item(item)
+            .setCallback((event: any) => console.log('---'))
+            .menu
+          )
           .table
       .build()
   }

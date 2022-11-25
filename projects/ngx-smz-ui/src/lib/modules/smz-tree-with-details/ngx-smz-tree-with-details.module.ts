@@ -10,6 +10,7 @@ import { NgxSmzTreesModule } from '../smz-trees/ngx-smz-trees.module';
 import { NgCloneModule } from '../../common/directives/ng-clone/ng-clone.module';
 import { NgxSmzUiBlockModule } from '../smz-ui-block/smz-ui-block.module';
 import { TreeItemsPipe } from './pipes/tree-items.pipe';
+import { NgVarModule } from '../../common/directives/ng-var/ng-var.module';
 
 @NgModule({
     declarations: [
@@ -26,6 +27,7 @@ import { TreeItemsPipe } from './pipes/tree-items.pipe';
         NgxSmzTreesModule,
         NgCloneModule,
         NgxSmzUiBlockModule,
+        NgVarModule
     ],
     exports: [
         SmzTreeWithDetailsComponent,

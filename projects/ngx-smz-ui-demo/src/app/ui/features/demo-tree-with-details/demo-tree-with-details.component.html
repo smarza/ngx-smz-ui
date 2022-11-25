@@ -1,5 +1,17 @@
 <smz-ui-tree-with-details [state]="state" (selectionChange)="onSelectionChanged($event)" (detailsChange)="onDetailsChanged()">
 
+  <ng-template pTemplate="header">
+    <div class="grid items-center justify-between grid-nogutter mb-2">
+      <div>Header Template</div>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="toolbar">
+    <div class="grid items-center justify-between grid-nogutter mb-2">
+      <div>Toolbar Template</div>
+    </div>
+  </ng-template>
+
   <ng-template pTemplate="type:folder" let-node>
     <span>folder => {{ node.label }}</span>
   </ng-template>

@@ -314,6 +314,7 @@ export class DemoTablesComponent implements OnInit {
           isOrderable: false,
           width: '8em',
           isVisible: true,
+          hasSubTotal: false,
           content: {
             type: SmzContentType.ICON,
             styleClass: '',
@@ -336,6 +337,7 @@ export class DemoTablesComponent implements OnInit {
           isOrderable: false,
           width: '8em',
           isVisible: true,
+          hasSubTotal: false,
           content: {
             type: SmzContentType.TEXT,
             styleClass: '',
@@ -357,6 +359,7 @@ export class DemoTablesComponent implements OnInit {
           isOrderable: true,
           width: '8em',
           isVisible: true,
+          hasSubTotal: false,
           content: {
             type: SmzContentType.TEXT,
             styleClass: '',
@@ -377,6 +380,7 @@ export class DemoTablesComponent implements OnInit {
           header: 'Campanha',
           isOrderable: true,
           isVisible: true,
+          hasSubTotal: false,
           content: {
             type: SmzContentType.TEXT,
             styleClass: '',
@@ -397,6 +401,7 @@ export class DemoTablesComponent implements OnInit {
           header: 'Descrição',
           isOrderable: true,
           isVisible: true,
+          hasSubTotal: false,
           content: {
             type: SmzContentType.TEXT,
             styleClass: '',
@@ -418,6 +423,7 @@ export class DemoTablesComponent implements OnInit {
           isOrderable: true,
           width: '8em',
           isVisible: true,
+          hasSubTotal: false,
           content: {
             type: SmzContentType.CALENDAR,
             data: { format: 'shortTime' },

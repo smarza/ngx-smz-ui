@@ -1,6 +1,6 @@
 {
   "name": "ngx-smz-ui",
-  "version": "14.0.31",
+  "version": "14.0.33",
   "peerDependencies": {
     "@auth0/angular-jwt": "^5.0.2",
     "@ngneat/until-destroy": "^9.0.0",

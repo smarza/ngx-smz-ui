@@ -7,19 +7,29 @@
     <div smzUiBlock #treeContainer [component]="treeContainer" class="h-full w-full rounded p-2 bg-surface-a text-text-color border border-solid border-surface-d">
 
       <div class="h-full">
-          <smz-ui-tree [items]="items | treeItems : state.tree.selectableTypes : state.tree.allowAllNodesToBeClicked" [state]="state.tree.state" (selectionChange)="selectionChanged($event)" [styleClass]="state.tree.styleClass">
+          <ng-container *ngVar="items | treeItems : state.tree.selectableTypes : state.tree.allowAllNodesToBeClicked as treeItems">
+            <smz-ui-tree [items]="treeItems" [state]="state.tree.state" (selectionChange)="selectionChanged($event)" [styleClass]="state.tree.styleClass">
 
-            <ng-container *ngIf="headerTemplate != null">
-              <ng-container *ngTemplateOutlet="headerTemplate; context: { $implicit: state.context.selectedNode, type: state.context.selectedNode.type }"></ng-container>
-            </ng-container>
+              <ng-container *ngIf="headerTemplate != null">
+                <ng-template pTemplate="header">
+                  <ng-container *ngTemplateOutlet="headerTemplate; context: { $implicit: state, component: treeContainer, items: treeItems }"></ng-container>
+                </ng-template>
+              </ng-container>
 
-            <ng-container *ngFor="let content of contentTemplates">
-              <ng-template let-node [pTemplate]="'type:' + content.type">
-                  <ng-container *ngTemplateOutlet="content.template; context: { $implicit: node }"></ng-container>
-              </ng-template>
-            </ng-container>
+              <ng-container *ngIf="toolbarTemplate != null">
+                <ng-template pTemplate="toolbar">
+                  <ng-container *ngTemplateOutlet="toolbarTemplate; context: { $implicit: state, component: treeContainer, items: treeItems }"></ng-container>
+                </ng-template>
+              </ng-container>
 
-          </smz-ui-tree>
+              <ng-container *ngFor="let content of contentTemplates">
+                <ng-template let-node [pTemplate]="'type:' + content.type">
+                    <ng-container *ngTemplateOutlet="content.template; context: { $implicit: node }"></ng-container>
+                </ng-template>
+              </ng-container>
+
+            </smz-ui-tree>
+          </ng-container>
       </div>
     </div>
   </div>

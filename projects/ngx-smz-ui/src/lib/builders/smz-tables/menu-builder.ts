@@ -1,10 +1,12 @@
 import { MenuItem } from 'primeng/api';
 import { SmzMenuItem } from '../../modules/smz-menu/models/smz-menu-item';
+import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzTableBuilder } from './state-builder';
 
-export class SmzMenuTableBuilder {
+export class SmzMenuTableBuilder extends SmzBuilderUtilities<SmzMenuTableBuilder> {
+  protected that = this;
   constructor(private _tableBuilder: SmzTableBuilder) {
-
+    super();
   }
 
   public item(label: string, icon: string = null, tooltip: string = null): SmzMenuItemTableBuilder {
