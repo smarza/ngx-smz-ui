@@ -634,6 +634,16 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
         .text('section', 'Seção', '12em')
           .columns
         .text('system', 'Sistema', '16em')
+          .actions()
+            .if(true)
+              .add('fa-regular fa-copy', (item: any) => { console.log('copy', item); })
+                .setStyleClass('text-red-500')
+                .action
+              .endIf
+            .add('fa-solid fa-print', (item: any) => { console.log('print', item); })
+              .setStyleClass('text-sky-500')
+              .action
+            .column
           .columns
         .text('function.name', 'Função', '16em')
           .setFilter(SmzFilterType.MULTI_SELECT)

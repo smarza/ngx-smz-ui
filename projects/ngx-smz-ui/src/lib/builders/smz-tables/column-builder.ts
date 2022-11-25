@@ -4,6 +4,7 @@ import { SmzEditableType } from '../../modules/smz-tables/models/editable-types'
 import { SmzFilterType } from '../../modules/smz-tables/models/filter-types';
 import { SmzTableColumn } from '../../modules/smz-tables/models/table-column';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
+import { SmzContentActionsBuilder } from './column-content-action-builder';
 import { SmzEditableCollectionBuilder } from './editable-builder';
 import { SmzTableBuilder } from './state-builder';
 
@@ -73,7 +74,8 @@ export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T>> {
         },
         isVisible: true,
         isFrozen: false,
-        width: width
+        width: width,
+        actions: []
       };
 
       this._table._state.columns.push(this._column);
@@ -150,6 +152,11 @@ export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T>> {
   public editable(): SmzEditableCollectionBuilder {
     const editableBuilder = new SmzEditableCollectionBuilder(this._table, this);
     return editableBuilder;
+  }
+
+  public actions(): SmzContentActionsBuilder {
+    const actionsBuilder = new SmzContentActionsBuilder(this._table, this);
+    return actionsBuilder;
   }
 
   public get columns(): SmzColumnCollectionBuilder {

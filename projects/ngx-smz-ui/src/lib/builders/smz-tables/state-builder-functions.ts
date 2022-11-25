@@ -40,7 +40,8 @@ export namespace StateBuilderFunctions {
           type: converted.filterType,
         },
         isVisible: true,
-        width: 'auto'
+        width: 'auto',
+        actions: []
       };
 
       _state.columns.push(column);

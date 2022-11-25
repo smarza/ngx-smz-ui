@@ -36,6 +36,7 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
 import { SmzSincronizeTablePipe } from './pipes/sincronize-table.pipe';
 import { SmzTableContentComponent } from './components/table-content/table-content.component';
 import { NgVarModule } from '../../common/directives/ng-var/ng-var.module';
+import { SmzTableContentActionsComponent } from './components/table-content-actions/table-content-actions.component';
 
 @NgModule({
     declarations: [
@@ -52,7 +53,8 @@ import { NgVarModule } from '../../common/directives/ng-var/ng-var.module';
         ValidationMessagesComponent,
         ValidationMessagesPipe,
         SmzSincronizeTablePipe,
-        SmzTableContentComponent
+        SmzTableContentComponent,
+        SmzTableContentActionsComponent
     ],
     imports: [
         CommonModule,
