@@ -11,6 +11,7 @@ import localePt from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
 import { NgxSmzRouterParamsModule } from '../smz-router-params/ngx-smz-router-params.module';
 import { GlobalInjector } from '../../common/services/global-injector';
+import { MarkdownModule } from 'ngx-markdown';
 
 // Register the localization
 registerLocaleData(localePt, 'pt-BR');
@@ -21,7 +22,8 @@ registerLocaleData(localePt, 'pt-BR');
         BrowserAnimationsModule,
         CommonModule,
         NgxSmzLayoutsRoutingModule,
-        NgxSmzRouterParamsModule
+        NgxSmzRouterParamsModule,
+        MarkdownModule.forRoot(),
     ],
     exports: [],
 })

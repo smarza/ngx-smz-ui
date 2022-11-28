@@ -9,6 +9,7 @@ import { mergeClone } from '../../../common/utils/deep-merge';
 import { SmzForm } from '../../smz-forms/models/smz-forms';
 import { FormGroupComponent } from '../../smz-forms/features/form-group/form-group.component';
 import { DocumentContentComponent } from '../features/document-content/document-content.component';
+import { MarkdownContentComponent } from '../features/markdown-content/markdown-content.component';
 
 @Injectable({providedIn: 'root'})
 export class SmzFeaturesService {
@@ -78,6 +79,18 @@ export class SmzFeaturesService {
                       type: feature.type
                   });
                   break;
+
+            case 'markdown':
+                // HTML DETECTED
+
+                data._context.injectables.push({
+                    component: MarkdownContentComponent,
+                    inputs: [{ data: feature.data, input: 'data' }],
+                    outputs: [],
+                    template: featureTemplate,
+                    type: feature.type
+                });
+                break;
 
               case 'table':
                   // HTML DETECTED

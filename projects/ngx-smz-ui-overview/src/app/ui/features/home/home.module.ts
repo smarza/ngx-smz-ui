@@ -85,8 +85,7 @@ const routes: Routes = [
     NgxSmzCommentsModule,
     NgxSmzCardsModule,
     NgxSmzTimelineModule,
-    NgxSmzDataPipesModule
-
+    NgxSmzDataPipesModule,
   ],
   providers: [],
   bootstrap: [HomeComponent]
