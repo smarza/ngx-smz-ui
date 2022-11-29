@@ -248,6 +248,15 @@ export class SmzDialogBuilder<TResponse> extends SmzBuilderUtilities<SmzDialogBu
     return this;
   }
 
+  public markdown(mdData: string): SmzDialogBuilder<TResponse> {
+    const feature: SmzDialogFeature = {
+      type: 'markdown',
+      data: mdData,
+    };
+    this._state.features.push(feature);
+    return this;
+  }
+
   public table(items$: Observable<any>, state: SmzTableState): SmzDialogBuilder<TResponse> {
     const data: any = { items$, state };
     const feature: SmzDialogFeature = {

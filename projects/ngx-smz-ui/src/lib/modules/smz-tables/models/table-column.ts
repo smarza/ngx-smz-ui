@@ -121,6 +121,14 @@ export interface SmzTableColumn {
      */
     isGlobalFilterable?: boolean;
   };
+
+  actions: SmzTableContentAction[];
+}
+
+export interface SmzTableContentAction {
+  icon: string;
+  styleClass: string;
+  callback: (item: any) => void;
 }
 
 export interface SmzTableContextColumn extends SmzTableColumn { }

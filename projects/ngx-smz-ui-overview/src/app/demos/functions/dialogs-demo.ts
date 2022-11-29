@@ -510,6 +510,35 @@ export const DialogsDemo: { [key: string]: () => void } = {
     );
   },
   //
+  [DemoKeys.DIALOGS_WITH_MARKDOWN]: () => {
+
+    const markdown = `## Markdown __rulez__!
+  ---
+
+  ### Syntax highlight
+  \`\`\`typescript
+  const language = 'typescript';
+  \`\`\`
+
+  ### Lists
+  1. Ordered list
+  2. Another bullet point
+     - Unordered list
+     - Another unordered bullet
+
+  ### Blockquote
+  > Blockquote to the max`;
+
+    service.open(
+      new SmzDialogBuilder<void>()
+        .setTitle(`Dialog with Markdown`)
+        .setLayout('EXTRA_SMALL', 'col-12')
+        .setLayout('EXTRA_LARGE', 'col-8')
+        .markdown(markdown)
+      .build()
+    );
+  },
+  //
   [DemoKeys.DIALOGS_HELP_CUSTOM_BUTTON]: () => {
     service.open(
       new SmzDialogBuilder<void>()

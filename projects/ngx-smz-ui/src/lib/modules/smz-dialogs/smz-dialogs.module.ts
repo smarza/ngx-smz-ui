@@ -39,6 +39,8 @@ import { NgxSmzDocumentsModule } from '../smz-documents/ngx-smz-documents.module
 import { DocumentContentComponent } from './features/document-content/document-content.component';
 import { ContextMenuService } from 'primeng/api';
 import { SmzToastModule } from '../smz-toast/toast';
+import { MarkdownModule } from 'ngx-markdown';
+import { MarkdownContentComponent } from './features/markdown-content/markdown-content.component';
 
 const defaultDialogsModuleConfig: SmzDialogsConfig = {
     dialogs: {
@@ -93,7 +95,8 @@ export const ngxsModuleForFeatureDialogsState = NgxsModule.forFeature([DialogsSt
         TableContentComponent,
         DialogFooterComponent,
         ConfirmOnEnterDirective,
-        DocumentContentComponent
+        DocumentContentComponent,
+        MarkdownContentComponent
     ],
     imports: [
         CommonModule,
@@ -118,7 +121,8 @@ export const ngxsModuleForFeatureDialogsState = NgxsModule.forFeature([DialogsSt
         ProgressBarModule,
         SafeContentPipeModule,
         NgxSmzTablesModule,
-        NgxSmzDocumentsModule
+        NgxSmzDocumentsModule,
+        MarkdownModule.forChild(),
     ],
     providers: [SmzDynamicDialogConfig, DynamicDialogConfig, DynamicDialogRef, ContextMenuService]
 })

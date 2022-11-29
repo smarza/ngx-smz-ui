@@ -403,6 +403,17 @@ export const TreeDemoData: DemoTreeNode[] = [
         ]
       },
       {
+        label: 'Dialog With Markdown', type: 'SubCategory',
+        children: [
+          {
+            label: 'Sample', icon: 'fa-solid fa-code', type: 'Demo',
+            demoType: 'dialog',
+            data: DialogsDemo[DemoKeys.DIALOGS_WITH_MARKDOWN],
+            key: DemoKeys.DIALOGS_WITH_MARKDOWN.toString()
+          },
+        ]
+      },
+      {
         label: 'Dialog With Tables', type: 'SubCategory',
         children: [
           {

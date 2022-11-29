@@ -27,7 +27,7 @@ export class LoginComponent {
       .setLoginAction(AuthenticationActions.RemoteLogin)
       .setLogoutAction(AuthenticationActions.Logout)
       .setForm(
-        new SmzFormBuilder()
+        new SmzFormBuilder<LoginData>()
           .enableSubmitOnEnter()
           .group()
             .setLayout('EXTRA_SMALL', 'col-12')

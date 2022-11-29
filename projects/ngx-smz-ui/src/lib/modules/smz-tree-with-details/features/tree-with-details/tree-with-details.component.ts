@@ -18,6 +18,7 @@ export class SmzTreeWithDetailsComponent implements OnInit, AfterContentInit, On
   public detailsTemplate: TemplateRef<any>;
   public emptySelectionTemplate: TemplateRef<any>;
   public headerTemplate: TemplateRef<any>;
+  public toolbarTemplate: TemplateRef<any>;
   public contentTemplates: { type: string, template: TemplateRef<any> }[] = [];
 
   constructor(public cdr: ChangeDetectorRef) {
@@ -59,6 +60,9 @@ export class SmzTreeWithDetailsComponent implements OnInit, AfterContentInit, On
             this.headerTemplate = item.template;
             break;
 
+          case 'toolbar':
+            this.toolbarTemplate = item.template;
+            break;
         }
 
       }
