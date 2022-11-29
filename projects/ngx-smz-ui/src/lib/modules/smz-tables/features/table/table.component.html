@@ -16,7 +16,9 @@
 
     <ng-template #tableTemplate>
 
-        <ng-container *ngIf="(items | cloneTableItems : context: tableKey: context.state.rowExpansion.sincronize) as clonedData">
+        <ng-container *ngVar="state.source?.items$ != null ? (state.source.items$ | async) : null as source">
+
+        <ng-container *ngIf="(source ?? items | cloneTableItems : context: tableKey: context.state.rowExpansion.sincronize) as clonedData">
 
         <p-table #dt
             dataKey="id"
@@ -495,6 +497,8 @@
                 </tr>
             </ng-template>
         </p-table>
+
+        </ng-container>
 
         </ng-container>
     </ng-template>

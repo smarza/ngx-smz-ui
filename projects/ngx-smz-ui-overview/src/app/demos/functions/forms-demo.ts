@@ -158,6 +158,7 @@ Exame sem intercorrências.`)
   //
   [DemoKeys.FORMS_INPUT_LINKED_DROPDOWN]: () => {
     return new SmzFormBuilder<any>()
+    .debugMode()
       .disableFlattenResponse()
       .group()
         .setLayout('EXTRA_SMALL', 'col-12')

@@ -160,6 +160,7 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
         clear: (control: AbstractControl) => { control.patchValue(''); },
         updateValue: (control: AbstractControl, input: SmzLinkedDropDownControl<any>) =>
         {
+            debugger;
             if (input.defaultValue != null && input.defaultValue != '')
             {
 
