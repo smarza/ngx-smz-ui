@@ -21,9 +21,10 @@ export class SmzContentActionsBuilder extends SmzBuilderUtilities<SmzContentActi
 export class SmzContentActionIconBuilder {
   private _action: SmzTableContentAction;
 
-  constructor(protected _table: SmzTableBuilder, protected _column: SmzTableColumn, protected _parent: SmzContentActionsBuilder, icon: string, callback: (item: any) => void) {
+  constructor(protected _table: SmzTableBuilder, protected _column: SmzTableColumn, protected _parent: SmzContentActionsBuilder, icon: string, callback?: (item: any) => void) {
     this._action = {
       icon,
+      tooltip: null,
       condition: () => true,
       callback,
       styleClass: ''
@@ -35,8 +36,23 @@ export class SmzContentActionIconBuilder {
     return this;
   }
 
+  public setTooltip(tooltip: string): SmzContentActionIconBuilder {
+    this._action.tooltip = tooltip;
+    return this;
+  }
+
   public condition(condition: (item: any) => boolean): SmzContentActionIconBuilder {
     this._action.condition = condition;
+    return this;
+  }
+
+  public callback(callback: (item: any) => boolean): SmzContentActionIconBuilder {
+
+    if (this._action.callback != null) {
+      throw Error('You already set the callback for this column action.');
+    }
+
+    this._action.callback = callback;
     return this;
   }
 
