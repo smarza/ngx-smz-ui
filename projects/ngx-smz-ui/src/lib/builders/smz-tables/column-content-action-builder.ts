@@ -24,6 +24,7 @@ export class SmzContentActionIconBuilder {
   constructor(protected _table: SmzTableBuilder, protected _column: SmzTableColumn, protected _parent: SmzContentActionsBuilder, icon: string, callback: (item: any) => void) {
     this._action = {
       icon,
+      condition: () => true,
       callback,
       styleClass: ''
     };
@@ -31,6 +32,11 @@ export class SmzContentActionIconBuilder {
 
   public setStyleClass(styleClass: string): SmzContentActionIconBuilder {
     this._action.styleClass = styleClass;
+    return this;
+  }
+
+  public condition(condition: (item: any) => boolean): SmzContentActionIconBuilder {
+    this._action.condition = condition;
     return this;
   }
 

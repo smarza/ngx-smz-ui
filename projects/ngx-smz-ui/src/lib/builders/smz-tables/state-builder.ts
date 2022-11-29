@@ -12,6 +12,7 @@ import { convertFormFeature } from '../smz-dialogs/dialog-input-conversion';
 import { UiDefinitionsDbSelectors } from '../../state/database/ui-definitions/ui-definitions.selectors';
 import { SmzBatchMenuBuilder } from './batch-menu-builder';
 import { SmzEditableTableBuilder } from './editable-builder';
+import { Observable } from 'rxjs';
 
 // SCROLL TRUE =>
 //   MIN-WIDTH PODE TER PX
@@ -26,6 +27,9 @@ export class SmzTableBuilder {
     isValid: true,
     isDebug: false,
     columns: [],
+    source: {
+      items$: null
+    },
     actions: {
       customActions: {
         columnWidth: 0,
@@ -219,6 +223,11 @@ export class SmzTableBuilder {
   public setTitle(title: string): SmzTableBuilder {
     this._state.caption.isVisible = true;
     this._state.caption.title = title;
+    return this;
+  }
+
+  public addSource(items$: Observable<any[]>): SmzTableBuilder {
+    this._state.source.items$ = items$;
     return this;
   }
 
