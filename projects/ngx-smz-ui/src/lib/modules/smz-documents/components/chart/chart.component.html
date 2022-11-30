@@ -1,12 +1,12 @@
 <div
   [style.background]="data.container.background"
-  class="grid grid-nogutter items-stretch justify-start h-full relative"
+  class="w-full h-full relative"
   [ngClass]="data.container.styles">
 
   <smz-ui-chart
     class="w-full h-full"
     [ngClass]="data.flexWidth"
-    [responsive]="false"
+    [responsive]="true"
     [type]="data.content.chartData.type"
     [data]="data.content.chartData.data"
     [plugins]="state.renderer === 'jspdf' ? plugins : []"

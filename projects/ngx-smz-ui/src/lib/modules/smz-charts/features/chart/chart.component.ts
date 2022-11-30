@@ -138,7 +138,6 @@ export class SmzChartComponent implements AfterViewInit, OnDestroy {
       options: this.options,
       plugins: this.plugins
     });
-
   }
 
   public getCanvas(): void {
