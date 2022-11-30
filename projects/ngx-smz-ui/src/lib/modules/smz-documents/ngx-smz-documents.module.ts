@@ -29,6 +29,7 @@ import { SmzChartModule } from '../smz-charts/ngx-smz-charts.module';
 import { SmzDocumentPageBreakComponent } from './components/page-break/page-break.component';
 import { SmzDocumentInjectableComponent } from './components/injectable/injectable.component';
 import { InjectContentAppModule } from '../../common/modules/inject-content/inject-content.module';
+import { SmzDocumentHiddenBreakComponent } from './components/hidden-break/hidden-break.component';
 
 @NgModule({
     imports: [
@@ -64,7 +65,8 @@ import { InjectContentAppModule } from '../../common/modules/inject-content/inje
       SmzDocumentTableComponent,
       SmzDocumentChartComponent,
       SmzDocumentPageBreakComponent,
-      SmzDocumentInjectableComponent
+      SmzDocumentInjectableComponent,
+      SmzDocumentHiddenBreakComponent
     ]
   })
   export class NgxSmzDocumentsModule

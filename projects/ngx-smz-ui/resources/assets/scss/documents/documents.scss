@@ -141,3 +141,122 @@
   border: unset;
   pointer-events: none;
 }
+
+
+.smz-document-border-r::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: -1px;
+  bottom: -1px;
+  border-right: solid 1px #424242;
+  pointer-events: none;
+}
+
+.smz-document-border-l::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: -1px;
+  bottom: -1px;
+  border-left: solid 1px #424242;
+  pointer-events: none;
+}
+
+.smz-document-border-t::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: -1px;
+  bottom: -1px;
+  border-top: solid 1px #424242;
+  pointer-events: none;
+}
+
+.smz-document-border-x::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: -1px;
+  bottom: -1px;
+  border-left: solid 1px #424242;
+  border-right: solid 1px #424242;
+  pointer-events: none;
+}
+
+.smz-document-border-y::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: -1px;
+  bottom: -1px;
+  border-top: solid 1px #424242;
+  border-bottom: solid 1px #424242;
+  pointer-events: none;
+}
+
+.smz-document-border-xt::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: -1px;
+  bottom: -1px;
+  border-top: solid 1px #424242;
+  border-left: solid 1px #424242;
+  border-right: solid 1px #424242;
+  pointer-events: none;
+}
+
+.smz-document-border-xb::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: -1px;
+  bottom: -1px;
+  border-bottom: solid 1px #424242;
+  border-left: solid 1px #424242;
+  border-right: solid 1px #424242;
+  pointer-events: none;
+}
+
+.smz-document-border-rb::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: -1px;
+  bottom: -1px;
+  border-bottom: solid 1px #424242;
+  border-right: solid 1px #424242;
+  pointer-events: none;
+}
+
+.smz-document-border-lb::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: -1px;
+  bottom: -1px;
+  border-bottom: solid 1px #424242;
+  border-left: solid 1px #424242;
+  pointer-events: none;
+}
+
+.smz-document-border-b::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: -1px;
+  bottom: -1px;
+  border-bottom: solid 1px #424242;
+  pointer-events: none;
+}

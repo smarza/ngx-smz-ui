@@ -39,6 +39,10 @@
               <smz-document-spacer [data]="$any(cell.data)" [config]="config"></smz-document-spacer>
             </ng-container>
 
+            <ng-container *ngSwitchCase="featureDefinitions.HIDDEN_BREAK">
+              <smz-document-hidden-break [data]="$any(cell.data)" [config]="config"></smz-document-hidden-break>
+            </ng-container>
+
             <ng-container *ngSwitchCase="featureDefinitions.SUB_TITLE">
               <smz-document-sub-title [data]="$any(cell.data)" [config]="config"></smz-document-sub-title>
             </ng-container>

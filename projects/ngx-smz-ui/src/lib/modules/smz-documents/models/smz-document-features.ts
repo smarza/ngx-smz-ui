@@ -3,7 +3,7 @@ import { SmzInjectableComponent } from '../../../common/modules/inject-content/m
 import { SmzChart } from '../../smz-charts/models/chart';
 import { SmzDocumentCellConfig } from './smz-document';
 
-export type SmzDocumentFeatures = SmzDocumentTitle | SmzDocumentDivider | SmzDocumentField | SmzDocumentImage | SmzDocumentSpacer | SmzDocumentSubTitle | SmzDocumentFieldsGroup | SmzDocumentTable | SmzDocumentChart | SmzDocumentPageBreak | SmzDocumentComponent;
+export type SmzDocumentFeatures = SmzDocumentTitle | SmzDocumentDivider | SmzDocumentField | SmzDocumentImage | SmzDocumentSpacer | SmzDocumentHiddenBreak | SmzDocumentSubTitle | SmzDocumentFieldsGroup | SmzDocumentTable | SmzDocumentChart | SmzDocumentPageBreak | SmzDocumentComponent;
 
 export enum SmzDocumentFeatureDefinitions {
   DIVIDER,
@@ -11,6 +11,7 @@ export enum SmzDocumentFeatureDefinitions {
   FIELDS_GROUP,
   IMAGE,
   SPACER,
+  HIDDEN_BREAK,
   SUB_TITLE,
   TITLE,
   TABLE,
@@ -151,7 +152,13 @@ export interface SmzDocumentSpacer extends SmzDocumentBaseCell {
   type: SmzDocumentFeatureDefinitions.SPACER;
   height: string;
   styles?: string;
+}
 
+export interface SmzDocumentHiddenBreak extends SmzDocumentBaseCell {
+  type: SmzDocumentFeatureDefinitions.HIDDEN_BREAK;
+  height: string;
+  styles?: string;
+  overlapStyles?: string
 }
 
 export interface SmzDocumentChart extends SmzDocumentBaseCell {

@@ -111,6 +111,16 @@ export const DocumentsDemo: { [key: string]: () => void } = {
          .document
 
       .content()
+         .row()
+            .hiddenBreak()
+               .overrideStyles('bg-black')
+               .setHiddenBreakHeight('200px')
+               .overrideOverlapStyles('bg-black page-overlap-demo')
+               .row
+            .content
+         .document
+
+      .content()
 
          .row()
          .subTitle('COMPRADOR')

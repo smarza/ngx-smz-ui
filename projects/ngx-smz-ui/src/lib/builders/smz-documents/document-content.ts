@@ -1,6 +1,6 @@
 
 import { SmzDocumentCell, SmzDocumentRow, SmzDocumentContent } from '../../modules/smz-documents/models/smz-document';
-import { SmzDocumentTitle, SmzDocumentFeatureDefinitions, SmzDocumentDivider, SmzDocumentField, SmzDocumentImage, SmzDocumentSpacer, SmzDocumentSubTitle, SmzDocumentFieldsGroup, SmzDocumentTable, SmzDocumentChart, SmzDocumentPageBreak, SmzDocumentComponent } from '../../modules/smz-documents/models/smz-document-features';
+import { SmzDocumentTitle, SmzDocumentFeatureDefinitions, SmzDocumentDivider, SmzDocumentField, SmzDocumentImage, SmzDocumentSpacer, SmzDocumentSubTitle, SmzDocumentFieldsGroup, SmzDocumentTable, SmzDocumentChart, SmzDocumentPageBreak, SmzDocumentComponent, SmzDocumentHiddenBreak } from '../../modules/smz-documents/models/smz-document-features';
 import { SmzDocumentBuilder } from './document-builder';
 import { UUID } from 'angular2-uuid';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
@@ -18,6 +18,7 @@ import { SmzCellSpacerBuilder } from './content-cells/spacer';
 import { SmzCellSubTitleBuilder } from './content-cells/sub-title';
 import { SmzCellComponentBuilder } from './content-cells/component';
 import { SmzInjectableComponent } from '../../common/modules/inject-content/models/injectable.model';
+import { SmzCellHiddenBreakBuilder } from './content-cells/hidden-break';
 
 export class SmzDocumentContentBuilder extends SmzBuilderUtilities<SmzDocumentContentBuilder> {
   protected that = this;
@@ -111,6 +112,14 @@ export class SmzDocumentRowBuilder extends SmzBuilderUtilities<SmzDocumentRowBui
     const item: SmzDocumentSpacer = { type: SmzDocumentFeatureDefinitions.SPACER, height: '100%' };
     cell.data = item;
     return new SmzCellSpacerBuilder(this, cell, item, this._documentBuilder);
+  }
+
+  public hiddenBreak(): SmzCellHiddenBreakBuilder {
+    const cell: SmzDocumentCell = { colspan: 1, rowspan: 1, height: '100%', width: 'auto', data: null };
+    this._row.cells.push(cell)
+    const item: SmzDocumentHiddenBreak = { type: SmzDocumentFeatureDefinitions.HIDDEN_BREAK, height: '100%' };
+    cell.data = item;
+    return new SmzCellHiddenBreakBuilder(this, cell, item, this._documentBuilder);
   }
 
   public subTitle(text: string): SmzCellSubTitleBuilder {
