@@ -51,7 +51,7 @@ export class SmzBatchMenuItemBuilder {
   }
 
   public setVisibilityRule<T>(callback: (item: T) => boolean): SmzBatchMenuItemBuilder {
-    if (!this._item.conditional != null) {
+    if (this._item.conditional != null) {
       throw Error('You can\'t call \'setVisibilityRule\' in conjunction with setActivationRule');
     }
     this._item.conditional = { condition: callback, property: 'visible' };
@@ -59,7 +59,7 @@ export class SmzBatchMenuItemBuilder {
   }
 
   public setActivationRule<T>(callback: (item: T) => boolean): SmzBatchMenuItemBuilder {
-    if (!this._item.conditional != null) {
+    if (this._item.conditional != null) {
       throw Error('You can\'t call \'setActivationRule\' in conjunction with setVisibilityRule');
     }
     this._item.conditional = { condition: callback, property: 'disabled' };

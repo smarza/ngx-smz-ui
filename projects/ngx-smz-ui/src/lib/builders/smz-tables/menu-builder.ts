@@ -53,7 +53,7 @@ export class SmzMenuItemTableBuilder {
   }
 
   public setVisibilityRule<T>(callback: (item: T) => boolean): SmzMenuItemTableBuilder {
-    if (!this._item.conditional != null) {
+    if (this._item.conditional != null) {
       throw Error('You can\'t call \'setVisibilityRule\' in conjunction with setActivationRule');
     }
     this._item.conditional = { condition: callback, property: 'visible' };
@@ -61,7 +61,7 @@ export class SmzMenuItemTableBuilder {
   }
 
   public setActivationRule<T>(callback: (item: T) => boolean): SmzMenuItemTableBuilder {
-    if (!this._item.conditional != null) {
+    if (this._item.conditional != null) {
       throw Error('You can\'t call \'setActivationRule\' in conjunction with setVisibilityRule');
     }
     this._item.conditional = { condition: callback, property: 'disabled' };
