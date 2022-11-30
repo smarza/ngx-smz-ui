@@ -11,10 +11,13 @@ import { SmzDialogsConfig } from '../../modules/smz-dialogs/smz-dialogs.config';
 import { SmzFormViewdata } from '../../modules/smz-forms/models/form-viewdata';
 import { Observable } from 'rxjs';
 import sortBy from 'lodash-es/sortBy';
+import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 
-export class SmzFormGroupBuilder<TResponse> {
+export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormGroupBuilder<TResponse>> {
+  protected that = this;
   private defaultConfig = GlobalInjector.instance.get(SmzDialogsConfig);
   constructor(public _formBuilder: SmzFormBuilder<TResponse>, public group: SmzFormGroup) {
+    super();
   }
 
   public setLayout(breakpoint: 'EXTRA_SMALL' | 'SMALL' | 'MEDIUM' | 'LARGE' | 'EXTRA_LARGE',
