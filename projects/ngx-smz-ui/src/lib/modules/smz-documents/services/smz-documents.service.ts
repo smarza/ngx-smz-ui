@@ -85,13 +85,15 @@ export class SmzDocumentsService {
 
         switch (state.renderer) {
           case 'html2pdf':
+            // console.log('1 Document html2pdfOptions', state.export.html2pdfOptions);
             const html2pdfData = html2pdf()
               .from(element.nativeElement)
               .set(state.export.html2pdfOptions)
               .toPdf().get('pdf').then(function (pdf) {
 
-                if (state.summary.showPageNumbers)
+                if (state.summary.showPageNumbers) {
                   SmzJsPdfUtils.addPageNumbers(pdf, state);
+                }
 
               })
 
@@ -117,6 +119,8 @@ export class SmzDocumentsService {
             break;
 
           case 'jspdf':
+
+            // console.log('2 Document htmlOptions', state.export.htmlOptions);
 
             const doc = new jsPDF(cloneDeep(state.export.jsPDFOptions));
 

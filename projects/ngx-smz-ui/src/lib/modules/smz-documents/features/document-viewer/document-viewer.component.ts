@@ -36,6 +36,10 @@ export class SmzDocumentViewerComponent implements OnInit, AfterViewInit, OnDest
     public ngAfterViewInit(): void
     {
         this.documentService.setPaperElement(this.paperElement);
+
+        if (this.state.isDebug) {
+            console.log('Document State', this.state);
+          }
     }
 
     public goBack(): void

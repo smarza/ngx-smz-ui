@@ -7,10 +7,10 @@ export const ReportSectionHistory2: ReportSummaryBuilder<any> = (builder, data):
 .content()
   .useFixedLayout()
 
-.row()
-  .pageBreak()
-    .row
-.content
+// .row()
+//   .pageBreak()
+//     .row
+// .content
 
 .row()
 

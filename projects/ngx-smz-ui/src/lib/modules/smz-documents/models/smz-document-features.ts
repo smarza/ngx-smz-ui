@@ -171,6 +171,7 @@ export interface SmzDocumentChart extends SmzDocumentBaseCell {
     chartData?: SmzChart
   }
   flexWidth: string;
+  height: string;
 }
 
 export interface SmzDocumentComponent extends SmzDocumentBaseCell {

@@ -110,15 +110,15 @@ export const DocumentsDemo: { [key: string]: () => void } = {
 
          .document
 
-      .content()
-         .row()
-            .hiddenBreak()
-               .overrideStyles('bg-black')
-               .setHiddenBreakHeight('200px')
-               .overrideOverlapStyles('bg-black page-overlap-demo')
-               .row
-            .content
-         .document
+      // .content()
+      //    .row()
+      //       .hiddenBreak()
+      //          .overrideStyles('bg-black')
+      //          .setHiddenBreakHeight('200px')
+      //          .overrideOverlapStyles('bg-black page-overlap-demo')
+      //          .row
+      //       .content
+      //    .document
 
       .content()
 
@@ -565,6 +565,109 @@ Caso contrário, aguardamos a confirmação do envio em até 48 horas.
     return buildSummaryReportDocument(payload)
   },
   //
+  [DemoKeys.DOCUMENTS_PAGES]: () => {
+   return new SmzDocumentBuilder()
+     .setRenderer('html2pdf')
+     .setQuality(2)
+     .setUnit('cm')
+     .setMargins(1, 1, 2, 2)
+   //   .setPaddingCompensation(5)
+     .setPageOverlapCompensation(1)
+     .setFilename('html2pdf')
+     .setPage('a4', 'portrait')
+     .hidePageNumbers()
+
+     .viewer()
+        .setZoom(1, 0.5, 5, 0.5)
+        .allowDownload()
+        .document
+
+     .header()
+
+        .row()
+        .image('assets/logo.png')
+           .setWidth('col-8')
+           .setRowspan(3)
+           .setImageWidth('40%')
+           .row
+        .field('OC-02382', 'Nº COMPRA')
+           .setWidth('col-2')
+           .useCentralized()
+           .useBold()
+           .row
+        .field('VERSÃO DE CONSULTA')
+           .setWidth('col-2')
+           .useCentralized()
+           .useAlert()
+           .row
+        .content
+
+        .row()
+        .field('AGUARDANDO CONFIRMAÇÃO', 'STATUS')
+           .setColspan(2)
+           .useCentralized()
+           .useBold()
+           .row
+        .content
+
+        .row()
+        .field('04/10/2021 18:00', 'DATA DA EMISSÃO')
+           .setColspan(2)
+           .useCentralized()
+           .row
+        .content
+
+        .row()
+        .title('ORDEM DE COMPRA')
+           .setBackgroundColor('#FDD835')
+           .setTextColor('#212121')
+           .setColspan(3)
+           .row
+        .content
+
+        .document
+
+     // .content()
+     //    .row()
+     //       .hiddenBreak()
+     //          .overrideStyles('bg-black')
+     //          .setHiddenBreakHeight('200px')
+     //          .overrideOverlapStyles('bg-black page-overlap-demo')
+     //          .row
+     //       .content
+     //    .document
+
+     .for([0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+     (_, item) =>
+       _.content()
+          .pageBreak()
+          .document
+
+       .content()
+
+       .row()
+        .subTitle(`RELAÇÃO DE ITENS - INDEX ${item}`)
+              .overrideContainerStyles('smz-document-border')
+           .row
+       .content
+
+       .row()
+        .table()
+           .overrideContainerStyles('smz-document-border')
+           .setSource(DemoFeatureSelectors.all)
+           .addColumn('name', 'Nome')
+              .table
+           .addColumn('company', 'Empresa')
+              .table
+           .row
+       .content
+
+       .document
+     )
+
+     .build()
+ },
+  //
   [DemoKeys.DOCUMENTS_INJECTABLES]: () => {
    return new SmzDocumentBuilder()
    //   .debugMode()
@@ -761,9 +864,9 @@ function addDocumentContent(_: SmzDocumentBuilder, includePageBreaks: boolean): 
 
     .document
 
-    .if(includePageBreaks)
-      .pageBreak()
-    .endIf
+   //  .if(includePageBreaks)
+   //    .pageBreak()
+   //  .endIf
 
     .content()
       .useFixedLayout()
@@ -780,16 +883,18 @@ function addDocumentContent(_: SmzDocumentBuilder, includePageBreaks: boolean): 
 
     .row()
       .chart(LINE as SmzChart)
+         .setHeight('600px')
         .row
       .chart(LINE as SmzChart)
+         .setHeight('600px')
         .row
       .content
 
     .document
 
-    .if(includePageBreaks)
-      .pageBreak()
-    .endIf
+   //  .if(includePageBreaks)
+   //    .pageBreak()
+   //  .endIf
 
     .content()
 

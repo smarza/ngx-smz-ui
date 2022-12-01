@@ -13,4 +13,5 @@ export interface SmzDocumentExport {
   },
   // This Compensation is to correct the issue where the right border is cutted on the pdf
   paddingCompensation: string;
+  pageOverlapCompensation: number;
 }

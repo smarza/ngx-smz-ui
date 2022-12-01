@@ -38,4 +38,10 @@ export class SmzCellChartBuilder extends SmzDocumentBaseCellBuilder<SmzCellChart
     return this;
   }
 
+  public setHeight(height: string): SmzCellChartBuilder {
+    this._cell.height = height;
+    this._data.height = height;
+    return this.that;
+  }
+
 }

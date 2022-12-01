@@ -1,4 +1,10 @@
+<ng-container *ngIf="data.breakPage.enabled">
+  <div class="page-break-tag"></div>
+  <div *ngIf="data.breakPage.overlap > 0" class="w-full" [ngClass]="{ 'bg-red-500': isDebug }" [style.padding]="data.breakPage.overlap + 'px !important'"></div>
+</ng-container>
+
 <table
+  *ngIf="!data.breakPage.enabled"
   class="w-full h-full border-collapse bg-white smz-document-content-tag"
   [ngClass]="data.container.styles"
   cellspacing="0"

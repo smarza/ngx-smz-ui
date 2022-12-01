@@ -480,6 +480,13 @@ export const TreeDemoData: DemoTreeNode[] = [
         data: DocumentsDemo[DemoKeys.DOCUMENTS_INJECTABLES],
         key: DemoKeys.DOCUMENTS_INJECTABLES.toString()
       },
+      {
+        label: 'Multiple Pages', icon: 'fa-solid fa-code', type: 'Demo',
+        demoType: 'document',
+        notes: '',
+        data: DocumentsDemo[DemoKeys.DOCUMENTS_PAGES],
+        key: DemoKeys.DOCUMENTS_PAGES.toString()
+      },
     ]
   },
   {

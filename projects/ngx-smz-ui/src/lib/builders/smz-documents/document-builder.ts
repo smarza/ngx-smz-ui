@@ -75,7 +75,7 @@ export class SmzDocumentBuilder extends SmzBuilderUtilities<SmzDocumentBuilder> 
       jsPDFOptions: null,
       htmlOptions: null,
       html2pdfOptions: {
-        html2canvas: { scale: 1, useCORS: false, allowTaint: false }
+        html2canvas: { scale: 1, useCORS: false, allowTaint: false, dpi: 96, letterRendering: true }
       },
       margin: {
         top: 1,
@@ -83,7 +83,8 @@ export class SmzDocumentBuilder extends SmzBuilderUtilities<SmzDocumentBuilder> 
         bottom: 1,
         right: 1,
       },
-      paddingCompensation: '4px !important'
+      paddingCompensation: '4px !important',
+      pageOverlapCompensation: 0
     },
     userPreferences: {
       unit: 'mm'
@@ -180,6 +181,7 @@ export class SmzDocumentBuilder extends SmzBuilderUtilities<SmzDocumentBuilder> 
       y: 0,
       html2canvas: {
         svgRendering: true,
+        letterRendering: true
       },
     };
 
@@ -199,6 +201,11 @@ export class SmzDocumentBuilder extends SmzBuilderUtilities<SmzDocumentBuilder> 
 
   public setPaddingCompensation(pixels: number): SmzDocumentBuilder {
     this._state.export.paddingCompensation = `${pixels}px !important`;
+    return this;
+  }
+
+  public setPageOverlapCompensation(pixels: number): SmzDocumentBuilder {
+    this._state.export.pageOverlapCompensation = pixels;
     return this;
   }
 
@@ -263,20 +270,20 @@ export class SmzDocumentBuilder extends SmzBuilderUtilities<SmzDocumentBuilder> 
       throw new Error(`Page Break doen't work with jspdf renderer`);
     }
 
-    const newContent: SmzDocumentContent = { type: 'page-break', rows: [], cellStyles: '', colsCount: 0 };
+    const newContent: SmzDocumentContent = { type: 'page-break', rows: [], cellStyles: '', colsCount: 0, breakPage: { enabled: true } };
     this._state.contents.push(newContent);
 
     return this;
   }
 
   public content(): SmzDocumentContentBuilder {
-    const newContent: SmzDocumentContent = { type: 'content', rows: [], cellStyles: '', colsCount: 0 };
+    const newContent: SmzDocumentContent = { type: 'content', rows: [], cellStyles: '', colsCount: 0, breakPage: { enabled: false }  };
     this._state.contents.push(newContent);
     return new SmzDocumentContentBuilder(this, newContent);
   }
 
   public header(): SmzDocumentContentBuilder {
-    if (this._state.header == null) this._state.header = { type: 'content', rows: [], cellStyles: '', colsCount: 0 };
+    if (this._state.header == null) this._state.header = { type: 'content', rows: [], cellStyles: '', colsCount: 0, breakPage: { enabled: false }  };
     return new SmzDocumentContentBuilder(this, this._state.header);
   }
 

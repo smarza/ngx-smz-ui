@@ -26,11 +26,25 @@ export class SmzDocumentContentBuilder extends SmzBuilderUtilities<SmzDocumentCo
     super();
     const defaultConfig = cloneDeep(this._documentBuilder._state.config);
     _content.container = { styles: defaultConfig.contents.container };
+    _content.breakPage = { enabled: false, overlap: 0 }
 
     if (this._documentBuilder._state.isDebug) {
       this._content.container.styles += ' border-dashed border-2 border-violet-500';
     }
   }
+
+  public pageBreak(): SmzDocumentContentBuilder {
+
+    if (this._documentBuilder._state.renderer == 'jspdf') {
+      throw new Error(`Page Break doen't work with jspdf renderer`);
+    }
+
+    this._content.breakPage.enabled = true;
+    this._content.breakPage.overlap = this._documentBuilder._state.export.pageOverlapCompensation * this.document._state.contents.filter(x => x.breakPage.enabled).length;
+
+    return this.that;
+  }
+
   public row(): SmzDocumentRowBuilder {
     const row: SmzDocumentRow = { id: UUID.UUID(), cells: [] };
     this._content.rows.push(row)
@@ -87,6 +101,7 @@ export class SmzDocumentRowBuilder extends SmzBuilderUtilities<SmzDocumentRowBui
     this._row.cells.push(cell)
     const item: SmzDocumentPageBreak = { type: SmzDocumentFeatureDefinitions.PAGE_BREAK };
     cell.data = item;
+
     return new SmzCellPageBreakBuilder(this, cell, item, this._documentBuilder);
   }
 
@@ -149,7 +164,7 @@ export class SmzDocumentRowBuilder extends SmzBuilderUtilities<SmzDocumentRowBui
   public chart(chartData: SmzChart): SmzCellChartBuilder {
     const cell: SmzDocumentCell = { colspan: 1, rowspan: 1, height: '100%', width: 'auto', data: null };
     this._row.cells.push(cell)
-    const item: SmzDocumentChart = { type: SmzDocumentFeatureDefinitions.CHART, content: { chartData }, flexWidth: 'col' };
+    const item: SmzDocumentChart = { type: SmzDocumentFeatureDefinitions.CHART, content: { chartData }, flexWidth: 'col', height: undefined };
     cell.data = item;
     return new SmzCellChartBuilder(this, cell, item, this._documentBuilder);
   }

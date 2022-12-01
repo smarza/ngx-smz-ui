@@ -45,6 +45,10 @@ export interface SmzDocumentContent {
   container?: {
     styles?: string;
   }
+  breakPage: {
+    enabled: boolean;
+    overlap?: number;
+  };
 }
 
 export interface SmzDocumentRow {
