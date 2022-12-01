@@ -89,8 +89,8 @@ export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T>> {
     return this.that;
   }
 
-  public hide(): T {
-    this._column.isVisible = false;
+  public hide(condition?: boolean): T {
+    this._column.isVisible = condition == null ? false : (condition ? false : true);
     return this.that;
   }
 

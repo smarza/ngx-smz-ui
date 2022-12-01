@@ -734,6 +734,18 @@ export class SmzTableBuilder {
     return this;
   }
 
+  public resizeIgnoringCheck(...operations: { property: string, width: string }[]): SmzTableBuilder {
+    operations.forEach(o => {
+      const column = this._state.columns.find(x => x.property === o.property);
+
+      if (column != null) {
+        column.width = o.width;
+      }
+
+    });
+    return this;
+  }
+
   public resize(...operations: { property: string, width: string }[]): SmzTableBuilder {
     operations.forEach(o => {
       const column = this._state.columns.find(x => x.property === o.property);
