@@ -1,4 +1,4 @@
-import { SmzCardsContentTypes, SmzCardsImageContent, SmzCardsTextContent } from './smz-cards-contents';
+import { SmzCardsComponentContent, SmzCardsContentTypes, SmzCardsImageContent, SmzCardsTextContent } from './smz-cards-contents';
 
 export interface SmzCardsBaseTemplate {
   type: SmzCardsTemplate;
@@ -28,6 +28,7 @@ export interface ImageWithDetailsTemplate extends SmzCardsBaseTemplate {
   title: SmzCardsContentTypes;
   subTitle: SmzCardsContentTypes;
   tags: SmzCardsTextContent[];
+  components: SmzCardsComponentContent[];
   others: SmzCardsContentTypes[];
 }
 

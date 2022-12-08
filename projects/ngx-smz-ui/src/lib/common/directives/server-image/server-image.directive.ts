@@ -19,6 +19,7 @@ export class ServerImageDirective implements AfterViewInit, OnChanges {
   @Input() public placeholder = 'assets/images/placeholder.jpeg';
   @Input() public errorPlaceholder = 'assets/images/error-placeholder.jpeg';
   @Input() public maximize = false;
+  @Input() public openMaximized = false;
   @Input() public title = '';
   @Input() public useServerPath = true;
   @HostBinding('class') public className;
@@ -56,6 +57,9 @@ export class ServerImageDirective implements AfterViewInit, OnChanges {
         this.dialogs.open(new SmzDialogBuilder()
           .setTitle(this.title)
           .allowMaximize()
+          .if(this.openMaximized)
+            .openMaximized()
+            .endIf
           .setLayout('EXTRA_LARGE', 'col-8')
           .setLayout('LARGE', 'col-10')
           .setLayout('MEDIUM', 'col-12')

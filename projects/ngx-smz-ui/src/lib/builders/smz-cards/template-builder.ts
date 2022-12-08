@@ -2,8 +2,8 @@ import { SmzCardView } from '../../modules/smz-cards/models/smz-cards-state';
 import { ImageWithDetailsTemplate, InfoATemplate, RawTemplate, SmzCardsTemplate, SmzCardsTemplates } from '../../modules/smz-cards/models/smz-cards-templates';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzCardsBuilder } from './state-builder';
-import { SmzCardsImageContent, SmzCardsTextContent } from '../../modules/smz-cards/models/smz-cards-contents';
-import { SmzCardsImageBuilder, SmzCardsTextBuilder } from './column-builder';
+import { SmzCardsComponentContent, SmzCardsImageContent, SmzCardsTextContent } from '../../modules/smz-cards/models/smz-cards-contents';
+import { SmzCardsComponentBuilder, SmzCardsImageBuilder, SmzCardsTextBuilder } from './column-builder';
 
 export abstract class SmzCardsBaseTemplateBuilder<TBuilder, T extends SmzCardsBaseTemplateBuilder<TBuilder, T>> {
 
@@ -16,33 +16,33 @@ export abstract class SmzCardsBaseTemplateBuilder<TBuilder, T extends SmzCardsBa
 }
 
 
-export class SmzCardViewBuilder extends SmzBuilderUtilities<SmzCardViewBuilder> {
+export class SmzCardViewBuilder<T> extends SmzBuilderUtilities<SmzCardViewBuilder<T>> {
   protected that = this;
-  constructor(private _cardsBuilder: SmzCardsBuilder<unknown>, private _viewData: SmzCardView, private _layout: 'grid' | 'list') {
+  constructor(private _cardsBuilder: SmzCardsBuilder<T>, private _viewData: SmzCardView, private _layout: 'grid' | 'list') {
     super();
   }
 
-  public useAsDefault(): SmzCardViewBuilder {
+  public useAsDefault(): SmzCardViewBuilder<T> {
     this._cardsBuilder._state.view.layout = this._layout;
     return this;
   }
 
-  public setLayout(styleClass: string): SmzCardViewBuilder {
+  public setLayout(styleClass: string): SmzCardViewBuilder<T> {
     this._viewData.styleClass.layout = styleClass;
     return this;
   }
 
-  public setPadding(styleClass: string): SmzCardViewBuilder {
+  public setPadding(styleClass: string): SmzCardViewBuilder<T> {
     this._viewData.styleClass.padding = styleClass;
     return this;
   }
 
-  public setStyles(styleClass: string): SmzCardViewBuilder {
+  public setStyles(styleClass: string): SmzCardViewBuilder<T> {
     this._viewData.styleClass.general = styleClass;
     return this;
   }
 
-  public get cards(): SmzCardsBuilder<unknown> {
+  public get cards(): SmzCardsBuilder<T> {
 
     let styles = this._viewData.styleClass;
     this._viewData.styleClass.all = `${styles.layout} ${styles.padding} ${styles.general}`;
@@ -105,6 +105,7 @@ export class SmzCardsImageWithDetailsBuilder<TBuilder> extends SmzCardsBaseTempl
     super(_builder, _parent, _template);
     _template.type = SmzCardsTemplate.IMAGE_WITH_DETAILS;
     _template.tags = [];
+    _template.components = [];
     _template.others = [];
   }
 
@@ -137,6 +138,12 @@ export class SmzCardsImageWithDetailsBuilder<TBuilder> extends SmzCardsBaseTempl
     const content = {} as SmzCardsTextContent;
     this._template.tags.push(content);
     return new SmzCardsTextBuilder<TBuilder, SmzCardsImageWithDetailsBuilder<TBuilder>>(this._builder, this, content, dataPath);
+  }
+
+  public addComponent(component: any): SmzCardsComponentBuilder<TBuilder, SmzCardsImageWithDetailsBuilder<TBuilder>> {
+    const content = {} as SmzCardsComponentContent;
+    this._template.components.push(content);
+    return new SmzCardsComponentBuilder<TBuilder, SmzCardsImageWithDetailsBuilder<TBuilder>>(this._builder, this, content, component);
   }
 
   public addText(dataPath: string): SmzCardsTextBuilder<TBuilder, SmzCardsImageWithDetailsBuilder<TBuilder>> {

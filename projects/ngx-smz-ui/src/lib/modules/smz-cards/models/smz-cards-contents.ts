@@ -1,12 +1,16 @@
+import { SmzInjectable } from './smz-cards-component';
+
 export type SmzCardsContentTypes =
   SmzCardsTextContent |
   SmzCardsCustomContent |
-  SmzCardsImageContent;
+  SmzCardsImageContent |
+  SmzCardsComponentContent;
 
 export enum SmzCardsContentType {
   CUSTOM = 0,
   TEXT = 1,
-  IMAGE = 2
+  IMAGE = 2,
+  COMPONENT = 3
 }
 
 export interface SmzCardsBaseContent {
@@ -30,6 +34,12 @@ export interface SmzCardsCustomContent extends SmzCardsBaseContent {
   searchPath: string;
 }
 
+export interface SmzCardsComponentContent extends SmzCardsBaseContent {
+  type: SmzCardsContentType.COMPONENT;
+  componentData: SmzInjectable;
+  searchPath: string;
+}
+
 export interface SmzCardsImageContent extends SmzCardsBaseContent {
   type: SmzCardsContentType.IMAGE;
   useServerPath: boolean;
@@ -39,6 +49,7 @@ export interface SmzCardsImageContent extends SmzCardsBaseContent {
   };
 
   maximize: boolean;
+  openMaximized: boolean;
 
   transform: {
     callback: (item, content: SmzCardsImageContent) => SmzCardsImageContent;

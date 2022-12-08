@@ -10,6 +10,7 @@
         serverImage
         [path]="image.transform.override ? image.transform.override.dataPath : (data | cardsContent : image.dataPath).result"
         [maximize]="image.maximize"
+        [openMaximized]="image.openMaximized"
         [placeholder]="'assets/images/placeholder.jpeg'"
         [title]="image.title.isVisible ? image.title.getText(data) : null"
         [useServerPath]="image.useServerPath"
@@ -32,6 +33,11 @@
           <div *ngIf="!tag.hideInGrid" contentSelector [content]="tag" [data]="data" class="px-2 py-1 text-xs bg-gray-200 text-surface-50 rounded" [ngClass]="tag.styleClass ?? 'text-sm'"></div>
         </ng-container>
       </div>
+
+      <!-- COMPONENTS -->
+      <ng-container *ngFor="let component of template.components let i = index">
+        <ng-template [smzInjectDataPathComponent]="component.componentData" [data]="data"></ng-template>
+      </ng-container>
 
       <!-- OTHERS -->
       <ng-container *ngFor="let other of template.others let i = index">
@@ -72,10 +78,10 @@
         serverImage
         [path]="image.transform.override ? image.transform.override.dataPath : (data | cardsContent : image.dataPath).result"
         [maximize]="image.maximize"
+        [openMaximized]="image.openMaximized"
         [placeholder]="'assets/images/placeholder.jpeg'"
         [title]="image.title.isVisible ? image.title.getText(data) : null"
         [useServerPath]="image.useServerPath"
-        class="h-44 w-44 object-cover rounded-lg border-0"
         [ngClass]="image.styleClass"
       >
     </ng-container>
@@ -94,6 +100,11 @@
             <div *ngIf="!tag.hideInList" contentSelector [content]="tag" [data]="data" class="px-2 py-1 text-xs bg-gray-200 text-surface-50 rounded" [ngClass]="tag.styleClass ?? 'text-sm'"></div>
           </ng-container>
         </div>
+
+        <!-- COMPONENTS -->
+        <ng-container *ngFor="let component of template.components let i = index">
+          <ng-template [smzInjectDataPathComponent]="component.componentData" [data]="data"></ng-template>
+        </ng-container>
 
         <!-- OTHERS -->
         <ng-container *ngFor="let other of template.others let i = index">

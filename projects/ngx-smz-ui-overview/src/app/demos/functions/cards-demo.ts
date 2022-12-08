@@ -4,6 +4,7 @@ import { GlobalInjector, nameof, namesof, SmzCardsBuilder, SimpleNamedEntity, Sm
 import { of } from 'rxjs';
 import { SmzCardsArchivedDemo, SmzCardsDemo, SmzCardsDemoData } from '../data/cards/cards-data';
 import * as moment from 'moment';
+import { DemoInjectable1Component } from '../../ui/features/home/components/demo-injectable/demo-injectable-1.component';
 
 const store = GlobalInjector.instance.get(Store);
 
@@ -50,6 +51,10 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
               .template
             .addText(nameof<SmzCardsDemoData>('notes'))
               .shorten(60)
+              .template
+            .addComponent(DemoInjectable1Component)
+              .addInput('title', namesof<SmzCardsDemoData, SimpleNamedEntity>('type', 'name'))
+              .addInput('subTitle', nameof<SmzCardsDemoData>('imagePath'))
               .template
             .template
           .cards

@@ -23,6 +23,7 @@ export interface SmzCardsState<T> {
     showGlobalFilter: boolean;
     filterBy: string;
     layout: 'grid' | 'list';
+    showHeader: boolean;
   }
 }
 

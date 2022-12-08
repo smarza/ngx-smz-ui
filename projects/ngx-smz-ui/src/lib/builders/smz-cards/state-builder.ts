@@ -53,7 +53,8 @@ export class SmzCardsBuilder<T> {
       paginator: true,
       showGlobalFilter: false,
       filterBy: '',
-      layout: 'grid'
+      layout: 'grid',
+      showHeader: true
     }
   };
 
@@ -88,15 +89,21 @@ export class SmzCardsBuilder<T> {
     return this;
   }
 
+  public hideHeader(): SmzCardsBuilder<T> {
+    this._state.view.showHeader = false;
+
+    return this;
+  }
+
   public template(): SmzCardsTemplateBuilder<SmzCardsBuilder<T>> {
     return new SmzCardsTemplateBuilder(this, this._state.template);
   }
 
-  public grid(): SmzCardViewBuilder {
+  public grid(): SmzCardViewBuilder<T> {
     return new SmzCardViewBuilder(this, this._state.grid, 'grid');
   }
 
-  public list(): SmzCardViewBuilder {
+  public list(): SmzCardViewBuilder<T> {
     return new SmzCardViewBuilder(this, this._state.list, 'list');
   }
 

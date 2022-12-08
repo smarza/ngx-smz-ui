@@ -1,5 +1,5 @@
 import { uuidv4 } from '../../common/utils/utils';
-import { SmzCardsBaseContent, SmzCardsContentType, SmzCardsImageContent, SmzCardsTextContent } from '../../modules/smz-cards/models/smz-cards-contents';
+import { SmzCardsBaseContent, SmzCardsComponentContent, SmzCardsContentType, SmzCardsImageContent, SmzCardsTextContent } from '../../modules/smz-cards/models/smz-cards-contents';
 import { SmzCardsIconContent } from '../../modules/smz-cards/models/smz-cards-templates';
 import { SmzCardsBuilder } from './state-builder';
 
@@ -97,8 +97,35 @@ export class SmzCardsTextBuilder<TBuilder, TViewData> extends SmzCardsBaseBuilde
 
 }
 
+export class SmzCardsComponentBuilder<TBuilder, TViewData> extends SmzCardsBaseBuilder<TBuilder, SmzCardsComponentBuilder<TBuilder, TViewData>, TViewData> {
+  protected that = this;
+
+  constructor(protected _builder: TBuilder, protected _parent: TViewData, protected _content: SmzCardsComponentContent, component: any, key: string = uuidv4()) {
+    super(_builder, _parent, _content, key);
+
+    this._content.type = SmzCardsContentType.COMPONENT;
+    this._content.componentData = { component: component, inputs: [], outputs: [] };
+  }
+
+  public addInput(input: string, dataPath: any): SmzCardsComponentBuilder<TBuilder, TViewData> {
+    this._content.componentData.inputs.push({ input, dataPath });
+    return this;
+  }
+
+  public addOutput(output: string, callback: (data: any) => void): SmzCardsComponentBuilder<TBuilder, TViewData> {
+    this._content.componentData.outputs.push({output, callback});
+    return this;
+  }
+
+  public get template(): TViewData {
+    return this._parent;
+  }
+
+}
+
 export class SmzCardsImageBuilder<TBuilder, TViewData> extends SmzCardsBaseBuilder<TBuilder, SmzCardsImageBuilder<TBuilder, TViewData>, TViewData> {
   protected that = this;
+  private baseImageStyles: string = ' h-44 w-44 object-cover rounded-lg border-0';
   constructor(protected _builder: TBuilder, protected _parent: TViewData, protected _content: SmzCardsImageContent, dataPath: string, key: string = uuidv4()) {
     super(_builder, _parent, _content, key);
 
@@ -110,6 +137,7 @@ export class SmzCardsImageBuilder<TBuilder, TViewData> extends SmzCardsBaseBuild
         getText: null
       };
       this._content.maximize = true;
+      this._content.openMaximized = false;
       this._content.transform = {
         callback: null,
         override: null
@@ -123,6 +151,11 @@ export class SmzCardsImageBuilder<TBuilder, TViewData> extends SmzCardsBaseBuild
 
   public disableMaximize(): SmzCardsImageBuilder<TBuilder, TViewData> {
     this._content.maximize = false;
+    return this;
+  }
+
+  public openMaximized(): SmzCardsImageBuilder<TBuilder, TViewData> {
+    this._content.openMaximized = true;
     return this;
   }
 
@@ -141,6 +174,16 @@ export class SmzCardsImageBuilder<TBuilder, TViewData> extends SmzCardsBaseBuild
   public transform(callback: (item: any, content: SmzCardsImageContent) => SmzCardsImageContent): SmzCardsImageBuilder<TBuilder, TViewData> {
     this._content.transform.callback = callback;
     return this;
+  }
+
+  public overrideBaseStyles(styleClass: string): SmzCardsImageBuilder<TBuilder, TViewData> {
+    this.baseImageStyles = ` ${styleClass}`;
+    return this;
+  }
+
+  public get template(): TViewData {
+    this._content.styleClass += this.baseImageStyles;
+    return this._parent;
   }
 
 }

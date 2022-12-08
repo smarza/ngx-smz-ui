@@ -25,6 +25,7 @@ import { ButtonActionsDirective } from './directives/button-actions.directive';
 import { ImgPlaceholderDirective } from './directives/img-placeholder.directive';
 import { FormsModule } from '@angular/forms';
 import { SmzCardsTransformContentPipe } from './pipes/transform-content.pipe';
+import { SmzInjectDataPathComponent } from './directives/inject-component.directive';
 
 @NgModule({
   imports: [
@@ -59,6 +60,7 @@ import { SmzCardsTransformContentPipe } from './pipes/transform-content.pipe';
     SmzCardsContentSelectorDirective,
     ButtonActionsDirective,
     ImgPlaceholderDirective,
+    SmzInjectDataPathComponent,
 
     // Content Components
     SmzTextContentComponent,
