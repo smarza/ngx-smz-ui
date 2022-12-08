@@ -40,7 +40,7 @@ export class SmzInjectDataPathComponent implements AfterContentInit, OnDestroy
 
         this.smzInjectDataPathComponent.inputs.forEach(i =>
         {
-            const data = this.getValue(this.data, i.dataPath);
+            const data = i.dataPath == null ? this.data : this.getValue(this.data, i.dataPath);
             (<any>componentRef.instance)[i.input] = data;
         });
 
