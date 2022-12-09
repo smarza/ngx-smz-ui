@@ -5,6 +5,7 @@ import { of } from 'rxjs';
 import { SmzCardsArchivedDemo, SmzCardsDemo, SmzCardsDemoData } from '../data/cards/cards-data';
 import * as moment from 'moment';
 import { DemoInjectable1Component } from '../../ui/features/home/components/demo-injectable/demo-injectable-1.component';
+import { SmzCardsFlipCardDemo, SmzCardsFlipCardDemoData } from '../data/cards/flip-card-data';
 
 const store = GlobalInjector.instance.get(Store);
 
@@ -232,20 +233,29 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
   //
   [DemoKeys.CARDS_FLIP_CARD]: {
     code: () => {
-    return new SmzCardsBuilder<SmzCardsDemoData>()
-        .setTitle('Demo Cards | Image with Details')
-        .setSource(of(SmzCardsDemo))
+    return new SmzCardsBuilder<SmzCardsFlipCardDemoData>()
+        .setTitle('Demo Cards | Flip Card')
+        // .debugMode()
+        .setSource(of(SmzCardsFlipCardDemo))
         .template()
-          .imageWithDetails()
-            .setCardStyles('bg-surface-card rounded-lg shadow-md')
-            .setContentStyles('px-3 py-2')
-            .image(nameof<SmzCardsDemoData>('imagePath'))
-              .setStyles('rounded-b-none')
+          .flipCard()
+            .setCardSize('160px', '240px')
+            .setCardStyles('')
+            .setContentStyles('')
+            .setButtonsLocation('back')
+            .setMenuLocation('back')
+            .frontImage(nameof<SmzCardsFlipCardDemoData>('frontImage'))
+              .setStyles('object-cover rounded-lg border-0 shadow-md')
+              .disableMaximize()
+              .template
+            .backImage(nameof<SmzCardsFlipCardDemoData>('backImage'))
+              .setStyles('object-cover rounded-lg border-0 shadow-md')
+              .disableMaximize()
               .template
             .template
           .cards
         .grid()
-          .setLayout('col-12 lg:col-6 xl:col-3')
+          .setLayout('')
           .setPadding('p-2')
           .cards
         .list()
@@ -253,19 +263,13 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
           .setPadding('px-0 pt-4')
           .cards
         .buttons()
+          .setStyleClass('p-button-sm bg-white text-black border-0')
           .item('Consultar')
             .setCallback((event: any) => console.log('--- Consultar'))
             .menu
-          .item('Apagar Enabled', 'fa-solid fa-trash')
-            .setCallback((event: any) => console.log('--- Apagar'))
-            .setActivationRule(() => false)
-            .menu
-          .item('Apagar Disabled', 'fa-solid fa-trash')
-            .setCallback((event: any) => console.log('--- Apagar'))
-            .setActivationRule(() => true)
-            .menu
           .cards
         .menu()
+          .setStyleClass('p-button-sm rounded-full p-0 m-0 h-7 w-7 border-0 bg-white text-black')
           .item('Atualizar')
             .setCallback((event: any) => console.log('--- Atualizar'))
             .menu

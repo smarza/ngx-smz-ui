@@ -27,6 +27,7 @@ import { FormsModule } from '@angular/forms';
 import { SmzCardsTransformContentPipe } from './pipes/transform-content.pipe';
 import { SmzInjectDataPathComponent } from './directives/inject-component.directive';
 import { SmzFlipCardTypeComponent } from './components/types/flip-card/flip-card-type.component';
+import { ClickStopPropagationModule } from '../../common/stop-click-propagation/click-stop-propagation.module';
 
 @NgModule({
   imports: [
@@ -42,7 +43,8 @@ import { SmzFlipCardTypeComponent } from './components/types/flip-card/flip-card
     NgxSmzMenuModule,
     TooltipModule,
     SafeContentPipeModule,
-    NgxSmzDataPipesModule
+    NgxSmzDataPipesModule,
+    ClickStopPropagationModule
   ],
   exports: [SmzCardsComponent, SmzGridItemComponent, SharedModule],
   declarations: [

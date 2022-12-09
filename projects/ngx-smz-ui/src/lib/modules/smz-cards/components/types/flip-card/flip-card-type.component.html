@@ -2,87 +2,95 @@
 
 <ng-container *ngSwitchCase="modes.GRID">
 
-  <div class="h-full grid grid-nogutter flex-col items-start justify-start gap-2 relative" [ngClass]="template.cardStyleClass + (isDebug ? ' border border-red-500 border-solid' : '')">
+  <div class="w-full h-full grid grid-nogutter items-center justify-center relative select-none">
+    <div class="relative" [ngStyle]="{ width: template.width, height: template.height}" [ngClass]="template.cardStyleClass + (isDebug ? ' border border-red-500 border-solid' : '')">
+      <div class="cmp-card w-full h-full cursor-pointer" [ngClass]="{ 'cmp-card-flipped': isFlipped }" (click)="flip()">
+        <div class="cmp-content">
+          <div class="cmp-front">
+              <!-- FRONT IMAGE -->
+              <ng-container *ngIf="template.frontImage | transformContent : data as image">
+                <img
+                  serverImage
+                  [path]="image.transform.override ? image.transform.override.dataPath : (data | cardsContent : image.dataPath).result"
+                  [maximize]="image.maximize"
+                  [openMaximized]="image.openMaximized"
+                  [placeholder]="'assets/images/placeholder.jpeg'"
+                  [title]="image.title.isVisible ? image.title.getText(data) : null"
+                  [useServerPath]="image.useServerPath"
+                  class="w-full h-full"
+                  draggable="false"
+                  [ngClass]="image.styleClass"
+                >
+              </ng-container>
 
-    <!-- IMAGE -->
-    <ng-container *ngIf="template.frontImage | transformContent : data as image">
-      <img
-        serverImage
-        [path]="image.transform.override ? image.transform.override.dataPath : (data | cardsContent : image.dataPath).result"
-        [maximize]="image.maximize"
-        [openMaximized]="image.openMaximized"
-        [placeholder]="'assets/images/placeholder.jpeg'"
-        [title]="image.title.isVisible ? image.title.getText(data) : null"
-        [useServerPath]="image.useServerPath"
-        class="h-60 w-full object-cover rounded-lg border-0"
-        [ngClass]="image.styleClass"
-      >
-    </ng-container>
+              <ng-container *ngIf="template.buttonsLocation === 'front'">
+                <ng-container *ngTemplateOutlet="buttonsTemplate; context: { $implicit: template }"></ng-container>
+              </ng-container>
 
-    <div class="grid grid-nogutter flex-col items-start justify-start gap-2 col" [ngClass]="template.contentStyleClass">
+              <ng-container *ngIf="template.menuLocation === 'front'">
+                <ng-container *ngTemplateOutlet="menuTemplate; context: { $implicit: template }"></ng-container>
+              </ng-container>
+
+          </div>
+          <div class="cmp-back">
+              <!-- BACK IMAGE -->
+              <ng-container *ngIf="template.backImage | transformContent : data as image">
+                <img
+                  serverImage
+                  [path]="image.transform.override ? image.transform.override.dataPath : (data | cardsContent : image.dataPath).result"
+                  [maximize]="image.maximize"
+                  [openMaximized]="image.openMaximized"
+                  [placeholder]="'assets/images/placeholder.jpeg'"
+                  [title]="image.title.isVisible ? image.title.getText(data) : null"
+                  [useServerPath]="image.useServerPath"
+                  class="w-full h-full"
+                  draggable="false"
+                  [ngClass]="image.styleClass"
+                >
+              </ng-container>
+
+              <ng-container *ngIf="template.buttonsLocation === 'back'">
+                <ng-container *ngTemplateOutlet="buttonsTemplate; context: { $implicit: template }"></ng-container>
+              </ng-container>
+
+              <ng-container *ngIf="template.menuLocation === 'back'">
+                <ng-container *ngTemplateOutlet="menuTemplate; context: { $implicit: template }"></ng-container>
+              </ng-container>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</ng-container>
+
+<ng-container *ngSwitchCase="modes.LIST"></ng-container>
+
+</ng-container>
+
+<ng-template #buttonsTemplate let-template>
+  <div class="absolute bottom-0 inset-x-0">
+    <div class="grid grid-nogutter flex-col items-start justify-center gap-2 col" [ngClass]="template.contentStyleClass">
 
       <!-- BUTTONS -->
-      <ng-container *ngIf="buttons.callback != null && buttons.callback(data) as buttons">
-        <div class="grid grid-nogutter items-center justify-start gap-1">
-          <ng-container *ngFor="let button of buttons; let i = index">
-            <button *ngIf="button.visible" pButton type="button" buttonAction [item]="button" [data]="data" [label]="button.label" [icon]="button.icon" [disabled]="button.disabled" [pTooltip]="button.tooltip" class="p-button-outlined p-button-sm px-3 py-2" [ngClass]="button.styleClass"></button>
+      <ng-container *ngIf="buttons.callback != null && buttons.callback(data) as buttonsData">
+        <div class="w-full grid grid-nogutter items-center justify-center gap-1">
+          <ng-container *ngFor="let button of buttonsData; let i = index">
+            <button *ngIf="button.visible" pButton clickStopPropagation type="button" buttonAction [item]="button" [data]="data" [label]="button.label" [icon]="button.icon" [disabled]="button.disabled" [pTooltip]="button.tooltip" class="p-button-sm px-3 py-2" [ngClass]="button.styleClass + ' ' + buttons.styleClass"></button>
           </ng-container>
         </div>
       </ng-container>
 
     </div>
-
-    <!-- MENU -->
-    <ng-container *ngIf="menu.callback != null && menu.callback(data) as menuItem">
-      <div class="grid grid-nogutter items-center justify-end gap-1 col-12 absolute top-2 right-2">
-        <smz-menu [items]="menuItem" [data]="data" [icon]="menu.icon" [styleClass]="menu.styleClass" [buttonClass]="menu.buttonClass"></smz-menu>
-      </div>
-    </ng-container>
-
   </div>
+</ng-template>
 
-</ng-container>
-
-<ng-container *ngSwitchCase="modes.LIST">
-
-  <div class="grid grid-nogutter items-start justify-start gap-4 relative col" [ngClass]="template.cardStyleClass + (isDebug ? ' border border-red-500 border-solid' : '')">
-
-    <!-- IMAGE -->
-    <ng-container *ngIf="template.frontImage | transformContent : data as image">
-      <img
-        serverImage
-        [path]="image.transform.override ? image.transform.override.dataPath : (data | cardsContent : image.dataPath).result"
-        [maximize]="image.maximize"
-        [openMaximized]="image.openMaximized"
-        [placeholder]="'assets/images/placeholder.jpeg'"
-        [title]="image.title.isVisible ? image.title.getText(data) : null"
-        [useServerPath]="image.useServerPath"
-        [ngClass]="image.styleClass"
-      >
-    </ng-container>
-
-    <div class="h-full grid grid-nogutter flex-col items-start justify-start gap-2 relative col" [ngClass]="template.contentStyleClass">
-
-        <!-- BUTTONS -->
-        <ng-container *ngIf="buttons.callback != null && buttons.callback(data) as buttons">
-          <div class="grid grid-nogutter items-center justify-start gap-1">
-            <ng-container *ngFor="let button of buttons; let i = index">
-              <button *ngIf="button.visible" pButton type="button" buttonAction [item]="button" [data]="data" [label]="button.label" [icon]="button.icon" [disabled]="button.disabled" [pTooltip]="button.tooltip" class="p-button-outlined p-button-sm px-3 py-2" [ngClass]="button.styleClass"></button>
-            </ng-container>
-          </div>
-        </ng-container>
-
-      </div>
-
-      <!-- MENU -->
-      <ng-container *ngIf="menu.callback != null && menu.callback(data) as menuItem">
-        <div class="grid grid-nogutter items-center justify-end gap-1 col-12 absolute top-2 right-2">
-          <smz-menu [items]="menuItem" [data]="data" [icon]="menu.icon" [styleClass]="menu.styleClass" [buttonClass]="menu.buttonClass"></smz-menu>
-        </div>
-      </ng-container>
-
-  </div>
-
-</ng-container>
-
-</ng-container>
+<ng-template #menuTemplate let-template>
+  <!-- MENU -->
+  <ng-container *ngIf="menu.callback != null && menu.callback(data) as menuItem">
+    <div class="grid grid-nogutter items-center justify-end gap-1 col-12 absolute top-2 right-2">
+      <smz-menu clickStopPropagation [items]="menuItem" [data]="data" [icon]="menu.icon" [styleClass]="menu.styleClass" [buttonClass]="menu.buttonClass"></smz-menu>
+    </div>
+  </ng-container>
+</ng-template>

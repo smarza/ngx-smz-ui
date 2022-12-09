@@ -62,9 +62,12 @@ export interface SmzCardsIconContent {
 
 export interface FlipCardTemplate extends SmzCardsBaseTemplate {
   type: SmzCardsTemplate.FLIP_CARD;
+  width: string;
+  height: string;
   cardStyleClass: string;
   contentStyleClass: string;
   frontImage: SmzCardsImageContent;
   backImage: SmzCardsImageContent;
-
+  buttonsLocation: 'front' | 'back';
+  menuLocation: 'front' | 'back';
 }

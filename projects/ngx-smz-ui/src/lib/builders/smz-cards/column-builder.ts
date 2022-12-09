@@ -130,8 +130,7 @@ export class SmzCardsComponentBuilder<TBuilder, TViewData> extends SmzCardsBaseB
 
 export class SmzCardsImageBuilder<TBuilder, TViewData> extends SmzCardsBaseBuilder<TBuilder, SmzCardsImageBuilder<TBuilder, TViewData>, TViewData> {
   protected that = this;
-  private baseImageStyles: string = ' h-44 w-44 object-cover rounded-lg border-0';
-  constructor(protected _builder: TBuilder, protected _parent: TViewData, protected _content: SmzCardsImageContent, dataPath: string, key: string = uuidv4()) {
+  constructor(protected _builder: TBuilder, protected _parent: TViewData, protected _content: SmzCardsImageContent, dataPath: string, private baseImageStyles: string, key: string = uuidv4()) {
     super(_builder, _parent, _content, key);
 
       this._content.type = SmzCardsContentType.IMAGE;

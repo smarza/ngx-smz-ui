@@ -39,7 +39,7 @@ export class SmzCardsBuilder<T> {
     buttons: {
       callback: null,
       buttonClass: 'p-0',
-      styleClass: 'p-button-rounded p-button-text p-button-plain',
+      styleClass: 'p-button-outlined p-button-plain',
       icon: 'fa-solid fa-ellipsis-vertical'
     },
     menu: {

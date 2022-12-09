@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { SmzCardActions } from '../../../models/smz-cards-state';
 import { SmzCardsView } from '../../../models/smz-cards-types';
 import { FlipCardTemplate } from '../../../models/smz-cards-templates';
@@ -7,7 +7,9 @@ import { SmzCardsImageContent, SmzCardsTextContent } from '../../../models/smz-c
 @Component({
   selector: 'smz-flip-card-type',
   templateUrl: 'flip-card-type.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['flip-card-type.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None
 })
 
 export class SmzFlipCardTypeComponent implements OnInit {
@@ -21,8 +23,16 @@ export class SmzFlipCardTypeComponent implements OnInit {
   public SmzCardsImageContent: SmzCardsImageContent;
   public SmzCardsTextContent: SmzCardsTextContent;
   public modes = SmzCardsView;
+  public isFlipped = false;
   constructor() { }
 
   ngOnInit() {
+    console.log(' -----');
+    console.log(' buttons', this.buttons);
+    console.log(' items', this.buttons.callback({}));
+  }
+
+  public flip(): void {
+    this.isFlipped = !this.isFlipped;
   }
 }
