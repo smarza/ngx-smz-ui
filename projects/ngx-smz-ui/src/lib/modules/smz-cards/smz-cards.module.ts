@@ -26,6 +26,7 @@ import { ImgPlaceholderDirective } from './directives/img-placeholder.directive'
 import { FormsModule } from '@angular/forms';
 import { SmzCardsTransformContentPipe } from './pipes/transform-content.pipe';
 import { SmzInjectDataPathComponent } from './directives/inject-component.directive';
+import { SmzFlipCardTypeComponent } from './components/types/flip-card/flip-card-type.component';
 
 @NgModule({
   imports: [
@@ -69,7 +70,8 @@ import { SmzInjectDataPathComponent } from './directives/inject-component.direct
     // Type Components
     SmzRawTypeComponent,
     SmzImageWithDetailsTypeComponent,
-    SmzInfoATypeComponent
+    SmzInfoATypeComponent,
+    SmzFlipCardTypeComponent
   ],
   providers: [],
 })

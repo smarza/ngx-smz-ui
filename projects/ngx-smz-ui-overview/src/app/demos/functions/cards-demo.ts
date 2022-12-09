@@ -52,10 +52,10 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
             .addText(nameof<SmzCardsDemoData>('notes'))
               .shorten(60)
               .template
-            .addComponent(DemoInjectable1Component)
-              .addInput('title', namesof<SmzCardsDemoData, SimpleNamedEntity>('type', 'name'))
-              .addInput('subTitle', nameof<SmzCardsDemoData>('imagePath'))
-              .template
+            // .addComponent(DemoInjectable1Component)
+            //   .addInput('title', namesof<SmzCardsDemoData, SimpleNamedEntity>('type', 'name'))
+            //   .addInput('subTitle', nameof<SmzCardsDemoData>('imagePath'))
+            //   .template
             .template
           .cards
         .grid()
@@ -224,6 +224,59 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
           .separator()
           .item('Apagar', 'fa-solid fa-trash')
             .setCallback((event: any) => console.log('--- Apagar'))
+            .menu
+          .cards
+      .build()
+  }
+  },
+  //
+  [DemoKeys.CARDS_FLIP_CARD]: {
+    code: () => {
+    return new SmzCardsBuilder<SmzCardsDemoData>()
+        .setTitle('Demo Cards | Image with Details')
+        .setSource(of(SmzCardsDemo))
+        .template()
+          .imageWithDetails()
+            .setCardStyles('bg-surface-card rounded-lg shadow-md')
+            .setContentStyles('px-3 py-2')
+            .image(nameof<SmzCardsDemoData>('imagePath'))
+              .setStyles('rounded-b-none')
+              .template
+            .template
+          .cards
+        .grid()
+          .setLayout('col-12 lg:col-6 xl:col-3')
+          .setPadding('p-2')
+          .cards
+        .list()
+          .setLayout('col-12')
+          .setPadding('px-0 pt-4')
+          .cards
+        .buttons()
+          .item('Consultar')
+            .setCallback((event: any) => console.log('--- Consultar'))
+            .menu
+          .item('Apagar Enabled', 'fa-solid fa-trash')
+            .setCallback((event: any) => console.log('--- Apagar'))
+            .setActivationRule(() => false)
+            .menu
+          .item('Apagar Disabled', 'fa-solid fa-trash')
+            .setCallback((event: any) => console.log('--- Apagar'))
+            .setActivationRule(() => true)
+            .menu
+          .cards
+        .menu()
+          .item('Atualizar')
+            .setCallback((event: any) => console.log('--- Atualizar'))
+            .menu
+          .separator()
+          .item('Apagar Enabled', 'fa-solid fa-trash')
+            .setCallback((event: any) => console.log('--- Apagar'))
+            .setActivationRule(() => false)
+            .menu
+          .item('Apagar Disabled', 'fa-solid fa-trash')
+            .setCallback((event: any) => console.log('--- Apagar'))
+            .setActivationRule(() => true)
             .menu
           .cards
       .build()

@@ -8,12 +8,14 @@ export enum SmzCardsTemplate {
   RAW = 0,
   IMAGE_WITH_DETAILS = 1,
   INFO_A = 2,
+  FLIP_CARD
 }
 
 export type SmzCardsTemplates =
   RawTemplate |
   ImageWithDetailsTemplate |
-  InfoATemplate;
+  InfoATemplate |
+  FlipCardTemplate;
 
 export interface RawTemplate extends SmzCardsBaseTemplate {
   type: SmzCardsTemplate.RAW;
@@ -55,5 +57,14 @@ export interface SmzCardsIconContent {
   value: any;
   tooltip?: string;
   appendText: string;
+
+}
+
+export interface FlipCardTemplate extends SmzCardsBaseTemplate {
+  type: SmzCardsTemplate.FLIP_CARD;
+  cardStyleClass: string;
+  contentStyleClass: string;
+  frontImage: SmzCardsImageContent;
+  backImage: SmzCardsImageContent;
 
 }

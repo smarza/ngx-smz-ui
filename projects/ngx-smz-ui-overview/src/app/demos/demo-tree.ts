@@ -975,6 +975,13 @@ export const TreeDemoData: DemoTreeNode[] = [
             data: CardsDemo[DemoKeys.CARDS_INFO_A],
             key: DemoKeys.CARDS_INFO_A.toString()
           },
+          {
+            label: 'Flip Card', icon: 'fa-solid fa-code', type: 'Demo',
+            demoType: 'cards',
+            notes: '',
+            data: CardsDemo[DemoKeys.CARDS_FLIP_CARD],
+            key: DemoKeys.CARDS_FLIP_CARD.toString()
+          },
         ]
       },
       {

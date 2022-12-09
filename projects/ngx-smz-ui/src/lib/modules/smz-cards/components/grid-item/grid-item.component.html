@@ -12,6 +12,10 @@
     <smz-info-a-type [template]="$any(template)" [menu]="menu" [buttons]="buttons" [data]="data" [mode]="mode" [isDebug]="isDebug"></smz-info-a-type>
   </ng-container>
 
+  <ng-container *ngSwitchCase="type.FLIP_CARD">
+    <smz-flip-card-type [template]="$any(template)" [menu]="menu" [buttons]="buttons" [data]="data" [mode]="mode" [isDebug]="isDebug"></smz-flip-card-type>
+  </ng-container>
+
   <ng-container *ngSwitchDefault></ng-container>
 
 </ng-container>
