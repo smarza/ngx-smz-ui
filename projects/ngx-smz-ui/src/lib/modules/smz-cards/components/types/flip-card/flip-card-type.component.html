@@ -7,8 +7,10 @@
       <div class="cmp-card w-full h-full cursor-pointer" [ngClass]="{ 'cmp-card-flipped': isFlipped }" (click)="flip()">
         <div class="cmp-content">
           <div class="cmp-front">
-              <!-- FRONT IMAGE -->
-              <ng-container *ngIf="template.frontImage | transformContent : data as image">
+
+            <!-- FRONT IMAGE -->
+            <ng-container *ngIf="template.front.image as frontImage">
+              <ng-container *ngIf="frontImage | transformContent : data as image">
                 <img
                   serverImage
                   [path]="image.transform.override ? image.transform.override.dataPath : (data | cardsContent : image.dataPath).result"
@@ -22,19 +24,30 @@
                   [ngClass]="image.styleClass"
                 >
               </ng-container>
+            </ng-container>
 
-              <ng-container *ngIf="template.buttonsLocation === 'front'">
-                <ng-container *ngTemplateOutlet="buttonsTemplate; context: { $implicit: template }"></ng-container>
-              </ng-container>
+            <ng-container *ngIf="template.front.component as frontComponent">
+              component
+            </ng-container>
 
-              <ng-container *ngIf="template.menuLocation === 'front'">
-                <ng-container *ngTemplateOutlet="menuTemplate; context: { $implicit: template }"></ng-container>
-              </ng-container>
+            <ng-container *ngIf="template.front.html as frontHtml">
+              html
+            </ng-container>
+
+            <ng-container *ngIf="template.buttonsLocation === 'front'">
+              <ng-container *ngTemplateOutlet="buttonsTemplate; context: { $implicit: template }"></ng-container>
+            </ng-container>
+
+            <ng-container *ngIf="template.menuLocation === 'front'">
+              <ng-container *ngTemplateOutlet="menuTemplate; context: { $implicit: template }"></ng-container>
+            </ng-container>
 
           </div>
           <div class="cmp-back">
-              <!-- BACK IMAGE -->
-              <ng-container *ngIf="template.backImage | transformContent : data as image">
+
+            <!-- FRONT IMAGE -->
+            <ng-container *ngIf="template.back.image as backImage">
+              <ng-container *ngIf="backImage | transformContent : data as image">
                 <img
                   serverImage
                   [path]="image.transform.override ? image.transform.override.dataPath : (data | cardsContent : image.dataPath).result"
@@ -48,14 +61,23 @@
                   [ngClass]="image.styleClass"
                 >
               </ng-container>
+            </ng-container>
 
-              <ng-container *ngIf="template.buttonsLocation === 'back'">
-                <ng-container *ngTemplateOutlet="buttonsTemplate; context: { $implicit: template }"></ng-container>
-              </ng-container>
+          <ng-container *ngIf="template.back.component as backComponent">
+            component
+          </ng-container>
 
-              <ng-container *ngIf="template.menuLocation === 'back'">
-                <ng-container *ngTemplateOutlet="menuTemplate; context: { $implicit: template }"></ng-container>
-              </ng-container>
+          <ng-container *ngIf="template.back.html as backHtml">
+            html
+          </ng-container>
+
+          <ng-container *ngIf="template.buttonsLocation === 'back'">
+            <ng-container *ngTemplateOutlet="buttonsTemplate; context: { $implicit: template }"></ng-container>
+          </ng-container>
+
+          <ng-container *ngIf="template.menuLocation === 'back'">
+            <ng-container *ngTemplateOutlet="menuTemplate; context: { $implicit: template }"></ng-container>
+          </ng-container>
 
           </div>
         </div>

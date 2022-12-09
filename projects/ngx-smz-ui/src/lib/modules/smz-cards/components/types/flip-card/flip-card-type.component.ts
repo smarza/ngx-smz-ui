@@ -27,9 +27,6 @@ export class SmzFlipCardTypeComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(' -----');
-    console.log(' buttons', this.buttons);
-    console.log(' items', this.buttons.callback({}));
   }
 
   public flip(): void {

@@ -976,11 +976,25 @@ export const TreeDemoData: DemoTreeNode[] = [
             key: DemoKeys.CARDS_INFO_A.toString()
           },
           {
-            label: 'Flip Card', icon: 'fa-solid fa-code', type: 'Demo',
+            label: 'Flip Card | Image', icon: 'fa-solid fa-code', type: 'Demo',
             demoType: 'cards',
             notes: '',
-            data: CardsDemo[DemoKeys.CARDS_FLIP_CARD],
-            key: DemoKeys.CARDS_FLIP_CARD.toString()
+            data: CardsDemo[DemoKeys.CARDS_FLIP_CARD_IMAGE],
+            key: DemoKeys.CARDS_FLIP_CARD_IMAGE.toString()
+          },
+          {
+            label: 'Flip Card | Component', icon: 'fa-solid fa-code', type: 'Demo',
+            demoType: 'cards',
+            notes: '',
+            data: CardsDemo[DemoKeys.CARDS_FLIP_CARD_COMPONENT],
+            key: DemoKeys.CARDS_FLIP_CARD_COMPONENT.toString()
+          },
+          {
+            label: 'Flip Card | Html', icon: 'fa-solid fa-code', type: 'Demo',
+            demoType: 'cards',
+            notes: '',
+            data: CardsDemo[DemoKeys.CARDS_FLIP_CARD_HTML],
+            key: DemoKeys.CARDS_FLIP_CARD_HTML.toString()
           },
         ]
       },

@@ -66,8 +66,14 @@ export interface FlipCardTemplate extends SmzCardsBaseTemplate {
   height: string;
   cardStyleClass: string;
   contentStyleClass: string;
-  frontImage: SmzCardsImageContent;
-  backImage: SmzCardsImageContent;
+  front: SmzFlipCardSide;
+  back: SmzFlipCardSide;
   buttonsLocation: 'front' | 'back';
   menuLocation: 'front' | 'back';
+}
+
+export interface SmzFlipCardSide {
+  image: SmzCardsImageContent;
+  component: SmzCardsComponentContent;
+  html: string;
 }

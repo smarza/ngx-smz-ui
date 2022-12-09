@@ -1,5 +1,6 @@
 import { SmzCardsImageContent } from '../../../modules/smz-cards/models/smz-cards-contents';
-import { FlipCardTemplate, SmzCardsTemplate } from '../../../modules/smz-cards/models/smz-cards-templates';
+import { FlipCardTemplate, SmzCardsTemplate, SmzFlipCardSide } from '../../../modules/smz-cards/models/smz-cards-templates';
+import { SmzBuilderUtilities } from '../../common/smz-builder-utilities';
 import { SmzCardsImageBuilder } from '../column-builder';
 import { SmzCardsTemplateBuilder } from '../template-builder';
 import { SmzCardsBaseTemplateBuilder } from './base-card-type.builder';
@@ -41,16 +42,47 @@ export class SmzCardsFlipCardBuilder<TBuilder> extends SmzCardsBaseTemplateBuild
     return this;
   }
 
-  public frontImage(dataPath: string): SmzCardsImageBuilder<TBuilder, SmzCardsFlipCardBuilder<TBuilder>> {
-    this._template.frontImage = {} as SmzCardsImageContent;
+  public front(): SmzCardsFlipCardSideBuilder<TBuilder> {
+    this._template.front = {} as SmzFlipCardSide;
+    return new SmzCardsFlipCardSideBuilder<TBuilder>(this._builder, this, this._template.front);
+  }
+
+  public back(): SmzCardsFlipCardSideBuilder<TBuilder> {
+    this._template.back = {} as SmzFlipCardSide;
+    return new SmzCardsFlipCardSideBuilder<TBuilder>(this._builder, this, this._template.back);
+  }
+
+  // public backImage(dataPath: string): SmzCardsImageBuilder<TBuilder, SmzCardsFlipCardBuilder<TBuilder>> {
+  //   this._template.backImage = {} as SmzCardsImageContent;
+  //   const baseImageStyles: string = ' ';
+  //   return new SmzCardsImageBuilder<TBuilder, SmzCardsFlipCardBuilder<TBuilder>>(this._builder, this, this._template.backImage, dataPath, baseImageStyles);
+  // }
+
+}
+
+export class SmzCardsFlipCardSideBuilder<TBuilder> extends SmzBuilderUtilities<SmzCardsFlipCardSideBuilder<TBuilder>> {
+  protected that = this;
+  constructor(private _builder: TBuilder, private _templateBuilder: SmzCardsFlipCardBuilder<TBuilder>, private _side: SmzFlipCardSide) {
+    super();
+  }
+
+  public image(dataPath: string): SmzCardsImageBuilder<TBuilder, SmzCardsFlipCardSideBuilder<TBuilder>> {
+    this._side.image = {} as SmzCardsImageContent;
     const baseImageStyles: string = '';
-    return new SmzCardsImageBuilder<TBuilder, SmzCardsFlipCardBuilder<TBuilder>>(this._builder, this, this._template.frontImage, dataPath, baseImageStyles);
+    return new SmzCardsImageBuilder<TBuilder, SmzCardsFlipCardSideBuilder<TBuilder>>(this._builder, this, this._side.image, dataPath, baseImageStyles);
   }
 
-  public backImage(dataPath: string): SmzCardsImageBuilder<TBuilder, SmzCardsFlipCardBuilder<TBuilder>> {
-    this._template.backImage = {} as SmzCardsImageContent;
-    const baseImageStyles: string = ' ';
-    return new SmzCardsImageBuilder<TBuilder, SmzCardsFlipCardBuilder<TBuilder>>(this._builder, this, this._template.backImage, dataPath, baseImageStyles);
+  // public frontImage(dataPath: string): SmzCardsImageBuilder<TBuilder, SmzCardsFlipCardSideBuilder<TBuilder>> {
+  //   this._template.frontImage = {} as SmzCardsImageContent;
+  //   const baseImageStyles: string = '';
+  //   return new SmzCardsImageBuilder<TBuilder, SmzCardsFlipCardSideBuilder<TBuilder>>(this._templateBuilder, this, this._template.frontImage, dataPath, baseImageStyles);
+  // }
+
+  public get front(): SmzCardsFlipCardBuilder<TBuilder> {
+    return this._templateBuilder;
   }
 
+  public get back(): SmzCardsFlipCardBuilder<TBuilder> {
+    return this._templateBuilder;
+  }
 }
