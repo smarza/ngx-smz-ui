@@ -1,5 +1,7 @@
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Input, OnInit, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, Input, OnInit, QueryList, Renderer2, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { isEmpty } from 'lodash-es';
 import { PrimeTemplate } from 'primeng/api';
+import { DataView } from 'primeng/dataview';
 import { SmzCardsSource, SmzCardsState } from '../../models/smz-cards-state';
 
 @Component({
@@ -10,12 +12,13 @@ import { SmzCardsSource, SmzCardsState } from '../../models/smz-cards-state';
   encapsulation: ViewEncapsulation.None
 })
 
-export class SmzCardsComponent implements OnInit, AfterContentInit {
+export class SmzCardsComponent implements OnInit, AfterContentInit, AfterViewInit {
+  @ViewChild(DataView) public dataView: DataView;
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
   @Input() public state: SmzCardsState<any>;
   public headerTemplate: TemplateRef<any>;
   public contentTemplates: { type: string, template: TemplateRef<any> }[] = [];
-  constructor(private cdr: ChangeDetectorRef) { }
+  constructor(private cdr: ChangeDetectorRef, private renderer: Renderer2) { }
   ngOnInit() {
     if (this.state?.isDebug) {
       console.log('state', this.state);
@@ -48,6 +51,22 @@ export class SmzCardsComponent implements OnInit, AfterContentInit {
       }
 
     });
+
+  }
+
+  public ngAfterViewInit(): void {
+
+    if (!isEmpty(this.state.view.dataViewContentStyles)) {
+
+      const element = this.dataView.el.nativeElement as HTMLElement;
+      const container = element.getElementsByClassName('p-dataview-content')[0];
+
+      const styles = this.state.view.dataViewContentStyles.split(' ');
+      styles.forEach(style => {
+        this.renderer.addClass(container.firstChild, style);
+      })
+    }
+
   }
 
   public updateMainSource(event: { value: SmzCardsSource<any> }): void {

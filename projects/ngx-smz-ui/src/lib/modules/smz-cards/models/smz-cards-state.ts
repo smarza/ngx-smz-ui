@@ -24,6 +24,7 @@ export interface SmzCardsState<T> {
     filterBy: string;
     layout: 'grid' | 'list';
     showHeader: boolean;
+    dataViewContentStyles: string;
   }
 }
 

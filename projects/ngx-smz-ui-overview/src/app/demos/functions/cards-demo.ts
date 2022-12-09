@@ -237,6 +237,7 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
         .setTitle('Demo Cards | Flip Card | Image')
         // .debugMode()
         .setSource(of(SmzCardsFlipCardDemo))
+        .setDataViewContainerStyles('justify-around ')
         .template()
           .flipCard()
             .setCardSize('160px', '240px')

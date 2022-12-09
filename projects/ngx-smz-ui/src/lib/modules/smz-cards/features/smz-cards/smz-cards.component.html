@@ -1,7 +1,7 @@
 <ng-container *ngIf="state != null">
 <ng-container *ngIf="state.items$ | async as items">
 
-  <p-dataView #dv [value]="items" [paginator]="state.view.paginator" [rows]="state.view.rowsPerPage" [filterBy]="state.view.filterBy" [layout]="state.view.layout" [emptyMessage]="state.locale.emptyMessage">
+  <p-dataView #dataView [value]="items" [paginator]="state.view.paginator" [rows]="state.view.rowsPerPage" [filterBy]="state.view.filterBy" [layout]="state.view.layout" [emptyMessage]="state.locale.emptyMessage">
 
     <ng-container *ngIf="state.view.showHeader">
       <ng-template pTemplate="header">
@@ -17,7 +17,7 @@
 
                 <span *ngIf="state.view.showGlobalFilter" class="p-input-icon-left mb-2 md:mb-0">
                   <i class="pi pi-search"></i>
-                  <input type="search" pInputText [placeholder]="state.locale.globalSearch.placeholder" (input)="dv.filter($any($event.target).value)">
+                  <input type="search" pInputText [placeholder]="state.locale.globalSearch.placeholder" (input)="dataView.filter($any($event.target).value)">
                 </span>
 
                 <p-dataViewLayoutOptions></p-dataViewLayoutOptions>

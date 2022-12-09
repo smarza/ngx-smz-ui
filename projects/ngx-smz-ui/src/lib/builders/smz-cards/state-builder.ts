@@ -54,7 +54,8 @@ export class SmzCardsBuilder<T> {
       showGlobalFilter: false,
       filterBy: '',
       layout: 'grid',
-      showHeader: true
+      showHeader: true,
+      dataViewContentStyles: ''
     }
   };
 
@@ -116,6 +117,11 @@ export class SmzCardsBuilder<T> {
 
   public setRowsPerPage(rows: number): SmzCardsBuilder<T> {
     this._state.view.rowsPerPage = rows;
+    return this;
+  }
+
+  public setDataViewContainerStyles(styles: string): SmzCardsBuilder<T> {
+    this._state.view.dataViewContentStyles = styles;
     return this;
   }
 
