@@ -6,6 +6,8 @@ import { SmzCardsArchivedDemo, SmzCardsDemo, SmzCardsDemoData } from '../data/ca
 import * as moment from 'moment';
 import { DemoInjectable1Component } from '../../ui/features/home/components/demo-injectable/demo-injectable-1.component';
 import { SmzCardsFlipCardDemo, SmzCardsFlipCardDemoData } from '../data/cards/flip-card-data';
+import { FrontCardComponent } from '@components/cards/front-card.component';
+import { BackCardComponent } from '@components/cards/back-card.component';
 
 const store = GlobalInjector.instance.get(Store);
 
@@ -306,15 +308,13 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
             .setButtonsLocation('back')
             .setMenuLocation('back')
             .front()
-              .image(nameof<SmzCardsFlipCardDemoData>('frontImage'))
-                .setStyles('object-cover rounded-lg border-0 shadow-md')
-                .disableMaximize()
+              .component(FrontCardComponent)
+                .addInputWithContext('data')
                 .template
               .front
             .back()
-              .image(nameof<SmzCardsFlipCardDemoData>('backImage'))
-                .setStyles('object-cover rounded-lg border-0 shadow-md')
-                .disableMaximize()
+              .component(BackCardComponent)
+                .addInputWithContext('data')
                 .template
               .back
             .template
@@ -326,27 +326,6 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
         .list()
           .setLayout('col-12')
           .setPadding('px-0 pt-4')
-          .cards
-        .buttons()
-          .setStyleClass('p-button-sm bg-white text-black border-0')
-          .item('Consultar')
-            .setCallback((event: any) => console.log('--- Consultar'))
-            .menu
-          .cards
-        .menu()
-          .setStyleClass('p-button-sm rounded-full p-0 m-0 h-7 w-7 border-0 bg-white text-black')
-          .item('Atualizar')
-            .setCallback((event: any) => console.log('--- Atualizar'))
-            .menu
-          .separator()
-          .item('Apagar Enabled', 'fa-solid fa-trash')
-            .setCallback((event: any) => console.log('--- Apagar'))
-            .setActivationRule(() => false)
-            .menu
-          .item('Apagar Disabled', 'fa-solid fa-trash')
-            .setCallback((event: any) => console.log('--- Apagar'))
-            .setActivationRule(() => true)
-            .menu
           .cards
       .build()
   }
@@ -366,16 +345,10 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
             .setButtonsLocation('back')
             .setMenuLocation('back')
             .front()
-              .image(nameof<SmzCardsFlipCardDemoData>('frontImage'))
-                .setStyles('object-cover rounded-lg border-0 shadow-md')
-                .disableMaximize()
-                .template
+              .html('<div class="w-full h-full bg-teal-600 rounded-lg shadow-lg"></div>')
               .front
             .back()
-              .image(nameof<SmzCardsFlipCardDemoData>('backImage'))
-                .setStyles('object-cover rounded-lg border-0 shadow-md')
-                .disableMaximize()
-                .template
+              .html('<div class="w-full h-full bg-purple-600 rounded-lg shadow-lg"></div>')
               .back
             .template
           .cards
@@ -386,27 +359,6 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
         .list()
           .setLayout('col-12')
           .setPadding('px-0 pt-4')
-          .cards
-        .buttons()
-          .setStyleClass('p-button-sm bg-white text-black border-0')
-          .item('Consultar')
-            .setCallback((event: any) => console.log('--- Consultar'))
-            .menu
-          .cards
-        .menu()
-          .setStyleClass('p-button-sm rounded-full p-0 m-0 h-7 w-7 border-0 bg-white text-black')
-          .item('Atualizar')
-            .setCallback((event: any) => console.log('--- Atualizar'))
-            .menu
-          .separator()
-          .item('Apagar Enabled', 'fa-solid fa-trash')
-            .setCallback((event: any) => console.log('--- Apagar'))
-            .setActivationRule(() => false)
-            .menu
-          .item('Apagar Disabled', 'fa-solid fa-trash')
-            .setCallback((event: any) => console.log('--- Apagar'))
-            .setActivationRule(() => true)
-            .menu
           .cards
       .build()
   }

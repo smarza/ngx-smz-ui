@@ -25,6 +25,8 @@ import { DemoCardsComponent } from './components/demo-cards/demo-cards.component
 import { TooltipModule } from 'primeng/tooltip';
 import { FormsModule } from '@angular/forms';
 import { DemoTimelineComponent } from './components/demo-timeline/demo-timeline.component';
+import { FrontCardComponent } from '../../components/cards/front-card.component';
+import { BackCardComponent } from '../../components/cards/back-card.component';
 
 const data: SmzRouteData = {
   layout: {
@@ -86,6 +88,8 @@ const routes: Routes = [
     NgxSmzCardsModule,
     NgxSmzTimelineModule,
     NgxSmzDataPipesModule,
+    FrontCardComponent,
+    BackCardComponent
   ],
   providers: [],
   bootstrap: [HomeComponent]

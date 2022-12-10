@@ -27,11 +27,11 @@
             </ng-container>
 
             <ng-container *ngIf="template.front.component as frontComponent">
-              component
+              <ng-template [smzInjectDataPathComponent]="frontComponent.componentData" [data]="data"></ng-template>
             </ng-container>
 
             <ng-container *ngIf="template.front.html as frontHtml">
-              html
+              <div class="w-full h-full" [innerHTML]="frontHtml | safeHtml"></div>
             </ng-container>
 
             <ng-container *ngIf="template.buttonsLocation === 'front'">
@@ -64,11 +64,11 @@
             </ng-container>
 
           <ng-container *ngIf="template.back.component as backComponent">
-            component
+            <ng-template [smzInjectDataPathComponent]="backComponent.componentData" [data]="data"></ng-template>
           </ng-container>
 
           <ng-container *ngIf="template.back.html as backHtml">
-            html
+            <div class="w-full h-full" [innerHTML]="backHtml | safeHtml"></div>
           </ng-container>
 
           <ng-container *ngIf="template.buttonsLocation === 'back'">

@@ -1,7 +1,7 @@
-import { SmzCardsImageContent } from '../../../modules/smz-cards/models/smz-cards-contents';
+import { SmzCardsComponentContent, SmzCardsImageContent } from '../../../modules/smz-cards/models/smz-cards-contents';
 import { FlipCardTemplate, SmzCardsTemplate, SmzFlipCardSide } from '../../../modules/smz-cards/models/smz-cards-templates';
 import { SmzBuilderUtilities } from '../../common/smz-builder-utilities';
-import { SmzCardsImageBuilder } from '../column-builder';
+import { SmzCardsComponentBuilder, SmzCardsImageBuilder } from '../column-builder';
 import { SmzCardsTemplateBuilder } from '../template-builder';
 import { SmzCardsBaseTemplateBuilder } from './base-card-type.builder';
 
@@ -72,11 +72,16 @@ export class SmzCardsFlipCardSideBuilder<TBuilder> extends SmzBuilderUtilities<S
     return new SmzCardsImageBuilder<TBuilder, SmzCardsFlipCardSideBuilder<TBuilder>>(this._builder, this, this._side.image, dataPath, baseImageStyles);
   }
 
-  // public frontImage(dataPath: string): SmzCardsImageBuilder<TBuilder, SmzCardsFlipCardSideBuilder<TBuilder>> {
-  //   this._template.frontImage = {} as SmzCardsImageContent;
-  //   const baseImageStyles: string = '';
-  //   return new SmzCardsImageBuilder<TBuilder, SmzCardsFlipCardSideBuilder<TBuilder>>(this._templateBuilder, this, this._template.frontImage, dataPath, baseImageStyles);
-  // }
+  public component(component: any): SmzCardsComponentBuilder<TBuilder, SmzCardsFlipCardSideBuilder<TBuilder>> {
+    const content = {} as SmzCardsComponentContent;
+    this._side.component = content;
+    return new SmzCardsComponentBuilder<TBuilder, SmzCardsFlipCardSideBuilder<TBuilder>>(this._builder, this, content, component);
+  }
+
+  public html(html: string):SmzCardsFlipCardSideBuilder<TBuilder> {
+    this._side.html = html;
+    return this;
+  }
 
   public get front(): SmzCardsFlipCardBuilder<TBuilder> {
     return this._templateBuilder;
