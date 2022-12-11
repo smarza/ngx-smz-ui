@@ -1,3 +1,4 @@
+import { SmzFlipCardContext } from '../../../modules/smz-cards/models/contexts/smz-flip-card-context';
 import { SmzCardsComponentContent, SmzCardsImageContent } from '../../../modules/smz-cards/models/smz-cards-contents';
 import { FlipCardTemplate, SmzCardsTemplate, SmzFlipCardSide } from '../../../modules/smz-cards/models/smz-cards-templates';
 import { SmzBuilderUtilities } from '../../common/smz-builder-utilities';
@@ -14,6 +15,12 @@ export class SmzCardsFlipCardBuilder<TBuilder> extends SmzCardsBaseTemplateBuild
     this._template.height = '200px';
     this._template.menuLocation = 'back';
     this._template.buttonsLocation = 'back';
+    this._template._context = new SmzFlipCardContext();
+  }
+
+  public setFlipCounts(count: number): SmzCardsFlipCardBuilder<TBuilder> {
+    this._template._context.setCounts(count);
+    return this;
   }
 
   public setCardSize(width: string, height: string): SmzCardsFlipCardBuilder<TBuilder> {

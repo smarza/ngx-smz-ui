@@ -4,7 +4,7 @@
 
   <div class="w-full h-full grid grid-nogutter items-center justify-center relative select-none">
     <div class="relative" [ngStyle]="{ width: template.width, height: template.height}" [ngClass]="template.cardStyleClass + (isDebug ? ' border border-red-500 border-solid' : '')">
-      <div class="cmp-card w-full h-full cursor-pointer" [ngClass]="{ 'cmp-card-flipped': isFlipped }" (click)="flip()">
+      <div class="cmp-card w-full h-full cursor-pointer" [ngClass]="{ 'cmp-card-flipped': template._context.getFlipState(data)}" (click)="flip()">
         <div class="cmp-content">
           <div class="cmp-front">
 

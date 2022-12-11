@@ -19,6 +19,7 @@ export class SmzTimelineBuilder<T> {
     },
     locale: null,
     template: {
+      _context: null,
       type: null,
     },
     buttons: {

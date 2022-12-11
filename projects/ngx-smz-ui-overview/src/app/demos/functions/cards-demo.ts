@@ -344,6 +344,7 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
             .setContentStyles('')
             .setButtonsLocation('back')
             .setMenuLocation('back')
+            .setFlipCounts(4)
             .front()
               .html('<div class="w-full h-full bg-teal-600 rounded-lg shadow-lg"></div>')
               .front

@@ -18,6 +18,7 @@ export class SmzCardsBuilder<T> {
     },
     locale: null,
     template: {
+      _context: null,
       type: null,
     },
     grid: {

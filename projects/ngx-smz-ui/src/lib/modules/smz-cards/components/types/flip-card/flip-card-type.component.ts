@@ -8,7 +8,7 @@ import { SmzCardsImageContent, SmzCardsTextContent } from '../../../models/smz-c
   selector: 'smz-flip-card-type',
   templateUrl: 'flip-card-type.component.html',
   styleUrls: ['flip-card-type.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.None
 })
 
@@ -23,13 +23,12 @@ export class SmzFlipCardTypeComponent implements OnInit {
   public SmzCardsImageContent: SmzCardsImageContent;
   public SmzCardsTextContent: SmzCardsTextContent;
   public modes = SmzCardsView;
-  public isFlipped = false;
   constructor() { }
 
   ngOnInit() {
   }
 
   public flip(): void {
-    this.isFlipped = !this.isFlipped;
+    this.template._context.flip(this.data);
   }
 }

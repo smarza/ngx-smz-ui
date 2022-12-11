@@ -1,6 +1,9 @@
+import { SmzCardsBaseContext } from './contexts/smz-base-context';
+import { SmzFlipCardContext } from './contexts/smz-flip-card-context';
 import { SmzCardsComponentContent, SmzCardsContentTypes, SmzCardsImageContent, SmzCardsTextContent } from './smz-cards-contents';
 
 export interface SmzCardsBaseTemplate {
+  _context: SmzCardsBaseContext;
   type: SmzCardsTemplate;
 }
 
@@ -61,6 +64,7 @@ export interface SmzCardsIconContent {
 }
 
 export interface FlipCardTemplate extends SmzCardsBaseTemplate {
+  _context: SmzFlipCardContext;
   type: SmzCardsTemplate.FLIP_CARD;
   width: string;
   height: string;
@@ -70,6 +74,7 @@ export interface FlipCardTemplate extends SmzCardsBaseTemplate {
   back: SmzFlipCardSide;
   buttonsLocation: 'front' | 'back';
   menuLocation: 'front' | 'back';
+
 }
 
 export interface SmzFlipCardSide {

@@ -1,44 +1,46 @@
 <ng-container *ngIf="state != null">
 <ng-container *ngIf="state.items$ | async as items">
+<ng-container *ngVar="items | resetContext : state.template._context">
 
-  <p-dataView #dataView [value]="items" [paginator]="state.view.paginator" [rows]="state.view.rowsPerPage" [filterBy]="state.view.filterBy" [layout]="state.view.layout" [emptyMessage]="state.locale.emptyMessage">
+<p-dataView #dataView [value]="items" [paginator]="state.view.paginator" [rows]="state.view.rowsPerPage" [filterBy]="state.view.filterBy" [layout]="state.view.layout" [emptyMessage]="state.locale.emptyMessage">
 
-    <ng-container *ngIf="state.view.showHeader">
-      <ng-template pTemplate="header">
-          <div class="grid grid-nogutter lg:flex-row xl:flex-row md:flex-col sm:flex-col items-center justify-between gap-2">
-              <div class="grid grid-nogutter items-center justify-start gap-2">
-                <div *ngIf="state.title.isVisible" class="text-lg" [innerHtml]="state.title.getText() | safeHtml"></div>
-              </div>
+  <ng-container *ngIf="state.view.showHeader">
+    <ng-template pTemplate="header">
+        <div class="grid grid-nogutter lg:flex-row xl:flex-row md:flex-col sm:flex-col items-center justify-between gap-2">
+            <div class="grid grid-nogutter items-center justify-start gap-2">
+              <div *ngIf="state.title.isVisible" class="text-lg" [innerHtml]="state.title.getText() | safeHtml"></div>
+            </div>
 
-              <div class="grid grid-nogutter items-center justify-end gap-3">
-                <ng-container *ngIf="headerTemplate != null">
-                  <ng-container *ngTemplateOutlet="headerTemplate; context: { $implicit: state }"></ng-container>
-                </ng-container>
+            <div class="grid grid-nogutter items-center justify-end gap-3">
+              <ng-container *ngIf="headerTemplate != null">
+                <ng-container *ngTemplateOutlet="headerTemplate; context: { $implicit: state }"></ng-container>
+              </ng-container>
 
-                <span *ngIf="state.view.showGlobalFilter" class="p-input-icon-left mb-2 md:mb-0">
-                  <i class="pi pi-search"></i>
-                  <input type="search" pInputText [placeholder]="state.locale.globalSearch.placeholder" (input)="dataView.filter($any($event.target).value)">
-                </span>
+              <span *ngIf="state.view.showGlobalFilter" class="p-input-icon-left mb-2 md:mb-0">
+                <i class="pi pi-search"></i>
+                <input type="search" pInputText [placeholder]="state.locale.globalSearch.placeholder" (input)="dataView.filter($any($event.target).value)">
+              </span>
 
-                <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+              <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
 
-                <ng-container *ngIf="state.sources.length > 0">
-                  <p-dropdown [options]="state.sources" dataKey="key" [(ngModel)]="state.selectedSource" optionLabel="label" (onChange)="updateMainSource($event)"></p-dropdown>
-                </ng-container>
-              </div>
-          </div>
-      </ng-template>
-    </ng-container>
-
-    <ng-template let-item pTemplate="listItem">
-      <smz-list-item *ngIf="state.template != null" [isDebug]="state.isDebug" [template]="state.template" [data]="item" [menu]="state.menu" [buttons]="state.buttons" [ngClass]="state.list.styleClass.all"></smz-list-item>
+              <ng-container *ngIf="state.sources.length > 0">
+                <p-dropdown [options]="state.sources" dataKey="key" [(ngModel)]="state.selectedSource" optionLabel="label" (onChange)="updateMainSource($event)"></p-dropdown>
+              </ng-container>
+            </div>
+        </div>
     </ng-template>
+  </ng-container>
 
-    <ng-template let-item pTemplate="gridItem">
-      <smz-grid-item *ngIf="state.template != null" [isDebug]="state.isDebug" [template]="state.template" [data]="item" [menu]="state.menu" [buttons]="state.buttons" [ngClass]="state.grid.styleClass.all"></smz-grid-item>
-    </ng-template>
+  <ng-template let-item pTemplate="listItem">
+    <smz-list-item *ngIf="state.template != null" [isDebug]="state.isDebug" [template]="state.template" [data]="item" [menu]="state.menu" [buttons]="state.buttons" [ngClass]="state.list.styleClass.all"></smz-list-item>
+  </ng-template>
+
+  <ng-template let-item pTemplate="gridItem">
+    <smz-grid-item *ngIf="state.template != null" [isDebug]="state.isDebug" [template]="state.template" [data]="item" [menu]="state.menu" [buttons]="state.buttons" [ngClass]="state.grid.styleClass.all"></smz-grid-item>
+  </ng-template>
 
 </p-dataView>
 
+</ng-container>
 </ng-container>
 </ng-container>

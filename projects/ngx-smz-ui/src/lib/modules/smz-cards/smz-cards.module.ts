@@ -28,6 +28,8 @@ import { SmzCardsTransformContentPipe } from './pipes/transform-content.pipe';
 import { SmzInjectDataPathComponent } from './directives/inject-component.directive';
 import { SmzFlipCardTypeComponent } from './components/types/flip-card/flip-card-type.component';
 import { ClickStopPropagationModule } from '../../common/stop-click-propagation/click-stop-propagation.module';
+import { SmzCardsResetContextPipe } from './pipes/reset-context.pipe';
+import { NgVarModule } from '../../common/directives/ng-var/ng-var.module';
 
 @NgModule({
   imports: [
@@ -44,7 +46,8 @@ import { ClickStopPropagationModule } from '../../common/stop-click-propagation/
     TooltipModule,
     SafeContentPipeModule,
     NgxSmzDataPipesModule,
-    ClickStopPropagationModule
+    ClickStopPropagationModule,
+    NgVarModule
   ],
   exports: [SmzCardsComponent, SmzGridItemComponent, SharedModule],
   declarations: [
@@ -58,6 +61,7 @@ import { ClickStopPropagationModule } from '../../common/stop-click-propagation/
     // Pipes
     SmzCardsContentPipe,
     SmzCardsTransformContentPipe,
+    SmzCardsResetContextPipe,
 
     // Directives
     SmzCardsContentSelectorDirective,
