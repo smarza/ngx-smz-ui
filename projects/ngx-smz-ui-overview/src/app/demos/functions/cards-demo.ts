@@ -381,6 +381,9 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
             .setCardStyles('')
             .setContentStyles('')
             .setToggleBehavior(1)
+            .if(true)
+              .applyData([{ key: 13, status: 'back' }, { key: 3, status: 'back' }])
+              .endIf
             .front()
               .component(ComplexityFrontCardComponent)
                 .addInputWithContext('data')

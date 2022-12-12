@@ -14,6 +14,7 @@ export class SmzFlipCardContext extends SmzCardsBaseContext {
   // Quantidade de cartas que podem ficar viradas ao mesmo tempo. (-1 = sem restrição)
   private maxFlipCardsAllowed: number = -1;
   public flipBehavior: 'toggle' | 'none' = 'none';
+  public initialData: { key: any, status: SmzFlipCardStatus }[] = [];
 
   constructor() {
     super();
@@ -25,10 +26,17 @@ export class SmzFlipCardContext extends SmzCardsBaseContext {
 
     const timestamp = new Date().getTime();
 
-    data?.forEach(data => {
-      const key = ObjectUtils.resolveFieldData(data, this.propertyPath);
+    data?.forEach(item => {
+      const key = ObjectUtils.resolveFieldData(item, this.propertyPath);
       this.state.push({ key, status: 'front', timestamp });
     });
+
+    this.initialData.forEach(item => {
+      const entity = this.state.find(x => x.key === item.key);
+      if (entity != null) {
+        this.setFlipState(entity, item.status);
+      }
+    })
 
   }
 

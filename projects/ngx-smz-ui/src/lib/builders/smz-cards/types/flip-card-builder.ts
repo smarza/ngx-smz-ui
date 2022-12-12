@@ -1,15 +1,17 @@
-import { SmzFlipCardChanges, SmzFlipCardContext } from '../../../modules/smz-cards/models/contexts/smz-flip-card-context';
+import { cloneDeep } from 'lodash-es';
+import { SmzFlipCardChanges, SmzFlipCardContext, SmzFlipCardStatus } from '../../../modules/smz-cards/models/contexts/smz-flip-card-context';
 import { SmzCardsComponentContent, SmzCardsImageContent } from '../../../modules/smz-cards/models/smz-cards-contents';
 import { FlipCardTemplate, SmzCardsTemplate, SmzFlipCardSide } from '../../../modules/smz-cards/models/smz-cards-templates';
 import { SmzBuilderUtilities } from '../../common/smz-builder-utilities';
 import { SmzCardsComponentBuilder, SmzCardsImageBuilder } from '../column-builder';
 import { SmzCardsTemplateBuilder } from '../template-builder';
-import { SmzCardsBaseTemplateBuilder } from './base-card-type.builder';
 
-export class SmzCardsFlipCardBuilder<TBuilder> extends SmzCardsBaseTemplateBuilder<TBuilder, SmzCardsFlipCardBuilder<TBuilder>> {
+export class SmzCardsFlipCardBuilder<TBuilder> extends SmzBuilderUtilities<SmzCardsFlipCardBuilder<TBuilder>> {
+  protected that = this;
 
   constructor(protected _builder: TBuilder, protected _parent: SmzCardsTemplateBuilder<TBuilder>, protected _template: FlipCardTemplate) {
-    super(_builder, _parent, _template);
+    super();
+
     _template.type = SmzCardsTemplate.FLIP_CARD;
     this._template.width = '200px';
     this._template.height = '200px';
@@ -21,6 +23,11 @@ export class SmzCardsFlipCardBuilder<TBuilder> extends SmzCardsBaseTemplateBuild
 
   public onChange(callback: (changes: SmzFlipCardChanges) => void): SmzCardsFlipCardBuilder<TBuilder> {
     this._template.onChange = callback;
+    return this;
+  }
+
+  public applyData(initialData: { key: any, status: SmzFlipCardStatus }[]): SmzCardsFlipCardBuilder<TBuilder> {
+    this._template._context.initialData = cloneDeep(initialData);
     return this;
   }
 
@@ -87,6 +94,10 @@ export class SmzCardsFlipCardBuilder<TBuilder> extends SmzCardsBaseTemplateBuild
   //   const baseImageStyles: string = ' ';
   //   return new SmzCardsImageBuilder<TBuilder, SmzCardsFlipCardBuilder<TBuilder>>(this._builder, this, this._template.backImage, dataPath, baseImageStyles);
   // }
+
+  public get template(): SmzCardsTemplateBuilder<TBuilder> {
+    return this._parent;
+  }
 
 }
 
