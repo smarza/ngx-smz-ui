@@ -42,7 +42,7 @@
     <ng-container *ngIf="state.context.selectedNode != null; else noSelectionTemplate">
 
       <ng-container *ngIf="detailsTemplate != null">
-        <ng-container *ngTemplateOutlet="detailsTemplate; context: { $implicit: state.context.selectedNode, type: state.context.selectedNode.type }"></ng-container>
+        <ng-container *ngTemplateOutlet="detailsTemplate; context: { $implicit: state.context.selectedNode, type: state.context.selectedNode?.type }"></ng-container>
       </ng-container>
 
     </ng-container>
@@ -51,7 +51,7 @@
 
       <ng-container *ngIf="items != null">
         <ng-container *ngIf="emptySelectionTemplate != null; else defaultEmptySelectionTemplate">
-          <ng-container *ngTemplateOutlet="emptySelectionTemplate; context: { $implicit: state.context.selectedNode, type: state.context.selectedNode.type }"></ng-container>
+          <ng-container *ngTemplateOutlet="emptySelectionTemplate; context: { $implicit: state.context.selectedNode, type: state.context.selectedNode?.type }"></ng-container>
         </ng-container>
 
         <ng-template #defaultEmptySelectionTemplate>

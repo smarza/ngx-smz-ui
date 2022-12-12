@@ -1,14 +1,14 @@
 import { Directive, ViewContainerRef, Input, AfterContentInit, OnDestroy } from '@angular/core';
 import { ObjectUtils } from 'primeng/utils';
 import { takeWhile } from 'rxjs/operators';
-import { SmzInjectable } from '../models/smz-cards-component';
+import { SmzAdvancedInjectable } from '../models/smz-cards-component';
 
 @Directive({
     selector: '[smzInjectDataPathComponent]'
 })
 export class SmzInjectDataPathComponent implements AfterContentInit, OnDestroy
 {
-    @Input() public smzInjectDataPathComponent: SmzInjectable;
+    @Input() public smzInjectDataPathComponent: SmzAdvancedInjectable;
     @Input() public data: any;
     public isActive = true;
 
@@ -40,8 +40,16 @@ export class SmzInjectDataPathComponent implements AfterContentInit, OnDestroy
 
         this.smzInjectDataPathComponent.inputs.forEach(i =>
         {
-            const data = i.dataPath == null ? this.data : this.getValue(this.data, i.dataPath);
-            (<any>componentRef.instance)[i.input] = data;
+            if (i.useAllContext) {
+                (<any>componentRef.instance)[i.input] = this.data;
+            }
+            else if(i.dataPath != null) {
+                const data = this.getValue(this.data, i.dataPath);
+                (<any>componentRef.instance)[i.input] = data;
+            }
+            else {
+                (<any>componentRef.instance)[i.input] = i.value;
+            }
         });
 
         if (this.smzInjectDataPathComponent.outputs != null)

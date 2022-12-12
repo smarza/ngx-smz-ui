@@ -31,6 +31,21 @@ export class SmzCardsFlipCardBuilder<TBuilder> extends SmzBuilderUtilities<SmzCa
     return this;
   }
 
+  public setKey(propertyPath: string): SmzCardsFlipCardBuilder<TBuilder> {
+    this._template._context.propertyPath = propertyPath;
+    return this;
+  }
+
+  public useDataModelStatus(propertyPath: string): SmzCardsFlipCardBuilder<TBuilder> {
+    this._template._context.statusDataProperty = propertyPath;
+    return this;
+  }
+
+  public useDynamicData(callback: (data: any[]) => { key: any, status: SmzFlipCardStatus }[]): SmzCardsFlipCardBuilder<TBuilder> {
+    this._template._context.dynamicInitialData = callback;
+    return this;
+  }
+
   public setFlipCounts(count: number): SmzCardsFlipCardBuilder<TBuilder> {
 
     if (this._template._context.flipBehavior === 'toggle') {
@@ -50,6 +65,11 @@ export class SmzCardsFlipCardBuilder<TBuilder> extends SmzBuilderUtilities<SmzCa
     this._template._context.flipBehavior = 'toggle';
     this._template._context.setCounts(count);
 
+    return this;
+  }
+
+  public enableAtLeastOneSelectedBehavior(): SmzCardsFlipCardBuilder<TBuilder> {
+    this._template._context.unselectBehavior = 'at-least-one-flipped';
     return this;
   }
 

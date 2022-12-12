@@ -108,12 +108,17 @@ export class SmzCardsComponentBuilder<TBuilder, TViewData> extends SmzCardsBaseB
   }
 
   public addInputWithContext(input: string): SmzCardsComponentBuilder<TBuilder, TViewData> {
-    this._content.componentData.inputs.push({ input, dataPath: null });
+    this._content.componentData.inputs.push({ input, value: null, useAllContext: true, dataPath: null });
     return this;
   }
 
-  public addInput(input: string, dataPath: any): SmzCardsComponentBuilder<TBuilder, TViewData> {
-    this._content.componentData.inputs.push({ input, dataPath });
+  public addInputFromModel(input: string, dataPath: any): SmzCardsComponentBuilder<TBuilder, TViewData> {
+    this._content.componentData.inputs.push({ input, dataPath, value: null, useAllContext: false });
+    return this;
+  }
+
+  public addInput(input: string, value: any): SmzCardsComponentBuilder<TBuilder, TViewData> {
+    this._content.componentData.inputs.push({ input, value, dataPath: null, useAllContext: false });
     return this;
   }
 

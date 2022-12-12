@@ -1,4 +1,4 @@
-import { SmzInjectable } from './smz-cards-component';
+import { SmzAdvancedInjectable } from './smz-cards-component';
 
 export type SmzCardsContentTypes =
   SmzCardsTextContent |
@@ -36,7 +36,7 @@ export interface SmzCardsCustomContent extends SmzCardsBaseContent {
 
 export interface SmzCardsComponentContent extends SmzCardsBaseContent {
   type: SmzCardsContentType.COMPONENT;
-  componentData: SmzInjectable;
+  componentData: SmzAdvancedInjectable;
   searchPath: string;
 }
 

@@ -7,3 +7,5 @@ export * from './models/smz-cards-state';
 export * from './models/smz-cards-contents';
 export * from './models/smz-cards-types';
 export * from './models/smz-cards-templates';
+export * from './models/smz-cards-component';
+export * from './models/contexts/smz-flip-card-context';

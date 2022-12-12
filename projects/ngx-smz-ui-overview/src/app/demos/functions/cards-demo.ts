@@ -310,9 +310,11 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
             .setContentStyles('')
             .setButtonsLocation('back')
             .setMenuLocation('back')
+            .enableAtLeastOneSelectedBehavior()
             .front()
               .component(FrontCardComponent)
                 .addInputWithContext('data')
+                .addInput('isSelectable', true)
                 .template
               .front
             .back()
@@ -348,6 +350,7 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
             .setButtonsLocation('back')
             .setMenuLocation('back')
             .setFlipCounts(1)
+            .useDataModelStatus('isSelected')
             .onChange((changes) => { console.log('onChange', changes); })
             .front()
               .html('<div class="w-full h-full bg-teal-600 rounded-lg shadow-lg"></div>')

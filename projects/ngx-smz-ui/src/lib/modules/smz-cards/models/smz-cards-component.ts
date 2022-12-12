@@ -1,17 +1,19 @@
-export interface SmzInjectable
+export interface SmzAdvancedInjectable
 {
     component: any;
-    inputs: SmzInjectableInput[];
-    outputs?: SmzInjectableOutput[];
+    inputs: SmzAdvancedInjectableInput[];
+    outputs?: SmzAdvancedInjectableOutput[];
 }
 
-export interface SmzInjectableInput
+export interface SmzAdvancedInjectableInput
 {
     input: string;
     dataPath: string;
+    value: any;
+    useAllContext: boolean;
 }
 
-export interface SmzInjectableOutput
+export interface SmzAdvancedInjectableOutput
 {
     output: string;
     callback?: (data: any) => void;

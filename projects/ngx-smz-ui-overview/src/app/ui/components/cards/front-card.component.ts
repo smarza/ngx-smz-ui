@@ -29,5 +29,6 @@ import { NgxSmzServerImageModule } from 'ngx-smz-ui';
 })
 export class FrontCardComponent {
   @Input() public data: SmzCardsFlipCardDemoData;
+  @Input() public isSelectable = false;
 
 }
