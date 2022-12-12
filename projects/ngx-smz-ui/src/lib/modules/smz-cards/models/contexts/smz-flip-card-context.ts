@@ -49,7 +49,6 @@ export class SmzFlipCardContext extends SmzCardsBaseContext {
     const entity = this.state.find(x => x.key === key);
     const flippedCount = this.state.filter(x => x.status == 'back').length;
 
-    console.log(data.id, this.flipBehavior);
     if (this.flipBehavior === 'toggle' && flippedCount >= this.maxFlipCardsAllowed) {
       this.state
         .filter(x => x.key != entity.key)
