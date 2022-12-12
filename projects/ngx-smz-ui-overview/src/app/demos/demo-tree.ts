@@ -1010,6 +1010,13 @@ export const TreeDemoData: DemoTreeNode[] = [
             data: CardsDemo[DemoKeys.CARDS_WITH_MULTIPLE_SOURCES],
             key: DemoKeys.CARDS_WITH_MULTIPLE_SOURCES.toString()
           },
+          {
+            label: 'Árvore de Complexidade (GCAB)', icon: 'fa-solid fa-code', type: 'Demo',
+            demoType: 'cards',
+            notes: '',
+            data: CardsDemo[DemoKeys.CARDS_FLIP_COMPLEXITY],
+            key: DemoKeys.CARDS_FLIP_COMPLEXITY.toString()
+          },
         ]
       },
     ]

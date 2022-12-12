@@ -1,4 +1,4 @@
-import { SmzFlipCardContext } from '../../../modules/smz-cards/models/contexts/smz-flip-card-context';
+import { SmzFlipCardChanges, SmzFlipCardContext } from '../../../modules/smz-cards/models/contexts/smz-flip-card-context';
 import { SmzCardsComponentContent, SmzCardsImageContent } from '../../../modules/smz-cards/models/smz-cards-contents';
 import { FlipCardTemplate, SmzCardsTemplate, SmzFlipCardSide } from '../../../modules/smz-cards/models/smz-cards-templates';
 import { SmzBuilderUtilities } from '../../common/smz-builder-utilities';
@@ -16,10 +16,33 @@ export class SmzCardsFlipCardBuilder<TBuilder> extends SmzCardsBaseTemplateBuild
     this._template.menuLocation = 'back';
     this._template.buttonsLocation = 'back';
     this._template._context = new SmzFlipCardContext();
+    this._template.onChange = (changes: SmzFlipCardChanges) => {}
+  }
+
+  public onChange(callback: (changes: SmzFlipCardChanges) => void): SmzCardsFlipCardBuilder<TBuilder> {
+    this._template.onChange = callback;
+    return this;
   }
 
   public setFlipCounts(count: number): SmzCardsFlipCardBuilder<TBuilder> {
+
+    if (this._template._context.flipBehavior === 'toggle') {
+      throw Error(`You can't call setFlipCounts() while flipBehavior is set to toggle`);
+    }
+
     this._template._context.setCounts(count);
+    return this;
+  }
+
+  public setToggleBehavior(count: number): SmzCardsFlipCardBuilder<TBuilder> {
+
+    if (count <= 0) {
+      throw Error(`You can't call setToggleBehavior() with count lower than 1`);
+    }
+
+    this._template._context.flipBehavior = 'toggle';
+    this._template._context.setCounts(count);
+
     return this;
   }
 

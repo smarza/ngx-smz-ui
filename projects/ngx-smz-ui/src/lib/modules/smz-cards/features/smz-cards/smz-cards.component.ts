@@ -8,7 +8,7 @@ import { SmzCardsSource, SmzCardsState } from '../../models/smz-cards-state';
   selector: 'smz-ui-cards',
   templateUrl: './smz-cards.component.html',
   styleUrls: ['./smz-cards.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.None
 })
 

@@ -6,7 +6,7 @@ import { SmzCardsTemplate, SmzCardsTemplates } from '../../models/smz-cards-temp
 @Component({
   selector: 'smz-grid-item',
   templateUrl: 'grid-item.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 
 export class SmzGridItemComponent implements OnInit {

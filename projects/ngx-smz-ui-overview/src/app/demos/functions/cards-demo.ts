@@ -1,6 +1,6 @@
 import { DemoKeys } from '@demos/demo-keys';
 import { Store } from '@ngxs/store';
-import { GlobalInjector, nameof, namesof, SmzCardsBuilder, SimpleNamedEntity, SmzCardsTemplate } from 'ngx-smz-ui';
+import { GlobalInjector, nameof, namesof, SmzCardsBuilder, SimpleNamedEntity, SmzCardsTemplate, SimpleEntity } from 'ngx-smz-ui';
 import { of } from 'rxjs';
 import { SmzCardsArchivedDemo, SmzCardsDemo, SmzCardsDemoData } from '../data/cards/cards-data';
 import * as moment from 'moment';
@@ -8,6 +8,9 @@ import { DemoInjectable1Component } from '../../ui/features/home/components/demo
 import { SmzCardsFlipCardDemo, SmzCardsFlipCardDemoData } from '../data/cards/flip-card-data';
 import { FrontCardComponent } from '@components/cards/front-card.component';
 import { BackCardComponent } from '@components/cards/back-card.component';
+import { SmzCardComplexityData } from '../data/cards/flip-card-complexity';
+import { ComplexityFrontCardComponent } from '@components/complexity/complexity-front-card.component';
+import { ComplexityBackCardComponent } from '@components/complexity/complexity-back-card.component';
 
 const store = GlobalInjector.instance.get(Store);
 
@@ -344,7 +347,8 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
             .setContentStyles('')
             .setButtonsLocation('back')
             .setMenuLocation('back')
-            .setFlipCounts(4)
+            .setFlipCounts(1)
+            .onChange((changes) => { console.log('onChange', changes); })
             .front()
               .html('<div class="w-full h-full bg-teal-600 rounded-lg shadow-lg"></div>')
               .front
@@ -360,6 +364,38 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
         .list()
           .setLayout('col-12')
           .setPadding('px-0 pt-4')
+          .cards
+      .build()
+  }
+  },
+  //
+  [DemoKeys.CARDS_FLIP_COMPLEXITY]: {
+    code: () => {
+    return new SmzCardsBuilder<SimpleEntity<Number>>()
+        .hideHeader()
+        .hidePaginator()
+        .setSource(of(SmzCardComplexityData))
+        .template()
+          .flipCard()
+            .setCardSize('160px', '240px')
+            .setCardStyles('')
+            .setContentStyles('')
+            .setToggleBehavior(1)
+            .front()
+              .component(ComplexityFrontCardComponent)
+                .addInputWithContext('data')
+                .template
+              .front
+            .back()
+              .component(ComplexityBackCardComponent)
+                .addInputWithContext('data')
+                .template
+              .back
+            .template
+          .cards
+        .grid()
+          .setLayout('')
+          .setPadding('p-2')
           .cards
       .build()
   }

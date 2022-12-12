@@ -1,5 +1,5 @@
 import { SmzCardsBaseContext } from './contexts/smz-base-context';
-import { SmzFlipCardContext } from './contexts/smz-flip-card-context';
+import { SmzFlipCardChanges, SmzFlipCardContext } from './contexts/smz-flip-card-context';
 import { SmzCardsComponentContent, SmzCardsContentTypes, SmzCardsImageContent, SmzCardsTextContent } from './smz-cards-contents';
 
 export interface SmzCardsBaseTemplate {
@@ -65,6 +65,7 @@ export interface SmzCardsIconContent {
 
 export interface FlipCardTemplate extends SmzCardsBaseTemplate {
   _context: SmzFlipCardContext;
+  onChange: (changes: SmzFlipCardChanges) => void;
   type: SmzCardsTemplate.FLIP_CARD;
   width: string;
   height: string;

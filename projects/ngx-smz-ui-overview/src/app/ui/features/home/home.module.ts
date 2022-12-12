@@ -27,6 +27,8 @@ import { FormsModule } from '@angular/forms';
 import { DemoTimelineComponent } from './components/demo-timeline/demo-timeline.component';
 import { FrontCardComponent } from '../../components/cards/front-card.component';
 import { BackCardComponent } from '../../components/cards/back-card.component';
+import { ComplexityFrontCardComponent } from '../../components/complexity/complexity-front-card.component';
+import { ComplexityBackCardComponent } from '../../components/complexity/complexity-back-card.component';
 
 const data: SmzRouteData = {
   layout: {
@@ -89,7 +91,9 @@ const routes: Routes = [
     NgxSmzTimelineModule,
     NgxSmzDataPipesModule,
     FrontCardComponent,
-    BackCardComponent
+    BackCardComponent,
+    ComplexityFrontCardComponent,
+    ComplexityBackCardComponent
   ],
   providers: [],
   bootstrap: [HomeComponent]

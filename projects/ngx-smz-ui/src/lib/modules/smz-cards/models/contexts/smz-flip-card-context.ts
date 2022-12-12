@@ -1,12 +1,19 @@
+import { cloneDeep } from 'lodash-es';
 import { ObjectUtils } from 'primeng/utils';
 import { SmzCardsBaseContext } from './smz-base-context';
 
+
+export type SmzFlipCardStatus = 'front' | 'back';
+export type SmzFlipCardContextState = { key: string, status: SmzFlipCardStatus, timestamp: number };
+export type SmzFlipCardChanges = { hasChanged: boolean, previous: SmzFlipCardContextState, current: SmzFlipCardContextState, all: SmzFlipCardContextState[] };
+
 export class SmzFlipCardContext extends SmzCardsBaseContext {
-  protected states: { key: string, state: boolean }[] = [];
+  protected state: SmzFlipCardContextState[] = [];
   protected propertyPath = 'id';
 
   // Quantidade de cartas que podem ficar viradas ao mesmo tempo. (-1 = sem restrição)
   private maxFlipCardsAllowed: number = -1;
+  public flipBehavior: 'toggle' | 'none' = 'none';
 
   constructor() {
     super();
@@ -14,11 +21,13 @@ export class SmzFlipCardContext extends SmzCardsBaseContext {
 
   public reset(data: any[]): void {
 
-    this.states = [];
+    this.state = [];
+
+    const timestamp = new Date().getTime();
 
     data?.forEach(data => {
       const key = ObjectUtils.resolveFieldData(data, this.propertyPath);
-      this.states.push({ key, state: false });
+      this.state.push({ key, status: 'front', timestamp });
     });
 
   }
@@ -27,31 +36,44 @@ export class SmzFlipCardContext extends SmzCardsBaseContext {
     this.maxFlipCardsAllowed = count;
   }
 
-  public flip(data: any): void {
+  public flip(data: any): SmzFlipCardChanges {
     const key = ObjectUtils.resolveFieldData(data, this.propertyPath);
-    const entity = this.states.find(x => x.key === key);
+    const entity = this.state.find(x => x.key === key);
+    const flippedCount = this.state.filter(x => x.status == 'back').length;
 
-    if (entity.state == true) {
-      // Virar para front
-      entity.state = false;
-      return;
+    console.log(data.id, this.flipBehavior);
+    if (this.flipBehavior === 'toggle' && flippedCount >= this.maxFlipCardsAllowed) {
+      this.state
+        .filter(x => x.key != entity.key)
+        .forEach(card => this.setFlipState(card, 'front'));
     }
 
-    if (this.maxFlipCardsAllowed > 0) {
-      const flippedCount = this.states.filter(x => x.state == true).length;
-      if (flippedCount >= this.maxFlipCardsAllowed) {
-        return;
-      }
+    let previous = cloneDeep(entity);
+
+    if (entity.status == 'back') {
+      this.setFlipState(entity, 'front');
+    }
+    else if (this.maxFlipCardsAllowed > 0 && flippedCount < this.maxFlipCardsAllowed) {
+      this.setFlipState(entity, 'back');
+    }
+    else {
+      this.setFlipState(entity, 'back');
     }
 
-    // Virar para back
-    entity.state = true;
+    const hasChanged = previous.status !== entity.status;
+
+    return { hasChanged, previous, current: entity, all: cloneDeep(this.state)};
   }
 
-  public getFlipState(data: any): boolean {
+  public getFlipState(data: any): SmzFlipCardStatus {
     const key = ObjectUtils.resolveFieldData(data, this.propertyPath);
-    const entity = this.states.find(x => x.key === key);
-    return entity.state;
+    const entity = this.state.find(x => x.key === key);
+    return entity.status;
+  }
+
+  public setFlipState(card: SmzFlipCardContextState, status: 'front' | 'back'): void {
+    card.timestamp = new Date().getTime();
+    card.status = status;
   }
 
 }
