@@ -89,12 +89,6 @@ export class SmzCardsFlipCardBuilder<TBuilder> extends SmzBuilderUtilities<SmzCa
     return new SmzCardsFlipCardSideBuilder<TBuilder>(this._builder, this, this._template.back);
   }
 
-  // public backImage(dataPath: string): SmzCardsImageBuilder<TBuilder, SmzCardsFlipCardBuilder<TBuilder>> {
-  //   this._template.backImage = {} as SmzCardsImageContent;
-  //   const baseImageStyles: string = ' ';
-  //   return new SmzCardsImageBuilder<TBuilder, SmzCardsFlipCardBuilder<TBuilder>>(this._builder, this, this._template.backImage, dataPath, baseImageStyles);
-  // }
-
   public get template(): SmzCardsTemplateBuilder<TBuilder> {
     return this._parent;
   }

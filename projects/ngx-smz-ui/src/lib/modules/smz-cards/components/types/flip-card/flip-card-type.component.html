@@ -1,90 +1,99 @@
 <ng-container [ngSwitch]="mode">
 
 <ng-container *ngSwitchCase="modes.GRID">
+<ng-container *ngVar="template._context.getFlipState(data) as status">
 
   <div class="w-full h-full grid grid-nogutter items-center justify-center relative select-none">
     <div class="relative" [ngStyle]="{ width: template.width, height: template.height}" [ngClass]="template.cardStyleClass + (isDebug ? ' border border-red-500 border-solid' : '')">
-      <div class="cmp-card w-full h-full cursor-pointer" [ngClass]="{ 'cmp-card-flipped': template._context.getFlipState(data) === 'back'}" (click)="flip()">
+      <div class="cmp-card w-full h-full cursor-pointer" [ngClass]="{ 'cmp-card-flipped': status === 'back'}" (click)="flip()">
         <div class="cmp-content">
           <div class="cmp-front">
 
+            <ng-container *ngIf="status === 'front'">
+
             <!-- FRONT IMAGE -->
-            <ng-container *ngIf="template.front.image as frontImage">
-              <ng-container *ngIf="frontImage | transformContent : data as image">
-                <img
-                  serverImage
-                  [path]="image.transform.override ? image.transform.override.dataPath : (data | cardsContent : image.dataPath).result"
-                  [maximize]="image.maximize"
-                  [openMaximized]="image.openMaximized"
-                  [placeholder]="'assets/images/placeholder.jpeg'"
-                  [title]="image.title.isVisible ? image.title.getText(data) : null"
-                  [useServerPath]="image.useServerPath"
-                  class="w-full h-full"
-                  draggable="false"
-                  [ngClass]="image.styleClass"
-                >
+              <ng-container *ngIf="template.front.image as frontImage">
+                <ng-container *ngIf="frontImage | transformContent : data as image">
+                  <img
+                    serverImage
+                    [path]="image.transform.override ? image.transform.override.dataPath : (data | cardsContent : image.dataPath).result"
+                    [maximize]="image.maximize"
+                    [openMaximized]="image.openMaximized"
+                    [placeholder]="'assets/images/placeholder.jpeg'"
+                    [title]="image.title.isVisible ? image.title.getText(data) : null"
+                    [useServerPath]="image.useServerPath"
+                    class="w-full h-full"
+                    draggable="false"
+                    [ngClass]="image.styleClass"
+                  >
+                </ng-container>
               </ng-container>
-            </ng-container>
 
-            <ng-container *ngIf="template.front.component as frontComponent">
-              <ng-template [smzInjectDataPathComponent]="frontComponent.componentData" [data]="data"></ng-template>
-            </ng-container>
+              <ng-container *ngIf="template.front.component as frontComponent">
+                <ng-template [smzInjectDataPathComponent]="frontComponent.componentData" [data]="data"></ng-template>
+              </ng-container>
 
-            <ng-container *ngIf="template.front.html as frontHtml">
-              <div class="w-full h-full" [innerHTML]="frontHtml | safeHtml"></div>
-            </ng-container>
+              <ng-container *ngIf="template.front.html as frontHtml">
+                <div class="w-full h-full" [innerHTML]="frontHtml | safeHtml"></div>
+              </ng-container>
 
-            <ng-container *ngIf="template.buttonsLocation === 'front'">
-              <ng-container *ngTemplateOutlet="buttonsTemplate; context: { $implicit: template }"></ng-container>
-            </ng-container>
+              <ng-container *ngIf="template.buttonsLocation === 'front'">
+                <ng-container *ngTemplateOutlet="buttonsTemplate; context: { $implicit: template }"></ng-container>
+              </ng-container>
 
-            <ng-container *ngIf="template.menuLocation === 'front'">
-              <ng-container *ngTemplateOutlet="menuTemplate; context: { $implicit: template }"></ng-container>
-            </ng-container>
+              <ng-container *ngIf="template.menuLocation === 'front'">
+                <ng-container *ngTemplateOutlet="menuTemplate; context: { $implicit: template }"></ng-container>
+              </ng-container>
 
-          </div>
+          </ng-container>
+        </div>
+
           <div class="cmp-back">
 
-            <!-- FRONT IMAGE -->
-            <ng-container *ngIf="template.back.image as backImage">
-              <ng-container *ngIf="backImage | transformContent : data as image">
-                <img
-                  serverImage
-                  [path]="image.transform.override ? image.transform.override.dataPath : (data | cardsContent : image.dataPath).result"
-                  [maximize]="image.maximize"
-                  [openMaximized]="image.openMaximized"
-                  [placeholder]="'assets/images/placeholder.jpeg'"
-                  [title]="image.title.isVisible ? image.title.getText(data) : null"
-                  [useServerPath]="image.useServerPath"
-                  class="w-full h-full"
-                  draggable="false"
-                  [ngClass]="image.styleClass"
-                >
+            <ng-container *ngIf="status === 'back'">
+
+              <!-- FRONT IMAGE -->
+              <ng-container *ngIf="template.back.image as backImage">
+                <ng-container *ngIf="backImage | transformContent : data as image">
+                  <img
+                    serverImage
+                    [path]="image.transform.override ? image.transform.override.dataPath : (data | cardsContent : image.dataPath).result"
+                    [maximize]="image.maximize"
+                    [openMaximized]="image.openMaximized"
+                    [placeholder]="'assets/images/placeholder.jpeg'"
+                    [title]="image.title.isVisible ? image.title.getText(data) : null"
+                    [useServerPath]="image.useServerPath"
+                    class="w-full h-full"
+                    draggable="false"
+                    [ngClass]="image.styleClass"
+                  >
+                </ng-container>
               </ng-container>
+
+              <ng-container *ngIf="template.back.component as backComponent">
+                <ng-template [smzInjectDataPathComponent]="backComponent.componentData" [data]="data"></ng-template>
+              </ng-container>
+
+              <ng-container *ngIf="template.back.html as backHtml">
+                <div class="w-full h-full" [innerHTML]="backHtml | safeHtml"></div>
+              </ng-container>
+
+              <ng-container *ngIf="template.buttonsLocation === 'back'">
+                <ng-container *ngTemplateOutlet="buttonsTemplate; context: { $implicit: template }"></ng-container>
+              </ng-container>
+
+              <ng-container *ngIf="template.menuLocation === 'back'">
+                <ng-container *ngTemplateOutlet="menuTemplate; context: { $implicit: template }"></ng-container>
+              </ng-container>
+
             </ng-container>
-
-          <ng-container *ngIf="template.back.component as backComponent">
-            <ng-template [smzInjectDataPathComponent]="backComponent.componentData" [data]="data"></ng-template>
-          </ng-container>
-
-          <ng-container *ngIf="template.back.html as backHtml">
-            <div class="w-full h-full" [innerHTML]="backHtml | safeHtml"></div>
-          </ng-container>
-
-          <ng-container *ngIf="template.buttonsLocation === 'back'">
-            <ng-container *ngTemplateOutlet="buttonsTemplate; context: { $implicit: template }"></ng-container>
-          </ng-container>
-
-          <ng-container *ngIf="template.menuLocation === 'back'">
-            <ng-container *ngTemplateOutlet="menuTemplate; context: { $implicit: template }"></ng-container>
-          </ng-container>
-
           </div>
         </div>
       </div>
     </div>
   </div>
 
+</ng-container>
 </ng-container>
 
 <ng-container *ngSwitchCase="modes.LIST"></ng-container>
