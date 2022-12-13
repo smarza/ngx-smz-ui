@@ -406,4 +406,35 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
       .build()
   }
   },
+  //
+  [DemoKeys.CARDS_FLIP_ONLY_FRONT]: {
+    code: () => {
+    return new SmzCardsBuilder<SmzCardsFlipCardDemoData>()
+        .setTitle('Demo Cards | Flip Card | Html')
+        // .debugMode()
+        .setSource(of(SmzCardsFlipCardDemo))
+        .template()
+          .flipCard()
+            .setCardSize('160px', '240px')
+            .setCardStyles('')
+            .setContentStyles('')
+            .setButtonsLocation('back')
+            .setMenuLocation('back')
+            .onChange((changes) => { console.log('onChange', changes); })
+            .front()
+              .html('<div class="w-full h-full bg-teal-600 rounded-lg shadow-lg"></div>')
+              .front
+            .template
+          .cards
+        .grid()
+          .setLayout('')
+          .setPadding('p-2')
+          .cards
+        .list()
+          .setLayout('col-12')
+          .setPadding('px-0 pt-4')
+          .cards
+      .build()
+  }
+  },
 }

@@ -29,6 +29,11 @@ export class SmzFlipCardTypeComponent implements OnInit {
   }
 
   public flip(): void {
+
+    if (this.template.back == null) {
+      return;
+    }
+
     const changes = this.template._context.flip(this.data);
     this.template.onChange(changes);
   }

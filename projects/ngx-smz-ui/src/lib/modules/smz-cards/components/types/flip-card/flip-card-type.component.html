@@ -5,7 +5,7 @@
 
   <div class="w-full h-full grid grid-nogutter items-center justify-center relative select-none">
     <div class="relative" [ngStyle]="{ width: template.width, height: template.height}" [ngClass]="template.cardStyleClass + (isDebug ? ' border border-red-500 border-solid' : '')">
-      <div class="cmp-card w-full h-full cursor-pointer" [ngClass]="{ 'cmp-card-flipped': status === 'back'}" (click)="flip()">
+      <div class="cmp-card w-full h-full" [ngClass]="{ 'cmp-card-flipped': status === 'back', 'cursor-pointer': template.back != null }" (click)="flip()">
         <div class="cmp-content">
           <div class="cmp-front">
 

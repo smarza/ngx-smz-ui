@@ -1017,6 +1017,13 @@ export const TreeDemoData: DemoTreeNode[] = [
             data: CardsDemo[DemoKeys.CARDS_FLIP_COMPLEXITY],
             key: DemoKeys.CARDS_FLIP_COMPLEXITY.toString()
           },
+          {
+            label: 'Only Front Card', icon: 'fa-solid fa-code', type: 'Demo',
+            demoType: 'cards',
+            notes: '',
+            data: CardsDemo[DemoKeys.CARDS_FLIP_ONLY_FRONT],
+            key: DemoKeys.CARDS_FLIP_ONLY_FRONT.toString()
+          },
         ]
       },
     ]
