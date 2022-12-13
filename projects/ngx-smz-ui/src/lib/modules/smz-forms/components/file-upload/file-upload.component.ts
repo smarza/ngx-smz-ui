@@ -5,6 +5,8 @@ import { SmzFormsBehaviorsConfig } from '../../models/behaviors';
 import { Message } from 'primeng/api';
 import { Store } from '@ngxs/store';
 import { ToastActions } from '../../../../state/global/application/application.actions.toast';
+import { base64ToFile } from '../../../../common/utils/utils';
+import { isEmpty } from '../../../../builders/common/utils';
 
 @Component({
     selector: 'smz-file-upload',
@@ -26,6 +28,13 @@ export class FileUploadComponent {
         this.input._clearMethod = () => { this.clear(false); };
         this.input._cdf = this.cdf;
         this.input._setFile = (event: File[], cdf: ChangeDetectorRef) => { this.onFilesDropped(event, false,true, cdf); };
+
+        if (!isEmpty(this.input.defaultValue)) {
+            base64ToFile(this.input.defaultValue, this.input.defaultValueFilename, this.input.defaultValueMimetype).then((file) => {
+                this.input._setFile([file], this.cdf);
+            })
+        }
+
     }
 
     public log(): void {

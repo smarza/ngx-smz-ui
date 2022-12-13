@@ -206,6 +206,8 @@ export interface SmzContentMaskControl extends SmzFormsBaseControl
 export interface SmzFileControl extends SmzFormsBaseControl
 {
     defaultValue?: string;
+    defaultValueFilename?: string;
+    defaultValueMimetype?: string;
     fileAccept?: string;
     outputFormat?: 'base64' | 'file';
     invalidFileTypeMessageDetail?: string;

@@ -436,7 +436,7 @@ export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormG
     return new SmzFormTextButtonBuilder(this, input as SmzTextButtonControl);
   }
 
-  public file(property: string, label?: string, defaultValue?: string): SmzFormFileBuilder<TResponse> {
+  public file(property: string, label?: string): SmzFormFileBuilder<TResponse> {
 
     let input = this.group.children.find(x => x.propertyName == property);
 
@@ -448,7 +448,8 @@ export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormG
 
       input = {
         propertyName: property, type: SmzControlType.FILE, name: label,
-        defaultValue: defaultValue, fileAccept: null,
+        defaultValue: null,
+        fileAccept: null,
         maxFileSize: null,
         thumbnailSize: '90px',
         allowZoom: true,
@@ -463,7 +464,6 @@ export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormG
     }
     else {
       input.name = label ?? input.name;
-      input.defaultValue = defaultValue ?? input.defaultValue;
     }
 
     return new SmzFormFileBuilder(this, input as SmzFileControl);
@@ -1128,6 +1128,13 @@ export class SmzFormFileBuilder<TResponse> extends SmzFormInputBuilder<SmzFormFi
   protected that = this;
   constructor(public _groupBuilder: SmzFormGroupBuilder<TResponse>, private _fileInput: SmzFileControl) {
     super(_groupBuilder, _fileInput);
+  }
+
+  public setDefaultFile(base64: string, filename: string, mimetype: string): SmzFormFileBuilder<TResponse> {
+    this._fileInput.defaultValue = base64;
+    this._fileInput.defaultValueFilename = filename;
+    this._fileInput.defaultValueMimetype = mimetype;
+    return this;
   }
 
   public acceptImages(): SmzFormFileBuilder<TResponse> {
