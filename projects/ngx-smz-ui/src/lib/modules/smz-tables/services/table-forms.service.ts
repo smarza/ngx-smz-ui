@@ -22,6 +22,8 @@ export class TableFormsService {
             .filter(c => c.editable.type !== SmzEditableType.NONE)
             .forEach(col => {
 
+                // console.log('col', col);
+
                 // VALOR
                 const value = ObjectUtils.resolveFieldData(row, col.editable.property);
 

@@ -79,6 +79,10 @@ export interface SmzTableState {
        */
       isClickable?: boolean;
       /**
+       * Controls if the rows click, expands the table row
+       */
+      expandRowOnClick?: boolean;
+      /**
        * Callback to be executed when the row is clicked
        */
       clickCallback?: (event) => void;

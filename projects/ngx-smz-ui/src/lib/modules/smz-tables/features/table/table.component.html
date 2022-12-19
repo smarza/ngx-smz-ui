@@ -251,6 +251,7 @@
                     tableItemAction
                     [isClickable]="context.state.actions.rowBehavior.isClickable"
                     [callback]="context.state.actions.rowBehavior.clickCallback"
+                    [expandRowOnClick]="context.state.actions.rowBehavior.expandRowOnClick"
                     [item]="item"
                     class="p-selectable-row"
                     [ngClass]="{ 'highlight-row': item?.id === state.actions.rowBehavior.highlights }"

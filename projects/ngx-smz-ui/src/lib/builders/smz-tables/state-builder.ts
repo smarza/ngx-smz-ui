@@ -54,6 +54,7 @@ export class SmzTableBuilder {
         clickCallback: null,
         hoverable: true,
         isClickable: false,
+        expandRowOnClick: false,
         highlights: { ids: [] }
       }
     },
@@ -773,6 +774,16 @@ export class SmzTableBuilder {
   public setRowClickCallback<T>(callback: (event: T) => void): SmzTableBuilder {
     this._state.actions.rowBehavior.isClickable = true;
     this._state.actions.rowBehavior.clickCallback = callback;
+    return this;
+  }
+
+  public expandOnRowClick(): SmzTableBuilder {
+
+    if (!this._state.rowExpansion.isEnabled) {
+      throw Error('You need to call \'expandOnRowClick\' before calling \'expandOnRowClick\'');
+    }
+
+    this._state.actions.rowBehavior.expandRowOnClick = true;
     return this;
   }
 
