@@ -1,13 +1,13 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SmzCardsFlipCardDemoData } from '@demos/data/cards/flip-card-data';
-import { ClickStopPropagationModule, NgxSmzServerImageModule } from 'ngx-smz-ui';
+import { ClickStopPropagationModule, NgxSmzServerImageModule, NgxSmzServerImageToBase64Module } from 'ngx-smz-ui';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-back-card',
   standalone: true,
-  imports: [CommonModule, NgxSmzServerImageModule, ButtonModule, ClickStopPropagationModule],
+  imports: [CommonModule, NgxSmzServerImageModule, NgxSmzServerImageToBase64Module, ButtonModule, ClickStopPropagationModule],
   host: { class: 'w-full h-full relative' },
   encapsulation: ViewEncapsulation.None,
   styles: [`
@@ -16,7 +16,7 @@ import { ButtonModule } from 'primeng/button';
   ],
   template: `
     <img
-        serverImage
+        serverImageToBase64
         [path]="data.backImage"
         [maximize]="false"
         [openMaximized]="false"

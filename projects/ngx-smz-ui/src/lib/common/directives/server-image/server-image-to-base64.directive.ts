@@ -5,14 +5,14 @@ import { SmzDialogsService } from '../../../modules/smz-dialogs/public-api';
 import { SmzDialogBuilder } from '../../../builders/smz-dialogs/dialog-builder';
 
 @Directive({
-  selector: "img[serverImage]",
+  selector: "img[serverImageToBase64]",
   host: {
     '(error)':'updateUrl()',
     '(load)': 'load()',
     '[src]':'src'
    }
 })
-export class ServerImageDirective implements AfterViewInit, OnChanges {
+export class ServerImageToBase64Directive implements AfterViewInit, OnChanges {
 
   @Input() public src: string;
   @Input() public path: string;
@@ -51,22 +51,22 @@ export class ServerImageDirective implements AfterViewInit, OnChanges {
   @HostListener('click', ['$event'])
     public onClick(event: any): void {
 
-        if (!this.maximize)
-            return ;
+      if (!this.maximize)
+          return ;
 
-        this.dialogs.open(new SmzDialogBuilder()
-          .setTitle(this.title)
-          .allowMaximize()
-          .if(this.openMaximized)
-            .openMaximized()
-            .endIf
-          .setLayout('EXTRA_LARGE', 'col-8')
-          .setLayout('LARGE', 'col-10')
-          .setLayout('MEDIUM', 'col-12')
-          .html([`<img src="${this.currentSrc}" class="w-full">`])
-          .hideFooter()
-          .build());
-    }
+      this.dialogs.open(new SmzDialogBuilder()
+        .setTitle(this.title)
+        .allowMaximize()
+        .if(this.openMaximized)
+          .openMaximized()
+          .endIf
+        .setLayout('EXTRA_LARGE', 'col-8')
+        .setLayout('LARGE', 'col-10')
+        .setLayout('MEDIUM', 'col-12')
+        .html([`<img src="${this.currentSrc}" class="w-full">`])
+        .hideFooter()
+        .build());
+  }
 
   public setupImage() {
 
@@ -84,6 +84,7 @@ export class ServerImageDirective implements AfterViewInit, OnChanges {
     }
 
     img.onload = (event) => {
+      console.log('image onload', event);
       this.setImage(this.path);
     };
 
@@ -91,7 +92,29 @@ export class ServerImageDirective implements AfterViewInit, OnChanges {
       this.setImage(this.errorPlaceholder);
     };
 
+    this.toDataURL(this.path, (base64) => {
+      console.log('toDataURL base64', base64);
+    })
+
     img.src = this.path;
+  }
+
+  private toDataURL(url, callback) {
+    var xhr = new XMLHttpRequest();
+
+    xhr.onload = function () {
+      var reader = new FileReader();
+      reader.onloadend = function () {
+        callback(reader.result);
+      }
+      reader.readAsDataURL(xhr.response);
+    };
+
+    xhr.open('GET', url);
+    xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+    xhr.setRequestHeader('Content-Type', 'image/jpg');
+    xhr.responseType = 'blob';
+    xhr.send();
   }
 
   private setImage(src: string) {
@@ -103,8 +126,8 @@ export class ServerImageDirective implements AfterViewInit, OnChanges {
 
 @NgModule({
   imports: [],
-  exports: [ServerImageDirective],
-  declarations: [ServerImageDirective],
+  exports: [ServerImageToBase64Directive],
+  declarations: [ServerImageToBase64Directive],
   providers: [],
 })
-export class NgxSmzServerImageModule { }
+export class NgxSmzServerImageToBase64Module { }

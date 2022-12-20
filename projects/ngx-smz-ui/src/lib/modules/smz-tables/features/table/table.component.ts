@@ -147,20 +147,20 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
         if (!newState.caption?.rowSelection?.isButtonVisible) {
           this.selectedItems = [];
         }
+
+        // Se estiver com a validação desligada, considerar tabela como válida
+        this.state.isValid = newState.caption.rowSelection.validationMode === 'none';
+
+        this.populateColumnVisibility(newState);
+
+        this.editableService.state = this.state;
+        this.formsService.state = this.state;
+
+        this.editableService.setupAccess();
       }
       else {
         this.selectedItems = [];
       }
-
-      // Se estiver com a validação desligada, considerar tabela como válida
-      this.state.isValid = newState.caption.rowSelection.validationMode === 'none';
-
-      this.populateColumnVisibility(newState);
-
-      this.editableService.state = this.state;
-      this.formsService.state = this.state;
-
-      this.editableService.setupAccess();
 
       this.cdr.markForCheck();
     }
