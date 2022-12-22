@@ -328,7 +328,8 @@ export class DemoTablesComponent implements OnInit {
           headerStyleClass: '',
           export: {
             isExportable: false
-          }
+          },
+          actions: []
         },
         {
           field: 'number',
@@ -350,7 +351,8 @@ export class DemoTablesComponent implements OnInit {
           headerStyleClass: '',
           export: {
             isExportable: false
-          }
+          },
+          actions: []
         },
         {
           field: 'plant.name',
@@ -372,7 +374,8 @@ export class DemoTablesComponent implements OnInit {
           headerStyleClass: '',
           export: {
             isExportable: false
-          }
+          },
+          actions: []
         },
         {
           field: 'campaign.name',
@@ -393,7 +396,8 @@ export class DemoTablesComponent implements OnInit {
           headerStyleClass: '',
           export: {
             isExportable: false
-          }
+          },
+          actions: []
         },
         {
           field: 'description',
@@ -414,7 +418,8 @@ export class DemoTablesComponent implements OnInit {
           headerStyleClass: '',
           export: {
             isExportable: false
-          }
+          },
+          actions: []
         },
         {
           field: 'date',
@@ -437,7 +442,8 @@ export class DemoTablesComponent implements OnInit {
           headerStyleClass: '',
           export: {
             isExportable: false
-          }
+          },
+          actions: []
         },
       ],
     };

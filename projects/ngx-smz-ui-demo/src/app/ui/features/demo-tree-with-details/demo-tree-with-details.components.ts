@@ -23,7 +23,7 @@ export class DemoTreeWithDetailsComponent implements OnInit {
       items$: this.store.select(TreeDemoFeatureSelectors.all),
       tree: {
         state: this.getState(),
-        selectableTypes: ['file', 'folder'],
+        selectableTypes: ['file', 'folder', 'disk'],
         allowAllNodesToBeClicked,
         styleClass: `border-none ${allowAllNodesToBeClicked ? '' : 'disable-focus'}`
       },
@@ -68,7 +68,7 @@ export class DemoTreeWithDetailsComponent implements OnInit {
           .menu
         .item('Excluir')
           .setCallback((node: TreeNode) => this.store.dispatch(new TreeDemoFeatureActions.Remove(node.key)))
-          .showForTypes('temp')
+          .showForTypes('disk')
           .menu
         .tree
       .enableFilter()

@@ -31,6 +31,7 @@ export class TreeDemoFeatureState {
 
   @Action(TreeDemoFeatureActions.LoadAll)
   public onLoad$(ctx: StateContext<TreeDemoFeatureStateModel>): Observable<TreeNode[]> {
+    console.log('LoadAll');
     return this.apiService.getTree().pipe(
       tap(results => {
         ctx.patchState({

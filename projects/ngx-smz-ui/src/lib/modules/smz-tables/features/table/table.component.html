@@ -364,7 +364,7 @@
                                                 <ng-container *ngIf="editableService.context[item.id]?.form as form">
                                                     <ng-container *ngIf="form.controls[col.editable.property] as control">
                                                         <div class="relative w-full">
-                                                            <p-dropdown [formControl]="$any(control)" styleClass="w-full" [options]="col.editable.data | editableSource" optionLabel="name" dataKey="id" [placeholder]="$any(col.editable.data).placeholder" [showClear]="!col.editable.validatorsPreset?.isRequired"></p-dropdown>
+                                                            <p-dropdown [formControl]="$any(control)" styleClass="w-full" [options]="col.editable.data | editableSource" optionLabel="name" dataKey="id" [placeholder]="$any(col.editable.data).placeholder" [showClear]="!col.editable.validatorsPreset?.isRequired" [filter]="true"></p-dropdown>
                                                             <smz-validation-messages [errors]="control.errors" [messages]="dialogConfig.forms.validationMessages" [isFormInvalid]="form.invalid" [isFormDirty]="form.dirty"></smz-validation-messages>
                                                         </div>
                                                     </ng-container>

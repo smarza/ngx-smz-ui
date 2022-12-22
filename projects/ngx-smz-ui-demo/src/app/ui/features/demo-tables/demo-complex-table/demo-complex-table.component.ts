@@ -69,7 +69,8 @@ export class DemoComplexTableComponent implements OnInit {
               headerStyleClass: '',
               export: {
                 isExportable: false
-              }
+              },
+              actions: []
             });
           console.log(key, columns[columns.length - 1]);
         }

@@ -49,6 +49,14 @@
             <button class="col-4 p-button-success" pButton (click)="unblock()" label="Unblock"></button>
           </div>
         </ng-container>
+
+        <ng-container *ngSwitchCase="'disk'">
+          -- is disk.
+          <div class="grid grid-nogutter items-start justify-start gap-2">
+            <div>{{ item.label }}</div>
+          </div>
+        </ng-container>
+
       </ng-container>
 
     </ng-template>
