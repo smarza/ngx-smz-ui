@@ -11,4 +11,12 @@ app-home {
   .p-autocomplete-input {
     padding-left: 31px;
   }
+
+  .smz-draggable-enter {
+    border: 2px solid red;
+  }
+
+  .smz-draggable-start {
+    border: 10px solid yellow;
+  }
 }

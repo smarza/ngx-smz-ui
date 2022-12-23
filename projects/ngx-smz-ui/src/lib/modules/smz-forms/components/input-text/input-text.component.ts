@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { AbstractControl } from '@angular/forms';
 import { SmzFormsBehaviorsConfig } from '../../models/behaviors';
 import { SmzTextControl } from '../../models/control-types';
 

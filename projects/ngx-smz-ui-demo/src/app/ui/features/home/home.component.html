@@ -6,4 +6,19 @@
   frameborder="0">
 </iframe> -->
 
-<img serverImage [path]="imagePath" [maximize]="true" class="h-28 w-36 object-cover">
+<!-- <img serverImage [path]="imagePath" [maximize]="true" class="h-28 w-36 object-cover"> -->
+
+<div class="p-4 grid grid-nogutter items-start justify-start gap-3">
+
+  <div smzDroppable="groupA" class="w-96 h-96 bg-slate-200 p-4 grid grid-nogutter items-start justify-start gap-3" (onDrop)="dropToA()">
+    <ng-container *ngFor="let item of groupA; let index = index">
+      <div smzDraggable [allow]="['groupB']" [block]="['groupA']" [index]="index" [data]="item" class="w-20 h-20" [ngClass]="item.name" dragEffect="move" (onDragStart)="dragStart($event)" (onDragEnd)="dragEnd()"></div>
+    </ng-container>
+  </div>
+
+  <div smzDroppable="groupB" class="w-96 h-96 bg-slate-200 p-4 grid grid-nogutter items-start justify-start gap-3" (onDrop)="dropToB()">
+    <ng-container *ngFor="let item of groupB; let index = index">
+      <div smzDraggable [allow]="['groupA']" [block]="['groupB']" [index]="index" [data]="item" class="w-20 h-20" [ngClass]="item.name" dragEffect="move" (onDragStart)="dragStart($event)" (onDragEnd)="dragEnd()"></div>
+    </ng-container>
+  </div>
+</div>

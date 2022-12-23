@@ -118,6 +118,7 @@ export * from './lib/builders/smz-easy-tables/menu-builder';
 export * from './lib/modules/smz-ui-block/public-api';
 
 export * from './lib/standalones/easy-table/public-api';
+export * from './lib/standalones/smz-drag-drop/public-api';
 
 export * from './lib/builders/smz-login/state-builder';
 
