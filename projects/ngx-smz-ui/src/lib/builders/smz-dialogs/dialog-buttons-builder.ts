@@ -4,10 +4,12 @@ import { SmzDialogCustomButton, SmzDialogTopbarButton } from '../../modules/smz-
 import { SmzDialogsService } from '../../modules/smz-dialogs/services/smz-dialogs.service';
 import { SmzDialogBuilder } from './dialog-builder';
 import { environment } from '@environments/environment';
-import { getSmzTemplate } from '../smz-forms/form-group-builder';
+import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 
-export class SmzDialogButtonsBuilder<TResponse> {
+export class SmzDialogButtonsBuilder<TResponse> extends SmzBuilderUtilities<SmzDialogButtonsBuilder<TResponse>> {
+  protected that = this;
   constructor(public _dialogBuilder: SmzDialogBuilder<TResponse>) {
+    super();
   }
 
   public custom(name: string): SmzDialogCustomButtonBuilder<TResponse> {

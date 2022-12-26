@@ -12,6 +12,7 @@ import { IconsDemo } from './functions/icons-demo';
 import { CommentsDemo } from './functions/comments-demo';
 import { CardsDemo } from './functions/cards-demo';
 import { TimelineDemo } from './functions/timeline-demo';
+import { UiGuidesDemo } from './functions/ui-guides-demo';
 
 export const TreeDemoData: DemoTreeNode[] = [
   {
@@ -500,6 +501,20 @@ export const TreeDemoData: DemoTreeNode[] = [
         notes: '',
         data: CommentsDemo[DemoKeys.COMMENTS_SECTION],
         key: DemoKeys.COMMENTS_SECTION.toString()
+      },
+    ]
+  },
+  {
+    label: 'Ui Guides',
+    type: 'Category',
+    expanded: false,
+    children: [
+      {
+        label: 'Section', icon: 'fa-solid fa-code', type: 'Demo',
+        demoType: 'ui-guide',
+        notes: '',
+        data: UiGuidesDemo[DemoKeys.UI_GUIDE_OVERVIEW],
+        key: DemoKeys.UI_GUIDE_OVERVIEW.toString()
       },
     ]
   },

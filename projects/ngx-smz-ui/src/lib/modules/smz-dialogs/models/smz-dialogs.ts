@@ -168,6 +168,8 @@ export interface SmzDialogBehaviors
      * Se ligado, as Features do type component irão incluir seus outputs na resposta do dialogo.
      */
     includeComponentResponses?: boolean;
+    showAsLinkedOverlayPanel?: boolean;
+    linkedElementId?: string;
 
 }
 

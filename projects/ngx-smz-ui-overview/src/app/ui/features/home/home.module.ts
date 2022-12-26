@@ -4,7 +4,7 @@ import { HomeComponent } from './home.component';
 import { NgxSmzCardsModule, NgxSmzTablesModule, NgxSmzTreesModule, SmzRouteData, NgxSmzDialogsModule, NgxSmzFormsModule, SmzChartModule, NgxSmzDocumentsModule, NgCloneModule, NgVarModule, NgxSmzMenuModule, NgxSmzUiBlockModule, NgxSmzCommentsModule, NgxSmzTimelineModule, NgxSmzDataPipesModule } from 'ngx-smz-ui';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
-import { RbkAuthGuard, RbkDatabaseStateGuard, UI_DEFINITIONS_STATE_NAME } from 'ngx-smz-ui';
+import { RbkAuthGuard, RbkDatabaseStateGuard, UI_DEFINITIONS_STATE_NAME, NgxSmzUiGuidesModule } from 'ngx-smz-ui';
 import { CodeBlockModule } from '@components/code-block/code-block.module';
 import { DemoTitlePipeModule } from '@pipes/demo-title.pipe';
 import { CountriesDbName } from '@states/database/countries/countries.state';
@@ -93,7 +93,8 @@ const routes: Routes = [
     FrontCardComponent,
     BackCardComponent,
     ComplexityFrontCardComponent,
-    ComplexityBackCardComponent
+    ComplexityBackCardComponent,
+    NgxSmzUiGuidesModule
   ],
   providers: [],
   bootstrap: [HomeComponent]

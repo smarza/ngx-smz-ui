@@ -24,8 +24,8 @@ const hideAnimation = animation([
 @Component({
     selector: 'smz-dynamicDialog',
     template: `
-        <div #mask [ngClass]="{'p-dialog-mask':true, 'p-component-overlay p-component-overlay-enter p-dialog-mask-scrollblocker': config.modal !== false, 'smz-dialog-minimized': minimized }" class="smz_form_grid_container">
-            <div [ngClass]="{'p-dialog p-dynamic-dialog p-component':true, 'p-dialog-rtl': config.rtl, 'p-dialog-maximized': maximized}" [ngStyle]="config.style" [class]="config.styleClass"
+        <div #mask [ngClass]="{'p-dialog-mask-free': dialogConfig.data.behaviors.showAsLinkedOverlayPanel, 'p-component-overlay p-component-overlay-enter p-dialog-mask-scrollblocker': config.modal !== false, 'smz-dialog-minimized': minimized }" class="smz_form_grid_container p-dialog-mask">
+            <div #dialogContainer [ngClass]="{'p-dialog p-dynamic-dialog p-component': true, 'smz-ui-guide-panel': dialogConfig.data.behaviors.showAsLinkedOverlayPanel, 'p-dialog-rtl': config.rtl, 'p-dialog-maximized': maximized}" [ngStyle]="config.style" [class]="config.styleClass"
                 [@animation]="{value: 'visible', params: {transform: transformOptions, transition: config.transitionOptions || '150ms cubic-bezier(0, 0, 0.2, 1)'}}"
                 (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" role="dialog" *ngIf="visible"
                 [style.width]="config.width" [style.height]="config.height">
@@ -91,6 +91,8 @@ export class DynamicDialogComponent implements AfterViewInit, OnInit, OnDestroy
 
     @ViewChild('mask') maskViewChild: ElementRef;
 
+    @ViewChild('dialogContainer') containerViewChild: ElementRef;
+
     childComponentType: Type<any>;
     footerComponentType: Type<any>;
 
@@ -135,6 +137,12 @@ export class DynamicDialogComponent implements AfterViewInit, OnInit, OnDestroy
 
     ngAfterViewInit()
     {
+        if (this.dialogConfig.data.behaviors.showAsLinkedOverlayPanel) {
+            setTimeout(() => {
+                this.setDialogPosition();
+            }, 0);
+        }
+
         this.loadChildComponent(this.childComponentType);
 
         if (this.config.footer != null && this.config.footer != '')
@@ -143,6 +151,36 @@ export class DynamicDialogComponent implements AfterViewInit, OnInit, OnDestroy
         }
 
         this.cd.detectChanges();
+    }
+
+    public setDialogPosition(): void {
+
+        const baseZIndex = 1000;
+        const elementId = this.dialogConfig.data.behaviors.linkedElementId;
+        console.log('elementId', elementId);
+
+        // Elemento foco do step
+        const target = document.getElementById(elementId);
+        console.log('target', target);
+
+        const container: HTMLDivElement = this.containerViewChild.nativeElement;
+
+        ZIndexUtils.set('overlay', container, baseZIndex);
+
+        DomHandler.absolutePosition(container, target);
+
+        const containerOffset = DomHandler.getOffset(this.container);
+        const targetOffset = DomHandler.getOffset(target);
+        let arrowLeft = 0;
+
+        if (containerOffset.left < targetOffset.left) {
+            arrowLeft = targetOffset.left - containerOffset.left;
+        }
+        this.container.style.setProperty('--overlayArrowLeft', `${arrowLeft}px`);
+
+        if (containerOffset.top < targetOffset.top) {
+            DomHandler.addClass(this.container, 'p-overlaypanel-flipped');
+        }
     }
 
     @HostListener('document:keydown.escape', ['$event']) onEscapeHandler(event: KeyboardEvent)

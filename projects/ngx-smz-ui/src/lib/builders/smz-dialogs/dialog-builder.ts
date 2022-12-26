@@ -50,6 +50,8 @@ export class SmzDialogBuilder<TResponse> extends SmzBuilderUtilities<SmzDialogBu
       contentPadding: '1.5em',
       baseZIndex: 0,
       includeComponentResponses: false,
+      showAsLinkedOverlayPanel: false,
+      linkedElementId: null,
       ...this.defaultConfig?.dialogs?.behaviors
     },
     builtInButtons: {

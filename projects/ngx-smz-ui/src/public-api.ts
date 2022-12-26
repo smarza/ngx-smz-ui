@@ -119,6 +119,7 @@ export * from './lib/modules/smz-ui-block/public-api';
 
 export * from './lib/standalones/easy-table/public-api';
 export * from './lib/standalones/smz-drag-drop/public-api';
+export * from './lib/standalones/smz-ui-guides/public-api';
 
 export * from './lib/builders/smz-login/state-builder';
 
@@ -130,3 +131,4 @@ export * from './lib/builders/smz-tree-with-details/state-builder';
 
 export * from './lib/builders/smz-cards/state-builder';
 export * from './lib/builders/smz-timeline/state-builder';
+export * from './lib/builders/smz-ui-guides/ui-guides-builder';

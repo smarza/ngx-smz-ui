@@ -7,7 +7,7 @@
   <div class="h-full col-12 lg:col-3 p-2">
 
     <div class="h-full w-full rounded shadow-md p-3">
-      <div smzUiBlock #treeContainer [component]="treeContainer" class="h-full">
+      <div smzUiBlock #treeContainer id="treeContainer" [component]="treeContainer" class="h-full">
           <smz-ui-tree
             [items]="items"
             [state]="treeState"
@@ -23,7 +23,10 @@
     <div #tabContainer class="h-full items-stretch flex-col grid justify-start grid-nogutter py-3 rounded shadow-md w-full overflow-y-auto">
       <p-tabView [(activeIndex)]="selectedTabIndex">
 
-        <p-tabPanel header="Exemplo" [disabled]="selectedNode == null">
+        <p-tabPanel [disabled]="selectedNode == null">
+
+          <ng-template pTemplate="header"><div id="sampleTab"></div>Exemplo</ng-template>
+
           <ng-container [ngSwitch]="selectedNode?.demoType">
             <app-demo-form *ngSwitchCase="'form'"  [node]="selectedNode"></app-demo-form>
             <app-demo-table *ngSwitchCase="'table'" [node]="selectedNode"></app-demo-table>
@@ -38,10 +41,15 @@
             <div *ngSwitchCase="'dialog'">
               <button pButton pRipple type="button" label="Abrir Dialogo" class="p-button-success" (click)="selectedNode.data()"></button>
             </div>
+            <div *ngSwitchCase="'ui-guide'">
+              <button pButton pRipple type="button" label="Iniciar Guia" class="p-button-success" (click)="selectedNode.data()"></button>
+            </div>
           </ng-container>
         </p-tabPanel>
 
-        <p-tabPanel header="Código">
+        <p-tabPanel>
+
+          <ng-template pTemplate="header"><div id="codeTab"></div>Código</ng-template>
 
           <!-- CONTEÚDO -->
           <ng-container *ngIf="selectedNode != null; else noSelectionTemplate">
