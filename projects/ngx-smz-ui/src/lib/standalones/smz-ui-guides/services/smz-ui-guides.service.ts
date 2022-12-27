@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SmzUiGuidesState, SmzUiGuidesStep } from '../models/smz-ui-guides-state';
+import { SmzUiGuidesState } from '../models/smz-ui-guides-state';
 import { SmzDialogsService } from '../../../modules/smz-dialogs/services/smz-dialogs.service';
 import { SmzDialogBuilder } from '../../../builders/smz-dialogs/dialog-builder';
 
@@ -8,17 +8,11 @@ export class SmzUiGuidesService {
   constructor(private dialogs: SmzDialogsService) { }
 
   public start(guide: SmzUiGuidesState): void {
-    console.log('start guide', guide);
-
     guide.context.step = 1;
-
     this.showCurrentStep(guide);
-
-
   }
 
   private showCurrentStep(guide: SmzUiGuidesState) {
-    // 'BeforeOpen'
 
     const currentStep = guide.context.step;
     const step = guide.steps[currentStep - 1];
@@ -26,10 +20,25 @@ export class SmzUiGuidesService {
     const isLast = guide.context.step === guide.steps.length;
     const total = guide.steps.length;
 
+    step.callbacks.init(step);
+
     const dialogState = new SmzDialogBuilder<void>()
       .setTitle(step.title)
       .useAsOverlayPanel(step.elementId)
-        .setWidth('600px')
+        .setWidth(step.size.width)
+        .setHeight(step.size.height)
+        .setStyles(step.style.styleClass)
+        .if(!guide.highlight.enabled)
+          .disableHighlight()
+          .endIf
+        .if(step.alignment.centerX)
+          .horizontal()
+          .endIf
+        .if(step.alignment.centerY)
+          .vertical()
+          .endIf
+        .offsetX(step.alignment.offsetX)
+        .offsetY(step.alignment.offsetY)
         .dialog
       .markdown(step.content)
       .buttons()
@@ -45,12 +54,17 @@ export class SmzUiGuidesService {
             .buttons
           .endIf
         .if(isLast)
-          .confirm('Encerrar').buttons
+          .confirm('Encerrar')
+            .callback(() => {
+              step.callbacks.concluded(step);
+            })
+            .buttons
           .endIf
         .if(!isLast)
           .confirm(`Avançar ${currentStep}/${total}`)
             .callback(() => {
               guide.context.step++;
+              step.callbacks.concluded(step);
               this.showCurrentStep(guide);
             })
             .buttons
@@ -58,13 +72,7 @@ export class SmzUiGuidesService {
         .dialog
       .build()
 
-    console.log(dialogState);
-
-    dialogState.behaviors.showAsLinkedOverlayPanel = true;
-    dialogState.overlayPanel.targetElementId = step.elementId;
-
     this.dialogs.open(dialogState);
-    // 'Open'
   }
 
 }

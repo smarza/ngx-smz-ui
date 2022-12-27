@@ -136,15 +136,19 @@ export interface SmzDialogCallbacks<T>
 
 }
 
-
 export interface SmzDialogOverlayPanel
 {
     targetElementId?: string;
     width: string;
+    height: string;
     styleClass: string;
     baseZIndex: number;
+    centerX: boolean;
+    centerY: boolean;
+    offsetX: number;
+    offsetY: number;
+    highlight: boolean;
 }
-
 
 export interface SmzDialogBehaviors
 {

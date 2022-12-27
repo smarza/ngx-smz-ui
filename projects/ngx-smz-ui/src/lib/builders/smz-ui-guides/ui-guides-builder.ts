@@ -1,5 +1,7 @@
-import { SmzUiGuidesState } from '../../standalones/smz-ui-guides/models/smz-ui-guides-state';
+import { SmzUiGuidesState, SmzUiGuidesStep } from '../../standalones/smz-ui-guides/models/smz-ui-guides-state';
+import { SmzUiGuidesDefaultStepBuilder } from './default-step-builder';
 import { SmzUiGuidesStepBuilder } from './step-builder';
+import { SmzUiGuidesStepOverridesBuilder } from './step-overrides-builder';
 
 export class SmzUiGuidesBuilder {
   public _state: SmzUiGuidesState = {
@@ -9,7 +11,35 @@ export class SmzUiGuidesBuilder {
     title: '',
     steps: [],
     locale: null,
+    highlight: {
+      enabled: true
+    }
   };
+
+  public _defaultStep: SmzUiGuidesStep = {
+    number: 0,
+    elementId: '',
+    title: '',
+    content: '',
+    alignment: {
+      centerX: false,
+      centerY: false,
+      offsetX: 0,
+      offsetY: 0,
+    },
+    size: {
+      width: '600px',
+      height: '400px'
+    },
+    style: {
+      styleClass: ''
+    },
+    callbacks: {
+      init: () => {},
+      concluded: () => {}
+    }
+  };
+
   constructor() {
     this.setLocale('pt-BR');
   }
@@ -19,8 +49,21 @@ export class SmzUiGuidesBuilder {
     return this;
   }
 
+  public disableHighlight(): SmzUiGuidesBuilder {
+    this._state.highlight.enabled = false;
+    return this;
+  }
+
+  public defaults(): SmzUiGuidesDefaultStepBuilder {
+    return new SmzUiGuidesDefaultStepBuilder(this);
+  }
+
   public step(elementId: string): SmzUiGuidesStepBuilder {
     return new SmzUiGuidesStepBuilder(this, elementId);
+  }
+
+  public override(): SmzUiGuidesStepOverridesBuilder {
+    return new SmzUiGuidesStepOverridesBuilder(this);
   }
 
   public setLocale(language: 'pt-BR' | 'en-US'): SmzUiGuidesBuilder {

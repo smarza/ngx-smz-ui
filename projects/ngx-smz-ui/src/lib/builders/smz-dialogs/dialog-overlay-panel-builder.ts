@@ -10,7 +10,13 @@ export class SmzDialogOverlayPanelBuilder<TResponse> extends SmzBuilderUtilities
       targetElementId,
       styleClass: '',
       width: '400px',
-      baseZIndex: 1000
+      height: '400px',
+      baseZIndex: 1000,
+      centerX: false,
+      centerY: false,
+      offsetX: 0,
+      offsetY: 0,
+      highlight: true
     };
 
   }
@@ -25,8 +31,38 @@ export class SmzDialogOverlayPanelBuilder<TResponse> extends SmzBuilderUtilities
     return this;
   }
 
+  public setHeight(height: string): SmzDialogOverlayPanelBuilder<TResponse> {
+    this._dialogBuilder._state.overlayPanel.height = height;
+    return this;
+  }
+
   public setZIndex(baseZIndex: number): SmzDialogOverlayPanelBuilder<TResponse> {
     this._dialogBuilder._state.overlayPanel.baseZIndex = baseZIndex;
+    return this;
+  }
+
+  public offsetX(percentage: number): SmzDialogOverlayPanelBuilder<TResponse> {
+    this._dialogBuilder._state.overlayPanel.offsetX = percentage;
+    return this;
+  }
+
+  public offsetY(percentage: number): SmzDialogOverlayPanelBuilder<TResponse> {
+    this._dialogBuilder._state.overlayPanel.offsetY = percentage;
+    return this;
+  }
+
+  public horizontal(): SmzDialogOverlayPanelBuilder<TResponse> {
+    this._dialogBuilder._state.overlayPanel.centerX = true;
+    return this;
+  }
+
+  public vertical(): SmzDialogOverlayPanelBuilder<TResponse> {
+    this._dialogBuilder._state.overlayPanel.centerY = true;
+    return this;
+  }
+
+  public disableHighlight(): SmzDialogOverlayPanelBuilder<TResponse> {
+    this._dialogBuilder._state.overlayPanel.highlight = false;
     return this;
   }
 

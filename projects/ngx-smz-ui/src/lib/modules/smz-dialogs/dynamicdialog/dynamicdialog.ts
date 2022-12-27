@@ -161,39 +161,6 @@ export class DynamicDialogComponent implements AfterViewInit, OnInit, OnDestroy
         this.cd.detectChanges();
     }
 
-    // public setDialogPosition(): void {
-
-    //     const baseZIndex = 1000;
-    //     const elementId = this.dialogConfig.data.overlayPanel.targetElementId;
-    //     console.log('elementId', elementId);
-
-    //     // Elemento foco do step
-    //     const target = document.getElementById(elementId);
-    //     console.log('target', target);
-
-    //     const container: HTMLDivElement = this.containerViewChild.nativeElement;
-
-    //     this.container.style.setProperty('width', this.dialogConfig.data.overlayPanel.width);
-    //     DomHandler.addClass(this.container, 'p-overlaypanel');
-
-    //     ZIndexUtils.set('overlay', container, baseZIndex);
-
-    //     DomHandler.absolutePosition(container, target);
-
-    //     const containerOffset = DomHandler.getOffset(this.container);
-    //     const targetOffset = DomHandler.getOffset(target);
-    //     let arrowLeft = 0;
-
-    //     if (containerOffset.left < targetOffset.left) {
-    //         arrowLeft = targetOffset.left - containerOffset.left;
-    //     }
-    //     this.container.style.setProperty('--overlayArrowLeft', `${arrowLeft}px`);
-
-    //     if (containerOffset.top < targetOffset.top) {
-    //         DomHandler.addClass(this.container, 'p-overlaypanel-flipped');
-    //     }
-    // }
-
     @HostListener('document:keydown.escape', ['$event']) onEscapeHandler(event: KeyboardEvent)
     {
         if (this.config?.closeOnEscape && !this.dialogConfig.data._context.isLoading)
