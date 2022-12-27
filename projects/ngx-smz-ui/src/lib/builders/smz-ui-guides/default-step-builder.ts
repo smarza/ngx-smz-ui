@@ -41,12 +41,12 @@ export class SmzUiGuidesDefaultStepBuilder {
   }
 
   public horizontal(): SmzUiGuidesDefaultStepBuilder {
-    this._builder._defaultStep.alignment.centerX = true;
+    this._builder._defaultStep.alignment.offsetX = 50;
     return this;
   }
 
   public vertical(): SmzUiGuidesDefaultStepBuilder {
-    this._builder._defaultStep.alignment.centerY = true;
+    this._builder._defaultStep.alignment.offsetY = 50;
     return this;
   }
 
@@ -57,6 +57,16 @@ export class SmzUiGuidesDefaultStepBuilder {
 
   public setConcludedCallback(callback: (step: SmzUiGuidesStep) => void): SmzUiGuidesDefaultStepBuilder {
     this._builder._defaultStep.callbacks.concluded = callback;
+    return this;
+  }
+
+  public disableHighlight(): SmzUiGuidesDefaultStepBuilder {
+    this._builder._defaultStep.highlight.enabled = false;
+    return this;
+  }
+
+  public setHighlightMargin(margin: number): SmzUiGuidesDefaultStepBuilder {
+    this._builder._defaultStep.highlight.margin = margin;
     return this;
   }
 

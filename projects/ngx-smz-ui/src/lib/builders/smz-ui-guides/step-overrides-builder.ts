@@ -44,12 +44,22 @@ export class SmzUiGuidesStepOverridesBuilder {
   }
 
   public horizontal(): SmzUiGuidesStepOverridesBuilder {
-    this._builder._state.steps.forEach(step => step.alignment.centerX = true);
+    this._builder._state.steps.forEach(step => step.alignment.offsetX = 50);
     return this;
   }
 
   public vertical(): SmzUiGuidesStepOverridesBuilder {
-    this._builder._state.steps.forEach(step => step.alignment.centerY = true);
+    this._builder._state.steps.forEach(step => step.alignment.offsetY = 50);
+    return this;
+  }
+
+  public disableHighlight(): SmzUiGuidesStepOverridesBuilder {
+    this._builder._state.steps.forEach(step => step.highlight.enabled = false);
+    return this;
+  }
+
+  public setHighlightMargin(margin: number): SmzUiGuidesStepOverridesBuilder {
+    this._builder._state.steps.forEach(step => step.highlight.margin = margin);
     return this;
   }
 

@@ -2,9 +2,9 @@ import { DomHandler } from 'primeng/dom';
 import { ZIndexUtils } from 'primeng/utils';
 import { deepCloneNode } from '../../../standalones/smz-drag-drop/utils/clone-node';
 import { SmzDialogOverlayPanel } from '../models/smz-dialogs';
+import { cloneDeep } from 'lodash';
 
 export class DialogOverlayPanel {
-  private placeholder: HTMLElement;
   private target: HTMLElement;
   constructor(private config: SmzDialogOverlayPanel, private container: HTMLDivElement, private mask: HTMLDivElement, private overlayClip: HTMLDivElement) {
     const elementId = this.config.targetElementId;
@@ -21,52 +21,10 @@ export class DialogOverlayPanel {
       this.handleOverlayClip();
     }
 
-    // this.handlePlaceholder();
     this.handleOverlayDimensions();
     this.handleOverlayDepth();
     this.handleOverlayPosition();
 
-  }
-
-  private handlePlaceholder(): void {
-
-    const placeholder: HTMLElement = deepCloneNode(this.target);
-
-    ZIndexUtils.set('overlay', placeholder, this.config.baseZIndex - 1);
-    // DomHandler.addClass(placeholder, 'smz-ui-guides-target');
-    DomHandler.addClass(placeholder, 'fixed');
-    DomHandler.addClass(placeholder, 'select-none');
-    DomHandler.addClass(placeholder, 'bg-white');
-    DomHandler.addClass(placeholder, 'rounded');
-    DomHandler.addClass(placeholder, 'pointer-events-none');
-    DomHandler.addClass(placeholder, 'outline');
-    DomHandler.addClass(placeholder, 'outline-4');
-    DomHandler.addClass(placeholder, 'outline-red-500');
-    DomHandler.addClass(placeholder, 'outline-offset-0');
-    DomHandler.addClass(placeholder, 'shadow-lg');
-
-    placeholder.classList.forEach(styleClass => {
-      if (styleClass.startsWith('h-') || styleClass.startsWith('w-')) {
-        placeholder.classList.remove(styleClass);
-      }
-    });
-
-    const offset = getOffset(this.target);
-
-    const initialClientRect = this.target.getBoundingClientRect();
-
-    placeholder.style.transform = '';
-    placeholder.style.width = `${initialClientRect.width}px`;
-    placeholder.style.height = `${initialClientRect.height}px`;
-    placeholder.style.top = `${offset.top}px`;
-    placeholder.style.left = `${offset.left}px`;
-
-    console.log('initialClientRect', initialClientRect);
-    console.log('offset', offset);
-    console.log('target', this.target);
-    console.log('placeholder', placeholder);
-
-    this.mask.appendChild(placeholder);
   }
 
   private handleOverlayClip(): void {
@@ -76,11 +34,12 @@ export class DialogOverlayPanel {
     const position = this.target.getBoundingClientRect();
     const screen = this.mask.getBoundingClientRect();
     const offset = getOffset(this.target);
+    const margin = this.config.hightlightMargin;
 
-    const percentLeft = offset.left / screen.width * 100;
-    const percentRight = (offset.left + position.width) / screen.width * 100;
-    const percentTop = offset.top / screen.height * 100;
-    const percentBottom = (offset.top + position.height) / screen.height * 100;
+    const percentLeft = (offset.left - margin) / screen.width * 100;
+    const percentRight = (offset.left + position.width + margin) / screen.width * 100;
+    const percentTop = (offset.top - margin) / screen.height * 100;
+    const percentBottom = (offset.top + position.height + margin) / screen.height * 100;
 
     // console.log('screen', screen);
     // console.log('offset', offset);
@@ -111,18 +70,27 @@ export class DialogOverlayPanel {
 
   private handleOverlayPosition(): void {
 
-    absolutePosition(this.container, this.target, this.config);
+    const arrowHalfWidth = 10;
 
-    const containerOffset = DomHandler.getOffset(this.container);
-    const targetOffset = DomHandler.getOffset(this.target);
+    const containerOffset = absolutePosition(this.container, this.target, this.config);
+    const targetOffset = getOffset(this.target);
+
+    const targetOffsetTop =  targetOffset.top - this.config.hightlightMargin;
+    const targetOffsetLeft =  targetOffset.left - this.config.hightlightMargin;
+
     let arrowLeft = 0;
 
-    if (containerOffset.left < targetOffset.left) {
-      arrowLeft = targetOffset.left - containerOffset.left;
+    if (containerOffset.left < targetOffsetLeft) {
+      // Right Side of the window
+      arrowLeft = targetOffsetLeft - containerOffset.left + arrowHalfWidth;
     }
+    else {
+      // Left Side of the window
+    }
+
     this.container.style.setProperty('--overlayArrowLeft', `${arrowLeft}px`);
 
-    if (containerOffset.top < targetOffset.top) {
+    if (containerOffset.top < targetOffsetTop) {
       DomHandler.addClass(this.container, 'p-overlaypanel-flipped');
     }
 
@@ -130,13 +98,13 @@ export class DialogOverlayPanel {
 
 }
 
-function absolutePosition(element: any, target: any, config: SmzDialogOverlayPanel): void {
-  // debugger;
+function absolutePosition(element: any, target: any, config: SmzDialogOverlayPanel): { left: number, top: number } {
+
   const elementDimensions = element.offsetParent ? { width: element.offsetWidth, height: element.offsetHeight } : getHiddenElementDimensions(element);
   const elementOuterHeight = elementDimensions.height;
   const elementOuterWidth = elementDimensions.width;
-  const targetOuterHeight = target.offsetHeight;
-  const targetOuterWidth = target.offsetWidth;
+  const targetOuterHeight = target.offsetHeight + config.hightlightMargin;
+  const targetOuterWidth = target.offsetWidth + config.hightlightMargin;
   const targetOffset = target.getBoundingClientRect();
   const windowScrollTop = getWindowScrollTop();
   const windowScrollLeft = getWindowScrollLeft();
@@ -144,29 +112,41 @@ function absolutePosition(element: any, target: any, config: SmzDialogOverlayPan
   const extraOffsetX = targetOuterWidth * (config.offsetX / 100);
   const extraOffsetY = targetOuterHeight * (config.offsetY / 100);
 
+  const arrowHalfWidth = 10;
+
+  const targetOffsetTop =  targetOffset.top - config.hightlightMargin;
+  const targetOffsetLeft =  targetOffset.left - config.hightlightMargin;
+
   let top: number, left: number;
 
-  if (targetOffset.top + elementOuterHeight + extraOffsetY > viewport.height) {
-      top = targetOffset.top + windowScrollTop - elementOuterHeight + extraOffsetY;
+  if (targetOffsetTop + elementOuterHeight + extraOffsetY > viewport.height) {
+      top = targetOffsetTop + windowScrollTop - elementOuterHeight + extraOffsetY;
       element.style.transformOrigin = 'bottom';
 
       if (top < 0) {
           top = windowScrollTop;
       }
   } else {
-      top = targetOffset.top + (config.centerX ? (targetOuterHeight / 2) : 0) + windowScrollTop + extraOffsetY;
+      top = targetOffsetTop + windowScrollTop + extraOffsetY;
       element.style.transformOrigin = 'top';
   }
 
-  if ((targetOffset.left + elementOuterWidth + extraOffsetX) > viewport.width){
-    left = Math.max(0, targetOffset.left + windowScrollLeft + targetOuterWidth - elementOuterWidth + extraOffsetX);
+  if ((targetOffsetLeft + elementOuterWidth + extraOffsetX) > viewport.width){
+    // Right Side of the window
+    left = Math.max(0, targetOffsetLeft - arrowHalfWidth + windowScrollLeft + targetOuterWidth - elementOuterWidth + extraOffsetX);
   }
   else {
-    left = targetOffset.left + (config.centerY ? (targetOuterWidth / 2) : 0 ) + windowScrollLeft + extraOffsetX;
+    // Left Side of the window
+    left = targetOffsetLeft - arrowHalfWidth + windowScrollLeft + extraOffsetX;
   }
 
   element.style.top = top + 'px';
   element.style.left = left + 'px';
+
+  return {
+    left,
+    top
+  };
 }
 
 function getOffset(el) {

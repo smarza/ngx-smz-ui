@@ -2,14 +2,15 @@ export interface SmzUiGuidesState {
   context: {
     step: number,
   },
-  title: string;
   steps: SmzUiGuidesStep[];
   locale: {
     code: 'pt-BR' | 'en-US';
+    previousButton: string;
+    nextButton: string;
+    concludeButton: string;
   };
-  highlight: {
-    enabled: boolean
-  }
+  allowBackNavigation: boolean;
+  showSummaryCount: boolean;
 }
 
 export interface SmzUiGuidesStep {
@@ -18,8 +19,10 @@ export interface SmzUiGuidesStep {
   title: string;
   content: string;
   alignment: {
-    centerX: boolean,
-    centerY: boolean,
+    // Percentage
+    // Can be negative or positive
+    // Can be more than 100%
+    // Where 100% represents the size of the target element (elementId)
     offsetX: number,
     offsetY: number,
   }
@@ -29,9 +32,13 @@ export interface SmzUiGuidesStep {
   },
   style: {
     styleClass: string;
-  }
+  },
   callbacks: {
     init: (step: SmzUiGuidesStep) => void;
     concluded: (step: SmzUiGuidesStep) => void;
+  },
+  highlight: {
+    enabled: boolean;
+    margin: number;
   }
 }

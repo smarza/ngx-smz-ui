@@ -1,7 +1,7 @@
 <ng-container *ngIf="assistance$ | async as assistance">
 
 <div class="layout-config">
-  <a *ngIf="assistance.isEnabled" id="layout-config-button" class="layout-config-button" [ngClass]="assistance.buttonPosition" style="cursor: pointer;" (click)="showAssistance()"><i class="pi pi-cog"></i></a>
+  <a *ngIf="assistance.isEnabled" id="layout-config-button" class="layout-config-button" [ngClass]="assistance.buttonPosition" style="cursor: pointer;" (click)="showAssistance()"><i class="pi pi-cog text-surface-100"></i></a>
 </div>
 
   <p-sidebar [(visible)]="isVisible" [position]="assistance.sidebarData.position" styleClass="assistence_sidebar" (onHide)="onHide()" (onShow)="onShow()">

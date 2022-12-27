@@ -148,6 +148,7 @@ export interface SmzDialogOverlayPanel
     offsetX: number;
     offsetY: number;
     highlight: boolean;
+    hightlightMargin: number;
 }
 
 export interface SmzDialogBehaviors

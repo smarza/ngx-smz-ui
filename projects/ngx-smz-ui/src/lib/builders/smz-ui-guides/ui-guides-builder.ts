@@ -8,12 +8,10 @@ export class SmzUiGuidesBuilder {
     context: {
       step: 1
     },
-    title: '',
     steps: [],
     locale: null,
-    highlight: {
-      enabled: true
-    }
+    allowBackNavigation: false,
+    showSummaryCount: false
   };
 
   public _defaultStep: SmzUiGuidesStep = {
@@ -22,8 +20,6 @@ export class SmzUiGuidesBuilder {
     title: '',
     content: '',
     alignment: {
-      centerX: false,
-      centerY: false,
       offsetX: 0,
       offsetY: 0,
     },
@@ -37,21 +33,15 @@ export class SmzUiGuidesBuilder {
     callbacks: {
       init: () => {},
       concluded: () => {}
+    },
+    highlight: {
+      enabled: true,
+      margin: 0
     }
   };
 
   constructor() {
     this.setLocale('pt-BR');
-  }
-
-  public setTitle(title: string): SmzUiGuidesBuilder {
-    this._state.title = title;
-    return this;
-  }
-
-  public disableHighlight(): SmzUiGuidesBuilder {
-    this._state.highlight.enabled = false;
-    return this;
   }
 
   public defaults(): SmzUiGuidesDefaultStepBuilder {
@@ -72,6 +62,9 @@ export class SmzUiGuidesBuilder {
       case 'pt-BR':
         this._state.locale = {
           code: language,
+          previousButton: 'Voltar',
+          nextButton: 'Avançar',
+          concludeButton: 'Concluir'
         };
 
         break;
@@ -80,6 +73,9 @@ export class SmzUiGuidesBuilder {
 
         this._state.locale = {
           code: language,
+          previousButton: 'Back',
+          nextButton: 'Next',
+          concludeButton: 'Finish'
         };
 
         break;
@@ -88,6 +84,16 @@ export class SmzUiGuidesBuilder {
         break;
     }
 
+    return this;
+  }
+
+  public allowBackNavigation(): SmzUiGuidesBuilder {
+    this._state.allowBackNavigation = true;
+    return this;
+  }
+
+  public showSummaryCount(): SmzUiGuidesBuilder {
+    this._state.showSummaryCount = true;
     return this;
   }
 

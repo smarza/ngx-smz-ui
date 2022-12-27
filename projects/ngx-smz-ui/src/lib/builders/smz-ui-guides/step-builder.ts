@@ -50,12 +50,22 @@ export class SmzUiGuidesStepBuilder {
   }
 
   public horizontal(): SmzUiGuidesStepBuilder {
-    this._step.alignment.centerX = true;
+    this._step.alignment.offsetX = 50;
     return this;
   }
 
   public vertical(): SmzUiGuidesStepBuilder {
-    this._step.alignment.centerY = true;
+    this._step.alignment.offsetY = 50;
+    return this;
+  }
+
+  public disableHighlight(): SmzUiGuidesStepBuilder {
+    this._step.highlight.enabled = false;
+    return this;
+  }
+
+  public setHighlightMargin(margin: number): SmzUiGuidesStepBuilder {
+    this._step.highlight.margin = margin;
     return this;
   }
 
