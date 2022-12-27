@@ -32,6 +32,10 @@ export interface SmzDialog<T>
     */
     behaviors?: SmzDialogBehaviors;
     /**
+    * Configuração para os casos onde o dialog será aberto como um overlaypanel
+    */
+    overlayPanel?: SmzDialogOverlayPanel;
+    /**
     * Botões padrões
     */
     builtInButtons?: SmzDialogButtonsPreset;
@@ -133,6 +137,15 @@ export interface SmzDialogCallbacks<T>
 }
 
 
+export interface SmzDialogOverlayPanel
+{
+    targetElementId?: string;
+    width: string;
+    styleClass: string;
+    baseZIndex: number;
+}
+
+
 export interface SmzDialogBehaviors
 {
     showCancelButton?: boolean;
@@ -169,7 +182,6 @@ export interface SmzDialogBehaviors
      */
     includeComponentResponses?: boolean;
     showAsLinkedOverlayPanel?: boolean;
-    linkedElementId?: string;
 
 }
 

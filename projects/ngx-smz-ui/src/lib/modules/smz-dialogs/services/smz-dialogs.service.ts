@@ -104,7 +104,7 @@ export class SmzDialogsService
             contentStyle: { 'overflow': 'auto', ...paddingStyle },
             headerStyle: { ...paddingStyle, 'padding-bottom': '0em' },
             footerStyle: { ...paddingStyle, 'padding-top': '0em' },
-            styleClass: SetTemplateClasses(data._context.dialogTemplate, ['row']),
+            styleClass: data.behaviors.showAsLinkedOverlayPanel ? data.overlayPanel.styleClass : SetTemplateClasses(data._context.dialogTemplate, ['row']),
             footer: behaviors.showFooter ? '-' : null,
             closable: behaviors.showCloseButton === true,
             minimizable: behaviors.showMinimizeButton === true,

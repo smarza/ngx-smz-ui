@@ -144,61 +144,6 @@
   align-items: center;
 }
 
-.smz-ui-guide-panel {
-  position: absolute;
-  margin-top: 10px;
-  top: 0;
-  left: 0;
-}
-
-.smz-ui-guide-panel-flipped {
-  margin-top: 0;
-  margin-bottom: 10px;
-}
-
-.smz-ui-guide-panel-close {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  position: relative;
-}
-
-.smz-ui-guide-panel:after, .smz-ui-guide-panel:before {
-bottom: 100%;
-left: calc(var(--overlayArrowLeft, 0) + 1.25rem);
-content: " ";
-height: 0;
-width: 0;
-position: absolute;
-pointer-events: none;
-}
-
-.smz-ui-guide-panel:after {
-border-width: 8px;
-margin-left: -8px;
-}
-
-.smz-ui-guide-panel:before {
-border-width: 10px;
-margin-left: -10px;
-}
-
-.smz-ui-guide-panel-shifted:after, .smz-ui-guide-panel-shifted:before {
-  left: auto;
-  right: 1.25em;
-  margin-left: auto;
-}
-
-.smz-ui-guide-panel-flipped:after, .smz-ui-guide-panel-flipped:before {
-  bottom: auto;
-  top: 100%;
-}
-
-.smz-ui-guide-panel.smz-ui-guide-panel-flipped:after {
-  border-bottom-color: transparent;
-}
-
-.smz-ui-guide-panel.smz-ui-guide-panel-flipped:before {
-  border-bottom-color: transparent
+.smz-ui-guides-target {
+  box-shadow: 0 0 0 9999px #000000b3, 0 0 1.5rem #00000080;
 }

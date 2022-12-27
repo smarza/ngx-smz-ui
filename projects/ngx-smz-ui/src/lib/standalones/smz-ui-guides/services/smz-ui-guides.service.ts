@@ -20,14 +20,17 @@ export class SmzUiGuidesService {
   private showCurrentStep(guide: SmzUiGuidesState) {
     // 'BeforeOpen'
 
-    const step = guide.steps[guide.context.step - 1];
+    const currentStep = guide.context.step;
+    const step = guide.steps[currentStep - 1];
     const isFirst = guide.context.step === 1;
     const isLast = guide.context.step === guide.steps.length;
+    const total = guide.steps.length;
 
     const dialogState = new SmzDialogBuilder<void>()
       .setTitle(step.title)
-      .setLayout('EXTRA_SMALL', 'col-12')
-      .setLayout('EXTRA_LARGE', 'col-8')
+      .useAsOverlayPanel(step.elementId)
+        .setWidth('600px')
+        .dialog
       .markdown(step.content)
       .buttons()
         .if(isFirst)
@@ -45,7 +48,7 @@ export class SmzUiGuidesService {
           .confirm('Encerrar').buttons
           .endIf
         .if(!isLast)
-          .confirm('Avançar')
+          .confirm(`Avançar ${currentStep}/${total}`)
             .callback(() => {
               guide.context.step++;
               this.showCurrentStep(guide);
@@ -58,7 +61,7 @@ export class SmzUiGuidesService {
     console.log(dialogState);
 
     dialogState.behaviors.showAsLinkedOverlayPanel = true;
-    dialogState.behaviors.linkedElementId = step.elementId;
+    dialogState.overlayPanel.targetElementId = step.elementId;
 
     this.dialogs.open(dialogState);
     // 'Open'

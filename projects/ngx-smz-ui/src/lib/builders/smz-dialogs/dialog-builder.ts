@@ -12,6 +12,7 @@ import { SmzTableState } from '../../modules/smz-tables/models/table-state';
 import { SmzDocumentState } from '../../modules/smz-documents/models/smz-document';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzPresetTypes } from '../../modules/smz-dialogs/models/smz-presets';
+import { SmzDialogOverlayPanelBuilder } from './dialog-overlay-panel-builder';
 
 export class SmzDialogBuilder<TResponse> extends SmzBuilderUtilities<SmzDialogBuilder<TResponse>> {
   protected that = this;
@@ -51,7 +52,6 @@ export class SmzDialogBuilder<TResponse> extends SmzBuilderUtilities<SmzDialogBu
       baseZIndex: 0,
       includeComponentResponses: false,
       showAsLinkedOverlayPanel: false,
-      linkedElementId: null,
       ...this.defaultConfig?.dialogs?.behaviors
     },
     builtInButtons: {
@@ -187,6 +187,11 @@ export class SmzDialogBuilder<TResponse> extends SmzBuilderUtilities<SmzDialogBu
   public setPreset(preset: SmzPresetTypes): SmzDialogBuilder<TResponse> {
     this._state.presetId = preset;
     return this;
+  }
+
+  public useAsOverlayPanel(elementId: string): SmzDialogOverlayPanelBuilder<TResponse> {
+    this._state.behaviors.showAsLinkedOverlayPanel = true;
+    return new SmzDialogOverlayPanelBuilder(this, elementId);
   }
 
   public buttons(): SmzDialogButtonsBuilder<TResponse> {

@@ -11,6 +11,10 @@ export const UiGuidesDemo: { [key: string]: () => void } = {
     service.start(
       new SmzUiGuidesBuilder()
         .setTitle('Guia | Como encontrar os demos')
+        .step('footer-logo-container')
+          .setTitle('Barra inferior')
+          .setContent(sampleStepContent)
+          .step
         .step('treeContainer')
           .setTitle('Árvore de demos')
           .setContent(sampleStepContent)

@@ -11,6 +11,7 @@ import { NgxRbkUtilsConfig } from '../../rbk-utils/ngx-rbk-utils.config';
 import { PrimeNGConfig } from 'primeng/api';
 import { SmzDockService } from '../../smz-dock/services/smz-dock.service';
 import { TooltipModule } from 'primeng/tooltip';
+import { DialogOverlayPanel } from './dialog-overlay-panel';
 
 const showAnimation = animation([
     style({ transform: '{{transform}}', opacity: 0 }),
@@ -24,8 +25,11 @@ const hideAnimation = animation([
 @Component({
     selector: 'smz-dynamicDialog',
     template: `
-        <div #mask [ngClass]="{'p-dialog-mask-free': dialogConfig.data.behaviors.showAsLinkedOverlayPanel, 'p-component-overlay p-component-overlay-enter p-dialog-mask-scrollblocker': config.modal !== false, 'smz-dialog-minimized': minimized }" class="smz_form_grid_container p-dialog-mask">
-            <div #dialogContainer [ngClass]="{'p-dialog p-dynamic-dialog p-component': true, 'smz-ui-guide-panel': dialogConfig.data.behaviors.showAsLinkedOverlayPanel, 'p-dialog-rtl': config.rtl, 'p-dialog-maximized': maximized}" [ngStyle]="config.style" [class]="config.styleClass"
+
+        <div #overlayPanelClip *ngIf="dialogConfig.data.behaviors.showAsLinkedOverlayPanel" class="fixed inset-0 p-component-overlay p-component-overlay-enter"></div>
+        <div *ngIf="dialogConfig.data.behaviors.showAsLinkedOverlayPanel" class="fixed inset-0"></div>
+        <div #mask [ngClass]="{'p-dialog-mask-free': dialogConfig.data.behaviors.showAsLinkedOverlayPanel, 'p-component-overlay p-component-overlay-enter pointer-events-none' : config.modal !== false && !dialogConfig.data.behaviors.showAsLinkedOverlayPanel, 'p-dialog-mask-scrollblocker': config.modal !== false, 'smz-dialog-minimized': minimized }" class="smz_form_grid_container p-dialog-mask">
+            <div #dialogContainer [ngClass]="{'p-dialog p-dynamic-dialog p-component': true, 'p-dialog-rtl': config.rtl, 'p-dialog-maximized': maximized}" [ngStyle]="config.style" [class]="config.styleClass"
                 [@animation]="{value: 'visible', params: {transform: transformOptions, transition: config.transitionOptions || '150ms cubic-bezier(0, 0, 0.2, 1)'}}"
                 (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" role="dialog" *ngIf="visible"
                 [style.width]="config.width" [style.height]="config.height">
@@ -93,6 +97,8 @@ export class DynamicDialogComponent implements AfterViewInit, OnInit, OnDestroy
 
     @ViewChild('dialogContainer') containerViewChild: ElementRef;
 
+    @ViewChild('overlayPanelClip') overlayPanelClip: ElementRef;
+
     childComponentType: Type<any>;
     footerComponentType: Type<any>;
 
@@ -125,6 +131,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnInit, OnDestroy
     preMaximizePageX: number;
 
     preMaximizePageY: number;
+    private overlayPanel: DialogOverlayPanel;
 
     constructor(private cd: ChangeDetectorRef, public renderer: Renderer2,
         public config: DynamicDialogConfig, private dialogRef: DynamicDialogRef, public zone: NgZone, public dialogConfig: SmzDynamicDialogConfig, private rbkConfig: NgxRbkUtilsConfig, public primeNGConfig: PrimeNGConfig,
@@ -139,7 +146,8 @@ export class DynamicDialogComponent implements AfterViewInit, OnInit, OnDestroy
     {
         if (this.dialogConfig.data.behaviors.showAsLinkedOverlayPanel) {
             setTimeout(() => {
-                this.setDialogPosition();
+                this.overlayPanel = new DialogOverlayPanel(this.dialogConfig.data.overlayPanel, this.container, this.maskViewChild.nativeElement, this.overlayPanelClip.nativeElement);
+                this.overlayPanel.initializeOverlay();
             }, 0);
         }
 
@@ -153,35 +161,38 @@ export class DynamicDialogComponent implements AfterViewInit, OnInit, OnDestroy
         this.cd.detectChanges();
     }
 
-    public setDialogPosition(): void {
+    // public setDialogPosition(): void {
 
-        const baseZIndex = 1000;
-        const elementId = this.dialogConfig.data.behaviors.linkedElementId;
-        console.log('elementId', elementId);
+    //     const baseZIndex = 1000;
+    //     const elementId = this.dialogConfig.data.overlayPanel.targetElementId;
+    //     console.log('elementId', elementId);
 
-        // Elemento foco do step
-        const target = document.getElementById(elementId);
-        console.log('target', target);
+    //     // Elemento foco do step
+    //     const target = document.getElementById(elementId);
+    //     console.log('target', target);
 
-        const container: HTMLDivElement = this.containerViewChild.nativeElement;
+    //     const container: HTMLDivElement = this.containerViewChild.nativeElement;
 
-        ZIndexUtils.set('overlay', container, baseZIndex);
+    //     this.container.style.setProperty('width', this.dialogConfig.data.overlayPanel.width);
+    //     DomHandler.addClass(this.container, 'p-overlaypanel');
 
-        DomHandler.absolutePosition(container, target);
+    //     ZIndexUtils.set('overlay', container, baseZIndex);
 
-        const containerOffset = DomHandler.getOffset(this.container);
-        const targetOffset = DomHandler.getOffset(target);
-        let arrowLeft = 0;
+    //     DomHandler.absolutePosition(container, target);
 
-        if (containerOffset.left < targetOffset.left) {
-            arrowLeft = targetOffset.left - containerOffset.left;
-        }
-        this.container.style.setProperty('--overlayArrowLeft', `${arrowLeft}px`);
+    //     const containerOffset = DomHandler.getOffset(this.container);
+    //     const targetOffset = DomHandler.getOffset(target);
+    //     let arrowLeft = 0;
 
-        if (containerOffset.top < targetOffset.top) {
-            DomHandler.addClass(this.container, 'p-overlaypanel-flipped');
-        }
-    }
+    //     if (containerOffset.left < targetOffset.left) {
+    //         arrowLeft = targetOffset.left - containerOffset.left;
+    //     }
+    //     this.container.style.setProperty('--overlayArrowLeft', `${arrowLeft}px`);
+
+    //     if (containerOffset.top < targetOffset.top) {
+    //         DomHandler.addClass(this.container, 'p-overlaypanel-flipped');
+    //     }
+    // }
 
     @HostListener('document:keydown.escape', ['$event']) onEscapeHandler(event: KeyboardEvent)
     {
@@ -459,6 +470,8 @@ export class DynamicDialogComponent implements AfterViewInit, OnInit, OnDestroy
 		if (this.componentRef) {
 			this.componentRef.destroy();
 		}
+
+        this.overlayPanel?.kill();
     }
 }
 

@@ -25,7 +25,7 @@
 
         <p-tabPanel [disabled]="selectedNode == null">
 
-          <ng-template pTemplate="header"><div id="sampleTab"></div>Exemplo</ng-template>
+          <ng-template pTemplate="header"><div id="sampleTab">Exemplo</div></ng-template>
 
           <ng-container [ngSwitch]="selectedNode?.demoType">
             <app-demo-form *ngSwitchCase="'form'"  [node]="selectedNode"></app-demo-form>
@@ -49,7 +49,7 @@
 
         <p-tabPanel>
 
-          <ng-template pTemplate="header"><div id="codeTab"></div>Código</ng-template>
+          <ng-template pTemplate="header"><div id="codeTab">Código</div></ng-template>
 
           <!-- CONTEÚDO -->
           <ng-container *ngIf="selectedNode != null; else noSelectionTemplate">

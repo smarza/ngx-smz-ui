@@ -11,6 +11,7 @@
     "./resources/assets/scss/forms/*.*",
     "./resources/assets/scss/documents/*.*",
     "./resources/assets/scss/prime-grid/*.*",
+    "./resources/assets/scss/overlay-panel/*.*",
     "./resources/assets/fonts/*.*",
     "./resources/assets/images/*.*",
     "./resources/assets/images/pages/*.*",
