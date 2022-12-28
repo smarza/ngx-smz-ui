@@ -1,4 +1,3 @@
-# NGX-RBK-UTILS
 # NGX-SMZ-UI
 
 # 14.3.0 Release notes
