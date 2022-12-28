@@ -1,4 +1,18 @@
 # NGX-RBK-UTILS
+# NGX-SMZ-UI
+
+# 14.3.0 Release notes
+
+* Add/Update packages in dependencies:
+   `"marked": "^4.2.3",
+   "primeng": "^14.2.2",`
+   
+* Add/Update packages in dependencies:
+   `"@types/marked": "^4.0.7",`
+
+* In angular.json add marked script to the scripts array
+   `"node_modules/marked/marked.min.js"`
+
 # 1. Setup
 
 * Install and setup all dependencies needed by the library
