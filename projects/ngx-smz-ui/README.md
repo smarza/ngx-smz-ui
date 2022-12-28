@@ -1,11 +1,11 @@
 # NgxSmzUi
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.14.
+This library is a subset of ui tools to create an Angular Application.
 
 ## Code scaffolding
 
 Run `ng generate component component-name --project ngx-smz-ui` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ngx-smz-ui`.
-> Note: Don't forget to add `--project ngx-smz-ui` or else it will be added to the default project in your `angular.json` file. 
+> Note: Don't forget to add `--project ngx-smz-ui` or else it will be added to the default project in your `angular.json` file.
 
 ## Build
 

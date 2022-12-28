@@ -36,6 +36,9 @@ export class SmzUiGuidesService {
         .setHighlightMargin(step.highlight.margin)
         .offsetX(step.alignment.offsetX)
         .offsetY(step.alignment.offsetY)
+        .setHighlightStyleClass(guide.styleClass.highlight.styleClass)
+        .setOverlayPanelStylesClass(guide.styleClass.overlay.styleClass)
+        .setOverlayBlendStylesClass(guide.styleClass.blend.styleClass)
         .dialog
       .markdown(step.content)
       .buttons()

@@ -17,7 +17,10 @@ export class SmzDialogOverlayPanelBuilder<TResponse> extends SmzBuilderUtilities
       offsetX: 0,
       offsetY: 0,
       highlight: true,
-      hightlightMargin: 0
+      hightlightMargin: 0,
+      hightlightStyleClass: '',
+      overlayPanelStylesClass: '',
+      overlayBlendStylesClass: ''
     };
 
   }
@@ -69,6 +72,21 @@ export class SmzDialogOverlayPanelBuilder<TResponse> extends SmzBuilderUtilities
 
   public setHighlightMargin(margin: number): SmzDialogOverlayPanelBuilder<TResponse> {
     this._dialogBuilder._state.overlayPanel.hightlightMargin = margin;
+    return this;
+  }
+
+  public setHighlightStyleClass(styleClass: string): SmzDialogOverlayPanelBuilder<TResponse> {
+    this._dialogBuilder._state.overlayPanel.hightlightStyleClass = styleClass;
+    return this;
+  }
+
+  public setOverlayPanelStylesClass(styleClass: string): SmzDialogOverlayPanelBuilder<TResponse> {
+    this._dialogBuilder._state.overlayPanel.overlayPanelStylesClass = styleClass;
+    return this;
+  }
+
+    public setOverlayBlendStylesClass(styleClass: string): SmzDialogOverlayPanelBuilder<TResponse> {
+    this._dialogBuilder._state.overlayPanel.overlayBlendStylesClass = styleClass;
     return this;
   }
 

@@ -1,9 +1,11 @@
 import { SmzUiGuidesState, SmzUiGuidesStep } from '../../standalones/smz-ui-guides/models/smz-ui-guides-state';
+import { SmzUiGuidesCustomStylesBuilder } from './custom-styles-builder';
 import { SmzUiGuidesDefaultStepBuilder } from './default-step-builder';
 import { SmzUiGuidesStepBuilder } from './step-builder';
 import { SmzUiGuidesStepOverridesBuilder } from './step-overrides-builder';
 
 export class SmzUiGuidesBuilder {
+
   public _state: SmzUiGuidesState = {
     context: {
       step: 1
@@ -11,7 +13,12 @@ export class SmzUiGuidesBuilder {
     steps: [],
     locale: null,
     allowBackNavigation: false,
-    showSummaryCount: false
+    showSummaryCount: false,
+    styleClass: {
+      overlay: { styleClass: '' },
+      highlight: { styleClass: '' },
+      blend: { styleClass: '' }
+    }
   };
 
   public _defaultStep: SmzUiGuidesStep = {
@@ -95,6 +102,10 @@ export class SmzUiGuidesBuilder {
   public showSummaryCount(): SmzUiGuidesBuilder {
     this._state.showSummaryCount = true;
     return this;
+  }
+
+  public customStyles(): SmzUiGuidesCustomStylesBuilder {
+    return new SmzUiGuidesCustomStylesBuilder(this);
   }
 
   public build(): SmzUiGuidesState {

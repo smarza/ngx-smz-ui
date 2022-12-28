@@ -27,10 +27,11 @@ const hideAnimation = animation([
     selector: 'smz-dynamicDialog',
     template: `
 
-        <div #overlayPanelClip *ngIf="dialogConfig.data.behaviors.showAsLinkedOverlayPanel" class="fixed inset-0 p-component-overlay p-component-overlay-enter"></div>
-        <div *ngIf="dialogConfig.data.behaviors.showAsLinkedOverlayPanel" class="fixed inset-0"></div>
-        <div #mask [ngClass]="{'p-dialog-mask-free': dialogConfig.data.behaviors.showAsLinkedOverlayPanel, 'p-component-overlay p-component-overlay-enter pointer-events-none' : config.modal !== false && !dialogConfig.data.behaviors.showAsLinkedOverlayPanel, 'p-dialog-mask-scrollblocker': config.modal !== false, 'smz-dialog-minimized': minimized }" class="smz_form_grid_container p-dialog-mask">
-            <div #dialogContainer [ngClass]="{'p-dialog p-dynamic-dialog p-component': true, 'p-dialog-rtl': config.rtl, 'p-dialog-maximized': maximized}" [ngStyle]="config.style" [class]="config.styleClass"
+        <div #overlayBlendClip id="blend-clip" *ngIf="dialogConfig.data.behaviors.showAsLinkedOverlayPanel" class="fixed inset-0" [ngClass]="dialogConfig.data.overlayPanel?.overlayBlendStylesClass"></div>
+        <div #overlayPanelClip id="overlay-clip" *ngIf="dialogConfig.data.behaviors.showAsLinkedOverlayPanel" class="fixed inset-0 p-component-overlay p-component-overlay-enter" [ngClass]="dialogConfig.data.overlayPanel?.overlayPanelStylesClass"></div>
+        <div #highlightPanel id="highlight-clip" *ngIf="dialogConfig.data.behaviors.showAsLinkedOverlayPanel" class="fixed inset-0" [ngClass]="dialogConfig.data.overlayPanel?.hightlightStyleClass"></div>
+        <div #mask id="dialog-mask" [ngClass]="{'p-dialog-mask-free': dialogConfig.data.behaviors.showAsLinkedOverlayPanel, 'p-component-overlay p-component-overlay-enter pointer-events-none' : config.modal !== false && !dialogConfig.data.behaviors.showAsLinkedOverlayPanel, 'p-dialog-mask-scrollblocker': config.modal !== false, 'smz-dialog-minimized': minimized }" class="smz_form_grid_container p-dialog-mask">
+            <div #dialogContainer id="dialog-container" [ngClass]="{'p-dialog p-dynamic-dialog p-component': true, 'p-dialog-rtl': config.rtl, 'p-dialog-maximized': maximized}" [ngStyle]="config.style" [class]="config.styleClass"
                 [@animation]="{value: 'visible', params: {transform: transformOptions, transition: config.transitionOptions || '150ms cubic-bezier(0, 0, 0.2, 1)'}}"
                 (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" role="dialog" *ngIf="visible"
                 [style.width]="config.width" [style.height]="config.height">
@@ -98,7 +99,10 @@ export class DynamicDialogComponent implements AfterViewInit, OnInit, OnDestroy
 
     @ViewChild('dialogContainer') containerViewChild: ElementRef;
 
-    @ViewChild('overlayPanelClip') overlayPanelClip: ElementRef;
+    @ViewChild('highlightPanel') highlightPanelViewChild: ElementRef;
+
+    @ViewChild('overlayPanelClip') overlayPanelClipViewChild: ElementRef;
+    @ViewChild('overlayBlendClip') overlayBlendClipViewChild: ElementRef;
 
     childComponentType: Type<any>;
     footerComponentType: Type<any>;
@@ -147,7 +151,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnInit, OnDestroy
     {
         if (this.dialogConfig.data.behaviors.showAsLinkedOverlayPanel) {
             setTimeout(() => {
-                this.overlayPanel = new DialogOverlayPanel(this.dialogConfig.data.overlayPanel, this.container, this.maskViewChild.nativeElement, this.overlayPanelClip.nativeElement);
+                this.overlayPanel = new DialogOverlayPanel(this.dialogConfig.data.overlayPanel, this.container, this.maskViewChild.nativeElement, this.overlayPanelClipViewChild.nativeElement, this.highlightPanelViewChild.nativeElement, this.overlayBlendClipViewChild.nativeElement);
                 this.overlayPanel.initializeOverlay();
             }, 0);
         }

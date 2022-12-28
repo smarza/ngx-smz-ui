@@ -6,7 +6,14 @@ import { cloneDeep } from 'lodash';
 
 export class DialogOverlayPanel {
   private target: HTMLElement;
-  constructor(private config: SmzDialogOverlayPanel, private container: HTMLDivElement, private mask: HTMLDivElement, private overlayClip: HTMLDivElement) {
+  constructor(
+    private config: SmzDialogOverlayPanel,
+    private container: HTMLDivElement,
+    private mask: HTMLDivElement,
+    private overlayClip: HTMLDivElement,
+    private highlight: HTMLDivElement,
+    private blend: HTMLDivElement
+  ) {
     const elementId = this.config.targetElementId;
     this.target = document.getElementById(elementId);
   }
@@ -51,10 +58,12 @@ export class DialogOverlayPanel {
 
     const topLeft = { x: percentLeft, y: percentTop };
     const topRight = { x: percentRight, y: percentTop };
-    const bottomLeft = { x: percentLeft, y: percentBottom };
     const bottomRight = { x: percentRight, y: percentBottom };
+    const bottomLeft = { x: percentLeft, y: percentBottom };
 
     this.overlayClip.style.clipPath = `polygon(0% 0%, 0% 100%, ${bottomLeft.x}% 100%, ${topLeft.x}% ${topLeft.y}%, ${topRight.x}% ${topRight.y}%, ${bottomRight.x}% ${bottomRight.y}%, ${bottomLeft.x}% ${bottomLeft.y}%, ${bottomLeft.x}% 100%, 100% 100%, 100% 0%)`;
+    this.blend.style.clipPath = `polygon(0% 0%, 0% 100%, ${bottomLeft.x}% 100%, ${topLeft.x}% ${topLeft.y}%, ${topRight.x}% ${topRight.y}%, ${bottomRight.x}% ${bottomRight.y}%, ${bottomLeft.x}% ${bottomLeft.y}%, ${bottomLeft.x}% 100%, 100% 100%, 100% 0%)`;
+    this.highlight.style.clipPath = `polygon(${topLeft.x}% ${topLeft.y}%, ${topRight.x}% ${topRight.y}%, ${bottomRight.x}% ${bottomRight.y}%, ${bottomLeft.x}% ${bottomLeft.y}%)`;
   }
 
   private handleOverlayDimensions(): void {
@@ -65,7 +74,15 @@ export class DialogOverlayPanel {
   }
 
   private handleOverlayDepth(): void {
+
     ZIndexUtils.set('overlay', this.container, this.config.baseZIndex);
+
+    const clipZIndex = ZIndexUtils.get(this.container);
+
+    this.highlight.style.zIndex = `${clipZIndex - 4}`;
+    this.blend.style.zIndex = `${clipZIndex - 3}`;
+    this.overlayClip.style.zIndex = `${clipZIndex - 2}`;
+    this.mask.style.zIndex = `${clipZIndex - 1}`;
   }
 
   private handleOverlayPosition(): void {

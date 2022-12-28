@@ -11,6 +11,11 @@ export interface SmzUiGuidesState {
   };
   allowBackNavigation: boolean;
   showSummaryCount: boolean;
+  styleClass: {
+    overlay: { styleClass: string };
+    highlight: { styleClass: string };
+    blend: { styleClass: string };
+  }
 }
 
 export interface SmzUiGuidesStep {
