@@ -19,14 +19,14 @@ import { SmzNotification } from '../../../../core/models/notifications';
       </span>
 
       <ng-container *ngIf="rbkConfig.notifications.url != null; else modelDrivenNotificationsTemplate">
-        <smz-ui-notifications class="mr-5"></smz-ui-notifications>
+        <smz-ui-notifications id="smz-ui-notifications" class="mr-5"></smz-ui-notifications>
       </ng-container>
 
       <ng-template #modelDrivenNotificationsTemplate>
         <span class="notification-container" *ngIf="notifications != null" smz-ui-athena-notifications [items]="notifications"></span>
       </ng-template>
 
-      <span *ngIf="profile != null" smz-ui-athena-profile-menu [profile]="profile"></span>
+      <span id="smz-ui-profile-menu" *ngIf="profile != null" smz-ui-athena-profile-menu [profile]="profile"></span>
 
   `,
 })
