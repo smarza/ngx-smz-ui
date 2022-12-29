@@ -63,16 +63,6 @@ export class SmzUiGuidesStepOverridesBuilder {
     return this;
   }
 
-  public setInitCallback(callback: (step: SmzUiGuidesStep) => void): SmzUiGuidesStepOverridesBuilder {
-    this._builder._state.steps.forEach(step => step.callbacks.init = callback);
-    return this;
-  }
-
-  public setConcludedCallback(callback: (step: SmzUiGuidesStep) => void): SmzUiGuidesStepOverridesBuilder {
-    this._builder._state.steps.forEach(step => step.callbacks.concluded = callback);
-    return this;
-  }
-
   public get override(): SmzUiGuidesBuilder {
 
     return this._builder;

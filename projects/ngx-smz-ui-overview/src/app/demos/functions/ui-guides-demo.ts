@@ -13,6 +13,8 @@ export const UiGuidesDemo: { [key: string]: () => void } = {
         .setLocale('pt-BR')
         .allowBackNavigation()
         .showSummaryCount()
+        .setInitCallback((step) => console.log(`Init Step: ${step.number}`))
+        .setConcludedCallback((step) => console.log(`Concluded Step: ${step.number}`))
 
         .customStyles()
           .overlay()
@@ -72,8 +74,6 @@ export const UiGuidesDemo: { [key: string]: () => void } = {
           .step
 
         .override()
-          .setInitCallback((step) => console.log(`Init Step: ${step.number}`))
-          .setConcludedCallback((step) => console.log(`Concluded Step: ${step.number}`))
           .override
       .build()
     );

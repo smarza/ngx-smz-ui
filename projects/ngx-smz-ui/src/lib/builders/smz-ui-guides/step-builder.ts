@@ -69,16 +69,6 @@ export class SmzUiGuidesStepBuilder {
     return this;
   }
 
-  public setInitCallback(callback: (step: SmzUiGuidesStep) => void): SmzUiGuidesStepBuilder {
-    this._step.callbacks.init = callback;
-    return this;
-  }
-
-  public setConcludedCallback(callback: (step: SmzUiGuidesStep) => void): SmzUiGuidesStepBuilder {
-    this._step.callbacks.concluded = callback;
-    return this;
-  }
-
   public get step(): SmzUiGuidesBuilder {
 
     return this._builder;

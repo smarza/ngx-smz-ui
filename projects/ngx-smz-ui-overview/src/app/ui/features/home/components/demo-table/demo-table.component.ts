@@ -1,11 +1,13 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { LARGE_TABLE_DATA } from '@demos/data/large-table';
 import { DemoItem, DemoTreeNode } from '@models/demo';
 import { SmzTableState } from 'ngx-smz-ui';
-import { Observable } from 'rxjs';
+import { delay, Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-demo-table',
   template: `
+  <button pButton type="button" label="RUN" class="p-button-rounded p-button-text" (click)="run()"></button>
 <smz-ui-table *ngIf="state != null" [items]="items$ | async" [state]="state">
   <ng-template pTemplate="rowContent" let-item>
     <div class="grid grid-nogutter justify-start items-start">
@@ -39,6 +41,10 @@ export class DemoTableComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.updateData(this.node);
+  }
+
+  public run(): void {
+    this.items$ = of(LARGE_TABLE_DATA) as any;
   }
 
   ngOnChanges(changes: SimpleChanges) {

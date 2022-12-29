@@ -41,6 +41,7 @@ import { ContextMenuService } from 'primeng/api';
 import { SmzToastModule } from '../smz-toast/toast';
 import { MarkdownModule } from 'ngx-markdown';
 import { MarkdownContentComponent } from './features/markdown-content/markdown-content.component';
+import { GuideFooterComponent } from './features/guide-footer/guide-footer.component';
 
 const defaultDialogsModuleConfig: SmzDialogsConfig = {
     dialogs: {
@@ -94,6 +95,7 @@ export const ngxsModuleForFeatureDialogsState = NgxsModule.forFeature([DialogsSt
         HtmlContentComponent,
         TableContentComponent,
         DialogFooterComponent,
+        GuideFooterComponent,
         ConfirmOnEnterDirective,
         DocumentContentComponent,
         MarkdownContentComponent

@@ -13,6 +13,7 @@ import { SmzDocumentState } from '../../modules/smz-documents/models/smz-documen
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzPresetTypes } from '../../modules/smz-dialogs/models/smz-presets';
 import { SmzDialogOverlayPanelBuilder } from './dialog-overlay-panel-builder';
+import { SmzUiGuidesState } from '../../standalones/smz-ui-guides/models/smz-ui-guides-state';
 
 export class SmzDialogBuilder<TResponse> extends SmzBuilderUtilities<SmzDialogBuilder<TResponse>> {
   protected that = this;
@@ -189,9 +190,9 @@ export class SmzDialogBuilder<TResponse> extends SmzBuilderUtilities<SmzDialogBu
     return this;
   }
 
-  public useAsOverlayPanel(elementId: string): SmzDialogOverlayPanelBuilder<TResponse> {
+  public useAsOverlayPanel(elementId: string, guideState: SmzUiGuidesState): SmzDialogOverlayPanelBuilder<TResponse> {
     this._state.behaviors.showAsLinkedOverlayPanel = true;
-    return new SmzDialogOverlayPanelBuilder(this, elementId);
+    return new SmzDialogOverlayPanelBuilder(this, elementId, guideState);
   }
 
   public buttons(): SmzDialogButtonsBuilder<TResponse> {

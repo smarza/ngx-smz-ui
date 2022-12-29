@@ -5,6 +5,7 @@ import { DynamicDialogConfig } from './dynamicdialog-config';
 import { DynamicDialogRef } from './dynamicdialog-ref';
 import { SmzDynamicDialogConfig } from '../models/smz-dialogs';
 import { DialogFooterComponent } from '../features/dialog-footer/dialog-footer.component';
+import { GuideFooterComponent } from '../features/guide-footer/guide-footer.component';
 
 @Injectable({
     providedIn: 'root'
@@ -24,7 +25,15 @@ export class DialogService
 
         const ref = this.dialogComponentRefMap.get(dialogRef);
         ref.instance.childComponentType = componentType;
-        ref.instance.footerComponentType = DialogFooterComponent;
+
+        if (config.data?.behaviors?.showAsLinkedOverlayPanel)
+        {
+            ref.instance.footerComponentType = GuideFooterComponent;
+        }
+        else {
+            ref.instance.footerComponentType = DialogFooterComponent;
+        }
+
 
         return dialogRef;
     }

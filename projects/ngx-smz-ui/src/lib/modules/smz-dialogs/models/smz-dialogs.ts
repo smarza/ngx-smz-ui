@@ -8,6 +8,7 @@ import { DynamicDialogConfig } from '../dynamicdialog/dynamicdialog-config';
 import { Message } from 'primeng/api';
 // import { SmzTableState } from 'ngx-smz-ui';
 import { Observable } from 'rxjs';
+import { SmzUiGuidesState, SmzUiGuidesStep } from '../../../standalones/smz-ui-guides/models/smz-ui-guides-state';
 
 export class SmzDynamicDialogConfig extends DynamicDialogConfig {
     data?: SmzDialog<any>;
@@ -152,6 +153,11 @@ export interface SmzDialogOverlayPanel
     hightlightStyleClass: string;
     overlayPanelStylesClass: string;
     overlayBlendStylesClass: string;
+    callbacks: {
+        init: (step: SmzUiGuidesStep) => void;
+        concluded: (step: SmzUiGuidesStep) => void;
+    }
+    state: SmzUiGuidesState;
 }
 
 export interface SmzDialogBehaviors

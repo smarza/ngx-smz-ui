@@ -1,7 +1,7 @@
 export interface SmzUiGuidesState {
   context: {
     step: number,
-  },
+  };
   steps: SmzUiGuidesStep[];
   locale: {
     code: 'pt-BR' | 'en-US';
@@ -15,7 +15,11 @@ export interface SmzUiGuidesState {
     overlay: { styleClass: string };
     highlight: { styleClass: string };
     blend: { styleClass: string };
-  }
+  };
+  callbacks: {
+    init: (step: SmzUiGuidesStep) => void;
+    concluded: (step: SmzUiGuidesStep) => void;
+  };
 }
 
 export interface SmzUiGuidesStep {
@@ -37,10 +41,6 @@ export interface SmzUiGuidesStep {
   },
   style: {
     styleClass: string;
-  },
-  callbacks: {
-    init: (step: SmzUiGuidesStep) => void;
-    concluded: (step: SmzUiGuidesStep) => void;
   },
   highlight: {
     enabled: boolean;

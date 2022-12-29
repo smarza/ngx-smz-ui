@@ -18,7 +18,11 @@ export class SmzUiGuidesBuilder {
       overlay: { styleClass: '' },
       highlight: { styleClass: '' },
       blend: { styleClass: '' }
-    }
+    },
+    callbacks: {
+      init: () => {},
+      concluded: () => {}
+    },
   };
 
   public _defaultStep: SmzUiGuidesStep = {
@@ -36,10 +40,6 @@ export class SmzUiGuidesBuilder {
     },
     style: {
       styleClass: ''
-    },
-    callbacks: {
-      init: () => {},
-      concluded: () => {}
     },
     highlight: {
       enabled: true,
@@ -61,6 +61,16 @@ export class SmzUiGuidesBuilder {
 
   public override(): SmzUiGuidesStepOverridesBuilder {
     return new SmzUiGuidesStepOverridesBuilder(this);
+  }
+
+  public setInitCallback(callback: (step: SmzUiGuidesStep) => void): SmzUiGuidesBuilder {
+    this._state.callbacks.init = callback;
+    return this;
+  }
+
+  public setConcludedCallback(callback: (step: SmzUiGuidesStep) => void): SmzUiGuidesBuilder {
+    this._state.callbacks.concluded = callback;
+    return this;
   }
 
   public setLocale(language: 'pt-BR' | 'en-US'): SmzUiGuidesBuilder {

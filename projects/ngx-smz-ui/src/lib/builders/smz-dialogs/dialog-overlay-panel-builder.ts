@@ -1,12 +1,14 @@
 import { SmzDialogBuilder } from './dialog-builder';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
+import { SmzUiGuidesState, SmzUiGuidesStep } from '../../standalones/smz-ui-guides/models/smz-ui-guides-state';
 
 export class SmzDialogOverlayPanelBuilder<TResponse> extends SmzBuilderUtilities<SmzDialogOverlayPanelBuilder<TResponse>> {
   protected that = this;
-  constructor(public _dialogBuilder: SmzDialogBuilder<TResponse>, private targetElementId: string) {
+  constructor(public _dialogBuilder: SmzDialogBuilder<TResponse>, private targetElementId: string, private guideState: SmzUiGuidesState) {
     super();
 
     this._dialogBuilder._state.overlayPanel = {
+      state: guideState,
       targetElementId,
       styleClass: '',
       width: '400px',
@@ -20,7 +22,11 @@ export class SmzDialogOverlayPanelBuilder<TResponse> extends SmzBuilderUtilities
       hightlightMargin: 0,
       hightlightStyleClass: '',
       overlayPanelStylesClass: '',
-      overlayBlendStylesClass: ''
+      overlayBlendStylesClass: '',
+      callbacks: {
+        init: () => {},
+        concluded: () => {}
+      },
     };
 
   }
@@ -87,6 +93,16 @@ export class SmzDialogOverlayPanelBuilder<TResponse> extends SmzBuilderUtilities
 
     public setOverlayBlendStylesClass(styleClass: string): SmzDialogOverlayPanelBuilder<TResponse> {
     this._dialogBuilder._state.overlayPanel.overlayBlendStylesClass = styleClass;
+    return this;
+  }
+
+  public setInitCallback(callback: (step: SmzUiGuidesStep) => void): SmzDialogOverlayPanelBuilder<TResponse> {
+    this._dialogBuilder._state.overlayPanel.callbacks.init = callback;
+    return this;
+  }
+
+  public setConcludedCallback(callback: (step: SmzUiGuidesStep) => void): SmzDialogOverlayPanelBuilder<TResponse> {
+    this._dialogBuilder._state.overlayPanel.callbacks.concluded = callback;
     return this;
   }
 

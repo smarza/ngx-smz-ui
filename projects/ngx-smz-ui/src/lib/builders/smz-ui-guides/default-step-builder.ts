@@ -50,16 +50,6 @@ export class SmzUiGuidesDefaultStepBuilder {
     return this;
   }
 
-  public setInitCallback(callback: (step: SmzUiGuidesStep) => void): SmzUiGuidesDefaultStepBuilder {
-    this._builder._defaultStep.callbacks.init = callback;
-    return this;
-  }
-
-  public setConcludedCallback(callback: (step: SmzUiGuidesStep) => void): SmzUiGuidesDefaultStepBuilder {
-    this._builder._defaultStep.callbacks.concluded = callback;
-    return this;
-  }
-
   public disableHighlight(): SmzUiGuidesDefaultStepBuilder {
     this._builder._defaultStep.highlight.enabled = false;
     return this;

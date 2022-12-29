@@ -2,7 +2,7 @@ import { DemoKeys } from '@demos/demo-keys';
 import { Store } from '@ngxs/store';
 import { DemoFeatureSelectors } from '@states/demo/demo.selectors';
 import { GlobalInjector, SimpleNamedEntity, SmzExportableContentType, SmzFilterType, SmzTableBuilder } from 'ngx-smz-ui';
-import { of } from 'rxjs';
+import { delay, of } from 'rxjs';
 import { convertorTasks } from './../data/conversor-tasks';
 import { Observable } from 'rxjs/internal/Observable';
 import { DemoFeatureActions } from '@states/demo/demo.actions';
@@ -396,7 +396,7 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
   },
   //
   [DemoKeys.TABLE_AUTO_SIZED_COLUMNS]: {
-    items$: of(LARGE_TABLE_DATA),
+    items$: null,
     code: () => {
     return new SmzTableBuilder()
         .setTitle('Auto Sized Columns with Large Data')
