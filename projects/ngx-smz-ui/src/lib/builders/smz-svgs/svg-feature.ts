@@ -62,6 +62,9 @@ export class SmzSvgFeatureBuilder extends SmzBuilderUtilities<SmzSvgFeatureBuild
 
     this._state.features.push(newFeature);
 
+    this._state.worldCoordinates.rootWidth = width;
+    this._state.worldCoordinates.rootHeight = height;
+
     return new SmzSvgRootBuilder(this, newFeature, this._svgBuilder);
   }
 
@@ -77,7 +80,7 @@ export class SmzSvgFeatureBuilder extends SmzBuilderUtilities<SmzSvgFeatureBuild
       svgData,
       dynamicBuild: { callback: null },
       position: { x: 0, y: 0 },
-      anchor: 'root',
+      anchor: this._svgBuilder._state.worldCoordinates.enabled ? 'world' : 'root',
       adaptative: {
         enabled: false
       },

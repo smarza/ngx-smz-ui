@@ -6,6 +6,7 @@ import { SmzSvgFeatureBuilder } from './svg-feature';
 import { BehaviorSubject } from 'rxjs';
 import { SmzSvgDispatchBuilder } from './svg-dispatch';
 import uniq from 'lodash-es/uniq';
+import { SmzSvgWorldCoordinatesBuilder } from './svg-world-coordinates';
 
 export class SmzSvgBuilder extends SmzBuilderUtilities<SmzSvgBuilder> {
   protected that = this;
@@ -23,6 +24,12 @@ export class SmzSvgBuilder extends SmzBuilderUtilities<SmzSvgBuilder> {
       useWindowSize: true,
       width: 0,
       height: 0
+    },
+    worldCoordinates: {
+      enabled: false,
+      rootWidth: 0,
+      rootHeight: 0,
+      refPoints: []
     },
     dispatch: {
       zoomToId: new BehaviorSubject(null),
@@ -154,6 +161,10 @@ export class SmzSvgBuilder extends SmzBuilderUtilities<SmzSvgBuilder> {
 
   public dispatch(): SmzSvgDispatchBuilder {
     return new SmzSvgDispatchBuilder(this, this._state);
+  }
+
+  public useWorldCoordinates(): SmzSvgWorldCoordinatesBuilder {
+    return new SmzSvgWorldCoordinatesBuilder(this, this._state);
   }
 
   public build(): SmzSvgState {

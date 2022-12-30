@@ -10,6 +10,7 @@ import { isEmpty } from '../../builders/common/utils';
 import { Container, Element } from '@svgdotjs/svg.js';
 import { GetElementById } from './utils/smz-svg-helper';
 import { Wait } from '../../common/utils/utils';
+import { SmzSvgWorldCoordinates } from './models/world-coordinates';
 
 @Component({
   selector: 'smz-svg',
@@ -54,7 +55,7 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
     setTimeout(() => {
 
       if (this.state.container.useWindowSize) {
-        const element = document.getElementById("smz-svg-container");
+        const element = document.getElementById('smz-svg-container');
         const size = element.getBoundingClientRect();
 
         this.state.container.width = size.width;
@@ -406,7 +407,27 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
 
     this.pins = pins;
 
-    const [startX, endX, startY, endY ] = this.getRootContainer();
+    let [startX, endX, startY, endY ] = [0, 0, 0, 0];
+    let worldCoordinates: SmzSvgWorldCoordinates;
+
+    if (this.state.worldCoordinates.enabled) {
+      const mapElement = document.getElementById('smz-svg-container');
+
+      const mapElementBox = mapElement.getBoundingClientRect();
+
+      if (this.state.isDebug) {
+        console.log('------- SmzSvgWorldCoordinates');
+        console.log('state', this.state);
+        console.log('getElementById', mapElement);
+        console.log('getBoundingClientRect', mapElementBox);
+      }
+
+      worldCoordinates = new SmzSvgWorldCoordinates(mapElementBox.width, mapElementBox.height, this.state.worldCoordinates.rootWidth, this.state.worldCoordinates.rootHeight);
+      worldCoordinates.setRefPoint(this.state.worldCoordinates.refPoints)
+    }
+    else {
+      [startX, endX, startY, endY ] = this.getRootContainer();
+    }
 
     pins.forEach(pin => {
       pin.isDisabled = true;
@@ -455,6 +476,19 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
               switch (pin.anchor) {
                 case 'root':
                   element.center(startX + pin.position.x, startY + pin.position.y);
+                  break;
+
+                case 'world':
+                  const worldPosition = worldCoordinates.convert(pin.position.x, pin.position.y);
+
+                  if (this.state.isDebug) {
+                    console.log(`------- Anchor World for pin ${pin.id}`);
+                    console.log('worldCoordinates', worldCoordinates);
+                    console.log('worldPosition', worldPosition);
+                    console.log(`------- end pin`);
+                  }
+
+                  element.center(worldPosition.x, worldPosition.y);
                   break;
 
                 case 'container':

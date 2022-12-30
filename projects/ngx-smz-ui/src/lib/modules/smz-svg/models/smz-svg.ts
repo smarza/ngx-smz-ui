@@ -2,6 +2,7 @@ import { Container, Element } from '@svgdotjs/svg.js';
 import { MouseButton } from '@svgdotjs/svg.panzoom.js';
 import { BehaviorSubject } from 'rxjs';
 import { SmzSVGWrapper } from './smz-svg-wrapper';
+import { SmzSvgRefPoint, SmzSvgWorldCoordinates } from './world-coordinates';
 
 export interface SmzSvgState {
   isDebug: boolean;
@@ -18,6 +19,12 @@ export interface SmzSvgState {
     zoomMin?: number
     zoomMax?: number
   };
+  worldCoordinates: {
+    enabled: boolean;
+    rootWidth: number;
+    rootHeight: number;
+    refPoints: SmzSvgRefPoint[];
+  }
   containerClass: string;
   container: {
     useWindowSize: boolean;
@@ -65,6 +72,7 @@ export interface SmzSvgBaseFeature {
 
   // Anchor === 'container' => O position será relativa a todo o container
   // Anchor === 'root' => O position será relativa ao svg importado no root
+  // Anchor === 'world' => A posição será calculada com base nas cordenadas do mundo... aceitando latitude e longitude
   anchor: SmzSvgAnchorTypes;
 
   // Se adapta ao alterar o zoom
@@ -128,4 +136,4 @@ interface marginOptions {
   bottom: number
 }
 
-export type SmzSvgAnchorTypes = 'container' | 'root';
+export type SmzSvgAnchorTypes = 'container' | 'root' | 'world';

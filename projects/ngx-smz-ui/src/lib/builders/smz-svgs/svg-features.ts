@@ -29,8 +29,24 @@ export class SmzSvgPinBuilder extends SmzSvgBaseFeatureBuilder<SmzSvgPinBuilder>
   }
 
   public setPosition(x: number, y: number): SmzSvgPinBuilder {
+
+    if (this._svgBuilder._state.worldCoordinates.enabled) {
+      throw new Error(`You need to call 'setCoordinates' to register the position while using world coordinates`);
+    }
+
     this._feature.position.x = x;
     this._feature.position.y = y;
+    return this.that;
+  }
+
+  public setCoordinates(latitude: number, longitude: number): SmzSvgPinBuilder {
+
+    if (!this._svgBuilder._state.worldCoordinates.enabled) {
+      throw new Error(`You need to enable world coordinates to call 'setCoordinates'`);
+    }
+
+    this._feature.position.x = longitude;
+    this._feature.position.y = latitude;
     return this.that;
   }
 
@@ -40,6 +56,11 @@ export class SmzSvgPinBuilder extends SmzSvgBaseFeatureBuilder<SmzSvgPinBuilder>
   }
 
   public setAnchor(anchor: SmzSvgAnchorTypes): SmzSvgPinBuilder {
+
+    if (this._svgBuilder._state.worldCoordinates.enabled && anchor !== 'world') {
+      throw new Error(`You cannot set anchor diferent of 'world' while using world coordinates`);
+    }
+
     this._feature.anchor = anchor;
     return this.that;
   }
