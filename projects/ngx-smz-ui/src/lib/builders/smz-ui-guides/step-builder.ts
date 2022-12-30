@@ -1,17 +1,39 @@
+import { Store } from '@ngxs/store';
 import { cloneDeep } from 'lodash-es';
+import { GlobalInjector } from '../../common/services/global-injector';
 import { SmzUiGuidesStep } from '../../standalones/smz-ui-guides/models/smz-ui-guides-state';
+import { AuthenticationSelectors } from '../../state/global/authentication/authentication.selectors';
 import { SmzUiGuidesBuilder } from './ui-guides-builder';
 
 export class SmzUiGuidesStepBuilder {
   private _step: SmzUiGuidesStep;
+  private canAccess = true;
   constructor(private _builder: SmzUiGuidesBuilder, private elementId: string) {
+
     this._step = {
       ...cloneDeep(this._builder._defaultStep),
       number: this._builder._state.steps.length + 1,
       elementId,
     };
 
-    this._builder._state.steps.push(this._step);
+  }
+
+  public forClaim(claim: string): SmzUiGuidesStepBuilder {
+    const store: Store = GlobalInjector.instance.get(Store);
+    this.canAccess = store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(claim));
+    return this;
+  }
+
+  public notForClaim(claim: string): SmzUiGuidesStepBuilder {
+    const store: Store = GlobalInjector.instance.get(Store);
+    this.canAccess = !store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(claim));
+    return this;
+  }
+
+  public forClaims(canAccessClaims: string[]): SmzUiGuidesStepBuilder {
+    const store: Store = GlobalInjector.instance.get(Store);
+    this.canAccess = store.selectSnapshot(AuthenticationSelectors.hasGroupOfClaimAccess(canAccessClaims));
+    return this;
   }
 
   public setTitle(title: string): SmzUiGuidesStepBuilder {
@@ -70,6 +92,10 @@ export class SmzUiGuidesStepBuilder {
   }
 
   public get step(): SmzUiGuidesBuilder {
+
+    if (this.canAccess) {
+      this._builder._state.steps.push(this._step);
+    }
 
     return this._builder;
   }

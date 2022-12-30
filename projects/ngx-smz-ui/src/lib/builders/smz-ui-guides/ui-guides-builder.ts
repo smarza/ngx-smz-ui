@@ -1,11 +1,12 @@
 import { SmzUiGuidesState, SmzUiGuidesStep } from '../../standalones/smz-ui-guides/models/smz-ui-guides-state';
+import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzUiGuidesCustomStylesBuilder } from './custom-styles-builder';
 import { SmzUiGuidesDefaultStepBuilder } from './default-step-builder';
 import { SmzUiGuidesStepBuilder } from './step-builder';
 import { SmzUiGuidesStepOverridesBuilder } from './step-overrides-builder';
 
-export class SmzUiGuidesBuilder {
-
+export class SmzUiGuidesBuilder extends SmzBuilderUtilities<SmzUiGuidesBuilder> {
+  protected that = this;
   public _state: SmzUiGuidesState = {
     context: {
       step: 1
@@ -48,29 +49,30 @@ export class SmzUiGuidesBuilder {
   };
 
   constructor() {
+    super();
     this.setLocale('pt-BR');
   }
 
   public defaults(): SmzUiGuidesDefaultStepBuilder {
-    return new SmzUiGuidesDefaultStepBuilder(this);
+    return new SmzUiGuidesDefaultStepBuilder(this.that);
   }
 
   public step(elementId: string): SmzUiGuidesStepBuilder {
-    return new SmzUiGuidesStepBuilder(this, elementId);
+    return new SmzUiGuidesStepBuilder(this.that, elementId);
   }
 
   public override(): SmzUiGuidesStepOverridesBuilder {
-    return new SmzUiGuidesStepOverridesBuilder(this);
+    return new SmzUiGuidesStepOverridesBuilder(this.that);
   }
 
   public setInitCallback(callback: (step: SmzUiGuidesStep) => void): SmzUiGuidesBuilder {
     this._state.callbacks.init = callback;
-    return this;
+    return this.that;
   }
 
   public setConcludedCallback(callback: (step: SmzUiGuidesStep) => void): SmzUiGuidesBuilder {
     this._state.callbacks.concluded = callback;
-    return this;
+    return this.that;
   }
 
   public setLocale(language: 'pt-BR' | 'en-US'): SmzUiGuidesBuilder {
@@ -101,21 +103,21 @@ export class SmzUiGuidesBuilder {
         break;
     }
 
-    return this;
+    return this.that;
   }
 
   public allowBackNavigation(): SmzUiGuidesBuilder {
     this._state.allowBackNavigation = true;
-    return this;
+    return this.that;
   }
 
   public showSummaryCount(): SmzUiGuidesBuilder {
     this._state.showSummaryCount = true;
-    return this;
+    return this.that;
   }
 
   public customStyles(): SmzUiGuidesCustomStylesBuilder {
-    return new SmzUiGuidesCustomStylesBuilder(this);
+    return new SmzUiGuidesCustomStylesBuilder(this.that);
   }
 
   public build(): SmzUiGuidesState {
