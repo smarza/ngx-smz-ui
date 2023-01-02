@@ -513,21 +513,21 @@ export const DialogsDemo: { [key: string]: () => void } = {
   [DemoKeys.DIALOGS_WITH_MARKDOWN]: () => {
 
     const markdown = `## Markdown __rulez__!
-  ---
+---
 
-  ### Syntax highlight
-  \`\`\`typescript
-  const language = 'typescript';
-  \`\`\`
+### Syntax highlight
+\`\`\`typescript
+const language = 'typescript';
+\`\`\`
 
-  ### Lists
-  1. Ordered list
-  2. Another bullet point
-     - Unordered list
-     - Another unordered bullet
+### Lists
+1. Ordered list
+2. Another bullet point
+    - Unordered list
+    - Another unordered bullet
 
-  ### Blockquote
-  > Blockquote to the max`;
+### Blockquote
+> Blockquote to the max`;
 
     service.open(
       new SmzDialogBuilder<void>()
