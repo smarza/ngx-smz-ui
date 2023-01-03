@@ -1,7 +1,7 @@
 import { Injector, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SmzTableComponent } from './features/table/table.component';
-import { TableModule } from 'primeng/table';
+import { TableModule } from '../prime/table/table';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { NgxSmzDataPipesModule } from '../../common/data-pipes/data-pipes.module';

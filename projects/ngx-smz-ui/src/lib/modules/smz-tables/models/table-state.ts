@@ -1,3 +1,4 @@
+import { FilterMetadata } from 'primeng/api';
 import { Observable } from 'rxjs';
 import { SmzMenuItem } from '../../smz-menu/models/smz-menu-item';
 import { EditableChanges } from './editable-model';
@@ -530,7 +531,8 @@ export interface SmzTableContext {
 }
 
 export interface SmzTableViewportState {
-  globalFilter: string;
-  visibility: { key: string, isVisible: boolean }[]
-  sort: { key: string }[]
+  isEnabled?: boolean;
+  visibility: { key: string, isVisible: boolean }[];
+  sort: { mode: 'single', field: string, order: any };
+  filters: { [s: string]: FilterMetadata | FilterMetadata[] | undefined };
 }

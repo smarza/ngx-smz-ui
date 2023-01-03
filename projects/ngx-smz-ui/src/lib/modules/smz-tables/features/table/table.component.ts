@@ -1,13 +1,13 @@
 import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewChild, OnDestroy, inject, DEFAULT_CURRENCY_CODE, Inject, LOCALE_ID, AfterViewInit } from '@angular/core';
-import { PrimeTemplate } from 'primeng/api';
+import { PrimeTemplate, FilterMetadata } from 'primeng/api';
 import { SmzContentType, SmzExportableContentType } from '../../models/content-types';
 import { SmzFilterType } from '../../models/filter-types';
-import { SmzTableState, SmzTableContext } from '../../models/table-state';
+import { SmzTableState, SmzTableContext, SmzTableViewportState } from '../../models/table-state';
 import { SmzTableColumn } from '../../models/table-column';
 import { SmzEditableType } from '../../models/editable-types';
 import { TableEditableService } from '../../services/table-editable.service';
 import { TableFormsService } from '../../services/table-forms.service';
-import { Table } from 'primeng/table';
+import { Table } from '../../../prime/table/table';
 import { SmzDialogsConfig } from '../../../smz-dialogs/smz-dialogs.config';
 import { uuidv4 } from '../../../../common/utils/utils';
 import { TableHelperService } from '../../services/table-helper.service';
@@ -22,9 +22,10 @@ import { AuthenticationSelectors } from '../../../../state/global/authentication
 import { SmzExcelFontDefinitions, SmzExcelThemeDefinitions } from '../../../smz-excels/models/smz-excel-definitions';
 import { ObjectUtils } from 'primeng/utils';
 import { SmzLayoutsConfig } from '../../../smz-layouts/core/globals/smz-layouts.config';
-import { isBoolean } from 'lodash-es';
+import { isBoolean, keyBy } from 'lodash-es';
 import { ApplicationActions } from '../../../../state/global/application/application.actions';
 import { isEmpty } from '../../../../builders/common/utils';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'smz-ui-table',
@@ -59,6 +60,7 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
   public selectedColumns: SmzTableColumn[];
   public showSkeleton = false;
   public documentClickListener = null;
+  private isViewInit = false;
   public contentTypes = {
     currency: SmzContentType.CURRENCY,
     calendar: SmzContentType.CALENDAR,
@@ -122,8 +124,6 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
         .filter(x => x.isVisible)
         .map(x => x.field)
       );
-
-    // context.visibleColumns = context.columns.filter(x => this.selectedColumns.findIndex(c => c.field === x.field) !== -1);
   }
 
   public hideColumn(column: SmzTableColumn, context: SmzTableContext): void {
@@ -135,8 +135,6 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
 
     context.visibleColumns = context.visibleColumns.filter(x => x.field !== column.field);
 
-    // this.state = { ...this.state };
-
     if (this.selectedColumns != null) {
       this.selectedColumns = this.selectedColumns.filter(x => x.field !== column.field);
     }
@@ -144,11 +142,10 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
 
   public ngAfterViewInit(): void
   {
-    console.log('ngAfterViewInit');
-    console.log('state?.viewport?.state', this.state?.viewport?.state);
-    console.log('state', this.state);
-    console.log('table', this.table);
+    this.initializeState();
+  }
 
+  public initializeState(): void {
     if (this.state?.viewport?.state != null) {
       // Executar atualização da viewport com dados default de pesquisa global, filtros de coluna e ordenação
       this.initViewportPersistence();
@@ -160,19 +157,47 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
     // Atualizar o isVisible nas colunas do state
     this.updateColumnsVisibility();
 
-    this.cdr.markForCheck();
+    this.editableService.state = this.state;
+    this.formsService.state = this.state;
 
+    this.editableService.setupAccess();
+
+    this.isViewInit = true;
+    this.cdr.markForCheck();
+  }
+
+  public extractViewportState(): SmzTableViewportState {
+
+    const results: SmzTableViewportState = {
+      isEnabled: true,
+      filters: this.table.filters,
+      visibility: this.selectedColumns.map(x => ({ key: x.field, isVisible: true })),
+      sort: { mode: 'single', field: this.table.sortField, order: this.table.sortOrder }
+    };
+
+    return results;
   }
 
   public initViewportPersistence(): void {
-    console.log('======= initViewportPersistence()');
+    if (this.state?.viewport?.state?.isEnabled === false) {
+      return;
+    }
 
     const state = this.state.viewport.state;
 
+    this.globalSearchInput = '';
+    this.table.clear();
+
+    const globalFilter = state.filters['global'] as FilterMetadata;
     // Global Filter
-    if (!isEmpty(state.globalFilter)) {
-      console.log('>> globalfilter found');
-      this.table.filterGlobal(state.globalFilter, 'contains');
+    if (globalFilter != null) {
+      this.globalSearchInput = globalFilter.value;
+      this.table.filterGlobal(globalFilter.value, globalFilter.matchMode);
+    }
+
+    // Column Filters
+    if (state.filters != null) {
+      this.table.filters = state.filters;
     }
 
     // Column Visibility
@@ -181,14 +206,24 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
       column.isVisible = visibilityData.isVisible;
     });
 
-    // Sort State
-    state.sort.forEach(column => {
-      this.table.sort({
-        originalEvent: event,
-        field: column.key
-    });
-    });
+    if (state.sort != null) {
 
+      this.table.sortMode = 'single';
+      this.table.sortField = state.sort.field;
+      this.table.sortOrder = state.sort.order;
+
+      if (this.table.resetPageOnSort) {
+        this.table.first = 0;
+        this.table.firstChange.emit(this.table.first);
+
+        if (this.table.scrollable) {
+            this.table.resetScrollTop();
+        }
+    }
+
+      this.table.sortSingle();
+
+    }
 
   }
 
@@ -196,13 +231,9 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
 
     if (changes.state != null) {
 
-      console.log('ngOnChanges state != null');
-
       const newState: SmzTableState = changes.state.currentValue;
 
       if (newState != null) {
-
-        console.log('ngOnChanges newState');
 
         if (!newState.caption?.rowSelection?.isButtonVisible) {
           this.selectedItems = [];
@@ -211,12 +242,9 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
         // Se estiver com a validação desligada, considerar tabela como válida
         this.state.isValid = newState.caption.rowSelection.validationMode === 'none';
 
-        // this.populateColumnVisibility(newState);
-
-        this.editableService.state = this.state;
-        this.formsService.state = this.state;
-
-        this.editableService.setupAccess();
+        if (this.isViewInit) {
+          this.initializeState();
+        }
 
       }
       else {
@@ -336,9 +364,6 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
       const visibleItems = table.filteredValue?.length > 0 ? table.filteredValue : items;
       const plainItems = cloneDeep(visibleItems).map((item, index) => (this.getExportableData(columns, item, index)));
 
-      // console.log('columns', columns);
-      // console.log('plainItems', plainItems);
-
       const data: SmzExcelState = new SmzExcelsBuilder()
         .setFilename(this.state.caption.title ?? '')
         .setAuthor(username)
@@ -436,8 +461,6 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
 
   private getExportableData(columns: SmzExportableColumn[], item: any, index: number): any {
 
-    // console.log('######');
-
     const results = {};
 
     columns.forEach(column => {
@@ -446,23 +469,14 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
       const resolve = this.resolveData(item, column.field).result;
       const result = column.callback(resolve, item, index);
 
-      // console.log('   column: ', column);
-      // console.log('   field: ', normalizedField);
-      // console.log('   resolve: ', resolve);
-      // console.log('   result: ', result);
-
       switch (column.type) {
         case SmzExportableContentType.BOOLEAN:
-          // console.log('BOOLEAN');
           results[normalizedField] = isBoolean(result) ? result : '';
           break;
         case SmzExportableContentType.TEXT:
-          // console.log('TEXT');
           results[normalizedField] = result?.toString() ?? '';
           break;
         case SmzExportableContentType.HYPERLINK:
-          // console.log('HYPERLINK');
-
           try {
             const regex = /<a\s+(?:[^>]*?\s+)?href="([^"]*)"/gm;
             const matches = [];
@@ -484,16 +498,12 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
 
           break;
         case SmzExportableContentType.NONE:
-          // console.log('NONE');
           results[normalizedField] = '';
           break;
         default:
-          // console.log('DEFAULT');
           results[normalizedField] = result;
           break;
       }
-
-      // console.log('    > ', results[normalizedField]);
 
     });
 

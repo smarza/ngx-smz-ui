@@ -44,9 +44,14 @@ export class DemoFeatureState {
         ctx.patchState({
           lastUpdated: new Date(),
           items: [...results,
-            { name: 'Name A', company: 'ACME Inc', country: {name: 'Paris', id: '209de553-37ce-4293-9644-64436fde2b6e'}, id: '16a6064f-780f-4a29-a4cb-42f5d6fd7964', roles: [] },
-            { name: 'Name B', company: 'ACME Inc', country: {name: 'Paris', id: '209de553-37ce-4293-9644-64436fde2b6e'}, id: '74992fc1-b2e3-4550-9c83-70bc7ebbd52a', roles: [] },
-            { name: 'Name C', company: 'ACME Inc', country: {name: 'Paris', id: '209de553-37ce-4293-9644-64436fde2b6e'}, id: '5dcbb315-c0a6-44e8-8bb0-735fad05322d', roles: [] }
+            { name: 'Name A', company: 'ACME Inc 1', country: {name: 'Paris 1', id: '209de553-37ce-4293-9644-64436fde2b6e'}, id: '16a6064f-780f-4a29-a4cb-42f5d6fd7964', roles: [] },
+            { name: 'Name B', company: 'ACME Inc 2', country: {name: 'Paris 2', id: '209de553-37ce-4293-9644-64436fde2b6f'}, id: '74992fc1-b2e3-4550-9c83-70bc7ebbd52a', roles: [] },
+            { name: 'Name C', company: 'ACME Inc 3', country: {name: 'Paris 3', id: '209de553-37ce-4293-9644-64436fde2b6g'}, id: '5dcbb315-c0a6-44e8-8bb0-735fad05322d', roles: [] },
+            { name: 'Name D Bruce', company: 'ACME Inc 4', country: {name: 'Paris 6', id: '209de553-37ce-4293-9644-64436fde2b6j'}, id: '16a6064f-780f-4a29-a4cb-42f5d6fd7965', roles: [] },
+            { name: 'Name D Bruce', company: 'ACME Inc 5', country: {name: 'Paris 7', id: '209de553-37ce-4293-9644-64436fde2b6l'}, id: '16a6064f-780f-4a29-a4cb-42f5d6fd7965', roles: [] },
+            { name: 'Name D Bruce', company: 'ACME Inc 6', country: {name: 'Paris 8', id: '209de553-37ce-4293-9644-64436fde2b6k'}, id: '16a6064f-780f-4a29-a4cb-42f5d6fd7965', roles: [] },
+            { name: 'Name E', company: 'ACME Inc 5', country: {name: 'Paris 5', id: '209de553-37ce-4293-9644-64436fde2b6i'}, id: '74992fc1-b2e3-4550-9c83-70bc7ebbd527', roles: [] },
+            { name: 'Name F', company: 'ACME Inc 6', country: {name: 'Paris 4', id: '209de553-37ce-4293-9644-64436fde2b6h'}, id: '5dcbb315-c0a6-44e8-8bb0-735fad053229', roles: [] }
           ]
         });
       })

@@ -732,24 +732,44 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
   },
   //
   [DemoKeys.TABLE_VIEWPORT_PERSISTENCE]: {
-    items$: store.select(DemoFeatureSelectors.all),
+    items$: of([
+      { name: 'name 1', company: 'company D' },
+      { name: 'name 2', company: 'company A' },
+      { name: 'name 2', company: 'company B' },
+      { name: 'name 2', company: 'company C' },
+      { name: 'name 3', company: 'company E' }
+    ]),
     code: () => {
-    return new SmzTableBuilder('entity')
-        .setTitle('Filter Persistence')
-        .enableClearFilters()
-        .enableColumnVisibility()
-        .enableGlobalFilter()
-        .useGridStyle()
-        .setSize('large')
-        .setCustomInitialSorting({ field: 'number', order: -1 })
-        .useStrippedStyle()
-        .setViewport({
-          globalFilter: 'name B',
-          columnVisibilityData: [{
-            key: 'name', isVisible: true
-          }]
-        })
-      .build()
+    return new SmzTableBuilder()
+      .setTitle('Filter Persistence')
+      .enableClearFilters()
+      .enableColumnVisibility()
+      .enableGlobalFilter()
+      .useGridStyle()
+      .setSize('large')
+      .setCustomInitialSorting({ field: 'number', order: -1 })
+      .useStrippedStyle()
+      .columns()
+        .text('name', 'Name', '40em')
+          .columns
+        .text('company', 'Company')
+          .columns
+        .table
+      .setViewport({"isEnabled":true,"filters":{"company":[{"value":"omp","matchMode":"contains","operator":"and"}],"name":[{"value":null,"matchMode":"startsWith","operator":"and"}],"global":{"value":"any C","matchMode":"contains"}},"visibility":[{"key":"name","isVisible":true},{"key":"company","isVisible":true}],"sort":{"mode":"single","field":"company","order":1}})
+      // .setViewport({
+      //   visibility: [
+      //     { key: 'name', isVisible: true },
+      //     { key: 'company', isVisible: true },
+      //   ],
+      //   sort: { field: 'name', mode: 'single', order: 1 },
+      //   filters: {
+      //     'global': { value: 'name 2', matchMode: 'contains' },
+      //     'company': [
+      //       { value: 'b', matchMode: 'endsWith', operator: 'and' }
+      //     ]
+      //   }
+      // })
+    .build();
     }
   },
 }

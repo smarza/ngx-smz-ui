@@ -12,7 +12,7 @@ import { convertFormFeature } from '../smz-dialogs/dialog-input-conversion';
 import { UiDefinitionsDbSelectors } from '../../state/database/ui-definitions/ui-definitions.selectors';
 import { SmzBatchMenuBuilder } from './batch-menu-builder';
 import { SmzEditableTableBuilder } from './editable-builder';
-import { Observable } from 'rxjs';
+import { Observable, filter } from 'rxjs';
 
 // SCROLL TRUE =>
 //   MIN-WIDTH PODE TER PX
@@ -181,9 +181,10 @@ export class SmzTableBuilder {
       resizableColumns: false,
       columnResizeMode: 'fit',
       state: {
-        globalFilter: '',
+        isEnabled: false,
         visibility: [],
-        sort: []
+        sort: null,
+        filters: {}
       }
     },
     rowExpansion: {
@@ -918,7 +919,20 @@ export class SmzTableBuilder {
   }
 
   public setViewport(state: SmzTableViewportState): SmzTableBuilder {
-    this._state.viewport.state = state;
+    this._state.viewport.state = { ...this._state.viewport.state, isEnabled: true, ...state };
+
+    if (state.visibility == null) {
+      throw Error('You need to provide an Array for Viewport visibility state.');
+    }
+
+    if (state.sort == null) {
+      throw Error('You need to provide an Array for Viewport sort state.');
+    }
+
+    if (this._state.sort?.mode === 'multiple') {
+      throw Error('Multisort is not supported in Viewport State.');
+    }
+
     return this;
   }
 

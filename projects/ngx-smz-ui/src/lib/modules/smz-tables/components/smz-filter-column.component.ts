@@ -1,6 +1,6 @@
 import { AfterContentInit, ChangeDetectorRef, Component, ContentChildren, ElementRef, Input, QueryList, Renderer2, TemplateRef, ViewChild } from '@angular/core';
 import { PrimeTemplate } from 'primeng/api';
-import { ColumnFilter } from 'primeng/table';
+import { ColumnFilter } from '../../prime/table/table';
 
 @Component({
   selector: 'smz-column-filter',
