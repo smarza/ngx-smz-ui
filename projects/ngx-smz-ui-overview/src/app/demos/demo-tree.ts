@@ -922,6 +922,13 @@ export const TreeDemoData: DemoTreeNode[] = [
         data: TablesDemo[DemoKeys.TABLE_EDITABLE_PARTIAL],
         key: DemoKeys.TABLE_EDITABLE_PARTIAL.toString()
       },
+      {
+        label: 'Filter Persistence', icon: 'fa-solid fa-code', type: 'Demo',
+        demoType: 'table',
+        notes: '',
+        data: TablesDemo[DemoKeys.TABLE_VIEWPORT_PERSISTENCE],
+        key: DemoKeys.TABLE_VIEWPORT_PERSISTENCE.toString()
+      },
     ]
   },
   {

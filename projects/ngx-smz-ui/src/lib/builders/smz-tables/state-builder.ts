@@ -2,7 +2,7 @@ import { Store } from '@ngxs/store';
 import { flatten, sortBy } from 'lodash-es';
 import { GlobalInjector } from '../../../lib/common/services/global-injector';
 import { SmzMenuItem } from '../../modules/smz-menu/models/smz-menu-item';
-import { SmzTableState } from '../../modules/smz-tables/models/table-state';
+import { SmzTableState, SmzTableViewportState } from '../../modules/smz-tables/models/table-state';
 import { StateBuilderFunctions } from './state-builder-functions';
 import { SmzColumnCollectionBuilder } from './column-builder';
 import { SmzMenuTableBuilder } from './menu-builder';
@@ -179,7 +179,12 @@ export class SmzTableBuilder {
       scrollHeight: null,
       scrollDirection: 'vertical',
       resizableColumns: false,
-      columnResizeMode: 'fit'
+      columnResizeMode: 'fit',
+      state: {
+        globalFilter: '',
+        visibility: [],
+        sort: []
+      }
     },
     rowExpansion: {
       isButtonVisible: false,
@@ -910,6 +915,11 @@ export class SmzTableBuilder {
 
   public columns(): SmzColumnCollectionBuilder {
     return new SmzColumnCollectionBuilder(this);
+  }
+
+  public setViewport(state: SmzTableViewportState): SmzTableBuilder {
+    this._state.viewport.state = state;
+    return this;
   }
 
   public build(): SmzTableState {

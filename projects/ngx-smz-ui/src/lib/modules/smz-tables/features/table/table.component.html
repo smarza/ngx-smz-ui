@@ -85,7 +85,7 @@
                     <button *ngIf="context.state.editable.creation.isButtonVisible" pButton [label]="context.state.editable.creation.buttonLabel" class="p-button-outlined" icon="fa-solid fa-plus" (click)="editableService.onRowCreateInit(dt, context.columns)" [disabled]="clonedData.showSkeleton || editableService.isEditing || editableService.isCreating || context.state.editable.creation.isButtonDisabled"></button>
                     <span *ngIf="context.state.caption.globalFilter.isVisible" class="p-input-icon-left col-12" [ngClass]="{ 'md:col-2': !context.state.caption.globalFilter.expanded }">
                         <i class="pi pi-search"></i>
-                        <input #inputGlobal [(ngModel)]="globalSearchInput"pInputText type="text" styleClass="database-global-search" (input)="dt.filterGlobal(inputGlobal.value, 'contains')"  [disabled]="clonedData.showSkeleton" [placeholder]="context.state.locale.globalFilter.placeholder" />
+                        <input #inputGlobal [(ngModel)]="context.state.viewport.state.globalFilter" pInputText type="text" styleClass="database-global-search" (input)="updateGlobalFilter(inputGlobal.value)"  [disabled]="clonedData.showSkeleton" [placeholder]="context.state.locale.globalFilter.placeholder" />
                     </span>
                 </div>
 

@@ -311,6 +311,10 @@ export interface SmzTableState {
   */
   viewport?: {
     /**
+    * WIP: model to save filters and sort states
+    */
+    state?: SmzTableViewportState;
+    /**
     * when specifies, enables horizontal and/or vertical scrolling.
     */
     scrollable: boolean;
@@ -523,4 +527,10 @@ export interface SmzTableContext {
   frozenColumns: SmzTableContextColumn[];
   state: SmzTableState;
   globalFilter: string[];
+}
+
+export interface SmzTableViewportState {
+  globalFilter: string;
+  visibility: { key: string, isVisible: boolean }[]
+  sort: { key: string }[]
 }

@@ -730,4 +730,26 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
       .build()
     }
   },
+  //
+  [DemoKeys.TABLE_VIEWPORT_PERSISTENCE]: {
+    items$: store.select(DemoFeatureSelectors.all),
+    code: () => {
+    return new SmzTableBuilder('entity')
+        .setTitle('Filter Persistence')
+        .enableClearFilters()
+        .enableColumnVisibility()
+        .enableGlobalFilter()
+        .useGridStyle()
+        .setSize('large')
+        .setCustomInitialSorting({ field: 'number', order: -1 })
+        .useStrippedStyle()
+        .setViewport({
+          globalFilter: 'name B',
+          columnVisibilityData: [{
+            key: 'name', isVisible: true
+          }]
+        })
+      .build()
+    }
+  },
 }

@@ -1,9 +1,9 @@
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewChild, OnDestroy, inject, DEFAULT_CURRENCY_CODE, Inject, LOCALE_ID } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewChild, OnDestroy, inject, DEFAULT_CURRENCY_CODE, Inject, LOCALE_ID, AfterViewInit } from '@angular/core';
 import { PrimeTemplate } from 'primeng/api';
-import { SmzContentType, SmzDataTransform, SmzExportableContentSource, SmzExportableContentType } from '../../models/content-types';
+import { SmzContentType, SmzExportableContentType } from '../../models/content-types';
 import { SmzFilterType } from '../../models/filter-types';
 import { SmzTableState, SmzTableContext } from '../../models/table-state';
-import { SmzTableColumn, SmzTableContextColumn } from '../../models/table-column';
+import { SmzTableColumn } from '../../models/table-column';
 import { SmzEditableType } from '../../models/editable-types';
 import { TableEditableService } from '../../services/table-editable.service';
 import { TableFormsService } from '../../services/table-forms.service';
@@ -24,6 +24,7 @@ import { ObjectUtils } from 'primeng/utils';
 import { SmzLayoutsConfig } from '../../../smz-layouts/core/globals/smz-layouts.config';
 import { isBoolean } from 'lodash-es';
 import { ApplicationActions } from '../../../../state/global/application/application.actions';
+import { isEmpty } from '../../../../builders/common/utils';
 
 @Component({
   selector: 'smz-ui-table',
@@ -31,10 +32,10 @@ import { ApplicationActions } from '../../../../state/global/application/applica
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [TableEditableService, TableFormsService]
 })
-export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, OnDestroy {
+export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentInit, OnChanges, OnDestroy {
   public tableKey = uuidv4();
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
-  @ViewChild(Table) public table: Table;
+  @ViewChild('dt') public table: Table;
   @ViewChild('columnMultiselect') public columnMultiselect: any;
   @Input() public state: SmzTableState;
   @Input() public items: any[] = [];
@@ -105,6 +106,10 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
     this.cdr.markForCheck();
   }
 
+  public updateGlobalFilter(value: string): void {
+    this.table.filterGlobal(value, 'contains');
+  }
+
   public updateColumnsVisibility(): void {
     this.state.columns.forEach(x => {
       x.isVisible = this.selectedColumns?.findIndex(c => c.field === x.field) !== -1;
@@ -137,13 +142,68 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
     }
   }
 
+  public ngAfterViewInit(): void
+  {
+    console.log('ngAfterViewInit');
+    console.log('state?.viewport?.state', this.state?.viewport?.state);
+    console.log('state', this.state);
+    console.log('table', this.table);
+
+    if (this.state?.viewport?.state != null) {
+      // Executar atualização da viewport com dados default de pesquisa global, filtros de coluna e ordenação
+      this.initViewportPersistence();
+    }
+
+    // Popular a variavel contendo as colunas visiveis
+    this.populateColumnVisibility(this.state);
+
+    // Atualizar o isVisible nas colunas do state
+    this.updateColumnsVisibility();
+
+    this.cdr.markForCheck();
+
+  }
+
+  public initViewportPersistence(): void {
+    console.log('======= initViewportPersistence()');
+
+    const state = this.state.viewport.state;
+
+    // Global Filter
+    if (!isEmpty(state.globalFilter)) {
+      console.log('>> globalfilter found');
+      this.table.filterGlobal(state.globalFilter, 'contains');
+    }
+
+    // Column Visibility
+    this.state.columns.forEach(column => {
+      const visibilityData = state.visibility.find(x => x.key === column.field) ?? { key: column.field, isVisible: false };
+      column.isVisible = visibilityData.isVisible;
+    });
+
+    // Sort State
+    state.sort.forEach(column => {
+      this.table.sort({
+        originalEvent: event,
+        field: column.key
+    });
+    });
+
+
+  }
+
   public ngOnChanges(changes: SimpleChanges): void {
 
     if (changes.state != null) {
 
+      console.log('ngOnChanges state != null');
+
       const newState: SmzTableState = changes.state.currentValue;
 
       if (newState != null) {
+
+        console.log('ngOnChanges newState');
+
         if (!newState.caption?.rowSelection?.isButtonVisible) {
           this.selectedItems = [];
         }
@@ -151,12 +211,13 @@ export class SmzTableComponent implements OnInit, AfterContentInit, OnChanges, O
         // Se estiver com a validação desligada, considerar tabela como válida
         this.state.isValid = newState.caption.rowSelection.validationMode === 'none';
 
-        this.populateColumnVisibility(newState);
+        // this.populateColumnVisibility(newState);
 
         this.editableService.state = this.state;
         this.formsService.state = this.state;
 
         this.editableService.setupAccess();
+
       }
       else {
         this.selectedItems = [];
