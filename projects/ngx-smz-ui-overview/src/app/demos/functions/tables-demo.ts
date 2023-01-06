@@ -396,24 +396,25 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
   },
   //
   [DemoKeys.TABLE_AUTO_SIZED_COLUMNS]: {
-    items$: null,
+    items$: of(LARGE_TABLE_DATA),
     code: () => {
     return new SmzTableBuilder()
         .setTitle('Auto Sized Columns with Large Data')
         .enableGlobalFilter()
-        .setLocale('en-US')
         .enableClearFilters()
+        .setEmptyFeedbackMessage('Nenhuma inconsistência encontrada')
+        .setEmptyFeedbackImage('assets/images/server-checkmark.svg')
+        .enableColumnVisibility(true)
         .usePagination()
-        .setEmptyFeedbackMessage('Sem Resultados')
-        .setEmptyFeedbackImage('assets/images/tables/empty-dark.svg')
-        .enableColumnVisibility(false)
-        .setPaginationDefaultRows(25)
-        .setPaginationPageOptions([10, 25, 50, 100, 200])
-        .useEstimatedColWidth()
+        .setPaginationPageOptions([10, 15, 25, 100, 200])
+        .setPaginationDefaultRows(10)
+        .useEstimatedColWidth(400)
         .useGridStyle()
+        .setSize('small')
         .useStrippedStyle()
         .disableRowHoverEffect()
-        .enableExportToExcel()
+        .excel()
+          .excel
         .menu()
           .item('Consultar')
             .setCallback((event: any) => console.log('---'))
@@ -422,7 +423,7 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
         .columns()
           .text('tag', 'tag', 'auto').columns
           .text('plant', 'plant', 'auto').columns
-          .text('area', 'area', 'auto').columns
+          .text('area', 'area', 'auto').hide().columns
           .text('unit', 'unit', 'auto').columns
           .text('status.name', 'status', 'auto').columns
           .text('service', 'service', 'auto').columns
@@ -435,6 +436,9 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
           .text('card', 'card', 'auto').columns
           .text('channel', 'channel', 'auto').columns
           .table
+        .resizeIgnoringCheck(
+            { property: 'plant', width: '12em'},
+          )
       .build()
   }
   },
@@ -514,7 +518,8 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
       .setPaginationDefaultRows(2)
       .setCustomInitialSorting({ field: 'number', order: -1 })
       .useStrippedStyle()
-      .enableExportToExcel()
+      .excel()
+        .excel
       .columns()
         .dataTransform('isActive', 'Atividade', (data, row) => data ? 'Sim' : 'Não')
           .exportAs(SmzExportableContentType.BOOLEAN)

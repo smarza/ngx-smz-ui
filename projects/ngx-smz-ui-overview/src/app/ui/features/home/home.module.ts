@@ -29,6 +29,7 @@ import { FrontCardComponent } from '../../components/cards/front-card.component'
 import { BackCardComponent } from '../../components/cards/back-card.component';
 import { ComplexityFrontCardComponent } from '../../components/complexity/complexity-front-card.component';
 import { ComplexityBackCardComponent } from '../../components/complexity/complexity-back-card.component';
+import { ResultsTableModule } from '../../components/results-table/results-table.module';
 
 const data: SmzRouteData = {
   layout: {
@@ -94,7 +95,8 @@ const routes: Routes = [
     BackCardComponent,
     ComplexityFrontCardComponent,
     ComplexityBackCardComponent,
-    NgxSmzUiGuidesModule
+    NgxSmzUiGuidesModule,
+    ResultsTableModule
   ],
   providers: [],
   bootstrap: [HomeComponent]

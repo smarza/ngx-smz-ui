@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { LARGE_TABLE_DATA } from '@demos/data/large-table';
 import { DemoItem, DemoTreeNode } from '@models/demo';
 import { SmzTableComponent, SmzTableState } from 'ngx-smz-ui';
 import { Observable } from 'rxjs';
@@ -7,7 +8,7 @@ import { Observable } from 'rxjs';
   selector: 'app-demo-table',
   template: `
   <button pButton label="Extract Viewport" (click)="getViewport()" class="p-button-ghost"></button>
-<smz-ui-table table *ngIf="state != null" [items]="items$ | async" [state]="state">
+<smz-ui-table table [items]="items" [state]="state">
   <ng-template pTemplate="rowContent" let-item>
     <div class="grid grid-nogutter justify-start items-start">
       <div>Row Expanded</div>
@@ -34,10 +35,10 @@ export class DemoTableComponent implements OnInit, OnChanges {
   @ViewChild(SmzTableComponent) public table: SmzTableComponent;
   @Input() public node: DemoTreeNode
   public items$: Observable<DemoItem[]>;
-
+  public items = LARGE_TABLE_DATA;
   public state: SmzTableState;
 
-  constructor() { }
+  constructor(private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.updateData(this.node);
@@ -52,8 +53,13 @@ export class DemoTableComponent implements OnInit, OnChanges {
 
   updateData(node: any): void {
     const event = node.data;
-    this.state = event.code();
     this.items$ = event.items$;
+    this.state = event.code();
+
+    // setTimeout(() => {
+    //   this.state = event.code();
+    //   this.cdr.markForCheck();
+    // }, 3000);
   }
 
   public getViewport(): void {

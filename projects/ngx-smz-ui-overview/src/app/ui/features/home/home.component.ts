@@ -2,12 +2,16 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { TreeDemoData } from '@demos/demo-tree';
 import { DemoTreeNode } from '@models/demo';
 import { Select, Store } from '@ngxs/store';
-import { isArray, routerParamsListener, SmzTreeBuilder, SmzTreeState, SmzUiBlockService, sortArray } from 'ngx-smz-ui';
+import { isArray, routerParamsListener, SmzDialogBuilder, SmzDialogsService, SmzTableBuilder, SmzTreeBuilder, SmzTreeState, SmzUiBlockService, sortArray } from 'ngx-smz-ui';
 import { ActivatedRoute } from '@angular/router';
 import { DemoFeatureSelectors } from '@states/demo/demo.selectors';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { DemoFeatureActions } from '@states/demo/demo.actions';
 import { HOME_PATH } from '@routes';
+import { DemoTableComponent } from './components/demo-table/demo-table.component';
+import { LARGE_TABLE_DATA } from '@demos/data/large-table';
+import { tableData } from '../../components/results-table/data';
+import { ResultsTableComponent } from '@components/results-table/results-table.component';
 
 @Component({
   selector: 'app-home',
@@ -37,7 +41,7 @@ export class HomeComponent implements OnInit
   //     }
   // })] }) public key$: Observable<any>;
 
-  constructor(private store: Store, private route: ActivatedRoute, public uiBlockService: SmzUiBlockService, private cdf: ChangeDetectorRef)
+  constructor(private store: Store, private route: ActivatedRoute, public uiBlockService: SmzUiBlockService, private cdf: ChangeDetectorRef, private dialogs: SmzDialogsService)
   {
 
     this.store.dispatch(new DemoFeatureActions.LoadAll());
@@ -72,6 +76,27 @@ export class HomeComponent implements OnInit
 
   public ngOnInit(): void {
 
+  }
+
+  public buildDialog(): void {
+
+    this.dialogs.open(new SmzDialogBuilder<void>()
+      .setTitle('title')
+      .allowMaximize()
+      .openMaximized()
+      .hideFooter()
+      .closeOnEscape()
+      .component(ResultsTableComponent)
+        .addInput('results', tableData )
+        .addInput('itemsPerRow', 15)
+        .addInput('title', 'title')
+        .addInput('filename', 'filename')
+      .dialog
+      .buttons()
+        .cancel().hide().buttons
+        .confirm().hide().buttons
+        .dialog
+      .build());
   }
 
   public onSelectedNodes(nodes: DemoTreeNode[]): void {

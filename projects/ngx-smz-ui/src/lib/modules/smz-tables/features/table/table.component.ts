@@ -22,10 +22,8 @@ import { AuthenticationSelectors } from '../../../../state/global/authentication
 import { SmzExcelFontDefinitions, SmzExcelThemeDefinitions } from '../../../smz-excels/models/smz-excel-definitions';
 import { ObjectUtils } from 'primeng/utils';
 import { SmzLayoutsConfig } from '../../../smz-layouts/core/globals/smz-layouts.config';
-import { isBoolean, keyBy } from 'lodash-es';
+import { isBoolean } from 'lodash-es';
 import { ApplicationActions } from '../../../../state/global/application/application.actions';
-import { isEmpty } from '../../../../builders/common/utils';
-import { filter } from 'rxjs';
 
 @Component({
   selector: 'smz-ui-table',
@@ -57,7 +55,7 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
   public emptyStateTemplate: TemplateRef<any>;
   public rowContentTemplate: TemplateRef<any>;
   public selectedItems: any[];
-  public selectedColumns: SmzTableColumn[];
+  public selectedColumns: SmzTableColumn[] = [];
   public showSkeleton = false;
   public documentClickListener = null;
   private isViewInit = false;
@@ -100,6 +98,11 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
     this.editableService.deleteEvent = this.delete;
   }
 
+  public getTest(test: any[]) {
+    console.log('getTest', cloneDeep(test));
+    return '1111';
+  }
+
   public ngOnInit(): void {
   }
 
@@ -135,9 +138,7 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
 
     context.visibleColumns = context.visibleColumns.filter(x => x.field !== column.field);
 
-    if (this.selectedColumns != null) {
-      this.selectedColumns = this.selectedColumns.filter(x => x.field !== column.field);
-    }
+    this.selectedColumns = this.selectedColumns.filter(x => x.field !== column.field);
   }
 
   public ngAfterViewInit(): void
@@ -146,24 +147,31 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
   }
 
   public initializeState(): void {
-    if (this.state?.viewport?.state != null) {
-      // Executar atualização da viewport com dados default de pesquisa global, filtros de coluna e ordenação
-      this.initViewportPersistence();
+
+    if (this.state == null) {
+      return ;
     }
 
-    // Popular a variavel contendo as colunas visiveis
-    this.populateColumnVisibility(this.state);
+    setTimeout(() => {
+      if (this.state.viewport?.state != null) {
+        // Executar atualização da viewport com dados default de pesquisa global, filtros de coluna e ordenação
+        this.initViewportPersistence();
+      }
 
-    // Atualizar o isVisible nas colunas do state
-    this.updateColumnsVisibility();
+      // Popular a variavel contendo as colunas visiveis
+      this.populateColumnVisibility(this.state);
 
-    this.editableService.state = this.state;
-    this.formsService.state = this.state;
+      // Atualizar o isVisible nas colunas do state
+      this.updateColumnsVisibility();
 
-    this.editableService.setupAccess();
+      this.editableService.state = this.state;
+      this.formsService.state = this.state;
 
-    this.isViewInit = true;
-    this.cdr.markForCheck();
+      this.editableService.setupAccess();
+
+      this.isViewInit = true;
+      this.cdr.markForCheck();
+    }, 0);
   }
 
   public extractViewportState(): SmzTableViewportState {
