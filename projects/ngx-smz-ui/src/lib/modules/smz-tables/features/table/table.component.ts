@@ -9,7 +9,7 @@ import { TableEditableService } from '../../services/table-editable.service';
 import { TableFormsService } from '../../services/table-forms.service';
 import { Table } from '../../../prime/table/table';
 import { SmzDialogsConfig } from '../../../smz-dialogs/smz-dialogs.config';
-import { uuidv4 } from '../../../../common/utils/utils';
+import { shorten, uuidv4 } from '../../../../common/utils/utils';
 import { TableHelperService } from '../../services/table-helper.service';
 import { SmzExportableColumn, SmzExportDialogData } from '../../../smz-export-dialog/smz-export-dialog.model';
 import cloneDeep from 'lodash-es/cloneDeep';
@@ -363,10 +363,14 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
 
       const visibleItems = table.filteredValue?.length > 0 ? table.filteredValue : items;
       const plainItems = cloneDeep(visibleItems).map((item, index) => (this.getExportableData(columns, item, index)));
+      const excel = context.state.caption.exportToExcel;
+      const filename = shorten(excel.filename, excel.maxFilenameLength, excel.maxFilenameShortenSuffix);
 
       const data: SmzExcelState = new SmzExcelsBuilder()
-        .setFilename(this.state.caption.title ?? '')
-        .setAuthor(username)
+        .setFilename(filename)
+        .if(excel.includeUserAsAuthor)
+          .setAuthor(username)
+          .endIf
         .if(this.state.isDebug)
           .debugMode()
           .endIf
@@ -376,13 +380,13 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
         .if(this.layoutConfig.footer?.leftSideText != null)
           .setComments(this.layoutConfig.footer?.leftSideText)
           .endIf
-        .if(context.state.caption.exportToExcel?.globalDateFormat != null)
-          .setGlobalDateFormat(context.state.caption.exportToExcel?.globalDateFormat)
+        .if(excel?.globalDateFormat != null)
+          .setGlobalDateFormat(excel?.globalDateFormat)
           .endIf
-        .if(context.state.caption.exportToExcel?.globalNewLineSeparator != null)
-          .setGlobalNewLineSeparator(context.state.caption.exportToExcel?.globalNewLineSeparator)
+        .if(excel?.globalNewLineSeparator != null)
+          .setGlobalNewLineSeparator(excel?.globalNewLineSeparator)
           .endIf
-        .if(context.state.caption.exportToExcel?.exportHyperLinkAsHtml)
+        .if(excel?.exportHyperLinkAsHtml)
           .setGlobalHyperlinkAsHtml()
           .endIf
         .sheet(this.state.caption.title)

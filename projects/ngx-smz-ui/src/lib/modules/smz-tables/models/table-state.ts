@@ -225,6 +225,10 @@ export interface SmzTableState {
       exportHyperLinkAsHtml?: boolean;
       globalDateFormat?: string;
       globalNewLineSeparator?: string;
+      filename?: string;
+      maxFilenameLength?: number;
+      maxFilenameShortenSuffix?: string;
+      includeUserAsAuthor?: boolean;
     }
     /**
      * Allows the end user to manually clear table filters

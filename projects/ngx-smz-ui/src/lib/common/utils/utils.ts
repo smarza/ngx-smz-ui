@@ -505,3 +505,22 @@ else if (element.children != null)
 
 return null;
 }
+
+export function shorten(text: any, length: number = 0, suffix: string = '', wordBreak: boolean = true): string {
+    if (!isString(text)) {
+      return text;
+    }
+
+    if (text.length > length) {
+      if (wordBreak) {
+        return text.slice(0, length) + suffix;
+      }
+
+      // tslint:disable-next-line:no-bitwise
+      if (!!~text.indexOf(' ', length)) {
+        return text.slice(0, text.indexOf(' ', length)) + suffix;
+      }
+    }
+
+    return text;
+  }

@@ -13,6 +13,7 @@ import { UiDefinitionsDbSelectors } from '../../state/database/ui-definitions/ui
 import { SmzBatchMenuBuilder } from './batch-menu-builder';
 import { SmzEditableTableBuilder } from './editable-builder';
 import { Observable, filter } from 'rxjs';
+import { SmzTableExcelBuilder } from './excel-builder';
 
 // SCROLL TRUE =>
 //   MIN-WIDTH PODE TER PX
@@ -106,7 +107,11 @@ export class SmzTableBuilder {
       exportToExcel: {
         isButtonVisible: false,
         exportHyperLinkAsHtml: false,
-        globalDateFormat: null
+        globalDateFormat: null,
+        filename: '',
+        maxFilenameLength: 100,
+        maxFilenameShortenSuffix: '(...)',
+        includeUserAsAuthor: false
       },
       clearFilters: {
         callback: null,
@@ -351,38 +356,6 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public enableExportToExcel(): SmzTableBuilder {
-    this._state.caption.isVisible = true;
-    this._state.caption.exportToExcel.isButtonVisible = true;
-    return this;
-  }
-
-  public useExportedHyperlinkAsHtml(): SmzTableBuilder {
-    if (!this._state.caption.exportToExcel.isButtonVisible) {
-      throw Error('You need to call \'enableExportToExcel\' before');
-    }
-
-    this._state.caption.exportToExcel.exportHyperLinkAsHtml = true;
-    return this;
-  }
-
-  public setExportedDateFormat(format: string): SmzTableBuilder {
-    if (!this._state.caption.exportToExcel.isButtonVisible) {
-      throw Error('You need to call \'enableExportToExcel\' before');
-    }
-
-    this._state.caption.exportToExcel.globalDateFormat = format;
-    return this;
-  }
-
-  public setExportedNewLineSeparator(separator: string): SmzTableBuilder {
-    if (!this._state.caption.exportToExcel.isButtonVisible) {
-      throw Error('You need to call \'enableExportToExcel\' before');
-    }
-
-    this._state.caption.exportToExcel.globalNewLineSeparator = separator;
-    return this;
-  }
 
   public setClearFilterCallback(callback: () => void): SmzTableBuilder {
     if (!this._state.caption.clearFilters.isButtonVisible) {
@@ -934,6 +907,10 @@ export class SmzTableBuilder {
     }
 
     return this;
+  }
+
+  public excel(): SmzTableExcelBuilder {
+    return new SmzTableExcelBuilder(this);
   }
 
   public build(): SmzTableState {
