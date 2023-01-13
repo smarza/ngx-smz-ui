@@ -8,7 +8,7 @@
 
       <div class="h-full">
           <ng-container *ngVar="items | treeItems : state as treeItems">
-            <smz-ui-tree [items]="treeItems" [state]="state.tree.state" (selectionChange)="selectionChanged($event)" [styleClass]="state.tree.styleClass">
+            <smz-ui-tree #treeComponent [items]="treeItems" [state]="state.tree.state" (selectionChange)="selectionChanged($event)" [styleClass]="state.tree.styleClass">
 
               <ng-container *ngIf="headerTemplate != null">
                 <ng-template pTemplate="header">

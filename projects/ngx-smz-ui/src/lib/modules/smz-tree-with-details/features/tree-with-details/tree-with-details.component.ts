@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, TemplateRef, AfterContentInit, ContentChildren, QueryList, ViewEncapsulation, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, TemplateRef, AfterContentInit, ContentChildren, QueryList, ViewEncapsulation, Output, EventEmitter, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { PrimeTemplate, TreeNode } from 'primeng/api';
+import { SmzTreeComponent } from '../../../smz-trees/features/tree/tree.component';
 import { SmzTreeNode } from '../../../smz-trees/models/tree-node';
 import { SmzTreeWithDetailsState } from '../../models/tree-with-details-state';
 
@@ -11,6 +12,7 @@ import { SmzTreeWithDetailsState } from '../../models/tree-with-details-state';
   host: { class: 'absolute inset-0' },
 })
 export class SmzTreeWithDetailsComponent implements OnInit, AfterContentInit, OnChanges {
+  @ViewChild(SmzTreeComponent) public treeComponent: SmzTreeComponent;
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
   @Input() public state: SmzTreeWithDetailsState;
   @Output() public selectionChange = new EventEmitter<SmzTreeNode>();
@@ -29,6 +31,12 @@ export class SmzTreeWithDetailsComponent implements OnInit, AfterContentInit, On
 
   public ngOnChanges(changes: SimpleChanges): void {
 
+  }
+
+  public resetSelection(): void {
+    this.state.context.selectedNode = null;
+    this.treeComponent.primeSelection = [];
+    this.cdr.markForCheck();
   }
 
   public ngAfterContentInit() {
