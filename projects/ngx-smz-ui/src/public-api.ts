@@ -38,6 +38,8 @@ export * from './lib/modules/smz-svg/public-api';
 export * from './lib/common/input-detection/input-detection.module';
 export * from './lib/common/input-detection/input-detection.directive';
 
+export * from './lib/common/directives/input-text/input-text.directive';
+
 export { NgxSmzDataPipesModule } from './lib/common/data-pipes/data-pipes.module';
 export { ClonePipe } from './lib/common/data-pipes/pipes/clone.pipe';
 export { SafeHtmlPipe } from './lib/common/data-pipes/pipes/safe-html.pipe';
@@ -91,6 +93,7 @@ export * from './lib/common/models/templates';
 export * from './lib/common/utils/utils';
 export * from './lib/common/utils/pretty-json';
 export * from './lib/common/utils/base64-helper';
+export * from './lib/common/utils/search-helper';
 
 export * from './lib/common/pipes/templates.pipe';
 

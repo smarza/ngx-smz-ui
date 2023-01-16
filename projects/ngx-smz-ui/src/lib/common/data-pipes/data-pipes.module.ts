@@ -33,7 +33,7 @@ import { AsPipe } from './pipes/as.pipe';
         StateBuilderPipe,
         ServerPathPipe,
         SimpleCalendarPipe,
-        AsPipe
+        AsPipe,
     ],
     exports: [
         ClonePipe,
@@ -49,7 +49,7 @@ import { AsPipe } from './pipes/as.pipe';
         StateBuilderPipe,
         ServerPathPipe,
         SimpleCalendarPipe,
-        AsPipe
+        AsPipe,
     ],
 })
 export class NgxSmzDataPipesModule { }
