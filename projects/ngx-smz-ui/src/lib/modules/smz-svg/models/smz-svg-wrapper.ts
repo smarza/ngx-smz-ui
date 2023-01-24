@@ -1,5 +1,6 @@
 import { MouseButton } from '@svgdotjs/svg.panzoom.js';
 import { Container } from '@svgdotjs/svg.js';
+import { Point } from '@svgdotjs/svg.js';
 
 interface marginOptions {
   left: number
@@ -24,4 +25,9 @@ interface options {
 export interface SmzSVGWrapper extends Container {
   panZoom(options?: options | false): this
 
+}
+
+export interface SvgZoomEvent {
+  level: number,
+  focus: Point
 }

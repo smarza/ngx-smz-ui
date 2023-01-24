@@ -42,5 +42,9 @@ export class SmzSvgWorldCoordinates {
     this.yCompensation = (this.worldHeight - this.mapHeight) / 2;
   }
 
+  public getWorldWidth(): number {
+    return this.worldWidth;
+  }
+
 }
 
