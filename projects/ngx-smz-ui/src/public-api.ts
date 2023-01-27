@@ -94,6 +94,7 @@ export * from './lib/common/utils/utils';
 export * from './lib/common/utils/pretty-json';
 export * from './lib/common/utils/base64-helper';
 export * from './lib/common/utils/search-helper';
+export * from './lib/common/utils/deep-merge';
 
 export * from './lib/common/pipes/templates.pipe';
 

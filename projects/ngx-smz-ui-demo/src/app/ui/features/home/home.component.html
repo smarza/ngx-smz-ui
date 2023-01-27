@@ -26,3 +26,29 @@
     </ng-container>
   </div>
 </div>
+
+<div
+  [ngClass]="{ 'translate-x-[90%] opacity-60': isMinimized }"
+  class="absolute inset-y-6 right-6 p-0 transition ease-in-out sm:col-12 md:col-8 lg:col-4 xl:col-3">
+
+    <!-- CARD -->
+    <div class="relative w-full h-full max-w-full p-0 m-0 rounded-xl bg-surface-b shadow-2xl float-right">
+
+      <!-- SCROLLABLE AREA -->
+      <div class="relative w-full h-full p-0 overflow-y-auto rounded-xl">
+
+
+      </div>
+
+      <!-- MINIMIZE UI -->
+      <div *ngIf="!isMinimized" class="absolute top-0 right-0 p-6">
+        <button pButton type="button" icon="fas fa-angle-right" class="p-button-rounded p-button-text p-button-plain text-xl bg-gray-900/30" styleClass="p-button-lg" (click)="minimize()"></button>
+      </div>
+
+      <div *ngIf="isMinimized" class="absolute top-0 left-0 p-6">
+        <button pButton type="button" icon="fas fa-angle-left" class="p-button-rounded p-button-text p-button-plain text-xl bg-gray-900/90" styleClass="p-button-lg" (click)="restore()"></button>
+      </div>
+
+    </div>
+
+</div>

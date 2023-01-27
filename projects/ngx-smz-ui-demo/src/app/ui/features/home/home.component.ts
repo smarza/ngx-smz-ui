@@ -19,6 +19,7 @@ export class HomeComponent
   public groupA = [{ id: 1, name: 'bg-blue-500'}, { id: 2, name: 'bg-blue-500'}, { id: 3, name: 'bg-blue-500'}, { id: 4, name: 'bg-blue-500'}];
   public groupB = [{ id: 5, name: 'bg-green-500'}, { id: 6, name: 'bg-green-500'}, { id: 7, name: 'bg-green-500'}, { id: 8, name: 'bg-green-500'}];
   public current: SimpleEntity<number>;
+  public isMinimized = false;
   constructor()
   {
     this.imagePath = 'assets/logo.png';
@@ -55,6 +56,14 @@ export class HomeComponent
 
     this.groupA = this.groupA.filter(x => x.id != current.id)
     this.groupB = [...this.groupB, current];
+  }
+
+  public minimize(): void {
+    this.isMinimized = true;
+  }
+
+  public restore(): void {
+    this.isMinimized = false;
   }
 
 }

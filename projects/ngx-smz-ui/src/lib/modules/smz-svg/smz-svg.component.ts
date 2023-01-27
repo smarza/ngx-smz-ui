@@ -9,7 +9,7 @@ import { filter } from 'rxjs';
 import { isEmpty } from '../../builders/common/utils';
 import { Container, Element } from '@svgdotjs/svg.js';
 import { GetElementById } from './utils/smz-svg-helper';
-import { Wait } from '../../common/utils/utils';
+import { toDecimal, Wait } from '../../common/utils/utils';
 import { SmzSvgWorldCoordinates } from './models/world-coordinates';
 
 @Component({
@@ -141,6 +141,8 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
       });
 
     this.state.scope.current = scopes;
+
+    this.adjustPinScale2();
 
   }
 
@@ -410,20 +412,20 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
 
     let [startX, endX, startY, endY ] = [0, 0, 0, 0];
 
+    const mapElement = document.getElementById('smz-svg-container');
+    const mapElementBox = mapElement.getBoundingClientRect();
+
+    if (this.state.isDebug) {
+      console.log('------- SmzSvgWorldCoordinates');
+      console.log('state', this.state);
+      console.log('getElementById', mapElement);
+      console.log('getBoundingClientRect', mapElementBox);
+    }
+
+    this.worldCoordinates = new SmzSvgWorldCoordinates(mapElementBox.width, mapElementBox.height, this.state.worldCoordinates.rootWidth, this.state.worldCoordinates.rootHeight);
+
     if (this.state.worldCoordinates.enabled) {
-      const mapElement = document.getElementById('smz-svg-container');
-
-      const mapElementBox = mapElement.getBoundingClientRect();
-
-      if (this.state.isDebug) {
-        console.log('------- SmzSvgWorldCoordinates');
-        console.log('state', this.state);
-        console.log('getElementById', mapElement);
-        console.log('getBoundingClientRect', mapElementBox);
-      }
-
-      this.worldCoordinates = new SmzSvgWorldCoordinates(mapElementBox.width, mapElementBox.height, this.state.worldCoordinates.rootWidth, this.state.worldCoordinates.rootHeight);
-      this.worldCoordinates.setRefPoint(this.state.worldCoordinates.refPoints)
+      this.worldCoordinates.setRefPoint(this.state.worldCoordinates.refPoints);
     }
     else {
       [startX, endX, startY, endY ] = this.getRootContainer();
@@ -517,12 +519,13 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
     const WaitZoom = new Wait();
 
     this.draw.on('zoom', (event: any) => WaitZoom.throttle(() => {
-      // this.adjustPinScale1((event as any).detail.level);
-      const zoomEvent = event?.detail as SvgZoomEvent;
 
-      if (this.state.isDebug) {
-        console.log(`on zoomEvent`, zoomEvent);
-      }
+      // const zoomEvent = event?.detail as SvgZoomEvent;
+
+      // if (this.state.isDebug) {
+      //   console.log(`on zoomEvent`, zoomEvent);
+      // }
+
       this.adjustPinScale2();
     }, this.state.performance.zoomDebounce));
 
@@ -642,25 +645,45 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
 
   public adjustPinScale2(): void {
 
+
     // console.log(`adjustPinScale2 #####`, zoomLevel);
     const [startX, endX, startY, endY ] = this.getRootContainer();
 
     const viewbox = this.draw.viewbox();
+
+    if (viewbox.w === 0) {
+      if (this.state.isDebug) {
+        console.log(`**** Can't adjust pin scale because viewbox width is zero` );
+      }
+      return;
+    }
+
     const zoomLevel = this.worldCoordinates.getWorldWidth() / viewbox.w;
 
     if (this.state.isDebug) {
-      console.log(` ` );
-      console.log(`adjustPinScale2 #####` );
-      console.log(`adjustPinScale2`, startX, endX, startY, endY, zoomLevel );
+      console.log(`##############################################` );
+      // console.log(`adjustPinScale2 ##############################` );
+      // console.log(`adjustPinScale2`, startX, endX, startY, endY, zoomLevel );
 
-      console.log('-viewbox', viewbox);
-      console.log('-zoomLevel', zoomLevel);
-      console.log('-guess', zoomLevel);
+      // console.log('-viewbox', viewbox);
+      // console.log('-getWorldWidth', this.worldCoordinates.getWorldWidth());
+      // console.log('-viewbox.w', viewbox.w);
+      // console.log('-zoomLevel', zoomLevel);
     }
+
+    // const percentage = Math.min(Math.max(((zoomLevel - this.state.panZoom.zoomMin) / (this.state.panZoom.zoomMax - this.state.panZoom.zoomMin)), 0), 1);
+    const pinScalePercentage = (viewbox.w) / this.worldCoordinates.getWorldWidth();
+    const zoomPercentage = 1 - pinScalePercentage;
+
+    console.log(`##############################################` );
+    // console.log('World Width', this.worldCoordinates.getWorldWidth());
+    // console.log('Viewbox Width', viewbox.w);
+    // console.log(`World Width [0, ${ toDecimal(this.worldCoordinates.getWorldWidth(), 2) }] ${ toDecimal(viewbox.w, 2) } (Zoom ${ toDecimal(zoomPercentage * 100, 2) }%)`);
+    console.log(`Zoom (${ toDecimal(zoomPercentage * 100, 2) }%)`);
 
     this.state.features
       .filter(x => x.adaptative.enabled)
-      .forEach(pin => {
+      .forEach((pin, i) => {
 
         const element = pin._element;
 
@@ -668,40 +691,50 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
         // 40 - MIN
         // 20 - X
 
-        const percentage = (zoomLevel - this.state.panZoom.zoomMin)/(this.state.panZoom.zoomMax - this.state.panZoom.zoomMin);
-        const newSize = pin.adaptative.maxWidth - (((pin.adaptative.maxWidth - pin.adaptative.minWidth) * percentage));
+        const newSize = pin.adaptative.minWidth - (((pin.adaptative.minWidth - pin.adaptative.maxWidth) * pinScalePercentage));
 
-        // if (this.state.isDebug) {
-        //   console.log(`pin`, pin);
-        //   console.log(`percentage`, percentage);
-        //   console.log(`newSize`, newSize);
-        // }
+        if (this.state.isDebug) {
+          // console.log(`pin`, pin);
+          // console.log(`zoomLevel`, zoomLevel);
+          // console.log(`zoomMin`, this.state.panZoom.zoomMin);
+          // console.log(`zoomMax`, this.state.panZoom.zoomMax);
+          // console.log(`(zoomLevel - this.state.panZoom.zoomMin)`, (zoomLevel - this.state.panZoom.zoomMin));
+          // console.log(`(this.state.panZoom.zoomMax - this.state.panZoom.zoomMin)`, (this.state.panZoom.zoomMax - this.state.panZoom.zoomMin));
+        }
 
-        element.size(newSize);
+        console.log(` > Pins [${ pin.adaptative.minWidth}, ${ pin.adaptative.maxWidth }] ${ toDecimal(newSize, 2) } (${ toDecimal((pinScalePercentage ) * 100, 2) }%)`);
+
+        let [ centerX, centerY ] = [ pin.position.x, pin.position.y ];
 
         switch (pin.anchor) {
           case 'root':
-            element.center(startX + pin.position.x, startY + pin.position.y);
+            centerX = startX + pin.position.x;
+            centerY = startY + pin.position.y;
             break;
 
           case 'container':
-            element.center(pin.position.x, pin.position.y);
+            centerX = pin.position.x;
+            centerY = pin.position.y;
             break;
 
           case 'world':
             const worldPosition = this.worldCoordinates.convert(pin.position.x, pin.position.y);
-
-            // if (this.state.isDebug) {
-            //   console.log(`------- Anchor World for pin ${pin.id}`);
-            //   console.log('worldCoordinates', this.worldCoordinates);
-            //   console.log('worldPosition', worldPosition);
-            //   console.log(`------- end pin`);
-            // }
-
-            element.center(worldPosition.x, worldPosition.y);
+            centerX = worldPosition.x;
+            centerY = worldPosition.y;
             break;
+
+            default:
+              if (this.state.isDebug) {
+                console.log(`**** Can't resize because pin anchor is a unkown type.` );
+              }
+              break;
         }
 
+        element
+          // .animate(this.state.performance.animationTime)
+          .width(newSize)
+          .height(newSize)
+          .center(centerX, centerY);
       });
   }
 
