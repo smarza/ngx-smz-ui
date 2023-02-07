@@ -84,7 +84,8 @@ export class SmzTableContextPipe implements PipeTransform {
             icon: 'fa-solid fa-bars',
             buttonClass: '',
             styleClass: ''
-          }
+          },
+          behavior: 'overlay'
         },
         batchActions: {
           isVisible: false,

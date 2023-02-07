@@ -44,7 +44,8 @@ export class SmzTableBuilder {
           icon: 'pi pi-bars',
           styleClass: '',
           buttonClass: ''
-        }
+        },
+        behavior: 'overlay'
       },
       batchActions: {
         isVisible: false,
@@ -785,6 +786,7 @@ export class SmzTableBuilder {
       case 'large':
         this._state.actions.customActions.columnWidth += 70;
         break;
+
       default:
         break;
     }
@@ -934,12 +936,24 @@ export class SmzTableBuilder {
 
     const customWidth = this._state.actions.customActions.columnWidth;
 
-    // Ajuste de largura da coluna de botões editáveis
-    this._state.editable.ngStyle = applyTableContentNgStyle(this._state, customWidth, null);
+    if (this._state.actions.menu.behavior === 'inline') {
+      // Configurar a coluna de actions para automática para comportar o tamanho dos botões em linha
 
-    // Ajuste de largura da coluna de botões customizáveis
-    this._state.actions.customActions.ngStyle = applyTableContentNgStyle(this._state, customWidth, null);
-    this._state.actions.batchActions.ngStyle = applyTableContentNgStyle(this._state, customWidth, null);
+      // Ajuste de largura da coluna de botões customizáveis
+      this._state.actions.customActions.ngStyle = applyTableContentNgStyle(this._state, null, 'auto');
+      this._state.actions.batchActions.ngStyle = applyTableContentNgStyle(this._state, null, 'auto');
+
+      // Ajuste de largura da coluna de botões editáveis
+      this._state.editable.ngStyle = applyTableContentNgStyle(this._state, null, 'auto');
+    }
+    else if (this._state.actions.menu.behavior === 'overlay') {
+      // Configurar a coluna de actions para ocupar o espaço do botão toggle do menu
+      this._state.actions.customActions.ngStyle = applyTableContentNgStyle(this._state, customWidth, null);
+      this._state.actions.batchActions.ngStyle = applyTableContentNgStyle(this._state, customWidth, null);
+
+      // Ajuste de largura da coluna de botões editáveis
+      this._state.editable.ngStyle = applyTableContentNgStyle(this._state, customWidth, null);
+    }
 
     // Ajuste de largura da coluna do botão expansor de linhas
     const expansionWidth = this._state.rowExpansion.columnWidth;

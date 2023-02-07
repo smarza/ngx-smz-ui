@@ -9,7 +9,7 @@ export class SmzMenuTableBuilder extends SmzBuilderUtilities<SmzMenuTableBuilder
     super();
   }
 
-  public item(label: string, icon: string = null, tooltip: string = null): SmzMenuItemTableBuilder {
+  public item(label: string = null, icon: string = null, tooltip: string = null): SmzMenuItemTableBuilder {
     this._tableBuilder._state.actions.menu.isVisible = true;
     const item: SmzMenuItem = { label, icon, tooltip, transforms: [], visible: true, disabled: false };
     this._tableBuilder._state.actions.menu.items.push(item);
@@ -18,6 +18,11 @@ export class SmzMenuTableBuilder extends SmzBuilderUtilities<SmzMenuTableBuilder
 
   public separator(): SmzMenuTableBuilder {
     this._tableBuilder._state.actions.menu.items.push({ separator: true });
+    return this;
+  }
+
+  public useInline(): SmzMenuTableBuilder {
+    this._tableBuilder._state.actions.menu.behavior = 'inline';
     return this;
   }
 
@@ -98,6 +103,16 @@ export class SmzMenuItemTableBuilder {
       message,
       isCritical: true
     };
+    return this;
+  }
+
+  public setIcon(icon: string): SmzMenuItemTableBuilder {
+    this._item.icon = icon;
+    return this;
+  }
+
+  public setStyles(styleClass: string): SmzMenuItemTableBuilder {
+    this._item.styleClass = styleClass;
     return this;
   }
 

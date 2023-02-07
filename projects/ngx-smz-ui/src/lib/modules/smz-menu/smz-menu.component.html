@@ -1,2 +1,16 @@
-<smz-menu-items #actionMenu [popup]="true" [model]="menuItems" appendTo="body"></smz-menu-items>
-<p-button id="action-button" type="button" [ngClass]="buttonClass" [styleClass]="styleClass" [icon]="icon" (onClick)="toggle($event, actionMenu)"></p-button>
+<ng-container [ngSwitch]="behavior">
+
+  <ng-container *ngSwitchCase="'overlay'">
+    <smz-menu-items #actionMenu [popup]="true" [model]="menuItems" appendTo="body"></smz-menu-items>
+    <p-button id="action-button" type="button" [ngClass]="buttonClass" [styleClass]="styleClass" [icon]="icon" (onClick)="toggle($event, actionMenu)"></p-button>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="'inline'">
+    <div class="grid grid-nogutter items-center justify-start">
+      <ng-container *ngFor="let item of (items | smzFlattenMenu : data)">
+        <button *ngIf="item.visible" pButton type="button" smzMenuItemAction [item]="item" [icon]="item.icon" class="p-button-sm p-button-rounded p-button-text" [ngClass]="item.styleClass" [disabled]="item.disabled"></button>
+      </ng-container>
+    </div>
+  </ng-container>
+
+</ng-container>

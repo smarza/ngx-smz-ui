@@ -38,7 +38,12 @@ export interface SmzTableState {
         icon: string;
         buttonClass: string;
         styleClass: string;
-      }
+      },
+      /**
+       * Overlay behavior shows the menu as a toggle button with dropdown menu items
+       * Button behavior shows the menu as separate buttons in a row
+       */
+      behavior: 'overlay' | 'inline';
     };
 
     /**

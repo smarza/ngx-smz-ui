@@ -1,33 +1,36 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { cloneDeep } from 'lodash-es';
 import { MenuItem } from 'primeng/api';
 import { SmzMenuItem } from '../models/smz-menu-item';
 
 @Pipe({
-  name: 'smzMenu'
+  name: 'smzFlattenMenu'
 })
 
-export class SmzMenuPipe implements PipeTransform {
-  transform(menu: SmzMenuItem[], data: any): MenuItem[] {
+export class SmzFlattenMenuPipe implements PipeTransform {
+  transform(menu: SmzMenuItem[], data: any): SmzMenuItem[] {
+
     if (menu == null || menu.length === 0) return null;
 
     const result: MenuItem[] = [];
     this.loop(result, menu, data);
+
     return result;
   }
 
   private loop(result: MenuItem[], items: SmzMenuItem[], data: any): void {
 
     items.forEach((item) => {
-      const itemResult = this.applyMenuState(item, data);
+      const clonedItems = cloneDeep({ ...item, items: []});
+      const itemResult = this.applyMenuState(clonedItems, data);
 
       if (itemResult != null){
         this.applyMenuTransforms(itemResult, data);
 
         if (item.items?.length > 0) {
-          if (itemResult.items == null) itemResult.items = [];
-
-          this.loop(itemResult.items, item.items, data);
+          this.loop(result, item.items, data);
         }
+
         result.push(itemResult);
 
       }

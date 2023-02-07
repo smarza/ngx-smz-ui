@@ -5,6 +5,8 @@ import { SharedModule } from 'primeng/api';
 import { SmzMenuComponent } from './smz-menu.component';
 import { SmzMenuPipe } from './pipes/smz-menu.pipe';
 import { SmzMenuModule } from './components/menu';
+import { SmzFlattenMenuPipe } from './pipes/smz-flatten-menu.pipe';
+import { SmzMenuItemActionsDirective } from './directives/menu-item-actions.directive';
 
 @NgModule({
   imports: [
@@ -19,7 +21,9 @@ import { SmzMenuModule } from './components/menu';
   ],
   declarations: [
     SmzMenuComponent,
-    SmzMenuPipe
+    SmzMenuPipe,
+    SmzFlattenMenuPipe,
+    SmzMenuItemActionsDirective
   ],
   providers: [],
 })

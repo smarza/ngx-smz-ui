@@ -16,6 +16,7 @@ export class SmzMenuComponent {
   @Input() public buttonClass: string = '';
   @Input() public styleClass: string = '';
   @Input() public icon: string = 'pi pi-bars';
+  @Input() public behavior: 'overlay' | 'inline' = 'overlay';
   public menuItems: any[] = [];
   public toggle(event: any, actionMenu: Menu): void {
     const items = this.callback != null ? this.callback(this.data) : this.items;

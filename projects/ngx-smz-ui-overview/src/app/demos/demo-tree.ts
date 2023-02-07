@@ -825,6 +825,33 @@ export const TreeDemoData: DemoTreeNode[] = [
         ]
       },
       {
+        label: 'Menu Actions',
+        type: 'Category',
+        children: [
+          {
+            label: 'Dynamic Menu', icon: 'fa-solid fa-code', type: 'Demo',
+            demoType: 'table',
+            notes: '',
+            data: TablesDemo[DemoKeys.TABLE_DYNAMIC_MENU],
+            key: DemoKeys.TABLE_DYNAMIC_MENU.toString()
+          },
+          {
+            label: 'Overlay Menu', icon: 'fa-solid fa-code', type: 'Demo',
+            demoType: 'table',
+            notes: '',
+            data: TablesDemo[DemoKeys.TABLE_MENU_OVERLAY],
+            key: DemoKeys.TABLE_MENU_OVERLAY.toString()
+          },
+          {
+            label: 'Inline Menu', icon: 'fa-solid fa-code', type: 'Demo',
+            demoType: 'table',
+            notes: '',
+            data: TablesDemo[DemoKeys.TABLE_MENU_INLINE],
+            key: DemoKeys.TABLE_MENU_INLINE.toString()
+          },
+        ]
+      },
+      {
         label: 'Ui Definitions', icon: 'fa-solid fa-code', type: 'Demo',
         demoType: 'table',
         notes: '',
@@ -865,13 +892,6 @@ export const TreeDemoData: DemoTreeNode[] = [
         notes: '',
         data: TablesDemo[DemoKeys.TABLE_ROW_EXPANSION],
         key: DemoKeys.TABLE_ROW_EXPANSION.toString()
-      },
-      {
-        label: 'Dynamic Menu', icon: 'fa-solid fa-code', type: 'Demo',
-        demoType: 'table',
-        notes: '',
-        data: TablesDemo[DemoKeys.TABLE_DYNAMIC_MENU],
-        key: DemoKeys.TABLE_DYNAMIC_MENU.toString()
       },
       {
         label: 'Auto Sized Columns', icon: 'fa-solid fa-code', type: 'Demo',

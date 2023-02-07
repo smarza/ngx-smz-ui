@@ -452,13 +452,13 @@
                                                             <div [innerHtml]="editableContext.errors | contentErrors"></div>
                                                         </ng-template>
                                                     </p-overlayPanel>
-                                                    <button pButton type="button" icon="fas fa-exclamation-triangle" [disabled]="false" class="p-button-rounded p-button-text p-button-danger mr-2" (click)="errorsOverlay.toggle($event)"></button>
+                                                    <button pButton type="button" icon="fas fa-exclamation-triangle" [disabled]="false" class="p-button-sm p-button-rounded p-button-text p-button-danger mr-2" (click)="errorsOverlay.toggle($event)"></button>
 
                                                     <!-- CRIANDO -->
-                                                    <button *ngIf="item._context?.isCreating" pButton type="button" icon="pi pi-times" (click)="editableService.onRowCreateCancel($event, dt, item)" class="p-button-rounded p-button-text p-button-danger"></button>
+                                                    <button *ngIf="item._context?.isCreating" pButton type="button" icon="pi pi-times" (click)="editableService.onRowCreateCancel($event, dt, item)" class="p-button-sm p-button-rounded p-button-text p-button-danger"></button>
 
                                                     <!-- ATUALIZANDO -->
-                                                    <button *ngIf="item._context?.isUpdating" pButton type="button" icon="pi pi-times" (click)="editableService.onRowEditCancel($event, dt, item)" class="p-button-rounded p-button-text p-button-danger"></button>
+                                                    <button *ngIf="item._context?.isUpdating" pButton type="button" icon="pi pi-times" (click)="editableService.onRowEditCancel($event, dt, item)" class="p-button-sm p-button-rounded p-button-text p-button-danger"></button>
 
                                                 </ng-container>
                                             </ng-container>
@@ -474,7 +474,7 @@
 
                                     <!-- MENU -->
                                     <ng-container *ngIf="context.state.actions.menu.isVisible && !editing">
-                                        <smz-menu [callback]="context.state.actions.menu.callback" [items]="context.state.actions.menu.items" [data]="item" [ngClass]="{ 'ml-2': context.state.actions.customActions.isVisible }" [icon]="context.state.actions.menu.styles.icon" [styleClass]="context.state.actions.menu.styles.styleClass" [buttonClass]="context.state.actions.menu.styles.buttonClass"></smz-menu>
+                                        <smz-menu [callback]="context.state.actions.menu.callback" [items]="context.state.actions.menu.items" [data]="item" [behavior]="context.state.actions.menu.behavior" [ngClass]="{ 'ml-2': context.state.actions.customActions.isVisible }" [icon]="context.state.actions.menu.styles.icon" [styleClass]="context.state.actions.menu.styles.styleClass" [buttonClass]="context.state.actions.menu.styles.buttonClass"></smz-menu>
                                     </ng-container>
                                 </ng-template>
                             </div>

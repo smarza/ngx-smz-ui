@@ -395,6 +395,54 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
   }
   },
   //
+  [DemoKeys.TABLE_MENU_OVERLAY]: {
+    items$: store.select(DemoFeatureSelectors.all),
+    code: () => {
+    return new SmzTableBuilder('entity')
+        .setTitle('Demo Overlay Menu')
+        .menu()
+          .item('Consulta A')
+            .setCallback((event: any) => console.log('---', event))
+            .setIcon('fa-solid fa-star')
+            .menu
+          .item('Consulta B')
+            .setCallback((event: any) => console.log('---', event))
+            .setIcon('fa-solid fa-home')
+            .menu
+          .table
+      .build()
+  }
+  },
+  //
+  [DemoKeys.TABLE_MENU_INLINE]: {
+    items$: store.select(DemoFeatureSelectors.all),
+    code: () => {
+    return new SmzTableBuilder('entity')
+        .setTitle('Demo Inline Menu')
+        .menu()
+          .useInline()
+          .item()
+            .setCallback((event: any) => console.log('---', event))
+            .setActivationRule<any>((data) => data.name !== 'Coyote')
+            .setIcon('fa-solid fa-face-dizzy')
+            .setStyles('p-button-help')
+            .menu
+          .item()
+            .setCallback((event: any) => console.log('---', event))
+            .setVisibilityRule<any>((data) => data.name !== 'Coyote')
+            .setIcon('fa-solid fa-star')
+            .setStyles('p-button-info')
+            .menu
+          .item()
+            .setCallback((event: any) => console.log('---', event))
+            .setIcon('fa-solid fa-face-angry')
+            .setStyles('p-button-danger')
+            .menu
+          .table
+      .build()
+  }
+  },
+  //
   [DemoKeys.TABLE_AUTO_SIZED_COLUMNS]: {
     items$: of(LARGE_TABLE_DATA),
     code: () => {
@@ -618,6 +666,7 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
     items$: of(EditableTablePartialData),
     code: () => {
     return new SmzTableBuilder()
+      .debugMode()
       .setTitle('Amostragens')
       .enableGlobalFilter()
       .useTableEmptyMessage()
@@ -635,12 +684,18 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
           return data;
         })
         .table
+      .menu()
+        .item('Consultar')
+          .setCallback((event: any) => console.log('---', event))
+          .setIcon('fa-solid fa-star')
+          .menu
+        .table
       .columns()
         .text('module', 'Módulo', '12em')
           .columns
         .text('section', 'Seção', '12em')
           .columns
-        .text('system', 'Sistema', '16em')
+        .text('system', 'Sistema', 'auto')
           .actions()
             .if(true)
               .add('fa-regular fa-copy', (item: any) => { console.log('copy', item); })
@@ -729,7 +784,7 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
         .useStrippedStyle()
         .menu()
           .item('Consultar')
-            .setCallback((event: any) => console.log('---'))
+            .setCallback((event: any) => console.log('---', event))
             .menu
           .table
       .build()
