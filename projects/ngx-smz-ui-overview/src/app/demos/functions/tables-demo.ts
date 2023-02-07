@@ -73,7 +73,7 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
     items$: store.select(DemoFeatureSelectors.all),
     code: () => {
     return new SmzTableBuilder()
-      .setTitle('Demo With Fluent')
+      .setTitle('Demo Basic')
       .enableClearFilters()
       .enableColumnVisibility()
       .enableGlobalFilter()
@@ -97,14 +97,14 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
           .setFilter(SmzFilterType.MULTI_SELECT)
           .disableSort()
           .columns
-        .dataTransform('country.name', 'Super Country 2', (country: SimpleNamedEntity, row: any) => `test: ${row.country?.name?.toUpperCase()}`)
-          .columns
-        .dataTransform('country', 'Super Country', (country: SimpleNamedEntity, row: any) => `super: ${country?.name?.toUpperCase()}`)
-          .setFilter(SmzFilterType.MULTI_SELECT)
-          .columns
-        .dataTransform('roles', 'Perfis', (roles: SimpleNamedEntity[], row: any) => { return roles.map(x => x.name).join(', '); })
-          .setFilter(SmzFilterType.MULTI_SELECT_ARRAY)
-          .columns
+        // .dataTransform('country.name', 'Super Country 2', (country: SimpleNamedEntity, row: any) => `test: ${row.country?.name?.toUpperCase()}`)
+        //   .columns
+        // .dataTransform('country', 'Super Country', (country: SimpleNamedEntity, row: any) => `super: ${country?.name?.toUpperCase()}`)
+        //   .setFilter(SmzFilterType.MULTI_SELECT)
+        //   .columns
+        // .dataTransform('roles', 'Perfis', (roles: SimpleNamedEntity[], row: any) => { return roles.map(x => x.name).join(', '); })
+        //   .setFilter(SmzFilterType.MULTI_SELECT_ARRAY)
+        //   .columns
         .table
       .build()
     }

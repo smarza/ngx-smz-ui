@@ -15,5 +15,6 @@ export class SmzTableContentComponent implements OnInit {
   @Input() public contentTemplate;
   constructor() { }
 
-  ngOnInit() { }
+  ngOnInit() {
+  }
 }

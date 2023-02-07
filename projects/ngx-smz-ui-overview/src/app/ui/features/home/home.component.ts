@@ -8,8 +8,6 @@ import { DemoFeatureSelectors } from '@states/demo/demo.selectors';
 import { Observable, of } from 'rxjs';
 import { DemoFeatureActions } from '@states/demo/demo.actions';
 import { HOME_PATH } from '@routes';
-import { DemoTableComponent } from './components/demo-table/demo-table.component';
-import { LARGE_TABLE_DATA } from '@demos/data/large-table';
 import { tableData } from '../../components/results-table/data';
 import { ResultsTableComponent } from '@components/results-table/results-table.component';
 
