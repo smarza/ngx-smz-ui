@@ -8,7 +8,7 @@
   <ng-container *ngSwitchCase="'inline'">
     <div class="grid grid-nogutter items-center justify-start">
       <ng-container *ngFor="let item of (items | smzFlattenMenu : data)">
-        <button *ngIf="item.visible" pButton type="button" smzMenuItemAction [item]="item" [icon]="item.icon" class="p-button-sm p-button-rounded p-button-text" [ngClass]="item.styleClass" [disabled]="item.disabled"></button>
+        <button *ngIf="item.visible" pButton type="button" smzMenuItemAction [item]="item" [icon]="item.icon" class="p-button-rounded p-button-text" [ngClass]="item.styleClass" [disabled]="item.disabled"></button>
       </ng-container>
     </div>
   </ng-container>
