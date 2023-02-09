@@ -18,7 +18,7 @@
                                             <div class="layout-menuitem-root-text clickable" menuItemAction [item]="item" [parent]="null" [breadcrumbs]="true" (collapse)="collapseAll(menu)">{{ item.label }}</div>
 
                                             <a class="p-ripple" menuItemAction [item]="item" [parent]="null" [breadcrumbs]="true" (collapse)="collapseAll(menu)" [tabindex]="itemIndex" [ngClass]="{ 'active-first-route': route.url | urlChecker : item.routerLink }">
-                                                <i *ngIf="item.icon" class="layout-menuitem-icon pi" [ngClass]="item.icon"></i>
+                                                <i *ngIf="item.icon" class="layout-menuitem-icon" [ngClass]="item.icon"></i>
                                                 <span>{{ item.label }}</span>
                                                 <span class="p-ink"></span>
                                             </a>
@@ -31,7 +31,7 @@
                                             <div class="layout-menuitem-root-text">{{ item.label }}</div>
 
                                             <a class="p-ripple" [tabindex]="itemIndex" (click)="toogleOnly(item, menu)">
-                                                <i *ngIf="item.icon" class="layout-menuitem-icon pi" [ngClass]="item.icon"></i>
+                                                <i *ngIf="item.icon" class="layout-menuitem-icon" [ngClass]="item.icon"></i>
                                                 <span>{{ item.label }}</span>
                                                 <i class="pi pi-fw pi-angle-down layout-menuitem-toggler"></i>
 

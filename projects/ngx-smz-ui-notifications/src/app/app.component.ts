@@ -13,16 +13,16 @@ export class AppComponent {
 
     this.themeManager.createCss('assets/priority-styles.css');
 
-    this.menuService.setProfile([ { label: 'Logout', icon: 'pi-power-off', routerLink: ['/login'] } ]);
+    this.menuService.setProfile([ { label: 'Logout', icon: 'pi pi-power-off', routerLink: ['/login'] } ]);
 
     this.menuService.setMenu([
       { label: 'Click me', icon: 'fa-solid fa-check-double', routerLink: ['details', 'again'] },
       {
         label: 'Demos',
-        icon: 'pi-home',
+        icon: 'pi pi-home',
         items: [
-          { label: 'Charts', icon: 'far fa-chart', routerLink: ['charts'] },
-          { label: 'Chart Colors', icon: 'far fa-chart', routerLink: ['charts', 'colors'] },
+          { label: 'Charts', icon: 'fa-solid fa-chart-simple', routerLink: ['charts'] },
+          { label: 'Chart Colors', icon: 'fa-solid fa-chart-simple', routerLink: ['charts', 'colors'] },
           { label: 'Tag Area', icon: 'fa-solid fa-tree', routerLink: ['tag-area'] },
           { label: 'Trees', icon: 'fa-solid fa-tree', routerLink: ['trees'] },
           { label: 'Side Content', icon: 'fa-solid fa-star', routerLink: ['side-content'] },
@@ -31,7 +31,7 @@ export class AppComponent {
       },
       {
         label: 'Tables',
-        icon: 'pi-home',
+        icon: 'pi pi-home',
         items: [
           { label: 'Table', icon: 'fa-solid fa-star', routerLink: ['tables'] },
           { label: 'Editable Table', icon: 'fa-solid fa-star', routerLink: ['editable-table'] },
@@ -41,7 +41,7 @@ export class AppComponent {
       },
       {
         label: 'Extras',
-        icon: 'pi-home',
+        icon: 'pi pi-home',
         items: [
           { label: 'Details 1', routerLink: ['details'] },
           { label: 'Details 2', routerLink: ['details', 'again'] },
@@ -57,7 +57,7 @@ export class AppComponent {
       },
       {
         label: 'Lib Pages',
-        icon: 'pi-star',
+        icon: 'pi pi-star',
         items: [
           { label: 'Login', routerLink: ['login'] },
           { label: 'Error', routerLink: ['error'] },
@@ -66,30 +66,30 @@ export class AppComponent {
       },
       {
         label: 'Actions',
-        icon: 'pi-home',
+        icon: 'pi pi-home',
         items: [
-          { label: 'Console Log', icon: 'pi-home', command: () => console.log('Console Log') },
+          { label: 'Console Log', icon: 'pi pi-home', command: () => console.log('Console Log') },
         ]
       },
       {
         label: 'Hierarchy',
-        icon: 'pi-align-left',
+        icon: 'pi pi-align-left',
         items: [
           {
-            label: 'Multi-level 1', icon: 'pi-home', items: [
-              { label: 'Login 1', icon: 'pi-home', routerLink: ['login'] },
-              { label: 'Home', icon: 'pi-home', routerLink: ['home'] },
-              { label: 'Details', icon: 'pi-home', routerLink: ['details'] },
+            label: 'Multi-level 1', icon: 'pi pi-home', items: [
+              { label: 'Login 1', icon: 'pi pi-home', routerLink: ['login'] },
+              { label: 'Home', icon: 'pi pi-home', routerLink: ['home'] },
+              { label: 'Details', icon: 'pi pi-home', routerLink: ['details'] },
               {
-                label: 'Multi-level 2', icon: 'pi-home', items: [
-                  { label: 'Login 1', icon: 'pi-home', routerLink: ['login'] },
-                  { label: 'Login 2', icon: 'pi-home', routerLink: ['login'] },
+                label: 'Multi-level 2', icon: 'pi pi-home', items: [
+                  { label: 'Login 1', icon: 'pi pi-home', routerLink: ['login'] },
+                  { label: 'Login 2', icon: 'pi pi-home', routerLink: ['login'] },
                 ]
               },
             ]
           },
           {
-            label: 'Single', icon: 'pi-home'
+            label: 'Single', icon: 'pi pi-home'
           },
         ]
       },
@@ -103,7 +103,7 @@ export class AppComponent {
             ]
           },
           {
-            label: 'Single', icon: 'pi-home'
+            label: 'Single', icon: 'pi pi-home'
           },
         ]
       },

@@ -7,7 +7,7 @@ import { MenuItem } from 'primeng/api';
       <li [ngClass]="{ 'active-menuitem': item.expanded }">
 
           <a [tabindex]="index" (click)="item.expanded = !item.expanded;">
-              <i class="layout-menuitem-icon pi pi-fw" [ngClass]="item.icon"></i>
+              <i class="layout-menuitem-icon" [ngClass]="item.icon"></i>
               <span class="layout-menuitem-text">{{ item.label }}</span>
               <i class="pi pi-fw pi-chevron-down layout-submenu-toggler"></i>
               <span class="p-ink"></span>
@@ -49,7 +49,7 @@ export class HephaestusMenuExpandableItemComponent implements OnInit {
   template: `
       <li [ngClass]="{ 'active-menuitem': currentUrl | urlChecker : item.routerLink }">
         <a class="p-ripple" [ngClass]="{ 'active-route': currentUrl | urlChecker : item.routerLink, 'opacity-50 hover:bg-inherit select-none focus:shadow-none cursor-default': item.disabled }" menuItemAction [item]="item" [parent]="parent" [breadcrumbs]="true" [tabindex]="index">
-            <i class="layout-menuitem-icon pi pi-fw" [ngClass]="item.icon"></i>
+            <i class="layout-menuitem-icon" [ngClass]="item.icon"></i>
             <span class="layout-menuitem-text">{{ item.label }}</span>
             <span class="p-ink"></span>
         </a>
@@ -116,7 +116,8 @@ export class HephaestusMenuNodeComponent implements OnInit {
             <ng-container *ngSwitchCase="false">
                 <li [ngClass]="{ 'active-menuitem': currentUrl | urlChecker : subItem.routerLink }">
                     <a class="p-ripple" [tabindex]="subItemIndex" menuItemAction [item]="subItem" [parent]="parent" [breadcrumbs]="true">
-                        <i class="layout-menuitem-icon pi pi-fw" [ngClass]="subItem.icon"></i>
+                        <i *ngIf="subItem.icon != null" class="layout-menuitem-icon" [ngClass]="subItem.icon"></i>
+                        <i *ngIf="subItem.icon == null" class="layout-menuitem-icon pi pi-fw"></i>
                         <span class="layout-menuitem-text">{{ subItem.label }}</span>
                         <span class="p-ink"></span>
                     </a>

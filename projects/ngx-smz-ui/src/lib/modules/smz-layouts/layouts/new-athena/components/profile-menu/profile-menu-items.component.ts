@@ -12,7 +12,7 @@ import { SmzLayoutsConfig } from '../../../../core/globals/smz-layouts.config';
 
         <ng-container *ngSwitchCase="false">
           <a menuItemAction [item]="item" [parent]="null" [breadcrumbs]="false" [tabindex]="index" class="clickable" (collapse)="collapse.emit()">
-            <i *ngIf="item.icon != null" class="topbar-icon pi pi-fw" [ngClass]="item.icon"></i>
+            <i *ngIf="item.icon != null" class="topbar-icon" [ngClass]="item.icon"></i>
             <span class="topbar-item-name" [innerHtml]="item.label"></span>
             <span *ngIf="item.badge != null" class="topbar-badge">{{ item.badge }}</span>
           </a>
@@ -20,7 +20,7 @@ import { SmzLayoutsConfig } from '../../../../core/globals/smz-layouts.config';
 
         <ng-container *ngSwitchCase="true">
           <a [tabindex]="index" class="clickable" (click)="toogleOnly(item, item.items)">
-            <i *ngIf="item.icon != null" class="topbar-icon pi pi-fw" [ngClass]="item.icon"></i>
+            <i *ngIf="item.icon != null" class="topbar-icon" [ngClass]="item.icon"></i>
             <span class="topbar-item-name" [innerHtml]="item.label"></span>
             <span *ngIf="item.badge != null" class="topbar-badge">{{ item.badge }}</span>
           </a>

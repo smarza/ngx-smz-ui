@@ -13,7 +13,7 @@ export class AppComponent {
       this.themeManager.createCss('assets/priority-styles.css');
 
       this.menuService.setProfile([
-        { label: 'Logout', icon: 'pi-power-off', routerLink: ['/login'] },
+        { label: 'Logout', icon: 'pi pi-power-off', routerLink: ['/login'] },
         // { label: 'Acessos', icon: 'fa-solid fa-circle', routerLink: CLAIMS_PAGE_ROUTE, claim: AuthClaimDefinitions.MANAGE_CLAIMS },
         // { label: 'Permissões', icon: 'fa-solid fa-circle', routerLink: ROLES_PAGE_ROUTE, claim: AuthClaimDefinitions.MANAGE_ROLES },
         { label: 'Permissões de Acesso', icon: 'fa-solid fa-circle', routerLink: CLAIMS_PAGE_ROUTE },

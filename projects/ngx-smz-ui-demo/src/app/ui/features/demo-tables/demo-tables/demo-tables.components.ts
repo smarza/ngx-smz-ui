@@ -171,11 +171,12 @@ export class DemoTablesComponent implements OnInit {
         customActions: {
           isVisible: true,
           columnWidth: 60,
-          ngStyle: null
+          ngStyle: null,
         },
         menu: {
           isVisible: true,
           styles: { icon: '', buttonClass: '', styleClass: '' },
+          behavior: 'overlay',
           items: [
             {
               conditional: { condition: (item: any) => (item.plant.name === 'P-76'), property: 'visible' },
@@ -187,7 +188,7 @@ export class DemoTablesComponent implements OnInit {
                   transforms: [
                     (item: any) => (item.isActive ?
                       { icon: 'fa-solid fa-lightbulb green-text', command: (event) => { console.log('Desabilitar', event); } } :
-                      { icon: 'far fa-lightbulb grey-text', command: (event) => { console.log('Habilitar', event); } })
+                      { icon: 'fa-regular fa-lightbulb grey-text', command: (event) => { console.log('Habilitar', event); } })
                   ],
                 },
                 { label: 'Editar', icon: 'fa-solid fa-biohazard', command: (event) => this.test(event) },

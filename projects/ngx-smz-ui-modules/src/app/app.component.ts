@@ -13,7 +13,7 @@ export class AppComponent {
 
     this.themeManager.createCss('assets/priority-styles.css');
 
-    this.menuService.setProfile([ { label: 'Logout', icon: 'pi-power-off', routerLink: ['/login'] } ]);
+    this.menuService.setProfile([ { label: 'Logout', icon: 'pi pi-power-off', routerLink: ['/login'] } ]);
 
   }
 

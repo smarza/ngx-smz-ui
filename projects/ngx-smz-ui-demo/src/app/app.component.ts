@@ -21,30 +21,28 @@ export class AppComponent {
         { label: 'Click me', icon: 'fa-solid fa-check-double', routerLink: ['details', 'again'] },
         {
           label: 'Demos',
-          icon: 'pi-home',
           items: [
-            { label: 'Charts', icon: 'far fa-chart', routerLink: ['charts'] },
-            { label: 'Chart Colors', icon: 'far fa-chart', routerLink: ['charts', 'colors'] },
+            { label: 'Charts', icon: 'fa-solid fa-chart-simple', routerLink: ['charts'] },
+            { label: 'Chart Colors', icon: 'fa-solid fa-chart-simple', routerLink: ['charts', 'colors'] },
             { label: 'Tag Area', icon: 'fa-solid fa-tree', routerLink: ['tag-area'] },
             { label: 'Trees', icon: 'fa-solid fa-tree', routerLink: ['trees'] },
             { label: 'Tree With Details', icon: 'fa-solid fa-tree', routerLink: ['tree-with-details'] },
             { label: 'Side Content', icon: 'fa-solid fa-star', routerLink: ['side-content'] },
-            { label: 'SignalR', icon: 'far fa-chart', routerLink: [SIGNALR_PATH] },
+            { label: 'SignalR', icon: 'fa-solid fa-chart-simple', routerLink: [SIGNALR_PATH] },
             { label: 'Tag Area', icon: 'fa-solid fa-tree', routerLink: ['tag-area'] },
             {
               label: 'Svgs',
-              icon: 'pi-home',
+              icon: 'fa-solid fa-house-chimney',
               items: [
-                { label: 'Demo Lib', icon: 'far fa-chart', routerLink: [SVG_PATH, SVG_DEMO_PATH] },
-                { label: 'Playground', icon: 'far fa-chart', routerLink: [SVG_PATH, SVG_PLAYGROUND_PATH] },
-                { label: 'Gcab', icon: 'far fa-chart', routerLink: [SVG_PATH, SVG_GCAB_PATH] },
+                { label: 'Demo Lib', icon: 'fa-solid fa-chart-simple', routerLink: [SVG_PATH, SVG_DEMO_PATH] },
+                { label: 'Playground', icon: 'fa-solid fa-chart-simple', routerLink: [SVG_PATH, SVG_PLAYGROUND_PATH] },
+                { label: 'Gcab', icon: 'fa-solid fa-chart-simple', routerLink: [SVG_PATH, SVG_GCAB_PATH] },
               ]
             },
           ]
         },
         {
           label: 'Tables',
-          icon: 'pi-home',
           items: [
             { label: 'Table', icon: 'fa-solid fa-star', routerLink: ['tables'] },
             { label: 'Editable Table', icon: 'fa-solid fa-star', routerLink: ['editable-table'] },
@@ -56,7 +54,6 @@ export class AppComponent {
         },
         {
           label: 'Extras',
-          icon: 'pi-home',
           items: [
             { label: 'Details 1', routerLink: ['details'] },
             { label: 'Details 2', routerLink: ['details', 'again'] },
@@ -72,7 +69,6 @@ export class AppComponent {
         },
         {
           label: 'Lib Pages',
-          icon: 'pi-star',
           items: [
             { label: 'Login', routerLink: ['login'] },
             { label: 'Error', routerLink: ['error'] },
@@ -81,32 +77,30 @@ export class AppComponent {
         },
         {
           label: 'Actions',
-          icon: 'pi-home',
           items: [
-            { label: 'Console Log', icon: 'pi-home', command: () => console.log('Console Log') },
-            { label: 'Disabled with command', icon: 'pi-home', command: () => console.log('Console Log'), disabled: true },
-            { label: 'Disabled with routerLink', icon: 'pi-home', routerLink: ['nested-routes'], disabled: true },
+            { label: 'Console Log', icon: 'fa-regular fa-circle', command: () => console.log('Console Log') },
+            { label: 'Disabled with command', icon: 'pi pi-home', command: () => console.log('Console Log'), disabled: true },
+            { label: 'Disabled with routerLink', icon: 'pi pi-home', routerLink: ['nested-routes'], disabled: true },
           ]
         },
         {
           label: 'Hierarchy',
-          icon: 'pi-align-left',
           items: [
             {
-              label: 'Multi-level 1', icon: 'pi-home', items: [
-                { label: 'Login 1', icon: 'pi-home', routerLink: ['login'] },
-                { label: 'Home', icon: 'pi-home', routerLink: ['home'] },
-                { label: 'Details', icon: 'pi-home', routerLink: ['details'] },
+              label: 'Multi-level 1', icon: 'pi pi-home', items: [
+                { label: 'Login 1', icon: 'pi pi-home', routerLink: ['login'] },
+                { label: 'Home', icon: 'pi pi-home', routerLink: ['home'] },
+                { label: 'Details', icon: 'pi pi-home', routerLink: ['details'] },
                 {
-                  label: 'Multi-level 2', icon: 'pi-home', items: [
-                    { label: 'Login 1', icon: 'pi-home', routerLink: ['login'] },
-                    { label: 'Login 2', icon: 'pi-home', routerLink: ['login'] },
+                  label: 'Multi-level 2', icon: 'pi pi-home', items: [
+                    { label: 'Login 1', icon: 'pi pi-home', routerLink: ['login'] },
+                    { label: 'Login 2', icon: 'pi pi-home', routerLink: ['login'] },
                   ]
                 },
               ]
             },
             {
-              label: 'Single', icon: 'pi-home'
+              label: 'Single', icon: 'pi pi-home'
             },
           ]
         },
@@ -120,7 +114,7 @@ export class AppComponent {
               ]
             },
             {
-              label: 'Single', icon: 'pi-home'
+              label: 'Single', icon: 'pi pi-home'
             },
           ]
         },
@@ -130,17 +124,17 @@ export class AppComponent {
       this.menuService.setProfile([
         {
           label: 'Profile',
-          icon: 'pi-user',
+          icon: 'pi pi-user',
           routerLink: ['/home'],
         },
         {
           label: 'Settings',
-          icon: 'pi-cog',
+          icon: 'pi pi-cog',
           routerLink: ['/details'],
         },
         {
           label: 'Logout',
-          icon: 'pi-power-off',
+          icon: 'pi pi-power-off',
           routerLink: ['/login'],
         },
       ]);
@@ -149,13 +143,13 @@ export class AppComponent {
         {
           summary: 'New Order',
           details: 'You have <strong>3</strong> new orders',
-          icon: 'pi-shopping-cart',
+          icon: 'pi pi-shopping-cart',
           routerLink: ['/details'],
         },
         {
           summary: 'Withdrawn Completed',
           details: 'Funds are on their way',
-          icon: 'pi-check-square',
+          icon: 'pi pi-check-square',
           routerLink: ['/login'],
         }
       ]);
