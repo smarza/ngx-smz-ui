@@ -123,7 +123,7 @@ export class SmzCardsFlipCardSideBuilder<TBuilder> extends SmzBuilderUtilities<S
 
   public image(dataPath: string): SmzCardsImageBuilder<TBuilder, SmzCardsFlipCardSideBuilder<TBuilder>> {
     this._side.image = {} as SmzCardsImageContent;
-    const baseImageStyles: string = '';
+    const baseImageStyles: string = ' w-full h-full';
     return new SmzCardsImageBuilder<TBuilder, SmzCardsFlipCardSideBuilder<TBuilder>>(this._builder, this, this._side.image, dataPath, baseImageStyles, dataPath);
   }
 

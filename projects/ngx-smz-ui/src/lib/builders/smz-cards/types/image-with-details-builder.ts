@@ -25,7 +25,7 @@ export class SmzCardsImageWithDetailsBuilder<TBuilder> extends SmzCardsBaseTempl
 
   public image(dataPath: string): SmzCardsImageBuilder<TBuilder, SmzCardsImageWithDetailsBuilder<TBuilder>> {
     this._template.image = {} as SmzCardsImageContent;
-    const baseImageStyles: string = ' h-44 w-44 object-cover rounded-lg border-0';
+    const baseImageStyles: string = ' h-60 w-full object-cover rounded-lg border-0';
     return new SmzCardsImageBuilder<TBuilder, SmzCardsImageWithDetailsBuilder<TBuilder>>(this._builder, this, this._template.image, dataPath, baseImageStyles, dataPath);
   }
 

@@ -1,12 +1,12 @@
 <ng-container *ngIf="content | transformContent : data as image">
   <img
-  serverImage
-  [path]="content.transform.override ? content.transform.override.dataPath : (data | cardsContent : image.dataPath).result"
-  [maximize]="image.maximize"
-  [openMaximized]="image.openMaximized"
-  [placeholder]="'assets/images/placeholder.jpeg'"
-  [title]="image.title.isVisible ? image.title.getText(data) : null"
-  [useServerPath]="image.useServerPath"
-  class="h-28 w-36 object-cover"
+    serverImage
+    [path]="content.transform.override ? content.transform.override.dataPath : (data | cardsContent : image.dataPath).result"
+    [maximize]="image.maximize"
+    [openMaximized]="image.openMaximized"
+    [placeholder]="'assets/images/placeholder.jpeg'"
+    [title]="image.title.isVisible ? image.title.getText(data) : null"
+    [useServerPath]="image.useServerPath"
+    class="h-28 w-36 object-cover"
   >
 </ng-container>
