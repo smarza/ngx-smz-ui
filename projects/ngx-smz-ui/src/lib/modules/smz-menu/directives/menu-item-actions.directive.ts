@@ -8,6 +8,7 @@ import { SmzMenuItem } from '../models/smz-menu-item';
 })
 export class SmzMenuItemActionsDirective {
     @Input() public item: SmzMenuItem;
+    @Input() public data: any;
     @Output() public collapse: EventEmitter<void> = new EventEmitter<void>();
 
     constructor(private store: Store) {
@@ -21,7 +22,7 @@ export class SmzMenuItemActionsDirective {
 
 
         if (this.item.command != null) {
-            this.item.command(this.item);
+            this.item.command(this.data);
             this.collapse.emit();
         }
         else if (this.item.routerLink != null) {
@@ -37,7 +38,7 @@ export class SmzMenuItemActionsDirective {
 
         }
         else {
-            console.error('Nether command nor routerLink was set on the item. Please review the menu item model', event, this.item);
+            console.error('Nether command nor routerLink was set on the item. Please review the menu item model', event, this.item, this.data);
         }
     }
 }
