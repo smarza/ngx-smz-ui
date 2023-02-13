@@ -112,10 +112,10 @@ export class NgxRbkUtilsModule {
             for (const stateName of Object.keys(configuration.state.feature)) {
                 states.push(configuration.state.feature[stateName].state);
 
-                if ((configuration.state.feature[stateName].loadAction != null ||
-                        configuration.state.feature[stateName].loadAction != null)) {
-                    throw new Error(`Invalid state configuration for ` + stateName);
-                }
+                // if ((configuration.state.feature[stateName].loadAction != null ||
+                //         configuration.state.feature[stateName].loadAction != null)) {
+                //     throw new Error(`Invalid state configuration for ` + stateName);
+                // }
             }
             FEATURE_STATES.push(...states);
         }

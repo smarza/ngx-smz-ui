@@ -3,36 +3,37 @@ import { Store } from '@ngxs/store';
 import { CanActivate, ActivatedRouteSnapshot } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
-import { ApplicationSelectors } from '../../../../state/global/application/application.selector';
 import { NgxRbkUtilsConfig } from '../../ngx-rbk-utils.config';
-import { DatabaseSelectors } from '../../../../state/database/database.selectors';
 import { isWithinTime } from '../utils';
+import { FeaturesSelectors } from '../../../../state/features/features.selectors';
 
 @Injectable({ providedIn: 'root' })
-export class RbkDatabaseStateGuard implements CanActivate {
+export class RbkFeatureStateGuard implements CanActivate {
     constructor(private store: Store, private config: NgxRbkUtilsConfig) { }
 
     public canActivate(snapshot: ActivatedRouteSnapshot): Observable<boolean> {
-        if (this.config.debugMode) console.groupCollapsed(`RbkDatabaseStateGuard on route /${snapshot.routeConfig.path}`);
+        if (this.config.debugMode) console.groupCollapsed(`RbkFeatureStateGuard on route /${snapshot.routeConfig.path}`);
 
-        const states = snapshot.routeConfig.data.requiredStates;
+        const states = snapshot.routeConfig.data.requiredFeatureStates as string[];
 
-        if (snapshot.routeConfig.data.requiredStates == null ||
-            snapshot.routeConfig.data.requiredStates?.length === 0) {
+        if (states == null ||
+            states?.length === 0) {
             if (this.config.debugMode) console.groupEnd();
             return of(true);
         }
 
-        if (this.config.debugMode) console.log('[RbkDatabaseStateGuard] Required states', states);
+        if (this.config.debugMode) console.log('[RbkFeatureStateGuard] Required Feature states', states);
 
         for (const name of states) {
-            const stateConfig = this.config.state.database[name];
+
+            const stateConfig = this.config.state.feature[name];
+
             if (stateConfig == null) {
                 if (this.config.debugMode) console.groupEnd();
                 throw new Error('The route is asking for a state that is not setup in the config file');
             }
 
-            const stateValue = this.store.selectSnapshot(x => x.database[name]);
+            const stateValue = this.store.selectSnapshot(x => x.features[name]);
 
             if (stateValue == null) {
                 if (this.config.debugMode) console.groupEnd();
@@ -51,20 +52,20 @@ export class RbkDatabaseStateGuard implements CanActivate {
             }
             else {
                 if (stateConfig.cacheTimeout === 0 || stateConfig.cacheTimeout == null) {
-                    if (this.config.debugMode) console.log('  [RbkDatabaseStateGuard] ' + name + ' state cache timeout was not set, no cache will be used');
+                    if (this.config.debugMode) console.log('  [RbkFeatureStateGuard] ' + name + ' state cache timeout was not set, no cache will be used');
                     dispatchAction = true;
                 }
                 else if (!isWithinTime(stateValue.lastUpdated, stateConfig.cacheTimeout)) {
-                    if (this.config.debugMode) console.log('  [RbkDatabaseStateGuard] ' + name + ' state cache has expired');
+                    if (this.config.debugMode) console.log('  [RbkFeatureStateGuard] ' + name + ' state cache has expired');
                     dispatchAction = true;
                 }
                 else {
-                    if (this.config.debugMode) console.log('  [RbkDatabaseStateGuard] ' + name + ' state cache is already loaded and valid');
+                    if (this.config.debugMode) console.log('  [RbkFeatureStateGuard] ' + name + ' state cache is already loaded and valid');
                 }
             }
 
             if (dispatchAction) {
-                if (this.config.debugMode) console.log('  [RbkDatabaseStateGuard] Dispatching', stateConfig.loadAction.type);
+                if (this.config.debugMode) console.log('  [RbkFeatureStateGuard] Dispatching', stateConfig.loadAction.type);
                 this.store.dispatch(stateConfig.loadAction);
             }
         }
@@ -72,12 +73,12 @@ export class RbkDatabaseStateGuard implements CanActivate {
         if (this.config.debugMode) console.groupEnd();
 
         return this.store
-            .select(DatabaseSelectors.areStatesInitialized(states))
+            .select(FeaturesSelectors.areStatesInitialized(states))
             .pipe(
                 filter(x => x !== false),
                 tap(() => {
                     if (this.config.debugMode) {
-                        if (this.config.debugMode) console.log('RbkDatabaseStateGuard granted access to the route');
+                        if (this.config.debugMode) console.log('RbkFeatureStateGuard granted access to the route');
                         console.groupEnd();
                     }
                 })

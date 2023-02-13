@@ -6,7 +6,7 @@ import { ClaimsPageComponent } from './features/claims-page/claims-page.componen
 import { SmzRouteData } from '../../../smz-layouts/core/models/route-layout-data';
 import { CLAIMS_STATE_NAME } from '../../state/claims/claims.state';
 import { RbkAuthGuard } from '../../../rbk-utils/auth/auth.guard';
-import { RbkDatabaseStateGuard } from '../../../rbk-utils/utils/state/state.guard';
+import { RbkDatabaseStateGuard } from '../../../rbk-utils/utils/state/database-state.guard';
 import { NgxSmzDataPipesModule } from '../../../../common/data-pipes/data-pipes.module';
 import { NgxSmzTablesModule } from '../../../smz-tables/ngx-smz-tables.module';
 

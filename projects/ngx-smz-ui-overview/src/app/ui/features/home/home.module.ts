@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home.component';
-import { NgxSmzCardsModule, NgxSmzTablesModule, NgxSmzTreesModule, SmzRouteData, NgxSmzDialogsModule, NgxSmzFormsModule, SmzChartModule, NgxSmzDocumentsModule, NgCloneModule, NgVarModule, NgxSmzMenuModule, NgxSmzUiBlockModule, NgxSmzCommentsModule, NgxSmzTimelineModule, NgxSmzDataPipesModule } from 'ngx-smz-ui';
+import { NgxSmzCardsModule, NgxSmzTablesModule, NgxSmzTreesModule, SmzRouteData, NgxSmzDialogsModule, NgxSmzFormsModule, SmzChartModule, NgxSmzDocumentsModule, NgCloneModule, NgVarModule, NgxSmzMenuModule, NgxSmzUiBlockModule, NgxSmzCommentsModule, NgxSmzTimelineModule, NgxSmzDataPipesModule, RbkFeatureStateGuard } from 'ngx-smz-ui';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
 import { RbkAuthGuard, RbkDatabaseStateGuard, UI_DEFINITIONS_STATE_NAME, NgxSmzUiGuidesModule } from 'ngx-smz-ui';
@@ -30,21 +30,23 @@ import { BackCardComponent } from '../../components/cards/back-card.component';
 import { ComplexityFrontCardComponent } from '../../components/complexity/complexity-front-card.component';
 import { ComplexityBackCardComponent } from '../../components/complexity/complexity-back-card.component';
 import { ResultsTableModule } from '../../components/results-table/results-table.module';
+import { DemoFeatureName } from '@states/demo/demo.state';
 
-const data: SmzRouteData = {
+const data: any = {
   layout: {
     mode: 'full',
   },
   title: 'Home',
   appArea: 'home',
   clearReusableRoutes: true,
-  requiredStates: [UI_DEFINITIONS_STATE_NAME, CountriesDbName]
+  requiredStates: [UI_DEFINITIONS_STATE_NAME, CountriesDbName],
+  requiredFeatureStates: [DemoFeatureName]
 };
 
 const routes: Routes = [
   {
     path: '',
-    canActivate: [RbkAuthGuard, RbkDatabaseStateGuard],
+    canActivate: [RbkAuthGuard, RbkDatabaseStateGuard, RbkFeatureStateGuard],
     component: HomeComponent,
     data
   },

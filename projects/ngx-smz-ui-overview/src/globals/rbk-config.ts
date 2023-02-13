@@ -9,6 +9,7 @@ import { ShopsDbName, ShopsDbState, getInitialState as getDbShopsInitialState } 
 import { ShopsDbActions } from '../app/state/database/shops/shops.actions';
 import { Store } from '@ngxs/store';
 import { Navigate } from '@ngxs/router-plugin';
+import { DemoFeatureActions } from '@states/demo/demo.actions';
 
 // ------------------------------------------
 // DATABASE STATES
@@ -166,6 +167,8 @@ export const rbkConfig: NgxRbkUtilsConfig = {
         feature: {
             [DemoFeatureName]: {
                 state: DemoFeatureState,
+                cacheTimeout: 1,
+                loadAction: DemoFeatureActions.LoadAll,
                 clearFunction: getFtDemoInitialState
             },
         },

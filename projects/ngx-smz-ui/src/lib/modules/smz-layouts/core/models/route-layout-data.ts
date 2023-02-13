@@ -8,6 +8,7 @@ export interface SmzRouteData
   title?: string;
   clearReusableRoutes?: boolean;
   requiredStates?: string[];
+  requiredFeatureStates?: string[],
   claim?: string;
   cacheStrategy?: ReusableRouteConfig;
   faqs?: FaqsRouterConfig;

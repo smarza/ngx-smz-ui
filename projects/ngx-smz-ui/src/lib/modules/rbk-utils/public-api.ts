@@ -10,7 +10,8 @@ export * from './ngx-rbk-utils.config';
 export * from './utils/utils';
 export * from './utils/operators';
 export * from './utils/reusable-route';
-export * from './utils/state/state.guard';
+export * from './utils/state/database-state.guard';
+export * from './utils/state/feature-state.guard';
 
 export * from './auth/auth.guard';
 export * from './auth/auth.handler';
@@ -46,6 +47,7 @@ export * from '../../state/database/ui-definitions/ui-definitions.state';
 export * from '../../state/database/ui-definitions/ui-definitions.service';
 
 export * from '../../state/features/features.actions';
+export * from '../../state/features/features.selectors';
 export * from '../../state/features/features.state';
 
 export * from '../../state/global/global.actions';

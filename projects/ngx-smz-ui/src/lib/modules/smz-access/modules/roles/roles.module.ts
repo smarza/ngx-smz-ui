@@ -7,7 +7,7 @@ import { ROLES_STATE_NAME } from '../../state/roles/roles.state';
 import { CLAIMS_STATE_NAME } from '../../state/claims/claims.state';
 import { SmzRouteData } from '../../../smz-layouts/core/models/route-layout-data';
 import { RbkAuthGuard } from '../../../rbk-utils/auth/auth.guard';
-import { RbkDatabaseStateGuard } from '../../../rbk-utils/utils/state/state.guard';
+import { RbkDatabaseStateGuard } from '../../../rbk-utils/utils/state/database-state.guard';
 import { NgxSmzTablesModule } from '../../../smz-tables/ngx-smz-tables.module';
 import { NgxSmzDataPipesModule } from '../../../../common/data-pipes/data-pipes.module';
 
