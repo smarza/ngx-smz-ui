@@ -10,6 +10,36 @@ import { cloneDeep } from 'lodash-es';
 import { GlobalInjector } from '../../common/services/global-injector';
 import { NgxRbkUtilsConfig } from '../../modules/rbk-utils/ngx-rbk-utils.config';
 
+export function convertFormCreationFeature(
+  entityName: string,
+  store: Store,
+  entity: { [key: string]: any } = null,
+  options: InputConversionOptions = null
+): SmzDialogFeature {
+
+  const state = store.selectSnapshot(x => x.database['uiDefinitions']);
+  const groups = cloneDeep(state.data[entityName].create);
+
+  if (groups == null) throw new Error('UI definitions are empty. Were they manually loaded or set as required state?');
+
+  return convertFormFeatureFromInputData(groups, entity, options, store);
+}
+
+export function convertFormUpdateFeature(
+  entityName: string,
+  store: Store,
+  entity: { [key: string]: any } = null,
+  options: InputConversionOptions = null
+): SmzDialogFeature {
+
+  const state = store.selectSnapshot(x => x.database['uiDefinitions']);
+  const groups = cloneDeep(state.data[entityName].update);
+
+  if (groups == null) throw new Error('UI definitions are empty. Were they manually loaded or set as required state?');
+
+  return convertFormFeatureFromInputData(groups, entity, options, store);
+}
+
 export function convertFormFeature(
   entityName: string,
   store: Store,
