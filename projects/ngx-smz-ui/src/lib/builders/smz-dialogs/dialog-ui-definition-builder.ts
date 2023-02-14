@@ -2,7 +2,7 @@ import { Store } from '@ngxs/store';
 import { GlobalInjector } from '../../modules/smz-dialogs/services/global-injector';
 // import { showConfirmation, showDialog, showMessage, showPersistentDialog } from '../../modules/smz-dialogs/utils/dialogs';
 import { SmzDialogBuilder } from './dialog-builder';
-import { convertFormCreationFeature, convertFormUpdateFeature } from './dialog-input-conversion';
+import { convertFormCreationFeature, convertFormFeature, convertFormUpdateFeature } from './dialog-input-conversion';
 import { SmzBaseUiDefinitionBuilder } from '../common/base-ui-definition-builder';
 
 export class SmzDialogUiDefinitionBuilder<TResponse> extends SmzBaseUiDefinitionBuilder<SmzDialogUiDefinitionBuilder<TResponse>> {
@@ -32,21 +32,26 @@ export class SmzDialogUiDefinitionBuilder<TResponse> extends SmzBaseUiDefinition
 
     const store = GlobalInjector.instance.get(Store);
 
-    if (this.behavior === 'creation') {
-      // Creation
-      const inputs = convertFormCreationFeature(this.entityName, store, this.dataEntity, this.uiDefinitionOptions);
+    switch (this.behavior) {
+      case 'creation':
+        // Creation
+        const creationInputs = convertFormCreationFeature(this.entityName, store, this.dataEntity, this.uiDefinitionOptions);
+        this._dialogBuilder._state.features.push(creationInputs);
+        return this._dialogBuilder;
 
-      this._dialogBuilder._state.features.push(inputs);
+      case 'update':
+        // Update
+        const updateInputs = convertFormUpdateFeature(this.entityName, store, this.dataEntity, this.uiDefinitionOptions);
+        this._dialogBuilder._state.features.push(updateInputs);
+        return this._dialogBuilder;
 
-      return this._dialogBuilder;
+      default:
+        // Legacy
+        const inputs = convertFormFeature(this.entityName, store, this.dataEntity, this.uiDefinitionOptions);
+        this._dialogBuilder._state.features.push(inputs);
+        return this._dialogBuilder;
     }
 
-    // Update
-    const inputs = convertFormUpdateFeature(this.entityName, store, this.dataEntity, this.uiDefinitionOptions);
-
-    this._dialogBuilder._state.features.push(inputs);
-
-    return this._dialogBuilder;
   }
 
 }

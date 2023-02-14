@@ -1,6 +1,6 @@
 import { Store } from '@ngxs/store';
 import { SmzBaseUiDefinitionBuilder } from '../common/base-ui-definition-builder';
-import { convertFormCreationFeature, convertFormUpdateFeature } from '../smz-dialogs/dialog-input-conversion';
+import { convertFormCreationFeature, convertFormFeature, convertFormUpdateFeature } from '../smz-dialogs/dialog-input-conversion';
 import { SmzForm } from '../../modules/smz-forms/models/smz-forms';
 import { SmzFormsGlobalInjector } from '../../modules/smz-forms/services/smz-forms-global-injector';
 import { SmzFormBuilder } from './form-builder';
@@ -16,17 +16,25 @@ export class SmzFormUiDefinitionBuilder<TResponse> extends SmzBaseUiDefinitionBu
 
     const store = SmzFormsGlobalInjector.instance.get(Store);
 
-    if (this.behavior === 'creation') {
-      // Creation
-      const form: SmzForm<unknown> = convertFormCreationFeature(this.entityName, store, this.dataEntity, this.uiDefinitionOptions).data as any;
-      this._formBuilder._state.groups.push(...form.groups);
-      return this._formBuilder;
-    }
+    switch (this.behavior) {
+      case 'creation':
+        // Creation
+        const creationForm: SmzForm<unknown> = convertFormCreationFeature(this.entityName, store, this.dataEntity, this.uiDefinitionOptions).data as any;
+        this._formBuilder._state.groups.push(...creationForm.groups);
+        return this._formBuilder;
 
-    // Update
-    const form: SmzForm<unknown> = convertFormUpdateFeature(this.entityName, store, this.dataEntity, this.uiDefinitionOptions).data as any;
-    this._formBuilder._state.groups.push(...form.groups);
-    return this._formBuilder;
+      case 'update':
+        // Update
+        const updateForm: SmzForm<unknown> = convertFormUpdateFeature(this.entityName, store, this.dataEntity, this.uiDefinitionOptions).data as any;
+        this._formBuilder._state.groups.push(...updateForm.groups);
+        return this._formBuilder;
+
+      default:
+        // Legacy
+        const form: SmzForm<unknown> = convertFormFeature(this.entityName, store, this.dataEntity, this.uiDefinitionOptions).data as any;
+        this._formBuilder._state.groups.push(...updateForm.groups);
+        return this._formBuilder;
+    }
 
   }
 }

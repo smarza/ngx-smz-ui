@@ -5,20 +5,18 @@ import { SmzControlTypes } from '../../modules/smz-forms/models/control-types';
 export class SmzBaseUiDefinitionBuilder<T> {
   protected that: T;
   protected dataEntity: any;
-  protected behavior: 'creation' | 'update' = 'creation';
+  protected behavior: 'creation' | 'update';
   protected uiDefinitionOptions: InputConversionOptions = {fieldsToConvert : [], fieldsWithLayoutTemplates: [], fieldsToUseSelectors: [], fieldsToIgnore: [], fieldsToOverwriteControl: []};
   constructor() {
   }
 
   public forEntity(entity: any): T {
-    this.behavior = 'update';
     this.dataEntity = entity;
     return this.that;
   }
 
-  public forDefaults(entity: any): T {
-    this.behavior = 'creation';
-    this.dataEntity = entity;
+  public useBehavior(behavior: 'creation' | 'update'): T {
+    this.behavior = behavior;
     return this.that;
   }
 
