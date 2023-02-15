@@ -16,7 +16,7 @@
     <!-- TAGS -->
     <div class="col-12 grid grid-nogutter items-center justify-start gap-2 mt-2">
       <ng-container *ngFor="let tag of template.tags let i = index">
-        <div *ngIf="!tag.hideInGrid" contentSelector [content]="tag" [data]="data" class="px-2 py-1 text-xs bg-gray-200 text-surface-50 rounded" [ngClass]="tag.styleClass ?? 'text-sm'"></div>
+        <div *ngIf="!tag.hideInGrid" contentSelector [content]="tag" [data]="data" class="" [ngClass]="tag.styleClass ?? 'px-2 py-1 text-sm bg-gray-200 text-surface-50 rounded'"></div>
       </ng-container>
     </div>
 
@@ -71,7 +71,7 @@
       <!-- TAGS -->
       <div class="col-12 grid grid-nogutter items-center justify-start gap-2 mt-2">
         <ng-container *ngFor="let tag of template.tags let i = index">
-          <div *ngIf="!tag.hideInList" contentSelector [content]="tag" [data]="data" class="px-2 py-1 text-xs bg-gray-200 text-surface-50 rounded" [ngClass]="tag.styleClass ?? 'text-sm'"></div>
+          <div *ngIf="!tag.hideInList" contentSelector [content]="tag" [data]="data" [ngClass]="tag.styleClass ?? 'px-2 py-1 text-sm bg-gray-200 text-surface-50 rounded'"></div>
         </ng-container>
       </div>
 

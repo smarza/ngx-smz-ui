@@ -20,6 +20,7 @@ export class SmzCardsBuilder<T> {
     template: {
       _context: null,
       type: null,
+      globalFilterProperties: []
     },
     grid: {
       styleClass: {
@@ -213,6 +214,8 @@ export class SmzCardsBuilder<T> {
     if (this._state.template.type == null) {
       throw Error('[Smz Cards] You need to set a template.');
     }
+
+    this._state.view.filterBy = this._state.template.globalFilterProperties.join(',');
 
     if (this._state.view.filterBy != '') {
       this._state.view.showGlobalFilter = true;

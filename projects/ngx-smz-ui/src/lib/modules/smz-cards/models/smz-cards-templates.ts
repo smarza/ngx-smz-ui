@@ -5,6 +5,7 @@ import { SmzCardsComponentContent, SmzCardsContentTypes, SmzCardsImageContent, S
 export interface SmzCardsBaseTemplate {
   _context: SmzCardsBaseContext;
   type: SmzCardsTemplate;
+  globalFilterProperties: string[];
 }
 
 export enum SmzCardsTemplate {

@@ -2,6 +2,7 @@ import { uuidv4 } from '../../common/utils/utils';
 import { SmzCardsBaseContent, SmzCardsComponentContent, SmzCardsContentType, SmzCardsImageContent, SmzCardsTextContent } from '../../modules/smz-cards/models/smz-cards-contents';
 import { SmzCardsIconContent } from '../../modules/smz-cards/models/smz-cards-templates';
 import { SmzCardsBuilder } from './state-builder';
+import { SmzCardsBaseTemplateBuilder } from './types/base-card-type.builder';
 
 export abstract class SmzCardsBaseBuilder<TBuilder, T extends SmzCardsBaseBuilder<TBuilder, T, TViewData>, TViewData> {
   protected that: T;
@@ -17,13 +18,6 @@ export abstract class SmzCardsBaseBuilder<TBuilder, T extends SmzCardsBaseBuilde
     this._content.hideInGrid = true;
     return this.that;
   }
-
-  // public enableGlobalFilter(): T {
-  //   const isFilterEmpty = this._builder._state.view.filterBy === '' ? true : false;
-  //   this._builder._state.view.filterBy = `${this._builder._state.view.filterBy}${isFilterEmpty ? '' : ','}${this._content.dataPath}`;
-
-  //   return this.that;
-  // }
 
   public setStyles(styleClass: string): T {
     this._content.styleClass = styleClass;
@@ -61,6 +55,11 @@ export class SmzCardsTextBuilder<TBuilder, TViewData> extends SmzCardsBaseBuilde
 
     this._content.callback = callback;
     return this;
+  }
+
+  public enableGlobalFilter(): SmzCardsTextBuilder<TBuilder, TViewData> {
+    (this._builder as SmzCardsBuilder<any>)._state.template.globalFilterProperties.push(this._content.dataPath);
+    return this.that;
   }
 
   public addIconConfiguration(icon: string, value: any, styleClass: string = '', appendText: string = null): SmzCardsTextBuilder<TBuilder, TViewData> {

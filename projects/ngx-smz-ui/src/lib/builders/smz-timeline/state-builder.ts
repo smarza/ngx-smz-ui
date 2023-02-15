@@ -21,6 +21,7 @@ export class SmzTimelineBuilder<T> {
     template: {
       _context: null,
       type: null,
+      globalFilterProperties: []
     },
     buttons: {
       callback: null,

@@ -49,6 +49,7 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
               .template
             .addTag(namesof<SmzCardsDemoData, SimpleNamedEntity>('type', 'name'))
               .setStyles('px-2 py-1 text-xs bg-green-200 text-surface-600 rounded')
+              .enableGlobalFilter()
               .template
             .addTag(nameof<SmzCardsDemoData>('isArchived'))
               .setStyles('px-2 py-1 text-xs bg-amber-200 text-surface-600 rounded')
@@ -57,6 +58,7 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
               .template
             .addText(nameof<SmzCardsDemoData>('notes'))
               .shorten(60)
+              .enableGlobalFilter()
               .template
             // .addComponent(DemoInjectable1Component)
             //   .addInput('title', namesof<SmzCardsDemoData, SimpleNamedEntity>('type', 'name'))
