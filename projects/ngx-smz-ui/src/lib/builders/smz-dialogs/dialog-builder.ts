@@ -285,7 +285,17 @@ export class SmzDialogBuilder<TResponse> extends SmzBuilderUtilities<SmzDialogBu
     return this;
   }
 
+  public debugMode(): SmzDialogBuilder<TResponse> {
+    this._state.isDebug = true;
+    return this;
+  }
+
   public build(): SmzDialog<TResponse> {
+
+    if (this._state.isDebug) {
+      console.log(this._state);
+    }
+
     return this._state;
   }
 }

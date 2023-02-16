@@ -13,6 +13,7 @@ import { SmzDockService } from '../../smz-dock/services/smz-dock.service';
 import { TooltipModule } from 'primeng/tooltip';
 import { DialogOverlayPanel } from './dialog-overlay-panel';
 import { SafeContentPipeModule } from '../../../common/pipes/safe-html.pipe';
+import { AutoFocusModule } from 'primeng/autofocus';
 
 const showAnimation = animation([
     style({ transform: '{{transform}}', opacity: 0 }),
@@ -31,7 +32,7 @@ const hideAnimation = animation([
         <div #overlayPanelClip id="overlay-clip" *ngIf="dialogConfig.data.behaviors.showAsLinkedOverlayPanel" class="fixed inset-0 p-component-overlay p-component-overlay-enter" [ngClass]="dialogConfig.data.overlayPanel?.overlayPanelStylesClass"></div>
         <div #highlightPanel id="highlight-clip" *ngIf="dialogConfig.data.behaviors.showAsLinkedOverlayPanel" class="fixed inset-0" [ngClass]="dialogConfig.data.overlayPanel?.hightlightStyleClass"></div>
         <div #mask id="dialog-mask" [ngClass]="{'p-dialog-mask-free': dialogConfig.data.behaviors.showAsLinkedOverlayPanel, 'p-component-overlay p-component-overlay-enter' : config.modal !== false && !dialogConfig.data.behaviors.showAsLinkedOverlayPanel, 'p-dialog-mask-scrollblocker': config.modal !== false, 'smz-dialog-minimized': minimized }" class="smz_form_grid_container p-dialog-mask">
-            <div #dialogContainer id="dialog-container" [ngClass]="{'p-dialog p-dynamic-dialog p-component': true, 'p-dialog-rtl': config.rtl, 'p-dialog-maximized': maximized}" [ngStyle]="config.style" [class]="config.styleClass"
+            <div #dialogContainer id="dialog-container" pAutoFocus [autofocus]="true" [ngClass]="{'p-dialog p-dynamic-dialog p-component': true, 'p-dialog-rtl': config.rtl, 'p-dialog-maximized': maximized}" [ngStyle]="config.style" [class]="config.styleClass"
                 [@animation]="{value: 'visible', params: {transform: transformOptions, transition: config.transitionOptions || '150ms cubic-bezier(0, 0, 0.2, 1)'}}"
                 (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" role="dialog" *ngIf="visible"
                 [style.width]="config.width" [style.height]="config.height">
@@ -448,7 +449,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnInit, OnDestroy
 }
 
 @NgModule({
-    imports: [CommonModule, TooltipModule, SafeContentPipeModule],
+    imports: [CommonModule, TooltipModule, SafeContentPipeModule, AutoFocusModule],
     declarations: [DynamicDialogComponent, DynamicDialogContent, DynamicDialogFooter]
 })
 export class DynamicDialogModule { }

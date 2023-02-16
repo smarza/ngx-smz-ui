@@ -16,6 +16,7 @@ export class SmzDynamicDialogConfig extends DynamicDialogConfig {
 
 export interface SmzDialog<T>
 {
+    isDebug?: boolean;
     /**
     * Uso privado da lib. Não mexer.
     */
