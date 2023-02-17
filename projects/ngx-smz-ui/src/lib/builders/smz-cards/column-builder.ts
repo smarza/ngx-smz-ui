@@ -150,6 +150,9 @@ export class SmzCardsImageBuilder<TBuilder, TViewData> extends SmzCardsBaseBuild
         callback: null,
         override: null
       };
+
+      this._content.listStyleClass = this.baseImageStyles;
+      this._content.gridStyleClass = this.baseImageStyles;
   }
 
   public useServerPath(): SmzCardsImageBuilder<TBuilder, TViewData> {
@@ -184,13 +187,17 @@ export class SmzCardsImageBuilder<TBuilder, TViewData> extends SmzCardsBaseBuild
     return this;
   }
 
-  public overrideBaseStyles(styleClass: string): SmzCardsImageBuilder<TBuilder, TViewData> {
-    this.baseImageStyles = ` ${styleClass}`;
+  public overrideGridStyles(styleClass: string): SmzCardsImageBuilder<TBuilder, TViewData> {
+    this._content.gridStyleClass = ` ${styleClass}`;
+    return this;
+  }
+
+  public overrideListStyles(styleClass: string): SmzCardsImageBuilder<TBuilder, TViewData> {
+    this._content.listStyleClass = ` ${styleClass}`;
     return this;
   }
 
   public get template(): TViewData {
-    this._content.styleClass += this.baseImageStyles;
     return this._parent;
   }
 

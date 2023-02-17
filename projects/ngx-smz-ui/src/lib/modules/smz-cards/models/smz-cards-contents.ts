@@ -18,6 +18,8 @@ export interface SmzCardsBaseContent {
   type: SmzCardsContentType;
   dataPath: string;
   styleClass: string;
+  listStyleClass: string;
+  gridStyleClass: string;
   hideInGrid: boolean;
   hideInList: boolean;
 }
