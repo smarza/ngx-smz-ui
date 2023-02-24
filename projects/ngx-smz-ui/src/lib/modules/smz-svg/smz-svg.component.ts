@@ -661,7 +661,7 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
     const zoomLevel = this.worldCoordinates.getWorldWidth() / viewbox.w;
 
     if (this.state.isDebug) {
-      console.log(`##############################################` );
+      // console.log(`##############################################` );
       // console.log(`adjustPinScale2 ##############################` );
       // console.log(`adjustPinScale2`, startX, endX, startY, endY, zoomLevel );
 
@@ -675,11 +675,11 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
     const pinScalePercentage = (viewbox.w) / this.worldCoordinates.getWorldWidth();
     const zoomPercentage = 1 - pinScalePercentage;
 
-    console.log(`##############################################` );
+    // console.log(`##############################################` );
     // console.log('World Width', this.worldCoordinates.getWorldWidth());
     // console.log('Viewbox Width', viewbox.w);
     // console.log(`World Width [0, ${ toDecimal(this.worldCoordinates.getWorldWidth(), 2) }] ${ toDecimal(viewbox.w, 2) } (Zoom ${ toDecimal(zoomPercentage * 100, 2) }%)`);
-    console.log(`Zoom (${ toDecimal(zoomPercentage * 100, 2) }%)`);
+    // console.log(`Zoom (${ toDecimal(zoomPercentage * 100, 2) }%)`);
 
     this.state.features
       .filter(x => x.adaptative.enabled)
@@ -702,7 +702,7 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
           // console.log(`(this.state.panZoom.zoomMax - this.state.panZoom.zoomMin)`, (this.state.panZoom.zoomMax - this.state.panZoom.zoomMin));
         }
 
-        console.log(` > Pins [${ pin.adaptative.minWidth}, ${ pin.adaptative.maxWidth }] ${ toDecimal(newSize, 2) } (${ toDecimal((pinScalePercentage ) * 100, 2) }%)`);
+        // console.log(` > Pins [${ pin.adaptative.minWidth}, ${ pin.adaptative.maxWidth }] ${ toDecimal(newSize, 2) } (${ toDecimal((pinScalePercentage ) * 100, 2) }%)`);
 
         let [ centerX, centerY ] = [ pin.position.x, pin.position.y ];
 
