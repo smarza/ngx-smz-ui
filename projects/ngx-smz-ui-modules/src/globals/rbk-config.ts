@@ -46,18 +46,13 @@ export const rbkConfig: NgxRbkUtilsConfig = {
         defaultStyles: {
             globals: {
                 font: {
-                    scale: '0.7rem',
+                    scale: '1rem',
                     family: 'Roboto'
                 },
             },
-            paper: {
-                marginCm: {
-                    top: 0.6,
-                    left: 0.6,
-                    right: 0.6,
-                    bottom: 0.6,
-                },
-                headerHeightCm: null
+            viewer: {
+                container: 'bg-surface-a',
+                paper: 'bg-white text-black m-6 shadow-lg border border-solid border-white',
             },
             titles: {
                 container: 'bg-gray-200',
@@ -89,6 +84,15 @@ export const rbkConfig: NgxRbkUtilsConfig = {
                     columns: 'p-1 px-2 smz-document-border bg-gray-200'
                 },
                 content: 'p-1 px-2 smz-document-border'
+            },
+            charts: {
+                container: ''
+            },
+            components: {
+                container: 'bg-white text-black'
+            },
+            contents: {
+                container: ''
             }
         }
     },
@@ -97,14 +101,14 @@ export const rbkConfig: NgxRbkUtilsConfig = {
         authenticatedRoot: '/home',
         nonAuthenticatedRoot: '/login',
         login: {
-            url: `${environment.authenticationApi}/api/auth/login`,
+            url: `${environment.authenticationApi}/api/authentication/login`,
             route: '/login',
             errorHandlingType: 'toast',
             responsePropertyName: 'accessToken',
             loadingBehavior: 'global',
         },
         refreshToken: {
-            url: `${environment.authenticationApi}/api/auth/refresh-token`,
+            url: `${environment.authenticationApi}/api/authentication/refresh-token`,
             errorHandlingType: 'toast',
             responsePropertyName: 'refreshToken',
             loadingBehavior: 'global',

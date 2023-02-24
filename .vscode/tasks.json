@@ -75,6 +75,23 @@
     	},
 		},
 		{
+			"label": "Start: Demo Modules",
+			"type": "npm",
+			"script": "start:modules",
+			"group": "none",
+			"isBackground": true,
+			"options": {
+				"statusbar": {
+					"hide" : true
+				}
+			},
+			"presentation": {
+				"group": "groupA",
+				"reveal": "always",
+				"panel": "new"
+    	},
+		},
+		{
 			"label": "Demo: Overview 4104",
 			"dependsOrder": "sequence",
 			"dependsOn":["Build Watch Lib", "Start: Demo Overview"]
@@ -83,6 +100,11 @@
 			"label": "Demo: Labs 4103",
 			"dependsOrder": "sequence",
 			"dependsOn":["Build Watch Lib", "Start: Demo Labs"]
+		},
+		{
+			"label": "Demo: Modules 4107",
+			"dependsOrder": "sequence",
+			"dependsOn":["Build Watch Lib", "Start: Demo Modules"]
 		},
 		{
 			"label": "Build: Prod",

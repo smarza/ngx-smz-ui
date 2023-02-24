@@ -14,10 +14,10 @@ import { rbkConfig } from '../globals/rbk-config';
 import { smzDialogsConfig } from '../globals/smz-config';
 import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
-import { environment } from '@enviroment';
 
 import ptBr from '@angular/common/locales/pt';
 import * as moment from 'moment';
+import { environment } from '@environments/environment';
 
 registerLocaleData(ptBr);
 moment.locale('pt-br');

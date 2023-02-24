@@ -802,6 +802,13 @@ export const TreeDemoData: DemoTreeNode[] = [
         type: 'Category',
         children: [
           {
+            label: 'Size: Extra Small', icon: 'fa-solid fa-code', type: 'Demo',
+            demoType: 'table',
+            notes: '',
+            data: TablesDemo[DemoKeys.TABLE_LAYOUT_SIZE_EXTRA_SMALL],
+            key: DemoKeys.TABLE_LAYOUT_SIZE_EXTRA_SMALL.toString()
+          },
+          {
             label: 'Size: Small', icon: 'fa-solid fa-code', type: 'Demo',
             demoType: 'table',
             notes: '',

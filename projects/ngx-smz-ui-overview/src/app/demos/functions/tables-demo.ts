@@ -728,6 +728,27 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
     }
   },
   //
+  [DemoKeys.TABLE_LAYOUT_SIZE_EXTRA_SMALL]: {
+    items$: store.select(DemoFeatureSelectors.all),
+    code: () => {
+    return new SmzTableBuilder('entity')
+        .setTitle('Table size: extra small')
+        .enableClearFilters()
+        .enableColumnVisibility()
+        .enableGlobalFilter()
+        .useGridStyle()
+        .setSize('extra-small')
+        .setCustomInitialSorting({ field: 'number', order: -1 })
+        .useStrippedStyle()
+        .menu()
+          .item('Consultar')
+            .setCallback((event: any) => console.log('---'))
+            .menu
+          .table
+      .build()
+    }
+  },
+  //
   [DemoKeys.TABLE_LAYOUT_SIZE_SMALL]: {
     items$: store.select(DemoFeatureSelectors.all),
     code: () => {

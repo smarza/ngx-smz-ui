@@ -9,11 +9,11 @@ import { MenuHelperService, ThemeManagerService, BoilerplateService } from 'ngx-
 })
 export class AppComponent {
   constructor(private store: Store, private boilerplateService: BoilerplateService, public menuService: MenuHelperService, private themeManager: ThemeManagerService) {
-    this.boilerplateService.init();
-
     this.themeManager.createCss('assets/priority-styles.css');
 
-    this.menuService.setProfile([ { label: 'Logout', icon: 'pi pi-power-off', routerLink: ['/login'] } ]);
+    this.boilerplateService.init(() => {
+      this.menuService.setProfile([ { label: 'Logout', icon: 'pi pi-power-off', routerLink: ['/login'] } ]);
+    });
 
   }
 

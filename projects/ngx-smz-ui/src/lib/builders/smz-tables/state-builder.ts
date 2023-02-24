@@ -610,10 +610,14 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public setSize(size: 'small' | 'regular' | 'large'): SmzTableBuilder {
+  public setSize(size: 'extra-small' | 'small' | 'regular' | 'large'): SmzTableBuilder {
     this._state.styles.size = size;
 
     switch (size) {
+      case 'extra-small':
+        this._state.actions.menu.styles = { icon: 'fa-solid fa-ellipsis', styleClass: 'p-button-text p-button-plain p-button-sm p-0 shadow-none hover:bg-inherit', buttonClass: 'p-0' };
+        break;
+
       case 'small':
         this._state.actions.menu.styles = { icon: 'fa-solid fa-ellipsis', styleClass: 'p-button-text p-button-plain p-button-sm p-0 shadow-none hover:bg-inherit', buttonClass: 'p-0' };
         break;
@@ -775,6 +779,10 @@ export class SmzTableBuilder {
   public menu(items: SmzMenuItem[] = null): SmzMenuTableBuilder {
 
     switch (this._state.styles.size) {
+      case 'extra-small':
+        this._state.actions.customActions.columnWidth += 45;
+        break;
+
       case 'small':
         this._state.actions.customActions.columnWidth += 50;
         break;
@@ -808,7 +816,7 @@ export class SmzTableBuilder {
     }
 
     this._state.actions.menu.isVisible = true;
-    this._state.actions.customActions.columnWidth += this._state.styles.size === 'small' ? 40 : 63;
+    this._state.actions.customActions.columnWidth += (this._state.styles.size === 'extra-small' || this._state.styles.size === 'small') ? 40 : 63;
     this._state.actions.menu.callback = callback;
     this._state.actions.menu.items = null;
 
