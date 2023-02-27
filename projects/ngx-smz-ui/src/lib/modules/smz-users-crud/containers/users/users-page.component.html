@@ -1,0 +1,42 @@
+<smz-ui-table #smzdt [items]="items$ | async" [state]="tableState" [loading]="false">
+
+  <ng-template pTemplate="caption" let-primeTable>
+    <button pButton label="Criar" class="mr-2" (click)="onCreate()"></button>
+  </ng-template>
+
+    <!-- CONTEÚDOS COM OVERRIDE -->
+    <ng-template pTemplate="content" let-item let-col="col">
+
+      <ng-container [ngSwitch]="col.field">
+
+        <ng-container *ngSwitchCase="'name'">
+          <div class="grid grid-nogutter items-center gap-3 justify-start">
+
+            <!-- CONTROLE DE ACESSO NÃO ENCONTROU O IDENTIFICADOR DO USUÁRIO -->
+            <img
+             *ngIf="item.picture == null"
+             [src]="config.cruds.users.avatarPlaceholderPath"
+             class="w-16 align-middle"
+             />
+
+             <!-- USUÁRIO COM AVATAR INFORMADO PELO CONTROLE DE ACESSO -->
+            <img
+              *ngIf="item.picture != null"
+              [src]="item.picture"
+              (error)="handleMissingImage($event, item.name, item.picture)"
+              class="w-16 align-middle"
+            />
+
+            <span>{{ item.displayName }}</span>
+          </div>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'role.name'">
+            {{ item.role?.name }}
+        </ng-container>
+
+      </ng-container>
+
+    </ng-template>
+
+</smz-ui-table>

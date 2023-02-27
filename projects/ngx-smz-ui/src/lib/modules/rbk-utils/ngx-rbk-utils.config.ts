@@ -43,8 +43,8 @@ export class NgxRbkUtilsConfig {
         httpBehavior: Partial<HttpBehaviorParameters>;
     };
     public state: {
-        database: {[name: string]: DatabaseStateParameters};
-        feature: {[name: string]: DatabaseStateParameters};
+        database: { [name: string]: DatabaseStateParameters };
+        feature: { [name: string]: DatabaseStateParameters };
     };
     public authentication: {
         localStoragePrefix: string;
@@ -63,9 +63,9 @@ export class NgxRbkUtilsConfig {
             loadingBehavior: 'global' | 'local' | 'none';
             errorHandlingType: 'toast' | 'dialog' | 'none';
             responsePropertyName: string; // this is used in the login and refresh token endpoint responses
-            extraProperties?: {[name: string]: string};
+            extraProperties?: { [name: string]: string };
         };
-        accessTokenClaims?: { claimName: string; propertyName: string; type: 'string' | 'array' } [],
+        accessTokenClaims?: { claimName: string; propertyName: string; type: 'string' | 'array' }[],
         useWindowsAuthentication?: boolean,
         showAuthPages?: boolean
     };
@@ -108,8 +108,48 @@ export class NgxRbkUtilsConfig {
             navigationHistory: boolean;
         };
         callback?: (error: CustomError, store: Store) => void
+    };
+    public cruds: {
+        users: {
+            router?: {
+                path: string,
+                claim?: string
+            },
+            title?: string;
+            menu?: string;
+            httpBehavior?: Partial<HttpBehaviorParameters>;
+            manageUserRolesUpdateClaim?: string;
+            manageUserClaimsUpdateClaim?: string;
+            avatarPlaceholderPath?: string;
+        }
+        roles: {
+            title?: string;
+            router?: {
+                path: string,
+                claim?: string
+            },
+            menu?: string;
+            httpBehavior?: Partial<HttpBehaviorParameters>;
+            behavior?: RoleBehavior;
+        }
+        claims: {
+            title?: string;
+            router?: {
+                path: string,
+                claim?: string
+            },
+            menu?: string;
+            httpBehavior?: Partial<HttpBehaviorParameters>;
+        }
+
+        uns: {
+            httpBehavior?: Partial<HttpBehaviorParameters>;
+            cacheTimeout?: number;
+        }
     }
 }
+
+export type RoleBehavior = 'single' | 'multiple';
 
 export interface DatabaseStateParameters {
     state: any;

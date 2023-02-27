@@ -3,14 +3,13 @@ import { CUSTOM_ELEMENTS_SCHEMA, DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } fr
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NgxSmzLayoutsModule, AthenaLayoutModule, NgxSmzDialogsModule } from 'ngx-smz-ui';
+import { NgxSmzLayoutsModule, NgxSmzDialogsModule, NewAthenaLayoutModule } from 'ngx-smz-ui';
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
 import { smzAthenaConfig, smzLayoutsConfig } from '../globals/smz-layouts.config';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import { ApplicationActions, buildState, NgxRbkUtilsConfig, NgxRbkUtilsModule } from 'ngx-smz-ui';
 import { NgxsModule, Store } from '@ngxs/store';
-import { rbkConfig } from '../globals/rbk-config';
 import { smzDialogsConfig } from '../globals/smz-config';
 import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
@@ -18,6 +17,7 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import ptBr from '@angular/common/locales/pt';
 import * as moment from 'moment';
 import { environment } from '@environments/environment';
+import { UiConfigBuilder } from '../globals/smz-ui-config-builder';
 
 registerLocaleData(ptBr);
 moment.locale('pt-br');
@@ -33,17 +33,17 @@ moment.locale('pt-br');
 
     // Não alterar a ordem desse grupo
     NgxSmzDialogsModule.forRoot(smzDialogsConfig),
-    NgxRbkUtilsModule.forRoot(rbkConfig),
+    NgxRbkUtilsModule.forRoot(UiConfigBuilder.BuildRbkUtils()),
     NgxsModule.forRoot(buildState(), { developmentMode: !environment.production }),
     NgxsRouterPluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxSmzLayoutsModule.forRoot(smzLayoutsConfig),
 
-    AthenaLayoutModule.forRoot(smzAthenaConfig),
+    NewAthenaLayoutModule.forRoot(smzAthenaConfig),
     HighlightModule
   ],
   providers: [
-    { provide: NgxRbkUtilsConfig, useValue: rbkConfig },
+    { provide: NgxRbkUtilsConfig, useValue: UiConfigBuilder.BuildRbkUtils() },
     {
       provide: HIGHLIGHT_OPTIONS,
       useValue: {

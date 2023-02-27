@@ -1,11 +1,15 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, Route, Router } from '@angular/router';
+import { NgxRbkUtilsConfig } from '../rbk-utils/ngx-rbk-utils.config';
+import { UsersModule } from '../smz-users-crud/users.module';
+import { MenuHelperService } from './core/services/menu-helper-service';
 import { ErrorModule } from './pages/error/error.module';
 import { LoginModule } from './pages/login/login.module';
 import { NotFoundModule } from './pages/not-found/not-found.module';
 export function getLoginModule() { return LoginModule }
 export function getErrorModule() { return ErrorModule }
 export function getNotFoundModule() { return NotFoundModule }
+export function getUsersModule() { return UsersModule }
 
 const routes: Routes = [
   { path: 'login', loadChildren: getLoginModule },
@@ -20,4 +24,69 @@ export const routerModuleForRootNgxSmzLayoutsModule = RouterModule.forRoot(route
   imports: [routerModuleForRootNgxSmzLayoutsModule],
   exports: [RouterModule]
 })
-export class NgxSmzLayoutsRoutingModule { }
+export class NgxSmzLayoutsRoutingModule {
+
+  constructor(private router: Router, private readonly config: NgxRbkUtilsConfig, public menuService: MenuHelperService)
+  {
+    const newRoutes = [];
+
+    if (config.cruds.users != null && config.cruds.users.router != null)
+    {
+        if (config.cruds.users.avatarPlaceholderPath == null) throw Error('You need to set the users.avatarPlaceholderPath at NgxGediUiConfig');
+        newRoutes.push({ path: config.cruds.users.router.path, loadChildren: getUsersModule });
+    }
+
+    // if (config.cruds.roles != null && config.cruds.roles.router != null)
+    // {
+    //   newRoutes.push({ path: config.cruds.roles.router.path, loadChildren: getRolesModule });
+    // }
+
+    // if (config.cruds.claims != null && config.cruds.claims.router != null)
+    // {
+    //   newRoutes.push({ path: config.cruds.claims.router.path, loadChildren: getClaimsModule });
+    // }
+
+    if (newRoutes.length > 0) {
+
+
+      const gediRoot = getRouteRoot(this.router.config);
+
+      if (gediRoot != null) {
+
+        if (gediRoot.children === null) gediRoot.children = [];
+
+        // publicar rotas dentro da rota com filhos.
+        gediRoot.children.push(...newRoutes);
+        this.router.resetConfig([...this.router.config]);
+      }
+      else {
+        // publicar rotas na raiz.
+        this.router.resetConfig([...newRoutes, ...this.router.config ]);
+      }
+
+    }
+
+  }
+
+}
+
+function getRouteRoot(routes: Routes): Route {
+
+  for (let index = 0; index < routes.length; index++) {
+    const route = routes[index];
+
+    if (route.data?.gediRoot === true) {
+      return route;
+    }
+    else if (route.children?.length > 0) {
+      const root = getRouteRoot(route.children);
+
+      if (root) {
+        return root;
+      }
+    }
+
+  }
+
+  return null;
+}

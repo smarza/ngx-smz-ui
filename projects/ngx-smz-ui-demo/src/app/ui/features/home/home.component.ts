@@ -2,6 +2,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { cloneDeep } from 'lodash-es';
 import { SimpleEntity, SmzDragEventData } from 'ngx-smz-ui';
 import { CountryService } from './country.service';
+declare const window;
 
 @Component({
   selector: 'app-home',
@@ -32,6 +33,27 @@ export class HomeComponent
       }, 3000);
     }, 3000);
 
+  }
+
+  public speak(): void {
+    const voices = window.speechSynthesis?.getVoices();
+
+    const voice = voices?.find((voice) => /pt-BR/.test(voice.lang));
+    const utterance = new SpeechSynthesisUtterance(voice);
+    console.log(1);
+
+
+    utterance.text = 'Existem várias bibliotecas conhecidas de text to speech (TTS) que podem ser usadas em aplicativos Angular. Algumas das bibliotecas mais conhecidas são:'; // word é a palavra que desejamos pronunciar
+    utterance.lang = 'pt-BR'; // língua a pronunciar
+    //utterance.voice = voice; // voz defina acima
+    utterance.rate = 1; // velocidade de fala
+    console.log(2);
+
+    // setTimeout(() => { window.speechSynthesis.speak(utterance); console.log(3); }, 2000)
+
+    window.speechSynthesis.speak(utterance);
+
+    console.log(22);
   }
 
   public dragStart(event: SmzDragEventData): void {

@@ -1,6 +1,7 @@
 export * from './smz-dialogs.module';
 export * from './smz-dialogs.config';
 export * from './services/smz-dialogs.service';
+export * from './services/help-dialog.service';
 
 export * from './models/smz-dialogs';
 export * from './models/smz-presets';

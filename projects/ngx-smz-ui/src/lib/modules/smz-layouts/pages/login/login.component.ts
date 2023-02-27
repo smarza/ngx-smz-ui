@@ -20,7 +20,7 @@ export class LoginComponent {
 
     return new SmzLoginBuilder()
       .setMessage('Entre com as suas credenciais')
-      .setPayloadCallback((response: any) => ({ username: response.username, password: response.password, extraProperties: { applicationId: this.rbkConfig.authentication?.refreshToken?.extraProperties?.applicationId, domain: 'BUZIOS' } }))
+      .setPayloadCallback((response: any) => ({ username: response.username, password: response.password, extraProperties: this.rbkConfig.authentication?.refreshToken?.extraProperties }))
       .build();
 
   }

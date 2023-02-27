@@ -1,8 +1,11 @@
 import { TreeNode } from 'primeng/api';
 import { ObjectUtils } from 'primeng/utils';
-import { mergeMap, of } from 'rxjs';
 import { SimpleNamedEntity } from '../models/simple-named-entity';
 import { b64toBlob, handleBase64 } from './base64-helper';
+
+export function getFirst<T>(array: T[]) {
+    return array == null || array.length === 0 ? null : array[0];
+  }
 
 export type CollectionPredicate = (item?: any, index?: number, collection?: any[]) => boolean;
 

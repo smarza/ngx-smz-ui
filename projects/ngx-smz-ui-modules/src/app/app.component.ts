@@ -12,7 +12,10 @@ export class AppComponent {
     this.themeManager.createCss('assets/priority-styles.css');
 
     this.boilerplateService.init(() => {
-      this.menuService.setProfile([ { label: 'Logout', icon: 'pi pi-power-off', routerLink: ['/login'] } ]);
+      this.menuService.setProfile([
+        { label: 'Cadastro de Usuários', icon: 'pi pi-user', routerLink: ['/users'] },
+        { label: 'Logout', icon: 'pi pi-power-off', routerLink: ['/login'] }
+      ]);
     });
 
   }
