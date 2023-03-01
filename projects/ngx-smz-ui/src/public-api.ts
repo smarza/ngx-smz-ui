@@ -104,7 +104,7 @@ export * from './lib/modules/rbk-utils/public-api';
 export * from './lib/modules/smz-access/public-api';
 
 // BUILDERS
-export * from './lib/builders/smz-config/config-builder';
+export * from './lib/builders/smz-ui/ui-builder';
 
 export * from './lib/builders/smz-documents/document-builder';
 export * from './lib/builders/smz-documents/document-base-cell';

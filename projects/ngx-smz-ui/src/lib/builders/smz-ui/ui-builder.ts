@@ -4,7 +4,7 @@ import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzUiAuthenticationBuilder } from './authentication-builder';
 import { SmzUiCrudsBuilder } from './cruds-builder';
 
-export class SmzUiConfigBuilder extends SmzBuilderUtilities<SmzUiConfigBuilder> {
+export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
   protected that = this;
   public _state: NgxRbkUtilsConfig = {
     debugMode: false,
@@ -162,7 +162,6 @@ export class SmzUiConfigBuilder extends SmzBuilderUtilities<SmzUiConfigBuilder> 
       users: {},
       roles: {},
       claims: {},
-      uns: {},
     }
   };
 
@@ -170,7 +169,7 @@ export class SmzUiConfigBuilder extends SmzBuilderUtilities<SmzUiConfigBuilder> 
     super();
   }
 
-  public setApplicationName(name: string): SmzUiConfigBuilder {
+  public setApplicationName(name: string): SmzUiBuilder {
     this._state.applicationName = name;
     return this.that;
   }
@@ -183,7 +182,7 @@ export class SmzUiConfigBuilder extends SmzBuilderUtilities<SmzUiConfigBuilder> 
     return new SmzUiCrudsBuilder(this, this._state);
   }
 
-  public debugMode(): SmzUiConfigBuilder {
+  public debugMode(): SmzUiBuilder {
     this._state.debugMode = true;
     return this.that;
   }

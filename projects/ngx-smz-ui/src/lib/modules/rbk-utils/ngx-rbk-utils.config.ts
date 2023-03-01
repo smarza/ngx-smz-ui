@@ -66,8 +66,7 @@ export class NgxRbkUtilsConfig {
             extraProperties?: { [name: string]: string };
         };
         accessTokenClaims?: { claimName: string; propertyName: string; type: 'string' | 'array' }[],
-        useWindowsAuthentication?: boolean,
-        showAuthPages?: boolean
+        useWindowsAuthentication?: boolean
     };
     public httpBehaviors: {
         defaultParameters: HttpBehaviorParameters;
@@ -140,11 +139,6 @@ export class NgxRbkUtilsConfig {
             },
             menu?: string;
             httpBehavior?: Partial<HttpBehaviorParameters>;
-        }
-
-        uns: {
-            httpBehavior?: Partial<HttpBehaviorParameters>;
-            cacheTimeout?: number;
         }
     }
 }

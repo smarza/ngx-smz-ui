@@ -141,7 +141,6 @@ export const rbkConfig: NgxRbkUtilsConfig = {
             { claimName: 'rol', propertyName: 'roles', type: 'array' },
             { claimName: 'Picture', propertyName: 'picture', type: 'string' },
         ],
-        showAuthPages: true
     },
     state: {
         database: {
@@ -224,5 +223,10 @@ export const rbkConfig: NgxRbkUtilsConfig = {
         callback: (error: CustomError, store: Store) => {
             console.log('error callback', error, store);
         }
+    },
+    cruds:{
+        users: null,
+        roles: null,
+        claims: null
     }
 };

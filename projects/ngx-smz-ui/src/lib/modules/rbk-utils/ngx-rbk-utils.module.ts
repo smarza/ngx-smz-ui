@@ -18,13 +18,14 @@ import { Route, Router, RouteReuseStrategy, Routes } from '@angular/router';
 import { CachedRouteReuseStrategy } from './utils/reusable-route';
 import { GlobalErrorHandler } from './error-handler/global-error.interceptor';
 import { databaseSmzAccessStates, featureSmzAccessStates } from '../smz-access/state/state-parameters';
-import { CLAIMS_PATH, ROLES_PATH } from '../smz-access/routes';
+import { CLAIMS_PATH, ROLES_PATH, USERS_PATH } from '../smz-access/routes';
 import { RolesModule } from '../smz-access/modules/roles/roles.module';
 import { ClaimsModule } from '../smz-access/modules/claims/claims.module';
+import { UsersModule } from '../smz-access/modules/users/users.module';
 
 export function getClaimsModule() { return ClaimsModule }
-
 export function getRolesModule() { return RolesModule }
+export function getUsersModule() { return UsersModule }
 
 @NgModule({
     imports: [
@@ -72,22 +73,28 @@ export class NgxRbkUtilsModule {
 
         const newRoutes = [];
 
-        if (configuration.authentication.showAuthPages) {
+        if (configuration.cruds?.users) {
+            newRoutes.push({ path: USERS_PATH, loadChildren: getUsersModule });
+        }
+
+        if (configuration.cruds?.roles) {
             newRoutes.push({ path: ROLES_PATH, loadChildren: getRolesModule });
+        }
+
+        if (configuration.cruds?.claims) {
             newRoutes.push({ path: CLAIMS_PATH, loadChildren: getClaimsModule });
         }
 
         if (newRoutes.length > 0) {
 
+        const appRoot = getRouteRoot(this.router.config);
 
-        const gediRoot = getRouteRoot(this.router.config);
+        if (appRoot != null) {
 
-        if (gediRoot != null) {
-
-            if (gediRoot.children === null) gediRoot.children = [];
+            if (appRoot.children === null) appRoot.children = [];
 
             // publicar rotas dentro da rota com filhos.
-            gediRoot.children.push(...newRoutes);
+            appRoot.children.push(...newRoutes);
             this.router.resetConfig([...this.router.config]);
         }
         else {
@@ -102,10 +109,8 @@ export class NgxRbkUtilsModule {
         // For some reason Angular passes 2x through all Decorators, so we set the arrays
         // only when they're empty
 
-        if (configuration.authentication.showAuthPages) {
-            configuration.state.database = { ...configuration.state.database, ...databaseSmzAccessStates };
-            configuration.state.feature = { ...configuration.state.feature, ...featureSmzAccessStates };
-        }
+        configuration.state.database = { ...configuration.state.database, ...databaseSmzAccessStates };
+        configuration.state.feature = { ...configuration.state.feature, ...featureSmzAccessStates };
 
         if (FEATURE_STATES.length === 0) {
             const states = [];

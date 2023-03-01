@@ -2,17 +2,16 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
-// import { CLAIMS_STATE_NAME } from '../../state/database/claims/claims.state';
-// import { ROLES_STATE_NAME } from '../../state/database/roles/roles.state';
-import { USERS_STATE_NAME } from '../../state/database/users/users.state';
-
+import { RbkAccessControlModule } from '../../../rbk-utils/auth/guards/access-control.module';
+import { RbkDatabaseStateGuard } from '../../../rbk-utils/utils/state/database-state.guard';
+import { NgxSmzTablesModule } from '../../../smz-tables/ngx-smz-tables.module';
+import { CLAIMS_STATE_NAME } from '../../state/claims/claims.state';
+import { ROLES_STATE_NAME } from '../../state/roles/roles.state';
+import { USERS_STATE_NAME } from '../../state/users/users.state';
 import { UsersPageComponent } from './containers/users/users-page.component';
 import { PickListModule } from 'primeng/picklist';
-import { RbkDatabaseStateGuard } from '../rbk-utils/utils/state/database-state.guard';
-import { NgxSmzTablesModule } from '../smz-tables/ngx-smz-tables.module';
-import { RbkAccessControlModule } from '../rbk-utils/auth/guards/access-control.module';
-import { NgxRbkUtilsConfig } from '../rbk-utils/ngx-rbk-utils.config';
-import { RbkAuthGuard } from '../rbk-utils/auth/auth.guard';
+import { NgxRbkUtilsConfig } from '../../../rbk-utils/ngx-rbk-utils.config';
+import { RbkAuthGuard } from '../../../rbk-utils/auth/auth.guard';
 
 const routes: Routes = [
   {
@@ -26,7 +25,7 @@ const routes: Routes = [
       title: '',
       appArea: '',
       clearReusableRoutes: true,
-      requiredStates: [USERS_STATE_NAME] //, ROLES_STATE_NAME, CLAIMS_STATE_NAME]
+      requiredStates: [USERS_STATE_NAME, ROLES_STATE_NAME, CLAIMS_STATE_NAME]
     }
   },
 ];

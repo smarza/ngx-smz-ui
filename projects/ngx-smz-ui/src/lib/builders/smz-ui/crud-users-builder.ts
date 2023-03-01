@@ -1,7 +1,5 @@
 import { HttpBehaviorParameters } from '../../modules/rbk-utils/http/base-api.service';
 import { NgxRbkUtilsConfig } from '../../modules/rbk-utils/ngx-rbk-utils.config';
-import { UsersDbActions } from '../../state/database/users/users.actions';
-import { getDbUsersInitialState, UsersDbState } from '../../state/database/users/users.state';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzUiCrudsBuilder } from './cruds-builder';
 
@@ -21,12 +19,6 @@ export class SmzUiUsersCrudBuilder extends SmzBuilderUtilities<SmzUiUsersCrudBui
     avatarPlaceholderPath?: string;
   }
 
-  private _database = {
-    state: UsersDbState,
-    cacheTimeout: 30,
-    loadAction: UsersDbActions.LoadAll,
-    clearFunction: getDbUsersInitialState
-  };
   constructor(private _builder: SmzUiCrudsBuilder, private _state: NgxRbkUtilsConfig) {
     super();
 
@@ -61,7 +53,6 @@ export class SmzUiUsersCrudBuilder extends SmzBuilderUtilities<SmzUiUsersCrudBui
 
   public get cruds(): SmzUiCrudsBuilder {
     this._state.cruds.users = this._config;
-    Reflect.set(this._state.state.database, 'users', this._database);
     return this._builder;
   }
 }

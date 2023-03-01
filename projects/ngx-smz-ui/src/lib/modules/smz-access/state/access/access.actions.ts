@@ -1,29 +1,30 @@
 import { SimpleNamedEntity } from '../../../../common/models/simple-named-entity';
-import { AddClaimToUser as AddClaimToUserPayload } from '../../models/add-claim-to-user';
+import { AddClaimOverride as AddClaimOverridePayload } from '../../models/add-claim-override';
 import { ClaimOverride } from '../../models/claim-override';
-import { RemoveClaimFromUser as RemoveClaimFromUserPayload } from '../../models/remove-claim-from-user';
-import { UpdateUserRoles as UpdateUserRolesPayload } from '../../models/update-user-roles';
+import { RemoveClaimOverride as RemoveClaimOverridePayload } from '../../models/remove-claim-override';
+import { ReplaceUserRoles as ReplaceUserRolesPayload } from '../../models/replace-user-roles';
+import { UserDetails } from '../../models/user-details';
 
 export namespace AccessActions {
 
-  export class UpdateUserRoles {
+  export class ReplaceUserRoles {
     public static readonly type = '[Access API] Update User Roles';
-    constructor(public data: UpdateUserRolesPayload) { }
+    constructor(public data: ReplaceUserRolesPayload) { }
   }
 
-  export class AddClaimToUser {
-    public static readonly type = '[Access API] Add Claim To User';
-    constructor(public data: AddClaimToUserPayload) { }
+  export class AddClaimOverride {
+    public static readonly type = '[Access API] Add Claim Override';
+    constructor(public data: AddClaimOverridePayload) { }
   }
 
-  export class RemoveClaimFromUser {
-    public static readonly type = '[Access API] Remove Claim From User';
-    constructor(public data: RemoveClaimFromUserPayload) { }
+  export class RemoveClaimOverride {
+    public static readonly type = '[Access API] Remove Claim Override';
+    constructor(public data: RemoveClaimOverridePayload) { }
   }
 
   export class UpdateUserRolesSuccess {
     public static readonly type = '[Access API] Update User Roles Success';
-    constructor(public username, public data: SimpleNamedEntity[]) { }
+    constructor(public username, public data: UserDetails) { }
   }
 
   export class UpdateUserClaimsSuccess {

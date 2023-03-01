@@ -1,5 +1,5 @@
 
-export namespace UsersDbActions {
+export namespace UsersActions {
   export class LoadAll {
     public static readonly type = '[Users API] Load All';
   }

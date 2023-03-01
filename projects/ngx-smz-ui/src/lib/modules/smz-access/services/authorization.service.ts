@@ -7,7 +7,6 @@ import { RolesDetails } from '../models/roles-details';
 import { UserDetails } from '../models/user-details';
 import { ClaimOverride } from '../models/claim-override';
 import { TenantDetails } from '../models/tenant-details';
-import { BaseApiService } from '../http/base-api.service';
 import { CreateClaim } from '../models/create-claim';
 import { UpdateClaim } from '../models/update-claim';
 import { ProtectClaim } from '../models/protect-claim';
@@ -20,6 +19,7 @@ import { AddClaimOverride } from '../models/add-claim-override';
 import { RemoveClaimOverride } from '../models/remove-claim-override';
 import { CreateTenant } from '../models/create-tenant';
 import { UpdateTenant } from '../models/update-tenant';
+import { BaseApiService } from '../../rbk-utils/http/base-api.service';
 
 
 @Injectable({ providedIn: 'root' })
@@ -48,20 +48,23 @@ export class AuthorizationService extends BaseApiService {
   public unprotectClaim(data: UnprotectClaim): Observable<ClaimDetails> {
     return this.http.post<ClaimDetails>(`${this.endpoint}/claims/unprotect`, data, this.generateDefaultHeaders({}));
   }
-  public all(): Observable<RolesDetails[]> {
+  public getAllRoles(): Observable<RolesDetails[]> {
     return this.http.get<RolesDetails[]>(`${this.endpoint}/roles`, this.generateDefaultHeaders({}));
   }
-  public create(data: CreateRole): Observable<RolesDetails> {
+  public createRole(data: CreateRole): Observable<RolesDetails> {
     return this.http.post<RolesDetails>(`${this.endpoint}/roles`, data, this.generateDefaultHeaders({}));
   }
-  public update(data: RenameRole): Observable<RolesDetails> {
+  public updateRole(data: RenameRole): Observable<RolesDetails> {
     return this.http.put<RolesDetails>(`${this.endpoint}/roles`, data, this.generateDefaultHeaders({}));
   }
-  public delete(id: string): Observable<void> {
+  public deleteRole(id: string): Observable<void> {
     return this.http.delete<void>(`${this.endpoint}/roles/${id}`, this.generateDefaultHeaders({}));
   }
   public updateRoleClaims(data: UpdateRoleClaims): Observable<RolesDetails> {
     return this.http.post<RolesDetails>(`${this.endpoint}/roles/update-claims`, data, this.generateDefaultHeaders({}));
+  }
+  public getAllUsers(): Observable<UserDetails[]> {
+    return this.http.get<UserDetails[]>(`${this.endpoint}/users`, this.generateDefaultHeaders({}));
   }
   public updateUserRoles(data: ReplaceUserRoles): Observable<UserDetails> {
     return this.http.post<UserDetails>(`${this.endpoint}/users/set-roles`, data, this.generateDefaultHeaders({}));
@@ -83,9 +86,6 @@ export class AuthorizationService extends BaseApiService {
   }
   public deleteTenant(id: string): Observable<void> {
     return this.http.delete<void>(`${this.endpoint}/tenants/${id}`, this.generateDefaultHeaders({}));
-  }
-  public getAllUsers(): Observable<UserDetails[]> {
-    return this.http.get<UserDetails[]>(`${this.endpoint}/users`, this.generateDefaultHeaders({}));
   }
 }
 

@@ -4,6 +4,8 @@ import { ClaimsActions } from './claims/claims.actions';
 import { ClaimsState, CLAIMS_STATE_NAME } from './claims/claims.state';
 import { RolesActions } from './roles/roles.actions';
 import { RolesState, ROLES_STATE_NAME } from './roles/roles.state';
+import { UsersActions } from './users/users.actions';
+import { UsersState, USERS_STATE_NAME } from './users/users.state';
 
 export const databaseSmzAccessStates: {[name: string]: DatabaseStateParameters} = {
   [CLAIMS_STATE_NAME]: {
@@ -17,6 +19,12 @@ export const databaseSmzAccessStates: {[name: string]: DatabaseStateParameters} 
     cacheTimeout: 999,
     loadAction: RolesActions.LoadAll,
     clearAction: RolesActions.Clear,
+  },
+  [USERS_STATE_NAME]: {
+    state: UsersState,
+    cacheTimeout: 999,
+    loadAction: UsersActions.LoadAll,
+    clearAction: UsersActions.Clear,
   },
 };
 

@@ -1,4 +1,6 @@
+
+
 export interface CreateClaim {
-  name: string;
+  identification: string;
   description: string;
 }

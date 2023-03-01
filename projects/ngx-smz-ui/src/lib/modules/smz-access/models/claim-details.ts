@@ -1,8 +1,6 @@
-
-
 export interface ClaimDetails {
   description: string;
-  name: string;
+  identification: string;
   isProtected: boolean;
   id: string;
 }

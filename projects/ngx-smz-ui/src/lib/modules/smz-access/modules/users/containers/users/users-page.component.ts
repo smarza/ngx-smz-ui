@@ -1,18 +1,18 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { UsersDbSelectors } from '../../../../state/database/users/users.selectors';
-import { UsersDbActions } from '../../../../state/database/users/users.actions';
-import { NgxRbkUtilsConfig, RoleBehavior } from '../../../rbk-utils/ngx-rbk-utils.config';
-import { SmzHelpDialogService } from '../../../smz-dialogs/services/help-dialog.service';
-import { SmzDialogsService } from '../../../smz-dialogs/services/smz-dialogs.service';
-import { AuthenticationSelectors } from '../../../../state/global/authentication/authentication.selectors';
-import { SmzTableBuilder } from '../../../../builders/smz-tables/state-builder';
-import { SmzTableState } from '../../../smz-tables/models/table-state';
-import { SmzFilterType } from '../../../smz-tables/models/filter-types';
-import { SimpleNamedEntity } from '../../../../../lib/common/models/simple-named-entity';
-import { Confirmable } from '../../../smz-dialogs/decorators/confirmable.decorator';
-import { UserDetails } from '../../../rbk-utils/models/user-details';
+import { UsersSelectors } from '../../../../state/users/users.selectors';
+import { UsersActions } from '../../../../state/users/users.actions';
+import { NgxRbkUtilsConfig, RoleBehavior } from '../../../../../rbk-utils/ngx-rbk-utils.config';
+import { SmzHelpDialogService } from '../../../../../smz-dialogs/services/help-dialog.service';
+import { SmzDialogsService } from '../../../../../smz-dialogs/services/smz-dialogs.service';
+import { AuthenticationSelectors } from '../../../../../../state/global/authentication/authentication.selectors';
+import { SmzTableBuilder } from '../../../../../../builders/smz-tables/state-builder';
+import { SmzTableState } from '../../../../../smz-tables/models/table-state';
+import { SmzFilterType } from '../../../../../smz-tables/models/filter-types';
+import { SimpleNamedEntity } from '../../../../../../../lib/common/models/simple-named-entity';
+import { Confirmable } from '../../../../../smz-dialogs/decorators/confirmable.decorator';
+import { UserDetails } from '../../../../models/user-details';
 
 @Component({
   selector: 'gedi-ui-users-page',
@@ -28,7 +28,7 @@ export class UsersPageComponent {
   constructor(public readonly config: NgxRbkUtilsConfig, private dialogs: SmzDialogsService, private store: Store,
     private helpService: SmzHelpDialogService) {
 
-    this.items$ = this.store.select(UsersDbSelectors.users);
+    this.items$ = this.store.select(UsersSelectors.users);
 
     const hasUserRolesUpdateAccess: boolean = this.store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(this.config.cruds.users.manageUserRolesUpdateClaim));
     const hasUserClaimsUpdateAccess: boolean = this.store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(this.config.cruds.users.manageUserClaimsUpdateClaim));
@@ -88,7 +88,7 @@ export class UsersPageComponent {
 
   @Confirmable('Tem certeza que deseja excluir este usuário?', 'Confirmação', true)
   public onDelete(event: UserDetails): void {
-    // this.store.dispatch(new UsersDbActions.Remove({ id: event.id }));
+    // this.store.dispatch(new UsersActions.Remove({ id: event.id }));
   }
 
   public onUpdateClaims(event: UserDetails): void {

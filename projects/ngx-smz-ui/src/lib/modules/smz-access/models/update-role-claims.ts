@@ -1,5 +1,8 @@
+import { AuthenticatedUser } from './authenticated-user';
 
 export interface UpdateRoleClaims {
-  roleId: string;
-  claimIds: string[];
+  id: string;
+  claimsIds: string[];
+  identity: AuthenticatedUser;
+  isAuthenticated: boolean;
 }

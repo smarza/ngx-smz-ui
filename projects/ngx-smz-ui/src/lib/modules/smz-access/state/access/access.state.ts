@@ -3,10 +3,10 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { AccessActions } from './access.actions';
-import { AccessService } from '../../services/access.service';
-import { SimpleNamedEntity } from '../../../../common/models/simple-named-entity';
 import { ClaimOverride } from '../../models/claim-override';
 import { ToastActions } from '../../../../../lib/state/global/application/application.actions.toast';
+import { AuthorizationService } from '../../services/authorization.service';
+import { UserDetails } from '../../models/user-details';
 
 export const ACCESS_STATE_NAME = 'access';
 
@@ -24,20 +24,20 @@ export const getAccessInitialState = (): AccessStateModel => ({
 @Injectable()
 export class AccessState {
 
-  constructor(private apiService: AccessService) { }
+  constructor(private apiService: AuthorizationService) { }
 
-  @Action(AccessActions.UpdateUserRoles)
-  public onUpdateUserRoles$(ctx: StateContext<AccessStateModel>, action: AccessActions.UpdateUserRoles): Observable<SimpleNamedEntity[]> {
+  @Action(AccessActions.ReplaceUserRoles)
+  public onReplaceUserRoles$(ctx: StateContext<AccessStateModel>, action: AccessActions.ReplaceUserRoles): Observable<UserDetails> {
     return this.apiService.updateUserRoles(action.data).pipe(
-      tap((results: SimpleNamedEntity[]) => {
+      tap((results: UserDetails) => {
         ctx.dispatch(new AccessActions.UpdateUserRolesSuccess(action.data.username, results));
         ctx.dispatch(new ToastActions.Success('Regras de acesso do usuário atualizadas com sucesso'));
       })
     );
   }
 
-  @Action(AccessActions.AddClaimToUser)
-  public onAddClaimToUser$(ctx: StateContext<AccessStateModel>, action: AccessActions.AddClaimToUser): Observable<ClaimOverride[]> {
+  @Action(AccessActions.AddClaimOverride)
+  public onAddClaimOverride$(ctx: StateContext<AccessStateModel>, action: AccessActions.AddClaimOverride): Observable<ClaimOverride[]> {
     return this.apiService.addClaimToUser(action.data).pipe(
       tap((results: ClaimOverride[]) => {
         ctx.dispatch(new AccessActions.UpdateUserClaimsSuccess(action.data.username, results));
@@ -46,8 +46,8 @@ export class AccessState {
     );
   }
 
-  @Action(AccessActions.RemoveClaimFromUser)
-  public onRemoveClaimFromUser$(ctx: StateContext<AccessStateModel>, action: AccessActions.RemoveClaimFromUser): Observable<ClaimOverride[]> {
+  @Action(AccessActions.RemoveClaimOverride)
+  public onRemoveClaimOverride$(ctx: StateContext<AccessStateModel>, action: AccessActions.RemoveClaimOverride): Observable<ClaimOverride[]> {
     return this.apiService.removeClaimFromUser(action.data).pipe(
       tap((results: ClaimOverride[]) => {
         ctx.dispatch(new AccessActions.UpdateUserClaimsSuccess(action.data.username, results));

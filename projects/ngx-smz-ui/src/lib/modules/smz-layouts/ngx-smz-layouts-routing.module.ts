@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, Route, Router } from '@angular/router';
 import { NgxRbkUtilsConfig } from '../rbk-utils/ngx-rbk-utils.config';
-import { UsersModule } from '../smz-users-crud/users.module';
+import { UsersModule } from '../smz-access/modules/users/users.module';
 import { MenuHelperService } from './core/services/menu-helper-service';
 import { ErrorModule } from './pages/error/error.module';
 import { LoginModule } from './pages/login/login.module';
@@ -9,7 +9,6 @@ import { NotFoundModule } from './pages/not-found/not-found.module';
 export function getLoginModule() { return LoginModule }
 export function getErrorModule() { return ErrorModule }
 export function getNotFoundModule() { return NotFoundModule }
-export function getUsersModule() { return UsersModule }
 
 const routes: Routes = [
   { path: 'login', loadChildren: getLoginModule },
@@ -29,22 +28,6 @@ export class NgxSmzLayoutsRoutingModule {
   constructor(private router: Router, private readonly config: NgxRbkUtilsConfig, public menuService: MenuHelperService)
   {
     const newRoutes = [];
-
-    if (config.cruds.users != null && config.cruds.users.router != null)
-    {
-        if (config.cruds.users.avatarPlaceholderPath == null) throw Error('You need to set the users.avatarPlaceholderPath at NgxGediUiConfig');
-        newRoutes.push({ path: config.cruds.users.router.path, loadChildren: getUsersModule });
-    }
-
-    // if (config.cruds.roles != null && config.cruds.roles.router != null)
-    // {
-    //   newRoutes.push({ path: config.cruds.roles.router.path, loadChildren: getRolesModule });
-    // }
-
-    // if (config.cruds.claims != null && config.cruds.claims.router != null)
-    // {
-    //   newRoutes.push({ path: config.cruds.claims.router.path, loadChildren: getClaimsModule });
-    // }
 
     if (newRoutes.length > 0) {
 

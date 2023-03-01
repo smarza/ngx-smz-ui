@@ -3,10 +3,10 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { RolesActions } from './roles.actions';
-import { RolesService } from '../../services/roles.service';
-import { RolesDetails } from '../../models/roles-details';
 import { replaceItem } from '../../../../common/utils/utils';
 import { ToastActions } from '../../../../../lib/state/global/application/application.actions.toast';
+import { AuthorizationService } from '../../services/authorization.service';
+import { RolesDetails } from '../../models/roles-details';
 
 export const ROLES_STATE_NAME = 'roles';
 
@@ -25,12 +25,12 @@ export interface RolesStateModel {
 
 @Injectable()
 export class RolesState {
-  constructor(private apiService: RolesService) { }
+  constructor(private apiService: AuthorizationService) { }
 
 
   @Action(RolesActions.LoadAll)
   public loadAll$(ctx: StateContext<RolesStateModel>): Observable<RolesDetails[]> {
-    return this.apiService.all().pipe(
+    return this.apiService.getAllRoles().pipe(
       tap((result: RolesDetails[]) => {
         ctx.patchState({
           lastUpdated: new Date(),
@@ -42,7 +42,7 @@ export class RolesState {
 
   @Action(RolesActions.Create)
   public create$(ctx: StateContext<RolesStateModel>, action: RolesActions.Create): Observable<RolesDetails> {
-    return this.apiService.create(action.data).pipe(
+    return this.apiService.createRole(action.data).pipe(
       tap((result: RolesDetails) => {
         ctx.patchState({
           items: [ result, ...ctx.getState().items ]
@@ -54,7 +54,7 @@ export class RolesState {
 
   @Action(RolesActions.Update)
   public update$(ctx: StateContext<RolesStateModel>, action: RolesActions.Update): Observable<RolesDetails> {
-    return this.apiService.update(action.data).pipe(
+    return this.apiService.updateRole(action.data).pipe(
       tap((result: RolesDetails) => {
         ctx.patchState({
           items: replaceItem(ctx.getState().items, result)
@@ -66,7 +66,7 @@ export class RolesState {
 
   @Action(RolesActions.Delete)
   public delete$(ctx: StateContext<RolesStateModel>, action: RolesActions.Delete): Observable<void> {
-    return this.apiService.delete(action.id).pipe(
+    return this.apiService.deleteRole(action.id).pipe(
       tap(() => {
         ctx.patchState({
           items: [ ...ctx.getState().items.filter(x => x.id !== action.id) ]

@@ -1,5 +1,5 @@
 import { CreateRole } from '../../models/create-role';
-import { UpdateRole } from '../../models/update-role';
+import { RenameRole } from '../../models/rename-role';
 import { UpdateRoleClaims } from '../../models/update-role-claims';
 
 export namespace RolesActions {
@@ -16,7 +16,7 @@ export namespace RolesActions {
   export class Update {
     public static readonly type = '[Roles API] Update';
 
-    constructor(public data: UpdateRole) {}
+    constructor(public data: RenameRole) {}
   }
 
   export class Delete {
