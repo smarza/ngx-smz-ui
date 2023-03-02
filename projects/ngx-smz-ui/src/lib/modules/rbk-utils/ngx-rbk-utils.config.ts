@@ -1,5 +1,6 @@
 import { Store } from '@ngxs/store';
 import { SmzDocumentConfig } from '../smz-documents/models/smz-document-config';
+import { MenuCreation } from '../smz-layouts/core/models/menu-creation';
 import { LoginResponse } from './auth/models';
 import { CustomError } from './error-handler/error.handler';
 import { HttpBehaviorParameters } from './http/base-api.service';
@@ -108,37 +109,48 @@ export class NgxRbkUtilsConfig {
         };
         callback?: (error: CustomError, store: Store) => void
     };
-    public cruds: {
+    public authorization: {
+        navigationMenu: MenuCreation,
+        profileMenu: MenuCreation[],
         users: {
             router?: {
                 path: string,
                 claim?: string
             },
             title?: string;
-            menu?: string;
             httpBehavior?: Partial<HttpBehaviorParameters>;
             manageUserRolesUpdateClaim?: string;
             manageUserClaimsUpdateClaim?: string;
             avatarPlaceholderPath?: string;
-        }
+            isVisible?: boolean;
+        },
         roles: {
             title?: string;
             router?: {
                 path: string,
                 claim?: string
             },
-            menu?: string;
             httpBehavior?: Partial<HttpBehaviorParameters>;
             behavior?: RoleBehavior;
-        }
+            isVisible?: boolean;
+        },
         claims: {
             title?: string;
             router?: {
                 path: string,
                 claim?: string
             },
-            menu?: string;
             httpBehavior?: Partial<HttpBehaviorParameters>;
+            isVisible?: boolean;
+        },
+        tenants: {
+            title?: string;
+            router?: {
+                path: string,
+                claim?: string
+            },
+            httpBehavior?: Partial<HttpBehaviorParameters>;
+            isVisible?: boolean;
         }
     }
 }

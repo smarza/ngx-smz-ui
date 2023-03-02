@@ -8,31 +8,35 @@ import { FEATURE_STATES } from '../../state/features/features.state';
 import { ClaimsModule } from '../smz-access/modules/claims/claims.module';
 import { RolesModule } from '../smz-access/modules/roles/roles.module';
 import { UsersModule } from '../smz-access/modules/users/users.module';
-import { CLAIMS_PATH, ROLES_PATH, USERS_PATH } from '../smz-access/routes';
-import { databaseSmzAccessStates, featureSmzAccessStates } from '../smz-access/state/state-parameters';
+import { CLAIMS_PATH, ROLES_PATH, TENANTS_PATH, USERS_PATH } from '../smz-access/routes';
 import { DatabaseStateParameters } from './ngx-rbk-utils.config';
 import { isEmpty } from './utils/utils';
 
-export function getClaimsModule() { return ClaimsModule }
-export function getRolesModule() { return RolesModule }
 export function getUsersModule() { return UsersModule }
+export function getRolesModule() { return RolesModule }
+export function getClaimsModule() { return ClaimsModule }
+// export function getTenantsModule() { return TenantsModule }
 
 export function runAccessRoutesInitialization(router: Router) {
   const config = GlobalInjector.config;
 
   const newRoutes = [];
 
-  if (config.rbkUtils.cruds?.users) {
+  if (config.rbkUtils.authorization?.users?.isVisible) {
       newRoutes.push({ path: USERS_PATH, loadChildren: getUsersModule });
   }
 
-  if (config.rbkUtils.cruds?.roles) {
+  if (config.rbkUtils.authorization?.roles?.isVisible) {
       newRoutes.push({ path: ROLES_PATH, loadChildren: getRolesModule });
   }
 
-  if (config.rbkUtils.cruds?.claims) {
+  if (config.rbkUtils.authorization?.claims?.isVisible) {
       newRoutes.push({ path: CLAIMS_PATH, loadChildren: getClaimsModule });
   }
+
+  if (config.rbkUtils.authorization?.tenants?.isVisible) {
+    // newRoutes.push({ path: TENANTS_PATH, loadChildren: getTenantsModule });
+    }
 
   if (newRoutes.length > 0) {
 
@@ -59,7 +63,7 @@ export function runRbkInitialization() {
   const mainConfig: NgxSmzUiConfig = GlobalInjector.config;
   const configuration = mainConfig.rbkUtils;
 
-  configuration.state.database = { ...configuration.state.database, ...databaseSmzAccessStates };
+  configuration.state.database = { ...configuration.state.database };
   configuration.state.feature = { ...configuration.state.feature };
 
   if (FEATURE_STATES.length === 0) {

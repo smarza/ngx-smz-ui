@@ -1,11 +1,11 @@
 import { HttpBehaviorParameters } from '../../modules/rbk-utils/http/base-api.service';
+import { TENANTS_PAGE_ROUTE, TENANTS_PATH } from '../../modules/smz-access/routes';
+import { MenuCreation } from '../../modules/smz-layouts/core/models/menu-creation';
 import { NgxSmzUiConfig } from '../../ngx-smz-ui.config';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzUiAuthorizationBuilder } from './authorization-builder';
-import { USERS_PAGE_ROUTE, USERS_PATH } from '../../modules/smz-access/routes';
-import { MenuCreation } from '../../modules/smz-layouts/core/models/menu-creation';
 
-export class SmzUiUsersCrudBuilder extends SmzBuilderUtilities<SmzUiUsersCrudBuilder> {
+export class SmzUiTenantCrudBuilder extends SmzBuilderUtilities<SmzUiTenantCrudBuilder> {
   protected that = this;
 
   private _config: {
@@ -18,7 +18,6 @@ export class SmzUiUsersCrudBuilder extends SmzBuilderUtilities<SmzUiUsersCrudBui
     httpBehavior?: Partial<HttpBehaviorParameters>;
     manageUserRolesUpdateClaim?: string;
     manageUserClaimsUpdateClaim?: string;
-    avatarPlaceholderPath?: string;
     isVisible?: boolean;
   }
 
@@ -30,9 +29,9 @@ export class SmzUiUsersCrudBuilder extends SmzBuilderUtilities<SmzUiUsersCrudBui
 
     this._config = {
       menu: 'Admin',
-      title: 'Cadastro de Usuários',
+      title: 'Cadastro de Tenants',
       router: {
-        path: USERS_PATH
+        path: TENANTS_PATH
       },
       httpBehavior: {
         authentication: true,
@@ -43,36 +42,30 @@ export class SmzUiUsersCrudBuilder extends SmzBuilderUtilities<SmzUiUsersCrudBui
       },
       manageUserRolesUpdateClaim: 'MANAGE_USERS_ROLES',
       manageUserClaimsUpdateClaim: 'MANAGE_USERS_CLAIMS',
-      avatarPlaceholderPath: 'assets/images/avatar_dark.png',
       isVisible: true
     };
 
-    this._menu = { label: 'Usuários', routerLink: USERS_PAGE_ROUTE };
+    this._menu = { label: 'Tenants', routerLink: TENANTS_PAGE_ROUTE };
   }
 
-  public setTitle(title: string): SmzUiUsersCrudBuilder {
+  public setTitle(title: string): SmzUiTenantCrudBuilder {
     this._config.title = title;
     return this.that;
   }
 
-  public setAvatarPlaceholder(path: string): SmzUiUsersCrudBuilder {
-    this._config.avatarPlaceholderPath = path;
-    return this.that;
-  }
-
-  public overrideMenu(partial: Partial<MenuCreation> = {}): SmzUiUsersCrudBuilder {
+  public overrideMenu(partial: Partial<MenuCreation> = {}): SmzUiTenantCrudBuilder {
     this._menu = { ...this._menu, ...partial };
     return this.that;
   }
 
-  public hide(): SmzUiUsersCrudBuilder {
+  public hide(): SmzUiTenantCrudBuilder {
     this._menu = null;
     this._config.isVisible = false;
     return this.that;
   }
 
   public get authorization(): SmzUiAuthorizationBuilder {
-    this._state.rbkUtils.authorization.users = this._config;
+    this._state.rbkUtils.authorization.tenants = this._config;
 
     if (this._menu != null) {
       switch (this._builder._menuLocation) {

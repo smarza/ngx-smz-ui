@@ -1,8 +1,5 @@
-import { HttpBehaviorParameters } from '../../modules/rbk-utils/http/base-api.service';
 import { DatabaseStateParameters } from '../../modules/rbk-utils/ngx-rbk-utils.config';
-import { NgxSmzUiConfig } from '../../ngx-smz-ui.config';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
-import { SmzUiCrudsBuilder } from './cruds-builder';
 import { SmzUiStatesBuilder } from './states-builder';
 
 export class SmzUiFeatureStateBuilder extends SmzBuilderUtilities<SmzUiFeatureStateBuilder> {

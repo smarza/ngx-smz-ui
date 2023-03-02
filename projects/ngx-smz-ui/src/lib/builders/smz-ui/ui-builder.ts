@@ -8,7 +8,7 @@ import { SmzLayoutsConfig } from '../../modules/smz-layouts/core/globals/smz-lay
 import { NgxSmzUiConfig } from '../../ngx-smz-ui.config';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzUiAuthenticationBuilder } from './authentication-builder';
-import { SmzUiCrudsBuilder } from './cruds-builder';
+import { SmzUiAuthorizationBuilder } from './authorization-builder';
 import { SmzUiStatesBuilder } from './states-builder';
 
 export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
@@ -167,10 +167,13 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
                 },
                 callback: null
             },
-            cruds: {
+            authorization: {
+                navigationMenu: null,
+                profileMenu: [],
                 users: {},
                 roles: {},
                 claims: {},
+                tenants: {}
             }
         },
         dialogs: {
@@ -206,8 +209,8 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
         return new SmzUiAuthenticationBuilder(this);
     }
 
-    public cruds(): SmzUiCrudsBuilder {
-        return new SmzUiCrudsBuilder(this, this._state);
+    public authorization(): SmzUiAuthorizationBuilder {
+        return new SmzUiAuthorizationBuilder(this, this._state);
     }
 
     public states(): SmzUiStatesBuilder {

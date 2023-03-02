@@ -3,8 +3,6 @@ import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { UsersSelectors } from '../../../../state/users/users.selectors';
 import { RoleBehavior } from '../../../../../rbk-utils/ngx-rbk-utils.config';
-import { SmzHelpDialogService } from '../../../../../smz-dialogs/services/help-dialog.service';
-import { SmzDialogsService } from '../../../../../smz-dialogs/services/smz-dialogs.service';
 import { AuthenticationSelectors } from '../../../../../../state/global/authentication/authentication.selectors';
 import { SmzTableBuilder } from '../../../../../../builders/smz-tables/state-builder';
 import { SmzTableState } from '../../../../../smz-tables/models/table-state';
@@ -30,20 +28,20 @@ export class UsersPageComponent {
 
     this.items$ = this.store.select(UsersSelectors.users);
 
-    const hasUserRolesUpdateAccess: boolean = this.store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(GlobalInjector.config.rbkUtils.cruds.users.manageUserRolesUpdateClaim));
-    const hasUserClaimsUpdateAccess: boolean = this.store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(GlobalInjector.config.rbkUtils.cruds.users.manageUserClaimsUpdateClaim));
+    const hasUserRolesUpdateAccess: boolean = this.store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(GlobalInjector.config.rbkUtils.authorization.users.manageUserRolesUpdateClaim));
+    const hasUserClaimsUpdateAccess: boolean = this.store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(GlobalInjector.config.rbkUtils.authorization.users.manageUserClaimsUpdateClaim));
 
-    const roleColumnHeader = GlobalInjector.config.rbkUtils.cruds.roles.behavior == 'single' ? 'Perfil' : 'Perfis';
+    const roleColumnHeader = GlobalInjector.config.rbkUtils.authorization.roles.behavior == 'single' ? 'Perfil' : 'Perfis';
 
     this.tableState = new SmzTableBuilder()
-      .setTitle(GlobalInjector.config.rbkUtils.cruds.users.title)
+      .setTitle(GlobalInjector.config.rbkUtils.authorization.users.title)
       .enableGlobalFilter()
       .setSize('small')
       .useStrippedStyle()
       .menu()
         .item('Editar Perfil', 'fas fa-user-tag')
         .setVisibilityRule(() => hasUserRolesUpdateAccess)
-          .setCallback((event: UserDetails) => this.onUpdateRoles(event, GlobalInjector.config.rbkUtils.cruds.roles.behavior))
+          .setCallback((event: UserDetails) => this.onUpdateRoles(event, GlobalInjector.config.rbkUtils.authorization.roles.behavior))
           .menu
         .item('Editar Permissões', 'fas fa-key')
           .setCallback((event: UserDetails) => this.onUpdateClaims(event))
@@ -69,7 +67,7 @@ export class UsersPageComponent {
   }
 
   public onCreate(): void {
-    if (GlobalInjector.config.rbkUtils.cruds.roles.behavior == 'single') {
+    if (GlobalInjector.config.rbkUtils.authorization.roles.behavior == 'single') {
       // this.dialogs.open(buildCreateUserWithSingleRoleDialog());
     }
     else {
@@ -97,7 +95,7 @@ export class UsersPageComponent {
 
   public handleMissingImage(event: Event, user: string, notfound: string) {
     console.warn(`Avatar not found on (${notfound}) for user: ${user}`);
-    (event.target as HTMLImageElement).src = GlobalInjector.config.rbkUtils.cruds.users.avatarPlaceholderPath;
+    (event.target as HTMLImageElement).src = GlobalInjector.config.rbkUtils.authorization.users.avatarPlaceholderPath;
   }
 
 }

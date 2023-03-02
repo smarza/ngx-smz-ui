@@ -1,8 +1,10 @@
 import { HttpBehaviorParameters } from '../../modules/rbk-utils/http/base-api.service';
 import { RoleBehavior } from '../../modules/rbk-utils/ngx-rbk-utils.config';
+import { ROLES_PAGE_ROUTE, ROLES_PATH } from '../../modules/smz-access/routes';
+import { MenuCreation } from '../../modules/smz-layouts/core/models/menu-creation';
 import { NgxSmzUiConfig } from '../../ngx-smz-ui.config';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
-import { SmzUiCrudsBuilder } from './cruds-builder';
+import { SmzUiAuthorizationBuilder } from './authorization-builder';
 
 export class SmzUiRolesCrudBuilder extends SmzBuilderUtilities<SmzUiRolesCrudBuilder> {
   protected that = this;
@@ -16,15 +18,19 @@ export class SmzUiRolesCrudBuilder extends SmzBuilderUtilities<SmzUiRolesCrudBui
     menu?: string;
     httpBehavior?: Partial<HttpBehaviorParameters>;
     behavior?: RoleBehavior;
-}
+    isVisible?: boolean;
+  }
 
-  constructor(private _builder: SmzUiCrudsBuilder, private _state: NgxSmzUiConfig) {
+  private _menu: MenuCreation;
+  private _menuLocation: 'navigation-bar' | 'profile' = 'navigation-bar';
+
+  constructor(private _builder: SmzUiAuthorizationBuilder, private _state: NgxSmzUiConfig) {
     super();
 
     this._config = {
       menu: 'Admin',
       router: {
-          path: 'roles'
+          path: ROLES_PATH
       },
       title: 'Perfis',
       httpBehavior: {
@@ -34,8 +40,11 @@ export class SmzUiRolesCrudBuilder extends SmzBuilderUtilities<SmzUiRolesCrudBui
           loadingBehavior: 'none',
           needToRefreshToken: true
       },
-      behavior: 'multiple'
-  };
+      behavior: 'multiple',
+      isVisible: true
+    };
+
+    this._menu = { label: 'Perfis', routerLink: ROLES_PAGE_ROUTE };
   }
 
   public setTitle(title: string): SmzUiRolesCrudBuilder {
@@ -43,8 +52,32 @@ export class SmzUiRolesCrudBuilder extends SmzBuilderUtilities<SmzUiRolesCrudBui
     return this.that;
   }
 
-  public get cruds(): SmzUiCrudsBuilder {
-    this._state.rbkUtils.cruds.roles = this._config;
+  public overrideMenu(partial: Partial<MenuCreation> = {}): SmzUiRolesCrudBuilder {
+    this._menu = { ...this._menu, ...partial };
+    return this.that;
+  }
+
+  public hide(): SmzUiRolesCrudBuilder {
+    this._menu = null;
+    this._config.isVisible = false;
+    return this.that;
+  }
+
+  public get authorization(): SmzUiAuthorizationBuilder {
+    this._state.rbkUtils.authorization.roles = this._config;
+
+    if (this._menu != null) {
+      switch (this._builder._menuLocation) {
+        case 'navigation-bar':
+          this._builder._menu.items.push(this._menu);
+          break;
+
+        case 'profile':
+          this._state.rbkUtils.authorization.profileMenu.push(this._menu);
+          break;
+      }
+    }
+
     return this._builder;
   }
 }

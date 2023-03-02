@@ -48,14 +48,14 @@ export class UsersModule
 {
   constructor() {
 
-    if (GlobalInjector.config.rbkUtils.cruds.users?.httpBehavior?.authentication) routes[0].canActivate.push(RbkAuthGuard);
-    if (GlobalInjector.config.rbkUtils.cruds.users?.router?.claim) routes[0].data.claim = GlobalInjector.config.rbkUtils.cruds.users.router.claim;
+    if (GlobalInjector.config.rbkUtils.authorization.users?.httpBehavior?.authentication) routes[0].canActivate.push(RbkAuthGuard);
+    if (GlobalInjector.config.rbkUtils.authorization.users?.router?.claim) routes[0].data.claim = GlobalInjector.config.rbkUtils.authorization.users.router.claim;
 
-    if (GlobalInjector.config.rbkUtils.cruds.users.title == null) {
+    if (GlobalInjector.config.rbkUtils.authorization.users.title == null) {
       throw Error('You need to specify the users title on gedi configuration.');
     }
 
-    routes[0].data.title = GlobalInjector.config.rbkUtils.cruds.users.title;
+    routes[0].data.title = GlobalInjector.config.rbkUtils.authorization.users.title;
 
   }
 }

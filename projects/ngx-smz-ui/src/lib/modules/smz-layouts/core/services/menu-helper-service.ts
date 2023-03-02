@@ -5,6 +5,7 @@ import { AuthenticationActions } from '../../../../state/global/authentication/a
 import { AuthenticationSelectors } from '../../../../state/global/authentication/authentication.selectors';
 import { MenuCreation } from '../models/menu-creation';
 import { SmzNotification } from '../models/notifications';
+import { GlobalInjector } from '../../../../common/services/global-injector';
 
 @Injectable({ providedIn: 'root' })
 export class MenuHelperService {
@@ -31,7 +32,6 @@ export class MenuHelperService {
   public rebuild(): void {
     this.menu = null;
     this.profile = null;
-    // this.notifications = null;
 
     if (this.menuCreationCallback) {
       const menu = this.menuCreationCallback();
@@ -85,8 +85,13 @@ export class MenuHelperService {
     if (this.menuCreationData == null) return;
 
     this.menu = [];
+    const extras = [];
 
-    for (const creation of this.menuCreationData) {
+    if (GlobalInjector.config.rbkUtils.authorization.navigationMenu != null) {
+      extras.push(GlobalInjector.config.rbkUtils.authorization.navigationMenu);
+    }
+
+    for (const creation of [...extras, ...this.menuCreationData]) {
 
       const item = this.addMenuItemRecursive(creation, this.accessMenuBehavior);
 
@@ -101,7 +106,7 @@ export class MenuHelperService {
 
     this.profile = [];
 
-    for (const creation of this.profileCreationData) {
+    for (const creation of [...GlobalInjector.config.rbkUtils.authorization.profileMenu, ...this.profileCreationData]) {
 
       const item = this.addMenuItemRecursive(creation, this.accessProfileBehavior);
 

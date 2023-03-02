@@ -11,7 +11,12 @@ export const UiConfigBuilder: SmzUiBuilder = new SmzUiBuilder()
   .mapAccessTokenData('rol', 'roles', 'array')
   .mapAccessTokenData('Picture', 'picture', 'string')
   .builder
-.cruds()
-  .users().cruds
+.authorization()
+  .users().authorization
+  .roles().authorization
+  .claims().authorization
+  .tenants().hide().authorization
+  .builder
+.states()
   .builder
 ;
