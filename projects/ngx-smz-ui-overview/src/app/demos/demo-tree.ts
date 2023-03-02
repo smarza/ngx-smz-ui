@@ -530,14 +530,14 @@ export const TreeDemoData: DemoTreeNode[] = [
             demoType: 'form',
             notes: '',
             data: FormsDemo[DemoKeys.FORMS_FROM_UI_DEFINITION_CREATE],
-            key: DemoKeys.DOCUMENTS_INJECTABLES.toString()
+            key: DemoKeys.FORMS_FROM_UI_DEFINITION_CREATE.toString()
           },
           {
             label: 'Update', icon: 'fa-solid fa-code', type: 'Demo',
             demoType: 'form',
             notes: '',
             data: FormsDemo[DemoKeys.FORMS_FROM_UI_DEFINITION_UPDATE],
-            key: DemoKeys.DOCUMENTS_INJECTABLES.toString()
+            key: DemoKeys.FORMS_FROM_UI_DEFINITION_UPDATE.toString()
           },
         ]
       },
@@ -549,7 +549,7 @@ export const TreeDemoData: DemoTreeNode[] = [
             demoType: 'form',
             notes: '',
             data: FormsDemo[DemoKeys.FORMS_WITH_APPLY_DATA],
-            key: DemoKeys.DOCUMENTS_INJECTABLES.toString()
+            key: DemoKeys.FORMS_WITH_APPLY_DATA.toString()
           },
         ]
       },
@@ -561,7 +561,7 @@ export const TreeDemoData: DemoTreeNode[] = [
             demoType: 'form',
             notes: '',
             data: FormsDemo[DemoKeys.FORMS_BEHAVIORS_DATA_DEPENDENCY],
-            key: DemoKeys.DOCUMENTS_INJECTABLES.toString()
+            key: DemoKeys.FORMS_BEHAVIORS_DATA_DEPENDENCY.toString()
           },
         ]
       },

@@ -60,7 +60,7 @@ export function runRbkInitialization() {
   const configuration = mainConfig.rbkUtils;
 
   configuration.state.database = { ...configuration.state.database, ...databaseSmzAccessStates };
-  configuration.state.feature = { ...configuration.state.feature, ...featureSmzAccessStates };
+  configuration.state.feature = { ...configuration.state.feature };
 
   if (FEATURE_STATES.length === 0) {
       const states = [];

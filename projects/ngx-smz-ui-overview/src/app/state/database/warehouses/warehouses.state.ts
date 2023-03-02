@@ -14,14 +14,14 @@ export interface WarehousesDbStateModel
     lastUpdated: Date | null;
 }
 
-export const getInitialState = (): WarehousesDbStateModel => ({
+export const getDbWarehousesInitialState = (): WarehousesDbStateModel => ({
     items: [],
     lastUpdated: null
 });
 
 @State<WarehousesDbStateModel>({
     name: WarehousesDbName,
-    defaults: getInitialState()
+    defaults: getDbWarehousesInitialState()
 })
 @Injectable()
 export class WarehousesDbState

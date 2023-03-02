@@ -15,7 +15,7 @@ export interface ShopsDbStateModel
     current: ShopDetails;
 }
 
-export const getInitialState = (): ShopsDbStateModel => ({
+export const getDbShopsInitialState = (): ShopsDbStateModel => ({
     items: [],
     lastUpdated: null,
     current: null
@@ -23,7 +23,7 @@ export const getInitialState = (): ShopsDbStateModel => ({
 
 @State<ShopsDbStateModel>({
     name: ShopsDbName,
-    defaults: getInitialState()
+    defaults: getDbShopsInitialState()
 })
 @Injectable()
 export class ShopsDbState

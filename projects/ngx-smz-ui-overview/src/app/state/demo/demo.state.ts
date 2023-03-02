@@ -20,7 +20,7 @@ export interface DemoFeatureStateModel {
   currentRouteKey: string;
 }
 
-export const getInitialState = (): DemoFeatureStateModel => ({
+export const getFtDemoInitialState = (): DemoFeatureStateModel => ({
   lastUpdated: null,
   items: null,
   tree: null,
@@ -29,7 +29,7 @@ export const getInitialState = (): DemoFeatureStateModel => ({
 
 @State<DemoFeatureStateModel>({
   name: DemoFeatureName,
-  defaults: getInitialState()
+  defaults: getFtDemoInitialState()
 })
 
 @Injectable()

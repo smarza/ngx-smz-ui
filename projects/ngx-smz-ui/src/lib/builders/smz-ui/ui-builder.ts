@@ -9,6 +9,7 @@ import { NgxSmzUiConfig } from '../../ngx-smz-ui.config';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzUiAuthenticationBuilder } from './authentication-builder';
 import { SmzUiCrudsBuilder } from './cruds-builder';
+import { SmzUiStatesBuilder } from './states-builder';
 
 export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
     protected that = this;
@@ -207,6 +208,10 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
 
     public cruds(): SmzUiCrudsBuilder {
         return new SmzUiCrudsBuilder(this, this._state);
+    }
+
+    public states(): SmzUiStatesBuilder {
+        return new SmzUiStatesBuilder(this);
     }
 
     public debugMode(): SmzUiBuilder {
