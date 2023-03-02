@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { SmzLayoutsConfig } from '../globals/smz-layouts.config';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +6,7 @@ import { SmzLayoutsConfig } from '../globals/smz-layouts.config';
 export class UiControlsService
 {
 
-  constructor(private readonly config: SmzLayoutsConfig)
+  constructor()
   {
 
   }

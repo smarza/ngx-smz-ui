@@ -7,13 +7,13 @@ import { LayoutState } from '../../core/models/layout';
 import { RouterDataListenerService } from '../../core/services/router-data-listener.service';
 import { LayoutUiActions } from '../../../../state/ui/layout/layout.actions';
 import { LayoutUiSelectors } from '../../../../state/ui/layout/layout.selectors';
-import { SmzLayoutsConfig } from '../../core/globals/smz-layouts.config';
 import { UiHephaestusActions } from './state/ui-layout.actions';
 import { UiHephaestusSelectors } from './state/ui-layout.selectors';
 import { HephaestusLayout } from './layout.config';
 import { SmzNotification } from '../../core/models/notifications';
 import { SidebarState } from '../../core/models/sidebar-states';
 import { MenuType } from '../../core/models/menu-types';
+import { GlobalInjector } from '../../../../common/services/global-injector';
 
 @Component({
   selector: 'smz-ui-hephaestus-layout',
@@ -35,13 +35,13 @@ export class HephaestusLayoutComponent implements OnInit, AfterContentInit {
 
   public sideBarStateActive = SidebarState.ACTIVE;
 
-  constructor(public readonly config: SmzLayoutsConfig, public readonly layout: HephaestusLayout, public readonly routerListener: RouterDataListenerService, private store: Store, public cdr: ChangeDetectorRef) {
+  constructor(public readonly layout: HephaestusLayout, public readonly routerListener: RouterDataListenerService, private store: Store, public cdr: ChangeDetectorRef) {
     this.store.dispatch(new LayoutUiActions.Initialize());
-    this.store.dispatch(new UiHephaestusActions.Initialize(config, layout));
+    this.store.dispatch(new UiHephaestusActions.Initialize(layout));
 
     if (this.layout.hideSidebarAfterNavigationEnd) {
-      this.config._internal = {
-        ...this.config._internal,
+      GlobalInjector.config.layouts._internal = {
+        ...GlobalInjector.config.layouts._internal,
         specificThemeNavigationEndCallback: () => {
 
           const layout = this.store.selectSnapshot(UiHephaestusSelectors.layout);

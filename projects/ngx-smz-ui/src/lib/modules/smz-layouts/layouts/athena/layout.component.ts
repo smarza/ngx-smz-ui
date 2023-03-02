@@ -7,7 +7,6 @@ import { LayoutState } from '../../core/models/layout';
 import { RouterDataListenerService } from '../../core/services/router-data-listener.service';
 import { LayoutUiActions } from '../../../../state/ui/layout/layout.actions';
 import { LayoutUiSelectors } from '../../../../state/ui/layout/layout.selectors';
-import { SmzLayoutsConfig } from '../../core/globals/smz-layouts.config';
 import { UiAthenaActions } from './state/ui-layout.actions';
 import { UiAthenaSelectors } from './state/ui-layout.selectors';
 import { AthenaLayout } from './layout.config';
@@ -29,9 +28,9 @@ export class AthenaLayoutComponent implements OnInit, AfterContentInit {
   @Input() public notifications: SmzNotification[];
   public headerExtrasTemplate: TemplateRef<any>;
   public footerExtrasTemplate: TemplateRef<any>;
-  constructor(public readonly config: SmzLayoutsConfig, public readonly layout: AthenaLayout, public readonly routerListener: RouterDataListenerService, private store: Store, public cdr: ChangeDetectorRef) {
+  constructor(public readonly layout: AthenaLayout, public readonly routerListener: RouterDataListenerService, private store: Store, public cdr: ChangeDetectorRef) {
     this.store.dispatch(new LayoutUiActions.Initialize());
-    this.store.dispatch(new UiAthenaActions.Initialize(config, layout));
+    this.store.dispatch(new UiAthenaActions.Initialize(layout));
   }
 
   public ngOnInit(): void {

@@ -1,6 +1,5 @@
-import { AfterContentInit, Component, ContentChildren, ElementRef, forwardRef, HostListener, Input, OnInit, QueryList, TemplateRef } from '@angular/core';
+import { AfterContentInit, Component, ContentChildren, forwardRef, HostListener, Input, OnInit, QueryList, TemplateRef } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
-import { SmzLayoutsConfig } from '../../core/globals/smz-layouts.config';
 import { RouterDataListenerService } from '../../core/services/router-data-listener.service';
 import { PrimeTemplate, MenuItem } from 'primeng/api';
 import { Observable } from 'rxjs';
@@ -8,6 +7,7 @@ import { LayoutUiSelectors } from '../../../../state/ui/layout/layout.selectors'
 import { SmzToastData } from '../../core/models/toasts';
 import { PrimeConfigService } from '../../../../common/services/prime-config.service';
 import { LayoutUiActions } from '../../../../state/ui/layout/layout.actions';
+import { GlobalInjector } from '../../../../common/services/global-injector';
 
 @Component({
   selector: 'smz-ui-outlet',
@@ -23,20 +23,19 @@ export class OutletComponent implements OnInit, AfterContentInit {
 
   @HostListener('mouseleave')
   public onMouseLeave(): void {
-    if (this.config.monitoreMouseEvents) {
+    if (GlobalInjector.config.layouts.monitoreMouseEvents) {
       this.store.dispatch(new LayoutUiActions.SetLastUserMouseEvent('mouseleave'));
     }
   }
 
   @HostListener('mouseenter')
   public onBeforeUnload(): void {
-    if (this.config.monitoreMouseEvents) {
+    if (GlobalInjector.config.layouts.monitoreMouseEvents) {
       this.store.dispatch(new LayoutUiActions.SetLastUserMouseEvent('mouseenter'));
     }
   }
 
   constructor(
-    public readonly config: SmzLayoutsConfig,
     public readonly routerListener: RouterDataListenerService,
     private store: Store,
     private primeConfig: PrimeConfigService) {

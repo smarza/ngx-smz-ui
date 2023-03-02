@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { SmzLayoutsConfig } from '../../core/globals/smz-layouts.config';
 import { GlobalInjector } from '../../../../common/services/global-injector';
 
 @Component({
@@ -10,7 +9,7 @@ import { GlobalInjector } from '../../../../common/services/global-injector';
 export class NotFoundComponent implements OnInit {
   public uiConfig = GlobalInjector.config;
 
-  constructor(public readonly config: SmzLayoutsConfig) {
+  constructor() {
   }
 
   public ngOnInit(): void {

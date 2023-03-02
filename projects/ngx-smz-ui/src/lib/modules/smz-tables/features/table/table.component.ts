@@ -1,4 +1,4 @@
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewChild, OnDestroy, inject, DEFAULT_CURRENCY_CODE, Inject, LOCALE_ID, AfterViewInit } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewChild, OnDestroy, AfterViewInit } from '@angular/core';
 import { PrimeTemplate, FilterMetadata } from 'primeng/api';
 import { SmzContentType, SmzExportableContentType } from '../../models/content-types';
 import { SmzFilterType } from '../../models/filter-types';
@@ -8,7 +8,6 @@ import { SmzEditableType } from '../../models/editable-types';
 import { TableEditableService } from '../../services/table-editable.service';
 import { TableFormsService } from '../../services/table-forms.service';
 import { Table } from '../../../prime/table/table';
-import { SmzDialogsConfig } from '../../../smz-dialogs/smz-dialogs.config';
 import { shorten, uuidv4 } from '../../../../common/utils/utils';
 import { TableHelperService } from '../../services/table-helper.service';
 import { SmzExportableColumn, SmzExportDialogData } from '../../../smz-export-dialog/smz-export-dialog.model';
@@ -21,7 +20,6 @@ import { SmzExcelState } from '../../../smz-excels/models/smz-excel-table';
 import { AuthenticationSelectors } from '../../../../state/global/authentication/authentication.selectors';
 import { SmzExcelFontDefinitions, SmzExcelThemeDefinitions } from '../../../smz-excels/models/smz-excel-definitions';
 import { ObjectUtils } from 'primeng/utils';
-import { SmzLayoutsConfig } from '../../../smz-layouts/core/globals/smz-layouts.config';
 import { isBoolean } from 'lodash-es';
 import { ApplicationActions } from '../../../../state/global/application/application.actions';
 import { GlobalInjector } from '../../../../common/services/global-injector';
@@ -89,11 +87,12 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
     multiselect: SmzFilterType.MULTI_SELECT,
     multiselect_array: SmzFilterType.MULTI_SELECT_ARRAY
   }
+
   constructor(
     public cdr: ChangeDetectorRef,
     public editableService: TableEditableService,
     public formsService: TableFormsService, private tableHelper: TableHelperService,
-    private store: Store, private smzExcelService: SmzExcelService, private layoutConfig: SmzLayoutsConfig) {
+    private store: Store, private smzExcelService: SmzExcelService) {
     this.editableService.cdr = this.cdr;
     this.editableService.createEvent = this.create;
     this.editableService.updateEvent = this.update;
@@ -384,11 +383,11 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
         .if(this.state.isDebug)
           .debugMode()
           .endIf
-        .if(this.layoutConfig.appName != null)
-          .setCompany(this.layoutConfig.appName)
+        .if(this.uiConfig.layouts.appName != null)
+          .setCompany(this.uiConfig.layouts.appName)
           .endIf
-        .if(this.layoutConfig.footer?.leftSideText != null)
-          .setComments(this.layoutConfig.footer?.leftSideText)
+        .if(this.uiConfig.layouts.footer?.leftSideText != null)
+          .setComments(this.uiConfig.layouts.footer?.leftSideText)
           .endIf
         .if(excel?.globalDateFormat != null)
           .setGlobalDateFormat(excel?.globalDateFormat)

@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { filter, map, mergeMap, tap } from 'rxjs/operators';
-import { SmzLayoutsConfig } from '../globals/smz-layouts.config';
 import { RouteLayoutData, SmzRouteData } from '../models/route-layout-data';
 import { LayoutUiActions } from '../../../../state/ui/layout/layout.actions';
 import { mergeClone } from '../../../../common/utils/deep-merge';
 import { SmzDialogsService } from '../../../smz-dialogs/services/smz-dialogs.service';
 import { ApplicationActions } from '../../../../state/global/application/application.actions';
+import { GlobalInjector } from '../../../../common/services/global-injector';
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +16,10 @@ export class RouterDataListenerService
 {
   public data: SmzRouteData = null;
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private readonly config: SmzLayoutsConfig, private dialogs: SmzDialogsService, private store: Store)
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private dialogs: SmzDialogsService, private store: Store)
   {
-    if (this.config.debugMode) console.log('>> RouterDataListenerService constructor');
-    if (this.config.debugMode) console.log('>> configuration', config);
+    if (GlobalInjector.config.layouts.debugMode) console.log('>> RouterDataListenerService constructor');
+    if (GlobalInjector.config.layouts.debugMode) console.log('>> configuration', GlobalInjector.config);
 
     let currentRouteData = null;
 
@@ -28,23 +28,23 @@ export class RouterDataListenerService
         filter(event => event instanceof NavigationEnd),
         tap((event: NavigationEnd) =>
         {
-          if (this.config.debugMode) console.log('\n##########');
-          if (this.config.debugMode) console.log('>> NavigationEnd');
+          if (GlobalInjector.config.layouts.debugMode) console.log('\n##########');
+          if (GlobalInjector.config.layouts.debugMode) console.log('>> NavigationEnd');
 
-          if (this.config.applicationActions.registerLogs)
+          if (GlobalInjector.config.layouts.applicationActions.registerLogs)
           {
-            if (this.config.debugMode) console.log('ApplicationActions.SetLogExtraData > urlAfterRedirects', event.urlAfterRedirects);
+            if (GlobalInjector.config.layouts.debugMode) console.log('ApplicationActions.SetLogExtraData > urlAfterRedirects', event.urlAfterRedirects);
             this.store.dispatch(new ApplicationActions.SetLogExtraData(event.urlAfterRedirects));
           }
 
-          if (this.config._internal?.specificThemeNavigationEndCallback != null) {
-            this.config._internal.specificThemeNavigationEndCallback();
+          if (GlobalInjector.config.layouts._internal?.specificThemeNavigationEndCallback != null) {
+            GlobalInjector.config.layouts._internal.specificThemeNavigationEndCallback();
           }
 
         }),
         map((event) =>
         {
-          if (this.config.debugMode) {
+          if (GlobalInjector.config.layouts.debugMode) {
             console.group('router.events > mapping');
           }
 
@@ -79,25 +79,25 @@ export class RouterDataListenerService
           layout: this.normalizeLayoutData(currentRouteData)
         };
 
-        if (this.config.debugMode) {
+        if (GlobalInjector.config.layouts.debugMode) {
           console.log('all routes layout data merged for this route', currentRouteData);
           console.log('final router data used', this.data);
           console.groupEnd();
         }
 
-        if (this.config.applicationActions.registerLogs)
+        if (GlobalInjector.config.layouts.applicationActions.registerLogs)
         {
-          if (this.config.debugMode) console.log('ApplicationActions.SetLogApplicatinArea > appArea', data.appArea);
+          if (GlobalInjector.config.layouts.debugMode) console.log('ApplicationActions.SetLogApplicatinArea > appArea', data.appArea);
           this.store.dispatch(new ApplicationActions.SetLogApplicatinArea(data.appArea));
         }
 
-        if (this.config.dialogs.closeAllAfterNavigate)
+        if (GlobalInjector.config.layouts.dialogs.closeAllAfterNavigate)
         {
-          if (this.config.debugMode) console.log('>> Closing all dialogs');
+          if (GlobalInjector.config.layouts.debugMode) console.log('>> Closing all dialogs');
           this.dialogs.closeAll();
         }
 
-        if (this.config.debugMode) console.log('\n');
+        if (GlobalInjector.config.layouts.debugMode) console.log('\n');
 
         this.store.dispatch(new LayoutUiActions.SetTopbarTitle(data.title));
 
@@ -116,7 +116,7 @@ export class RouterDataListenerService
 
   private mergeLayoutDatas(before: SmzRouteData, current: SmzRouteData): SmzRouteData
   {
-    if (this.config.debugMode) {
+    if (GlobalInjector.config.layouts.debugMode) {
       console.log(`merging`, before, current, mergeClone(before, current));
     }
 

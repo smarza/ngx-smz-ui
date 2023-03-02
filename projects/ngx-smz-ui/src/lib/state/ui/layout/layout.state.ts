@@ -5,13 +5,13 @@ import { Assistance } from '../../../modules/smz-layouts/core/models/assistance'
 import { LayoutState, LoaderData } from '../../../modules/smz-layouts/core/models/layout';
 import { LayoutUiActions } from './layout.actions';
 import { cloneDeep } from 'lodash-es';
-import { SmzLayoutsConfig } from '../../../modules/smz-layouts/core/globals/smz-layouts.config';
 import { ContentTheme, SmzContentTheme, SmzContentThemes } from '../../../modules/smz-layouts/core/models/themes';
 import { LogoResource } from '../../../modules/smz-layouts/core/models/logo';
 import { SmzToastData } from '../../../modules/smz-layouts/core/models/toasts';
 import { ColorSchemaDefinition, SmzColorSchemas } from '../../../modules/smz-layouts/core/models/color-schemas';
 import { BreadcrumbsData } from '../../../modules/smz-layouts/core/models/breadcrumbs';
 import { SmzExportDialogData } from '../../../modules/smz-export-dialog/smz-export-dialog.model';
+import { GlobalInjector } from '../../../common/services/global-injector';
 
 export interface UiStateModel {
   assistance: Assistance;
@@ -73,49 +73,50 @@ export const getInitialState = (): UiStateModel => ({
 
 @Injectable()
 export class LayoutUiState {
-  constructor(public readonly config: SmzLayoutsConfig, private location: Location) { }
+  public uiConfig = GlobalInjector.config;
+  constructor(private location: Location) { }
 
 
   @Action(LayoutUiActions.Initialize)
   public onInitialize(ctx: StateContext<UiStateModel>): void {
     const state = ctx.getState().state;
 
-    let schema = this.config.themes.schema;
+    let schema = this.uiConfig.layouts.themes.schema;
 
-    if (this.config.themes.custom) {
-      SmzColorSchemas.push(this.config.themes.custom);
-      schema = this.config.themes.custom.id;
+    if (this.uiConfig.layouts.themes.custom) {
+      SmzColorSchemas.push(this.uiConfig.layouts.themes.custom);
+      schema = this.uiConfig.layouts.themes.custom.id;
     }
 
     ctx.patchState(
       {
-        assistance: this.config.assistance,
+        assistance: this.uiConfig.layouts.assistance,
         themes: {
           content: null,
           theme: null,
           schema,
         },
-        appLogo: this.config.appLogo,
+        appLogo: this.uiConfig.layouts.appLogo,
         state: {
           ...state,
-          appName: this.config.appName,
+          appName: this.uiConfig.layouts.appName,
         },
-        toast: this.config.toast,
-        loader: this.config.loader,
+        toast: this.uiConfig.layouts.toast,
+        loader: this.uiConfig.layouts.loader,
       });
 
-    let content  =this.config.themes.content;
+    let content  =this.uiConfig.layouts.themes.content;
 
-    if (this.config.themes.system?.enabled) {
+    if (this.uiConfig.layouts.themes.system?.enabled) {
       const systemColor = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 
       switch (systemColor) {
         case 'dark':
-          content = this.config.themes.system.dark;
+          content = this.uiConfig.layouts.themes.system.dark;
           break;
 
         case 'light':
-          content = this.config.themes.system.light;
+          content = this.uiConfig.layouts.themes.system.light;
           break;
       }
     }
@@ -137,7 +138,7 @@ export class LayoutUiState {
     const state = ctx.getState().state;
     const contentTheme = SmzContentThemes.find(x => x.id === action.data);
 
-    if (this.config.themes.forceDimmer) {
+    if (this.uiConfig.layouts.themes.forceDimmer) {
       contentTheme.isDimmed = true;
     }
 

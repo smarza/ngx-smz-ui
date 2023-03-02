@@ -3,6 +3,8 @@ import { mergeClone } from '../../common/utils/deep-merge';
 import { NgxRbkUtilsConfig } from '../../modules/rbk-utils/ngx-rbk-utils.config';
 import { SmzDialogsConfig } from '../../modules/smz-dialogs/smz-dialogs.config';
 import { defaultFormsModuleConfig } from '../../modules/smz-forms/smz-forms.module';
+import { defaultSmzLayoutsConfig } from '../../modules/smz-layouts/core/globals/default-smz-layouts.config';
+import { SmzLayoutsConfig } from '../../modules/smz-layouts/core/globals/smz-layouts.config';
 import { NgxSmzUiConfig } from '../../ngx-smz-ui.config';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzUiAuthenticationBuilder } from './authentication-builder';
@@ -171,8 +173,8 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
             }
         },
         dialogs: {
-
-        }
+        },
+        layouts: null
     };
 
     constructor() {
@@ -186,6 +188,11 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
 
     public setRbkUtilsConfigManually(config: NgxRbkUtilsConfig): SmzUiBuilder {
         this._state.rbkUtils = config;
+        return this.that;
+    }
+
+    public setLayoutsConfigManually(config: SmzLayoutsConfig): SmzUiBuilder {
+        this._state.layouts = mergeClone(defaultSmzLayoutsConfig, config);
         return this.that;
     }
 

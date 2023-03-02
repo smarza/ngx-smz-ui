@@ -1,6 +1,4 @@
-import { SmzLayoutsConfig } from '../../../core/globals/smz-layouts.config';
 import { NewAthenaLayout, NewAthenaMenuTypes } from '../layout.config';
-
 
 export namespace UiAthenaActions
 {
@@ -8,7 +6,7 @@ export namespace UiAthenaActions
     export class Initialize
     {
         public static readonly type = '[UI Athena] Initialize';
-        constructor(public config: SmzLayoutsConfig, public data: NewAthenaLayout) {}
+        constructor(public data: NewAthenaLayout) {}
     }
 
     export class SetMenu

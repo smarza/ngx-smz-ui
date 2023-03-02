@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store, } from '@ngxs/store';
 import { LayoutUiActions } from '../../../../state/ui/layout/layout.actions';
 import { LayoutUiSelectors } from '../../../../state/ui/layout/layout.selectors';
-import { SmzLayoutsConfig } from '../../core/globals/smz-layouts.config';
 import { ThemeManagerService } from './theme-manager.service';
+import { GlobalInjector } from '../../../../common/services/global-injector';
 
 @Component({
   selector: 'smz-ui-theme-manager',
@@ -15,7 +15,7 @@ export class ThemeManagerComponent implements OnInit
   public currentContentTheme: string;
   public contentLink: HTMLLinkElement;
 
-  constructor(private store: Store, private themeManagerService: ThemeManagerService, public readonly config: SmzLayoutsConfig)
+  constructor(private store: Store, private themeManagerService: ThemeManagerService)
   {
     this.contentLink = this.themeManagerService._document.createElement('link');
     this.contentLink.setAttribute('rel', 'stylesheet');
@@ -46,11 +46,11 @@ export class ThemeManagerComponent implements OnInit
 
         switch (systemColor) {
           case 'dark':
-            this.store.dispatch(new LayoutUiActions.SetContentTheme( this.config.themes.system.dark));
+            this.store.dispatch(new LayoutUiActions.SetContentTheme( GlobalInjector.config.layouts.themes.system.dark));
             break;
 
           case 'light':
-            this.store.dispatch(new LayoutUiActions.SetContentTheme( this.config.themes.system.light));
+            this.store.dispatch(new LayoutUiActions.SetContentTheme( GlobalInjector.config.layouts.themes.system.light));
             break;
         }
     });

@@ -4,6 +4,7 @@ import { LayoutState } from '../../../core/models/layout';
 import { SidebarState } from '../../../core/models/sidebar-states';
 import { UiAthenaActions } from './ui-layout.actions';
 import { AthenaLayout } from '../layout.config';
+import { GlobalInjector } from '../../../../../common/services/global-injector';
 
 export interface UiAthenaStateModel {
   config: AthenaLayout;
@@ -44,7 +45,7 @@ export class UiAthenaState {
         config: action.data,
         state: {
           ...state,
-          appName: action.config.appName,
+          appName: GlobalInjector.config.layouts.appName,
         }
       });
 

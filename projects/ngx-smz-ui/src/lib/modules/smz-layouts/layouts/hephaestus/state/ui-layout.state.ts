@@ -4,6 +4,7 @@ import { LayoutState } from '../../../core/models/layout';
 import { SidebarState } from '../../../core/models/sidebar-states';
 import { UiHephaestusActions } from './ui-layout.actions';
 import { HephaestusLayout } from '../layout.config';
+import { GlobalInjector } from '../../../../../common/services/global-injector';
 
 export interface UiHephaestusStateModel {
   config: HephaestusLayout;
@@ -46,7 +47,7 @@ export class UiHephaestusState {
         config: action.data,
         state: {
           ...state,
-          appName: action.config.appName,
+          appName: GlobalInjector.config.layouts.appName,
         }
       });
 

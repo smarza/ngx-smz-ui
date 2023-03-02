@@ -1,4 +1,3 @@
-import { SmzLayoutsConfig } from '../../../core/globals/smz-layouts.config';
 import { HephaestusLayout, HephaestusMenuTypes } from '../layout.config';
 
 export namespace UiHephaestusActions
@@ -7,7 +6,7 @@ export namespace UiHephaestusActions
     export class Initialize
     {
         public static readonly type = '[UI Hephaestus] Initialize';
-        constructor(public config: SmzLayoutsConfig, public data: HephaestusLayout) {}
+        constructor(public data: HephaestusLayout) {}
     }
 
     export class SetMenu

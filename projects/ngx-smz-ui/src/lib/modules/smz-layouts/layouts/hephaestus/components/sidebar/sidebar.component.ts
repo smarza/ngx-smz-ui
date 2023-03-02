@@ -1,11 +1,10 @@
 import { AfterContentInit, Component, ContentChildren, Input, QueryList, TemplateRef } from '@angular/core';
-import { Select, Store } from '@ngxs/store';
+import { Select } from '@ngxs/store';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { MenuItem, PrimeTemplate } from 'primeng/api';
 import { Observable } from 'rxjs';
 import { LayoutUiSelectors } from '../../../../../../state/ui/layout/layout.selectors';
 import { RouterState } from '@ngxs/router-plugin';
-import { SmzLayoutsConfig } from '../../../../core/globals/smz-layouts.config';
 import { SmzAppLogo } from '../../../../core/models/logo';
 import { UiHephaestusSelectors } from '../../state/ui-layout.selectors';
 import { HephaestusLayout } from '../../layout.config';
@@ -31,7 +30,7 @@ export class HephaestusSidebarComponent implements AfterContentInit
   public isAnyMenuExpanded = false;
   public menuType = MenuType;
   public uiConfig = GlobalInjector.config;
-  constructor(public readonly config: SmzLayoutsConfig, private store: Store) { }
+  constructor() { }
 
   public ngAfterContentInit()
   {

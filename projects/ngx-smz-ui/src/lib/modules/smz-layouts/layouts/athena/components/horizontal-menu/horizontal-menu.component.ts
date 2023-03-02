@@ -4,7 +4,6 @@ import { UntilDestroy } from '@ngneat/until-destroy';
 import { MenuItem, PrimeTemplate } from 'primeng/api';
 import { Observable } from 'rxjs';
 import { LayoutUiSelectors } from '../../../../../../state/ui/layout/layout.selectors';
-import { SmzLayoutsConfig } from '../../../../core/globals/smz-layouts.config';
 import { SmzAppLogo } from '../../../../core/models/logo';
 import { MenuType } from '../../../../core/models/menu-types';
 import { UiAthenaSelectors } from '../../state/ui-layout.selectors';
@@ -32,7 +31,7 @@ export class AthenaHorizontalMenuComponent implements AfterContentInit, OnChange
   public isAnyMenuExpanded = false;
   public menuType = MenuType;
   public headerExtrasTemplate: TemplateRef<any>;
-  constructor(public readonly config: SmzLayoutsConfig, private _eref: ElementRef) { }
+  constructor(private _eref: ElementRef) { }
 
   public ngAfterContentInit() {
     this.templates.forEach((item) => {

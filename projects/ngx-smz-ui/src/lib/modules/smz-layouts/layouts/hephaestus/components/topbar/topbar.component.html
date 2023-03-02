@@ -8,19 +8,17 @@
         <button *ngIf="layout.enableNavigationBack" pButton type="button" label="Voltar" icon="fa-solid fa-angle-left" class="p-button-rounded p-button-text p-button-plain" (click)="navigateBack()"></button>
         <span class="topbar-separator"></span>
         <span class="viewname ng-star-inserted" style="text-transform: uppercase;">{{ topbarTitle$ | async }}</span>
-        <img id="logo-mobile" alt="hephaestus-layout" class="mobile-logo" [src]="config.appLogo.icon.light">
+        <img id="logo-mobile" alt="hephaestus-layout" class="mobile-logo" [src]="uiConfig.layouts.appLogo.icon.light">
     </div>
 
     <div class="topbar-right">
         <ul class="topbar-menu">
-            <!-- <li class="search-item"><a tabindex="0"><i class="pi pi-search"></i></a></li> -->
             <div id="smz-ui-topbar"></div>
             <li *ngIf="headerExtrasTemplate != null">
                 <ng-container *ngTemplateOutlet="headerExtrasTemplate"></ng-container>
             </li>
             <li *ngIf="notifications?.length > 0" class="notifications-item" smz-ui-hephaestus-notifications [items]="notifications"></li>
             <li *ngIf="profile?.length > 0" class="profile-item" smz-ui-hephaestus-profile-menu [items]="profile"></li>
-            <!-- <li class="right-sidebar-item"><a href="#" tabindex="0"><i class="pi pi-align-right"></i></a></li> -->
         </ul>
     </div>
 </div>

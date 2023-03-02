@@ -6,7 +6,6 @@ import { cloneDeep } from 'lodash-es';
 import { UiAthenaSelectors } from '../../state/ui-layout.selectors';
 import { LayoutUiSelectors } from '../../../../../../state/ui/layout/layout.selectors';
 import { Assistance } from '../../../../core/models/assistance';
-import { SmzLayoutsConfig } from '../../../../core/globals/smz-layouts.config';
 import { InputChangeData } from '../../../../../../common/input-detection/input-detection.directive';
 import { UiAthenaActions } from '../../state/ui-layout.actions';
 import { LayoutUiActions } from '../../../../../../state/ui/layout/layout.actions';
@@ -27,7 +26,7 @@ export class AthenaAssistanceComponent implements OnInit {
   public menuTypes = [];
   public menuType: AthenaMenuTypes = MenuType.STATIC;
   public layout: AthenaLayout;
-  constructor(public readonly config: SmzLayoutsConfig, private store: Store, private cdr: ChangeDetectorRef) {
+  constructor(private store: Store, private cdr: ChangeDetectorRef) {
 
     this.store
       .select(UiAthenaSelectors.layout)

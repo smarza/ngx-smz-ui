@@ -4,7 +4,6 @@ import { UntilDestroy } from '@ngneat/until-destroy';
 import { MenuItem, PrimeTemplate } from 'primeng/api';
 import { Observable } from 'rxjs';
 import { LayoutUiSelectors } from '../../../../../../state/ui/layout/layout.selectors';
-import { SmzLayoutsConfig } from '../../../../core/globals/smz-layouts.config';
 import { UiAthenaActions } from '../../state/ui-layout.actions';
 import { SmzAppLogo } from '../../../../core/models/logo';
 import { SmzNotification } from '../../../../core/models/notifications';
@@ -32,7 +31,7 @@ export class AthenaTopbarComponent implements AfterContentInit
   public horizontalMenuType = MenuType.HORIZONTAL;
   public uiConfig = GlobalInjector.config;
 
-  constructor(public readonly config: SmzLayoutsConfig, private store: Store) { }
+  constructor(private store: Store) { }
 
   public ngAfterContentInit()
   {

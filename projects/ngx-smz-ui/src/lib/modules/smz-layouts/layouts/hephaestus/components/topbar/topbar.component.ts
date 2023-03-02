@@ -5,13 +5,13 @@ import { UntilDestroy } from '@ngneat/until-destroy';
 import { MenuItem, PrimeTemplate } from 'primeng/api';
 import { Observable } from 'rxjs';
 import { LayoutUiSelectors } from '../../../../../../state/ui/layout/layout.selectors';
-import { SmzLayoutsConfig } from '../../../../core/globals/smz-layouts.config';
 import { UiHephaestusActions } from '../../state/ui-layout.actions';
 import { SmzNotification } from '../../../../core/models/notifications';
 import { UiHephaestusSelectors } from '../../state/ui-layout.selectors';
 import { MenuType } from '../../../../core/models/menu-types';
 import { HephaestusLayout } from '../../layout.config';
 import { SidebarState } from '../../../../core/models/sidebar-states';
+import { GlobalInjector } from '../../../../../../common/services/global-injector';
 
 @UntilDestroy()
 @Component({
@@ -29,7 +29,8 @@ export class HephaestusTopbarComponent implements OnInit, AfterContentInit
   @Select(UiHephaestusSelectors.layout) public layout$: Observable<HephaestusLayout>;
   public headerExtrasTemplate: TemplateRef<any>;
   public sideBaseStateActive = SidebarState.ACTIVE;
-  constructor(public readonly config: SmzLayoutsConfig, private store: Store, private location: Location) { }
+  public uiConfig = GlobalInjector.config;
+  constructor(private store: Store, private location: Location) { }
 
   ngOnInit(): void
   {

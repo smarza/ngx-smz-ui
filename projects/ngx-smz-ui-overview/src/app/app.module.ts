@@ -3,10 +3,10 @@ import { CUSTOM_ELEMENTS_SCHEMA, DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } fr
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NgxSmzLayoutsModule, NewAthenaLayoutModule, NgxSmzUiModule, ApplicationActions, buildState } from 'ngx-smz-ui';
+import { NewAthenaLayoutModule, NgxSmzUiModule, ApplicationActions, buildState } from 'ngx-smz-ui';
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
-import { smzAthenaConfig, smzLayoutsConfig } from '../globals/smz-layouts.config';
+import { smzAthenaConfig } from '../globals/smz-layouts.config';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import { NgxsModule, Store } from '@ngxs/store';
 
@@ -35,8 +35,6 @@ moment.locale('pt-br');
     NgxsModule.forRoot(buildState(), { developmentMode: !environment.production }),
     NgxsRouterPluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot(),
-
-    NgxSmzLayoutsModule.forRoot(smzLayoutsConfig),
 
     NewAthenaLayoutModule.forRoot(smzAthenaConfig),
     HighlightModule,

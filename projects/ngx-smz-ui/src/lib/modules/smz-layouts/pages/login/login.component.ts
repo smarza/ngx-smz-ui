@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { SmzLayoutsConfig } from '../../core/globals/smz-layouts.config';
 import { SmzLoginBuilder } from '../../../../builders/smz-login/state-builder';
 import { SmzLoginState } from '../../features/login/login-state';
 import { GlobalInjector } from '../../../../common/services/global-injector';
@@ -12,7 +11,7 @@ export class LoginComponent {
 
   public state: SmzLoginState<unknown, unknown> = this.buildState();
 
-  constructor(public readonly config: SmzLayoutsConfig) {
+  constructor() {
 
   }
 

@@ -3,12 +3,12 @@ import { CUSTOM_ELEMENTS_SCHEMA, DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } fr
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NgxSmzLayoutsModule, NewAthenaLayoutModule, NgxSmzUiModule } from 'ngx-smz-ui';
+import { NewAthenaLayoutModule, NgxSmzUiModule } from 'ngx-smz-ui';
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
-import { smzAthenaConfig, smzLayoutsConfig } from '../globals/smz-layouts.config';
+import { smzAthenaConfig } from '../globals/smz-layouts.config';
 import { CommonModule, registerLocaleData } from '@angular/common';
-import { ApplicationActions, buildState, NgxRbkUtilsModule } from 'ngx-smz-ui';
+import { ApplicationActions, buildState } from 'ngx-smz-ui';
 import { NgxsModule, Store } from '@ngxs/store';
 import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
@@ -31,12 +31,11 @@ moment.locale('pt-br');
     AppRoutingModule,
 
     // Não alterar a ordem desse grupo
-    NgxSmzUiModule.forRoot(UiConfigBuilder.Build()),
-    NgxRbkUtilsModule.forRoot(),
+    NgxSmzUiModule.forRoot(UiConfigBuilder),
+
     NgxsModule.forRoot(buildState(), { developmentMode: !environment.production }),
     NgxsRouterPluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot(),
-    NgxSmzLayoutsModule.forRoot(smzLayoutsConfig),
 
     NewAthenaLayoutModule.forRoot(smzAthenaConfig),
     HighlightModule

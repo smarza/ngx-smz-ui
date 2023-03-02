@@ -7,7 +7,6 @@ import { SmzLoader, SmzLoaders } from '../../core/models/loaders';
 import { SmzContentTheme, SmzContentThemes } from '../../core/models/themes';
 import { LayoutUiActions } from '../../../../state/ui/layout/layout.actions';
 import { LayoutUiSelectors } from '../../../../state/ui/layout/layout.selectors';
-import { SmzLayoutsConfig } from '../../core/globals/smz-layouts.config';
 import { SmzToast, SmzToastPositions, SmzToasts } from '../../core/models/toasts';
 import { EdgePositionType, LeftPositionType, RightPositionType, SidePositionType } from '../../core/models/positions';
 import { ColorSchemaDefinition, SmzColorSchemas } from '../../core/models/color-schemas';
@@ -33,7 +32,7 @@ export class GlobalAssistanceComponent implements OnInit {
   public toastPositions = SmzToastPositions;
   public assistancePositions = SmzAssistancePositions;
   public assistanceButtonPositions = SmzAssistanceButtonPositions;
-  constructor(public readonly config: SmzLayoutsConfig, private store: Store, private cdr: ChangeDetectorRef) {
+  constructor(private store: Store, private cdr: ChangeDetectorRef) {
 
     this.store
       .select(ApplicationSelectors.globalIsLoading)

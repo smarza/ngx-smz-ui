@@ -1,6 +1,5 @@
 import { Component, HostBinding, Input, OnInit, ChangeDetectionStrategy, TemplateRef, ContentChildren, QueryList, AfterContentInit, forwardRef } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
-import { SmzLayoutsConfig } from '../../core/globals/smz-layouts.config';
 import { LayoutUiSelectors } from '../../../../state/ui/layout/layout.selectors';
 import { Observable } from 'rxjs';
 import { SmzAppLogo } from '../../core/models/logo';
@@ -23,7 +22,7 @@ export class SmzLoginComponent implements OnInit, AfterContentInit {
   public baseClass = 'fixed inset-0';
   public extraTemplate: TemplateRef<any>;
 
-  constructor(public readonly config: SmzLayoutsConfig, private store: Store) { }
+  constructor(private store: Store) { }
 
   @HostBinding('class') get colorClass() { return `${this.state.styleClass.background} ${this.baseClass}`; };
 

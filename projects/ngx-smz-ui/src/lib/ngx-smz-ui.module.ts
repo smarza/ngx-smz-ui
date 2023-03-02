@@ -7,12 +7,14 @@ import { NgxSmzUiComponent } from './ngx-smz-ui.component';
 import { SmzUiBuilder } from './builders/smz-ui/ui-builder';
 import { Router } from '@angular/router';
 import { NgxSmzDialogsModule } from './modules/smz-dialogs/smz-dialogs.module';
+import { NgxSmzLayoutsModule } from './modules/smz-layouts/ngx-smz-layouts.module';
 
 @NgModule({
   declarations: [NgxSmzUiComponent],
   imports: [
     NgxSmzDialogsModule.forRoot(),
     NgxRbkUtilsModule.forRoot(),
+    NgxSmzLayoutsModule.forRoot(),
   ],
   exports: [
     NgxSmzUiComponent,

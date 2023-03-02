@@ -1,6 +1,5 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { MenuItem } from 'primeng/api';
-import { SmzLayoutsConfig } from '../../../../core/globals/smz-layouts.config';
 
 @Component({
   selector: "[smz-ui-athena-profile-menu-items]",
@@ -38,7 +37,7 @@ export class AthenaProfileMenuItemsComponent implements OnInit, AfterViewInit {
   @Output() public collapse: EventEmitter<void> = new EventEmitter<void>();
   private isLoaded = false;
   public isAnyMenuExpanded = false;
-  constructor(private _eref: ElementRef, public config: SmzLayoutsConfig) {}
+  constructor(private _eref: ElementRef) {}
 
   public ngOnInit(): void {
   }

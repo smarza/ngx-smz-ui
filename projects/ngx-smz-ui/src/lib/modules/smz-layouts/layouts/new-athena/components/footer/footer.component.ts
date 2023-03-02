@@ -5,10 +5,10 @@ import { PrimeTemplate } from 'primeng/api';
 import { Observable } from 'rxjs';
 import { LayoutUiSelectors } from '../../../../../../state/ui/layout/layout.selectors';
 import { LayoutState } from '../../../../core/models/layout';
-import { SmzLayoutsConfig } from '../../../../core/globals/smz-layouts.config';
 import { SmzAppLogo } from '../../../../core/models/logo';
 import { UiAthenaSelectors } from '../../state/ui-layout.selectors';
 import { UiAthenaActions } from '../../state/ui-layout.actions';
+import { GlobalInjector } from '../../../../../../common/services/global-injector';
 
 @UntilDestroy()
 @Component({
@@ -23,7 +23,8 @@ export class AthenaFooterComponent implements OnInit, AfterContentInit
   @Select(UiAthenaSelectors.state) public state$: Observable<LayoutState>;
   @Select(LayoutUiSelectors.appContentLogo) public appLogo$: Observable<SmzAppLogo>;
   public footerExtrasTemplate: TemplateRef<any>;
-  constructor(public readonly config: SmzLayoutsConfig, private store: Store) { }
+  public uiConfig = GlobalInjector.config;
+  constructor(private store: Store) { }
 
   ngOnInit(): void
   {
