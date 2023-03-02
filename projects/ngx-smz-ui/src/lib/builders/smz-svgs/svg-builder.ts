@@ -1,5 +1,3 @@
-import { GlobalInjector } from '../../modules/smz-dialogs/services/global-injector';
-import { NgxRbkUtilsConfig } from '../../modules/rbk-utils/ngx-rbk-utils.config';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzSvgState } from '../../modules/smz-svg/models/smz-svg';
 import { SmzSvgFeatureBuilder } from './svg-feature';
@@ -7,10 +5,11 @@ import { BehaviorSubject } from 'rxjs';
 import { SmzSvgDispatchBuilder } from './svg-dispatch';
 import uniq from 'lodash-es/uniq';
 import { SmzSvgWorldCoordinatesBuilder } from './svg-world-coordinates';
+import { GlobalInjector } from '../../common/services/global-injector';
 
 export class SmzSvgBuilder extends SmzBuilderUtilities<SmzSvgBuilder> {
   protected that = this;
-  private defaultConfig = GlobalInjector.instance.get(NgxRbkUtilsConfig);
+  private defaultConfig = GlobalInjector.config;
   public _state: SmzSvgState = {
     isDebug: false,
     features: [],

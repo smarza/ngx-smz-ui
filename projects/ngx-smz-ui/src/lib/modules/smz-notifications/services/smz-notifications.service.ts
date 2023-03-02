@@ -1,18 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Actions, ofActionSuccessful, Store } from '@ngxs/store';
-import { first } from 'rxjs/operators';
+import { GlobalInjector } from '../../../common/services/global-injector';
 import { AuthenticationActions } from '../../../state/global/authentication/authentication.actions';
 import { AuthenticationSelectors } from '../../../state/global/authentication/authentication.selectors';
 import { NotificationsUiActions } from '../../../state/ui/notifications/notifications.actions';
-import { NgxRbkUtilsConfig } from '../../rbk-utils/ngx-rbk-utils.config';
 
 @Injectable({providedIn: 'root'})
 export class SmzNotificationsService {
-  constructor(private store: Store, private rbkConfig: NgxRbkUtilsConfig, private actions$: Actions) { }
+  constructor(private store: Store, private actions$: Actions) { }
 
   public init(): void {
-    const updateRate = this.rbkConfig.notifications.updateRate ?? 50000;
-    const updateMethod = this.rbkConfig.notifications.updateMethod ?? 'interval';
+    const updateRate = GlobalInjector.config.rbkUtils.notifications.updateRate ?? 50000;
+    const updateMethod = GlobalInjector.config.rbkUtils.notifications.updateMethod ?? 'interval';
 
     switch (updateMethod) {
       case 'interval':

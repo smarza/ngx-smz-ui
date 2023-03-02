@@ -1,5 +1,5 @@
-import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, ElementRef, Input, OnChanges, OnInit, QueryList, SimpleChanges, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { Select, Store } from '@ngxs/store';
+import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, ElementRef, Input, OnChanges, QueryList, SimpleChanges, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { Select } from '@ngxs/store';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { MenuItem, PrimeTemplate } from 'primeng/api';
 import { Observable } from 'rxjs';
@@ -10,7 +10,6 @@ import { MenuType } from '../../../../core/models/menu-types';
 import { UiAthenaSelectors } from '../../state/ui-layout.selectors';
 import { AthenaLayout } from '../../layout.config';
 import { RouterState } from '@ngxs/router-plugin';
-import { NgxRbkUtilsConfig } from '../../../../../rbk-utils/ngx-rbk-utils.config';
 
 @UntilDestroy()
 @Component({
@@ -21,7 +20,7 @@ import { NgxRbkUtilsConfig } from '../../../../../rbk-utils/ngx-rbk-utils.config
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AthenaHorizontalMenuComponent implements OnInit, AfterContentInit, OnChanges {
+export class AthenaHorizontalMenuComponent implements AfterContentInit, OnChanges {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
   @Select(LayoutUiSelectors.topbarTitle) public topbarTitle$: Observable<string>;
   @Select(LayoutUiSelectors.appContentLogo) public appLogo$: Observable<SmzAppLogo>;
@@ -33,11 +32,8 @@ export class AthenaHorizontalMenuComponent implements OnInit, AfterContentInit, 
   public isAnyMenuExpanded = false;
   public menuType = MenuType;
   public headerExtrasTemplate: TemplateRef<any>;
-  constructor(public readonly rbkConfig: NgxRbkUtilsConfig, public readonly config: SmzLayoutsConfig, private store: Store, private _eref: ElementRef) { }
+  constructor(public readonly config: SmzLayoutsConfig, private _eref: ElementRef) { }
 
-  ngOnInit(): void {
-
-  }
   public ngAfterContentInit() {
     this.templates.forEach((item) => {
       switch (item.getType()) {

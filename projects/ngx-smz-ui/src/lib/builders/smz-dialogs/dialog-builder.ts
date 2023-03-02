@@ -4,8 +4,6 @@ import { SmzFormBuilder } from '../smz-forms/form-builder';
 import { getSmzTemplate } from '../smz-forms/form-group-builder';
 import { SmzForm } from '../../modules/smz-forms/models/smz-forms';
 import { SmzDialog, SmzDialogFeature } from '../../modules/smz-dialogs/models/smz-dialogs';
-import { GlobalInjector } from '../../modules/smz-dialogs/services/global-injector';
-import { SmzDialogsConfig } from '../../modules/smz-dialogs/smz-dialogs.config';
 import { SmzDialogButtonsBuilder } from './dialog-buttons-builder';
 import { SmzDialogUiDefinitionBuilder } from './dialog-ui-definition-builder';
 import { SmzTableState } from '../../modules/smz-tables/models/table-state';
@@ -14,10 +12,11 @@ import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzPresetTypes } from '../../modules/smz-dialogs/models/smz-presets';
 import { SmzDialogOverlayPanelBuilder } from './dialog-overlay-panel-builder';
 import { SmzUiGuidesState } from '../../standalones/smz-ui-guides/models/smz-ui-guides-state';
+import { GlobalInjector } from '../../common/services/global-injector';
 
 export class SmzDialogBuilder<TResponse> extends SmzBuilderUtilities<SmzDialogBuilder<TResponse>> {
   protected that = this;
-  private defaultConfig = GlobalInjector.instance.get(SmzDialogsConfig);
+  private defaultConfig = GlobalInjector.config.dialogs;
   public _state: SmzDialog<TResponse> = {
     title: null,
     callbacks: {

@@ -5,18 +5,18 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 import { Store } from '@ngxs/store';
 import { ApplicationSelectors } from '../../../state/global/application/application.selector';
 import { AuthenticationSelectors } from '../../../state/global/authentication/authentication.selectors';
-import { NgxRbkUtilsConfig } from '../ngx-rbk-utils.config';
+import { GlobalInjector } from '../../../common/services/global-injector';
 
 @Injectable()
 export class GlobalErrorHandler implements ErrorHandler {
   constructor(private injector: Injector) {
   }
   public handleError(error): void {
-    const config = this.injector.get(NgxRbkUtilsConfig);
+    const config = GlobalInjector.config;
 
     console.log('ERROR INTERCEPTOR', error);
 
-    if (config.diagnostics.url != null && error.status != 400) {
+    if (config.rbkUtils.diagnostics.url != null && error.status != 400) {
         const loggingService = this.injector.get(DiagnosticsService);
         const deviceService = this.injector.get(DeviceDetectorService);
         const store = this.injector.get(Store);

@@ -15,6 +15,7 @@ import { getRelativePosition } from 'chart.js/helpers';
 import { SmzDialogsConfig } from '../../../smz-dialogs/smz-dialogs.config';
 import { SmzChartTypes } from '../../models/chart';
 import { SmzChartInteractionEvent } from '../../models/chart-click-event';
+import { GlobalInjector } from '../../../../common/services/global-injector';
 
 @Component({
   selector: 'smz-ui-chart',
@@ -44,8 +45,9 @@ export class SmzChartComponent implements AfterViewInit, OnDestroy {
 
   public title: string;
   public chart: any;
+  public uiConfig = GlobalInjector.config;
 
-  constructor(public el: ElementRef, public defaultConfig: SmzDialogsConfig) {}
+  constructor(public el: ElementRef) {}
 
   @Input() public get data(): any {
     return this._data;

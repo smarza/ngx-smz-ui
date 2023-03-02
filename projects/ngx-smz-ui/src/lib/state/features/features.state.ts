@@ -1,7 +1,7 @@
 import { State, Action, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { FeaturesActions } from './features.actions';
-import { NgxRbkUtilsConfig } from '../../modules/rbk-utils/ngx-rbk-utils.config';
+import { GlobalInjector } from '../../common/services/global-injector';
 
 export const FEATURE_STATES = [];
 
@@ -12,18 +12,18 @@ export const FEATURE_STATES = [];
 })
 @Injectable()
 export class FeaturesState {
-    constructor(private rbkConfig: NgxRbkUtilsConfig) {}
+    constructor() {}
 
     @Action(FeaturesActions.Clear)
     public clear(ctx: StateContext<any>): void {
         const newState = {};
 
-        for (const stateConfig of Object.keys(this.rbkConfig.state.feature)) {
-            if (this.rbkConfig.state.feature[stateConfig].clearFunction != null) {
-                newState[stateConfig] = this.rbkConfig.state.feature[stateConfig].clearFunction();
+        for (const stateConfig of Object.keys(GlobalInjector.config.rbkUtils.state.feature)) {
+            if (GlobalInjector.config.rbkUtils.state.feature[stateConfig].clearFunction != null) {
+                newState[stateConfig] = GlobalInjector.config.rbkUtils.state.feature[stateConfig].clearFunction();
             }
-            if (this.rbkConfig.state.feature[stateConfig].clearAction != null) {
-                ctx.dispatch(this.rbkConfig.state.feature[stateConfig].clearAction);
+            if (GlobalInjector.config.rbkUtils.state.feature[stateConfig].clearAction != null) {
+                ctx.dispatch(GlobalInjector.config.rbkUtils.state.feature[stateConfig].clearAction);
             }
         }
 

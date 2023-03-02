@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Validators, ValidatorFn, AbstractControl, FormGroup } from '@angular/forms';
+import { Validators, ValidatorFn } from '@angular/forms';
 import { ValidationMessage } from '../models/advanced';
 import { SmzControlType, SmzControlTypes, SmzDropDownControl, SmzLinkedDropDownControl } from '../models/control-types';
-import { SmzDialogsConfig } from '../../smz-dialogs/smz-dialogs.config';
 import { SmzTemplate } from '../../../common/models/templates';
 import { SmzFormsDropdownService } from './smz-forms-dropdown.service';
 import { SmzForm } from '../models/smz-forms';
 import { SmzFormsVisibilityService } from './smz-forms-visibility.service';
-import { flatten, isEmpty } from 'lodash-es';
-import { isArray } from '../../../common/utils/utils';
+import { GlobalInjector } from '../../../common/services/global-injector';
 
 @Injectable({
     providedIn: 'root'
@@ -16,55 +14,12 @@ import { isArray } from '../../../common/utils/utils';
 export class SmzFormsManagerService
 {
 
-    constructor(public configService: SmzDialogsConfig, private dropDownService: SmzFormsDropdownService, private service: SmzFormsVisibilityService) { }
-
-    // public manuallyValidate(input: SmzControlTypes, data: { [key: string]: any }): boolean {
-
-    //     console.log('       ...manuallyValidate()');
-
-    //     const config = input.validatorsPreset;
-
-    //     // Se não houver validatores, returnar válido
-    //     if (config === null) return true;
-
-    //     // Inicializar como válido
-    //     var isValid = true;
-
-    //     const value = Object.keys(data).map((key) => data[key]).reduce((value, initialValue) => initialValue);
-
-    //     console.log('       ... value?', value);
-
-    //     if (config.isRequired) {
-    //         const isRequiredPass = !isEmpty(value);
-    //         isValid = isValid && isRequiredPass;
-    //     }
-    //     console.log('input._inputFormControl', input._inputFormControl);
-    //     const validators = (input._inputFormControl as any)._composedValidatorFn;
-    //     console.log('validators', validators);
-
-    //     if (isArray(validators)) {
-    //         validators.forEach((validator, index) => {
-    //             console.log('validator', validator);
-    //             const isValidatorValid = validator(input._inputFormControl);
-    //             console.log(`isValidatorValid ${index}`, isValidatorValid);
-
-    //         });
-    //     }
-    //     else if (validators != null) {
-    //         const isValidatorValid = validators(input._inputFormControl);
-    //         console.log('isValidatorValid', isValidatorValid);
-    //     }
-
-
-
-    //     console.log('       isValid ?', isValid);
-    //     return isValid;
-    // }
+    constructor(private dropDownService: SmzFormsDropdownService, private service: SmzFormsVisibilityService) { }
 
     public getValidators(control: SmzControlTypes): Validators
     {
         const validators: ValidatorFn[] = [];
-        const config = this.configService.forms?.validators;
+        const config = GlobalInjector.config.dialogs.forms?.validators;
         const input = control.validatorsPreset;
 
         const isRequired = this.checkValidatorPreset(config.isRequired, input?.isRequired);
@@ -98,7 +53,7 @@ export class SmzFormsManagerService
     {
         const response: ValidationMessage[] = [];
 
-        response.push(...(this.configService?.forms?.validationMessages ?? []));
+        response.push(...(GlobalInjector.config.dialogs?.forms?.validationMessages ?? []));
 
         if (control.advancedSettings?.validationMessages != null)
         {
@@ -152,14 +107,14 @@ export class SmzFormsManagerService
     {
         // console.log('setupGlobalStyles...');
 
-        const globalScale = this.configService?.forms?.globalStyleScale != null ?
-            `${this.configService?.forms?.globalStyleScale}rem` : // USING USER'S TEMPLATE
+        const globalScale = GlobalInjector.config.dialogs?.forms?.globalStyleScale != null ?
+            `${GlobalInjector.config.dialogs?.forms?.globalStyleScale}rem` : // USING USER'S TEMPLATE
             `1rem`; // USING BUILT-IN PRESET
 
         document.documentElement.style.setProperty('--smz-form-global-scale', globalScale);
 
-        const spacer = this.configService?.forms?.spacer != null ?
-            this.configService.forms.spacer : // USING USER'S TEMPLATE
+        const spacer = GlobalInjector.config.dialogs?.forms?.spacer != null ?
+            GlobalInjector.config.dialogs.forms.spacer : // USING USER'S TEMPLATE
             `0.4em`; // USING BUILT-IN PRESET
 
         document.documentElement.style.setProperty('--smz-spacer', spacer);

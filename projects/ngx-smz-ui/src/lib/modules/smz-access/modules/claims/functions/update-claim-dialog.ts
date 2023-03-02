@@ -1,11 +1,11 @@
 import { Store } from '@ngxs/store';
-import { GlobalInjector } from '../../../../rbk-utils/misc/global.injector';
 import { SmzDialog } from '../../../../smz-dialogs/models/smz-dialogs';
 import { SmzDialogBuilder } from '../../../../../builders/smz-dialogs/dialog-builder';
 import { nameof } from '../../../../../common/models/simple-named-entity';
 import { ClaimDetails } from '../../../models/claim-details';
 import { UpdateClaim } from '../../../models/update-claim';
 import { ClaimsActions } from '../../../state/claims/claims.actions';
+import { GlobalInjector } from '../../../../../common/services/global-injector';
 
 export function UpdateClaimDialog(claim: ClaimDetails): SmzDialog<UpdateClaim> {
 

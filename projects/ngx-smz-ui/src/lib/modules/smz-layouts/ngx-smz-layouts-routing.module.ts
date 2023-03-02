@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, Route, Router } from '@angular/router';
-import { NgxRbkUtilsConfig } from '../rbk-utils/ngx-rbk-utils.config';
-import { UsersModule } from '../smz-access/modules/users/users.module';
 import { MenuHelperService } from './core/services/menu-helper-service';
 import { ErrorModule } from './pages/error/error.module';
 import { LoginModule } from './pages/login/login.module';
@@ -25,7 +23,7 @@ export const routerModuleForRootNgxSmzLayoutsModule = RouterModule.forRoot(route
 })
 export class NgxSmzLayoutsRoutingModule {
 
-  constructor(private router: Router, private readonly config: NgxRbkUtilsConfig, public menuService: MenuHelperService)
+  constructor(private router: Router, public menuService: MenuHelperService)
   {
     const newRoutes = [];
 

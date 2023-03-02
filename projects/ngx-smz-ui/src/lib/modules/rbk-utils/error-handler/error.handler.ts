@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { NgxRbkUtilsConfig } from '../ngx-rbk-utils.config';
+import { GlobalInjector } from '../../../common/services/global-injector';
 
 export class CustomError {
     public messages: string[];
@@ -39,7 +39,7 @@ export class CustomError {
 // @dynamic
 export class HttpErrorHandler {
     // TODO: Fazer throw error no login por exemplo e ver porque está entrando nos ifs do status
-    public static async handle(httpResponse: any, rbkConfig: NgxRbkUtilsConfig): Promise<CustomError> {
+    public static async handle(httpResponse: any): Promise<CustomError> {
         if (httpResponse instanceof HttpErrorResponse) {
 
             let response = httpResponse;
@@ -53,15 +53,15 @@ export class HttpErrorHandler {
             }
             else if (response.status === 500) {
                 // Internal Server Error, ModelState, server
-                return CustomError.fromExceptionResponse(response, rbkConfig.errorsConfig.page.route);
+                return CustomError.fromExceptionResponse(response, GlobalInjector.config.rbkUtils.errorsConfig.page.route);
             }
             else if (response.status === 401) {
                 // Unauthorized, not authenticated
                 if (typeof response.error === 'string' || response.error instanceof String) {
-                    return CustomError.fromSingleError(response.error as string, rbkConfig.authentication.login.route);
+                    return CustomError.fromSingleError(response.error as string, GlobalInjector.config.rbkUtils.authentication.login.route);
                 }
                 else {
-                    return CustomError.fromSingleError('Houve um problema na autenticação com o servidor.', rbkConfig.authentication.login.route);
+                    return CustomError.fromSingleError('Houve um problema na autenticação com o servidor.', GlobalInjector.config.rbkUtils.authentication.login.route);
                 }
             }
             else if (response.status === 403) {
@@ -74,16 +74,16 @@ export class HttpErrorHandler {
             }
             else if (response.status === 0) {
                 // Unknown error
-                return CustomError.fromSingleError('Erro de comunicação com o servidor.', rbkConfig.errorsConfig.page.route);
+                return CustomError.fromSingleError('Erro de comunicação com o servidor.', GlobalInjector.config.rbkUtils.errorsConfig.page.route);
             }
             else {
                 // Error has a code, but it was not handled
-                return CustomError.fromSingleError(`Código de erro não tratado: ${response.status}.`, rbkConfig.errorsConfig.page.route);
+                return CustomError.fromSingleError(`Código de erro não tratado: ${response.status}.`, GlobalInjector.config.rbkUtils.errorsConfig.page.route);
             }
         }
         else {
             console.error('response', httpResponse);
-            return CustomError.fromSingleError('Erro desconhecido na conexão com o servidor.', rbkConfig.errorsConfig.page.route);
+            return CustomError.fromSingleError('Erro desconhecido na conexão com o servidor.', GlobalInjector.config.rbkUtils.errorsConfig.page.route);
         }
     }
 

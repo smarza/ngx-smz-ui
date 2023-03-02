@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { State, Action, StateContext, Store } from '@ngxs/store';
 import { AuthenticationActions } from '../authentication/authentication.actions';
 import { ApplicationActions } from './application.actions';
-import { NgxRbkUtilsConfig } from '../../../modules/rbk-utils/ngx-rbk-utils.config';
 import { ToastActions } from './application.actions.toast';
 import { Navigate } from '@ngxs/router-plugin';
 import { HttpErrorHandler } from '../../../modules/rbk-utils/error-handler/error.handler';
 import { DialogsActions } from '../../../modules/smz-dialogs/state/dialogs/dialogs.actions';
 import { ToastService } from '../../../modules/rbk-utils/misc/toast.service';
+import { GlobalInjector } from '../../../common/services/global-injector';
 
 export interface ApplicationStateModel {
     globalIsLoading: boolean;
@@ -58,33 +58,33 @@ export const getCleanApplicationState = (): ApplicationStateModel => ({
 })
 @Injectable()
 export class ApplicationState {
-    constructor(private toastService: ToastService, private rbkConfig: NgxRbkUtilsConfig, private store: Store) { }
+    constructor(private toastService: ToastService, private store: Store) { }
 
     @Action(ApplicationActions.HandleHttpErrorWithDialog)
     public async handleErrorWithDialog$(ctx: StateContext<ApplicationStateModel>, action: ApplicationActions.HandleHttpErrorWithDialog): Promise<void> {
 
-        const error = await HttpErrorHandler.handle(action.error, this.rbkConfig);
+        const error = await HttpErrorHandler.handle(action.error);
 
         if (action.error.status >= 400 && action.error.status < 500) {
-            ctx.dispatch(new DialogsActions.Message(this.rbkConfig.dialogsConfig.warningDialogTitle, error.messages));
+            ctx.dispatch(new DialogsActions.Message(GlobalInjector.config.rbkUtils.dialogsConfig.warningDialogTitle, error.messages));
         }
         else {
-            ctx.dispatch(new DialogsActions.Message(this.rbkConfig.dialogsConfig.errorDialogTitle, error.messages));
+            ctx.dispatch(new DialogsActions.Message(GlobalInjector.config.rbkUtils.dialogsConfig.errorDialogTitle, error.messages));
         }
 
         if (error.redirectTo != null) {
             ctx.dispatch(new Navigate([error.redirectTo]));
         }
 
-        if (this.rbkConfig.errorsConfig.callback != null) {
-            this.rbkConfig.errorsConfig.callback(error, this.store);
+        if (GlobalInjector.config.rbkUtils.errorsConfig.callback != null) {
+            GlobalInjector.config.rbkUtils.errorsConfig.callback(error, this.store);
         }
     }
 
     @Action(ApplicationActions.HandleHttpErrorWithToast)
     public async handleErrorWithToast$(ctx: StateContext<ApplicationStateModel>, action: ApplicationActions.HandleHttpErrorWithToast): Promise<void> {
 
-        const error = await HttpErrorHandler.handle(action.error, this.rbkConfig);
+        const error = await HttpErrorHandler.handle(action.error);
 
         for (const message of error.messages) {
             if (action.error.status >= 400 && action.error.status < 500) {
@@ -99,8 +99,8 @@ export class ApplicationState {
             ctx.dispatch(new Navigate([error.redirectTo]));
         }
 
-        if (this.rbkConfig.errorsConfig.callback != null) {
-            this.rbkConfig.errorsConfig.callback(error, this.store);
+        if (GlobalInjector.config.rbkUtils.errorsConfig.callback != null) {
+            GlobalInjector.config.rbkUtils.errorsConfig.callback(error, this.store);
         }
     }
 
@@ -139,7 +139,7 @@ export class ApplicationState {
     @Action(ToastActions.Custom)
     public showToastMessage(ctx: StateContext<ApplicationStateModel>, action: ToastActions.Custom): void {
         const message = {
-            ...this.rbkConfig.toastConfig,
+            ...GlobalInjector.config.rbkUtils.toastConfig,
             ...action.message
         };
 
@@ -149,9 +149,9 @@ export class ApplicationState {
     @Action(ToastActions.Success)
     public showToastSuccessMessage(ctx: StateContext<ApplicationStateModel>, action: ToastActions.Success): void {
         const message = {
-            ...this.rbkConfig.toastConfig,
+            ...GlobalInjector.config.rbkUtils.toastConfig,
             severity: 'success',
-            summary: action.title ?? this.rbkConfig.toastConfig.successTitle,
+            summary: action.title ?? GlobalInjector.config.rbkUtils.toastConfig.successTitle,
             detail: action.message
         };
 
@@ -161,9 +161,9 @@ export class ApplicationState {
     @Action(ToastActions.Error)
     public showToastErrorMessage(ctx: StateContext<ApplicationStateModel>, action: ToastActions.Error): void {
         const message = {
-            ...this.rbkConfig.toastConfig,
+            ...GlobalInjector.config.rbkUtils.toastConfig,
             severity: 'error',
-            summary: action.title ?? this.rbkConfig.toastConfig.errorTitle,
+            summary: action.title ?? GlobalInjector.config.rbkUtils.toastConfig.errorTitle,
             detail: action.message
         };
 
@@ -173,9 +173,9 @@ export class ApplicationState {
     @Action(ToastActions.Info)
     public showToastInfoMessage(ctx: StateContext<ApplicationStateModel>, action: ToastActions.Info): void {
         const message = {
-            ...this.rbkConfig.toastConfig,
+            ...GlobalInjector.config.rbkUtils.toastConfig,
             severity: 'info',
-            summary: action.title ?? this.rbkConfig.toastConfig.infoTitle,
+            summary: action.title ?? GlobalInjector.config.rbkUtils.toastConfig.infoTitle,
             detail: action.message
         };
 
@@ -185,9 +185,9 @@ export class ApplicationState {
     @Action(ToastActions.Warning)
     public showToastWarningMessage(ctx: StateContext<ApplicationStateModel>, action: ToastActions.Warning): void {
         const message = {
-            ...this.rbkConfig.toastConfig,
+            ...GlobalInjector.config.rbkUtils.toastConfig,
             severity: 'warn',
-            summary: action.title ?? this.rbkConfig.toastConfig.warningTitle,
+            summary: action.title ?? GlobalInjector.config.rbkUtils.toastConfig.warningTitle,
             detail: action.message
         };
 

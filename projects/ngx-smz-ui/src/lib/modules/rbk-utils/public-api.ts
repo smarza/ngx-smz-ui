@@ -22,11 +22,8 @@ export * from './auth/auth.service';
 export * from './auth/models';
 
 export * from './error-handler/error.handler';
-// export * from './error-handler/error.interceptor';
 
 export * from './http/base-api.service';
-
-// export * from './loader/loading.interceptor';
 
 export * from './misc/breadcrum.service';
 export * from './misc/title.service';

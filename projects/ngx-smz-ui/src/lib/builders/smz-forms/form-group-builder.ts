@@ -7,7 +7,6 @@ import { ValidatorFn, Validators } from '@angular/forms';
 import { SmzTextPattern } from '../../modules/smz-forms/models/text-patterns';
 import { MustMatch } from '../../common/utils/custom-validations';
 import { GlobalInjector } from '../../common/services/global-injector';
-import { SmzDialogsConfig } from '../../modules/smz-dialogs/smz-dialogs.config';
 import { SmzFormViewdata } from '../../modules/smz-forms/models/form-viewdata';
 import { Observable } from 'rxjs';
 import sortBy from 'lodash-es/sortBy';
@@ -15,7 +14,7 @@ import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 
 export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormGroupBuilder<TResponse>> {
   protected that = this;
-  private defaultConfig = GlobalInjector.instance.get(SmzDialogsConfig);
+  private defaultConfig = GlobalInjector.config.dialogs;
   constructor(public _formBuilder: SmzFormBuilder<TResponse>, public group: SmzFormGroup) {
     super();
   }

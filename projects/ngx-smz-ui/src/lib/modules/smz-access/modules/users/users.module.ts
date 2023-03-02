@@ -10,8 +10,8 @@ import { ROLES_STATE_NAME } from '../../state/roles/roles.state';
 import { USERS_STATE_NAME } from '../../state/users/users.state';
 import { UsersPageComponent } from './containers/users/users-page.component';
 import { PickListModule } from 'primeng/picklist';
-import { NgxRbkUtilsConfig } from '../../../rbk-utils/ngx-rbk-utils.config';
 import { RbkAuthGuard } from '../../../rbk-utils/auth/auth.guard';
+import { GlobalInjector } from '../../../../common/services/global-injector';
 
 const routes: Routes = [
   {
@@ -46,16 +46,16 @@ export const routerModuleForChildUsersModule = RouterModule.forChild(routes);
 })
 export class UsersModule
 {
-  constructor(private config: NgxRbkUtilsConfig) {
+  constructor() {
 
-    if (config.cruds.users?.httpBehavior?.authentication) routes[0].canActivate.push(RbkAuthGuard);
-    if (config.cruds.users?.router?.claim) routes[0].data.claim = config.cruds.users.router.claim;
+    if (GlobalInjector.config.rbkUtils.cruds.users?.httpBehavior?.authentication) routes[0].canActivate.push(RbkAuthGuard);
+    if (GlobalInjector.config.rbkUtils.cruds.users?.router?.claim) routes[0].data.claim = GlobalInjector.config.rbkUtils.cruds.users.router.claim;
 
-    if (config.cruds.users.title == null) {
+    if (GlobalInjector.config.rbkUtils.cruds.users.title == null) {
       throw Error('You need to specify the users title on gedi configuration.');
     }
 
-    routes[0].data.title = config.cruds.users.title;
+    routes[0].data.title = GlobalInjector.config.rbkUtils.cruds.users.title;
 
   }
 }

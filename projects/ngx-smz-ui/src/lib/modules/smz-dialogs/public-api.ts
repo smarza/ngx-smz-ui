@@ -14,7 +14,5 @@ export * from './dynamicdialog/public_api';
 
 export * from '../../builders/smz-dialogs/dialog-builder';
 
-export * from './services/global-injector';
-
 export * from './utils/dialogs';
 export * from '../../builders/smz-dialogs/dialog-input-conversion';

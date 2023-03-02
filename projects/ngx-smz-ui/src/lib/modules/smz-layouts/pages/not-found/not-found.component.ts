@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NgxRbkUtilsConfig } from '../../../rbk-utils/ngx-rbk-utils.config';
 import { SmzLayoutsConfig } from '../../core/globals/smz-layouts.config';
+import { GlobalInjector } from '../../../../common/services/global-injector';
 
 @Component({
   selector: 'smz-ui-not-found',
@@ -8,8 +8,9 @@ import { SmzLayoutsConfig } from '../../core/globals/smz-layouts.config';
   styleUrls: ['./not-found.component.scss']
 })
 export class NotFoundComponent implements OnInit {
+  public uiConfig = GlobalInjector.config;
 
-  constructor(public readonly rbkConfig: NgxRbkUtilsConfig, public readonly config: SmzLayoutsConfig) {
+  constructor(public readonly config: SmzLayoutsConfig) {
   }
 
   public ngOnInit(): void {

@@ -1,7 +1,6 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Store } from '@ngxs/store';
-import { GlobalInjector } from '../misc/global.injector';
-import { NgxRbkUtilsConfig } from '../ngx-rbk-utils.config';
+import { GlobalInjector } from '../../../common/services/global-injector';
 
 export const LOADING_BEHAVIOR_HEADER = 'Loading-Behavior';
 export const ERROR_HANDLING_TYPE_HEADER = 'Error-Handling-Type';
@@ -26,7 +25,7 @@ export class BaseApiService {
 
         let headers = new HttpHeaders();
 
-        const config = GlobalInjector.instance.get(NgxRbkUtilsConfig);
+        const config = GlobalInjector.config.rbkUtils;
 
         const defaulValues: HttpBehaviorParameters = {...config.httpBehaviors.defaultParameters};
 

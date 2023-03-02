@@ -1,18 +1,14 @@
 import { UUID } from 'angular2-uuid';
 import { SmzDialogBuilder } from '../smz-dialogs/dialog-builder';
-import { GlobalInjector } from '../../modules/smz-dialogs/services/global-injector';
-import { SmzDialogsConfig } from '../../modules/smz-dialogs/smz-dialogs.config';
 import { SmzForm, SmzFormGroup } from '../../modules/smz-forms/models/smz-forms';
 import { SmzFormGroupBuilder } from './form-group-builder';
 import { SmzFormUiDefinitionBuilder } from './form-ui-definition-builder';
-import { SimpleNamedEntity } from '../../common/models/simple-named-entity';
 import { isSimpleNamedEntity } from '../../common/utils/utils';
 import flatten from 'lodash-es/flatten';
-import { SmzLoginBuilder } from '../smz-login/state-builder';
-
+import { GlobalInjector } from '../../common/services/global-injector';
 
 export class SmzFormBuilder<TResponse> {
-  private defaultConfig = GlobalInjector.instance.get(SmzDialogsConfig);
+  private defaultConfig = GlobalInjector.config.dialogs;
   public _state: SmzForm<TResponse> = {
     isDebug: false,
     formId: UUID.UUID(),

@@ -1,5 +1,4 @@
 import { Store } from '@ngxs/store';
-import { GlobalInjector } from '../../../../rbk-utils/misc/global.injector';
 import { SmzDialog } from '../../../../smz-dialogs/models/smz-dialogs';
 import { SmzDialogBuilder } from '../../../../../builders/smz-dialogs/dialog-builder';
 import { nameof } from '../../../../../common/models/simple-named-entity';
@@ -7,6 +6,7 @@ import { RolesDetails } from '../../../models/roles-details';
 import { UpdateRoleClaims } from '../../../models/update-role-claims';
 import { ClaimsSelectors } from '../../../state/claims/claims.selectors';
 import { RolesActions } from '../../../state/roles/roles.actions';
+import { GlobalInjector } from '../../../../../common/services/global-injector';
 
 export function UpdateRoleClaimsDialog(role: RolesDetails): SmzDialog<UpdateRoleClaims> {
 

@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { NgxRbkUtilsConfig } from '../rbk-utils/ngx-rbk-utils.config';
 import { SmzNotificationsComponent } from './features/notifications/notifications.component';
 import { SmzNotificationsService } from './services/smz-notifications.service';
 import { BadgeModule } from 'primeng/badge';
@@ -17,6 +16,7 @@ import { NgPipesModule } from 'ngx-pipes';
 import { NgVarModule } from '../../common/directives/ng-var/ng-var.module';
 import { ClickStopPropagationModule } from '../../common/stop-click-propagation/click-stop-propagation.module';
 import { NgxSmzDataPipesModule } from '../../common/data-pipes/data-pipes.module';
+import { GlobalInjector } from '../../common/services/global-injector';
 
 @NgModule({
     imports: [
@@ -38,11 +38,13 @@ import { NgxSmzDataPipesModule } from '../../common/data-pipes/data-pipes.module
     declarations: [SmzNotificationsComponent, NotificationsListComponent, NotificationItemComponent]
   })
   export class SmzNotificationsModule {
-    constructor(configuration: NgxRbkUtilsConfig, service: SmzNotificationsService) {
+    constructor(service: SmzNotificationsService) {
 
-      if (configuration.notifications?.url != null) {
+      const config = GlobalInjector.config;
 
-        if (configuration.notifications?.httpBehavior == null) {
+      if (config.rbkUtils.notifications?.url != null) {
+
+        if (config.rbkUtils.notifications?.httpBehavior == null) {
           throw Error('You need to specify the notification httpBehavior on rbk configuration.');
         }
 

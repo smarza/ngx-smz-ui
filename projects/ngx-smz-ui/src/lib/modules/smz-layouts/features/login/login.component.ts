@@ -6,10 +6,10 @@ import { Observable } from 'rxjs';
 import { SmzAppLogo } from '../../core/models/logo';
 import { SmzLoginData } from '../../core/models/login';
 import { SmzFormsResponse } from '../../../smz-forms/models/smz-forms';
-import { NgxRbkUtilsConfig } from '../../../rbk-utils/ngx-rbk-utils.config';
 import { SmzLoginState } from './login-state';
 import { SmzLoginBuilder } from '../../../../builders/smz-login/state-builder';
 import { PrimeTemplate } from 'primeng/api';
+import { GlobalInjector } from '../../../../common/services/global-injector';
 
 @Component({
   selector: 'smz-ui-login',
@@ -23,16 +23,24 @@ export class SmzLoginComponent implements OnInit, AfterContentInit {
   public baseClass = 'fixed inset-0';
   public extraTemplate: TemplateRef<any>;
 
-  constructor(public readonly config: SmzLayoutsConfig, private store: Store, public rbkConfig: NgxRbkUtilsConfig) {}
+  constructor(public readonly config: SmzLayoutsConfig, private store: Store) { }
 
   @HostBinding('class') get colorClass() { return `${this.state.styleClass.background} ${this.baseClass}`; };
 
   public buildState(): SmzLoginState<unknown, unknown> {
-
     return new SmzLoginBuilder()
-      .setPayloadCallback((response: any) => ({ username: response.username, password: response.password, extraProperties: { applicationId: this.rbkConfig.authentication?.refreshToken?.extraProperties?.applicationId, domain: 'BUZIOS' } }))
+      .setPayloadCallback(
+        (response: any) => (
+          {
+            username: response.username,
+            password: response.password,
+            extraProperties:
+            {
+              applicationId: GlobalInjector.config.rbkUtils.authentication?.refreshToken?.extraProperties?.applicationId,
+              domain: 'BUZIOS'
+            }
+          }))
       .build();
-
   }
 
   public ngOnInit(): void {

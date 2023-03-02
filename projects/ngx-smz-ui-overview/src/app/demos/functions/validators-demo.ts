@@ -1,6 +1,5 @@
 import { DemoKeys } from '@demos/demo-keys';
-import { Store } from '@ngxs/store';
-import { GlobalInjector, SmzDialogsService, SmzFormBuilder } from 'ngx-smz-ui';
+import { SmzFormBuilder } from 'ngx-smz-ui';
 import { UntypedFormControl } from '@angular/forms';
 
 export const ValidatorsDemo: { [key: string]: () => void } = {

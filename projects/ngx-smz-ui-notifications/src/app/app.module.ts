@@ -8,9 +8,8 @@ import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
 import { smzAthenaConfig, smzLayoutsConfig } from '../globals/smz-layouts.config';
 import { CommonModule } from '@angular/common';
-import { ApplicationActions, buildState, NgxRbkUtilsConfig, NgxRbkUtilsModule } from 'ngx-smz-ui';
+import { ApplicationActions, buildState, NgxRbkUtilsModule } from 'ngx-smz-ui';
 import { NgxsModule, Store } from '@ngxs/store';
-import { rbkConfig } from '../globals/rbk-config';
 import { smzDialogsConfig } from '../globals/smz-config';
 import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
@@ -30,7 +29,7 @@ moment.locale('pt-br');
 
     // Não alterar a ordem desse grupo
     NgxSmzDialogsModule.forRoot(smzDialogsConfig),
-    NgxRbkUtilsModule.forRoot(rbkConfig),
+    NgxRbkUtilsModule.forRoot(),
     NgxsModule.forRoot(buildState(), { developmentMode: !environment.production }),
     NgxsRouterPluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot(),
@@ -40,7 +39,6 @@ moment.locale('pt-br');
     HighlightModule
   ],
   providers: [
-    { provide: NgxRbkUtilsConfig, useValue: rbkConfig },
     {
       provide: HIGHLIGHT_OPTIONS,
       useValue: {

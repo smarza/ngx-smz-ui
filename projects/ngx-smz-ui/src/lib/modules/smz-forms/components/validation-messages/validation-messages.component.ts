@@ -1,24 +1,17 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
-import { SmzDialogsConfig } from '../../../smz-dialogs/smz-dialogs.config';
 import { SmzFormsBehaviorsConfig } from '../../models/behaviors';
 import { SmzControlTypes } from '../../models/control-types';
+import { GlobalInjector } from '../../../../common/services/global-injector';
 
 @Component({
     selector: 'smz-validation-messages',
     templateUrl: './validation-messages.component.html',
 })
-export class ValidationMessagesComponent implements OnInit
-{
+export class ValidationMessagesComponent {
     @Input() public input: SmzControlTypes;
     @Input() public control: AbstractControl;
     @Input() public behaviors: SmzFormsBehaviorsConfig;
     @Input() public extraMessages: string[] = [];
-
-    constructor(public configuration: SmzDialogsConfig) { }
-
-    public ngOnInit(): void
-    {
-    }
-
+    public uiConfig = GlobalInjector.config;
 }

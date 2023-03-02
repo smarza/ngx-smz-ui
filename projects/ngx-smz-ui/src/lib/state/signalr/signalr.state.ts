@@ -6,7 +6,7 @@ import { tap } from 'rxjs/operators';
 import { SignalRService } from './signalr.service';
 import { cloneDeep } from 'lodash-es';
 import { SignalRConnection } from './signalr';
-import { NgxRbkUtilsConfig } from '../../modules/rbk-utils/ngx-rbk-utils.config';
+import { GlobalInjector } from '../../common/services/global-injector';
 
 export const SIGNALR_STATE_NAME = 'SignalR';
 
@@ -25,7 +25,7 @@ export const getInitialSignalRState = (): SignalRStateModel => ({
 
 @Injectable()
 export class SignalRState {
-  constructor(private service: SignalRService, private rbkConfig: NgxRbkUtilsConfig) { }
+  constructor(private service: SignalRService) { }
 
   @Action(SignalRActions.Connect)
   public onConnect$(ctx: StateContext<SignalRStateModel>, action: SignalRActions.Connect): Observable<void> {
@@ -36,7 +36,7 @@ export class SignalRState {
 
         this.service.addListener(action.data, (payload) => {
 
-          if (this.rbkConfig.debugMode) console.log(payload);
+          if (GlobalInjector.config.debugMode) console.log(payload);
 
           const payloads = cloneDeep(ctx.getState().payloads);
 

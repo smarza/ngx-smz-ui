@@ -1,5 +1,5 @@
 import { HttpBehaviorParameters } from '../../modules/rbk-utils/http/base-api.service';
-import { NgxRbkUtilsConfig } from '../../modules/rbk-utils/ngx-rbk-utils.config';
+import { NgxSmzUiConfig } from '../../ngx-smz-ui.config';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzUiCrudsBuilder } from './cruds-builder';
 
@@ -16,7 +16,7 @@ export class SmzUiClaimsCrudBuilder extends SmzBuilderUtilities<SmzUiClaimsCrudB
     httpBehavior?: Partial<HttpBehaviorParameters>;
   };
 
-  constructor(private _builder: SmzUiCrudsBuilder, private _state: NgxRbkUtilsConfig) {
+  constructor(private _builder: SmzUiCrudsBuilder, private _state: NgxSmzUiConfig) {
     super();
 
     this._config = {
@@ -41,7 +41,7 @@ export class SmzUiClaimsCrudBuilder extends SmzBuilderUtilities<SmzUiClaimsCrudB
   }
 
   public get cruds(): SmzUiCrudsBuilder {
-    this._state.cruds.claims = this._config;
+    this._state.rbkUtils.cruds.claims = this._config;
     return this._builder;
   }
 }

@@ -6,11 +6,10 @@ import { SmzControlType, SmzFileControl } from '../../models/control-types';
 import { SmzFormsResponse, SmzForm } from '../../models/smz-forms';
 import { CONTROL_FUNCTIONS } from '../../models/control-type-functions';
 import { SmzFormsManagerService } from '../../services/smz-forms-manager.service';
-import { SmzDialogsConfig } from '../../../smz-dialogs/smz-dialogs.config';
 import { uuidv4 } from '../../../../common/utils/utils';
 import { mergeClone } from '../../../../common/utils/deep-merge';
-import { NgxRbkUtilsConfig } from '../../../rbk-utils/ngx-rbk-utils.config';
 import { SmzFormViewdata } from '../../models/form-viewdata';
+import { GlobalInjector } from '../../../../common/services/global-injector';
 
 @Component({
     selector: 'smz-form-group',
@@ -36,7 +35,7 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
     public isInitialized = false;
     public configHasErrors = false;
 
-    constructor(public fb: UntypedFormBuilder, private cdf: ChangeDetectorRef, public manager: SmzFormsManagerService, public configService: SmzDialogsConfig, public rbkConfig: NgxRbkUtilsConfig)
+    constructor(public fb: UntypedFormBuilder, private cdf: ChangeDetectorRef, public manager: SmzFormsManagerService)
     {
 
     }
@@ -74,19 +73,19 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
             }
 
             // SETUP FORM TEMPLATES
-            this.config.template = this.manager.setupTemplate(this.config.template, this.configService.forms.formTemplates);
+            this.config.template = this.manager.setupTemplate(this.config.template, GlobalInjector.config.dialogs.forms.formTemplates);
 
-            this.config.behaviors = { ...this.configService.forms.behaviors, ...this.config.behaviors };
+            this.config.behaviors = { ...GlobalInjector.config.dialogs.forms.behaviors, ...this.config.behaviors };
 
             for (const group of this.config.groups)
             {
                 // SETUP GROUP TEMPLATES
-                group.template = this.manager.setupTemplate(group.template, this.configService.forms.groupTemplates);
+                group.template = this.manager.setupTemplate(group.template, GlobalInjector.config.dialogs.forms.groupTemplates);
 
                 // SETUP INPUT PRESETS
                 for (let index = 0; index < group.children.length; index++)
                 {
-                    const presetControlType = this.configService.forms?.controlTypes[group.children[index].type];
+                    const presetControlType = GlobalInjector.config.dialogs.forms?.controlTypes[group.children[index].type];
 
                     if (group.children[index].isVisible != null && presetControlType != null && presetControlType.isVisible != null)
                     {
@@ -114,7 +113,7 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
                 for (const input of group.children)
                 {
                     // SETUP INPUT TEMPLATES
-                    input.template = this.manager.setupTemplate(input.template, this.configService.forms.inputTemplates);
+                    input.template = this.manager.setupTemplate(input.template, GlobalInjector.config.dialogs.forms.inputTemplates);
 
                     const validators = this.manager.getValidators(input);
                     const validationMessages = this.manager.getValidatorsMessages(input);
@@ -122,7 +121,7 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
                     if (input.advancedSettings == null) input.advancedSettings = {};
                     input.advancedSettings.validationMessages = validationMessages;
 
-                    CONTROL_FUNCTIONS[input.type].initialize(input, this.configService);
+                    CONTROL_FUNCTIONS[input.type].initialize(input);
                     controlsConfig[input.propertyName] = ['', validators, input.advancedSettings.asyncValidators];
 
                     if (input.type === SmzControlType.DROPDOWN)

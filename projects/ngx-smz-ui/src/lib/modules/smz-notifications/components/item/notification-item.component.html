@@ -1,7 +1,7 @@
 <div class="grid grid-nogutter flex-row flex-nowrap items-center justify-between relative flex-gap-1 py-2">
 
     <div class="grid grid-nogutter flex-col items-stretch justify-start relative flex-gap-1">
-        <div class="grid grid-nogutter items-center justify-start mb-1" [ngClass]="rbkConfig.notifications.showTypeIndicators ? typeClass[item.type] : ''">
+        <div class="grid grid-nogutter items-center justify-start mb-1" [ngClass]="uiConfig.rbkUtils.notifications.showTypeIndicators ? typeClass[item.type] : ''">
             <div class="font-medium" [ngClass]="{ 'font-extrabold': item.status === status.NEW || item.status === status.NOTIFIED }">{{item.title}}</div>
             <div *ngIf="item.status === status.NEW" class="rounded bg-blue-500 text-white px-1 py-0.5 ml-2 text-xs">NOVO</div>
         </div>
@@ -9,7 +9,7 @@
     </div>
 
     <div *ngIf="showDate">
-        <span *ngIf="rbkConfig.notifications.date as date" class="text-xs text-right whitespace-nowrap">
+        <span *ngIf="uiConfig.rbkUtils.notifications.date as date" class="text-xs text-right whitespace-nowrap">
             {{ item.date | calendar : date.recentsMethod : date.recentsDaysCount : date.othersFormat }}
         </span>
     </div>

@@ -1,5 +1,3 @@
-import { GlobalInjector } from '../../modules/smz-dialogs/services/global-injector';
-import { NgxRbkUtilsConfig } from '../../modules/rbk-utils/ngx-rbk-utils.config';
 import { SmzDocumentContent, SmzDocumentFontFamilies, SmzDocumentRenderers, SmzDocumentRow, SmzDocumentState } from '../../modules/smz-documents/models/smz-document';
 import { SmzDocumentContentBuilder } from './document-content';
 import { SmzDocumentConfig } from '../../modules/smz-documents/models/smz-document-config';
@@ -9,6 +7,7 @@ import { SmzDocumentViewerBuilder } from './document-viewer';
 import { HTMLOptions, jsPDFOptions } from 'jspdf';
 import { SmzDocumentPageFormats, SmzPageFormatsInPt } from '../../modules/smz-documents/models/smz-page-formats';
 import { isArray } from '../../common/utils/utils';
+import { GlobalInjector } from '../../common/services/global-injector';
 
 // HTML2PDF
 // https://ekoopmans.github.io/html2pdf.js/#usage
@@ -21,7 +20,7 @@ import { isArray } from '../../common/utils/utils';
 
 export class SmzDocumentBuilder extends SmzBuilderUtilities<SmzDocumentBuilder> {
   protected that = this;
-  private defaultConfig = GlobalInjector.instance.get(NgxRbkUtilsConfig);
+  private defaultConfig = GlobalInjector.config.rbkUtils;
   public _state: SmzDocumentState = {
     isDebug: false,
     renderer: 'html2pdf',

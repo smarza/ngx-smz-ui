@@ -1,4 +1,4 @@
-import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, Input, OnInit, QueryList, TemplateRef } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, Input, QueryList, TemplateRef } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { MenuItem, PrimeTemplate } from 'primeng/api';
@@ -11,7 +11,7 @@ import { SmzNotification } from '../../../../core/models/notifications';
 import { UiAthenaSelectors } from '../../state/ui-layout.selectors';
 import { NewAthenaLayout } from '../../layout.config';
 import { MenuType } from '../../../../core/models/menu-types';
-import { NgxRbkUtilsConfig } from '../../../../../rbk-utils/ngx-rbk-utils.config';
+import { GlobalInjector } from '../../../../../../common/services/global-injector';
 
 @UntilDestroy()
 @Component({
@@ -20,7 +20,7 @@ import { NgxRbkUtilsConfig } from '../../../../../rbk-utils/ngx-rbk-utils.config
   styleUrls: ['./topbar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AthenaTopbarComponent implements OnInit, AfterContentInit
+export class AthenaTopbarComponent implements AfterContentInit
 {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
   @Select(LayoutUiSelectors.topbarTitle) public topbarTitle$: Observable<string>;
@@ -30,13 +30,10 @@ export class AthenaTopbarComponent implements OnInit, AfterContentInit
   @Input() public profile: MenuItem[];
   public headerExtrasTemplate: TemplateRef<any>;
   public horizontalMenuType = MenuType.HORIZONTAL;
+  public uiConfig = GlobalInjector.config;
 
-  constructor(public readonly rbkConfig: NgxRbkUtilsConfig, public readonly config: SmzLayoutsConfig, private store: Store) { }
+  constructor(public readonly config: SmzLayoutsConfig, private store: Store) { }
 
-  ngOnInit(): void
-  {
-
-  }
   public ngAfterContentInit()
   {
     this.templates.forEach((item) =>

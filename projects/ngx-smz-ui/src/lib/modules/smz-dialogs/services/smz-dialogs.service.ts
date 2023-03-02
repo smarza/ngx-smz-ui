@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { SmzDialogsConfig } from '../smz-dialogs.config';
 import { SmzDialog, SmzDialogPreset, SmzDynamicDialogConfig } from '../models/smz-dialogs';
 import { SmzForm, SmzFormGroup } from '../../smz-forms/models/smz-forms';
 import { ComponentData } from '../../../common/modules/inject-content/models/injectable.model';
@@ -14,7 +13,7 @@ import { getPreset } from '../models/smz-presets';
 import { SmzControlTypes } from '../../smz-forms/models/control-types';
 import { SmzCheckBoxControl } from '../../smz-forms/models/control-types';
 import { SmzFeaturesService } from './smz-features.service';
-import { NgxRbkUtilsConfig } from '../../rbk-utils/ngx-rbk-utils.config';
+import { GlobalInjector } from '../../../common/services/global-injector';
 
 const FORMGROUP_BASE = 2;
 const CONFIRMATION_BASE = 4;
@@ -56,10 +55,10 @@ const BASE_DIALOG: SmzDialog<any> = {
 export class SmzDialogsService
 {
     public dialogRefs: DynamicDialogRef[] = [];
-    constructor(private moduleConfig: SmzDialogsConfig, private dialogService: DialogService, public refService: DynamicDialogRef, private visibilityService: SmzDialogsVisibilityService, private featuresService: SmzFeaturesService, private rbkConfig: NgxRbkUtilsConfig)
+    constructor(private dialogService: DialogService, public refService: DynamicDialogRef, private visibilityService: SmzDialogsVisibilityService, private featuresService: SmzFeaturesService)
     {
-        BASE_DIALOG.behaviors = moduleConfig.dialogs.behaviors;
-        BASE_DIALOG.dialogTemplate = moduleConfig.dialogs.dialogTemplate;
+        BASE_DIALOG.behaviors = GlobalInjector.config.dialogs.dialogs.behaviors;
+        BASE_DIALOG.dialogTemplate = GlobalInjector.config.dialogs.dialogs.dialogTemplate;
     }
 
     /**
@@ -134,10 +133,10 @@ export class SmzDialogsService
 
         this.dialogRefs.push(ref);
 
-        if (this.rbkConfig.debugMode) {
+        if (GlobalInjector.config.debugMode) {
             console.groupCollapsed('SmzDialogsService => open()');
 
-            console.log('SmzDialogsConfig', this.moduleConfig);
+            console.log('SmzDialogsConfig', GlobalInjector.config.dialogs);
             console.log('dialog', dialog);
             console.log('config', config);
             console.log('behaviors', behaviors);
@@ -269,7 +268,7 @@ export class SmzDialogsService
     private createContextWithPreset(id: string, data: SmzDialog<any>, preset: SmzDialogPreset): void
     {
 
-        const builtInButtons = mergeClone(this.moduleConfig.dialogs.builtInButtons, data.builtInButtons);
+        const builtInButtons = mergeClone(GlobalInjector.config.dialogs.dialogs.builtInButtons, data.builtInButtons);
         const userBuiltInButtons = data?.builtInButtons ? clone(data.builtInButtons) : {};
 
         data._context = {
@@ -338,13 +337,13 @@ export class SmzDialogsService
             isLoading: false,
             advancedResponse: {},
             simpleResponse: {},
-            behaviors: mergeClone(this.moduleConfig.dialogs.behaviors, data.behaviors),
-            builtInButtons: mergeClone(this.moduleConfig.dialogs.builtInButtons, data.builtInButtons),
+            behaviors: mergeClone(GlobalInjector.config.dialogs.dialogs.behaviors, data.behaviors),
+            builtInButtons: mergeClone(GlobalInjector.config.dialogs.dialogs.builtInButtons, data.builtInButtons),
             customButtons: data.customButtons ?? [],
             customButtonsOrder: data.customButtonsOrder ?? 'first',
             topbarButtons: data.topbarButtons ?? [],
-            featureTemplate: this.moduleConfig.dialogs.featureTemplate,
-            dialogTemplate: mergeClone(this.moduleConfig.dialogs.dialogTemplate, data.dialogTemplate),
+            featureTemplate: GlobalInjector.config.dialogs.dialogs.featureTemplate,
+            dialogTemplate: mergeClone(GlobalInjector.config.dialogs.dialogs.dialogTemplate, data.dialogTemplate),
         };
     }
 

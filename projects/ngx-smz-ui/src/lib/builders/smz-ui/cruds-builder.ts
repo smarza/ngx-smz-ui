@@ -1,13 +1,13 @@
-import { NgxRbkUtilsConfig } from '../../modules/rbk-utils/ngx-rbk-utils.config';
+import { NgxSmzUiConfig } from '../../ngx-smz-ui.config';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
-import { SmzUiConfigBuilder } from './config-builder';
 import { SmzUiClaimsCrudBuilder } from './crud-claims-builder';
 import { SmzUiRolesCrudBuilder } from './crud-roles-builder';
 import { SmzUiUsersCrudBuilder } from './crud-users-builder';
+import { SmzUiBuilder } from './ui-builder';
 
 export class SmzUiCrudsBuilder extends SmzBuilderUtilities<SmzUiCrudsBuilder> {
   protected that = this;
-  constructor(private _builder: SmzUiConfigBuilder, private _state: NgxRbkUtilsConfig) {
+  constructor(private _builder: SmzUiBuilder, private _state: NgxSmzUiConfig) {
     super();
   }
 
@@ -23,7 +23,7 @@ export class SmzUiCrudsBuilder extends SmzBuilderUtilities<SmzUiCrudsBuilder> {
     return new SmzUiClaimsCrudBuilder(this, this._state);
   }
 
-  public get builder(): SmzUiConfigBuilder {
+  public get builder(): SmzUiBuilder {
     return this._builder;
   }
 }

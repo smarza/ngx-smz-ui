@@ -1,14 +1,14 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, ViewEncapsulation } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { NotificationsUiActions } from '../../../../state/ui/notifications/notifications.actions';
 import { SmzTableBuilder } from '../../../../builders/smz-tables/state-builder';
 import { NotificationData, NotificationFolder, NotificationFolderStatus, NotificationStatus } from '../../../../state/ui/notifications/notifications.model';
-import { NgxRbkUtilsConfig } from '../../../rbk-utils/ngx-rbk-utils.config';
 import { SmzTableState } from '../../../smz-tables/models/table-state';
 import { Confirmable } from '../../../smz-dialogs/decorators/confirmable.decorator';
 import { Navigate } from '@ngxs/router-plugin';
 import { Observable } from 'rxjs';
 import { NotificationsUiSelectors } from '../../../../state/ui/notifications/notifications.selectors';
+import { GlobalInjector } from '../../../../common/services/global-injector';
 
 @Component({
   selector: 'smz-notifications-list',
@@ -18,12 +18,13 @@ import { NotificationsUiSelectors } from '../../../../state/ui/notifications/not
   encapsulation: ViewEncapsulation.None
 })
 
-export class NotificationsListComponent implements OnInit {
+export class NotificationsListComponent {
   @Select(NotificationsUiSelectors.hasRuningRequest) public hasRuningRequest$: Observable<boolean>;
   @Input() public notifications: NotificationData[];
   public tableState: SmzTableState;
   public status = NotificationStatus;
   public selected: NotificationData[] = [];
+  public uiConfig = GlobalInjector.config;
   public folders = [
     {
       status: NotificationFolderStatus[NotificationFolder.INBOX],
@@ -41,11 +42,8 @@ export class NotificationsListComponent implements OnInit {
     }
   ]
   public currentFolder = this.folders[0];
-  constructor(public rbkConfig: NgxRbkUtilsConfig, private store: Store, private cdf: ChangeDetectorRef) {
+  constructor(private store: Store, private cdf: ChangeDetectorRef) {
     this.setupInboxTable();
-  }
-
-  ngOnInit() {
   }
 
   public buildBaseTable(): SmzTableBuilder {
@@ -54,11 +52,11 @@ export class NotificationsListComponent implements OnInit {
       .setSize('small')
       .enableGlobalFilter()
       .expandGlobalFilterInput()
-      .setEmptyFeedbackMessage(this.rbkConfig.notifications.emptyMessage)
+      .setEmptyFeedbackMessage(GlobalInjector.config.rbkUtils.notifications.emptyMessage)
       .useTableEmptyMessage()
       .usePagination()
-      .setPaginationDefaultRows(this.rbkConfig.notifications.rowsPerPage)
-      .setPaginationPageOptions(this.rbkConfig.notifications.pageOptions)
+      .setPaginationDefaultRows(GlobalInjector.config.rbkUtils.notifications.rowsPerPage)
+      .setPaginationPageOptions(GlobalInjector.config.rbkUtils.notifications.pageOptions)
       .allowDefaultMultiSelection()
       .hideHeader()
       .columns()

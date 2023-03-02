@@ -1,9 +1,7 @@
-import { Store } from '@ngxs/store';
 import { GlobalInjector, SmzUiGuidesBuilder, SmzUiGuidesService } from 'ngx-smz-ui';
 import { DemoKeys } from '@demos/demo-keys';
 
 const service = GlobalInjector.instance.get(SmzUiGuidesService);
-const store = GlobalInjector.instance.get(Store);
 
 export const UiGuidesDemo: { [key: string]: () => void } = {
   //

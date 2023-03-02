@@ -1,28 +1,28 @@
 import { Injectable } from '@angular/core';
 import { Message } from 'primeng/api/message';
 import { MessageService } from 'primeng/api';
-import { NgxRbkUtilsConfig } from '../ngx-rbk-utils.config';
 import { isWithinTime } from '../utils/utils';
+import { GlobalInjector } from '../../../common/services/global-injector';
 
 @Injectable({providedIn: 'root'})
 export class ToastService {
   public lastMessage: Message;
   public lastUpdated: Date;
-  constructor(private messageService: MessageService, private config: NgxRbkUtilsConfig) {
+  constructor(private messageService: MessageService) {
 
-    if (this.config.toastConfig == null || this.config.toastConfig.debounceDistinctDelay == null) {
-      throw Error('You need to set the \'debounceDistinctDelay\' at rbkconfig.toastConfig.');
+    if (GlobalInjector.config.rbkUtils.toastConfig == null || GlobalInjector.config.rbkUtils.toastConfig.debounceDistinctDelay == null) {
+      throw Error('You need to set the \'debounceDistinctDelay\' at rbkconfig.rbkUtils.toastConfig.');
     }
 
   }
 
   public add(message: Message): void {
-    if (this.config.toastConfig.debounceDistinctDelay != null) {
+    if (GlobalInjector.config.rbkUtils.toastConfig.debounceDistinctDelay != null) {
       // Delay ativado
 
       // Verificar se a mensagem atual é a mesma da anterior
       if (this.lastMessage?.detail === message.detail) {
-        const cacheTime = (this.config.toastConfig?.debounceDistinctDelay ?? 0) / 1000 / 60;
+        const cacheTime = (GlobalInjector.config.rbkUtils.toastConfig?.debounceDistinctDelay ?? 0) / 1000 / 60;
 
         // Verificar se não existe uma mensagem anterior ou se a mesma já pode ser emitida
         if (this.lastUpdated == null || !isWithinTime(this.lastUpdated, cacheTime))

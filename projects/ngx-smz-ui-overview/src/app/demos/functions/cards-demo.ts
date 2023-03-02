@@ -1,18 +1,14 @@
 import { DemoKeys } from '@demos/demo-keys';
-import { Store } from '@ngxs/store';
-import { GlobalInjector, nameof, namesof, SmzCardsBuilder, SimpleNamedEntity, SmzCardsTemplate, SimpleEntity } from 'ngx-smz-ui';
+import { nameof, namesof, SmzCardsBuilder, SimpleNamedEntity, SimpleEntity } from 'ngx-smz-ui';
 import { of } from 'rxjs';
 import { SmzCardsArchivedDemo, SmzCardsDemo, SmzCardsDemoData } from '../data/cards/cards-data';
 import * as moment from 'moment';
-import { DemoInjectable1Component } from '../../ui/features/home/components/demo-injectable/demo-injectable-1.component';
 import { SmzCardsFlipCardDemo, SmzCardsFlipCardDemoData } from '../data/cards/flip-card-data';
 import { FrontCardComponent } from '@components/cards/front-card.component';
 import { BackCardComponent } from '@components/cards/back-card.component';
 import { SmzCardComplexityData } from '../data/cards/flip-card-complexity';
 import { ComplexityFrontCardComponent } from '@components/complexity/complexity-front-card.component';
 import { ComplexityBackCardComponent } from '@components/complexity/complexity-back-card.component';
-
-const store = GlobalInjector.instance.get(Store);
 
 export const CardsDemo: { [key: string]: { code: () => void } } = {
   //

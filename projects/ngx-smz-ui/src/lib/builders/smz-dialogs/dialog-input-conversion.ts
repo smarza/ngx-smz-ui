@@ -8,7 +8,6 @@ import { SmzFormsBaseControl } from '../../modules/smz-forms/models/controls';
 import { SmzTemplate } from '../../common/models/templates';
 import { cloneDeep } from 'lodash-es';
 import { GlobalInjector } from '../../common/services/global-injector';
-import { NgxRbkUtilsConfig } from '../../modules/rbk-utils/ngx-rbk-utils.config';
 
 export function convertFormCreationFeature(
   entityName: string,
@@ -55,14 +54,7 @@ export function convertFormFeature(
   return convertFormFeatureFromInputData(groups, entity, options, store);
 }
 
-export function convertFormFeatureFromInputData(
-  groups: any[],
-  entity: { [key: string]: any } = null,
-  options: InputConversionOptions = null,
-  store: Store,
-): SmzDialogFeature {
-
-  const rbkConfig = GlobalInjector.instance.get(NgxRbkUtilsConfig);
+export function convertFormFeatureFromInputData(groups: any[], entity: { [key: string]: any } = null, options: InputConversionOptions = null, store: Store): SmzDialogFeature {
 
   const form: SmzForm<any> = {
     groups: [],
@@ -207,7 +199,7 @@ export function convertFormFeatureFromInputData(
 }
 
 function convertInputs(inputs: InputConfig[], store: Store, options: InputConversionOptions): SmzControlTypes[] {
-  const rbkConfig = GlobalInjector.instance.get(NgxRbkUtilsConfig);
+  const rbkConfig = GlobalInjector.config.rbkUtils;
   const results = [];
 
   if (inputs == null) throw new Error('Inputs could not be null');
@@ -511,7 +503,7 @@ function getDataFromStore(config: InputConfig, store: Store, options: InputConve
     throw new Error('The data was loaded from the store, but it seems to be null. Please check that your store is populated or that your selector is not returning null');
   }
 
-  const rbkConfig = GlobalInjector.instance.get(NgxRbkUtilsConfig);
+  const rbkConfig = GlobalInjector.config.rbkUtils;
   if (rbkConfig.debugMode) {
     console.log(' >> getDataFromStore()');
     console.log('     >> config', storeData);

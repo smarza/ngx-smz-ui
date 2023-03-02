@@ -3,7 +3,6 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/c
 import { Store } from '@ngxs/store';
 import { LOADING_BEHAVIOR_HEADER, LOCAL_LOADING_TAG_HEADER } from './base-api.service';
 import { ApplicationActions } from '../../../state/global/application/application.actions';
-import { NgxRbkUtilsConfig } from '../ngx-rbk-utils.config';
 import { map, catchError, finalize } from 'rxjs/operators';
 import { throwError, Observable } from 'rxjs';
 
@@ -11,7 +10,7 @@ import { throwError, Observable } from 'rxjs';
     providedIn: 'root'
 })
 export class LocalPendingInterceptorService implements HttpInterceptor {
-    constructor(private store: Store, private rbkConfig: NgxRbkUtilsConfig) {
+    constructor(private store: Store) {
     }
 
     public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {

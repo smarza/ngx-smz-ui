@@ -3,7 +3,7 @@
 <smz-ui-table #smzTable [items]="notifications | filterBy : ['status'] : currentFolder.status" [state]="tableState" [loading]="hasRuningRequest" (selectionChange)="onSelect($event)">
 
   <ng-template pTemplate="caption" let-primeTable>
-    <button *ngIf="rbkConfig.notifications.showRefreshButton" pButton pRipple type="button" icon="fa-solid fa-rotate" pTooltip="Atualizar" class="p-button-rounded p-button-text p-button-plain mr-3" (click)="refresh()"></button>
+    <button *ngIf="uiConfig.rbkUtils.notifications.showRefreshButton" pButton pRipple type="button" icon="fa-solid fa-rotate" pTooltip="Atualizar" class="p-button-rounded p-button-text p-button-plain mr-3" (click)="refresh()"></button>
     <p-selectButton [options]="folders" [(ngModel)]="currentFolder" optionLabel="icon" (onChange)="currentFolder.rebuild()">
       <ng-template let-item>
           <i [ngClass]="item.icon" [pTooltip]="item.tooltip"></i>

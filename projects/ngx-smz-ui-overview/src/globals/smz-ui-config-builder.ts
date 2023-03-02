@@ -1,15 +1,13 @@
 import { SmzUiBuilder } from 'ngx-smz-ui';
 import { smzDialogsConfig } from './smz-config';
+import { rbkConfig } from './rbk-config';
 
 export const UiConfigBuilder: SmzUiBuilder = new SmzUiBuilder()
-.setApplicationName('Modules Demo')
+.setApplicationName('Overview Demo')
 .setDialogsConfigManually(smzDialogsConfig)
+.setRbkUtilsConfigManually(rbkConfig)
 .authentication()
-  .useTenant('proteus')
   .mapAccessTokenData('rol', 'roles', 'array')
   .mapAccessTokenData('Picture', 'picture', 'string')
-  .builder
-.cruds()
-  .users().cruds
   .builder
 ;

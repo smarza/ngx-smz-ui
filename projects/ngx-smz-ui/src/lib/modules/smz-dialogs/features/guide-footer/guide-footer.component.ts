@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { SmzDynamicDialogConfig } from '../../models/smz-dialogs';
 import { DynamicDialogRef } from '../../dynamicdialog/dynamicdialog-ref';
-import { SmzDialogsConfig } from '../../smz-dialogs.config';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { SmzUiGuidesService } from '../../../../standalones/smz-ui-guides/services/smz-ui-guides.service';
 
@@ -14,11 +13,7 @@ import { SmzUiGuidesService } from '../../../../standalones/smz-ui-guides/servic
 })
 export class GuideFooterComponent implements OnInit {
 
-    constructor(
-        public refService: DynamicDialogRef,
-        public dialogConfig: SmzDynamicDialogConfig,
-        public presets: SmzDialogsConfig,
-        public guidesServices: SmzUiGuidesService) { }
+    constructor(public refService: DynamicDialogRef, public dialogConfig: SmzDynamicDialogConfig, public guidesServices: SmzUiGuidesService) { }
 
     public ngOnInit(): void {
     }

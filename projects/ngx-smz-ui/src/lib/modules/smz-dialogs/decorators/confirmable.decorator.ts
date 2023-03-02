@@ -1,7 +1,7 @@
 import { Actions, ofActionSuccessful, Store } from '@ngxs/store';
 import { firstValueFrom } from 'rxjs';
 import { take, takeWhile } from 'rxjs/operators';
-import { GlobalInjector } from '../services/global-injector';
+import { GlobalInjector } from '../../../common/services/global-injector';
 import { DialogsActions } from '../state/dialogs/dialogs.actions';
 
 export function Confirmable(

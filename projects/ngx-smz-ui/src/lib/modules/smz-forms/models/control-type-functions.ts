@@ -6,10 +6,11 @@ import { executeTextPattern } from './text-patterns';
 import { cloneDeep } from 'lodash-es';
 import { SmzSmartTagData } from '../directives/smart-tag.directive';
 import { mapInputContentMaskText, unmapInputContentMaskText } from '../components/input-content-mask/input-content-mask.pipe';
+import { GlobalInjector } from '../../../common/services/global-injector';
 
 export interface SmzControlTypeFunctionsDefinitions
 {
-    initialize: (input: SmzControlTypes, config: SmzDialogsConfig) => void;
+    initialize: (input: SmzControlTypes) => void;
     clear: (control: AbstractControl, clearMethod?: () => void) => void;
     updateValue: (control: AbstractControl, input: SmzControlTypes) => void;
     getValue: (form: UntypedFormGroup, input: SmzControlTypes, flattenResponse: boolean) => any;
@@ -19,7 +20,7 @@ export interface SmzControlTypeFunctionsDefinitions
 export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefinitions } =
 {
     [SmzControlType.CALENDAR]: {
-        initialize: (input: SmzCalendarControl, config: SmzDialogsConfig) => { },
+        initialize: (input: SmzCalendarControl) => { },
         clear: (control: AbstractControl) => { control.patchValue(''); },
         updateValue: (control: AbstractControl, input: SmzCalendarControl) => { control.patchValue(input.defaultValue); },
         getValue: (form: UntypedFormGroup, input: SmzCalendarControl, flattenResponse: boolean) =>
@@ -30,7 +31,7 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
         },
     },
     [SmzControlType.CHECKBOX]: {
-        initialize: (input: SmzCheckBoxControl, config: SmzDialogsConfig) => { },
+        initialize: (input: SmzCheckBoxControl) => { },
         clear: (control: AbstractControl) => { control.patchValue(''); },
         updateValue: (control: AbstractControl, input: SmzCheckBoxControl) => { control.patchValue(input.defaultValue); },
         getValue: (form: UntypedFormGroup, input: SmzCheckBoxControl, flattenResponse: boolean) =>
@@ -41,7 +42,7 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
         },
     },
     [SmzControlType.CHECKBOX_GROUP]: {
-        initialize: (input: SmzCheckBoxGroupControl<any>, config: SmzDialogsConfig) => { },
+        initialize: (input: SmzCheckBoxGroupControl<any>) => { },
         clear: (control: AbstractControl) => { control.patchValue(''); },
         updateValue: (control: AbstractControl, input: SmzCheckBoxGroupControl<any>) => { control.patchValue(input.defaultValue); },
         getValue: (form: UntypedFormGroup, input: SmzCheckBoxGroupControl<any>, flattenResponse: boolean) =>
@@ -53,7 +54,7 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
         },
     },
     [SmzControlType.COLOR_PICKER]: {
-        initialize: (input: SmzColorPickerControl, config: SmzDialogsConfig) => { },
+        initialize: (input: SmzColorPickerControl) => { },
         clear: (control: AbstractControl) => { control.patchValue(''); },
         updateValue: (control: AbstractControl, input: SmzColorPickerControl) => { control.patchValue(input.defaultValue); },
         getValue: (form: UntypedFormGroup, input: SmzColorPickerControl, flattenResponse: boolean) =>
@@ -65,7 +66,7 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
         },
     },
     [SmzControlType.CURRENCY]: {
-        initialize: (input: SmzCurrencyControl, config: SmzDialogsConfig) => { },
+        initialize: (input: SmzCurrencyControl) => { },
         clear: (control: AbstractControl) => { control.patchValue(''); },
         updateValue: (control: AbstractControl, input: SmzCurrencyControl) => { control.patchValue(input.defaultValue); },
         getValue: (form: UntypedFormGroup, input: SmzCurrencyControl, flattenResponse: boolean) =>
@@ -76,7 +77,7 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
         },
     },
     [SmzControlType.DROPDOWN]: {
-        initialize: (input: SmzDropDownControl<any>, config: SmzDialogsConfig) => { },
+        initialize: (input: SmzDropDownControl<any>) => { },
         clear: (control: AbstractControl) => { control.patchValue(''); },
         updateValue: (control: AbstractControl, input: SmzDropDownControl<any>) =>
         {
@@ -107,7 +108,7 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
         },
     },
     [SmzControlType.FILE]: {
-        initialize: (input: SmzFileControl, config: SmzDialogsConfig) => {
+        initialize: (input: SmzFileControl) => {
             input._base64 = null;
             input._clearMethod = null;
             input._file = null;
@@ -156,7 +157,7 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
         },
     },
     [SmzControlType.LINKED_DROPDOWN]: {
-        initialize: (input: SmzLinkedDropDownControl<any>, config: SmzDialogsConfig) => { },
+        initialize: (input: SmzLinkedDropDownControl<any>) => { },
         clear: (control: AbstractControl) => { control.patchValue(''); },
         updateValue: (control: AbstractControl, input: SmzLinkedDropDownControl<any>) =>
         {
@@ -180,10 +181,10 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
         },
     },
     [SmzControlType.MULTI_SELECT]: {
-        initialize: (input: SmzMultiSelectControl<any>, config: SmzDialogsConfig) =>
+        initialize: (input: SmzMultiSelectControl<any>) =>
         {
             // console.log('config', config);
-            const preset = config.forms.controlTypes[SmzControlType.MULTI_SELECT] as SmzMultiSelectControl<any>;
+            const preset = GlobalInjector.config.dialogs.forms.controlTypes[SmzControlType.MULTI_SELECT] as SmzMultiSelectControl<any>;
 
             input.defaultLabel = input.defaultLabel ?? preset?.defaultLabel;
         },
@@ -215,10 +216,10 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
         },
     },
     [SmzControlType.LINKED_MULTISELECT]: {
-        initialize: (input: SmzLinkedMultiSelectControl<any>, config: SmzDialogsConfig) =>
+        initialize: (input: SmzLinkedMultiSelectControl<any>) =>
         {
             // console.log('config', config);
-            const preset = config.forms.controlTypes[SmzControlType.MULTI_SELECT] as SmzMultiSelectControl<any>;
+            const preset = GlobalInjector.config.dialogs.forms.controlTypes[SmzControlType.MULTI_SELECT] as SmzMultiSelectControl<any>;
 
             input.defaultLabel = input.defaultLabel ?? preset?.defaultLabel;
         },
@@ -245,7 +246,7 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
         },
     },
     [SmzControlType.NUMBER]: {
-        initialize: (input: SmzNumberControl, config: SmzDialogsConfig) => { },
+        initialize: (input: SmzNumberControl) => { },
         clear: (control: AbstractControl) => { control.patchValue(''); },
         updateValue: (control: AbstractControl, input: SmzNumberControl) => { control.patchValue(input.defaultValue); },
         getValue: (form: UntypedFormGroup, input: SmzNumberControl, flattenResponse: boolean) =>
@@ -256,8 +257,8 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
         },
     },
     [SmzControlType.PASSWORD]: {
-        initialize: (input: SmzPasswordControl, config: SmzDialogsConfig) => {
-            const preset = config.forms.controlTypes[SmzControlType.PASSWORD] as SmzPasswordControl;
+        initialize: (input: SmzPasswordControl) => {
+            const preset = GlobalInjector.config.dialogs.forms.controlTypes[SmzControlType.PASSWORD] as SmzPasswordControl;
 
             // console.log('config', config);
             // console.log('preset', preset);
@@ -284,7 +285,7 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
         },
     },
     [SmzControlType.RADIO]: {
-        initialize: (input: SmzRadioControl<any>, config: SmzDialogsConfig) => { },
+        initialize: (input: SmzRadioControl<any>) => { },
         clear: (control: AbstractControl) => { control.patchValue(''); },
         updateValue: (control: AbstractControl, input: SmzRadioControl<any>) => { control.patchValue(input.defaultValue); },
         getValue: (form: UntypedFormGroup, input: SmzRadioControl<any>, flattenResponse: boolean) =>
@@ -296,7 +297,7 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
         },
     },
     [SmzControlType.SWITCH]: {
-        initialize: (input: SmzSwitchControl, config: SmzDialogsConfig) => { },
+        initialize: (input: SmzSwitchControl) => { },
         clear: (control: AbstractControl) => { control.patchValue(false); },
         updateValue: (control: AbstractControl, input: SmzSwitchControl) => { control.patchValue(input.defaultValue ?? false); },
         getValue: (form: UntypedFormGroup, input: SmzSwitchControl, flattenResponse: boolean) =>
@@ -307,7 +308,7 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
         },
     },
     [SmzControlType.LIST]: {
-        initialize: (input: SmzListControl, config: SmzDialogsConfig) => {
+        initialize: (input: SmzListControl) => {
             // input.defaultValue = cloneDeep(input.options);
             input.options = cloneDeep(input.defaultValue);
 
@@ -324,7 +325,7 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
         },
     },
     [SmzControlType.TEXT]: {
-        initialize: (input: SmzTextControl, config: SmzDialogsConfig) => { },
+        initialize: (input: SmzTextControl) => { },
         clear: (control: AbstractControl) => { control.patchValue(''); },
         updateValue: (control: AbstractControl, input: SmzTextControl) => {
             control.patchValue(input.defaultValue);
@@ -340,7 +341,7 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
         },
     },
     [SmzControlType.TEXT_BUTTON]: {
-        initialize: (input: SmzTextButtonControl, config: SmzDialogsConfig) => {
+        initialize: (input: SmzTextButtonControl) => {
             input.isButtonValid = false;
             input.buttonMessages = [];
         },
@@ -353,7 +354,7 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
         },
     },
     [SmzControlType.TEXT_AREA]: {
-        initialize: (input: SmzTextAreaControl, config: SmzDialogsConfig) => { },
+        initialize: (input: SmzTextAreaControl) => { },
         clear: (control: AbstractControl) => { control.patchValue(''); },
         updateValue: (control: AbstractControl, input: SmzTextAreaControl) => { control.patchValue(input.defaultValue); },
         getValue: (form: UntypedFormGroup, input: SmzTextAreaControl, flattenResponse: boolean) =>
@@ -366,7 +367,7 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
         },
     },
     [SmzControlType.CONTENT_MASK]: {
-        initialize: (input: SmzContentMaskControl, config: SmzDialogsConfig) => {
+        initialize: (input: SmzContentMaskControl) => {
             // Expressão para localizar as tags originais
             const expression = new RegExp(/(<[^\/].*?>)(.*?)(<[\/].*?>)/gm);
             const variables = [];
@@ -435,7 +436,7 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
         },
     },
     [SmzControlType.TAG_AREA]: {
-        initialize: (input: SmzTagAreaControl, config: SmzDialogsConfig) => {
+        initialize: (input: SmzTagAreaControl) => {
 
             // console.log('#########################');
             // console.log('before defaultValue', input.defaultValue);
@@ -493,7 +494,7 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
         },
     },
     [SmzControlType.TEXT_MASK]: {
-        initialize: (input: SmzMaskControl, config: SmzDialogsConfig) => { },
+        initialize: (input: SmzMaskControl) => { },
         clear: (control: AbstractControl) => { control.patchValue(''); },
         updateValue: (control: AbstractControl, input: SmzMaskControl) => { control.patchValue(input.defaultValue); },
         getValue: (form: UntypedFormGroup, input: SmzMaskControl, flattenResponse: boolean) =>

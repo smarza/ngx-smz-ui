@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, ContentChildren, Input, OnInit, QueryList, TemplateRef } from '@angular/core';
+import { AfterContentInit, Component, ContentChildren, Input, QueryList, TemplateRef } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { MenuItem, PrimeTemplate } from 'primeng/api';
@@ -10,7 +10,7 @@ import { SmzAppLogo } from '../../../../core/models/logo';
 import { UiHephaestusSelectors } from '../../state/ui-layout.selectors';
 import { HephaestusLayout } from '../../layout.config';
 import { MenuType } from '../../../../core/models/menu-types';
-import { NgxRbkUtilsConfig } from '../../../../../rbk-utils/ngx-rbk-utils.config';
+import { GlobalInjector } from '../../../../../../common/services/global-injector';
 
 @UntilDestroy()
 @Component({
@@ -19,7 +19,7 @@ import { NgxRbkUtilsConfig } from '../../../../../rbk-utils/ngx-rbk-utils.config
   styleUrls: ['./sidebar.component.scss'],
   host: { 'class': 'z-30' }
 })
-export class HephaestusSidebarComponent implements OnInit, AfterContentInit
+export class HephaestusSidebarComponent implements AfterContentInit
 {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
   @Select(UiHephaestusSelectors.layout) public layout$: Observable<HephaestusLayout>;
@@ -30,12 +30,9 @@ export class HephaestusSidebarComponent implements OnInit, AfterContentInit
   @Input() public menu: MenuItem[];
   public isAnyMenuExpanded = false;
   public menuType = MenuType;
-  constructor(public readonly rbkConfig: NgxRbkUtilsConfig, public readonly config: SmzLayoutsConfig, private store: Store) { }
+  public uiConfig = GlobalInjector.config;
+  constructor(public readonly config: SmzLayoutsConfig, private store: Store) { }
 
-  public ngOnInit(): void
-  {
-
-  }
   public ngAfterContentInit()
   {
     this.templates.forEach((item) =>

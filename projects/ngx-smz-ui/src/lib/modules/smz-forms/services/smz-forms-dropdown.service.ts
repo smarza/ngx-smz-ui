@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { SmzDialogsConfig } from '../../smz-dialogs/smz-dialogs.config';
 import { SmzDropDownControl, SmzLinkedDropDownControl } from '../models/control-types';
 import { BehaviorSubject } from 'rxjs';
 
@@ -12,7 +11,7 @@ export class SmzFormsDropdownService
     public dependsOn: { [ key: string ]: { observers: string[], value: any } };
     public observers: { [ key: string ]: { input: SmzLinkedDropDownControl<any>; options: BehaviorSubject<any> } };
 
-    constructor(public configService: SmzDialogsConfig)
+    constructor()
     {
         this.clear();
     }

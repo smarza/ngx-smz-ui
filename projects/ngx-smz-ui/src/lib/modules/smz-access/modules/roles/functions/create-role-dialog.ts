@@ -1,11 +1,11 @@
 import { Store } from '@ngxs/store';
-import { GlobalInjector } from '../../../../rbk-utils/misc/global.injector';
 import { SmzDialog } from '../../../../smz-dialogs/models/smz-dialogs';
 import { SmzDialogBuilder } from '../../../../../builders/smz-dialogs/dialog-builder';
 import { nameof } from '../../../../../common/models/simple-named-entity';
 import { CreateRole } from '../../../models/create-role';
 import { SmzTextPattern } from '../../../../smz-forms/models/text-patterns';
 import { RolesActions } from '../../../state/roles/roles.actions';
+import { GlobalInjector } from '../../../../../common/services/global-injector';
 
 export function CreateRoleDialog(): SmzDialog<CreateRole> {
 

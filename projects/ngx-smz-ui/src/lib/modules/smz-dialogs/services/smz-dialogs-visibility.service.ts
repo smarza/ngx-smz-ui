@@ -13,7 +13,7 @@ export class SmzDialogsVisibilityService
     public dependsOn: { [key: string]: { observers: string[], value: any } };
     public observers: { [key: string]: { component: ComponentData; visibility$: BehaviorSubject<{ state: boolean }> } };
 
-    constructor(public configService: SmzDialogsConfig)
+    constructor()
     {
         this.clear();
     }

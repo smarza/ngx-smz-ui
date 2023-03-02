@@ -4,7 +4,7 @@ import { cloneDeep } from 'lodash-es';
 import { TreeNode } from 'primeng/api';
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { NgxRbkUtilsConfig } from '../../../modules/rbk-utils/ngx-rbk-utils.config';
+import { GlobalInjector } from '../../../common/services/global-injector';
 import { isWithinTime } from '../../../modules/rbk-utils/utils/utils';
 import { SmzCommentsDetails } from '../../../modules/smz-comments/models/comments-details';
 import { DbData } from '../../../modules/smz-faqs/models/faqs';
@@ -30,13 +30,13 @@ export const getInitialState = (): CommentsUiStateModel => ({
 @Injectable()
 export class CommentsUiState
 {
-    constructor(private apiService: CommentsService, private rbkConfig: NgxRbkUtilsConfig) { }
+    constructor(private apiService: CommentsService) { }
 
     @Action(CommentsUiActions.LoadAll)
     public onLoadAll$(ctx: StateContext<CommentsUiStateModel>, action: CommentsUiActions.LoadAll): Observable<TreeNode<SmzCommentsDetails>[]>
     {
         const query = ctx.getState().comments[action.orderId];
-        const cacheTime = action.forceUpdate ? 0 : this.rbkConfig.state.database[COMMENTS_STATE_NAME].cacheTimeout;
+        const cacheTime = action.forceUpdate ? 0 : GlobalInjector.config.rbkUtils.state.database[COMMENTS_STATE_NAME].cacheTimeout;
 
         if (query == null || !isWithinTime(query.lastUpdated, cacheTime))
         {

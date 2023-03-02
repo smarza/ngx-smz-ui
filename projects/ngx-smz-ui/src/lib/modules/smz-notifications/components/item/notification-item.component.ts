@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { NotificationData, NotificationStatus, NotificationTypeClass } from '../../../../state/ui/notifications/notifications.model';
-import { NgxRbkUtilsConfig } from '../../../rbk-utils/ngx-rbk-utils.config';
+import { GlobalInjector } from '../../../../common/services/global-injector';
+
 
 @Component({
   selector: 'smz-notification-item',
@@ -16,7 +17,8 @@ export class NotificationItemComponent implements OnInit {
   @Input() public showDate: boolean;
   public status = NotificationStatus;
   public typeClass = NotificationTypeClass;
-  constructor(public rbkConfig: NgxRbkUtilsConfig) { }
+  public uiConfig = GlobalInjector.config;
+  constructor() { }
 
   ngOnInit() {
   }

@@ -23,11 +23,9 @@ import { DynamicDialogRef } from './dynamicdialog/dynamicdialog-ref';
 import { DynamicDialogModule } from './dynamicdialog/dynamicdialog';
 import { DynamicDialogConfig } from './dynamicdialog/dynamicdialog-config';
 import { DialogFooterComponent, ConfirmOnEnterDirective } from './features/dialog-footer/dialog-footer.component';
-import { mergeClone } from '../../common/utils/deep-merge';
 import { SmzTemplatesPipeModule } from '../../common/pipes/templates.pipe';
 import { TooltipModule } from 'primeng/tooltip';
 import { HtmlContentComponent } from './features/html-content/html-content.component';
-import { GlobalInjector } from './services/global-injector';
 import { MessagesModule } from 'primeng/messages';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { SafeContentPipeModule } from '../../common/pipes/safe-html.pipe';
@@ -43,49 +41,6 @@ import { MarkdownModule } from 'ngx-markdown';
 import { MarkdownContentComponent } from './features/markdown-content/markdown-content.component';
 import { GuideFooterComponent } from './features/guide-footer/guide-footer.component';
 import { AutoFocusModule } from 'primeng/autofocus';
-
-const defaultDialogsModuleConfig: SmzDialogsConfig = {
-    dialogs: {
-        behaviors: {
-            showCancelButton: true,
-            showConfirmButton: true,
-            showCloseButton: true,
-            showOkButton: false,
-            useAdvancedResponse: false,
-            closeOnEscape: false,
-            confirmOnEnter: false,
-            showHeader: true,
-            showFooter: true,
-            dismissableMask: false,
-            // defaultWidth: '50%',
-            contentPadding: '1.5em',
-            baseZIndex: 0,
-            includeComponentResponses: true,
-        },
-        builtInButtons: {
-            confirmName: 'CONFIRM',
-            // confirmClass: 'smz-button-success',
-            confirmDependsOnValidation: true,
-            cancelName: 'CANCEL',
-            cancelClass: 'smz-button-ghost',
-            okName: 'OK',
-            okDependsOnValidation: false,
-            saveName: 'SALVAR',
-            saveDependsOnValidation: true
-        },
-        featureTemplate: {
-            extraSmall: { row: 'col-12' }
-        },
-        dialogTemplate: {
-            extraSmall: { row: 'col-12' },
-            large: { row: 'col-6' },
-        }
-    },
-    forms: defaultFormsModuleConfig,
-    charts: {
-        emptyMessage: 'Sem dados para exibir'
-    }
-};
 
 export const ngxsModuleForFeatureDialogsState = NgxsModule.forFeature([DialogsState]);
 
@@ -133,20 +88,14 @@ export const ngxsModuleForFeatureDialogsState = NgxsModule.forFeature([DialogsSt
 
 export class NgxSmzDialogsModule
 {
-    constructor(injector: Injector) {
-        GlobalInjector.instance = injector;
+    constructor() {
     }
 
-    public static forRoot(configuration: SmzDialogsConfig): ModuleWithProviders<NgxSmzDialogsModule>
+    public static forRoot(): ModuleWithProviders<NgxSmzDialogsModule>
     {
         return {
             ngModule: NgxSmzDialogsModule,
-            providers: [
-                {
-                    provide: SmzDialogsConfig,
-                    useValue: mergeClone(defaultDialogsModuleConfig, configuration)
-                }
-            ]
+            providers: []
         };
     }
 }

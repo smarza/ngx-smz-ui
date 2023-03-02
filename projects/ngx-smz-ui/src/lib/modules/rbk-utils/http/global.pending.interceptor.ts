@@ -3,7 +3,6 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/c
 import { Store } from '@ngxs/store';
 import { LOADING_BEHAVIOR_HEADER } from './base-api.service';
 import { ApplicationActions } from '../../../state/global/application/application.actions';
-import { NgxRbkUtilsConfig } from '../ngx-rbk-utils.config';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError, finalize } from 'rxjs/operators';
 
@@ -13,7 +12,7 @@ import { map, catchError, finalize } from 'rxjs/operators';
 export class GlobalPendingInterceptorService implements HttpInterceptor {
     private pendingRequests = 0;
 
-    constructor(private store: Store, private rbkConfig: NgxRbkUtilsConfig) {
+    constructor(private store: Store) {
     }
 
     public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {

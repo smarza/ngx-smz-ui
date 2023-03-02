@@ -2,8 +2,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { UsersSelectors } from '../../../../state/users/users.selectors';
-import { UsersActions } from '../../../../state/users/users.actions';
-import { NgxRbkUtilsConfig, RoleBehavior } from '../../../../../rbk-utils/ngx-rbk-utils.config';
+import { RoleBehavior } from '../../../../../rbk-utils/ngx-rbk-utils.config';
 import { SmzHelpDialogService } from '../../../../../smz-dialogs/services/help-dialog.service';
 import { SmzDialogsService } from '../../../../../smz-dialogs/services/smz-dialogs.service';
 import { AuthenticationSelectors } from '../../../../../../state/global/authentication/authentication.selectors';
@@ -13,6 +12,7 @@ import { SmzFilterType } from '../../../../../smz-tables/models/filter-types';
 import { SimpleNamedEntity } from '../../../../../../../lib/common/models/simple-named-entity';
 import { Confirmable } from '../../../../../smz-dialogs/decorators/confirmable.decorator';
 import { UserDetails } from '../../../../models/user-details';
+import { GlobalInjector } from '../../../../../../common/services/global-injector';
 
 @Component({
   selector: 'gedi-ui-users-page',
@@ -24,26 +24,26 @@ export class UsersPageComponent {
 
   public items$: Observable<UserDetails[]>;
   public tableState: SmzTableState;
+  public uiConfig = GlobalInjector.config;
 
-  constructor(public readonly config: NgxRbkUtilsConfig, private dialogs: SmzDialogsService, private store: Store,
-    private helpService: SmzHelpDialogService) {
+  constructor(private store: Store) {
 
     this.items$ = this.store.select(UsersSelectors.users);
 
-    const hasUserRolesUpdateAccess: boolean = this.store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(this.config.cruds.users.manageUserRolesUpdateClaim));
-    const hasUserClaimsUpdateAccess: boolean = this.store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(this.config.cruds.users.manageUserClaimsUpdateClaim));
+    const hasUserRolesUpdateAccess: boolean = this.store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(GlobalInjector.config.rbkUtils.cruds.users.manageUserRolesUpdateClaim));
+    const hasUserClaimsUpdateAccess: boolean = this.store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(GlobalInjector.config.rbkUtils.cruds.users.manageUserClaimsUpdateClaim));
 
-    const roleColumnHeader = this.config.cruds.roles.behavior == 'single' ? 'Perfil' : 'Perfis';
+    const roleColumnHeader = GlobalInjector.config.rbkUtils.cruds.roles.behavior == 'single' ? 'Perfil' : 'Perfis';
 
     this.tableState = new SmzTableBuilder()
-      .setTitle(config.cruds.users.title)
+      .setTitle(GlobalInjector.config.rbkUtils.cruds.users.title)
       .enableGlobalFilter()
       .setSize('small')
       .useStrippedStyle()
       .menu()
         .item('Editar Perfil', 'fas fa-user-tag')
         .setVisibilityRule(() => hasUserRolesUpdateAccess)
-          .setCallback((event: UserDetails) => this.onUpdateRoles(event, config.cruds.roles.behavior))
+          .setCallback((event: UserDetails) => this.onUpdateRoles(event, GlobalInjector.config.rbkUtils.cruds.roles.behavior))
           .menu
         .item('Editar Permissões', 'fas fa-key')
           .setCallback((event: UserDetails) => this.onUpdateClaims(event))
@@ -69,7 +69,7 @@ export class UsersPageComponent {
   }
 
   public onCreate(): void {
-    if (this.config.cruds.roles.behavior == 'single') {
+    if (GlobalInjector.config.rbkUtils.cruds.roles.behavior == 'single') {
       // this.dialogs.open(buildCreateUserWithSingleRoleDialog());
     }
     else {
@@ -97,7 +97,7 @@ export class UsersPageComponent {
 
   public handleMissingImage(event: Event, user: string, notfound: string) {
     console.warn(`Avatar not found on (${notfound}) for user: ${user}`);
-    (event.target as HTMLImageElement).src = this.config.cruds.users.avatarPlaceholderPath;
+    (event.target as HTMLImageElement).src = GlobalInjector.config.rbkUtils.cruds.users.avatarPlaceholderPath;
   }
 
 }

@@ -3,16 +3,15 @@ import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { BreadcrumbService } from './breadcrum.service';
 import { filter, map, mergeMap } from 'rxjs/operators';
-import { NgxRbkUtilsConfig } from '../ngx-rbk-utils.config';
+import { GlobalInjector } from '../../../common/services/global-injector';
 
 @Injectable()
 export class TitleService {
     private APP_TITLE = '';
     private SEPARATOR = '';
 
-    constructor(private router: Router, private activatedRoute: ActivatedRoute, private titleService: Title,
-        private breadcrumbService: BreadcrumbService, private config: NgxRbkUtilsConfig) {
-            this.APP_TITLE = config.applicationName;
+    constructor(private router: Router, private activatedRoute: ActivatedRoute, private titleService: Title, private breadcrumbService: BreadcrumbService) {
+            this.APP_TITLE = GlobalInjector.config.rbkUtils.applicationName;
             this.SEPARATOR = ' > ';
         }
 

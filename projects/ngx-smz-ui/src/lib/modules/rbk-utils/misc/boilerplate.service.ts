@@ -3,14 +3,11 @@ import { Actions, ofActionDispatched, Store } from '@ngxs/store';
 import { Navigate } from '@ngxs/router-plugin';
 import { TitleService } from './title.service';
 import { AuthenticationActions } from '../../../state/global/authentication/authentication.actions';
-import { NgxRbkUtilsConfig } from '../ngx-rbk-utils.config';
-import { DATABASE_REQUIRED_ACTIONS } from '../../../state/database/database.state';
-import { ApplicationActions } from '../../../state/global/application/application.actions';
 import { DatabaseActions } from '../../../state/database/database.actions';
 import { Subscription } from 'rxjs';
 import { FeaturesActions } from '../../../state/features/features.actions';
-import { filter } from 'rxjs/operators';
 import { GlobalActions } from '../../../state/global/global.actions';
+import { GlobalInjector } from '../../../common/services/global-injector';
 
 @Injectable({ providedIn: 'root' })
 export class BoilerplateService {
@@ -18,7 +15,7 @@ export class BoilerplateService {
     private subs2: Subscription;
     private subs3: Subscription;
 
-    constructor(private titleService: TitleService, private store: Store, private rbkConfig: NgxRbkUtilsConfig, private actions$: Actions) { }
+    constructor(private titleService: TitleService, private store: Store, private actions$: Actions) { }
 
     public init(callback: () => void): void {
 
@@ -29,18 +26,18 @@ export class BoilerplateService {
         // if (this.rbkConfig.debugMode) console.log('[Boilerplate Service] Initializing Service');
         this.killSubscriptions();
 
-        if (this.rbkConfig.useTitleService === true) {
+        if (GlobalInjector.config.rbkUtils.useTitleService === true) {
             this.titleService.init();
         }
 
         this.subs1 = this.actions$.subscribe(dispatchData => {
             if (dispatchData.action.constructor.type === AuthenticationActions.RemoteLoginSuccess.type) {
-                this.store.dispatch(new Navigate([this.rbkConfig.authentication.authenticatedRoot]));
+                this.store.dispatch(new Navigate([GlobalInjector.config.rbkUtils.authentication.authenticatedRoot]));
             }
         });
 
         this.subs3 = this.actions$.pipe(ofActionDispatched(AuthenticationActions.Logout)).subscribe(() => {
-            this.store.dispatch(new Navigate([this.rbkConfig.authentication.login.route]));
+            this.store.dispatch(new Navigate([GlobalInjector.config.rbkUtils.authentication.login.route]));
 
             this.store.dispatch(new DatabaseActions.Clear());
             this.store.dispatch(new FeaturesActions.Clear());
@@ -51,7 +48,7 @@ export class BoilerplateService {
     }
 
     private killSubscriptions(): void {
-        if (this.rbkConfig.debugMode) console.log('[Boilerplate Service] Killing subscriptions, if any');
+        if (GlobalInjector.config.debugMode) console.log('[Boilerplate Service] Killing subscriptions, if any');
 
         if (this.subs1 != null) this.subs1.unsubscribe();
         if (this.subs2 != null) this.subs2.unsubscribe();

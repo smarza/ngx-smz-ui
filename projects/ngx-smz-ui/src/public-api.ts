@@ -5,6 +5,12 @@
 export * from './lib/modules/smz-dialogs/public-api';
 export * from './lib/modules/smz-forms/public-api';
 
+// RBK
+
+export * from './lib/modules/rbk-utils/public-api';
+export * from './lib/modules/smz-access/public-api';
+
+export * from './lib/ngx-smz-ui.config';
 export * from './lib/ngx-smz-ui.component';
 export * from './lib/ngx-smz-ui.module';
 
@@ -68,6 +74,9 @@ export { MergeClonePipeModule, MergeClonePipe } from './lib/common/merge-clone-p
 export { PrimeConfigService } from './lib/common/services/prime-config.service';
 export { SmzClipboardService } from './lib/common/services/smz-clipboard.service';
 
+export { GlobalInjector } from './lib/common/services/global-injector';
+export { RegistrySmzUiConfiguration } from './lib/common/services/registry-smz-ui-configuration';
+
 // DIRECTIVES
 export * from './lib/common/directives/tooltip-touch-support/tooltip-touch-support.module';
 export * from './lib/common/directives/tooltip-touch-support/tooltip-touch-support.directive';
@@ -97,11 +106,6 @@ export * from './lib/common/utils/search-helper';
 export * from './lib/common/utils/deep-merge';
 
 export * from './lib/common/pipes/templates.pipe';
-
-// RBK
-
-export * from './lib/modules/rbk-utils/public-api';
-export * from './lib/modules/smz-access/public-api';
 
 // BUILDERS
 export * from './lib/builders/smz-ui/ui-builder';

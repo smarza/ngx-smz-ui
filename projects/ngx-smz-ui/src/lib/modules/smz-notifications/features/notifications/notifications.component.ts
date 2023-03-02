@@ -4,7 +4,7 @@ import { Select, Store } from '@ngxs/store';
 import { NotificationData } from '../../../../state/ui/notifications/notifications.model';
 import { Observable } from 'rxjs';
 import { NotificationsUiSelectors } from '../../../../state/ui/notifications/notifications.selectors';
-import { NgxRbkUtilsConfig } from '../../../rbk-utils/ngx-rbk-utils.config';
+import { GlobalInjector } from '../../../../common/services/global-injector';
 
 @Component({
   selector: 'smz-ui-notifications',
@@ -14,10 +14,11 @@ import { NgxRbkUtilsConfig } from '../../../rbk-utils/ngx-rbk-utils.config';
   encapsulation: ViewEncapsulation.None
 })
 export class SmzNotificationsComponent {
+  public uiConfig = GlobalInjector.config;
 
   @Select(NotificationsUiSelectors.all) public notifications$: Observable<NotificationData[]>;
   @Select(NotificationsUiSelectors.newCount) public newCount$: Observable<number>;
-  constructor(public store: Store, public rbkConfig: NgxRbkUtilsConfig) {
+  constructor(public store: Store) {
   }
 
 }

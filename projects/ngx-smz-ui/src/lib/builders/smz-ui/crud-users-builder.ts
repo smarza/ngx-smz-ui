@@ -1,5 +1,5 @@
 import { HttpBehaviorParameters } from '../../modules/rbk-utils/http/base-api.service';
-import { NgxRbkUtilsConfig } from '../../modules/rbk-utils/ngx-rbk-utils.config';
+import { NgxSmzUiConfig } from '../../ngx-smz-ui.config';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzUiCrudsBuilder } from './cruds-builder';
 
@@ -19,7 +19,7 @@ export class SmzUiUsersCrudBuilder extends SmzBuilderUtilities<SmzUiUsersCrudBui
     avatarPlaceholderPath?: string;
   }
 
-  constructor(private _builder: SmzUiCrudsBuilder, private _state: NgxRbkUtilsConfig) {
+  constructor(private _builder: SmzUiCrudsBuilder, private _state: NgxSmzUiConfig) {
     super();
 
     this._config = {
@@ -52,7 +52,7 @@ export class SmzUiUsersCrudBuilder extends SmzBuilderUtilities<SmzUiUsersCrudBui
   }
 
   public get cruds(): SmzUiCrudsBuilder {
-    this._state.cruds.users = this._config;
+    this._state.rbkUtils.cruds.users = this._config;
     return this._builder;
   }
 }

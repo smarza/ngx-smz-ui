@@ -7,13 +7,13 @@ import { DomHandler } from 'primeng/dom';
 import { ZIndexUtils } from 'primeng/utils';
 import { DynamicDialogRef } from './dynamicdialog-ref';
 import { SmzDynamicDialogConfig } from '../models/smz-dialogs';
-import { NgxRbkUtilsConfig } from '../../rbk-utils/ngx-rbk-utils.config';
 import { PrimeNGConfig } from 'primeng/api';
 import { SmzDockService } from '../../smz-dock/services/smz-dock.service';
 import { TooltipModule } from 'primeng/tooltip';
 import { DialogOverlayPanel } from './dialog-overlay-panel';
 import { SafeContentPipeModule } from '../../../common/pipes/safe-html.pipe';
 import { AutoFocusModule } from 'primeng/autofocus';
+import { GlobalInjector } from '../../../common/services/global-injector';
 
 const showAnimation = animation([
     style({ transform: '{{transform}}', opacity: 0 }),
@@ -140,7 +140,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnInit, OnDestroy
     private overlayPanel: DialogOverlayPanel;
 
     constructor(private cd: ChangeDetectorRef, public renderer: Renderer2,
-        public config: DynamicDialogConfig, private dialogRef: DynamicDialogRef, public zone: NgZone, public dialogConfig: SmzDynamicDialogConfig, private rbkConfig: NgxRbkUtilsConfig, public primeNGConfig: PrimeNGConfig,
+        public config: DynamicDialogConfig, private dialogRef: DynamicDialogRef, public zone: NgZone, public dialogConfig: SmzDynamicDialogConfig, public primeNGConfig: PrimeNGConfig,
         public dockService: SmzDockService) { }
 
     ngOnInit()
@@ -209,7 +209,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnInit, OnDestroy
             ZIndexUtils.set('modal', this.container, (this.config.baseZIndex||0) + this.primeNGConfig.zIndex.modal);
             this.wrapper.style.zIndex = String(parseInt(this.container.style.zIndex, 10) - 1);
 
-            if (this.rbkConfig.debugMode) {
+            if (GlobalInjector.config.debugMode) {
                 console.groupCollapsed('DynamicDialogComponent => moveOnTop()');
 
                 console.log('config.baseZIndex', this.config.baseZIndex);

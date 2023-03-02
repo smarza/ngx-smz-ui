@@ -10,7 +10,6 @@ import { MenuType } from '../../../../core/models/menu-types';
 import { UiAthenaSelectors } from '../../state/ui-layout.selectors';
 import { NewAthenaLayout } from '../../layout.config';
 import { RouterState } from '@ngxs/router-plugin';
-import { NgxRbkUtilsConfig } from '../../../../../rbk-utils/ngx-rbk-utils.config';
 
 @UntilDestroy()
 @Component({
@@ -33,7 +32,7 @@ export class AthenaHorizontalMenuComponent implements OnInit, AfterContentInit, 
   public isAnyMenuExpanded = false;
   public menuType = MenuType;
   public headerExtrasTemplate: TemplateRef<any>;
-  constructor(public readonly rbkConfig: NgxRbkUtilsConfig, public readonly config: SmzLayoutsConfig, private store: Store, private _eref: ElementRef) { }
+  constructor(public readonly config: SmzLayoutsConfig, private store: Store, private _eref: ElementRef) { }
 
   ngOnInit(): void {
 

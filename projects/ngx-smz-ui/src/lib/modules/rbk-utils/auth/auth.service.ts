@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BaseApiService } from '../http/base-api.service';
 import { Observable } from 'rxjs';
-import { NgxRbkUtilsConfig } from '../ngx-rbk-utils.config';
 import { LoginResponse } from './models';
 import { map } from 'rxjs/operators';
+import { GlobalInjector } from '../../../common/services/global-injector';
 
 export interface LoginPayload { username: string, password: string, extraProperties: {[name: string]: string} };
 
 @Injectable({ providedIn: 'root' })
 export class AuthService extends BaseApiService {
-    constructor(private http: HttpClient, private rbkConfig: NgxRbkUtilsConfig) {
+    constructor(private http: HttpClient) {
         super();
     }
 
@@ -21,18 +21,18 @@ export class AuthService extends BaseApiService {
             data = { ...data, ...extraProperties };
         }
 
-        return this.http.post<any>(this.rbkConfig.authentication.login.url, data,
+        return this.http.post<any>(GlobalInjector.config.rbkUtils.authentication.login.url, data,
             this.generateDefaultHeaders({
-                loadingBehavior: this.rbkConfig.authentication.login.loadingBehavior,
+                loadingBehavior: GlobalInjector.config.rbkUtils.authentication.login.loadingBehavior,
                 authentication: false,
-                useWindowsAuthentication: this.rbkConfig.authentication.useWindowsAuthentication,
-                errorHandlingType: this.rbkConfig.authentication.login.errorHandlingType,
-                localLoadingTag: this.rbkConfig.authentication.login.loadingBehavior === 'local' ? 'login' : null
+                useWindowsAuthentication: GlobalInjector.config.rbkUtils.authentication.useWindowsAuthentication,
+                errorHandlingType: GlobalInjector.config.rbkUtils.authentication.login.errorHandlingType,
+                localLoadingTag: GlobalInjector.config.rbkUtils.authentication.login.loadingBehavior === 'local' ? 'login' : null
             })).pipe(
                 map(x => ({
                     ...x,
-                    accessToken: x[this.rbkConfig.authentication.login.responsePropertyName],
-                    refreshToken: x[this.rbkConfig.authentication.refreshToken.responsePropertyName]
+                    accessToken: x[GlobalInjector.config.rbkUtils.authentication.login.responsePropertyName],
+                    refreshToken: x[GlobalInjector.config.rbkUtils.authentication.refreshToken.responsePropertyName]
                 })));
     }
 
@@ -41,18 +41,18 @@ export class AuthService extends BaseApiService {
         if (extraProperties != null) {
           data = { ...data, ...extraProperties };
         }
-        return this.http.post<LoginResponse>(this.rbkConfig.authentication.refreshToken.url, data,
+        return this.http.post<LoginResponse>(GlobalInjector.config.rbkUtils.authentication.refreshToken.url, data,
             this.generateDefaultHeaders({
-                loadingBehavior: this.rbkConfig.authentication.refreshToken.loadingBehavior,
+                loadingBehavior: GlobalInjector.config.rbkUtils.authentication.refreshToken.loadingBehavior,
                 authentication: false,
-                useWindowsAuthentication: this.rbkConfig.authentication.useWindowsAuthentication,
-                errorHandlingType: this.rbkConfig.authentication.refreshToken.errorHandlingType,
-                localLoadingTag: this.rbkConfig.authentication.refreshToken.loadingBehavior === 'local' ? 'refresh-token' : null
+                useWindowsAuthentication: GlobalInjector.config.rbkUtils.authentication.useWindowsAuthentication,
+                errorHandlingType: GlobalInjector.config.rbkUtils.authentication.refreshToken.errorHandlingType,
+                localLoadingTag: GlobalInjector.config.rbkUtils.authentication.refreshToken.loadingBehavior === 'local' ? 'refresh-token' : null
             })).pipe(
                 map(x => ({
                     ...x,
-                    accessToken: x[this.rbkConfig.authentication.login.responsePropertyName],
-                    refreshToken: x[this.rbkConfig.authentication.refreshToken.responsePropertyName]
+                    accessToken: x[GlobalInjector.config.rbkUtils.authentication.login.responsePropertyName],
+                    refreshToken: x[GlobalInjector.config.rbkUtils.authentication.refreshToken.responsePropertyName]
                 })));
     }
 }

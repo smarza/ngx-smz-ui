@@ -24,6 +24,7 @@ import { ObjectUtils } from 'primeng/utils';
 import { SmzLayoutsConfig } from '../../../smz-layouts/core/globals/smz-layouts.config';
 import { isBoolean } from 'lodash-es';
 import { ApplicationActions } from '../../../../state/global/application/application.actions';
+import { GlobalInjector } from '../../../../common/services/global-injector';
 
 @Component({
   selector: 'smz-ui-table',
@@ -32,6 +33,7 @@ import { ApplicationActions } from '../../../../state/global/application/applica
   providers: [TableEditableService, TableFormsService]
 })
 export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentInit, OnChanges, OnDestroy {
+  public uiConfig = GlobalInjector.config;
   public tableKey = uuidv4();
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
   @ViewChild('dt') public table: Table;
@@ -90,7 +92,7 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
   constructor(
     public cdr: ChangeDetectorRef,
     public editableService: TableEditableService,
-    public formsService: TableFormsService, public dialogConfig: SmzDialogsConfig, private tableHelper: TableHelperService,
+    public formsService: TableFormsService, private tableHelper: TableHelperService,
     private store: Store, private smzExcelService: SmzExcelService, private layoutConfig: SmzLayoutsConfig) {
     this.editableService.cdr = this.cdr;
     this.editableService.createEvent = this.create;

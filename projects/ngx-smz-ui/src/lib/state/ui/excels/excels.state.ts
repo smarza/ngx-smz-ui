@@ -3,7 +3,6 @@ import { State, Action, StateContext } from '@ngxs/store';
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { downloadBase64File } from '../../../common/utils/utils';
-import { NgxRbkUtilsConfig } from '../../../modules/rbk-utils/ngx-rbk-utils.config';
 import { SmzExcelsDetails } from '../../../modules/smz-excels/models/smz-excel-table';
 import { ToastActions } from '../../global/application/application.actions.toast';
 import { ExcelsUiActions } from './excels.actions';
@@ -26,7 +25,7 @@ export const getInitialState = (): ExcelsUiStateModel => ({
 @Injectable()
 export class ExcelsUiState
 {
-    constructor(private apiService: ExcelsService, private rbkConfig: NgxRbkUtilsConfig) { }
+    constructor(private apiService: ExcelsService) { }
 
 
     @Action(ExcelsUiActions.GenerateTable)
