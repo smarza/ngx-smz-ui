@@ -26,7 +26,6 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { SmzEditableSourcePipe } from './pipes/editable-source.pipe';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { SmzContentErrorsPipe } from './pipes/content-errors.pipe';
-import { GlobalInjector } from '../../common/services/global-injector';
 import { ValidationMessagesComponent } from './components/validation-messages/validation-messages.component';
 import { ValidationMessagesPipe } from './components/validation-messages/validation-messages.pipe';
 import { InputSwitchModule } from 'primeng/inputswitch';
@@ -89,7 +88,4 @@ import { SmzTableContentActionsComponent } from './components/table-content-acti
 })
 export class NgxSmzTablesModule
 {
-    constructor(injector: Injector) {
-        GlobalInjector.instance = injector;
-    }
 }

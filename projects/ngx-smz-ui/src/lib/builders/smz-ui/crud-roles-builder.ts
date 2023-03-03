@@ -9,7 +9,6 @@ import { SmzUiAuthorizationBuilder } from './authorization-builder';
 
 export class SmzUiRolesCrudBuilder extends SmzBuilderUtilities<SmzUiRolesCrudBuilder> {
   protected that = this;
-
   private _config: {
     title?: string;
     router?: {
@@ -23,7 +22,6 @@ export class SmzUiRolesCrudBuilder extends SmzBuilderUtilities<SmzUiRolesCrudBui
   }
 
   private _menu: MenuCreation;
-  private _menuLocation: 'navigation-bar' | 'profile' = 'navigation-bar';
 
   constructor(private _builder: SmzUiAuthorizationBuilder, private _state: NgxSmzUiConfig) {
     super();

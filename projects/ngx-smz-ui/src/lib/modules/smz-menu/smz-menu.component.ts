@@ -22,6 +22,7 @@ export class SmzMenuComponent {
     const items = this.callback != null ? this.callback(this.data) : this.items;
     this.menuItems = new SmzMenuPipe().transform(items, this.data);
 
+
     actionMenu.toggle(event, this.data);
   }
 

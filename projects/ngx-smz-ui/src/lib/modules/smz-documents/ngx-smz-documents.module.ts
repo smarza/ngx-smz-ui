@@ -13,7 +13,6 @@ import { NgVarModule } from '../../common/directives/ng-var/ng-var.module';
 import { ClickStopPropagationModule } from '../../common/stop-click-propagation/click-stop-propagation.module';
 import { NgxSmzDataPipesModule } from '../../common/data-pipes/data-pipes.module';
 import { SmzDocumentComponent } from './features/document/smz-document.component';
-import { GlobalInjector } from '../../common/services/global-injector';
 import { SmzDocumentTitleComponent } from './components/title/title.component';
 import { SmzDocumentContentComponent } from './components/content/content.component';
 import { SmzDocumentDividerComponent } from './components/divider/divider.component';
@@ -32,47 +31,43 @@ import { InjectContentAppModule } from '../../common/modules/inject-content/inje
 import { SmzDocumentHiddenBreakComponent } from './components/hidden-break/hidden-break.component';
 
 @NgModule({
-    imports: [
-      CommonModule,
-      FormsModule,
-      BadgeModule,
-      OverlayPanelModule,
-      ButtonModule,
-      NgxSmzTablesModule,
-      InputTextModule,
-      TooltipModule,
-      SelectButtonModule,
-      NgPipesModule,
-      NgVarModule,
-      ClickStopPropagationModule,
-      NgxSmzDataPipesModule,
-      TooltipModule,
-      SmzChartModule,
-      InjectContentAppModule
-    ],
-    exports: [SmzDocumentComponent],
-    declarations: [
-      SmzDocumentComponent,
-      SmzDocumentContentComponent,
-      SmzDocumentTitleComponent,
-      SmzDocumentDividerComponent,
-      SmzDocumentFieldComponent,
-      SmzDocumentImageComponent,
-      SmzDocumentSpacerComponent,
-      SmzDocumentSubTitleComponent,
-      SmzDocumentFieldsGroupComponent,
-      SmzDocumentViewerComponent,
-      SmzDocumentTableComponent,
-      SmzDocumentChartComponent,
-      SmzDocumentPageBreakComponent,
-      SmzDocumentInjectableComponent,
-      SmzDocumentHiddenBreakComponent
-    ]
-  })
-  export class NgxSmzDocumentsModule
-  {
-    constructor(injector: Injector) {
-        GlobalInjector.instance = injector;
-    }
+  imports: [
+    CommonModule,
+    FormsModule,
+    BadgeModule,
+    OverlayPanelModule,
+    ButtonModule,
+    NgxSmzTablesModule,
+    InputTextModule,
+    TooltipModule,
+    SelectButtonModule,
+    NgPipesModule,
+    NgVarModule,
+    ClickStopPropagationModule,
+    NgxSmzDataPipesModule,
+    TooltipModule,
+    SmzChartModule,
+    InjectContentAppModule
+  ],
+  exports: [SmzDocumentComponent],
+  declarations: [
+    SmzDocumentComponent,
+    SmzDocumentContentComponent,
+    SmzDocumentTitleComponent,
+    SmzDocumentDividerComponent,
+    SmzDocumentFieldComponent,
+    SmzDocumentImageComponent,
+    SmzDocumentSpacerComponent,
+    SmzDocumentSubTitleComponent,
+    SmzDocumentFieldsGroupComponent,
+    SmzDocumentViewerComponent,
+    SmzDocumentTableComponent,
+    SmzDocumentChartComponent,
+    SmzDocumentPageBreakComponent,
+    SmzDocumentInjectableComponent,
+    SmzDocumentHiddenBreakComponent
+  ]
+})
+export class NgxSmzDocumentsModule {
 
 }

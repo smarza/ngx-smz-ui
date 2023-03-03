@@ -1,4 +1,5 @@
 import { Store } from '@ngxs/store';
+import { SmzAuthorizationUserState } from '../smz-access/modules/users/models/smz-authorization-user-state';
 import { SmzDocumentConfig } from '../smz-documents/models/smz-document-config';
 import { MenuCreation } from '../smz-layouts/core/models/menu-creation';
 import { LoginResponse } from './auth/models';
@@ -112,18 +113,7 @@ export class NgxRbkUtilsConfig {
     public authorization: {
         navigationMenu: MenuCreation,
         profileMenu: MenuCreation[],
-        users: {
-            router?: {
-                path: string,
-                claim?: string
-            },
-            title?: string;
-            httpBehavior?: Partial<HttpBehaviorParameters>;
-            manageUserRolesUpdateClaim?: string;
-            manageUserClaimsUpdateClaim?: string;
-            avatarPlaceholderPath?: string;
-            isVisible?: boolean;
-        },
+        users: SmzAuthorizationUserState,
         roles: {
             title?: string;
             router?: {

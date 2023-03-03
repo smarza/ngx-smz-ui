@@ -8,7 +8,6 @@ import { SmzUiAuthorizationBuilder } from './authorization-builder';
 
 export class SmzUiClaimsCrudBuilder extends SmzBuilderUtilities<SmzUiClaimsCrudBuilder> {
   protected that = this;
-
   private _config: {
     title?: string;
     router?: {

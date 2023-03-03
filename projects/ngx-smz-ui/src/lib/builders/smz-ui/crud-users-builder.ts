@@ -1,36 +1,28 @@
-import { HttpBehaviorParameters } from '../../modules/rbk-utils/http/base-api.service';
 import { NgxSmzUiConfig } from '../../ngx-smz-ui.config';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzUiAuthorizationBuilder } from './authorization-builder';
 import { USERS_PAGE_ROUTE, USERS_PATH } from '../../modules/smz-access/routes';
 import { MenuCreation } from '../../modules/smz-layouts/core/models/menu-creation';
 import { AuthClaimDefinitions } from '../../modules/smz-access/models/auth-claim-definitions';
+import { SmzTableBuilder } from '../smz-tables/state-builder';
+import { SmzAuthorizationUserState } from '../../modules/smz-access/modules/users/models/smz-authorization-user-state';
+import { SmzAuthorizationUserTableBuilder } from '../../modules/smz-access/modules/users/tables/user-table-state';
 
 export class SmzUiUsersCrudBuilder extends SmzBuilderUtilities<SmzUiUsersCrudBuilder> {
   protected that = this;
-
-  private _config: {
-    router?: {
-      path: string,
-      claim?: string
-    },
-    title?: string;
-    menu?: string;
-    httpBehavior?: Partial<HttpBehaviorParameters>;
-    manageUserRolesUpdateClaim?: string;
-    manageUserClaimsUpdateClaim?: string;
-    avatarPlaceholderPath?: string;
-    isVisible?: boolean;
-  }
-
+  private _config: SmzAuthorizationUserState;
   private _menu: MenuCreation;
-  private _menuLocation: 'navigation-bar' | 'profile' = 'navigation-bar';
 
   constructor(private _builder: SmzUiAuthorizationBuilder, private _state: NgxSmzUiConfig) {
     super();
 
     this._config = {
-      menu: 'Admin',
+      table: {
+        defaultBuilder: SmzAuthorizationUserTableBuilder,
+        customBuilder: null,
+        useDefaultMenu: true
+      },
+      pageActions: [],
       title: 'Cadastro de Usuários',
       router: {
         path: USERS_PATH
@@ -42,8 +34,8 @@ export class SmzUiUsersCrudBuilder extends SmzBuilderUtilities<SmzUiUsersCrudBui
         loadingBehavior: 'none',
         needToRefreshToken: true
       },
-      manageUserRolesUpdateClaim: 'MANAGE_USERS_ROLES',
-      manageUserClaimsUpdateClaim: 'MANAGE_USERS_CLAIMS',
+      manageUserRolesUpdateClaim: AuthClaimDefinitions.MANAGE_USER_ROLES,
+      manageUserClaimsUpdateClaim: AuthClaimDefinitions.OVERRIDE_USER_CLAIMS,
       avatarPlaceholderPath: 'assets/images/avatar_dark.png',
       isVisible: true
     };
@@ -63,6 +55,17 @@ export class SmzUiUsersCrudBuilder extends SmzBuilderUtilities<SmzUiUsersCrudBui
 
   public overrideMenu(partial: Partial<MenuCreation> = {}): SmzUiUsersCrudBuilder {
     this._menu = { ...this._menu, ...partial };
+    return this.that;
+  }
+
+  public customTable(callback: () => SmzTableBuilder, ignoreDefaultMenu = false): SmzUiUsersCrudBuilder {
+    this._config.table.customBuilder = callback;
+    this._config.table.useDefaultMenu = !ignoreDefaultMenu;
+    return this.that;
+  }
+
+  public addPageAction(button: MenuCreation): SmzUiUsersCrudBuilder {
+    this._config.pageActions.push(button);
     return this.that;
   }
 

@@ -1,4 +1,8 @@
 // MODULES
+export * from './modules/users/users.module';
+export * from './modules/users/models/smz-authorization-user-state';
+export * from './modules/users/tables/user-table-state';
+
 export * from './modules/claims/claims.module';
 export * from './modules/roles/roles.module';
 
@@ -23,6 +27,7 @@ export * from './models/update-claim';
 export * from './models/update-role-claims';
 export * from './models/update-tenant';
 export * from './models/user-details';
+
 
 // ROUTES
 export * from './routes';

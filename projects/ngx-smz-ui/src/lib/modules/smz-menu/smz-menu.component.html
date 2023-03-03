@@ -1,8 +1,8 @@
 <ng-container [ngSwitch]="behavior">
 
   <ng-container *ngSwitchCase="'overlay'">
-    <smz-menu-items #actionMenu [popup]="true" [model]="menuItems" appendTo="body"></smz-menu-items>
-    <p-button id="action-button" type="button" [ngClass]="buttonClass" [styleClass]="styleClass" [icon]="icon" (onClick)="toggle($event, actionMenu)"></p-button>
+      <smz-menu-items #actionMenu [popup]="true" [model]="menuItems" appendTo="body"></smz-menu-items>
+      <p-button id="action-button" type="button" [ngClass]="buttonClass" [styleClass]="styleClass" [icon]="icon" (onClick)="toggle($event, actionMenu)"></p-button>
   </ng-container>
 
   <ng-container *ngSwitchCase="'inline'">

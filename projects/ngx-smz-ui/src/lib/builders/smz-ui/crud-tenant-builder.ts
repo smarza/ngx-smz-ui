@@ -8,7 +8,6 @@ import { SmzUiAuthorizationBuilder } from './authorization-builder';
 
 export class SmzUiTenantCrudBuilder extends SmzBuilderUtilities<SmzUiTenantCrudBuilder> {
   protected that = this;
-
   private _config: {
     router?: {
       path: string,
@@ -23,7 +22,6 @@ export class SmzUiTenantCrudBuilder extends SmzBuilderUtilities<SmzUiTenantCrudB
   }
 
   private _menu: MenuCreation;
-  private _menuLocation: 'navigation-bar' | 'profile' = 'navigation-bar';
 
   constructor(private _builder: SmzUiAuthorizationBuilder, private _state: NgxSmzUiConfig) {
     super();
@@ -41,8 +39,6 @@ export class SmzUiTenantCrudBuilder extends SmzBuilderUtilities<SmzUiTenantCrudB
         loadingBehavior: 'none',
         needToRefreshToken: true
       },
-      manageUserRolesUpdateClaim: 'MANAGE_USERS_ROLES',
-      manageUserClaimsUpdateClaim: 'MANAGE_USERS_CLAIMS',
       isVisible: true
     };
 

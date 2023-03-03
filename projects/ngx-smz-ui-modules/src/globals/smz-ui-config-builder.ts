@@ -1,6 +1,7 @@
 import { SmzUiBuilder } from 'ngx-smz-ui';
 import { smzDialogsConfig } from './smz-config';
 import { smzLayoutsConfig } from './smz-layouts.config';
+import { CustomUserTableBuilder } from '../functions/custom-user-table-state';
 
 export const UiConfigBuilder: SmzUiBuilder = new SmzUiBuilder()
 .setApplicationName('Modules Demo')
@@ -13,6 +14,7 @@ export const UiConfigBuilder: SmzUiBuilder = new SmzUiBuilder()
   .builder
 .authorization()
   .users()
+    .customTable(CustomUserTableBuilder)
     // Tabela
 
     // actions da pagina
