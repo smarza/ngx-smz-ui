@@ -5,6 +5,8 @@ import { Injectable } from '@angular/core';
 import { UsersActions } from './users.actions';
 import { AuthorizationService } from '../../services/authorization.service';
 import { UserDetails } from '../../models/user-details';
+import { replaceItem } from '../../../../common/utils/utils';
+import { ToastActions } from '../../../../state/global/application/application.actions.toast';
 
 export const USERS_STATE_NAME = 'users';
 
@@ -36,6 +38,18 @@ export class UsersState {
           lastUpdated: new Date(),
           items: result,
         });
+      })
+    );
+  }
+
+  @Action(UsersActions.ReplaceUserRoles)
+  public onReplaceUserRoles$(ctx: StateContext<UsersStateModel>, action: UsersActions.ReplaceUserRoles): Observable<UserDetails> {
+    return this.apiService.updateUserRoles(action.data).pipe(
+      tap((result: UserDetails) => {
+        ctx.patchState({
+          items: replaceItem(ctx.getState().items, result)
+        });
+        ctx.dispatch(new ToastActions.Success('Regras de acesso do usuário atualizadas com sucesso.'));
       })
     );
   }

@@ -26,16 +26,6 @@ export class AccessState {
 
   constructor(private apiService: AuthorizationService) { }
 
-  @Action(AccessActions.ReplaceUserRoles)
-  public onReplaceUserRoles$(ctx: StateContext<AccessStateModel>, action: AccessActions.ReplaceUserRoles): Observable<UserDetails> {
-    return this.apiService.updateUserRoles(action.data).pipe(
-      tap((results: UserDetails) => {
-        ctx.dispatch(new AccessActions.UpdateUserRolesSuccess(action.data.username, results));
-        ctx.dispatch(new ToastActions.Success('Regras de acesso do usuário atualizadas com sucesso'));
-      })
-    );
-  }
-
   @Action(AccessActions.AddClaimOverride)
   public onAddClaimOverride$(ctx: StateContext<AccessStateModel>, action: AccessActions.AddClaimOverride): Observable<ClaimOverride[]> {
     return this.apiService.addClaimToUser(action.data).pipe(

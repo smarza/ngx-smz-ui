@@ -4,6 +4,7 @@ import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzUiAuthorizationBuilder } from './authorization-builder';
 import { USERS_PAGE_ROUTE, USERS_PATH } from '../../modules/smz-access/routes';
 import { MenuCreation } from '../../modules/smz-layouts/core/models/menu-creation';
+import { AuthClaimDefinitions } from '../../modules/smz-access/models/auth-claim-definitions';
 
 export class SmzUiUsersCrudBuilder extends SmzBuilderUtilities<SmzUiUsersCrudBuilder> {
   protected that = this;
@@ -47,7 +48,7 @@ export class SmzUiUsersCrudBuilder extends SmzBuilderUtilities<SmzUiUsersCrudBui
       isVisible: true
     };
 
-    this._menu = { label: 'Usuários', routerLink: USERS_PAGE_ROUTE };
+    this._menu = { label: 'Usuários', routerLink: USERS_PAGE_ROUTE, claim: AuthClaimDefinitions.MANAGE_USERS };
   }
 
   public setTitle(title: string): SmzUiUsersCrudBuilder {

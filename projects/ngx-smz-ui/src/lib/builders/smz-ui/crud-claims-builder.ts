@@ -1,4 +1,5 @@
 import { HttpBehaviorParameters } from '../../modules/rbk-utils/http/base-api.service';
+import { AuthClaimDefinitions } from '../../modules/smz-access/models/auth-claim-definitions';
 import { CLAIMS_PAGE_ROUTE, CLAIMS_PATH } from '../../modules/smz-access/routes';
 import { MenuCreation } from '../../modules/smz-layouts/core/models/menu-creation';
 import { NgxSmzUiConfig } from '../../ngx-smz-ui.config';
@@ -40,7 +41,7 @@ export class SmzUiClaimsCrudBuilder extends SmzBuilderUtilities<SmzUiClaimsCrudB
       isVisible: true
     };
 
-    this._menu = { label: 'Permissões', routerLink: CLAIMS_PAGE_ROUTE };
+    this._menu = { label: 'Permissões', routerLink: CLAIMS_PAGE_ROUTE, claim: AuthClaimDefinitions.MANAGE_CLAIMS };
   }
 
   public setTitle(title: string): SmzUiClaimsCrudBuilder {

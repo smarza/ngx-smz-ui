@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { UntilDestroy } from '@ngneat/until-destroy';
-import { Select, Store } from '@ngxs/store';
+import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs/internal/Observable';
 import { SmzTableState } from '../../../../../smz-tables/models/table-state';
 import { ClaimDetails } from '../../../../models/claim-details';
@@ -24,7 +24,7 @@ export class ClaimsPageComponent implements OnInit {
   public claims$: Observable<ClaimDetails[]>;
   public tableState: SmzTableState = this.buildTableState();
   constructor(private store: Store, private dialogs: SmzDialogsService) {
-    const canOverideClaimProtection = this.store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(AuthClaimDefinitions.CAN_OVERRIDE_CLAIM_PROTECTION)) as boolean;
+    const canOverideClaimProtection = this.store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(AuthClaimDefinitions.CHANGE_CLAIM_PROTECTION)) as boolean;
     this.claims$ = this.store.select(canOverideClaimProtection ? ClaimsSelectors.all : ClaimsSelectors.allUnprotected);
   }
 
@@ -32,7 +32,7 @@ export class ClaimsPageComponent implements OnInit {
   }
 
   public buildTableState(): SmzTableState {
-    const canOverideClaimProtection = this.store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(AuthClaimDefinitions.CAN_OVERRIDE_CLAIM_PROTECTION)) as boolean;
+    const canOverideClaimProtection = this.store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(AuthClaimDefinitions.CHANGE_CLAIM_PROTECTION)) as boolean;
 
     return new SmzTableBuilder()
       .setTitle('Gerenciar Permissões de Acesso')

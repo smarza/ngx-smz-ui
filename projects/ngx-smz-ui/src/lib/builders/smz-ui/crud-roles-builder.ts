@@ -1,5 +1,6 @@
 import { HttpBehaviorParameters } from '../../modules/rbk-utils/http/base-api.service';
 import { RoleBehavior } from '../../modules/rbk-utils/ngx-rbk-utils.config';
+import { AuthClaimDefinitions } from '../../modules/smz-access/models/auth-claim-definitions';
 import { ROLES_PAGE_ROUTE, ROLES_PATH } from '../../modules/smz-access/routes';
 import { MenuCreation } from '../../modules/smz-layouts/core/models/menu-creation';
 import { NgxSmzUiConfig } from '../../ngx-smz-ui.config';
@@ -44,7 +45,7 @@ export class SmzUiRolesCrudBuilder extends SmzBuilderUtilities<SmzUiRolesCrudBui
       isVisible: true
     };
 
-    this._menu = { label: 'Perfis', routerLink: ROLES_PAGE_ROUTE };
+    this._menu = { label: 'Perfis', routerLink: ROLES_PAGE_ROUTE, claim: AuthClaimDefinitions.MANAGE_APPLICATION_WIDE_ROLES };
   }
 
   public setTitle(title: string): SmzUiRolesCrudBuilder {

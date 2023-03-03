@@ -1,9 +1,9 @@
 import { Observable } from 'rxjs';
 import { Store } from '@ngxs/store';
 import { GlobalInjector } from '../../common/services/global-injector';
-import { AuthenticationSelectors } from '../../modules/rbk-utils/public-api';
 import { SmzTimelineBuilder } from './state-builder';
 import { SmzCardsSource } from '../../modules/smz-cards/models/smz-cards-state';
+import { AuthenticationSelectors } from '../../state/global/authentication/authentication.selectors';
 
 export class SmzTimelineSourcesBuilder<TItem> {
   constructor(private _builder: SmzTimelineBuilder<TItem>) {

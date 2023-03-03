@@ -12,7 +12,14 @@ export const UiConfigBuilder: SmzUiBuilder = new SmzUiBuilder()
   .mapAccessTokenData('Picture', 'picture', 'string')
   .builder
 .authorization()
-  .users().authorization
+  .users()
+    // Tabela
+
+    // actions da pagina
+      // function void()
+    // actions no usuário
+      // function<T> void(user: T)
+    .authorization
   .roles().authorization
   .claims().authorization
   .tenants().hide().authorization

@@ -1,4 +1,5 @@
 import { HttpBehaviorParameters } from '../../modules/rbk-utils/http/base-api.service';
+import { AuthClaimDefinitions } from '../../modules/smz-access/models/auth-claim-definitions';
 import { TENANTS_PAGE_ROUTE, TENANTS_PATH } from '../../modules/smz-access/routes';
 import { MenuCreation } from '../../modules/smz-layouts/core/models/menu-creation';
 import { NgxSmzUiConfig } from '../../ngx-smz-ui.config';
@@ -45,7 +46,7 @@ export class SmzUiTenantCrudBuilder extends SmzBuilderUtilities<SmzUiTenantCrudB
       isVisible: true
     };
 
-    this._menu = { label: 'Tenants', routerLink: TENANTS_PAGE_ROUTE };
+    this._menu = { label: 'Tenants', routerLink: TENANTS_PAGE_ROUTE, claim: AuthClaimDefinitions.MANAGE_TENANTS };
   }
 
   public setTitle(title: string): SmzUiTenantCrudBuilder {

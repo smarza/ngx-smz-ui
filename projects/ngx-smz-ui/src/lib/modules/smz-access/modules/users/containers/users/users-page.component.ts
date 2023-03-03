@@ -11,11 +11,11 @@ import { SimpleNamedEntity } from '../../../../../../../lib/common/models/simple
 import { Confirmable } from '../../../../../smz-dialogs/decorators/confirmable.decorator';
 import { UserDetails } from '../../../../models/user-details';
 import { GlobalInjector } from '../../../../../../common/services/global-injector';
+import { buildShowSetUserRoleDialog } from '../../dialogs/show-set-user-role-dialog';
 
 @Component({
   selector: 'gedi-ui-users-page',
   templateUrl: './users-page.component.html',
-  styleUrls: ['./users-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UsersPageComponent {
@@ -41,7 +41,7 @@ export class UsersPageComponent {
       .menu()
         .item('Editar Perfil', 'fas fa-user-tag')
         .setVisibilityRule(() => hasUserRolesUpdateAccess)
-          .setCallback((event: UserDetails) => this.onUpdateRoles(event, GlobalInjector.config.rbkUtils.authorization.roles.behavior))
+          .setCallback((event: UserDetails) => this.onSetRoles(event, GlobalInjector.config.rbkUtils.authorization.roles.behavior))
           .menu
         .item('Editar Permissões', 'fas fa-key')
           .setCallback((event: UserDetails) => this.onUpdateClaims(event))
@@ -75,13 +75,19 @@ export class UsersPageComponent {
     }
   }
 
-  public onUpdateRoles(event: UserDetails, roleBehavior: RoleBehavior): void {
-    // if (roleBehavior == 'single') {
-    //   this.dialogs.open(buildUpdateUserWithSingleRoleDialog(event));
-    // }
-    // else {
-    //   this.dialogs.open(buildUpdateUserWithMultipleRoleDialog(event));
-    // }
+  public onSetRoles(event: UserDetails, roleBehavior: RoleBehavior): void {
+    switch (roleBehavior) {
+      case 'single':
+        buildShowSetUserRoleDialog(event);
+        break;
+
+      case 'multiple':
+        // buildShowSetUserRolesDialog(event);
+        break;
+
+      default:
+        break;
+    }
   }
 
   @Confirmable('Tem certeza que deseja excluir este usuário?', 'Confirmação', true)
