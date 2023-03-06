@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { NewAthenaLayoutModule, NgxSmzUiModule } from 'ngx-smz-ui';
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
-import { smzAthenaConfig } from '../globals/smz-layouts.config';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import { ApplicationActions, buildState } from 'ngx-smz-ui';
 import { NgxsModule, Store } from '@ngxs/store';
@@ -16,7 +15,8 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import ptBr from '@angular/common/locales/pt';
 import * as moment from 'moment';
 import { environment } from '@environments/environment';
-import { UiConfigBuilder } from '../globals/smz-ui-config-builder';
+import { UiBuilder } from '../globals/smz-ui-config-builder';
+import { smzAthenaConfig } from '../globals/deprecated/smz-layouts.config';
 
 registerLocaleData(ptBr);
 moment.locale('pt-br');
@@ -31,7 +31,7 @@ moment.locale('pt-br');
     AppRoutingModule,
 
     // Não alterar a ordem desse grupo
-    NgxSmzUiModule.forRoot(UiConfigBuilder),
+    NgxSmzUiModule.forRoot(UiBuilder),
 
     NgxsModule.forRoot(buildState(), { developmentMode: !environment.production }),
     NgxsRouterPluginModule.forRoot(),

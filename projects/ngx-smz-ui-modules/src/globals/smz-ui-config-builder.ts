@@ -1,9 +1,12 @@
-import { SmzUiBuilder } from 'ngx-smz-ui';
-import { smzDialogsConfig } from './smz-config';
-import { smzLayoutsConfig } from './smz-layouts.config';
-import { CustomUserTableBuilder } from '../functions/custom-user-table-state';
+import { AuthClaimDefinitions, SmzUiBuilder } from 'ngx-smz-ui';
+import { smzDialogsConfig } from './deprecated/smz-config';
+import { smzLayoutsConfig } from './deprecated/smz-layouts.config';
+import { CustomUserTableBuilder } from '../app/functions/custom-user-table-state';
+import { showCreateUserWithMultipleRoleDialog } from '../app/functions/create-user-with-multiple-role-dialog';
+import { showCreateUserWithSingleRoleDialog } from '../app/functions/create-user-with-single-role-dialog';
+import { getFtUsersInitialState, UsersFtState, USERS_FT_STATE_NAME } from '@states/features/users/users.state';
 
-export const UiConfigBuilder: SmzUiBuilder = new SmzUiBuilder()
+export const UiBuilder: SmzUiBuilder = new SmzUiBuilder()
 .setApplicationName('Modules Demo')
 .setDialogsConfigManually(smzDialogsConfig)
 .setLayoutsConfigManually(smzLayoutsConfig)
@@ -15,6 +18,15 @@ export const UiConfigBuilder: SmzUiBuilder = new SmzUiBuilder()
 .authorization()
   .users()
     .customTable(CustomUserTableBuilder)
+    .addButtons()
+      .item('Criar')
+        .hasClaimAccess(AuthClaimDefinitions.MANAGE_USERS)
+        .setCallback(() => {
+          showCreateUserWithMultipleRoleDialog();
+          showCreateUserWithSingleRoleDialog();
+        })
+        .menu
+      .back
     // Tabela
 
     // actions da pagina
@@ -27,5 +39,9 @@ export const UiConfigBuilder: SmzUiBuilder = new SmzUiBuilder()
   .tenants().hide().authorization
   .builder
 .states()
+  .addFeature(USERS_FT_STATE_NAME)
+    .setState(UsersFtState)
+    .setClearFunction(getFtUsersInitialState)
+    .state
   .builder
 ;

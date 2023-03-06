@@ -114,6 +114,8 @@ export * from './lib/builders/smz-documents/document-builder';
 export * from './lib/builders/smz-documents/document-base-cell';
 
 export * from './lib/builders/smz-menu/menu-builder';
+export * from './lib/builders/smz-menu/menu-creation-builder';
+
 export * from './lib/builders/smz-charts/public-api';
 export * from './lib/builders/smz-trees/tree-builder';
 

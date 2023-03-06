@@ -46,12 +46,25 @@ export class UsersState {
   public onReplaceUserRoles$(ctx: StateContext<UsersStateModel>, action: UsersActions.ReplaceUserRoles): Observable<UserDetails> {
     return this.apiService.updateUserRoles(action.data).pipe(
       tap((result: UserDetails) => {
-        ctx.patchState({
-          items: replaceItem(ctx.getState().items, result)
-        });
+        ctx.patchState({items: replaceItem(ctx.getState().items, result) });
         ctx.dispatch(new ToastActions.Success('Regras de acesso do usuário atualizadas com sucesso.'));
       })
     );
+  }
+
+  @Action(UsersActions.LocalCreate)
+  public onLocalCreate$(ctx: StateContext<UsersStateModel>, action: UsersActions.LocalCreate<UserDetails>): void {
+    ctx.patchState({ items: [action.data, ...ctx.getState().items] });
+  }
+
+  @Action(UsersActions.LocalUpdate)
+  public onLocalUpdate$(ctx: StateContext<UsersStateModel>, action: UsersActions.LocalUpdate<UserDetails>): void {
+    ctx.patchState({ items: replaceItem(ctx.getState().items, action.data) });
+  }
+
+  @Action(UsersActions.LocalDelete)
+  public LocalDelete$(ctx: StateContext<UsersStateModel>, action: UsersActions.LocalDelete): void {
+    ctx.patchState({ items: [...ctx.getState().items.filter(x => x.id !== action.id)] });
   }
 
 }

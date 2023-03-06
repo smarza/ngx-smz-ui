@@ -8,6 +8,7 @@ export * from './modules/roles/roles.module';
 
 // MODELS
 export * from './models/add-claim-override';
+export * from './models/auth-claim-definitions';
 export * from './models/authenticated-user';
 export * from './models/claim-access-type';
 export * from './models/claim-details';
@@ -27,7 +28,6 @@ export * from './models/update-claim';
 export * from './models/update-role-claims';
 export * from './models/update-tenant';
 export * from './models/user-details';
-
 
 // ROUTES
 export * from './routes';
