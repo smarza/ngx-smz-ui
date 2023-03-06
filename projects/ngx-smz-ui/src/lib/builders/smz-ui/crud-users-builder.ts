@@ -7,7 +7,8 @@ import { AuthClaimDefinitions } from '../../modules/smz-access/models/auth-claim
 import { SmzTableBuilder } from '../smz-tables/state-builder';
 import { SmzAuthorizationUserState } from '../../modules/smz-access/modules/users/models/smz-authorization-user-state';
 import { SmzAuthorizationUserTableBuilder } from '../../modules/smz-access/modules/users/tables/user-table-state';
-import { SmzMenuCreationBuilder } from '../smz-menu/menu-creation-builder';
+import { SmzGenericMenuBuilder } from '../smz-menu/generic-menu-builder';
+import { SmzMenuItem } from '../../modules/smz-menu/models/smz-menu-item';
 
 export class SmzUiUsersCrudBuilder extends SmzBuilderUtilities<SmzUiUsersCrudBuilder> {
   protected that = this;
@@ -65,13 +66,13 @@ export class SmzUiUsersCrudBuilder extends SmzBuilderUtilities<SmzUiUsersCrudBui
     return this.that;
   }
 
-  public addButton(button: MenuCreation): SmzUiUsersCrudBuilder {
+  public addButton(button: SmzMenuItem): SmzUiUsersCrudBuilder {
     this._config.pageActions.push(button);
     return this.that;
   }
 
-  public addButtons(): SmzMenuCreationBuilder<SmzUiUsersCrudBuilder> {
-    return new SmzMenuCreationBuilder<SmzUiUsersCrudBuilder>(this, this._config.pageActions);
+  public addButtons(): SmzGenericMenuBuilder<SmzUiUsersCrudBuilder> {
+    return new SmzGenericMenuBuilder<SmzUiUsersCrudBuilder>(this, this._config.pageActions);
   }
 
   public hide(): SmzUiUsersCrudBuilder {

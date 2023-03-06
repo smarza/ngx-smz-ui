@@ -17,7 +17,9 @@ import { SmzMenuItemActionsDirective } from './directives/menu-item-actions.dire
   ],
   exports: [
     SmzMenuComponent,
-    SharedModule
+    SharedModule,
+    SmzMenuItemActionsDirective,
+    SmzFlattenMenuPipe
   ],
   declarations: [
     SmzMenuComponent,

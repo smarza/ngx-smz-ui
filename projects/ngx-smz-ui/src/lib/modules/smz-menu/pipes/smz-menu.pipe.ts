@@ -1,12 +1,16 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { Store } from '@ngxs/store';
 import { MenuItem } from 'primeng/api';
 import { SmzMenuItem } from '../models/smz-menu-item';
+import { AuthenticationSelectors } from '../../../state/global/authentication/authentication.selectors';
+import { GlobalInjector } from '../../../common/services/global-injector';
 
 @Pipe({
   name: 'smzMenu'
 })
 
 export class SmzMenuPipe implements PipeTransform {
+  constructor(private store: Store) {}
   transform(menu: SmzMenuItem[], data: any): MenuItem[] {
     if (menu == null || menu.length === 0) return null;
 
@@ -36,16 +40,28 @@ export class SmzMenuPipe implements PipeTransform {
 
   private applyMenuState(item: SmzMenuItem, data: any): MenuItem {
 
+    let items = undefined;
+
     if (item.conditional?.condition != null) {
 
         const condition = item.conditional.condition(data);
         Reflect.set(item, item.conditional.property ?? 'visible', condition);
+        items = [];
+    }
 
-        return { ...item, items: [] };
+    if (item.hasClaimAccess != null) {
+
+      if (GlobalInjector.config.debugMode) {
+        console.log(`Checking Access to Button '${item.label}' with claim '${item.hasClaimAccess}': `, this.store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(item.hasClaimAccess)));
+      }
+
+      if (!this.store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(item.hasClaimAccess))) {
+        item.disabled = true;
+      }
+
     }
-    else {
-      return { ...item, items: undefined };
-    }
+
+    return { ...item, items };
 
   }
 

@@ -1,7 +1,9 @@
 <smz-ui-table #smzdt [items]="items$ | async" [state]="tableState" [loading]="false">
 
   <ng-template pTemplate="caption" let-primeTable>
-    <button pButton label="Criar" class="mr-2" (click)="onCreate()"></button>
+    <ng-container *ngFor="let action of (uiConfig.rbkUtils.authorization.users.pageActions | smzFlattenMenu : null)">
+      <button *ngIf="action.visible" pButton type="button" smzMenuItemAction [item]="action" [label]="action.label" [icon]="action.icon" [ngClass]="action.styleClass" [disabled]="action.disabled"></button>
+    </ng-container>
   </ng-template>
 
     <!-- CONTEÚDOS COM OVERRIDE -->

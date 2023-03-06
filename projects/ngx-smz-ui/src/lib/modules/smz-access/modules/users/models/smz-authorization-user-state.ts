@@ -1,6 +1,6 @@
 import { SmzTableBuilder } from '../../../../../builders/smz-tables/state-builder';
 import { HttpBehaviorParameters } from '../../../../rbk-utils/http/base-api.service';
-import { MenuCreation } from '../../../../smz-layouts/core/models/menu-creation';
+import { SmzMenuItem } from '../../../../smz-menu/models/smz-menu-item';
 
 export interface SmzAuthorizationUserState {
   table?: {
@@ -8,7 +8,7 @@ export interface SmzAuthorizationUserState {
     customBuilder?: () => SmzTableBuilder;
     useDefaultMenu?: boolean;
   }
-  pageActions?: MenuCreation[];
+  pageActions?: SmzMenuItem[];
   router?: {
       path: string,
       claim?: string

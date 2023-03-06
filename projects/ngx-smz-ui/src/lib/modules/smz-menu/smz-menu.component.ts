@@ -2,6 +2,8 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Menu } from './components/menu';
 import { SmzMenuItem } from './models/smz-menu-item';
 import { SmzMenuPipe } from './pipes/smz-menu.pipe';
+import { GlobalInjector } from '../../common/services/global-injector';
+import { Store } from '@ngxs/store';
 
 @Component({
   selector: 'smz-menu',
@@ -20,8 +22,8 @@ export class SmzMenuComponent {
   public menuItems: any[] = [];
   public toggle(event: any, actionMenu: Menu): void {
     const items = this.callback != null ? this.callback(this.data) : this.items;
-    this.menuItems = new SmzMenuPipe().transform(items, this.data);
-
+    const store = GlobalInjector.instance.get(Store);
+    this.menuItems = new SmzMenuPipe(store).transform(items, this.data);
 
     actionMenu.toggle(event, this.data);
   }

@@ -223,6 +223,9 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
     }
 
     public Build(): NgxSmzUiConfig {
+        if (this._state.debugMode) {
+            console.log(this._state);
+        }
         return this._state;
     }
 }

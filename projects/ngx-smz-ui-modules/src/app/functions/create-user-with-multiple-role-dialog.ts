@@ -13,8 +13,6 @@ export function showCreateUserWithMultipleRoleDialog(success?: () => void): SmzD
 
   let roles = store.selectSnapshot(RolesSelectors.all);
 
-  console.log('roles', roles);
-
   return new SmzDialogBuilder<CreateUserWithMultipleRoles>()
   .setTitle(`Criação`)
   .setLayout('EXTRA_LARGE', 'col-4')

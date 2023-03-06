@@ -1,13 +1,17 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { Store } from '@ngxs/store';
 import { cloneDeep } from 'lodash-es';
 import { MenuItem } from 'primeng/api';
+import { AuthenticationSelectors } from '../../../state/global/authentication/authentication.selectors';
 import { SmzMenuItem } from '../models/smz-menu-item';
+import { GlobalInjector } from '../../../common/services/global-injector';
 
 @Pipe({
   name: 'smzFlattenMenu'
 })
 
 export class SmzFlattenMenuPipe implements PipeTransform {
+  constructor(private store: Store) {}
   transform(menu: SmzMenuItem[], data: any): SmzMenuItem[] {
 
     if (menu == null || menu.length === 0) return null;
@@ -39,16 +43,28 @@ export class SmzFlattenMenuPipe implements PipeTransform {
 
   private applyMenuState(item: SmzMenuItem, data: any): MenuItem {
 
+    let items = undefined;
+
     if (item.conditional?.condition != null) {
 
         const condition = item.conditional.condition(data);
         Reflect.set(item, item.conditional.property ?? 'visible', condition);
+        items = [];
+    }
 
-        return { ...item, items: [] };
+    if (item.hasClaimAccess != null) {
+
+      if (GlobalInjector.config.debugMode) {
+        console.log(`Checking Access to Button '${item.label}' with claim '${item.hasClaimAccess}': `, this.store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(item.hasClaimAccess)));
+      }
+
+      if (!this.store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(item.hasClaimAccess))) {
+        item.disabled = true;
+      }
+
     }
-    else {
-      return { ...item, items: undefined };
-    }
+
+    return { ...item, items };
 
   }
 
