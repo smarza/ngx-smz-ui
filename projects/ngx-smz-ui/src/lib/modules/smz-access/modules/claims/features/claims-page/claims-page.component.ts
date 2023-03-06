@@ -41,7 +41,7 @@ export class ClaimsPageComponent implements OnInit {
       .useStrippedStyle()
       .setSize('regular')
       .menu()
-        .item('Editar')
+        .item('Renomear')
           .setCallback((claim: ClaimDetails) => this.dialogs.open(UpdateClaimDialog(claim)))
           .menu
         .item('Proteger', 'fa-solid fa-lock text-red-500')
@@ -59,13 +59,11 @@ export class ClaimsPageComponent implements OnInit {
           .menu
         .table
       .columns()
-        .text('description', 'Descrição')
-          .columns
-        .text('name', 'Chave')
-          .columns
-        .icon('isProtected', 'Proteção')
+        .icon('isProtected', 'Proteção', '7em')
           .addIconConfiguration('fa-solid fa-lock text-red-500 text-lg', true)
           .addIconConfiguration('fa-solid fa-lock-open text-green-500 text-lg', false)
+          .columns
+        .text('description', 'Nome')
           .columns
         .table
       .build();

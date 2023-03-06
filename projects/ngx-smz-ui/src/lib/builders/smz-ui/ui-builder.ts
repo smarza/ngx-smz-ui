@@ -93,12 +93,17 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
                 localStoragePrefix: 'ui-demo',
                 authenticatedRoot: '/home',
                 nonAuthenticatedRoot: '/login',
+                allowSuperuser: false,
+                useTenant: false,
                 login: {
                     url: `${environment.authenticationApi}/api/authentication/login`,
                     route: '/login',
                     errorHandlingType: 'toast',
                     responsePropertyName: 'accessToken',
                     loadingBehavior: 'global',
+                    superuser: 'superuser',
+                    tenant: '',
+                    showTenantSelector: false,
                 },
                 refreshToken: {
                     url: `${environment.authenticationApi}/api/authentication/refresh-token`,

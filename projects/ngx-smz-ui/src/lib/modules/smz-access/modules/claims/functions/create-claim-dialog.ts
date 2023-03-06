@@ -20,11 +20,11 @@ export function CreateClaimDialog(): SmzDialog<CreateClaim> {
     .closeOnEscape()
     .form()
       .group()
-        .text(nameof<CreateClaim>('identification'), 'Chave')
+        .text(nameof<CreateClaim>('identification'), 'Identificador')
         .setSaveFormat(SmzTextPattern.CLAIM_PATTERN)
           .validators().required()
           .group
-        .text(nameof<CreateClaim>('description'), 'Descrição')
+        .text(nameof<CreateClaim>('description'), 'Nome')
           .validators().required()
           .group
         .form

@@ -44,9 +44,8 @@ export class RolesState {
   public create$(ctx: StateContext<RolesStateModel>, action: RolesActions.Create): Observable<RolesDetails> {
     return this.apiService.createRole(action.data).pipe(
       tap((result: RolesDetails) => {
-        ctx.patchState({
-          items: [ result, ...ctx.getState().items ]
-        });
+        ctx.dispatch(new RolesActions.Clear());
+        ctx.dispatch(new RolesActions.LoadAll());
         ctx.dispatch(new ToastActions.Success('Regra de acesso criada com sucesso'));
       })
     );
@@ -56,9 +55,8 @@ export class RolesState {
   public update$(ctx: StateContext<RolesStateModel>, action: RolesActions.Update): Observable<RolesDetails> {
     return this.apiService.updateRole(action.data).pipe(
       tap((result: RolesDetails) => {
-        ctx.patchState({
-          items: replaceItem(ctx.getState().items, result)
-        });
+        ctx.dispatch(new RolesActions.Clear());
+        ctx.dispatch(new RolesActions.LoadAll());
         ctx.dispatch(new ToastActions.Success('Regra de acesso atualizada com sucesso'));
       })
     );
@@ -68,9 +66,8 @@ export class RolesState {
   public delete$(ctx: StateContext<RolesStateModel>, action: RolesActions.Delete): Observable<void> {
     return this.apiService.deleteRole(action.id).pipe(
       tap(() => {
-        ctx.patchState({
-          items: [ ...ctx.getState().items.filter(x => x.id !== action.id) ]
-        });
+        ctx.dispatch(new RolesActions.Clear());
+        ctx.dispatch(new RolesActions.LoadAll());
         ctx.dispatch(new ToastActions.Success('Regra de acesso excluída com sucesso'));
       })
     );

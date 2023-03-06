@@ -42,8 +42,8 @@ export class SmzUiRolesCrudBuilder extends SmzBuilderUtilities<SmzUiRolesCrudBui
       behavior: 'multiple',
       isVisible: true
     };
-
-    this._menu = { label: 'Perfis', routerLink: ROLES_PAGE_ROUTE, claim: AuthClaimDefinitions.MANAGE_APPLICATION_WIDE_ROLES };
+    // AuthClaimDefinitions.MANAGE_APPLICATION_WIDE_ROLES
+    this._menu = { label: 'Perfis', routerLink: ROLES_PAGE_ROUTE, claim: AuthClaimDefinitions.MANAGE_TENANT_SPECIFIC_ROLES };
   }
 
   public setTitle(title: string): SmzUiRolesCrudBuilder {

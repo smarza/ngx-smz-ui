@@ -1,5 +1,4 @@
 import { SmzForm } from '../../../smz-forms/models/smz-forms';
-import { SmzAppLogo } from '../../core/models/logo';
 
 export interface SmzLoginState<TResponse, TPayload> {
   isDebug: boolean;

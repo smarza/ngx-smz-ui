@@ -8,10 +8,25 @@ export class SmzUiAuthenticationBuilder extends SmzBuilderUtilities<SmzUiAuthent
   }
 
   public useTenant(tenant: string): SmzUiAuthenticationBuilder {
-    this._builder._state.rbkUtils.authentication.refreshToken.extraProperties.tenant = tenant;
+    this._builder._state.rbkUtils.authentication.useTenant = true;
+    this._builder._state.rbkUtils.authentication.login.tenant = tenant;
     return this.that;
   }
 
+  public allowSuperuser(superuserName: string = 'superuser'): SmzUiAuthenticationBuilder {
+    this._builder._state.rbkUtils.authentication.allowSuperuser = true;
+    this._builder._state.rbkUtils.authentication.login.superuser = superuserName;
+    return this.that;
+  }
+
+  public showTenantSelector(): SmzUiAuthenticationBuilder {
+    if (!this._builder._state.rbkUtils.authentication.useTenant) {
+      throw Error(`You need to call useTenant() before call showTenantSelector()`);
+    }
+
+    this._builder._state.rbkUtils.authentication.login.showTenantSelector = true;
+    return this.that;
+  }
 
   public setLocalStoragePrefix(prefix: string): SmzUiAuthenticationBuilder {
     this._builder._state.rbkUtils.authentication.localStoragePrefix = prefix;

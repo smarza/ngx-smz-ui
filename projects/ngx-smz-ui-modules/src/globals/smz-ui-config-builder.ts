@@ -12,6 +12,8 @@ export const UiBuilder: SmzUiBuilder = new SmzUiBuilder()
 .setLayoutsConfigManually(smzLayoutsConfig)
 .authentication()
   .useTenant('proteus')
+  .allowSuperuser()
+  .showTenantSelector()
   .mapAccessTokenData('rol', 'roles', 'array')
   .mapAccessTokenData('Picture', 'picture', 'string')
   .builder
@@ -19,7 +21,7 @@ export const UiBuilder: SmzUiBuilder = new SmzUiBuilder()
   .users()
     .customTable(CustomUserTableBuilder)
     .addButtons()
-      .item('Criar')
+      .item('Criar Usuário')
         .hasClaimAccess(AuthClaimDefinitions.MANAGE_USERS)
         .setCallback(() => {
           showCreateUserWithMultipleRoleDialog();
@@ -27,16 +29,10 @@ export const UiBuilder: SmzUiBuilder = new SmzUiBuilder()
         })
         .menu
       .back
-    // Tabela
-
-    // actions da pagina
-      // function void()
-    // actions no usuário
-      // function<T> void(user: T)
     .authorization
   .roles().authorization
   .claims().authorization
-  .tenants().hide().authorization
+  .tenants().authorization
   .builder
 .states()
   .addFeature(USERS_FT_STATE_NAME)

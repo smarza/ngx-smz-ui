@@ -12,6 +12,7 @@ import { UpdateRoleClaimsDialog } from '../../functions/update-role-claims-dialo
 import { Confirmable } from '../../../../../smz-dialogs/decorators/confirmable.decorator';
 import { RolesActions } from '../../../../state/roles/roles.actions';
 import { CreateRoleDialog } from '../../functions/create-role-dialog';
+import { nameof } from '../../../../../../common/models/simple-named-entity';
 
 @UntilDestroy()
 @Component({
@@ -30,17 +31,17 @@ export class RolesPageComponent implements OnInit {
   public buildTableState(): SmzTableState {
 
     return new SmzTableBuilder()
-      .setTitle('Gerenciar Regras de Acesso')
+      .setTitle('Gerenciar Perfis')
       .enableClearFilters()
       .enableGlobalFilter()
       .useStrippedStyle()
       .useTableEmptyMessage()
       .setSize('regular')
       .menu()
-        .item('Editar Regra')
+        .item('Renomear')
           .setCallback((role: RolesDetails) => this.dialogs.open(UpdateRoleDialog(role)))
           .menu
-        .item('Editar Permissões')
+        .item('Permissões')
           .setCallback((role: RolesDetails) => this.dialogs.open(UpdateRoleClaimsDialog(role)))
           .menu
         .separator()
@@ -49,15 +50,18 @@ export class RolesPageComponent implements OnInit {
           .menu
         .table
       .columns()
-        .text('name', 'Permissão')
+        .text('name', 'Nome do Perfil')
           .columns
-        .custom('claims', 'Regras de Acesso')
+        .custom('claims', 'Permissões')
+          .columns
+        .icon('isApplicationWide', 'isApplicationWide', '10em')
+          .addIconConfiguration('fa-solid fa-bug', false, 'text-yellow-600', 'Perfil Sobscrito') // 'Sobscrever'
           .columns
         .table
       .build();
   }
 
-  @Confirmable('Tem certeza de que deseja excluir essa regra de acesso ?', 'Atenção', true)
+  @Confirmable('Tem certeza de que deseja excluir esse perfil ?', 'Atenção', true)
   public showDeleteConfirmation(role: RolesDetails): void {
     this.store.dispatch(new RolesActions.Delete(role.id));
   }

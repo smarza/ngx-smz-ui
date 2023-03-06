@@ -52,6 +52,8 @@ export class NgxRbkUtilsConfig {
         localStoragePrefix: string;
         authenticatedRoot: string;
         nonAuthenticatedRoot: string;
+        allowSuperuser: boolean;
+        useTenant: boolean;
         login: {
             url: string;
             route: string;
@@ -59,6 +61,9 @@ export class NgxRbkUtilsConfig {
             errorHandlingType: 'toast' | 'dialog' | 'none';
             responsePropertyName: string; // this is used in the login and refresh token endpoint responses
             redirectCallback?: (response: LoginResponse) => void;
+            superuser: string;
+            tenant: string;
+            showTenantSelector: boolean;
         };
         refreshToken: {
             url: string;
