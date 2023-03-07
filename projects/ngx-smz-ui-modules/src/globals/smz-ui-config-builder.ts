@@ -11,8 +11,8 @@ export const UiBuilder: SmzUiBuilder = new SmzUiBuilder()
 .setDialogsConfigManually(smzDialogsConfig)
 .setLayoutsConfigManually(smzLayoutsConfig)
 .authentication()
-  .useTenant('buzios')
   .allowSuperuser()
+  .useTenant('buzios')
   .showTenantSelector()
   .mapAccessTokenData('rol', 'roles', 'array')
   .mapAccessTokenData('avatar', 'picture', 'string')
@@ -28,7 +28,7 @@ export const UiBuilder: SmzUiBuilder = new SmzUiBuilder()
         .hasClaimAccess(AuthClaimDefinitions.MANAGE_USERS)
         .setCallback(() => {
           showCreateUserWithMultipleRoleDialog();
-          showCreateUserWithSingleRoleDialog();
+          // showCreateUserWithSingleRoleDialog();
         })
         .menu
       .back
