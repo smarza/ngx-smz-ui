@@ -35,6 +35,14 @@ export function isInteger(value: number): boolean {
     return value % 1 === 0;
 }
 
+export function compareInsensitive(str1: string, str2: string): boolean {
+    return str1.toLocaleLowerCase() === str2.toLocaleLowerCase();
+}
+
+export function compare(str1: string, str2: string): boolean {
+    return str1 === str2;
+}
+
 export function isNil(value: any): value is null | undefined {
     return value === null || typeof value === 'undefined';
 }

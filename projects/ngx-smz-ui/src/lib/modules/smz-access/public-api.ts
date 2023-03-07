@@ -5,6 +5,7 @@ export * from './modules/users/tables/user-table-state';
 
 export * from './modules/claims/claims.module';
 export * from './modules/roles/roles.module';
+export * from './modules/tenants/tenants.module';
 
 // MODELS
 export * from './models/add-claim-override';
@@ -57,3 +58,7 @@ export * from './state/claims/claims.state';
 export * from './state/users/users.actions';
 export * from './state/users/users.selectors';
 export * from './state/users/users.state';
+
+export * from './state/tenants/tenants.actions';
+export * from './state/tenants/tenants.selectors';
+export * from './state/tenants/tenants.state';

@@ -33,7 +33,7 @@ export class SmzUiAuthenticationBuilder extends SmzBuilderUtilities<SmzUiAuthent
     return this.that;
   }
 
-  public mapAccessTokenData(from: string, to: string, type: 'array' | 'string'): SmzUiAuthenticationBuilder {
+  public mapAccessTokenData(from: string, to: string, type: 'array' | 'string' | 'boolean'): SmzUiAuthenticationBuilder {
     this._builder._state.rbkUtils.authentication.accessTokenClaims.push({ claimName: from, propertyName: to, type });
     return this.that;
   }

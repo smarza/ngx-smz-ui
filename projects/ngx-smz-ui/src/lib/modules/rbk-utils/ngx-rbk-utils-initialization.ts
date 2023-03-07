@@ -7,6 +7,7 @@ import { getInitialState, UiDefinitionsDbState, UI_DEFINITIONS_STATE_NAME } from
 import { FEATURE_STATES } from '../../state/features/features.state';
 import { ClaimsModule } from '../smz-access/modules/claims/claims.module';
 import { RolesModule } from '../smz-access/modules/roles/roles.module';
+import { TenantsModule } from '../smz-access/modules/tenants/tenants.module';
 import { UsersModule } from '../smz-access/modules/users/users.module';
 import { CLAIMS_PATH, ROLES_PATH, TENANTS_PATH, USERS_PATH } from '../smz-access/routes';
 import { DatabaseStateParameters } from './ngx-rbk-utils.config';
@@ -15,125 +16,125 @@ import { isEmpty } from './utils/utils';
 export function getUsersModule() { return UsersModule }
 export function getRolesModule() { return RolesModule }
 export function getClaimsModule() { return ClaimsModule }
-// export function getTenantsModule() { return TenantsModule }
+export function getTenantsModule() { return TenantsModule }
 
 export function runAccessRoutesInitialization(router: Router) {
-  const config = GlobalInjector.config;
+    const config = GlobalInjector.config;
 
-  const newRoutes = [];
+    const newRoutes = [];
 
-  if (config.rbkUtils.authorization?.users?.isVisible) {
-      newRoutes.push({ path: USERS_PATH, loadChildren: getUsersModule });
-  }
-
-  if (config.rbkUtils.authorization?.roles?.isVisible) {
-      newRoutes.push({ path: ROLES_PATH, loadChildren: getRolesModule });
-  }
-
-  if (config.rbkUtils.authorization?.claims?.isVisible) {
-      newRoutes.push({ path: CLAIMS_PATH, loadChildren: getClaimsModule });
-  }
-
-  if (config.rbkUtils.authorization?.tenants?.isVisible) {
-    // newRoutes.push({ path: TENANTS_PATH, loadChildren: getTenantsModule });
+    if (config.rbkUtils.authorization?.users?.isVisible) {
+        newRoutes.push({ path: USERS_PATH, loadChildren: getUsersModule });
     }
 
-  if (newRoutes.length > 0) {
+    if (config.rbkUtils.authorization?.roles?.isVisible) {
+        newRoutes.push({ path: ROLES_PATH, loadChildren: getRolesModule });
+    }
 
-      const appRoot = getRouteRoot(router.config);
+    if (config.rbkUtils.authorization?.claims?.isVisible) {
+        newRoutes.push({ path: CLAIMS_PATH, loadChildren: getClaimsModule });
+    }
 
-      if (appRoot != null) {
+    if (config.rbkUtils.authorization?.tenants?.isVisible) {
+        newRoutes.push({ path: TENANTS_PATH, loadChildren: getTenantsModule });
+    }
 
-          if (appRoot.children === null) appRoot.children = [];
+    if (newRoutes.length > 0) {
 
-          // publicar rotas dentro da rota com filhos.
-          appRoot.children.push(...newRoutes);
-          router.resetConfig([...router.config]);
-      }
-      else {
-          // publicar rotas na raiz.
-          router.resetConfig([...newRoutes, ...router.config]);
-      }
+        const appRoot = getRouteRoot(router.config);
 
-  }
+        if (appRoot != null) {
+
+            if (appRoot.children === null) appRoot.children = [];
+
+            // publicar rotas dentro da rota com filhos.
+            appRoot.children.push(...newRoutes);
+            router.resetConfig([...router.config]);
+        }
+        else {
+            // publicar rotas na raiz.
+            router.resetConfig([...newRoutes, ...router.config]);
+        }
+
+    }
 }
 
 export function runRbkInitialization() {
 
-  const mainConfig: NgxSmzUiConfig = GlobalInjector.config;
-  const configuration = mainConfig.rbkUtils;
+    const mainConfig: NgxSmzUiConfig = GlobalInjector.config;
+    const configuration = mainConfig.rbkUtils;
 
-  configuration.state.database = { ...configuration.state.database };
-  configuration.state.feature = { ...configuration.state.feature };
+    configuration.state.database = { ...configuration.state.database };
+    configuration.state.feature = { ...configuration.state.feature };
 
-  if (FEATURE_STATES.length === 0) {
-      const states = [];
-      for (const stateName of Object.keys(configuration.state.feature)) {
-          states.push(configuration.state.feature[stateName].state);
+    if (FEATURE_STATES.length === 0) {
+        const states = [];
+        for (const stateName of Object.keys(configuration.state.feature)) {
+            states.push(configuration.state.feature[stateName].state);
 
-          // if ((configuration.state.feature[stateName].loadAction != null ||
-          //         configuration.state.feature[stateName].loadAction != null)) {
-          //     throw new Error(`Invalid state configuration for ` + stateName);
-          // }
-      }
-      FEATURE_STATES.push(...states);
-  }
+            // if ((configuration.state.feature[stateName].loadAction != null ||
+            //         configuration.state.feature[stateName].loadAction != null)) {
+            //     throw new Error(`Invalid state configuration for ` + stateName);
+            // }
+        }
+        FEATURE_STATES.push(...states);
+    }
 
-  if (DATABASE_STATES.length === 0) {
+    if (DATABASE_STATES.length === 0) {
 
-      if (!isEmpty(configuration.uiDefinitions?.url)) {
-          const uiDefinitionsState: DatabaseStateParameters = {
-              state: UiDefinitionsDbState,
-              loadAction: UiDefinitionsDbActions.LoadAll,
-              clearFunction: getInitialState,
-              cacheTimeout: 999
-          };
+        if (!isEmpty(configuration.uiDefinitions?.url)) {
+            const uiDefinitionsState: DatabaseStateParameters = {
+                state: UiDefinitionsDbState,
+                loadAction: UiDefinitionsDbActions.LoadAll,
+                clearFunction: getInitialState,
+                cacheTimeout: 999
+            };
 
-          configuration.state.database[UI_DEFINITIONS_STATE_NAME] = uiDefinitionsState;
-      }
+            configuration.state.database[UI_DEFINITIONS_STATE_NAME] = uiDefinitionsState;
+        }
 
-      const states = [];
-      const requiredActions = [];
-      for (const stateName of Object.keys(configuration.state.database)) {
-          states.push(configuration.state.database[stateName].state);
+        const states = [];
+        const requiredActions = [];
+        for (const stateName of Object.keys(configuration.state.database)) {
+            states.push(configuration.state.database[stateName].state);
 
-          if ((configuration.state.database[stateName].loadAction != null &&
-              configuration.state.database[stateName].loadAction == null) ||
-              (configuration.state.database[stateName].loadAction == null &&
-                  configuration.state.database[stateName].loadAction != null)) {
-              throw new Error(`Invalid state configuration for ` + stateName);
-          }
+            if ((configuration.state.database[stateName].loadAction != null &&
+                configuration.state.database[stateName].loadAction == null) ||
+                (configuration.state.database[stateName].loadAction == null &&
+                    configuration.state.database[stateName].loadAction != null)) {
+                throw new Error(`Invalid state configuration for ` + stateName);
+            }
 
-          if (configuration.state.database[stateName].loadAction != null) {
-              requiredActions.push(configuration.state.database[stateName].loadAction);
-              requiredActions.push(configuration.state.database[stateName].successAction);
-          }
-      }
-      DATABASE_STATES.push(...states);
+            if (configuration.state.database[stateName].loadAction != null) {
+                requiredActions.push(configuration.state.database[stateName].loadAction);
+                requiredActions.push(configuration.state.database[stateName].successAction);
+            }
+        }
+        DATABASE_STATES.push(...states);
 
-      if (requiredActions.length > 0) {
-          DATABASE_REQUIRED_ACTIONS.push(...requiredActions);
-      }
-  }
+        if (requiredActions.length > 0) {
+            DATABASE_REQUIRED_ACTIONS.push(...requiredActions);
+        }
+    }
 }
 
 function getRouteRoot(routes: Routes): Route {
 
-  for (let index = 0; index < routes.length; index++) {
-      const route = routes[index];
+    for (let index = 0; index < routes.length; index++) {
+        const route = routes[index];
 
-      if (route.data?.gediRoot === true) {
-          return route;
-      }
-      else if (route.children?.length > 0) {
-          const root = getRouteRoot(route.children);
+        if (route.data?.gediRoot === true) {
+            return route;
+        }
+        else if (route.children?.length > 0) {
+            const root = getRouteRoot(route.children);
 
-          if (root) {
-              return root;
-          }
-      }
+            if (root) {
+                return root;
+            }
+        }
 
-  }
+    }
 
-  return null;
+    return null;
 }

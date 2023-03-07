@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { Store } from '@ngxs/store';
-import { SmzDialogsService } from 'ngx-smz-ui';
+import { Select, Store } from '@ngxs/store';
+import { AuthenticationSelectors, SmzDialogsService } from 'ngx-smz-ui';
+import { Observable } from 'rxjs';
+import { UserData } from '@models/user-data';
 
 @Component({
   selector: 'app-home',
@@ -8,6 +10,7 @@ import { SmzDialogsService } from 'ngx-smz-ui';
 })
 export class HomeComponent
 {
+  @Select(AuthenticationSelectors.userdata) public userdata$: Observable<UserData>;
 
   constructor(private dialogs: SmzDialogsService, private store: Store)
   {

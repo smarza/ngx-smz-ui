@@ -4,6 +4,8 @@ import { ClaimsActions } from './claims/claims.actions';
 import { ClaimsState, CLAIMS_STATE_NAME } from './claims/claims.state';
 import { RolesActions } from './roles/roles.actions';
 import { RolesState, ROLES_STATE_NAME } from './roles/roles.state';
+import { TenantsActions } from './tenants/tenants.actions';
+import { TenantsState, TENANTS_STATE_NAME } from './tenants/tenants.state';
 import { UsersActions } from './users/users.actions';
 import { UsersState, USERS_STATE_NAME } from './users/users.state';
 
@@ -25,6 +27,12 @@ export const databaseSmzAccessStates: {[name: string]: DatabaseStateParameters} 
     cacheTimeout: 999,
     loadAction: UsersActions.LoadAll,
     clearAction: UsersActions.Clear,
+  },
+  [TENANTS_STATE_NAME]: {
+    state: TenantsState,
+    cacheTimeout: 999,
+    loadAction: TenantsActions.LoadAll,
+    clearAction: TenantsActions.Clear,
   },
 };
 

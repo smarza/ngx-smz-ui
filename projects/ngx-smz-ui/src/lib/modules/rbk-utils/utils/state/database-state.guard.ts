@@ -6,6 +6,7 @@ import { filter, tap } from 'rxjs/operators';
 import { DatabaseSelectors } from '../../../../state/database/database.selectors';
 import { isWithinTime } from '../utils';
 import { GlobalInjector } from '../../../../common/services/global-injector';
+import { TENANTS_STATE_NAME } from '../../../smz-access/state/tenants/tenants.state';
 
 @Injectable({ providedIn: 'root' })
 export class RbkDatabaseStateGuard implements CanActivate {
@@ -14,7 +15,15 @@ export class RbkDatabaseStateGuard implements CanActivate {
     public canActivate(snapshot: ActivatedRouteSnapshot): Observable<boolean> {
         if (GlobalInjector.config.debugMode) console.groupCollapsed(`RbkDatabaseStateGuard on route /${snapshot.routeConfig.path}`);
 
-        const states = snapshot.routeConfig.data.requiredStates;
+        const states: string[] = snapshot.routeConfig.data.requiredStates ?? [];
+
+        // const useTenant = GlobalInjector.config.rbkUtils.authentication.useTenant;
+
+        // if (useTenant) {
+        //     if (states.findIndex(x => x === TENANTS_STATE_NAME) === -1) {
+        //         states.push(TENANTS_STATE_NAME);
+        //     }
+        // }
 
         if (snapshot.routeConfig.data.requiredStates == null ||
             snapshot.routeConfig.data.requiredStates?.length === 0) {

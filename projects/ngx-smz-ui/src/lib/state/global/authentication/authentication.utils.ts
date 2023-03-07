@@ -1,5 +1,6 @@
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { GlobalInjector } from '../../../common/services/global-injector';
+import { compareInsensitive } from '../../../common/utils/utils';
 
 export function generateUserData(token: string): any {
 
@@ -22,6 +23,9 @@ export function generateUserData(token: string): any {
             else if (key.type === 'array') {
                 finalValue = [ value ];
             }
+            else if (key.type === 'boolean') {
+                finalValue = compareInsensitive(value, 'true');
+            }
             else {
                 throw new Error('Unsuported claim type in the ngx-rbk-utils library');
             }
@@ -32,6 +36,9 @@ export function generateUserData(token: string): any {
             }
             else if (key.type === 'array') {
                 finalValue = value;
+            }
+            else if (key.type === 'boolean') {
+                finalValue = compareInsensitive(value, 'true');
             }
             else {
                 throw new Error('Unsuported claim type in the ngx-rbk-utils library');
@@ -59,15 +66,15 @@ export function generateUserData(token: string): any {
         user.username = '';
     }
 
-    if (user.avatar === undefined) {
-      user.avatar = '';
-    }
+    // if (user.avatar === undefined) {
+    //   user.avatar = '';
+    // }
 
     if (user.roles === undefined) {
         user.roles = [];
     }
 
-    user.domain = data['Domain'];
+    // user.domain = data['Domain'];
 
     return user;
 }

@@ -8,7 +8,6 @@ import { SmzFormsResponse } from '../../../smz-forms/models/smz-forms';
 import { SmzLoginState } from './login-state';
 import { SmzLoginBuilder } from '../../../../builders/smz-login/state-builder';
 import { PrimeTemplate } from 'primeng/api';
-import { GlobalInjector } from '../../../../common/services/global-injector';
 
 @Component({
   selector: 'smz-ui-login',
@@ -33,11 +32,6 @@ export class SmzLoginComponent implements OnInit, AfterContentInit {
           {
             username: response.username,
             password: response.password,
-            extraProperties:
-            {
-              applicationId: GlobalInjector.config.rbkUtils.authentication?.refreshToken?.extraProperties?.applicationId,
-              domain: 'BUZIOS'
-            }
           }))
       .build();
   }

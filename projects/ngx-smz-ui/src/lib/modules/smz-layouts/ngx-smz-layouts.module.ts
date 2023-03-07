@@ -7,9 +7,11 @@ import localePt from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
 import { NgxSmzRouterParamsModule } from '../smz-router-params/ngx-smz-router-params.module';
 import { MarkdownModule } from 'ngx-markdown';
+import moment from 'moment';
 
 // Register the localization
 registerLocaleData(localePt, 'pt-BR');
+moment.locale('pt-br');
 
 @NgModule({
     declarations: [],

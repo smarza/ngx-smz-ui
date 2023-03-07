@@ -25,49 +25,7 @@ export class NgxSmzLayoutsRoutingModule {
 
   constructor(private router: Router, public menuService: MenuHelperService)
   {
-    const newRoutes = [];
-
-    if (newRoutes.length > 0) {
-
-
-      const gediRoot = getRouteRoot(this.router.config);
-
-      if (gediRoot != null) {
-
-        if (gediRoot.children === null) gediRoot.children = [];
-
-        // publicar rotas dentro da rota com filhos.
-        gediRoot.children.push(...newRoutes);
-        this.router.resetConfig([...this.router.config]);
-      }
-      else {
-        // publicar rotas na raiz.
-        this.router.resetConfig([...newRoutes, ...this.router.config ]);
-      }
-
-    }
 
   }
 
-}
-
-function getRouteRoot(routes: Routes): Route {
-
-  for (let index = 0; index < routes.length; index++) {
-    const route = routes[index];
-
-    if (route.data?.gediRoot === true) {
-      return route;
-    }
-    else if (route.children?.length > 0) {
-      const root = getRouteRoot(route.children);
-
-      if (root) {
-        return root;
-      }
-    }
-
-  }
-
-  return null;
 }
