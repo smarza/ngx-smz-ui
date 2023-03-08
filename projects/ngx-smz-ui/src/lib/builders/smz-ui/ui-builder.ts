@@ -179,6 +179,7 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
             },
             authorization: {
                 navigationMenu: null,
+                allowMultipleRolesPerUser: false,
                 profileMenu: [],
                 users: {},
                 roles: {},

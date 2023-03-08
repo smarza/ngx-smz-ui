@@ -124,6 +124,7 @@ export class NgxRbkUtilsConfig {
     public authorization: {
         navigationMenu: MenuCreation,
         profileMenu: MenuCreation[],
+        allowMultipleRolesPerUser: boolean;
         users: SmzAuthorizationUserState,
         roles: {
             title?: string;
@@ -132,7 +133,6 @@ export class NgxRbkUtilsConfig {
                 claim?: string
             },
             httpBehavior?: Partial<HttpBehaviorParameters>;
-            behavior?: RoleBehavior;
             isVisible?: boolean;
         },
         claims: {

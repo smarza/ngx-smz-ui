@@ -50,13 +50,13 @@ export class RolesPageComponent implements OnInit {
           .menu
         .table
       .columns()
-        .text('name', 'Nome do Perfil')
+        .text(nameof<RolesDetails>('name'), 'Nome do Perfil')
           .columns
-        .custom('claims', 'Permissões')
+        .custom(nameof<RolesDetails>('claims'), 'Permissões')
           .columns
-        .icon('isApplicationWide', 'isApplicationWide', '10em')
-          .addIconConfiguration('fa-solid fa-bug', false, 'text-yellow-600', 'Perfil Sobscrito') // 'Sobscrever'
-          .columns
+        // .icon(nameof<RolesDetails>('isApplicationWide'), 'isApplicationWide', '10em')
+        //   .addIconConfiguration('fa-solid fa-bug', false, 'text-yellow-600', 'Perfil Sobscrito') // 'Sobscrever'
+        //   .columns
         .table
       .build();
   }

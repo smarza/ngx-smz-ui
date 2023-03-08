@@ -39,7 +39,8 @@ export class SmzUiUsersCrudBuilder extends SmzBuilderUtilities<SmzUiUsersCrudBui
       manageUserRolesUpdateClaim: AuthClaimDefinitions.MANAGE_USER_ROLES,
       manageUserClaimsUpdateClaim: AuthClaimDefinitions.OVERRIDE_USER_CLAIMS,
       avatarPlaceholderPath: 'assets/images/avatar_dark.png',
-      isVisible: true
+      isVisible: true,
+
     };
 
     this._menu = { label: 'Usuários', routerLink: USERS_PAGE_ROUTE, claims: [AuthClaimDefinitions.MANAGE_USERS] };

@@ -7,41 +7,42 @@ import { showCreateUserWithSingleRoleDialog } from '../app/functions/create-user
 import { getFtUsersInitialState, UsersFtState, USERS_FT_STATE_NAME } from '@states/features/users/users.state';
 
 export const UiBuilder: SmzUiBuilder = new SmzUiBuilder()
-.setApplicationName('Modules Demo')
-.setDialogsConfigManually(smzDialogsConfig)
-.setLayoutsConfigManually(smzLayoutsConfig)
-.authentication()
-  .mapAccessTokenData('rol', 'roles', 'array')
-  .mapAccessTokenData('avatar', 'picture', 'string')
-  .mapAccessTokenData('tenant', 'tenant', 'string')
-  .mapAccessTokenData('display-name', 'displayName', 'string')
-  .mapAccessTokenData('has-tenant', 'hasTenant', 'boolean')
-  .login()
-    .useSingleTenantAplication('proteus')
-    .allowSuperuser()
-    .authorization
-  .builder
-.authorization()
-  .users()
-    .customTable(CustomUserTableBuilder)
-    .addButtons()
-      .item('Criar Usuário')
-        .hasClaimAccess(AuthClaimDefinitions.MANAGE_USERS)
-        .setCallback(() => {
-          showCreateUserWithMultipleRoleDialog();
-          // showCreateUserWithSingleRoleDialog();
-        })
-        .menu
-      .back
-    .authorization
-  .roles().authorization
-  .claims().authorization
-  .tenants().authorization
-  .builder
-.states()
-  .addFeature(USERS_FT_STATE_NAME)
-    .setState(UsersFtState)
-    .setClearFunction(getFtUsersInitialState)
-    .state
-  .builder
-;
+  .setApplicationName('Modules Demo')
+  .setDialogsConfigManually(smzDialogsConfig)
+  .setLayoutsConfigManually(smzLayoutsConfig)
+  .authentication()
+    .mapAccessTokenData('rol', 'roles', 'array')
+    .mapAccessTokenData('avatar', 'picture', 'string')
+    .mapAccessTokenData('tenant', 'tenant', 'string')
+    .mapAccessTokenData('display-name', 'displayName', 'string')
+    .mapAccessTokenData('has-tenant', 'hasTenant', 'boolean')
+    .login()
+      .useSingleTenantAplication('proteus')
+      .allowSuperuser()
+      .authorization
+    .builder
+  .authorization()
+    .allowMultipleRolesPerUser()
+    .users()
+      .customTable(CustomUserTableBuilder)
+      .addButtons()
+        .item('Criar Usuário')
+          .hasClaimAccess(AuthClaimDefinitions.MANAGE_USERS)
+          .setCallback(() => {
+            showCreateUserWithMultipleRoleDialog();
+            // showCreateUserWithSingleRoleDialog();
+          })
+          .menu
+        .back
+      .authorization
+    .roles().authorization
+    .claims().authorization
+    .tenants().authorization
+    .builder
+  .states()
+    .addFeature(USERS_FT_STATE_NAME)
+      .setState(UsersFtState)
+      .setClearFunction(getFtUsersInitialState)
+      .state
+    .builder
+  ;

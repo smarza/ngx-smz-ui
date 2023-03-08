@@ -37,7 +37,7 @@ export class GlobalErrorHandler implements ErrorHandler {
           device = 'Tablet';
         }
 
-        loggingService.log({
+        const log = {
           applicationArea: logdata.applicationArea,
           applicationLayer: logdata.applicationLayer,
           applicationVersion: logdata.applicationVersion,
@@ -47,14 +47,17 @@ export class GlobalErrorHandler implements ErrorHandler {
           clientOperatingSystemVersion: deviceService.os_version,
           clientUserAgent: deviceService.userAgent,
           databaseExceptions: '',
-          domain: (store.selectSnapshot(AuthenticationSelectors.userdata) as any)?.domain,
+          tenant: (store.selectSnapshot(AuthenticationSelectors.userdata) as any)?.tenant,
           exceptionMessage: message,
           exceptionSource: 'Angular Error Handler',
           inputData: '',
           stackTrace: error.stack,
           extraData: logdata.extraData,
           username: store.selectSnapshot(AuthenticationSelectors.username)
-        }).subscribe();
+        }
+
+        console.warn(log);
+        // loggingService.log().subscribe();
     }
     console.error('Error caught by Global Error Interceptor: ', error);
 

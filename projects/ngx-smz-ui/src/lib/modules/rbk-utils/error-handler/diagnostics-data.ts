@@ -7,7 +7,7 @@ export interface DiagnosticsData {
     databaseExceptions: string;
     exceptionMessage: string;
     username: string;
-    domain: string;
+    tenant: string;
     exceptionSource: string;
     clientBrowser: string;
     clientUserAgent: string;

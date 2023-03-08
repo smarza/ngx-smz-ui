@@ -13,6 +13,7 @@ import { TenantsActions } from '../../../../state/tenants/tenants.actions';
 import { CreateTenantDialog } from '../../functions/create-tenant-dialog';
 import { AuthenticationSelectors } from '../../../../../../state/global/authentication/authentication.selectors';
 import { AuthClaimDefinitions } from '../../../../models/auth-claim-definitions';
+import { nameof } from '../../../../../../common/models/simple-named-entity';
 
 @UntilDestroy()
 @Component({
@@ -48,9 +49,9 @@ export class TenantsPageComponent implements OnInit {
           .menu
         .table
       .columns()
-        .text('alias', 'Identificador')
+        .text(nameof<TenantDetails>('alias'), 'Identificador')
           .columns
-        .text('description', 'Nome')
+        .text(nameof<TenantDetails>('name'), 'Nome')
           .columns
         .table
       .build();

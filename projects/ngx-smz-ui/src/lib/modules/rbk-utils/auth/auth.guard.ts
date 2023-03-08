@@ -44,10 +44,6 @@ export class RbkAuthGuard implements CanActivate {
                 const allowedClaim = routeData.claim as string;
                 hasAccess = this.store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(allowedClaim));
 
-                const domain = (this.store.selectSnapshot(AuthenticationSelectors.userdata) as any).domain;
-                if (!hasAccess && domain != null && domain !== '') {
-                    hasAccess = this.store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(`${domain}|${allowedClaim}`));
-                }
             }
             else {
                 if (GlobalInjector.config.debugMode) console.log('[RbkAuthGuard] The selected route does not need special claims');

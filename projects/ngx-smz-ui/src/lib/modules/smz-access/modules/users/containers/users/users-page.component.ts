@@ -27,27 +27,13 @@ export class UsersPageComponent {
       if (this.uiConfig.rbkUtils.authorization.users.table.useDefaultMenu) {
         const defaultState = this.uiConfig.rbkUtils.authorization.users.table.defaultBuilder().build();
         this.tableState.actions.menu.isVisible = defaultState.actions.menu.items?.length > 0;
-        this.tableState.actions.menu.items = [ ...this.tableState.actions.menu.items, ...defaultState.actions.menu.items ];
+        this.tableState.actions.menu.items = [ ...defaultState.actions.menu.items, ...this.tableState.actions.menu.items ];
       }
     }
     else {
       this.tableState  = this.uiConfig.rbkUtils.authorization.users.table.defaultBuilder().build();
     }
 
-  }
-
-  public onCreate(): void {
-    if (GlobalInjector.config.rbkUtils.authorization.roles.behavior == 'single') {
-      // this.dialogs.open(buildCreateUserWithSingleRoleDialog());
-    }
-    else {
-      // this.dialogs.open(buildCreateUserWithMultipleRoleDialog());
-    }
-  }
-
-  @Confirmable('Tem certeza que deseja excluir este usuário?', 'Confirmação', true)
-  public onDelete(event: UserDetails): void {
-    // this.store.dispatch(new UsersActions.Remove({ id: event.id }));
   }
 
   public handleMissingImage(event: Event, user: string, notfound: string) {

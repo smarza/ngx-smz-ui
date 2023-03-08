@@ -38,11 +38,6 @@ export class AuthHandler {
         }
 
         let extraProperties = GlobalInjector.config.rbkUtils.authentication.refreshToken.extraProperties;
-        const domain = (this.store.selectSnapshot(AuthenticationSelectors.userdata) as any).domain ;
-
-        if (domain != null && domain !== '') {
-          extraProperties = { ...extraProperties, domain };
-        }
 
         return this.authService.refreshToken(refreshToken, extraProperties)
             .pipe(

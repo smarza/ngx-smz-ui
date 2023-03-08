@@ -66,15 +66,13 @@ export function generateUserData(token: string): any {
         user.username = '';
     }
 
-    // if (user.avatar === undefined) {
-    //   user.avatar = '';
-    // }
+    if (user.avatar === undefined) {
+      user.avatar = '';
+    }
 
     if (user.roles === undefined) {
         user.roles = [];
     }
-
-    // user.domain = data['Domain'];
 
     return user;
 }

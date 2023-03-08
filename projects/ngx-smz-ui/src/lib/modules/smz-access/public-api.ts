@@ -29,6 +29,8 @@ export * from './models/update-claim';
 export * from './models/update-role-claims';
 export * from './models/update-tenant';
 export * from './models/user-details';
+export * from './models/role-mode';
+export * from './models/role-source';
 
 // ROUTES
 export * from './routes';

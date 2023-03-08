@@ -28,6 +28,11 @@ export class SmzUiAuthorizationBuilder extends SmzBuilderUtilities<SmzUiAuthoriz
     return this.that;
   }
 
+  public allowMultipleRolesPerUser(): SmzUiAuthorizationBuilder {
+    this._builder._state.rbkUtils.authorization.allowMultipleRolesPerUser = true;
+    return this.that;
+  }
+
   public users(): SmzUiUsersCrudBuilder {
     return new SmzUiUsersCrudBuilder(this, this._state);
   }

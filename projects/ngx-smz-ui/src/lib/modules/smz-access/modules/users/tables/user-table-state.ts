@@ -5,8 +5,8 @@ import { SmzFilterType } from '../../../../smz-tables/models/filter-types';
 import { nameof, SimpleNamedEntity } from '../../../../../common/models/simple-named-entity';
 import { UserDetails } from '../../../models/user-details';
 import { buildShowSetUserRoleDialog } from '../dialogs/show-set-user-role-dialog';
-import { RoleBehavior } from '../../../../rbk-utils/ngx-rbk-utils.config';
 import { Store } from '@ngxs/store';
+import { buildShowSetUserRolesDialog } from '../dialogs/show-set-user-roles-dialog';
 
 export function SmzAuthorizationUserTableBuilder(): SmzTableBuilder {
 
@@ -15,7 +15,7 @@ const store = GlobalInjector.instance.get(Store);
 const hasUserRolesUpdateAccess: boolean = store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(GlobalInjector.config.rbkUtils.authorization.users.manageUserRolesUpdateClaim));
 const hasUserClaimsUpdateAccess: boolean = store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(GlobalInjector.config.rbkUtils.authorization.users.manageUserClaimsUpdateClaim));
 
-const roleColumnHeader = GlobalInjector.config.rbkUtils.authorization.roles.behavior == 'single' ? 'Perfil' : 'Perfis';
+const roleColumnHeader = GlobalInjector.config.rbkUtils.authorization.allowMultipleRolesPerUser ? 'Perfis' : 'Perfil';
 
 return new SmzTableBuilder()
   .setTitle(GlobalInjector.config.rbkUtils.authorization.users.title)
@@ -23,11 +23,11 @@ return new SmzTableBuilder()
   .setSize('small')
   .useStrippedStyle()
   .menu()
-    .item('Editar Perfil', 'fas fa-user-tag')
+    .item(roleColumnHeader, 'fas fa-user-tag')
       .setVisibilityRule(() => hasUserRolesUpdateAccess)
-      .setCallback((event: UserDetails) => onSetRoles(event, GlobalInjector.config.rbkUtils.authorization.roles.behavior))
+      .setCallback((event: UserDetails) => onSetRoles(event))
       .menu
-    .item('Editar Permissões', 'fas fa-key')
+    .item('Permissões', 'fas fa-key')
       .setCallback((event: UserDetails) => onUpdateClaims(event))
       .setVisibilityRule(() => hasUserClaimsUpdateAccess)
       .menu
@@ -54,19 +54,15 @@ return new SmzTableBuilder()
   .table;
 }
 
-function onSetRoles(event: UserDetails, roleBehavior: RoleBehavior): void {
-  switch (roleBehavior) {
-    case 'single':
-      buildShowSetUserRoleDialog(event);
-      break;
+function onSetRoles(event: UserDetails): void {
 
-    case 'multiple':
-      // buildShowSetUserRolesDialog(event);
-      break;
-
-    default:
-      break;
+  if (GlobalInjector.config.rbkUtils.authorization.allowMultipleRolesPerUser) {
+    buildShowSetUserRolesDialog(event);
   }
+  else {
+    buildShowSetUserRoleDialog(event);
+  }
+
 }
 
 function onUpdateClaims(event: UserDetails): void {
