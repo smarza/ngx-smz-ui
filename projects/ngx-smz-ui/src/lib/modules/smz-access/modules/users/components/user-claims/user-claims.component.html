@@ -1,0 +1,21 @@
+<div class="ui-g form-group">
+    <div class="ui-g-12 ui-md-12">
+        <p-pickList [source]="claims" [target]="targetClaims" [responsive]="true"
+            sourceHeader="Claims disponíveis" targetHeader="Claims associados"
+            sourceFilterPlaceholder="Filtrar claims" targetFilterPlaceholder="Filtrar claims" filterBy="name"
+            [showSourceControls]="false" [showTargetControls]="false" [dragdrop]="true"
+            (onMoveToTarget)="addItemToTarget($event)"
+            (onMoveToSource)="addItemToSource($event)"
+            (onMoveAllToTarget)="addItemToTarget($event)"
+            (onMoveAllToSource)="addItemToSource($event)"
+            >
+            <ng-template let-claim pTemplate="item">
+                {{claim?.description}}
+                <span *ngIf="claim.accessType != null" class="claim-access-type-indicator">
+                    <strong *ngIf="claim.accessType === 0" class="block-text"><i class="pi pi-lock" title="Bloqueado"></i></strong>
+                    <strong *ngIf="claim.accessType === 1" class="allow-text"><i class="pi pi-lock-open" title="Permitido"></i></strong>
+                </span>
+            </ng-template>
+        </p-pickList>
+    </div>
+</div>

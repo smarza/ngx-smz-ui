@@ -203,8 +203,8 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
         return this.that;
     }
 
-    public setRbkUtilsConfigManually(config: NgxRbkUtilsConfig): SmzUiBuilder {
-        this._state.rbkUtils = config;
+    public setRbkUtilsConfigManually(config: Partial<NgxRbkUtilsConfig>): SmzUiBuilder {
+        this._state.rbkUtils = mergeClone(this._state.rbkUtils, config);
         return this.that;
     }
 

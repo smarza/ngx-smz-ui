@@ -52,6 +52,26 @@ export class UsersState {
     );
   }
 
+  @Action(UsersActions.AddClaimsOverride)
+  public onAddClaimsOverride$(ctx: StateContext<UsersStateModel>, action: UsersActions.AddClaimsOverride): Observable<UserDetails> {
+    return this.apiService.addClaimsToUser(action.data).pipe(
+      tap((result: UserDetails) => {
+        ctx.patchState({items: replaceItem(ctx.getState().items, result) });
+        ctx.dispatch(new ToastActions.Success('Permissões do usuário atualizadas com sucesso.'));
+      })
+    );
+  }
+
+  @Action(UsersActions.RemoveClaimsOverride)
+  public onRemoveClaimsOverride$(ctx: StateContext<UsersStateModel>, action: UsersActions.RemoveClaimsOverride): Observable<UserDetails> {
+    return this.apiService.removeClaimsFromUser(action.data).pipe(
+      tap((result: UserDetails) => {
+        ctx.patchState({items: replaceItem(ctx.getState().items, result) });
+        ctx.dispatch(new ToastActions.Success('Permissões do usuário atualizadas com sucesso.'));
+      })
+    );
+  }
+
   @Action(UsersActions.LocalCreate)
   public onLocalCreate$(ctx: StateContext<UsersStateModel>, action: UsersActions.LocalCreate<UserDetails>): void {
     ctx.patchState({ items: [action.data, ...ctx.getState().items] });

@@ -15,8 +15,8 @@ import { CreateRole } from '../models/create-role';
 import { RenameRole } from '../models/rename-role';
 import { UpdateRoleClaims } from '../models/update-role-claims';
 import { ReplaceUserRoles } from '../models/replace-user-roles';
-import { AddClaimOverride } from '../models/add-claim-override';
-import { RemoveClaimOverride } from '../models/remove-claim-override';
+import { AddClaimsOverride } from '../models/add-claims-override';
+import { RemoveClaimsOverride } from '../models/remove-claims-override';
 import { CreateTenant } from '../models/create-tenant';
 import { UpdateTenant } from '../models/update-tenant';
 import { BaseApiService } from '../../rbk-utils/http/base-api.service';
@@ -69,11 +69,11 @@ export class AuthorizationService extends BaseApiService {
   public updateUserRoles(data: ReplaceUserRoles): Observable<UserDetails> {
     return this.http.post<UserDetails>(`${this.endpoint}/users/set-roles`, data, this.generateDefaultHeaders({}));
   }
-  public addClaimToUser(data: AddClaimOverride): Observable<ClaimOverride[]> {
-    return this.http.post<ClaimOverride[]>(`${this.endpoint}/users/add-claim`, data, this.generateDefaultHeaders({}));
+  public addClaimsToUser(data: AddClaimsOverride): Observable<UserDetails> {
+    return this.http.post<UserDetails>(`${this.endpoint}/users/add-claims`, data, this.generateDefaultHeaders({}));
   }
-  public removeClaimFromUser(data: RemoveClaimOverride): Observable<ClaimOverride[]> {
-    return this.http.post<ClaimOverride[]>(`${this.endpoint}/users/remove-claim`, data, this.generateDefaultHeaders({}));
+  public removeClaimsFromUser(data: RemoveClaimsOverride): Observable<UserDetails> {
+    return this.http.post<UserDetails>(`${this.endpoint}/users/remove-claims`, data, this.generateDefaultHeaders({}));
   }
   public getAllTenants(): Observable<TenantDetails[]> {
     return this.http.get<TenantDetails[]>(`${this.endpoint}/tenants`, this.generateDefaultHeaders({}));

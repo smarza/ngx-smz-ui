@@ -1,0 +1,38 @@
+app-user-claims {
+
+  .nameInput {
+    height: 60px;
+  }
+
+  /* Override prime filter icon position on picklist */
+  .p-picklist .p-picklist-filter-container {
+    padding-right: 30px !important;
+  }
+
+  .p-picklist .p-picklist-filter-container .p-picklist-filter-icon {
+    right: 10px !important;
+    left: unset;
+  }
+
+  .p-picklist .p-picklist-list {
+    height: 300px;
+  }
+
+  .p-picklist.p-picklist-responsive .p-picklist-listwrapper.p-picklist-listwrapper-nocontrols {
+    width: 50%;
+  }
+
+  .claim-access-type-indicator {
+      float: right;
+  }
+
+  .allow-text {
+      color: #1a9c2a;
+  }
+
+  .block-text {
+      color: #9c1a1a;
+  }
+
+
+}

@@ -56,7 +56,7 @@ export class TenantsPageComponent implements OnInit {
   }
 
   public showCreationDialog(): void {
-    showCreateTenantDialog;
+    showCreateTenantDialog();
   }
 
 }

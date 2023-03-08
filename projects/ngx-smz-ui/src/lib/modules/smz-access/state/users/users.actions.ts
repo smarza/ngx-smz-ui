@@ -1,5 +1,7 @@
 import { ReplaceUserRoles as ReplaceUserRolesPayload } from '../../models/replace-user-roles';
 import { UserDetails } from '../../models/user-details';
+import { AddClaimsOverride as AddClaimOverridePayload } from '../../models/add-claims-override';
+import { RemoveClaimsOverride as RemoveClaimOverridePayload } from '../../models/remove-claims-override';
 
 export namespace UsersActions {
   export class LoadAll {
@@ -7,8 +9,18 @@ export namespace UsersActions {
   }
 
   export class ReplaceUserRoles {
-    public static readonly type = '[Access API] Update User Roles';
+    public static readonly type = '[Users API] Update User Roles';
     constructor(public data: ReplaceUserRolesPayload) { }
+  }
+
+  export class AddClaimsOverride {
+    public static readonly type = '[Users API] Add Claims Override';
+    constructor(public data: AddClaimOverridePayload) { }
+  }
+
+  export class RemoveClaimsOverride {
+    public static readonly type = '[Users API] Remove Claims Override';
+    constructor(public data: RemoveClaimOverridePayload) { }
   }
 
   export class LocalCreate<TUser extends UserDetails> {

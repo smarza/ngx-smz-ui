@@ -313,6 +313,22 @@ export function takeWhile(input: any[], predicate: CollectionPredicate) {
     return takeUntil(input, (item: any, index: number, collection: any[]) => !predicate(item, index, collection));
 }
 
+export function replaceAll(string, search, replace) {
+    return string.split(search).join(replace);
+}
+
+export function createObjectFromString(str, value: any, separator = '_') {
+    const obj = {};
+    const props = str.split(separator);
+    let currentObj = obj;
+    for (let i = 0; i < props.length; i++) {
+      const prop = props[i];
+      currentObj[prop] = i === props.length - 1 ? value : {};
+      currentObj = currentObj[prop];
+    }
+    return obj;
+  }
+
 export function replaceItem<T>(items: T[], newItem: T): T[] {
     const index = items.findIndex(x => (x as any).id === (newItem as any).id);
 

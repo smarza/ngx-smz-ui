@@ -6,7 +6,7 @@ import { SmzControlType, SmzFileControl } from '../../models/control-types';
 import { SmzFormsResponse, SmzForm } from '../../models/smz-forms';
 import { CONTROL_FUNCTIONS } from '../../models/control-type-functions';
 import { SmzFormsManagerService } from '../../services/smz-forms-manager.service';
-import { uuidv4 } from '../../../../common/utils/utils';
+import { replaceAll, uuidv4 } from '../../../../common/utils/utils';
 import { mergeClone } from '../../../../common/utils/deep-merge';
 import { SmzFormViewdata } from '../../models/form-viewdata';
 import { GlobalInjector } from '../../../../common/services/global-injector';
@@ -112,6 +112,9 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
 
                 for (const input of group.children)
                 {
+
+                    (input as any).propertyName = replaceAll(input.propertyName, '.', '_');
+
                     // SETUP INPUT TEMPLATES
                     input.template = this.manager.setupTemplate(input.template, GlobalInjector.config.dialogs.forms.inputTemplates);
 

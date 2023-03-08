@@ -7,6 +7,7 @@ import { UserDetails } from '../../../models/user-details';
 import { buildShowSetUserRoleDialog } from '../dialogs/show-set-user-role-dialog';
 import { Store } from '@ngxs/store';
 import { buildShowSetUserRolesDialog } from '../dialogs/show-set-user-roles-dialog';
+import { showUpdateUserClaimsDialog } from '../dialogs/update-user-claims-dialog';
 
 export function SmzAuthorizationUserTableBuilder(): SmzTableBuilder {
 
@@ -28,7 +29,7 @@ return new SmzTableBuilder()
       .setCallback((event: UserDetails) => onSetRoles(event))
       .menu
     .item('Permissões', 'fas fa-key')
-      .setCallback((event: UserDetails) => onUpdateClaims(event))
+      .setCallback((event: UserDetails) => showUpdateUserClaimsDialog(event))
       .setVisibilityRule(() => hasUserClaimsUpdateAccess)
       .menu
     .table
@@ -63,8 +64,4 @@ function onSetRoles(event: UserDetails): void {
     buildShowSetUserRoleDialog(event);
   }
 
-}
-
-function onUpdateClaims(event: UserDetails): void {
-  // dialogs.open(buildUpdateUserClaimsDialog(event, helpService));
 }

@@ -1,9 +1,12 @@
 import { ChangeDetectorRef } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
+import { mergeClone } from '../../../common/utils/deep-merge';
 import { SmzFormsManagerService } from '../services/smz-forms-manager.service';
 import { CONTROL_FUNCTIONS } from './control-type-functions';
 import { SmzControlType, SmzControlTypes, SmzTextButtonControl } from './control-types';
 import { SmzForm, SmzFormsResponse } from './smz-forms';
+import { includes } from 'lodash';
+import { createObjectFromString } from '../../../common/utils/utils';
 
 export class SmzFormViewdata {
     public isValid: boolean = false;
@@ -53,7 +56,25 @@ export class SmzFormViewdata {
                             response.isValid = response.isValid && input._inputFormControl.valid;
                         }
 
-                        response.data = { ...response.data, ...value };
+                        let applied = false;
+
+                        if (value != null) {
+                            const keys = Object.keys(value);
+                            if (keys?.length > 0) {
+
+                                if (keys[0].includes('_')) {
+                                    const valueOfKey = Reflect.get(value, keys[0]);
+                                    const objectValue = createObjectFromString(keys[0], valueOfKey, '_');
+                                    response.data = mergeClone(response.data, objectValue);
+                                    applied = true;
+                                }
+                            }
+                        }
+
+                        if (!applied) {
+                            response.data = mergeClone(response.data, value);
+                        }
+
                     }
                 }
 

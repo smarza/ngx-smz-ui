@@ -13,6 +13,7 @@ import { PickListModule } from 'primeng/picklist';
 import { RbkAuthGuard } from '../../../rbk-utils/auth/auth.guard';
 import { GlobalInjector } from '../../../../common/services/global-injector';
 import { NgxSmzMenuModule } from '../../../smz-menu/smz-menu.module';
+import { UserClaimsComponent } from './components/user-claims/user-claims.component';
 
 const routes: Routes = [
   {
@@ -34,7 +35,7 @@ const routes: Routes = [
 export const routerModuleForChildUsersModule = RouterModule.forChild(routes);
 
 @NgModule({
-  declarations: [UsersPageComponent],
+  declarations: [UsersPageComponent, UserClaimsComponent],
   imports: [
     CommonModule,
     routerModuleForChildUsersModule,

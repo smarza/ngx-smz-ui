@@ -10,9 +10,9 @@ export class UsersSelectors {
     return cloneDeep(state.items);
   }
 
-  public static single(id: string) {
+  public static single(username: string) {
     return createSelector([UsersState], (state: UsersStateModel) => {
-      const user = cloneDeep(state.items.find(x => x.id === id));
+      const user = cloneDeep(state.items.find(x => x.username === username));
       return user;
     });
   }

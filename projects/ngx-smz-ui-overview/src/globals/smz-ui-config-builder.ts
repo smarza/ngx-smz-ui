@@ -9,15 +9,22 @@ import { DemoFeatureName, DemoFeatureState, getFtDemoInitialState } from '@state
 import { ShopsDbActions } from '@states/database/shops/shops.actions';
 import { WarehousesDbActions } from '@states/database/warehouses/warehouses.actions';
 import { DemoFeatureActions } from '@states/demo/demo.actions';
+import { rbkConfig } from './rbk-config';
 
 export const UiConfigBuilder: SmzUiBuilder = new SmzUiBuilder()
 .setApplicationName('Overview Demo')
 .setDialogsConfigManually(smzDialogsConfig) // Temporally
 .setLayoutsConfigManually(smzLayoutsConfig) // Temporally
+.setRbkUtilsConfigManually(rbkConfig)
 .authentication()
   .mapAccessTokenData('rol', 'roles', 'array')
   .mapAccessTokenData('Picture', 'picture', 'string')
-  .builder
+  .login()
+    .useSingleTenantAplication('proteus')
+    .addToLoginPayload('domain', 'BUZIOS')
+    .addToLoginPayload('applicationId', 'SMZ-UI-OVERVIEW')
+    .authorization
+.builder
 .states()
   .addDatabase(CountriesDbName)
     .setState(CountriesDbState)

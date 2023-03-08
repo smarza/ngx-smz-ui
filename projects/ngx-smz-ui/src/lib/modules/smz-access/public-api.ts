@@ -8,9 +8,8 @@ export * from './modules/roles/roles.module';
 export * from './modules/tenants/tenants.module';
 
 // MODELS
-export * from './models/add-claim-override';
+export * from './models/add-claims-override';
 export * from './models/auth-claim-definitions';
-export * from './models/authenticated-user';
 export * from './models/claim-access-type';
 export * from './models/claim-details';
 export * from './models/claim-override';
@@ -19,7 +18,7 @@ export * from './models/create-role';
 export * from './models/create-tenant';
 export * from './models/create-tenant-admin-user';
 export * from './models/protect-claim';
-export * from './models/remove-claim-override';
+export * from './models/remove-claims-override';
 export * from './models/rename-role';
 export * from './models/replace-user-roles';
 export * from './models/roles-details';
@@ -44,10 +43,6 @@ export * from './services/authorization.service';
 // UTILS
 
 export * from './state/state-parameters';
-
-export * from './state/access/access.actions';
-export * from './state/access/access.selectors';
-export * from './state/access/access.state';
 
 export * from './state/roles/roles.actions';
 export * from './state/roles/roles.selectors';

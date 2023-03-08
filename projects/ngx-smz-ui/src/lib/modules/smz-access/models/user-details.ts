@@ -1,4 +1,5 @@
 import { SimpleNamedEntity } from '../../../common/models/simple-named-entity';
+import { ClaimOverride } from './claim-override';
 
 export interface UserDetails {
   username: string;
@@ -7,6 +8,8 @@ export interface UserDetails {
   lastLogin?: Date;
   metadata: string;
   isConfirmed: boolean;
+  claims: SimpleNamedEntity[];
   roles: SimpleNamedEntity[];
+  overridedClaims: ClaimOverride[];
   id: string;
 }

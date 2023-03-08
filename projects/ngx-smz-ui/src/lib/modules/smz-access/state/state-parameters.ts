@@ -1,5 +1,4 @@
 import { DatabaseStateParameters } from '../../rbk-utils/ngx-rbk-utils.config';
-import { AccessState, ACCESS_STATE_NAME, getAccessInitialState } from './access/access.state';
 import { ClaimsActions } from './claims/claims.actions';
 import { ClaimsState, CLAIMS_STATE_NAME } from './claims/claims.state';
 import { RolesActions } from './roles/roles.actions';
@@ -37,8 +36,4 @@ export const databaseSmzAccessStates: {[name: string]: DatabaseStateParameters} 
 };
 
 export const featureSmzAccessStates: {[name: string]: DatabaseStateParameters} = {
-  [ACCESS_STATE_NAME]: {
-    state: AccessState,
-    clearFunction: () => getAccessInitialState(),
-  },
 };
