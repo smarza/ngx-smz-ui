@@ -115,7 +115,7 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
                     errorHandlingType: 'toast',
                     responsePropertyName: 'refreshToken',
                     loadingBehavior: 'global',
-                    extraProperties: { }
+                    extraProperties: {}
                 },
                 accessTokenClaims: [
                     { claimName: 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name', propertyName: 'username', type: 'string' },
@@ -189,11 +189,13 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
         },
         dialogs: {
         },
-        layouts: null
+        layouts: null,
+        locale: null
     };
 
     constructor() {
         super();
+        this.setLocale('pt-BR');
     }
 
     public setDialogsConfigManually(config: SmzDialogsConfig): SmzUiBuilder {
@@ -231,6 +233,41 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
     public debugMode(): SmzUiBuilder {
         this._state.debugMode = true;
         return this.that;
+    }
+
+    public setLocale(language: 'pt-BR' | 'en-US'): SmzUiBuilder {
+
+        switch (language) {
+            case 'pt-BR':
+                this._state.locale = {
+                    code: language,
+                    authorization: {
+                        tenant: {
+                            displayName: 'Domínio'
+                        }
+                    },
+                };
+
+                break;
+
+            case 'en-US':
+
+                this._state.locale = {
+                    code: language,
+                    authorization: {
+                        tenant: {
+                            displayName: 'Tenant'
+                        }
+                    },
+                };
+
+                break;
+
+            default:
+                break;
+        }
+
+        return this;
     }
 
     public Build(): NgxSmzUiConfig {

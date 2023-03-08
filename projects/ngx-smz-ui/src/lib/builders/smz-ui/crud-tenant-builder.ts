@@ -28,7 +28,7 @@ export class SmzUiTenantCrudBuilder extends SmzBuilderUtilities<SmzUiTenantCrudB
 
     this._config = {
       menu: 'Admin',
-      title: 'Cadastro de Tenants',
+      title: `Cadastro de ${this._state.locale.authorization.tenant.displayName}s`,
       router: {
         path: TENANTS_PATH
       },
@@ -42,7 +42,7 @@ export class SmzUiTenantCrudBuilder extends SmzBuilderUtilities<SmzUiTenantCrudB
       isVisible: true
     };
 
-    this._menu = { label: 'Tenants', routerLink: TENANTS_PAGE_ROUTE, claims: [AuthClaimDefinitions.MANAGE_TENANTS] };
+    this._menu = { label: `${this._state.locale.authorization.tenant.displayName}s`, routerLink: TENANTS_PAGE_ROUTE, claims: [AuthClaimDefinitions.MANAGE_TENANTS] };
   }
 
   public setTitle(title: string): SmzUiTenantCrudBuilder {

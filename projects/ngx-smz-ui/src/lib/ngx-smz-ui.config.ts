@@ -7,5 +7,14 @@ export class NgxSmzUiConfig {
     public rbkUtils: NgxRbkUtilsConfig;
     public dialogs: SmzDialogsConfig;
     public layouts: SmzLayoutsConfig;
-
+    public locale: SmzLocaleConfig;
 }
+
+export interface SmzLocaleConfig {
+    code: "pt-BR" | "en-US";
+    authorization: {
+        tenant: {
+            displayName: string;
+        }
+    }
+};

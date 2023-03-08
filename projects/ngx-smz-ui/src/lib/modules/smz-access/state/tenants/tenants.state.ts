@@ -7,6 +7,7 @@ import { TenantDetails } from '../../models/tenant-details';
 import { replaceItem } from '../../../../common/utils/utils';
 import { ToastActions } from '../../../../../lib/state/global/application/application.actions.toast';
 import { AuthorizationService } from '../../services/authorization.service';
+import { GlobalInjector } from '../../../../common/services/global-injector';
 
 export const TENANTS_STATE_NAME = 'tenants';
 
@@ -47,7 +48,8 @@ export class TenantsState {
         ctx.patchState({
           items: [ result, ...ctx.getState().items ]
         });
-        ctx.dispatch(new ToastActions.Success('Permissão de acesso criada com sucesso'))
+        const displayName = GlobalInjector.config.locale.authorization.tenant.displayName;
+        ctx.dispatch(new ToastActions.Success(`${displayName} criada com sucesso`))
       })
     );
   }
@@ -59,7 +61,8 @@ export class TenantsState {
         ctx.patchState({
           items: replaceItem(ctx.getState().items, result)
         });
-        ctx.dispatch(new ToastActions.Success('Permissão de acesso atualizada com sucesso'))
+        const displayName = GlobalInjector.config.locale.authorization.tenant.displayName;
+        ctx.dispatch(new ToastActions.Success(`${displayName} atualizado com sucesso`))
       })
     );
   }
@@ -71,7 +74,8 @@ export class TenantsState {
         ctx.patchState({
           items: [ ...ctx.getState().items.filter(x => x.alias !== action.alias) ]
         });
-        ctx.dispatch(new ToastActions.Success('Permissão de acesso excluída com sucesso'))
+        const displayName = GlobalInjector.config.locale.authorization.tenant.displayName;
+        ctx.dispatch(new ToastActions.Success(`${displayName} excluído com sucesso`))
       })
     );
   }

@@ -2,8 +2,7 @@ import { AuthClaimDefinitions, SmzUiBuilder } from 'ngx-smz-ui';
 import { smzDialogsConfig } from './deprecated/smz-config';
 import { smzLayoutsConfig } from './deprecated/smz-layouts.config';
 import { CustomUserTableBuilder } from '../app/functions/custom-user-table-state';
-import { showCreateUserWithMultipleRoleDialog } from '../app/functions/create-user-with-multiple-role-dialog';
-import { showCreateUserWithSingleRoleDialog } from '../app/functions/create-user-with-single-role-dialog';
+import { showUserCreationDialog } from '../app/functions/show-user-creation-dialog';
 import { getFtUsersInitialState, UsersFtState, USERS_FT_STATE_NAME } from '@states/features/users/users.state';
 
 export const UiBuilder: SmzUiBuilder = new SmzUiBuilder()
@@ -16,8 +15,9 @@ export const UiBuilder: SmzUiBuilder = new SmzUiBuilder()
     .mapAccessTokenData('tenant', 'tenant', 'string')
     .mapAccessTokenData('display-name', 'displayName', 'string')
     .mapAccessTokenData('has-tenant', 'hasTenant', 'boolean')
+    .setTenantDisplayName('Domínio')
     .login()
-      .useSingleTenantAplication('proteus')
+      // .useSingleTenantAplication('proteus')
       .allowSuperuser()
       .authorization
     .builder
@@ -28,10 +28,7 @@ export const UiBuilder: SmzUiBuilder = new SmzUiBuilder()
       .addButtons()
         .item('Criar Usuário')
           .hasClaimAccess(AuthClaimDefinitions.MANAGE_USERS)
-          .setCallback(() => {
-            showCreateUserWithMultipleRoleDialog();
-            // showCreateUserWithSingleRoleDialog();
-          })
+          .setCallback(() => showUserCreationDialog())
           .menu
         .back
       .authorization

@@ -1,18 +1,21 @@
 import { Store } from '@ngxs/store';
-import { SmzDialog } from '../../../../smz-dialogs/models/smz-dialogs';
 import { SmzDialogBuilder } from '../../../../../builders/smz-dialogs/dialog-builder';
 import { nameof } from '../../../../../common/models/simple-named-entity';
 import { CreateTenant } from '../../../models/create-tenant';
 import { SmzTextPattern } from '../../../../smz-forms/models/text-patterns';
 import { TenantsActions } from '../../../state/tenants/tenants.actions';
 import { GlobalInjector } from '../../../../../common/services/global-injector';
+import { SmzDialogsService } from '../../../../smz-dialogs/services/smz-dialogs.service';
 
-export function CreateTenantDialog(): SmzDialog<CreateTenant> {
+export function showCreateTenantDialog(): void {
+
+  const displayName = GlobalInjector.config.locale.authorization.tenant.displayName;
 
   const store = GlobalInjector.instance.get(Store);
+  const dialogs = GlobalInjector.instance.get(SmzDialogsService);
 
-  return new SmzDialogBuilder<CreateTenant>()
-    .setTitle('Criar Permissão de Acesso')
+  dialogs.open(new SmzDialogBuilder<CreateTenant>()
+    .setTitle(`Criar ${displayName}`)
     .setLayout('LARGE', 'col-4')
     .setLayout('MEDIUM', 'col-6')
     .setLayout('SMALL', 'col-12')
@@ -37,5 +40,6 @@ export function CreateTenantDialog(): SmzDialog<CreateTenant> {
         .hide()
         .buttons
       .dialog
-    .build();
+    .build()
+  );
 }

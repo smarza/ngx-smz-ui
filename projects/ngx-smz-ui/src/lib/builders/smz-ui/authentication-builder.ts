@@ -22,6 +22,12 @@ export class SmzUiAuthenticationBuilder extends SmzBuilderUtilities<SmzUiAuthent
     return new SmzUiAuthenticationLoginBuilder(this, this._builder._state);
   }
 
+  public setTenantDisplayName(name: string): SmzUiAuthenticationBuilder {
+    this._builder._state.locale.authorization.tenant.displayName = name;
+    return this.that;
+  }
+
+
   public get builder(): SmzUiBuilder {
     return this._builder;
   }
