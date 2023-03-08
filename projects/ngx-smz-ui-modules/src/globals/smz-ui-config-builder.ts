@@ -16,7 +16,7 @@ export const UiBuilder: SmzUiBuilder = new SmzUiBuilder()
   .mapAccessTokenData('tenant', 'tenant', 'string')
   .mapAccessTokenData('display-name', 'displayName', 'string')
   .mapAccessTokenData('has-tenant', 'hasTenant', 'boolean')
-  .useLoginModule()
+  .login()
     .useSingleTenantAplication('proteus')
     .allowSuperuser()
     .authorization

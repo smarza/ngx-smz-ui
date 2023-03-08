@@ -148,7 +148,7 @@ export class MenuHelperService {
     }
 
     // CHECAR ACESSO DO USUÁRIO
-    const hasAccess = creation.claim == null ? true : this.store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(creation.claim));
+    const hasAccess = creation.claims == null ? true : this.store.selectSnapshot(AuthenticationSelectors.hasAnyOfClaimAccess(creation.claims));
 
     if (!hasAccess) {
       return accessBehavior === 'hide' ? null : { ...result, disabled: true };

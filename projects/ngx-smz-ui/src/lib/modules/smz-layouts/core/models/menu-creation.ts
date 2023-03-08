@@ -1,5 +1,5 @@
 export interface MenuCreation {
-  claim?: string;
+  claims?: string[];
   label?: string;
   icon?: string;
   command?: (event?: any) => void;

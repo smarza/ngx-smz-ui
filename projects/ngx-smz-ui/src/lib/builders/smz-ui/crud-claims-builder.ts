@@ -40,7 +40,7 @@ export class SmzUiClaimsCrudBuilder extends SmzBuilderUtilities<SmzUiClaimsCrudB
       isVisible: true
     };
 
-    this._menu = { label: 'Permissões', routerLink: CLAIMS_PAGE_ROUTE, claim: AuthClaimDefinitions.MANAGE_CLAIMS };
+    this._menu = { label: 'Permissões', routerLink: CLAIMS_PAGE_ROUTE, claims: [AuthClaimDefinitions.MANAGE_CLAIMS] };
   }
 
   public setTitle(title: string): SmzUiClaimsCrudBuilder {

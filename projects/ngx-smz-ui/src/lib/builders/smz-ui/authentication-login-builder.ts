@@ -29,6 +29,50 @@ export class SmzUiAuthenticationLoginBuilder extends SmzBuilderUtilities<SmzUiAu
     return this.that;
   }
 
+  public setMessage(message: string): SmzUiAuthenticationLoginBuilder {
+    this._state.rbkUtils.authentication.login.page.overrideState.message = message;
+    return this.that;
+  }
+
+  public setLoginButtonLabel(label: string): SmzUiAuthenticationLoginBuilder {
+    this._state.rbkUtils.authentication.login.page.overrideState.loginButtonLabel = label;
+    return this.that;
+  }
+
+  public setExtraInfo(extraInfo: string): SmzUiAuthenticationLoginBuilder {
+    this._state.rbkUtils.authentication.login.page.overrideState.extraInfo = extraInfo;
+    return this.that;
+  }
+
+
+  public setLogoType(type: 'horizontal' | 'vertical' | 'icon' | 'typo'): SmzUiAuthenticationLoginBuilder {
+    this._state.rbkUtils.authentication.login.page.overrideState.logo.type = type;
+    return this.that;
+  }
+
+  public useCustomLogo(imagePath: string): SmzUiAuthenticationLoginBuilder {
+    this._state.rbkUtils.authentication.login.page.overrideState.logo.customPath = imagePath;
+    return this.that;
+  }
+
+  public setLogoSize(sizes: 'small' | 'medium' | 'large' | 'hero'): SmzUiAuthenticationLoginBuilder {
+    switch (sizes) {
+      case 'small':
+        this._state.rbkUtils.authentication.login.page.overrideState.logo.styleClass = 'w-1/4';
+        break;
+      case 'medium':
+        this._state.rbkUtils.authentication.login.page.overrideState.logo.styleClass = 'w-2/5 ';
+        break;
+      case 'large':
+        this._state.rbkUtils.authentication.login.page.overrideState.logo.styleClass = 'w-3/5 ';
+        break;
+      case 'hero':
+        this._state.rbkUtils.authentication.login.page.overrideState.logo.styleClass = 'w-full';
+        break;
+    }
+    return this.that;
+  }
+
   public get authorization(): SmzUiAuthenticationBuilder {
     return this._builder;
   }

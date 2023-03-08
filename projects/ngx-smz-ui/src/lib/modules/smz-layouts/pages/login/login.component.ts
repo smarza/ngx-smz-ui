@@ -10,6 +10,7 @@ import { SmzFormBuilder } from '../../../../builders/smz-forms/form-builder';
 import { isEmpty } from '../../../rbk-utils/utils/utils';
 import { compareInsensitive, getFirst } from '../../../../common/utils/utils';
 import { AuthenticationActions } from '../../../../state/global/authentication/authentication.actions';
+import { mergeClone } from '../../../../common/utils/deep-merge';
 
 interface LoginData {
   tenant?: SimpleEntity<string>;
@@ -34,58 +35,60 @@ export class LoginComponent {
     const config = GlobalInjector.config.rbkUtils.authentication;
     const tenants = config.login.showTenantSelector ? this.getTenants() : [];
 
-    return new SmzLoginBuilder<LoginData, LoginPayload>()
-      .setMessage('Entre com suas credenciais')
-      .setLogoType('horizontal')
-      .setLogoSize('large')
-      .setBackground('bg-[#1e293b]')
-      .setPayloadCallback((response: LoginData) => {
+    const state = new SmzLoginBuilder<LoginData, LoginPayload>()
+    .setMessage('Entre com suas credenciais')
+    .setLogoType('horizontal')
+    .setLogoSize('large')
+    .setBackground('bg-[#1e293b]')
+    .setPayloadCallback((response: LoginData) => {
 
-        let extraProperties: { [name: string]: string } = { };
+      let extraProperties: { [name: string]: string } = { };
 
-        if (config.refreshToken?.extraProperties != null) {
-          // Adicionar propriedades extras definidas no startup do projeto
-          extraProperties = config.refreshToken.extraProperties;
-        }
+      if (config.refreshToken?.extraProperties != null) {
+        // Adicionar propriedades extras definidas no startup do projeto
+        extraProperties = config.refreshToken.extraProperties;
+      }
 
-        if (config.allowSuperuser && response.username == config.login.superuser) {
-          // Superuser login
-        }
-        else if (config.useSingleTenantAplication) {
-          // Aplicação configurada para único Tenant
-          extraProperties.tenant = config.login.applicationTenant;
-        }
-        else if (config.login.showTenantSelector) {
-          // Adicionar Tenant escolhido pelo usuário no seletor de Tenants
-          extraProperties.tenant = response.tenant.id;
-        }
+      if (config.allowSuperuser && response.username == config.login.superuser) {
+        // Superuser login
+      }
+      else if (config.useSingleTenantAplication) {
+        // Aplicação configurada para único Tenant
+        extraProperties.tenant = config.login.applicationTenant;
+      }
+      else if (config.login.showTenantSelector) {
+        // Adicionar Tenant escolhido pelo usuário no seletor de Tenants
+        extraProperties.tenant = response.tenant.id;
+      }
 
-        return { username: response.username, password: response.password, extraProperties };
+      return { username: response.username, password: response.password, extraProperties };
 
-      })
-      .setLoginAction(AuthenticationActions.RemoteLogin)
-      .setLogoutAction(AuthenticationActions.Logout)
-      .setForm(
-        new SmzFormBuilder<LoginData>()
-          .enableSubmitOnEnter()
-          .disableFlattenResponse()
-          .group()
-            .setLayout('EXTRA_SMALL', 'col-12')
-            .if(config.login.showTenantSelector)
-              .dropdown('tenant', 'Domínios', tenants, getFirst(tenants)?.id)
-                .validators().required()
-                .group
-            .endIf
-          .text(nameof<LoginData>('username'), 'Usuário')
-            .validators().required()
-            .group
-          .password(nameof<LoginData>('password'), 'Senha')
-            .validators().required()
-            .group
-          .form
-          .build()
-      )
-      .build();
+    })
+    .setLoginAction(AuthenticationActions.RemoteLogin)
+    .setLogoutAction(AuthenticationActions.Logout)
+    .setForm(
+      new SmzFormBuilder<LoginData>()
+        .enableSubmitOnEnter()
+        .disableFlattenResponse()
+        .group()
+          .setLayout('EXTRA_SMALL', 'col-12')
+          .if(config.login.showTenantSelector)
+            .dropdown('tenant', 'Domínios', tenants, getFirst(tenants)?.id)
+              .validators().required()
+              .group
+          .endIf
+        .text(nameof<LoginData>('username'), 'Usuário')
+          .validators().required()
+          .group
+        .password(nameof<LoginData>('password'), 'Senha')
+          .validators().required()
+          .group
+        .form
+        .build()
+    )
+    .build();
+
+    return { ...state, ...config.login.page.overrideState };
 
   }
 

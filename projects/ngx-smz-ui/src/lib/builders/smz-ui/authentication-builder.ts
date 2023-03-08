@@ -18,7 +18,7 @@ export class SmzUiAuthenticationBuilder extends SmzBuilderUtilities<SmzUiAuthent
     return this.that;
   }
 
-  public useLoginModule(): SmzUiAuthenticationLoginBuilder {
+  public login(): SmzUiAuthenticationLoginBuilder {
     return new SmzUiAuthenticationLoginBuilder(this, this._builder._state);
   }
 

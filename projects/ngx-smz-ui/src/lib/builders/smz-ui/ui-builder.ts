@@ -106,7 +106,8 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
                     showTenantSelector: false,
                     page: {
                         useSmzLoginModule: false,
-                        state: null
+                        state: null,
+                        overrideState: {}
                     }
                 },
                 refreshToken: {

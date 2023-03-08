@@ -34,7 +34,7 @@ export class SmzMenuCreationItemBuilder<TGet> {
       this._item.items = [];
     }
     // const item: MenuCreation = { label, icon, transforms: [] };
-    const item: MenuCreation = { label, icon };
+    const item: MenuCreation = { label, icon, claims: [] };
     this._item.items.push(item);
 
     return new SmzMenuCreationItemBuilder(this._menuBuilder, this, item);
@@ -51,7 +51,7 @@ export class SmzMenuCreationItemBuilder<TGet> {
   }
 
   public hasClaimAccess(claim: string): SmzMenuCreationItemBuilder<TGet> {
-    this._item.claim = claim;
+    this._item.claims.push(claim);
     return this;
   }
 

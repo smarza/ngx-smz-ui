@@ -42,7 +42,7 @@ export class SmzUiTenantCrudBuilder extends SmzBuilderUtilities<SmzUiTenantCrudB
       isVisible: true
     };
 
-    this._menu = { label: 'Tenants', routerLink: TENANTS_PAGE_ROUTE, claim: AuthClaimDefinitions.MANAGE_TENANTS };
+    this._menu = { label: 'Tenants', routerLink: TENANTS_PAGE_ROUTE, claims: [AuthClaimDefinitions.MANAGE_TENANTS] };
   }
 
   public setTitle(title: string): SmzUiTenantCrudBuilder {

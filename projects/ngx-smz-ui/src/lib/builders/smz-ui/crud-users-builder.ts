@@ -42,7 +42,7 @@ export class SmzUiUsersCrudBuilder extends SmzBuilderUtilities<SmzUiUsersCrudBui
       isVisible: true
     };
 
-    this._menu = { label: 'Usuários', routerLink: USERS_PAGE_ROUTE, claim: AuthClaimDefinitions.MANAGE_USERS };
+    this._menu = { label: 'Usuários', routerLink: USERS_PAGE_ROUTE, claims: [AuthClaimDefinitions.MANAGE_USERS] };
   }
 
   public setTitle(title: string): SmzUiUsersCrudBuilder {

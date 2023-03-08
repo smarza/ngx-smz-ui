@@ -68,6 +68,7 @@ export class NgxRbkUtilsConfig {
             page: {
                 useSmzLoginModule: boolean;
                 state: SmzLoginState<any, any>;
+                overrideState: Partial<SmzLoginState<any, any>>;
             }
         };
         refreshToken: {
