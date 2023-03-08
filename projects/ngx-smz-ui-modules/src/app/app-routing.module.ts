@@ -16,7 +16,7 @@ const routes: Routes = [
       { path: HOME_PATH, loadChildren: () => import('./ui/features/home/home.module').then(m => m.HomeModule) },
     ]
   },
-  { path: LOGIN_PAGE_PATH, loadChildren: () => import('./ui/features/login/login.module').then(m => m.LoginModule) },
+
   { path: '', redirectTo: HOME_PATH, pathMatch: 'full' },
 ];
 

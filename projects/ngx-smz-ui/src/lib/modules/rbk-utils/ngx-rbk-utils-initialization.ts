@@ -116,6 +116,8 @@ export function runRbkInitialization() {
             DATABASE_REQUIRED_ACTIONS.push(...requiredActions);
         }
     }
+
+    GlobalInjector.config = mainConfig;
 }
 
 function getRouteRoot(routes: Routes): Route {

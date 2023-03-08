@@ -36,7 +36,7 @@ export function isInteger(value: number): boolean {
 }
 
 export function compareInsensitive(str1: string, str2: string): boolean {
-    return str1.toLocaleLowerCase() === str2.toLocaleLowerCase();
+    return str1?.toLocaleLowerCase() === str2?.toLocaleLowerCase();
 }
 
 export function compare(str1: string, str2: string): boolean {

@@ -2,6 +2,7 @@ import { Store } from '@ngxs/store';
 import { SmzAuthorizationUserState } from '../smz-access/modules/users/models/smz-authorization-user-state';
 import { SmzDocumentConfig } from '../smz-documents/models/smz-document-config';
 import { MenuCreation } from '../smz-layouts/core/models/menu-creation';
+import { SmzLoginState } from '../smz-layouts/features/login/login-state';
 import { LoginResponse } from './auth/models';
 import { CustomError } from './error-handler/error.handler';
 import { HttpBehaviorParameters } from './http/base-api.service';
@@ -53,7 +54,7 @@ export class NgxRbkUtilsConfig {
         authenticatedRoot: string;
         nonAuthenticatedRoot: string;
         allowSuperuser: boolean;
-        useTenant: boolean;
+        useSingleTenantAplication: boolean;
         login: {
             url: string;
             route: string;
@@ -62,8 +63,12 @@ export class NgxRbkUtilsConfig {
             responsePropertyName: string; // this is used in the login and refresh token endpoint responses
             redirectCallback?: (response: LoginResponse) => void;
             superuser: string;
-            tenant: string;
+            applicationTenant: string;
             showTenantSelector: boolean;
+            page: {
+                useSmzLoginModule: boolean;
+                state: SmzLoginState<any, any>;
+            }
         };
         refreshToken: {
             url: string;

@@ -94,23 +94,27 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
                 authenticatedRoot: '/home',
                 nonAuthenticatedRoot: '/login',
                 allowSuperuser: false,
-                useTenant: false,
+                useSingleTenantAplication: false,
                 login: {
                     url: `${environment.authenticationApi}/api/authentication/login`,
-                    route: '/login',
+                    route: 'login',
                     errorHandlingType: 'toast',
                     responsePropertyName: 'accessToken',
                     loadingBehavior: 'global',
                     superuser: 'superuser',
-                    tenant: '',
+                    applicationTenant: '',
                     showTenantSelector: false,
+                    page: {
+                        useSmzLoginModule: false,
+                        state: null
+                    }
                 },
                 refreshToken: {
                     url: `${environment.authenticationApi}/api/authentication/refresh-token`,
                     errorHandlingType: 'toast',
                     responsePropertyName: 'refreshToken',
                     loadingBehavior: 'global',
-                    extraProperties: { tenant: '' }
+                    extraProperties: { }
                 },
                 accessTokenClaims: [
                     { claimName: 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name', propertyName: 'username', type: 'string' },

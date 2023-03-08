@@ -1,15 +1,9 @@
 module.exports = {
-  prefix: '',
-  important: true,
-  content: [
-      './src/**/*.{html,ts}',
-      'dist/ngx-smz-ui/**/*.{html,ts,js,mjs}'
+  presets: [
+    require('../../dist/ngx-smz-ui/tailwind.preset.js')
   ],
-  theme: {
-    extend: {},
-  },
-  variants: {
-    extend: {},
-  },
-  plugins: [],
+  content: [
+    'projects/ngx-smz-ui-modules/src/**/*.{html,ts,tsx,js,jsx,mjs}',
+    'dist/ngx-smz-ui/**/*.{html,ts,tsx,js,jsx,mjs}'
+  ],
 };

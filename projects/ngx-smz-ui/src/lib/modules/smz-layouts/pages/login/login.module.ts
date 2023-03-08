@@ -7,6 +7,7 @@ import { NgxSmzFormsModule } from '../../../smz-forms/smz-forms.module';
 import { SmzRouteData } from '../../core/models/route-layout-data';
 import { SmzLoginModule } from '../../features/login/login.module';
 import { LoginComponent } from './login.component';
+import { RbkDatabaseStateGuard } from '../../../rbk-utils/utils/state/database-state.guard';
 
 const data: SmzRouteData = {
   layout: {
@@ -21,7 +22,7 @@ const data: SmzRouteData = {
 const routes: Routes = [
   {
     path: '',
-    canActivate: [],
+    canActivate: [RbkDatabaseStateGuard],
     component: LoginComponent,
     data
   },

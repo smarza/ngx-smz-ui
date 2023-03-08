@@ -17,13 +17,13 @@ export class RbkDatabaseStateGuard implements CanActivate {
 
         const states: string[] = snapshot.routeConfig.data.requiredStates ?? [];
 
-        // const useTenant = GlobalInjector.config.rbkUtils.authentication.useTenant;
+        const useSingleTenantAplication = GlobalInjector.config.rbkUtils.authentication.useSingleTenantAplication;
 
-        // if (useTenant) {
-        //     if (states.findIndex(x => x === TENANTS_STATE_NAME) === -1) {
-        //         states.push(TENANTS_STATE_NAME);
-        //     }
-        // }
+        if (!useSingleTenantAplication) {
+            if (states.findIndex(x => x === TENANTS_STATE_NAME) === -1) {
+                states.push(TENANTS_STATE_NAME);
+            }
+        }
 
         if (snapshot.routeConfig.data.requiredStates == null ||
             snapshot.routeConfig.data.requiredStates?.length === 0) {
