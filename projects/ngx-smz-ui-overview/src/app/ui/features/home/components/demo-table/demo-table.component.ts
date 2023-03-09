@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges
 import { LARGE_TABLE_DATA } from '@demos/data/large-table';
 import { DemoItem, DemoTreeNode } from '@models/demo';
 import { Store } from '@ngxs/store';
-import { DemoFeatureSelectors } from '@states/demo/demo.selectors';
 import { SmzTableComponent, SmzTableState } from 'ngx-smz-ui';
 import { Observable } from 'rxjs';
 
@@ -13,8 +12,7 @@ import { Observable } from 'rxjs';
 <smz-ui-table table [items]="items$ | async" [state]="state">
   <ng-template pTemplate="rowContent" let-item>
     <div class="grid grid-nogutter justify-start items-start">
-      <div>Row Expanded</div>
-      <div>{{ item | json }}</div>
+      <div [innerHTML]="item | prettyjson: [true, 3]"></div>
     </div>
   </ng-template>
     <!-- CONTEÚDOS COM OVERRIDE -->

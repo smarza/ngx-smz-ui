@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { DemoTreeNode } from '@models/demo';
 import { FormGroupComponent, SmzForm, SmzDialogsService, SmzDialogBuilder, SmzFormsResponse, SmzUiBlockService } from 'ngx-smz-ui';
+import { PrettyJsonPipe } from '../../../../../../../../ngx-smz-ui/src/lib/common/data-pipes/pipes/pretty-json.pipe';
 
 @Component({
   selector: 'app-demo-form',
@@ -71,10 +72,11 @@ export class DemoFormComponent implements OnInit, OnChanges {
     const data = this.formComponent.getData();
     console.log('formComponent', this.formComponent);
     console.log('formResponse', data);
+    const message = new PrettyJsonPipe().transform(JSON.stringify(data), [true, 3]);
     this.dialog.open(
       new SmzDialogBuilder()
         .setTitle(`Resposta do Form: ${this.node.label}`)
-        .message(JSON.stringify(data))
+        .message(message)
         .buttons()
           .confirm().hide().buttons
           .cancel('FECHAR').buttons

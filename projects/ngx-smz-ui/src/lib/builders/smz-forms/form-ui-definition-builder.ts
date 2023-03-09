@@ -32,7 +32,7 @@ export class SmzFormUiDefinitionBuilder<TResponse> extends SmzBaseUiDefinitionBu
       default:
         // Legacy
         const form: SmzForm<unknown> = convertFormFeature(this.entityName, store, this.dataEntity, this.uiDefinitionOptions).data as any;
-        this._formBuilder._state.groups.push(...updateForm.groups);
+        this._formBuilder._state.groups.push(...form.groups);
         return this._formBuilder;
     }
 

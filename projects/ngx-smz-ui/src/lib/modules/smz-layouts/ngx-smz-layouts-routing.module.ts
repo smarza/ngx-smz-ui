@@ -36,8 +36,6 @@ export class NgxSmzLayoutsRoutingModule {
     if (newRoutes.length > 0) {
       this.router.resetConfig([...newRoutes, ...this.router.config ]);
     }
-
-    console.log(this.router.config);
   }
 
 }
