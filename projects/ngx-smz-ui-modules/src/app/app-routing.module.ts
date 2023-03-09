@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HOME_PATH, LOGIN_PAGE_PATH } from '@routes';
+import { HOME_PATH } from '@routes';
 import { RbkAuthGuard, RbkDatabaseStateGuard, UI_DEFINITIONS_STATE_NAME } from 'ngx-smz-ui';
 
 const routes: Routes = [
@@ -14,10 +14,9 @@ const routes: Routes = [
     },
     children: [
       { path: HOME_PATH, loadChildren: () => import('./ui/features/home/home.module').then(m => m.HomeModule) },
+      { path: '', redirectTo: HOME_PATH, pathMatch: 'full' }
     ]
   },
-
-  { path: '', redirectTo: HOME_PATH, pathMatch: 'full' },
 ];
 
 @NgModule({

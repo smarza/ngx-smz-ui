@@ -1,3 +1,6 @@
-<div class="text-lg">
-  {{ (userdata$ | async) | json }}
+<div class="grid grid-nogutter items-start justify-start">
+  <!-- <div class="text-lg" [ngStyle]="{ 'line-break': 'anywhere' }">
+    {{ (userdata$ | async) | json }}
+  </div> -->
+  <pre [innerHTML]="(userdata$ | async) | prettyjson: [true, 3]"></pre>
 </div>

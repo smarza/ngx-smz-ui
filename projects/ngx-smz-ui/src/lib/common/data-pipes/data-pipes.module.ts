@@ -14,6 +14,7 @@ import { StateBuilderPipe } from './pipes/state-builder.pipe';
 import { ServerPathPipe } from './pipes/server-path.pipe';
 import { SimpleCalendarPipe } from './pipes/simple-calendar.pipe';
 import { AsPipe } from './pipes/as.pipe';
+import { PrettyJsonPipe } from './pipes/pretty-json.pipe';
 
 @NgModule({
     imports: [
@@ -34,6 +35,7 @@ import { AsPipe } from './pipes/as.pipe';
         ServerPathPipe,
         SimpleCalendarPipe,
         AsPipe,
+        PrettyJsonPipe
     ],
     exports: [
         ClonePipe,
@@ -50,6 +52,7 @@ import { AsPipe } from './pipes/as.pipe';
         ServerPathPipe,
         SimpleCalendarPipe,
         AsPipe,
+        PrettyJsonPipe
     ],
 })
 export class NgxSmzDataPipesModule { }

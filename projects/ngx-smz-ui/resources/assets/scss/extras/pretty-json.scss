@@ -1,0 +1,23 @@
+.pretty-json {
+  font-weight: 400;
+  line-break: anywhere;
+
+  .number-line {
+    color: var(--surface-400);
+  }
+  .string {
+    color: var(--primary-color);
+  }
+  .number {
+    color: var(--primary-color);
+  }
+  .boolean {
+    color: var(--primary-color);
+  }
+  .null {
+    color: var(--color-danger);
+  }
+  .key {
+    color: var(--surface-900);
+  }
+}

@@ -61,6 +61,7 @@ export { DescribeSimpleNamedPipe } from './lib/common/data-pipes/pipes/describe-
 export { DescribeAnyPipe } from './lib/common/data-pipes/pipes/describe-any.pipe';
 export { StateBuilderPipe } from './lib/common/data-pipes/pipes/state-builder.pipe';
 export { AsPipe } from './lib/common/data-pipes/pipes/as.pipe';
+export { PrettyJsonPipe } from './lib/common/data-pipes/pipes/pretty-json.pipe';
 
 export { UrlCheckerPipeModule } from './lib/common/url-checker/url-checker.pipe';
 export { UrlCheckerPipe } from './lib/common/url-checker/url-checker.pipe';

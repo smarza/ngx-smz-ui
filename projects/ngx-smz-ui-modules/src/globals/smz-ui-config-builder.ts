@@ -6,6 +6,7 @@ import { showUserCreationDialog } from '../app/functions/show-user-creation-dial
 import { getFtUsersInitialState, UsersFtState, USERS_FT_STATE_NAME } from '@states/features/users/users.state';
 
 export const UiBuilder: SmzUiBuilder = new SmzUiBuilder()
+  .debugMode()
   .setApplicationName('Modules Demo')
   .setDialogsConfigManually(smzDialogsConfig)
   .setLayoutsConfigManually(smzLayoutsConfig)
