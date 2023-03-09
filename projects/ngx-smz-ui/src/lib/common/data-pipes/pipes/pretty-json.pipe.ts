@@ -73,6 +73,6 @@ export class PrettyJsonPipe implements PipeTransform {
         )
       : obj;
 
-    return `<div class="pretty-json">${content}</div>`;
+    return `<pre class="pretty-json">${content}</pre>`;
   }
 }

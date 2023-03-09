@@ -2,5 +2,5 @@
   <!-- <div class="text-lg" [ngStyle]="{ 'line-break': 'anywhere' }">
     {{ (userdata$ | async) | json }}
   </div> -->
-  <pre [innerHTML]="(userdata$ | async) | prettyjson: [true, 3]"></pre>
+  <div [innerHTML]="(userdata$ | async) | prettyjson: [true, 3]"></div>
 </div>
