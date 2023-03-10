@@ -70,10 +70,10 @@ export class AuthorizationService extends BaseApiService {
     return this.http.post<UserDetails>(`${this.endpoint}/users/set-roles`, data, this.generateDefaultHeaders({}));
   }
   public addClaimsToUser(data: AddClaimsOverride): Observable<UserDetails> {
-    return this.http.post<UserDetails>(`${this.endpoint}/users/add-claim`, data, this.generateDefaultHeaders({}));
+    return this.http.post<UserDetails>(`${this.endpoint}/users/add-claims`, data, this.generateDefaultHeaders({}));
   }
   public removeClaimsFromUser(data: RemoveClaimsOverride): Observable<UserDetails> {
-    return this.http.post<UserDetails>(`${this.endpoint}/users/remove-claim`, data, this.generateDefaultHeaders({}));
+    return this.http.post<UserDetails>(`${this.endpoint}/users/remove-claims`, data, this.generateDefaultHeaders({}));
   }
   public getAllTenants(): Observable<TenantDetails[]> {
     return this.http.get<TenantDetails[]>(`${this.endpoint}/tenants`, this.generateDefaultHeaders({}));
