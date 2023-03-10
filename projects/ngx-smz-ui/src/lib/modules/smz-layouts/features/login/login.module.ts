@@ -4,6 +4,7 @@ import { SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { NgxSmzFormsModule } from '../../../smz-forms/smz-forms.module';
 import { SmzLoginComponent } from './login.component';
+import { NgxSmzDataPipesModule } from '../../../../common/data-pipes/data-pipes.module';
 
 @NgModule({
   declarations: [SmzLoginComponent],
@@ -12,6 +13,7 @@ import { SmzLoginComponent } from './login.component';
     SharedModule,
     ButtonModule,
     NgxSmzFormsModule,
+    NgxSmzDataPipesModule
   ],
   exports: [SmzLoginComponent]
 })

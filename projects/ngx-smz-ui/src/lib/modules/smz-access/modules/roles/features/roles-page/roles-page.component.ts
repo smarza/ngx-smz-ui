@@ -13,6 +13,7 @@ import { Confirmable } from '../../../../../smz-dialogs/decorators/confirmable.d
 import { RolesActions } from '../../../../state/roles/roles.actions';
 import { CreateRoleDialog } from '../../functions/create-role-dialog';
 import { nameof } from '../../../../../../common/models/simple-named-entity';
+import { showRoleClaimsDialog } from '../../functions/show-role-claims-dialog';
 
 @UntilDestroy()
 @Component({
@@ -35,6 +36,7 @@ export class RolesPageComponent implements OnInit {
       .enableClearFilters()
       .enableGlobalFilter()
       .useStrippedStyle()
+      .disableRowHoverEffect()
       .useTableEmptyMessage()
       .setSize('regular')
       .menu()
@@ -51,6 +53,7 @@ export class RolesPageComponent implements OnInit {
         .table
       .columns()
         .text(nameof<RolesDetails>('name'), 'Nome do Perfil')
+          .addStyles('font-bold')
           .columns
         .custom(nameof<RolesDetails>('claims'), 'Permissões')
           .columns
@@ -59,6 +62,10 @@ export class RolesPageComponent implements OnInit {
         //   .columns
         .table
       .build();
+  }
+
+  public onShowRoleClaimsDialog(item: RolesDetails): void {
+    showRoleClaimsDialog(item);
   }
 
   @Confirmable('Tem certeza de que deseja excluir esse perfil ?', 'Atenção', true)

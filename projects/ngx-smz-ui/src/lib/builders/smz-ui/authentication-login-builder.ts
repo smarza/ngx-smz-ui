@@ -18,6 +18,11 @@ export class SmzUiAuthenticationLoginBuilder extends SmzBuilderUtilities<SmzUiAu
     return this.that;
   }
 
+  public useWindowsAuthentication(): SmzUiAuthenticationLoginBuilder {
+    this._state.rbkUtils.authentication.useWindowsAuthentication = true;
+    return this.that;
+  }
+
   public allowSuperuser(superuserName: string = 'superuser'): SmzUiAuthenticationLoginBuilder {
     this._state.rbkUtils.authentication.allowSuperuser = true;
     this._state.rbkUtils.authentication.login.superuser = superuserName;

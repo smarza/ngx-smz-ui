@@ -27,7 +27,6 @@ export class SmzUiAuthenticationBuilder extends SmzBuilderUtilities<SmzUiAuthent
     return this.that;
   }
 
-
   public get builder(): SmzUiBuilder {
     return this._builder;
   }

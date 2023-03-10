@@ -77,15 +77,18 @@ export class LoginComponent {
               .validators().required()
               .group
           .endIf
-        .text(nameof<LoginData>('username'), 'Usuário')
-          .validators().required()
-          .group
-        .password(nameof<LoginData>('password'), 'Senha')
-          .validators().required()
-          .group
+        .if(!config.useWindowsAuthentication)
+          .text(nameof<LoginData>('username'), 'Usuário')
+            .validators().required()
+            .group
+          .password(nameof<LoginData>('password'), 'Senha')
+            .validators().required()
+            .group
+          .endIf
         .form
         .build()
     )
+    .setExtraInfo(config.useWindowsAuthentication ? '<em>Autenticação do Windows</em>' : '')
     .build();
 
     return { ...state, ...config.login.page.overrideState };

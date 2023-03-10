@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   pure:true
 })
 export class PrettyJsonPipe implements PipeTransform {
-  transform(value: any, args: any[]): string {
+  transform(value: any, args: any[] = [true, 3]): string {
     try {
       /**
        * check and try to parse value if it's not an object

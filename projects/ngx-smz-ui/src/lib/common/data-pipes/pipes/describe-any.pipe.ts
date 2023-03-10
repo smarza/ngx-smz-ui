@@ -12,11 +12,11 @@ export class DescribeAnyPipe implements PipeTransform
     {
 
     }
-    public transform(data: any[], property: string, separator: 'comma' | 'newline' = 'comma', max: number = null, empty = ''): any
+    public transform(data: any[], property: string, separator: 'comma' | 'newline' = 'comma', max: number = null, empty = '', showAllMessage: boolean = true, showExtraCount = true): any
     {
         if (data == null || data.length === 0) return empty;
 
-        if (max != null && data.length === max) return 'Todos';
+        if (max != null && data.length === max && showAllMessage) return 'Todos';
 
         const limit = max ?? 3;
         let separatorJoin = ', ';
@@ -32,7 +32,10 @@ export class DescribeAnyPipe implements PipeTransform
             default:
                 break;
         }
-        if (data.length > limit) return cloneDeep(data).slice(0, limit).map(x => x[property]).join(separatorJoin) + ` e mais ${data.length - limit}...`;
+        if (data.length > limit) {
+            const limitMessage = showExtraCount ? ` e mais ${data.length - limit}...` : ` (...)`;
+            return cloneDeep(data).slice(0, limit).map(x => x[property]).join(separatorJoin) + limitMessage;
+        }
 
         return data.map(x => x[property]).join(separatorJoin);
     }
