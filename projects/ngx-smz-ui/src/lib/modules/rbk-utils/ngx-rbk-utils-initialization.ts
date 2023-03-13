@@ -12,6 +12,7 @@ import { UsersModule } from '../smz-access/modules/users/users.module';
 import { CLAIMS_PATH, ROLES_PATH, TENANTS_PATH, USERS_PATH } from '../smz-access/routes';
 import { DatabaseStateParameters } from './ngx-rbk-utils.config';
 import { isEmpty } from './utils/utils';
+import { RbkAuthGuard } from './auth/auth.guard';
 
 export function getUsersModule() { return UsersModule }
 export function getRolesModule() { return RolesModule }
@@ -53,7 +54,7 @@ export function runAccessRoutesInitialization(router: Router) {
         }
         else {
             // publicar rotas na raiz.
-            router.resetConfig([...newRoutes, ...router.config]);
+            router.resetConfig([{ path: '', children: newRoutes, data: {}, canActivate: [RbkAuthGuard], }, ...router.config]);
         }
 
     }
