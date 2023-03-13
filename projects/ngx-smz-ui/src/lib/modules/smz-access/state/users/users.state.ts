@@ -87,4 +87,12 @@ export class UsersState {
     ctx.patchState({ items: [...ctx.getState().items.filter(x => x.id !== action.id)] });
   }
 
+  @Action(UsersActions.Clear)
+  public clear$(ctx: StateContext<UsersStateModel>): void {
+    ctx.patchState({
+      items: [],
+      lastUpdated: null
+    });
+  }
+
 }

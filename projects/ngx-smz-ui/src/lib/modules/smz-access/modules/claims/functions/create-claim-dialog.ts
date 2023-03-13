@@ -21,7 +21,7 @@ export function CreateClaimDialog(): SmzDialog<CreateClaim> {
     .form()
       .group()
         .text(nameof<CreateClaim>('identification'), 'Identificador')
-        .setSaveFormat(SmzTextPattern.CLAIM_PATTERN)
+          .setSaveFormat(SmzTextPattern.CLAIM_PATTERN)
           .validators().required()
           .group
         .text(nameof<CreateClaim>('description'), 'Nome')
