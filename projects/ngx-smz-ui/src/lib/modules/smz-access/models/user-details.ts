@@ -12,4 +12,5 @@ export interface UserDetails {
   roles: SimpleNamedEntity[];
   overridedClaims: ClaimOverride[];
   id: string;
+  avatar: string;
 }

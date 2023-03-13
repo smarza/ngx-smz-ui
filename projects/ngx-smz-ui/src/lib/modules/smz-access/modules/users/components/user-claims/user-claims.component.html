@@ -9,12 +9,25 @@
             (onMoveAllToTarget)="addItemToTarget($event)"
             (onMoveAllToSource)="addItemToSource($event)"
             >
-            <ng-template let-claim pTemplate="item">
-                {{claim?.description}}
-                <span *ngIf="claim.accessType != null" class="claim-access-type-indicator">
-                    <strong *ngIf="claim.accessType === 0" class="block-text"><i class="pi pi-lock" title="Bloqueado"></i></strong>
-                    <strong *ngIf="claim.accessType === 1" class="allow-text"><i class="pi pi-lock-open" title="Permitido"></i></strong>
-                </span>
+            <ng-template let-item pTemplate="item">
+
+                <!-- TARGET -->
+                <ng-container *ngIf="item.access != null; else SourceTemplate">
+                    <div class="grid grid-nogutter items-center justify-start gap-2">
+                        <div class="claim-access-type-indicator">
+                            <strong *ngIf="item.access.id === 0" class="block-text"><i class="pi pi-lock" [title]="item.access.name"></i></strong>
+                            <strong *ngIf="item.access.id === 1" class="allow-text"><i class="pi pi-lock-open" [title]="item.access.name"></i></strong>
+                        </div>
+                        <div>{{ item.claim.name }}</div>
+                    </div>
+                    <div></div>
+                </ng-container>
+
+                <!-- SOURCE -->
+                <ng-template #SourceTemplate>
+                    {{ item.description }}
+                </ng-template>
+
             </ng-template>
         </p-pickList>
     </div>

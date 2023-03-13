@@ -21,8 +21,7 @@ import { UsersActions } from '../../../../state/users/users.actions';
 })
 export class UserClaimsComponent implements OnInit {
   @Input() public username: string;
-  @Input() public userClaims: ClaimOverride[];
-  @Output() public desassociateClaim = new EventEmitter<SimpleNamedEntity[]>();
+  @Output() public desassociateClaim = new EventEmitter<ClaimOverride[]>();
   public claims: ClaimDetails[];
   public targetClaims: ClaimOverride[] = [];
   public user: UserDetails;
@@ -72,7 +71,7 @@ export class UserClaimsComponent implements OnInit {
       .build());
   }
 
-  public addItemToSource(event: { items: SimpleNamedEntity[] }): void {
+  public addItemToSource(event: { items: ClaimOverride[] }): void {
     this.desassociateClaim.emit(event.items);
   }
 

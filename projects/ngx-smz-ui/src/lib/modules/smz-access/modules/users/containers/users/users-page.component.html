@@ -16,17 +16,17 @@
 
             <!-- CONTROLE DE ACESSO NÃO ENCONTROU O IDENTIFICADOR DO USUÁRIO -->
             <img
-             *ngIf="item.picture == null"
+             *ngIf="item.avatar == null"
              [src]="uiConfig.rbkUtils.authorization.users.avatarPlaceholderPath"
-             class="w-16 align-middle"
+             class="w-14 align-middle"
              />
 
              <!-- USUÁRIO COM AVATAR INFORMADO PELO CONTROLE DE ACESSO -->
             <img
-              *ngIf="item.picture != null"
-              [src]="item.picture"
-              (error)="handleMissingImage($event, item.name, item.picture)"
-              class="w-16 align-middle"
+              *ngIf="item.avatar != null"
+              [src]="item.avatar"
+              (error)="handleMissingImage($event, item.name, item.avatar)"
+              class="w-14 align-middle"
             />
 
             <span>{{ item.displayName }}</span>

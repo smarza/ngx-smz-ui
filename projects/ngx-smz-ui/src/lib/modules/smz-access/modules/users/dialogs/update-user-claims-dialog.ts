@@ -6,8 +6,8 @@ import { UserDetails } from '../../../models/user-details';
 import { SmzHelpDialogService } from '../../../../smz-dialogs/services/help-dialog.service';
 import { RemoveClaimsOverride } from '../../../models/remove-claims-override';
 import { UserClaimsComponent } from '../components/user-claims/user-claims.component';
-import { SimpleNamedEntity } from '../../../../../common/models/simple-named-entity';
 import { UsersActions } from '../../../state/users/users.actions';
+import { ClaimOverride } from '../../../models/claim-override';
 
 export function showUpdateUserClaimsDialog(user: UserDetails): void {
 
@@ -21,9 +21,9 @@ export function showUpdateUserClaimsDialog(user: UserDetails): void {
     .setLayout('MEDIUM', 'col-10')
     .setLayout('EXTRA_SMALL', 'col-12')
     .component(UserClaimsComponent)
-      .addInput('userId', user.id)
-      .addOutput('desassociateClaim', (claims: SimpleNamedEntity[]): void => {
-        const data: RemoveClaimsOverride = { username: user.username, claimIds: claims.map(x => x.id) };
+      .addInput('username', user.username)
+      .addOutput('desassociateClaim', (claims: ClaimOverride[]): void => {
+        const data: RemoveClaimsOverride = { username: user.username, claimIds: claims.map(x => x.claim.id) };
         store.dispatch(new UsersActions.RemoveClaimsOverride(data));
       })
     .dialog
