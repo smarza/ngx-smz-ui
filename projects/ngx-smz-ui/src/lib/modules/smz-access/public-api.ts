@@ -30,6 +30,10 @@ export * from './models/update-tenant';
 export * from './models/user-details';
 export * from './models/role-mode';
 export * from './models/role-source';
+export * from './models/jwt-response';
+export * from './models/redefine-password';
+export * from './models/resend-confirmation';
+export * from './models/reset-password';
 
 // ROUTES
 export * from './routes';
@@ -39,6 +43,7 @@ export * from './routes';
 // SERVICES
 
 export * from './services/authorization.service';
+export * from './services/authentication.service';
 
 // UTILS
 

@@ -55,5 +55,6 @@ export class AuthService extends BaseApiService {
                     refreshToken: x[GlobalInjector.config.rbkUtils.authentication.refreshToken.responsePropertyName]
                 })));
     }
+
 }
 

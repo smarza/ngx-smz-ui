@@ -7,6 +7,7 @@ import { AuthorizationService } from '../../services/authorization.service';
 import { UserDetails } from '../../models/user-details';
 import { replaceItem } from '../../../../common/utils/utils';
 import { ToastActions } from '../../../../state/global/application/application.actions.toast';
+import { AuthenticationService } from '../../services/authentication.service';
 
 export const USERS_STATE_NAME = 'users';
 
@@ -28,11 +29,11 @@ export const getUsersInitialState = (): UsersStateModel => ({
 @Injectable()
 export class UsersState {
 
-  constructor(private apiService: AuthorizationService) { }
+  constructor(private authorizationService: AuthorizationService, private authenticationService: AuthenticationService) { }
 
   @Action(UsersActions.LoadAll)
   public loadAll$(ctx: StateContext<UsersStateModel>): Observable<UserDetails[]> {
-    return this.apiService.getAllUsers().pipe(
+    return this.authorizationService.getAllUsers().pipe(
       tap((result: UserDetails[]) => {
         ctx.patchState({
           lastUpdated: new Date(),
@@ -44,7 +45,7 @@ export class UsersState {
 
   @Action(UsersActions.ReplaceUserRoles)
   public onReplaceUserRoles$(ctx: StateContext<UsersStateModel>, action: UsersActions.ReplaceUserRoles): Observable<UserDetails> {
-    return this.apiService.updateUserRoles(action.data).pipe(
+    return this.authorizationService.updateUserRoles(action.data).pipe(
       tap((result: UserDetails) => {
         ctx.patchState({items: replaceItem(ctx.getState().items, result) });
         ctx.dispatch(new ToastActions.Success('Regras de acesso do usuário atualizadas com sucesso.'));
@@ -54,7 +55,7 @@ export class UsersState {
 
   @Action(UsersActions.AddClaimsOverride)
   public onAddClaimsOverride$(ctx: StateContext<UsersStateModel>, action: UsersActions.AddClaimsOverride): Observable<UserDetails> {
-    return this.apiService.addClaimsToUser(action.data).pipe(
+    return this.authorizationService.addClaimsToUser(action.data).pipe(
       tap((result: UserDetails) => {
         ctx.patchState({items: replaceItem(ctx.getState().items, result) });
         ctx.dispatch(new ToastActions.Success('Permissões do usuário atualizadas com sucesso.'));
@@ -64,10 +65,28 @@ export class UsersState {
 
   @Action(UsersActions.RemoveClaimsOverride)
   public onRemoveClaimsOverride$(ctx: StateContext<UsersStateModel>, action: UsersActions.RemoveClaimsOverride): Observable<UserDetails> {
-    return this.apiService.removeClaimsFromUser(action.data).pipe(
+    return this.authorizationService.removeClaimsFromUser(action.data).pipe(
       tap((result: UserDetails) => {
         ctx.patchState({items: replaceItem(ctx.getState().items, result) });
         ctx.dispatch(new ToastActions.Success('Permissões do usuário atualizadas com sucesso.'));
+      })
+    );
+  }
+
+  @Action(UsersActions.RedefinePassword)
+  public onRedefinePassword$(ctx: StateContext<UsersStateModel>, action: UsersActions.RedefinePassword): Observable<void> {
+    return this.authenticationService.redefinePassword(action.data).pipe(
+      tap(() => {
+        ctx.dispatch(new ToastActions.Success('Senha atualizada com sucesso.'));
+      })
+    );
+  }
+
+  @Action(UsersActions.ResetPassword)
+  public onResetPassword$(ctx: StateContext<UsersStateModel>, action: UsersActions.ResetPassword): Observable<void> {
+    return this.authenticationService.resendEmailConfirmation(action.data).pipe(
+      tap(() => {
+        ctx.dispatch(new ToastActions.Success('Email de confirmação enviado com sucesso.'));
       })
     );
   }

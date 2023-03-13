@@ -2,6 +2,8 @@ import { ReplaceUserRoles as ReplaceUserRolesPayload } from '../../models/replac
 import { UserDetails } from '../../models/user-details';
 import { AddClaimsOverride as AddClaimOverridePayload } from '../../models/add-claims-override';
 import { RemoveClaimsOverride as RemoveClaimOverridePayload } from '../../models/remove-claims-override';
+import { RedefinePassword as RedefinePasswordPayload } from '../../models/redefine-password';
+import { ResetPassword as ResetPasswordPayload } from '../../models/reset-password';
 
 export namespace UsersActions {
   export class LoadAll {
@@ -31,6 +33,16 @@ export namespace UsersActions {
   export class LocalUpdate<TUser extends UserDetails> {
     constructor(public data: TUser) { }
     public static readonly type = '[Users API] Local Update';
+  }
+
+  export class ResetPassword {
+    public static readonly type = '[Users API] Reset Password';
+    constructor(public data: ResetPasswordPayload) { }
+  }
+
+  export class RedefinePassword {
+    public static readonly type = '[Users API] Redefine Password';
+    constructor(public data: RedefinePasswordPayload) { }
   }
 
   export class LocalDelete {

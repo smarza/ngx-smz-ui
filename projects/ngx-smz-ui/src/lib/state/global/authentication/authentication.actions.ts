@@ -1,4 +1,5 @@
 import { LoginPayload } from '../../../modules/rbk-utils/auth/auth.service';
+import { RedefinePassword } from '../../../modules/smz-access/models/redefine-password';
 
 export namespace AuthenticationActions {
     export class LocalLogin {
@@ -34,4 +35,5 @@ export namespace AuthenticationActions {
     export class Logout {
         public static readonly type = '[Auth] Logout';
     }
+
 }
