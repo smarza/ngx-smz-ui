@@ -3,6 +3,7 @@ import groupBy from 'lodash-es/groupBy';
 import mapValues from 'lodash-es/mapValues';
 import { TreeNode } from 'primeng/api/treenode';
 import { ObjectUtils } from 'primeng/utils';
+import { SimpleEntity, SimpleParentEntity } from '../../common/models/simple-named-entity';
 import { SmzTreeNode } from '../../modules/smz-trees/models/tree-node';
 import { SmzTreeGroup, SmzTreeGroupData, SmzTreeGroupNodeConfig } from '../../modules/smz-trees/models/tree-state';
 import { FormGroupConfig } from '../smz-dialogs/dialog-input-conversion';
@@ -92,6 +93,32 @@ export function groupTreeNode(items: any[], endNode: SmzTreeGroupNodeConfig, gro
       };
 
       result.push(node as any);
+  });
+
+  // console.log('result', result);
+
+  return result;
+}
+
+export function groupSimpleParentEntity<TInput extends { parentId: TResponse, data: SimpleEntity<TResponse> }, TResponse>(items: TInput[]): SimpleParentEntity<TResponse>[] {
+
+  const keyPropertyValue = 'parentId';
+  const result: SimpleParentEntity<TResponse>[] = [];
+
+  const grouped = groupBy(items, (i) => {
+    return ObjectUtils.resolveFieldData(i, keyPropertyValue);
+  });
+
+  mapValues(grouped, uniques =>
+  {
+      const unique = cloneDeep(uniques[0]);
+
+      const item: SimpleParentEntity<TResponse> = {
+          parentId: unique.parentId,
+          data: uniques.map(x => x.data)
+      };
+
+      result.push(item);
   });
 
   // console.log('result', result);
