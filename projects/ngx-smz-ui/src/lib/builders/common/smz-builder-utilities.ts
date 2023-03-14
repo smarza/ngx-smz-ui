@@ -1,4 +1,6 @@
 import cloneDeep from 'lodash-es/cloneDeep';
+import { environment } from '@environments/environment';
+
 
 interface BuilderUtilitiesCaches<T> {
   if: Cache<T>
@@ -26,6 +28,38 @@ export class SmzBuilderUtilities<T> {
 
     // Se a condição for nula
     if (!condition) {
+      // Preparar modelo de backup para o endif retornar dados originais descartando todos os dados feitos pelos builders entre o IF e o ENDIF
+      this.cache.if.data = cloneDeep(this.that);
+    }
+
+    return this.that;
+  }
+
+  public ifDevelopment(): T {
+
+    if (this.cache.if.isActive) throw new Error(`You cannot call more than one condition method at the same time.`);
+
+    // Registrando flag de method condicional em execução
+    this.cache.if.isActive = true;
+
+    // Se a condição for nula
+    if (environment.production) {
+      // Preparar modelo de backup para o endif retornar dados originais descartando todos os dados feitos pelos builders entre o IF e o ENDIF
+      this.cache.if.data = cloneDeep(this.that);
+    }
+
+    return this.that;
+  }
+
+  public ifProduction(): T {
+
+    if (this.cache.if.isActive) throw new Error(`You cannot call more than one condition method at the same time.`);
+
+    // Registrando flag de method condicional em execução
+    this.cache.if.isActive = true;
+
+    // Se a condição for nula
+    if (!environment.production) {
       // Preparar modelo de backup para o endif retornar dados originais descartando todos os dados feitos pelos builders entre o IF e o ENDIF
       this.cache.if.data = cloneDeep(this.that);
     }

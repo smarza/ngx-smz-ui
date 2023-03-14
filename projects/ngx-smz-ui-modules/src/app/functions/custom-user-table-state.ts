@@ -11,7 +11,7 @@ export function CustomUserTableBuilder(): SmzTableBuilder {
     .useStrippedStyle()
     .menu()
       .item('Desativar', 'fas fa-key')
-        .setCallback((event: UserDetails) => () => {})
+        .setCallback((event: UserDetails) => { console.log('Desativar'); })
         .menu
       .table
     .columns()

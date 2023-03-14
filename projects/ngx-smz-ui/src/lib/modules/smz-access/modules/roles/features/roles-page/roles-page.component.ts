@@ -12,8 +12,10 @@ import { UpdateRoleClaimsDialog } from '../../functions/update-role-claims-dialo
 import { Confirmable } from '../../../../../smz-dialogs/decorators/confirmable.decorator';
 import { RolesActions } from '../../../../state/roles/roles.actions';
 import { CreateRoleDialog } from '../../functions/create-role-dialog';
-import { nameof } from '../../../../../../common/models/simple-named-entity';
+import { nameof, namesof, SimpleNamedEntity } from '../../../../../../common/models/simple-named-entity';
 import { showRoleClaimsDialog } from '../../functions/show-role-claims-dialog';
+import { RoleSourceDescription } from '../../../../models/role-source';
+import { RoleModeDescription } from '../../../../models/role-mode';
 
 @UntilDestroy()
 @Component({
@@ -57,9 +59,10 @@ export class RolesPageComponent implements OnInit {
           .columns
         .custom(nameof<RolesDetails>('claims'), 'Permissões')
           .columns
-        // .icon(nameof<RolesDetails>('isApplicationWide'), 'isApplicationWide', '10em')
-        //   .addIconConfiguration('fa-solid fa-bug', false, 'text-yellow-600', 'Perfil Sobscrito') // 'Sobscrever'
-        //   .columns
+        .dataTransform(nameof<RolesDetails>('mode'), 'Modo', (mode) => RoleModeDescription[mode], '12em')
+          .columns
+        .dataTransform(nameof<RolesDetails>('source'), 'Fonte', (source) => RoleSourceDescription[source], '12em')
+          .columns
         .table
       .build();
   }

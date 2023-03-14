@@ -17,8 +17,9 @@ export const UiBuilder: SmzUiBuilder = new SmzUiBuilder()
     .mapAccessTokenData('has-tenant', 'hasTenant', 'boolean')
     .setTenantDisplayName('Domínio')
     .login()
-      // .useSingleTenantAplication('proteus')
-      // .useWindowsAuthentication()
+      .ifProduction()
+        .useWindowsAuthentication()
+        .endIf
       .allowSuperuser()
       .authorization
     .builder
