@@ -15,6 +15,8 @@ import { ServerPathPipe } from './pipes/server-path.pipe';
 import { SimpleCalendarPipe } from './pipes/simple-calendar.pipe';
 import { AsPipe } from './pipes/as.pipe';
 import { PrettyJsonPipe } from './pipes/pretty-json.pipe';
+import { SmzInitialPipe } from './pipes/initial.pipe';
+import { SmzTailPipe } from './pipes/tail.pipe';
 
 @NgModule({
     imports: [
@@ -35,7 +37,9 @@ import { PrettyJsonPipe } from './pipes/pretty-json.pipe';
         ServerPathPipe,
         SimpleCalendarPipe,
         AsPipe,
-        PrettyJsonPipe
+        PrettyJsonPipe,
+        SmzInitialPipe,
+        SmzTailPipe
     ],
     exports: [
         ClonePipe,
@@ -52,7 +56,9 @@ import { PrettyJsonPipe } from './pipes/pretty-json.pipe';
         ServerPathPipe,
         SimpleCalendarPipe,
         AsPipe,
-        PrettyJsonPipe
+        PrettyJsonPipe,
+        SmzInitialPipe,
+        SmzTailPipe
     ],
 })
 export class NgxSmzDataPipesModule { }

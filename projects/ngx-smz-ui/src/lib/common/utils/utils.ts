@@ -551,3 +551,12 @@ export function shorten(text: any, length: number = 0, suffix: string = '', word
 
     return text;
   }
+
+  export function getFirstElements<T>(arr: T[], numElements: number): T[] {
+    return arr?.slice(0, numElements);
+  }
+
+  export function getLastElements<T>(arr: T[], numElements: number): T[] {
+    const startIndex = Math.max(0, arr.length - numElements);
+    return arr?.slice(startIndex);
+  }
