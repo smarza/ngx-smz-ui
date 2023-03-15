@@ -8,6 +8,7 @@ const routes: Routes = [
     path: '',
     canActivate: [RbkAuthGuard, RbkDatabaseStateGuard],
     data: {
+      smzUiRoot: true,
       requiredStates: [
         UI_DEFINITIONS_STATE_NAME
       ]
