@@ -1,14 +1,15 @@
 <label *ngIf="!input.hideName" class="smz__input_name" [innerHTML]="input.name"></label>
 <div class="input_inner__wrapper">
     <p-listbox
-        [options]="input.options"
+        [options]="input.listBoxOptions"
         [metaKeySelection]="false"
         [checkbox]="false"
         [filter]="input.showFilter"
-        optionLabel="null"
+        optionLabel="name"
+        dataKey="id"
         [listStyle]="{'height': input.height ? input.height : '200px'}"
         [style]="{'width':'100%'}"
-        [styleClass]="!input.showAddButton && !input.showSortButton && !input.showClearButton ? 'smz__input_list smz__input_list-hide-header' + (input.options.length === 0 && input.validatorsPreset?.isRequired ? '' : ' smz__input_list-hide-footer') : 'smz__input_list' + (input.options.length === 0 && input.validatorsPreset?.isRequired ? '' : ' smz__input_list-hide-footer')"
+        [styleClass]="input.styleClass"
         [disabled]="input.isDisabled"
         (onClick)="onClick($event)"
         [readonly]="isInlineEditingEnabled"
@@ -17,16 +18,17 @@
 
         <ng-template pTemplate="header">
             <div class="smz__list-header">
-                <button *ngIf="input.showAddButton" pButton pRipple type="button" icon="pi pi-plus" clickStopPropagation class="p-nocustom p-button-rounded p-button p-button-text" (click)="input.allowBatchCreation ? onAddInBatch() : onAdd()" pTooltip="Adicionar novo item"></button>
-                <button *ngIf="input.showSortButton" pButton pRipple type="button" icon="pi pi-sort-alpha-down" clickStopPropagation class="p-nocustom p-button-rounded p-button p-button-text" (click)="onSort()" pTooltip="Reordenar"></button>
-                <button *ngIf="input.showClearButton" pButton pRipple type="button" icon="pi pi-trash" clickStopPropagation class="p-nocustom p-button-rounded p-button p-button-text" (click)="onClear()" pTooltip="Limpar a lista"></button>
+                <button *ngIf="input.showAddButton && !input.allowBatchCreation" pButton type="button" icon="pi pi-plus" clickStopPropagation class="p-nocustom p-button-rounded p-button p-button-text" (click)="onAdd()" [disabled]="input.limitCount != null && input.listBoxOptions?.length >= input.limitCount" pTooltip="Adicionar novo item"></button>
+                <button *ngIf="input.showAddButton && input.allowBatchCreation" pButton type="button" icon="pi pi-plus" clickStopPropagation class="p-nocustom p-button-rounded p-button p-button-text" (click)="onAddInBatch()" pTooltip="Adicionar novos itens"></button>
+                <button *ngIf="input.showSortButton" pButton type="button" icon="pi pi-sort-alpha-down" clickStopPropagation class="p-nocustom p-button-rounded p-button p-button-text" (click)="onSort()" pTooltip="Reordenar"></button>
+                <button *ngIf="input.showClearButton" pButton type="button" icon="pi pi-trash" clickStopPropagation class="p-nocustom p-button-rounded p-button p-button-text" (click)="onClear()" pTooltip="Limpar a lista"></button>
             </div>
         </ng-template>
 
         <ng-template let-item pTemplate="item">
             <div class="smz__list-item">
                 <ng-container *ngIf="!isInlineEditingEnabled || (isInlineEditingEnabled && current !== item)">
-                    <div class="smz__list_item-title">{{item}}</div>
+                    <div class="smz__list_item-title">{{ item.name }}</div>
                 </ng-container>
 
                 <ng-container *ngIf="isInlineEditingEnabled && current === item">
@@ -39,17 +41,17 @@
                             </ng-container>
 
                         </form>
-                        <button pButton pRipple type="button" icon="pi pi-check" clickStopPropagation [disabled]="!editForm.valid" class="p-nocustom inline_action_button p-button-rounded p-button-success p-button-text" (click)="onConfirmInlineEditing(item)"></button>
-                        <button pButton pRipple type="button" icon="pi pi-times" clickStopPropagation class="p-nocustom inline_action_button p-button-rounded p-button-danger p-button-text" (click)="cancelEdit()"></button>
+                        <button pButton type="button" icon="pi pi-check" clickStopPropagation [disabled]="!editForm.valid" class="p-nocustom inline_action_button p-button-rounded p-button-success p-button-text" (click)="onConfirmInlineEditing(item)"></button>
+                        <button pButton type="button" icon="pi pi-times" clickStopPropagation class="p-nocustom inline_action_button p-button-rounded p-button-danger p-button-text" (click)="cancelEdit()"></button>
                     </div>
                 </ng-container>
 
                 <ng-container *ngIf="current === item && !isInlineEditingEnabled">
                     <div class="smz__list_item-actions" clickStopPropagation>
-                        <button *ngIf="input.showEditButton" clickStopPropagation pButton pRipple type="button" icon="pi pi-pencil" class="p-nocustom p-button-rounded p-button-text" (click)="onEdit(item)"></button>
-                        <button *ngIf="input.showRemoveButton" clickStopPropagation pButton pRipple type="button" icon="pi pi-trash" class="p-nocustom p-button-rounded p-button-text" (click)="input.askBeforeRemoveItem ? askBeforeRemove(item) : remove(item)"></button>
-                        <button *ngIf="input.showMoveButton" clickStopPropagation pButton pRipple type="button" icon="pi pi-arrow-up" class="p-nocustom p-button-rounded p-button-text" (click)="moveUp(item)"></button>
-                        <button *ngIf="input.showMoveButton" clickStopPropagation pButton pRipple type="button" icon="pi pi-arrow-down" class="p-nocustom p-button-rounded p-button-text" (click)="moveDown(item)"></button>
+                        <button *ngIf="input.showEditButton" clickStopPropagation pButton type="button" icon="pi pi-pencil" class="p-nocustom p-button-rounded p-button-text" (click)="onEdit(item)"></button>
+                        <button *ngIf="input.showRemoveButton" clickStopPropagation pButton type="button" icon="pi pi-trash" class="p-nocustom p-button-rounded p-button-text" (click)="input.askBeforeRemoveItem ? askBeforeRemove(item) : remove(item)"></button>
+                        <button *ngIf="input.showMoveButton" clickStopPropagation pButton type="button" icon="pi pi-arrow-up" class="p-nocustom p-button-rounded p-button-text" (click)="moveUp(item)"></button>
+                        <button *ngIf="input.showMoveButton" clickStopPropagation pButton type="button" icon="pi pi-arrow-down" class="p-nocustom p-button-rounded p-button-text" (click)="moveDown(item)"></button>
                     </div>
                 </ng-container>
 
@@ -57,8 +59,14 @@
         </ng-template>
 
         <ng-template pTemplate="footer">
-            <ng-container *ngIf="input.options.length === 0 && input.validatorsPreset?.isRequired">
+            <ng-container *ngIf="input.listBoxOptions.length === 0 && input.validatorsPreset?.isRequired">
                 <span class="col-12 smz__footer-message">*Campo obrigatório</span>
+            </ng-container>
+            <ng-container *ngIf="input.limitCount != null && input.listBoxOptions?.length === input.limitCount">
+                <span class="col-12 smz__footer-message text-blue-300">*Limite atingido.</span>
+            </ng-container>
+            <ng-container *ngIf="input.limitCount != null && input.listBoxOptions?.length > input.limitCount">
+                <span class="col-12 smz__footer-message">*Limite ultrapassado</span>
             </ng-container>
         </ng-template>
     </p-listbox>

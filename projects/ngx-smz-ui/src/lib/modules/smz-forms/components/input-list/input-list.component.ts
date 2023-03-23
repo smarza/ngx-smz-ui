@@ -6,6 +6,9 @@ import { Confirmable } from '../../../smz-dialogs/decorators/confirmable.decorat
 import { DialogsActions } from '../../../smz-dialogs/state/dialogs/dialogs.actions';
 import { SmzFormsBehaviorsConfig } from '../../models/behaviors';
 import { SmzListControl } from '../../models/control-types';
+import { SimpleEntity } from '../../../../../lib/common/models/simple-named-entity';
+import { UUID } from 'angular2-uuid';
+import { MustBeUnique } from '../../../../common/utils/custom-validations';
 
 @Component({
   selector: 'smz-input-list',
@@ -22,28 +25,32 @@ export class InputListComponent {
   constructor(private cdf: ChangeDetectorRef, private store: Store, private actions$: Actions, public fb: UntypedFormBuilder) {
   }
 
-  public onClick(event: { option: string, value: string }): void {
+  public onClick(event: { option: SimpleEntity<any>, value: string }): void {
       this.isInlineEditingEnabled = false;
       this.editForm = null;
 
       this.activateActions(event.option);
   }
 
+  public refreshOptions(): void {
+    this.input.options = this.input.listBoxOptions.map(x => x.name);
+}
+
   @Confirmable('Deseja realmente excluir esse item ?', 'Exclusão')
-  public askBeforeRemove(option: string): void {
+  public askBeforeRemove(option: SimpleEntity<any>): void {
       this.remove(option);
   }
 
-  public remove(option: string): void {
+  public remove(option: SimpleEntity<any>): void {
       // remove element from options
-      this.input.options = this.input.options.filter(x => x !== option);
+      this.input.listBoxOptions = this.input.listBoxOptions.filter(x => x !== option);
 
       // update new list to control
       this.updateControl();
   }
 
   public onSort(): void {
-      this.input.options = this.input.options.sort((a, b) => (a > b) ? 1 : -1);
+      this.input.listBoxOptions = this.input.listBoxOptions.sort((a, b) => (a.name > b.name) ? 1 : -1);
 
       // update new list to control
       this.updateControl();
@@ -51,16 +58,16 @@ export class InputListComponent {
 
   @Confirmable('Deseja realmente excluir todos os itens da lista ?', 'Exclusão')
   public onClear(): void {
-      this.input.options = [];
+      this.input.listBoxOptions = [];
 
       // update new list to control
       this.updateControl();
   }
 
-  public activateActions(option: string): void {
+  public activateActions(option: SimpleEntity<any>): void {
 
       if (this.current != null) {
-          this.editForm = this.createEditForm(option);
+          this.editForm = this.createEditForm(option.name);
       }
       else {
           this.editForm = null;
@@ -70,24 +77,24 @@ export class InputListComponent {
       this.cdf.markForCheck();
   }
 
-  public moveUp(option: string): void {
-      const currentIndex = this.input.options.findIndex(x => x === option);
+  public moveUp(option: SimpleEntity<any>): void {
+      const currentIndex = this.input.listBoxOptions.findIndex(x => x.id === option.id);
 
       if (currentIndex > 0) {
           // move element one position up
-          move(this.input.options, currentIndex, currentIndex - 1);
+          move(this.input.listBoxOptions, currentIndex, currentIndex - 1);
 
           // update new list to control
           this.updateControl();
       }
   }
 
-  public moveDown(option: string): void {
-      const currentIndex = this.input.options.findIndex(x => x === option);
+  public moveDown(option: SimpleEntity<any>): void {
+      const currentIndex = this.input.listBoxOptions.findIndex(x => x.id === option.id);
 
-      if (currentIndex < this.input.options.length) {
+      if (currentIndex < this.input.listBoxOptions.length) {
           // move element one position up
-          move(this.input.options, currentIndex, currentIndex + 1);
+          move(this.input.listBoxOptions, currentIndex, currentIndex + 1);
 
           // update new list to control
           this.updateControl();
@@ -95,13 +102,14 @@ export class InputListComponent {
   }
 
   public updateControl(): void {
-      this.control.setValue(this.input.options);
+    this.refreshOptions();
+    this.control.setValue(this.input.options);
 
-      // update interface
-      this.cdf.markForCheck();
+    // update interface
+    this.cdf.markForCheck();
   }
 
-  public onEdit(option: string): void {
+  public onEdit(option: SimpleEntity<any>): void {
       switch (this.input.editMode) {
           case 'dialog':
               this.editWithDialog(option);
@@ -116,7 +124,7 @@ export class InputListComponent {
       }
   }
 
-  public editWithDialog(option: string): void {
+  public editWithDialog(option: SimpleEntity<any>): void {
 
     this.actions$.pipe(ofActionDispatched(DialogsActions.ShowInputListCreationCrudDialogSuccess), take(1)).subscribe((event: { isValid: boolean, option?: string, value?: string }) => {
         if (event.isValid)
@@ -125,11 +133,11 @@ export class InputListComponent {
         }
     });
 
-    this.store.dispatch(new DialogsActions.ShowInputListCreationCrudDialog('Editar', this.input, option));
+    this.store.dispatch(new DialogsActions.ShowInputListCreationCrudDialog('Editar', this.input, option.name));
 
   }
 
-  public onConfirmInlineEditing(option: string): void {
+  public onConfirmInlineEditing(option: SimpleEntity<any>): void {
 
     const value = this.editForm.get('value').value;
 
@@ -137,12 +145,12 @@ export class InputListComponent {
     this.isInlineEditingEnabled = false;
   }
 
-  public confirmEdit(oldName: string, newName: string): void {
+  public confirmEdit(old: SimpleEntity<any>, newName: string): void {
       // add new item
-      const index = this.input.options.findIndex(x => x === oldName);
-      this.input.options[index] = newName;
+      const index = this.input.listBoxOptions.findIndex(x => x.name === old.name);
+      this.input.listBoxOptions[index].name = newName;
 
-      this.input.options = [...this.input.options];
+      this.input.listBoxOptions = [...this.input.listBoxOptions];
       this.current = newName;
 
       // update new list to control
@@ -155,11 +163,11 @@ export class InputListComponent {
 
   public onAdd(): void {
 
-    this.actions$.pipe(ofActionDispatched(DialogsActions.ShowInputListCreationCrudDialogSuccess), take(1)).subscribe((event: { isValid: boolean, option?: string, value?: string }) => {
+    this.actions$.pipe(ofActionDispatched(DialogsActions.ShowInputListCreationCrudDialogSuccess), take(1)).subscribe((event: { isValid: boolean, option?: string, value?: any }) => {
         if (event.isValid)
         {
             // add new item
-            this.input.options = [event.value, ...this.input.options];
+            this.input.listBoxOptions = [{ id: UUID.UUID(), name: event.value }, ...this.input.listBoxOptions];
             this.current = event.value;
             // update new list to control
             this.updateControl();
@@ -176,7 +184,7 @@ export class InputListComponent {
         if (event.isValid)
         {
             // add new item
-            this.input.options = [...event.values, ...this.input.options];
+            this.input.listBoxOptions = [...event.values.map(x => ({ id: UUID.UUID(), name: x })), ...this.input.listBoxOptions];
             this.current = event.values[0];
             // update new list to control
             this.updateControl();
@@ -190,7 +198,7 @@ export class InputListComponent {
   public createEditForm(defaultValue: string): UntypedFormGroup {
 
     const form: UntypedFormGroup =  new UntypedFormGroup({
-        value: new UntypedFormControl(defaultValue, [Validators.required, unique(this.input.options)]),
+        value: new UntypedFormControl(defaultValue, [Validators.required, MustBeUnique(this.input.options)]),
       });
 
       return form;
@@ -209,16 +217,3 @@ function move(input, from, to) {
   input.splice(to, numberOfDeletedElm, elm);
 }
 
-function unique(options: string[]): ValidatorFn {
-  return (control: UntypedFormControl): { [key: string]: any } => {
-      const input = control.value;
-
-      if (options.findIndex(x => x.toLowerCase() === input.toLowerCase()) !== -1) {
-          return {
-              'unique': true
-          };
-      }
-
-      return {};
-  };
-}

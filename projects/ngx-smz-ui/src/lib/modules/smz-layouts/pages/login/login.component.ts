@@ -10,7 +10,6 @@ import { SmzFormBuilder } from '../../../../builders/smz-forms/form-builder';
 import { isEmpty } from '../../../rbk-utils/utils/utils';
 import { compareInsensitive, getFirst } from '../../../../common/utils/utils';
 import { AuthenticationActions } from '../../../../state/global/authentication/authentication.actions';
-import { mergeClone } from '../../../../common/utils/deep-merge';
 
 interface LoginData {
   tenant?: SimpleEntity<string>;

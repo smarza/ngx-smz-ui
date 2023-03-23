@@ -7,6 +7,7 @@ import { cloneDeep } from 'lodash-es';
 import { SmzSmartTagData } from '../directives/smart-tag.directive';
 import { mapInputContentMaskText, unmapInputContentMaskText } from '../components/input-content-mask/input-content-mask.pipe';
 import { GlobalInjector } from '../../../common/services/global-injector';
+import { UUID } from 'angular2-uuid';
 
 export interface SmzControlTypeFunctionsDefinitions
 {
@@ -311,6 +312,10 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
         initialize: (input: SmzListControl) => {
             // input.defaultValue = cloneDeep(input.options);
             input.options = cloneDeep(input.defaultValue);
+
+            if (input.options != null) {
+                input.listBoxOptions = input.options.map(x => ({ id: UUID.UUID(), name: x }));
+            }
 
             if (input.editMode == null) input.editMode = 'dialog';
         },

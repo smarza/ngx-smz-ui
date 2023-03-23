@@ -7,6 +7,7 @@ import { SmzFormsResponse } from './smz-forms';
 import { SmzFormViewdata } from './form-viewdata';
 import { Observable } from 'rxjs';
 import { ChangeDetectorRef } from '@angular/core';
+import { SmzFormsAdvancedSettings } from './advanced';
 
 export type SmzControlTypes =
     SmzCalendarControl |
@@ -92,6 +93,7 @@ export interface SmzListControl extends SmzFormsBaseControl
     height?: string;
     showFilter?: boolean;
     options?: string[];
+    listBoxOptions?: SimpleEntity<any>[];
     askBeforeRemoveItem?: boolean;
     showAddButton?: boolean;
     showRemoveButton?: boolean;
@@ -103,7 +105,12 @@ export interface SmzListControl extends SmzFormsBaseControl
     hideName?: boolean;
     emptyMessage?: string;
     allowBatchCreation?: boolean;
-
+    crud?: {
+        inputData: Partial<SmzTextControl> | Partial<SmzNumberControl>;
+        validateForUniqueValues: boolean;
+    }
+    limitCount?: number;
+    styleClass?: string;
 }
 
 export interface SmzCurrencyControl extends SmzFormsBaseControl

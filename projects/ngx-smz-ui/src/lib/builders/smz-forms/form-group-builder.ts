@@ -5,12 +5,13 @@ import { SmzFormGroup, SmzFormsResponse } from '../../modules/smz-forms/models/s
 import { SmzFormsBaseControl } from '../../modules/smz-forms/models/controls';
 import { ValidatorFn, Validators } from '@angular/forms';
 import { SmzTextPattern } from '../../modules/smz-forms/models/text-patterns';
-import { MustMatch } from '../../common/utils/custom-validations';
+import { MustBeUnique, MustMatch } from '../../common/utils/custom-validations';
 import { GlobalInjector } from '../../common/services/global-injector';
 import { SmzFormViewdata } from '../../modules/smz-forms/models/form-viewdata';
 import { Observable } from 'rxjs';
 import sortBy from 'lodash-es/sortBy';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
+import { UUID } from 'angular2-uuid';
 
 export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormGroupBuilder<TResponse>> {
   protected that = this;
@@ -468,7 +469,7 @@ export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormG
     return new SmzFormFileBuilder(this, input as SmzFileControl);
   }
 
-  public list(property: string, label?: string, defaultValue?: string[]): SmzFormListBuilder<TResponse> {
+  public list(property: string, label?: string, defaultValue?: string[] | number[]): SmzFormListBuilder<TResponse> {
 
     let input = this.group.children.find(x => x.propertyName == property);
 
@@ -490,7 +491,13 @@ export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormG
         showMoveButton: false,
         showClearButton: false,
         editMode: 'inline',
-        hideName: false
+        hideName: false,
+        emptyMessage: 'Lista Vazia',
+        crud: {
+          inputData: {},
+          validateForUniqueValues: false
+        },
+        styleClass: ''
       };
 
       this.group.children.push(input);
@@ -1230,6 +1237,15 @@ export class SmzFormListBuilder<TResponse> extends SmzFormInputBuilder<SmzFormLi
   protected that = this;
   constructor(public _groupBuilder: SmzFormGroupBuilder<TResponse>, private _listInput: SmzListControl) {
     super(_groupBuilder, _listInput);
+
+    const textInput: SmzTextControl = {
+      propertyName: 'name', name: 'nome', type: SmzControlType.TEXT, hideName: true,
+      validatorsPreset: { isRequired: true },
+      advancedSettings: { validators: [MustBeUnique(this._listInput.options)], validationMessages: [{ type: 'unique', message: 'Já existe um item com esse dado.' }] },
+      template: { large: { row: 'col-12' } },
+    };
+
+    this._listInput.crud.inputData = textInput;
   }
 
   public addOption(option: string): SmzFormListBuilder<TResponse> {
@@ -1267,52 +1283,144 @@ export class SmzFormListBuilder<TResponse> extends SmzFormInputBuilder<SmzFormLi
     return this;
   }
 
+  public setEmptyMessage(message: string): SmzFormListBuilder<TResponse> {
+    this._listInput.emptyMessage = message;
+    return this;
+  }
+
+  public allowOnlyUniqueData(): SmzFormListBuilder<TResponse> {
+    this._listInput.crud.validateForUniqueValues = true;
+    return this;
+  }
+
+  public setLimitCount(max: number): SmzFormListBuilder<TResponse> {
+    this._listInput.limitCount = max;
+    return this;
+  }
+
+  public useFractionNumberInput(label: string = 'Dado', digits: number = 2): SmzFormListBuilder<TResponse> {
+
+    const numberInput: SmzNumberControl = {
+      propertyName: 'name', name: label, type: SmzControlType.NUMBER,
+      template: { large: { row: 'col-12' } },
+      useFraction: true,
+      minFractionDigits: digits,
+      maxFractionDigits: digits
+    };
+
+    this._listInput.crud.inputData = numberInput;
+
+    return this;
+  }
+
+  public useNumberInput(label: string = 'Dado'): SmzFormListBuilder<TResponse> {
+
+    const numberInput: SmzNumberControl = {
+      propertyName: 'name', name: label, type: SmzControlType.NUMBER,
+      template: { large: { row: 'col-12' } },
+      useFraction: false,
+    };
+
+    this._listInput.crud.inputData = numberInput;
+
+    return this;
+  }
+
   public buttons(): SmzFormListButtonsBuilder<TResponse> {
     return new SmzFormListButtonsBuilder<TResponse>(this, this._listInput);
+  }
+
+  public get group(): SmzFormGroupBuilder<TResponse> {
+    if (this._listInput.allowBatchCreation && this._listInput.crud?.inputData?.type === SmzControlType.NUMBER) {
+      throw Error("You cannot call allowBatchCreation while using a number list input");
+    }
+
+    this._listInput.styleClass += 'smz__input_list ';
+
+    if (!this._listInput.showAddButton && !this._listInput.showSortButton && !this._listInput.showClearButton) {
+      this._listInput.styleClass += 'smz__input_list-hide-header ';
+    }
+
+    return this._groupBuilder;
   }
 }
 
 export class SmzFormListButtonsBuilder<TResponse> {
+  private _allEnabled = false;
   constructor(public _listBuilder: SmzFormListBuilder<TResponse>, private _listInput: SmzListControl) {
   }
 
   public add(): SmzFormListButtonsBuilder<TResponse> {
+    if (this._allEnabled) {
+      throw Error("You cannot call 'add' because you set all buttons to be visible in the input list control");
+    }
     this._listInput.showAddButton = true;
+    this._allEnabled = null;
     return this;
   }
 
   public remove(): SmzFormListButtonsBuilder<TResponse> {
+    if (this._allEnabled) {
+      throw Error("You cannot call 'remove' because you set all buttons to be visible in the input list control");
+    }
     this._listInput.showRemoveButton = true;
+    this._allEnabled = null;
     return this;
   }
 
   public edit(): SmzFormListButtonsBuilder<TResponse> {
+    if (this._allEnabled) {
+      throw Error("You cannot call 'edit' because you set all buttons to be visible in the input list control");
+    }
     this._listInput.showEditButton = true;
+    this._allEnabled = null;
     return this;
   }
 
   public sort(): SmzFormListButtonsBuilder<TResponse> {
+    if (this._allEnabled) {
+      throw Error("You cannot call 'sort' because you set all buttons to be visible in the input list control");
+    }
     this._listInput.showSortButton = true;
+    this._allEnabled = null;
     return this;
   }
 
   public move(): SmzFormListButtonsBuilder<TResponse> {
+    if (this._allEnabled) {
+      throw Error("You cannot call 'move' because you set all buttons to be visible in the input list control");
+    }
     this._listInput.showMoveButton = true;
+    this._allEnabled = null;
     return this;
   }
 
   public clear(): SmzFormListButtonsBuilder<TResponse> {
+    if (this._allEnabled) {
+      throw Error("You cannot call 'clear' because you set all buttons to be visible in the input list control");
+    }
     this._listInput.showClearButton = true;
+    this._allEnabled = null;
     return this;
   }
 
   public all(): SmzFormListButtonsBuilder<TResponse> {
+
+    if (this._allEnabled == null) {
+      throw Error("You cannot call 'all' because you already set other button manually in the input list control");
+    }
+
+    this._allEnabled = false;
+
     this.add();
     this.remove();
     this.edit();
     this.sort();
     this.move();
     this.clear();
+
+    this._allEnabled = true;
+
     return this;
   }
 

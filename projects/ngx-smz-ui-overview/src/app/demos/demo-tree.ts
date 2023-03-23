@@ -730,6 +730,20 @@ export const TreeDemoData: DemoTreeNode[] = [
             key: DemoKeys.FORMS_INPUT_LIST_BATCH_CRUD.toString()
           },
           {
+            label: 'List With Numbers', icon: 'fa-solid fa-code', type: 'Demo',
+            demoType: 'form',
+            notes: '',
+            data: FormsDemo[DemoKeys.FORMS_INPUT_LIST_NUMBER],
+            key: DemoKeys.FORMS_INPUT_LIST_NUMBER.toString()
+          },
+          {
+            label: 'List With Fraction Numbers', icon: 'fa-solid fa-code', type: 'Demo',
+            demoType: 'form',
+            notes: '',
+            data: FormsDemo[DemoKeys.FORMS_INPUT_LIST_FRACTION_NUMBER],
+            key: DemoKeys.FORMS_INPUT_LIST_FRACTION_NUMBER.toString()
+          },
+          {
             label: 'Mask', icon: 'fa-solid fa-code', type: 'Demo',
             demoType: 'form',
             notes: '',

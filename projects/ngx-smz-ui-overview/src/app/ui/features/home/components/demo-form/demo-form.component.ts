@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { DemoTreeNode } from '@models/demo';
-import { FormGroupComponent, SmzForm, SmzDialogsService, SmzDialogBuilder, SmzFormsResponse, SmzUiBlockService } from 'ngx-smz-ui';
-import { PrettyJsonPipe } from '../../../../../../../../ngx-smz-ui/src/lib/common/data-pipes/pipes/pretty-json.pipe';
+import { FormGroupComponent, SmzForm, SmzDialogsService, SmzDialogBuilder, SmzFormsResponse, SmzUiBlockService, PrettyJsonPipe } from 'ngx-smz-ui';
 
 @Component({
   selector: 'app-demo-form',

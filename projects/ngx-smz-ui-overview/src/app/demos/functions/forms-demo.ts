@@ -377,7 +377,6 @@ Exame sem intercorrências.`)
           .useDialogEditMode()
           .buttons()
             .add()
-            .all()
             .clear()
             .edit()
             .move()
@@ -396,7 +395,6 @@ Exame sem intercorrências.`)
         .list('input1', 'I\'m not required', ['Option 1', 'Option 2', 'Option 3'])
           .buttons()
             .add()
-            .all()
             .clear()
             .edit()
             .move()
@@ -414,15 +412,33 @@ Exame sem intercorrências.`)
         .setLayout('EXTRA_SMALL', 'col-12')
         .list('input1', 'I\'m not required', ['Option 1', 'Option 2', 'Option 3'])
           .allowBatchCreation()
-          .buttons()
-            .add()
-            .all()
-            .clear()
-            .edit()
-            .move()
-            .remove()
-            .sort()
-            .list
+          .buttons().all().list
+          .group
+        .form
+      .build();
+  },
+  //
+  [DemoKeys.FORMS_INPUT_LIST_NUMBER]: () => {
+    return new SmzFormBuilder<any>()
+      .group()
+        .setLayout('EXTRA_SMALL', 'col-12')
+        .list('input1', 'I\'m not required', [1, 2, 3])
+          .useNumberInput()
+          .buttons().all().list
+          .group
+        .form
+      .build();
+  },
+  //
+  [DemoKeys.FORMS_INPUT_LIST_FRACTION_NUMBER]: () => {
+    return new SmzFormBuilder<any>()
+      .group()
+        .setLayout('EXTRA_SMALL', 'col-12')
+        .list('input1', 'I\'m not required', [1.1, 2, 3.1235])
+          .useFractionNumberInput('Pontos', 3)
+          .setLimitCount(4)
+          .allowOnlyUniqueData()
+          .buttons().all().list
           .group
         .form
       .build();

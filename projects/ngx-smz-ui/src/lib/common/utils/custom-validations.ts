@@ -1,4 +1,4 @@
-import { UntypedFormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { replaceAll } from './utils';
 
 // custom validator to check that two fields match
@@ -21,3 +21,17 @@ export function MustMatch(matchingControlName: string) {
         return {};
     }
 }
+
+
+export function MustBeUnique(options: string[]) {
+    return (control: UntypedFormControl): { [key: string]: any } => {
+        const input = control.value;
+        if (options.findIndex(x => x?.toString()?.toLowerCase() === input?.toString()?.toLowerCase()) !== -1) {
+            return {
+                'unique': true
+            };
+        }
+
+        return {};
+    };
+  }
