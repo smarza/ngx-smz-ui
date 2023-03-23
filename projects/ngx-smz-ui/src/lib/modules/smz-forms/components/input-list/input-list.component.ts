@@ -167,7 +167,13 @@ export class InputListComponent {
         if (event.isValid)
         {
             // add new item
-            this.input.listBoxOptions = [{ id: UUID.UUID(), name: event.value }, ...this.input.listBoxOptions];
+            if (this.input.crud?.insertAtBeginning) {
+                this.input.listBoxOptions = [{ id: UUID.UUID(), name: event.value }, ...this.input.listBoxOptions];
+            }
+            else {
+                this.input.listBoxOptions = [...this.input.listBoxOptions, { id: UUID.UUID(), name: event.value }];
+            }
+
             this.current = event.value;
             // update new list to control
             this.updateControl();
@@ -184,7 +190,13 @@ export class InputListComponent {
         if (event.isValid)
         {
             // add new item
-            this.input.listBoxOptions = [...event.values.map(x => ({ id: UUID.UUID(), name: x })), ...this.input.listBoxOptions];
+            if (this.input.crud?.insertAtBeginning) {
+                this.input.listBoxOptions = [...event.values.map(x => ({ id: UUID.UUID(), name: x })), ...this.input.listBoxOptions];
+            }
+            else {
+                this.input.listBoxOptions = [...this.input.listBoxOptions, ...event.values.map(x => ({ id: UUID.UUID(), name: x }))];
+            }
+
             this.current = event.values[0];
             // update new list to control
             this.updateControl();

@@ -494,8 +494,13 @@ export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormG
         hideName: false,
         emptyMessage: 'Lista Vazia',
         crud: {
+          inputType: 'string',
           inputData: {},
-          validateForUniqueValues: false
+          digitsInfo: null,
+          validateForUniqueValues: false,
+          insertAtBeginning: true,
+          labelLocale: 'pt',
+          inputLocale: 'pt-BR'
         },
         styleClass: ''
       };
@@ -1298,17 +1303,25 @@ export class SmzFormListBuilder<TResponse> extends SmzFormInputBuilder<SmzFormLi
     return this;
   }
 
+  public appendNewItemToEnd(): SmzFormListBuilder<TResponse> {
+    this._listInput.crud.insertAtBeginning = false;
+    return this;
+  }
+
   public useFractionNumberInput(label: string = 'Dado', digits: number = 2): SmzFormListBuilder<TResponse> {
 
     const numberInput: SmzNumberControl = {
       propertyName: 'name', name: label, type: SmzControlType.NUMBER,
       template: { large: { row: 'col-12' } },
+      locale: this._listInput.crud.inputLocale,
       useFraction: true,
       minFractionDigits: digits,
       maxFractionDigits: digits
     };
 
     this._listInput.crud.inputData = numberInput;
+    this._listInput.crud.digitsInfo = `1.${digits}-${digits}`;
+    this._listInput.crud.inputType = 'float';
 
     return this;
   }

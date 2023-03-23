@@ -26,9 +26,15 @@
         </ng-template>
 
         <ng-template let-item pTemplate="item">
-            <div class="smz__list-item">
+            <div class="grid grid-nogutter items-center w-full justify-between">
                 <ng-container *ngIf="!isInlineEditingEnabled || (isInlineEditingEnabled && current !== item)">
-                    <div class="smz__list_item-title">{{ item.name }}</div>
+                    <ng-container *ngIf="input.crud?.inputType === 'float'; else stringTemplate">
+                        <div class="smz__list_item-title">{{ item.name | number : input.crud.digitsInfo : input.crud.labelLocale }}</div>
+                    </ng-container>
+                    <ng-template #stringTemplate>
+                        <div class="smz__list_item-title">{{ item.name }}</div>
+                    </ng-template>
+
                 </ng-container>
 
                 <ng-container *ngIf="isInlineEditingEnabled && current === item">

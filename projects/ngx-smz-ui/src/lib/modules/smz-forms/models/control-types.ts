@@ -106,8 +106,13 @@ export interface SmzListControl extends SmzFormsBaseControl
     emptyMessage?: string;
     allowBatchCreation?: boolean;
     crud?: {
+        inputType: 'string' | 'float';
         inputData: Partial<SmzTextControl> | Partial<SmzNumberControl>;
+        digitsInfo: string;
         validateForUniqueValues: boolean;
+        insertAtBeginning: boolean;
+        labelLocale: 'pt';
+        inputLocale: 'pt-BR';
     }
     limitCount?: number;
     styleClass?: string;
