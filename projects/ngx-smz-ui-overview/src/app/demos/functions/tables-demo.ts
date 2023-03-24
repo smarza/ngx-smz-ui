@@ -434,6 +434,7 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
             .setStyles('p-button-info')
             .menu
           .item()
+            .askForCriticalConfirmation('Atenção', 'Tem certeza de que deseja fazer isso ?')
             .setCallback((event: any) => console.log('---', event))
             .setIcon('fa-solid fa-face-angry')
             .setStyles('p-button-danger')

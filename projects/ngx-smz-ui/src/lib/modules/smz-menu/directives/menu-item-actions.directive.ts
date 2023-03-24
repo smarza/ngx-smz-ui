@@ -1,6 +1,7 @@
 import { Directive, EventEmitter, HostListener, Input, Output } from '@angular/core';
 import { Navigate } from '@ngxs/router-plugin';
 import { Store } from '@ngxs/store';
+import { ConfirmableFunction, CriticalConfirmableFunction } from '../../smz-dialogs/decorators/confirmable.decorator';
 import { SmzMenuItem } from '../models/smz-menu-item';
 
 @Directive({
@@ -20,10 +21,20 @@ export class SmzMenuItemActionsDirective {
         if (this.item.disabled)
             return ;
 
+        if (this.item.confirmable?.isCritical) {
+            CriticalConfirmableFunction(this.item.confirmable.title, this.item.confirmable.message, () => { this.resolveCommand(event) })
+        }
+        else if (this.item.confirmable != null && this.item.confirmable.isCritical === false) {
+            ConfirmableFunction(this.item.confirmable.title, this.item.confirmable.message, () => { this.resolveCommand(event) })
+        }
+        else {
+            this.resolveCommand(event);
+        }
+    }
 
+    public resolveCommand(event: any): void {
         if (this.item.command != null) {
             this.item.command(this.data);
-            this.collapse.emit();
         }
         else if (this.item.routerLink != null) {
 
@@ -33,12 +44,9 @@ export class SmzMenuItemActionsDirective {
             else {
                 this.store.dispatch(new Navigate(this.item.routerLink));
             }
-
-            this.collapse.emit();
-
         }
         else {
-            console.error('Nether command nor routerLink was set on the item. Please review the menu item model', event, this.item, this.data);
+            console.error('Nether command nor routerLink was set on the item. Please review the menu item model', event, this.item);
         }
     }
 }
