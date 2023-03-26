@@ -6,12 +6,12 @@
       <img [src]="uiConfig.rbkUtils.errorsConfig.page.imagePath" alt="mirage-layout" />
   </div>
 
-  <div class="grid justify-center items-center col-12 lg:col-6 grid-nogutter">
+  <div class="grid justify-center items-center col-12 lg:col-6 grid-nogutter h-full bg-surface-ground">
       <div class="grid col-8 items-center">
           <div class="col-12 exception-label-error exception-light">{{ uiConfig.rbkUtils.errorsConfig.page.title }}</div>
-          <div class="col-4 exception-separator exception-light"></div>
+          <div class="col-6 exception-separator exception-light"></div>
           <div class="col-12 exception-label-message exception-light">{{ uiConfig.rbkUtils.errorsConfig.page.message }}</div>
-          <button *ngIf="uiConfig.rbkUtils.errorsConfig.page.button.isVisible" class="col-4 p-button-lg p-button-ghost" pButton type="button" [label]="uiConfig.rbkUtils.errorsConfig.page.button.label" (click)="redirect()"></button>
+          <button *ngIf="uiConfig.rbkUtils.errorsConfig.page.button.isVisible" class="p-button-lg p-button-ghost" pButton type="button" [label]="uiConfig.rbkUtils.errorsConfig.page.button.label" (click)="redirect()"></button>
       </div>
   </div>
 
@@ -20,7 +20,7 @@
 <!-- VERSÃO DESKTOP -->
 <div class="grid justify-center items-center vertical-container exception-page">
 
-  <div class="grid justify-center items-center col-12 lg:col-6 grid-nogutter">
+  <div class="grid justify-center items-center col-12 lg:col-6 grid-nogutter h-full bg-surface-ground">
       <div class="grid col-8 items-center">
           <div class="col-12 exception-label-error">{{ uiConfig.rbkUtils.errorsConfig.page.title }}</div>
           <div class="col-4 exception-separator"></div>
