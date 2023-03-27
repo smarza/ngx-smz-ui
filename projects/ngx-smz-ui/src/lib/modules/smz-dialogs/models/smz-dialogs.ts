@@ -197,6 +197,7 @@ export interface SmzDialogBehaviors
      */
     includeComponentResponses?: boolean;
     showAsLinkedOverlayPanel?: boolean;
+    autoFocus?: boolean;
 
 }
 

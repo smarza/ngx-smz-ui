@@ -114,6 +114,7 @@ export class SmzDialogsService
             blockRestoreButton: behaviors.hideRestoreButton === true,
             closeOnEscape: behaviors.closeOnEscape,
             confirmOnEnter: behaviors.confirmOnEnter,
+            autoFocus: behaviors.autoFocus,
             showHeader: behaviors.showHeader,
             dismissableMask: behaviors.dismissableMask,
             baseZIndex: behaviors.baseZIndex,

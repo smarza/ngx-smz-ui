@@ -52,6 +52,7 @@ export class SmzDialogBuilder<TResponse> extends SmzBuilderUtilities<SmzDialogBu
       baseZIndex: 0,
       includeComponentResponses: false,
       showAsLinkedOverlayPanel: false,
+      autoFocus: true,
       ...this.defaultConfig?.dialogs?.behaviors
     },
     builtInButtons: {
@@ -102,6 +103,11 @@ export class SmzDialogBuilder<TResponse> extends SmzBuilderUtilities<SmzDialogBu
 
   public openMaximized(): SmzDialogBuilder<TResponse> {
     this._state.behaviors.openMaximized = true;
+    return this;
+  }
+
+  public disableAutoFocus(): SmzDialogBuilder<TResponse> {
+    this._state.behaviors.autoFocus = false;
     return this;
   }
 

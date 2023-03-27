@@ -467,6 +467,31 @@ export const DialogsDemo: { [key: string]: () => void } = {
       .build()
     );
   },
+    //
+    [DemoKeys.DIALOGS_WITH_FOCUS_FORM]: () => {
+      service.open(
+        new SmzDialogBuilder<void>()
+          .setTitle(`Form`)
+          .setLayout('EXTRA_SMALL', 'col-12')
+          .setLayout('EXTRA_LARGE', 'col-8')
+          .disableAutoFocus()
+          .form()
+            .group()
+              .dropdown('plate', 'Chapa', [])
+                .validators().required()
+                .group
+              .list('input1', 'I\'m not required', [1.1, 2, 3.1235])
+                .useFractionNumberInput('Ponto', 3)
+                .setLimitCount(4)
+                .useDialogEditMode()
+                .allowOnlyUniqueData()
+                .buttons().all().list
+                .group
+              .form
+              .dialog
+        .build()
+      );
+    },
   //
   [DemoKeys.DIALOGS_WITH_TABLE_SELECTION]: () => {
     service.open(

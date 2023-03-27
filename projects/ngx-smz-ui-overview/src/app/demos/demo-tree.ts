@@ -404,6 +404,17 @@ export const TreeDemoData: DemoTreeNode[] = [
         ]
       },
       {
+        label: 'Dialog With Auto Focus Forms', type: 'SubCategory',
+        children: [
+          {
+            label: 'Validation', icon: 'fa-solid fa-code', type: 'Demo',
+            demoType: 'dialog',
+            data: DialogsDemo[DemoKeys.DIALOGS_WITH_FOCUS_FORM],
+            key: DemoKeys.DIALOGS_WITH_FOCUS_FORM.toString()
+          },
+        ]
+      },
+      {
         label: 'Dialog With Markdown', type: 'SubCategory',
         children: [
           {

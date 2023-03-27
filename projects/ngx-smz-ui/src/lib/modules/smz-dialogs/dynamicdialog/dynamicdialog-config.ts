@@ -26,4 +26,5 @@ export class DynamicDialogConfig {
 	showHeader?: boolean;
 	modal?: boolean;
 	domElementId?: string;
+	autoFocus?: boolean;
 }
