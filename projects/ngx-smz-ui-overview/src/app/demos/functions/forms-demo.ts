@@ -437,6 +437,7 @@ Exame sem intercorrências.`)
         .list('input1', 'I\'m not required', [1.1, 2, 3.1235])
           .useFractionNumberInput('Pontos', 3)
           .setLimitCount(4)
+          .useDialogEditMode()
           .allowOnlyUniqueData()
           .buttons().all().list
           .group

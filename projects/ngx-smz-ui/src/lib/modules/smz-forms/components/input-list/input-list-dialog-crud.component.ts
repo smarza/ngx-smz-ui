@@ -37,6 +37,7 @@ export class InputListDialogCrudComponent implements OnInit {
         advancedSettings: { validators: [MustBeUnique(this.config.data.input.options)], validationMessages: [{ type: 'unique', message: 'Já existe um item com esse dado.' }] },
         template: { large: { row: 'col-12' } },
         defaultValue: defaultValue,
+        autoFocus: true
     };
 
     const input = inputList.crud?.inputData != null ? {

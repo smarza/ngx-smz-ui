@@ -9,6 +9,7 @@
         mask="9?9999999999999999999999999999999"
         characterPattern="([0-9])"
         [id]="input.propertyName"
+        pAutoFocus [autofocus]="input.autoFocus"
         [formControl]="control">
     </p-inputMask>
     <p-inputNumber
@@ -21,6 +22,7 @@
         [maxFractionDigits]="input.maxFractionDigits"
         [useGrouping]="input.useGrouping"
         [id]="input.propertyName"
+        pAutoFocus [autofocus]="input.autoFocus"
         (onInput)="onInput($event)">
     </p-inputNumber>
     <smz-validation-messages [input]="input" [control]="control" [behaviors]="behaviors"></smz-validation-messages>

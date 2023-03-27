@@ -1316,7 +1316,8 @@ export class SmzFormListBuilder<TResponse> extends SmzFormInputBuilder<SmzFormLi
       locale: this._listInput.crud.inputLocale,
       useFraction: true,
       minFractionDigits: digits,
-      maxFractionDigits: digits
+      maxFractionDigits: digits,
+      autoFocus: true
     };
 
     this._listInput.crud.inputData = numberInput;
@@ -1332,6 +1333,7 @@ export class SmzFormListBuilder<TResponse> extends SmzFormInputBuilder<SmzFormLi
       propertyName: 'name', name: label, type: SmzControlType.NUMBER,
       template: { large: { row: 'col-12' } },
       useFraction: false,
+      autoFocus: true
     };
 
     this._listInput.crud.inputData = numberInput;

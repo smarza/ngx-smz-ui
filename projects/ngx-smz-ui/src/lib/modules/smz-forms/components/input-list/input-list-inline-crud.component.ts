@@ -1,8 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { DynamicDialogConfig } from 'primeng/dynamicdialog';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { SmzControlType, SmzListControl, SmzTextControl } from '../../models/control-types';
 import { SmzForm } from '../../models/smz-forms';
-import { DialogCrudStateService } from '../../../smz-dialogs/state/dialogs/dialog-crud-state.service';
 import { MustBeUnique } from '../../../../../lib/common/utils/custom-validations';
 
 @Component({
@@ -17,29 +15,31 @@ import { MustBeUnique } from '../../../../../lib/common/utils/custom-validations
 
 export class InputListInlineCrudComponent implements OnInit {
   @ViewChild('formComponent') public formComponent: any;
+  @Input() public input: SmzListControl;
+  @Input() public defaultValue: any;
   public form: SmzForm<any> = null;
-  constructor(public dialogCrudService: DialogCrudStateService, public config: DynamicDialogConfig) { }
+  constructor() { }
 
   public ngOnInit(): void
   {
-    this.form = this.createEditForm(this.config.data.input, this.config.data.value);
+    this.form = this.createEditForm();
   }
 
-  public createEditForm(inputList: SmzListControl, defaultValue: any): SmzForm<{ name: string }> {
+  public createEditForm(): SmzForm<{ name: string }> {
     const textInput: SmzTextControl = {
       propertyName: 'name', name: 'nome', type: SmzControlType.TEXT, hideName: true,
       validatorsPreset: { isRequired: true },
-      advancedSettings: { validators: [MustBeUnique(this.config.data.input.options)], validationMessages: [{ type: 'unique', message: 'Já existe um item com esse dado.' }] },
+      advancedSettings: { validators: [MustBeUnique(this.input.options)], validationMessages: [{ type: 'unique', message: 'Já existe um item com esse dado.' }] },
       template: { large: { row: 'col-12' } },
-      defaultValue: defaultValue,
+      defaultValue: this.defaultValue,
     };
 
-    const input = inputList.crud?.inputData != null ? {
-      ...inputList.crud?.inputData,
-      defaultValue: defaultValue,
+    const input = this.input.crud?.inputData != null ? {
+      ...this.input.crud?.inputData,
+      defaultValue: this.defaultValue,
       validatorsPreset: { isRequired: true },
-      advancedSettings: inputList.crud.validateForUniqueValues ?
-        { validators: [MustBeUnique(this.config.data.input.options)], validationMessages: [{ type: 'unique', message: 'Já existe um item com esse dado.' }] } :
+      advancedSettings: this.input.crud.validateForUniqueValues ?
+        { validators: [MustBeUnique(this.input.options)], validationMessages: [{ type: 'unique', message: 'Já existe um item com esse dado.' }] } :
         { validators: [], validationMessages: [] }
     } : null;
 
@@ -60,7 +60,7 @@ export class InputListInlineCrudComponent implements OnInit {
 
   public confirm(): void
   {
-    this.dialogCrudService.ref.close(this.formComponent.getData());
+
   }
 
 }

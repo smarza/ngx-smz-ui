@@ -45,7 +45,6 @@
                                 <div *ngIf="valueInput.touched && valueInput.hasError('required')" class="text-xs text-red-500 absolute right-3 my-1">Campo Obrigatório.</div>
                                 <div *ngIf="valueInput.touched && valueInput.hasError('unique')" class="text-xs text-red-500 absolute right-3 my-1">Já existe um item com esse nome.</div>
                             </ng-container>
-
                         </form>
                         <button pButton type="button" icon="pi pi-check" clickStopPropagation [disabled]="!editForm.valid" class="p-nocustom inline_action_button p-button-rounded p-button-success p-button-text" (click)="onConfirmInlineEditing(item)"></button>
                         <button pButton type="button" icon="pi pi-times" clickStopPropagation class="p-nocustom inline_action_button p-button-rounded p-button-danger p-button-text" (click)="cancelEdit()"></button>
