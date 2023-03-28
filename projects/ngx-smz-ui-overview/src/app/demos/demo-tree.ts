@@ -574,6 +574,13 @@ export const TreeDemoData: DemoTreeNode[] = [
             data: FormsDemo[DemoKeys.FORMS_BEHAVIORS_DATA_DEPENDENCY],
             key: DemoKeys.FORMS_BEHAVIORS_DATA_DEPENDENCY.toString()
           },
+          {
+            label: 'Multiple Groups', icon: 'fa-solid fa-code', type: 'Demo',
+            demoType: 'form',
+            notes: '',
+            data: FormsDemo[DemoKeys.FORMS_MULTIPLE_GROUPS],
+            key: DemoKeys.FORMS_MULTIPLE_GROUPS.toString()
+          },
         ]
       },
       {

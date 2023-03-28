@@ -28,7 +28,9 @@ export interface SmzFormContext<T> {
 
 export interface SmzFormGroup
 {
+    readonly key?: string;
     readonly name: string;
+    isHide?: Boolean;
     showName: Boolean;
     template?: SmzTemplate;
     children: SmzControlTypes[];

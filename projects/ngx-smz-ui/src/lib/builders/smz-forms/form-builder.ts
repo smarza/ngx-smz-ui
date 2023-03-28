@@ -52,18 +52,23 @@ export class SmzFormBuilder<TResponse> {
     return this;
   }
 
-  public group(name: string = null): SmzFormGroupBuilder<TResponse> {
+  public group(name: string = null, key: string = null): SmzFormGroupBuilder<TResponse> {
     if (this.createdByUiDefinitions) {
       return new SmzFormGroupBuilder(this, this._state.groups[this._state.groups.length - 1]);
     }
 
-    const group: SmzFormGroup = { name, showName: name != null, children: [] };
+    const group: SmzFormGroup = { name, showName: name != null, key, children: [] };
     this._state.groups.push(group)
     return new SmzFormGroupBuilder(this, group);
   }
 
   public disableFlattenResponse(): SmzFormBuilder<TResponse> {
     this._state.behaviors.flattenResponse = false;
+    return this;
+  }
+
+  public runCustomFunctionsOnLoad(): SmzFormBuilder<TResponse> {
+    this._state.behaviors.runCustomFunctionsOnLoad = true;
     return this;
   }
 

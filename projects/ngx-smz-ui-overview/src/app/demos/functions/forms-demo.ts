@@ -147,12 +147,11 @@ Exame sem intercorrências.`)
   //
   [DemoKeys.FORMS_INPUT_DROPDOWN]: () => {
     return new SmzFormBuilder<any>()
-      .debugMode()
       .group()
         .setLayout('EXTRA_SMALL', 'col-12')
         .dropdown('input1', 'I\'m required', [{ id: '1', name: 'Option 1'}, { id: '2', name: 'Option 2'}, { id: '3', name: 'Option 3'}])
-          .addValueReaction<SimpleNamedEntity>({ propertyName: 'inputText', newValue: (option) => `Opção escolhida: ${option.name}` })
-          .addDisableReaction<SimpleNamedEntity>({ propertyName: 'inputText', condition: (option) =>  option.id === '1' ? true : false })
+          .addValueReaction<SimpleNamedEntity>('inputText', (option) => `Opção escolhida: ${option.name}`)
+          // .addStatusReaction<SimpleNamedEntity>('inputText', (option) =>  option.id === '1' ? true : false)
           .showFilter()
           .validators().required().input
           .group
@@ -570,6 +569,34 @@ Exame sem intercorrências.`)
           id: '55e08b38-cec6-4063-acd0-25747f31dc59'
         }})
       .build();
+  },
+  [DemoKeys.FORMS_MULTIPLE_GROUPS]: () => {
+    return new SmzFormBuilder<any>()
+      .runCustomFunctionsOnLoad()
+      .group('Main')
+        .setLayout('EXTRA_SMALL', 'col-12')
+        .dropdown('input1', 'I\'m required', [{ id: 'both', name: 'Show Both Groups'}, { id: '1', name: 'Only Group 1'}, { id: '2', name: 'Only Group 2'}], 'both')
+          .addValueReaction<SimpleNamedEntity>('inputText1', (option) => `Opção escolhida: ${option.name}`)
+          .addStatusReaction<SimpleNamedEntity>('inputText1', (option) =>  option.id === '1' ? true : false)
+          .addGroupReaction<SimpleNamedEntity>('group1', (option) =>  option.id === '1' || option.id === 'both' ? true : false)
+          .addGroupReaction<SimpleNamedEntity>('group2', (option) =>  option.id === '2' || option.id === 'both' ? true : false)
+          .showFilter()
+          .validators().required().input
+          .group
+        .form
+      .group('Group 1', 'group1')
+        .hide()
+        .setLayout('EXTRA_SMALL', 'col-6')
+        .text('inputText1', 'Automatic')
+          .group
+        .form
+      .group('Group 2', 'group2')
+        .hide()
+        .setLayout('EXTRA_SMALL', 'col-6')
+        .text('inputText2', 'Automatic')
+          .group
+        .form
+    .build();
   },
 }
 

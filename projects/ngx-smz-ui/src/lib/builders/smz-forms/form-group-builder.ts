@@ -28,6 +28,11 @@ export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormG
     return this;
   }
 
+  public hide(): SmzFormGroupBuilder<TResponse> {
+  this.group.isHide = true;
+  return this;
+}
+
   public reorder(...properties: string[]): SmzFormGroupBuilder<TResponse> {
     this.group.children = sortBy(this.group.children, (c) => properties.indexOf(c.propertyName) !== -1? properties.indexOf(c.propertyName) : this.group.children.length);
     return this;
@@ -793,9 +798,11 @@ export class SmzFormCheckboxGroupBuilder<T,TResponse> extends SmzFormInputBuilde
 
 interface FormValueReactions<T> { propertyName: string, newValue: (option: T) => string }
 interface FormDisableReactions<T> { propertyName: string, condition: (option: T) => boolean }
+interface FormGroupReactions<T> { groupKey: string, visibility: (option: T) => boolean }
 
 export class SmzFormDropdownBuilder<T, TResponse> extends SmzFormInputBuilder<SmzFormDropdownBuilder<T, TResponse>, TResponse> {
   protected that = this;
+  private _groupReactions: FormGroupReactions<any>[] = [];
   private _valueReactions: FormValueReactions<any>[] = [];
   private _statusReactions: FormDisableReactions<any>[] = [];
 
@@ -837,6 +844,11 @@ export class SmzFormDropdownBuilder<T, TResponse> extends SmzFormInputBuilder<Sm
 
   public addStatusReaction<TOption>(propertyName: string, condition: (option: TOption) => boolean): SmzFormDropdownBuilder<T,TResponse> {
     this._statusReactions.push({ propertyName, condition });
+    return this;
+  }
+
+  public addGroupReaction<TOption>(groupKey: string, visibility: (option: TOption) => boolean): SmzFormDropdownBuilder<T,TResponse> {
+    this._groupReactions.push({ groupKey, visibility });
     return this;
   }
 
@@ -891,14 +903,14 @@ export class SmzFormDropdownBuilder<T, TResponse> extends SmzFormInputBuilder<Sm
             // DISABLE REACTIONS
             this._statusReactions.forEach(reaction => {
 
-              const newDisableState = reaction.condition(option as any);
+              const newState = reaction.condition(option as any);
 
               const destinationInput = config.groups[0].children.find(x => x.propertyName === reaction.propertyName);
 
               if (destinationInput != null) {
-                destinationInput.isDisabled = newDisableState;
+                destinationInput.isDisabled = newState;
 
-                if (newDisableState) {
+                if (newState) {
                   if (this._groupBuilder._formBuilder._state.isDebug) {
                     console.log(`Reactive Disabling input: '${reaction.propertyName}'`);
                   }
@@ -910,12 +922,38 @@ export class SmzFormDropdownBuilder<T, TResponse> extends SmzFormInputBuilder<Sm
                   }
                   destinationInput._inputFormControl.enable({ emitEvent: false });
                 }
+              }
+            });
 
+            // GROUP REACTIONS
+            this._groupReactions.forEach(reaction => {
+
+              const newState = reaction.visibility(option as any);
+
+              const destinationGroup = config.groups.find(x => x.key === reaction.groupKey);
+
+              if (destinationGroup != null) {
+
+                destinationGroup.isHide = !newState;
+
+                if (newState) {
+                  if (this._groupBuilder._formBuilder._state.isDebug) {
+                    console.log(`Reactive hiding group: '${reaction.groupKey}'`);
+                  }
+                }
+                else {
+                  if (this._groupBuilder._formBuilder._state.isDebug) {
+                    console.log(`Reactive showing group: '${reaction.groupKey}'`);
+                  }
+
+                }
 
               }
 
             });
+
           }
+
         }
       };
 
