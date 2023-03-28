@@ -905,7 +905,14 @@ export class SmzFormDropdownBuilder<T, TResponse> extends SmzFormInputBuilder<Sm
 
               const newState = reaction.condition(option as any);
 
-              const destinationInput = config.groups[0].children.find(x => x.propertyName === reaction.propertyName);
+              let destinationInput;
+
+              config.groups.forEach(group => {
+                const match = group.children.find(x => x.propertyName === reaction.propertyName);
+                if (match != null) {
+                  destinationInput = match;
+                }
+              })
 
               if (destinationInput != null) {
                 destinationInput.isDisabled = newState;
