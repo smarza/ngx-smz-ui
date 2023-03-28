@@ -830,13 +830,13 @@ export class SmzFormDropdownBuilder<T, TResponse> extends SmzFormInputBuilder<Sm
     return this;
   }
 
-  public addValueReaction<TOption>(reaction: FormValueReactions<TOption>): SmzFormDropdownBuilder<T,TResponse> {
-    this._valueReactions.push(reaction);
+  public addValueReaction<TOption>(propertyName: string, newValue: (option: TOption) => string): SmzFormDropdownBuilder<T,TResponse> {
+    this._valueReactions.push({ propertyName, newValue });
     return this;
   }
 
-  public addStatusReaction<TOption>(reaction: FormDisableReactions<TOption>): SmzFormDropdownBuilder<T,TResponse> {
-    this._statusReactions.push(reaction);
+  public addStatusReaction<TOption>(propertyName: string, condition: (option: TOption) => boolean): SmzFormDropdownBuilder<T,TResponse> {
+    this._statusReactions.push({ propertyName, condition });
     return this;
   }
 
