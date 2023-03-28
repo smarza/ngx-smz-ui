@@ -151,9 +151,8 @@ Exame sem intercorrências.`)
       .group()
         .setLayout('EXTRA_SMALL', 'col-12')
         .dropdown('input1', 'I\'m required', [{ id: '1', name: 'Option 1'}, { id: '2', name: 'Option 2'}, { id: '3', name: 'Option 3'}])
-          .reactive<SimpleNamedEntity>([
-            { propertyName: 'inputText', newValue: (option) => `Opção escolhida: ${option.name}` }
-          ])
+          .addValueReaction<SimpleNamedEntity>({ propertyName: 'inputText', newValue: (option) => `Opção escolhida: ${option.name}` })
+          .addDisableReaction<SimpleNamedEntity>({ propertyName: 'inputText', condition: (option) =>  option.id === '1' ? true : false })
           .showFilter()
           .validators().required().input
           .group

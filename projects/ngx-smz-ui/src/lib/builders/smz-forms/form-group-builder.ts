@@ -791,8 +791,14 @@ export class SmzFormCheckboxGroupBuilder<T,TResponse> extends SmzFormInputBuilde
   }
 }
 
+interface FormValueReactions<T> { propertyName: string, newValue: (option: T) => string }
+interface FormDisableReactions<T> { propertyName: string, condition: (option: T) => boolean }
+
 export class SmzFormDropdownBuilder<T, TResponse> extends SmzFormInputBuilder<SmzFormDropdownBuilder<T, TResponse>, TResponse> {
   protected that = this;
+  private _valueReactions: FormValueReactions<any>[] = [];
+  private _statusReactions: FormDisableReactions<any>[] = [];
+
   constructor(public _groupBuilder: SmzFormGroupBuilder<TResponse>, private _dropdownInput: SmzDropDownControl<T>) {
     super(_groupBuilder, _dropdownInput);
   }
@@ -824,59 +830,98 @@ export class SmzFormDropdownBuilder<T, TResponse> extends SmzFormInputBuilder<Sm
     return this;
   }
 
-  public reactive<TOption>(reactions: { propertyName: string, newValue: (option: TOption) => string }[]): SmzFormDropdownBuilder<T,TResponse> {
+  public addValueReaction<TOption>(reaction: FormValueReactions<TOption>): SmzFormDropdownBuilder<T,TResponse> {
+    this._valueReactions.push(reaction);
+    return this;
+  }
 
-    if (this._groupBuilder._formBuilder._state.functions.customBehavior != null) {
-      throw Error("You need to call `reactive` because 'functions.customBehavior' is already in use.");
-    }
+  public addStatusReaction<TOption>(reaction: FormDisableReactions<TOption>): SmzFormDropdownBuilder<T,TResponse> {
+    this._statusReactions.push(reaction);
+    return this;
+  }
 
-    if (reactions.length == 0) {
-      throw Error("You need to call `reactive` and set no reactions.");
-    }
+  public get group(): SmzFormGroupBuilder<TResponse> {
 
-    this._groupBuilder._formBuilder._state.functions.customBehavior = (data, config, form): void => {
+    if (this._valueReactions.length > 0 || this._statusReactions.length > 0) {
 
-      if (this._groupBuilder._formBuilder._state.isDebug) {
-        console.log(`Reacting to input '${this._dropdownInput.propertyName}...'`);
+      if (this._groupBuilder._formBuilder._state.functions.customBehavior != null) {
+        throw Error("You need to call `reactive` because 'functions.customBehavior' is already in use.");
       }
 
-      let inputValue;
-
-      if (this._groupBuilder._formBuilder._state.behaviors.flattenResponse) {
-        inputValue = ObjectUtils.resolveFieldData(data.data, `${this._dropdownInput.propertyName}Id`);
-      }
-      else {
-        inputValue = ObjectUtils.resolveFieldData(data.data, this._dropdownInput.propertyName)?.id;
-      }
-
-      if (this._groupBuilder._formBuilder._state.isDebug) {
-        console.log(`Reactive Input Found:`, inputValue);
-      }
-
-      if (inputValue != null) {
-        const option = this._dropdownInput.options.find(x => x.id === inputValue);
+      this._groupBuilder._formBuilder._state.functions.customBehavior = (data, config, form): void => {
 
         if (this._groupBuilder._formBuilder._state.isDebug) {
-          console.log(`Reactive Option Selected:`, option);
+          console.log(`Reacting to input '${this._dropdownInput.propertyName}...'`);
         }
 
-        if (option != null)
-        {
-          reactions.forEach(reaction => {
+        let inputValue;
 
-            const newValue = reaction.newValue(option as TOption);
-
-            if (this._groupBuilder._formBuilder._state.isDebug) {
-              console.log(`Reactive Updating input: '${reaction.propertyName}' with newValue: '${newValue}'`);
-            }
-
-            form.patchValue({ [reaction.propertyName]: newValue }, { emitEvent: false });
-          })
+        if (this._groupBuilder._formBuilder._state.behaviors.flattenResponse) {
+          inputValue = ObjectUtils.resolveFieldData(data.data, `${this._dropdownInput.propertyName}Id`);
         }
-      }
-    };
+        else {
+          inputValue = ObjectUtils.resolveFieldData(data.data, this._dropdownInput.propertyName)?.id;
+        }
 
-    return this;
+        if (this._groupBuilder._formBuilder._state.isDebug) {
+          console.log(`Reactive Input Found:`, inputValue);
+        }
+
+        if (inputValue != null) {
+          const option = this._dropdownInput.options.find(x => x.id === inputValue);
+
+          if (this._groupBuilder._formBuilder._state.isDebug) {
+            console.log(`Reactive Option Selected:`, option);
+          }
+
+          if (option != null)
+          {
+            // VALUE REACTIONS
+            this._valueReactions.forEach(reaction => {
+
+              const newValue = reaction.newValue(option as any);
+
+              if (this._groupBuilder._formBuilder._state.isDebug) {
+                console.log(`Reactive Updating input: '${reaction.propertyName}' with newValue: '${newValue}'`);
+              }
+
+              form.patchValue({ [reaction.propertyName]: newValue }, { emitEvent: false });
+            });
+
+            // DISABLE REACTIONS
+            this._statusReactions.forEach(reaction => {
+
+              const newDisableState = reaction.condition(option as any);
+
+              const destinationInput = config.groups[0].children.find(x => x.propertyName === reaction.propertyName);
+
+              if (destinationInput != null) {
+                destinationInput.isDisabled = newDisableState;
+
+                if (newDisableState) {
+                  if (this._groupBuilder._formBuilder._state.isDebug) {
+                    console.log(`Reactive Disabling input: '${reaction.propertyName}'`);
+                  }
+                  destinationInput._inputFormControl.disable({ emitEvent: false });
+                }
+                else {
+                  if (this._groupBuilder._formBuilder._state.isDebug) {
+                    console.log(`Reactive Enabling input: '${reaction.propertyName}'`);
+                  }
+                  destinationInput._inputFormControl.enable({ emitEvent: false });
+                }
+
+
+              }
+
+            });
+          }
+        }
+      };
+
+    }
+
+    return this._groupBuilder;
   }
 }
 
