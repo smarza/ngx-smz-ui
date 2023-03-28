@@ -30,6 +30,9 @@ export class SmzFormBuilder<TResponse> {
       // updateOn: 'change',
       ...this.defaultConfig?.forms?.behaviors
     },
+    functions: {
+
+    }
   };
 
   public createdByUiDefinitions = false;

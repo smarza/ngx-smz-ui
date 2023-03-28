@@ -12,6 +12,7 @@ import { Observable } from 'rxjs';
 import sortBy from 'lodash-es/sortBy';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { UUID } from 'angular2-uuid';
+import { ObjectUtils } from 'primeng/utils';
 
 export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormGroupBuilder<TResponse>> {
   protected that = this;
@@ -820,6 +821,61 @@ export class SmzFormDropdownBuilder<T, TResponse> extends SmzFormInputBuilder<Sm
 
   public showClear(): SmzFormDropdownBuilder<T,TResponse> {
     this._dropdownInput.showClear = true;
+    return this;
+  }
+
+  public reactive<TOption>(reactions: { propertyName: string, newValue: (option: TOption) => string }[]): SmzFormDropdownBuilder<T,TResponse> {
+
+    if (this._groupBuilder._formBuilder._state.functions.customBehavior != null) {
+      throw Error("You need to call `reactive` because 'functions.customBehavior' is already in use.");
+    }
+
+    if (reactions.length == 0) {
+      throw Error("You need to call `reactive` and set no reactions.");
+    }
+
+    this._groupBuilder._formBuilder._state.functions.customBehavior = (data, config, form): void => {
+
+      if (this._groupBuilder._formBuilder._state.isDebug) {
+        console.log(`Reacting to input '${this._dropdownInput.propertyName}...'`);
+      }
+
+      let inputValue;
+
+      if (this._groupBuilder._formBuilder._state.behaviors.flattenResponse) {
+        inputValue = ObjectUtils.resolveFieldData(data.data, `${this._dropdownInput.propertyName}Id`);
+      }
+      else {
+        inputValue = ObjectUtils.resolveFieldData(data.data, this._dropdownInput.propertyName)?.id;
+      }
+
+      if (this._groupBuilder._formBuilder._state.isDebug) {
+        console.log(`Reactive Input Found:`, inputValue);
+      }
+
+      if (inputValue != null) {
+        const option = this._dropdownInput.options.find(x => x.id === inputValue);
+
+        if (this._groupBuilder._formBuilder._state.isDebug) {
+          console.log(`Reactive Option Selected:`, option);
+        }
+
+        if (option != null)
+        {
+          reactions.forEach(reaction => {
+
+            const newValue = reaction.newValue(option as TOption);
+
+            if (this._groupBuilder._formBuilder._state.isDebug) {
+              console.log(`Reactive Updating input: '${reaction.propertyName}' with newValue: '${newValue}'`);
+            }
+
+            form.patchValue({ [reaction.propertyName]: newValue }, { emitEvent: false });
+          })
+        }
+      }
+    };
+
     return this;
   }
 }

@@ -3,6 +3,7 @@ import { GlobalInjector, SmzFormBuilder, SmzFormsResponse, SmzFormViewdata, Toas
 import * as moment from 'moment';
 import { Observable, of } from 'rxjs';
 import { Store } from '@ngxs/store';
+import { SimpleNamedEntity } from '../../../../../../dist/ngx-smz-ui/lib/common/models/simple-named-entity';
 
 const store = GlobalInjector.instance.get(Store);
 
@@ -146,11 +147,17 @@ Exame sem intercorrências.`)
   //
   [DemoKeys.FORMS_INPUT_DROPDOWN]: () => {
     return new SmzFormBuilder<any>()
+      .debugMode()
       .group()
         .setLayout('EXTRA_SMALL', 'col-12')
         .dropdown('input1', 'I\'m required', [{ id: '1', name: 'Option 1'}, { id: '2', name: 'Option 2'}, { id: '3', name: 'Option 3'}])
+          .reactive<SimpleNamedEntity>([
+            { propertyName: 'inputText', newValue: (option) => `Opção escolhida: ${option.name}` }
+          ])
           .showFilter()
           .validators().required().input
+          .group
+        .text('inputText', 'Automatic')
           .group
       .form
       .build();
