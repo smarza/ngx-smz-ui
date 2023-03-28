@@ -576,8 +576,6 @@ Exame sem intercorrências.`)
       .group('Main')
         .setLayout('EXTRA_SMALL', 'col-12')
         .dropdown('input1', 'I\'m required', [{ id: 'both', name: 'Show Both Groups'}, { id: '1', name: 'Only Group 1'}, { id: '2', name: 'Only Group 2'}], 'both')
-          .addValueReaction<SimpleNamedEntity>('inputText1', (option) => `Opção escolhida: ${option.name}`)
-          .addStatusReaction<SimpleNamedEntity>('inputText1', (option) =>  option.id === '1' ? true : false)
           .addGroupReaction<SimpleNamedEntity>('group1', (option) =>  option.id === '1' || option.id === 'both' ? true : false)
           .addGroupReaction<SimpleNamedEntity>('group2', (option) =>  option.id === '2' || option.id === 'both' ? true : false)
           .showFilter()
@@ -587,13 +585,15 @@ Exame sem intercorrências.`)
       .group('Group 1', 'group1')
         .hide()
         .setLayout('EXTRA_SMALL', 'col-6')
-        .text('inputText1', 'Automatic')
+        .dropdown('country1', 'Países', [ { id: '55e08b38-cec6-4063-acd0-25747f31dc59', name: 'Brazil'}])
+          .validators().required().input
           .group
         .form
       .group('Group 2', 'group2')
         .hide()
         .setLayout('EXTRA_SMALL', 'col-6')
-        .text('inputText2', 'Automatic')
+        .dropdown('country2', 'Países', [ { id: '55e08b38-cec6-4063-acd0-25747f31dc59', name: 'Brazil'}])
+          .validators().required().input
           .group
         .form
     .build();

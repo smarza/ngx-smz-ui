@@ -854,7 +854,7 @@ export class SmzFormDropdownBuilder<T, TResponse> extends SmzFormInputBuilder<Sm
 
   public get group(): SmzFormGroupBuilder<TResponse> {
 
-    if (this._valueReactions.length > 0 || this._statusReactions.length > 0) {
+    if (this._valueReactions.length > 0 || this._statusReactions.length > 0  || this._groupReactions.length > 0) {
 
       if (this._groupBuilder._formBuilder._state.functions.customBehavior != null) {
         throw Error("You need to call `reactive` because 'functions.customBehavior' is already in use.");

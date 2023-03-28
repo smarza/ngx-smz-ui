@@ -41,7 +41,11 @@ export class SmzFormViewdata {
 
                     if (input.visibilityDependsOn == null || input.isVisible) {
 
-                        if (input.isDisabled) {
+                        if (group.isHide) {
+                            // Forçando a validação para true porque o grupo esta oculto
+                            response.isValid = response.isValid && true;
+                        }
+                        else if (input.isDisabled) {
                             // Forçando a validação para true porque o campo esta desabilitado
                             response.isValid = response.isValid && true; // this.manager.manuallyValidate(input, value);
                         }
