@@ -5,6 +5,8 @@ import { SmzPresets } from '../models/smz-presets';
 import { SmzDialogsService } from '../services/smz-dialogs.service';
 import { convertFormFeature, InputConfig, InputConversionOptions } from '../../../builders/smz-dialogs/dialog-input-conversion';
 import { GlobalInjector } from '../../../common/services/global-injector';
+import { SmzDialogBuilder } from '../../../builders/smz-dialogs/dialog-builder';
+import { PrettyJsonPipe } from '../../../common/data-pipes/pipes/pretty-json.pipe';
 
 export function showPersistentDialog(
   entity: { [key: string]: any },
@@ -119,6 +121,38 @@ export function showMessage(title: string, message: string, confirmCallback: () 
       onConfirm: confirmCallback
     }
   }));
+}
+
+export function showObjectDialog(title: string, event: any): void {
+
+  GlobalInjector.instance.get(SmzDialogsService)
+    .open(new SmzDialogBuilder()
+      .setTitle(title)
+      .setLayout('EXTRA_SMALL', 'col-12')
+      .setLayout('MEDIUM', 'col-6')
+      .setLayout('LARGE', 'col-6')
+      .setLayout('EXTRA_LARGE', 'col-6')
+      .closeOnEscape()
+      .html([new PrettyJsonPipe().transform(JSON.stringify(event), [true, 3])])
+      .hideFooter()
+      .build()
+    );
+}
+
+export function showMarkdownDialog(title: string, message: string): void {
+
+  GlobalInjector.instance.get(SmzDialogsService)
+    .open(new SmzDialogBuilder()
+      .setTitle(title)
+      .setLayout('EXTRA_SMALL', 'col-12')
+      .setLayout('MEDIUM', 'col-6')
+      .setLayout('LARGE', 'col-6')
+      .setLayout('EXTRA_LARGE', 'col-6')
+      .closeOnEscape()
+      .markdown(message)
+      .hideFooter()
+      .build()
+    );
 }
 
 export function getValidatorsForInput(entityName: string, propertyName: string): ValidatorFn {

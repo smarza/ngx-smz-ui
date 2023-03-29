@@ -127,7 +127,7 @@ export interface SmzTableColumn {
 
 export interface SmzTableContentAction {
   icon: string;
-  tooltip: string;
+  tooltip: (item: any) => string;
   styleClass: string;
   condition: (item: any) => boolean;
   callback: (item: any) => void;

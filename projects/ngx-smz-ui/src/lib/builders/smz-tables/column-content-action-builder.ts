@@ -36,7 +36,7 @@ export class SmzContentActionIconBuilder {
     return this;
   }
 
-  public setTooltip(tooltip: string): SmzContentActionIconBuilder {
+  public setTooltip(tooltip: (item: any) => string): SmzContentActionIconBuilder {
     this._action.tooltip = tooltip;
     return this;
   }
