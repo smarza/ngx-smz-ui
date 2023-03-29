@@ -123,6 +123,7 @@ export interface SmzTableColumn {
   };
 
   actions: SmzTableContentAction[];
+  actionsAlignment?: 'begin' | 'end';
 }
 
 export interface SmzTableContentAction {

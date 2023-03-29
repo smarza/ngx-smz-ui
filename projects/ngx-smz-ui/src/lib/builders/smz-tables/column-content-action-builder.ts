@@ -13,6 +13,11 @@ export class SmzContentActionsBuilder extends SmzBuilderUtilities<SmzContentActi
     return new SmzContentActionIconBuilder(this._table, this._parent._column, this, icon, callback);
   }
 
+  public placeAtBeginning(): SmzContentActionsBuilder {
+    this._parent._column.actionsAlignment = 'begin';
+    return this;
+  }
+
   public get column(): SmzBaseColumnBuilder<any> {
     return this._parent;
   }

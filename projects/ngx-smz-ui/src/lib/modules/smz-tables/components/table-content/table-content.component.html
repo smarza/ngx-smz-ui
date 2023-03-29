@@ -1,3 +1,5 @@
+<smz-table-content-actions *ngIf="col.actionsAlignment === 'begin'" [col]="col" [contentTypes]="contentTypes" [item]="item" [rowIndex]="rowIndex"></smz-table-content-actions>
+
 <ng-container [ngSwitch]="col.content.type">
   <ng-container *ngSwitchCase="contentTypes.custom">
       <div [ngClass]="col.content.styleClass">
@@ -36,4 +38,4 @@
   </ng-container>
 </ng-container>
 
-<smz-table-content-actions [col]="col" [contentTypes]="contentTypes" [item]="item" [rowIndex]="rowIndex"></smz-table-content-actions>
+<smz-table-content-actions *ngIf="col.actionsAlignment === 'end'" [col]="col" [contentTypes]="contentTypes" [item]="item" [rowIndex]="rowIndex"></smz-table-content-actions>

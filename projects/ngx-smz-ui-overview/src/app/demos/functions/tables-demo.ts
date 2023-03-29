@@ -698,6 +698,7 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
           .columns
         .text('system', 'Sistema', 'auto')
           .actions()
+            .placeAtBeginning()
             .if(true)
               .add('fa-regular fa-copy', (item: any) => { console.log('copy', item); })
                 .setStyleClass('text-red-500')

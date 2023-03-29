@@ -75,7 +75,8 @@ export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T>> {
         isVisible: true,
         isFrozen: false,
         width: width,
-        actions: []
+        actions: [],
+        actionsAlignment: 'end'
       };
 
       this._table._state.columns.push(this._column);
