@@ -13,6 +13,7 @@ import { HephaestusAssistanceModule } from './components/assistance/assistance.m
 import { HephaestusLayout } from './layout.config';
 import { defaultHephaestusConfig } from './default.config';
 import { mergeClone } from '../../../../common/utils/deep-merge';
+import { SmzTenantSwitchComponent } from '../../features/tenant-switch/tenant-switch.component';
 export const ngxsModuleForFeatureUiHephaestusLayoutState = NgxsModule.forFeature([UiHephaestusState]);
 
 @NgModule({
@@ -26,7 +27,8 @@ export const ngxsModuleForFeatureUiHephaestusLayoutState = NgxsModule.forFeature
     SmzDiamontSidebarModule,
     SmzDiamontFooterModule,
     HephaestusAssistanceModule,
-    ngxsModuleForFeatureUiHephaestusLayoutState
+    ngxsModuleForFeatureUiHephaestusLayoutState,
+    SmzTenantSwitchComponent
   ],
   exports: [
     HephaestusLayoutComponent,

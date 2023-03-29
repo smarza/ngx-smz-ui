@@ -5,6 +5,7 @@ import { SidebarModule } from 'primeng/sidebar';
 import { HephaestusProfileMenuModule } from '../profile-menu/profile-menu.module';
 import { HephaestusNotificationsModule } from '../notifications/notifications.module';
 import { ButtonModule } from 'primeng/button';
+import { SmzTenantSwitchComponent } from '../../../../features/tenant-switch/tenant-switch.component';
 
 @NgModule({
   declarations: [HephaestusTopbarComponent],
@@ -13,7 +14,8 @@ import { ButtonModule } from 'primeng/button';
     SidebarModule,
     HephaestusProfileMenuModule,
     HephaestusNotificationsModule,
-    ButtonModule
+    ButtonModule,
+    SmzTenantSwitchComponent
   ],
   exports: [HephaestusTopbarComponent]
 })

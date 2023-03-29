@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, switchMap, share } from 'rxjs/operators';
 import { Store } from '@ngxs/store';
 import { AuthHandler } from './auth.handler';
-import { AUTHENTICATION_HEADER, REFRESH_TOKEN_BEHAVIOR_HEADER, WINDOWS_AUTHENTICATION_HEADER } from '../http/base-api.service';
+import { AUTHORIZATION_HEADER, REFRESH_TOKEN_BEHAVIOR_HEADER, WINDOWS_AUTHENTICATION_HEADER } from '../http/base-api.service';
 import { AuthenticationActions } from '../../../state/global/authentication/authentication.actions';
 import { isEmpty } from '../utils/utils';
 import { GlobalInjector } from '../../../common/services/global-injector';
@@ -22,7 +22,7 @@ export class AuthInterceptor implements HttpInterceptor {
             req = req.clone({ withCredentials: true });
         }
 
-        if (req.headers.get(AUTHENTICATION_HEADER) == null ||
+        if (req.headers.get(AUTHORIZATION_HEADER) == null ||
             req.headers.get(REFRESH_TOKEN_BEHAVIOR_HEADER) == null) {
             if (GlobalInjector.config.debugMode) console.log(`[AuthInterceptor: ${req.url}] This request does not need refresh token`);
             return next.handle(req);
@@ -45,7 +45,7 @@ export class AuthInterceptor implements HttpInterceptor {
                 if (!isEmpty(newToken)) {
                   // use the newly returned token
                   authReq = req.clone({
-                      headers: req.headers.set(AUTHENTICATION_HEADER, `Bearer ${newToken}`)
+                      headers: req.headers.set(AUTHORIZATION_HEADER, `Bearer ${newToken}`)
                   });
                 }
                 return next.handle(authReq);
@@ -84,7 +84,7 @@ export class AuthInterceptor implements HttpInterceptor {
                             if (!isEmpty(newToken)) {
                               // use the newly returned token
                               authReqRepeat = req.clone({
-                                headers: req.headers.set(AUTHENTICATION_HEADER, `Bearer ${newToken}`)
+                                headers: req.headers.set(AUTHORIZATION_HEADER, `Bearer ${newToken}`)
                               });
                             }
 

@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { shorten } from '../../utils/utils';
 
 @Pipe({
   name: 'prettyjson',
@@ -58,7 +59,9 @@ export class PrettyJsonPipe implements PipeTransform {
         } else if (/null/.test(match)) {
           themeClass = 'null';
         }
-        return '<span class="' + themeClass + '">' + match + '</span>';
+
+        const shortMatch = shorten(match, 150, '(...)');
+        return '<span class="' + themeClass + '">' + shortMatch + '</span>';
       }
     );
 

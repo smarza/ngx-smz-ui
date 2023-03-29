@@ -26,6 +26,7 @@ export class AuthService extends BaseApiService {
                 loadingBehavior: GlobalInjector.config.rbkUtils.authentication.login.loadingBehavior,
                 authentication: false,
                 useWindowsAuthentication: GlobalInjector.config.rbkUtils.authentication.useWindowsAuthentication,
+                mockedUserId: username,
                 errorHandlingType: GlobalInjector.config.rbkUtils.authentication.login.errorHandlingType,
                 localLoadingTag: GlobalInjector.config.rbkUtils.authentication.login.loadingBehavior === 'local' ? 'login' : null
             })).pipe(

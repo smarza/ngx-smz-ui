@@ -95,6 +95,7 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
                 nonAuthenticatedRoot: '/login',
                 allowSuperuser: false,
                 useSingleTenantAplication: false,
+                allowTenantSwitching: false,
                 login: {
                     url: `${environment.authenticationApi}/api/authentication/login`,
                     route: 'login',
@@ -137,7 +138,8 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
                     errorHandlingType: 'dialog',
                     localLoadingTag: null,
                     restoreStateOnError: true,
-                    useWindowsAuthentication: false
+                    useWindowsAuthentication: false,
+                    mockedUserId: null
                 },
             },
             toastConfig: {

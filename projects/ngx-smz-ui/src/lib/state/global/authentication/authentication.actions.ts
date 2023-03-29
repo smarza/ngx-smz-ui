@@ -1,5 +1,6 @@
 import { LoginPayload } from '../../../modules/rbk-utils/auth/auth.service';
 import { RedefinePassword } from '../../../modules/smz-access/models/redefine-password';
+import { SwitchTenant as SwitchTenantRequest } from '../../../modules/smz-access/models/switch-tenant';
 
 export namespace AuthenticationActions {
     export class LocalLogin {
@@ -34,6 +35,11 @@ export namespace AuthenticationActions {
 
     export class Logout {
         public static readonly type = '[Auth] Logout';
+    }
+
+    export class SwitchTenant {
+        public static readonly type = '[Auth API] Switch Tenant';
+        constructor(public data: SwitchTenantRequest) { }
     }
 
 }

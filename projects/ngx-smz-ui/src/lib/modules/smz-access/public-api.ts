@@ -34,6 +34,7 @@ export * from './models/jwt-response';
 export * from './models/redefine-password';
 export * from './models/resend-confirmation';
 export * from './models/reset-password';
+export * from './models/switch-tenant';
 
 // ROUTES
 export * from './routes';

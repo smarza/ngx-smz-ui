@@ -10,6 +10,7 @@ import { SmzFormBuilder } from '../../../../builders/smz-forms/form-builder';
 import { isEmpty } from '../../../rbk-utils/utils/utils';
 import { compareInsensitive, getFirst } from '../../../../common/utils/utils';
 import { AuthenticationActions } from '../../../../state/global/authentication/authentication.actions';
+import { environment } from '@environments/environment';
 
 interface LoginData {
   tenant?: SimpleEntity<string>;
@@ -33,6 +34,9 @@ export class LoginComponent {
 
     const config = GlobalInjector.config.rbkUtils.authentication;
     const tenants = config.login.showTenantSelector ? this.getTenants() : [];
+
+    const localTenant = localStorage.getItem(GlobalInjector.config.rbkUtils.authentication.localStoragePrefix + '_tenant');
+    const defaultTenant = localTenant ?? getFirst(tenants)?.id;
 
     const state = new SmzLoginBuilder<LoginData, LoginPayload>()
     .setMessage('Entre com suas credenciais')
@@ -72,9 +76,14 @@ export class LoginComponent {
         .group()
           .setLayout('EXTRA_SMALL', 'col-12')
           .if(config.login.showTenantSelector)
-            .dropdown('tenant', 'Domínios', tenants, getFirst(tenants)?.id)
+            .dropdown('tenant', 'Domínios', tenants, defaultTenant)
               .validators().required()
               .group
+          .endIf
+        .if(config.useWindowsAuthentication && !environment.production)
+          .text(nameof<LoginData>('username'), 'Credencial de Desenvolvimento')
+            .validators().required()
+            .group
           .endIf
         .if(!config.useWindowsAuthentication)
           .text(nameof<LoginData>('username'), 'Usuário')

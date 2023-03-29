@@ -1,4 +1,4 @@
-export interface UserData {
+export interface BaseUserData {
   username: string;
   roles: string[];
   picture: string;
@@ -6,4 +6,4 @@ export interface UserData {
   displayName: string;
   hasTenant: boolean;
   allowedTenants: string[];
- }
+}

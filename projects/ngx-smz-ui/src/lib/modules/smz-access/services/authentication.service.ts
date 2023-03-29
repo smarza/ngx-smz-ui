@@ -7,6 +7,7 @@ import { JwtResponse } from '../models/jwt-response';
 import { RedefinePassword } from '../models/redefine-password';
 import { ResetPassword } from '../models/reset-password';
 import { ResendConfirmation } from '../models/resend-confirmation';
+import { SwitchTenant } from '../models/switch-tenant';
 
 
 @Injectable({ providedIn: 'root' })
@@ -20,20 +21,29 @@ export class AuthenticationService extends BaseApiService {
   public login(): Observable<JwtResponse> {
     return this.http.post<JwtResponse>(`${this.endpoint}/login`, null, this.generateDefaultHeaders({}));
   }
+
   public refreshToken(): Observable<JwtResponse> {
     return this.http.post<JwtResponse>(`${this.endpoint}/refresh-token`, null, this.generateDefaultHeaders({}));
   }
+
   public sendResetPasswordEmail(data: ResetPassword): Observable<void> {
     return this.http.post<void>(`${this.endpoint}/reset-password`, data, this.generateDefaultHeaders({}));
   }
+
   public redefinePassword(data: RedefinePassword): Observable<void> {
     return this.http.post<void>(`${this.endpoint}/redefine-password`, data, this.generateDefaultHeaders({}));
   }
+
   public resendEmailConfirmation(data: ResendConfirmation): Observable<void> {
     return this.http.post<void>(`${this.endpoint}/resend-confirmation`, data, this.generateDefaultHeaders({}));
   }
+
   public confirmEmail(): Observable<void> {
     return this.http.get<void>(`${this.endpoint}/confirm-email`, this.generateDefaultHeaders({}));
+  }
+
+  public switchTenant(data: SwitchTenant): Observable<JwtResponse> {
+    return this.http.post<JwtResponse>(`${this.endpoint}/switch-tenant`, data, this.generateDefaultHeaders({}));
   }
 }
 

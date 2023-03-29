@@ -6,7 +6,8 @@ export const LOADING_BEHAVIOR_HEADER = 'Loading-Behavior';
 export const ERROR_HANDLING_TYPE_HEADER = 'Error-Handling-Type';
 export const REFRESH_TOKEN_BEHAVIOR_HEADER = 'Refresh-Token-Behavior';
 export const WINDOWS_AUTHENTICATION_HEADER = 'Windows-Authentication';
-export const AUTHENTICATION_HEADER = 'Authorization';
+export const USER_ID_HEADER = 'UserId';
+export const AUTHORIZATION_HEADER = 'Authorization';
 export const CONTENT_ENCODING_HEADER = 'Content-Encoding';
 export const LOCAL_LOADING_TAG_HEADER = 'Local-Loading-Tag';
 export const RESTORE_STATE_ON_ERROR_HEADER = 'Restore-State-On-Error';
@@ -41,7 +42,7 @@ export class BaseApiService {
 
         if (finalParameters.authentication === true) {
             // Não pode usar o selector do AuthenticationSelectors por causa de referencia cruzada
-            headers = headers.set(AUTHENTICATION_HEADER, 'Bearer ' + store.selectSnapshot(x => x.global.authentication.accessToken));
+            headers = headers.set(AUTHORIZATION_HEADER, 'Bearer ' + store.selectSnapshot(x => x.global.authentication.accessToken));
         }
 
         if (finalParameters.needToRefreshToken === true) {
@@ -50,6 +51,11 @@ export class BaseApiService {
 
         if (finalParameters.useWindowsAuthentication === true) {
             headers = headers.set(WINDOWS_AUTHENTICATION_HEADER, 'true');
+        }
+
+        if (finalParameters.mockedUserId != null) {
+            headers = headers.set(USER_ID_HEADER, finalParameters.mockedUserId);
+            headers = headers.set(AUTHORIZATION_HEADER, 'TestScheme');
         }
 
         if (finalParameters.localLoadingTag != null) {
@@ -80,4 +86,5 @@ export interface HttpBehaviorParameters {
     restoreStateOnError: boolean;
     ignoreErrorHandling: boolean;
     useWindowsAuthentication: boolean;
+    mockedUserId: string;
 }

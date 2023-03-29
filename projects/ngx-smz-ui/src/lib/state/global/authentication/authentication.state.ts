@@ -11,11 +11,14 @@ import { GlobalActions } from '../global.actions';
 import { FeaturesActions } from '../../features/features.actions';
 import { DatabaseActions } from '../../database/database.actions';
 import { GlobalInjector } from '../../../common/services/global-injector';
+import { BaseUserData } from '../../../modules/smz-access/models/base-user-data';
+import { AuthenticationService } from '../../../modules/smz-access/services/authentication.service';
+import { JwtResponse } from '../../../modules/smz-access/models/jwt-response';
 
 // If access token path or property name is changed, don't forget to update the
 // selectSnapshot to it on BaseApiService
 export interface AuthenticationStateModel {
-    userdata: any;
+    userdata: BaseUserData;
     refreshToken: string | null;
     accessToken: string | null;
 }
@@ -34,7 +37,7 @@ export const getAuthenticationInitialState = (): AuthenticationStateModel => ({
 })
 @Injectable()
 export class AuthenticationState {
-    constructor(private authService: AuthService, private store: Store) { }
+    constructor(private authService: AuthService, private authenticationService: AuthenticationService, private store: Store) { }
 
     @Action(AuthenticationActions.LocalLogin)
     public localLogin(ctx: StateContext<AuthenticationStateModel>, action: AuthenticationActions.LocalLogin): void {
@@ -46,8 +49,15 @@ export class AuthenticationState {
             ctx.dispatch(new AuthenticationActions.LocalLoginFailure());
         }
         else {
+
+            const userdata = generateUserData(accessToken) as BaseUserData;
+
+            if (userdata.hasTenant && userdata.tenant != null) {
+                localStorage.setItem(GlobalInjector.config.rbkUtils.authentication.localStoragePrefix + '_tenant', userdata.tenant);
+            }
+
             ctx.patchState({
-                userdata: generateUserData(accessToken),
+                userdata,
                 refreshToken,
                 accessToken,
             });
@@ -85,8 +95,14 @@ export class AuthenticationState {
         localStorage.setItem(GlobalInjector.config.rbkUtils.authentication.localStoragePrefix + '_access_token', action.accessToken);
         localStorage.setItem(GlobalInjector.config.rbkUtils.authentication.localStoragePrefix + '_refresh_token', action.refreshToken);
 
+        const userdata = generateUserData(action.accessToken) as BaseUserData;
+
+        if (userdata.hasTenant && userdata.tenant != null) {
+            localStorage.setItem(GlobalInjector.config.rbkUtils.authentication.localStoragePrefix + '_tenant', userdata.tenant);
+        }
+
         ctx.patchState({
-            userdata: generateUserData(action.accessToken),
+            userdata,
             refreshToken: action.refreshToken,
             accessToken: action.accessToken,
         });
@@ -105,5 +121,17 @@ export class AuthenticationState {
         ctx.dispatch(new GlobalActions.Restore());
         ctx.dispatch(new DatabaseActions.Restore());
         ctx.dispatch(new FeaturesActions.Restore());
+    }
+
+    @Action(AuthenticationActions.SwitchTenant)
+    public onSwitchTenant(ctx: StateContext<AuthenticationStateModel>, action: AuthenticationActions.SwitchTenant): Observable<JwtResponse> {
+        if (GlobalInjector.config.debugMode) console.log(`[Authentication State] Handling SwitchTenant`);
+
+        return this.authenticationService.switchTenant(action.data).pipe(
+            tap((result: JwtResponse) => {
+                this.store.dispatch(new AuthenticationActions.RemoteLoginSuccess(result.accessToken, result.refreshToken));
+                window.location.href = '';
+            })
+        );
     }
 }

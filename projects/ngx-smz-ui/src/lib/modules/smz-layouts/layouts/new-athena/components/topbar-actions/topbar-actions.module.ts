@@ -6,6 +6,7 @@ import { AthenaNotificationsModule } from '../notifications/notifications.module
 import { AthenaProfileMenuModule } from '../profile-menu/profile-menu.module';
 
 import { AthenaTopbarActionsComponent } from './topbar-actions.component';
+import { SmzTenantSwitchComponent } from '../../../../features/tenant-switch/tenant-switch.component';
 
 @NgModule({
   imports: [
@@ -13,7 +14,8 @@ import { AthenaTopbarActionsComponent } from './topbar-actions.component';
     MenuItemActionsModule,
     AthenaProfileMenuModule,
     AthenaNotificationsModule,
-    SmzNotificationsModule
+    SmzNotificationsModule,
+    SmzTenantSwitchComponent
   ],
   exports: [AthenaTopbarActionsComponent],
   declarations: [

@@ -26,6 +26,8 @@ import { GlobalInjector } from '../../../../../../common/services/global-injecto
         <span class="notification-container" *ngIf="notifications != null" smz-ui-athena-notifications [items]="notifications"></span>
       </ng-template>
 
+      <smz-tenant-switch class="mx-3"></smz-tenant-switch>
+
       <span id="smz-ui-profile-menu" *ngIf="profile != null" smz-ui-athena-profile-menu [profile]="profile"></span>
 
   `,

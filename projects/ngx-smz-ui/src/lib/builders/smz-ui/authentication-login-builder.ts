@@ -29,6 +29,12 @@ export class SmzUiAuthenticationLoginBuilder extends SmzBuilderUtilities<SmzUiAu
     return this.that;
   }
 
+  public allowTenantSwitching(): SmzUiAuthenticationLoginBuilder {
+    this._state.rbkUtils.authentication.allowTenantSwitching = true;
+    this._state.rbkUtils.authentication.accessTokenClaims.push({ claimName: 'allowed-tenants', propertyName: 'allowedTenants', type: 'array' });
+    return this.that;
+  }
+
   public addToLoginPayload(property: string, value: string): SmzUiAuthenticationLoginBuilder {
     Reflect.set(this._state.rbkUtils.authentication.refreshToken.extraProperties, property, value);
     return this.that;

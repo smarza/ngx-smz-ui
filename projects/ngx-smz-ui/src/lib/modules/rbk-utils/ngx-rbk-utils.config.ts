@@ -55,6 +55,7 @@ export class NgxRbkUtilsConfig {
         nonAuthenticatedRoot: string;
         allowSuperuser: boolean;
         useSingleTenantAplication: boolean;
+        allowTenantSwitching: boolean;
         login: {
             url: string;
             route: string;
