@@ -4,6 +4,7 @@ import { AddClaimsOverride as AddClaimOverridePayload } from '../../models/add-c
 import { RemoveClaimsOverride as RemoveClaimOverridePayload } from '../../models/remove-claims-override';
 import { RedefinePassword as RedefinePasswordPayload } from '../../models/redefine-password';
 import { ResetPassword as ResetPasswordPayload } from '../../models/reset-password';
+import { CreateUser } from '../../models/create-user';
 
 export namespace UsersActions {
   export class LoadAll {
@@ -23,6 +24,11 @@ export namespace UsersActions {
   export class RemoveClaimsOverride {
     public static readonly type = '[Users API] Remove Claims Override';
     constructor(public data: RemoveClaimOverridePayload) { }
+  }
+
+  export class Create<TUser extends CreateUser> {
+    constructor(public data: TUser) { }
+    public static readonly type = '[Users API] Create User';
   }
 
   export class LocalCreate<TUser extends UserDetails> {

@@ -13,4 +13,5 @@ export interface UserDetails {
   overridedClaims: ClaimOverride[];
   id: string;
   avatar: string;
+  allowedTenants: string[];
 }

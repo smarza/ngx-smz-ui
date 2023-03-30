@@ -8,6 +8,7 @@ import { UserDetails } from '../../models/user-details';
 import { replaceItem } from '../../../../common/utils/utils';
 import { ToastActions } from '../../../../state/global/application/application.actions.toast';
 import { AuthenticationService } from '../../services/authentication.service';
+import { CreateUser } from '../../models/create-user';
 
 export const USERS_STATE_NAME = 'users';
 
@@ -87,6 +88,16 @@ export class UsersState {
     return this.authenticationService.resendEmailConfirmation(action.data).pipe(
       tap(() => {
         ctx.dispatch(new ToastActions.Success('Email de confirmação enviado com sucesso.'));
+      })
+    );
+  }
+
+  @Action(UsersActions.Create)
+  public onCreate$(ctx: StateContext<UsersStateModel>, action: UsersActions.Create<CreateUser>): Observable<UserDetails> {
+    return this.authenticationService.createUser(action.data).pipe(
+      tap((result: UserDetails) => {
+        ctx.patchState({ items: [result, ...ctx.getState().items] });
+        ctx.dispatch(new ToastActions.Success('Usuário criado com sucesso.'));
       })
     );
   }

@@ -8,6 +8,8 @@ import { RedefinePassword } from '../models/redefine-password';
 import { ResetPassword } from '../models/reset-password';
 import { ResendConfirmation } from '../models/resend-confirmation';
 import { SwitchTenant } from '../models/switch-tenant';
+import { CreateUser } from '../models/create-user';
+import { UserDetails } from '../models/user-details';
 
 
 @Injectable({ providedIn: 'root' })
@@ -44,6 +46,10 @@ export class AuthenticationService extends BaseApiService {
 
   public switchTenant(data: SwitchTenant): Observable<JwtResponse> {
     return this.http.post<JwtResponse>(`${this.endpoint}/switch-tenant`, data, this.generateDefaultHeaders({}));
+  }
+
+  public createUser(data: CreateUser): Observable<UserDetails> {
+    return this.http.post<UserDetails>(`${this.endpoint}/create-user`, data, this.generateDefaultHeaders({}));
   }
 }
 

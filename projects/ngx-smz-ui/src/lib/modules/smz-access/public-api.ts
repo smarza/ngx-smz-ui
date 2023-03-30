@@ -16,6 +16,7 @@ export * from './models/claim-override';
 export * from './models/create-claim';
 export * from './models/create-role';
 export * from './models/create-tenant';
+export * from './models/create-user';
 export * from './models/create-tenant-admin-user';
 export * from './models/protect-claim';
 export * from './models/remove-claims-override';
