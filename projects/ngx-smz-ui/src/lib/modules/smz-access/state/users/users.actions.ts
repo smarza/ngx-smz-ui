@@ -26,8 +26,8 @@ export namespace UsersActions {
     constructor(public data: RemoveClaimOverridePayload) { }
   }
 
-  export class Create<TUser extends CreateUser<never>> {
-    constructor(public data: TUser) { }
+  export class Create<TMetadata extends { [key: string]: string; }> {
+    constructor(public data: CreateUser<TMetadata>) { }
     public static readonly type = '[Users API] Create User';
   }
 

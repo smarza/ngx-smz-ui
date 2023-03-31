@@ -1,4 +1,5 @@
 import { DemoKeys } from '@demos/demo-keys';
+import { DemoInjectable5Component } from '@features/home/components/demo-injectable/demo-injectable-5.component';
 import { Store } from '@ngxs/store';
 import { DemoFeatureSelectors } from '@states/demo/demo.selectors';
 import { GlobalInjector, SmzDialogBuilder, SmzDialogsService, SmzFormsResponse, SmzFormViewdata, SmzTableBuilder, ToastActions } from 'ngx-smz-ui';
@@ -17,6 +18,33 @@ export const DialogsDemo: { [key: string]: () => void } = {
         .setLayout('EXTRA_SMALL', 'col-12')
         .setLayout('EXTRA_LARGE', 'col-8')
         .allowMinimize('TITLE DEMO')
+      .build()
+    );
+  },
+  //
+  [DemoKeys.DIALOGS_COMPONENT_FORM]: () => {
+    service.open(
+      new SmzDialogBuilder<void>()
+        .setTitle(`Header With Title Demo`)
+        .setLayout('EXTRA_SMALL', 'col-12')
+        .setLayout('EXTRA_LARGE', 'col-8')
+        .form()
+          .group()
+            .calendar('date', 'Agendamento')
+              .useDateAndTime()
+              .group
+          .dropdown('input1', 'I\'m required', [{ id: '1', name: 'Option 1'}, { id: '2', name: 'Option 2'}, { id: '3', name: 'Option 3'}])
+              .validators().required()
+              .group
+            .form
+            .dialog
+        .component(DemoInjectable5Component)
+          .dialog
+        .buttons()
+          .confirm()
+            .callback((data) => { console.log('OK') })
+            .buttons
+        .dialog
       .build()
     );
   },

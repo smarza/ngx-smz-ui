@@ -5,5 +5,6 @@ export interface CreateUser<TMetadata extends { [key: string]: string }> {
   password: string;
   passwordConfirmation: string;
   roleIds: string[];
-  metadata: TMetadata[];
+  picture: string;
+  metadata: TMetadata;
 }

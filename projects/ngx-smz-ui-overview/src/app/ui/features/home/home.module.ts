@@ -21,6 +21,7 @@ import { DemoInjectable1Component } from './components/demo-injectable/demo-inje
 import { DemoInjectable2Component } from './components/demo-injectable/demo-injectable-2.component';
 import { DemoInjectable3Component } from './components/demo-injectable/demo-injectable-3.component';
 import { DemoInjectable4Component } from './components/demo-injectable/demo-injectable-4.component';
+import { DemoInjectable5Component } from './components/demo-injectable/demo-injectable-5.component';
 import { DemoCardsComponent } from './components/demo-cards/demo-cards.component';
 import { TooltipModule } from 'primeng/tooltip';
 import { FormsModule } from '@angular/forms';
@@ -66,6 +67,7 @@ const routes: Routes = [
     DemoInjectable2Component,
     DemoInjectable3Component,
     DemoInjectable4Component,
+    DemoInjectable5Component,
     DemoIconsComponent,
     DemoCardsComponent,
     DemoTimelineComponent

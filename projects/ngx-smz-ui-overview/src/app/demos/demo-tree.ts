@@ -436,6 +436,12 @@ export const TreeDemoData: DemoTreeNode[] = [
           },
         ]
       },
+      {
+        label: 'Component and Form', icon: 'fa-solid fa-code', type: 'Demo',
+        demoType: 'dialog',
+        data: DialogsDemo[DemoKeys.DIALOGS_COMPONENT_FORM],
+        key: DemoKeys.DIALOGS_COMPONENT_FORM.toString()
+      },
     ]
   },
   {
