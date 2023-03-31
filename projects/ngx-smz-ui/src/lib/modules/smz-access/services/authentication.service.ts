@@ -48,7 +48,7 @@ export class AuthenticationService extends BaseApiService {
     return this.http.post<JwtResponse>(`${this.endpoint}/switch-tenant`, data, this.generateDefaultHeaders({}));
   }
 
-  public createUser(data: CreateUser): Observable<UserDetails> {
+  public createUser(data: CreateUser<never>): Observable<UserDetails> {
     return this.http.post<UserDetails>(`${this.endpoint}/create-user`, data, this.generateDefaultHeaders({}));
   }
 }

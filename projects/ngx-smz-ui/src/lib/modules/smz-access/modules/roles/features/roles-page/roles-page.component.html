@@ -1,7 +1,7 @@
 <smz-ui-table [items]="roles$ | async" [state]="tableState">
 
     <ng-template pTemplate="caption">
-      <button pButton type="button" class="p-button p-button-primary mx-1" label="CRIAR" (click)="showCreationDialog()"></button>
+      <button pButton type="button" class="p-button p-button-primary mx-1" label="CRIAR" (click)="showCreationDialog()" [disabled]="!(canCreateClaims | rbkCanAccessAny)"></button>
     </ng-template>
 
     <!-- CONTEÚDOS COM OVERRIDE -->

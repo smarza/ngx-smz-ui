@@ -1,9 +1,9 @@
-export interface CreateUser {
+export interface CreateUser<TMetadata extends { [key: string]: string }> {
   displayName: string;
   username: string;
   email: string;
   password: string;
   passwordConfirmation: string;
   roleIds: string[];
-  metadata: { [key: string]: string }[];
+  metadata: TMetadata[];
 }

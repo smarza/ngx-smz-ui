@@ -17,6 +17,7 @@ export * from './auth/auth.guard';
 export * from './auth/auth.handler';
 export * from './auth/guards/can-access-if.directive';
 export * from './auth/guards/can-access.pipe';
+export * from './auth/guards/can-access-any.pipe';
 export * from './auth/guards/access-control.module';
 export * from './auth/auth.service';
 export * from './auth/models';

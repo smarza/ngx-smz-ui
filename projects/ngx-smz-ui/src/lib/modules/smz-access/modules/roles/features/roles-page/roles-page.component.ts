@@ -16,6 +16,8 @@ import { nameof, namesof, SimpleNamedEntity } from '../../../../../../common/mod
 import { showRoleClaimsDialog } from '../../functions/show-role-claims-dialog';
 import { RoleSourceDescription } from '../../../../models/role-source';
 import { RoleModeDescription } from '../../../../models/role-mode';
+import { AuthClaimDefinitions } from '../../../../models/auth-claim-definitions';
+import { AuthenticationSelectors } from '../../../../../../state/global/authentication/authentication.selectors';
 
 @UntilDestroy()
 @Component({
@@ -26,6 +28,7 @@ import { RoleModeDescription } from '../../../../models/role-mode';
 export class RolesPageComponent implements OnInit {
   @Select(RolesSelectors.all) public roles$: Observable<RolesDetails[]>;
   public tableState: SmzTableState = this.buildTableState();
+  public canCreateClaims = [AuthClaimDefinitions.MANAGE_APPLICATION_WIDE_ROLES, AuthClaimDefinitions.MANAGE_TENANT_SPECIFIC_ROLES]
   constructor(private store: Store, private dialogs: SmzDialogsService) { }
 
   public ngOnInit(): void {
@@ -43,13 +46,16 @@ export class RolesPageComponent implements OnInit {
       .setSize('regular')
       .menu()
         .item('Renomear')
+          .setActivationRule(() => !this.store.selectSnapshot(AuthenticationSelectors.hasAnyOfClaimAccess(this.canCreateClaims)))
           .setCallback((role: RolesDetails) => this.dialogs.open(UpdateRoleDialog(role)))
           .menu
         .item('Permissões')
+          .setActivationRule(() => !this.store.selectSnapshot(AuthenticationSelectors.hasAnyOfClaimAccess(this.canCreateClaims)))
           .setCallback((role: RolesDetails) => this.dialogs.open(UpdateRoleClaimsDialog(role)))
           .menu
         .separator()
         .item('Excluir', 'fa-solid fa-trash')
+          .setActivationRule(() => !this.store.selectSnapshot(AuthenticationSelectors.hasAnyOfClaimAccess(this.canCreateClaims)))
           .setCallback((role: RolesDetails) => this.showDeleteConfirmation(role))
           .menu
         .table

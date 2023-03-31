@@ -93,7 +93,7 @@ export class UsersState {
   }
 
   @Action(UsersActions.Create)
-  public onCreate$(ctx: StateContext<UsersStateModel>, action: UsersActions.Create<CreateUser>): Observable<UserDetails> {
+  public onCreate$(ctx: StateContext<UsersStateModel>, action: UsersActions.Create<CreateUser<never>>): Observable<UserDetails> {
     return this.authenticationService.createUser(action.data).pipe(
       tap((result: UserDetails) => {
         ctx.patchState({ items: [result, ...ctx.getState().items] });

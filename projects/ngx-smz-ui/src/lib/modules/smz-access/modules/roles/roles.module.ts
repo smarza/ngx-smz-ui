@@ -12,6 +12,7 @@ import { NgxSmzTablesModule } from '../../../smz-tables/ngx-smz-tables.module';
 import { NgxSmzDataPipesModule } from '../../../../common/data-pipes/data-pipes.module';
 import { NgPipesModule } from 'ngx-pipes';
 import { NgVarModule } from '../../../../common/directives/ng-var/ng-var.module';
+import { RbkAccessControlModule } from '../../../rbk-utils/auth/guards/access-control.module';
 
 const data: SmzRouteData = {
   layout: {
@@ -46,7 +47,8 @@ const routes: Routes = [
     NgxSmzDataPipesModule,
     NgPipesModule,
     NgVarModule,
-    ButtonModule
+    ButtonModule,
+    RbkAccessControlModule,
   ],
   exports: [],
   declarations: [
