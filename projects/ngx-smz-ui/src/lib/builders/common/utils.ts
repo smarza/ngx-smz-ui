@@ -3,9 +3,9 @@ import groupBy from 'lodash-es/groupBy';
 import mapValues from 'lodash-es/mapValues';
 import { TreeNode } from 'primeng/api/treenode';
 import { ObjectUtils } from 'primeng/utils';
-import { SimpleEntity, SimpleParentEntity } from '../../common/models/simple-named-entity';
+import { SimpleEntity, SimpleNamedEntity, SimpleParentEntity } from '../../common/models/simple-named-entity';
 import { SmzTreeNode } from '../../modules/smz-trees/models/tree-node';
-import { SmzTreeGroup, SmzTreeGroupData, SmzTreeGroupNodeConfig } from '../../modules/smz-trees/models/tree-state';
+import { SmzTreeGroup, SmzTreeGroupData, SmzTreeGroupNodeConfig, SmzTreeNestedData } from '../../modules/smz-trees/models/tree-state';
 import { FormGroupConfig } from '../smz-dialogs/dialog-input-conversion';
 
 /*
@@ -99,6 +99,35 @@ export function groupTreeNode(items: any[], endNode: SmzTreeGroupNodeConfig, gro
 
   return result;
 }
+
+export function createTreeFromNestedData<T = any>(data: T[], config: SmzTreeNestedData): SmzTreeNode<SimpleNamedEntity>[] {
+
+  function createTreeNodes(items: T[], nodeConfig: SmzTreeNestedData): TreeNode<SimpleNamedEntity>[] {
+    if (items == null || nodeConfig == null) {
+      return [];
+    }
+
+    return items.map(item => {
+      const label = ObjectUtils.resolveFieldData(item, nodeConfig.labelKey);
+      const key = ObjectUtils.resolveFieldData(item, nodeConfig.valueKey);
+
+      return {
+        ...nodeConfig.nodeOverrides,
+        label,
+        key,
+        data: { id: key, name: label },
+        type: nodeConfig.type,
+        children: createTreeNodes(ObjectUtils.resolveFieldData(item, nodeConfig.children?.key) || [], nodeConfig.children),
+      };
+    });
+  }
+
+  const treeNodes = createTreeNodes(data, config);
+
+  return treeNodes;
+
+}
+
 
 export function groupSimpleParentEntity<TInput extends { parentId: TResponse, data: SimpleEntity<TResponse> }, TResponse>(items: TInput[]): SimpleParentEntity<TResponse>[] {
 

@@ -104,6 +104,8 @@ export interface SmzTreeContext {
   state: SmzTreeState;
 }
 
+// GROUPS
+
 export interface SmzTreeGroup {
   endNode: SmzTreeGroupNodeConfig;
   group: SmzTreeGroupData;
@@ -119,4 +121,20 @@ export interface SmzTreeGroupNodeConfig {
 export interface SmzTreeGroupData extends SmzTreeGroupNodeConfig {
   keyPropertyData: string;
   group: SmzTreeGroupData;
+}
+
+
+// NESTED
+
+export interface SmzTreeNestedData extends SmzTreeNestedNodeData {
+  children?: SmzTreeNestedData;
+}
+
+export interface SmzTreeNestedNodeData {
+  key?: string;
+  labelKey: string;
+  valueKey: string;
+  type: string;
+  nodeOverrides: Partial<TreeNode>;
+
 }

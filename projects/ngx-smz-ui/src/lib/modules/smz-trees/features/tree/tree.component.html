@@ -1,7 +1,7 @@
 <ng-container *ngIf="state; else noStateTemplate">
 
     <ng-container
-        *ngIf="(state.emptyFeedback?.isFeatured) && (items != null && items.length === 0); else treeTemplate">
+        *ngIf="(state.emptyFeedback?.isFeatured) && (treeItems != null && treeItems.length === 0); else treeTemplate">
         <smz-data-info
             [image]="state.emptyFeedback.image"
             [message]="state.emptyFeedback.message"
@@ -19,7 +19,7 @@
 
     <ng-template #treeTemplate>
 
-        <ng-container *ngIf="items != null">
+        <ng-container *ngIf="treeItems != null">
             <p-contextMenu #cm [model]="menuItems" [appendTo]="appendTo" [styleClass]="menuItems == null || menuItems?.length === 0 ? 'invisible-important' : ''"></p-contextMenu>
             <p-tree #dt [value]="treeItems"
                 scrollHeight="flex"
@@ -120,6 +120,10 @@
                                     (click)="collapseAll()"
                                     [pTooltip]="">
                                 </button>
+
+                                <div *ngIf="actionsTemplate != null" class="grid grid-nogutter items-center justify-start">
+                                    <ng-container *ngTemplateOutlet="actionsTemplate; context: { $implicit: dt }"></ng-container>
+                                </div>
 
                             </div>
                             <span *ngIf="state.filter.show" class="p-input-icon-left col col-12 md:col-4">

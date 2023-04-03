@@ -4,6 +4,7 @@ import { SmzTreeNode, SmzTreeState } from 'ngx-smz-ui';
 import { TreeNode } from 'primeng/api/treenode';
 import { Observable } from 'rxjs';
 import { Store } from '@ngxs/store';
+import { DemoFeatureSelectors } from '@states/demo/demo.selectors';
 
 @Component({
   selector: 'app-demo-tree',
@@ -24,11 +25,11 @@ import { Store } from '@ngxs/store';
   </ng-container>
   </div>
 `,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.Default
 })
 
 export class DemoTreeComponent implements OnInit, OnChanges {
-  public items$: Observable<TreeNode[]>;
+  public items$: Observable<any[]>;
   @Input() public node: DemoTreeNode;
   public selection: string[] = ['IsometricsWithoutTags'];
   public state: SmzTreeState;
@@ -38,6 +39,11 @@ export class DemoTreeComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.updateData(this.node);
+
+    // setTimeout(() => {
+    //   console.log('settimeout');
+    //   this.items$ = this.store.select(DemoFeatureSelectors.nested);
+    // }, 2000);
   }
 
   ngOnChanges(changes: SimpleChanges) {

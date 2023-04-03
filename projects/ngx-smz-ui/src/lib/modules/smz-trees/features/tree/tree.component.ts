@@ -56,6 +56,7 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
   public headerTemplate: TemplateRef<any>;
   public footerTemplate: TemplateRef<any>;
   public toolbarTemplate: TemplateRef<any>;
+  public actionsTemplate: TemplateRef<any>;
   public emptyStateTemplate: TemplateRef<any>;
   public emptyActionsTemplate: TemplateRef<any>;
   public contentTemplates: { type: string, template: TemplateRef<any> }[] = [];
@@ -198,6 +199,7 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
       }
 
     }
+
   }
 
   public ngAfterContentInit() {
@@ -231,6 +233,10 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
 
           case 'toolbar':
             this.toolbarTemplate = item.template;
+            break;
+
+          case 'actions':
+            this.actionsTemplate = item.template;
             break;
 
           case 'emptyState':

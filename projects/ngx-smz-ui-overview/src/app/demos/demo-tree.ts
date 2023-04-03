@@ -1014,6 +1014,13 @@ export const TreeDemoData: DemoTreeNode[] = [
         expanded: false,
         children: [
           {
+            label: 'Nested Array', icon: 'fa-solid fa-code', type: 'Demo',
+            demoType: 'tree',
+            notes: '',
+            data: TreesDemo[DemoKeys.TREE_DATA_TRANSFORM_USING_NESTED],
+            key: DemoKeys.TREE_DATA_TRANSFORM_USING_NESTED.toString()
+          },
+          {
             label: 'Group Array', icon: 'fa-solid fa-code', type: 'Demo',
             demoType: 'tree',
             notes: '',

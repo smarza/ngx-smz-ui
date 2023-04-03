@@ -31,3 +31,20 @@ export interface DemoCreationData {
   countryId: string;
 
 }
+
+export interface Plant {
+  id: string;
+  name: string;
+  modules: Module[];
+}
+
+export interface Module {
+  id: string;
+  name: string;
+  sectors: Sector[];
+}
+
+export interface Sector {
+  id: string;
+  name: string;
+}

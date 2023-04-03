@@ -100,7 +100,7 @@ export const TreesDemo:{ [key: string]: { items$: Observable<any[]>, code: () =>
             keyPropertyData: 'country',
             labelProperty: 'country.name',
             type: 'country',
-            nodeOverrides: { selectable: false },
+            nodeOverrides: { selectable: true },
             // AGRUPAR POR COMPANY
             group: {
               keyPropertyValue: 'company',
@@ -136,21 +136,43 @@ export const TreesDemo:{ [key: string]: { items$: Observable<any[]>, code: () =>
       .build()
     }
   },
-    //
-    [DemoKeys.TREE_DATA_TRANSFORM_USING_FLAT_ARRAYS_WITH_ROOT]: {
-      items$: store.select(DemoFeatureSelectors.all),
-      code: () => {
-      return new SmzTreeBuilder()
-        .setTitle('Tree with Data Transform')
-        .useSincronization()
-        .setSelection('checkbox')
-        .dataSource()
-          .flatWithRoot('Libra xyz', 'id', 'name', { expanded: true })
-          .tree
-        .enableFilter()
-        .build()
-      }
-    },
+  //
+  [DemoKeys.TREE_DATA_TRANSFORM_USING_FLAT_ARRAYS_WITH_ROOT]: {
+    items$: store.select(DemoFeatureSelectors.all),
+    code: () => {
+    return new SmzTreeBuilder()
+      .setTitle('Tree with Data Transform')
+      .useSincronization()
+      .setSelection('checkbox')
+      .dataSource()
+        .flatWithRoot('Libra xyz', 'id', 'name', { expanded: true })
+        .tree
+      .enableFilter()
+      .build()
+    }
+  },
+  //
+  [DemoKeys.TREE_DATA_TRANSFORM_USING_NESTED]: {
+    items$: store.select(DemoFeatureSelectors.giants),
+    code: () => {
+    return new SmzTreeBuilder()
+      .debugMode()
+      .setTitle('Tree with Nested Data')
+      .useSincronization()
+      .emptyFeedback()
+        .setMessage('Árvore vazia')
+        .useTreeEmptyMessage()
+        .tree
+      .dataSource()
+        .addRoot('plant')
+        .addChildren('space', 'hullSpaces')
+        .addChildren('structural-member', 'structuralMembers')
+        .addChildren('plate', 'plates', { icon: 'fa-solid fa-circle text-sm'})
+        .tree
+      .enableFilter()
+      .build()
+    }
+  },
 }
 
 
