@@ -36,6 +36,9 @@ export class DemoTreeWithDetailsComponent implements OnInit {
       styleClass: {
         content: 'gap-3 p-6 overflow-y-auto'
       },
+      layout: {
+        detailsStyleClass: 'lg:col-6'
+      },
       locale: null
     };
 

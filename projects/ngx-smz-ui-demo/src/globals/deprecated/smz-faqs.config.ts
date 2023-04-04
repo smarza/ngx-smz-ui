@@ -1,5 +1,5 @@
 import { SmzFaqsConfig } from 'ngx-smz-ui';
-import { environment } from '../environments/environment';
+import { environment } from '../../environments/environment.prod';
 
 export const smzFaqsConfig: SmzFaqsConfig = {
   endpoint: `${environment.serverUrl}/api/faqs`,

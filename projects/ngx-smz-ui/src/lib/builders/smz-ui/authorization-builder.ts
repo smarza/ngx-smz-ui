@@ -18,8 +18,13 @@ export class SmzUiAuthorizationBuilder extends SmzBuilderUtilities<SmzUiAuthoriz
     this._state.rbkUtils.state.database = { ...this._state.rbkUtils.state.database, ...databaseSmzAccessStates }
     this._state.rbkUtils.state.feature = { ...this._state.rbkUtils.state.feature, ...featureSmzAccessStates }
 
-    this._menu = { label: 'Cadastros', icon: 'fa-solid fa-user-gear', items: [] };
+    this._menu = { label: 'Admin', icon: 'fa-solid fa-user-gear', items: [] };
 
+  }
+
+  public setMenuLabel(label: string): SmzUiAuthorizationBuilder {
+    this._menu.label = label;
+    return this.that;
   }
 
   public overrideMenu(location: 'navigation-bar' | 'profile', partial: Partial<MenuCreation> = {}): SmzUiAuthorizationBuilder {

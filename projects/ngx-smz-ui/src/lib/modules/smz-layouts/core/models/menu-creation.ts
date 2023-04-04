@@ -7,5 +7,6 @@ export interface MenuCreation {
   items?: MenuCreation[];
   visible?: boolean;
   disabled?: boolean;
+  sortChildren?: boolean;
 
 }

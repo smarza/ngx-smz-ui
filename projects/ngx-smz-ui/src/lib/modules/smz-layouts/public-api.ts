@@ -28,6 +28,8 @@ export * from './core/models/notifications';
 export * from './core/models/action-link';
 export * from './core/models/menu-creation';
 
+export * from './core/functions/sort-menu-build';
+
 export { SmzLoader, SmzLoaders } from './core/models/loaders';
 export { SmzContentTheme, SmzContentThemes, ContentTheme } from './core/models/themes';
 

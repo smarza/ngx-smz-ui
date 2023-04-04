@@ -6,14 +6,15 @@ import { AuthenticationSelectors } from '../../../../state/global/authentication
 import { MenuCreation } from '../models/menu-creation';
 import { SmzNotification } from '../models/notifications';
 import { GlobalInjector } from '../../../../common/services/global-injector';
+import { sortMenuItemsByLabel } from '../functions/sort-menu-build';
 
 @Injectable({ providedIn: 'root' })
 export class MenuHelperService {
   public menu: MenuItem[];
   public profile: MenuItem[];
   public notifications: SmzNotification[];
-  private menuCreationCallback: () => MenuItem[];
-  private profileCreationCallback: () => MenuItem[];
+  private menuCreationCallback: () => MenuCreation[];
+  private profileCreationCallback: () => MenuCreation[];
   private menuCreationData: MenuCreation[];
   private profileCreationData: MenuCreation[];
   private accessMenuBehavior: 'hide' | 'disable';
@@ -51,12 +52,12 @@ export class MenuHelperService {
 
   }
 
-  public setMenuBuild(callback: () => MenuItem[]): void {
-    this.menuCreationCallback = callback;
+  public setMenuBuild(callback: () => MenuCreation[]): void {
+    this.menuCreationCallback = () => sortMenuItemsByLabel(callback());
   }
 
-  public setProfileBuild(callback: () => MenuItem[]): void {
-    this.profileCreationCallback = callback;
+  public setProfileBuild(callback: () => MenuCreation[]): void {
+    this.profileCreationCallback = () => sortMenuItemsByLabel(callback());
   }
 
   public setMenu(data: MenuCreation[], accessBehavior: 'hide' | 'disable' = 'hide'): void {

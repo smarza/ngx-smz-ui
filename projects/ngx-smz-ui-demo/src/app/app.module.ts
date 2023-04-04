@@ -3,18 +3,18 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NgxSmzLayoutsModule, NgxSmzFaqsModule, NgxSmzDialogsModule, HephaestusLayoutModule, NgxSmzUiBlockModule } from 'ngx-smz-ui';
+import { NgxSmzLayoutsModule, NgxSmzFaqsModule, NgxSmzDialogsModule, HephaestusLayoutModule, NgxSmzUiBlockModule, NgxSmzUiModule } from 'ngx-smz-ui';
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
-import { smzHephaestusConfig, smzLayoutsConfig } from '../globals/smz-layouts.config';
 import { CommonModule } from '@angular/common';
-import { ApplicationActions, buildState, NgxRbkUtilsModule } from 'ngx-smz-ui';
+import { ApplicationActions, buildState } from 'ngx-smz-ui';
 import { NgxsModule, Store } from '@ngxs/store';
-import { smzDialogsConfig } from '../globals/smz-config';
 import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
-import { smzFaqsConfig } from '../globals/smz-faqs.config';
 import { environment } from '../environments/environment';
+import { UiBuilder } from '../globals/smz-ui-config-builder';
+import { smzFaqsConfig } from '../globals/deprecated/smz-faqs.config';
+import { smzHephaestusConfig } from '../globals/deprecated/smz-layouts.config';
 
 @NgModule({
   declarations: [
@@ -26,14 +26,14 @@ import { environment } from '../environments/environment';
     AppRoutingModule,
 
     // Não alterar a ordem desse grupo
-    NgxSmzDialogsModule.forRoot(smzDialogsConfig),
-    NgxRbkUtilsModule.forRoot(),
+    NgxSmzUiModule.forRoot(UiBuilder),
+
     NgxsModule.forRoot(buildState(), { developmentMode: !environment.production }),
     NgxsRouterPluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot(),
-    NgxSmzLayoutsModule.forRoot(smzLayoutsConfig),
 
     HephaestusLayoutModule.forRoot(smzHephaestusConfig),
+
     // NewAthenaLayoutModule.forRoot(smzAthenaConfig),
     NgxSmzFaqsModule.forRoot(smzFaqsConfig),
     HighlightModule,

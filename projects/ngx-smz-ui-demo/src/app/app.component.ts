@@ -17,10 +17,11 @@ export class AppComponent {
 
       this.themeManager.createCss('assets/priority-styles.css');
 
-      this.menuService.setMenu([
+      this.menuService.setMenuBuild(() => [
         { label: 'Click me', icon: 'fa-solid fa-check-double', routerLink: ['details', 'again'] },
         {
           label: 'Demos',
+          sortChildren: true,
           items: [
             { label: 'Charts', icon: 'fa-solid fa-chart-simple', routerLink: ['charts'] },
             { label: 'Chart Colors', icon: 'fa-solid fa-chart-simple', routerLink: ['charts', 'colors'] },
@@ -33,6 +34,7 @@ export class AppComponent {
             {
               label: 'Svgs',
               icon: 'fa-solid fa-house-chimney',
+              sortChildren: true,
               items: [
                 { label: 'Demo Lib', icon: 'fa-solid fa-chart-simple', routerLink: [SVG_PATH, SVG_DEMO_PATH] },
                 { label: 'Playground', icon: 'fa-solid fa-chart-simple', routerLink: [SVG_PATH, SVG_PLAYGROUND_PATH] },
@@ -43,6 +45,7 @@ export class AppComponent {
         },
         {
           label: 'Tables',
+          sortChildren: true,
           items: [
             { label: 'Table', icon: 'fa-solid fa-star', routerLink: ['tables'] },
             { label: 'Editable Table', icon: 'fa-solid fa-star', routerLink: ['editable-table'] },
@@ -54,6 +57,7 @@ export class AppComponent {
         },
         {
           label: 'Extras',
+          sortChildren: true,
           items: [
             { label: 'Details 1', routerLink: ['details'] },
             { label: 'Details 2', routerLink: ['details', 'again'] },
@@ -69,6 +73,7 @@ export class AppComponent {
         },
         {
           label: 'Lib Pages',
+          sortChildren: true,
           items: [
             { label: 'Login', routerLink: ['login'] },
             { label: 'Error', routerLink: ['error'] },
@@ -77,6 +82,7 @@ export class AppComponent {
         },
         {
           label: 'Actions',
+          sortChildren: true,
           items: [
             { label: 'Console Log', icon: 'fa-regular fa-circle', command: () => console.log('Console Log') },
             { label: 'Disabled with command', icon: 'pi pi-home', command: () => console.log('Console Log'), disabled: true },
@@ -85,14 +91,15 @@ export class AppComponent {
         },
         {
           label: 'Hierarchy',
+          sortChildren: true,
           items: [
             {
-              label: 'Multi-level 1', icon: 'pi pi-home', items: [
+              label: 'Multi-level 1', icon: 'pi pi-home', sortChildren: true, items: [
                 { label: 'Login 1', icon: 'pi pi-home', routerLink: ['login'] },
                 { label: 'Home', icon: 'pi pi-home', routerLink: ['home'] },
                 { label: 'Details', icon: 'pi pi-home', routerLink: ['details'] },
                 {
-                  label: 'Multi-level 2', icon: 'pi pi-home', items: [
+                  label: 'Multi-level 2', icon: 'pi pi-home', sortChildren: true, items: [
                     { label: 'Login 1', icon: 'pi pi-home', routerLink: ['login'] },
                     { label: 'Login 2', icon: 'pi pi-home', routerLink: ['login'] },
                   ]
@@ -106,9 +113,10 @@ export class AppComponent {
         },
         {
           label: 'Hierarchy 2',
+          sortChildren: true,
           items: [
             {
-              label: 'Multi-level 1', items: [
+              label: 'Multi-level 1', sortChildren: true, items: [
                 { label: 'Login 1', routerLink: ['login'] },
                 { label: 'Home',  routerLink: ['home'] },
               ]
