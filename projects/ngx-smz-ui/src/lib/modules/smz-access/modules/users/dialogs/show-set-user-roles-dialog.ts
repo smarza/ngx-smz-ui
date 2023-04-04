@@ -16,7 +16,7 @@ export function buildShowSetUserRolesDialog(user: UserDetails, success?: () => v
   const roles = store.selectSnapshot(RolesSelectors.all);
 
   dialogs.open(new SmzDialogBuilder<ReplaceUserRoles>()
-    .setTitle(`Edição de Perfis | ${user.username}`)
+    .setTitle('Edição de Perfis')
     .setLayout('EXTRA_LARGE', 'col-4')
     .setLayout('MEDIUM', 'col-6')
     .setLayout('EXTRA_SMALL', 'col-12')

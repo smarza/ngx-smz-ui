@@ -12,7 +12,7 @@ export function CreateRoleDialog(): SmzDialog<CreateRole> {
   const store = GlobalInjector.instance.get(Store);
 
   return new SmzDialogBuilder<CreateRole>()
-    .setTitle('Criar Regra de Acesso')
+    .setTitle('Criar Perfil')
     .setLayout('LARGE', 'col-4')
     .setLayout('MEDIUM', 'col-6')
     .setLayout('SMALL', 'col-12')
@@ -20,7 +20,7 @@ export function CreateRoleDialog(): SmzDialog<CreateRole> {
     .closeOnEscape()
     .form()
       .group()
-        .text(nameof<CreateRole>('name'), 'Chave')
+        .text(nameof<CreateRole>('name'), 'Nome do Perfil')
         .setSaveFormat(SmzTextPattern.CAPITALIZE_FIRST_LETTERS_FOR_WORDS_WITH_MORE_THAN_3_CHARS)
           .validators().required()
           .group

@@ -18,7 +18,7 @@ export function showRoleClaimsDialog(role: RolesDetails): void {
   `;
 
   dialogs.open(new SmzDialogBuilder<CreateRole>()
-    .setTitle('Editar Regra de Acesso')
+    .setTitle('Permissões')
     .setLayout('LARGE', 'col-4')
     .setLayout('MEDIUM', 'col-6')
     .setLayout('SMALL', 'col-12')

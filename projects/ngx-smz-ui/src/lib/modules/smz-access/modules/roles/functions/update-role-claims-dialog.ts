@@ -14,7 +14,7 @@ export function UpdateRoleClaimsDialog(role: RolesDetails): SmzDialog<UpdateRole
   const claims = store.selectSnapshot(ClaimsSelectors.all).map(x => ({ id: x.id, name: x.description }));
 
   return new SmzDialogBuilder<UpdateRoleClaims>()
-    .setTitle('Editar permissões de acesso do Usuário')
+    .setTitle('Editar permissões de acesso do perfil')
     .setLayout('LARGE', 'col-4')
     .setLayout('MEDIUM', 'col-6')
     .setLayout('SMALL', 'col-12')

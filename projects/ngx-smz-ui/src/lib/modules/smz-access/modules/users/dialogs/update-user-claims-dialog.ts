@@ -16,7 +16,7 @@ export function showUpdateUserClaimsDialog(user: UserDetails): void {
   const helpService = GlobalInjector.instance.get(SmzHelpDialogService);
 
   dialogs.open(new SmzDialogBuilder<void>()
-    .setTitle(`Edição de Permissões | ${user.username}`)
+    .setTitle('Edição de Permissões de Acesso')
     .setLayout('EXTRA_LARGE', 'col-8')
     .setLayout('MEDIUM', 'col-10')
     .setLayout('EXTRA_SMALL', 'col-12')
