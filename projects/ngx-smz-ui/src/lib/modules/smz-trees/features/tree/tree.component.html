@@ -12,8 +12,6 @@
             <ng-template pTemplate="actions">
                 <ng-container *ngTemplateOutlet="emptyActionsTemplate; context: { $implicit: {} }"></ng-container>
             </ng-template>
-
-
         </smz-data-info>
     </ng-container>
 
@@ -126,7 +124,7 @@
                                 </div>
 
                             </div>
-                            <span *ngIf="state.filter.show" class="p-input-icon-left col col-12 md:col-4">
+                            <span *ngIf="state.filter.show" class="p-input-icon-left col-12" [ngClass]="state.filter.styleClass">
                                 <i class="pi pi-search"></i>
                                 <input #inputGlobal pInputText type="text" (input)="dt._filter(inputGlobal.value)" [placeholder]="state.filter.textPlaceholder" />
                             </span>

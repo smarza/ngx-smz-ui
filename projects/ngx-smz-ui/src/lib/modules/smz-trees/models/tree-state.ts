@@ -87,6 +87,7 @@ export interface SmzTreeState {
     mode?: 'lenient' | 'strict';
     filterBy?: string[];
     textPlaceholder?: string;
+    styleClass: string;
   }
   dragAndDrop?: {
     draggable?: boolean;

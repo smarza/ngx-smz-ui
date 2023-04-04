@@ -51,7 +51,8 @@ export class SmzTreeBuilder {
       filterBy: ['label'],
       mode: 'lenient',
       show: false,
-      textPlaceholder: 'Filtro...'
+      textPlaceholder: 'Filtro...',
+      styleClass: 'lg:col-4 md:col-6'
     },
     loading: {
       icon: 'fa-solid fa-circle-notch fa-spin',
@@ -149,6 +150,11 @@ export class SmzTreeBuilder {
 
   public setFilterPlaceholder(text: string): SmzTreeBuilder {
     this._state.filter.textPlaceholder = text;
+    return this;
+  }
+
+  public setFilterStyleClass(styleClass: string): SmzTreeBuilder {
+    this._state.filter.styleClass = styleClass;
     return this;
   }
 
