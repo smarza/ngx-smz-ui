@@ -22,6 +22,10 @@ export class SmzDataTransformTreePipe implements PipeTransform {
 
     that.sincronizeItems(bindedItems);
 
+    if (state.isDebug) {
+      console.log('SmzDataTransformTreePipe', bindedItems);
+    }
+
     return bindedItems;
 
   }

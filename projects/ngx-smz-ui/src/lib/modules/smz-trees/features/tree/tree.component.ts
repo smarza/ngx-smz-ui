@@ -100,6 +100,10 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
       bindedItems.push(...this.response(this.state.content.dataTransform(items), this.state.content.sincronize, this.treeKey));
     }
 
+    if (this.state.isDebug) {
+      console.log('---- transformed', bindedItems);
+    }
+
     this.treeItems = bindedItems;
   }
 

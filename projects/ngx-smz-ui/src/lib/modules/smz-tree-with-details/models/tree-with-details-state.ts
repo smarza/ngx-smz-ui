@@ -23,5 +23,10 @@ export interface SmzTreeWithDetailsState {
   styleClass: {
     content: string;
   }
+
+  layout: {
+    detailsStyleClass: string;
+  }
+
   locale: SmzTreeWithDetailsLocale;
 }

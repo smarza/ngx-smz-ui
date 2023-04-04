@@ -156,28 +156,40 @@ export const TreesDemo:{ [key: string]: { items$: Observable<any[]>, code: () =>
     items$: store.select(DemoFeatureSelectors.giants),
     code: () => {
     return new SmzTreeBuilder()
-      .debugMode()
       .setTitle('Tree with Nested Data')
       .useSincronization()
       .emptyFeedback()
         .setMessage('Árvore vazia')
         .useTreeEmptyMessage()
         .tree
-      .dataSource()
-        .addRoot('plant')
-        .addChildren('space', 'hullSpaces')
-        .addChildren('structural-member', 'structuralMembers')
-        .addChildren('plate', 'plates', { icon: 'fa-solid fa-circle text-sm'})
-        .tree
       .enableFilter()
+      .dataSource()
+        .nested('plant')
+          .addChild('topsideModules')
+            .back
+          .addChild('hullSpaces')
+            .setType('space')
+            .addChild('structuralMembers')
+              .setType('structural-members')
+              .addChild('plates')
+                .setType('plate')
+                .setIcon('fa-solid fa-bug')
+                .makeAsGroup('Chapas')
+                  .setIcon('fa-solid fa-circle')
+                  .child
+                .back
+              .addChild('reinforcements')
+                .setType('reinforcement')
+                .setIcon('fa-solid fa-user')
+                .makeAsGroup('Reforços')
+                  .setIcon('fa-solid fa-circle')
+                  .child
+                .back
+              .back
+            .back
+          .dataSource
+        .tree
       .build()
     }
   },
 }
-
-
-
-
-
-
-

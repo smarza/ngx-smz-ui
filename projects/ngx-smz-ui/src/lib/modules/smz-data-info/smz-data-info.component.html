@@ -1,8 +1,8 @@
-<div class="grid justify-center items-center p-4 m-0 h-full w-full text-center animate__animated animate__fadeInDown">
+<div class="grid justify-center items-center p-4 m-0 h-full w-full text-center">
   <div class="col-10 md:col-8 grid grid-nogutter flex-col items-center justify-center">
 
       <img *ngIf="image != null && image !== ''" [src]="image" class="img-fluid" width="60%" [ngStyle]="{ 'max-width': '250px' }" />
-      <h2 class="mt-2">{{ message }}</h2>
+      <h3 class="mt-2">{{ message }}</h3>
       <div *ngIf="callbackInfo != null" class="mb-2" [innerHtml]="callbackInfo"></div>
 
       <div class="grid grid-nogutter items-center justify-center mt-2 gap-2">

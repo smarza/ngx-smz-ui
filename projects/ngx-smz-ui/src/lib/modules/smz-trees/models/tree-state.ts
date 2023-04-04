@@ -126,15 +126,19 @@ export interface SmzTreeGroupData extends SmzTreeGroupNodeConfig {
 
 // NESTED
 
-export interface SmzTreeNestedData extends SmzTreeNestedNodeData {
-  children?: SmzTreeNestedData;
-}
-
-export interface SmzTreeNestedNodeData {
+export interface SmzTreeNestedData{
   key?: string;
   labelKey: string;
   valueKey: string;
   type: string;
   nodeOverrides: Partial<TreeNode>;
-
+  group: {
+    makeChildrenAsGroup: boolean;
+    label: string;
+    key: string;
+    type: string;
+    nodeOverrides: Partial<TreeNode>;
+  };
+  dataType: 'simpleNamedEntity' | 'same';
+  children?: SmzTreeNestedData[];
 }

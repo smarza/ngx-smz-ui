@@ -22,6 +22,9 @@ export class SmzTreeWithDetailsBuilder {
     styleClass: {
       content: 'gap-3 p-6 overflow-y-auto'
     },
+    layout: {
+      detailsStyleClass: 'lg:col-6'
+    },
     locale: null,
   };
 
@@ -65,6 +68,11 @@ export class SmzTreeWithDetailsBuilder {
 
   public overridePageContainerStyles(styleClass: string): SmzTreeWithDetailsBuilder {
     this._state.styleClass.content = styleClass;
+    return this;
+  }
+
+  public overrideDetailsContainerStyles(styleClass: string): SmzTreeWithDetailsBuilder {
+    this._state.layout.detailsStyleClass = styleClass;
     return this;
   }
 

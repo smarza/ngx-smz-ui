@@ -552,11 +552,45 @@ export function shorten(text: any, length: number = 0, suffix: string = '', word
     return text;
   }
 
-  export function getFirstElements<T>(arr: T[], numElements: number): T[] {
+export function getFirstElements<T>(arr: T[], numElements: number): T[] {
     return arr?.slice(0, numElements);
-  }
+}
 
-  export function getLastElements<T>(arr: T[], numElements: number): T[] {
+export function getLastElements<T>(arr: T[], numElements: number): T[] {
     const startIndex = Math.max(0, arr.length - numElements);
     return arr?.slice(startIndex);
-  }
+}
+
+export type GenericObject = {
+    [key: string]: any;
+  };
+
+export function cloneAndRemoveProperty(item: any, propertyToRemove: string): any {
+    const { [propertyToRemove]: _, ...clonedObject } = item;
+    return clonedObject;
+}
+
+export function cloneAndRemoveProperties(item: any, propertiesToRemove: string[], log = false): any {
+
+    let clonedObject = { ...item };
+
+    for (const property of propertiesToRemove) {
+      const { [property]: _, ...rest } = clonedObject;
+      clonedObject = rest;
+    }
+
+    if (log) {
+        console.log('-------------');
+        console.log('propertyToRemove', propertiesToRemove);
+        console.log('item', item);
+        console.log('clonedObject', clonedObject);
+        console.log('-------------');
+    }
+
+    return clonedObject;
+
+}
+
+export function toSimpleNamedEntity(item: any, idProperty: string = 'id', nameProperty: string = 'name'): SimpleNamedEntity {
+    return { id: ObjectUtils.resolveFieldData(item, idProperty), name: ObjectUtils.resolveFieldData(item, nameProperty)};
+}

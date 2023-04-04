@@ -5,8 +5,9 @@ import { TreeNode } from 'primeng/api/treenode';
 import { ObjectUtils } from 'primeng/utils';
 import { SimpleEntity, SimpleNamedEntity, SimpleParentEntity } from '../../common/models/simple-named-entity';
 import { SmzTreeNode } from '../../modules/smz-trees/models/tree-node';
-import { SmzTreeGroup, SmzTreeGroupData, SmzTreeGroupNodeConfig, SmzTreeNestedData } from '../../modules/smz-trees/models/tree-state';
+import { SmzTreeGroupData, SmzTreeGroupNodeConfig, SmzTreeNestedData } from '../../modules/smz-trees/models/tree-state';
 import { FormGroupConfig } from '../smz-dialogs/dialog-input-conversion';
+import { cloneAndRemoveProperties, toSimpleNamedEntity } from '../../common/utils/utils';
 
 /*
     Checks if a string is null, undefined or empty
@@ -108,17 +109,54 @@ export function createTreeFromNestedData<T = any>(data: T[], config: SmzTreeNest
     }
 
     return items.map(item => {
+
+      if (nodeConfig.children == null) {
+        console.warn(nodeConfig);
+        throw new Error('createTreeFromNestedData(): You cannot provide an children null.');
+      }
+
+      const children: TreeNode<SimpleNamedEntity>[] = [];
+
+      nodeConfig.children.forEach(child => {
+
+        if (child.group.makeChildrenAsGroup) {
+          const childKey = ObjectUtils.resolveFieldData(item, child.group.key);
+
+          const childData = child.dataType === 'simpleNamedEntity' ?
+            toSimpleNamedEntity(item, child.group.key, child.group.label) :
+            cloneAndRemoveProperties(item, nodeConfig.children.map(x => x.key));
+
+          children.push({
+            ...child.group.nodeOverrides,
+            label: child.group.label,
+            key: childKey,
+            data: childData,
+            type: child.group.type,
+            children: createTreeNodes(ObjectUtils.resolveFieldData(item, child.key) || [], child),
+          });
+        }
+        else {
+          children.push(...createTreeNodes(ObjectUtils.resolveFieldData(item, child.key) || [], child));
+        }
+
+      });
+
       const label = ObjectUtils.resolveFieldData(item, nodeConfig.labelKey);
       const key = ObjectUtils.resolveFieldData(item, nodeConfig.valueKey);
+
+      const data = nodeConfig.dataType === 'simpleNamedEntity' ?
+        toSimpleNamedEntity(item, nodeConfig.group.key, nodeConfig.group.label) :
+        cloneAndRemoveProperties(item, nodeConfig.children.map(x => x.key));
 
       return {
         ...nodeConfig.nodeOverrides,
         label,
         key,
-        data: { id: key, name: label },
+        data,
         type: nodeConfig.type,
-        children: createTreeNodes(ObjectUtils.resolveFieldData(item, nodeConfig.children?.key) || [], nodeConfig.children),
+        children,
       };
+
     });
   }
 
