@@ -64,6 +64,7 @@ export { AsPipe } from './lib/common/data-pipes/pipes/as.pipe';
 export { PrettyJsonPipe } from './lib/common/data-pipes/pipes/pretty-json.pipe';
 export { SmzInitialPipe } from './lib/common/data-pipes/pipes/initial.pipe';
 export { SmzTailPipe } from './lib/common/data-pipes/pipes/tail.pipe';
+export { SelectorPipe } from './lib/common/data-pipes/pipes/selector.pipe';
 
 export { UrlCheckerPipeModule } from './lib/common/url-checker/url-checker.pipe';
 export { UrlCheckerPipe } from './lib/common/url-checker/url-checker.pipe';

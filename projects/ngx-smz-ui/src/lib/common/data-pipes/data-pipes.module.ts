@@ -17,6 +17,7 @@ import { AsPipe } from './pipes/as.pipe';
 import { PrettyJsonPipe } from './pipes/pretty-json.pipe';
 import { SmzInitialPipe } from './pipes/initial.pipe';
 import { SmzTailPipe } from './pipes/tail.pipe';
+import { SelectorPipe } from './pipes/selector.pipe';
 
 @NgModule({
     imports: [
@@ -39,7 +40,8 @@ import { SmzTailPipe } from './pipes/tail.pipe';
         AsPipe,
         PrettyJsonPipe,
         SmzInitialPipe,
-        SmzTailPipe
+        SmzTailPipe,
+        SelectorPipe
     ],
     exports: [
         ClonePipe,
@@ -58,7 +60,8 @@ import { SmzTailPipe } from './pipes/tail.pipe';
         AsPipe,
         PrettyJsonPipe,
         SmzInitialPipe,
-        SmzTailPipe
+        SmzTailPipe,
+        SelectorPipe
     ],
 })
 export class NgxSmzDataPipesModule { }
