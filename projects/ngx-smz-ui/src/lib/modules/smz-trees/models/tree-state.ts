@@ -140,6 +140,6 @@ export interface SmzTreeNestedData{
     type: string;
     nodeOverrides: Partial<TreeNode>;
   };
-  dataType: 'simpleNamedEntity' | 'same';
+  dataType: 'simpleNamedEntity' | 'same' | 'clean';
   children?: SmzTreeNestedData[];
 }

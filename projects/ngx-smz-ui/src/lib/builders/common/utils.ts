@@ -122,9 +122,7 @@ export function createTreeFromNestedData<T = any>(data: T[], config: SmzTreeNest
         if (child.group.makeChildrenAsGroup) {
           const childKey = ObjectUtils.resolveFieldData(item, child.group.key);
 
-          const childData = child.dataType === 'simpleNamedEntity' ?
-            toSimpleNamedEntity(item, child.group.key, child.group.label) :
-            cloneAndRemoveProperties(item, nodeConfig.children.map(x => x.key));
+          const childData = createTreeData(item, child, nodeConfig);
 
           children.push({
             ...child.group.nodeOverrides,
@@ -144,9 +142,7 @@ export function createTreeFromNestedData<T = any>(data: T[], config: SmzTreeNest
       const label = ObjectUtils.resolveFieldData(item, nodeConfig.labelKey);
       const key = ObjectUtils.resolveFieldData(item, nodeConfig.valueKey);
 
-      const data = nodeConfig.dataType === 'simpleNamedEntity' ?
-        toSimpleNamedEntity(item, nodeConfig.group.key, nodeConfig.group.label) :
-        cloneAndRemoveProperties(item, nodeConfig.children.map(x => x.key));
+      const data = createTreeData(item, nodeConfig, nodeConfig);
 
       return {
         ...nodeConfig.nodeOverrides,
@@ -164,6 +160,23 @@ export function createTreeFromNestedData<T = any>(data: T[], config: SmzTreeNest
 
   return treeNodes;
 
+}
+
+function createTreeData(item: any, nodeConfig: SmzTreeNestedData, parentConfig: SmzTreeNestedData): any {
+
+  switch (nodeConfig.dataType) {
+    case 'simpleNamedEntity':
+      return toSimpleNamedEntity(item, nodeConfig.group.key, nodeConfig.group.label);
+
+    case 'same':
+      return item;
+
+    case 'clean':
+      return cloneAndRemoveProperties(item, parentConfig.children.map(x => x.key));
+
+    default:
+      break;
+  }
 }
 
 

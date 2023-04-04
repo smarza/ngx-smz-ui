@@ -23,7 +23,7 @@ export class SmzTreeWithDetailsBuilder {
       content: 'gap-3 p-6 overflow-y-auto'
     },
     layout: {
-      detailsStyleClass: 'lg:col-6'
+      detailsStyleClass: 'p-2 lg:col-6'
     },
     locale: null,
   };

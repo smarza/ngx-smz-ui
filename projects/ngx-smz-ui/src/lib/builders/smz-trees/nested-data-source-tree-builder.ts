@@ -123,6 +123,11 @@ export class SmzNestedChildTreeBuilder<TBuilder> extends SmzBuilderUtilities<Smz
     return this.that;
   }
 
+  public removeParentPropertiesFromData(): SmzNestedChildTreeBuilder<TBuilder> {
+    this._nestedConfig.dataType = 'clean';
+    return this.that;
+  }
+
   public setIcon(icon: string): SmzNestedChildTreeBuilder<TBuilder> {
     this._nestedConfig.nodeOverrides.icon = icon;
     return this.that;
