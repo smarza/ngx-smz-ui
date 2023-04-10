@@ -74,7 +74,8 @@ export const TimelineDemo: { [key: string]: { code: () => void } } = {
     code: () => {
     return new SmzTimelineBuilder<SmzCardsDemoData>()
         .setTitle('Demo Cards | Info A')
-        .setSource(of(SmzCardsDemo))
+        .setSource(of([]))
+        .setEmptyMessage('Vazio...')
         .template()
           .infoA()
             .setBulletsStyles('bg-red-500')

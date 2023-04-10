@@ -14,4 +14,16 @@ smz-ui-timeline {
       }
     }
   }
+
+  .p-timeline-left {
+    .p-timeline-event-opposite {
+      display: none;
+    }
+  }
+
+  .p-timeline-right {
+    .p-timeline-event-opposite {
+      display: none;
+    }
+  }
 }

@@ -8,7 +8,7 @@ export class SmzTimelineViewBuilder extends SmzBuilderUtilities<SmzTimelineViewB
     timeline: '',
     event: ''
   }
-  constructor(private _builder: SmzTimelineBuilder<unknown>, private _viewData: SmzTimelineView, private _layout: 'vertical' | 'horizontal') {
+  constructor(private _builder: SmzTimelineBuilder<any>, private _viewData: SmzTimelineView, private _layout: 'vertical' | 'horizontal') {
     super();
     this._viewData.layout = this._layout;
   }
@@ -34,7 +34,7 @@ export class SmzTimelineViewBuilder extends SmzBuilderUtilities<SmzTimelineViewB
     return this;
   }
 
-  public setAlign(align: 'left' | ' right' | ' top' | 'botttom' | 'alternate'): SmzTimelineViewBuilder {
+  public setAlign(align: 'left' | 'right' | 'top' | 'botttom' | 'alternate'): SmzTimelineViewBuilder {
     this._viewData.align = align;
 
     if (align === 'alternate') {
@@ -45,7 +45,7 @@ export class SmzTimelineViewBuilder extends SmzBuilderUtilities<SmzTimelineViewB
   }
 
 
-  public get timeline(): SmzTimelineBuilder<unknown> {
+  public get timeline(): SmzTimelineBuilder<any> {
     this._viewData.styleClass.event = this._viewData.styleClass.event + this._styles.event;
     this._viewData.styleClass.timeline = this._viewData.styleClass.timeline + this._styles.timeline;
     return this._builder;
@@ -54,7 +54,7 @@ export class SmzTimelineViewBuilder extends SmzBuilderUtilities<SmzTimelineViewB
 
 export class SmzTimelineMarkerBuilder extends SmzBuilderUtilities<SmzTimelineMarkerBuilder> {
   protected that = this;
-  constructor(private _builder: SmzTimelineBuilder<unknown>, private _markerData: SmzTimelineMarker) {
+  constructor(private _builder: SmzTimelineBuilder<any>, private _markerData: SmzTimelineMarker) {
     super();
   }
 
@@ -69,7 +69,7 @@ export class SmzTimelineMarkerBuilder extends SmzBuilderUtilities<SmzTimelineMar
   }
 
 
-  public get timeline(): SmzTimelineBuilder<unknown> {
+  public get timeline(): SmzTimelineBuilder<any> {
     return this._builder;
   }
 }

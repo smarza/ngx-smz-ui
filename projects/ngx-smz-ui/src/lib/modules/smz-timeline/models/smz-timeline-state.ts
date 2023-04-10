@@ -29,7 +29,7 @@ export interface SmzTimelineView {
     event: string;
     timeline: string;
   }
-  align: 'left' | ' right' | ' top' | 'botttom' | 'alternate';
+  align: 'left' | 'right' | 'top' | 'botttom' | 'alternate';
   layout: 'vertical' | 'horizontal';
 }
 
