@@ -123,7 +123,7 @@ export function showMessage(title: string, message: string, confirmCallback: () 
   }));
 }
 
-export function showObjectDialog(title: string, event: any): void {
+export function showObjectDialog(title: string, event: any, confirmCallback: () => void = () => {}): void {
 
   GlobalInjector.instance.get(SmzDialogsService)
     .open(new SmzDialogBuilder()
@@ -134,7 +134,12 @@ export function showObjectDialog(title: string, event: any): void {
       .setLayout('EXTRA_LARGE', 'col-6')
       .closeOnEscape()
       .html([new PrettyJsonPipe().transform(JSON.stringify(event), [true, 3])])
-      .hideFooter()
+      .buttons()
+        .cancel().hide().buttons
+        .confirm().hide().buttons
+        .ok().callback(() => confirmCallback()).buttons
+        .close().callback(() => confirmCallback()).buttons
+        .dialog
       .build()
     );
 }
