@@ -178,7 +178,7 @@ export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T>> {
       throw Error(`You can´t set more than one column with the same field name. ${this._column.field}`);
     }
 
-    if (this._column.actions.length > 0) {
+    if (this._column.actions.length > 0 && this._column.actionsAlignment === 'begin') {
       this._column.content.styleClass += ' col grid grid-nogutter items-center justify-start';
     }
 
