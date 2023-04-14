@@ -7,6 +7,7 @@ import { Store } from '@ngxs/store';
 import { ToastActions } from '../../../../state/global/application/application.actions.toast';
 import { base64ToFile } from '../../../../common/utils/utils';
 import { isEmpty } from '../../../../builders/common/utils';
+import { ApplicationActions } from '../../../../../lib/state/global/application/application.actions';
 
 @Component({
     selector: 'smz-file-upload',
@@ -54,13 +55,11 @@ export class FileUploadComponent {
     }
 
     public onInputFiles(event: any): void {
-
         const files: File[] = event.srcElement.files;
         this.onFilesDropped(files, true, true, this.cdf);
     }
 
     public onFilesDropped(event: File[], markAsTouched: boolean, emitEvent: boolean, cdf: ChangeDetectorRef): void {
-
         this.files = [];
         const errors: Message[] = [];
 
@@ -85,6 +84,11 @@ export class FileUploadComponent {
     }
 
     public clear(emitEvent: boolean): void {
+
+        if (this.input.useGlobalLoader) {
+            this.store.dispatch(new ApplicationActions.StartGlobalLoading);
+        }
+
         this.files = [];
         this.errors = [];
         this.input._file = null;
@@ -94,6 +98,10 @@ export class FileUploadComponent {
         this.form.controls[this.input.propertyName].setValue(null, { emitEvent });
 
         this.cdf.markForCheck();
+
+        if (this.input.useGlobalLoader) {
+            this.store.dispatch(new ApplicationActions.StopGlobalLoading);
+        }
     }
 
     public onFileChange(event: File[], emitEvent: boolean, cdf: ChangeDetectorRef): void {
@@ -107,6 +115,10 @@ export class FileUploadComponent {
 
             cdf.markForCheck();
 
+            if (this.input.useGlobalLoader) {
+                this.store.dispatch(new ApplicationActions.StartGlobalLoading);
+            }
+
             reader.onload = (event: ProgressEvent<FileReader>): void => {
                 this.input._base64 = event.target.result as string;
 
@@ -119,6 +131,11 @@ export class FileUploadComponent {
 
                 this.form.controls[this.input.propertyName].setValue(file, { emitEvent });
                 cdf.markForCheck();
+
+                if (this.input.useGlobalLoader) {
+                    this.store.dispatch(new ApplicationActions.StopGlobalLoading);
+                }
+
             };
 
             reader.readAsDataURL(file);

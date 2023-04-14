@@ -1382,6 +1382,12 @@ export class SmzFormFileBuilder<TResponse> extends SmzFormInputBuilder<SmzFormFi
     this._fileInput.shortenSeparator = separator;
     return this;
   }
+
+  public useGlobalLoader(): SmzFormFileBuilder<TResponse> {
+    this._fileInput.useGlobalLoader = true;
+    return this;
+  }
+
 }
 
 export class SmzFormListBuilder<TResponse> extends SmzFormInputBuilder<SmzFormListBuilder<TResponse>, TResponse> {

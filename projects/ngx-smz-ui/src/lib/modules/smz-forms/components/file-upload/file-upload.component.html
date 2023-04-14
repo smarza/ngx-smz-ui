@@ -109,7 +109,7 @@
 
             <!-- NOME E TAMANHO DO ARQUIVO -->
             <div class="grid grid-nogutter flex-col items-start justify-end ml-3">
-                <span>{{ input._file.name | fileNameShorten : input.shortenLength : input.shortenSeparator }} <i class="far fa-trash-alt hvr hvr-grow text-red-500 clickable ml-2 mb-1" (click)="clear(true)"></i></span>
+                <span>{{ input._file.name | fileNameShorten : input.shortenLength : input.shortenSeparator }} <i class="far fa-trash-alt hvr hvr-grow text-red-500 clickable ml-2 mb-1 cursor-pointer" (click)="clear(true)"></i></span>
                 <span *ngIf="input.showFileSize"><small>{{ formatBytes(input._file.size) }}</small></span>
             </div>
 

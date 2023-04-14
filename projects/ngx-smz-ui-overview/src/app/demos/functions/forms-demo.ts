@@ -364,6 +364,7 @@ Exame sem intercorrências.`)
         .text('input1', 'I\'m not required', 'Texto')
           .group
         .file('file', 'Confirmação')
+          .useGlobalLoader()
           .setDefaultFile(base64Sample, 'teste.jpg', 'image/jpg')
           .useBinaryFormat()
           .acceptImages()
