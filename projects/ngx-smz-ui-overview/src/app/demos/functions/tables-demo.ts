@@ -420,7 +420,7 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
     return new SmzTableBuilder('entity')
         .setTitle('Demo Inline Menu')
         .menu()
-          .useInline()
+          .useInline('300px')
           .item()
             .setCallback((event: any) => console.log('---', event))
             .setActivationRule<any>((data) => data.name !== 'Coyote')
@@ -439,6 +439,35 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
             .setIcon('fa-solid fa-face-angry')
             .setStyles('p-button-danger')
             .menu
+          .item()
+            .askForCriticalConfirmation('Atenção', 'Tem certeza de que deseja fazer isso ?')
+            .setCallback((event: any) => console.log('---', event))
+            .setIcon('fa-solid fa-face-angry')
+            .setStyles('p-button-danger')
+            .menu
+          .item()
+            .askForCriticalConfirmation('Atenção', 'Tem certeza de que deseja fazer isso ?')
+            .setCallback((event: any) => console.log('---', event))
+            .setIcon('fa-solid fa-face-angry')
+            .setStyles('p-button-danger')
+            .menu
+          .table
+        .columns()
+          .dataTransform('company1', 'Teste 1', (country: SimpleNamedEntity, row: any) => (row.company))
+            .disableFilter()
+            .columns
+          .dataTransform('company2', 'Teste 2', (country: SimpleNamedEntity, row: any) => (row.company))
+            .disableFilter()
+            .columns
+          .dataTransform('company3', 'Teste 3', (country: SimpleNamedEntity, row: any) => (row.company))
+            .disableFilter()
+            .columns
+          .dataTransform('company4', 'Teste 4', (country: SimpleNamedEntity, row: any) => (`${row.company} > ${row.company} > ${row.company}`))
+            .disableFilter()
+            .columns
+          .dataTransform('company5', 'Teste 5', (country: SimpleNamedEntity, row: any) => (row.company))
+            .disableFilter()
+            .columns
           .table
       .build()
   }

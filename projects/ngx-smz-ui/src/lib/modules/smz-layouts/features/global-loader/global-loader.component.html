@@ -10,6 +10,11 @@
           <smz-ui-loader-cube [title]="loader.title" [message]="loader.message"></smz-ui-loader-cube>
       </ng-container>
 
+      <!-- LOADER SQUARE -->
+      <ng-container *ngSwitchCase="loaders.SQUARE">
+        <smz-ui-loader-square [title]="loader.title" [message]="loader.message"></smz-ui-loader-square>
+    </ng-container>
+
     </ng-container>
   </ng-container>
 

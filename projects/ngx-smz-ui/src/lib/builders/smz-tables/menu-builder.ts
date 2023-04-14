@@ -21,8 +21,9 @@ export class SmzMenuTableBuilder extends SmzBuilderUtilities<SmzMenuTableBuilder
     return this;
   }
 
-  public useInline(): SmzMenuTableBuilder {
+  public useInline(minWidth: string = 'auto'): SmzMenuTableBuilder {
     this._tableBuilder._state.actions.menu.behavior = 'inline';
+    this._tableBuilder._state.actions.menu.minWidth = minWidth;
     return this;
   }
 

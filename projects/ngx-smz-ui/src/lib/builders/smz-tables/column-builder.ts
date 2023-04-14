@@ -156,8 +156,7 @@ export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T>> {
   }
 
   public actions(): SmzContentActionsBuilder {
-    const actionsBuilder = new SmzContentActionsBuilder(this._table, this);
-    return actionsBuilder;
+    return new SmzContentActionsBuilder(this._table, this);
   }
 
   public get columns(): SmzColumnCollectionBuilder {
@@ -177,6 +176,10 @@ export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T>> {
 
     if (columnsWithSameFieldNameCount > 1) {
       throw Error(`You can´t set more than one column with the same field name. ${this._column.field}`);
+    }
+
+    if (this._column.actions.length > 0) {
+      this._column.content.styleClass += ' col grid grid-nogutter items-center justify-start';
     }
 
     return this._parent;

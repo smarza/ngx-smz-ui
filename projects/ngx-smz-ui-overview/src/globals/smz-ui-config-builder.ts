@@ -1,4 +1,4 @@
-import { SmzUiBuilder } from 'ngx-smz-ui';
+import { SmzLoader, SmzUiBuilder } from 'ngx-smz-ui';
 import { smzDialogsConfig } from './smz-config';
 import { smzLayoutsConfig } from './smz-layouts.config';
 import { CountriesDbName, CountriesDbState, getDbCountriesInitialState } from '@states/database/countries/countries.state';
@@ -14,7 +14,9 @@ import { rbkConfig } from './rbk-config';
 export const UiConfigBuilder: SmzUiBuilder = new SmzUiBuilder()
 .setApplicationName('Overview Demo')
 .setDialogsConfigManually(smzDialogsConfig) // Temporally
-.setLayoutsConfigManually(smzLayoutsConfig) // Temporally
+.layouts(smzLayoutsConfig)
+  .setLoader(SmzLoader.CUBE)
+  .builder
 .setRbkUtilsConfigManually(rbkConfig)
 .authentication()
   .mapAccessTokenData('rol', 'roles', 'array')

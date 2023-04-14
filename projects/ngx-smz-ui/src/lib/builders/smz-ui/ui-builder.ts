@@ -10,6 +10,8 @@ import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzUiAuthenticationBuilder } from './authentication-builder';
 import { SmzUiAuthorizationBuilder } from './authorization-builder';
 import { SmzUiStatesBuilder } from './states-builder';
+import { SmzUiLayoutsBuilder } from './layouts-builder';
+import { SmzLoader } from '../../modules/smz-layouts/core/models/loaders';
 
 export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
     protected that = this;
@@ -191,7 +193,13 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
         },
         dialogs: {
         },
-        layouts: null,
+        layouts: {
+            loader: {
+                type: SmzLoader.CUBE,
+                title: 'Carregando...',
+                message: 'Please wait, we\'re preparing your data',
+            },
+        },
         locale: null
     };
 
@@ -210,9 +218,8 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
         return this.that;
     }
 
-    public setLayoutsConfigManually(config: SmzLayoutsConfig): SmzUiBuilder {
-        this._state.layouts = mergeClone(defaultSmzLayoutsConfig, config);
-        return this.that;
+    public layouts(config: SmzLayoutsConfig): SmzUiLayoutsBuilder {
+        return new SmzUiLayoutsBuilder(this, config);
     }
 
     public setApplicationName(name: string): SmzUiBuilder {

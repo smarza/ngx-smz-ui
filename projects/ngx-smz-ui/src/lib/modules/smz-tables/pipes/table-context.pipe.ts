@@ -85,7 +85,8 @@ export class SmzTableContextPipe implements PipeTransform {
             buttonClass: '',
             styleClass: ''
           },
-          behavior: 'overlay'
+          behavior: 'overlay',
+          minWidth: null
         },
         batchActions: {
           isVisible: false,

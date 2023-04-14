@@ -44,6 +44,11 @@ export interface SmzTableState {
        * Button behavior shows the menu as separate buttons in a row
        */
       behavior: 'overlay' | 'inline';
+      /**
+       * Overlay behavior shows the menu as a toggle button with dropdown menu items
+       * Button behavior shows the menu as separate buttons in a row
+       */
+      minWidth: string;
     };
 
     /**

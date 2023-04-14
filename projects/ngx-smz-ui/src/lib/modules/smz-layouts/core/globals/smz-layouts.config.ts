@@ -10,14 +10,14 @@ import { SmzContentTheme } from '../models/themes';
 export class SmzLayoutsConfig {
     debugMode?: boolean;
     useDock?: boolean;
-    appLogo: LogoResource;
+    appLogo?: LogoResource;
     appName?: string;
-    footer: SmzFooter;
-    usernameProperty: string;
+    footer?: SmzFooter;
+    usernameProperty?: string;
     useAvatar?: boolean;
     avatarProperty?: string;
     profileMessage?: string;
-    themes: {
+    themes?: {
         content: SmzContentTheme;
         schema?: ColorSchemaDefinition | string;
         custom?: ColorSchema;
@@ -28,7 +28,7 @@ export class SmzLayoutsConfig {
             dark: SmzContentTheme;
         };
     };
-    toast: {
+    toast?: {
         position: EdgePositionType;
     };
     loader: LoaderData;

@@ -45,7 +45,8 @@ export class SmzTableBuilder {
           styleClass: '',
           buttonClass: ''
         },
-        behavior: 'overlay'
+        behavior: 'overlay',
+        minWidth: null
       },
       batchActions: {
         isVisible: false,
@@ -943,24 +944,25 @@ export class SmzTableBuilder {
     this._state.caption.rowSelection.ngStyle = applyTableContentNgStyle(this._state, null, selectionWidth);
 
     const customWidth = this._state.actions.customActions.columnWidth;
+    const minWidth = this._state.actions.menu.minWidth;
 
     if (this._state.actions.menu.behavior === 'inline') {
       // Configurar a coluna de actions para automática para comportar o tamanho dos botões em linha
 
       // Ajuste de largura da coluna de botões customizáveis
-      this._state.actions.customActions.ngStyle = applyTableContentNgStyle(this._state, null, 'auto');
-      this._state.actions.batchActions.ngStyle = applyTableContentNgStyle(this._state, null, 'auto');
+      this._state.actions.customActions.ngStyle = applyTableContentNgStyle(this._state, null, minWidth);
+      this._state.actions.batchActions.ngStyle = applyTableContentNgStyle(this._state, null, minWidth);
 
       // Ajuste de largura da coluna de botões editáveis
-      this._state.editable.ngStyle = applyTableContentNgStyle(this._state, null, 'auto');
+      this._state.editable.ngStyle = applyTableContentNgStyle(this._state, null, minWidth);
     }
     else if (this._state.actions.menu.behavior === 'overlay') {
       // Configurar a coluna de actions para ocupar o espaço do botão toggle do menu
-      this._state.actions.customActions.ngStyle = applyTableContentNgStyle(this._state, customWidth, null);
-      this._state.actions.batchActions.ngStyle = applyTableContentNgStyle(this._state, customWidth, null);
+      this._state.actions.customActions.ngStyle = applyTableContentNgStyle(this._state, customWidth, minWidth);
+      this._state.actions.batchActions.ngStyle = applyTableContentNgStyle(this._state, customWidth, minWidth);
 
       // Ajuste de largura da coluna de botões editáveis
-      this._state.editable.ngStyle = applyTableContentNgStyle(this._state, customWidth, null);
+      this._state.editable.ngStyle = applyTableContentNgStyle(this._state, customWidth, minWidth);
     }
 
     // Ajuste de largura da coluna do botão expansor de linhas
