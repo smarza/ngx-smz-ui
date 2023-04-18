@@ -3,6 +3,7 @@ import { AuthenticationActions } from '../../state/global/authentication/authent
 import { SmzControlType } from '../../modules/smz-forms/models/control-types';
 import { SmzForm } from '../../modules/smz-forms/models/smz-forms';
 import { SmzLoginState } from '../../modules/smz-layouts/features/login/login-state';
+import { GlobalInjector } from '../../common/services/global-injector';
 
 export class SmzLoginBuilder<TResponse, TPayload> {
   public _state: SmzLoginState<TResponse, TPayload> = {
@@ -129,8 +130,9 @@ export class SmzLoginBuilder<TResponse, TPayload> {
     return this;
   }
 
-  public setLogoutAction(action: any): SmzLoginBuilder<TResponse, TPayload> {
+  public setLogoutAction(action: any, redirection: string = GlobalInjector.config.rbkUtils.authentication.login.route): SmzLoginBuilder<TResponse, TPayload> {
     this._state.actions.logout = action;
+    this._state.logoutRedirection = redirection;
     return this;
   }
 

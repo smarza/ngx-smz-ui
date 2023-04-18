@@ -28,6 +28,11 @@ export class AuthenticationSelectors {
         return state.userdata.username;
     }
 
+    @Selector([AuthenticationState])
+    public static isSuperuserLogged(state: AuthenticationStateModel): boolean {
+        return state.userdata?.tenant === '';
+    }
+
     // Retorna True se o usuário possuir todas as claims de acesso no token
     @Selector([AuthenticationState])
     public static hasGroupOfClaimAccess(claims: string[]): any {

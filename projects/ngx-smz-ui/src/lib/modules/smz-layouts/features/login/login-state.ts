@@ -7,6 +7,7 @@ export interface SmzLoginState<TResponse, TPayload> {
   extraInfo: string;
   form: SmzForm<TResponse>;
   isFormVisible: boolean;
+  logoutRedirection?: string;
   logo: {
     type: 'horizontal' | 'vertical' | 'icon' | 'typo';
     customPath?: string;

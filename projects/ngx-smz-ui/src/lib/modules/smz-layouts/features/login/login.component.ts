@@ -39,7 +39,7 @@ export class SmzLoginComponent implements OnInit, AfterContentInit {
   public ngOnInit(): void {
     const isAuthenticated = this.store.selectSnapshot(this.state.isAuthenticatedSelector);
 
-    if (isAuthenticated) this.store.dispatch(new this.state.actions.logout);
+    if (isAuthenticated) this.store.dispatch(new this.state.actions.logout(this.state.logoutRedirection));
   }
 
 

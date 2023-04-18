@@ -35,6 +35,7 @@ export namespace AuthenticationActions {
 
     export class Logout {
         public static readonly type = '[Auth] Logout';
+        constructor(public redirectTo: string) { }
     }
 
     export class SwitchTenant {

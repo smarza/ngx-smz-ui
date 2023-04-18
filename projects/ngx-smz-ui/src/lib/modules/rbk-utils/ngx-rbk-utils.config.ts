@@ -59,6 +59,7 @@ export class NgxRbkUtilsConfig {
         login: {
             url: string;
             route: string;
+            superuserRoute?: string;
             loadingBehavior: 'global' | 'local' | 'none';
             errorHandlingType: 'toast' | 'dialog' | 'none';
             responsePropertyName: string; // this is used in the login and refresh token endpoint responses

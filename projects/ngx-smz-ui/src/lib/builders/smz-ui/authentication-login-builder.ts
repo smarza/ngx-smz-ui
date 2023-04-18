@@ -23,9 +23,10 @@ export class SmzUiAuthenticationLoginBuilder extends SmzBuilderUtilities<SmzUiAu
     return this.that;
   }
 
-  public allowSuperuser(superuserName: string = 'superuser'): SmzUiAuthenticationLoginBuilder {
+  public allowSuperuser(superuserName: string = 'superuser', route: string = 'admin'): SmzUiAuthenticationLoginBuilder {
     this._state.rbkUtils.authentication.allowSuperuser = true;
     this._state.rbkUtils.authentication.login.superuser = superuserName;
+    this._state.rbkUtils.authentication.login.superuserRoute = route;
     return this.that;
   }
 

@@ -36,8 +36,8 @@ export class BoilerplateService {
             }
         });
 
-        this.subs3 = this.actions$.pipe(ofActionDispatched(AuthenticationActions.Logout)).subscribe(() => {
-            this.store.dispatch(new Navigate([GlobalInjector.config.rbkUtils.authentication.login.route]));
+        this.subs3 = this.actions$.pipe(ofActionDispatched(AuthenticationActions.Logout)).subscribe((event) => {
+            this.store.dispatch(new Navigate([event.redirectTo ?? GlobalInjector.config.rbkUtils.authentication.login.route]));
 
             this.store.dispatch(new DatabaseActions.Clear());
             this.store.dispatch(new FeaturesActions.Clear());

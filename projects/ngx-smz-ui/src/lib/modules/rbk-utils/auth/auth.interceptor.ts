@@ -59,7 +59,7 @@ export class AuthInterceptor implements HttpInterceptor {
                         console.error('Problem while trying to automatically refresh the token, redirecting to login');
 
                         this.inflightAuthRequest = null;
-                        this.store.dispatch(new AuthenticationActions.Logout());
+                        this.store.dispatch(new AuthenticationActions.Logout(GlobalInjector.config.rbkUtils.authentication.login.route));
                         return throwError(error);
                     }
 
@@ -70,7 +70,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
                         if (!this.inflightAuthRequest) {
                             console.warn('Unknown error while trying to refresh then token, redirecting to login');
-                            this.store.dispatch(new AuthenticationActions.Logout());
+                            this.store.dispatch(new AuthenticationActions.Logout(GlobalInjector.config.rbkUtils.authentication.login.route));
                             return throwError(error);
                         }
                     }

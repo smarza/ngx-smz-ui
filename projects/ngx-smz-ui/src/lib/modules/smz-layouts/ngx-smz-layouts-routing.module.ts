@@ -5,7 +5,9 @@ import { ErrorModule } from './pages/error/error.module';
 import { LoginModule } from './pages/login/login.module';
 import { NotFoundModule } from './pages/not-found/not-found.module';
 import { GlobalInjector } from '../../common/services/global-injector';
+import { SuperuserLoginModule } from './pages/superuser-login/superuser-login.module';
 export function getLoginModule() { return LoginModule }
+export function getSuperuserLoginModule() { return SuperuserLoginModule }
 export function getErrorModule() { return ErrorModule }
 export function getNotFoundModule() { return NotFoundModule }
 
@@ -31,6 +33,10 @@ export class NgxSmzLayoutsRoutingModule {
 
     if (uiConfig.rbkUtils.authentication.login.page.useSmzLoginModule) {
       newRoutes.push({ path: uiConfig.rbkUtils.authentication.login.route, loadChildren: getLoginModule });
+    }
+
+    if (uiConfig.rbkUtils.authentication.allowSuperuser) {
+      newRoutes.push({ path: uiConfig.rbkUtils.authentication.login.superuserRoute, loadChildren: getSuperuserLoginModule });
     }
 
     if (newRoutes.length > 0) {

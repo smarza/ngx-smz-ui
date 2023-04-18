@@ -61,7 +61,7 @@ export class AuthHandler {
                 catchError(error => {
                     if (GlobalInjector.config.debugMode) console.log('[AuthHandler:refreshToken] Could not refresh the access token due to API error', error);
                     if (GlobalInjector.config.debugMode) console.groupEnd();
-                    this.store.dispatch(new AuthenticationActions.Logout());
+                    this.store.dispatch(new AuthenticationActions.Logout(GlobalInjector.config.rbkUtils.authentication.login.route));
                     return throwError('Não foi possível revalidar suas credenciais, redirecionando para a tela de login.');
                 })
             );

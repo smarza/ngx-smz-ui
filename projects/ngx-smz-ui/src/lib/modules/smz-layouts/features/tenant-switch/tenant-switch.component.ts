@@ -9,6 +9,7 @@ import { TenantDetails } from '../../../smz-access/models/tenant-details';
 import { FormsModule } from '@angular/forms';
 import { SwitchTenant } from '../../../smz-access/models/switch-tenant';
 import { AuthenticationActions } from '../../../../state/global/authentication/authentication.actions';
+import { AuthenticationSelectors } from '../../../../state/global/authentication/authentication.selectors';
 
 @Component({
   selector: 'smz-tenant-switch',
@@ -20,15 +21,18 @@ import { AuthenticationActions } from '../../../../state/global/authentication/a
   ],
   encapsulation: ViewEncapsulation.None,
   template: `
+  <ng-container *ngIf="(isSuperuserLogged$ | async) === false">
     <div *ngIf="showTenantSwitch" class="h-full grid grid-nogutter items-center justify-center">
       <p-dropdown [options]="userAllowedTenants$ | async" styleClass="smz-tenant-switch-small" optionLabel="alias" dataKey="name" appendTo="body" [(ngModel)]="selected" (onChange)="onSelectorChange($event.value)"></p-dropdown>
     </div>
+  </ng-container>
   `,
 })
 export class SmzTenantSwitchComponent implements OnInit {
   public showTenantSwitch = GlobalInjector.config.rbkUtils.authentication.allowTenantSwitching;
   public selected: TenantDetails;
   @Select(TenantsSelectors.userAllowedTenants) public userAllowedTenants$: Observable<TenantDetails[]>;
+  @Select(AuthenticationSelectors.isSuperuserLogged) public isSuperuserLogged$: Observable<boolean>;
 
   public ngOnInit(): void {
     this.updateSelectionWithCurrentTenant();

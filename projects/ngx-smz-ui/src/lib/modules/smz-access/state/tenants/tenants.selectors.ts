@@ -16,7 +16,7 @@ export class TenantsSelectors {
   @Selector([TenantsState, AuthenticationState])
   public static userAllowedTenants(state: TenantsStateModel, auth: AuthenticationStateModel): TenantDetails[] {
     const allowedTenants = auth.userdata.allowedTenants;
-    return state.items.filter(x => allowedTenants.find(t => t === x.name));
+    return state.items.filter(x => allowedTenants.find(t => t === x.alias));
   }
 
   @Selector([TenantsState, AuthenticationState])
