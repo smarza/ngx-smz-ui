@@ -5,6 +5,7 @@ export interface UserDetails {
   username: string;
   email: string;
   displayName: string;
+  isActive: boolean;
   lastLogin?: Date;
   metadata: string;
   isConfirmed: boolean;

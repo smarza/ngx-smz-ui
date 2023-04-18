@@ -4,7 +4,6 @@ import { SmzMenuItem } from '../../../../smz-menu/models/smz-menu-item';
 
 export interface SmzAuthorizationUserState {
   table?: {
-    defaultBuilder?: () => SmzTableBuilder;
     customBuilder?: () => SmzTableBuilder;
     useDefaultMenu?: boolean;
   }
@@ -19,4 +18,5 @@ export interface SmzAuthorizationUserState {
   manageUserClaimsUpdateClaim?: string;
   avatarPlaceholderPath?: string;
   isVisible?: boolean;
+  removalBehavior?: 'deletion' | 'deactivation';
 }

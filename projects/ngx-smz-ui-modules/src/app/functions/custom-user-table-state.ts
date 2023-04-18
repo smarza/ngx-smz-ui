@@ -9,11 +9,7 @@ export function CustomUserTableBuilder(): SmzTableBuilder {
     .enableGlobalFilter()
     .setSize('small')
     .useStrippedStyle()
-    .menu()
-      .item('Desativar', 'fas fa-key')
-        .setCallback((event: UserDetails) => { console.log('Desativar'); })
-        .menu
-      .table
+    .useTableEmptyMessage()
     .columns()
       .custom(nameof<UserDetails>('displayName'), 'Nome')
         .enableSort()

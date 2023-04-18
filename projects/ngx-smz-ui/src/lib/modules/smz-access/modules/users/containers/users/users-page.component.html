@@ -1,9 +1,21 @@
-<smz-ui-table #smzdt [items]="items$ | async" [state]="tableState" [loading]="false">
+
+<ng-container *ngVar="(users$ | async) as users">
+
+<smz-ui-table #smzdt [items]="users" [state]="tableState" [loading]="false">
 
   <ng-template pTemplate="caption" let-primeTable>
     <ng-container *ngFor="let action of (uiConfig.rbkUtils.authorization.users.pageActions | smzFlattenMenu : null)">
       <button *ngIf="action.visible" pButton type="button" smzMenuItemAction [item]="action" [label]="action.label" [icon]="action.icon" [ngClass]="action.styleClass" [disabled]="action.disabled"></button>
     </ng-container>
+
+    <p-selectButton
+      *ngIf="uiConfig.rbkUtils.authorization.users.removalBehavior === 'deactivation'"
+      [options]="viewOptions"
+      [(ngModel)]="selectedView"
+      (onChange)="handleViewOptionChange($event)"
+      optionLabel="label" optionValue="value">
+    </p-selectButton>
+
   </ng-template>
 
     <!-- CONTEÚDOS COM OVERRIDE -->
@@ -42,3 +54,5 @@
     </ng-template>
 
 </smz-ui-table>
+
+</ng-container>

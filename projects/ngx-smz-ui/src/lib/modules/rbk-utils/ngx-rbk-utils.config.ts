@@ -79,8 +79,8 @@ export class NgxRbkUtilsConfig {
             responsePropertyName: string; // this is used in the login and refresh token endpoint responses
             extraProperties?: { [name: string]: string };
         };
-        accessTokenClaims?: { claimName: string; propertyName: string; type: 'string' | 'array' | 'boolean' }[],
-        useWindowsAuthentication?: boolean
+        accessTokenClaims?: { claimName: string; propertyName: string; type: 'string' | 'array' | 'boolean' }[];
+        useWindowsAuthentication?: boolean;
     };
     public httpBehaviors: {
         defaultParameters: HttpBehaviorParameters;

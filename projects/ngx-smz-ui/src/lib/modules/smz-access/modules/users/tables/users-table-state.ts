@@ -8,10 +8,14 @@ import { buildShowSetUserRoleDialog } from '../dialogs/show-set-user-role-dialog
 import { Store } from '@ngxs/store';
 import { buildShowSetUserRolesDialog } from '../dialogs/show-set-user-roles-dialog';
 import { showUpdateUserClaimsDialog } from '../dialogs/update-user-claims-dialog';
+import { DeleteUser } from '../../../models/delete-user';
+import { UsersActions } from '../../../state/users/users.actions';
+import { DeativateUser } from '../../../models/deativate-user';
 
-export function SmzAuthorizationUserTableBuilder(): SmzTableBuilder {
+export function SmzAuthorizationUsersTableBuilder(): SmzTableBuilder {
 
 const store = GlobalInjector.instance.get(Store);
+const uiConfig = GlobalInjector.config;
 
 const hasUserRolesUpdateAccess: boolean = store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(GlobalInjector.config.rbkUtils.authorization.users.manageUserRolesUpdateClaim));
 const hasUserClaimsUpdateAccess: boolean = store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(GlobalInjector.config.rbkUtils.authorization.users.manageUserClaimsUpdateClaim));
@@ -23,15 +27,34 @@ return new SmzTableBuilder()
   .enableGlobalFilter()
   .setSize('small')
   .useStrippedStyle()
+  .useTableEmptyMessage()
   .menu()
-    .item(roleColumnHeader, 'fas fa-user-tag')
+    .item(roleColumnHeader, 'fa-solid fa-user-tag')
       .setVisibilityRule(() => hasUserRolesUpdateAccess)
       .setCallback((event: UserDetails) => onSetRoles(event))
       .menu
-    .item('Permissões', 'fas fa-key')
+    .item('Permissões', 'fa-solid fa-key')
       .setCallback((event: UserDetails) => showUpdateUserClaimsDialog(event))
       .setVisibilityRule(() => hasUserClaimsUpdateAccess)
       .menu
+    .if(uiConfig.rbkUtils.authorization.users.removalBehavior === 'deactivation')
+      .item('Desativar', 'fa-solid fa-lightbulb')
+        .askForCriticalConfirmation('Atenção', 'Tem certeza de que deseja desativar esse usuário ?')
+        .setCallback((event: UserDetails) => {
+          const payload: DeativateUser = { username: event.username };
+          store.dispatch(new UsersActions.Deactivate(payload));
+        })
+        .menu
+      .endIf
+    .if(uiConfig.rbkUtils.authorization.users.removalBehavior === 'deletion')
+      .item('Excluir', 'fa-solid fa-trash')
+        .askForCriticalConfirmation('Atenção', 'Tem certeza de que deseja excluir esse usuário ?')
+        .setCallback((event: UserDetails) => {
+          const payload: DeleteUser = { username: event.username };
+          store.dispatch(new UsersActions.Delete(payload));
+        })
+        .menu
+      .endIf
     .table
   .columns()
     .text(nameof<UserDetails>('username'), 'Usuário')

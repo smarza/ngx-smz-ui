@@ -3,8 +3,11 @@ import { UserDetails } from '../../models/user-details';
 import { AddClaimsOverride as AddClaimOverridePayload } from '../../models/add-claims-override';
 import { RemoveClaimsOverride as RemoveClaimOverridePayload } from '../../models/remove-claims-override';
 import { RedefinePassword as RedefinePasswordPayload } from '../../models/redefine-password';
-import { ResetPassword as ResetPasswordPayload } from '../../models/reset-password';
+import { RequestPasswordReset as ResetPasswordPayload } from '../../models/request-password-reset';
 import { CreateUser } from '../../models/create-user';
+import { DeleteUser } from '../../models/delete-user';
+import { DeativateUser } from '../../models/deativate-user';
+import { ActivateUser } from '../../models/activate-user';
 
 export namespace UsersActions {
   export class LoadAll {
@@ -31,6 +34,21 @@ export namespace UsersActions {
     public static readonly type = '[Users API] Create User';
   }
 
+  export class Delete {
+    constructor(public data: DeleteUser) { }
+    public static readonly type = '[Users API] Delete';
+  }
+
+  export class Deactivate {
+    constructor(public data: DeativateUser) { }
+    public static readonly type = '[Users API] Deactivate';
+  }
+
+  export class Activate {
+    constructor(public data: ActivateUser) { }
+    public static readonly type = '[Users API] Activate';
+  }
+
   export class LocalCreate<TUser extends UserDetails> {
     constructor(public data: TUser) { }
     public static readonly type = '[Users API] Local Create';
@@ -41,6 +59,11 @@ export namespace UsersActions {
     public static readonly type = '[Users API] Local Update';
   }
 
+  export class LocalDelete {
+    constructor(public id: string) { }
+    public static readonly type = '[Users API] Local Delete';
+  }
+
   export class ResetPassword {
     public static readonly type = '[Users API] Reset Password';
     constructor(public data: ResetPasswordPayload) { }
@@ -49,11 +72,6 @@ export namespace UsersActions {
   export class RedefinePassword {
     public static readonly type = '[Users API] Redefine Password';
     constructor(public data: RedefinePasswordPayload) { }
-  }
-
-  export class LocalDelete {
-    constructor(public id: string) { }
-    public static readonly type = '[Users API] Local Delete';
   }
 
   export class Clear {

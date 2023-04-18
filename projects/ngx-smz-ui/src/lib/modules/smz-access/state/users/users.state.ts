@@ -102,6 +102,36 @@ export class UsersState {
     );
   }
 
+  @Action(UsersActions.Delete)
+  public onDelete$(ctx: StateContext<UsersStateModel>, action: UsersActions.Delete): Observable<void> {
+    return this.authenticationService.deleteUser(action.data).pipe(
+      tap(() => {
+        ctx.patchState({ items: [...ctx.getState().items.filter(x => x.username !== action.data.username)] });
+        ctx.dispatch(new ToastActions.Success('Usuário excluído com sucesso.'));
+      })
+    );
+  }
+
+  @Action(UsersActions.Activate)
+  public onActivate$(ctx: StateContext<UsersStateModel>, action: UsersActions.Activate): Observable<UserDetails> {
+    return this.authenticationService.activateUser(action.data).pipe(
+      tap((result: UserDetails) => {
+        ctx.patchState({ items: replaceItem(ctx.getState().items, result) });
+        ctx.dispatch(new ToastActions.Success('Usuário ativado com sucesso.'));
+      })
+    );
+  }
+
+  @Action(UsersActions.Deactivate)
+  public onDeactivate$(ctx: StateContext<UsersStateModel>, action: UsersActions.Activate): Observable<UserDetails> {
+    return this.authenticationService.deactivateUser(action.data).pipe(
+      tap((result: UserDetails) => {
+        ctx.patchState({ items: replaceItem(ctx.getState().items, result) });
+        ctx.dispatch(new ToastActions.Success('Usuário desativado com sucesso.'));
+      })
+    );
+  }
+
   @Action(UsersActions.LocalCreate)
   public onLocalCreate$(ctx: StateContext<UsersStateModel>, action: UsersActions.LocalCreate<UserDetails>): void {
     ctx.patchState({ items: [action.data, ...ctx.getState().items] });

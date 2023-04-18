@@ -6,7 +6,6 @@ import { MenuCreation } from '../../modules/smz-layouts/core/models/menu-creatio
 import { AuthClaimDefinitions } from '../../modules/smz-access/models/auth-claim-definitions';
 import { SmzTableBuilder } from '../smz-tables/state-builder';
 import { SmzAuthorizationUserState } from '../../modules/smz-access/modules/users/models/smz-authorization-user-state';
-import { SmzAuthorizationUserTableBuilder } from '../../modules/smz-access/modules/users/tables/user-table-state';
 import { SmzGenericMenuBuilder } from '../smz-menu/generic-menu-builder';
 import { SmzMenuItem } from '../../modules/smz-menu/models/smz-menu-item';
 
@@ -20,7 +19,6 @@ export class SmzUiUsersCrudBuilder extends SmzBuilderUtilities<SmzUiUsersCrudBui
 
     this._config = {
       table: {
-        defaultBuilder: SmzAuthorizationUserTableBuilder,
         customBuilder: null,
         useDefaultMenu: true
       },
@@ -40,7 +38,7 @@ export class SmzUiUsersCrudBuilder extends SmzBuilderUtilities<SmzUiUsersCrudBui
       manageUserClaimsUpdateClaim: AuthClaimDefinitions.OVERRIDE_USER_CLAIMS,
       avatarPlaceholderPath: 'assets/images/avatar_dark.png',
       isVisible: true,
-
+      removalBehavior: null
     };
 
     this._menu = { label: 'Usuários', routerLink: USERS_PAGE_ROUTE, claims: [AuthClaimDefinitions.MANAGE_USERS] };
@@ -82,6 +80,25 @@ export class SmzUiUsersCrudBuilder extends SmzBuilderUtilities<SmzUiUsersCrudBui
     return this.that;
   }
 
+  public allowUserDeactivation(): SmzUiUsersCrudBuilder {
+    if (this._config.removalBehavior ===  'deletion') {
+      throw Error(`You can't call allowUserDeactivation while using User Deletion Behavior.`);
+    }
+
+    this._config.removalBehavior = 'deactivation';
+    return this.that;
+  }
+
+  public allowUserDeletion(): SmzUiUsersCrudBuilder {
+
+    if (this._config.removalBehavior ===  'deactivation') {
+      throw Error(`You can't call allowUserDeletion while using User Deactivation Behavior.`);
+    }
+
+    this._config.removalBehavior = 'deletion';
+    return this.that;
+  }
+
   public get authorization(): SmzUiAuthorizationBuilder {
     this._state.rbkUtils.authorization.users = this._config;
 
@@ -95,6 +112,10 @@ export class SmzUiUsersCrudBuilder extends SmzBuilderUtilities<SmzUiUsersCrudBui
           this._state.rbkUtils.authorization.profileMenu.push(this._menu);
           break;
       }
+    }
+
+    if (this._state.rbkUtils.authorization.users.removalBehavior == null) {
+      throw Error(`You didn't choose the User Removal Behavior. Please call 'allowUserDeactivation' or 'allowUserDeactivation'.`);
     }
 
     return this._builder;

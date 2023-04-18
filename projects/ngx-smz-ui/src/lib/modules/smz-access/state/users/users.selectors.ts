@@ -6,8 +6,18 @@ import { UserDetails } from '../../models/user-details';
 export class UsersSelectors {
 
   @Selector([UsersState])
-  public static users(state: UsersStateModel): UserDetails[] {
+  public static all(state: UsersStateModel): UserDetails[] {
     return cloneDeep(state.items);
+  }
+
+  @Selector([UsersState])
+  public static activated(state: UsersStateModel): UserDetails[] {
+    return cloneDeep(state.items.filter(x => x.isActive));
+  }
+
+  @Selector([UsersState])
+  public static deactivated(state: UsersStateModel): UserDetails[] {
+    return cloneDeep(state.items.filter(x => !x.isActive));
   }
 
   public static single(username: string) {

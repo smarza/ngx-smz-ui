@@ -14,6 +14,10 @@ import { RbkAuthGuard } from '../../../rbk-utils/auth/auth.guard';
 import { GlobalInjector } from '../../../../common/services/global-injector';
 import { NgxSmzMenuModule } from '../../../smz-menu/smz-menu.module';
 import { UserClaimsComponent } from './components/user-claims/user-claims.component';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { FormsModule } from '@angular/forms';
+import { NgxSmzDataPipesModule } from '../../../../common/data-pipes/data-pipes.module';
+import { NgVarModule } from '../../../../common/directives/ng-var/ng-var.module';
 
 const routes: Routes = [
   {
@@ -39,11 +43,15 @@ export const routerModuleForChildUsersModule = RouterModule.forChild(routes);
   imports: [
     CommonModule,
     routerModuleForChildUsersModule,
+    FormsModule,
     ButtonModule,
+    SelectButtonModule,
     NgxSmzTablesModule,
     RbkAccessControlModule,
     PickListModule,
-    NgxSmzMenuModule
+    NgxSmzMenuModule,
+    NgxSmzDataPipesModule,
+    NgVarModule
   ],
   exports: []
 })

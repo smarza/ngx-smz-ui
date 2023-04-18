@@ -1,11 +1,12 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { UsersSelectors } from '../../../../state/users/users.selectors';
 import { SmzTableState } from '../../../../../smz-tables/models/table-state';
-import { Confirmable } from '../../../../../smz-dialogs/decorators/confirmable.decorator';
 import { UserDetails } from '../../../../models/user-details';
 import { GlobalInjector } from '../../../../../../common/services/global-injector';
+import { SmzAuthorizationUsersTableBuilder } from '../../tables/users-table-state';
+import { SmzAuthorizationDeactivatedUsersTableBuilder } from '../../tables/deactivated-users-table-state';
 
 @Component({
   selector: 'gedi-ui-users-page',
@@ -14,31 +15,83 @@ import { GlobalInjector } from '../../../../../../common/services/global-injecto
 })
 export class UsersPageComponent {
 
-  public items$: Observable<UserDetails[]>;
+  public users$: Observable<UserDetails[]>;
   public tableState: SmzTableState;
+  public activatedTableState: SmzTableState;
+  public deactivatedTableState: SmzTableState;
   public uiConfig = GlobalInjector.config;
+  public viewOptions = [{label: 'Usuários Ativos', value: 'activated'}, {label: 'Usuários Inativos', value: 'deactivated'}];
+  public selectedView: string;
 
-  constructor(private store: Store) {
-    this.items$ = this.store.select(UsersSelectors.users);
-
+  constructor(private store: Store, private cdr: ChangeDetectorRef) {
     if (this.uiConfig.rbkUtils.authorization.users.table.customBuilder != null) {
-      this.tableState = this.uiConfig.rbkUtils.authorization.users.table.customBuilder().build();
+      this.activatedTableState = this.uiConfig.rbkUtils.authorization.users.table.customBuilder().build();
+      this.deactivatedTableState = this.uiConfig.rbkUtils.authorization.users.table.customBuilder().build();
+
+      if (this.activatedTableState.emptyFeedback.isFeatured) {
+        throw Error(`You can't use a custom table with featured empty message. Please, call 'useTableEmptyMessage' method at the users custom table builder.`);
+      }
 
       if (this.uiConfig.rbkUtils.authorization.users.table.useDefaultMenu) {
-        const defaultState = this.uiConfig.rbkUtils.authorization.users.table.defaultBuilder().build();
-        this.tableState.actions.menu.isVisible = defaultState.actions.menu.items?.length > 0;
-        this.tableState.actions.menu.items = [ ...defaultState.actions.menu.items, ...this.tableState.actions.menu.items ];
+        const defaultState = SmzAuthorizationUsersTableBuilder().build();
+        this.activatedTableState.actions.menu.isVisible = defaultState.actions.menu?.items?.length > 0 || this.activatedTableState.actions.menu?.items?.length > 0;
+
+        if (defaultState.actions.menu?.items?.length > 0) {
+          this.activatedTableState.actions.menu.items = [ ...this.activatedTableState.actions.menu.items, ...defaultState.actions.menu.items ];
+        }
+
+        if (this.activatedTableState.actions.customActions.columnWidth === 0)
+        {
+          this.activatedTableState.actions.customActions = defaultState.actions.customActions;
+        }
+
+        const deactivatedState = SmzAuthorizationDeactivatedUsersTableBuilder().build();
+        this.deactivatedTableState.actions.menu.isVisible = deactivatedState.actions.menu.items?.length > 0;
+        this.deactivatedTableState.actions.menu.items = [ ...deactivatedState.actions.menu.items ];
       }
     }
     else {
-      this.tableState  = this.uiConfig.rbkUtils.authorization.users.table.defaultBuilder().build();
+      this.activatedTableState  = SmzAuthorizationUsersTableBuilder().build();
+      this.deactivatedTableState  = SmzAuthorizationDeactivatedUsersTableBuilder().build();
     }
+
+    this.tableState = this.activatedTableState;
+
+    if (this.uiConfig.rbkUtils.authorization.users.removalBehavior == 'deletion') {
+      this.selectedView = 'all';
+      this.users$ = this.store.select(UsersSelectors.all);
+    }
+    else {
+      this.selectedView = 'activated';
+      this.users$ = this.store.select(UsersSelectors.activated);
+    }
+
 
   }
 
   public handleMissingImage(event: Event, user: string, notfound: string) {
     console.warn(`Avatar not found on (${notfound}) for user: ${user}`);
     (event.target as HTMLImageElement).src = GlobalInjector.config.rbkUtils.authorization.users.avatarPlaceholderPath;
+  }
+
+  public handleViewOptionChange(event: { value: 'activated' | 'deactivated' }): void {
+
+    switch (event.value) {
+      case 'activated':
+        this.users$ = this.store.select(UsersSelectors.activated);
+        this.tableState = { ...this.activatedTableState };
+        break;
+      case 'deactivated':
+        this.users$ = this.store.select(UsersSelectors.deactivated);
+        this.tableState = { ...this.deactivatedTableState };
+        break;
+      default:
+        this.users$ = this.store.select(UsersSelectors.all);
+        this.tableState = { ...this.activatedTableState };
+        break;
+    }
+
+    this.cdr.markForCheck();
   }
 
 }
