@@ -162,18 +162,7 @@ export class AppComponent {
         }
       ]);
 
-      // setTimeout(() => {
-      //   this.store.dispatch(new ToastActions.Error('Erro aqui'));
-
-      //   setTimeout(() => {
-      //     this.store.dispatch(new ToastActions.Error('Erro aqui'));
-      //   }, 1000);
-
-      //   setTimeout(() => {
-      //     this.store.dispatch(new ToastActions.Error('Erro aqui'));
-      //   }, 5000);
-
-      // }, 5000);
+      this.menuService.rebuild();
 
     });
   }

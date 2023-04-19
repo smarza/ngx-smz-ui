@@ -177,6 +177,7 @@ export class DemoTablesComponent implements OnInit {
           isVisible: true,
           styles: { icon: '', buttonClass: '', styleClass: '' },
           behavior: 'overlay',
+          minWidth: null,
           items: [
             {
               conditional: { condition: (item: any) => (item.plant.name === 'P-76'), property: 'visible' },

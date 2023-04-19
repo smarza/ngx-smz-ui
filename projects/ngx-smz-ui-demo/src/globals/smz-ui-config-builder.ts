@@ -1,7 +1,6 @@
 import { SmzUiBuilder } from 'ngx-smz-ui';
 import { smzDialogsConfig } from './deprecated/smz-config';
 import { smzLayoutsConfig } from './deprecated/smz-layouts.config';
-import { rbkConfig } from './deprecated/rbk-config';
 import { DemoFeatureName, DemoFeatureState, getInitialState as getFtDemoInitialState } from '@states/demo/demo.state';
 import { TreeDemoFeatureName, TreeDemoFeatureState, getInitialState as getFtTreeDemoInitialState } from '@states/tree-demo/tree-demo.state';
 import { CountriesDbName, CountriesDbState, getInitialState as getDbCountriesInitialState } from '@states/database/countries/countries.state';
@@ -14,23 +13,21 @@ import { ShopsDbActions } from '@states/database/shops/shops.actions';
 export const UiBuilder: SmzUiBuilder = new SmzUiBuilder()
   .setApplicationName('Modules Demo')
   .setDialogsConfigManually(smzDialogsConfig)
-  .setLayoutsConfigManually(smzLayoutsConfig)
+  .layouts(smzLayoutsConfig)
+    .builder
   .authentication()
     .mapAccessTokenData('rol', 'roles', 'array')
     .mapAccessTokenData('avatar', 'avatar', 'string')
     .mapAccessTokenData('tenant', 'tenant', 'string')
     .mapAccessTokenData('display-name', 'displayName', 'string')
-    .mapAccessTokenData('has-tenant', 'hasTenant', 'boolean')
-    .setTenantDisplayName('Domínio')
     .login()
-      .useWindowsAuthentication()
-      .allowSuperuser()
-      .allowTenantSwitching()
+      .useSingleTenantAplication('')
+      .overrideAuthenticationUrl('auth')
       .authorization
     .builder
   .authorization()
     .allowMultipleRolesPerUser()
-    .users().hide().authorization
+    .users().allowUserDeactivation().hide().authorization
     .roles().hide().authorization
     .claims().hide().authorization
     .tenants().hide().authorization

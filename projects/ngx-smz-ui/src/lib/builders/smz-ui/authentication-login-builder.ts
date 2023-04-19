@@ -1,3 +1,4 @@
+import { environment } from '@environments/environment';
 import { NgxSmzUiConfig } from '../../ngx-smz-ui.config';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzUiAuthenticationBuilder } from './authentication-builder';
@@ -9,6 +10,12 @@ export class SmzUiAuthenticationLoginBuilder extends SmzBuilderUtilities<SmzUiAu
 
     this._state.rbkUtils.authentication.login.page.useSmzLoginModule = true;
     this._state.rbkUtils.authentication.login.showTenantSelector = true;
+  }
+
+  public overrideAuthenticationUrl(path: string = 'authentication'): SmzUiAuthenticationLoginBuilder {
+    this._state.rbkUtils.authentication.login.url = `${environment.authenticationApi}/api/${path}/login`;
+    this._state.rbkUtils.authentication.refreshToken.url = `${environment.authenticationApi}/api/${path}/refresh-token`;
+    return this.that;
   }
 
   public useSingleTenantAplication(tenant: string): SmzUiAuthenticationLoginBuilder {
