@@ -1,1 +1,11 @@
-Signals Working !!!
+<div class="grid grid-nogutter items-start justify-start flex-col gap-3">
+
+  <div>Count: {{ count() }} ({{ countType() }})</div>
+  <div>Double: {{ double() }}</div>
+
+  <div  class="grid grid-nogutter items-center justify-start gap-2">
+    <button pButton (click)="inc()">Increase</button>
+    <button pButton (click)="reset()">Reset</button>
+  </div>
+
+</div>

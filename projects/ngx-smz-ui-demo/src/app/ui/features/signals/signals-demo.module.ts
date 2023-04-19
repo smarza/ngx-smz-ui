@@ -4,6 +4,7 @@ import { SmzRouteData, NgxSmzFormsModule } from 'ngx-smz-ui';
 import { RbkAuthGuard } from 'ngx-smz-ui';
 import { SignalsDemoComponent } from './signals-demo.component';
 import { ButtonModule } from 'primeng/button';
+import { CommonModule } from '@angular/common';
 
 const data: SmzRouteData = {
   layout: {
@@ -30,8 +31,8 @@ const routes: Routes = [
     SignalsDemoComponent
   ],
   imports: [
+    CommonModule,
     RouterModule.forChild(routes),
-    NgxSmzFormsModule,
     ButtonModule
   ],
   providers: [],

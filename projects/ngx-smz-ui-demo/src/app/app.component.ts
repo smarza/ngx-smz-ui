@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { SIGNALR_PATH, SVG_DEMO_PATH, SVG_GCAB_PATH, SVG_PATH, SVG_PLAYGROUND_PATH } from '@routes';
-import { MenuHelperService, ThemeManagerService, BoilerplateService } from 'ngx-smz-ui';
-
-const test = { status: 1 };
+import { MenuHelperService, ThemeManagerService, BoilerplateService, ToastActions } from 'ngx-smz-ui';
+import { effect } from './ui/features/signals/api/effect';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +12,11 @@ const test = { status: 1 };
 export class AppComponent {
   title = 'ngx-smz-ui-demo';
   constructor(private store: Store, private boilerplateService: BoilerplateService, public menuService: MenuHelperService, private themeManager: ThemeManagerService) {
+
+    effect(() => {
+      this.store.dispatch(new ToastActions.Warning('New Effects from AppComponent'));
+    });
+
     this.boilerplateService.init(() => {
 
       this.themeManager.createCss('assets/priority-styles.css');
