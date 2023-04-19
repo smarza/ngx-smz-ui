@@ -30,7 +30,7 @@ export class AppComponent {
             { label: 'Tree With Details', icon: 'fa-solid fa-tree', routerLink: ['tree-with-details'] },
             { label: 'Side Content', icon: 'fa-solid fa-star', routerLink: ['side-content'] },
             { label: 'SignalR', icon: 'fa-solid fa-chart-simple', routerLink: [SIGNALR_PATH] },
-            { label: 'Tag Area', icon: 'fa-solid fa-tree', routerLink: ['tag-area'] },
+            { label: 'Signals', icon: 'fa-solid fa-tree', routerLink: ['signals'] },
             {
               label: 'Svgs',
               icon: 'fa-solid fa-house-chimney',

@@ -70,6 +70,10 @@ const routes: Routes = [
     loadChildren: () => import('@features/tag-area/tag-area-demo.module').then(m => m.TagAreaDemoModule),
   },
   {
+    path: 'signals',
+    loadChildren: () => import('@features/signals/signals-demo.module').then(m => m.SignalsDemoModule),
+  },
+  {
     path: 'nested',
     loadChildren: () => import('@features/demo-nested-routes/demo-nested-routes.module').then(m => m.DemoNestedRoutesModule),
   },
