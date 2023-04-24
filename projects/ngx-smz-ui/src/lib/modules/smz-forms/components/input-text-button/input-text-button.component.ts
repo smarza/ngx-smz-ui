@@ -23,14 +23,27 @@ export class InputTextButtonComponent implements OnInit {
     public ngOnInit(): void {
 
     this.control.statusChanges
-        .pipe(debounceTime(this.viewdata.config.behaviors?.debounceTime ?? 400), untilDestroyed(this))
+        .pipe(debounceTime(this.viewdata.config.behaviors?.debounceTime ?? 200), untilDestroyed(this))
         .subscribe(() => {
 
+            // Usuário alterou o input
+
             if (this.input.isButtonValid) {
+                // Invalidar botão pois o input mudou
                 this.input.isButtonValid = false;
             }
 
-            this.input.buttonMessages = [`Clique em '${this.input.label}' para validar.`];
+            if (this.control.valid) {
+                // Input digitado pelo usuário passou nas validações do form (required, maxlength e etc..)
+                // Porém ainda não foi validado pelo botão deste input
+                // Então, informar ao usuário para clicar no botão para validar
+                this.input.buttonMessages = [`Clique em '${this.input.label}' para validar.`];
+            }
+            else {
+                // Input digitado pelo usuário não passou nas validações do form (required, maxlength e etc..)
+                // Limpar mensagem extras... uma vez que o usuário precisará resolver os erros de validação do form antes.
+                this.input.buttonMessages = [];
+            }
 
         });
 
