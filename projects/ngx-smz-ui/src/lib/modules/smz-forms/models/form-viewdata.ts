@@ -50,7 +50,8 @@ export class SmzFormViewdata {
                             response.isValid = response.isValid && true; // this.manager.manuallyValidate(input, value);
                         }
                         else if (input.type === SmzControlType.TEXT_BUTTON) {
-                            response.isValid = response.isValid && input._inputFormControl.valid && (input as SmzTextButtonControl).isButtonValid;
+                            const textButtonInput = input as SmzTextButtonControl;
+                            response.isValid = response.isValid && input._inputFormControl.valid && textButtonInput.isButtonValid;
                         }
                         else if (input.type === SmzControlType.CHECKBOX) {
                             response.isValid = response.isValid && value[input.propertyName] != null;

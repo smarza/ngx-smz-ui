@@ -22,14 +22,17 @@ export class InputTextButtonComponent implements OnInit {
 
     public ngOnInit(): void {
 
-        if (this.input.clearButtonMessageOnChanges) {
-            this.control.statusChanges
-            .pipe(debounceTime(this.viewdata.config.behaviors?.debounceTime ?? 400), untilDestroyed(this))
-            .subscribe(() =>
-            {
-                this.input.buttonMessages = [];
-            });
-        }
+    this.control.statusChanges
+        .pipe(debounceTime(this.viewdata.config.behaviors?.debounceTime ?? 400), untilDestroyed(this))
+        .subscribe(() => {
+
+            if (this.input.isButtonValid) {
+                this.input.isButtonValid = false;
+            }
+
+            this.input.buttonMessages = [`Clique em '${this.input.label}' para validar.`];
+
+        });
 
     }
 
@@ -47,6 +50,9 @@ export class InputTextButtonComponent implements OnInit {
                 this.input.isButtonValid = event.isValid;
                 this.input.buttonMessages = event.messages != null ? event.messages : [];
                 this.blocked = false;
+
+                this.viewdata.getData();
+
             });
 
     }

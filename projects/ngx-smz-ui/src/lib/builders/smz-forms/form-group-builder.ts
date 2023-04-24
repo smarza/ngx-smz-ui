@@ -428,8 +428,7 @@ export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormG
         hideName: false,
         icon: 'fa-solid fa-rotate-right',
         placeholder: '',
-        styleClass: 'p-button-success',
-        clearButtonMessageOnChanges: true
+        styleClass: 'p-button-success'
       };
 
       this.group.children.push(input);
@@ -1271,11 +1270,6 @@ export class SmzFormTextButtonBuilder<TResponse> extends SmzFormInputBuilder<Smz
 
   public setStyle(styleClass: string): SmzFormTextButtonBuilder<TResponse> {
     this._textButtonInput.styleClass = styleClass;
-    return this;
-  }
-
-  public persistMessages(styleClass: string): SmzFormTextButtonBuilder<TResponse> {
-    this._textButtonInput.clearButtonMessageOnChanges = false;
     return this;
   }
 

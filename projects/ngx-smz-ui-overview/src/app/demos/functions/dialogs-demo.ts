@@ -455,9 +455,18 @@ export const DialogsDemo: { [key: string]: () => void } = {
 
             })
             .useLabel('Buscar')
-            .validators()
-              .required()
+            .validators().required()
             .group
+            .multiselect('role', 'Perfil', [
+              { id: "1", name: "teste 1" },
+              { id: "2", name: "teste 2" },
+              { id: "3", name: "teste 3" },
+              { id: "4", name: "teste 4" }
+            ])
+              .setLayout('EXTRA_SMALL', 'col-12')
+              .setLayout('EXTRA_LARGE', 'col-12')
+              .validators().required()
+              .group
           .form
 
         .group('Preenchimento automático')

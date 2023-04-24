@@ -84,7 +84,6 @@ export interface SmzTextButtonControl extends SmzFormsBaseControl
     callback: (data: SmzFormsResponse<unknown>, utils: SmzFormViewdata) => Observable<{ isValid: boolean, messages?: string[] }>;
     isButtonValid: boolean;
     buttonMessages: string[];
-    clearButtonMessageOnChanges: boolean;
 
 }
 export interface SmzListControl extends SmzFormsBaseControl
