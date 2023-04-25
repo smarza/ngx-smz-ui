@@ -6,8 +6,8 @@ export const environment = {
   production: false,
   version: 'development_v',
   databaseCacheTimeout: 2,
-  serverUrl: 'https://localhost:44339',
-  authenticationApi: 'https://localhost:44339',
+  serverUrl: 'https://localhost:44376',
+  authenticationApi: 'https://localhost:44376',
   applicationId: 'DEMO'
 };
 

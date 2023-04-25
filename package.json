@@ -57,6 +57,7 @@
     "ngx-highlightjs": "^7.0.1",
     "ngx-markdown": "15.0.0",
     "ngx-pipes": "^3.2.0",
+    "openai": "^3.2.1",
     "primeflex": "^3.3.0",
     "primeicons": "^6.0.1",
     "primeng": "^15.2.0",
@@ -64,8 +65,7 @@
     "rxjs": "~7.8.0",
     "svg-pan-zoom": "^3.6.1",
     "tslib": "^2.4.0",
-    "zone.js": "~0.11.8",
-    "openai": "^3.2.1"
+    "zone.js": "~0.11.8"
   },
   "devDependencies": {
     "@angular-builders/custom-webpack": "^15.0.0",
