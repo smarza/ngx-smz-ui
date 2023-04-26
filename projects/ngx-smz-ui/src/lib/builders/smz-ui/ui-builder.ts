@@ -17,6 +17,7 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
     protected that = this;
     public _state: NgxSmzUiConfig = {
         debugMode: false,
+        legacyMode: false,
         rbkUtils: {
             debugMode: false,
             applicationName: 'application',
@@ -208,6 +209,11 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
         this.setLocale('pt-BR');
     }
 
+    public useLegacy(): SmzUiBuilder {
+        this._state.legacyMode = true;
+        return this.that;
+      }
+
     public setDialogsConfigManually(config: SmzDialogsConfig): SmzUiBuilder {
         this._state.dialogs = mergeClone(defaultDialogsModuleConfig, config);
         return this.that;
@@ -283,6 +289,25 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
         if (this._state.debugMode) {
             console.log(this._state);
         }
+
+        if (this._state.legacyMode) {
+
+            this._state.rbkUtils.authentication.login.page.useSmzLoginModule = false;
+            this._state.rbkUtils.authentication.login.showTenantSelector = false;
+            this._state.rbkUtils.authentication.allowSuperuser = false;
+            this._state.rbkUtils.authentication.allowTenantSwitching = false;
+            this._state.rbkUtils.authentication.useSingleTenantAplication = true;
+
+            if (this._state.debugMode) {
+                console.log('LEGACY MODE ENABLED.');
+                console.log('authentication.login.page.useSmzLoginModule: ', this._state.rbkUtils.authentication.login.page.useSmzLoginModule);
+                console.log('authentication.login.showTenantSelector: ', this._state.rbkUtils.authentication.login.showTenantSelector);
+                console.log('authentication.allowSuperuser: ', this._state.rbkUtils.authentication.allowSuperuser);
+                console.log('authentication.allowTenantSwitching: ', this._state.rbkUtils.authentication.allowTenantSwitching);
+                console.log('authentication.useSingleTenantAplication: ', this._state.rbkUtils.authentication.useSingleTenantAplication);
+            }
+        }
+
         return this._state;
     }
 }

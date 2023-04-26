@@ -4,6 +4,7 @@ import { SmzLayoutsConfig } from './modules/smz-layouts/core/globals/smz-layouts
 
 export class NgxSmzUiConfig {
     public debugMode: boolean;
+    public legacyMode: boolean;
     public rbkUtils: NgxRbkUtilsConfig;
     public dialogs: SmzDialogsConfig;
     public layouts: SmzLayoutsConfig;

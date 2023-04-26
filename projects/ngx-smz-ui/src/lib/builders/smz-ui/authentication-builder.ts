@@ -18,6 +18,12 @@ export class SmzUiAuthenticationBuilder extends SmzBuilderUtilities<SmzUiAuthent
     return this.that;
   }
 
+  public setTokenResponse(token: string, refreshToken: string): SmzUiAuthenticationBuilder {
+    this._builder._state.rbkUtils.authentication.login.responsePropertyName = token;
+    this._builder._state.rbkUtils.authentication.refreshToken.responsePropertyName = refreshToken;
+    return this.that;
+  }
+
   public login(): SmzUiAuthenticationLoginBuilder {
     return new SmzUiAuthenticationLoginBuilder(this, this._builder._state);
   }

@@ -63,7 +63,6 @@ export class SmzUiAuthenticationLoginBuilder extends SmzBuilderUtilities<SmzUiAu
     return this.that;
   }
 
-
   public setLogoType(type: 'horizontal' | 'vertical' | 'icon' | 'typo'): SmzUiAuthenticationLoginBuilder {
     this._state.rbkUtils.authentication.login.page.overrideState.logo.type = type;
     return this.that;
