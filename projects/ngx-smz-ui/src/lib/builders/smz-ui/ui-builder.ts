@@ -12,6 +12,7 @@ import { SmzUiAuthorizationBuilder } from './authorization-builder';
 import { SmzUiStatesBuilder } from './states-builder';
 import { SmzUiLayoutsBuilder } from './layouts-builder';
 import { SmzLoader } from '../../modules/smz-layouts/core/models/loaders';
+import { AuthenticationSelectors } from '../../state/global/authentication/authentication.selectors';
 
 export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
     protected that = this;
@@ -189,7 +190,12 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
                 users: {},
                 roles: {},
                 claims: {},
-                tenants: {}
+                tenants: {},
+                validationSelectors: {
+                    hasGroupOfClaimAccess: AuthenticationSelectors.hasGroupOfClaimAccess,
+                    hasAnyOfClaimAccess: AuthenticationSelectors.hasAnyOfClaimAccess,
+                    hasClaimAccess: AuthenticationSelectors.hasClaimAccess
+                },
             }
         },
         dialogs: {

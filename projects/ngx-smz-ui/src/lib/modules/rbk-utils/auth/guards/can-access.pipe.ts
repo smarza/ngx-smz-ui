@@ -1,6 +1,6 @@
 import { Injectable, Pipe, PipeTransform } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { AuthenticationSelectors } from '../../../../state/global/authentication/authentication.selectors';
+import { GlobalInjector } from '../../../../common/services/global-injector';
 
 @Pipe({
     name: 'rbkCanAccess'
@@ -13,7 +13,8 @@ export class RbkCanAccessPipe implements PipeTransform {
     }
 
     public transform(claim: string): boolean {
-        return this.store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(claim));
+        const validationSelectors = GlobalInjector.config.rbkUtils.authorization.validationSelectors;
+        return this.store.selectSnapshot(validationSelectors.hasClaimAccess(claim));
     }
 
 }

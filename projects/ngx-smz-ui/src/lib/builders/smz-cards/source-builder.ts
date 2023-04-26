@@ -58,9 +58,10 @@ export class SmzCardsSourceBuilder<TItem> {
     }
     else {
       const store: Store = GlobalInjector.instance.get(Store);
+      const validationSelectors = GlobalInjector.config.rbkUtils.authorization.validationSelectors;
 
-      const isAllow = store.selectSnapshot(AuthenticationSelectors.hasGroupOfClaimAccess(this.allowed));
-      const isBlocked = store.selectSnapshot(AuthenticationSelectors.hasGroupOfClaimAccess(this.restricted));
+      const isAllow = store.selectSnapshot(validationSelectors.hasGroupOfClaimAccess(this.allowed));
+      const isBlocked = store.selectSnapshot(validationSelectors.hasGroupOfClaimAccess(this.restricted));
 
       if (!isBlocked && isAllow) {
 

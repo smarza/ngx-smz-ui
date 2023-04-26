@@ -14,6 +14,7 @@ import { AuthenticationSelectors } from '../../../state/global/authentication/au
 import { Confirmable } from '../../smz-dialogs/decorators/confirmable.decorator';
 import { cloneDeep } from 'lodash-es';
 import { SmzTableContextColumn } from '../models/table-column';
+import { GlobalInjector } from '../../../common/services/global-injector';
 
 // SERVIÇO COM INSTANCIAS DIFERENTES POR TABELA
 @Injectable()
@@ -42,20 +43,22 @@ export class TableEditableService {
     public setupAccess(): void {
 
         const creation = this.state.editable?.creation;
+        const validationSelectors = GlobalInjector.config.rbkUtils.authorization.validationSelectors;
+
         if (creation != null) {
-            const hasAccess = creation.accessClaim == null || this.store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(creation.accessClaim));
+            const hasAccess = creation.accessClaim == null || this.store.selectSnapshot(validationSelectors.hasClaimAccess(creation.accessClaim));
             creation.isButtonDisabled = !hasAccess;
         }
 
         const update = this.state.editable?.update;
         if (update != null) {
-            const hasAccess = update.accessClaim == null || this.store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(update.accessClaim));
+            const hasAccess = update.accessClaim == null || this.store.selectSnapshot(validationSelectors.hasClaimAccess(update.accessClaim));
             update.isButtonDisabled = !hasAccess;
         }
 
         const remove = this.state.editable?.remove;
         if (remove != null) {
-            const hasAccess = remove.accessClaim == null || this.store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(remove.accessClaim));
+            const hasAccess = remove.accessClaim == null || this.store.selectSnapshot(validationSelectors.hasClaimAccess(remove.accessClaim));
             remove.isButtonDisabled = !hasAccess;
         }
 

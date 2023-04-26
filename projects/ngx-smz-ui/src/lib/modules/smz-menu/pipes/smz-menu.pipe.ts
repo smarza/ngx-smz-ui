@@ -51,11 +51,13 @@ export class SmzMenuPipe implements PipeTransform {
 
     if (item.hasClaimAccess != null) {
 
+      const validationSelectors = GlobalInjector.config.rbkUtils.authorization.validationSelectors;
+
       if (GlobalInjector.config.debugMode) {
-        console.log(`Checking Access to Button '${item.label}' with claim '${item.hasClaimAccess}': `, this.store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(item.hasClaimAccess)));
+        console.log(`Checking Access to Button '${item.label}' with claim '${item.hasClaimAccess}': `, this.store.selectSnapshot(validationSelectors.hasClaimAccess(item.hasClaimAccess)));
       }
 
-      if (!this.store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(item.hasClaimAccess))) {
+      if (!this.store.selectSnapshot(validationSelectors.hasClaimAccess(item.hasClaimAccess))) {
         item.disabled = true;
       }
 

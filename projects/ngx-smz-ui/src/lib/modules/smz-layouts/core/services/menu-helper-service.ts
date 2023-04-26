@@ -148,8 +148,15 @@ export class MenuHelperService {
       }
     }
 
+    // Todo: Verificar se o GlobalInjector existe nesse momento
+    if (GlobalInjector?.config?.rbkUtils?.authorization?.validationSelectors == null){
+      console.warn('GlobalInjector not working here (validationSelectors menu-helper-service)');
+    }
+
+    const validationSelectors = GlobalInjector.config.rbkUtils.authorization.validationSelectors;
+
     // CHECAR ACESSO DO USUÁRIO
-    const hasAccess = creation.claims == null ? true : this.store.selectSnapshot(AuthenticationSelectors.hasAnyOfClaimAccess(creation.claims));
+    const hasAccess = creation.claims == null ? true : this.store.selectSnapshot(validationSelectors.hasAnyOfClaimAccess(creation.claims));
 
     if (!hasAccess) {
       return accessBehavior === 'hide' ? null : { ...result, disabled: true };

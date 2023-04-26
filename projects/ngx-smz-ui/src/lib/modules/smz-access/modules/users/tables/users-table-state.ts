@@ -17,8 +17,9 @@ export function SmzAuthorizationUsersTableBuilder(): SmzTableBuilder {
 const store = GlobalInjector.instance.get(Store);
 const uiConfig = GlobalInjector.config;
 
-const hasUserRolesUpdateAccess: boolean = store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(GlobalInjector.config.rbkUtils.authorization.users.manageUserRolesUpdateClaim));
-const hasUserClaimsUpdateAccess: boolean = store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(GlobalInjector.config.rbkUtils.authorization.users.manageUserClaimsUpdateClaim));
+const validationSelectors = GlobalInjector.config.rbkUtils.authorization.validationSelectors;
+const hasUserRolesUpdateAccess: boolean = store.selectSnapshot(validationSelectors.hasClaimAccess(GlobalInjector.config.rbkUtils.authorization.users.manageUserRolesUpdateClaim));
+const hasUserClaimsUpdateAccess: boolean = store.selectSnapshot(validationSelectors.hasClaimAccess(GlobalInjector.config.rbkUtils.authorization.users.manageUserClaimsUpdateClaim));
 
 const roleColumnHeader = GlobalInjector.config.rbkUtils.authorization.allowMultipleRolesPerUser ? 'Perfis' : 'Perfil';
 

@@ -3,7 +3,6 @@ import { Store } from '@ngxs/store';
 import { SmzPresets } from '../../smz-dialogs/models/smz-presets';
 import { SmzDialogsService } from '../../smz-dialogs/services/smz-dialogs.service';
 import { ToastActions } from '../../../state/global/application/application.actions.toast';
-import { AuthenticationSelectors } from '../../../state/global/authentication/authentication.selectors';
 import { GlobalInjector } from '../../../common/services/global-injector';
 
 export function CanAccess(
@@ -29,8 +28,9 @@ export function CanAccess(
     {
       const dialogs = GlobalInjector.instance.get(SmzDialogsService);
       const store = GlobalInjector.instance.get(Store);
+      const validationSelectors = GlobalInjector.config.rbkUtils.authorization.validationSelectors;
 
-      if (store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(claim))) {
+      if (store.selectSnapshot(validationSelectors.hasClaimAccess(claim))) {
         return original.apply(this, args);
       }
       else {

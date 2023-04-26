@@ -54,6 +54,21 @@ export class SmzUiAuthorizationBuilder extends SmzBuilderUtilities<SmzUiAuthoriz
     return new SmzUiTenantCrudBuilder(this, this._state);
   }
 
+  public setHasGroupOfClaimAccessSelector(selector: any): SmzUiAuthorizationBuilder {
+    this._builder._state.rbkUtils.authorization.validationSelectors.hasGroupOfClaimAccess = selector;
+    return this.that;
+  }
+
+  public setHasAnyOfClaimAccessSelector(selector: any): SmzUiAuthorizationBuilder {
+    this._builder._state.rbkUtils.authorization.validationSelectors.hasAnyOfClaimAccess = selector;
+    return this.that;
+  }
+
+  public setHasClaimAccessSelector(selector: any): SmzUiAuthorizationBuilder {
+    this._builder._state.rbkUtils.authorization.validationSelectors.hasClaimAccess = selector;
+    return this.that;
+  }
+
   public get builder(): SmzUiBuilder {
     if (this._menuLocation === 'navigation-bar') {
       this._state.rbkUtils.authorization.navigationMenu = this._menu;

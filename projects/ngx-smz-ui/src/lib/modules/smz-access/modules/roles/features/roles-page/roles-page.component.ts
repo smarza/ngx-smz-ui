@@ -18,6 +18,7 @@ import { RoleSourceDescription } from '../../../../models/role-source';
 import { RoleModeDescription } from '../../../../models/role-mode';
 import { AuthClaimDefinitions } from '../../../../models/auth-claim-definitions';
 import { AuthenticationSelectors } from '../../../../../../state/global/authentication/authentication.selectors';
+import { GlobalInjector } from '../../../../../../common/services/global-injector';
 
 @UntilDestroy()
 @Component({
@@ -35,6 +36,7 @@ export class RolesPageComponent implements OnInit {
   }
 
   public buildTableState(): SmzTableState {
+    const validationSelectors = GlobalInjector.config.rbkUtils.authorization.validationSelectors;
 
     return new SmzTableBuilder()
       .setTitle('Gerenciar Perfis')
@@ -46,16 +48,16 @@ export class RolesPageComponent implements OnInit {
       .setSize('regular')
       .menu()
         .item('Renomear')
-          .setActivationRule(() => !this.store.selectSnapshot(AuthenticationSelectors.hasAnyOfClaimAccess(this.canCreateClaims)))
+          .setActivationRule(() => !this.store.selectSnapshot(validationSelectors.hasAnyOfClaimAccess(this.canCreateClaims)))
           .setCallback((role: RolesDetails) => this.dialogs.open(UpdateRoleDialog(role)))
           .menu
         .item('Permissões')
-          .setActivationRule(() => !this.store.selectSnapshot(AuthenticationSelectors.hasAnyOfClaimAccess(this.canCreateClaims)))
+          .setActivationRule(() => !this.store.selectSnapshot(validationSelectors.hasAnyOfClaimAccess(this.canCreateClaims)))
           .setCallback((role: RolesDetails) => this.dialogs.open(UpdateRoleClaimsDialog(role)))
           .menu
         .separator()
         .item('Excluir', 'fa-solid fa-trash')
-          .setActivationRule(() => !this.store.selectSnapshot(AuthenticationSelectors.hasAnyOfClaimAccess(this.canCreateClaims)))
+          .setActivationRule(() => !this.store.selectSnapshot(validationSelectors.hasAnyOfClaimAccess(this.canCreateClaims)))
           .setCallback((role: RolesDetails) => this.showDeleteConfirmation(role))
           .menu
         .table

@@ -20,19 +20,25 @@ export class SmzUiGuidesStepBuilder {
 
   public forClaim(claim: string): SmzUiGuidesStepBuilder {
     const store: Store = GlobalInjector.instance.get(Store);
-    this.canAccess = store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(claim));
+    const validationSelectors = GlobalInjector.config.rbkUtils.authorization.validationSelectors;
+
+    this.canAccess = store.selectSnapshot(validationSelectors.hasClaimAccess(claim));
     return this;
   }
 
   public notForClaim(claim: string): SmzUiGuidesStepBuilder {
     const store: Store = GlobalInjector.instance.get(Store);
-    this.canAccess = !store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(claim));
+    const validationSelectors = GlobalInjector.config.rbkUtils.authorization.validationSelectors;
+
+    this.canAccess = !store.selectSnapshot(validationSelectors.hasClaimAccess(claim));
     return this;
   }
 
   public forClaims(canAccessClaims: string[]): SmzUiGuidesStepBuilder {
     const store: Store = GlobalInjector.instance.get(Store);
-    this.canAccess = store.selectSnapshot(AuthenticationSelectors.hasGroupOfClaimAccess(canAccessClaims));
+    const validationSelectors = GlobalInjector.config.rbkUtils.authorization.validationSelectors;
+
+    this.canAccess = store.selectSnapshot(validationSelectors.hasGroupOfClaimAccess(canAccessClaims));
     return this;
   }
 

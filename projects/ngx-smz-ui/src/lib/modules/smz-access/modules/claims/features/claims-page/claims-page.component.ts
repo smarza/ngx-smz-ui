@@ -13,6 +13,7 @@ import { ClaimsActions } from '../../../../state/claims/claims.actions';
 import { CreateClaimDialog } from '../../functions/create-claim-dialog';
 import { AuthenticationSelectors } from '../../../../../../state/global/authentication/authentication.selectors';
 import { AuthClaimDefinitions } from '../../../../models/auth-claim-definitions';
+import { GlobalInjector } from '../../../../../../common/services/global-injector';
 
 @UntilDestroy()
 @Component({
@@ -24,7 +25,8 @@ export class ClaimsPageComponent implements OnInit {
   public claims$: Observable<ClaimDetails[]>;
   public tableState: SmzTableState = this.buildTableState();
   constructor(private store: Store, private dialogs: SmzDialogsService) {
-    const canOverideClaimProtection = this.store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(AuthClaimDefinitions.CHANGE_CLAIM_PROTECTION)) as boolean;
+    const validationSelectors = GlobalInjector.config.rbkUtils.authorization.validationSelectors;
+    const canOverideClaimProtection = this.store.selectSnapshot(validationSelectors.hasClaimAccess(AuthClaimDefinitions.CHANGE_CLAIM_PROTECTION)) as boolean;
     this.claims$ = this.store.select(canOverideClaimProtection ? ClaimsSelectors.all : ClaimsSelectors.allUnprotected);
   }
 
@@ -32,7 +34,8 @@ export class ClaimsPageComponent implements OnInit {
   }
 
   public buildTableState(): SmzTableState {
-    const canOverideClaimProtection = this.store.selectSnapshot(AuthenticationSelectors.hasClaimAccess(AuthClaimDefinitions.CHANGE_CLAIM_PROTECTION)) as boolean;
+    const validationSelectors = GlobalInjector.config.rbkUtils.authorization.validationSelectors;
+    const canOverideClaimProtection = this.store.selectSnapshot(validationSelectors.hasClaimAccess(AuthClaimDefinitions.CHANGE_CLAIM_PROTECTION)) as boolean;
 
     return new SmzTableBuilder()
       .setTitle('Gerenciar Permissões de Acesso')
