@@ -8,7 +8,7 @@ import { AuthenticationStateModel } from './authentication/authentication.state'
 
 export interface GlobalStateModel {
     application: ApplicationStateModel;
-    authentication: AuthenticationStateModel;
+    authentication: AuthenticationStateModel<any>;
 }
 export const getGlobalInitialState = (): GlobalStateModel => ({
     application: getInitialApplicationState(),

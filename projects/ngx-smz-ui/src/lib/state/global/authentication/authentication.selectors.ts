@@ -1,35 +1,36 @@
 import { AuthenticationState, AuthenticationStateModel } from './authentication.state';
 import { Selector, createSelector } from '@ngxs/store';
 import { AppStateModel } from '../../app.state';
+import { BaseUserData } from '../../../modules/smz-access/models/base-user-data';
 
 export class AuthenticationSelectors {
     @Selector([AuthenticationState])
-    public static accessToken(state: AuthenticationStateModel): string | null {
+    public static accessToken(state: AuthenticationStateModel<BaseUserData>): string | null {
         return state.accessToken;
     }
 
     @Selector([AuthenticationState])
-    public static refreshToken(state: AuthenticationStateModel): string | null {
+    public static refreshToken(state: AuthenticationStateModel<BaseUserData>): string | null {
         return state.refreshToken;
     }
 
     @Selector([AuthenticationState])
-    public static isAuthenticated(state: AuthenticationStateModel): boolean {
+    public static isAuthenticated(state: AuthenticationStateModel<BaseUserData>): boolean {
         return !!state.accessToken;
     }
 
     @Selector([AuthenticationState])
-    public static userdata<T>(state: AuthenticationStateModel): T {
+    public static userdata<T>(state: AuthenticationStateModel<T>): T {
         return state.userdata as T;
     }
 
     @Selector([AuthenticationState])
-    public static username(state: AuthenticationStateModel): string {
+    public static username(state: AuthenticationStateModel<BaseUserData>): string {
         return state.userdata.username;
     }
 
     @Selector([AuthenticationState])
-    public static isSuperuserLogged(state: AuthenticationStateModel): boolean {
+    public static isSuperuserLogged(state: AuthenticationStateModel<BaseUserData>): boolean {
         return state.userdata?.tenant === '';
     }
 

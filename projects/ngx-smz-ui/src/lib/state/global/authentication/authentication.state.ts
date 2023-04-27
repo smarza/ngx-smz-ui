@@ -17,13 +17,13 @@ import { JwtResponse } from '../../../modules/smz-access/models/jwt-response';
 
 // If access token path or property name is changed, don't forget to update the
 // selectSnapshot to it on BaseApiService
-export interface AuthenticationStateModel {
-    userdata: BaseUserData;
+export interface AuthenticationStateModel<T> {
+    userdata: T;
     refreshToken: string | null;
     accessToken: string | null;
 }
 
-export const getAuthenticationInitialState = (): AuthenticationStateModel => ({
+export const getAuthenticationInitialState = (): AuthenticationStateModel<any> => ({
     userdata: null,
     refreshToken: null,
     accessToken: null,
@@ -31,7 +31,7 @@ export const getAuthenticationInitialState = (): AuthenticationStateModel => ({
 
 // Do not remove the @dynamic flag, it's not a comment, it an Angular flag!
 // @dynamic
-@State<AuthenticationStateModel>({
+@State<AuthenticationStateModel<any>>({
     name: 'authentication',
     defaults: getAuthenticationInitialState()
 })
@@ -40,7 +40,7 @@ export class AuthenticationState {
     constructor(private authService: AuthService, private authenticationService: AuthenticationService, private store: Store) { }
 
     @Action(AuthenticationActions.LocalLogin)
-    public localLogin(ctx: StateContext<AuthenticationStateModel>, action: AuthenticationActions.LocalLogin): void {
+    public localLogin(ctx: StateContext<AuthenticationStateModel<any>>, action: AuthenticationActions.LocalLogin): void {
         if (GlobalInjector.config.debugMode) console.log(`[Authentication State] Handling LocalLogin`);
         const accessToken = localStorage.getItem(GlobalInjector.config.rbkUtils.authentication.localStoragePrefix + '_access_token');
         const refreshToken = localStorage.getItem(GlobalInjector.config.rbkUtils.authentication.localStoragePrefix + '_refresh_token');
@@ -67,11 +67,11 @@ export class AuthenticationState {
     }
 
     @Action(AuthenticationActions.LocalLoginFailure)
-    public localLoginFailure(ctx: StateContext<AuthenticationStateModel>, action: AuthenticationActions.LocalLoginFailure): void {
+    public localLoginFailure(ctx: StateContext<AuthenticationStateModel<any>>, action: AuthenticationActions.LocalLoginFailure): void {
     }
 
     @Action(AuthenticationActions.RemoteLogin)
-    public remoteLogin(ctx: StateContext<AuthenticationStateModel>, action: AuthenticationActions.RemoteLogin): Observable<LoginResponse> {
+    public remoteLogin(ctx: StateContext<AuthenticationStateModel<any>>, action: AuthenticationActions.RemoteLogin): Observable<LoginResponse> {
         return this.authService.login(action.data.username, action.data.password, action.data.extraProperties).pipe(
             tap((result: LoginResponse) => {
 
@@ -89,7 +89,7 @@ export class AuthenticationState {
     }
 
     @Action([AuthenticationActions.RemoteLoginSuccess, AuthenticationActions.RefreshTokenSuccess])
-    public remoteLoginSuccess(ctx: StateContext<AuthenticationStateModel>,
+    public remoteLoginSuccess(ctx: StateContext<AuthenticationStateModel<any>>,
         action: AuthenticationActions.RemoteLoginSuccess | AuthenticationActions.RefreshTokenSuccess): void {
         if (GlobalInjector.config.debugMode) console.log(`[Authentication State] Handling RemoteLoginSuccess/RefreshTokenSuccess`);
         localStorage.setItem(GlobalInjector.config.rbkUtils.authentication.localStoragePrefix + '_access_token', action.accessToken);
@@ -109,12 +109,12 @@ export class AuthenticationState {
     }
 
     @Action(AuthenticationActions.LocalLoginSuccess)
-    public localLoginSuccess(ctx: StateContext<AuthenticationStateModel>, action: AuthenticationActions.LocalLoginSuccess): void {
+    public localLoginSuccess(ctx: StateContext<AuthenticationStateModel<any>>, action: AuthenticationActions.LocalLoginSuccess): void {
         if (GlobalInjector.config.debugMode) console.log(`[Authentication State] Handling LocalLoginSuccess`);
     }
 
     @Action(AuthenticationActions.Logout)
-    public logout(ctx: StateContext<AuthenticationStateModel>): void {
+    public logout(ctx: StateContext<AuthenticationStateModel<any>>): void {
         localStorage.removeItem(GlobalInjector.config.rbkUtils.authentication.localStoragePrefix + '_access_token');
         localStorage.removeItem(GlobalInjector.config.rbkUtils.authentication.localStoragePrefix + '_refresh_token');
 
@@ -124,7 +124,7 @@ export class AuthenticationState {
     }
 
     @Action(AuthenticationActions.SwitchTenant)
-    public onSwitchTenant(ctx: StateContext<AuthenticationStateModel>, action: AuthenticationActions.SwitchTenant): Observable<JwtResponse> {
+    public onSwitchTenant(ctx: StateContext<AuthenticationStateModel<any>>, action: AuthenticationActions.SwitchTenant): Observable<JwtResponse> {
         if (GlobalInjector.config.debugMode) console.log(`[Authentication State] Handling SwitchTenant`);
 
         return this.authenticationService.switchTenant(action.data).pipe(
