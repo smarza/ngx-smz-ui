@@ -2,7 +2,7 @@ import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component
 import { PrimeTemplate, FilterMetadata } from 'primeng/api';
 import { SmzContentType, SmzExportableContentType } from '../../models/content-types';
 import { SmzFilterType } from '../../models/filter-types';
-import { SmzTableState, SmzTableContext, SmzTableViewportState } from '../../models/table-state';
+import { SmzTableState, SmzTableContext, SmzTableViewportState, SmzTableViewportStateData } from '../../models/table-state';
 import { SmzTableColumn } from '../../models/table-column';
 import { SmzEditableType } from '../../models/editable-types';
 import { TableEditableService } from '../../services/table-editable.service';
@@ -128,6 +128,8 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
         .filter(x => x.isVisible)
         .map(x => x.field)
       );
+
+    this.viewportChange();
   }
 
   public hideColumn(column: SmzTableColumn, context: SmzTableContext): void {
@@ -154,13 +156,26 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
     }
 
     setTimeout(() => {
-      if (this.state.viewport?.state != null) {
-        // Executar atualização da viewport com dados default de pesquisa global, filtros de coluna e ordenação
-        this.initViewportPersistence();
-      }
 
       // Popular a variavel contendo as colunas visiveis
       this.populateColumnVisibility(this.state);
+
+      if (this.state.viewport?.state?.isEnabled) {
+
+        switch (this.state.viewport?.state?.persistance) {
+          case 'auto':
+            this.loadViewportFromLocalStorage();
+            break;
+          case 'manual':
+            this.loadViewportFromManualCallback();
+            break;
+          default:
+            break;
+        }
+
+        // Executar atualização da viewport com dados default de pesquisa global, filtros de coluna e ordenação
+        this.initViewportState();
+      }
 
       // Atualizar o isVisible nas colunas do state
       this.updateColumnsVisibility();
@@ -175,10 +190,9 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
     }, 0);
   }
 
-  public extractViewportState(): SmzTableViewportState {
+  public extractViewportStateData(): SmzTableViewportStateData {
 
-    const results: SmzTableViewportState = {
-      isEnabled: true,
+    const results: SmzTableViewportStateData = {
       filters: this.table.filters,
       visibility: this.selectedColumns.map(x => ({ key: x.field, isVisible: true })),
       sort: { mode: 'single', field: this.table.sortField, order: this.table.sortOrder }
@@ -187,8 +201,8 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
     return results;
   }
 
-  public initViewportPersistence(): void {
-    if (this.state?.viewport?.state?.isEnabled === false) {
+  public initViewportState(): void {
+    if (this.state.viewport.state?.data == null) {
       return;
     }
 
@@ -197,7 +211,7 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
     this.globalSearchInput = '';
     this.table.clear();
 
-    const globalFilter = state.filters['global'] as FilterMetadata;
+    const globalFilter = state.data.filters['global'] as FilterMetadata;
     // Global Filter
     if (globalFilter != null) {
       this.globalSearchInput = globalFilter.value;
@@ -205,21 +219,24 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
     }
 
     // Column Filters
-    if (state.filters != null) {
-      this.table.filters = state.filters;
+    if (state.data.filters != null) {
+      this.table.filters = state.data.filters;
     }
 
     // Column Visibility
     this.state.columns.forEach(column => {
-      const visibilityData = state.visibility.find(x => x.key === column.field) ?? { key: column.field, isVisible: false };
+      const visibilityData = state.data.visibility.find(x => x.key === column.field) ?? { key: column.field, isVisible: false };
       column.isVisible = visibilityData.isVisible;
     });
 
-    if (state.sort != null) {
+    // Popular a variavel contendo as colunas visiveis
+    this.populateColumnVisibility(this.state);
+
+    if (state.data.sort != null) {
 
       this.table.sortMode = 'single';
-      this.table.sortField = state.sort.field;
-      this.table.sortOrder = state.sort.order;
+      this.table.sortField = state.data.sort.field;
+      this.table.sortOrder = state.data.sort.order;
 
       if (this.table.resetPageOnSort) {
         this.table.first = 0;
@@ -331,6 +348,8 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
     if (context.state.caption?.clearFilters?.callback != null) {
       context.state.caption.clearFilters.callback();
     }
+
+    this.viewportChange();
 
     this.cdr.markForCheck();
   }
@@ -556,9 +575,76 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
 
   public onFilter(event: any): void {
     this.filterChange.emit(event);
+    this.viewportChange();
+  }
+
+  public viewportChange(): void {
+    if (this.state.viewport.state?.isEnabled) {
+
+      if (this.state.viewport.state.saveTrigger === 'onChange') {
+        const viewportData = this.extractViewportStateData();
+
+        switch (this.state.viewport?.state?.persistance) {
+          case 'auto':
+            this.saveViewportOnLocalStorage(viewportData);
+            break;
+          case 'manual':
+            this.state.viewport.state.manual.saveCallback(viewportData);
+            break;
+          default:
+            break;
+        }
+      }
+
+      this.state.viewport.state.onChangeCallback(this.extractViewportStateData());
+    }
+  }
+
+  public saveViewportOnLocalStorage(data: SmzTableViewportStateData): void {
+    localStorage.setItem(this.state.viewport.state.auto.key, JSON.stringify(data));
+  }
+
+  public loadViewportFromLocalStorage(): void {
+    const viewportStorageData = localStorage.getItem(this.state.viewport.state.auto.key);
+
+    if (viewportStorageData != null) {
+      const viewport = JSON.parse(viewportStorageData) as SmzTableViewportStateData;
+      this.state.viewport.state.data = viewport;
+      this.cdr.markForCheck();
+    }
+  }
+
+  public loadViewportFromManualCallback(): void {
+    const viewportStorageData = this.state.viewport.state.manual.loadCallback();
+
+    if (viewportStorageData != null) {
+      const viewport = viewportStorageData;
+      this.state.viewport.state.data = viewport;
+      this.cdr.markForCheck();
+    }
   }
 
   public ngOnDestroy(): void {
+
+    if (this.state.viewport.state?.isEnabled) {
+
+      if (this.state.viewport.state.saveTrigger === 'onDestroy') {
+        const viewportData = this.extractViewportStateData();
+
+        switch (this.state.viewport?.state?.persistance) {
+          case 'auto':
+            this.saveViewportOnLocalStorage(viewportData);
+            break;
+          case 'manual':
+            this.state.viewport.state.manual.saveCallback(viewportData);
+            break;
+          default:
+            break;
+        }
+      }
+
+    }
+
     this.tableHelper.clear(this.tableKey);
   }
 

@@ -87,6 +87,7 @@ export class HomeComponent implements OnInit
         .addInput('itemsPerRow', 15)
         .addInput('title', 'title')
         .addInput('filename', 'filename')
+        .addInput('viewport', {"isEnabled":true,"filters":{"company":[{"value":"omp","matchMode":"contains","operator":"and"}],"name":[{"value":null,"matchMode":"startsWith","operator":"and"}],"global":{"value":"any C","matchMode":"contains"}},"visibility":[{"key":"name","isVisible":true},{"key":"company","isVisible":true}],"sort":{"mode":"single","field":"company","order":1}})
       .dialog
       .buttons()
         .cancel().hide().buttons

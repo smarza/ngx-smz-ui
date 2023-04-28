@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { UntilDestroy } from '@ngneat/until-destroy';
-import { SmzClipboardService, SmzColumnCollectionBuilder, SmzExportableContentType, SmzTableBuilder, SmzTableComponent, SmzTableState, SmzTableViewportState } from 'ngx-smz-ui';
+import { SmzClipboardService, SmzColumnCollectionBuilder, SmzExportableContentType, SmzTableBuilder, SmzTableComponent, SmzTableState, SmzTableViewportState, SmzTableViewportStateData } from 'ngx-smz-ui';
 import { Store } from '@ngxs/store';
 
 @UntilDestroy()
@@ -13,7 +13,7 @@ export class ResultsTableComponent implements OnInit {
   @Input() public results: any;
   @Input() public title: string;
   @Input() public filename: string;
-  @Input() public viewport: SmzTableViewportState;
+  @Input() public viewport: SmzTableViewportStateData;
   @Input() public itemsPerRow: 10 | 15 = 10;
 
   public resultsTableState: SmzTableState;
@@ -81,10 +81,17 @@ export class ResultsTableComponent implements OnInit {
         );
 
     if (this.viewport != null) {
-      factory.setViewport(this.viewport);
+      this.resultsTableState = factory
+        .viewport()
+          .useAutoPersistence('results-table')
+          .table
+        .build();
+    }
+    else {
+      this.resultsTableState = factory.build();
     }
 
-    this.resultsTableState = factory.build();
+
 
   }
 

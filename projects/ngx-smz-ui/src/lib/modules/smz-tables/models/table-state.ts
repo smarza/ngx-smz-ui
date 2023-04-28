@@ -545,7 +545,25 @@ export interface SmzTableContext {
 }
 
 export interface SmzTableViewportState {
-  isEnabled?: boolean;
+  isEnabled: boolean;
+    /**
+   * If Persist is true, the table component will save the viewport state of the table in the localstorage
+   * The saved data will be loaded when the table starts
+   */
+  persistance: 'none' | 'auto' | 'manual';
+  saveTrigger: 'onChange' | 'onDestroy';
+  auto: {
+    key: string;
+  }
+  manual: {
+    loadCallback: () => SmzTableViewportStateData;
+    saveCallback: (state: SmzTableViewportStateData) => void;
+  }
+  data: SmzTableViewportStateData;
+  onChangeCallback: (state: SmzTableViewportStateData) => void
+}
+
+export interface SmzTableViewportStateData {
   visibility: { key: string, isVisible: boolean }[];
   sort: { mode: 'single', field: string, order: any };
   filters: { [s: string]: FilterMetadata | FilterMetadata[] | undefined };

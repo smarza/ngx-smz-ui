@@ -2,7 +2,7 @@ import { Store } from '@ngxs/store';
 import { flatten, sortBy } from 'lodash-es';
 import { GlobalInjector } from '../../../lib/common/services/global-injector';
 import { SmzMenuItem } from '../../modules/smz-menu/models/smz-menu-item';
-import { SmzTableState, SmzTableViewportState } from '../../modules/smz-tables/models/table-state';
+import { SmzTableState, SmzTableViewportState, SmzTableViewportStateData } from '../../modules/smz-tables/models/table-state';
 import { StateBuilderFunctions } from './state-builder-functions';
 import { SmzColumnCollectionBuilder } from './column-builder';
 import { SmzMenuTableBuilder } from './menu-builder';
@@ -14,6 +14,8 @@ import { SmzBatchMenuBuilder } from './batch-menu-builder';
 import { SmzEditableTableBuilder } from './editable-builder';
 import { Observable, filter } from 'rxjs';
 import { SmzTableExcelBuilder } from './excel-builder';
+import { UUID } from 'angular2-uuid';
+import { SmzTableViewportBuilder } from './viewport';
 
 // SCROLL TRUE =>
 //   MIN-WIDTH PODE TER PX
@@ -189,9 +191,17 @@ export class SmzTableBuilder {
       columnResizeMode: 'fit',
       state: {
         isEnabled: false,
-        visibility: [],
-        sort: null,
-        filters: {}
+        persistance: 'none',
+        saveTrigger: 'onDestroy',
+        auto: {
+          key: UUID.UUID(),
+        },
+        manual: {
+          loadCallback: null,
+          saveCallback: () => {}
+        },
+        onChangeCallback: () => {},
+        data: null
       }
     },
     rowExpansion: {
@@ -902,22 +912,8 @@ export class SmzTableBuilder {
     return new SmzColumnCollectionBuilder(this);
   }
 
-  public setViewport(state: SmzTableViewportState): SmzTableBuilder {
-    this._state.viewport.state = { ...this._state.viewport.state, isEnabled: true, ...state };
-
-    if (state.visibility == null) {
-      throw Error('You need to provide an Array for Viewport visibility state.');
-    }
-
-    if (state.sort == null) {
-      throw Error('You need to provide an Array for Viewport sort state.');
-    }
-
-    if (this._state.sort?.mode === 'multiple') {
-      throw Error('Multisort is not supported in Viewport State.');
-    }
-
-    return this;
+  public viewport(): SmzTableViewportBuilder {
+    return new SmzTableViewportBuilder(this);
   }
 
   public excel(): SmzTableExcelBuilder {

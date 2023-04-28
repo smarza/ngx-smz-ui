@@ -867,7 +867,20 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
         .text('company', 'Company')
           .columns
         .table
-      .setViewport({"isEnabled":true,"filters":{"company":[{"value":"omp","matchMode":"contains","operator":"and"}],"name":[{"value":null,"matchMode":"startsWith","operator":"and"}],"global":{"value":"any C","matchMode":"contains"}},"visibility":[{"key":"name","isVisible":true},{"key":"company","isVisible":true}],"sort":{"mode":"single","field":"company","order":1}})
+      .viewport()
+        .useAutoPersistence('table-demo3')
+        .table
+    .build();
+    }
+  },
+}
+
+
+
+
+
+
+      // .setViewport({"filters":{"company":[{"value":"omp","matchMode":"contains","operator":"and"}],"name":[{"value":null,"matchMode":"startsWith","operator":"and"}],"global":{"value":"any C","matchMode":"contains"}},"visibility":[{"key":"name","isVisible":true},{"key":"company","isVisible":true}],"sort":{"mode":"single","field":"company","order":1}})
       // .setViewport({
       //   visibility: [
       //     { key: 'name', isVisible: true },
@@ -881,7 +894,3 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
       //     ]
       //   }
       // })
-    .build();
-    }
-  },
-}

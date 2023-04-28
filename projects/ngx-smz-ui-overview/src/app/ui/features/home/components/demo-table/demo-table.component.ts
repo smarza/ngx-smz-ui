@@ -63,7 +63,7 @@ export class DemoTableComponent implements OnInit, OnChanges {
   }
 
   public getViewport(): void {
-    const viewport = this.table.extractViewportState();
+    const viewport = this.table.extractViewportStateData();
     console.log(JSON.stringify(viewport));
   }
 }
