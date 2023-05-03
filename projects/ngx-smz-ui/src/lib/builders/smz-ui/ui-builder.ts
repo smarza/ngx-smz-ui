@@ -13,6 +13,7 @@ import { SmzUiStatesBuilder } from './states-builder';
 import { SmzUiLayoutsBuilder } from './layouts-builder';
 import { SmzLoader } from '../../modules/smz-layouts/core/models/loaders';
 import { AuthenticationSelectors } from '../../state/global/authentication/authentication.selectors';
+import { SmzUiErrorsPageBuilder } from './errors-page-builder';
 
 export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
     protected that = this;
@@ -167,11 +168,7 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
                     title: 'Erro',
                     message: 'Ocorreu um erro com a sua solicitação. Caso persista, entre em contato com seu administrador de sistema.',
                     imagePath: 'assets/images/pages/bg-error.jpg',
-                    button: {
-                        isVisible: true,
-                        label: 'Ir para Login',
-                        redirectTo: '/login'
-                    },
+                    buttons: [],
                 },
                 clearBehaviors: {
                     method: 'onError',
@@ -245,6 +242,10 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
 
     public authorization(): SmzUiAuthorizationBuilder {
         return new SmzUiAuthorizationBuilder(this, this._state);
+    }
+
+    public errorsPage(): SmzUiErrorsPageBuilder {
+        return new SmzUiErrorsPageBuilder(this, this._state);
     }
 
     public states(): SmzUiStatesBuilder {

@@ -11,7 +11,11 @@
           <div class="col-12 exception-label-error exception-light">{{ uiConfig.rbkUtils.errorsConfig.page.title }}</div>
           <div class="col-6 exception-separator exception-light"></div>
           <div class="col-12 exception-label-message exception-light">{{ uiConfig.rbkUtils.errorsConfig.page.message }}</div>
-          <button *ngIf="uiConfig.rbkUtils.errorsConfig.page.button.isVisible" class="p-button-lg p-button-ghost" pButton type="button" [label]="uiConfig.rbkUtils.errorsConfig.page.button.label" (click)="redirect()"></button>
+          <div class="grid grid-nogutter items-center justify-start gap-2">
+            <ng-container *ngFor="let button of uiConfig.rbkUtils.errorsConfig.page.buttons">
+                <button *ngIf="button.isVisible" [ngClass]="button.styleClass" pButton type="button" [label]="button.label" (click)="redirect(button)"></button>
+            </ng-container>
+          </div>
       </div>
   </div>
 
@@ -25,7 +29,11 @@
           <div class="col-12 exception-label-error">{{ uiConfig.rbkUtils.errorsConfig.page.title }}</div>
           <div class="col-4 exception-separator"></div>
           <div class="col-12 exception-label-message">{{ uiConfig.rbkUtils.errorsConfig.page.message }}</div>
-          <button *ngIf="uiConfig.rbkUtils.errorsConfig.page.button.isVisible" class="col-4 p-button-lg p-button-ghost" pButton type="button" [label]="uiConfig.rbkUtils.errorsConfig.page.button.label" (click)="redirect()"></button>
+          <div class="grid grid-nogutter items-center justify-start gap-2">
+            <ng-container *ngFor="let button of uiConfig.rbkUtils.errorsConfig.page.buttons">
+                <button *ngIf="button.isVisible" [ngClass]="button.styleClass" pButton type="button" [label]="button.label" (click)="redirect(button)"></button>
+            </ng-container>
+          </div>
       </div>
   </div>
 

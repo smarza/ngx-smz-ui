@@ -26,13 +26,19 @@ export class ErrorComponent implements OnInit {
 
   }
 
-  public redirect(): void {
-    this.store.dispatch(
-      new Navigate([GlobalInjector.config.rbkUtils.errorsConfig.page.button.redirectTo])
-    );
+  public redirect(button: { isVisible: boolean; label?: string; styleClass?: string; redirectTo?: string; callback?: () => void }): void {
 
-    if (GlobalInjector.config.rbkUtils.errorsConfig.clearBehaviors.method === 'onRedirect') {
-      this.clear();
+    if (button.callback != null) {
+      button.callback();
+    }
+    else {
+      this.store.dispatch(
+        new Navigate([button.redirectTo])
+      );
+
+      if (GlobalInjector.config.rbkUtils.errorsConfig.clearBehaviors.method === 'onRedirect') {
+        this.clear();
+      }
     }
 
   }

@@ -107,11 +107,13 @@ export class NgxRbkUtilsConfig {
             message: string;
             imagePath: string;
             route: string;
-            button: {
+            buttons: {
                 isVisible: boolean;
                 label?: string;
+                styleClass?: string;
                 redirectTo?: string;
-            },
+                callback?: () => void
+            }[],
         };
         clearBehaviors: {
             method: 'onError' | 'onRedirect' | 'none';
