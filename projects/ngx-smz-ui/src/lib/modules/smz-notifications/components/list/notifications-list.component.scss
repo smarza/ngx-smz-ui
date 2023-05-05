@@ -6,4 +6,12 @@ smz-notifications-list {
   // .p-component.p-paginator.p-paginator-bottom {
   //   transform: scale(0.8);
   // }
+
+  i {
+    .p-tooltip {
+      .p-tooltip-text {
+        word-break: normal;
+      }
+    }
+  }
 }

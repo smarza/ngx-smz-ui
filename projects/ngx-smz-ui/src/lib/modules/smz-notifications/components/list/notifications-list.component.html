@@ -25,13 +25,13 @@
           </div>
 
           <div class="grid grid-nogutter items-center justify-start gap-4 px-4 animate__animated animate__fadeIn relative" *ngIf="item._showActions">
-            <i #archiveButton *ngIf="item.status !== status.ARCHIVED" pTooltip="Arquivar" [appendTo]="archiveButton" tooltipPosition="bottom" class="fa-solid fa-box-archive p-button-rounded p-button-text p-button-plain relative text-gray-500" (click)="archive([item])"></i>
-            <i #inboxButton *ngIf="item.status === status.ARCHIVED" pTooltip="Desarquivar" [appendTo]="inboxButton" tooltipPosition="bottom" class="fa-solid fa-inbox p-button-rounded p-button-text p-button-plain relative text-gray-500" (click)="moveToInbox([item])"></i>
+            <i #archiveButton *ngIf="item.status !== status.ARCHIVED" pTooltip="Arquivar" appendTo="body" tooltipZIndex="9999" tooltipPosition="bottom" class="fa-solid fa-box-archive p-button-rounded p-button-text p-button-plain relative text-gray-500" (click)="archive([item])"></i>
+            <i #inboxButton *ngIf="item.status === status.ARCHIVED" pTooltip="Desarquivar" appendTo="body" tooltipZIndex="9999" tooltipPosition="bottom" class="fa-solid fa-inbox p-button-rounded p-button-text p-button-plain relative text-gray-500" (click)="moveToInbox([item])"></i>
 
-            <i #routeButton *ngIf="item.route != ''" pTooltip="Navegar" [appendTo]="routeButton" tooltipPosition="bottom" class="fa-solid fa-share p-button-rounded p-button-text p-button-plain relative text-gray-500" (click)="navigate(item)"></i>
-            <i #linkButton *ngIf="item.link != ''" pTooltip="Abrir Link" [appendTo]="linkButton" tooltipPosition="bottom" class="fa-solid fa-up-right-from-square p-button-rounded p-button-text p-button-plain relative text-gray-500" (click)="openLink(item)"></i>
+            <i #routeButton *ngIf="item.route != ''" pTooltip="Navegar" appendTo="body" tooltipZIndex="9999" tooltipPosition="bottom" class="fa-solid fa-share p-button-rounded p-button-text p-button-plain relative text-gray-500" (click)="navigate(item)"></i>
+            <i #linkButton *ngIf="item.link != ''" pTooltip="Abrir Link" appendTo="body" tooltipZIndex="9999" tooltipPosition="bottom" class="fa-solid fa-up-right-from-square p-button-rounded p-button-text p-button-plain relative text-gray-500" (click)="openLink(item)"></i>
 
-            <i #trashButton pTooltip="Excluir" [appendTo]="trashButton" tooltipPosition="bottom" class="fa-solid fa-trash p-button-rounded p-button-text p-button-plain relative text-gray-500" styleClass="relative" (click)="remove(item)"></i>
+            <i #trashButton pTooltip="Excluir" appendTo="body" tooltipZIndex="9999" tooltipPosition="bottom" class="fa-solid fa-trash p-button-rounded p-button-text p-button-plain relative text-gray-500" styleClass="relative" (click)="remove(item)"></i>
           </div>
 
         </div>

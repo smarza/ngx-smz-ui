@@ -13,14 +13,14 @@ export interface CountriesDbStateModel {
   items: SimpleNamedEntity[];
 }
 
-export const getInitialState = (): CountriesDbStateModel => ({
+export const getDbCountriesInitialState = (): CountriesDbStateModel => ({
   lastUpdated: null,
   items: null
 });
 
 @State<CountriesDbStateModel>({
   name: CountriesDbName,
-  defaults: getInitialState()
+  defaults: getDbCountriesInitialState()
 })
 
 @Injectable()

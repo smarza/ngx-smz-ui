@@ -61,6 +61,8 @@ export class NotificationsListComponent {
       .hideHeader()
       .columns()
         .custom('searchData', '')
+          .forceGlobalFilter()
+          .addStyles('col')
           .disableFilter()
           .columns
       .table;

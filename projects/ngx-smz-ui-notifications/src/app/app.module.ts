@@ -3,18 +3,18 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NgxSmzLayoutsModule, NewAthenaLayoutModule, NgxSmzDialogsModule } from 'ngx-smz-ui';
+import { NewAthenaLayoutModule, NgxSmzUiModule } from 'ngx-smz-ui';
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
-import { smzAthenaConfig, smzLayoutsConfig } from '../globals/smz-layouts.config';
+import { smzAthenaConfig } from '../globals/deprecated/smz-layouts.config';
 import { CommonModule } from '@angular/common';
-import { ApplicationActions, buildState, NgxRbkUtilsModule } from 'ngx-smz-ui';
+import { ApplicationActions, buildState } from 'ngx-smz-ui';
 import { NgxsModule, Store } from '@ngxs/store';
-import { smzDialogsConfig } from '../globals/smz-config';
 import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
-import { environment } from '@enviroment';
 import * as moment from 'moment';
+import { UiConfigBuilder } from '../globals/smz-ui-config-builder';
+import { environment } from '@environments/environment';
 
 moment.locale('pt-br');
 
@@ -28,14 +28,14 @@ moment.locale('pt-br');
     AppRoutingModule,
 
     // Não alterar a ordem desse grupo
-    NgxSmzDialogsModule.forRoot(smzDialogsConfig),
-    NgxRbkUtilsModule.forRoot(),
+    NgxSmzUiModule.forRoot(UiConfigBuilder),
+
     NgxsModule.forRoot(buildState(), { developmentMode: !environment.production }),
     NgxsRouterPluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot(),
-    NgxSmzLayoutsModule.forRoot(smzLayoutsConfig),
 
     NewAthenaLayoutModule.forRoot(smzAthenaConfig),
+
     HighlightModule
   ],
   providers: [

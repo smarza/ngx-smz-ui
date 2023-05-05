@@ -16,14 +16,14 @@ export interface DemoFeatureStateModel {
   items: DemoItem[];
 }
 
-export const getInitialState = (): DemoFeatureStateModel => ({
+export const getFtDemoInitialState = (): DemoFeatureStateModel => ({
   lastUpdated: null,
   items: null
 });
 
 @State<DemoFeatureStateModel>({
   name: DemoFeatureName,
-  defaults: getInitialState()
+  defaults: getFtDemoInitialState()
 })
 
 @Injectable()
