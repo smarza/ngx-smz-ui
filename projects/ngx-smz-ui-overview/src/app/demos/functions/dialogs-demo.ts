@@ -2,7 +2,7 @@ import { DemoKeys } from '@demos/demo-keys';
 import { DemoInjectable5Component } from '@features/home/components/demo-injectable/demo-injectable-5.component';
 import { Store } from '@ngxs/store';
 import { DemoFeatureSelectors } from '@states/demo/demo.selectors';
-import { GlobalInjector, SmzDialogBuilder, SmzDialogsService, SmzFormsResponse, SmzFormViewdata, SmzTableBuilder, ToastActions } from 'ngx-smz-ui';
+import { getFormInputFromDialog, GlobalInjector, SmzDialog, SmzDialogBuilder, SmzDialogsService, SmzFileControl, SmzForm, SmzFormsResponse, SmzFormViewdata, SmzTableBuilder, ToastActions } from 'ngx-smz-ui';
 import { Observable, of } from 'rxjs';
 import { DemoFeatureActions } from '../../state/demo/demo.actions';
 
@@ -24,10 +24,22 @@ export const DialogsDemo: { [key: string]: () => void } = {
   //
   [DemoKeys.DIALOGS_COMPONENT_FORM]: () => {
     service.open(
-      new SmzDialogBuilder<void>()
+      new SmzDialogBuilder<any>()
         .setTitle(`Header With Title Demo`)
         .setLayout('EXTRA_SMALL', 'col-12')
         .setLayout('EXTRA_LARGE', 'col-8')
+        .postProcessResponse((data: any, config: SmzDialog<any>): any => {
+          console.log('---- postProcessResponse');
+          console.log('---- data', data);
+          console.log('---- config', config);
+
+          const fileInput = getFormInputFromDialog<SmzFileControl>('file', config);
+          const base64 = fileInput._base64;
+
+          console.log('---- fileInput', fileInput);
+
+          return { ...data, file: base64 };
+        })
         .form()
           .group()
             .calendar('date', 'Agendamento')
@@ -36,13 +48,18 @@ export const DialogsDemo: { [key: string]: () => void } = {
           .dropdown('input1', 'I\'m required', [{ id: '1', name: 'Option 1'}, { id: '2', name: 'Option 2'}, { id: '3', name: 'Option 3'}])
               .validators().required()
               .group
+          .file('file', 'Confirmação')
+              .useGlobalLoader()
+              .useBinaryFormat()
+              .validators().required()
+              .group
             .form
             .dialog
         .component(DemoInjectable5Component)
           .dialog
         .buttons()
           .confirm()
-            .callback((data) => { console.log('OK') })
+            .callback((data) => { console.log('OK', data) })
             .buttons
         .dialog
       .build()

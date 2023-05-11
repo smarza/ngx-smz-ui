@@ -45,13 +45,11 @@ export class DialogFooterComponent implements OnInit {
 
     public confirm(): void {
 
-        const config = this.dialogConfig.data;
-
         const context = this.dialogConfig.data._context;
 
         if (context.builtInButtons.confirmDependsOnValidation && !this.onSubmit()) return;
 
-        const response = config.behaviors.useAdvancedResponse ? config._context.advancedResponse : config._context.simpleResponse;
+        const response =  this.responsePostProcesses();
 
         if (this.dialogConfig.data?.callbacks?.onConfirm != null) {
             this.dialogConfig.data.callbacks.onConfirm(response);
@@ -109,7 +107,7 @@ export class DialogFooterComponent implements OnInit {
                 .filter(x => x.type === 'component' || x.type === 'table')
                 .forEach(feature => {
                     const componentFeature = feature.data as ComponentData;
-
+                    console.log(1);
                     const injected = this.injectComponent.getComponent(componentFeature.componentId);
 
                     if (GlobalInjector.config.debugMode) {
@@ -119,10 +117,12 @@ export class DialogFooterComponent implements OnInit {
                     }
 
                     if (injected != null) {
+                        console.log(2);
                         const instance = injected.instance as ComponentDataBase;
+                        console.log('instance', instance);
 
                         if (instance != null) {
-
+                            debugger;
                             if (instance.isValid != null && instance.isValid === false) {
                                 if (instance.onValidationError$ != null) {
                                     instance.onValidationError$.next(true);
@@ -154,7 +154,7 @@ export class DialogFooterComponent implements OnInit {
         const context = this.dialogConfig.data._context;
         if (context.builtInButtons.okDependsOnValidation && !this.onSubmit()) return;
 
-        const response = config.behaviors.useAdvancedResponse ? config._context.advancedResponse : config._context.simpleResponse;
+        const response =  this.responsePostProcesses();
 
         if (this.dialogConfig.data?.callbacks?.onOk != null) {
             this.dialogConfig.data.callbacks.onOk(response);
@@ -259,7 +259,7 @@ export class DialogFooterComponent implements OnInit {
             if (button.dependsOnValidation && !this.onSubmit()) return;
 
             const config = this.dialogConfig.data;
-            const response = config.behaviors.useAdvancedResponse ? config._context.advancedResponse : config._context.simpleResponse;
+            const response =  this.responsePostProcesses();
 
             button.onClick(response);
 
@@ -336,8 +336,7 @@ export class DialogFooterComponent implements OnInit {
 
         }
 
-        const config = this.dialogConfig.data;
-        const response = config.behaviors.useAdvancedResponse ? config._context.advancedResponse : config._context.simpleResponse;
+        const response =  this.responsePostProcesses();
 
         button.onClick(response);
 
@@ -399,13 +398,25 @@ export class DialogFooterComponent implements OnInit {
 
     private responsePostProcesses(): any {
         const config = this.dialogConfig.data;
-        const response = config.behaviors.useAdvancedResponse ? config._context.advancedResponse : config._context.simpleResponse;
+        const response = config.behaviors.useAdvancedResponse ?
+            this.proccessAdvancedResponse(config._context.advancedResponse) :
+            this.proccessSimpleResponse(config._context.simpleResponse);
 
         if (GlobalInjector.config.debugMode) {
             console.log('     >> response', response);
         }
 
-        return config.callbacks?.postProcessResponse != null ? config.callbacks.postProcessResponse(response) : response;
+        return config.callbacks?.postProcessResponse != null ? config.callbacks.postProcessResponse(response, config) : response;
+    }
+
+    private proccessAdvancedResponse(response: any): any {
+        // console.log('proccessAdvancedResponse', response);
+        return response;
+    }
+
+    private proccessSimpleResponse(response: any): any {
+        // console.log('proccessSimpleResponse', response);
+        return response;
     }
 
 }

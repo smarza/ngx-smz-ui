@@ -5,6 +5,7 @@ export * from './services/help-dialog.service';
 
 export * from './models/smz-dialogs';
 export * from './models/smz-presets';
+export * from './models/smz-dialog-helpers';
 
 export { Confirmable } from './decorators/confirmable.decorator';
 

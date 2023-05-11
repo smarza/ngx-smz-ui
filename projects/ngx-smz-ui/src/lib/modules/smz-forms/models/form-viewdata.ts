@@ -5,7 +5,6 @@ import { SmzFormsManagerService } from '../services/smz-forms-manager.service';
 import { CONTROL_FUNCTIONS } from './control-type-functions';
 import { SmzControlType, SmzControlTypes, SmzTextButtonControl } from './control-types';
 import { SmzForm, SmzFormsResponse } from './smz-forms';
-import { includes } from 'lodash';
 import { createObjectFromString } from '../../../common/utils/utils';
 
 export class SmzFormViewdata {

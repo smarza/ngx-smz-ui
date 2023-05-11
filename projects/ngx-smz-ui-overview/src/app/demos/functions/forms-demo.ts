@@ -371,6 +371,10 @@ Exame sem intercorrências.`)
           .validators()
           .required()
           .group
+        .file('file2', 'Confirmação')
+            .useGlobalLoader()
+            .validators().required()
+            .group
         .form
       .build();
   },

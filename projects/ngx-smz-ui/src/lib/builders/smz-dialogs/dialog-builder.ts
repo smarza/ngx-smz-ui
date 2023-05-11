@@ -178,7 +178,7 @@ export class SmzDialogBuilder<TResponse> extends SmzBuilderUtilities<SmzDialogBu
     return this;
   }
 
-  public postProcessResponse(callback: (data: TResponse) => void): SmzDialogBuilder<TResponse> {
+  public postProcessResponse(callback: (data: TResponse, dialog: SmzDialog<TResponse>) => TResponse): SmzDialogBuilder<TResponse> {
     this._state.callbacks.postProcessResponse = callback;
     return this;
   }

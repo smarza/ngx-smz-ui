@@ -1,7 +1,8 @@
 import { AuthenticationState, AuthenticationStateModel } from './authentication.state';
-import { Selector, createSelector } from '@ngxs/store';
+import { Selector, Store, createSelector } from '@ngxs/store';
 import { AppStateModel } from '../../app.state';
 import { BaseUserData } from '../../../modules/smz-access/models/base-user-data';
+import { GlobalInjector } from '../../../common/services/global-injector';
 
 export class AuthenticationSelectors {
     @Selector([AuthenticationState])
@@ -43,6 +44,13 @@ export class AuthenticationSelectors {
                 return false;
             }
 
+            const validationSelectors = GlobalInjector.config.rbkUtils.authorization.validationSelectors;
+
+            if (validationSelectors?.hasGroupOfClaimAccess) {
+                const store: Store = GlobalInjector.instance.get(Store);
+                return store.selectSnapshot(validationSelectors.hasGroupOfClaimAccess(claims));
+            }
+
             let hasAccess = true;
 
             const roles: string[] = state.global.authentication.userdata.roles;
@@ -66,6 +74,13 @@ export class AuthenticationSelectors {
                 return false;
             }
 
+            const validationSelectors = GlobalInjector.config.rbkUtils.authorization.validationSelectors;
+
+            if (validationSelectors?.hasAnyOfClaimAccess) {
+                const store: Store = GlobalInjector.instance.get(Store);
+                return store.selectSnapshot(validationSelectors.hasAnyOfClaimAccess(claims));
+            }
+
             let hasAccess = claims?.length > 0 ? false : true;
 
             const roles: string[] = state.global.authentication.userdata.roles;
@@ -86,8 +101,28 @@ export class AuthenticationSelectors {
     @Selector([AuthenticationState])
     public static hasClaimAccess(claim: string): any {
         const selector = createSelector([AuthenticationState], (state: AppStateModel) => {
+
             if (state.global.authentication.userdata == null || state.global.authentication.userdata.roles == null) {
                 return false;
+            }
+
+            if (GlobalInjector.config.debugMode) {
+                console.log(`> hasClaimAccess('${claim}')...`)
+            }
+
+            const validationSelectors = GlobalInjector.config.rbkUtils.authorization.validationSelectors;
+
+            if (validationSelectors?.hasClaimAccess) {
+
+                const store: Store = GlobalInjector.instance.get(Store);
+
+                const hasClaimAccess = store.selectSnapshot(validationSelectors.hasClaimAccess(claim));
+
+                if (GlobalInjector.config.debugMode) {
+                    console.log(`> calling customized hasClaimAccess('${claim}') => '${hasClaimAccess}'`)
+                }
+
+                return hasClaimAccess;
             }
 
             return state.global.authentication.userdata.roles.includes(claim);

@@ -134,7 +134,7 @@ export interface SmzDialogCallbacks<T>
     onCancel?: () => void;
     onClose?: () => void;
     onSaveAction?: any;
-    postProcessResponse?: (data: T) => any
+    postProcessResponse?: (data: T, dialog: SmzDialog<T>) => T
 
 }
 
