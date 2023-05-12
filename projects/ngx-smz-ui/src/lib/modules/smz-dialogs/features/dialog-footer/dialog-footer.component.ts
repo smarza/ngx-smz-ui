@@ -22,6 +22,7 @@ import { GlobalInjector } from '../../../../common/services/global-injector';
     encapsulation: ViewEncapsulation.None,
 })
 export class DialogFooterComponent implements OnInit {
+    public isAnyButtonExecutionInProgress = false;
 
     constructor(
         public refService: DynamicDialogRef,
@@ -36,18 +37,35 @@ export class DialogFooterComponent implements OnInit {
     }
 
     public close(): void {
+        if (this.isAnyButtonExecutionInProgress) {
+            return;
+        }
+
+        this.isAnyButtonExecutionInProgress = true;
+
         if (this.dialogConfig.data?.callbacks?.onCancel != null) {
             this.dialogConfig.data.callbacks.onCancel();
         }
+
+        this.isAnyButtonExecutionInProgress = false;
 
         this.refService.close();
     }
 
     public confirm(): void {
 
+        if (this.isAnyButtonExecutionInProgress) {
+            return;
+        }
+
+        this.isAnyButtonExecutionInProgress = true;
+
         const context = this.dialogConfig.data._context;
 
-        if (context.builtInButtons.confirmDependsOnValidation && !this.onSubmit()) return;
+        if (context.builtInButtons.confirmDependsOnValidation && !this.onSubmit()) {
+            this.isAnyButtonExecutionInProgress = false;
+            return;
+        }
 
         const response =  this.responsePostProcesses();
 
@@ -56,6 +74,7 @@ export class DialogFooterComponent implements OnInit {
         }
 
         setTimeout(() => {
+            this.isAnyButtonExecutionInProgress = false;
             this.refService.close();
         }, 0);
 
@@ -107,7 +126,6 @@ export class DialogFooterComponent implements OnInit {
                 .filter(x => x.type === 'component' || x.type === 'table')
                 .forEach(feature => {
                     const componentFeature = feature.data as ComponentData;
-                    console.log(1);
                     const injected = this.injectComponent.getComponent(componentFeature.componentId);
 
                     if (GlobalInjector.config.debugMode) {
@@ -117,12 +135,9 @@ export class DialogFooterComponent implements OnInit {
                     }
 
                     if (injected != null) {
-                        console.log(2);
                         const instance = injected.instance as ComponentDataBase;
-                        console.log('instance', instance);
 
                         if (instance != null) {
-                            debugger;
                             if (instance.isValid != null && instance.isValid === false) {
                                 if (instance.onValidationError$ != null) {
                                     instance.onValidationError$.next(true);
@@ -148,11 +163,17 @@ export class DialogFooterComponent implements OnInit {
     }
 
     public ok(): void {
+        if (this.isAnyButtonExecutionInProgress) {
+            return;
+        }
 
-        const config = this.dialogConfig.data;
+        this.isAnyButtonExecutionInProgress = true;
 
         const context = this.dialogConfig.data._context;
-        if (context.builtInButtons.okDependsOnValidation && !this.onSubmit()) return;
+        if (context.builtInButtons.okDependsOnValidation && !this.onSubmit()) {
+            this.isAnyButtonExecutionInProgress = false;
+            return;
+        }
 
         const response =  this.responsePostProcesses();
 
@@ -161,11 +182,18 @@ export class DialogFooterComponent implements OnInit {
         }
 
         setTimeout(() => {
+            this.isAnyButtonExecutionInProgress = false;
             this.refService.close();
         }, 0);
     }
 
     public save(): void {
+
+        if (this.isAnyButtonExecutionInProgress) {
+            return;
+        }
+
+        this.isAnyButtonExecutionInProgress = true;
 
         if (GlobalInjector.config.debugMode) {
             console.groupCollapsed('Dialog Save Pressed:');
@@ -175,7 +203,10 @@ export class DialogFooterComponent implements OnInit {
         }
 
         const context = this.dialogConfig.data._context;
-        if (context.builtInButtons.saveDependsOnValidation && !this.onSubmit()) return;
+        if (context.builtInButtons.saveDependsOnValidation && !this.onSubmit()) {
+            this.isAnyButtonExecutionInProgress = false;
+            return;
+        }
 
         this.dialogConfig.data._context.isGlobalDisabled = true;
         this.dialogConfig.data._context.isLoading = true;
@@ -228,6 +259,8 @@ export class DialogFooterComponent implements OnInit {
                         }
                     });
 
+                    this.isAnyButtonExecutionInProgress = false;
+
                     return err;
                 }))
                 .subscribe(() => {
@@ -240,6 +273,7 @@ export class DialogFooterComponent implements OnInit {
                     this.dialogConfig.data._context.isLoading = false;
                     this.dialogConfig.data._context.apiErrors = [];
 
+                    this.isAnyButtonExecutionInProgress = false;
                     this.refService.close();
                 });
         }
@@ -252,16 +286,26 @@ export class DialogFooterComponent implements OnInit {
 
     public customClick(button: SmzDialogCustomButton<any>): void {
 
+        if (this.isAnyButtonExecutionInProgress) {
+            return;
+        }
+
+        this.isAnyButtonExecutionInProgress = true;
+
         if (button.blockUi != null) {
             this.customClickWithBlockUi(button);
         }
         else {
-            if (button.dependsOnValidation && !this.onSubmit()) return;
+            if (button.dependsOnValidation && !this.onSubmit()) {
+                this.isAnyButtonExecutionInProgress = false;
+                return;
+            }
 
-            const config = this.dialogConfig.data;
             const response =  this.responsePostProcesses();
 
             button.onClick(response);
+
+            this.isAnyButtonExecutionInProgress = false;
 
             if (button.closeDialog) {
                 this.refService.close();

@@ -29,14 +29,14 @@ export const DialogsDemo: { [key: string]: () => void } = {
         .setLayout('EXTRA_SMALL', 'col-12')
         .setLayout('EXTRA_LARGE', 'col-8')
         .postProcessResponse((data: any, config: SmzDialog<any>): any => {
-          console.log('---- postProcessResponse');
-          console.log('---- data', data);
-          console.log('---- config', config);
+          console.log('     ---- postProcessResponse');
+          // console.log('     ---- data', data);
+          // console.log('     ---- config', config);
 
           const fileInput = getFormInputFromDialog<SmzFileControl>('file', config);
           const base64 = fileInput._base64;
 
-          console.log('---- fileInput', fileInput);
+          // console.log('     ---- fileInput', fileInput);
 
           return { ...data, file: base64 };
         })
@@ -46,7 +46,7 @@ export const DialogsDemo: { [key: string]: () => void } = {
               .useDateAndTime()
               .group
           .dropdown('input1', 'I\'m required', [{ id: '1', name: 'Option 1'}, { id: '2', name: 'Option 2'}, { id: '3', name: 'Option 3'}])
-              .validators().required()
+              // .validators().required()
               .group
           .file('file', 'Confirmação')
               .useGlobalLoader()

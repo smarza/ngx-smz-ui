@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
@@ -6,7 +6,7 @@ import { BehaviorSubject } from 'rxjs';
   template: `Component Works With Error Listener!!
   <ng-container *ngIf="onValidationError$ | async as onValidationError">
     <div class="grid grid-nogutter items-center justify-end w-full">
-      <span ngIf="onValidationError" style="color: red"> onValidationError Triggered</span>
+      <span *ngIf="onValidationError" style="color: red"> onValidationError Triggered</span>
     </div>
   </ng-container>
   `,
@@ -16,9 +16,9 @@ import { BehaviorSubject } from 'rxjs';
 export class DemoInjectable5Component {
   public isValid = true;
   public onValidationError$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
+  public test = '-';
 
   constructor() {
   }
-
 
 }
