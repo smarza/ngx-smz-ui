@@ -93,7 +93,7 @@ export class FileUploadComponent {
         this.errors = [];
         this.input._file = null;
         this.input._fileName = null;
-        this.input._base64 = null;
+        this.input.base64 = null;
         this.selectChange.emit([]);
         this.form.controls[this.input.propertyName].setValue(null, { emitEvent });
 
@@ -111,7 +111,7 @@ export class FileUploadComponent {
 
             const reader = new FileReader();
 
-            this.input._base64 = null;
+            this.input.base64 = null;
 
             cdf.markForCheck();
 
@@ -120,7 +120,7 @@ export class FileUploadComponent {
             }
 
             reader.onload = (event: ProgressEvent<FileReader>): void => {
-                this.input._base64 = event.target.result as string;
+                this.input.base64 = event.target.result as string;
 
                 this.input._file = file;
                 this.input._fileName = file.name;
@@ -145,7 +145,7 @@ export class FileUploadComponent {
             this.input['hasFile'] = null;
             this.input._file = null;
             this.input._fileName = null;
-            this.input._base64 = null;
+            this.input.base64 = null;
             this.input._fileType = null;
             this.input._fileExtension = null;
             this.form.controls[this.input.propertyName].setValue(null, { emitEvent });

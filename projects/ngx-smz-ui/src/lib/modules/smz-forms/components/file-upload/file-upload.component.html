@@ -32,7 +32,7 @@
                     <ng-container *ngSwitchCase="'image'">
 
                         <!-- THUMBNAIL DE IMAGENS -->
-                        <img *ngIf="input._base64" class="upload_field-img mr-3" [src]="input._base64 | safeUrl"/>
+                        <img *ngIf="input.base64" class="upload_field-img mr-3" [src]="input.base64 | safeUrl"/>
 
                         <!-- ZOOM PARA IMAGENS -->
                         <div class="upload_field__actions">
@@ -124,12 +124,12 @@
 
     <!-- VISUALIZAÇÃO FULLSCREEN DE PDF -->
     <ng-container *ngIf="input._fileExtension === '.pdf'; else imageTemplate">
-        <iframe *ngIf="input._base64" [src]="input._base64 | safeUrl" class="animate__animated animate__zoomIn animate__faster" width="100%" height="100%" frameborder="0"></iframe>
+        <iframe *ngIf="input.base64" [src]="input.base64 | safeUrl" class="animate__animated animate__zoomIn animate__faster" width="100%" height="100%" frameborder="0"></iframe>
     </ng-container>
 
     <!-- VISUALIZAÇÃO FULLSCREEN DE IMAGENS -->
     <ng-template #imageTemplate>
-        <img *ngIf="input._base64" class="animate__animated animate__zoomIn animate__faster" [src]="input._base64 | safeUrl" height="100%" width="100%"/>
+        <img *ngIf="input.base64" class="animate__animated animate__zoomIn animate__faster" [src]="input.base64 | safeUrl" height="100%" width="100%"/>
     </ng-template>
 
     <!-- ICONE DE SAIR DO FULLSCREEN -->

@@ -235,7 +235,7 @@ export interface SmzFileControl extends SmzFormsBaseControl
     shortenSeparator?: string;
     useGlobalLoader?: boolean;
     _file?: File;
-    _base64?: string;
+    base64?: string;
     _fileName?: string;
     _fileExtension?: string;
     _fileType?: string;

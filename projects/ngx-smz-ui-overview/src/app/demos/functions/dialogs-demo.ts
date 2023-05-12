@@ -25,23 +25,20 @@ export const DialogsDemo: { [key: string]: () => void } = {
   [DemoKeys.DIALOGS_COMPONENT_FORM]: () => {
     service.open(
       new SmzDialogBuilder<any>()
+        .debugMode()
         .setTitle(`Header With Title Demo`)
         .setLayout('EXTRA_SMALL', 'col-12')
         .setLayout('EXTRA_LARGE', 'col-8')
         .postProcessResponse((data: any, config: SmzDialog<any>): any => {
-          console.log('     ---- postProcessResponse');
-          // console.log('     ---- data', data);
-          // console.log('     ---- config', config);
-
           const fileInput = getFormInputFromDialog<SmzFileControl>('file', config);
-          const base64 = fileInput._base64;
-
-          // console.log('     ---- fileInput', fileInput);
-
+          const base64 = fileInput.base64;
           return { ...data, file: base64 };
         })
         .form()
           .group()
+            .text('name', 'Nome')
+              .validators().required()
+              .group
             .calendar('date', 'Agendamento')
               .useDateAndTime()
               .group

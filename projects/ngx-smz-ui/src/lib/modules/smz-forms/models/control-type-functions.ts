@@ -110,7 +110,7 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
     },
     [SmzControlType.FILE]: {
         initialize: (input: SmzFileControl) => {
-            input._base64 = null;
+            input.base64 = null;
             input._clearMethod = null;
             input._file = null;
             input._fileName = null;
@@ -141,7 +141,7 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
         getValue: (form: UntypedFormGroup, input: SmzFileControl, flattenResponse: boolean) =>
         {
             // const value = input._file;
-            const value = input.outputFormat == null || input.outputFormat === 'base64' ? input._base64 : input._file;
+            const value = input.outputFormat == null || input.outputFormat === 'base64' ? input.base64 : input._file;
 
             // console.log('getValue FILE form value', form.get(input.propertyName).value);
             // console.log('getValue _file', input._file);
