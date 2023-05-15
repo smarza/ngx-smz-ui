@@ -160,7 +160,7 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
     const hasSelection = this.selection != null;
     const hasItems = this.treeItems != null;
 
-    if (this.state.isDebug) {
+    if (this.state?.isDebug) {
       console.log('-------------------');
       console.log('itemsHaveChanged', itemsHaveChanged, changes.items?.currentValue);
       console.log('selectionHasChanged', selectionHasChanged, changes.selection?.currentValue);

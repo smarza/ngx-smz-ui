@@ -37,7 +37,7 @@ export class SmzDocumentViewerComponent implements OnInit, AfterViewInit, OnDest
     {
         this.documentService.setPaperElement(this.paperElement);
 
-        if (this.state.isDebug) {
+        if (this.state?.isDebug) {
             console.log('Document State', this.state);
           }
     }
