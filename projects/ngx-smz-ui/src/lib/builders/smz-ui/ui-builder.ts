@@ -189,9 +189,9 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
                 claims: {},
                 tenants: {},
                 validationSelectors: {
-                    hasGroupOfClaimAccess: AuthenticationSelectors.hasGroupOfClaimAccess,
-                    hasAnyOfClaimAccess: AuthenticationSelectors.hasAnyOfClaimAccess,
-                    hasClaimAccess: AuthenticationSelectors.hasClaimAccess
+                    hasGroupOfClaimAccess: null,
+                    hasAnyOfClaimAccess: null,
+                    hasClaimAccess: null
                 },
             }
         },
