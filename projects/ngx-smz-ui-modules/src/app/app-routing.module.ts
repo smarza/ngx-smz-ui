@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '',
     canActivate: [RbkAuthGuard, RbkDatabaseStateGuard],
     data: {
-      smzUiRoot: true,
+      layout:  {mode: 'full', hideFooter: false, contentPadding: '0'},
       requiredStates: [
         UI_DEFINITIONS_STATE_NAME
       ]
@@ -17,6 +17,18 @@ const routes: Routes = [
       { path: HOME_PATH, loadChildren: () => import('./ui/features/home/home.module').then(m => m.HomeModule) },
       { path: '', redirectTo: HOME_PATH, pathMatch: 'full' }
     ]
+  },
+  {
+    path: '',
+    canActivate: [RbkAuthGuard, RbkDatabaseStateGuard],
+    data: {
+      smzUiRoot: true,
+      layout:  {mode: 'full', hideFooter: false, contentPadding: '3em'},
+      requiredStates: [
+        UI_DEFINITIONS_STATE_NAME
+      ]
+    },
+    children: []
   },
 ];
 

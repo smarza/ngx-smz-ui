@@ -55,7 +55,7 @@ export function runAccessRoutesInitialization(router: Router) {
         else {
             // publicar rotas na raiz.
             console.warn(`There is no path on the Project Route with the smzUiRoot definition. This can cause redirect issues. To solve, add a flag smzUiRoot: 'true' on the data property of you main route; The one with HomeModule and UiDefinition Required. `);
-            router.resetConfig([{ path: '', children: newRoutes, data: {}, canActivate: [RbkAuthGuard], }, ...router.config]);
+            router.resetConfig([{ path: '', children: newRoutes, data: { layout: { mode: 'full', contendPadding: '30em' },}, canActivate: [RbkAuthGuard], }, ...router.config]);
         }
 
     }

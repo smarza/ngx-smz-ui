@@ -56,6 +56,13 @@ export class RouterDataListenerService
               const layout = r.layout;
 
               if (currentRouteData == null && layout !== null) {
+
+                if (GlobalInjector.config.layouts.debugMode) {
+                  console.log('> currentRouteData', currentRouteData);
+                  console.log('   layout', layout);
+                  console.log('   applying', layout);
+                }
+
                 currentRouteData = layout;
               }
               else {
@@ -117,7 +124,10 @@ export class RouterDataListenerService
   private mergeLayoutDatas(before: SmzRouteData, current: SmzRouteData): SmzRouteData
   {
     if (GlobalInjector.config.layouts.debugMode) {
-      console.log(`merging`, before, current, mergeClone(before, current));
+      console.log('> mergeLayoutDatas');
+      console.log('   before', before);
+      console.log('   current', current);
+      console.log(`   merging`, before, current, mergeClone(before, current));
     }
 
     return mergeClone(before, current);

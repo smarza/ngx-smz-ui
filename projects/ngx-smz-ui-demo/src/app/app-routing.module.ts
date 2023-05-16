@@ -74,10 +74,6 @@ const routes: Routes = [
     loadChildren: () => import('@features/signals/signals-demo.module').then(m => m.SignalsDemoModule),
   },
   {
-    path: 'nested',
-    loadChildren: () => import('@features/demo-nested-routes/demo-nested-routes.module').then(m => m.DemoNestedRoutesModule),
-  },
-  {
     path: 'resolvers',
     loadChildren: () => import('@features/demo-resolvers/demo-resolvers.module').then(m => m.DemoResolversRoutesModule),
   },
@@ -88,10 +84,14 @@ const routes: Routes = [
     data: {
       layout: {
         mode: 'full',
-        contentPadding: '2em'
+        contentPadding: '0'
       },
     },
     children: [
+      {
+        path: 'nested',
+        loadChildren: () => import('@features/demo-nested-routes/demo-nested-routes.module').then(m => m.DemoNestedRoutesModule),
+      },
       {
         path: '',
         component: DemoNestedLayout2Component,

@@ -6,15 +6,6 @@ import { SmzRouteData } from 'ngx-smz-ui';
 import { DemoNestedLayout1Component } from './demo-nested-layout-1.component';
 import { DemoNestedLayout2Component } from './demo-nested-layout-2.component';
 
-const data: SmzRouteData = {
-    layout: {
-      mode: 'full',
-    },
-    title: 'Demo Nested Routes',
-    appArea: 'demo-table',
-    clearReusableRoutes: true,
-    requiredStates: []
-  };
 
 const routes: Routes = [
     {
@@ -27,13 +18,31 @@ const routes: Routes = [
                 path: '',
                 component: DemoNestedLayout1Component,
                 canActivate: [RbkAuthGuard],
-                data
+                data: {
+                    layout: {
+                      mode: 'full',
+                      contentPadding: '10em'
+                    },
+                    title: 'Demo Nested Routes 1',
+                    appArea: 'demo-table',
+                    clearReusableRoutes: true,
+                    requiredStates: []
+                }
             },
             {
                 path: 'layout',
                 component: DemoNestedLayout2Component,
                 canActivate: [RbkAuthGuard],
-                data
+                data: {
+                    layout: {
+                      mode: 'full',
+                      contentPadding: '20em'
+                    },
+                    title: 'Demo Nested Routes 2',
+                    appArea: 'demo-table',
+                    clearReusableRoutes: true,
+                    requiredStates: []
+                }
             },
         ]
     }
