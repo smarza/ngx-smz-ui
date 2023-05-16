@@ -14,6 +14,7 @@ import { SmzUiLayoutsBuilder } from './layouts-builder';
 import { SmzLoader } from '../../modules/smz-layouts/core/models/loaders';
 import { AuthenticationSelectors } from '../../state/global/authentication/authentication.selectors';
 import { SmzUiErrorsPageBuilder } from './errors-page-builder';
+import { TenantAuthenticationSelectors } from '../../state/global/authentication/tenant-authentication.selectors';
 
 export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
     protected that = this;
@@ -189,9 +190,9 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
                 claims: {},
                 tenants: {},
                 validationSelectors: {
-                    hasGroupOfClaimAccess: null,
-                    hasAnyOfClaimAccess: null,
-                    hasClaimAccess: null
+                    hasGroupOfClaimAccess: TenantAuthenticationSelectors.hasGroupOfClaimAccess,
+                    hasAnyOfClaimAccess: TenantAuthenticationSelectors.hasAnyOfClaimAccess,
+                    hasClaimAccess: TenantAuthenticationSelectors.hasClaimAccess
                 },
             }
         },
