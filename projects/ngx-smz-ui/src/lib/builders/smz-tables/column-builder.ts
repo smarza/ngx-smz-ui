@@ -1,5 +1,5 @@
 import { ObjectUtils } from 'primeng/utils';
-import { SmzContentType, SmzDataTransform, SmzExportableContentSource, SmzExportableContentType, SmzIconContent } from '../../modules/smz-tables/models/content-types';
+import { SmzContentType, SmzDataTransform, SmzExportableContentType, SmzIconContent } from '../../modules/smz-tables/models/content-types';
 import { SmzEditableType } from '../../modules/smz-tables/models/editable-types';
 import { SmzFilterType } from '../../modules/smz-tables/models/filter-types';
 import { SmzTableColumn } from '../../modules/smz-tables/models/table-column';
@@ -44,6 +44,7 @@ export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T>> {
         hasSubTotal: false,
         content: {
           type: type,
+          contentStyleClass: 'grid grid-nogutter items-center justify-start gap-2',
           styleClass: '',
           data: { matches: [] },
           ngStyle: {},
@@ -103,6 +104,16 @@ export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T>> {
 
   public addStyles(styleClass: string): T {
     this._column.content.styleClass = styleClass;
+    return this.that;
+  }
+
+  public overideContentStyleClass(styleClass: string): T {
+    this._column.content.contentStyleClass = styleClass;
+    return this.that;
+  }
+
+  public addTooltip(tooltip: (item: any) => string): T {
+    this._column.content.tooltip = tooltip;
     return this.that;
   }
 

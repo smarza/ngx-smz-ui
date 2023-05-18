@@ -291,7 +291,7 @@
                                     <ng-template pTemplate="input">
                                         <ng-container [ngSwitch]="col.editable.type">
                                             <ng-container *ngSwitchCase="editableTypes.none">
-                                                <smz-table-content class="cursor-default" [col]="col" [contentTypes]="contentTypes" [item]="item" [rowIndex]="rowIndex" [contentTemplate]="contentTemplate"></smz-table-content>
+                                                <smz-table-content class="cursor-default" [ngClass]="col.content.contentStyleClass" [col]="col" [contentTypes]="contentTypes" [item]="item" [rowIndex]="rowIndex" [contentTemplate]="contentTemplate"></smz-table-content>
                                             </ng-container>
 
                                             <ng-container *ngSwitchCase="editableTypes.custom">
@@ -387,7 +387,11 @@
 
                                     <!-- CELULAR COM CONTEÚDO -->
                                     <ng-template pTemplate="output">
-                                        <smz-table-content [col]="col" [contentTypes]="contentTypes" [item]="item" [rowIndex]="rowIndex" [contentTemplate]="contentTemplate"></smz-table-content>
+                                        <smz-table-content
+                                            [col]="col"
+                                            [pTooltip]="col.content.tooltip != null ? col.content.tooltip(item) : null"
+                                            [ngClass]="col.content.contentStyleClass" [contentTypes]="contentTypes" [item]="item" [rowIndex]="rowIndex" [contentTemplate]="contentTemplate">
+                                        </smz-table-content>
                                     </ng-template>
                                 </p-cellEditor>
 

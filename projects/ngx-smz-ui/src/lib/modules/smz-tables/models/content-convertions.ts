@@ -11,6 +11,7 @@ interface ContentConvertionData {
   property: (input: InputConfig) => string;
   content: (input: InputConfig) => {
     type: SmzContentType;
+    contentStyleClass: string;
     styleClass: string;
     data?: SmzContentTypes;
     ngStyle: { [style: string]: any } | null;
@@ -37,7 +38,7 @@ export const ContentConvertions: ContentConvertionData[] = [
     isOrderable: true,
     isGlobalFilterable: true,
     filterType: SmzFilterType.TEXT,
-    content: () => ({ type: SmzContentType.TEXT, styleClass: '', data: null, ngStyle: {}, exportAs: null, exportSource: SmzExportableContentSource.DATA }),
+    content: () => ({ type: SmzContentType.TEXT, contentStyleClass: 'grid grid-nogutter items-center justify-start gap-2', styleClass: '', data: null, ngStyle: {}, exportAs: null, exportSource: SmzExportableContentSource.DATA }),
     editable: (input: SmzControlTypes) => (
       {
         property: input.propertyName,
@@ -54,7 +55,7 @@ export const ContentConvertions: ContentConvertionData[] = [
     isOrderable: false,
     isGlobalFilterable: true,
     filterType: SmzFilterType.MULTI_SELECT,
-    content: () => ({ type: SmzContentType.TEXT, styleClass: '', data: null, ngStyle: {}, exportAs: null, exportSource: SmzExportableContentSource.DATA }),
+    content: () => ({ type: SmzContentType.TEXT, contentStyleClass: 'grid grid-nogutter items-center justify-start gap-2', styleClass: '', data: null, ngStyle: {}, exportAs: null, exportSource: SmzExportableContentSource.DATA }),
     editable: (input: SmzDropDownControl<never>) => (
       {
         property: input.propertyName,
@@ -71,7 +72,7 @@ export const ContentConvertions: ContentConvertionData[] = [
     isOrderable: true,
     isGlobalFilterable: true,
     filterType: SmzFilterType.TEXT,
-    content: () => ({ type: SmzContentType.TEXT, styleClass: '', data: null, ngStyle: {}, exportAs: null, exportSource: SmzExportableContentSource.DATA }),
+    content: () => ({ type: SmzContentType.TEXT, contentStyleClass: 'grid grid-nogutter items-center justify-start gap-2', styleClass: '', data: null, ngStyle: {}, exportAs: null, exportSource: SmzExportableContentSource.DATA }),
     editable: (input: SmzControlTypes) => (
       {
         property: input.propertyName,
@@ -88,7 +89,7 @@ export const ContentConvertions: ContentConvertionData[] = [
     isOrderable: true,
     isGlobalFilterable: true,
     filterType: SmzFilterType.DATE,
-    content: () => ({ type: SmzContentType.CALENDAR, styleClass: '', data: { format: 'shortDate' }, ngStyle: {}, exportAs: null, exportSource: SmzExportableContentSource.DATA }),
+    content: () => ({ type: SmzContentType.CALENDAR, contentStyleClass: 'grid grid-nogutter items-center justify-start gap-2', styleClass: '', data: { format: 'shortDate' }, ngStyle: {}, exportAs: null, exportSource: SmzExportableContentSource.DATA }),
     editable: (input: SmzControlTypes) => (
       {
         property: input.propertyName,
@@ -105,7 +106,7 @@ export const ContentConvertions: ContentConvertionData[] = [
     isOrderable: true,
     isGlobalFilterable: true,
     filterType: SmzFilterType.BOOLEAN,
-    content: () => ({ type: SmzContentType.ICON, styleClass: '', data: {
+    content: () => ({ type: SmzContentType.ICON, contentStyleClass: 'grid grid-nogutter items-center justify-start', styleClass: '', data: {
       matches: [
         { icon: 'fa-solid fa-toggle-on', class: 'text-green-500', value: true },
         { icon: 'fa-solid fa-toggle-off', class: 'text-gray-300', value: false }
@@ -127,7 +128,7 @@ export const ContentConvertions: ContentConvertionData[] = [
     isOrderable: true,
     isGlobalFilterable: true,
     filterType: SmzFilterType.BOOLEAN,
-    content: () => ({ type: SmzContentType.ICON, styleClass: '', data: {
+    content: () => ({ type: SmzContentType.ICON, contentStyleClass: 'grid grid-nogutter items-center justify-start', styleClass: '', data: {
       matches: [
         { icon: 'fa-solid fa-toggle-on', class: 'text-green-500', value: true },
         { icon: 'fa-solid fa-toggle-off', class: 'text-gray-300', value: false }
@@ -149,7 +150,7 @@ export const ContentConvertions: ContentConvertionData[] = [
     isOrderable: true,
     isGlobalFilterable: true,
     filterType: SmzFilterType.NUMERIC,
-    content: () => ({ type: SmzContentType.TEXT, styleClass: '', data: null, ngStyle: {}, exportAs: null, exportSource: SmzExportableContentSource.DATA }),
+    content: () => ({ type: SmzContentType.TEXT, contentStyleClass: 'grid grid-nogutter items-center justify-start gap-2', styleClass: '', data: null, ngStyle: {}, exportAs: null, exportSource: SmzExportableContentSource.DATA }),
     editable: (input: SmzControlTypes) => (
       {
         property: input.propertyName,

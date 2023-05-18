@@ -68,6 +68,10 @@ export interface SmzTableColumn {
      */
     type: SmzContentType;
     /**
+     * Styles Classes that will be inserted in the smz-table-content div of the cell
+     */
+    contentStyleClass: string;
+    /**
      * Styles Classes that will be inserted in the main div of the cell
      */
     styleClass: string;
@@ -79,6 +83,10 @@ export interface SmzTableColumn {
      * The object that will be applied to the ngStyle of the column
      */
     ngStyle: { [style: string]: any } | null;
+    /**
+     * Callback to get tooltip of the cell
+     */
+    tooltip?: (item: any) => string;
 
   };
 
