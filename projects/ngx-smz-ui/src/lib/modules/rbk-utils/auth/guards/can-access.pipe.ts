@@ -13,6 +13,10 @@ export class RbkCanAccessPipe implements PipeTransform {
     }
 
     public transform(claim: string): boolean {
+        if (claim == null) {
+            return true;
+        }
+
         const validationSelectors = GlobalInjector.config.rbkUtils.authorization.validationSelectors;
         return this.store.selectSnapshot(validationSelectors.hasClaimAccess(claim));
     }

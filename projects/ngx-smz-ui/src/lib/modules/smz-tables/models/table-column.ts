@@ -142,6 +142,17 @@ export interface SmzTableContentAction {
   callback: (item: any) => void;
 }
 
+export interface SmzTableCaptionButton {
+  label: string;
+  icon: string;
+  tooltip: () => string;
+  styleClass: string;
+  visibilityCondition: () => boolean;
+  activationCondition: () => boolean;
+  callback: () => void;
+  claimsWithAccess: string;
+}
+
 export interface SmzTableContextColumn extends SmzTableColumn { }
 
 

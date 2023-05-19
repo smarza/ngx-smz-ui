@@ -2,7 +2,7 @@ import { FilterMetadata } from 'primeng/api';
 import { Observable } from 'rxjs';
 import { SmzMenuItem } from '../../smz-menu/models/smz-menu-item';
 import { EditableChanges } from './editable-model';
-import { SmzTableColumn, SmzTableContextColumn } from "./table-column";
+import { SmzTableCaptionButton, SmzTableColumn, SmzTableContextColumn } from "./table-column";
 
 export interface SmzTableState {
   source?: {
@@ -189,6 +189,10 @@ export interface SmzTableState {
      * Defines if the toolbar is aligned to the left or to the right
      */
     toolbarAlignment?: "start" | "end";
+    /**
+     * Create buttons in the catpion section
+     */
+    buttons: SmzTableCaptionButton[];
     /**
      * Allows the end user to manually filter which columns are visible or not
      */

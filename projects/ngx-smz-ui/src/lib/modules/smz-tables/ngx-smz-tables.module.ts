@@ -36,6 +36,8 @@ import { SmzSincronizeTablePipe } from './pipes/sincronize-table.pipe';
 import { SmzTableContentComponent } from './components/table-content/table-content.component';
 import { NgVarModule } from '../../common/directives/ng-var/ng-var.module';
 import { SmzTableContentActionsComponent } from './components/table-content-actions/table-content-actions.component';
+import { SmzTableCaptionButtonsComponent } from './components/table-caption-buttons/table-caption-buttons.component';
+import { RbkAccessControlModule } from '../rbk-utils/public-api';
 
 @NgModule({
     declarations: [
@@ -53,7 +55,8 @@ import { SmzTableContentActionsComponent } from './components/table-content-acti
         ValidationMessagesPipe,
         SmzSincronizeTablePipe,
         SmzTableContentComponent,
-        SmzTableContentActionsComponent
+        SmzTableContentActionsComponent,
+        SmzTableCaptionButtonsComponent
     ],
     imports: [
         CommonModule,
@@ -78,7 +81,8 @@ import { SmzTableContentActionsComponent } from './components/table-content-acti
         InputNumberModule,
         NgxSmzMenuModule,
         ToggleButtonModule,
-        NgVarModule
+        NgVarModule,
+        RbkAccessControlModule
     ],
     exports: [
         SmzTableComponent,

@@ -2,7 +2,7 @@ import { Store } from '@ngxs/store';
 import { flatten, sortBy } from 'lodash-es';
 import { GlobalInjector } from '../../../lib/common/services/global-injector';
 import { SmzMenuItem } from '../../modules/smz-menu/models/smz-menu-item';
-import { SmzTableState, SmzTableViewportState, SmzTableViewportStateData } from '../../modules/smz-tables/models/table-state';
+import { SmzTableState } from '../../modules/smz-tables/models/table-state';
 import { StateBuilderFunctions } from './state-builder-functions';
 import { SmzColumnCollectionBuilder } from './column-builder';
 import { SmzMenuTableBuilder } from './menu-builder';
@@ -16,6 +16,7 @@ import { Observable, filter } from 'rxjs';
 import { SmzTableExcelBuilder } from './excel-builder';
 import { UUID } from 'angular2-uuid';
 import { SmzTableViewportBuilder } from './viewport';
+import { SmzCaptionButtonsBuilder } from './caption-buttons-builder';
 
 // SCROLL TRUE =>
 //   MIN-WIDTH PODE TER PX
@@ -131,7 +132,8 @@ export class SmzTableBuilder {
       },
       isVisible: false,
       title: null,
-      toolbarAlignment: 'start'
+      toolbarAlignment: 'start',
+      buttons: []
     },
     header: {
       isVisible: true
@@ -381,6 +383,10 @@ export class SmzTableBuilder {
     this._state.caption.isVisible = true;
     this._state.caption.toolbarAlignment = alignment;
     return this;
+  }
+
+  public buttons(): SmzCaptionButtonsBuilder {
+    return new SmzCaptionButtonsBuilder(this);
   }
 
   /**

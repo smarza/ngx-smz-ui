@@ -62,6 +62,9 @@
                 <div class="grid grid-nogutter justify-start items-center gap-2">
                     <span class="col database-title">{{ state.caption.title }}</span>
                     <ng-container *ngTemplateOutlet="captionTemplate; context: { $implicit: dt }"></ng-container>
+
+                    <smz-table-caption-buttons [buttons]="context.state.caption.buttons"></smz-table-caption-buttons>
+
                     <p-multiSelect
                         #columnMultiselect
                         *ngIf="context.state.caption.columnVisibility.showDropdownSelector"

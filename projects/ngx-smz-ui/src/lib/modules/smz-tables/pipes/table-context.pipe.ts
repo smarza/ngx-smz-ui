@@ -126,6 +126,7 @@ export class SmzTableContextPipe implements PipeTransform {
         isVisible: false,
         title: '',
         toolbarAlignment: 'start',
+        buttons: [],
         clearFilters: {
           isButtonVisible: true,
           callback: null
