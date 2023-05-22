@@ -29,7 +29,7 @@ export class ResultsTableComponent implements OnInit {
 
     const headers = this.results.headers == null ? [] : this.results.headers;
 
-    const factory: SmzTableBuilder = new SmzTableBuilder()
+    const factory: SmzTableBuilder<any> = new SmzTableBuilder()
       .setTitle(this.title)
       .enableGlobalFilter()
       .enableClearFilters()
@@ -53,7 +53,7 @@ export class ResultsTableComponent implements OnInit {
         .setNewLineSeparator('<br>')
         .excel
       .columns()
-        .for(headers, (builder: SmzColumnCollectionBuilder, header: any) => (builder
+        .for(headers, (builder: SmzColumnCollectionBuilder<any>, header: any) => (builder
           .text(header.id, header.name)
             .hide(header.hide ?? false)
             .exportAs(SmzExportableContentType.AUTODETECT)

@@ -44,7 +44,7 @@ export class SmzMenuPipe implements PipeTransform {
 
     if (item.conditional?.condition != null) {
 
-        const condition = item.conditional.condition(data);
+        const condition = item.conditional.condition(item.dataMap != null ? item.dataMap(data) : data);
         Reflect.set(item, item.conditional.property ?? 'visible', condition);
         items = [];
     }

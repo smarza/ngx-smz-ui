@@ -8,6 +8,8 @@ import { Observable } from 'rxjs/internal/Observable';
 import { DemoFeatureActions } from '@states/demo/demo.actions';
 import { LARGE_TABLE_DATA } from '../data/large-table';
 import { EditableTablePartialData, EditableTablePartialLevels } from '../data/tables/editable-table-partial-data';
+import { DemoItem } from '@models/demo';
+import { SimpleParentEntity } from '../../../../../../dist/ngx-smz-ui/lib/common/models/simple-named-entity';
 
 const store = GlobalInjector.instance.get(Store);
 
@@ -47,7 +49,7 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
   [DemoKeys.TABLE_MULTI_LANGUAGES]: {
     items$: store.select(DemoFeatureSelectors.all),
     code: () => {
-    return new SmzTableBuilder('entity')
+    return new SmzTableBuilder<DemoItem>('entity')
         .setTitle('Demo Table With Multilanguage en-US')
         .enableClearFilters()
         .enableColumnVisibility()
@@ -61,8 +63,16 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
         .useStrippedStyle()
         .setLocale('en-US')
         .menu()
-          .item('Consultar')
-            .setCallback((event: any) => console.log('---'))
+          .item()
+            .addChild('Ver Histórico')
+              .setCallback((data) => console.log(data))
+              .applyChild()
+            .for(['Button A', 'Button B'], (_, item) =>
+              _
+              .addChild(item)
+                .setCallback((data) => console.log(data))
+                .applyChild()
+            )
             .menu
           .table
       .build()
@@ -417,19 +427,19 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
   [DemoKeys.TABLE_MENU_INLINE]: {
     items$: store.select(DemoFeatureSelectors.all),
     code: () => {
-    return new SmzTableBuilder('entity')
+    return new SmzTableBuilder<any>('entity')
         .setTitle('Demo Inline Menu')
         .menu()
           .useInline('300px')
           .item()
             .setCallback((event: any) => console.log('---', event))
-            .setActivationRule<any>((data) => data.name !== 'Coyote')
+            .setActivationRule((data) => data.name !== 'Coyote')
             .setIcon('fa-solid fa-face-dizzy')
             .setStyles('p-button-help')
             .menu
           .item()
             .setCallback((event: any) => console.log('---', event))
-            .setVisibilityRule<any>((data) => data.name !== 'Coyote')
+            .setVisibilityRule((data) => data.name !== 'Coyote')
             .setIcon('fa-solid fa-star')
             .setStyles('p-button-info')
             .menu

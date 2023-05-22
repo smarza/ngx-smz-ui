@@ -33,9 +33,10 @@ export class SmzMenuTableBuilder<TData, TMappedData> extends SmzBuilderUtilities
 
 }
 
-export class SmzMenuItemTableBuilder<TBuilder, TData, TMappedData = TData> {
+export class SmzMenuItemTableBuilder<TBuilder, TData, TMappedData = TData> extends SmzBuilderUtilities<SmzMenuItemTableBuilder<TBuilder, TData, TMappedData>> {
+  protected that = this;
   constructor(private _builder: TBuilder, private _parent: SmzMenuItemTableBuilder<TBuilder, TData, TMappedData>, private _item: SmzMenuItem) {
-
+    super();
   }
 
   public addChild(label: string, icon: string = null): SmzMenuItemTableBuilder<TBuilder, TData, TMappedData> {
@@ -50,12 +51,12 @@ export class SmzMenuItemTableBuilder<TBuilder, TData, TMappedData = TData> {
 
   public setCallback(callback: (item: TMappedData) => void): SmzMenuItemTableBuilder<TBuilder, TData, TMappedData> {
     this._item.command = callback;
-    return this;
+    return this.that;
   }
 
   public setRedirect(paths: string[]): SmzMenuItemTableBuilder<TBuilder, TData, TMappedData> {
     this._item.routerLink = paths;
-    return this;
+    return this.that;
   }
 
   public setVisibilityRule(callback: (item: TMappedData) => boolean): SmzMenuItemTableBuilder<TBuilder, TData, TMappedData> {
@@ -63,7 +64,7 @@ export class SmzMenuItemTableBuilder<TBuilder, TData, TMappedData = TData> {
       throw Error('You can\'t call \'setVisibilityRule\' in conjunction with setActivationRule');
     }
     this._item.conditional = { condition: callback, property: 'visible' };
-    return this;
+    return this.that;
   }
 
   public setActivationRule(callback: (item: TMappedData) => boolean): SmzMenuItemTableBuilder<TBuilder, TData, TMappedData> {
@@ -71,27 +72,27 @@ export class SmzMenuItemTableBuilder<TBuilder, TData, TMappedData = TData> {
       throw Error('You can\'t call \'setActivationRule\' in conjunction with setVisibilityRule');
     }
     this._item.conditional = { condition: callback, property: 'disabled' };
-    return this;
+    return this.that;
   }
 
   public hide(): SmzMenuItemTableBuilder<TBuilder, TData, TMappedData> {
     this._item.visible = false;
-    return this;
+    return this.that;
   }
 
   public disable(): SmzMenuItemTableBuilder<TBuilder, TData, TMappedData> {
     this._item.disabled = true;
-    return this;
+    return this.that;
   }
 
   public addTransformRule<T>(callback: (item: T) => Partial<MenuItem>): SmzMenuItemTableBuilder<TBuilder, TData, TMappedData> {
     this._item.transforms.push(callback);
-    return this;
+    return this.that;
   }
 
   public setDataMapping(callback: (item: TData) => TMappedData): SmzMenuItemTableBuilder<TBuilder, TData, TMappedData> {
     this._item.dataMap = callback;
-    return this;
+    return this.that;
   }
 
   public askForConfirmation(title: string, message: string): SmzMenuItemTableBuilder<TBuilder, TData, TMappedData> {
@@ -100,7 +101,7 @@ export class SmzMenuItemTableBuilder<TBuilder, TData, TMappedData = TData> {
       message,
       isCritical: false
     };
-    return this;
+    return this.that;
   }
 
   public askForCriticalConfirmation(title: string, message: string): SmzMenuItemTableBuilder<TBuilder, TData, TMappedData> {
@@ -109,17 +110,17 @@ export class SmzMenuItemTableBuilder<TBuilder, TData, TMappedData = TData> {
       message,
       isCritical: true
     };
-    return this;
+    return this.that;
   }
 
   public setIcon(icon: string): SmzMenuItemTableBuilder<TBuilder, TData, TMappedData> {
     this._item.icon = icon;
-    return this;
+    return this.that;
   }
 
   public setStyles(styleClass: string): SmzMenuItemTableBuilder<TBuilder, TData, TMappedData> {
     this._item.styleClass = styleClass;
-    return this;
+    return this.that;
   }
 
   public get menu(): TBuilder {
