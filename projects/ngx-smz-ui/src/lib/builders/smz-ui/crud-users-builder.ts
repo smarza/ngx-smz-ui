@@ -9,12 +9,12 @@ import { SmzAuthorizationUserState } from '../../modules/smz-access/modules/user
 import { SmzGenericMenuBuilder } from '../smz-menu/generic-menu-builder';
 import { SmzMenuItem } from '../../modules/smz-menu/models/smz-menu-item';
 
-export class SmzUiUsersCrudBuilder extends SmzBuilderUtilities<SmzUiUsersCrudBuilder> {
+export class SmzUiUsersCrudBuilder<TData> extends SmzBuilderUtilities<SmzUiUsersCrudBuilder<TData>> {
   protected that = this;
-  private _config: SmzAuthorizationUserState;
+  private _config: SmzAuthorizationUserState<TData>;
   private _menu: MenuCreation;
 
-  constructor(private _builder: SmzUiAuthorizationBuilder, private _state: NgxSmzUiConfig) {
+  constructor(private _builder: SmzUiAuthorizationBuilder<TData>, private _state: NgxSmzUiConfig) {
     super();
 
     this._config = {
@@ -44,43 +44,43 @@ export class SmzUiUsersCrudBuilder extends SmzBuilderUtilities<SmzUiUsersCrudBui
     this._menu = { label: 'Usuários', routerLink: USERS_PAGE_ROUTE, claims: [AuthClaimDefinitions.MANAGE_USERS] };
   }
 
-  public setTitle(title: string): SmzUiUsersCrudBuilder {
+  public setTitle(title: string): SmzUiUsersCrudBuilder<TData> {
     this._config.title = title;
     return this.that;
   }
 
-  public setAvatarPlaceholder(path: string): SmzUiUsersCrudBuilder {
+  public setAvatarPlaceholder(path: string): SmzUiUsersCrudBuilder<TData> {
     this._config.avatarPlaceholderPath = path;
     return this.that;
   }
 
-  public overrideMenu(partial: Partial<MenuCreation> = {}): SmzUiUsersCrudBuilder {
+  public overrideMenu(partial: Partial<MenuCreation> = {}): SmzUiUsersCrudBuilder<TData> {
     this._menu = { ...this._menu, ...partial };
     return this.that;
   }
 
-  public customTable(callback: () => SmzTableBuilder, ignoreDefaultMenu = false): SmzUiUsersCrudBuilder {
+  public customTable(callback: () => SmzTableBuilder<TData>, ignoreDefaultMenu = false): SmzUiUsersCrudBuilder<TData> {
     this._config.table.customBuilder = callback;
     this._config.table.useDefaultMenu = !ignoreDefaultMenu;
     return this.that;
   }
 
-  public addButton(button: SmzMenuItem): SmzUiUsersCrudBuilder {
+  public addButton(button: SmzMenuItem): SmzUiUsersCrudBuilder<TData> {
     this._config.pageActions.push(button);
     return this.that;
   }
 
-  public addButtons(): SmzGenericMenuBuilder<SmzUiUsersCrudBuilder> {
-    return new SmzGenericMenuBuilder<SmzUiUsersCrudBuilder>(this, this._config.pageActions);
+  public addButtons(): SmzGenericMenuBuilder<SmzUiUsersCrudBuilder<TData>> {
+    return new SmzGenericMenuBuilder(this, this._config.pageActions);
   }
 
-  public hide(): SmzUiUsersCrudBuilder {
+  public hide(): SmzUiUsersCrudBuilder<TData> {
     this._menu = null;
     this._config.isVisible = false;
     return this.that;
   }
 
-  public allowUserDeactivation(): SmzUiUsersCrudBuilder {
+  public allowUserDeactivation(): SmzUiUsersCrudBuilder<TData> {
     if (this._config.removalBehavior ===  'deletion') {
       throw Error(`You can't call allowUserDeactivation while using User Deletion Behavior.`);
     }
@@ -89,7 +89,7 @@ export class SmzUiUsersCrudBuilder extends SmzBuilderUtilities<SmzUiUsersCrudBui
     return this.that;
   }
 
-  public allowUserDeletion(): SmzUiUsersCrudBuilder {
+  public allowUserDeletion(): SmzUiUsersCrudBuilder<TData> {
 
     if (this._config.removalBehavior ===  'deactivation') {
       throw Error(`You can't call allowUserDeletion while using User Deactivation Behavior.`);
@@ -99,7 +99,7 @@ export class SmzUiUsersCrudBuilder extends SmzBuilderUtilities<SmzUiUsersCrudBui
     return this.that;
   }
 
-  public get authorization(): SmzUiAuthorizationBuilder {
+  public get authorization(): SmzUiAuthorizationBuilder<TData> {
     this._state.rbkUtils.authorization.users = this._config;
 
     if (this._menu != null) {

@@ -6,7 +6,7 @@ import { NgxSmzUiConfig } from '../../ngx-smz-ui.config';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzUiAuthorizationBuilder } from './authorization-builder';
 
-export class SmzUiClaimsCrudBuilder extends SmzBuilderUtilities<SmzUiClaimsCrudBuilder> {
+export class SmzUiClaimsCrudBuilder<TData> extends SmzBuilderUtilities<SmzUiClaimsCrudBuilder<TData>> {
   protected that = this;
   private _config: {
     title?: string;
@@ -21,7 +21,7 @@ export class SmzUiClaimsCrudBuilder extends SmzBuilderUtilities<SmzUiClaimsCrudB
 
   private _menu: MenuCreation;
 
-  constructor(private _builder: SmzUiAuthorizationBuilder, private _state: NgxSmzUiConfig) {
+  constructor(private _builder: SmzUiAuthorizationBuilder<TData>, private _state: NgxSmzUiConfig) {
     super();
 
     this._config = {
@@ -43,23 +43,23 @@ export class SmzUiClaimsCrudBuilder extends SmzBuilderUtilities<SmzUiClaimsCrudB
     this._menu = { label: 'Permissões', routerLink: CLAIMS_PAGE_ROUTE, claims: [AuthClaimDefinitions.MANAGE_CLAIMS] };
   }
 
-  public setTitle(title: string): SmzUiClaimsCrudBuilder {
+  public setTitle(title: string): SmzUiClaimsCrudBuilder<TData> {
     this._config.title = title;
     return this.that;
   }
 
-  public overrideMenu(partial: Partial<MenuCreation> = {}): SmzUiClaimsCrudBuilder {
+  public overrideMenu(partial: Partial<MenuCreation> = {}): SmzUiClaimsCrudBuilder<TData> {
     this._menu = { ...this._menu, ...partial };
     return this.that;
   }
 
-  public hide(): SmzUiClaimsCrudBuilder {
+  public hide(): SmzUiClaimsCrudBuilder<TData> {
     this._menu = null;
     this._config.isVisible = false;
     return this.that;
   }
 
-  public get authorization(): SmzUiAuthorizationBuilder {
+  public get authorization(): SmzUiAuthorizationBuilder<TData> {
     this._state.rbkUtils.authorization.claims = this._config;
 
     if (this._menu != null) {

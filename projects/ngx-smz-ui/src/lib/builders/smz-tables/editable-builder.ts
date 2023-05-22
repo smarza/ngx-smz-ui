@@ -5,23 +5,23 @@ import { SmzBaseColumnBuilder } from './column-builder';
 import { SmzTableBuilder } from './state-builder';
 
 
-export class SmzEditableTableBuilder {
-  constructor(private _tableBuilder: SmzTableBuilder) {
+export class SmzEditableTableBuilder<TData> {
+  constructor(private _tableBuilder: SmzTableBuilder<TData>) {
     _tableBuilder._state.editable.isEditable = true;
     this._tableBuilder._state.actions.customActions.columnWidth += 150;
   }
 
-  public useFlattenResults<T>(): SmzEditableTableBuilder {
+  public useFlattenResults<T>(): SmzEditableTableBuilder<TData> {
     this._tableBuilder._state.editable.mapResults.push((data, changes: EditableChanges<any>) => flattenMapResults(data, changes));
     return this;
   }
 
-  public addMappingResults<T>(mapFunction: (data: T, changes: EditableChanges<T>) => any): SmzEditableTableBuilder {
+  public addMappingResults<T>(mapFunction: (data: T, changes: EditableChanges<T>) => any): SmzEditableTableBuilder<TData> {
     this._tableBuilder._state.editable.mapResults.push(mapFunction);
     return this;
   }
 
-  public setCreationAction(action: any, claim?: string, overrideActionPayload?: (row: any) => any): SmzEditableTableBuilder {
+  public setCreationAction(action: any, claim?: string, overrideActionPayload?: (row: any) => any): SmzEditableTableBuilder<TData> {
 
     this._tableBuilder._state.editable.actions.creation = action;
     this._tableBuilder._state.editable.creation.isButtonVisible = true;
@@ -31,12 +31,12 @@ export class SmzEditableTableBuilder {
     return this;
   }
 
-  public onCreationInit(onInit: () => void): SmzEditableTableBuilder {
+  public onCreationInit(onInit: () => void): SmzEditableTableBuilder<TData> {
     this._tableBuilder._state.editable.creation.onInit = onInit;
     return this;
   }
 
-  public setUpdateAction(action: any, claim?: string, overrideActionPayload?: (row: any) => any): SmzEditableTableBuilder {
+  public setUpdateAction(action: any, claim?: string, overrideActionPayload?: (row: any) => any): SmzEditableTableBuilder<TData> {
 
     this._tableBuilder._state.editable.actions.update = action;
     this._tableBuilder._state.editable.update.isButtonVisible = true;
@@ -46,12 +46,12 @@ export class SmzEditableTableBuilder {
     return this;
   }
 
-  public onUpdateInit(onInit: (row: any) => void): SmzEditableTableBuilder {
+  public onUpdateInit(onInit: (row: any) => void): SmzEditableTableBuilder<TData> {
     this._tableBuilder._state.editable.update.onInit = onInit;
     return this;
   }
 
-  public setRemoveAction(action: any, claim?: string, overrideActionPayload?: (row: any) => any): SmzEditableTableBuilder {
+  public setRemoveAction(action: any, claim?: string, overrideActionPayload?: (row: any) => any): SmzEditableTableBuilder<TData> {
 
     this._tableBuilder._state.editable.actions.remove = action;
     this._tableBuilder._state.editable.remove.isButtonVisible = true;
@@ -61,12 +61,12 @@ export class SmzEditableTableBuilder {
     return this;
   }
 
-  public onRemoveInit(onInit: (row: any) => void): SmzEditableTableBuilder {
+  public onRemoveInit(onInit: (row: any) => void): SmzEditableTableBuilder<TData> {
     this._tableBuilder._state.editable.remove.onInit = onInit;
     return this;
   }
 
-  public get table(): SmzTableBuilder {
+  public get table(): SmzTableBuilder<TData> {
 
     const actions = this._tableBuilder._state.editable.actions;
     if (actions.creation == null && actions.remove == null && actions.update == null) {
@@ -79,11 +79,11 @@ export class SmzEditableTableBuilder {
 }
 
 
-export abstract class SmzBaseEditableBuilder<T extends SmzBaseEditableBuilder<T>> {
+export abstract class SmzBaseEditableBuilder<T extends SmzBaseEditableBuilder<T, TData>, TData> {
 
   protected _editable: SmzTableEditableColumn = null;
 
-  constructor(protected _table: SmzTableBuilder, protected _parent: SmzBaseColumnBuilder<any>, type: SmzEditableType, property: string, data: any) {
+  constructor(protected _table: SmzTableBuilder<TData>, protected _parent: SmzBaseColumnBuilder<any, TData>, type: SmzEditableType, property: string, data: any) {
     this._editable = {
       property,
       type,
@@ -100,107 +100,107 @@ export abstract class SmzBaseEditableBuilder<T extends SmzBaseEditableBuilder<T>
     this._table._state.editable.isEditable = true;
   }
 
-  public disableUpdate(): SmzBaseEditableBuilder<T> {
+  public disableUpdate(): SmzBaseEditableBuilder<T, TData> {
 
     this._table._state.editable.update.isButtonVisible = this._table._state.columns.some(x => x.editable.type !== SmzEditableType.NONE);
 
     return this;
   }
 
-  public disableCreation(): SmzBaseEditableBuilder<T> {
+  public disableCreation(): SmzBaseEditableBuilder<T, TData> {
 
     this._table._state.editable.creation.isButtonVisible = this._table._state.columns.some(x => x.editable.type !== SmzEditableType.NONE);
 
     return this;
   }
 
-  public removeRequirement(): SmzBaseEditableBuilder<T> {
+  public removeRequirement(): SmzBaseEditableBuilder<T, TData> {
 
     this._editable.validatorsPreset.isRequired = false;
 
     return this;
   }
 
-  public setMinValidator(min: number): SmzBaseEditableBuilder<T> {
+  public setMinValidator(min: number): SmzBaseEditableBuilder<T, TData> {
 
     this._editable.validatorsPreset.min = min;
 
     return this;
   }
 
-  public setMinLengthValidator(minLength: number): SmzBaseEditableBuilder<T> {
+  public setMinLengthValidator(minLength: number): SmzBaseEditableBuilder<T, TData> {
 
     this._editable.validatorsPreset.minLength = minLength;
 
     return this;
   }
 
-  public setMaxValidator(max: number): SmzBaseEditableBuilder<T> {
+  public setMaxValidator(max: number): SmzBaseEditableBuilder<T, TData> {
 
     this._editable.validatorsPreset.max = max;
 
     return this;
   }
 
-  public setMaxLengthValidator(maxLength: number): SmzBaseEditableBuilder<T> {
+  public setMaxLengthValidator(maxLength: number): SmzBaseEditableBuilder<T, TData> {
 
     this._editable.validatorsPreset.maxLength = maxLength;
 
     return this;
   }
 
-  public get column(): SmzBaseColumnBuilder<any> {
+  public get column(): SmzBaseColumnBuilder<any, TData> {
     return this._parent;
   }
 }
 
 
-export class SmzEditableCollectionBuilder {
-  constructor(protected _table: SmzTableBuilder, protected _parent: SmzBaseColumnBuilder<any>) {
+export class SmzEditableCollectionBuilder<TData> {
+  constructor(protected _table: SmzTableBuilder<TData>, protected _parent: SmzBaseColumnBuilder<any, TData>) {
 
   }
 
-  public text(property: string = this._parent._column.field): SmzTextEditableBuilder {
+  public text(property: string = this._parent._column.field): SmzTextEditableBuilder<TData> {
     return new SmzTextEditableBuilder(this._table, this._parent, property);
   }
 
-  public switch(property: string = this._parent._column.field): SmzSwitchEditableBuilder {
+  public switch(property: string = this._parent._column.field): SmzSwitchEditableBuilder<TData> {
     return new SmzSwitchEditableBuilder(this._table, this._parent, property);
   }
 
-  public dropdown(property: string = this._parent._column.field): SmzDropdownEditableBuilder {
+  public dropdown(property: string = this._parent._column.field): SmzDropdownEditableBuilder<TData> {
     return new SmzDropdownEditableBuilder(this._table, this._parent, property);
   }
 
-  public number(property: string = this._parent._column.field): SmzNumberEditableBuilder {
+  public number(property: string = this._parent._column.field): SmzNumberEditableBuilder<TData> {
     return new SmzNumberEditableBuilder(this._table, this._parent, property);
   }
 
-  public get column(): SmzBaseColumnBuilder<any> {
+  public get column(): SmzBaseColumnBuilder<any, TData> {
     return this._parent;
   }
 }
 
-export class SmzTextEditableBuilder extends SmzBaseEditableBuilder<SmzTextEditableBuilder> {
-  constructor(protected _table: SmzTableBuilder, protected _parent: SmzBaseColumnBuilder<any>, property: string) {
+export class SmzTextEditableBuilder<TData> extends SmzBaseEditableBuilder<SmzTextEditableBuilder<TData>, TData> {
+  constructor(protected _table: SmzTableBuilder<TData>, protected _parent: SmzBaseColumnBuilder<any, TData>, property: string) {
     super(_table, _parent, SmzEditableType.TEXT, property, {});
   }
 }
 
-export class SmzSwitchEditableBuilder extends SmzBaseEditableBuilder<SmzSwitchEditableBuilder> {
-  constructor(protected _table: SmzTableBuilder, protected _parent: SmzBaseColumnBuilder<any>, property: string) {
+export class SmzSwitchEditableBuilder<TData> extends SmzBaseEditableBuilder<SmzSwitchEditableBuilder<TData>, TData> {
+  constructor(protected _table: SmzTableBuilder<TData>, protected _parent: SmzBaseColumnBuilder<any, TData>, property: string) {
     super(_table, _parent, SmzEditableType.SWITCH, property, {});
   }
 }
 
-export class SmzDropdownEditableBuilder extends SmzBaseEditableBuilder<SmzDropdownEditableBuilder> {
-  constructor(protected _table: SmzTableBuilder, protected _parent: SmzBaseColumnBuilder<any>, property: string, placeholder = 'Selecione uma opção') {
+export class SmzDropdownEditableBuilder<TData> extends SmzBaseEditableBuilder<SmzDropdownEditableBuilder<TData>, TData> {
+  constructor(protected _table: SmzTableBuilder<TData>, protected _parent: SmzBaseColumnBuilder<any, TData>, property: string, placeholder = 'Selecione uma opção') {
     super(_table, _parent, SmzEditableType.DROPDOWN, property, {});
 
     (this._editable.data as SmzDropdownEditable).placeholder = placeholder;
   }
 
-  public setOptions(options: any[]): SmzDropdownEditableBuilder {
+  public setOptions(options: any[]): SmzDropdownEditableBuilder<TData> {
     const data: SmzDropdownEditable = this._editable.data as SmzDropdownEditable;
 
     data.sourceType = 'object';
@@ -209,7 +209,7 @@ export class SmzDropdownEditableBuilder extends SmzBaseEditableBuilder<SmzDropdo
     return this;
   }
 
-  public setSelector(selector: any): SmzDropdownEditableBuilder {
+  public setSelector(selector: any): SmzDropdownEditableBuilder<TData> {
     const data: SmzDropdownEditable = this._editable.data as SmzDropdownEditable;
 
     data.sourceType = 'selector';
@@ -219,8 +219,8 @@ export class SmzDropdownEditableBuilder extends SmzBaseEditableBuilder<SmzDropdo
   }
 }
 
-export class SmzNumberEditableBuilder extends SmzBaseEditableBuilder<SmzNumberEditableBuilder> {
-  constructor(protected _table: SmzTableBuilder, protected _parent: SmzBaseColumnBuilder<any>, property: string) {
+export class SmzNumberEditableBuilder<TData> extends SmzBaseEditableBuilder<SmzNumberEditableBuilder<TData>, TData> {
+  constructor(protected _table: SmzTableBuilder<TData>, protected _parent: SmzBaseColumnBuilder<any, TData>, property: string) {
     super(_table, _parent, SmzEditableType.NUMBER, property, {
       mode: 'decimal',
       minFractionDigits: null,
@@ -235,7 +235,7 @@ export class SmzNumberEditableBuilder extends SmzBaseEditableBuilder<SmzNumberEd
     });
   }
 
-  public setDecimal(digits: number): SmzNumberEditableBuilder {
+  public setDecimal(digits: number): SmzNumberEditableBuilder<TData> {
     const data: SmzNumberEditable = this._editable.data as SmzNumberEditable;
 
     data.mode = 'decimal';
@@ -245,7 +245,7 @@ export class SmzNumberEditableBuilder extends SmzBaseEditableBuilder<SmzNumberEd
     return this;
   }
 
-  public setFraction(minFractionDigits: number, maxFractionDigits: number): SmzNumberEditableBuilder {
+  public setFraction(minFractionDigits: number, maxFractionDigits: number): SmzNumberEditableBuilder<TData> {
     const data: SmzNumberEditable = this._editable.data as SmzNumberEditable;
 
     data.mode = 'decimal';
@@ -255,42 +255,42 @@ export class SmzNumberEditableBuilder extends SmzBaseEditableBuilder<SmzNumberEd
     return this;
   }
 
-  public addPrefix(prefix: string): SmzNumberEditableBuilder {
+  public addPrefix(prefix: string): SmzNumberEditableBuilder<TData> {
     const data: SmzNumberEditable = this._editable.data as SmzNumberEditable;
     data.prefix = prefix;
 
     return this;
   }
 
-  public addSufix(suffix: string): SmzNumberEditableBuilder {
+  public addSufix(suffix: string): SmzNumberEditableBuilder<TData> {
     const data: SmzNumberEditable = this._editable.data as SmzNumberEditable;
     data.suffix = suffix;
 
     return this;
   }
 
-  public showSpinners(): SmzNumberEditableBuilder {
+  public showSpinners(): SmzNumberEditableBuilder<TData> {
     const data: SmzNumberEditable = this._editable.data as SmzNumberEditable;
     data.showButtons = true;
 
     return this;
   }
 
-  public showClear(): SmzNumberEditableBuilder {
+  public showClear(): SmzNumberEditableBuilder<TData> {
     const data: SmzNumberEditable = this._editable.data as SmzNumberEditable;
     data.showClear = true;
 
     return this;
   }
 
-  public forbidEmpty(): SmzNumberEditableBuilder {
+  public forbidEmpty(): SmzNumberEditableBuilder<TData> {
     const data: SmzNumberEditable = this._editable.data as SmzNumberEditable;
     data.allowEmpty = false;
 
     return this;
   }
 
-  public useGrouping(): SmzNumberEditableBuilder {
+  public useGrouping(): SmzNumberEditableBuilder<TData> {
     const data: SmzNumberEditable = this._editable.data as SmzNumberEditable;
     data.useGrouping = true;
 

@@ -1,23 +1,19 @@
 import { SmzTableBuilder } from '../../../../../builders/smz-tables/state-builder';
-import { AuthenticationSelectors } from '../../../../../state/global/authentication/authentication.selectors';
 import { GlobalInjector } from '../../../../../common/services/global-injector';
 import { SmzFilterType } from '../../../../smz-tables/models/filter-types';
 import { nameof, SimpleNamedEntity } from '../../../../../common/models/simple-named-entity';
 import { UserDetails } from '../../../models/user-details';
-import { buildShowSetUserRoleDialog } from '../dialogs/show-set-user-role-dialog';
 import { Store } from '@ngxs/store';
-import { buildShowSetUserRolesDialog } from '../dialogs/show-set-user-roles-dialog';
-import { showUpdateUserClaimsDialog } from '../dialogs/update-user-claims-dialog';
 import { UsersActions } from '../../../state/users/users.actions';
 import { ActivateUser } from '../../../models/activate-user';
 
-export function SmzAuthorizationDeactivatedUsersTableBuilder(): SmzTableBuilder {
+export function SmzAuthorizationDeactivatedUsersTableBuilder(): SmzTableBuilder<UserDetails> {
 
 const store = GlobalInjector.instance.get(Store);
 
 const roleColumnHeader = GlobalInjector.config.rbkUtils.authorization.allowMultipleRolesPerUser ? 'Perfis' : 'Perfil';
 
-return new SmzTableBuilder()
+return new SmzTableBuilder<UserDetails>()
   .setTitle(GlobalInjector.config.rbkUtils.authorization.users.title)
   .enableGlobalFilter()
   .setSize('small')

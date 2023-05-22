@@ -2,9 +2,9 @@ import { SmzTableBuilder } from '../../../../../builders/smz-tables/state-builde
 import { HttpBehaviorParameters } from '../../../../rbk-utils/http/base-api.service';
 import { SmzMenuItem } from '../../../../smz-menu/models/smz-menu-item';
 
-export interface SmzAuthorizationUserState {
+export interface SmzAuthorizationUserState<TData> {
   table?: {
-    customBuilder?: () => SmzTableBuilder;
+    customBuilder?: () => SmzTableBuilder<TData>;
     useDefaultMenu?: boolean;
   }
   pageActions?: SmzMenuItem[];

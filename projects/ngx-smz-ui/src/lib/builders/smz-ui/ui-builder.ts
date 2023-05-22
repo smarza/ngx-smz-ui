@@ -241,7 +241,7 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
         return new SmzUiAuthenticationBuilder(this);
     }
 
-    public authorization(): SmzUiAuthorizationBuilder {
+    public authorization<TUserDetails>(): SmzUiAuthorizationBuilder<TUserDetails> {
         return new SmzUiAuthorizationBuilder(this, this._state);
     }
 

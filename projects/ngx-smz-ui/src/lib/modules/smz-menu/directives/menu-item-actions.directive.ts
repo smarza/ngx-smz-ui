@@ -34,7 +34,15 @@ export class SmzMenuItemActionsDirective {
 
     public resolveCommand(event: any): void {
         if (this.item.command != null) {
-            this.item.command(this.data);
+
+            if (this.item.dataMap != null) {
+                // Caso o menu tenha uma função para remapear o data
+                const mappedData = this.item.dataMap(this.data);
+                this.item.command(mappedData);
+            }
+            else {
+                this.item.command(this.data);
+            }
         }
         else if (this.item.routerLink != null) {
 

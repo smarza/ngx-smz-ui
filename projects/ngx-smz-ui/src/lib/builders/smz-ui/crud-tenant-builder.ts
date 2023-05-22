@@ -6,7 +6,7 @@ import { NgxSmzUiConfig } from '../../ngx-smz-ui.config';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzUiAuthorizationBuilder } from './authorization-builder';
 
-export class SmzUiTenantCrudBuilder extends SmzBuilderUtilities<SmzUiTenantCrudBuilder> {
+export class SmzUiTenantCrudBuilder<TData> extends SmzBuilderUtilities<SmzUiTenantCrudBuilder<TData>> {
   protected that = this;
   private _config: {
     router?: {
@@ -23,7 +23,7 @@ export class SmzUiTenantCrudBuilder extends SmzBuilderUtilities<SmzUiTenantCrudB
 
   private _menu: MenuCreation;
 
-  constructor(private _builder: SmzUiAuthorizationBuilder, private _state: NgxSmzUiConfig) {
+  constructor(private _builder: SmzUiAuthorizationBuilder<TData>, private _state: NgxSmzUiConfig) {
     super();
 
     this._config = {
@@ -45,23 +45,23 @@ export class SmzUiTenantCrudBuilder extends SmzBuilderUtilities<SmzUiTenantCrudB
     this._menu = { label: `${this._state.locale.authorization.tenant.displayName}s`, routerLink: TENANTS_PAGE_ROUTE, claims: [AuthClaimDefinitions.MANAGE_TENANTS] };
   }
 
-  public setTitle(title: string): SmzUiTenantCrudBuilder {
+  public setTitle(title: string): SmzUiTenantCrudBuilder<TData> {
     this._config.title = title;
     return this.that;
   }
 
-  public overrideMenu(partial: Partial<MenuCreation> = {}): SmzUiTenantCrudBuilder {
+  public overrideMenu(partial: Partial<MenuCreation> = {}): SmzUiTenantCrudBuilder<TData> {
     this._menu = { ...this._menu, ...partial };
     return this.that;
   }
 
-  public hide(): SmzUiTenantCrudBuilder {
+  public hide(): SmzUiTenantCrudBuilder<TData> {
     this._menu = null;
     this._config.isVisible = false;
     return this.that;
   }
 
-  public get authorization(): SmzUiAuthorizationBuilder {
+  public get authorization(): SmzUiAuthorizationBuilder<TData> {
     this._state.rbkUtils.authorization.tenants = this._config;
 
     if (this._menu != null) {

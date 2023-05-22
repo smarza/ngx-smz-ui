@@ -46,9 +46,9 @@ export class NotificationsListComponent {
     this.setupInboxTable();
   }
 
-  public buildBaseTable(): SmzTableBuilder {
+  public buildBaseTable(): SmzTableBuilder<NotificationData> {
 
-    return new SmzTableBuilder()
+    return new SmzTableBuilder<NotificationData>()
       .setSize('small')
       .enableGlobalFilter()
       .expandGlobalFilterInput()

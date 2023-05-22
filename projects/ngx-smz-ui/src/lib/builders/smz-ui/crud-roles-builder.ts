@@ -7,7 +7,7 @@ import { NgxSmzUiConfig } from '../../ngx-smz-ui.config';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzUiAuthorizationBuilder } from './authorization-builder';
 
-export class SmzUiRolesCrudBuilder extends SmzBuilderUtilities<SmzUiRolesCrudBuilder> {
+export class SmzUiRolesCrudBuilder<TData> extends SmzBuilderUtilities<SmzUiRolesCrudBuilder<TData>> {
   protected that = this;
   private _config: {
     title?: string;
@@ -23,7 +23,7 @@ export class SmzUiRolesCrudBuilder extends SmzBuilderUtilities<SmzUiRolesCrudBui
 
   private _menu: MenuCreation;
 
-  constructor(private _builder: SmzUiAuthorizationBuilder, private _state: NgxSmzUiConfig) {
+  constructor(private _builder: SmzUiAuthorizationBuilder<TData>, private _state: NgxSmzUiConfig) {
     super();
 
     this._config = {
@@ -46,23 +46,23 @@ export class SmzUiRolesCrudBuilder extends SmzBuilderUtilities<SmzUiRolesCrudBui
     this._menu = { label: 'Perfis', routerLink: ROLES_PAGE_ROUTE, claims: [AuthClaimDefinitions.MANAGE_APPLICATION_WIDE_ROLES, AuthClaimDefinitions.MANAGE_TENANT_SPECIFIC_ROLES, AuthClaimDefinitions.MANAGE_USERS] };
   }
 
-  public setTitle(title: string): SmzUiRolesCrudBuilder {
+  public setTitle(title: string): SmzUiRolesCrudBuilder<TData> {
     this._config.title = title;
     return this.that;
   }
 
-  public overrideMenu(partial: Partial<MenuCreation> = {}): SmzUiRolesCrudBuilder {
+  public overrideMenu(partial: Partial<MenuCreation> = {}): SmzUiRolesCrudBuilder<TData> {
     this._menu = { ...this._menu, ...partial };
     return this.that;
   }
 
-  public hide(): SmzUiRolesCrudBuilder {
+  public hide(): SmzUiRolesCrudBuilder<TData> {
     this._menu = null;
     this._config.isVisible = false;
     return this.that;
   }
 
-  public get authorization(): SmzUiAuthorizationBuilder {
+  public get authorization(): SmzUiAuthorizationBuilder<TData> {
     this._state.rbkUtils.authorization.roles = this._config;
 
     if (this._menu != null) {

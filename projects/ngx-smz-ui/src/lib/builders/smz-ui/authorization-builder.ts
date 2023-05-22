@@ -8,7 +8,7 @@ import { SmzUiTenantCrudBuilder } from './crud-tenant-builder';
 import { SmzUiUsersCrudBuilder } from './crud-users-builder';
 import { SmzUiBuilder } from './ui-builder';
 
-export class SmzUiAuthorizationBuilder extends SmzBuilderUtilities<SmzUiAuthorizationBuilder> {
+export class SmzUiAuthorizationBuilder<TData> extends SmzBuilderUtilities<SmzUiAuthorizationBuilder<TData>> {
   protected that = this;
   public _menuLocation: 'navigation-bar' | 'profile' = 'navigation-bar';
   public _menu: MenuCreation;
@@ -22,49 +22,49 @@ export class SmzUiAuthorizationBuilder extends SmzBuilderUtilities<SmzUiAuthoriz
 
   }
 
-  public setMenuLabel(label: string): SmzUiAuthorizationBuilder {
+  public setMenuLabel(label: string): SmzUiAuthorizationBuilder<TData> {
     this._menu.label = label;
     return this.that;
   }
 
-  public overrideMenu(location: 'navigation-bar' | 'profile', partial: Partial<MenuCreation> = {}): SmzUiAuthorizationBuilder {
+  public overrideMenu(location: 'navigation-bar' | 'profile', partial: Partial<MenuCreation> = {}): SmzUiAuthorizationBuilder<TData> {
     this._menuLocation = location;
     this._menu = { ...this._menu, ...partial };
     return this.that;
   }
 
-  public allowMultipleRolesPerUser(): SmzUiAuthorizationBuilder {
+  public allowMultipleRolesPerUser(): SmzUiAuthorizationBuilder<TData> {
     this._builder._state.rbkUtils.authorization.allowMultipleRolesPerUser = true;
     return this.that;
   }
 
-  public users(): SmzUiUsersCrudBuilder {
+  public users(): SmzUiUsersCrudBuilder<TData> {
     return new SmzUiUsersCrudBuilder(this, this._state);
   }
 
-  public roles(): SmzUiRolesCrudBuilder {
+  public roles(): SmzUiRolesCrudBuilder<TData> {
     return new SmzUiRolesCrudBuilder(this, this._state);
   }
 
-  public claims(): SmzUiClaimsCrudBuilder {
+  public claims(): SmzUiClaimsCrudBuilder<TData> {
     return new SmzUiClaimsCrudBuilder(this, this._state);
   }
 
-  public tenants(): SmzUiTenantCrudBuilder {
+  public tenants(): SmzUiTenantCrudBuilder<TData> {
     return new SmzUiTenantCrudBuilder(this, this._state);
   }
 
-  public setHasGroupOfClaimAccessSelector(selector: any): SmzUiAuthorizationBuilder {
+  public setHasGroupOfClaimAccessSelector(selector: any): SmzUiAuthorizationBuilder<TData> {
     this._builder._state.rbkUtils.authorization.validationSelectors.hasGroupOfClaimAccess = selector;
     return this.that;
   }
 
-  public setHasAnyOfClaimAccessSelector(selector: any): SmzUiAuthorizationBuilder {
+  public setHasAnyOfClaimAccessSelector(selector: any): SmzUiAuthorizationBuilder<TData> {
     this._builder._state.rbkUtils.authorization.validationSelectors.hasAnyOfClaimAccess = selector;
     return this.that;
   }
 
-  public setHasClaimAccessSelector(selector: any): SmzUiAuthorizationBuilder {
+  public setHasClaimAccessSelector(selector: any): SmzUiAuthorizationBuilder<TData> {
     this._builder._state.rbkUtils.authorization.validationSelectors.hasClaimAccess = selector;
     return this.that;
   }

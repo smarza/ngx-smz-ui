@@ -4,6 +4,7 @@ export interface SmzMenuItem extends MenuItem {
   hasClaimAccess?: string;
   conditional?: SmzConditional<'visible' | 'disabled'>;
   transforms?: Array<(item: any) => Partial<MenuItem>>;
+  dataMap?: (item: any) => any;
   items?: SmzMenuItem[];
   confirmable?: {
     message: string;

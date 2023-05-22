@@ -280,13 +280,13 @@ export class Menu implements OnDestroy {
     if (item.command) {
 
       if (item.confirmable?.isCritical) {
-        CriticalConfirmableFunction(item.confirmable.title, item.confirmable.message, () => { item.command(this.rowData) })
+        CriticalConfirmableFunction(item.confirmable.title, item.confirmable.message, () => { this.resolveCommand(this.rowData, item) })
       }
       else if (item.confirmable != null && item.confirmable.isCritical === false) {
-        ConfirmableFunction(item.confirmable.title, item.confirmable.message, () => { item.command(this.rowData) })
+        ConfirmableFunction(item.confirmable.title, item.confirmable.message, () => { this.resolveCommand(this.rowData, item) })
       }
       else {
-        item.command(this.rowData);
+        this.resolveCommand(this.rowData, item)
       }
 
     }
@@ -295,6 +295,17 @@ export class Menu implements OnDestroy {
       this.hide();
     }
   }
+
+  public resolveCommand(data: any, item: SmzMenuItem): void {
+    if (item.dataMap != null) {
+      // Caso o menu tenha uma função para remapear o data
+      const mappedData = item.dataMap(data);
+      item.command(mappedData);
+  }
+  else {
+      item.command(data);
+  }
+}
 
   onOverlayClick(event) {
     if (this.popup) {

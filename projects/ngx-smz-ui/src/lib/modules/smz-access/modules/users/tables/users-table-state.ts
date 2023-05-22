@@ -12,7 +12,7 @@ import { DeleteUser } from '../../../models/delete-user';
 import { UsersActions } from '../../../state/users/users.actions';
 import { DeativateUser } from '../../../models/deativate-user';
 
-export function SmzAuthorizationUsersTableBuilder(): SmzTableBuilder {
+export function SmzAuthorizationUsersTableBuilder(): SmzTableBuilder<UserDetails> {
 
 const store = GlobalInjector.instance.get(Store);
 const uiConfig = GlobalInjector.config;
@@ -23,7 +23,7 @@ const hasUserClaimsUpdateAccess: boolean = store.selectSnapshot(validationSelect
 
 const roleColumnHeader = GlobalInjector.config.rbkUtils.authorization.allowMultipleRolesPerUser ? 'Perfis' : 'Perfil';
 
-return new SmzTableBuilder()
+return new SmzTableBuilder<UserDetails>()
   .setTitle(GlobalInjector.config.rbkUtils.authorization.users.title)
   .enableGlobalFilter()
   .setSize('small')

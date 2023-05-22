@@ -26,7 +26,7 @@ import { SmzCaptionButtonsBuilder } from './caption-buttons-builder';
 //   MIN-WIDTH PODE SER PX
 //   MIN-WIDTH PODE SER AUTO
 
-export class SmzTableBuilder {
+export class SmzTableBuilder<TData> {
   public _state: SmzTableState = {
     isValid: true,
     isDebug: false,
@@ -246,25 +246,25 @@ export class SmzTableBuilder {
 
   }
 
-  public setTitle(title: string): SmzTableBuilder {
+  public setTitle(title: string): SmzTableBuilder<TData> {
     this._state.caption.isVisible = true;
     this._state.caption.title = title;
     return this;
   }
 
-  public addSource(items$: Observable<any[]>): SmzTableBuilder {
+  public addSource(items$: Observable<any[]>): SmzTableBuilder<TData> {
     this._state.source.items$ = items$;
     return this;
   }
 
-  public enableGlobalFilter(): SmzTableBuilder {
+  public enableGlobalFilter(): SmzTableBuilder<TData> {
     this._state.caption.isVisible = true;
     this._state.caption.globalFilter.isVisible = true;
 
     return this;
   }
 
-  public expandGlobalFilterInput(): SmzTableBuilder {
+  public expandGlobalFilterInput(): SmzTableBuilder<TData> {
 
     if (!this._state.caption.globalFilter.isVisible) {
       throw Error('You need to call \'enableGlobalFilter\' before');
@@ -274,14 +274,14 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public enableColumnVisibility(showColumnHideButton: boolean = false): SmzTableBuilder {
+  public enableColumnVisibility(showColumnHideButton: boolean = false): SmzTableBuilder<TData> {
     this._state.caption.isVisible = true;
     this._state.caption.columnVisibility.showDropdownSelector = true;
     this._state.caption.columnVisibility.showColumnHideButton = showColumnHideButton;
     return this;
   }
 
-  public setLocale(language: 'pt-BR' | 'en-US'): SmzTableBuilder {
+  public setLocale(language: 'pt-BR' | 'en-US'): SmzTableBuilder<TData> {
 
     switch (language) {
       case 'pt-BR':
@@ -358,20 +358,20 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public enableClearFilters(): SmzTableBuilder {
+  public enableClearFilters(): SmzTableBuilder<TData> {
     this._state.caption.isVisible = true;
     this._state.caption.clearFilters.isButtonVisible = true;
     return this;
   }
 
-  public enableExportToPdf(): SmzTableBuilder {
+  public enableExportToPdf(): SmzTableBuilder<TData> {
     this._state.caption.isVisible = true;
     this._state.caption.exportToPdf.isButtonVisible = true;
     return this;
   }
 
 
-  public setClearFilterCallback(callback: () => void): SmzTableBuilder {
+  public setClearFilterCallback(callback: () => void): SmzTableBuilder<TData> {
     if (!this._state.caption.clearFilters.isButtonVisible) {
       throw Error('You need to call \'enableClearFilters\' before');
     }
@@ -379,21 +379,21 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public setToolbarAlignment(alignment: 'start' | 'end'): SmzTableBuilder {
+  public setToolbarAlignment(alignment: 'start' | 'end'): SmzTableBuilder<TData> {
     this._state.caption.isVisible = true;
     this._state.caption.toolbarAlignment = alignment;
     return this;
   }
 
-  public buttons(): SmzCaptionButtonsBuilder {
-    return new SmzCaptionButtonsBuilder(this);
+  public buttons(): SmzCaptionButtonsBuilder<TData> {
+    return new SmzCaptionButtonsBuilder<TData>(this);
   }
 
   /**
    * Enables the checkbox for multiselection in the table
    * The user cannot disable this feature
    */
-  public allowDefaultMultiSelection(): SmzTableBuilder {
+  public allowDefaultMultiSelection(): SmzTableBuilder<TData> {
     this._state.caption.rowSelection.isEnabled = true;
     return this;
   }
@@ -402,7 +402,7 @@ export class SmzTableBuilder {
  * Enables the checkbox for multiselection in the table
  * and a creates a button to allow the user to disable the selection mode
  */
-  public allowUserMultiSelection(initialState: 'enabled' | 'disabled' = 'enabled'): SmzTableBuilder {
+  public allowUserMultiSelection(initialState: 'enabled' | 'disabled' = 'enabled'): SmzTableBuilder<TData> {
     this._state.caption.rowSelection.isEnabled = initialState === 'enabled';
     this._state.caption.rowSelection.isButtonVisible = true;
     this._state.caption.rowSelection.columnWidth = '3em';
@@ -415,7 +415,7 @@ export class SmzTableBuilder {
    * If the user select one or more items the table will be valid
    * otherwise the table is always invalid.
    */
-  public setSelectionAsRequired(): SmzTableBuilder {
+  public setSelectionAsRequired(): SmzTableBuilder<TData> {
     this._state.caption.rowSelection.validationMode = 'required';
     this._state.isValid = false;
     return this;
@@ -425,7 +425,7 @@ export class SmzTableBuilder {
    * This callback is called when the user click on the selection activation button
    * and everytime a selection changes
    */
-  public setMultiSelectionCallback(callback: (selection: any[]) => void): SmzTableBuilder {
+  public setMultiSelectionCallback(callback: (selection: any[]) => void): SmzTableBuilder<TData> {
     if (!this._state.caption.rowSelection.isEnabled) {
       throw Error('You need to call \'allowUserMultiSelection\' before');
     }
@@ -433,7 +433,7 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public setMultiSelectioncolumnWidth(width: string): SmzTableBuilder {
+  public setMultiSelectioncolumnWidth(width: string): SmzTableBuilder<TData> {
     if (!this._state.caption.rowSelection.isButtonVisible) {
       throw Error('You need to call \'allowUserMultiSelection\' before');
     }
@@ -442,7 +442,7 @@ export class SmzTableBuilder {
   }
 
 
-  public allowDefaultRowExpansion(): SmzTableBuilder {
+  public allowDefaultRowExpansion(): SmzTableBuilder<TData> {
     this._state.rowExpansion.isEnabled = true;
     this._state.rowExpansion.sincronize = true;
     this._state.rowExpansion.highlightNewItems = true;
@@ -450,7 +450,7 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public allowRowExpansion(label: string = 'Seleção', initialState: 'enabled' | 'disabled' = 'enabled'): SmzTableBuilder {
+  public allowRowExpansion(label: string = 'Seleção', initialState: 'enabled' | 'disabled' = 'enabled'): SmzTableBuilder<TData> {
     this._state.rowExpansion.isEnabled = initialState === 'enabled';
     this._state.rowExpansion.isButtonVisible = true;
     this._state.rowExpansion.label = label;
@@ -461,7 +461,7 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public disableRowExpansionSincronization(): SmzTableBuilder {
+  public disableRowExpansionSincronization(): SmzTableBuilder<TData> {
     if (!this._state.rowExpansion.isEnabled) {
       throw Error('You need to call \'allowDefaultRowExpansion or allowRowExpansion\' before');
     }
@@ -469,7 +469,7 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public setNewItemsMessage(label: string): SmzTableBuilder {
+  public setNewItemsMessage(label: string): SmzTableBuilder<TData> {
     if (!this._state.rowExpansion.isEnabled) {
       throw Error('You need to call \'allowDefaultRowExpansion or allowRowExpansion\' before');
     }
@@ -477,7 +477,7 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public hideNewItemsMessage(): SmzTableBuilder {
+  public hideNewItemsMessage(): SmzTableBuilder<TData> {
     if (!this._state.rowExpansion.isEnabled) {
       throw Error('You need to call \'allowDefaultRowExpansion or allowRowExpansion\' before');
     }
@@ -485,7 +485,7 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public setRowExpansionCallback(callback: () => void): SmzTableBuilder {
+  public setRowExpansionCallback(callback: () => void): SmzTableBuilder<TData> {
     if (!this._state.rowExpansion.isButtonVisible) {
       throw Error('You need to call \'allowRowExpansion\' before');
     }
@@ -493,7 +493,7 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public setRowExpansionColumnWidth(pixels: number): SmzTableBuilder {
+  public setRowExpansionColumnWidth(pixels: number): SmzTableBuilder<TData> {
     if (!this._state.rowExpansion.isButtonVisible) {
       throw Error('You need to call \'allowRowExpansion\' before');
     }
@@ -501,28 +501,28 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public hideHeader(): SmzTableBuilder {
+  public hideHeader(): SmzTableBuilder<TData> {
     this._state.header.isVisible = false;
     return this;
   }
 
-  public setSkeletonRowsCount(rows: number): SmzTableBuilder {
+  public setSkeletonRowsCount(rows: number): SmzTableBuilder<TData> {
     this._state.initialState.skeleton.isEnabled = true;
     this._state.initialState.skeleton.rows = rows;
     return this;
   }
 
-  public setEmptyFeedbackMessage(message: string): SmzTableBuilder {
+  public setEmptyFeedbackMessage(message: string): SmzTableBuilder<TData> {
     this._state.emptyFeedback.message = message;
     return this;
   }
 
-  public useTableEmptyMessage(): SmzTableBuilder {
+  public useTableEmptyMessage(): SmzTableBuilder<TData> {
     this._state.emptyFeedback.isFeatured = false;
     return this;
   }
 
-  public setEmptyFeedbackExtraInfo(text: string): SmzTableBuilder {
+  public setEmptyFeedbackExtraInfo(text: string): SmzTableBuilder<TData> {
     if (!this._state.emptyFeedback.isFeatured) {
       throw Error('This feature is not compatible with \'useTableEmptyMessage\'');
     }
@@ -531,7 +531,7 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public addEmptyFeedbackButton(label: string, callback: () => void, icon: string = null): SmzTableBuilder {
+  public addEmptyFeedbackButton(label: string, callback: () => void, icon: string = null): SmzTableBuilder<TData> {
     if (!this._state.emptyFeedback.isFeatured) {
       throw Error('This feature is not compatible with \'useTableEmptyMessage\'');
     }
@@ -540,7 +540,7 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public setEmptyFeedbackImage(path: string): SmzTableBuilder {
+  public setEmptyFeedbackImage(path: string): SmzTableBuilder<TData> {
     if (!this._state.emptyFeedback.isFeatured) {
       throw Error('This feature is not compatible with \'useTableEmptyMessage\'');
     }
@@ -549,7 +549,7 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public usePagination(): SmzTableBuilder {
+  public usePagination(): SmzTableBuilder<TData> {
     this._state.pagination.isVisible = true;
     this._state.pagination.rows = 10;
     this._state.pagination.rowsPerPageOptions = [5, 10, 25, 50, 100];
@@ -560,7 +560,7 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public setPaginationDefaultRows(value: number): SmzTableBuilder {
+  public setPaginationDefaultRows(value: number): SmzTableBuilder<TData> {
     if (!this._state.pagination.isVisible) {
       throw Error('You need to call \'usePagination\' before');
     }
@@ -569,7 +569,7 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public setPaginationPageOptions(value: number[]): SmzTableBuilder {
+  public setPaginationPageOptions(value: number[]): SmzTableBuilder<TData> {
     if (!this._state.pagination.isVisible) {
       throw Error('You need to call \'usePagination\' before');
     }
@@ -577,7 +577,7 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public setPaginationInitialPage(page: number): SmzTableBuilder {
+  public setPaginationInitialPage(page: number): SmzTableBuilder<TData> {
     if (!this._state.pagination.isVisible) {
       throw Error('You need to call \'usePagination\' before');
     }
@@ -590,7 +590,7 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public hidePaginationReport(): SmzTableBuilder {
+  public hidePaginationReport(): SmzTableBuilder<TData> {
     if (!this._state.pagination.isVisible) {
       throw Error('You need to call \'usePagination\' before');
     }
@@ -598,7 +598,7 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public setPaginationReportTemplateText(template: string): SmzTableBuilder {
+  public setPaginationReportTemplateText(template: string): SmzTableBuilder<TData> {
     if (!this._state.pagination.isVisible) {
       throw Error('You need to call \'usePagination\' before');
     }
@@ -606,28 +606,28 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public setInitialSorting(field: string, order: 1 | -1): SmzTableBuilder {
+  public setInitialSorting(field: string, order: 1 | -1): SmzTableBuilder<TData> {
     this._state.sort.field = field;
     this._state.sort.order = order;
     return this;
   }
 
-  public setCustomInitialSorting(data: { field?: string, mode?: 'single' | 'multiple', order?: 1 | -1, multiSortMeta?: { field: string, order: 1 | -1 }[] }): SmzTableBuilder {
+  public setCustomInitialSorting(data: { field?: string, mode?: 'single' | 'multiple', order?: 1 | -1, multiSortMeta?: { field: string, order: 1 | -1 }[] }): SmzTableBuilder<TData> {
     this._state.sort = data;
     return this;
   }
 
-  public useStrippedStyle(): SmzTableBuilder {
+  public useStrippedStyle(): SmzTableBuilder<TData> {
     this._state.styles.striped = true;
     return this;
   }
 
-  public useGridStyle(): SmzTableBuilder {
+  public useGridStyle(): SmzTableBuilder<TData> {
     this._state.styles.showGrid = true;
     return this;
   }
 
-  public setSize(size: 'extra-small' | 'small' | 'regular' | 'large'): SmzTableBuilder {
+  public setSize(size: 'extra-small' | 'small' | 'regular' | 'large'): SmzTableBuilder<TData> {
     this._state.styles.size = size;
 
     switch (size) {
@@ -653,7 +653,7 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public useEstimatedColWidth(maxWidthPx?: number): SmzTableBuilder {
+  public useEstimatedColWidth(maxWidthPx?: number): SmzTableBuilder<TData> {
 
     if (this._state.editable.isEditable) {
       throw Error('You can\'t use \'useEstimatedColWidth\' while using \'editable Table\'');
@@ -671,7 +671,7 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public setEstimatedSamplesCount(samplesCount: number): SmzTableBuilder {
+  public setEstimatedSamplesCount(samplesCount: number): SmzTableBuilder<TData> {
 
     if (!this._state.styles.columnsWidth.estimate) {
       throw Error('You need to call \'useEstimatedColWidth\' before');
@@ -682,14 +682,14 @@ export class SmzTableBuilder {
     return this;
   }
 
-  // public setColumnWidthBehavior(behavior: 'width' | 'min-width'): SmzTableBuilder {
+  // public setColumnWidthBehavior(behavior: 'width' | 'min-width'): SmzTableBuilder<TData> {
 
   //   this._state.styles.columnsWidth.behavior = behavior;
 
   //   return this;
   // }
 
-  public setEstimatedFontBase(fontBase: string): SmzTableBuilder {
+  public setEstimatedFontBase(fontBase: string): SmzTableBuilder<TData> {
 
     if (!this._state.styles.columnsWidth.estimate) {
       throw Error('You need to call \'useEstimatedColWidth\' before');
@@ -700,7 +700,7 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public setEstimatedPadding(padding: number): SmzTableBuilder {
+  public setEstimatedPadding(padding: number): SmzTableBuilder<TData> {
 
     if (!this._state.styles.columnsWidth.estimate) {
       throw Error('You need to call \'useEstimatedColWidth\' before');
@@ -711,19 +711,19 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public setTableStyleClass(styleClass: string): SmzTableBuilder {
+  public setTableStyleClass(styleClass: string): SmzTableBuilder<TData> {
 
     this._state.styles.tableStyleClass = styleClass;
 
     return this;
   }
 
-  public reorder(...properties: string[]): SmzTableBuilder {
+  public reorder(...properties: string[]): SmzTableBuilder<TData> {
     this._state.columns = sortBy(this._state.columns, (c) => properties.indexOf(c.property) !== -1 ? properties.indexOf(c.property) : this._state.columns.length);
     return this;
   }
 
-  public relabel(...operations: { property: string, header: string }[]): SmzTableBuilder {
+  public relabel(...operations: { property: string, header: string }[]): SmzTableBuilder<TData> {
     operations.forEach(o => {
       const column = this._state.columns.find(x => x.property === o.property);
 
@@ -736,7 +736,7 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public resizeIgnoringCheck(...operations: { property: string, width: string }[]): SmzTableBuilder {
+  public resizeIgnoringCheck(...operations: { property: string, width: string }[]): SmzTableBuilder<TData> {
     operations.forEach(o => {
       const column = this._state.columns.find(x => x.property === o.property);
 
@@ -748,7 +748,7 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public resize(...operations: { property: string, width: string }[]): SmzTableBuilder {
+  public resize(...operations: { property: string, width: string }[]): SmzTableBuilder<TData> {
     operations.forEach(o => {
       const column = this._state.columns.find(x => x.property === o.property);
 
@@ -761,24 +761,24 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public useCustomActions(columnWidthPixels: number): SmzTableBuilder {
+  public useCustomActions(columnWidthPixels: number): SmzTableBuilder<TData> {
     this._state.actions.customActions.isVisible = true;
     this._state.actions.customActions.columnWidth += columnWidthPixels;
     return this;
   }
 
-  public disableRowHoverEffect(): SmzTableBuilder {
+  public disableRowHoverEffect(): SmzTableBuilder<TData> {
     this._state.actions.rowBehavior.hoverable = false;
     return this;
   }
 
-  public setRowClickCallback<T>(callback: (event: T) => void): SmzTableBuilder {
+  public setRowClickCallback<T>(callback: (event: T) => void): SmzTableBuilder<TData> {
     this._state.actions.rowBehavior.isClickable = true;
     this._state.actions.rowBehavior.clickCallback = callback;
     return this;
   }
 
-  public expandOnRowClick(): SmzTableBuilder {
+  public expandOnRowClick(): SmzTableBuilder<TData> {
 
     if (!this._state.rowExpansion.isEnabled) {
       throw Error('You need to call \'expandOnRowClick\' before calling \'expandOnRowClick\'');
@@ -788,12 +788,12 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public setHighlightedRows(ids: string[]): SmzTableBuilder {
+  public setHighlightedRows(ids: string[]): SmzTableBuilder<TData> {
     this._state.actions.rowBehavior.highlights.ids = ids;
     return this;
   }
 
-  public menu(items: SmzMenuItem[] = null): SmzMenuTableBuilder {
+  public menu(items: SmzMenuItem[] = null): SmzMenuTableBuilder<TData, TData> {
 
     switch (this._state.styles.size) {
       case 'extra-small':
@@ -816,7 +816,7 @@ export class SmzTableBuilder {
         break;
     }
 
-    const menuBuilder = new SmzMenuTableBuilder(this);
+    const menuBuilder = new SmzMenuTableBuilder<TData, TData>(this);
 
     if (items != null) {
       this._state.actions.menu.isVisible = true;
@@ -826,7 +826,7 @@ export class SmzTableBuilder {
     return menuBuilder;
   }
 
-  public dynamicMenu(callback: (row: any) => SmzMenuItem[]): SmzTableBuilder {
+  public dynamicMenu(callback: (row: any) => SmzMenuItem[]): SmzTableBuilder<TData> {
 
     if (this._state.actions.menu.items != null && this._state.actions.menu.items.length > 0) {
       throw Error('You can\'t call \'dynamicMenu\' if the menu items are already set');
@@ -840,13 +840,13 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public batchMenu(items: SmzMenuItem[] = null): SmzBatchMenuBuilder {
+  public batchMenu(items: SmzMenuItem[] = null): SmzBatchMenuBuilder<TData> {
 
     if (!this._state.caption.rowSelection.isEnabled) {
       throw Error('You need to call \'allowDefaultMultiSelection\' or \'allowUserMultiSelection\' before');
     }
 
-    const batchMenuBuilder = new SmzBatchMenuBuilder(this);
+    const batchMenuBuilder = new SmzBatchMenuBuilder<TData>(this);
 
     if (items != null) {
       this._state.actions.batchActions.isVisible = true;
@@ -856,7 +856,7 @@ export class SmzTableBuilder {
     return batchMenuBuilder;
   }
 
-  public editable(): SmzEditableTableBuilder {
+  public editable(): SmzEditableTableBuilder<TData> {
 
     if (this._state.editable.isEditable) {
       throw Error('You cannot call \'editable\' twice');
@@ -871,7 +871,7 @@ export class SmzTableBuilder {
     return editableBuilder;
   }
 
-  public setScrollDirection(direction: 'vertical' | 'horizontal' | 'both' = 'vertical'): SmzTableBuilder {
+  public setScrollDirection(direction: 'vertical' | 'horizontal' | 'both' = 'vertical'): SmzTableBuilder<TData> {
 
     if (this._state.styles.columnsWidth.estimate) {
       throw Error('You can\'t use \'setScrollDirection\' while using \'useEstimatedColWidth\'');
@@ -884,7 +884,7 @@ export class SmzTableBuilder {
     return this;
   }
 
-  public useVerticalScrollHeight(height: string): SmzTableBuilder {
+  public useVerticalScrollHeight(height: string): SmzTableBuilder<TData> {
 
     if (this._state.styles.columnsWidth.estimate) {
       throw Error('You can\'t use \'useVerticalScrollHeight\' while using \'useEstimatedColWidth\'');
@@ -897,7 +897,7 @@ export class SmzTableBuilder {
     return this;
   }
 
-  // public enableResizableColumns(mode: 'fit' | 'expand' = 'fit'): SmzTableBuilder {
+  // public enableResizableColumns(mode: 'fit' | 'expand' = 'fit'): SmzTableBuilder<TData> {
 
   //   if (!this._state.viewport.scrollable) {
   //     throw Error('You need to call \'useScrolling\' before');
@@ -909,21 +909,21 @@ export class SmzTableBuilder {
   //   return this;
   // }
 
-  public debugMode(): SmzTableBuilder {
+  public debugMode(): SmzTableBuilder<TData> {
     this._state.isDebug = true;
     return this;
   }
 
-  public columns(): SmzColumnCollectionBuilder {
-    return new SmzColumnCollectionBuilder(this);
+  public columns(): SmzColumnCollectionBuilder<TData> {
+    return new SmzColumnCollectionBuilder<TData>(this);
   }
 
-  public viewport(): SmzTableViewportBuilder {
-    return new SmzTableViewportBuilder(this);
+  public viewport(): SmzTableViewportBuilder<TData> {
+    return new SmzTableViewportBuilder<TData>(this);
   }
 
-  public excel(): SmzTableExcelBuilder {
-    return new SmzTableExcelBuilder(this);
+  public excel(): SmzTableExcelBuilder<TData> {
+    return new SmzTableExcelBuilder<TData>(this);
   }
 
   public build(): SmzTableState {

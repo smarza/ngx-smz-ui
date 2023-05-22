@@ -129,7 +129,7 @@ export class NgxRbkUtilsConfig {
         navigationMenu: MenuCreation,
         profileMenu: MenuCreation[],
         allowMultipleRolesPerUser: boolean;
-        users: SmzAuthorizationUserState,
+        users: SmzAuthorizationUserState<any>,
         validationSelectors: {
             hasGroupOfClaimAccess: any,
             hasAnyOfClaimAccess: any,
