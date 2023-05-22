@@ -9,7 +9,7 @@ export class SmzMenuTableBuilder extends SmzBuilderUtilities<SmzMenuTableBuilder
     super();
   }
 
-  public item(label: string = null, icon: string = null, tooltip: string = null): SmzMenuItemTableBuilder {
+  public item(label: string = null, icon: string = null, tooltip: string = null): SmzMenuItemTableBuilder<SmzMenuTableBuilder> {
     this._tableBuilder._state.actions.menu.isVisible = true;
     const item: SmzMenuItem = { label, icon, tooltip, transforms: [], visible: true, disabled: false };
     this._tableBuilder._state.actions.menu.items.push(item);
@@ -33,32 +33,32 @@ export class SmzMenuTableBuilder extends SmzBuilderUtilities<SmzMenuTableBuilder
 
 }
 
-export class SmzMenuItemTableBuilder {
-  constructor(private _menuBuilder: SmzMenuTableBuilder, private _parent: SmzMenuItemTableBuilder, private _item: SmzMenuItem) {
+export class SmzMenuItemTableBuilder<TBuilder> {
+  constructor(private _builder: TBuilder, private _parent: SmzMenuItemTableBuilder<TBuilder>, private _item: SmzMenuItem) {
 
   }
 
-  public addChild(label: string, icon: string = null): SmzMenuItemTableBuilder {
+  public addChild(label: string, icon: string = null): SmzMenuItemTableBuilder<TBuilder> {
     if (this._item.items == null) {
       this._item.items = [];
     }
     const item: SmzMenuItem = { label, icon, transforms: [] };
     this._item.items.push(item);
 
-    return new SmzMenuItemTableBuilder(this._menuBuilder, this, item);
+    return new SmzMenuItemTableBuilder(this._builder, this, item);
   }
 
-  public setCallback<T>(callback: (item: T) => void): SmzMenuItemTableBuilder {
+  public setCallback<T>(callback: (item: T) => void): SmzMenuItemTableBuilder<TBuilder> {
     this._item.command = callback;
     return this;
   }
 
-  public setRedirect(paths: string[]): SmzMenuItemTableBuilder {
+  public setRedirect(paths: string[]): SmzMenuItemTableBuilder<TBuilder> {
     this._item.routerLink = paths;
     return this;
   }
 
-  public setVisibilityRule<T>(callback: (item: T) => boolean): SmzMenuItemTableBuilder {
+  public setVisibilityRule<T>(callback: (item: T) => boolean): SmzMenuItemTableBuilder<TBuilder> {
     if (this._item.conditional != null) {
       throw Error('You can\'t call \'setVisibilityRule\' in conjunction with setActivationRule');
     }
@@ -66,7 +66,7 @@ export class SmzMenuItemTableBuilder {
     return this;
   }
 
-  public setActivationRule<T>(callback: (item: T) => boolean): SmzMenuItemTableBuilder {
+  public setActivationRule<T>(callback: (item: T) => boolean): SmzMenuItemTableBuilder<TBuilder> {
     if (this._item.conditional != null) {
       throw Error('You can\'t call \'setActivationRule\' in conjunction with setVisibilityRule');
     }
@@ -74,22 +74,22 @@ export class SmzMenuItemTableBuilder {
     return this;
   }
 
-  public hide(): SmzMenuItemTableBuilder {
+  public hide(): SmzMenuItemTableBuilder<TBuilder> {
     this._item.visible = false;
     return this;
   }
 
-  public disable(): SmzMenuItemTableBuilder {
+  public disable(): SmzMenuItemTableBuilder<TBuilder> {
     this._item.disabled = true;
     return this;
   }
 
-  public addTransformRule<T>(callback: (item: T) => Partial<MenuItem>): SmzMenuItemTableBuilder {
+  public addTransformRule<T>(callback: (item: T) => Partial<MenuItem>): SmzMenuItemTableBuilder<TBuilder> {
     this._item.transforms.push(callback);
     return this;
   }
 
-  public askForConfirmation(title: string, message: string): SmzMenuItemTableBuilder {
+  public askForConfirmation(title: string, message: string): SmzMenuItemTableBuilder<TBuilder> {
     this._item.confirmable = {
       title,
       message,
@@ -98,7 +98,7 @@ export class SmzMenuItemTableBuilder {
     return this;
   }
 
-  public askForCriticalConfirmation(title: string, message: string): SmzMenuItemTableBuilder {
+  public askForCriticalConfirmation(title: string, message: string): SmzMenuItemTableBuilder<TBuilder> {
     this._item.confirmable = {
       title,
       message,
@@ -107,21 +107,21 @@ export class SmzMenuItemTableBuilder {
     return this;
   }
 
-  public setIcon(icon: string): SmzMenuItemTableBuilder {
+  public setIcon(icon: string): SmzMenuItemTableBuilder<TBuilder> {
     this._item.icon = icon;
     return this;
   }
 
-  public setStyles(styleClass: string): SmzMenuItemTableBuilder {
+  public setStyles(styleClass: string): SmzMenuItemTableBuilder<TBuilder> {
     this._item.styleClass = styleClass;
     return this;
   }
 
-  public get menu(): SmzMenuTableBuilder {
-    return this._menuBuilder;
+  public get menu(): TBuilder {
+    return this._builder;
   }
 
-  public applyChild(): SmzMenuItemTableBuilder {
+  public applyChild(): SmzMenuItemTableBuilder<TBuilder> {
     return this._parent;
   }
 

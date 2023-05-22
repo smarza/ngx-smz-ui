@@ -149,8 +149,9 @@ export * from './lib/builders/smz-cards/state-builder';
 export * from './lib/builders/smz-timeline/state-builder';
 export * from './lib/builders/smz-ui-guides/ui-guides-builder';
 
-// STATES
+export * from './lib/builders/common/smz-builder-utilities';
 
+// STATES
 
 export * from './lib/state/app.state';
 export * from './lib/state/app.utils';
