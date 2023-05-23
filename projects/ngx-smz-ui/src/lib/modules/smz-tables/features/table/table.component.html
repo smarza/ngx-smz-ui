@@ -60,7 +60,7 @@
             <ng-template pTemplate="caption" *ngIf="context.state.caption.isVisible">
 
                 <div class="grid grid-nogutter justify-start items-center gap-2">
-                    <span class="col database-title">{{ state.caption.title }}</span>
+                    <div class="col database-title" [innerHTML]="state.caption.title"></div>
                     <ng-container *ngTemplateOutlet="captionTemplate; context: { $implicit: dt }"></ng-container>
 
                     <smz-table-caption-buttons [buttons]="context.state.caption.buttons"></smz-table-caption-buttons>
