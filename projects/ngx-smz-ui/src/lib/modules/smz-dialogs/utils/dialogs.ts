@@ -93,7 +93,7 @@ export function showDialog<T>(
 }
 
 
-export function showConfirmation(title: string, message: string, confirmCallback: () => void): void {
+export function showConfirmation(title: string, messages: string[], confirmCallback: () => void): void {
 
   const dialogsService = GlobalInjector.instance.get(SmzDialogsService);
   if (dialogsService == null) throw new Error('Could not get an instance of the dialogs service');
@@ -101,7 +101,7 @@ export function showConfirmation(title: string, message: string, confirmCallback
   dialogsService.open(({
     presetId: SmzPresets.Confirmation,
     title: title,
-    features: [{ type: 'message', data: message }],
+    features: [{ type: 'message', data: messages }],
     callbacks: {
       onConfirm: confirmCallback
     }
