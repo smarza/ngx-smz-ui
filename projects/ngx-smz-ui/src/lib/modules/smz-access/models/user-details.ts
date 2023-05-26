@@ -17,3 +17,7 @@ export interface UserDetails {
   username: string;
 
 }
+
+export interface CustomUserDetails<TMetadata extends { [key: string]: string }> extends UserDetails {
+  metadata: TMetadata;
+}
