@@ -8,7 +8,6 @@ import { UserDetails } from '../../models/user-details';
 import { replaceItem } from '../../../../common/utils/utils';
 import { ToastActions } from '../../../../state/global/application/application.actions.toast';
 import { AuthenticationService } from '../../services/authentication.service';
-import { CreateUser } from '../../models/create-user';
 
 export const USERS_STATE_NAME = 'users';
 

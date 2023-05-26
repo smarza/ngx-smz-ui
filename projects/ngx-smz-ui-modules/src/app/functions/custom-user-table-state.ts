@@ -1,10 +1,10 @@
 import { GlobalInjector, SmzTableBuilder, SmzFilterType, nameof, SimpleNamedEntity, UserDetails } from 'ngx-smz-ui';
 
-export function CustomUserTableBuilder(): SmzTableBuilder {
+export function CustomUserTableBuilder(): SmzTableBuilder<UserDetails> {
 
   const roleColumnHeader = GlobalInjector.config.rbkUtils.authorization.allowMultipleRolesPerUser ? 'Perfis' : 'Perfil';
 
-  return new SmzTableBuilder()
+  return new SmzTableBuilder<UserDetails>()
     .setTitle(GlobalInjector.config.rbkUtils.authorization.users.title)
     .enableGlobalFilter()
     .setSize('small')

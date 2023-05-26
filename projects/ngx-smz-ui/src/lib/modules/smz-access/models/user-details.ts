@@ -2,17 +2,18 @@ import { SimpleNamedEntity } from '../../../common/models/simple-named-entity';
 import { ClaimOverride } from './claim-override';
 
 export interface UserDetails {
-  username: string;
-  email: string;
-  displayName: string;
-  isActive: boolean;
-  lastLogin?: Date;
-  metadata: string;
-  isConfirmed: boolean;
-  claims: SimpleNamedEntity[];
-  roles: SimpleNamedEntity[];
-  overridedClaims: ClaimOverride[];
-  id: string;
-  avatar: string;
   allowedTenants: string[];
+  avatar: string;
+  claims: SimpleNamedEntity[];
+  displayName: string;
+  email: string;
+  id: string;
+  isActive: boolean;
+  isConfirmed: boolean;
+  lastLogin?: Date;
+  metadata: { [key: string]: string };
+  overridedClaims: ClaimOverride[];
+  roles: SimpleNamedEntity[];
+  username: string;
+
 }
