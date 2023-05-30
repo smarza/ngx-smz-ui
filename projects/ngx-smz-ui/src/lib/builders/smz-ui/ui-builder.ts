@@ -15,6 +15,7 @@ import { SmzLoader } from '../../modules/smz-layouts/core/models/loaders';
 import { AuthenticationSelectors } from '../../state/global/authentication/authentication.selectors';
 import { SmzUiErrorsPageBuilder } from './errors-page-builder';
 import { TenantAuthenticationSelectors } from '../../state/global/authentication/tenant-authentication.selectors';
+import { SmzUiHttpBehaviorsBuilder } from './http-behaviors-builder';
 
 export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
     protected that = this;
@@ -237,6 +238,10 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
         return this.that;
     }
 
+    public httpBehaviors(): SmzUiHttpBehaviorsBuilder {
+        return new SmzUiHttpBehaviorsBuilder(this);
+    }
+
     public authentication(): SmzUiAuthenticationBuilder {
         return new SmzUiAuthenticationBuilder(this);
     }
@@ -293,7 +298,7 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
         return this;
     }
 
-    public Build(): NgxSmzUiConfig {
+    public build(): NgxSmzUiConfig {
         if (this._state.debugMode) {
             console.log(this._state);
         }

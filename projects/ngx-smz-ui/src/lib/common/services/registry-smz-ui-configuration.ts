@@ -3,6 +3,6 @@ import { GlobalInjector } from './global-injector';
 
 export function RegistrySmzUiConfiguration(builder: SmzUiBuilder): boolean {
   console.log('RegistrySmzUiConfiguration');
-  GlobalInjector.config = builder.Build();
+  GlobalInjector.config = builder.build();
   return true;
 }

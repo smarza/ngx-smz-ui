@@ -29,7 +29,7 @@ export class NgxSmzUiModule {
   }
 
   public static forRoot(builder: SmzUiBuilder): ModuleWithProviders<NgxSmzUiModule> {
-    GlobalInjector.config = builder.Build();
+    GlobalInjector.config = builder.build();
 
     runRbkInitialization();
 
