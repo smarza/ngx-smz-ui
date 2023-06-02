@@ -21,9 +21,11 @@ export class SmzFormViewdata {
 
     /** Retorna o objeto com os valores dos inputs; Esse objeto seguirá a nomemclatura do campo name de cada inputConfig */
     public getData<T>(): SmzFormsResponse<T> {
-        // console.log('--------------------------');
-        // console.log('--------------------------');
-        // console.log('--------------------------');
+
+        if (this.config.isDebug) {
+            console.log('--------------------------');
+            console.log('-------- getData ---------');
+        }
 
         const data: T = {} as T;
         const response: SmzFormsResponse<T> = { data, isValid: true, hasUnsavedChanges: false };
@@ -32,7 +34,10 @@ export class SmzFormViewdata {
         for (const group of this.config.groups) {
             for (const input of group.children) {
 
-                // console.log(`> ${input.propertyName}`, input);
+                if (this.config.isDebug) {
+                    console.log('--------------------------');
+                    console.log(`> ${input.propertyName}`, input);
+                }
 
                 if (input.advancedSettings == null || !input.advancedSettings.excludeFromResponse) {
 
@@ -69,14 +74,31 @@ export class SmzFormViewdata {
                                 if (keys[0].includes('_')) {
                                     const valueOfKey = Reflect.get(value, keys[0]);
                                     const objectValue = createObjectFromString(keys[0], valueOfKey, '_');
-                                    response.data = mergeClone(response.data, objectValue);
+
+                                    if (this.config.isDebug) {
+                                        console.log('adding objectValue into response data', objectValue);
+                                    }
+
+                                    // response.data = mergeClone(response.data, objectValue);
+                                    response.data = { ...response.data, ...objectValue };
+
                                     applied = true;
                                 }
                             }
                         }
 
                         if (!applied) {
-                            response.data = mergeClone(response.data, value);
+
+                            if (this.config.isDebug) {
+                                console.log('merging value into response data', value);
+                            }
+
+                            // response.data = mergeClone(response.data, value);
+                            response.data = { ...response.data, ...value };
+                        }
+
+                        if (this.config.isDebug) {
+                            console.log('>> response.data', response.data);
                         }
 
                     }
