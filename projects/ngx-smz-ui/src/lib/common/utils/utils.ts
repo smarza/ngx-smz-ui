@@ -2,6 +2,9 @@ import { TreeNode } from 'primeng/api';
 import { ObjectUtils } from 'primeng/utils';
 import { SimpleNamedEntity } from '../models/simple-named-entity';
 import { b64toBlob, handleBase64 } from './base64-helper';
+import { HttpClient } from '@angular/common/http';
+import { GlobalInjector } from '../services/global-injector';
+import { environment } from '@environments/environment';
 
 export function getFirst<T>(array: T[]) {
     return array == null || array.length === 0 ? null : array[0];
@@ -593,4 +596,35 @@ export function cloneAndRemoveProperties(item: any, propertiesToRemove: string[]
 
 export function toSimpleNamedEntity(item: any, idProperty: string = 'id', nameProperty: string = 'name'): SimpleNamedEntity {
     return { id: ObjectUtils.resolveFieldData(item, idProperty), name: ObjectUtils.resolveFieldData(item, nameProperty)};
+}
+
+export function downloadFromUrl(url: string, filename: string): void {
+    const http: HttpClient = GlobalInjector.instance.get(HttpClient);
+
+    http
+        .get(url, { responseType: 'arraybuffer' })
+        .subscribe(data => {
+            const blob = new Blob([data]);
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = filename;
+            link.click();
+        });
+}
+
+export function downloadFromServerUrl(relativeUrl: string, filename: string): void {
+    const http: HttpClient = GlobalInjector.instance.get(HttpClient);
+    const path = `${environment.serverUrl}/${relativeUrl}`;
+
+    http
+        .get(path, { responseType: 'arraybuffer' })
+        .subscribe(data => {
+            const blob = new Blob([data]);
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = filename;
+            link.click();
+        });
 }
