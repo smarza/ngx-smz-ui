@@ -143,9 +143,7 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
 
   public ngAfterViewInit(): void
   {
-    setTimeout(() => {
-      this.initializeState();
-    }, 0);
+    this.initializeState();
   }
 
   public initializeState(): void {
@@ -172,6 +170,7 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
 
       // Executar atualização da viewport com dados default de pesquisa global, filtros de coluna e ordenação
       this.initViewportState();
+
     }
 
     // Atualizar o isVisible nas colunas do state
@@ -225,8 +224,10 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
 
     // Column Visibility
     this.state.columns.forEach(column => {
-      const visibilityData = state.data.visibility.find(x => x.key === column.field) ?? { key: column.field, isVisible: false };
-      column.isVisible = visibilityData.isVisible;
+      const visibilityData = state.data.visibility.find(x => x.key === column.field);
+      if (visibilityData != null) {
+        column.isVisible = visibilityData.isVisible;
+      }
     });
 
     // Popular a variavel contendo as colunas visiveis

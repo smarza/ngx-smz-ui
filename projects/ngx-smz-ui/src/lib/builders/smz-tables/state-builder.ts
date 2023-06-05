@@ -1,5 +1,5 @@
 import { Store } from '@ngxs/store';
-import { flatten, sortBy } from 'lodash-es';
+import { cloneDeep, flatten, sortBy } from 'lodash-es';
 import { GlobalInjector } from '../../../lib/common/services/global-injector';
 import { SmzMenuItem } from '../../modules/smz-menu/models/smz-menu-item';
 import { SmzTableState, SmzTableViewportStateData } from '../../modules/smz-tables/models/table-state';
@@ -983,7 +983,7 @@ export class SmzTableBuilder<TData> {
     this._state.rowExpansion.ngStyle = applyTableContentNgStyle(this._state, expansionWidth, null);
 
     if (this._state.isDebug) {
-      console.log(this._state);
+      console.log(cloneDeep(this._state));
     }
 
     return this._state;
