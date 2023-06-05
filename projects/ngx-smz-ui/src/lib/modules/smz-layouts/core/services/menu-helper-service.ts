@@ -7,6 +7,8 @@ import { MenuCreation } from '../models/menu-creation';
 import { SmzNotification } from '../models/notifications';
 import { GlobalInjector } from '../../../../common/services/global-injector';
 import { sortMenuItemsByLabel } from '../functions/sort-menu-build';
+import { sortArrayOfObjects } from '../../../../common/utils/utils';
+import { cloneDeep } from 'lodash-es';
 
 @Injectable({ providedIn: 'root' })
 export class MenuHelperService {
@@ -85,14 +87,36 @@ export class MenuHelperService {
   private setupMenu(): void {
     if (this.menuCreationData == null) return;
 
+    const creationData = cloneDeep(this.menuCreationData);
     this.menu = [];
     const extras = [];
 
     if (GlobalInjector.config.rbkUtils.authorization.navigationMenu != null) {
-      extras.push(GlobalInjector.config.rbkUtils.authorization.navigationMenu);
+
+      const navigationMenu = GlobalInjector.config.rbkUtils.authorization.navigationMenu;
+
+      const withSameLabel = creationData.find(x => x.label === navigationMenu.label);
+
+      if (withSameLabel != null) {
+        // Já existe um menu com esse label criado pelo projeto
+
+        if (withSameLabel.items == null) {
+          withSameLabel.items = [];
+        }
+
+        // Merge dos itens desse menu
+        withSameLabel.items = sortArrayOfObjects([...withSameLabel.items, ...navigationMenu.items], 'label', 1);
+      }
+      else {
+        // Não existe nenhum menu com esse mesmo label no projeto
+
+        // Adicionar no extras
+        extras.push(navigationMenu);
+      }
+
     }
 
-    for (const creation of [...extras, ...this.menuCreationData]) {
+    for (const creation of [...creationData, ...extras]) {
 
       const item = this.addMenuItemRecursive(creation, this.accessMenuBehavior);
 
@@ -100,6 +124,8 @@ export class MenuHelperService {
         this.menu.push(item);
       }
     }
+
+    console.log('menu', this.menu);
   }
 
   private setupProfile(): void {

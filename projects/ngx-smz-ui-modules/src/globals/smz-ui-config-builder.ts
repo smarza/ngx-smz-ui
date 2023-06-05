@@ -25,6 +25,7 @@ export const UiBuilder: SmzUiBuilder = new SmzUiBuilder()
       .authorization
     .builder
   .authorization()
+    .setMenuLabel('Administrativo')
     .allowMultipleRolesPerUser()
     .users()
       .customTable(CustomUserTableBuilder)

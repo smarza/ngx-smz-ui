@@ -64,16 +64,31 @@ export class SmzUiAuthenticationLoginBuilder extends SmzBuilderUtilities<SmzUiAu
   }
 
   public setLogoType(type: 'horizontal' | 'vertical' | 'icon' | 'typo'): SmzUiAuthenticationLoginBuilder {
+
+    if (this._state.rbkUtils.authentication.login.page.overrideState.logo == null) {
+      this._state.rbkUtils.authentication.login.page.overrideState.logo = { type: 'horizontal', styleClass: 'w-3/5 ' }
+    }
+
     this._state.rbkUtils.authentication.login.page.overrideState.logo.type = type;
     return this.that;
   }
 
   public useCustomLogo(imagePath: string): SmzUiAuthenticationLoginBuilder {
+
+    if (this._state.rbkUtils.authentication.login.page.overrideState.logo == null) {
+      this._state.rbkUtils.authentication.login.page.overrideState.logo = { type: 'horizontal', styleClass: 'w-3/5 ' }
+    }
+
     this._state.rbkUtils.authentication.login.page.overrideState.logo.customPath = imagePath;
     return this.that;
   }
 
   public setLogoSize(sizes: 'small' | 'medium' | 'large' | 'hero'): SmzUiAuthenticationLoginBuilder {
+
+    if (this._state.rbkUtils.authentication.login.page.overrideState.logo == null) {
+      this._state.rbkUtils.authentication.login.page.overrideState.logo = { type: 'horizontal', styleClass: 'w-3/5 ' }
+    }
+
     switch (sizes) {
       case 'small':
         this._state.rbkUtils.authentication.login.page.overrideState.logo.styleClass = 'w-1/4';
@@ -88,6 +103,26 @@ export class SmzUiAuthenticationLoginBuilder extends SmzBuilderUtilities<SmzUiAu
         this._state.rbkUtils.authentication.login.page.overrideState.logo.styleClass = 'w-full';
         break;
     }
+    return this.that;
+  }
+
+  public setBackground(styleClass: string): SmzUiAuthenticationLoginBuilder {
+
+    if (this._state.rbkUtils.authentication.login.page.overrideState.styleClass == null) {
+      this._state.rbkUtils.authentication.login.page.overrideState.styleClass = { background: 'bg-primary-color', card: 'bg-surface-overlay' };
+    }
+
+    this._state.rbkUtils.authentication.login.page.overrideState.styleClass.background = styleClass;
+    return this.that;
+  }
+
+  public setCard(styleClass: string): SmzUiAuthenticationLoginBuilder {
+
+    if (this._state.rbkUtils.authentication.login.page.overrideState.styleClass == null) {
+      this._state.rbkUtils.authentication.login.page.overrideState.styleClass = { background: 'bg-primary-color', card: 'bg-surface-overlay' };
+    }
+
+    this._state.rbkUtils.authentication.login.page.overrideState.styleClass.card = styleClass;
     return this.that;
   }
 
