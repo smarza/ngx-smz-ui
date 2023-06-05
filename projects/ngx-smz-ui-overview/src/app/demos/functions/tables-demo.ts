@@ -718,7 +718,7 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
       .disableRowHoverEffect()
       .enableColumnVisibility()
       .viewport()
-        .useAutoPersistence('TABLE_EDITABLE_PARTIAL')
+        .usePersistenceByUser('TABLE_EDITABLE_PARTIAL')
         .saveTriggerOnChange()
         .table
       .editable()
@@ -883,7 +883,7 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
           .columns
         .table
       .viewport()
-        .useAutoPersistence('TABLE_VIEWPORT_PERSISTENCE')
+        .usePersistenceByUser('TABLE_VIEWPORT_PERSISTENCE')
         .saveTriggerOnChange()
         .table
     .build();

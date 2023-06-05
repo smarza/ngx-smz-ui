@@ -603,7 +603,7 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
   }
 
   public saveViewportOnLocalStorage(data: SmzTableViewportStateData): void {
-        localStorage.setItem(this.state.viewport.state.auto.key, JSON.stringify(data));
+    localStorage.setItem(this.state.viewport.state.auto.key, JSON.stringify(data));
   }
 
   public loadViewportFromLocalStorage(): void {

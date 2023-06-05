@@ -1,6 +1,9 @@
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzTableBuilder } from './state-builder';
 import { SmzTableViewportState, SmzTableViewportStateData } from '../../modules/smz-tables/models/table-state';
+import { GlobalInjector } from '../../common/services/global-injector';
+import { Store } from '@ngxs/store';
+import { AuthenticationSelectors } from '../../state/global/authentication/authentication.selectors';
 
 export class SmzTableViewportBuilder<TData> extends SmzBuilderUtilities<SmzTableViewportBuilder<TData>> {
   protected that = this;
@@ -11,14 +14,44 @@ export class SmzTableViewportBuilder<TData> extends SmzBuilderUtilities<SmzTable
   }
 
 
-  public useAutoPersistence(key: string): SmzTableViewportBuilder<TData> {
+  public usePersistenceGlobally(key: string): SmzTableViewportBuilder<TData> {
 
     if (this._tableBuilder._state.viewport.state.persistance == 'manual') {
-      throw Error(`You cannot call 'useAutoPersistence' while using 'useManualPersistence' in the Table Builder`);
+      throw Error(`You cannot call 'usePersistenceGlobally' while using 'useManualPersistence' in the Table Builder`);
+    }
+
+    if (this._tableBuilder._state.viewport.state.persistance == 'auto') {
+      throw Error(`You cannot call 'usePersistenceGlobally' while using 'usePersistenceByUser' in the Table Builder`);
     }
 
     this._tableBuilder._state.viewport.state.persistance = 'auto';
     this._tableBuilder._state.viewport.state.auto.key = key;
+
+    const viewportStorageData = localStorage.getItem(this._tableBuilder._state.viewport.state.auto.key);
+
+    if (viewportStorageData != null) {
+      const viewport = JSON.parse(viewportStorageData) as SmzTableViewportStateData;
+      this._tableBuilder._state.viewport.state.data = viewport;
+    }
+
+    return this.that;
+  }
+
+  public usePersistenceByUser(key: string): SmzTableViewportBuilder<TData> {
+
+    if (this._tableBuilder._state.viewport.state.persistance == 'manual') {
+      throw Error(`You cannot call 'usePersistenceByUser' while using 'useManualPersistence' in the Table Builder`);
+    }
+
+    if (this._tableBuilder._state.viewport.state.persistance == 'auto') {
+      throw Error(`You cannot call 'usePersistenceByUser' while using 'usePersistenceGlobally' in the Table Builder`);
+    }
+
+    const store = GlobalInjector.instance.get(Store);
+    const username: string = store.selectSnapshot(AuthenticationSelectors.username);
+
+    this._tableBuilder._state.viewport.state.persistance = 'auto';
+    this._tableBuilder._state.viewport.state.auto.key = `${username}_${key}`;
 
     const viewportStorageData = localStorage.getItem(this._tableBuilder._state.viewport.state.auto.key);
 
