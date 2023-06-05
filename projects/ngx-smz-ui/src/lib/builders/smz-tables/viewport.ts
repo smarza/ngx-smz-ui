@@ -19,6 +19,14 @@ export class SmzTableViewportBuilder<TData> extends SmzBuilderUtilities<SmzTable
 
     this._tableBuilder._state.viewport.state.persistance = 'auto';
     this._tableBuilder._state.viewport.state.auto.key = key;
+
+    const viewportStorageData = localStorage.getItem(this._tableBuilder._state.viewport.state.auto.key);
+
+    if (viewportStorageData != null) {
+      const viewport = JSON.parse(viewportStorageData) as SmzTableViewportStateData;
+      this._tableBuilder._state.viewport.state.data = viewport;
+    }
+
     return this.that;
   }
 
@@ -31,6 +39,13 @@ export class SmzTableViewportBuilder<TData> extends SmzBuilderUtilities<SmzTable
     this._tableBuilder._state.viewport.state.persistance = 'manual';
     this._tableBuilder._state.viewport.state.manual.loadCallback = load;
     this._tableBuilder._state.viewport.state.manual.saveCallback = save;
+
+    const viewportStorageData = load();
+
+    if (viewportStorageData != null) {
+      this._tableBuilder._state.viewport.state.data = viewportStorageData;
+    }
+
     return this.that;
   }
 

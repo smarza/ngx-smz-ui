@@ -2,7 +2,7 @@ import { Store } from '@ngxs/store';
 import { flatten, sortBy } from 'lodash-es';
 import { GlobalInjector } from '../../../lib/common/services/global-injector';
 import { SmzMenuItem } from '../../modules/smz-menu/models/smz-menu-item';
-import { SmzTableState } from '../../modules/smz-tables/models/table-state';
+import { SmzTableState, SmzTableViewportStateData } from '../../modules/smz-tables/models/table-state';
 import { StateBuilderFunctions } from './state-builder-functions';
 import { SmzColumnCollectionBuilder } from './column-builder';
 import { SmzMenuTableBuilder } from './menu-builder';
@@ -929,6 +929,17 @@ export class SmzTableBuilder<TData> {
   public build(): SmzTableState {
 
     this._state.columns.forEach(col => {
+
+      // Caso o modo de persistencia esteja ligado e já exista um state salvo no storage
+      if (this._state.viewport.state.persistance !== 'none' && this._state.viewport.state.data != null) {
+
+        const viewportColumn = this._state.viewport.state.data.visibility.find(x => x.key === col.property);
+
+        if (viewportColumn != null) {
+          // Aplicar visibilidade do storage na coluna
+          col.isVisible = viewportColumn.isVisible;
+        }
+      }
 
       col.content.ngStyle = applyTableContentNgStyle(this._state, null, col.width);
 

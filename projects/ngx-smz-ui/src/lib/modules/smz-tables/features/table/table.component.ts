@@ -99,11 +99,6 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
     this.editableService.deleteEvent = this.delete;
   }
 
-  public getTest(test: any[]) {
-    console.log('getTest', cloneDeep(test));
-    return '1111';
-  }
-
   public ngOnInit(): void {
   }
 
@@ -116,7 +111,7 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
     this.table.filterGlobal(value, 'contains');
   }
 
-  public updateColumnsVisibility(): void {
+  public updateColumnsVisibility(triggerViewport: boolean): void {
     this.state.columns.forEach(x => {
       x.isVisible = this.selectedColumns?.findIndex(c => c.field === x.field) !== -1;
     });
@@ -129,7 +124,9 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
         .map(x => x.field)
       );
 
-    this.viewportChange();
+      if(triggerViewport) {
+        this.viewportChange();
+      }
   }
 
   public hideColumn(column: SmzTableColumn, context: SmzTableContext): void {
@@ -146,7 +143,9 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
 
   public ngAfterViewInit(): void
   {
-    this.initializeState();
+    setTimeout(() => {
+      this.initializeState();
+    }, 0);
   }
 
   public initializeState(): void {
@@ -155,46 +154,47 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
       return ;
     }
 
-    setTimeout(() => {
+    // Popular a variavel contendo as colunas visiveis
+    this.populateColumnVisibility(this.state);
 
-      // Popular a variavel contendo as colunas visiveis
-      this.populateColumnVisibility(this.state);
+    if (this.state.viewport?.state?.isEnabled) {
 
-      if (this.state.viewport?.state?.isEnabled) {
-
-        switch (this.state.viewport?.state?.persistance) {
-          case 'auto':
-            this.loadViewportFromLocalStorage();
-            break;
-          case 'manual':
-            this.loadViewportFromManualCallback();
-            break;
-          default:
-            break;
-        }
-
-        // Executar atualização da viewport com dados default de pesquisa global, filtros de coluna e ordenação
-        this.initViewportState();
+      switch (this.state.viewport?.state?.persistance) {
+        case 'auto':
+          this.loadViewportFromLocalStorage();
+          break;
+        case 'manual':
+          this.loadViewportFromManualCallback();
+          break;
+        default:
+          break;
       }
 
-      // Atualizar o isVisible nas colunas do state
-      this.updateColumnsVisibility();
+      // Executar atualização da viewport com dados default de pesquisa global, filtros de coluna e ordenação
+      this.initViewportState();
+    }
 
-      this.editableService.state = this.state;
-      this.formsService.state = this.state;
+    // Atualizar o isVisible nas colunas do state
+    this.updateColumnsVisibility(false);
 
-      this.editableService.setupAccess();
+    this.editableService.state = this.state;
+    this.formsService.state = this.state;
 
-      this.isViewInit = true;
-      this.cdr.markForCheck();
-    }, 0);
+    this.editableService.setupAccess();
+
+    this.isViewInit = true;
+    this.cdr.markForCheck();
+
   }
 
   public extractViewportStateData(): SmzTableViewportStateData {
 
     const results: SmzTableViewportStateData = {
       filters: this.table.filters,
-      visibility: this.selectedColumns.map(x => ({ key: x.field, isVisible: true })),
+      visibility: this.state.columns.map(x => {
+        const selectedColumn = this.selectedColumns.find(s => s.field === x.field);
+        return { key: x.field, isVisible: selectedColumn != null ?? false };
+      }),
       sort: { mode: 'single', field: this.table.sortField, order: this.table.sortOrder }
     };
 
@@ -579,6 +579,7 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
   }
 
   public viewportChange(): void {
+
     if (this.state.viewport.state?.isEnabled) {
 
       if (this.state.viewport.state.saveTrigger === 'onChange') {
@@ -601,7 +602,7 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
   }
 
   public saveViewportOnLocalStorage(data: SmzTableViewportStateData): void {
-    localStorage.setItem(this.state.viewport.state.auto.key, JSON.stringify(data));
+        localStorage.setItem(this.state.viewport.state.auto.key, JSON.stringify(data));
   }
 
   public loadViewportFromLocalStorage(): void {

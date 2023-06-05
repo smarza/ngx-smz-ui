@@ -878,7 +878,8 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
           .columns
         .table
       .viewport()
-        .useAutoPersistence('table-demo3')
+        .useAutoPersistence('TABLE_VIEWPORT_PERSISTENCE')
+        .saveTriggerOnChange()
         .table
     .build();
     }

@@ -124,8 +124,6 @@ export class MenuHelperService {
         this.menu.push(item);
       }
     }
-
-    console.log('menu', this.menu);
   }
 
   private setupProfile(): void {
