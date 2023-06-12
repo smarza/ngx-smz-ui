@@ -83,7 +83,7 @@ export class ResultsTableComponent implements OnInit {
     if (this.viewport != null) {
       this.resultsTableState = factory
         .viewport()
-          .useAutoPersistence('results-table')
+          .usePersistenceGlobally('results-table')
           .table
         .build();
     }

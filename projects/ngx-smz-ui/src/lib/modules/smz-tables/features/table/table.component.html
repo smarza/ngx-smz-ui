@@ -393,6 +393,7 @@
                                         <smz-table-content
                                             [col]="col"
                                             [pTooltip]="col.content.tooltip != null ? col.content.tooltip(item) : null"
+                                            tooltipPosition="left"
                                             [ngClass]="col.content.contentStyleClass" [contentTypes]="contentTypes" [item]="item" [rowIndex]="rowIndex" [contentTemplate]="contentTemplate">
                                         </smz-table-content>
                                     </ng-template>

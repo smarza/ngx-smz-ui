@@ -2,14 +2,13 @@ import { DemoKeys } from '@demos/demo-keys';
 import { Store } from '@ngxs/store';
 import { DemoFeatureSelectors } from '@states/demo/demo.selectors';
 import { GlobalInjector, SimpleNamedEntity, SmzExportableContentType, SmzFilterType, SmzTableBuilder } from 'ngx-smz-ui';
-import { delay, of } from 'rxjs';
+import { of } from 'rxjs';
 import { convertorTasks } from './../data/conversor-tasks';
 import { Observable } from 'rxjs/internal/Observable';
 import { DemoFeatureActions } from '@states/demo/demo.actions';
 import { LARGE_TABLE_DATA } from '../data/large-table';
 import { EditableTablePartialData, EditableTablePartialLevels } from '../data/tables/editable-table-partial-data';
 import { DemoItem } from '@models/demo';
-import { SimpleParentEntity } from '../../../../../../dist/ngx-smz-ui/lib/common/models/simple-named-entity';
 
 const store = GlobalInjector.instance.get(Store);
 
@@ -878,6 +877,7 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
       .useStrippedStyle()
       .columns()
         .text('name', 'Name', '40em')
+          .addTooltip((item) => `item ${item.name}`)
           .columns
         .text('company', 'Company')
           .columns
