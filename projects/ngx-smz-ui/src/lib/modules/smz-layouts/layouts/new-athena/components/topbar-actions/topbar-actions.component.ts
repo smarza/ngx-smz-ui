@@ -19,7 +19,7 @@ import { GlobalInjector } from '../../../../../../common/services/global-injecto
       </span>
 
       <ng-container *ngIf="uiConfig.rbkUtils.notifications.url != null; else modelDrivenNotificationsTemplate">
-        <smz-ui-notifications id="smz-ui-notifications" class="mr-5"></smz-ui-notifications>
+        <smz-ui-notifications id="smz-ui-notifications" class="mr-5 mt-2"></smz-ui-notifications>
       </ng-container>
 
       <ng-template #modelDrivenNotificationsTemplate>

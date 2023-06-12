@@ -14,6 +14,7 @@ import { SmzLoader } from '../../modules/smz-layouts/core/models/loaders';
 import { SmzUiErrorsPageBuilder } from './errors-page-builder';
 import { TenantAuthenticationSelectors } from '../../state/global/authentication/tenant-authentication.selectors';
 import { SmzUiHttpBehaviorsBuilder } from './http-behaviors-builder';
+import { SmzUiNotificationsBuilder } from './notifications-builder';
 
 export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
     protected that = this;
@@ -238,6 +239,10 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
 
     public httpBehaviors(): SmzUiHttpBehaviorsBuilder {
         return new SmzUiHttpBehaviorsBuilder(this);
+    }
+
+    public notifications(): SmzUiNotificationsBuilder {
+        return new SmzUiNotificationsBuilder(this);
     }
 
     public authentication(): SmzUiAuthenticationBuilder {
