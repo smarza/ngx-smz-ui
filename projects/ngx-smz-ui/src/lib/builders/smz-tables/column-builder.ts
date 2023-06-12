@@ -96,6 +96,11 @@ export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T, TDa
     return this.that;
   }
 
+  public setVisibility(callback: (field: string) => boolean): T {
+    this._column.isVisible = callback(this._column.field);
+    return this.that;
+  }
+
   public frozen(): T {
     this._column.isFrozen = true;
     this._table._state.frozen.isEnabled = true;
