@@ -14,6 +14,7 @@ import { rbkConfig } from './rbk-config';
 export const UiConfigBuilder: SmzUiBuilder = new SmzUiBuilder()
 .setApplicationName('Overview Demo')
 .setDialogsConfigManually(smzDialogsConfig) // Temporally
+.setLocale('pt-BR')
 .layouts(smzLayoutsConfig)
   .setLoader(SmzLoader.CUBE)
   .builder

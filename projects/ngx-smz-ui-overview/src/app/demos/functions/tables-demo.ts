@@ -102,6 +102,8 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
         .text('name', 'Name', '300px')
           .disableFilter()
           .columns
+        .date('date', 'Data', '200px')
+          .columns
         .text('country.name', 'Country')
           .setFilter(SmzFilterType.MULTI_SELECT)
           .disableSort()

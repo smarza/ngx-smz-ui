@@ -21,6 +21,7 @@ export class DemoFeatureSelectors {
         { id: index.toString(), name: `index ${index}` },
       ],
       price: Math.floor(Math.random() * 1000) + 1,
+      date: new Date()
     }));
     console.log("DemoFeatureSelectors results", results);
     return results;

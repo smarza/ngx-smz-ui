@@ -16,6 +16,7 @@ export interface DemoItem {
   html?: string;
   roles?: SimpleNamedEntity[];
   price?: number;
+  date?: Date;
 }
 
 export interface DemoUpdateData {

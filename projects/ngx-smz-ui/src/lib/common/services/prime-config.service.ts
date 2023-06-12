@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FilterMatchMode, FilterService, PrimeNGConfig } from 'primeng/api';
 import { SimpleNamedEntity } from '../models/simple-named-entity';
+import { GlobalInjector } from './global-injector';
 
 
 @Injectable({
@@ -70,41 +71,7 @@ export class PrimeConfigService {
 
   private setTranslation(): void {
 
-    this.config.setTranslation({
-      accept: 'Sim',
-      addRule: 'Adicionar Regra',
-      after: 'Depois',
-      apply: 'Aplicar',
-      before: 'Antes',
-      clear: 'Limpar',
-      contains: 'Contem',
-      dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-      dayNamesMin: ['D', 'S', 'T', 'Qua', 'Qui', 'Sex', 'Sa'],
-      dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
-      endsWith: 'Termina com',
-      equals: 'Igual',
-      gt: 'Maior que',
-      gte: 'Maior que ou igual a',
-      is: 'É',
-      isNot: 'Não é',
-      lt: 'Menor que',
-      lte: 'Menor que ou Igual a',
-      matchAll: 'Combina com Todos',
-      matchAny: 'Combina com qualquer',
-      monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-      monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-      notContains: 'Não contém',
-      notEquals: 'Diferente',
-      reject: 'Não',
-      removeRule: 'Remover Regra',
-      startsWith: 'Começa com',
-      today: 'Hoje',
-      weekHeader: 'Sem',
-      dateIs: 'Igual a',
-      dateAfter: 'Depois de',
-      dateBefore: 'Anterior a',
-      dateIsNot: 'Diferente de'
-    });
+    this.config.setTranslation(GlobalInjector.config.locale.translation);
   }
 
 }

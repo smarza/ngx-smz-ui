@@ -1,3 +1,4 @@
+import { Translation } from 'primeng/api';
 import { NgxRbkUtilsConfig } from './modules/rbk-utils/ngx-rbk-utils.config';
 import { SmzDialogsConfig } from './modules/smz-dialogs/smz-dialogs.config';
 import { SmzLayoutsConfig } from './modules/smz-layouts/core/globals/smz-layouts.config';
@@ -18,4 +19,5 @@ export interface SmzLocaleConfig {
             displayName: string;
         }
     }
+    translation: Translation;
 };
