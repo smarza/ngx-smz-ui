@@ -167,6 +167,7 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
             }
             else {
                 this.config.context.form = this.viewdata.form;
+                this.config.context.cdf = this.cdf;
             }
 
             this.linkInputControls();
@@ -196,7 +197,6 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
                 // Esse timeout garante um adiamento no subscribe de status change do form para não ser executado na primeira inicialização
                 setTimeout(() =>
                 {
-
                     this.viewdata.form.statusChanges
                         .pipe(
                             debounceTime(this.config.behaviors?.debounceTime ?? 400),

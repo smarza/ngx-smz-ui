@@ -178,7 +178,7 @@ const SmzPreset: { [key in SmzPresets]: SmzDialogPreset } = {
         features: {
             formBehaviors: {
                 avoidFocusOnLoad: false,
-                debounceTime: 400,
+                debounceTime: 200,
                 runCustomFunctionsOnLoad: false,
                 skipFunctionAfterNextEmit: false,
                 flattenResponse: false,
