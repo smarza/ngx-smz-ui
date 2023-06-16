@@ -41,6 +41,7 @@ export * from './models/unprotect-claim';
 export * from './models/update-claim';
 export * from './models/update-role-claims';
 export * from './models/update-tenant';
+export * from './models/user-data';
 export * from './models/user-details';
 
 // ROUTES
