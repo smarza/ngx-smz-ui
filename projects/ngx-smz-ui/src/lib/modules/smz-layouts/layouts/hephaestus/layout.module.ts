@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ModuleWithProviders, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { MenubarModule } from 'primeng/menubar';
 import { SharedModule } from 'primeng/api';
 import { HephaestusLayoutComponent } from './layout.component';
@@ -7,14 +7,8 @@ import { OutletModule } from '../../features/outlet/outlet.module';
 import { SmzDiamontTopbarModule } from './components/topbar/topbar.module';
 import { SmzDiamontSidebarModule } from './components/sidebar/sidebar.module';
 import { SmzDiamontFooterModule } from './components/footer/footer.module';
-import { NgxsModule } from '@ngxs/store';
-import { UiHephaestusState } from './state/ui-layout.state';
 import { HephaestusAssistanceModule } from './components/assistance/assistance.module';
-import { HephaestusLayout } from './layout.config';
-import { defaultHephaestusConfig } from './default.config';
-import { mergeClone } from '../../../../common/utils/deep-merge';
 import { SmzTenantSwitchComponent } from '../../features/tenant-switch/tenant-switch.component';
-export const ngxsModuleForFeatureUiHephaestusLayoutState = NgxsModule.forFeature([UiHephaestusState]);
 
 @NgModule({
   declarations: [HephaestusLayoutComponent],
@@ -27,7 +21,6 @@ export const ngxsModuleForFeatureUiHephaestusLayoutState = NgxsModule.forFeature
     SmzDiamontSidebarModule,
     SmzDiamontFooterModule,
     HephaestusAssistanceModule,
-    ngxsModuleForFeatureUiHephaestusLayoutState,
     SmzTenantSwitchComponent
   ],
   exports: [
@@ -35,18 +28,4 @@ export const ngxsModuleForFeatureUiHephaestusLayoutState = NgxsModule.forFeature
     SharedModule
   ]
 })
-export class HephaestusLayoutModule
-{
-  public static forRoot(configuration: HephaestusLayout): ModuleWithProviders<HephaestusLayoutModule>
-  {
-      return {
-          ngModule: HephaestusLayoutModule,
-          providers: [
-              {
-                  provide: HephaestusLayout,
-                  useValue: mergeClone(defaultHephaestusConfig, configuration)
-              }
-          ]
-      };
-  }
-}
+export class HephaestusLayoutModule { }

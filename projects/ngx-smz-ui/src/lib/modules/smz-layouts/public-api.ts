@@ -49,6 +49,7 @@ export { LayoutUiActions as UiActions } from '../../state/ui/layout/layout.actio
 export { LayoutUiSelectors as UiSelectors } from '../../state/ui/layout/layout.selectors';
 
 // DIAMOND LAYOUT MODULE
+export * from './layouts/hephaestus/layout-provider.module';
 export * from './layouts/hephaestus/layout.module';
 export * from './layouts/hephaestus/layout.component';
 export * from './layouts/hephaestus/layout.config';
