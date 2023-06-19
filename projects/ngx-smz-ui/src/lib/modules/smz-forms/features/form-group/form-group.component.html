@@ -27,7 +27,7 @@
 
                         <div class="grid grid-nogutter flex-wrap items-start justify-start flex-gap-2">
                             <ng-container *ngFor="let input of group.children">
-                                <div *ngIf="input.isVisible" class="input__control__wrapper col" [ngClass]="input.template | setTemplateClasses : ['row']">
+                                <div *ngIf="input.isVisible" class="input__control__wrapper col" [ngClass]="input.template | setTemplateClasses : ['row'] : [input.styleClass, group.inputStyleClass]">
                                     <ng-container *ngTemplateOutlet="inputTemplate; context: { $implicit: input }"></ng-container>
                                 </div>
                             </ng-container>

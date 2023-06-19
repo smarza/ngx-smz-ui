@@ -16,6 +16,7 @@ export interface SmzFormsBaseControl
     visibilityDependsOn?: { propertyName: string, reversed: boolean, formId?: string, condition?: any, conditions?: any[] };
     dataDependency?: { propertyName: string, condition: 'some' | 'none', matchValues: any[], callback: (control: SmzFormsBaseControl) => void }[]
     _inputFormControl?: AbstractControl;
+    styleClass?: string;
 
 }
 

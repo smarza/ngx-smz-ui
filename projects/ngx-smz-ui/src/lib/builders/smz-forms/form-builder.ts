@@ -1,11 +1,12 @@
 import { UUID } from 'angular2-uuid';
 import { SmzDialogBuilder } from '../smz-dialogs/dialog-builder';
-import { SmzForm, SmzFormGroup } from '../../modules/smz-forms/models/smz-forms';
+import { SmzForm, SmzFormGroup, SmzFormsResponse } from '../../modules/smz-forms/models/smz-forms';
 import { SmzFormGroupBuilder } from './form-group-builder';
 import { SmzFormUiDefinitionBuilder } from './form-ui-definition-builder';
 import { isSimpleNamedEntity } from '../../common/utils/utils';
 import flatten from 'lodash-es/flatten';
 import { GlobalInjector } from '../../common/services/global-injector';
+import { UntypedFormGroup } from '@angular/forms';
 
 export class SmzFormBuilder<TResponse> {
   private defaultConfig = GlobalInjector.config.dialogs;
@@ -159,6 +160,11 @@ export class SmzFormBuilder<TResponse> {
 
   public showMultipleErrorsMessages(): SmzFormBuilder<TResponse> {
     this._state.behaviors.showMultipleErrorMessages = true;
+    return this;
+  }
+
+  public setCustomValidator(callback: (data: SmzFormsResponse<TResponse>, formGroup: UntypedFormGroup) => boolean): SmzFormBuilder<TResponse> {
+    this._state.functions.customValidator = callback;
     return this;
   }
 
