@@ -102,6 +102,24 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
   public ngOnInit(): void {
   }
 
+  public hasFilters(): boolean {
+    for (let key in this.table?.filters) {
+      let filter = this.table.filters[key];
+      if (Array.isArray(filter)) {
+        for (let subFilter of filter) {
+          if (subFilter.value !== null) {
+            return true;
+          }
+        }
+      } else {
+        if (filter.value !== null) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
   public InitCreation(): void {
     this.editableService.onRowCreateInit(this.table, this.state.columns);
     this.cdr.markForCheck();

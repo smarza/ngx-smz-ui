@@ -860,19 +860,21 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
   },
   //
   [DemoKeys.TABLE_VIEWPORT_PERSISTENCE]: {
-    items$: of([
-      { name: 'name 1', company: 'company D' },
-      { name: 'name 2', company: 'company A' },
-      { name: 'name 2', company: 'company B' },
-      { name: 'name 2', company: 'company C' },
-      { name: 'name 3', company: 'company E' }
-    ]),
+    // items$: of([
+    //   { name: 'name 1', company: 'company D' },
+    //   { name: 'name 2', company: 'company A' },
+    //   { name: 'name 2', company: 'company B' },
+    //   { name: 'name 2', company: 'company C' },
+    //   { name: 'name 3', company: 'company E' }
+    // ]),
+    items$: of([]),
     code: () => {
     return new SmzTableBuilder()
       .setTitle('Filter Persistence')
       .enableClearFilters()
       .enableColumnVisibility()
       .enableGlobalFilter()
+      .useTableEmptyMessage()
       .useGridStyle()
       .setSize('large')
       .setCustomInitialSorting({ field: 'number', order: -1 })
