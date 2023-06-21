@@ -94,6 +94,8 @@ export * from './lib/common/directives/ng-var/ng-var.directive';
 export * from './lib/common/directives/ng-clone/ng-clone.module';
 export * from './lib/common/directives/ng-clone/ng-clone.directive';
 
+export * from './lib/common/directives/custom-ng-for/custom-ng-for.directive';
+
 export * from './lib/common/directives/server-image/server-image.directive';
 export * from './lib/common/directives/server-image/server-image-to-base64.directive';
 export * from './lib/common/directives/safe-image/safe-image.directive';
