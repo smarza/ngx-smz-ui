@@ -73,6 +73,8 @@ export interface SmzDialog<T>
 
     contentClass?: string;
 
+    featureContainerClass?: string;
+
 }
 
 export interface SmzDialogPreset

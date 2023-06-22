@@ -72,7 +72,8 @@ export class SmzDialogBuilder<TResponse> extends SmzBuilderUtilities<SmzDialogBu
     },
     presetId: null,
     features: [],
-    contentClass: ''
+    contentClass: '',
+    featureContainerClass: ''
   };
 
   public createdByUiDefinitions = false;
@@ -135,6 +136,11 @@ export class SmzDialogBuilder<TResponse> extends SmzBuilderUtilities<SmzDialogBu
   public setMinHeight(percentageOfScreen: 50 | 60 | 70 | 80): SmzDialogBuilder<TResponse> {
     const styleClass = ['min-h-[50vh]', 'min-h-[60vh]', 'min-h-[70vh]', 'min-h-[80vh]'];
     this._state.contentClass = `min-h-[${percentageOfScreen}vh]`;
+    return this;
+  }
+
+  public setFeatureContainerStyles(styleClass: string): SmzDialogBuilder<TResponse> {
+    this._state.featureContainerClass = styleClass;
     return this;
   }
 
@@ -220,6 +226,7 @@ export class SmzDialogBuilder<TResponse> extends SmzBuilderUtilities<SmzDialogBu
       type: 'form',
       data: form != null ? form : {groups: []},
     };
+
     this._state.features.push(feature);
 
     if (form == null) {
@@ -231,6 +238,17 @@ export class SmzDialogBuilder<TResponse> extends SmzBuilderUtilities<SmzDialogBu
     {
       return new SmzFormBuilder(this, form);
     }
+  }
+
+  public formFeature(): SmzDialogFormBuilder<TResponse> {
+    const feature: SmzDialogFeature = {
+      type: 'form',
+      data: { groups: [] },
+    };
+
+    this._state.features.push(feature);
+
+    return new SmzDialogFormBuilder(this, feature);
   }
 
   public component(component: ComponentDataBase | any): SmzDialogComponentBuilder<TResponse> {
@@ -325,6 +343,29 @@ export class SmzDialogComponentBuilder<TResponse> {
       this.feature.template = { ...this.feature.template, ...template };
       return this;
   }
+
+  public get dialog(): SmzDialogBuilder<TResponse> {
+    return this._dialogBuilder;
+  }
+}
+
+export class SmzDialogFormBuilder<TResponse> {
+  constructor(public _dialogBuilder: SmzDialogBuilder<TResponse>, public feature: SmzDialogFeature) {
+  }
+
+  public setLayout(breakpoint: 'EXTRA_SMALL' | 'SMALL' | 'MEDIUM' | 'LARGE' | 'EXTRA_LARGE',
+    colType: 'col-1' | 'col-2' | 'col-3' | 'col-4' | 'col-5' | 'col-6' | 'col-7' | 'col-8' | 'col-9' | 'col-10' | 'col-11' | 'col-12' = null): SmzDialogFormBuilder<TResponse> {
+      const template = getSmzTemplate(breakpoint, colType) as any;
+      this.feature.template = { ...this.feature.template, ...template };
+      return this;
+  }
+
+  public form(): SmzFormBuilder<TResponse> {
+    const formBuilder = new SmzFormBuilder(this._dialogBuilder);
+    this.feature.data = formBuilder._state;
+    return formBuilder;
+}
+
 
   public get dialog(): SmzDialogBuilder<TResponse> {
     return this._dialogBuilder;
