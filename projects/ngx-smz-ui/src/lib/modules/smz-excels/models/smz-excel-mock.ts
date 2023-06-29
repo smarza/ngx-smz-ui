@@ -56,7 +56,9 @@ export const SmzExcelMockData: SmzExcelState = {
             dataType: SmzExcelDataDefinitions.Text,
             dataFormat: undefined,
             maxWidth: undefined,
-            hasSubTotal: false
+            hasSubTotal: false,
+            isMultilined: false,
+            newLineSeparator: ''
           },
           // PLANT
           {
@@ -72,7 +74,9 @@ export const SmzExcelMockData: SmzExcelState = {
             dataType: SmzExcelDataDefinitions.Text,
             dataFormat: undefined,
             maxWidth: undefined,
-            hasSubTotal: false
+            hasSubTotal: false,
+            isMultilined: false,
+            newLineSeparator: ''
           },
           // NUMBERS
           {
@@ -88,7 +92,9 @@ export const SmzExcelMockData: SmzExcelState = {
             dataType: SmzExcelDataDefinitions.DateTime,
             dataFormat: '0.00',
             maxWidth: undefined,
-            hasSubTotal: false
+            hasSubTotal: false,
+            isMultilined: false,
+            newLineSeparator: ''
           },
           // DATES
           {
@@ -99,12 +105,14 @@ export const SmzExcelMockData: SmzExcelState = {
               bold: false,
               italic: false,
               underline: false,
-              fontColor: null
+              fontColor: null,
             },
             dataType: SmzExcelDataDefinitions.DateTime,
             dataFormat: 'dd/MM/yyyy',
             maxWidth: undefined,
-            hasSubTotal: false
+            hasSubTotal: false,
+            isMultilined: false,
+            newLineSeparator: ''
           },
         ]
       }

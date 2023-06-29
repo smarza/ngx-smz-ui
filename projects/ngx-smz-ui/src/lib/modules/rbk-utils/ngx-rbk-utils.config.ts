@@ -14,10 +14,6 @@ export class NgxRbkUtilsConfig {
     public diagnostics: {
         url: string;
     };
-    public excels?: {
-        url?: string;
-        requestLimit?: number;
-    };
     public notifications: {
         url: string;
         updateMethod?: 'interval';

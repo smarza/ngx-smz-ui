@@ -11,7 +11,6 @@ import { GlobalInjector } from '../../../common/services/global-injector';
 })
 export class ExcelsService extends BaseApiService
 {
-    private endpoint = `excel`;
 
     constructor(private http: HttpClient)
     {
@@ -20,9 +19,9 @@ export class ExcelsService extends BaseApiService
 
     public generateTables(data: SmzExcelState, loaderOverride: boolean = false): Observable<SmzExcelsDetails>
     {
-        const serverUrl = GlobalInjector.config.rbkUtils.excels?.url ?? environment.serverUrl;
+        const serverUrl = GlobalInjector.config.tables.export.absoluteApiUrl;
 
-        return this.http.post<SmzExcelsDetails>(`${serverUrl}/api/${this.endpoint}/generate-tables`, data,
+        return this.http.post<SmzExcelsDetails>(serverUrl, data,
             this.generateDefaultHeaders({ compression: true, loadingBehavior: loaderOverride ? 'none' : 'global', authentication: true }));
     }
 

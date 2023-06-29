@@ -135,12 +135,6 @@ export class SmzExcelsBuilder extends SmzBuilderUtilities<SmzExcelsBuilder> {
       console.log(`-> MegaBytes: ${megaBytes}`);
     }
 
-    const requestLimit = this.defaultConfig.rbkUtils.excels?.requestLimit ?? 30000000;
-
-    if (size > requestLimit) {
-      this._state.isRequestLimitExceeded = true;
-    }
-
     return this._state;
   }
 }

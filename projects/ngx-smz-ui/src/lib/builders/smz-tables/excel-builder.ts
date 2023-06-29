@@ -27,7 +27,7 @@ export class SmzTableExcelBuilder<TData> extends SmzBuilderUtilities<SmzTableExc
     return this.that;
   }
 
-  public setNewLineSeparator(separator: string): SmzTableExcelBuilder<TData> {
+  public setGlobalNewLineSeparator(separator: string): SmzTableExcelBuilder<TData> {
     this._builder._state.caption.exportToExcel.globalNewLineSeparator = separator;
     return this.that;
   }
@@ -44,6 +44,11 @@ export class SmzTableExcelBuilder<TData> extends SmzBuilderUtilities<SmzTableExc
 
   public setUserAsAuthor(): SmzTableExcelBuilder<TData> {
     this._builder._state.caption.exportToExcel.includeUserAsAuthor = true;
+    return this.that;
+  }
+
+  public setSheetName(sheetName: string): SmzTableExcelBuilder<TData> {
+    this._builder._state.caption.exportToExcel.sheetName = sheetName;
     return this.that;
   }
 

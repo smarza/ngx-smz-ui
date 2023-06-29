@@ -27,6 +27,50 @@ export class SmzExcelsTableColumnTextBuilder extends SmzBuilderUtilities<SmzExce
     return this.that;
   }
 
+  public setAsMultilined(overrideNewlineSeparator?: string): SmzExcelsTableColumnTextBuilder
+  {
+    this._state.isMultilined = true;
+    this._state.newLineSeparator = overrideNewlineSeparator ?? this._builder._.workbookModel.globalColumnBehavior.newLineSeparator;
+    return this.that;
+  }
+
+  public get column(): SmzExcelsTableColumnsBuilder {
+    return this._builder;
+  }
+
+}
+
+export class SmzExcelsTableColumnDateBuilder extends SmzBuilderUtilities<SmzExcelsTableColumnDateBuilder> {
+  protected that = this;
+
+  constructor(protected _builder: SmzExcelsTableColumnsBuilder, protected _state: SmzExcelColumn) {
+    super();
+
+    this._state.dataType = SmzExcelDataDefinitions.DateTime;
+  }
+
+  public setMaxWidthInPixels(maxWidth: number, resolution: number = undefined): SmzExcelsTableColumnDateBuilder {
+    this._state.maxWidth = getWidthInPoints(maxWidth, resolution);
+    return this.that;
+  }
+
+  public setMaxWidthInPoints(maxWidth: number): SmzExcelsTableColumnDateBuilder {
+    this._state.maxWidth = maxWidth;
+    return this.that;
+  }
+
+  public setDateFormat(dataFormat: string): SmzExcelsTableColumnDateBuilder {
+    this._state.dataFormat = dataFormat;
+    return this.that;
+  }
+
+  public setAsMultilined(overrideNewlineSeparator?: string): SmzExcelsTableColumnDateBuilder
+  {
+    this._state.isMultilined = true;
+    this._state.newLineSeparator = overrideNewlineSeparator ?? this._builder._.workbookModel.globalColumnBehavior.newLineSeparator;
+    return this.that;
+  }
+
   public get column(): SmzExcelsTableColumnsBuilder {
     return this._builder;
   }
@@ -49,6 +93,13 @@ export class SmzExcelsTableColumnAutoDetectBuilder extends SmzBuilderUtilities<S
 
   public setMaxWidthInPoints(maxWidth: number): SmzExcelsTableColumnAutoDetectBuilder {
     this._state.maxWidth = maxWidth;
+    return this.that;
+  }
+
+  public setAsMultilined(overrideNewlineSeparator?: string): SmzExcelsTableColumnAutoDetectBuilder
+  {
+    this._state.isMultilined = true;
+    this._state.newLineSeparator = overrideNewlineSeparator ?? this._builder._.workbookModel.globalColumnBehavior.newLineSeparator;
     return this.that;
   }
 
@@ -86,12 +137,19 @@ export class SmzExcelsTableColumnNumberBuilder extends SmzBuilderUtilities<SmzEx
 
   public setFormat(format: string): SmzExcelsTableColumnNumberBuilder {
     this._state.dataFormat = format;
-    return this;
+    return this.that;
   }
 
   public useSubTotal(): SmzExcelsTableColumnNumberBuilder {
     this._state.hasSubTotal = true;
-    return this;
+    return this.that;
+  }
+
+  public setAsMultilined(overrideNewlineSeparator?: string): SmzExcelsTableColumnNumberBuilder
+  {
+    this._state.isMultilined = true;
+    this._state.newLineSeparator = overrideNewlineSeparator ?? this._builder._.workbookModel.globalColumnBehavior.newLineSeparator;
+    return this.that;
   }
 
   public get column(): SmzExcelsTableColumnsBuilder {
@@ -116,6 +174,13 @@ export class SmzExcelsTableColumnHyperlinkBuilder extends SmzBuilderUtilities<Sm
 
   public setMaxWidthInPoints(maxWidth: number): SmzExcelsTableColumnHyperlinkBuilder {
     this._state.maxWidth = maxWidth;
+    return this.that;
+  }
+
+  public setAsMultilined(overrideNewlineSeparator?: string): SmzExcelsTableColumnHyperlinkBuilder
+  {
+    this._state.isMultilined = true;
+    this._state.newLineSeparator = overrideNewlineSeparator ?? this._builder._.workbookModel.globalColumnBehavior.newLineSeparator;
     return this.that;
   }
 

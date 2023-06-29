@@ -36,6 +36,9 @@ export interface SmzTableColumn {
     exportAs?: SmzExportableContentType;
 
     dataCallback?: (data: any, row: any, index: number) => string;
+    isMultilined?: boolean;
+    newLineSeparator?: string;
+    dateFormat?: string;
   }
 
   /**

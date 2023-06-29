@@ -243,6 +243,7 @@ export interface SmzTableState {
       maxFilenameLength?: number;
       maxFilenameShortenSuffix?: string;
       includeUserAsAuthor?: boolean;
+      sheetName?: string;
     }
     /**
      * Allows the end user to manually clear table filters

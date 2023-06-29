@@ -208,6 +208,7 @@ export class SmzDateColumnBuilder<TData> extends SmzBaseColumnBuilder<SmzDateCol
     super(_table, _parent, SmzContentType.CALENDAR, SmzFilterType.DATE, field, header, true, width);
 
     this._column.export.exportAs = SmzExportableContentType.DATETIME;
+    this._column.export.dateFormat = 'dd/MM/yyyy';
   }
 
   public setDateFormat(format: 'shortDate' | 'short' | 'medium' | 'long' | 'mediumDate' | 'longDate' | 'shortTime'): SmzDateColumnBuilder<TData> {
@@ -215,9 +216,33 @@ export class SmzDateColumnBuilder<TData> extends SmzBaseColumnBuilder<SmzDateCol
     this._column.content.data = { format };
     return this;
   }
+
   public setFilter(type: SmzFilterType): SmzDateColumnBuilder<TData> {
     this._column.filter.type = type;
     return this;
+  }
+
+  public setExportTransform(callback: (data: any, row: any, index: number) => any): SmzDateColumnBuilder<TData> {
+
+    if (this._column.export.exportAs === SmzExportableContentType.NONE) {
+      throw new Error(`You need to setExportAs before setExportTransform for the field ${this._column.field}`);
+    }
+
+    this._column.export.dataCallback = callback;
+    return this;
+  }
+
+  public setExportAsMultilined(overrideNewlineSeparator?: string): SmzDateColumnBuilder<TData>
+  {
+    this._column.export.isMultilined = true;
+    this._column.export.newLineSeparator = overrideNewlineSeparator;
+    return this.that;
+  }
+
+  public setExportDateFormat(dateFormat: string): SmzDateColumnBuilder<TData>
+  {
+    this._column.export.dateFormat = dateFormat;
+    return this.that;
   }
 
 }
@@ -282,6 +307,13 @@ export class SmzCustomColumnBuilder<TData> extends SmzBaseColumnBuilder<SmzCusto
     return this;
   }
 
+  public setExportAsMultilined(overrideNewlineSeparator?: string): SmzCustomColumnBuilder<TData>
+  {
+    this._column.export.isMultilined = true;
+    this._column.export.newLineSeparator = overrideNewlineSeparator;
+    return this.that;
+  }
+
   public forceGlobalFilter(): SmzCustomColumnBuilder<TData> {
 
     if (this._column.filter.isGlobalFilterable) {
@@ -324,6 +356,13 @@ export class SmzIconColumnBuilder<TData> extends SmzBaseColumnBuilder<SmzIconCol
     return this;
   }
 
+  public setExportAsMultilined(overrideNewlineSeparator?: string): SmzIconColumnBuilder<TData>
+  {
+    this._column.export.isMultilined = true;
+    this._column.export.newLineSeparator = overrideNewlineSeparator;
+    return this.that;
+  }
+
   public forceGlobalFilter(): SmzIconColumnBuilder<TData> {
 
     if (this._column.filter.isGlobalFilterable) {
@@ -360,6 +399,13 @@ export class SmzDataTransformColumnBuilder<TData> extends SmzBaseColumnBuilder<S
 
     this._column.export.dataCallback = callback;
     return this;
+  }
+
+  public setExportAsMultilined(overrideNewlineSeparator?: string): SmzDataTransformColumnBuilder<TData>
+  {
+    this._column.export.isMultilined = true;
+    this._column.export.newLineSeparator = overrideNewlineSeparator;
+    return this.that;
   }
 
   public ignoreTransformOnExport(): SmzDataTransformColumnBuilder<TData> {
