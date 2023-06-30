@@ -14,5 +14,5 @@ export interface SmzExportableColumn {
   type: SmzExportableContentType;
   isMultilined: boolean;
   newLineSeparator: string;
-  dateFormat: string;
+  dataFormat: string;
 }

@@ -116,13 +116,23 @@ export class SmzExcelsTableColumnNumberBuilder extends SmzBuilderUtilities<SmzEx
     super();
 
     this._state.dataType = SmzExcelDataDefinitions.Number;
+    this._state.dataFormat = null;
+  }
 
+  public useCurrencyFormat(currencySymbol?: string): SmzExcelsTableColumnNumberBuilder {
     const locale = GlobalInjector.instance.get(LOCALE_ID);
 
-    const currencySymbol = getCurrencySymbol(getLocaleCurrencyCode(locale), 'wide', locale);
     const numberFormat = '0.00'; // Intl.NumberFormat(this.locale, { style: 'decimal', minimumFractionDigits: 2}).format(0);
 
-    this._state.dataFormat = `${currencySymbol} ${numberFormat}`;
+    this._state.dataFormat = `${currencySymbol ?? getCurrencySymbol(getLocaleCurrencyCode(locale), 'wide', locale)} ${numberFormat}`;
+
+    return this.that;
+  }
+
+  public setDataFormat(format: string): SmzExcelsTableColumnNumberBuilder {
+    this._state.dataFormat = format;
+
+    return this.that;
   }
 
   public setMaxWidthInPixels(maxWidth: number, resolution: number = undefined): SmzExcelsTableColumnNumberBuilder {

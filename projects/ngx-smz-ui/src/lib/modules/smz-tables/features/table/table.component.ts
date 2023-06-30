@@ -381,12 +381,12 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
         .filter(x => x.export.isExportable)
         .map(x => ({
           field: x.field,
-          header: x.header,
+          header: x.export.header,
           callback: x.export.dataCallback,
           type: x.export.exportAs,
           isMultilined: x.export.isMultilined,
           newLineSeparator: x.export.newLineSeparator,
-          dateFormat: x.export.dateFormat
+          dataFormat: x.export.dataFormat
         })),
       items: cloneDeep(items)
     };
@@ -406,12 +406,12 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
         .filter(x => x.export.isExportable)
         .map(x => ({
           field: x.field,
-          header: x.header,
+          header: x.export.header,
           callback: x.export.dataCallback,
           type: x.export.exportAs,
           isMultilined: x.export.isMultilined,
           newLineSeparator: x.export.newLineSeparator,
-          dateFormat: x.export.dateFormat
+          dataFormat: x.export.dataFormat
         }));
 
       const visibleItems = table.filteredValue?.length > 0 ? table.filteredValue : items;
@@ -476,7 +476,7 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
                           .if(column.isMultilined)
                             .setAsMultilined(column.newLineSeparator)
                             .endIf
-                          .setDateFormat(column.dateFormat)
+                          .setDateFormat(column.dataFormat)
                           .column
 
                   case SmzExportableContentType.TEXT:
@@ -500,6 +500,7 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
                         .if(column.isMultilined)
                           .setAsMultilined(column.newLineSeparator)
                           .endIf
+                        .setFormat(column.dataFormat)
                         .column
 
                   case SmzExportableContentType.BOOLEAN:

@@ -38,7 +38,8 @@ export interface SmzTableColumn {
     dataCallback?: (data: any, row: any, index: number) => string;
     isMultilined?: boolean;
     newLineSeparator?: string;
-    dateFormat?: string;
+    dataFormat?: string;
+    header?: string;
   }
 
   /**
