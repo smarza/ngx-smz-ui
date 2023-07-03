@@ -50,7 +50,7 @@ export class ResultsTableComponent implements OnInit {
         .setShortenSuffix('(...)')
         .setUserAsAuthor()
         .useHyperlinkAsHtml()
-        .setNewLineSeparator('<br>')
+        .setGlobalNewLineSeparator('<br>')
         .excel
       .columns()
         .for(headers, (builder: SmzColumnCollectionBuilder<any>, header: any) => (builder

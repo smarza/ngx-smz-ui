@@ -184,7 +184,7 @@
                                                         </div>
                                                     </ng-template>
                                                     <ng-template pTemplate="filter" let-value let-filter="filter">
-                                                        <p-dropdown [ngModel]="value" [options]="(clonedData.items != null ? clonedData.items : []) | uniqueFilter : filterField + '.id' : filterField : null : null : false" [placeholder]="context.state.locale.dropdownFilter.placeholder" (onChange)="filter($event.value)" optionLabel="name" dataKey="id"></p-dropdown>
+                                                        <p-dropdown [ngModel]="value" [options]="(clonedData.items != null ? clonedData.items : []) | uniqueFilter : filterField + '.id' : filterField : null : 'name' : false" [placeholder]="context.state.locale.dropdownFilter.placeholder" (onChange)="filter($event.value)" optionLabel="name" dataKey="id"></p-dropdown>
                                                     </ng-template>
                                                 </smz-column-filter>
                                             </ng-container>
@@ -199,7 +199,7 @@
                                                         </div>
                                                     </ng-template>
                                                     <ng-template pTemplate="filter" let-value let-filter="filter">
-                                                        <p-multiSelect [ngModel]="value" [options]="(clonedData.items != null ? clonedData.items : []) | uniqueFilter : filterField + '.id' : filterField : null : null : false" [placeholder]="context.state.locale.dropdownFilter.placeholder" (onChange)="filter($event.value)" optionLabel="name" dataKey="id"></p-multiSelect>
+                                                        <p-multiSelect [ngModel]="value" [options]="(clonedData.items != null ? clonedData.items : []) | uniqueFilter : filterField + '.id' : filterField : null : 'name' : false" [placeholder]="context.state.locale.dropdownFilter.placeholder" (onChange)="filter($event.value)" optionLabel="name" dataKey="id"></p-multiSelect>
                                                     </ng-template>
                                                 </smz-column-filter>
                                             </ng-container>
@@ -214,7 +214,7 @@
                                                         </div>
                                                     </ng-template>
                                                     <ng-template pTemplate="filter" let-value let-filter="filter">
-                                                        <p-multiSelect [ngModel]="value" [options]="(clonedData.items != null ? clonedData.items : []) | uniqueFilter : filterField + '.id' : filterField : null : null : true" [placeholder]="context.state.locale.dropdownFilter.placeholder" (onChange)="filter($event.value)" optionLabel="name" dataKey="id"></p-multiSelect>
+                                                        <p-multiSelect [ngModel]="value" [options]="(clonedData.items != null ? clonedData.items : []) | uniqueFilter : filterField + '.id' : filterField : null : 'name' : true" [placeholder]="context.state.locale.dropdownFilter.placeholder" (onChange)="filter($event.value)" optionLabel="name" dataKey="id"></p-multiSelect>
                                                     </ng-template>
                                                 </smz-column-filter>
                                             </ng-container>
