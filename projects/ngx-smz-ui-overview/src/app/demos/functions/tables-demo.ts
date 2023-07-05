@@ -100,15 +100,22 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
         .table
       .columns()
         .text('name', 'Name', '300px')
+          .ignoreOnGlobalFilter()
           .disableFilter()
           .columns
         .date('date', 'Data', '200px')
           .columns
-        .text('country.name', 'Country')
+        .custom('country.name', 'Country')
+          .overrideGlobalFilter('country.name')
+          .overrideFilter('country')
           .setFilter(SmzFilterType.MULTI_SELECT)
           .disableSort()
           .columns
         // .dataTransform('country.name', 'Super Country 2', (country: SimpleNamedEntity, row: any) => `test: ${row.country?.name?.toUpperCase()}`)
+        //   .overrideGlobalFilter('country.name')
+        //   .overrideFilter('country')
+        //   .setFilter(SmzFilterType.MULTI_SELECT)
+        //   .disableSort()
         //   .columns
         // .dataTransform('country', 'Super Country', (country: SimpleNamedEntity, row: any) => `super: ${country?.name?.toUpperCase()}`)
         //   .setFilter(SmzFilterType.MULTI_SELECT)

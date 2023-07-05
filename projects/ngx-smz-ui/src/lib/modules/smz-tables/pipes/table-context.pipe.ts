@@ -57,7 +57,7 @@ export class SmzTableContextPipe implements PipeTransform {
       }
 
       if (column.filter.isGlobalFilterable) {
-        globalFilter.push(column.field);
+        globalFilter.push(column.globalFilterField);
       }
 
       columns.push(contextColumn);

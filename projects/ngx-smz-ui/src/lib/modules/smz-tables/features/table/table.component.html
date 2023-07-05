@@ -120,7 +120,7 @@
 
                         <ng-container *ngIf="context.state.viewport.resizableColumns; else nonResizable">
                             <ng-container *ngIf="col.isOrderable">
-                                <th [pSortableColumn]="col.field" pResizableColumn [ngStyle]="col.content.ngStyle" [ngClass]="col.headerStyleClass">
+                                <th [pSortableColumn]="col.sortField" pResizableColumn [ngStyle]="col.content.ngStyle" [ngClass]="col.headerStyleClass">
                                     <ng-container *ngTemplateOutlet="headerContent"></ng-container>
                                 </th>
                             </ng-container>
@@ -134,7 +134,7 @@
 
                         <ng-template #nonResizable>
                             <ng-container *ngIf="col.isOrderable">
-                                <th [pSortableColumn]="col.field" [ngStyle]="col.content.ngStyle" [ngClass]="col.headerStyleClass">
+                                <th [pSortableColumn]="col.sortField" [ngStyle]="col.content.ngStyle" [ngClass]="col.headerStyleClass">
                                     <ng-container *ngTemplateOutlet="headerContent"></ng-container>
                                 </th>
                             </ng-container>
@@ -149,34 +149,33 @@
                         <ng-template #headerContent>
                             <div class="flex justify-start items-center">
                                 <span class="mr-1">{{ col.header }}</span>
-                                <p-sortIcon [field]="col.field" *ngIf="!clonedData.showSkeleton && col.isOrderable"></p-sortIcon>
+                                <p-sortIcon [field]="col.sortField" *ngIf="!clonedData.showSkeleton && col.isOrderable"></p-sortIcon>
 
                                 <ng-container *ngIf="!clonedData.showSkeleton">
                                     <ng-container [ngSwitch]="col.filter.type">
 
                                         <ng-container *ngSwitchCase="filterTypes.currency">
-                                            <!-- <p-columnFilter type="numeric" currency="BRL" [field]="col.field" display="menu"></p-columnFilter> -->
-                                            <smz-column-filter type="numeric" currency="BRL" [field]="col.field"></smz-column-filter>
+                                            <smz-column-filter type="numeric" currency="BRL" [field]="col.filterField"></smz-column-filter>
                                         </ng-container>
 
                                         <ng-container *ngSwitchCase="filterTypes.numeric">
-                                            <smz-column-filter type="numeric" [field]="col.field"></smz-column-filter>
+                                            <smz-column-filter type="numeric" [field]="col.filterField"></smz-column-filter>
                                         </ng-container>
 
                                         <ng-container *ngSwitchCase="filterTypes.date">
-                                            <smz-column-filter type="date" [field]="col.field"></smz-column-filter>
+                                            <smz-column-filter type="date" [field]="col.filterField"></smz-column-filter>
                                         </ng-container>
 
                                         <ng-container *ngSwitchCase="filterTypes.text">
-                                            <smz-column-filter type="text" [field]="col.field"></smz-column-filter>
+                                            <smz-column-filter type="text" [field]="col.filterField"></smz-column-filter>
                                         </ng-container>
 
                                         <ng-container *ngSwitchCase="filterTypes.boolean">
-                                            <smz-column-filter type="boolean" [field]="col.field"></smz-column-filter>
+                                            <smz-column-filter type="boolean" [field]="col.filterField"></smz-column-filter>
                                         </ng-container>
 
                                         <ng-container *ngSwitchCase="filterTypes.dropdown">
-                                            <ng-container *ngIf="col.field | filterObject as filterField">
+                                            <ng-container *ngIf="col.filterField | filterObject as filterField">
                                                 <smz-column-filter [field]="filterField + '.id'" matchMode="dropdown" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
                                                     <ng-template pTemplate="header">
                                                         <div class="px-3 pt-3 pb-0">
@@ -191,7 +190,7 @@
                                         </ng-container>
 
                                         <ng-container *ngSwitchCase="filterTypes.multiselect">
-                                            <ng-container *ngIf="col.field | filterObject as filterField">
+                                            <ng-container *ngIf="col.filterField | filterObject as filterField">
                                                 <smz-column-filter [field]="filterField" matchMode="in" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
                                                     <ng-template pTemplate="header">
                                                         <div class="px-3 pt-3 pb-0">
@@ -206,7 +205,7 @@
                                         </ng-container>
 
                                         <ng-container *ngSwitchCase="filterTypes.multiselect_array">
-                                            <ng-container *ngIf="col.field | filterObject as filterField">
+                                            <ng-container *ngIf="col.filterField | filterObject as filterField">
                                                 <smz-column-filter [field]="filterField" matchMode="array-some" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
                                                     <ng-template pTemplate="header">
                                                         <div class="px-3 pt-3 pb-0">

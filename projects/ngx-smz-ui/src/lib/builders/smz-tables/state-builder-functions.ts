@@ -23,6 +23,9 @@ export namespace StateBuilderFunctions {
 
       const column: SmzTableColumn = {
         field: converted.field(input),
+        filterField: converted.field(input),
+        globalFilterField: converted.field(input),
+        sortField: converted.field(input),
         property: converted.property(input),
         header: input.name,
         headerStyleClass: '',

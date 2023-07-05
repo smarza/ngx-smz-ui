@@ -41,6 +41,9 @@ export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T, TDa
 
       this._column = {
         field: field,
+        filterField: field,
+        sortField: field,
+        globalFilterField: field,
         property: field.split('.')[0],
         header: header,
         headerStyleClass: '',
@@ -88,6 +91,24 @@ export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T, TDa
 
     }
 
+  }
+
+  public overrideFilter(propertyPath?: string): T {
+    this._column.filterField = propertyPath;
+    this._column.filter.type = SmzFilterType.TEXT;
+    return this.that;
+  }
+
+  public overrideSort(propertyPath?: string): T {
+    this._column.sortField = propertyPath;
+    this._column.isOrderable = true;
+    return this.that;
+  }
+
+  public overrideGlobalFilter(propertyPath?: string): T {
+    this._column.globalFilterField = propertyPath;
+    this._column.filter.isGlobalFilterable = true;
+    return this.that;
   }
 
   public disableSort(): T {

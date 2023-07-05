@@ -9,6 +9,21 @@ export interface SmzTableColumn {
    */
   field: string;
   /**
+   * Property name path that will be used to create filters
+   * It can be different from field in some complex cases like when field is an object and you need to provide other property to be the filter.
+   */
+  filterField: string;
+  /**
+   * Property name path that will be used in global search
+   * It can be different from field in some complex cases like when field is an object and you need to provide other property to the global search input.
+   */
+  globalFilterField: string;
+  /**
+   * Property name path that will be used to sort
+   * It can be different from field in some complex cases like when field is an object and you need to provide other property to be the sort value.
+   */
+  sortField: string;
+  /**
    * Property name, this is an identifier and has to be unique.
    */
   property: string;

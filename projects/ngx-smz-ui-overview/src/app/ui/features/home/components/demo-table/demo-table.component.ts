@@ -24,6 +24,10 @@ import { Observable } from 'rxjs';
         <div class="px-3 py-1 text-sm text-slate-800 rounded text-center" [ngClass]="item.status.background"><strong>{{ item.status.name }}</strong></div>
       </ng-container>
 
+      <ng-container *ngSwitchCase="'country.name'">
+        <div class="px-3 py-1 text-sm text-slate-800 rounded text-center"><strong>{{ item.country?.name }}</strong></div>
+      </ng-container>
+
     </ng-container>
 
     </ng-template>
