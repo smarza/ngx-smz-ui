@@ -44,7 +44,10 @@ export namespace StateBuilderFunctions {
         },
         isVisible: true,
         width: 'auto',
-        actions: []
+        actions: [],
+        actionsAlignment: 'begin',
+        headerActions: [],
+        showHeaderActions: false
       };
 
       _state.columns.push(column);
