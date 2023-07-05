@@ -10,6 +10,7 @@ import { SmzTableBuilder } from './state-builder';
 import { GlobalInjector } from '../../common/services/global-injector';
 import { LOCALE_ID } from '@angular/core';
 import { getCurrencySymbol, getLocaleCurrencyCode } from '@angular/common';
+import { SmzHeaderActionsBuilder } from './column-header-action-builder';
 
 export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T, TData>, TData> {
   protected that: T;
@@ -81,7 +82,9 @@ export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T, TDa
         isFrozen: false,
         width: width,
         actions: [],
-        actionsAlignment: 'end'
+        actionsAlignment: 'end',
+        headerActions: [],
+        showHeaderActions: false
       };
 
       this._table._state.columns.push(this._column);
@@ -205,6 +208,10 @@ export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T, TDa
 
   public actions(): SmzContentActionsBuilder<T, TData> {
     return new SmzContentActionsBuilder<T, TData>(this._table, this);
+  }
+
+  public headerActions(): SmzHeaderActionsBuilder<T, TData> {
+    return new SmzHeaderActionsBuilder<T, TData>(this._table, this);
   }
 
   public get columns(): SmzColumnCollectionBuilder<TData> {

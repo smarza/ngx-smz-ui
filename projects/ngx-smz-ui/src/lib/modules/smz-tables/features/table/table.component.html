@@ -149,6 +149,9 @@
                         <ng-template #headerContent>
                             <div class="flex justify-start items-center">
                                 <span class="mr-1">{{ col.header }}</span>
+
+                                <smz-table-header-actions clickStopPropagation class="ml-1 mt-1" *ngIf="col.showHeaderActions" [col]="col"></smz-table-header-actions>
+
                                 <p-sortIcon [field]="col.field" *ngIf="!clonedData.showSkeleton && col.isOrderable"></p-sortIcon>
 
                                 <ng-container *ngIf="!clonedData.showSkeleton">

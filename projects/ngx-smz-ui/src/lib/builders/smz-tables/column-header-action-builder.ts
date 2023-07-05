@@ -3,18 +3,19 @@ import { SmzTableBuilder } from './state-builder';
 import { SmzTableColumn, SmzTableContentAction } from '../../modules/smz-tables/models/table-column';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 
-export class SmzContentActionsBuilder<TColumn extends SmzBaseColumnBuilder<TColumn, TData>, TData> extends SmzBuilderUtilities<SmzContentActionsBuilder<TColumn, TData>> {
+export class SmzHeaderActionsBuilder<TColumn extends SmzBaseColumnBuilder<TColumn, TData>, TData> extends SmzBuilderUtilities<SmzHeaderActionsBuilder<TColumn, TData>> {
   protected that = this;
   constructor(protected _table: SmzTableBuilder<TData>, protected _parent: SmzBaseColumnBuilder<TColumn, TData>) {
     super();
   }
 
   public add(icon: string, callback: (item: any) => void): SmzContentActionIconBuilder<TColumn, TData> {
+    this._parent._column.showHeaderActions = true;
     return new SmzContentActionIconBuilder<TColumn, TData>(this._table, this._parent._column, this, icon, callback);
   }
 
-  public placeAtBeginning(): SmzContentActionsBuilder<TColumn, TData> {
-    this._parent._column.actionsAlignment = 'begin';
+  public setVisibility(visibilityCondition: boolean): SmzHeaderActionsBuilder<TColumn, TData> {
+    this._parent._column.showHeaderActions = visibilityCondition;
     return this.that;
   }
 
@@ -26,7 +27,7 @@ export class SmzContentActionsBuilder<TColumn extends SmzBaseColumnBuilder<TColu
 export class SmzContentActionIconBuilder<TColumn extends SmzBaseColumnBuilder<TColumn, TData>, TData> {
   private _action: SmzTableContentAction;
 
-  constructor(protected _table: SmzTableBuilder<TData>, protected _column: SmzTableColumn, protected _parent: SmzContentActionsBuilder<TColumn, TData>, icon: string, callback?: (item: any) => void) {
+  constructor(protected _table: SmzTableBuilder<TData>, protected _column: SmzTableColumn, protected _parent: SmzHeaderActionsBuilder<TColumn, TData>, icon: string, callback?: (item: any) => void) {
     this._action = {
       icon,
       tooltip: null,
@@ -61,8 +62,8 @@ export class SmzContentActionIconBuilder<TColumn extends SmzBaseColumnBuilder<TC
     return this;
   }
 
-  public get action(): SmzContentActionsBuilder<TColumn, TData> {
-    this._column.actions.push(this._action);
+  public get action(): SmzHeaderActionsBuilder<TColumn, TData> {
+    this._column.headerActions.push(this._action);
     return this._parent;
   }
 }

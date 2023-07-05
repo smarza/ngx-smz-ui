@@ -100,6 +100,16 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
         .table
       .columns()
         .text('name', 'Name', '300px')
+          .headerActions()
+            .add('fa-solid fa-print', (item: any) => { console.log('print', item); })
+              .setStyleClass('text-sky-500')
+              .setTooltip(() => `Teste 1`)
+              .action
+            .add('fa-solid fa-print', (item: any) => { console.log('print', item); })
+              .setStyleClass('text-green-500')
+              .setTooltip(() => `Teste 2`)
+              .action
+            .column
           .disableFilter()
           .columns
         .date('date', 'Data', '200px')

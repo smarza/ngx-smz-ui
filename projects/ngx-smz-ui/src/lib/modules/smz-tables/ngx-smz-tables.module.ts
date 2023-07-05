@@ -38,6 +38,7 @@ import { NgVarModule } from '../../common/directives/ng-var/ng-var.module';
 import { SmzTableContentActionsComponent } from './components/table-content-actions/table-content-actions.component';
 import { SmzTableCaptionButtonsComponent } from './components/table-caption-buttons/table-caption-buttons.component';
 import { RbkAccessControlModule } from '../rbk-utils/public-api';
+import { SmzTableHeaderActionsComponent } from './components/table-header-actions/table-header-actions.component';
 
 @NgModule({
     declarations: [
@@ -56,7 +57,8 @@ import { RbkAccessControlModule } from '../rbk-utils/public-api';
         SmzSincronizeTablePipe,
         SmzTableContentComponent,
         SmzTableContentActionsComponent,
-        SmzTableCaptionButtonsComponent
+        SmzTableCaptionButtonsComponent,
+        SmzTableHeaderActionsComponent
     ],
     imports: [
         CommonModule,

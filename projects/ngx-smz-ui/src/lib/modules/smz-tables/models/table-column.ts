@@ -133,9 +133,19 @@ export interface SmzTableColumn {
      */
     isGlobalFilterable?: boolean;
   };
-
+  /**
+   *  Actions are inserted in each cell of the content rows
+   *  The row item will be sent along with the callback.
+   */
   actions: SmzTableContentAction[];
   actionsAlignment?: 'begin' | 'end';
+
+  /**
+   *  Header Actions are inserted in the header of the table
+   *  The col object will be sent along with the callback.
+   */
+  headerActions: SmzTableContentAction[];
+  showHeaderActions: boolean;
 }
 
 export interface SmzTableContentAction {
