@@ -1,24 +1,61 @@
 <ng-container *ngIf="layout$ | async as layout">
 
-    <div class="topbar clearfix">
+<smz-responsive class="grid grid-nogutter w-full items-center justify-start">
 
-        <div class="w-full h-full grid grid-nogutter items-center justify-start flex-nowrap" smz-ui-athena-topbar-actions [headerExtrasTemplate]="headerExtrasTemplate" [profile]="profile" [notifications]="notifications">
+    <!-- LANDSCAPE -->
+    <ng-template pTemplate="landscape">
 
-            <a class="topbar-logo">
-                <ng-container *ngIf="(appLogo$ | async) as appLogo">
-                    <img routerlink="/" [src]="appLogo.horizontal" [routerLink]="uiConfig.rbkUtils.authentication.authenticatedRoot" [ngClass]="{ 'logo': !layout.enlargeTopbarLogo, 'enlarged-logo': layout.enlargeTopbarLogo }"
-                    style="outline: none; cursor: pointer;" tabindex="0">
-                </ng-container>
-            </a>
+        <div class="topbar clearfix py-4">
 
-            <a id="menu-button" class="clickable" (click)="toggle()">
-                <i class="pi pi-align-left"></i>
-            </a>
-            <!-- <a *ngIf="layout.menu === horizontalMenuType" class="clickable" (click)="toggle()">
-                <i class="pi pi-align-left text-red"></i>
-            </a> -->
+            <div class="w-full h-full grid grid-nogutter items-center justify-start flex-nowrap" smz-ui-athena-topbar-actions [headerExtrasTemplate]="headerExtrasTemplate" [profile]="profile" [notifications]="notifications">
+
+                <a class="topbar-logo">
+                    <ng-container *ngIf="(appLogo$ | async) as appLogo">
+                        <img routerlink="/" [src]="appLogo.horizontal" [routerLink]="uiConfig.rbkUtils.authentication.authenticatedRoot"
+                            [ngClass]="{ 'logo': !layout.enlargeTopbarLogo, 'enlarged-logo': layout.enlargeTopbarLogo }"
+                            class="cursor-pointer outline-none" tabindex="0"
+                        >
+                    </ng-container>
+                </a>
+
+                <a id="menu-button" class="clickable" (click)="toggle()">
+                    <i class="pi pi-align-left"></i>
+                </a>
+
+            </div>
+
         </div>
 
-    </div>
+    </ng-template>
+
+    <!-- PORTRAIT -->
+    <ng-template pTemplate="portrait">
+
+        <div class="topbar clearfix">
+
+            <div class="w-full h-full grid grid-nogutter items-center justify-start flex-nowrap" smz-ui-athena-topbar-actions [headerExtrasTemplate]="headerExtrasTemplate" [profile]="profile" [notifications]="notifications">
+
+                <a class="topbar-logo max-w-[100px]">
+                    <ng-container *ngIf="(appLogo$ | async) as appLogo">
+                        <img routerlink="/" [src]="appLogo.horizontal" [routerLink]="uiConfig.rbkUtils.authentication.authenticatedRoot"
+                            class="w-full h-full cursor-pointer outline-none" tabindex="0"
+                        >
+                    </ng-container>
+                </a>
+
+                <a id="menu-button" class="clickable" (click)="toggle()">
+                    <i class="pi pi-align-left"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+    </ng-template>
+
+</smz-responsive>
+
+
+
 
 </ng-container>

@@ -17,6 +17,8 @@ import { NgVarModule } from '../../common/directives/ng-var/ng-var.module';
 import { ClickStopPropagationModule } from '../../common/stop-click-propagation/click-stop-propagation.module';
 import { NgxSmzDataPipesModule } from '../../common/data-pipes/data-pipes.module';
 import { GlobalInjector } from '../../common/services/global-injector';
+import { SharedModule } from 'primeng/api';
+import { SmzResponsiveComponent } from '../smz-responsive/smz-responsive.component';
 
 @NgModule({
     imports: [
@@ -32,7 +34,9 @@ import { GlobalInjector } from '../../common/services/global-injector';
       NgPipesModule,
       NgVarModule,
       ClickStopPropagationModule,
-      NgxSmzDataPipesModule
+      NgxSmzDataPipesModule,
+      SharedModule,
+      SmzResponsiveComponent
     ],
     exports: [SmzNotificationsComponent],
     declarations: [SmzNotificationsComponent, NotificationsListComponent, NotificationItemComponent]

@@ -19,8 +19,8 @@ import { GlobalInjector } from '../../../../common/services/global-injector';
 })
 
 export class NotificationsListComponent {
+  @Select(NotificationsUiSelectors.all) public notifications$: Observable<NotificationData[]>;
   @Select(NotificationsUiSelectors.hasRuningRequest) public hasRuningRequest$: Observable<boolean>;
-  @Input() public notifications: NotificationData[];
   public tableState: SmzTableState;
   public status = NotificationStatus;
   public selected: NotificationData[] = [];

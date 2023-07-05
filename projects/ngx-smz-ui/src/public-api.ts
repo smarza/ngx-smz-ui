@@ -37,6 +37,7 @@ export * from './lib/modules/smz-excels/public-api';
 export * from './lib/modules/smz-toast/public_api';
 export * from './lib/modules/smz-cards/public-api';
 export * from './lib/modules/smz-timeline/public-api';
+export * from './lib/modules/smz-responsive/smz-responsive.component';
 
 // Verificar se já resolveram o issue para publicar com esse módulo
 export * from './lib/modules/smz-svg/public-api';
@@ -98,6 +99,9 @@ export * from './lib/common/directives/ng-clone/ng-clone.directive';
 export * from './lib/common/directives/server-image/server-image.directive';
 export * from './lib/common/directives/server-image/server-image-to-base64.directive';
 export * from './lib/common/directives/safe-image/safe-image.directive';
+
+export * from './lib/common/directives/ng-if-portrait/ng-if-portrait.directive';
+export * from './lib/common/directives/ng-if-landscape/ng-if-landscape.directive';
 
 // DIALOG STUFFS
 

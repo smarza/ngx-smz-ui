@@ -4,6 +4,8 @@ import { AthenaTopbarComponent } from './topbar.component';
 import { SidebarModule } from 'primeng/sidebar';
 import { RouterModule } from '@angular/router';
 import { AthenaTopbarActionsModule } from '../topbar-actions/topbar-actions.module';
+import { SharedModule } from 'primeng/api';
+import { SmzResponsiveComponent } from '../../../../../smz-responsive/smz-responsive.component';
 
 @NgModule({
   declarations: [AthenaTopbarComponent],
@@ -11,7 +13,9 @@ import { AthenaTopbarActionsModule } from '../topbar-actions/topbar-actions.modu
     CommonModule,
     RouterModule,
     SidebarModule,
-    AthenaTopbarActionsModule
+    AthenaTopbarActionsModule,
+    SharedModule,
+    SmzResponsiveComponent
   ],
   exports: [AthenaTopbarComponent]
 })

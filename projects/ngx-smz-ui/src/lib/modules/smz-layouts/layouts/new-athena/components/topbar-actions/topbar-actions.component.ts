@@ -12,23 +12,55 @@ import { GlobalInjector } from '../../../../../../common/services/global-injecto
 
       <div id="smz-ui-topbar"></div>
 
-      <span class="col extras-container justify-end extras-container mr-3">
-        <ng-container *ngIf="headerExtrasTemplate != null">
-          <ng-container *ngTemplateOutlet="headerExtrasTemplate"></ng-container>
-        </ng-container>
-      </span>
+      <smz-responsive class="col grid grid-nogutter w-full items-center justify-start">
 
-      <ng-container *ngIf="uiConfig.rbkUtils.notifications.url != null; else modelDrivenNotificationsTemplate">
-        <smz-ui-notifications id="smz-ui-notifications" class="mr-5 mt-2"></smz-ui-notifications>
-      </ng-container>
+      <!-- LANDSCAPE -->
+        <ng-template pTemplate="landscape">
 
-      <ng-template #modelDrivenNotificationsTemplate>
-        <span class="notification-container" *ngIf="notifications != null" smz-ui-athena-notifications [items]="notifications"></span>
-      </ng-template>
+          <span class="col extras-container justify-end extras-container mr-3">
+            <ng-container *ngIf="headerExtrasTemplate != null">
+              <ng-container *ngTemplateOutlet="headerExtrasTemplate"></ng-container>
+            </ng-container>
+          </span>
 
-      <smz-tenant-switch class="mx-3"></smz-tenant-switch>
+          <ng-container *ngIf="uiConfig.rbkUtils.notifications.url != null; else modelDrivenNotificationsTemplate">
+            <smz-ui-notifications id="smz-ui-notifications" class="mt-2"></smz-ui-notifications>
+          </ng-container>
 
-      <span id="smz-ui-profile-menu" *ngIf="profile != null" smz-ui-athena-profile-menu [profile]="profile"></span>
+          <ng-template #modelDrivenNotificationsTemplate>
+            <span class="notification-container" *ngIf="notifications != null" smz-ui-athena-notifications [items]="notifications"></span>
+          </ng-template>
+
+          <smz-tenant-switch class="mx-3"></smz-tenant-switch>
+
+          <span id="smz-ui-profile-menu" *ngIf="profile != null" smz-ui-athena-profile-menu [profile]="profile"></span>
+
+        </ng-template>
+
+        <!-- PORTRAIT -->
+        <ng-template pTemplate="portrait">
+
+          <span class="col extras-container justify-end extras-container mr-3">
+            <ng-container *ngIf="headerExtrasTemplate != null">
+              <ng-container *ngTemplateOutlet="headerExtrasTemplate"></ng-container>
+            </ng-container>
+          </span>
+
+          <ng-container *ngIf="uiConfig.rbkUtils.notifications.url != null; else modelDrivenNotificationsTemplate">
+            <smz-ui-notifications id="smz-ui-notifications" class="mt-2"></smz-ui-notifications>
+          </ng-container>
+
+          <ng-template #modelDrivenNotificationsTemplate>
+            <span class="notification-container" *ngIf="notifications != null" smz-ui-athena-notifications [items]="notifications"></span>
+          </ng-template>
+
+          <smz-tenant-switch class="mx-3"></smz-tenant-switch>
+
+          <span id="smz-ui-profile-menu" *ngIf="profile != null" smz-ui-athena-profile-menu [profile]="profile"></span>
+
+        </ng-template>
+
+      </smz-responsive>
 
   `,
 })

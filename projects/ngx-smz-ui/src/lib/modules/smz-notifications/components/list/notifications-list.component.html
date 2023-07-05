@@ -1,6 +1,6 @@
 <ng-container *ngVar="hasRuningRequest$ | async as hasRuningRequest">
 
-<smz-ui-table #smzTable [items]="notifications | filterBy : ['status'] : currentFolder.status" [state]="tableState" [loading]="hasRuningRequest" (selectionChange)="onSelect($event)">
+<smz-ui-table #smzTable [items]="(notifications$ | async) | filterBy : ['status'] : currentFolder.status" [state]="tableState" [loading]="hasRuningRequest" (selectionChange)="onSelect($event)">
 
   <ng-template pTemplate="caption" let-primeTable>
     <button *ngIf="uiConfig.rbkUtils.notifications.showRefreshButton" pButton pRipple type="button" icon="fa-solid fa-rotate" pTooltip="Atualizar" class="p-button-rounded p-button-text p-button-plain mr-3" (click)="refresh()"></button>

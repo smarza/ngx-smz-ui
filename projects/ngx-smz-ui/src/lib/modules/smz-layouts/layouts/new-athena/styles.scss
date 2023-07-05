@@ -294,10 +294,8 @@ body a {
   color: var(--text-color-secondary);
 }
 .layout-wrapper .topbar .topbar-logo {
-  height: 100%;
   width: 185px;
   display: inline-block;
-  padding: 0.5em 0em;
 }
 .layout-wrapper .topbar .topbar-logo .logo {
   height: calc(var(--layout-topbar-height) * 0.6);
