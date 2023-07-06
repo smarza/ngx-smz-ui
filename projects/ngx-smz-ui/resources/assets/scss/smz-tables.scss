@@ -179,7 +179,17 @@ smz-ui-table {
             border-bottom: 1px solid var(--surface-d);
           }
         }
+
       }
+
     }
+  }
+
+  .preserve-in-small > td {
+    display: table-cell !important;
+  }
+
+  .preserve-in-small > td .p-column-title {
+    display: none !important;
   }
 }

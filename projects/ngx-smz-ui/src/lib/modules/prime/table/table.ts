@@ -2425,7 +2425,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     #${this.id}-table > .p-datatable-tbody > tr > td {
-        display: flex;
         width: 100% !important;
         align-items: center;
         justify-content: space-between;

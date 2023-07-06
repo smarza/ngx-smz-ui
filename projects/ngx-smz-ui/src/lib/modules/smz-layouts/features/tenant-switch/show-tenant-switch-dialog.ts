@@ -14,6 +14,9 @@ export function showSwitchTenantDialog(): void {
   const currentTenant = store.selectSnapshot(TenantsSelectors.currentTenant);
   const tenantDisplayName = config.locale.authorization.tenant.displayName;
 
+  console.log(store.selectSnapshot(TenantsSelectors.userAllowedTenants));
+  console.log(currentTenant)
+
   const allowedTenants = store
     .selectSnapshot(TenantsSelectors.userAllowedTenants)
     .filter(x => x.alias !== currentTenant?.alias)

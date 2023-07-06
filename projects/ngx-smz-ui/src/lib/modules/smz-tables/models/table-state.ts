@@ -105,6 +105,10 @@ export interface SmzTableState {
        * Highlight a row based on the item id
        */
       highlights?: { ids: string[] };
+      /**
+      * Controls the style classes to preserve the layout in small devices
+      */
+      preserveLayoutInSmallDevices?: boolean;
     };
   };
 

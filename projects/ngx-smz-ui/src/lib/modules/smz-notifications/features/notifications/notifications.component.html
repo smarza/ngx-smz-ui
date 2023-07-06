@@ -9,7 +9,7 @@
         <div class="absolute inset-0 notification-container cursor-pointer" (click)="op.toggle($event)"></div>
       </i>
 
-      <p-overlayPanel #op [style]="{ 'width': uiConfig.rbkUtils.notifications.width, 'z-index': uiConfig.rbkUtils.notifications.zIndex }" [ngClass]="uiConfig.rbkUtils.notifications.styleClass" appendTo="body" [autoZIndex]="false">
+      <p-overlayPanel #op styleClass="max-h-[85vh] overflow-y-auto" [style]="{ 'width': uiConfig.rbkUtils.notifications.width, 'z-index': uiConfig.rbkUtils.notifications.zIndex }" [ngClass]="uiConfig.rbkUtils.notifications.styleClass" appendTo="body" [autoZIndex]="false">
         <ng-template pTemplate>
             <smz-notifications-list></smz-notifications-list>
         </ng-template>

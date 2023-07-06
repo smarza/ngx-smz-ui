@@ -261,7 +261,7 @@
                     [expandRowOnClick]="context.state.actions.rowBehavior.expandRowOnClick"
                     [item]="item"
                     class="p-selectable-row"
-                    [ngClass]="{ 'highlight-row': item?.id === state.actions.rowBehavior.highlights }"
+                    [ngClass]="{ 'highlight-row': item?.id === state.actions.rowBehavior.highlights, 'preserve-in-small': state.actions.rowBehavior.preserveLayoutInSmallDevices }"
                     >
 
                     <td *ngIf="context.state.caption.rowSelection.isEnabled && !clonedData.showSkeleton"
