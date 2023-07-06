@@ -5,7 +5,7 @@ import { GlobalInjector } from '../../../../../../common/services/global-injecto
 
 @Component({
   selector: '[smz-ui-athena-topbar-actions]',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
   styleUrls: ['./topbar-actions.component.scss'],
   template: `
       <ng-content></ng-content>

@@ -1,11 +1,10 @@
 <ng-container *ngIf="layout$ | async as layout">
-
 <smz-responsive class="grid grid-nogutter w-full items-center justify-start">
 
     <!-- LANDSCAPE -->
     <ng-template pTemplate="landscape">
 
-        <div class="topbar clearfix py-4">
+        <div class="topbar clearfix">
 
             <div class="w-full h-full grid grid-nogutter items-center justify-start flex-nowrap" smz-ui-athena-topbar-actions [headerExtrasTemplate]="headerExtrasTemplate" [profile]="profile" [notifications]="notifications">
 

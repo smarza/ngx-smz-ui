@@ -17,7 +17,7 @@ import { GlobalInjector } from '../../../../../../common/services/global-injecto
   selector: 'smz-ui-athena-topbar',
   templateUrl: './topbar.component.html',
   styleUrls: ['./topbar.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class AthenaTopbarComponent implements AfterContentInit
 {

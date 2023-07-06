@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GlobalInjector } from '../../../../common/services/global-injector';
 import { DropdownModule } from 'primeng/dropdown';
@@ -23,6 +23,7 @@ import { showSwitchTenantDialog } from './show-tenant-switch-dialog';
     '.smz-tenant-switch-small .p-inputtext { padding: 0.5rem 0.75rem !important; }'
   ],
   encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.Default,
   template: `
   <ng-container *ngIf="(isSuperuserLogged$ | async) === false">
   <ng-container *ngIf="showTenantSwitch">
@@ -40,7 +41,7 @@ import { showSwitchTenantDialog } from './show-tenant-switch-dialog';
 
       <!-- PORTRAIT -->
       <ng-template pTemplate="portrait">
-        <i class="fa-solid fa-repeat cursor-pointer text-2xl" (click)="showSwitchDialog()">
+        <i class="fa-solid fa-repeat cursor-pointer text-2xl text-text-color-secondary switch-tenant" (click)="showSwitchDialog()">
       </i>
       </ng-template>
 

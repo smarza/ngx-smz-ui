@@ -9,11 +9,8 @@ export class NgIfLandscapeDirective implements OnDestroy {
   private hasView = false;
   private subscription: Subscription;
 
-  constructor(
-    private templateRef: TemplateRef<any>,
-    private viewContainer: ViewContainerRef,
-    private breakpointObserver: BreakpointObserver
-  ) {
+  constructor(private templateRef: TemplateRef<any>, private viewContainer: ViewContainerRef, private breakpointObserver: BreakpointObserver) {
+
     this.subscription = this.breakpointObserver.observe([
       Breakpoints.HandsetLandscape,
       Breakpoints.TabletLandscape,
@@ -27,6 +24,7 @@ export class NgIfLandscapeDirective implements OnDestroy {
         this.hasView = false;
       }
     });
+
   }
 
   ngOnDestroy() {

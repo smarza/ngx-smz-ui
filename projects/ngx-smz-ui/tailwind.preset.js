@@ -14,6 +14,8 @@ module.exports = {
         "text-color-secondary": "var(--text-color-secondary)",
         "primary-color": "var(--primary-color)",
         "primary-color-text": "var(--primary-color-text)",
+        "secondary-color": "var(--secondary-color)",
+        "secondary-color-text": "var(--secondary-color-text)",
         "surface-ground": "var(--surface-ground)",
         "surface-section": "var(--surface-section)",
         "surface-card": "var(--surface-card)",
