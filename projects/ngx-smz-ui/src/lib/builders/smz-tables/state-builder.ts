@@ -62,7 +62,8 @@ export class SmzTableBuilder<TData> {
         isClickable: false,
         expandRowOnClick: false,
         highlights: { ids: [] },
-        preserveLayoutInSmallDevices: false
+        preserveLayoutInSmallDevices: false,
+        cellStyleClass: ''
       }
     },
     editable: {
@@ -796,6 +797,11 @@ export class SmzTableBuilder<TData> {
 
   public setPreserveLayoutInSmallDevices(): SmzTableBuilder<TData> {
     this._state.actions.rowBehavior.preserveLayoutInSmallDevices = true;
+    return this;
+  }
+
+  public setCellStyleClass(styleClass: string): SmzTableBuilder<TData> {
+    this._state.actions.rowBehavior.cellStyleClass = styleClass;
     return this;
   }
 

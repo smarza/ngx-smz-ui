@@ -109,6 +109,7 @@ export interface SmzTableState {
       * Controls the style classes to preserve the layout in small devices
       */
       preserveLayoutInSmallDevices?: boolean;
+      cellStyleClass?: string;
     };
   };
 

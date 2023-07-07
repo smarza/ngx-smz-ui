@@ -266,6 +266,7 @@
 
                     <td *ngIf="context.state.caption.rowSelection.isEnabled && !clonedData.showSkeleton"
                         clickStopPropagation
+                        class="{{ state.actions.rowBehavior.cellStyleClass }}"
                         [ngClass]="{ 'opacity-50 pointer-events-none': editableService.context[item.id]?.hasErrors || editableService.context[item.id]?.isLoading }"
                         [ngStyle]="context.state.caption.rowSelection.ngStyle"
                         >
