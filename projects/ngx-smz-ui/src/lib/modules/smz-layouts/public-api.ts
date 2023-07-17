@@ -60,6 +60,7 @@ export * from './layouts/athena/layout.component';
 export * from './layouts/athena/layout.config';
 
 // APOLLO LAYOUT MODULE
+export * from './layouts/new-athena/layout-provider.module';
 export * from './layouts/new-athena/layout.module';
 export * from './layouts/new-athena/layout.component';
 export * from './layouts/new-athena/layout.config';

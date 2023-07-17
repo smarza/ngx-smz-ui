@@ -5,6 +5,11 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
+## [16.0.0] - 2023-07-17
+
+### Adicionado
+- Foi adicionado suporte ao Angular 16 para o tema New Athena.
+
 ## [15.4.13] - 2023-07-07
 
 ### Adicionado

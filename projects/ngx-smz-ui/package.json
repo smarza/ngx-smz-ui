@@ -1,6 +1,6 @@
 {
   "name": "ngx-smz-ui",
-  "version": "16.0.0-beta.07",
+  "version": "16.0.0",
   "peerDependencies": {
   },
   "dependencies": {

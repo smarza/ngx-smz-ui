@@ -1,3 +1,5 @@
+
+
 /* TAILWIND */
 @import 'tailwindcss/utilities.css';
 @import 'tailwindcss/base.css';
@@ -8,20 +10,34 @@
 /* PRIME FLEX */
 // @import "primeflex/primeflex.min.css";
 
-@import 'primeflex/core/_variables';
-@import 'primeflex/core/_mixins';
+@import 'primeflex/src/_variables';
+@import 'primeflex/src/_mixins';
 
 /* FOI FEITO UM OVERRIDE DO PRIME GRID ORIGINAL PARA ADICIONAR !IMPORTANT */
 @import './prime-grid/grid';
+// @import 'primeflex/src/_grid';
 
-@import 'primeflex/core/_formlayout';
-@import 'primeflex/core/_elevation'; /* PODE CO-EXISTIR COM TAILWIND */
-@import 'primeflex/core/_border'; /* PODE CO-EXISTIR COM TAILWIND */
-@import 'primeflex/core/_borderradius'; /* PODE CO-EXISTIR COM TAILWIND */
-@import 'primeflex/core/_zindex'; /* PODE CO-EXISTIR COM TAILWIND */
-@import 'primeflex/core/_transform'; /* PODE CO-EXISTIR COM TAILWIND */
-@import 'primeflex/core/_animation'; /* SOMA COM TAILWIND */
-@import 'primeflex/core/_utils';
+// @import 'primeflex/src/_colors';
+@import 'primeflex/src/_formlayout';
+// @import 'primeflex/src/_display';
+// @import 'primeflex/src/_typography';
+// @import 'primeflex/src/_flexbox';
+// @import 'primeflex/src/_spacing';
+@import 'primeflex/src/_elevation'; /* PODE CO-EXISTIR COM TAILWIND */
+@import 'primeflex/src/_border'; /* PODE CO-EXISTIR COM TAILWIND */
+@import 'primeflex/src/_borderradius'; /* PODE CO-EXISTIR COM TAILWIND */
+// @import 'primeflex/src/_size';
+// @import 'primeflex/src/_position';
+// @import 'primeflex/src/_overflow';
+@import 'primeflex/src/_zindex'; /* PODE CO-EXISTIR COM TAILWIND */
+// @import 'primeflex/src/_image';
+// @import 'primeflex/src/_userselect';
+// @import 'primeflex/src/_liststyle';
+// @import 'primeflex/src/_misc';
+// @import 'primeflex/src/_transition';
+@import 'primeflex/src/_transform'; /* PODE CO-EXISTIR COM TAILWIND */
+@import 'primeflex/src/_animation'; /* SOMA COM TAILWIND */
+@import 'primeflex/src/_utils';
 
 /* PRIME ICONS */
 @import "primeicons/primeicons.css";
