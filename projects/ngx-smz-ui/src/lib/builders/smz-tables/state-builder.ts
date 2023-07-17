@@ -61,7 +61,9 @@ export class SmzTableBuilder<TData> {
         hoverable: true,
         isClickable: false,
         expandRowOnClick: false,
-        highlights: { ids: [] }
+        highlights: { ids: [] },
+        preserveLayoutInSmallDevices: false,
+        cellStyleClass: ''
       }
     },
     editable: {
@@ -790,6 +792,16 @@ export class SmzTableBuilder<TData> {
 
   public setHighlightedRows(ids: string[]): SmzTableBuilder<TData> {
     this._state.actions.rowBehavior.highlights.ids = ids;
+    return this;
+  }
+
+  public setPreserveLayoutInSmallDevices(): SmzTableBuilder<TData> {
+    this._state.actions.rowBehavior.preserveLayoutInSmallDevices = true;
+    return this;
+  }
+
+  public setCellStyleClass(styleClass: string): SmzTableBuilder<TData> {
+    this._state.actions.rowBehavior.cellStyleClass = styleClass;
     return this;
   }
 

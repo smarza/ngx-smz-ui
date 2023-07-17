@@ -9,6 +9,21 @@ export interface SmzTableColumn {
    */
   field: string;
   /**
+   * Property name path that will be used to create filters
+   * It can be different from field in some complex cases like when field is an object and you need to provide other property to be the filter.
+   */
+  filterField: string;
+  /**
+   * Property name path that will be used in global search
+   * It can be different from field in some complex cases like when field is an object and you need to provide other property to the global search input.
+   */
+  globalFilterField: string;
+  /**
+   * Property name path that will be used to sort
+   * It can be different from field in some complex cases like when field is an object and you need to provide other property to be the sort value.
+   */
+  sortField: string;
+  /**
    * Property name, this is an identifier and has to be unique.
    */
   property: string;
@@ -36,6 +51,10 @@ export interface SmzTableColumn {
     exportAs?: SmzExportableContentType;
 
     dataCallback?: (data: any, row: any, index: number) => string;
+    isMultilined?: boolean;
+    newLineSeparator?: string;
+    dataFormat?: string;
+    header?: string;
   }
 
   /**
@@ -129,9 +148,19 @@ export interface SmzTableColumn {
      */
     isGlobalFilterable?: boolean;
   };
-
+  /**
+   *  Actions are inserted in each cell of the content rows
+   *  The row item will be sent along with the callback.
+   */
   actions: SmzTableContentAction[];
   actionsAlignment?: 'begin' | 'end';
+
+  /**
+   *  Header Actions are inserted in the header of the table
+   *  The col object will be sent along with the callback.
+   */
+  headerActions: SmzTableContentAction[];
+  showHeaderActions: boolean;
 }
 
 export interface SmzTableContentAction {

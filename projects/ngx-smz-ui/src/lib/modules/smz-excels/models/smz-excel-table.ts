@@ -74,6 +74,8 @@ export interface SmzExcelColumn {
   dataFormat?: string;
   maxWidth: number;
   hasSubTotal: boolean;
+  isMultilined: boolean;
+  newLineSeparator: string;
 }
 
 export interface SmzExcelStyle {

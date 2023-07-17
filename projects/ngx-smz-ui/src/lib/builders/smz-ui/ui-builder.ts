@@ -15,6 +15,7 @@ import { SmzUiErrorsPageBuilder } from './errors-page-builder';
 import { TenantAuthenticationSelectors } from '../../state/global/authentication/tenant-authentication.selectors';
 import { SmzUiHttpBehaviorsBuilder } from './http-behaviors-builder';
 import { SmzUiNotificationsBuilder } from './notifications-builder';
+import { SmzUiTablesBuilder } from './tables-builder';
 
 export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
     protected that = this;
@@ -198,6 +199,12 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
         },
         dialogs: {
         },
+        tables: {
+            export: {
+                absoluteApiUrl: `${environment.serverUrl}/api/excel/generate-tables`,
+                requestLimit: 30000000
+            }
+        },
         layouts: {
             loader: {
                 type: SmzLoader.CUBE,
@@ -255,6 +262,10 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
 
     public errorsPage(): SmzUiErrorsPageBuilder {
         return new SmzUiErrorsPageBuilder(this, this._state);
+    }
+
+    public tables(): SmzUiTablesBuilder {
+        return new SmzUiTablesBuilder(this);
     }
 
     public states(): SmzUiStatesBuilder {

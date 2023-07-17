@@ -7,8 +7,9 @@ import { SmzTemplate, SmzBreakpoints } from '../models/templates';
 })
 export class SetTemplateClassesPipe implements PipeTransform {
 
-    public transform(template: SmzTemplate, properties: string[]): string {
-        return SetTemplateClasses(template, properties);
+    public transform(template: SmzTemplate, properties: string[], append: string[] = []): string {
+        const stylesToAppend = append == null ? '' : append.filter(x => x != null).join(' ');
+        return `${SetTemplateClasses(template, properties)} ${stylesToAppend}`;
     }
 }
 

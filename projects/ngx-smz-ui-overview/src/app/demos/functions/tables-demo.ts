@@ -100,15 +100,32 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
         .table
       .columns()
         .text('name', 'Name', '300px')
+          .ignoreOnGlobalFilter()
+          .headerActions()
+            .add('fa-solid fa-print', (item: any) => { console.log('print', item); })
+              .setStyleClass('text-sky-500')
+              .setTooltip(() => `Teste 1`)
+              .action
+            .add('fa-solid fa-print', (item: any) => { console.log('print', item); })
+              .setStyleClass('text-green-500')
+              .setTooltip(() => `Teste 2`)
+              .action
+            .column
           .disableFilter()
           .columns
         .date('date', 'Data', '200px')
           .columns
-        .text('country.name', 'Country')
+        .custom('country.name', 'Country')
+          .overrideGlobalFilter('country.name')
+          .overrideFilter('country')
           .setFilter(SmzFilterType.MULTI_SELECT)
           .disableSort()
           .columns
         // .dataTransform('country.name', 'Super Country 2', (country: SimpleNamedEntity, row: any) => `test: ${row.country?.name?.toUpperCase()}`)
+        //   .overrideGlobalFilter('country.name')
+        //   .overrideFilter('country')
+        //   .setFilter(SmzFilterType.MULTI_SELECT)
+        //   .disableSort()
         //   .columns
         // .dataTransform('country', 'Super Country', (country: SimpleNamedEntity, row: any) => `super: ${country?.name?.toUpperCase()}`)
         //   .setFilter(SmzFilterType.MULTI_SELECT)
@@ -867,12 +884,14 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
       { name: 'name 2', company: 'company C' },
       { name: 'name 3', company: 'company E' }
     ]),
+    // items$: of([]),
     code: () => {
     return new SmzTableBuilder()
       .setTitle('Filter Persistence')
       .enableClearFilters()
       .enableColumnVisibility()
       .enableGlobalFilter()
+      .useTableEmptyMessage()
       .useGridStyle()
       .setSize('large')
       .setCustomInitialSorting({ field: 'number', order: -1 })

@@ -12,4 +12,7 @@ export interface SmzExportableColumn {
   header: string;
   callback: (data: any, row: any, index: number) => any;
   type: SmzExportableContentType;
+  isMultilined: boolean;
+  newLineSeparator: string;
+  dataFormat: string;
 }

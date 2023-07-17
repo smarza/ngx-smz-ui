@@ -105,6 +105,11 @@ export interface SmzTableState {
        * Highlight a row based on the item id
        */
       highlights?: { ids: string[] };
+      /**
+      * Controls the style classes to preserve the layout in small devices
+      */
+      preserveLayoutInSmallDevices?: boolean;
+      cellStyleClass?: string;
     };
   };
 
@@ -243,6 +248,7 @@ export interface SmzTableState {
       maxFilenameLength?: number;
       maxFilenameShortenSuffix?: string;
       includeUserAsAuthor?: boolean;
+      sheetName?: string;
     }
     /**
      * Allows the end user to manually clear table filters

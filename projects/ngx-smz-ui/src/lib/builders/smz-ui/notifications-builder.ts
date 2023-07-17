@@ -24,7 +24,7 @@ export class SmzUiNotificationsBuilder extends SmzBuilderUtilities<SmzUiNotifica
       pageOptions: [5, 10, 20],
       showTypeIndicators: true,
       showRefreshButton: true,
-      width: '550px',
+      width: '60vw',
       styleClass: '',
       zIndex: 2000,
       date: {

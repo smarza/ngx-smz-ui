@@ -28,10 +28,15 @@ export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormG
     return this;
   }
 
+  public customizeInputStyles(styleClass: string): SmzFormGroupBuilder<TResponse> {
+    this.group.inputStyleClass = styleClass;
+    return this;
+  }
+
   public hide(): SmzFormGroupBuilder<TResponse> {
   this.group.isHide = true;
   return this;
-}
+  }
 
   public reorder(...properties: string[]): SmzFormGroupBuilder<TResponse> {
     this.group.children = sortBy(this.group.children, (c) => properties.indexOf(c.propertyName) !== -1? properties.indexOf(c.propertyName) : this.group.children.length);
@@ -508,7 +513,7 @@ export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormG
           inputLocale: 'pt-BR'
         },
         styleClass: ''
-      };
+      } as SmzListControl;
 
       this.group.children.push(input);
     }
@@ -635,6 +640,11 @@ export class SmzFormInputBuilder<TInput, TResponse> {
     colType?: 'col-1' | 'col-2' | 'col-3' | 'col-4' | 'col-5' | 'col-6' | 'col-7' | 'col-8' | 'col-9' | 'col-10' | 'col-11' | 'col-12'): TInput {
     const template = getSmzTemplate(breakpoint, colType) as any;
     this._input.template = { ...this._input.template, ...template };
+    return this.that;
+  }
+
+  public customizeStyles(styleClass: string): TInput {
+    this._input.styleClass = styleClass;
     return this.that;
   }
 

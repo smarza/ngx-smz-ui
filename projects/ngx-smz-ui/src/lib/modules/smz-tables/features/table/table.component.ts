@@ -102,6 +102,24 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
   public ngOnInit(): void {
   }
 
+  public hasFilters(): boolean {
+    for (let key in this.table?.filters) {
+      let filter = this.table.filters[key];
+      if (Array.isArray(filter)) {
+        for (let subFilter of filter) {
+          if (subFilter.value !== null) {
+            return true;
+          }
+        }
+      } else {
+        if (filter.value !== null) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
   public InitCreation(): void {
     this.editableService.onRowCreateInit(this.table, this.state.columns);
     this.cdr.markForCheck();
@@ -363,9 +381,12 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
         .filter(x => x.export.isExportable)
         .map(x => ({
           field: x.field,
-          header: x.header,
+          header: x.export.header,
           callback: x.export.dataCallback,
-          type: x.export.exportAs
+          type: x.export.exportAs,
+          isMultilined: x.export.isMultilined,
+          newLineSeparator: x.export.newLineSeparator,
+          dataFormat: x.export.dataFormat
         })),
       items: cloneDeep(items)
     };
@@ -385,9 +406,12 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
         .filter(x => x.export.isExportable)
         .map(x => ({
           field: x.field,
-          header: x.header,
+          header: x.export.header,
           callback: x.export.dataCallback,
-          type: x.export.exportAs
+          type: x.export.exportAs,
+          isMultilined: x.export.isMultilined,
+          newLineSeparator: x.export.newLineSeparator,
+          dataFormat: x.export.dataFormat
         }));
 
       const visibleItems = table.filteredValue?.length > 0 ? table.filteredValue : items;
@@ -418,7 +442,7 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
         .if(excel?.exportHyperLinkAsHtml)
           .setGlobalHyperlinkAsHtml()
           .endIf
-        .sheet(this.state.caption.title)
+        .sheet(excel?.sheetName)
           .table()
             .headers()
               .setFont(SmzExcelFontDefinitions.Calibri)
@@ -438,13 +462,31 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
                         .if(this.state.styles.columnsWidth?.maxWidth != null)
                           .setMaxWidthInPixels(this.state.styles.columnsWidth.maxWidth)
                           .endIf
+                        .if(column.isMultilined)
+                          .setAsMultilined(column.newLineSeparator)
+                          .endIf
                         .column
+
+                    case SmzExportableContentType.DATETIME:
+                      return _
+                        .date(column.header, normalizedField)
+                          .if(this.state.styles.columnsWidth?.maxWidth != null)
+                            .setMaxWidthInPixels(this.state.styles.columnsWidth.maxWidth)
+                            .endIf
+                          .if(column.isMultilined)
+                            .setAsMultilined(column.newLineSeparator)
+                            .endIf
+                          .setDateFormat(column.dataFormat)
+                          .column
 
                   case SmzExportableContentType.TEXT:
                     return _
                       .text(column.header, normalizedField)
                         .if(this.state.styles.columnsWidth?.maxWidth != null)
                           .setMaxWidthInPixels(this.state.styles.columnsWidth.maxWidth)
+                          .endIf
+                        .if(column.isMultilined)
+                          .setAsMultilined(column.newLineSeparator)
                           .endIf
                         .column
 
@@ -455,6 +497,10 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
                         .if(this.state.styles.columnsWidth?.maxWidth != null)
                           .setMaxWidthInPixels(this.state.styles.columnsWidth.maxWidth)
                           .endIf
+                        .if(column.isMultilined)
+                          .setAsMultilined(column.newLineSeparator)
+                          .endIf
+                        .setFormat(column.dataFormat)
                         .column
 
                   case SmzExportableContentType.BOOLEAN:
@@ -464,6 +510,9 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
                         .if(this.state.styles.columnsWidth?.maxWidth != null)
                           .setMaxWidthInPixels(this.state.styles.columnsWidth.maxWidth)
                           .endIf
+                        .if(column.isMultilined)
+                          .setAsMultilined(column.newLineSeparator)
+                          .endIf
                         .column
 
                   case SmzExportableContentType.HYPERLINK:
@@ -472,6 +521,9 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
                       .hyperlink(column.header, normalizedField)
                         .if(this.state.styles.columnsWidth?.maxWidth != null)
                           .setMaxWidthInPixels(this.state.styles.columnsWidth.maxWidth)
+                          .endIf
+                        .if(column.isMultilined)
+                          .setAsMultilined(column.newLineSeparator)
                           .endIf
                         .column
 

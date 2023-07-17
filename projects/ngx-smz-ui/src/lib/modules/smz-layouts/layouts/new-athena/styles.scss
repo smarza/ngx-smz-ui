@@ -202,7 +202,7 @@ body a {
 }
 .layout-wrapper .topbar {
   background-color: var(--surface-card);
-  padding: 10px calc(var(--layout-topbar-height) / 2);
+  padding: 0px calc(var(--layout-topbar-height) / 2);
   /* padding-bottom: 2px; */
   height: var(--layout-topbar-height);
   box-sizing: border-box;
@@ -294,10 +294,8 @@ body a {
   color: var(--text-color-secondary);
 }
 .layout-wrapper .topbar .topbar-logo {
-  height: 100%;
   width: 185px;
   display: inline-block;
-  padding: 0.5em 0em;
 }
 .layout-wrapper .topbar .topbar-logo .logo {
   height: calc(var(--layout-topbar-height) * 0.6);

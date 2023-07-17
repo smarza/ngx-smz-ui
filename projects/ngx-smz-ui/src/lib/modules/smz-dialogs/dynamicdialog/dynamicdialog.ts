@@ -58,7 +58,7 @@ const hideAnimation = animation([
                         </button>
                     </div>
                 </div>
-                <div class="p-dialog-content" [ngStyle]="config.contentStyle" [ngClass]="{ 'disable-ui-dialog-content': dialogConfig.data._context.isGlobalDisabled }">
+                <div class="p-dialog-content {{ dialogConfig?.data?.containerStyleClass }}" [ngStyle]="config.contentStyle" [ngClass]="{ 'disable-ui-dialog-content': dialogConfig.data._context.isGlobalDisabled }">
                     <ng-template pDynamicDialogContent></ng-template>
                 </div>
                 <div class="p-dialog-footer" *ngIf="config.footer" [ngStyle]="config.footerStyle" [ngClass]="{ 'disable-container': dialogConfig.data._context.isGlobalDisabled }">

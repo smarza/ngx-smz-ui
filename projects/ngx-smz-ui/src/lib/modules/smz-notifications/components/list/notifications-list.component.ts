@@ -19,8 +19,8 @@ import { GlobalInjector } from '../../../../common/services/global-injector';
 })
 
 export class NotificationsListComponent {
+  @Select(NotificationsUiSelectors.all) public notifications$: Observable<NotificationData[]>;
   @Select(NotificationsUiSelectors.hasRuningRequest) public hasRuningRequest$: Observable<boolean>;
-  @Input() public notifications: NotificationData[];
   public tableState: SmzTableState;
   public status = NotificationStatus;
   public selected: NotificationData[] = [];
@@ -54,11 +54,13 @@ export class NotificationsListComponent {
       .expandGlobalFilterInput()
       .setEmptyFeedbackMessage(GlobalInjector.config.rbkUtils.notifications.emptyMessage)
       .useTableEmptyMessage()
+      .disableRowHoverEffect()
       .usePagination()
       .setPaginationDefaultRows(GlobalInjector.config.rbkUtils.notifications.rowsPerPage)
       .setPaginationPageOptions(GlobalInjector.config.rbkUtils.notifications.pageOptions)
       .allowDefaultMultiSelection()
       .hideHeader()
+      .setPreserveLayoutInSmallDevices()
       .columns()
         .custom('searchData', '')
           .forceGlobalFilter()

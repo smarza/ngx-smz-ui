@@ -42,6 +42,13 @@ export const UiBuilder: SmzUiBuilder = new SmzUiBuilder()
     .claims().authorization
     .tenants().authorization
     .builder
+  .notifications()
+    .setUpdateRate(30000)
+    .setItemsPerPage(5)
+    .setPagination([5])
+    .setWidth('600px')
+    .setZIndex(999)
+    .builder
   .states()
     .addFeature(USERS_FT_STATE_NAME)
       .setState(UsersFtState)

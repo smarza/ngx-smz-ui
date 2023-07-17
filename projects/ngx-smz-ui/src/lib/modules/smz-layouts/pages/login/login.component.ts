@@ -32,8 +32,9 @@ export class LoginComponent {
 
   public buildState(): SmzLoginState<unknown, unknown> {
 
-    const config = GlobalInjector.config.rbkUtils.authentication;
-    const tenants = config.login.showTenantSelector ? this.getTenants() : [];
+    const config = GlobalInjector.config;
+    const authConfig = GlobalInjector.config.rbkUtils.authentication;
+    const tenants = authConfig.login.showTenantSelector ? this.getTenants() : [];
 
     const localTenant = localStorage.getItem(GlobalInjector.config.rbkUtils.authentication.localStoragePrefix + '_tenant');
     const defaultTenant = localTenant ?? getFirst(tenants)?.id;
@@ -47,19 +48,19 @@ export class LoginComponent {
 
       let extraProperties: { [name: string]: string } = { };
 
-      if (config.refreshToken?.extraProperties != null) {
+      if (authConfig.refreshToken?.extraProperties != null) {
         // Adicionar propriedades extras definidas no startup do projeto
-        extraProperties = config.refreshToken.extraProperties;
+        extraProperties = authConfig.refreshToken.extraProperties;
       }
 
-      if (config.allowSuperuser && response.username == config.login.superuser) {
+      if (authConfig.allowSuperuser && response.username == authConfig.login.superuser) {
         // Superuser login
       }
-      else if (config.useSingleTenantAplication) {
+      else if (authConfig.useSingleTenantAplication) {
         // Aplicação configurada para único Tenant
-        extraProperties.tenant = config.login.applicationTenant;
+        extraProperties.tenant = authConfig.login.applicationTenant;
       }
-      else if (config.login.showTenantSelector) {
+      else if (authConfig.login.showTenantSelector) {
         // Adicionar Tenant escolhido pelo usuário no seletor de Tenants
         extraProperties.tenant = response.tenant.id;
       }
@@ -75,17 +76,17 @@ export class LoginComponent {
         .disableFlattenResponse()
         .group()
           .setLayout('EXTRA_SMALL', 'col-12')
-          .if(config.login.showTenantSelector)
-            .dropdown('tenant', 'Domínios', tenants, defaultTenant)
+          .if(authConfig.login.showTenantSelector)
+            .dropdown('tenant', config.locale.authorization.tenant.displayName, tenants, defaultTenant)
               .validators().required()
               .group
           .endIf
-        .if(config.useWindowsAuthentication && !environment.production)
+        .if(authConfig.useWindowsAuthentication && !environment.production)
           .text(nameof<LoginData>('username'), 'Credencial de Desenvolvimento')
             .validators().required()
             .group
           .endIf
-        .if(!config.useWindowsAuthentication)
+        .if(!authConfig.useWindowsAuthentication)
           .text(nameof<LoginData>('username'), 'Usuário')
             .validators().required()
             .group
@@ -96,10 +97,10 @@ export class LoginComponent {
         .form
         .build()
     )
-    .setExtraInfo(config.useWindowsAuthentication ? '<em>Autenticação do Windows</em>' : '')
+    .setExtraInfo(authConfig.useWindowsAuthentication ? '<em>Autenticação do Windows</em>' : '')
     .build();
 
-    return { ...state, ...config.login.page.overrideState };
+    return { ...state, ...authConfig.login.page.overrideState };
 
   }
 

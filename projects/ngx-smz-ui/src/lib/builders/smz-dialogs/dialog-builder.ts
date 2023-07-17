@@ -73,7 +73,8 @@ export class SmzDialogBuilder<TResponse> extends SmzBuilderUtilities<SmzDialogBu
     presetId: null,
     features: [],
     contentClass: '',
-    featureContainerClass: null
+    featureContainerClass: null,
+    containerStyleClass: ''
   };
 
   public createdByUiDefinitions = false;
@@ -141,6 +142,10 @@ export class SmzDialogBuilder<TResponse> extends SmzBuilderUtilities<SmzDialogBu
 
   public overrideFeatureContainerStyles(styleClass: string): SmzDialogBuilder<TResponse> {
     this._state.featureContainerClass = styleClass;
+    return this;
+  }
+  public setContainerStyles(styleClass: string): SmzDialogBuilder<TResponse> {
+    this._state.containerStyleClass = styleClass;
     return this;
   }
 

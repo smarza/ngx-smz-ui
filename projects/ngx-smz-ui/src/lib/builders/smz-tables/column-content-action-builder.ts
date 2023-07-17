@@ -15,7 +15,7 @@ export class SmzContentActionsBuilder<TColumn extends SmzBaseColumnBuilder<TColu
 
   public placeAtBeginning(): SmzContentActionsBuilder<TColumn, TData> {
     this._parent._column.actionsAlignment = 'begin';
-    return this;
+    return this.that;
   }
 
   public get column(): SmzBaseColumnBuilder<TColumn, TData> {
