@@ -5,6 +5,11 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
+## [15.4.13] - 2023-07-07
+
+### Adicionado
+- Suporte a pesquisa do filtro de seleção de colunas da tabela.
+
 ## [15.4.12] - 2023-07-07
 
 ### Fix
