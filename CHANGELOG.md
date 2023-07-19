@@ -5,6 +5,18 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
+## [16.0.1] - 2023-07-19
+
+### Adicionado
+- Adição de novas propriedades de estilo para o componente de Cards: Três novas propriedades foram introduzidas para permitir a estilização personalizada do componente de Cards.
+  > dataViewContentStyles: Permite aplicar estilos personalizados ao conteúdo da visualização de dados no Card.
+  > dataViewStyleClass: Fornece uma maneira de aplicar uma classe de estilo personalizado à visualização de dados no Card.
+  > gridStyleClass: Facilita a aplicação de uma classe de estilo personalizada à grade do Card.
+- Adição de opção para mostrar/esconder dropdown de seleção de layout no componente de Cards: Foi implementada uma nova funcionalidade que permite ao usuário decidir se deseja exibir ou ocultar o dropdown de seleção de layout no componente de Cards.
+
+### Corrigido
+- Resolução de conflito de estilos no Card do tipo Info-A: Foi corrigido um problema de conflito de estilos que estava ocorrendo com o Card do tipo Info-A
+
 ## [16.0.0] - 2023-07-17
 
 ### Adicionado

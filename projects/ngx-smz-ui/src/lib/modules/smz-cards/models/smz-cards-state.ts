@@ -21,10 +21,13 @@ export interface SmzCardsState<T> {
     rowsPerPage: number;
     paginator: boolean;
     showGlobalFilter: boolean;
+    showLayoutOptions: boolean;
     filterBy: string;
     layout: 'grid' | 'list';
     showHeader: boolean;
     dataViewContentStyles: string;
+    dataViewStyleClass: string;
+    gridStyleClass: string;
   }
 }
 

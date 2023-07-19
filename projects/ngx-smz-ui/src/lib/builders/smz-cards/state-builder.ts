@@ -54,10 +54,13 @@ export class SmzCardsBuilder<T> {
       rowsPerPage: 9,
       paginator: true,
       showGlobalFilter: false,
+      showLayoutOptions : true,
       filterBy: '',
       layout: 'grid',
       showHeader: true,
-      dataViewContentStyles: ''
+      dataViewContentStyles: '',
+      dataViewStyleClass: '',
+      gridStyleClass: ''
     }
   };
 
@@ -127,6 +130,16 @@ export class SmzCardsBuilder<T> {
     return this;
   }
 
+  public setDataVieStyleClass(styles: string): SmzCardsBuilder<T> {
+    this._state.view.dataViewStyleClass = styles;
+    return this;
+  }
+
+  public setGridStyleClass(styles: string): SmzCardsBuilder<T> {
+    this._state.view.gridStyleClass = styles;
+    return this;
+  }
+
   public hidePaginator(): SmzCardsBuilder<T> {
     this._state.view.paginator = false;
     return this;
@@ -178,6 +191,11 @@ export class SmzCardsBuilder<T> {
         break;
     }
 
+    return this;
+  }
+
+  public hideLayoutOptions(): SmzCardsBuilder<T> {
+    this._state.view.showLayoutOptions = false;
     return this;
   }
 

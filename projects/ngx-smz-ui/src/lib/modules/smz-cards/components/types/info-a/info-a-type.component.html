@@ -24,7 +24,7 @@
     <div class="col-12 grid grid-nogutter items-center justify-start mt-2 gap-3">
       <ng-container *ngFor="let info of template.infos let i = index">
         <div *ngIf="!info.content.hideInGrid" class="grid grid-nogutter items-center justify-start gap-2 mr-3">
-          <div class="rounded-2xl h-4 w-4 bg-gray-200" [ngClass]="info.bulletStyleClass"></div>
+          <div class="rounded-2xl h-4 w-4" [ngClass]="info.bulletStyleClass ?? 'bg-gray-200'"></div>
           <div class="grid grid-nogutter flex-col items-start justify-start gap-0">
             <div class="text-xs text-surface-600">{{ info.caption }}</div>
             <div contentSelector [content]="info.content" [data]="data" class="" [ngClass]="info.content.styleClass ?? 'text-sm'"></div>
