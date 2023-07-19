@@ -5,6 +5,11 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
+## [16.0.2] - 2023-07-19
+
+### Adicionado
+- Adicionadas as propriedades tagsContainerStyleClass e infosContainerStyleClass para personalização do componente de Cards com template Info-A.
+
 ## [16.0.1] - 2023-07-19
 
 ### Adicionado

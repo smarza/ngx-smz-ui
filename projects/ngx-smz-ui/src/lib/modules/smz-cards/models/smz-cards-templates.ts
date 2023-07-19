@@ -48,6 +48,8 @@ export interface InfoATemplate extends SmzCardsBaseTemplate {
   };
   subTitle: SmzCardsTextContent;
   tags: SmzCardsTextContent[];
+  tagsContainerStyleClass: string;
+  infosContainerStyleClass: string;
   infos: {
     bulletStyleClass: string;
     caption: string;

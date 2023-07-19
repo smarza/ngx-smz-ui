@@ -12,6 +12,18 @@ export class SmzCardsInfoABuilder<TBuilder> extends SmzCardsBaseTemplateBuilder<
     _template.type = SmzCardsTemplate.INFO_A;
     _template.tags = [];
     _template.infos = [];
+    _template.tagsContainerStyleClass = 'gap-2 mt-2';
+    _template.infosContainerStyleClass = ' mt-2 gap-3';
+  }
+
+  public setTagsContainerStyleClass(styleClass: string): SmzCardsInfoABuilder<TBuilder> {
+    this._template.tagsContainerStyleClass = styleClass;
+    return this;
+  }
+
+  public setInfosContainerStyleClass(styleClass: string): SmzCardsInfoABuilder<TBuilder> {
+    this._template.infosContainerStyleClass = styleClass;
+    return this;
   }
 
   public setVerticalBarStyles(verticalBarStyleClass: string): SmzCardsInfoABuilder<TBuilder> {
