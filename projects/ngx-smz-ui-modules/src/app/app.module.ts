@@ -3,7 +3,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } fr
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NewAthenaLayoutModule, NgxSmzUiModule } from 'ngx-smz-ui';
+import { NewAthenaLayoutModule, NewAthenaProviderModule, NgxSmzUiModule } from 'ngx-smz-ui';
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
 import { CommonModule, registerLocaleData } from '@angular/common';
@@ -37,7 +37,9 @@ moment.locale('pt-br');
     NgxsRouterPluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot(),
 
-    NewAthenaLayoutModule.forRoot(smzAthenaConfig),
+    NewAthenaLayoutModule,
+    NewAthenaProviderModule.forRoot(smzAthenaConfig),
+
     HighlightModule
   ],
   providers: [
