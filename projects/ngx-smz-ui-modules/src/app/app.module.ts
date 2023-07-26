@@ -39,7 +39,6 @@ moment.locale('pt-br');
 
     NewAthenaLayoutModule,
     NewAthenaProviderModule.forRoot(smzAthenaConfig),
-
     HighlightModule
   ],
   providers: [
