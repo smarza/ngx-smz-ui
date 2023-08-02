@@ -73,50 +73,50 @@ export const getInitialState = (): UiStateModel => ({
 
 @Injectable()
 export class LayoutUiState {
-  public uiConfig = GlobalInjector.config;
   constructor(private location: Location) { }
 
 
   @Action(LayoutUiActions.Initialize)
   public onInitialize(ctx: StateContext<UiStateModel>): void {
     const state = ctx.getState().state;
+    const config = GlobalInjector.config;
 
-    let schema = this.uiConfig.layouts.themes.schema;
+    let schema = config.layouts.themes.schema;
 
-    if (this.uiConfig.layouts.themes.custom) {
-      SmzColorSchemas.push(this.uiConfig.layouts.themes.custom);
-      schema = this.uiConfig.layouts.themes.custom.id;
+    if (config.layouts.themes.custom) {
+      SmzColorSchemas.push(config.layouts.themes.custom);
+      schema = config.layouts.themes.custom.id;
     }
 
     ctx.patchState(
       {
-        assistance: this.uiConfig.layouts.assistance,
+        assistance: config.layouts.assistance,
         themes: {
           content: null,
           theme: null,
           schema,
         },
-        appLogo: this.uiConfig.layouts.appLogo,
+        appLogo: config.layouts.appLogo,
         state: {
           ...state,
-          appName: this.uiConfig.layouts.appName,
+          appName: config.layouts.appName,
         },
-        toast: this.uiConfig.layouts.toast,
-        loader: this.uiConfig.layouts.loader,
+        toast: config.layouts.toast,
+        loader: config.layouts.loader,
       });
 
-    let content  =this.uiConfig.layouts.themes.content;
+    let content = config.layouts.themes.content;
 
-    if (this.uiConfig.layouts.themes.system?.enabled) {
+    if (config.layouts.themes.system?.enabled) {
       const systemColor = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 
       switch (systemColor) {
         case 'dark':
-          content = this.uiConfig.layouts.themes.system.dark;
+          content = config.layouts.themes.system.dark;
           break;
 
         case 'light':
-          content = this.uiConfig.layouts.themes.system.light;
+          content = config.layouts.themes.system.light;
           break;
       }
     }
@@ -137,8 +137,9 @@ export class LayoutUiState {
     const themes = ctx.getState().themes;
     const state = ctx.getState().state;
     const contentTheme = SmzContentThemes.find(x => x.id === action.data);
+    const config = GlobalInjector.config;
 
-    if (this.uiConfig.layouts.themes.forceDimmer) {
+    if (config.layouts.themes.forceDimmer) {
       contentTheme.isDimmed = true;
     }
 

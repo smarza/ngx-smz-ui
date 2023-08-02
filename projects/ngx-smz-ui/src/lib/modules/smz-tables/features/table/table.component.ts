@@ -161,7 +161,9 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
 
   public ngAfterViewInit(): void
   {
-    this.initializeState();
+    setTimeout(() => {
+      this.initializeState();
+    }, 0);
   }
 
   public initializeState(): void {

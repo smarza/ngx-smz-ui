@@ -201,7 +201,7 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
         },
         tables: {
             export: {
-                absoluteApiUrl: `${environment.serverUrl}/api/excel/generate-tables`,
+                absoluteApiUrl: `${environment.serverUrl}/api/table-exporter/generate-tables`,
                 requestLimit: 30000000
             }
         },

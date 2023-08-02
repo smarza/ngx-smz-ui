@@ -115,7 +115,7 @@ export class SmzTableBuilder<TData> {
         isButtonVisible: false,
         exportHyperLinkAsHtml: false,
         globalDateFormat: null,
-        filename: '',
+        filename: 'export',
         maxFilenameLength: 100,
         maxFilenameShortenSuffix: '(...)',
         includeUserAsAuthor: false
@@ -304,7 +304,7 @@ export class SmzTableBuilder<TData> {
             label: 'Exportar PDF',
           },
           exportToExcel: {
-            label: 'Exportar EXCEL',
+            label: 'Exportar Excel',
           },
           clearFilters: {
             label: 'Limpar Filtros'
