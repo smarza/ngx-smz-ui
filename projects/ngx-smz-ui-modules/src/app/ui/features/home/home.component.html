@@ -2,5 +2,10 @@
   <!-- <div [innerHTML]="(userdata$ | async) | prettyjson"></div> -->
   <!-- <app-open-ai></app-open-ai> -->
 
+  <button pButton type="button" label="EN" class="p-button-rounded" (click)="setLocale('en.json')"></button>
+  <button pButton type="button" label="DE" class="p-button-rounded" (click)="setLocale('de.json')"></button>
+
+  <div [innerHTML]="(locale$ | async) | prettyjson"></div>
+
   <smz-ui-table class="w-full" table [items]="items" [state]="state"></smz-ui-table>
 </div>

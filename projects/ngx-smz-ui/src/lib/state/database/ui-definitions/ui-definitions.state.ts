@@ -13,7 +13,7 @@ export interface UiDefinitionsDbStateModel {
     data: {[key: string]: FormDefinitionData};
 }
 
-export const getInitialState = (): UiDefinitionsDbStateModel => ({
+export const getUiDefinitionsInitialState = (): UiDefinitionsDbStateModel => ({
         lastUpdated: null,
         data: null
     });
@@ -21,7 +21,7 @@ export const getInitialState = (): UiDefinitionsDbStateModel => ({
 // @dynamic
 @State<UiDefinitionsDbStateModel>({
     name: UI_DEFINITIONS_STATE_NAME,
-    defaults: getInitialState()
+    defaults: getUiDefinitionsInitialState()
 })
 @Injectable()
 export class UiDefinitionsDbState {

@@ -10,6 +10,13 @@ export const UiBuilder: SmzUiBuilder = new SmzUiBuilder()
   .setDialogsConfigManually(smzDialogsConfig)
   .layouts(smzLayoutsConfig)
     .builder
+  .localization()
+    .setApiUrl('assets/locales')
+    .addLocale('de.json', 'Germany', 'DE')
+    .addLocale('en.json', 'English', 'US')
+    .setDefault('en.json')
+    .allowLocalizationSwitch()
+    .builder
   .authentication()
     .mapAccessTokenData('rol', 'roles', 'array')
     .mapAccessTokenData('avatar', 'avatar', 'string')

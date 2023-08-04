@@ -18,6 +18,7 @@
     "./resources/assets/images/avatar/*.*",
     "./resources/assets/images/tables/*.*",
     "./resources/assets/images/dock/*.*",
+    "./resources/assets/locales/*.*",
     "./tailwind.preset.js"
   ],
   "lib": {

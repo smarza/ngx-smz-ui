@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HOME_PATH } from '@routes';
-import { RbkAuthGuard, RbkDatabaseStateGuard, UI_DEFINITIONS_STATE_NAME } from 'ngx-smz-ui';
+import { RbkAuthGuard, RbkDatabaseStateGuard, UI_DEFINITIONS_STATE_NAME, UI_LOCALIZATION_STATE_NAME } from 'ngx-smz-ui';
 
 const routes: Routes = [
   {
@@ -10,7 +10,8 @@ const routes: Routes = [
     data: {
       layout:  {mode: 'full', hideFooter: false, contentPadding: '0'},
       requiredStates: [
-        UI_DEFINITIONS_STATE_NAME
+        UI_DEFINITIONS_STATE_NAME,
+        UI_LOCALIZATION_STATE_NAME
       ]
     },
     children: [

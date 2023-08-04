@@ -174,6 +174,11 @@ export * from './lib/state/database/ui-definitions/ui-definitions.selectors';
 export * from './lib/state/database/ui-definitions/ui-definitions.state';
 export * from './lib/state/database/ui-definitions/ui-definitions.service';
 
+export * from './lib/state/database/ui-localization/ui-localization.actions';
+export * from './lib/state/database/ui-localization/ui-localization.selectors';
+export * from './lib/state/database/ui-localization/ui-localization.state';
+export * from './lib/state/database/ui-localization/ui-localization.service';
+
 export * from './lib/state/features/features.actions';
 export * from './lib/state/features/features.selectors';
 export * from './lib/state/features/features.state';

@@ -9,6 +9,8 @@ import { PrimeConfigService } from '../../../../common/services/prime-config.ser
 import { LayoutUiActions } from '../../../../state/ui/layout/layout.actions';
 import { GlobalInjector } from '../../../../common/services/global-injector';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { isEmpty } from '../../../rbk-utils/utils/utils';
+import { UiLocalizationDbActions } from '../../../../state/database/ui-localization/ui-localization.actions';
 
 @Component({
   selector: 'smz-ui-outlet',
@@ -42,6 +44,14 @@ export class OutletComponent implements OnInit, AfterContentInit {
     private primeConfig: PrimeConfigService,
     private breakpointObserver: BreakpointObserver) {
     this.primeConfig.init();
+
+    const config = GlobalInjector.config.rbkUtils;
+
+    if (!isEmpty(config.uiLocalization?.url)) {
+      this.store.dispatch(new UiLocalizationDbActions.SetLocales(config.uiLocalization.locales));
+      this.store.dispatch(new UiLocalizationDbActions.SetCurrent(config.uiLocalization.current));
+    }
+
   }
 
   ngOnInit(): void {

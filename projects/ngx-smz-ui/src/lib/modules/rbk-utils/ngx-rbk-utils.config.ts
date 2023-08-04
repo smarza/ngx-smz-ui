@@ -6,6 +6,7 @@ import { SmzLoginState } from '../smz-layouts/features/login/login-state';
 import { LoginResponse } from './auth/models';
 import { CustomError } from './error-handler/error.handler';
 import { HttpBehaviorParameters } from './http/base-api.service';
+import { SmzUiLocale } from '../../state/database/ui-localization/ui-localization.state';
 
 export class NgxRbkUtilsConfig {
     public debugMode: boolean;
@@ -40,6 +41,13 @@ export class NgxRbkUtilsConfig {
     public uiDefinitions: {
         url: string;
         httpBehavior: Partial<HttpBehaviorParameters>;
+    };
+    public uiLocalization: {
+        url: string;
+        current: string;
+        locales: SmzUiLocale[];
+        httpBehavior: Partial<HttpBehaviorParameters>;
+        allowLocalizationSwitching: boolean;
     };
     public state: {
         database: { [name: string]: DatabaseStateParameters };

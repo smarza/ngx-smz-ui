@@ -6,6 +6,7 @@ import { HephaestusProfileMenuModule } from '../profile-menu/profile-menu.module
 import { HephaestusNotificationsModule } from '../notifications/notifications.module';
 import { ButtonModule } from 'primeng/button';
 import { SmzTenantSwitchComponent } from '../../../../features/tenant-switch/tenant-switch.component';
+import { SmzLocalizationSwitchComponent } from '../../../../features/localization-switch/localization-switch.component';
 
 @NgModule({
   declarations: [HephaestusTopbarComponent],
@@ -15,7 +16,8 @@ import { SmzTenantSwitchComponent } from '../../../../features/tenant-switch/ten
     HephaestusProfileMenuModule,
     HephaestusNotificationsModule,
     ButtonModule,
-    SmzTenantSwitchComponent
+    SmzTenantSwitchComponent,
+    SmzLocalizationSwitchComponent
   ],
   exports: [HephaestusTopbarComponent]
 })

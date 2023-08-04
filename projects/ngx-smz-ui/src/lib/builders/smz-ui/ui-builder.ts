@@ -16,6 +16,7 @@ import { TenantAuthenticationSelectors } from '../../state/global/authentication
 import { SmzUiHttpBehaviorsBuilder } from './http-behaviors-builder';
 import { SmzUiNotificationsBuilder } from './notifications-builder';
 import { SmzUiTablesBuilder } from './tables-builder';
+import { SmzUiLocalizationBuilder } from './localization-builder';
 
 export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
     protected that = this;
@@ -35,6 +36,19 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
                     loadingBehavior: 'global',
                     needToRefreshToken: false
                 }
+            },
+            uiLocalization: {
+                url: `${environment.serverUrl}/api/ui-localization`,
+                current: null,
+                locales: [],
+                httpBehavior: {
+                    authentication: false,
+                    compression: true,
+                    errorHandlingType: 'dialog',
+                    loadingBehavior: 'global',
+                    needToRefreshToken: false
+                },
+                allowLocalizationSwitching: false
             },
             diagnostics: {
                 url: `${environment.serverUrl}/api/diagnostics`
@@ -250,6 +264,10 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
 
     public notifications(): SmzUiNotificationsBuilder {
         return new SmzUiNotificationsBuilder(this);
+    }
+
+    public localization(): SmzUiLocalizationBuilder {
+        return new SmzUiLocalizationBuilder(this);
     }
 
     public authentication(): SmzUiAuthenticationBuilder {

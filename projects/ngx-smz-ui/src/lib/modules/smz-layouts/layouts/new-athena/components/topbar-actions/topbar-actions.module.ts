@@ -8,6 +8,7 @@ import { AthenaTopbarActionsComponent } from './topbar-actions.component';
 import { SmzTenantSwitchComponent } from '../../../../features/tenant-switch/tenant-switch.component';
 import { SmzResponsiveComponent } from '../../../../../smz-responsive/smz-responsive.component';
 import { SharedModule } from 'primeng/api';
+import { SmzLocalizationSwitchComponent } from '../../../../features/localization-switch/localization-switch.component';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { SharedModule } from 'primeng/api';
     AthenaNotificationsModule,
     SmzNotificationsModule,
     SmzTenantSwitchComponent,
+    SmzLocalizationSwitchComponent,
     SmzResponsiveComponent
   ],
   exports: [AthenaTopbarActionsComponent],

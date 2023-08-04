@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
-import { AuthenticationSelectors, SmzDialogsService, SmzTableBuilder, SmzTableState } from 'ngx-smz-ui';
+import { AuthenticationSelectors, SmzDialogsService, SmzTableBuilder, SmzTableState, UiLocalizationDbActions, UiLocalizationDbSelectors } from 'ngx-smz-ui';
 import { Observable } from 'rxjs';
 import { UserData } from '@models/user-data';
 import { LARGE_TABLE_DATA } from '../../../../../../ngx-smz-ui-overview/src/app/demos/data/large-table';
@@ -12,6 +12,7 @@ import { LARGE_TABLE_DATA } from '../../../../../../ngx-smz-ui-overview/src/app/
 export class HomeComponent
 {
   @Select(AuthenticationSelectors.userdata) public userdata$: Observable<UserData>;
+  @Select(UiLocalizationDbSelectors.all) public locale$: Observable<any>;
   public state: SmzTableState = new SmzTableBuilder()
     .setTitle('Auto Sized Columns with Large Data')
     .enableGlobalFilter()
@@ -51,6 +52,11 @@ export class HomeComponent
   constructor(private dialogs: SmzDialogsService, private store: Store)
   {
 
+  }
+
+  public setLocale(locale: string): void
+  {
+    this.store.dispatch(new UiLocalizationDbActions.SetCurrent(locale));
   }
 
 }

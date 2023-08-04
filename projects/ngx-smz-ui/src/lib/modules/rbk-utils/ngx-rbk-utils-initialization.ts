@@ -3,7 +3,7 @@ import { GlobalInjector } from '../../common/services/global-injector';
 import { NgxSmzUiConfig } from '../../ngx-smz-ui.config';
 import { DATABASE_REQUIRED_ACTIONS, DATABASE_STATES } from '../../state/database/database.state';
 import { UiDefinitionsDbActions } from '../../state/database/ui-definitions/ui-definitions.actions';
-import { getInitialState, UiDefinitionsDbState, UI_DEFINITIONS_STATE_NAME } from '../../state/database/ui-definitions/ui-definitions.state';
+import { getUiDefinitionsInitialState, UiDefinitionsDbState, UI_DEFINITIONS_STATE_NAME } from '../../state/database/ui-definitions/ui-definitions.state';
 import { FEATURE_STATES } from '../../state/features/features.state';
 import { ClaimsModule } from '../smz-access/modules/claims/claims.module';
 import { RolesModule } from '../smz-access/modules/roles/roles.module';
@@ -13,6 +13,8 @@ import { CLAIMS_PATH, ROLES_PATH, TENANTS_PATH, USERS_PATH } from '../smz-access
 import { DatabaseStateParameters } from './ngx-rbk-utils.config';
 import { isEmpty } from './utils/utils';
 import { RbkAuthGuard } from './auth/auth.guard';
+import { UI_LOCALIZATION_STATE_NAME, UiLocalizationDbState, getUiLocalizationInitialState } from '../../state/database/ui-localization/ui-localization.state';
+import { UiLocalizationDbActions } from '../../state/database/ui-localization/ui-localization.actions';
 
 export function getUsersModule() { return UsersModule }
 export function getRolesModule() { return RolesModule }
@@ -88,11 +90,22 @@ export function runRbkInitialization() {
             const uiDefinitionsState: DatabaseStateParameters = {
                 state: UiDefinitionsDbState,
                 loadAction: UiDefinitionsDbActions.LoadAll,
-                clearFunction: getInitialState,
+                clearFunction: getUiDefinitionsInitialState,
                 cacheTimeout: 999
             };
 
             configuration.state.database[UI_DEFINITIONS_STATE_NAME] = uiDefinitionsState;
+        }
+
+        if (!isEmpty(configuration.uiLocalization?.url)) {
+            const uiLocalizationState: DatabaseStateParameters = {
+                state: UiLocalizationDbState,
+                loadAction: UiLocalizationDbActions.LoadAll,
+                clearFunction: getUiLocalizationInitialState,
+                cacheTimeout: 999
+            };
+
+            configuration.state.database[UI_LOCALIZATION_STATE_NAME] = uiLocalizationState;
         }
 
         const states = [];

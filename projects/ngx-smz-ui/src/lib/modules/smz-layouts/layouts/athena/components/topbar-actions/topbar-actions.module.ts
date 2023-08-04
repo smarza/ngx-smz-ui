@@ -7,6 +7,7 @@ import { AthenaProfileMenuModule } from '../profile-menu/profile-menu.module';
 
 import { AthenaTopbarActionsComponent } from './topbar-actions.component';
 import { SmzTenantSwitchComponent } from '../../../../features/tenant-switch/tenant-switch.component';
+import { SmzLocalizationSwitchComponent } from '../../../../features/localization-switch/localization-switch.component';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { SmzTenantSwitchComponent } from '../../../../features/tenant-switch/ten
     AthenaProfileMenuModule,
     AthenaNotificationsModule,
     SmzNotificationsModule,
-    SmzTenantSwitchComponent
+    SmzTenantSwitchComponent,
+    SmzLocalizationSwitchComponent
   ],
   exports: [AthenaTopbarActionsComponent],
   declarations: [
