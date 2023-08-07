@@ -38,6 +38,7 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
                 }
             },
             uiLocalization: {
+                isEnabled: false,
                 url: `${environment.serverUrl}/api/ui-localization`,
                 current: null,
                 locales: [],

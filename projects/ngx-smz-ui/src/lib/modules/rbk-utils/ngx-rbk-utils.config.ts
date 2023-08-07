@@ -48,6 +48,7 @@ export class NgxRbkUtilsConfig {
         locales: SmzUiLocale[];
         httpBehavior: Partial<HttpBehaviorParameters>;
         allowLocalizationSwitching: boolean;
+        isEnabled: boolean;
     };
     public state: {
         database: { [name: string]: DatabaseStateParameters };

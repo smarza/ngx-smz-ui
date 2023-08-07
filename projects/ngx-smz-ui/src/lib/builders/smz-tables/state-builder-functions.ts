@@ -25,6 +25,8 @@ export namespace StateBuilderFunctions {
         field: converted.field(input),
         filterField: converted.field(input),
         globalFilterField: converted.field(input),
+        globalFilterDataType: 'string',
+        globalFilterArrayDataPath: 'name',
         sortField: converted.field(input),
         property: converted.property(input),
         header: input.name,

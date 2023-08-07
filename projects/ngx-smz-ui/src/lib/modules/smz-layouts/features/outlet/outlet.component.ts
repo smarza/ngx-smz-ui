@@ -47,7 +47,7 @@ export class OutletComponent implements OnInit, AfterContentInit {
 
     const config = GlobalInjector.config.rbkUtils;
 
-    if (!isEmpty(config.uiLocalization?.url)) {
+    if (config.uiLocalization?.isEnabled) {
       this.store.dispatch(new UiLocalizationDbActions.SetLocales(config.uiLocalization.locales));
       this.store.dispatch(new UiLocalizationDbActions.SetCurrent(config.uiLocalization.current));
     }

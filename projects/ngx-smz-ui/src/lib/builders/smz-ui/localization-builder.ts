@@ -7,6 +7,8 @@ export class SmzUiLocalizationBuilder extends SmzBuilderUtilities<SmzUiLocalizat
   protected that = this;
   constructor(private _builder: SmzUiBuilder) {
     super();
+
+    this._builder._state.rbkUtils.uiLocalization.isEnabled = true;
   }
 
   public setApiUrl(url: string): SmzUiLocalizationBuilder {

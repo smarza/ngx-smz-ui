@@ -41,6 +41,7 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { TriStateCheckboxModule } from 'primeng/tristatecheckbox';
 import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { Subject, Subscription } from 'rxjs';
+import { isArray } from '../../../common/utils/utils';
 
 @Injectable()
 export class TableService {
@@ -1607,10 +1608,29 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
                     if (this.filters['global'] && !globalMatch && globalFilterFieldsArray) {
                         for (let j = 0; j < globalFilterFieldsArray.length; j++) {
-                            let globalFilterField = globalFilterFieldsArray[j].field || globalFilterFieldsArray[j];
-                            globalMatch = this.filterService.filters[(<FilterMetadata>this.filters['global']).matchMode](
-                                ObjectUtils.resolveFieldData(this.value[i], globalFilterField),
-                                (<FilterMetadata>this.filters['global']).value,
+
+                            const globalFilterField = globalFilterFieldsArray[j].field || globalFilterFieldsArray[j];
+
+                            const column = this.findColumnByKey(globalFilterField);
+
+                            const filterGlobal = <FilterMetadata>this.filters['global'];
+                            const matchMode = filterGlobal.matchMode;
+                            const value = this.value[i];
+
+                            const resolveFieldData = ObjectUtils.resolveFieldData(value, globalFilterField);
+
+                            let cellSearchData = resolveFieldData;
+
+                            if (column.globalFilterDataType === 'array' && isArray(resolveFieldData)) {
+                                const dataPath = column.globalFilterArrayDataPath ?? 'name';
+                                cellSearchData = (resolveFieldData as any[]).map(x => ObjectUtils.resolveFieldData(x, dataPath)).join(' ');
+                            }
+
+                            const globalFilterValue = filterGlobal.value;
+
+                            globalMatch = this.filterService.filters[matchMode](
+                                cellSearchData,
+                                globalFilterValue,
                                 this.filterLocale
                             );
 

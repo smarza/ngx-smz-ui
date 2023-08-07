@@ -18,16 +18,31 @@ export const UiConfigBuilder: SmzUiBuilder = new SmzUiBuilder()
 .layouts(smzLayoutsConfig)
   .setLoader(SmzLoader.CUBE)
   .builder
-.setRbkUtilsConfigManually(rbkConfig)
+// .setRbkUtilsConfigManually(rbkConfig)
 .authentication()
   .mapAccessTokenData('rol', 'roles', 'array')
-  .mapAccessTokenData('Picture', 'picture', 'string')
+  .mapAccessTokenData('avatar', 'avatar', 'string')
+  .mapAccessTokenData('tenant', 'tenant', 'string')
+  .mapAccessTokenData('display-name', 'displayName', 'string')
+  .mapAccessTokenData('has-tenant', 'hasTenant', 'boolean')
+  .mapAccessTokenData('authentication-mode', 'authenticationMode', 'string')
+  .setTenantDisplayName('Domínio')
   .login()
-    .useSingleTenantAplication('proteus')
-    .addToLoginPayload('domain', 'BUZIOS')
-    .addToLoginPayload('applicationId', 'SMZ-UI-OVERVIEW')
+    .useWindowsAuthentication()
+    .allowSuperuser()
+    .allowTenantSwitching()
     .authorization
-.builder
+  .builder
+.authorization()
+    .setMenuLabel('Administrativo')
+    .allowMultipleRolesPerUser()
+    .users()
+      .allowUserDeactivation()
+      .authorization
+    .roles().authorization
+    .claims().authorization
+    .tenants().authorization
+    .builder
 .states()
   .addDatabase(CountriesDbName)
     .setState(CountriesDbState)

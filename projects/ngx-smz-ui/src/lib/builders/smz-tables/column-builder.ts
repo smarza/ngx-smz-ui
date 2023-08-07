@@ -45,6 +45,8 @@ export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T, TDa
         filterField: field,
         sortField: field,
         globalFilterField: field,
+        globalFilterDataType: 'string',
+        globalFilterArrayDataPath: 'name',
         property: field.split('.')[0],
         header: header,
         headerStyleClass: '',
@@ -395,6 +397,11 @@ export class SmzDataTransformColumnBuilder<TData> extends SmzBaseColumnBuilder<S
 
   public setFilter(type: SmzFilterType): SmzDataTransformColumnBuilder<TData> {
     this._column.filter.type = type;
+
+    if (type === SmzFilterType.MULTI_SELECT_ARRAY) {
+      this._column.globalFilterDataType = 'array';
+    }
+
     return this;
   }
 

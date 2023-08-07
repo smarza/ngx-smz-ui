@@ -5,6 +5,12 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
+## [16.0.4] - 2023-08-07
+
+### Adicionado
+A funcionalidade de busca global na tabela foi aprimorada para suportar a busca por células que contenham um array de objetos SimpleNamedEntity.
+
+
 ## [16.0.3] - 2023-08-02
 
 ### Ajustado
