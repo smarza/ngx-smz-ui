@@ -38,6 +38,8 @@ export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T>> {
 
       this._column = {
         field: field,
+        globalFilterDataType: 'string',
+        globalFilterArrayDataPath: 'name',
         property: field.split('.')[0],
         header: header,
         headerStyleClass: '',

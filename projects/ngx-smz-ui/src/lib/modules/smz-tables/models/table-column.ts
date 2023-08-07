@@ -9,6 +9,15 @@ export interface SmzTableColumn {
    */
   field: string;
   /**
+  * Define if the global filter need to convert cell data from array to searchable string data.
+  */
+  globalFilterDataType: 'string' | 'array';
+  /**
+  * Define how global filter will create the searchable string data for array cells.
+  * Default is set to SimpleNamedEntity, so the property name is going to be used as searchable string data.
+  */
+  globalFilterArrayDataPath: string;
+  /**
    * Property name, this is an identifier and has to be unique.
    */
   property: string;
