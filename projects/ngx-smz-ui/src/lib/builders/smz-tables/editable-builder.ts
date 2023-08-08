@@ -37,12 +37,21 @@ export class SmzEditableTableBuilder<TData> {
   }
 
   public setUpdateAction(action: any, claim?: string, overrideActionPayload?: (row: any) => any): SmzEditableTableBuilder<TData> {
-
     this._tableBuilder._state.editable.actions.update = action;
     this._tableBuilder._state.editable.update.isButtonVisible = true;
     this._tableBuilder._state.editable.update.accessClaim = claim;
     this._tableBuilder._state.editable.update.overrideActionPayloadCallback = overrideActionPayload;
 
+    return this;
+  }
+
+  public setUpdateActionCondition(callback: (row: TData) => boolean): SmzEditableTableBuilder<TData> {
+    this._tableBuilder._state.editable.update.condition = callback;
+    return this;
+  }
+
+  public setRemoveActionCondition(callback: (row: TData) => boolean): SmzEditableTableBuilder<TData> {
+    this._tableBuilder._state.editable.remove.condition = callback;
     return this;
   }
 

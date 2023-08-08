@@ -587,6 +587,13 @@ export const TreeDemoData: DemoTreeNode[] = [
             data: FormsDemo[DemoKeys.FORMS_MULTIPLE_GROUPS],
             key: DemoKeys.FORMS_MULTIPLE_GROUPS.toString()
           },
+          {
+            label: 'Visibility Condition', icon: 'fa-solid fa-code', type: 'Demo',
+            demoType: 'form',
+            notes: '',
+            data: FormsDemo[DemoKeys.FORMS_BEHAVIORS_VISIBILITY_CONDITION],
+            key: DemoKeys.FORMS_BEHAVIORS_VISIBILITY_CONDITION.toString()
+          },
         ]
       },
       {

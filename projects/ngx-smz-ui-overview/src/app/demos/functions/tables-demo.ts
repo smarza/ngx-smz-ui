@@ -741,6 +741,7 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
         .table
       .editable()
         .setUpdateAction(DemoFeatureActions.Update)
+        .setUpdateActionCondition((item: any) => item.isNotApplicable == false)
         .useFlattenResults()
         .addMappingResults((data: any) => {
           console.log('customizing', data);
@@ -774,13 +775,13 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
         .text('function.name', 'Função', '16em')
           .setFilter(SmzFilterType.MULTI_SELECT)
           .columns
-        .dataTransform('value', 'Corrosão', (value) => `<strong>${value.toFixed(2)} %</strong>`, '12em')
+        .dataTransform('value', 'Corrosão', (value, item) => item.isNotApplicable ? 'N/A' : `<strong>${value.toFixed(2)} %</strong>`, '12em')
           .disableFilter()
           .editable()
             .text()
             .column
           .columns
-        .dataTransform('level.name', 'Característica', (value) => `<strong>${value}</strong>`, '16m')
+        .dataTransform('level.name', 'Característica', (value, item) => item.isNotApplicable ? 'N/A' : `<strong>${value}</strong>`, '16m')
           .setFilter(SmzFilterType.MULTI_SELECT)
           .editable()
             .dropdown('level')

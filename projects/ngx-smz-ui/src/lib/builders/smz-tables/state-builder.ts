@@ -73,6 +73,7 @@ export class SmzTableBuilder<TData> {
         isButtonDisabled: false,
         accessClaim: null,
         overrideActionPayloadCallback: null,
+        condition: () => true,
         onInit: () => {}
       },
       creation: {
@@ -88,6 +89,7 @@ export class SmzTableBuilder<TData> {
         isButtonDisabled: false,
         accessClaim: null,
         overrideActionPayloadCallback: null,
+        condition: () => true,
         onInit: () => {}
       },
       actions:

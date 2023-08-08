@@ -5,6 +5,13 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
+## [16.0.5] - 2023-08-08
+
+### Adicionado
+- Adicionado setUpdateActionCondition na editable table: Este método permite aos desenvolvedores controlar a visibilidade do botão de edição para cada item específico da tabela, oferecendo mais flexibilidade na interface da tabela editável.
+- Adicionado setRemoveActionCondition na editable table: Similarmente ao método acima, este permite aos desenvolvedores determinar quando o botão de remoção deve ser visível para cada item da tabela
+
+
 ## [16.0.4] - 2023-08-07
 
 ### Adicionado

@@ -426,8 +426,8 @@
 
                                     <!-- SEM EDITAR -->
                                     <ng-container *ngIf="!editing">
-                                        <button *ngIf="context.state.editable.update.isButtonVisible" pButton type="button" icon="pi pi-pencil" (click)="editableService.onRowEditInit(item)" class="p-button-rounded p-button-text mx-1" [disabled]="editableService.isEditing || editableService.isCreating || context.state.editable.update.isButtonDisabled" pInitEditableRow></button>
-                                        <button *ngIf="context.state.editable.remove.isButtonVisible" pButton type="button" icon="pi pi-trash" (click)="editableService.onRowRemove($event, dt, item)" class="p-button-rounded p-button-text p-button-secondary mx-1" [disabled]="editableService.isEditing || editableService.isCreating || context.state.editable.remove.isButtonDisabled"></button>
+                                        <button *ngIf="context.state.editable.update.isButtonVisible && context.state.editable.update.condition(item)" pButton type="button" icon="pi pi-pencil" (click)="editableService.onRowEditInit(item)" class="p-button-rounded p-button-text mx-1" [disabled]="editableService.isEditing || editableService.isCreating || context.state.editable.update.isButtonDisabled" pInitEditableRow></button>
+                                        <button *ngIf="context.state.editable.remove.isButtonVisible && context.state.editable.remove.condition(item)" pButton type="button" icon="pi pi-trash" (click)="editableService.onRowRemove($event, dt, item)" class="p-button-rounded p-button-text p-button-secondary mx-1" [disabled]="editableService.isEditing || editableService.isCreating || context.state.editable.remove.isButtonDisabled"></button>
                                     </ng-container>
 
                                     <!-- EDITANDO -->
