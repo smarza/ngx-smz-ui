@@ -5,6 +5,21 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
+## [16.0.7] - 2023-08-09
+
+### Adicionado
+Novo método overrideCacheTimeout para permitir a alteração do tempo de cache do estado do database.
+
+## [16.0.6] - 2023-08-09
+
+### Alterado
+Botão de Edição em Editable Table: A funcionalidade do botão de editar na 'editable table' foi modificada. Anteriormente, o botão sumia ao ser desabilitado. A partir desta versão, ele permanecerá visível, mas estará desabilitado, indicando que a ação de edição não pode ser executada naquele momento.
+
+## [16.0.6] - 2023-08-09
+
+### Alterado
+Botão de Edição em Editable Table: A funcionalidade do botão de editar na 'editable table' foi modificada. Anteriormente, o botão sumia ao ser desabilitado. A partir desta versão, ele permanecerá visível, mas estará desabilitado, indicando que a ação de edição não pode ser executada naquele momento.
+
 ## [16.0.5] - 2023-08-08
 
 ### Adicionado

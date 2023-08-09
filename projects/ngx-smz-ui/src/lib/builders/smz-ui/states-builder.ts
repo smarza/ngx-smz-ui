@@ -27,6 +27,15 @@ export class SmzUiStatesBuilder extends SmzBuilderUtilities<SmzUiStatesBuilder> 
     return new SmzUiFeatureStateBuilder(this, parameter);
   }
 
+  public overrideCacheTimeout(stateName: string, cacheTimeout: number): SmzUiStatesBuilder {
+    if (this._builder._state.rbkUtils.state.database[stateName] == null) {
+      throw Error(`You can't call overrideCacheTimeout because the State ${stateName} doens't exists.`);
+    }
+
+    this._builder._state.rbkUtils.state.database[stateName].cacheTimeout = cacheTimeout;
+    return this.that;
+  }
+
   public get builder(): SmzUiBuilder {
     return this._builder;
   }
