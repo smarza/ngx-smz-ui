@@ -28,6 +28,7 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
             applicationName: 'application',
             useTitleService: true,
             uiDefinitions: {
+                isEnabled: true,
                 url: `${environment.serverUrl}/api/ui-definitions`,
                 httpBehavior: {
                     authentication: false,
@@ -238,7 +239,12 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
     public useLegacy(): SmzUiBuilder {
         this._state.legacyMode = true;
         return this.that;
-      }
+    }
+
+    public disableUiDefinitions(): SmzUiBuilder {
+        this._state.rbkUtils.uiDefinitions.isEnabled = false;
+        return this.that;
+    }
 
     public setDialogsConfigManually(config: SmzDialogsConfig): SmzUiBuilder {
         this._state.dialogs = mergeClone(defaultDialogsModuleConfig, config);

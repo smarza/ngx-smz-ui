@@ -8,6 +8,8 @@ import { SmzRouteData } from '../../core/models/route-layout-data';
 import { SmzLoginModule } from '../../features/login/login.module';
 import { LoginComponent } from './login.component';
 import { RbkDatabaseStateGuard } from '../../../rbk-utils/utils/state/database-state.guard';
+import { GlobalInjector } from '../../../../common/services/global-injector';
+import { TENANTS_STATE_NAME } from '../../../smz-access/state/tenants/tenants.state';
 
 const data: SmzRouteData = {
   layout: {
@@ -45,4 +47,12 @@ export const routerModuleForChildLoginModule = RouterModule.forChild(routes);
     SharedModule
   ]
 })
-export class LoginModule { }
+export class LoginModule {
+  constructor() {
+    const config = GlobalInjector.config;
+
+    if (!config.rbkUtils.authentication.useSingleTenantAplication) {
+      data.requiredStates.push(TENANTS_STATE_NAME);
+    }
+  }
+}

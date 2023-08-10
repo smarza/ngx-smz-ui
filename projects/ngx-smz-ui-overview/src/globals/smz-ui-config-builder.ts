@@ -19,6 +19,7 @@ export const UiConfigBuilder: SmzUiBuilder = new SmzUiBuilder()
   .setLoader(SmzLoader.CUBE)
   .builder
 // .setRbkUtilsConfigManually(rbkConfig)
+// .disableUiDefinitions()
 .authentication()
   .mapAccessTokenData('rol', 'roles', 'array')
   .mapAccessTokenData('avatar', 'avatar', 'string')
@@ -30,7 +31,7 @@ export const UiConfigBuilder: SmzUiBuilder = new SmzUiBuilder()
   .login()
     .useWindowsAuthentication()
     .allowSuperuser()
-    .allowTenantSwitching()
+    // .allowTenantSwitching()
     .authorization
   .builder
 .authorization()

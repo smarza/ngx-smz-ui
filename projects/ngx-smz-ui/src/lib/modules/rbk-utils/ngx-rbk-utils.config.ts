@@ -39,6 +39,7 @@ export class NgxRbkUtilsConfig {
         defaultStyles: SmzDocumentConfig;
     };
     public uiDefinitions: {
+        isEnabled: boolean;
         url: string;
         httpBehavior: Partial<HttpBehaviorParameters>;
     };

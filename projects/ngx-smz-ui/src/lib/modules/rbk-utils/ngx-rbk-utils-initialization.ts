@@ -15,6 +15,7 @@ import { isEmpty } from './utils/utils';
 import { RbkAuthGuard } from './auth/auth.guard';
 import { UI_LOCALIZATION_STATE_NAME, UiLocalizationDbState, getUiLocalizationInitialState } from '../../state/database/ui-localization/ui-localization.state';
 import { UiLocalizationDbActions } from '../../state/database/ui-localization/ui-localization.actions';
+import { RbkDatabaseStateGuard } from './utils/state/database-state.guard';
 
 export function getUsersModule() { return UsersModule }
 export function getRolesModule() { return RolesModule }
@@ -48,18 +49,28 @@ export function runAccessRoutesInitialization(router: Router) {
 
         if (appRoot != null) {
 
-            if (appRoot.children === null) appRoot.children = [];
+            if (appRoot.children == null) {
+                appRoot.children = [];
+            }
+
+            if (appRoot.canActivate == null) {
+                appRoot.canActivate = [];
+            }
+
+            if (!appRoot.canActivate.includes(RbkDatabaseStateGuard)) {
+                appRoot.canActivate.push(RbkDatabaseStateGuard);
+            }
 
             // publicar rotas dentro da rota com filhos.
             appRoot.children.push(...newRoutes);
             router.resetConfig([...router.config]);
         }
         else {
+
             // publicar rotas na raiz.
             console.warn(`There is no path on the Project Route with the smzUiRoot definition. This can cause redirect issues. To solve, add a flag smzUiRoot: 'true' on the data property of you main route; The one with HomeModule and UiDefinition Required. `);
-            router.resetConfig([{ path: '', children: newRoutes, data: { layout: { mode: 'full', contendPadding: '30em' },}, canActivate: [RbkAuthGuard], }, ...router.config]);
+            router.resetConfig([{ path: '', children: newRoutes, data: { layout: { mode: 'full', contendPadding: '30em' },}, canActivate: [RbkAuthGuard, RbkDatabaseStateGuard], }, ...router.config]);
         }
-
     }
 }
 
@@ -86,7 +97,7 @@ export function runRbkInitialization() {
 
     if (DATABASE_STATES.length === 0) {
 
-        if (!isEmpty(configuration.uiDefinitions?.url)) {
+        if (configuration.uiDefinitions?.isEnabled) {
             const uiDefinitionsState: DatabaseStateParameters = {
                 state: UiDefinitionsDbState,
                 loadAction: UiDefinitionsDbActions.LoadAll,

@@ -5,20 +5,29 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
+## [16.0.8] - 2023-08-10
+
+### Melhoria
+- O recurso de uiDefinitions agora é automaticamente adicionado aos required database states.
+- O módulo de login agora carrega a lista de Tenants automaticamente se o projeto tiver configurado para suportar múltiplos Tenants.
+
+### Correção
+- O DatabaseStateGuard foi atualizado para carregar a lista de Tenants quando o projeto estiver habilitado para usar o TenantSwitch. Antes, a lista só era carregada se o projeto não fosse configurado como single Tenant.
+
 ## [16.0.7] - 2023-08-09
 
 ### Adicionado
-Novo método overrideCacheTimeout para permitir a alteração do tempo de cache do estado do database.
+- Novo método overrideCacheTimeout para permitir a alteração do tempo de cache do estado do database.
 
 ## [16.0.6] - 2023-08-09
 
 ### Alterado
-Botão de Edição em Editable Table: A funcionalidade do botão de editar na 'editable table' foi modificada. Anteriormente, o botão sumia ao ser desabilitado. A partir desta versão, ele permanecerá visível, mas estará desabilitado, indicando que a ação de edição não pode ser executada naquele momento.
+- Botão de Edição em Editable Table: A funcionalidade do botão de editar na 'editable table' foi modificada. Anteriormente, o botão sumia ao ser desabilitado. A partir desta versão, ele permanecerá visível, mas estará desabilitado, indicando que a ação de edição não pode ser executada naquele momento.
 
 ## [16.0.6] - 2023-08-09
 
 ### Alterado
-Botão de Edição em Editable Table: A funcionalidade do botão de editar na 'editable table' foi modificada. Anteriormente, o botão sumia ao ser desabilitado. A partir desta versão, ele permanecerá visível, mas estará desabilitado, indicando que a ação de edição não pode ser executada naquele momento.
+- Botão de Edição em Editable Table: A funcionalidade do botão de editar na 'editable table' foi modificada. Anteriormente, o botão sumia ao ser desabilitado. A partir desta versão, ele permanecerá visível, mas estará desabilitado, indicando que a ação de edição não pode ser executada naquele momento.
 
 ## [16.0.5] - 2023-08-08
 
@@ -30,19 +39,19 @@ Botão de Edição em Editable Table: A funcionalidade do botão de editar na 'e
 ## [16.0.4] - 2023-08-07
 
 ### Adicionado
-A funcionalidade de busca global na tabela foi aprimorada para suportar a busca por células que contenham um array de objetos SimpleNamedEntity.
+- A funcionalidade de busca global na tabela foi aprimorada para suportar a busca por células que contenham um array de objetos SimpleNamedEntity.
 
 
 ## [16.0.3] - 2023-08-02
 
 ### Ajustado
-Demo de Modules: Melhoramos o demo dos módulos para apresentar de forma mais clara e efetiva as funcionalidades disponíveis.
+- Demo de Modules: Melhoramos o demo dos módulos para apresentar de forma mais clara e efetiva as funcionalidades disponíveis.
 
 ### Corrigido
-Change Detection na inicialização da tabela: Resolvemos um problema que estava afetando a detecção de mudanças na inicialização da tabela. Agora, qualquer alteração realizada será corretamente detectada e refletida na tabela.
+- Change Detection na inicialização da tabela: Resolvemos um problema que estava afetando a detecção de mudanças na inicialização da tabela. Agora, qualquer alteração realizada será corretamente detectada e refletida na tabela.
 
 ### Adicionado
-Nome de arquivo padrão para exportação da tabela para excel: Implementamos uma nova funcionalidade que adiciona um nome de arquivo padrão quando você exporta a tabela para Excel. Isso facilita o processo de exportação e organiza melhor os arquivos exportados.
+- Nome de arquivo padrão para exportação da tabela para excel: Implementamos uma nova funcionalidade que adiciona um nome de arquivo padrão quando você exporta a tabela para Excel. Isso facilita o processo de exportação e organiza melhor os arquivos exportados.
 
 ## [16.0.2] - 2023-07-19
 
