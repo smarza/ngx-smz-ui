@@ -9,7 +9,7 @@
           <div class="col-12 exception-label-message">{{ uiConfig.rbkUtils.errorsConfig.page.message }}</div>
           <div class="grid grid-nogutter items-center justify-start gap-2">
             <ng-container *ngFor="let button of uiConfig.rbkUtils.errorsConfig.page.buttons">
-                <button *ngIf="button.isVisible" [ngClass]="button.styleClass" pButton type="button" [label]="button.label" (click)="redirect(button)"></button>
+                <button *ngIf="button.isVisible()" [ngClass]="button.styleClass" pButton type="button" [label]="button.label" (click)="redirect(button)"></button>
             </ng-container>
           </div>
       </div>

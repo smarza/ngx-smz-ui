@@ -114,7 +114,7 @@ export class NgxRbkUtilsConfig {
             imagePath: string;
             route: string;
             buttons: {
-                isVisible: boolean;
+                isVisible: () => boolean;
                 label?: string;
                 styleClass?: string;
                 redirectTo?: string;

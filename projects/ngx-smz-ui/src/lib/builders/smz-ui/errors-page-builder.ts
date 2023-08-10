@@ -70,7 +70,7 @@ export class SmzUiErrorsPageBuilder extends SmzBuilderUtilities<SmzUiErrorsPageB
 
   public allowGoToLogin(label: string = 'Ir para Login', styleClass: string = 'p-button-lg p-button-ghost'): SmzUiErrorsPageBuilder {
     this._state.rbkUtils.errorsConfig.page.buttons.push({
-      isVisible: true,
+      isVisible: () => true,
       label,
       styleClass,
       redirectTo: this._state.rbkUtils.authentication.nonAuthenticatedRoot
@@ -81,7 +81,7 @@ export class SmzUiErrorsPageBuilder extends SmzBuilderUtilities<SmzUiErrorsPageB
 
   public addCallbackButton(label: string, callback: () => void, styleClass: string = 'p-button-lg p-button-ghost'): SmzUiErrorsPageBuilder {
     this._state.rbkUtils.errorsConfig.page.buttons.push({
-      isVisible: true,
+      isVisible: () => true,
       label,
       styleClass,
       callback
@@ -92,10 +92,21 @@ export class SmzUiErrorsPageBuilder extends SmzBuilderUtilities<SmzUiErrorsPageB
 
   public addRouteButton(label: string, redirectTo: string, styleClass: string = 'p-button-lg p-button-ghost'): SmzUiErrorsPageBuilder {
     this._state.rbkUtils.errorsConfig.page.buttons.push({
-      isVisible: true,
+      isVisible: () => true,
       label,
       styleClass,
       redirectTo
+    });
+
+    return this.that;
+  }
+
+  public addButtonWithCondition(label: string, condition: () => boolean, callback: () => void, styleClass: string = 'p-button-lg p-button-ghost'): SmzUiErrorsPageBuilder {
+    this._state.rbkUtils.errorsConfig.page.buttons.push({
+      isVisible: condition,
+      label,
+      styleClass,
+      callback
     });
 
     return this.that;

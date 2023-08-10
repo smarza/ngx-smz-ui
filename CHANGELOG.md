@@ -5,6 +5,11 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
+## [16.0.9] - 2023-08-10
+
+### Adicionado
+- Um novo recurso, chamado addButtonWithCondition, foi implementado para permitir que os desenvolvedores adicionem botões condicionados na tela de erro. Isso significa que esses botões só serão exibidos com base em certas condições, oferecendo uma experiência mais personalizada ao usuário final, dependendo das circunstâncias que causaram o erro.
+
 ## [16.0.8] - 2023-08-10
 
 ### Melhoria

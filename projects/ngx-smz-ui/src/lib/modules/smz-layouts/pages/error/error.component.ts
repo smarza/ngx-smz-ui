@@ -26,7 +26,7 @@ export class ErrorComponent implements OnInit {
 
   }
 
-  public redirect(button: { isVisible: boolean; label?: string; styleClass?: string; redirectTo?: string; callback?: () => void }): void {
+  public redirect(button: { isVisible: () => boolean; label?: string; styleClass?: string; redirectTo?: string; callback?: () => void }): void {
 
     if (button.callback != null) {
       button.callback();
