@@ -11,15 +11,15 @@ import { SmzCardsImageContent, SmzCardsTextContent } from '../../../models/smz-c
 })
 
 export class SmzImageWithDetailsTypeComponent implements OnInit {
-  @Input() public template: ImageWithDetailsTemplate;
+  @Input() public template: ImageWithDetailsTemplate<unknown>;
   @Input() public data: unknown;
   @Input() public mode: SmzCardsView;
   @Input() public isDebug: boolean = false;
   @Input() public buttons: SmzCardActions<any>;
   @Input() public menu: SmzCardActions<any>;
-  public ImageWithDetailsTemplate: ImageWithDetailsTemplate;
-  public SmzCardsImageContent: SmzCardsImageContent;
-  public SmzCardsTextContent: SmzCardsTextContent;
+  public ImageWithDetailsTemplate: ImageWithDetailsTemplate<unknown>;
+  public SmzCardsImageContent: SmzCardsImageContent<unknown>;
+  public SmzCardsTextContent: SmzCardsTextContent<unknown>;
   public modes = SmzCardsView;
   constructor() { }
 

@@ -8,33 +8,33 @@ import { SmzCardsFlipCardBuilder } from './types/flip-card-builder';
 import { SmzCardsBaseTemplateBuilder } from './types/base-card-type.builder';
 
 
-export class SmzCardViewBuilder<T> extends SmzBuilderUtilities<SmzCardViewBuilder<T>> {
+export class SmzCardViewBuilder<TData> extends SmzBuilderUtilities<SmzCardViewBuilder<TData>> {
   protected that = this;
-  constructor(private _cardsBuilder: SmzCardsBuilder<T>, private _viewData: SmzCardView, private _layout: 'grid' | 'list') {
+  constructor(private _cardsBuilder: SmzCardsBuilder<TData>, private _viewData: SmzCardView, private _layout: 'grid' | 'list') {
     super();
   }
 
-  public useAsDefault(): SmzCardViewBuilder<T> {
+  public useAsDefault(): SmzCardViewBuilder<TData> {
     this._cardsBuilder._state.view.layout = this._layout;
     return this;
   }
 
-  public setLayout(styleClass: string): SmzCardViewBuilder<T> {
+  public setLayout(styleClass: string): SmzCardViewBuilder<TData> {
     this._viewData.styleClass.layout = styleClass;
     return this;
   }
 
-  public setPadding(styleClass: string): SmzCardViewBuilder<T> {
+  public setPadding(styleClass: string): SmzCardViewBuilder<TData> {
     this._viewData.styleClass.padding = styleClass;
     return this;
   }
 
-  public setStyles(styleClass: string): SmzCardViewBuilder<T> {
+  public setStyles(styleClass: string): SmzCardViewBuilder<TData> {
     this._viewData.styleClass.general = styleClass;
     return this;
   }
 
-  public get cards(): SmzCardsBuilder<T> {
+  public get cards(): SmzCardsBuilder<TData> {
 
     let styles = this._viewData.styleClass;
     this._viewData.styleClass.all = `${styles.layout} ${styles.padding} ${styles.general}`;
@@ -43,57 +43,57 @@ export class SmzCardViewBuilder<T> extends SmzBuilderUtilities<SmzCardViewBuilde
   }
 }
 
-export class SmzCardsTemplateBuilder<TBuilder> extends SmzBuilderUtilities<SmzCardsTemplateBuilder<TBuilder>> {
+export class SmzCardsTemplateBuilder<TData, TBuilder> extends SmzBuilderUtilities<SmzCardsTemplateBuilder<TData, TBuilder>> {
   protected that = this;
   private hasTemplate = false;
-  constructor(private _builder: TBuilder, private _template: SmzCardsTemplates) {
+  constructor(private _builder: TBuilder, private _template: SmzCardsTemplates<TData>) {
     super();
   }
 
-  public raw(): SmzCardsRawBuilder<TBuilder> {
+  public raw(): SmzCardsRawBuilder<TData, TBuilder> {
     if (this.hasTemplate) {
       throw Error('[Smz Cards] You cannot set more than one templete.');
     }
     this.hasTemplate = true;
-    return new SmzCardsRawBuilder(this._builder, this, this._template as RawTemplate);
+    return new SmzCardsRawBuilder(this._builder, this, this._template as RawTemplate<TData>);
   }
 
-  public imageWithDetails(): SmzCardsImageWithDetailsBuilder<TBuilder> {
+  public imageWithDetails(): SmzCardsImageWithDetailsBuilder<TData, TBuilder> {
     if (this.hasTemplate) {
       throw Error('[Smz Cards] You cannot set more than one templete.');
     }
     this.hasTemplate = true;
-    return new SmzCardsImageWithDetailsBuilder(this._builder, this, this._template as ImageWithDetailsTemplate);
+    return new SmzCardsImageWithDetailsBuilder(this._builder, this, this._template as ImageWithDetailsTemplate<TData>);
   }
 
-  public infoA(): SmzCardsInfoABuilder<TBuilder> {
+  public infoA(): SmzCardsInfoABuilder<TData, TBuilder> {
     if (this.hasTemplate) {
       throw Error('[Smz Cards] You cannot set more than one templete.');
     }
     this.hasTemplate = true;
-    return new SmzCardsInfoABuilder(this._builder, this, this._template as InfoATemplate);
+    return new SmzCardsInfoABuilder(this._builder, this, this._template as InfoATemplate<TData>);
   }
 
   public get cards(): TBuilder {
     return this._builder;
   }
 
-  public flipCard(): SmzCardsFlipCardBuilder<TBuilder> {
+  public flipCard(): SmzCardsFlipCardBuilder<TData, TBuilder> {
     if (this.hasTemplate) {
       throw Error('[Smz Cards] You cannot set more than one templete.');
     }
     this.hasTemplate = true;
-    return new SmzCardsFlipCardBuilder(this._builder, this, this._template as FlipCardTemplate);
+    return new SmzCardsFlipCardBuilder(this._builder, this, this._template as FlipCardTemplate<TData>);
   }
 }
 
-export class SmzCardsRawBuilder<TBuilder> extends SmzCardsBaseTemplateBuilder<TBuilder, SmzCardsRawBuilder<TBuilder>> {
-  constructor(protected _builder: TBuilder, protected _parent: SmzCardsTemplateBuilder<TBuilder>, protected _template: RawTemplate) {
+export class SmzCardsRawBuilder<TData, TBuilder> extends SmzCardsBaseTemplateBuilder<TData, TBuilder, SmzCardsRawBuilder<TData, TBuilder>> {
+  constructor(protected _builder: TBuilder, protected _parent: SmzCardsTemplateBuilder<TData, TBuilder>, protected _template: RawTemplate<TData>) {
     super(_builder, _parent, _template);
     _template.type = SmzCardsTemplate.RAW;
   }
 
-  public test(): SmzCardsRawBuilder<TBuilder> {
+  public test(): SmzCardsRawBuilder<TData, TBuilder> {
     return this;
   }
 

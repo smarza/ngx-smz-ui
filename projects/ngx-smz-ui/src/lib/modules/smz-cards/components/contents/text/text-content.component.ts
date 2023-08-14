@@ -8,7 +8,7 @@ import { SmzCardsTextContent } from '../../../models/smz-cards-contents';
 })
 
 export class SmzTextContentComponent implements OnInit {
-  @Input() public content: SmzCardsTextContent;
+  @Input() public content: SmzCardsTextContent<unknown>;
   @Input() public data: unknown;
   constructor() { }
 

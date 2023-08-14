@@ -10,7 +10,7 @@ import { SmzCardsView } from '../../../models/smz-cards-types';
 })
 
 export class SmzRawTypeComponent implements OnInit {
-  @Input() public template: RawTemplate;
+  @Input() public template: RawTemplate<unknown>;
   @Input() public data: unknown;
   @Input() public mode: SmzCardsView;
   @Input() public isDebug: boolean = false;

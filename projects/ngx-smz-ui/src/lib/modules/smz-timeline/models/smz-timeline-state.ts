@@ -12,7 +12,7 @@ export interface SmzTimelineState<T> {
     getText: () => string;
   };
   locale: SmzTimelineLocale;
-  template: SmzCardsTemplates;
+  template: SmzCardsTemplates<T>;
   buttons: SmzCardActions<T>;
   menu: SmzCardActions<T>;
   view: SmzTimelineView;

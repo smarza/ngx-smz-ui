@@ -10,13 +10,13 @@ import { InfoATemplate } from '../../../models/smz-cards-templates';
 })
 
 export class SmzInfoATypeComponent implements OnInit {
-  @Input() public template: InfoATemplate;
+  @Input() public template: InfoATemplate<unknown>;
   @Input() public data: unknown;
   @Input() public mode: SmzCardsView;
   @Input() public isDebug: boolean = false;
   @Input() public buttons: SmzCardActions<any>;
   @Input() public menu: SmzCardActions<any>;
-  public InfoATemplate: InfoATemplate;
+  public InfoATemplate: InfoATemplate<unknown>;
   public modes = SmzCardsView;
   constructor() { }
 

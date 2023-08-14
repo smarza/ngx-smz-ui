@@ -12,7 +12,7 @@ export interface SmzCardsState<T> {
     getText: () => string;
   };
   locale: SmzCardsLocale;
-  template: SmzCardsTemplates;
+  template: SmzCardsTemplates<T>;
   grid: SmzCardView;
   list: SmzCardView;
   buttons: SmzCardActions<T>;

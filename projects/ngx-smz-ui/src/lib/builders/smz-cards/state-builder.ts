@@ -6,8 +6,8 @@ import { SmzCardsTemplateBuilder, SmzCardViewBuilder } from './template-builder'
 import { cloneDeep } from 'lodash-es';
 import { SmzCardsSourcesBuilder } from './source-builder';
 
-export class SmzCardsBuilder<T> {
-  public _state: SmzCardsState<T> = {
+export class SmzCardsBuilder<TData> {
+  public _state: SmzCardsState<TData> = {
     items$: null,
     sources: [],
     selectedSource: null,
@@ -74,7 +74,7 @@ export class SmzCardsBuilder<T> {
 
   }
 
-  public setSource(items$: Observable<T[]>): SmzCardsBuilder<T> {
+  public setSource(items$: Observable<TData[]>): SmzCardsBuilder<TData> {
 
     if (this._state.sources.length > 0) {
       throw Error(`You can't call setSource() after sources().`);
@@ -84,68 +84,68 @@ export class SmzCardsBuilder<T> {
     return this;
   }
 
-  public sources(): SmzCardsSourcesBuilder<T> {
-    return new SmzCardsSourcesBuilder<T>(this);
+  public sources(): SmzCardsSourcesBuilder<TData> {
+    return new SmzCardsSourcesBuilder<TData>(this);
   }
 
-  public setTitle(title: string): SmzCardsBuilder<T> {
+  public setTitle(title: string): SmzCardsBuilder<TData> {
     this._state.title.isVisible = true;
     this._state.title.getText = () => title;
 
     return this;
   }
 
-  public hideHeader(): SmzCardsBuilder<T> {
+  public hideHeader(): SmzCardsBuilder<TData> {
     this._state.view.showHeader = false;
 
     return this;
   }
 
-  public template(): SmzCardsTemplateBuilder<SmzCardsBuilder<T>> {
+  public template(): SmzCardsTemplateBuilder<TData, SmzCardsBuilder<TData>> {
     return new SmzCardsTemplateBuilder(this, this._state.template);
   }
 
-  public grid(): SmzCardViewBuilder<T> {
+  public grid(): SmzCardViewBuilder<TData> {
     return new SmzCardViewBuilder(this, this._state.grid, 'grid');
   }
 
-  public list(): SmzCardViewBuilder<T> {
+  public list(): SmzCardViewBuilder<TData> {
     return new SmzCardViewBuilder(this, this._state.list, 'list');
   }
 
-  public setDynamicTitle(callback: () => string): SmzCardsBuilder<T> {
+  public setDynamicTitle(callback: () => string): SmzCardsBuilder<TData> {
     this._state.title.isVisible = true;
     this._state.title.getText = callback;
 
     return this;
   }
 
-  public setRowsPerPage(rows: number): SmzCardsBuilder<T> {
+  public setRowsPerPage(rows: number): SmzCardsBuilder<TData> {
     this._state.view.rowsPerPage = rows;
     return this;
   }
 
-  public setDataViewContainerStyles(styles: string): SmzCardsBuilder<T> {
+  public setDataViewContainerStyles(styles: string): SmzCardsBuilder<TData> {
     this._state.view.dataViewContentStyles = styles;
     return this;
   }
 
-  public setDataVieStyleClass(styles: string): SmzCardsBuilder<T> {
+  public setDataVieStyleClass(styles: string): SmzCardsBuilder<TData> {
     this._state.view.dataViewStyleClass = styles;
     return this;
   }
 
-  public setGridStyleClass(styles: string): SmzCardsBuilder<T> {
+  public setGridStyleClass(styles: string): SmzCardsBuilder<TData> {
     this._state.view.gridStyleClass = styles;
     return this;
   }
 
-  public hidePaginator(): SmzCardsBuilder<T> {
+  public hidePaginator(): SmzCardsBuilder<TData> {
     this._state.view.paginator = false;
     return this;
   }
 
-  public setLocale(language: 'pt-BR' | 'en-US'): SmzCardsBuilder<T> {
+  public setLocale(language: 'pt-BR' | 'en-US'): SmzCardsBuilder<TData> {
 
     switch (language) {
       case 'pt-BR':
@@ -194,12 +194,12 @@ export class SmzCardsBuilder<T> {
     return this;
   }
 
-  public hideLayoutOptions(): SmzCardsBuilder<T> {
+  public hideLayoutOptions(): SmzCardsBuilder<TData> {
     this._state.view.showLayoutOptions = false;
     return this;
   }
 
-  public setEmptyMessage(message: string): SmzCardsBuilder<T> {
+  public setEmptyMessage(message: string): SmzCardsBuilder<TData> {
     this._state.locale.emptyMessage = message;
     return this;
   }
@@ -222,12 +222,12 @@ export class SmzCardsBuilder<T> {
     return new SmzCardsMenuBuilder(this, this._state.menu, items);
   }
 
-  public debugMode(): SmzCardsBuilder<T> {
+  public debugMode(): SmzCardsBuilder<TData> {
     this._state.isDebug = true;
     return this;
   }
 
-  public build(): SmzCardsState<T> {
+  public build(): SmzCardsState<TData> {
 
     if (this._state.template.type == null) {
       throw Error('[Smz Cards] You need to set a template.');

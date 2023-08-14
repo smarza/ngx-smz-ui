@@ -11,7 +11,7 @@ import { SmzCardsTemplate, SmzCardsTemplates } from '../../models/smz-cards-temp
 
 export class SmzGridItemComponent implements OnInit {
   @Input() public isDebug: boolean = false;
-  @Input() public template: SmzCardsTemplates;
+  @Input() public template: SmzCardsTemplates<unknown>;
   @Input() public buttons: SmzCardActions<any>;
   @Input() public menu: SmzCardActions<any>;
   @Input() public data: unknown;

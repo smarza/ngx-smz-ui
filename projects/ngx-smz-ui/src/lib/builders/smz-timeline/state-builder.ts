@@ -80,7 +80,7 @@ export class SmzTimelineBuilder<T> {
     return this;
   }
 
-  public template(): SmzCardsTemplateBuilder<SmzTimelineBuilder<T>> {
+  public template(): SmzCardsTemplateBuilder<T, SmzTimelineBuilder<T>> {
     return new SmzCardsTemplateBuilder(this, this._state.template);
   }
 

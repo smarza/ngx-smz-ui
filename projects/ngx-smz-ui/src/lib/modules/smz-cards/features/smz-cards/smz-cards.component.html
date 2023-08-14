@@ -21,11 +21,12 @@
                 <input type="search" pInputText [placeholder]="state.locale.globalSearch.placeholder" (input)="dataView.filter($any($event.target).value)">
               </span>
 
-              <p-dataViewLayoutOptions *ngIf="state.view.showLayoutOptions"></p-dataViewLayoutOptions>
-
               <ng-container *ngIf="state.sources.length > 0">
                 <p-dropdown [options]="state.sources" dataKey="key" [(ngModel)]="state.selectedSource" optionLabel="label" (onChange)="updateMainSource($event)"></p-dropdown>
               </ng-container>
+
+              <p-dataViewLayoutOptions *ngIf="state.view.showLayoutOptions"></p-dataViewLayoutOptions>
+
             </div>
         </div>
     </ng-template>

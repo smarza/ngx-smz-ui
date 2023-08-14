@@ -4,8 +4,8 @@ import { SmzCardsComponentBuilder, SmzCardsImageBuilder, SmzCardsTextBuilder } f
 import { SmzCardsTemplateBuilder } from '../template-builder';
 import { SmzCardsBaseTemplateBuilder } from './base-card-type.builder';
 
-export class SmzCardsImageWithDetailsBuilder<TBuilder> extends SmzCardsBaseTemplateBuilder<TBuilder, SmzCardsImageWithDetailsBuilder<TBuilder>> {
-  constructor(protected _builder: TBuilder, protected _parent: SmzCardsTemplateBuilder<TBuilder>, protected _template: ImageWithDetailsTemplate) {
+export class SmzCardsImageWithDetailsBuilder<TData, TBuilder> extends SmzCardsBaseTemplateBuilder<TData, TBuilder, SmzCardsImageWithDetailsBuilder<TData, TBuilder>> {
+  constructor(protected _builder: TBuilder, protected _parent: SmzCardsTemplateBuilder<TData, TBuilder>, protected _template: ImageWithDetailsTemplate<TData>) {
     super(_builder, _parent, _template);
     _template.type = SmzCardsTemplate.IMAGE_WITH_DETAILS;
     _template.tags = [];
@@ -13,48 +13,48 @@ export class SmzCardsImageWithDetailsBuilder<TBuilder> extends SmzCardsBaseTempl
     _template.others = [];
   }
 
-  public setCardStyles(cardStyleClass: string): SmzCardsImageWithDetailsBuilder<TBuilder> {
+  public setCardStyles(cardStyleClass: string): SmzCardsImageWithDetailsBuilder<TData, TBuilder> {
     this._template.cardStyleClass = cardStyleClass;
     return this;
   }
 
-  public setContentStyles(contentStyleClass: string): SmzCardsImageWithDetailsBuilder<TBuilder> {
+  public setContentStyles(contentStyleClass: string): SmzCardsImageWithDetailsBuilder<TData, TBuilder> {
     this._template.contentStyleClass = contentStyleClass;
     return this;
   }
 
-  public image(dataPath: string): SmzCardsImageBuilder<TBuilder, SmzCardsImageWithDetailsBuilder<TBuilder>> {
-    this._template.image = {} as SmzCardsImageContent;
+  public image(dataPath: string): SmzCardsImageBuilder<TData, TBuilder, SmzCardsImageWithDetailsBuilder<TData, TBuilder>> {
+    this._template.image = {} as SmzCardsImageContent<TData>;
     const baseImageStyles: string = ' h-60 w-full object-cover rounded-lg border-0';
-    return new SmzCardsImageBuilder<TBuilder, SmzCardsImageWithDetailsBuilder<TBuilder>>(this._builder, this, this._template.image, dataPath, baseImageStyles, dataPath);
+    return new SmzCardsImageBuilder<TData, TBuilder, SmzCardsImageWithDetailsBuilder<TData, TBuilder>>(this._builder, this, this._template.image, dataPath, baseImageStyles, dataPath);
   }
 
-  public title(dataPath: string): SmzCardsTextBuilder<TBuilder, SmzCardsImageWithDetailsBuilder<TBuilder>> {
-    this._template.title = {} as SmzCardsTextContent;
-    return new SmzCardsTextBuilder<TBuilder, SmzCardsImageWithDetailsBuilder<TBuilder>>(this._builder, this, this._template.title as SmzCardsTextContent, dataPath);
+  public title(dataPath: string): SmzCardsTextBuilder<TData, TBuilder, SmzCardsImageWithDetailsBuilder<TData, TBuilder>> {
+    this._template.title = {} as SmzCardsTextContent<TData>;
+    return new SmzCardsTextBuilder<TData, TBuilder, SmzCardsImageWithDetailsBuilder<TData, TBuilder>>(this._builder, this, this._template.title as SmzCardsTextContent<TData>, dataPath);
   }
 
-  public subTitle(dataPath: string): SmzCardsTextBuilder<TBuilder, SmzCardsImageWithDetailsBuilder<TBuilder>> {
-    this._template.subTitle = {} as SmzCardsTextContent;
-    return new SmzCardsTextBuilder<TBuilder, SmzCardsImageWithDetailsBuilder<TBuilder>>(this._builder, this, this._template.subTitle as SmzCardsTextContent, dataPath);
+  public subTitle(dataPath: string): SmzCardsTextBuilder<TData, TBuilder, SmzCardsImageWithDetailsBuilder<TData, TBuilder>> {
+    this._template.subTitle = {} as SmzCardsTextContent<TData>;
+    return new SmzCardsTextBuilder<TData, TBuilder, SmzCardsImageWithDetailsBuilder<TData, TBuilder>>(this._builder, this, this._template.subTitle as SmzCardsTextContent<TData>, dataPath);
   }
 
-  public addTag(dataPath: string): SmzCardsTextBuilder<TBuilder, SmzCardsImageWithDetailsBuilder<TBuilder>> {
-    const content = {} as SmzCardsTextContent;
+  public addTag(dataPath: string): SmzCardsTextBuilder<TData, TBuilder, SmzCardsImageWithDetailsBuilder<TData, TBuilder>> {
+    const content = {} as SmzCardsTextContent<TData>;
     this._template.tags.push(content);
-    return new SmzCardsTextBuilder<TBuilder, SmzCardsImageWithDetailsBuilder<TBuilder>>(this._builder, this, content, dataPath);
+    return new SmzCardsTextBuilder<TData, TBuilder, SmzCardsImageWithDetailsBuilder<TData, TBuilder>>(this._builder, this, content, dataPath);
   }
 
-  public addComponent(component: any): SmzCardsComponentBuilder<TBuilder, SmzCardsImageWithDetailsBuilder<TBuilder>> {
-    const content = {} as SmzCardsComponentContent;
+  public addComponent(component: any): SmzCardsComponentBuilder<TData, TBuilder, SmzCardsImageWithDetailsBuilder<TData, TBuilder>> {
+    const content = {} as SmzCardsComponentContent<TData>;
     this._template.components.push(content);
-    return new SmzCardsComponentBuilder<TBuilder, SmzCardsImageWithDetailsBuilder<TBuilder>>(this._builder, this, content, component);
+    return new SmzCardsComponentBuilder<TData, TBuilder, SmzCardsImageWithDetailsBuilder<TData, TBuilder>>(this._builder, this, content, component);
   }
 
-  public addText(dataPath: string): SmzCardsTextBuilder<TBuilder, SmzCardsImageWithDetailsBuilder<TBuilder>> {
-    const content = {} as SmzCardsTextContent;
+  public addText(dataPath: string): SmzCardsTextBuilder<TData, TBuilder, SmzCardsImageWithDetailsBuilder<TData, TBuilder>> {
+    const content = {} as SmzCardsTextContent<TData>;
     this._template.others.push(content);
-    return new SmzCardsTextBuilder<TBuilder, SmzCardsImageWithDetailsBuilder<TBuilder>>(this._builder, this, content, dataPath);
+    return new SmzCardsTextBuilder<TData, TBuilder, SmzCardsImageWithDetailsBuilder<TData, TBuilder>>(this._builder, this, content, dataPath);
   }
 
 }

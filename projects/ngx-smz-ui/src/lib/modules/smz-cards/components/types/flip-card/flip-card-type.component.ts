@@ -13,15 +13,15 @@ import { SmzCardsImageContent, SmzCardsTextContent } from '../../../models/smz-c
 })
 
 export class SmzFlipCardTypeComponent implements OnInit {
-  @Input() public template: FlipCardTemplate;
+  @Input() public template: FlipCardTemplate<unknown>;
   @Input() public data: unknown;
   @Input() public mode: SmzCardsView;
   @Input() public isDebug: boolean = false;
   @Input() public buttons: SmzCardActions<any>;
   @Input() public menu: SmzCardActions<any>;
-  public FlipCardTemplate: FlipCardTemplate;
-  public SmzCardsImageContent: SmzCardsImageContent;
-  public SmzCardsTextContent: SmzCardsTextContent;
+  public FlipCardTemplate: FlipCardTemplate<unknown>;
+  public SmzCardsImageContent: SmzCardsImageContent<unknown>;
+  public SmzCardsTextContent: SmzCardsTextContent<unknown>;
   public modes = SmzCardsView;
   constructor() { }
 

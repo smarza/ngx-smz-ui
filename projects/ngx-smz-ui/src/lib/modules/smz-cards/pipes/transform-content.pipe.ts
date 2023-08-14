@@ -7,7 +7,7 @@ import cloneDeep from 'lodash-es/cloneDeep';
 })
 
 export class SmzCardsTransformContentPipe implements PipeTransform {
-  transform(content: SmzCardsImageContent, data: any): SmzCardsImageContent {
+  transform(content: SmzCardsImageContent<unknown>, data: any): SmzCardsImageContent<unknown> {
     return content.transform.callback != null ? content.transform.callback(data, cloneDeep(content)) : content;
   }
 

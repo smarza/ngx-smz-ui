@@ -7,7 +7,7 @@ import { SmzCardsContentType, SmzCardsContentTypes } from '../models/smz-cards-c
 })
 export class SmzCardsContentSelectorDirective implements AfterViewInit, OnChanges {
 
-  @Input() public content: SmzCardsContentTypes;
+  @Input() public content: SmzCardsContentTypes<unknown>;
   @Input() public data: any;
   @Input() public callback: (data: any, row: any) => string;
   constructor(private el: ElementRef) { }

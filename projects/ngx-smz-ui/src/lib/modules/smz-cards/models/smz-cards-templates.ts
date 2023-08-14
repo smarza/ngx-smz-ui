@@ -15,45 +15,45 @@ export enum SmzCardsTemplate {
   FLIP_CARD
 }
 
-export type SmzCardsTemplates =
-  RawTemplate |
-  ImageWithDetailsTemplate |
-  InfoATemplate |
-  FlipCardTemplate;
+export type SmzCardsTemplates<TData> =
+  RawTemplate<TData> |
+  ImageWithDetailsTemplate<TData> |
+  InfoATemplate<TData> |
+  FlipCardTemplate<TData>;
 
-export interface RawTemplate extends SmzCardsBaseTemplate {
+export interface RawTemplate<TData> extends SmzCardsBaseTemplate {
   type: SmzCardsTemplate.RAW;
 
 }
 
-export interface ImageWithDetailsTemplate extends SmzCardsBaseTemplate {
+export interface ImageWithDetailsTemplate<TData> extends SmzCardsBaseTemplate {
   type: SmzCardsTemplate.IMAGE_WITH_DETAILS;
   cardStyleClass: string;
   contentStyleClass: string;
-  image: SmzCardsImageContent;
-  title: SmzCardsContentTypes;
-  subTitle: SmzCardsContentTypes;
-  tags: SmzCardsTextContent[];
-  components: SmzCardsComponentContent[];
-  others: SmzCardsContentTypes[];
+  image: SmzCardsImageContent<TData>;
+  title: SmzCardsContentTypes<TData>;
+  subTitle: SmzCardsContentTypes<TData>;
+  tags: SmzCardsTextContent<TData>[];
+  components: SmzCardsComponentContent<TData>[];
+  others: SmzCardsContentTypes<TData>[];
 }
 
-export interface InfoATemplate extends SmzCardsBaseTemplate {
+export interface InfoATemplate<TData> extends SmzCardsBaseTemplate {
   type: SmzCardsTemplate.INFO_A;
   verticalBarStyleClass: string;
   cardStyleClass: string;
   title: {
     caption: string;
-    content: SmzCardsTextContent;
+    content: SmzCardsTextContent<TData>;
   };
-  subTitle: SmzCardsTextContent;
-  tags: SmzCardsTextContent[];
+  subTitle: SmzCardsTextContent<TData>;
+  tags: SmzCardsTextContent<TData>[];
   tagsContainerStyleClass: string;
   infosContainerStyleClass: string;
   infos: {
     bulletStyleClass: string;
     caption: string;
-    content: SmzCardsTextContent;
+    content: SmzCardsTextContent<TData>;
   }[];
 }
 
@@ -66,7 +66,7 @@ export interface SmzCardsIconContent {
 
 }
 
-export interface FlipCardTemplate extends SmzCardsBaseTemplate {
+export interface FlipCardTemplate<TData> extends SmzCardsBaseTemplate {
   _context: SmzFlipCardContext;
   onChange: (changes: SmzFlipCardChanges) => void;
   type: SmzCardsTemplate.FLIP_CARD;
@@ -74,15 +74,15 @@ export interface FlipCardTemplate extends SmzCardsBaseTemplate {
   height: string;
   cardStyleClass: string;
   contentStyleClass: string;
-  front: SmzFlipCardSide;
-  back: SmzFlipCardSide;
+  front: SmzFlipCardSide<TData>;
+  back: SmzFlipCardSide<TData>;
   buttonsLocation: 'front' | 'back';
   menuLocation: 'front' | 'back';
 
 }
 
-export interface SmzFlipCardSide {
-  image: SmzCardsImageContent;
-  component: SmzCardsComponentContent;
+export interface SmzFlipCardSide<TData> {
+  image: SmzCardsImageContent<TData>;
+  component: SmzCardsComponentContent<TData>;
   html: string;
 }
