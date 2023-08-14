@@ -5,6 +5,15 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
+## [16.1.2] - 2023-08-14
+
+### Novas Funcionalidades
+- Implementação de interfaces genéricas no builder de Cards.
+- Adição do método setStylesConditionally no builder de criar Cards.
+
+### Melhorias
+- Mudança de posicionamento do dropdown de seleção de origens de dados na visualização em Card.
+
 ## [16.0.9] - 2023-08-10
 
 ### Adicionado
