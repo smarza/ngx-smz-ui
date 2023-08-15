@@ -21,7 +21,7 @@ export interface LoaderData {
     type: SmzLoader;
     title: string;
     message: string;
-    globalLoaderPendingTimeout: number;
+    globalLoaderPendingTimeout?: number;
 }
 
 export type ThemeToneType = 'light' | 'dark';

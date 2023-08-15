@@ -10,12 +10,17 @@ import { GlobalInjector } from '../../../../../../common/services/global-injecto
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <a class="profile clickable grid items-center justify-end m-0 p-0 flex-nowrap gap-2" [ngClass]="{ 'profile-with-icon': !uiConfig.layouts.useAvatar }" (click)="toggle()">
-      <ng-container *ngIf="userData$ | async as userdata">
+      <ng-container *ngIf="userData$ | async as userdata; else noUserTemplate">
         <span class="username">{{ uiConfig.layouts.profileMessage }}{{ userdata[uiConfig.layouts.usernameProperty] }}</span>
         <img *ngIf="uiConfig.layouts.useAvatar && userdata[uiConfig.layouts.avatarProperty]" [src]="(userdata[uiConfig.layouts.avatarProperty] ) | safeUrl" class="profile-image">
         <i *ngIf="!uiConfig.layouts.useAvatar || (uiConfig.layouts.useAvatar && !userdata[uiConfig.layouts.avatarProperty])" class="fa-solid fa-circle-user profile-image profile-icon-menu"></i>
         <i class="profile-submenu-icon pi pi-angle-down"></i>
       </ng-container>
+
+      <ng-template #noUserTemplate>
+        <i class="fa-solid fa-circle-user profile-image profile-icon-menu"></i>
+        <i class="profile-submenu-icon pi pi-angle-down"></i>
+        </ng-template>
     </a>
     <ul *ngIf="isExpanded" class="profile-menu fade-in-up" smz-ui-hephaestus-profile-menu-items [items]="items" (onClose)="collapse()"></ul>
   `,

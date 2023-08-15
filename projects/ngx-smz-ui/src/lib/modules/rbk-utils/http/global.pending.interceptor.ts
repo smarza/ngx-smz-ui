@@ -59,7 +59,7 @@ export class GlobalPendingInterceptorService implements HttpInterceptor {
                                 this.store.dispatch(new ApplicationActions.StopGlobalLoading());
                             }
 
-                        }, this.config.layouts.loader.globalLoaderPendingTimeout);
+                        }, this.config.layouts.loader.globalLoaderPendingTimeout ?? 0);
                     }
                 })
             );
