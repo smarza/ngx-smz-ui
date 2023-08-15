@@ -1,4 +1,5 @@
-<ng-container *ngIf="loader$ | async as loader">
+<ng-container *ngVar="isLoading$ | async as isLoading">
+<ng-container *ngVar="loader$ | async as loader">
 
   <div class="layout-page-container" [class.blur-page]='isLoading' [class.hide-bg]='!isLoading'></div>
 
@@ -18,4 +19,5 @@
     </ng-container>
   </ng-container>
 
+</ng-container>
 </ng-container>

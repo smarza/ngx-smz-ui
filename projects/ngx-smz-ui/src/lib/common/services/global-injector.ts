@@ -16,4 +16,8 @@ export class GlobalInjector {
   }
 
   public static store: Store = null;
+
+  static get debugMode(): boolean {
+    return this._config?.debugMode;
+  }
 }

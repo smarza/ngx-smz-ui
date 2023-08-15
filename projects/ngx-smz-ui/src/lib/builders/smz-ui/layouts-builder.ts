@@ -20,6 +20,11 @@ export class SmzUiLayoutsBuilder extends SmzBuilderUtilities<SmzUiLayoutsBuilder
     return this.that;
   }
 
+  public setGlobalLoaderPendingTimeout(timeout: number): SmzUiLayoutsBuilder {
+    this._builder._state.layouts.loader.globalLoaderPendingTimeout = timeout;
+    return this.that;
+  }
+
   public setTitle(title: string): SmzUiLayoutsBuilder {
     this._builder._state.layouts.loader.title = title;
     return this.that;

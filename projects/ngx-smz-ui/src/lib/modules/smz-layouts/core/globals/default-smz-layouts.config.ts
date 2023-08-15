@@ -34,7 +34,8 @@ export const defaultSmzLayoutsConfig: SmzLayoutsConfig = {
     loader: {
         type: SmzLoader.CUBE,
         title: 'Carregando...',
-        message: 'Aguarde por favor'
+        message: 'Aguarde por favor',
+        globalLoaderPendingTimeout: 0
     },
     pages: {
         notFoundTitle: 'Página não encontrada',

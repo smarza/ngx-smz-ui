@@ -226,6 +226,7 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
                 type: SmzLoader.CUBE,
                 title: 'Carregando...',
                 message: 'Please wait, we\'re preparing your data',
+                globalLoaderPendingTimeout: 0
             },
         },
         locale: null

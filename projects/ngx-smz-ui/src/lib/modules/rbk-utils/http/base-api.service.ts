@@ -1,6 +1,7 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Store } from '@ngxs/store';
 import { GlobalInjector } from '../../../common/services/global-injector';
+import { NgxSmzUiConfig } from '../../../ngx-smz-ui.config';
 
 export const LOADING_BEHAVIOR_HEADER = 'Loading-Behavior';
 export const ERROR_HANDLING_TYPE_HEADER = 'Error-Handling-Type';
@@ -15,6 +16,7 @@ export const IGNORE_ERROR_HANDLING = 'Ignore-Error-Handling'
 
 export class BaseApiService {
     private oneTimeOnlyParameters: Partial<HttpBehaviorParameters> = {};
+    private smzUiConfig: NgxSmzUiConfig;
     public withParameters<T extends BaseApiService>(parameters: Partial<HttpBehaviorParameters>): T {
         this.oneTimeOnlyParameters = parameters;
         return this as any;
@@ -22,13 +24,16 @@ export class BaseApiService {
     constructor() { }
 
     protected generateDefaultHeaders(parameters: Partial<HttpBehaviorParameters>): { headers: HttpHeaders } {
+
+        if (this.smzUiConfig == null) {
+            this.smzUiConfig = GlobalInjector.config;
+        }
+
         const store = GlobalInjector.instance.get(Store);
 
         let headers = new HttpHeaders();
 
-        const config = GlobalInjector.config.rbkUtils;
-
-        const defaulValues: HttpBehaviorParameters = {...config.httpBehaviors.defaultParameters};
+        const defaulValues: HttpBehaviorParameters = {...this.smzUiConfig.rbkUtils.httpBehaviors.defaultParameters};
 
         const finalParameters = { ...defaulValues, ...parameters, ...this.oneTimeOnlyParameters };
 

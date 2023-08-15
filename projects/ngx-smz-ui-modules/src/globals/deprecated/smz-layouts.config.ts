@@ -64,6 +64,7 @@ export const smzLayoutsConfig: SmzLayoutsConfig = {
         title: 'Carregando...',
         // message: 'Aguarde por favor',
         message: 'Please wait, we\'re preparing your data',
+        globalLoaderPendingTimeout: 0
     },
     pages: {
         notFoundTitle: 'Página não encontrada',

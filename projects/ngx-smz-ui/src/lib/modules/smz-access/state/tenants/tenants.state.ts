@@ -31,13 +31,16 @@ export class TenantsState {
 
   @Action(TenantsActions.LoadAll)
   public loadAll$(ctx: StateContext<TenantsStateModel>): Observable<TenantDetails[]> {
-    return this.apiService.getAllTenants().pipe(
-      tap((result: TenantDetails[]) => {
-        ctx.patchState({
-          lastUpdated: new Date(),
-          items: result,
-        });
-      })
+    return this.apiService
+      .withParameters<AuthorizationService>({ authentication: false, needToRefreshToken: false })
+      .getAllTenants()
+      .pipe(
+        tap((result: TenantDetails[]) => {
+          ctx.patchState({
+            lastUpdated: new Date(),
+            items: result,
+          });
+        })
     );
   }
 

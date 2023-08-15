@@ -22,27 +22,16 @@ import { LayoutUiSelectors } from '../../../../state/ui/layout/layout.selectors'
 export class GlobalLoaderComponent implements OnInit
 {
   @Select(LayoutUiSelectors.loader) public loader$: Observable<LoaderData>;
+  @Select(ApplicationSelectors.globalIsLoading) public isLoading$: Observable<LoaderData>;
   @Input() public template: TemplateRef<any>;
   public loaders = SmzLoader;
-  public isLoading: boolean = false;
+  public isRouterLoading: boolean = false;
   public test = false;
   public isNavigationEnded = false;
 
-  constructor(private router: Router, private store: Store, private cdr: ChangeDetectorRef)
+  constructor(private router: Router, private cdr: ChangeDetectorRef)
   {
-    this.setupRouterListener();
-
-    this.store
-      .select(ApplicationSelectors.globalIsLoading)
-      .pipe(untilDestroyed(this))
-      .subscribe((newValue) =>
-      {
-        setTimeout(() => {
-          this.isLoading = newValue;
-          this.cdr.markForCheck();
-        }, 0);
-      });
-
+    // this.setupRouterListener();
   }
 
   public ngOnInit(): void
@@ -51,7 +40,8 @@ export class GlobalLoaderComponent implements OnInit
 
   public setupRouterListener(): void
   {
-    this.router.events.pipe(filter(e => e instanceof RouteConfigLoadStart || e instanceof RouteConfigLoadEnd))
+    this.router.events
+      .pipe(filter(e => e instanceof RouteConfigLoadStart || e instanceof RouteConfigLoadEnd))
       .subscribe(
         (event: RouterEvent): void =>
         {
@@ -61,13 +51,13 @@ export class GlobalLoaderComponent implements OnInit
 
             setTimeout(() =>
             {
-              if (!this.isNavigationEnded) this.isLoading = true;
+              if (!this.isNavigationEnded) this.isRouterLoading = true;
               this.cdr.markForCheck();
             }, 300);
           }
           else if (event instanceof RouteConfigLoadEnd)
           {
-            this.isLoading = false;
+            this.isRouterLoading = false;
             this.isNavigationEnded = true;
             this.cdr.markForCheck();
           }

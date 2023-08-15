@@ -8,15 +8,23 @@ import { AUTHORIZATION_HEADER, REFRESH_TOKEN_BEHAVIOR_HEADER, WINDOWS_AUTHENTICA
 import { AuthenticationActions } from '../../../state/global/authentication/authentication.actions';
 import { isEmpty } from '../utils/utils';
 import { GlobalInjector } from '../../../common/services/global-injector';
+import { NgxSmzUiConfig } from '../../../ngx-smz-ui.config';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
+    private config: NgxSmzUiConfig;
+
     constructor(private injector: Injector, private store: Store) { }
 
     private inflightAuthRequest: Observable<string> = null;
 
     public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        if (GlobalInjector.config.debugMode) console.log(`[AuthInterceptor: ${req.url}] Intercepting request for `, req);
+
+        if (this.config == null) {
+            this.config = GlobalInjector.config;
+        }
+
+        if (this.config.debugMode) console.log(`[AuthInterceptor: ${req.url}] Intercepting request for `, req);
 
         if (req.headers.get(WINDOWS_AUTHENTICATION_HEADER) != null) {
             req = req.clone({ withCredentials: true });
@@ -24,14 +32,14 @@ export class AuthInterceptor implements HttpInterceptor {
 
         if (req.headers.get(AUTHORIZATION_HEADER) == null ||
             req.headers.get(REFRESH_TOKEN_BEHAVIOR_HEADER) == null) {
-            if (GlobalInjector.config.debugMode) console.log(`[AuthInterceptor: ${req.url}] This request does not need refresh token`);
+            if (this.config.debugMode) console.log(`[AuthInterceptor: ${req.url}] This request does not need refresh token`);
             return next.handle(req);
         }
 
         const authService = this.injector.get(AuthHandler);
 
         if (!this.inflightAuthRequest) {
-            if (GlobalInjector.config.debugMode) console.log(`[AuthInterceptor: ${req.url}] inflight request does not exit, creating one`);
+            if (this.config.debugMode) console.log(`[AuthInterceptor: ${req.url}] inflight request does not exit, creating one`);
             this.inflightAuthRequest = authService.getToken().pipe(
                 share()
             );
@@ -54,12 +62,12 @@ export class AuthInterceptor implements HttpInterceptor {
                 // checks if a url is to an admin api or not
                 if (error.status === 401) {
                     // check if the response is from the token refresh end point
-                    const isFromRefreshTokenEndpoint = error.url === GlobalInjector.config.rbkUtils.authentication.refreshToken.url;
+                    const isFromRefreshTokenEndpoint = error.url === this.config.rbkUtils.authentication.refreshToken.url;
                     if (isFromRefreshTokenEndpoint) {
                         console.error('Problem while trying to automatically refresh the token, redirecting to login');
 
                         this.inflightAuthRequest = null;
-                        this.store.dispatch(new AuthenticationActions.Logout(GlobalInjector.config.rbkUtils.authentication.login.route));
+                        this.store.dispatch(new AuthenticationActions.Logout(this.config.rbkUtils.authentication.login.route));
                         return throwError(error);
                     }
 
@@ -70,7 +78,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
                         if (!this.inflightAuthRequest) {
                             console.warn('Unknown error while trying to refresh then token, redirecting to login');
-                            this.store.dispatch(new AuthenticationActions.Logout(GlobalInjector.config.rbkUtils.authentication.login.route));
+                            this.store.dispatch(new AuthenticationActions.Logout(this.config.rbkUtils.authentication.login.route));
                             return throwError(error);
                         }
                     }

@@ -29,11 +29,14 @@ export class UiDefinitionsDbState {
 
     @Action(UiDefinitionsDbActions.LoadAll)
     public loadAll(ctx: StateContext<UiDefinitionsDbStateModel>, action: UiDefinitionsDbActions.LoadAll): Observable<any[]> {
-        return this.apiService.all().pipe(
-            tap((result: any) => ctx.patchState({
-                data: result,
-                lastUpdated: new Date()
-            }))
+        return this.apiService
+            .withParameters<UiDefinitionsService>({ authentication: false, needToRefreshToken: false })
+            .all()
+            .pipe(
+                tap((result: any) => ctx.patchState({
+                    data: result,
+                    lastUpdated: new Date()
+                }))
         );
     }
 }

@@ -43,6 +43,7 @@ export const getInitialState = (): UiStateModel => ({
     type: null,
     title: '',
     message: '',
+    globalLoaderPendingTimeout: 0
   },
   state: {
     wrapperClass: '',
