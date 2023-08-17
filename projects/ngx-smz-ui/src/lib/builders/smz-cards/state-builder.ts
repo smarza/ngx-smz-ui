@@ -20,7 +20,9 @@ export class SmzCardsBuilder<TData> {
     template: {
       _context: null,
       type: null,
-      globalFilterProperties: []
+      globalFilterProperties: [],
+      gridComponent: null,
+      listComponent: null
     },
     grid: {
       styleClass: {

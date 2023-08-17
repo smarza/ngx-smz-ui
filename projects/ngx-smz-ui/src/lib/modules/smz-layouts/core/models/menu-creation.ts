@@ -8,5 +8,7 @@ export interface MenuCreation {
   visible?: boolean;
   disabled?: boolean;
   sortChildren?: boolean;
+  hideSeparator?: boolean;
+  showAsCaption?: boolean;
 
 }

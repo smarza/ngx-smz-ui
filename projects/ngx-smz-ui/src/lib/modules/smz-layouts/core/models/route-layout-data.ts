@@ -16,7 +16,7 @@ export interface SmzRouteData
 
 export interface RouteLayoutData
 {
-  mode?: 'full' | 'menu-only' | 'none';
+  mode?: 'full' | 'menu-only' | 'topbar-only' | 'none';
   hideFooter?: boolean;
   contentPadding?: string;
 }

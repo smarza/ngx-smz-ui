@@ -8,7 +8,7 @@ export class GlobalInjector {
   public static _config: NgxSmzUiConfig = null;
 
   static get config(): NgxSmzUiConfig {
-    return cloneDeep(this._config);
+    return this._config;
   }
 
   static set config(data: NgxSmzUiConfig) {

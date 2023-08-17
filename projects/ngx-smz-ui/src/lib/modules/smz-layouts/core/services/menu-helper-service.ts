@@ -9,6 +9,7 @@ import { GlobalInjector } from '../../../../common/services/global-injector';
 import { sortMenuItemsByLabel } from '../functions/sort-menu-build';
 import { sortArrayOfObjects } from '../../../../common/utils/utils';
 import { cloneDeep } from 'lodash-es';
+import { SmzMenuItem } from '../../../smz-menu/models/smz-menu-item';
 
 @Injectable({ providedIn: 'root' })
 export class MenuHelperService {
@@ -105,7 +106,7 @@ export class MenuHelperService {
         }
 
         // Merge dos itens desse menu
-        withSameLabel.items = sortArrayOfObjects([...withSameLabel.items, ...navigationMenu.items], 'label', 1);
+        withSameLabel.items = [...withSameLabel.items, ...navigationMenu.items];// sortArrayOfObjects([...withSameLabel.items, ...navigationMenu.items], 'label', 1);
       }
       else {
         // Não existe nenhum menu com esse mesmo label no projeto
@@ -124,6 +125,7 @@ export class MenuHelperService {
         this.menu.push(item);
       }
     }
+
   }
 
   private setupProfile(): void {
@@ -141,16 +143,18 @@ export class MenuHelperService {
     }
   }
 
-  private addMenuItemRecursive(creation: MenuCreation, accessBehavior: 'hide' | 'disable'): MenuItem {
+  private addMenuItemRecursive(creation: MenuCreation, accessBehavior: 'hide' | 'disable'): SmzMenuItem {
 
     if (creation.visible === false) return null;
 
-    const result: MenuItem = {
+    const result: SmzMenuItem = {
       label: creation.label,
       icon: creation.icon,
       command: creation.command,
       routerLink: creation.routerLink,
       disabled: creation.disabled,
+      hideSeparator: creation.hideSeparator,
+      showAsCaption: creation.showAsCaption,
       items: []
     };
 
@@ -163,14 +167,14 @@ export class MenuHelperService {
       }
     }
 
-    // SE O MENU NÃO TIVER SUB-ITEMS.
-    if (result.items == null || result.items.length === 0) {
-      // SE O MENU NÃO TIVER AÇÃO.
-      if (result.routerLink == null && result.command == null) {
-        // COMO O MENU ESTÁ VAZIO E NÃO TEM AÇÃO, ELE NÃO PRECISA SER RENDERIZADO.
-        return null;
-      }
-    }
+    // // SE O MENU NÃO TIVER SUB-ITEMS.
+    // if (result.items == null || result.items.length === 0) {
+    //   // SE O MENU NÃO TIVER AÇÃO.
+    //   if (result.routerLink == null && result.command == null) {
+    //     // COMO O MENU ESTÁ VAZIO E NÃO TEM AÇÃO, ELE NÃO PRECISA SER RENDERIZADO.
+    //     return null;
+    //   }
+    // }
 
     // Todo: Verificar se o GlobalInjector existe nesse momento
     if (GlobalInjector?.config?.rbkUtils?.authorization?.validationSelectors == null){

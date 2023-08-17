@@ -37,8 +37,12 @@ moment.locale('pt-br');
     NgxsRouterPluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot(),
 
-    NewAthenaProviderModule.forRoot(smzAthenaConfig),
-    NewAthenaLayoutModule,
+    // NewAthenaProviderModule.forRoot(smzAthenaConfig),
+    // NewAthenaLayoutModule,
+
+    HephaestusProviderModule.forRoot(smzHephaestusConfig),
+    HephaestusLayoutModule,
+
     HighlightModule
   ],
   providers: [

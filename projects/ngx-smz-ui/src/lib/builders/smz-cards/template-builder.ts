@@ -1,11 +1,11 @@
 import { SmzCardView } from '../../modules/smz-cards/models/smz-cards-state';
-import { FlipCardTemplate, ImageWithDetailsTemplate, InfoATemplate, RawTemplate, SmzCardsTemplate, SmzCardsTemplates } from '../../modules/smz-cards/models/smz-cards-templates';
+import { FlipCardTemplate, ImageWithDetailsTemplate, InfoATemplate, RawTemplate, SmzCardsTemplates } from '../../modules/smz-cards/models/smz-cards-templates';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzCardsBuilder } from './state-builder';
 import { SmzCardsInfoABuilder } from './types/info-a-builder';
 import { SmzCardsImageWithDetailsBuilder } from './types/image-with-details-builder';
 import { SmzCardsFlipCardBuilder } from './types/flip-card-builder';
-import { SmzCardsBaseTemplateBuilder } from './types/base-card-type.builder';
+import { SmzCardsRawBuilder } from './types/raw-builder';
 
 
 export class SmzCardViewBuilder<TData> extends SmzBuilderUtilities<SmzCardViewBuilder<TData>> {
@@ -85,16 +85,4 @@ export class SmzCardsTemplateBuilder<TData, TBuilder> extends SmzBuilderUtilitie
     this.hasTemplate = true;
     return new SmzCardsFlipCardBuilder(this._builder, this, this._template as FlipCardTemplate<TData>);
   }
-}
-
-export class SmzCardsRawBuilder<TData, TBuilder> extends SmzCardsBaseTemplateBuilder<TData, TBuilder, SmzCardsRawBuilder<TData, TBuilder>> {
-  constructor(protected _builder: TBuilder, protected _parent: SmzCardsTemplateBuilder<TData, TBuilder>, protected _template: RawTemplate<TData>) {
-    super(_builder, _parent, _template);
-    _template.type = SmzCardsTemplate.RAW;
-  }
-
-  public test(): SmzCardsRawBuilder<TData, TBuilder> {
-    return this;
-  }
-
 }

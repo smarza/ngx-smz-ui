@@ -10,6 +10,7 @@ import { UiHephaestusSelectors } from '../../state/ui-layout.selectors';
 import { HephaestusLayout } from '../../layout.config';
 import { MenuType } from '../../../../core/models/menu-types';
 import { GlobalInjector } from '../../../../../../common/services/global-injector';
+import { SmzMenuItem } from '../../../../../smz-menu/models/smz-menu-item';
 
 @UntilDestroy()
 @Component({
@@ -26,7 +27,7 @@ export class HephaestusSidebarComponent implements AfterContentInit
   @Select(RouterState.state) public currentRoute$: Observable<any>;
   @Select(LayoutUiSelectors.appDarkLogo) public appLayoutLogo$: Observable<SmzAppLogo>;
   public headerExtrasTemplate: TemplateRef<any>;
-  @Input() public menu: MenuItem[];
+  @Input() public menu: SmzMenuItem[];
   public isAnyMenuExpanded = false;
   public menuType = MenuType;
   public uiConfig = GlobalInjector.config;

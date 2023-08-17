@@ -11,6 +11,9 @@ export interface SmzMenuItem extends MenuItem {
     title: string;
     isCritical?: boolean;
   }
+  // Hephaestus layout only
+  hideSeparator?: boolean;
+  showAsCaption?: boolean;
 }
 
 export interface SmzConditional<T> {

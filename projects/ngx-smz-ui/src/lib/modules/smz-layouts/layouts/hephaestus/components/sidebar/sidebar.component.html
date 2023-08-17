@@ -32,17 +32,25 @@
                     <li class="layout-root-menuitem" [ngClass]="{ 'active-menuitem' : item.expanded }">
 
                         <!-- CABEÇALHO DO NÍVEL 1 -->
-                        <div class="layout-menuitem-root-text">{{ item.label }}</div>
+                        <div *ngIf="!$any(item).showAsCaption" class="layout-menuitem-root-text">{{ item.label }}</div>
+                        <div *ngIf="$any(item).showAsCaption" class="layout-menuitem-root-text cursor-default bg-black bg-opacity-20">{{ item.label }}</div>
 
                         <!-- ITENS PARA O MENU COLAPSADO -->
-                        <a *ngIf="item.command == null && item.routerLink == null" class="p-ripple" [tabindex]="itemIndex" (click)="toogleOnly(item, menu)" (mouseover)="toogleOnly(item, menu)">
+                        <a *ngIf="item.command == null && item.routerLink == null && !$any(item).showAsCaption" class="p-ripple" [tabindex]="itemIndex" (click)="toogleOnly(item, menu)" (mouseover)="toogleOnly(item, menu)">
                             <i class="layout-menuitem-icon" [ngClass]="item.icon"></i>
                             <span class="layout-menuitem-text">{{ item.label }}</span>
                             <i class="pi pi-fw pi-chevron-down layout-submenu-toggler"></i>
                             <span class="p-ink"></span>
                         </a>
 
-                        <a *ngIf="item.command != null || item.routerLink != null" class="p-ripple" [tabindex]="itemIndex" menuItemAction [item]="item" [parent]="null" [breadcrumbs]="true" [ngClass]="{ 'active-first-route': route.url | urlChecker : item.routerLink }">
+                        <a *ngIf="$any(item).showAsCaption" class="cursor-default bg-black bg-opacity-20" [tabindex]="itemIndex">
+                            <i class="layout-menuitem-icon" [ngClass]="item.icon"></i>
+                            <span class="layout-menuitem-text">{{ item.label }}</span>
+                            <i class="pi pi-fw pi-chevron-down layout-submenu-toggler"></i>
+                            <span class="p-ink"></span>
+                        </a>
+
+                        <a *ngIf="item.command != null || item.routerLink != null && !$any(item).showAsCaption" class="p-ripple" [tabindex]="itemIndex" menuItemAction [item]="item" [parent]="null" [breadcrumbs]="true" [ngClass]="{ 'active-first-route': route.url | urlChecker : item.routerLink }">
                             <i class="layout-menuitem-icon" [ngClass]="item.icon"></i>
                             <span class="layout-menuitem-text">{{ item.label }}</span>
                             <i class="pi pi-fw pi-chevron-down layout-submenu-toggler"></i>
@@ -57,7 +65,7 @@
 
                     </li>
 
-                    <li *ngIf="!last" class="menu-separator"></li>
+                    <li *ngIf="!last && !($any(item).hideSeparator)" class="menu-separator"></li>
                 </ng-container>
 
             </ul>

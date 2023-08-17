@@ -435,4 +435,33 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
       .build()
   }
   },
+  //
+  [DemoKeys.CARDS_RAW]: {
+    code: () => {
+    return new SmzCardsBuilder<SmzCardsDemoData>()
+        .setTitle('Demo Cards | Raw')
+        // .debugMode()
+        .setSource(of(SmzCardsDemo))
+        .template()
+          .raw()
+            .setGrid(BackCardComponent)
+              .addInputWithContext('data')
+              .template
+            .setList(FrontCardComponent)
+              .addInputWithContext('data')
+              .addInput('isSelectable', true)
+              .template
+            .template
+          .cards
+        .grid()
+          .setLayout('')
+          .setPadding('p-2')
+          .cards
+        .list()
+          .setLayout('col-12')
+          .setPadding('px-0 pt-4')
+          .cards
+      .build()
+  }
+  },
 }

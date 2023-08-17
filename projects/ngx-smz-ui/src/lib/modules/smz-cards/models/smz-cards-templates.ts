@@ -23,7 +23,8 @@ export type SmzCardsTemplates<TData> =
 
 export interface RawTemplate<TData> extends SmzCardsBaseTemplate {
   type: SmzCardsTemplate.RAW;
-
+  listComponent: SmzCardsComponentContent<TData>;
+  gridComponent: SmzCardsComponentContent<TData>;
 }
 
 export interface ImageWithDetailsTemplate<TData> extends SmzCardsBaseTemplate {

@@ -8,8 +8,8 @@ export const environment = {
   databaseCacheTimeout: 2,
   // serverUrl: 'https://lib.horizon-solutions.ml',
   // authenticationApi: 'https://lib.horizon-solutions.ml',
-  serverUrl: 'https://localhost:44376',
-  authenticationApi: 'https://localhost:44376',
+  serverUrl: 'https://localhost:44301',
+  authenticationApi: 'https://localhost:44301',
   // serverUrl: 'https://reefkeeper.com.br',
   // authenticationApi: 'https://reefkeeper.com.br',
   applicationId: 'SMZ-UI-OVERVIEW'

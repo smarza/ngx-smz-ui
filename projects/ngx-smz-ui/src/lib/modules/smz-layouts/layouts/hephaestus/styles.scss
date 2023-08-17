@@ -736,7 +736,7 @@ a {
   .layout-wrapper.layout-slim .layout-sidebar .layout-menu-container {
     overflow: visible;
   }
-  .layout-wrapper.layout-slim .layout-content-wrapper {
+  .layout-wrapper.layout-slim .layout-content-wrapper.sidebar-spacer {
     margin-left: var(--sidebar-slim-width);
   }
   .layout-wrapper.layout-slim .layout-menu ul {
