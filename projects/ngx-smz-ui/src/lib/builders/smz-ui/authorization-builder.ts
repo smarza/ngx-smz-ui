@@ -70,7 +70,7 @@ export class SmzUiAuthorizationBuilder<TData> extends SmzBuilderUtilities<SmzUiA
   }
 
   public get builder(): SmzUiBuilder {
-    if (this._menuLocation === 'navigation-bar') {
+    if (this._menuLocation === 'navigation-bar' && this._menu.items.length > 0) {
       this._state.rbkUtils.authorization.navigationMenu = this._menu;
     }
 
