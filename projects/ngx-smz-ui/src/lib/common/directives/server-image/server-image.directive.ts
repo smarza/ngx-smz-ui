@@ -80,7 +80,16 @@ export class ServerImageDirective implements AfterViewInit, OnChanges {
       this.path = this.placeholder;
     }
     else if (this.useServerPath){
-      this.path = `${environment.serverUrl}/${this.path}`;
+      let path = environment.serverUrl;
+      const relativeUrl = this.path;
+
+      if (relativeUrl.startsWith("/")) {
+        this.path = `${path}${relativeUrl}`;
+      }
+      else {
+        this.path = `${path}/${relativeUrl}`;
+      }
+
     }
 
     img.onload = (event) => {

@@ -202,3 +202,5 @@ export * from './lib/state/signalr/signalr.selectors';
 export * from './lib/state/signalr/signalr.state';
 export * from './lib/state/signalr/signalr';
 export * from './lib/state/signalr/signalr.service';
+
+export * from './lib/state/ui/excels/excels.actions';

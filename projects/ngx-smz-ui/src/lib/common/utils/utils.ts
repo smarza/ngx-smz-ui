@@ -615,7 +615,15 @@ export function downloadFromUrl(url: string, filename: string): void {
 
 export function downloadFromServerUrl(relativeUrl: string, filename: string): void {
     const http: HttpClient = GlobalInjector.instance.get(HttpClient);
-    const path = `${environment.serverUrl}/${relativeUrl}`;
+
+    let path = environment.serverUrl;
+
+    if (relativeUrl.startsWith("/")) {
+        path = `${path}${relativeUrl}`;
+    }
+    else {
+        path = `${path}/${relativeUrl}`;
+    }
 
     http
         .get(path, { responseType: 'arraybuffer' })
