@@ -460,7 +460,7 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
                 switch (column.type) {
                   case SmzExportableContentType.AUTODETECT:
                     return _
-                      .auto(column.header, normalizedField)
+                      .auto(normalizedField, column.header)
                         .if(this.state.styles.columnsWidth?.maxWidth != null)
                           .setMaxWidthInPixels(this.state.styles.columnsWidth.maxWidth)
                           .endIf
@@ -471,7 +471,7 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
 
                     case SmzExportableContentType.DATETIME:
                       return _
-                        .date(column.header, normalizedField)
+                        .date(normalizedField, column.header)
                           .if(this.state.styles.columnsWidth?.maxWidth != null)
                             .setMaxWidthInPixels(this.state.styles.columnsWidth.maxWidth)
                             .endIf
@@ -483,7 +483,7 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
 
                   case SmzExportableContentType.TEXT:
                     return _
-                      .text(column.header, normalizedField)
+                      .text(normalizedField, column.header)
                         .if(this.state.styles.columnsWidth?.maxWidth != null)
                           .setMaxWidthInPixels(this.state.styles.columnsWidth.maxWidth)
                           .endIf
@@ -495,7 +495,7 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
                   case SmzExportableContentType.NUMBER:
 
                     return _
-                      .number(column.header, normalizedField)
+                      .number(normalizedField, column.header)
                         .if(this.state.styles.columnsWidth?.maxWidth != null)
                           .setMaxWidthInPixels(this.state.styles.columnsWidth.maxWidth)
                           .endIf
@@ -508,7 +508,7 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
                   case SmzExportableContentType.BOOLEAN:
 
                     return _
-                      .text(column.header, normalizedField)
+                      .text(normalizedField, column.header)
                         .if(this.state.styles.columnsWidth?.maxWidth != null)
                           .setMaxWidthInPixels(this.state.styles.columnsWidth.maxWidth)
                           .endIf
@@ -520,7 +520,7 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
                   case SmzExportableContentType.HYPERLINK:
 
                     return _
-                      .hyperlink(column.header, normalizedField)
+                      .hyperlink(normalizedField, column.header)
                         .if(this.state.styles.columnsWidth?.maxWidth != null)
                           .setMaxWidthInPixels(this.state.styles.columnsWidth.maxWidth)
                           .endIf

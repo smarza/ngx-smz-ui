@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --project=ngx-smz-ui-demo --port 4103 --configuration=development --open",
-    "start:overview": "ng serve --project=ngx-smz-ui-overview --port 4207 --configuration=development --open",
+    "start:overview": "ng serve --project=ngx-smz-ui-overview --port 4210 --configuration=development --open",
     "start:https:overview": "ng serve --ssl --ssl-key 98348539_localhost.key --ssl-cert 98348539_localhost.cert --project=ngx-smz-ui-overview --port 4104 --configuration=development --open",
     "start:notifications": "ng serve --project=ngx-smz-ui-notifications --port 4105 --configuration=development --open",
     "start:dark-theme": "ng serve --project=ngx-smz-ui-dark-theme --port 4106 --configuration=development --open",

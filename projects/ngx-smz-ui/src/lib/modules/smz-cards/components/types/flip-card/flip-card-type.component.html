@@ -106,6 +106,7 @@
       <ng-container *ngIf="buttons.callback != null && buttons.callback(data) as buttonsData">
         <div class="w-full grid grid-nogutter items-center justify-center gap-1">
           <ng-container *ngFor="let button of buttonsData; let i = index">
+            1
             <button *ngIf="button.visible" pButton clickStopPropagation type="button" buttonAction [item]="button" [data]="data" [label]="button.label" [icon]="button.icon" [disabled]="button.disabled" [pTooltip]="button.tooltip" class="p-button-sm px-3 py-2" [ngClass]="button.styleClass + ' ' + buttons.styleClass"></button>
           </ng-container>
         </div>

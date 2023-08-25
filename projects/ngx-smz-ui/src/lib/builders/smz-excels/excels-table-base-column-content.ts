@@ -122,14 +122,21 @@ export class SmzExcelsTableColumnNumberBuilder extends SmzBuilderUtilities<SmzEx
   public useCurrencyFormat(currencySymbol?: string): SmzExcelsTableColumnNumberBuilder {
     const locale = GlobalInjector.instance.get(LOCALE_ID);
 
-    const numberFormat = '0.00'; // Intl.NumberFormat(this.locale, { style: 'decimal', minimumFractionDigits: 2}).format(0);
+    const numberFormat = ' #,##0.00'; // Intl.NumberFormat(this.locale, { style: 'decimal', minimumFractionDigits: 2}).format(0);
 
     this._state.dataFormat = `${currencySymbol ?? getCurrencySymbol(getLocaleCurrencyCode(locale), 'wide', locale)} ${numberFormat}`;
 
     return this.that;
   }
 
-  public setDataFormat(format: string): SmzExcelsTableColumnNumberBuilder {
+  public usePercentageFormat(): SmzExcelsTableColumnNumberBuilder {
+    this._state.dataFormat = '0.00 %';
+
+    return this.that;
+  }
+
+
+  public setCustomFormat(format: string): SmzExcelsTableColumnNumberBuilder {
     this._state.dataFormat = format;
 
     return this.that;

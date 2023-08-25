@@ -32,7 +32,7 @@ export class SmzExcelsTableColumnsBuilder extends SmzBuilderUtilities<SmzExcelsT
     super();
   }
 
-  public auto(header: string, dataPropertyPath: string, sort?: SmzExcelSortOrderDefinitions): SmzExcelsTableColumnAutoDetectBuilder {
+  public auto(dataPropertyPath: string, header: string, sort?: SmzExcelSortOrderDefinitions): SmzExcelsTableColumnAutoDetectBuilder {
 
     this._state.header.data.push(header);
     this._dataProperties.push(dataPropertyPath);
@@ -48,7 +48,7 @@ export class SmzExcelsTableColumnsBuilder extends SmzBuilderUtilities<SmzExcelsT
   }
 
 
-  public text(header: string, dataPropertyPath: string, sort?: SmzExcelSortOrderDefinitions): SmzExcelsTableColumnTextBuilder {
+  public text(dataPropertyPath: string, header: string, sort?: SmzExcelSortOrderDefinitions): SmzExcelsTableColumnTextBuilder {
 
     this._state.header.data.push(header);
     this._dataProperties.push(dataPropertyPath);
@@ -63,7 +63,7 @@ export class SmzExcelsTableColumnsBuilder extends SmzBuilderUtilities<SmzExcelsT
     return new SmzExcelsTableColumnTextBuilder(this, column);
   }
 
-  public number(header: string, dataPropertyPath: string, sort?: SmzExcelSortOrderDefinitions): SmzExcelsTableColumnNumberBuilder {
+  public number(dataPropertyPath: string, header: string, sort?: SmzExcelSortOrderDefinitions): SmzExcelsTableColumnNumberBuilder {
 
     this._state.header.data.push(header);
     this._dataProperties.push(dataPropertyPath);
@@ -78,7 +78,7 @@ export class SmzExcelsTableColumnsBuilder extends SmzBuilderUtilities<SmzExcelsT
     return new SmzExcelsTableColumnNumberBuilder(this, column);
   }
 
-  public hyperlink(header: string, dataPropertyPath: string, sort?: SmzExcelSortOrderDefinitions): SmzExcelsTableColumnHyperlinkBuilder {
+  public hyperlink(dataPropertyPath: string, header: string, sort?: SmzExcelSortOrderDefinitions): SmzExcelsTableColumnHyperlinkBuilder {
 
     this._state.header.data.push(header);
     this._dataProperties.push(dataPropertyPath);
@@ -93,7 +93,7 @@ export class SmzExcelsTableColumnsBuilder extends SmzBuilderUtilities<SmzExcelsT
     return new SmzExcelsTableColumnHyperlinkBuilder(this, column);
   }
 
-  public date(header: string, dataPropertyPath: string, sort?: SmzExcelSortOrderDefinitions): SmzExcelsTableColumnDateBuilder {
+  public date(dataPropertyPath: string, header: string, sort?: SmzExcelSortOrderDefinitions): SmzExcelsTableColumnDateBuilder {
 
     this._state.header.data.push(header);
     this._dataProperties.push(dataPropertyPath);
