@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home.component';
-import { NgxSmzCardsModule, NgxSmzTablesModule, NgxSmzTreesModule, SmzRouteData, NgxSmzDialogsModule, NgxSmzFormsModule, SmzChartModule, NgxSmzDocumentsModule, NgCloneModule, NgVarModule, NgxSmzMenuModule, NgxSmzUiBlockModule, NgxSmzCommentsModule, NgxSmzTimelineModule, NgxSmzDataPipesModule, RbkFeatureStateGuard } from 'ngx-smz-ui';
+import { NgxSmzMultiTablesModule, NgxSmzCardsModule, NgxSmzTablesModule, NgxSmzTreesModule, SmzRouteData, NgxSmzDialogsModule, NgxSmzFormsModule, SmzChartModule, NgxSmzDocumentsModule, NgCloneModule, NgVarModule, NgxSmzMenuModule, NgxSmzUiBlockModule, NgxSmzCommentsModule, NgxSmzTimelineModule, NgxSmzDataPipesModule, RbkFeatureStateGuard } from 'ngx-smz-ui';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
 import { RbkAuthGuard, RbkDatabaseStateGuard, UI_DEFINITIONS_STATE_NAME, NgxSmzUiGuidesModule } from 'ngx-smz-ui';
@@ -32,6 +32,7 @@ import { ComplexityFrontCardComponent } from '../../components/complexity/comple
 import { ComplexityBackCardComponent } from '../../components/complexity/complexity-back-card.component';
 import { ResultsTableModule } from '../../components/results-table/results-table.module';
 import { DemoFeatureName } from '@states/demo/demo.state';
+import { DemoMultiTablesComponent } from './components/demo-multi-tables/demo-multi-tables.component';
 
 const data: any = {
   layout: {
@@ -71,7 +72,8 @@ const routes: Routes = [
     DemoInjectable5Component,
     DemoIconsComponent,
     DemoCardsComponent,
-    DemoTimelineComponent
+    DemoTimelineComponent,
+    DemoMultiTablesComponent
   ],
   imports: [
     CommonModule,
@@ -101,7 +103,8 @@ const routes: Routes = [
     ComplexityFrontCardComponent,
     ComplexityBackCardComponent,
     NgxSmzUiGuidesModule,
-    ResultsTableModule
+    ResultsTableModule,
+    NgxSmzMultiTablesModule
   ],
   providers: [],
   bootstrap: [HomeComponent]

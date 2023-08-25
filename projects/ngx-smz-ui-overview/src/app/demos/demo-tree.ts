@@ -13,6 +13,7 @@ import { CommentsDemo } from './functions/comments-demo';
 import { CardsDemo } from './functions/cards-demo';
 import { TimelineDemo } from './functions/timeline-demo';
 import { UiGuidesDemo } from './functions/ui-guides-demo';
+import { MultiTablesDemo } from './functions/multi-tables-demo';
 
 export const TreeDemoData: DemoTreeNode[] = [
   {
@@ -1000,6 +1001,19 @@ export const TreeDemoData: DemoTreeNode[] = [
         notes: '',
         data: TablesDemo[DemoKeys.TABLE_VIEWPORT_PERSISTENCE],
         key: DemoKeys.TABLE_VIEWPORT_PERSISTENCE.toString()
+      },
+    ]
+  },
+  {
+    label: 'Multi Tables',
+    type: 'Category',
+    children: [
+      {
+        label: 'Basic', icon: 'fa-solid fa-code', type: 'Demo',
+        demoType: 'multi-tables',
+        notes: '',
+        data: MultiTablesDemo[DemoKeys.MULTI_TABLES_BASIC],
+        key: DemoKeys.MULTI_TABLES_BASIC.toString()
       },
     ]
   },

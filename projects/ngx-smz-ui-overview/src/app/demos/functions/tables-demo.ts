@@ -1,7 +1,7 @@
 import { DemoKeys } from '@demos/demo-keys';
 import { Store } from '@ngxs/store';
 import { DemoFeatureSelectors } from '@states/demo/demo.selectors';
-import { GlobalInjector, SimpleNamedEntity, SmzExportableContentType, SmzFilterType, SmzTableBuilder } from 'ngx-smz-ui';
+import { GlobalInjector, SimpleNamedEntity, SmzExportableContentType, SmzFilterType, SmzTableBuilder, SmzTableState } from 'ngx-smz-ui';
 import { of } from 'rxjs';
 import { convertorTasks } from './../data/conversor-tasks';
 import { Observable } from 'rxjs/internal/Observable';
@@ -12,7 +12,7 @@ import { DemoItem } from '@models/demo';
 
 const store = GlobalInjector.instance.get(Store);
 
-export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () => void } } = {
+export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () => SmzTableState } } = {
   //
   [DemoKeys.TABLE_UI_DEFINITIONS]: {
     items$: store.select(DemoFeatureSelectors.all),

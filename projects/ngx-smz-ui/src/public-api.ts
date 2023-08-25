@@ -38,6 +38,7 @@ export * from './lib/modules/smz-toast/public_api';
 export * from './lib/modules/smz-cards/public-api';
 export * from './lib/modules/smz-timeline/public-api';
 export * from './lib/modules/smz-responsive/smz-responsive.component';
+export * from './lib/modules/smz-multi-tables/public-api';
 
 // Verificar se já resolveram o issue para publicar com esse módulo
 export * from './lib/modules/smz-svg/public-api';
@@ -158,6 +159,8 @@ export * from './lib/builders/smz-timeline/state-builder';
 export * from './lib/builders/smz-ui-guides/ui-guides-builder';
 
 export * from './lib/builders/common/smz-builder-utilities';
+
+export * from './lib/builders/smz-multi-tables/state-builder';
 
 // STATES
 
