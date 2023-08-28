@@ -14,6 +14,7 @@ import { SmzNotification } from '../../core/models/notifications';
 import { SidebarState } from '../../core/models/sidebar-states';
 import { MenuType } from '../../core/models/menu-types';
 import { GlobalInjector } from '../../../../common/services/global-injector';
+import { SmzMenuItem } from '../../../smz-menu/models/smz-menu-item';
 
 @Component({
   selector: 'smz-ui-hephaestus-layout',
@@ -27,7 +28,7 @@ export class HephaestusLayoutComponent implements OnInit, AfterContentInit {
   @Select(UiHephaestusSelectors.state) public state$: Observable<LayoutState>;
   @Select(LayoutUiSelectors.assistance) public assistance$: Observable<Assistance>;
   @Select(LayoutUiSelectors.contentClass) public contentClass$: Observable<string>;
-  @Input() public menu: MenuItem[];
+  @Input() public menu: SmzMenuItem[];
   @Input() public profile: MenuItem[];
   @Input() public notifications: SmzNotification[];
   public headerExtrasTemplate: TemplateRef<any>;

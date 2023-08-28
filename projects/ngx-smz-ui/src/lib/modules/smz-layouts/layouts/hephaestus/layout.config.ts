@@ -11,7 +11,6 @@ export class HephaestusLayout {
         toClose: string,
         toOpen: string
     };
-
     enableNavigationBack?: boolean;
     hideSidebarAfterNavigationEnd?: boolean;
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { BaseApiService, ApplicationActions } from 'ngx-smz-ui';
-import { Configuration, CreateChatCompletionRequest, CreateChatCompletionResponse, CreateCompletionResponse, ListModelsResponse, OpenAIApi } from "openai";
+import { Configuration, CreateChatCompletionResponse, CreateCompletionResponse, ListModelsResponse, OpenAIApi } from "openai";
 import { from, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { Store } from '@ngxs/store';

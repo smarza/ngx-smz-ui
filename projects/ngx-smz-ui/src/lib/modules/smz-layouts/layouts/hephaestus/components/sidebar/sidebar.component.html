@@ -25,7 +25,59 @@
 
         <!-- INICIO DO MENU -->
         <div class="layout-menu-container">
-            <ul class="layout-menu">
+
+            <!-- NÍVEL 1 -->
+            <ng-container *ngFor="let item of menu | isVisible; let last = last; let itemIndex = index;">
+
+                <ul *ngIf="layout.menu === menuType.SLIM" class="layout-menu bg-black bg-opacity-20 rounded-md mb-5">
+
+                    <ng-container *ngIf="item.items == null || item.items.length == 0">
+                        <!-- ACTION -->
+                        <li class="layout-root-menuitem" [ngClass]="{ 'active-menuitem' : item.expanded }">
+
+                            <div class="layout-menuitem-root-text pl-4 pt-4">{{ item.label }}</div>
+
+                            <a class="hover:shadow-none" [tabindex]="itemIndex" menuItemAction [item]="item" [parent]="null" [breadcrumbs]="true" [ngClass]="{ 'active-first-route': route.url | urlChecker : item.routerLink }">
+                                <i class="layout-menuitem-icon" [ngClass]="item.icon"></i>
+                                <span class="layout-menuitem-text">{{ item.label }}</span>
+                                <i class="pi pi-fw pi-chevron-down layout-submenu-toggler"></i>
+                                <span class="p-ink"></span>
+                            </a>
+                        </li>
+                    </ng-container>
+
+                    <ng-container *ngIf="item.items?.length > 0">
+                        <!-- CAPTION -->
+                        <li class="layout-root-menuitem" [ngClass]="{ 'active-menuitem' : item.expanded }">
+                            <div class="layout-menuitem-root-text pl-4 pt-4">{{ item.label }}</div>
+
+                            <a [tabindex]="itemIndex" class="select-none hover:bg-inherit hover:shadow-none cursor-default">
+                                <i class="layout-menuitem-icon" [ngClass]="item.icon"></i>
+                                <span class="layout-menuitem-text break-words uppercase font-bold">{{ item.label }}</span>
+                            </a>
+                        </li>
+
+                        <li class="menu-separator m-0"></li>
+                    </ng-container>
+
+                    <ng-container *ngFor="let subItem of item.items | isVisible; let lastSubItem = last; let subItemIndex = index;">
+                        <!-- ACTION GROUP -->
+                        <li class="layout-root-menuitem" [ngClass]="{ 'active-menuitem' : subItem.expanded }">
+                            <div class="layout-menuitem-root-text normal-case">{{ subItem.label }}</div>
+
+                            <a class="hover:shadow-none" [tabindex]="subItemIndex" menuItemAction [item]="subItem" [parent]="null" [breadcrumbs]="true" [ngClass]="{ 'active-first-route': route.url | urlChecker : subItem.routerLink }">
+                                <i class="layout-menuitem-icon" [ngClass]="subItem.icon"></i>
+                                <span class="layout-menuitem-text break-words">{{ subItem.label }}</span>
+                            </a>
+                        </li>
+
+                    </ng-container>
+
+                </ul>
+
+            </ng-container>
+
+            <ul *ngIf="layout.menu !== menuType.SLIM" class="layout-menu">
 
                 <!-- NÍVEL 1 -->
                 <ng-container *ngFor="let item of menu | isVisible; let last = last; let itemIndex = index;">

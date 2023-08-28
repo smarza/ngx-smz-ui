@@ -2,14 +2,13 @@ import { Injectable } from '@angular/core';
 import { Actions, ofActionSuccessful, Store } from '@ngxs/store';
 import { MenuItem } from 'primeng/api';
 import { AuthenticationActions } from '../../../../state/global/authentication/authentication.actions';
-import { AuthenticationSelectors } from '../../../../state/global/authentication/authentication.selectors';
 import { MenuCreation } from '../models/menu-creation';
 import { SmzNotification } from '../models/notifications';
 import { GlobalInjector } from '../../../../common/services/global-injector';
 import { sortMenuItemsByLabel } from '../functions/sort-menu-build';
-import { sortArrayOfObjects } from '../../../../common/utils/utils';
 import { cloneDeep } from 'lodash-es';
 import { SmzMenuItem } from '../../../smz-menu/models/smz-menu-item';
+import { sortArrayOfObjects } from '../../../../common/utils/utils';
 
 @Injectable({ providedIn: 'root' })
 export class MenuHelperService {
@@ -87,8 +86,7 @@ export class MenuHelperService {
 
   private setupMenu(): void {
     if (this.menuCreationData == null) return;
-
-    const creationData = cloneDeep(this.menuCreationData);
+    const creationData = this.menuCreationData;
     this.menu = [];
     const extras = [];
 
@@ -106,7 +104,7 @@ export class MenuHelperService {
         }
 
         // Merge dos itens desse menu
-        withSameLabel.items = [...withSameLabel.items, ...navigationMenu.items];// sortArrayOfObjects([...withSameLabel.items, ...navigationMenu.items], 'label', 1);
+        withSameLabel.items = sortArrayOfObjects([...withSameLabel.items, ...navigationMenu.items], 'label', 1);
       }
       else {
         // Não existe nenhum menu com esse mesmo label no projeto
@@ -117,11 +115,20 @@ export class MenuHelperService {
 
     }
 
-    for (const creation of [...creationData, ...extras]) {
+    for (const creation of creationData) {
 
       const item = this.addMenuItemRecursive(creation, this.accessMenuBehavior);
 
-      if (item != null) {
+      if (item?.items?.length > 0 || (item?.command != null || item?.routerLink != null)) {
+        this.menu.push(item);
+      }
+    }
+
+    for (const creation of extras) {
+
+      const item = this.addMenuItemRecursive(creation, this.accessMenuBehavior);
+
+      if (item?.items?.length > 0 || (item?.command != null || item?.routerLink != null)) {
         this.menu.push(item);
       }
     }
@@ -145,7 +152,9 @@ export class MenuHelperService {
 
   private addMenuItemRecursive(creation: MenuCreation, accessBehavior: 'hide' | 'disable'): SmzMenuItem {
 
-    if (creation.visible === false) return null;
+    if (creation.visible === false) {
+      return null;
+    }
 
     const result: SmzMenuItem = {
       label: creation.label,
@@ -161,7 +170,6 @@ export class MenuHelperService {
     // PERCORRER E MONTAR RECURSIVAMENTE OS SUB-ITENS DESTE MENU.
     for (const item of creation.items ?? []) {
       const subItem = this.addMenuItemRecursive(item, accessBehavior);
-
       if (subItem != null) {
         result.items.push(subItem);
       }
@@ -184,7 +192,7 @@ export class MenuHelperService {
     const validationSelectors = GlobalInjector.config.rbkUtils.authorization.validationSelectors;
 
     // CHECAR ACESSO DO USUÁRIO
-    const hasAccess = creation.claims == null ? true : this.store.selectSnapshot(validationSelectors.hasAnyOfClaimAccess(creation.claims));
+    const hasAccess = creation.claims == null || creation.claims.length == 0 ? true : this.store.selectSnapshot(validationSelectors.hasAnyOfClaimAccess(creation.claims));
 
     if (!hasAccess) {
       return accessBehavior === 'hide' ? null : { ...result, disabled: true };

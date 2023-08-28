@@ -59,7 +59,8 @@
               "raf",
               "core-js",
               "rgbcolor",
-              "moment"
+              "moment",
+              "openai"
             ],
             "aot": true,
             "assets": [
@@ -190,7 +191,8 @@
               "raf",
               "core-js",
               "rgbcolor",
-              "moment"
+              "moment",
+              "openai"
             ],
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -310,7 +312,8 @@
               "raf",
               "core-js",
               "rgbcolor",
-              "moment"
+              "moment",
+              "openai"
             ],
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -547,9 +550,9 @@
               "raf",
               "core-js",
               "rgbcolor",
-              "moment"
+              "moment",
+              "openai"
             ],
-            "aot": true,
             "assets": [
               "projects/ngx-smz-ui-modules/src/favicon.ico",
               "projects/ngx-smz-ui-modules/src/assets",
