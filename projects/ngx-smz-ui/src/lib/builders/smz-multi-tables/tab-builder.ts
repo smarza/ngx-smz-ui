@@ -6,7 +6,7 @@ import { SmzMultiTablesTabHeaderBuilder } from './tab-header-builder';
 import { SmzTableState } from '../../modules/smz-tables/models/table-state';
 
 export class SmzMultiTablesTabBuilder extends SmzBuilderUtilities<SmzMultiTablesTabBuilder> {
-
+  private _allowDuplication = false;
   protected that = this;
   constructor(private _builder: SmzMultiTablesBuilder, private _tab: SmzMultiTablesTab, private label: string) {
     super();
@@ -29,6 +29,11 @@ export class SmzMultiTablesTabBuilder extends SmzBuilderUtilities<SmzMultiTables
     return this.that;
   }
 
+  public allowDuplication(): SmzMultiTablesTabBuilder {
+    this._allowDuplication = true;
+    return this.that;
+  }
+
   public header(): SmzMultiTablesTabHeaderBuilder {
     return new SmzMultiTablesTabHeaderBuilder(this, this._tab);
   }
@@ -40,6 +45,11 @@ export class SmzMultiTablesTabBuilder extends SmzBuilderUtilities<SmzMultiTables
   }
 
   public get tab(): SmzMultiTablesBuilder {
+
+    if (this._allowDuplication) {
+      // this._tab.table.state.
+    }
+
     return this._builder;
   }
 }

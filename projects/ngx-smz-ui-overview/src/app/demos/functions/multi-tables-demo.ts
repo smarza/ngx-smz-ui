@@ -1,9 +1,9 @@
 import { DemoKeys } from '@demos/demo-keys';
 import { Store } from '@ngxs/store';
-import { GlobalInjector, SmzMultiTablesBuilder, SmzTableState } from 'ngx-smz-ui';
+import { GlobalInjector, SmzFilterType, SmzMultiTablesBuilder, SmzTableBuilder, SmzTableState } from 'ngx-smz-ui';
 import { Observable } from 'rxjs/internal/Observable';
 import { TablesDemo } from './tables-demo';
-import { EditableTablePartialData } from '@demos/data/tables/editable-table-partial-data';
+import { EditableTablePartialData, EditableTablePartialLevels } from '@demos/data/tables/editable-table-partial-data';
 import { of } from 'rxjs';
 
 const store = GlobalInjector.instance.get(Store);
@@ -16,13 +16,37 @@ export const MultiTablesDemo: { [key: string]: { items$: Observable<any[]>, code
     return new SmzMultiTablesBuilder()
       //  FIRST TAB
       .tab('First')
+        // .allowDuplication()
         .header()
           .setIcon('fa-solid fa-bug')
           .header
         .table(
           of(EditableTablePartialData),
-          TablesDemo[DemoKeys.TABLE_EDITABLE_PARTIAL].code() as SmzTableState
-        )
+          new SmzTableBuilder()
+            .setTitle('Amostragens')
+            .enableGlobalFilter()
+            .useTableEmptyMessage()
+            .setEmptyFeedbackMessage('<b>Nenhuma amostragem localizada.</b><br><div class="text-sm mt-2">Refine sua busca para filtrar as amostragens.</div>')
+            .usePagination()
+            .setPaginationDefaultRows(10)
+            .setCustomInitialSorting({ field: 'number', order: -1 })
+            .useStrippedStyle()
+            .disableRowHoverEffect()
+            .enableColumnVisibility()
+            .columns()
+              .text('module', 'Módulo', '12em')
+                .columns
+              .text('section', 'Seção', '12em')
+                .columns
+              .dataTransform('level.name', 'Característica', (value, item) => item.isNotApplicable ? 'N/A' : `<strong>${value}</strong>`, '16m')
+                .setFilter(SmzFilterType.MULTI_SELECT)
+                .editable()
+                  .dropdown('level')
+                  .setOptions(EditableTablePartialLevels)
+                  .column
+                .columns
+              .table
+            .build())
         .tab
 
       //  SECOND TAB
