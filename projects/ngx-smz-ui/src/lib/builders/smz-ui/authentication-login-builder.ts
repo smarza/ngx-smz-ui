@@ -2,6 +2,7 @@ import { environment } from '@environments/environment';
 import { NgxSmzUiConfig } from '../../ngx-smz-ui.config';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzUiAuthenticationBuilder } from './authentication-builder';
+import { LoginResponse } from '../../modules/rbk-utils/auth/models';
 
 export class SmzUiAuthenticationLoginBuilder extends SmzBuilderUtilities<SmzUiAuthenticationLoginBuilder> {
   protected that = this;
@@ -123,6 +124,11 @@ export class SmzUiAuthenticationLoginBuilder extends SmzBuilderUtilities<SmzUiAu
     }
 
     this._state.rbkUtils.authentication.login.page.overrideState.styleClass.card = styleClass;
+    return this.that;
+  }
+
+  public setRedirectCallback(callback: (response: LoginResponse) => void): SmzUiAuthenticationLoginBuilder {
+    this._state.rbkUtils.authentication.login.redirectCallback = callback;
     return this.that;
   }
 
