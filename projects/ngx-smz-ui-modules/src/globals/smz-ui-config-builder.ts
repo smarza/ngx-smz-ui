@@ -29,6 +29,7 @@ export const UiBuilder: SmzUiBuilder = new SmzUiBuilder()
       .useWindowsAuthentication()
       .allowSuperuser()
       .allowTenantSwitching()
+      .forceLowercaseUsername()
       .authorization
     .builder
   .authorization()

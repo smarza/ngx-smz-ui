@@ -2,6 +2,7 @@ import { capitalizeFirstLetter, capitalizeWithSlash } from '../../../common/util
 
 export enum SmzTextPattern
 {
+    NONE = 0,
     CAPITALIZE_FIRST_LETTERS_FOR_WORDS_WITH_MORE_THAN_3_CHARS = 1,
     LOWERCASE = 2,
     CAPITALIZE = 3,

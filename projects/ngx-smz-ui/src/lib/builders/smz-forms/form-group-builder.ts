@@ -1107,7 +1107,7 @@ export class SmzFormTagAreaBuilder<TResponse> extends SmzFormInputBuilder<SmzFor
   }
 
   public setSaveFormat(format: SmzTextPattern): SmzFormTagAreaBuilder<TResponse> {
-    this._tagAreaInput.exportPattern = format;
+    if (format !== SmzTextPattern.NONE) this._tagAreaInput.exportPattern = format;
     return this;
   }
 
@@ -1177,7 +1177,7 @@ export class SmzFormTextAreaBuilder<TResponse> extends SmzFormInputBuilder<SmzFo
   }
 
   public setSaveFormat(format: SmzTextPattern): SmzFormTextAreaBuilder<TResponse> {
-    this._textAreaInput.exportPattern = format;
+    if (format !== SmzTextPattern.NONE) this._textAreaInput.exportPattern = format;
     return this;
   }
 }
@@ -1239,7 +1239,7 @@ export class SmzFormTextBuilder<TResponse> extends SmzFormInputBuilder<SmzFormTe
   }
 
   public setSaveFormat(format: SmzTextPattern): SmzFormTextBuilder<TResponse> {
-    this._textInput.exportPattern = format;
+    if (format !== SmzTextPattern.NONE) this._textInput.exportPattern = format;
     return this;
   }
 

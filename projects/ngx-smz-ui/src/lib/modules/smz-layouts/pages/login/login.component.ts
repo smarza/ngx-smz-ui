@@ -11,6 +11,7 @@ import { isEmpty } from '../../../rbk-utils/utils/utils';
 import { compareInsensitive, getFirst } from '../../../../common/utils/utils';
 import { AuthenticationActions } from '../../../../state/global/authentication/authentication.actions';
 import { environment } from '@environments/environment';
+import { SmzTextPattern } from '../../../smz-forms/public-api';
 
 interface LoginData {
   tenant?: SimpleEntity<string>;
@@ -40,65 +41,67 @@ export class LoginComponent {
     const defaultTenant = localTenant ?? getFirst(tenants)?.id;
 
     const state = new SmzLoginBuilder<LoginData, LoginPayload>()
-    .setMessage('Entre com suas credenciais')
-    .setLogoType('horizontal')
-    .setLogoSize('large')
-    .setBackground('bg-[#1e293b]')
-    .setPayloadCallback((response: LoginData) => {
+      .setMessage('Entre com suas credenciais')
+      .setLogoType('horizontal')
+      .setLogoSize('large')
+      .setBackground('bg-[#1e293b]')
+      .setPayloadCallback((response: LoginData) => {
 
-      let extraProperties: { [name: string]: string } = { };
+        let extraProperties: { [name: string]: string } = { };
 
-      if (authConfig.refreshToken?.extraProperties != null) {
-        // Adicionar propriedades extras definidas no startup do projeto
-        extraProperties = authConfig.refreshToken.extraProperties;
-      }
+        if (authConfig.refreshToken?.extraProperties != null) {
+          // Adicionar propriedades extras definidas no startup do projeto
+          extraProperties = authConfig.refreshToken.extraProperties;
+        }
 
-      if (authConfig.allowSuperuser && response.username == authConfig.login.superuser) {
-        // Superuser login
-      }
-      else if (authConfig.useSingleTenantAplication) {
-        // Aplicação configurada para único Tenant
-        extraProperties.tenant = authConfig.login.applicationTenant;
-      }
-      else if (authConfig.login.showTenantSelector) {
-        // Adicionar Tenant escolhido pelo usuário no seletor de Tenants
-        extraProperties.tenant = response.tenant.id;
-      }
+        if (authConfig.allowSuperuser && response.username == authConfig.login.superuser) {
+          // Superuser login
+        }
+        else if (authConfig.useSingleTenantAplication) {
+          // Aplicação configurada para único Tenant
+          extraProperties.tenant = authConfig.login.applicationTenant;
+        }
+        else if (authConfig.login.showTenantSelector) {
+          // Adicionar Tenant escolhido pelo usuário no seletor de Tenants
+          extraProperties.tenant = response.tenant.id;
+        }
 
-      return { username: response.username, password: response.password, extraProperties };
+        return { username: response.username, password: response.password, extraProperties };
 
-    })
-    .setLoginAction(AuthenticationActions.RemoteLogin)
-    .setLogoutAction(AuthenticationActions.Logout)
-    .setForm(
-      new SmzFormBuilder<LoginData>()
-        .enableSubmitOnEnter()
-        .disableFlattenResponse()
-        .group()
-          .setLayout('EXTRA_SMALL', 'col-12')
-          .if(authConfig.login.showTenantSelector)
-            .dropdown('tenant', config.locale.authorization.tenant.displayName, tenants, defaultTenant)
+      })
+      .setLoginAction(AuthenticationActions.RemoteLogin)
+      .setLogoutAction(AuthenticationActions.Logout)
+      .setForm(
+        new SmzFormBuilder<LoginData>()
+          .enableSubmitOnEnter()
+          .disableFlattenResponse()
+          .group()
+            .setLayout('EXTRA_SMALL', 'col-12')
+            .if(authConfig.login.showTenantSelector)
+              .dropdown('tenant', config.locale.authorization.tenant.displayName, tenants, defaultTenant)
+                .validators().required()
+                .group
+            .endIf
+          .if(authConfig.useWindowsAuthentication && !environment.production)
+            .text(nameof<LoginData>('username'), 'Credencial de Desenvolvimento')
+              .setSaveFormat(authConfig.login.forceLowercaseUsername ? SmzTextPattern.LOWERCASE : SmzTextPattern.NONE)
               .validators().required()
               .group
-          .endIf
-        .if(authConfig.useWindowsAuthentication && !environment.production)
-          .text(nameof<LoginData>('username'), 'Credencial de Desenvolvimento')
-            .validators().required()
-            .group
-          .endIf
-        .if(!authConfig.useWindowsAuthentication)
-          .text(nameof<LoginData>('username'), 'Usuário')
-            .validators().required()
-            .group
-          .password(nameof<LoginData>('password'), 'Senha')
-            .validators().required()
-            .group
-          .endIf
-        .form
-        .build()
-    )
-    .setExtraInfo(authConfig.useWindowsAuthentication ? '<em>Autenticação do Windows</em>' : '')
-    .build();
+            .endIf
+          .if(!authConfig.useWindowsAuthentication)
+            .text(nameof<LoginData>('username'), 'Usuário')
+              .setSaveFormat(authConfig.login.forceLowercaseUsername ? SmzTextPattern.LOWERCASE : SmzTextPattern.NONE)
+              .validators().required()
+              .group
+            .password(nameof<LoginData>('password'), 'Senha')
+              .validators().required()
+              .group
+            .endIf
+          .form
+          .build()
+      )
+      .setExtraInfo(authConfig.useWindowsAuthentication ? '<em>Autenticação do Windows</em>' : '')
+      .build();
 
     return { ...state, ...authConfig.login.page.overrideState };
 

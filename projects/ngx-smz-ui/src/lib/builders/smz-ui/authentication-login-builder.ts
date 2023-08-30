@@ -31,6 +31,11 @@ export class SmzUiAuthenticationLoginBuilder extends SmzBuilderUtilities<SmzUiAu
     return this.that;
   }
 
+  public forceLowercaseUsername(): SmzUiAuthenticationLoginBuilder {
+    this._state.rbkUtils.authentication.login.forceLowercaseUsername = true;
+    return this.that;
+  }
+
   public allowSuperuser(superuserName: string = 'superuser', route: string = 'admin'): SmzUiAuthenticationLoginBuilder {
     this._state.rbkUtils.authentication.allowSuperuser = true;
     this._state.rbkUtils.authentication.login.superuser = superuserName;

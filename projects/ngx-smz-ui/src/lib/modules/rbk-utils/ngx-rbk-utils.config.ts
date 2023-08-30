@@ -73,6 +73,7 @@ export class NgxRbkUtilsConfig {
             superuser: string;
             applicationTenant: string;
             showTenantSelector: boolean;
+            forceLowercaseUsername?: boolean;
             page: {
                 useSmzLoginModule: boolean;
                 state: SmzLoginState<any, any>;
