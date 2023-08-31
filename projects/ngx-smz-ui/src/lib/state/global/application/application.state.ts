@@ -129,8 +129,10 @@ export class ApplicationState {
 
     @Action(AuthenticationActions.Logout)
     public logout(ctx: StateContext<ApplicationStateModel>): void {
+        const logInfo = ctx.getState().logInfo;
         ctx.patchState({
-            ...getCleanApplicationState()
+            ...getCleanApplicationState(),
+            logInfo
         });
     }
 

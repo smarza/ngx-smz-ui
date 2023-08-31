@@ -6,7 +6,7 @@ import { DiagnosticsData } from './diagnostics-data';
 import { GlobalInjector } from '../../../common/services/global-injector';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { Store } from '@ngxs/store';
-import { LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { LocationStrategy } from '@angular/common';
 import { ApplicationSelectors } from '../../../state/global/application/application.selector';
 import { AuthenticationSelectors } from '../../../state/global/authentication/authentication.selectors';
 
@@ -15,6 +15,8 @@ export class DiagnosticsService extends BaseApiService {
 
     private logSubject = new Subject<DiagnosticsData>();
     private logSubscription: Subscription;
+
+    public username;
 
     constructor(private http: HttpClient) {
         super();
@@ -76,8 +78,10 @@ export class DiagnosticsService extends BaseApiService {
           inputData: '',
           stackTrace: '',
           extraData: logdata.extraData,
-          username: store.selectSnapshot(AuthenticationSelectors.username)
+          username: store.selectSnapshot(AuthenticationSelectors.username) ?? this.username
         };
+
+        this.username = null;
 
         return log;
 

@@ -7,11 +7,12 @@ import { AuthenticationActions } from '../../../state/global/authentication/auth
 import { throwError, Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { GlobalInjector } from '../../../common/services/global-injector';
+import { DiagnosticsService } from '../error-handler/diagnostic.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthHandler {
     private decoder: JwtHelperService;
-    constructor(private authService: AuthService, private store: Store) {
+    constructor(private authService: AuthService, private store: Store, private diagnosticsService: DiagnosticsService) {
         this.decoder = new JwtHelperService();
     }
 
@@ -38,6 +39,8 @@ export class AuthHandler {
         }
 
         let extraProperties = GlobalInjector.config.rbkUtils.authentication.refreshToken.extraProperties;
+
+        this.diagnosticsService.username = this.store.selectSnapshot(AuthenticationSelectors.username);
 
         return this.authService.refreshToken(refreshToken, extraProperties)
             .pipe(

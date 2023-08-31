@@ -9,12 +9,14 @@ import { AuthenticationActions } from '../../../state/global/authentication/auth
 import { isEmpty } from '../utils/utils';
 import { GlobalInjector } from '../../../common/services/global-injector';
 import { NgxSmzUiConfig } from '../../../ngx-smz-ui.config';
+import { DiagnosticsService } from '../error-handler/diagnostic.service';
+import { AuthenticationSelectors } from '../../../state/global/authentication/authentication.selectors';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
     private config: NgxSmzUiConfig;
 
-    constructor(private injector: Injector, private store: Store) { }
+    constructor(private injector: Injector, private store: Store, private diagnosticsService: DiagnosticsService) { }
 
     private inflightAuthRequest: Observable<string> = null;
 
@@ -67,6 +69,7 @@ export class AuthInterceptor implements HttpInterceptor {
                         console.error('Problem while trying to automatically refresh the token, redirecting to login');
 
                         this.inflightAuthRequest = null;
+                        this.diagnosticsService.username = this.store.selectSnapshot(AuthenticationSelectors.username);
                         this.store.dispatch(new AuthenticationActions.Logout(this.config.rbkUtils.authentication.login.route));
                         return throwError(error);
                     }
@@ -78,6 +81,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
                         if (!this.inflightAuthRequest) {
                             console.warn('Unknown error while trying to refresh then token, redirecting to login');
+                            this.diagnosticsService.username = this.store.selectSnapshot(AuthenticationSelectors.username);
                             this.store.dispatch(new AuthenticationActions.Logout(this.config.rbkUtils.authentication.login.route));
                             return throwError(error);
                         }
