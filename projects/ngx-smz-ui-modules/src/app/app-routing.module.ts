@@ -6,12 +6,11 @@ import { RbkAuthGuard, RbkDatabaseStateGuard, UI_DEFINITIONS_STATE_NAME, UI_LOCA
 const routes: Routes = [
   {
     path: '',
-    // canActivate: [RbkAuthGuard, RbkDatabaseStateGuard],
+    canActivate: [RbkAuthGuard, RbkDatabaseStateGuard],
     data: {
       layout:  {mode: 'full', hideFooter: false, contentPadding: '0'},
       requiredStates: [
-        UI_DEFINITIONS_STATE_NAME,
-        UI_LOCALIZATION_STATE_NAME
+        // UI_LOCALIZATION_STATE_NAME
       ]
     },
     children: [
@@ -21,12 +20,11 @@ const routes: Routes = [
   },
   {
     path: '',
-    // canActivate: [RbkAuthGuard, RbkDatabaseStateGuard],
+    canActivate: [RbkAuthGuard, RbkDatabaseStateGuard],
     data: {
       smzUiRoot: true,
       layout:  {mode: 'full', hideFooter: false, contentPadding: '3em'},
       requiredStates: [
-        UI_DEFINITIONS_STATE_NAME
       ]
     },
     children: []

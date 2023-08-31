@@ -62,7 +62,6 @@ export class ApplicationState {
 
     @Action(ApplicationActions.HandleHttpErrorWithDialog)
     public async handleErrorWithDialog$(ctx: StateContext<ApplicationStateModel>, action: ApplicationActions.HandleHttpErrorWithDialog): Promise<void> {
-
         const error = await HttpErrorHandler.handle(action.error);
 
         if (action.error.status >= 400 && action.error.status < 500) {
@@ -83,7 +82,6 @@ export class ApplicationState {
 
     @Action(ApplicationActions.HandleHttpErrorWithToast)
     public async handleErrorWithToast$(ctx: StateContext<ApplicationStateModel>, action: ApplicationActions.HandleHttpErrorWithToast): Promise<void> {
-
         const error = await HttpErrorHandler.handle(action.error);
 
         for (const message of error.messages) {

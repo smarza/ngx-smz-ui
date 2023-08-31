@@ -1,11 +1,9 @@
 import { ErrorHandler, Injectable, Injector } from '@angular/core';
-import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { DiagnosticsService } from './diagnostic.service';
-import { DeviceDetectorService } from 'ngx-device-detector';
 import { Store } from '@ngxs/store';
-import { ApplicationSelectors } from '../../../state/global/application/application.selector';
-import { AuthenticationSelectors } from '../../../state/global/authentication/authentication.selectors';
 import { GlobalInjector } from '../../../common/services/global-injector';
+import { Navigate } from '@ngxs/router-plugin';
+import { AuthenticationSelectors } from '../../../state/global/authentication/authentication.selectors';
 
 @Injectable()
 export class GlobalErrorHandler implements ErrorHandler {
@@ -14,53 +12,79 @@ export class GlobalErrorHandler implements ErrorHandler {
   public handleError(error): void {
     const config = GlobalInjector.config;
 
-    console.log('ERROR INTERCEPTOR', error);
+    const isDiagnosticsEnabled = config.rbkUtils.diagnostics.url != null;
 
-    if (config.rbkUtils.diagnostics.url != null && error.status != 400) {
-        const loggingService = this.injector.get(DiagnosticsService);
-        const deviceService = this.injector.get(DeviceDetectorService);
-        const store = this.injector.get(Store);
-        const location = this.injector.get(LocationStrategy);
-        const message = error.message ? error.message : error.toString();
-        const url = location instanceof PathLocationStrategy ? location.path() : '';
+    if (error.status != null) {
+      // Erro do HttpError
 
-        const logdata = store.selectSnapshot(ApplicationSelectors.logInfo);
+      if (isDiagnosticsEnabled && error.status != 400) {
+        this.submitDiagnostic(error);
+      }
 
-        let device = 'Unknown';
-        if (deviceService.isDesktop()) {
-          device = 'Desktop';
-        }
-        else if (deviceService.isMobile()) {
-          device = 'Mobile';
-        }
-        else if (deviceService.isTablet()) {
-          device = 'Tablet';
-        }
-
-        const log = {
-          applicationArea: logdata.applicationArea,
-          applicationLayer: logdata.applicationLayer,
-          applicationVersion: logdata.applicationVersion,
-          clientBrowser: deviceService.browser + ' ' + deviceService.browser_version,
-          clientDevice: device,
-          clientOperatingSystem: deviceService.os,
-          clientOperatingSystemVersion: deviceService.os_version,
-          clientUserAgent: deviceService.userAgent,
-          databaseExceptions: '',
-          tenant: (store.selectSnapshot(AuthenticationSelectors.userdata) as any)?.tenant,
-          exceptionMessage: message,
-          exceptionSource: 'Angular Error Handler',
-          inputData: '',
-          stackTrace: error.stack,
-          extraData: logdata.extraData,
-          username: store.selectSnapshot(AuthenticationSelectors.username)
-        }
-
-        console.warn(log);
-        // loggingService.log().subscribe();
     }
-    console.error('Error caught by Global Error Interceptor: ', error);
+    else {
+      // Erro de Javascript
+      if (isDiagnosticsEnabled) {
 
-    throw error
+        const handleJsErrorWithRedirect = config.rbkUtils.errorsConfig.handleJsErrorWithRedirect;
+        if (handleJsErrorWithRedirect) {
+          this.handleJavascriptError(error);
+        }
+        else {
+          this.submitDiagnostic(error);
+        }
+      }
+
+    }
+
+    console.error('Error caught by Global Error Interceptor: ', error);
+  }
+
+  private handleJavascriptError(error): void {
+    const messages = [];
+
+    const message: string = error.message ? error.message : error.toString();
+
+    if (message.includes(`'localStorage' property from 'Window'`)) {
+      messages.push(...[
+        'Certifique-se de que seu navegador está permitindo as atividades de cookies para este site.',
+        '',
+        'Acesse as configurações de <strong>Privacidade e Segurança</strong> > <strong>Cookies e outros dados do site</strong>, e habilite a permissão dos cookies.',
+        ''
+      ]);
+    }
+
+    const store = GlobalInjector.instance.get(Store);
+    const username = store.selectSnapshot(AuthenticationSelectors.username);
+
+    if (username == null) {
+
+      messages.push(...['Seu usuário ainda não está logado.', '<br>']);
+
+      setTimeout(() => {
+        store.dispatch(new Navigate(['diagnostics-data-collect', { exceptionMessage: message, stackTrace: error.stack, messages }]));
+      }, 0);
+    }
+    else {
+
+      const config = GlobalInjector.config;
+
+      store.dispatch(new Navigate([config.rbkUtils.errorsConfig.page.route]));
+      this.submitDiagnostic(error);
+    }
+  }
+
+  private submitDiagnostic(error): void {
+    const diagnosticsService = GlobalInjector.instance.get(DiagnosticsService);
+    const diagnosticData = diagnosticsService.generateDiagnosticsData();
+
+    const message: string = error.message ? error.message : error.toString();
+
+    diagnosticData.exceptionMessage = message;
+    diagnosticData.stackTrace = error.stack;
+
+    console.warn(diagnosticData);
+
+    diagnosticsService.log(diagnosticData);
   }
 }

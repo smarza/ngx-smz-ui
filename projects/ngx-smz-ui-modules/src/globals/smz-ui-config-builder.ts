@@ -8,6 +8,7 @@ import { getFtUsersInitialState, UsersFtState, USERS_FT_STATE_NAME } from '@stat
 export const UiBuilder: SmzUiBuilder = new SmzUiBuilder()
   .setApplicationName('Modules Demo')
   .setDialogsConfigManually(smzDialogsConfig)
+  .disableDiagnostics()
   .layouts(smzLayoutsConfig)
     .builder
   .localization()
@@ -56,6 +57,10 @@ export const UiBuilder: SmzUiBuilder = new SmzUiBuilder()
     .setPagination([5])
     .setWidth('600px')
     .setZIndex(999)
+    .builder
+  .errorsPage()
+    .clearOnError()
+    .allowGoToLogin()
     .builder
   .states()
     .addFeature(USERS_FT_STATE_NAME)

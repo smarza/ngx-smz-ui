@@ -16,6 +16,7 @@ import ptBr from '@angular/common/locales/pt';
 import * as moment from 'moment';
 import { environment } from '@environments/environment';
 import { UiBuilder } from '../globals/smz-ui-config-builder';
+import { VarejoUiBuilder } from '../globals/varejo-smz-ui-config-builder';
 import { smzAthenaConfig, smzHephaestusConfig } from '../globals/deprecated/smz-layouts.config';
 
 registerLocaleData(ptBr);
@@ -31,7 +32,7 @@ moment.locale('pt-br');
     AppRoutingModule,
 
     // Não alterar a ordem desse grupo
-    NgxSmzUiModule.forRoot(UiBuilder),
+    NgxSmzUiModule.forRoot(VarejoUiBuilder),
 
     NgxsModule.forRoot(buildState(), { developmentMode: !environment.production }),
     NgxsRouterPluginModule.forRoot(),

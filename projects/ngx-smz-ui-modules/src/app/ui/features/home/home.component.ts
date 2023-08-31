@@ -13,6 +13,7 @@ export class HomeComponent
 {
   @Select(AuthenticationSelectors.userdata) public userdata$: Observable<UserData>;
   @Select(UiLocalizationDbSelectors.all) public locale$: Observable<any>;
+  public test;
   public state: SmzTableState = new SmzTableBuilder()
     .setTitle('Auto Sized Columns with Large Data')
     .enableGlobalFilter()
@@ -27,6 +28,11 @@ export class HomeComponent
     .setSize('small')
     .useStrippedStyle()
     .disableRowHoverEffect()
+    .buttons()
+      .add('TESTE', () => {
+        this.test['1'] = { kaka: 1 };
+      }).buttons
+      .table
     .excel()
       .excel
     .menu()

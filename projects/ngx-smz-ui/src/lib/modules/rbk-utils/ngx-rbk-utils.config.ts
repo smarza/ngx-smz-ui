@@ -14,6 +14,7 @@ export class NgxRbkUtilsConfig {
     public useTitleService?: boolean;
     public diagnostics: {
         url: string;
+        throttleTime: number;
     };
     public notifications: {
         url: string;
@@ -130,6 +131,7 @@ export class NgxRbkUtilsConfig {
             localStorage: 'appPrefix' | 'none';
             navigationHistory: boolean;
         };
+        handleJsErrorWithRedirect: boolean;
         callback?: (error: CustomError, store: Store) => void
     };
     public authorization: {

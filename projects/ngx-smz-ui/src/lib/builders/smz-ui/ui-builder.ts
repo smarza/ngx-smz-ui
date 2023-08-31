@@ -53,7 +53,8 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
                 allowLocalizationSwitching: false
             },
             diagnostics: {
-                url: `${environment.serverUrl}/api/diagnostics`
+                url: `${environment.serverUrl}/api/diagnostics`,
+                throttleTime: 5000
             },
             notifications: {
                 url: null
@@ -196,7 +197,8 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
                     localStorage: 'appPrefix',
                     navigationHistory: true
                 },
-                callback: null
+                callback: null,
+                handleJsErrorWithRedirect: false
             },
             authorization: {
                 navigationMenu: null,
@@ -239,6 +241,27 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
 
     public useLegacy(): SmzUiBuilder {
         this._state.legacyMode = true;
+        return this.that;
+    }
+
+    public disableDiagnostics(): SmzUiBuilder {
+        this._state.rbkUtils.diagnostics.url = null;
+        return this.that;
+    }
+
+    public setDiagnosticsThrottleTime(throttleTime: number): SmzUiBuilder {
+
+        if (this._state.rbkUtils.diagnostics.url === null) {
+            throw new Error(`You can't call 'setDiagnosticsThrottleTime' if the Diagnostics is disabled.`);
+          }
+
+        this._state.rbkUtils.diagnostics.throttleTime = throttleTime;
+        return this.that;
+    }
+
+
+    public handleJsErrorWithRedirect(): SmzUiBuilder {
+        this._state.rbkUtils.errorsConfig.handleJsErrorWithRedirect = true;
         return this.that;
     }
 

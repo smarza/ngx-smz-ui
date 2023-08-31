@@ -6,13 +6,16 @@ import { LoginModule } from './pages/login/login.module';
 import { NotFoundModule } from './pages/not-found/not-found.module';
 import { GlobalInjector } from '../../common/services/global-injector';
 import { SuperuserLoginModule } from './pages/superuser-login/superuser-login.module';
+import { DiagnosticsDataCollectModule } from './pages/diagnostics-data-collect/diagnostics-data-collect.module';
 export function getLoginModule() { return LoginModule }
 export function getSuperuserLoginModule() { return SuperuserLoginModule }
 export function getErrorModule() { return ErrorModule }
 export function getNotFoundModule() { return NotFoundModule }
+export function getDiagnosticsDataCollectModule() { return DiagnosticsDataCollectModule }
 
 const routes: Routes = [
   { path: 'error', loadChildren: getErrorModule },
+  { path: 'diagnostics-data-collect', loadChildren: getDiagnosticsDataCollectModule },
   { path: 'notfound', loadChildren: getNotFoundModule },
   { path: '**', redirectTo: 'notfound' },
 ];

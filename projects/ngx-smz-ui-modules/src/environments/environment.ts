@@ -4,10 +4,12 @@
 
 export const environment = {
   production: false,
+  type: 'dev',
+  applicationName: 'Demo Modules Lib',
   version: 'development_v',
   databaseCacheTimeout: 2,
-  serverUrl: 'https://localhost:44376',
-  authenticationApi: 'https://localhost:44376',
+  serverUrl: 'https://localhost:44332',
+  authenticationApi: 'https://localhost:44332',
   applicationId: 'DEMO'
 };
 
