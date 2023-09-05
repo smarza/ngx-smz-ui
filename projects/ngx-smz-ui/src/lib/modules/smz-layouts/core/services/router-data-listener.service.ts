@@ -117,7 +117,8 @@ export class RouterDataListenerService
     return {
       mode: data?.mode ? data.mode : 'full',
       hideFooter: data?.hideFooter ?? false,
-      contentPadding: data?.contentPadding ? data.contentPadding : '2em'
+      contentPadding: data?.contentPadding ? data.contentPadding : '2em',
+      contentStyleClass: data?.contentStyleClass ?? ''
     }
   }
 

@@ -16,10 +16,10 @@ export const MultiTablesDemo: { [key: string]: { items$: Observable<any[]>, code
     return new SmzMultiTablesBuilder()
       //  FIRST TAB
       .tab('First')
-        // .allowDuplication()
-        .header()
-          .setIcon('fa-solid fa-bug')
-          .header
+        .allowDuplication()
+        // .header()
+        //   .setIcon('fa-solid fa-bug')
+        //   .header
         .table(
           of(EditableTablePartialData),
           new SmzTableBuilder()
@@ -33,6 +33,11 @@ export const MultiTablesDemo: { [key: string]: { items$: Observable<any[]>, code
             .useStrippedStyle()
             .disableRowHoverEffect()
             .enableColumnVisibility()
+            .menu()
+            .item('Consultar')
+              .setCallback((event: any) => console.log('---'))
+              .menu
+            .table
             .columns()
               .text('module', 'Módulo', '12em')
                 .columns
@@ -51,9 +56,9 @@ export const MultiTablesDemo: { [key: string]: { items$: Observable<any[]>, code
 
       //  SECOND TAB
       .tab('Second')
-        .header()
-          .setIcon('fa-solid fa-bug')
-          .header
+        // .header()
+        //   .setIcon('fa-solid fa-bug')
+        //   .header
         .table(
           of([
             { name: 'name 1', company: 'company D' },
@@ -68,9 +73,9 @@ export const MultiTablesDemo: { [key: string]: { items$: Observable<any[]>, code
 
       // THIRD TAB
       .tab('Third')
-        .header()
-          .setIcon('fa-solid fa-bug')
-          .header
+        // .header()
+        //   .setIcon('fa-solid fa-bug')
+        //   .header
         .allowClose()
         .table(
           of(EditableTablePartialData),

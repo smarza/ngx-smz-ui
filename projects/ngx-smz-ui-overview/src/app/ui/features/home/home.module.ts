@@ -37,6 +37,7 @@ import { DemoMultiTablesComponent } from './components/demo-multi-tables/demo-mu
 const data: any = {
   layout: {
     mode: 'full',
+    contentStyleClass: ''
   },
   title: 'Home',
   appArea: 'home',

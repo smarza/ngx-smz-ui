@@ -19,4 +19,5 @@ export interface RouteLayoutData
   mode?: 'full' | 'menu-only' | 'topbar-only' | 'none';
   hideFooter?: boolean;
   contentPadding?: string;
+  contentStyleClass?: string;
 }

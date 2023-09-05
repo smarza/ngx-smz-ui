@@ -8,6 +8,10 @@ export interface SmzMultiTablesState {
 }
 
 export interface SmzMultiTablesTab {
+  _id: string;
+  _originalId: string;
+  _isDuplicated: boolean;
+  allowDuplication: boolean;
   styleClass: string;
   selected: boolean;
   closable: boolean;

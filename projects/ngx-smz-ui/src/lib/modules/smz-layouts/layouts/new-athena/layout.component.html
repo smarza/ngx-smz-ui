@@ -20,7 +20,7 @@
           <!-- CONTEÚDO -->
           <div class="layout-content" [ngClass]="{ 'layout-content-no-footer': routerListener.data.layout.hideFooter || routerListener.data.layout.mode === 'none' }">
             <div *ngIf="state.isOverlayVisible" class="p-component-overlay clear-overlay" (click)="hideMenu()"></div>
-            <div class="layout-content-container" [ngStyle]="{ padding: routerListener.data.layout.contentPadding }" [ngClass]="contentClass$ | async">
+            <div class="layout-content-container {{ routerListener.data.layout.contentStyleClass }}" [ngStyle]="{ padding: routerListener.data.layout.contentPadding }" [ngClass]="contentClass$ | async">
               <ng-container *ngTemplateOutlet="content"></ng-container>
             </div>
           </div>
