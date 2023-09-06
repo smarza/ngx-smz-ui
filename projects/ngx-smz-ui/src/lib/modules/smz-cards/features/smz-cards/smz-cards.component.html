@@ -1,8 +1,8 @@
 <ng-container *ngIf="state != null">
-<ng-container *ngIf="state.items$ | async as items">
+<ng-container *ngVar="state.items$ | async as items">
 <ng-container *ngVar="items | resetContext : state.template._context">
 
-<p-dataView #dataView [styleClass]="state.view.dataViewStyleClass" [gridStyleClass]="state.view.gridStyleClass" [value]="items" [paginator]="state.view.paginator" [rows]="state.view.rowsPerPage" [filterBy]="state.view.filterBy" [layout]="state.view.layout" [emptyMessage]="state.locale.emptyMessage">
+<p-dataView #dataView [styleClass]="state.view.dataViewStyleClass" [gridStyleClass]="state.view.gridStyleClass" [value]="items ?? []" [paginator]="state.view.paginator" [rows]="state.view.rowsPerPage" [filterBy]="state.view.filterBy" [layout]="state.view.layout" [emptyMessage]="state.locale.emptyMessage">
 
   <ng-container *ngIf="state.view.showHeader">
     <ng-template pTemplate="header">

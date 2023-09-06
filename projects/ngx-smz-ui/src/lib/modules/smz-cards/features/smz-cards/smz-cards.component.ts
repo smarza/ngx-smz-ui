@@ -58,13 +58,14 @@ export class SmzCardsComponent implements OnInit, AfterContentInit, AfterViewIni
 
     if (!isEmpty(this.state.view.dataViewContentStyles)) {
 
-      const element = this.dataView.el.nativeElement as HTMLElement;
-      const container = element.getElementsByClassName('p-dataview-content')[0];
+      if (this.dataView != null) {
+        const element = this.dataView.el.nativeElement as HTMLElement;
+        const container = element.getElementsByClassName('p-dataview-content')[0];
 
-      const styles = this.state.view.dataViewContentStyles.split(' ');
-      styles.forEach(style => {
-        this.renderer.addClass(container.firstChild, style);
-      })
+        const styles = this.state.view.dataViewContentStyles.split(' ');
+        styles.forEach(style => { this.renderer.addClass(container.firstChild, style) })
+      }
+
     }
 
   }
