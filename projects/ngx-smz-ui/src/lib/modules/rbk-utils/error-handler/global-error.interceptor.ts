@@ -4,12 +4,27 @@ import { Store } from '@ngxs/store';
 import { GlobalInjector } from '../../../common/services/global-injector';
 import { Navigate } from '@ngxs/router-plugin';
 import { AuthenticationSelectors } from '../../../state/global/authentication/authentication.selectors';
+import { Observable, Subject, Subscription, of, switchMap, throttleTime } from 'rxjs';
 
 @Injectable()
 export class GlobalErrorHandler implements ErrorHandler {
-  constructor(private injector: Injector) {
+  private logSubject = new Subject<any>();
+  private logSubscription: Subscription;
+  constructor() {
+    const config = GlobalInjector.config;
+
+    this.logSubscription = this.logSubject.pipe(
+        throttleTime(config.rbkUtils.diagnostics.throttleTime),
+        switchMap(data => this.actualHandleError(data))
+    ).subscribe();
   }
+
   public handleError(error): void {
+    this.logSubject.next(error);
+  }
+
+  public actualHandleError(error): Observable<void> {
+
     const config = GlobalInjector.config;
 
     const isDiagnosticsEnabled = config.rbkUtils.diagnostics.url != null;
@@ -38,6 +53,8 @@ export class GlobalErrorHandler implements ErrorHandler {
     }
 
     console.error('Error caught by Global Error Interceptor: ', error);
+
+    return of();
   }
 
   private handleJavascriptError(error): void {
