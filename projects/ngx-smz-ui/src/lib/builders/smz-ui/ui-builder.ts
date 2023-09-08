@@ -198,7 +198,9 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
                     navigationHistory: true
                 },
                 callback: null,
-                handleJsErrorWithRedirect: false
+                javascriptErrors: {
+                    errorHandlingType: 'none',
+                }
             },
             authorization: {
                 navigationMenu: null,
@@ -260,8 +262,8 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
     }
 
 
-    public handleJsErrorWithRedirect(): SmzUiBuilder {
-        this._state.rbkUtils.errorsConfig.handleJsErrorWithRedirect = true;
+    public setJavascriptErrorBehavior(errorHandlingType: 'toast' | 'redirect' | 'none'): SmzUiBuilder {
+        this._state.rbkUtils.errorsConfig.javascriptErrors.errorHandlingType = errorHandlingType;
         return this.that;
     }
 

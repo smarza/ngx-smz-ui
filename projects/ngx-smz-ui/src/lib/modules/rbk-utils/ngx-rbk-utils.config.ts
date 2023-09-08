@@ -131,7 +131,9 @@ export class NgxRbkUtilsConfig {
             localStorage: 'appPrefix' | 'none';
             navigationHistory: boolean;
         };
-        handleJsErrorWithRedirect: boolean;
+        javascriptErrors: {
+            errorHandlingType: 'toast' | 'redirect' | 'none'
+        };
         callback?: (error: CustomError, store: Store) => void
     };
     public authorization: {

@@ -5,6 +5,7 @@ import { GlobalInjector } from '../../../common/services/global-injector';
 import { Navigate } from '@ngxs/router-plugin';
 import { AuthenticationSelectors } from '../../../state/global/authentication/authentication.selectors';
 import { Observable, Subject, Subscription, of, switchMap, throttleTime } from 'rxjs';
+import { ToastActions } from '../../../state/global/application/application.actions.toast';
 
 @Injectable()
 export class GlobalErrorHandler implements ErrorHandler {
@@ -39,15 +40,18 @@ export class GlobalErrorHandler implements ErrorHandler {
     }
     else {
       // Erro de Javascript
-      if (isDiagnosticsEnabled) {
 
-        const handleJsErrorWithRedirect = config.rbkUtils.errorsConfig.handleJsErrorWithRedirect;
-        if (handleJsErrorWithRedirect) {
+        const javascriptErrorHandlingType = config.rbkUtils.errorsConfig.javascriptErrors?.errorHandlingType;
+
+        if (javascriptErrorHandlingType != null && javascriptErrorHandlingType != 'none') {
           this.handleJavascriptError(error);
         }
         else {
-          this.submitDiagnostic(error);
+          if (isDiagnosticsEnabled) { {
+            this.submitDiagnostic(error);
+          }
         }
+
       }
 
     }
@@ -58,6 +62,11 @@ export class GlobalErrorHandler implements ErrorHandler {
   }
 
   private handleJavascriptError(error): void {
+    const config = GlobalInjector.config;
+
+    const isDiagnosticsEnabled = config.rbkUtils.diagnostics.url != null;
+    const javascriptErrorHandlingType = config.rbkUtils.errorsConfig.javascriptErrors?.errorHandlingType;
+
     const messages = [];
 
     const message: string = error.message ? error.message : error.toString();
@@ -75,19 +84,37 @@ export class GlobalErrorHandler implements ErrorHandler {
     const username = store.selectSnapshot(AuthenticationSelectors.username);
 
     if (username == null) {
-
       messages.push(...['Seu usuário ainda não está logado.', '<br>']);
 
       setTimeout(() => {
         store.dispatch(new Navigate(['diagnostics-data-collect', { exceptionMessage: message, stackTrace: error.stack, messages }]));
       }, 0);
+
+      return;
     }
-    else {
 
-      const config = GlobalInjector.config;
-
-      store.dispatch(new Navigate([config.rbkUtils.errorsConfig.page.route]));
+    if (isDiagnosticsEnabled) {
       this.submitDiagnostic(error);
+    }
+
+    switch (javascriptErrorHandlingType) {
+      case 'redirect':
+
+        if (username != null) {
+          setTimeout(() => {
+            store.dispatch(new Navigate([config.rbkUtils.errorsConfig.page.route]));
+          }, 0);
+        }
+
+        break;
+
+      case 'toast':
+          store.dispatch(new ToastActions.Error('Caso o erro persista, entre em contato com o administrador do sistema.', 'Occorreu um erro.'));
+
+        break;
+
+      default:
+        break;
     }
   }
 

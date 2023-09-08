@@ -7,6 +7,9 @@ export function GlobalFilter<T>(array: T[], search: string, propertyPaths: strin
   const results = [];
 
   array.forEach(item => {
+
+    let includeToResult = false;
+
     propertyPaths.forEach(property => {
       const value = ObjectUtils.resolveFieldData(item, property);
       const match = searchWords.some(word => {
@@ -20,10 +23,15 @@ export function GlobalFilter<T>(array: T[], search: string, propertyPaths: strin
         }
 
       });
+
       if (match) {
-        results.push(item);
+        includeToResult = true;
       }
     });
+
+    if (includeToResult) {
+      results.push(item);
+    }
   });
 
   return results;

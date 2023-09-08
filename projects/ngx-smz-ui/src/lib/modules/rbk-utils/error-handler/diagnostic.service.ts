@@ -9,6 +9,7 @@ import { Store } from '@ngxs/store';
 import { LocationStrategy } from '@angular/common';
 import { ApplicationSelectors } from '../../../state/global/application/application.selector';
 import { AuthenticationSelectors } from '../../../state/global/authentication/authentication.selectors';
+import { ToastActions } from '../../../state/global/application/application.actions.toast';
 
 @Injectable({ providedIn: 'root' })
 export class DiagnosticsService extends BaseApiService {
@@ -18,7 +19,7 @@ export class DiagnosticsService extends BaseApiService {
 
     public username;
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private store: Store) {
         super();
 
         const config = GlobalInjector.config;
@@ -26,7 +27,9 @@ export class DiagnosticsService extends BaseApiService {
         this.logSubscription = this.logSubject.pipe(
             throttleTime(config.rbkUtils.diagnostics.throttleTime),  // 5 segundos, ajuste conforme necessário
             switchMap(data => this.actualLogCall(data))
-        ).subscribe();
+        ).subscribe(() => {
+          this.store.dispatch(new ToastActions.Error('O relatório do erro foi enviado ao servidor.', 'Occorreu um erro não tratado.'))
+        });
     }
 
     public log(data: DiagnosticsData): void {
