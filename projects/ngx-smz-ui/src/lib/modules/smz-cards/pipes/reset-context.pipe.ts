@@ -7,9 +7,11 @@ import { SmzCardsBaseContext } from '../models/contexts/smz-base-context';
 
 export class SmzCardsResetContextPipe implements PipeTransform {
   transform(data: any[], context: SmzCardsBaseContext): any[] {
+
     if (context?.reset != null) {
       context.reset(data);
     }
+
     return data;
   }
 

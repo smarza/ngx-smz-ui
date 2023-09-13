@@ -14,6 +14,7 @@ import { rbkConfig } from './rbk-config';
 export const UiConfigBuilder: SmzUiBuilder = new SmzUiBuilder()
 .setApplicationName('Overview Demo')
 .setDialogsConfigManually(smzDialogsConfig) // Temporally
+.disableDiagnostics()
 .setLocale('pt-BR')
 .layouts(smzLayoutsConfig)
   .setLoader(SmzLoader.CUBE)
@@ -29,10 +30,10 @@ export const UiConfigBuilder: SmzUiBuilder = new SmzUiBuilder()
   .mapAccessTokenData('authentication-mode', 'authenticationMode', 'string')
   .setTenantDisplayName('Domínio')
   .login()
-  .useSingleTenantAplication('UN-BUZ')
+    // .useSingleTenantAplication('UN-BUZ')
     .useWindowsAuthentication()
     .allowSuperuser()
-    // .allowTenantSwitching()
+    .allowTenantSwitching()
     .authorization
   .builder
 .authorization()

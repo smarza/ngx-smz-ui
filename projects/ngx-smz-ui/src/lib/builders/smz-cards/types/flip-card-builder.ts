@@ -37,7 +37,22 @@ export class SmzCardsFlipCardBuilder<TData, TBuilder> extends SmzBuilderUtilitie
   }
 
   public useDataModelStatus(propertyPath: string): SmzCardsFlipCardBuilder<TData, TBuilder> {
+
+    if (this._template._context.persisteStatus) {
+      throw Error(`You can't call useDataModelStatus() while useStatusPersistence`);
+    }
+
     this._template._context.statusDataProperty = propertyPath;
+    return this;
+  }
+
+  public useStatusPersistence(): SmzCardsFlipCardBuilder<TData, TBuilder> {
+
+    if (this._template._context.statusDataProperty) {
+      throw Error(`You can't call useStatusPersistence() while useDataModelStatus`);
+    }
+
+    this._template._context.persisteStatus = true;
     return this;
   }
 

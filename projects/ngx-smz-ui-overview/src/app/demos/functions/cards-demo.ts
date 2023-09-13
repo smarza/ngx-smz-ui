@@ -1,9 +1,9 @@
 import { DemoKeys } from '@demos/demo-keys';
 import { nameof, namesof, SmzCardsBuilder, SimpleNamedEntity, SimpleEntity } from 'ngx-smz-ui';
-import { of } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 import { SmzCardsArchivedDemo, SmzCardsDemo, SmzCardsDemoData } from '../data/cards/cards-data';
 import * as moment from 'moment';
-import { SmzCardsFlipCardDemo, SmzCardsFlipCardDemoData } from '../data/cards/flip-card-data';
+import { SmzCardsFlipCardDemo, SmzCardsFlipCardDemo2, SmzCardsFlipCardDemo3, SmzCardsFlipCardDemoData } from '../data/cards/flip-card-data';
 import { FrontCardComponent } from '@components/cards/front-card.component';
 import { BackCardComponent } from '@components/cards/back-card.component';
 import { SmzCardComplexityData } from '../data/cards/flip-card-complexity';
@@ -236,10 +236,17 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
   //
   [DemoKeys.CARDS_FLIP_CARD_IMAGE]: {
     code: () => {
+
+      const data$ = new BehaviorSubject<SmzCardsFlipCardDemoData[]>(SmzCardsFlipCardDemo2);
+
+      setTimeout(() => {
+        data$.next(SmzCardsFlipCardDemo3);
+      }, 5000);
+
     return new SmzCardsBuilder<SmzCardsFlipCardDemoData>()
         .setTitle('Demo Cards | Flip Card | Image')
         // .debugMode()
-        .setSource(of(SmzCardsFlipCardDemo))
+        .setSource(data$)
         .setDataViewContainerStyles('justify-around ')
         .template()
           .flipCard()
@@ -248,6 +255,8 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
             .setContentStyles('')
             .setButtonsLocation('back')
             .setMenuLocation('back')
+            // .useDataModelStatus('isSelected')
+            .useStatusPersistence()
             .front()
               .image(nameof<SmzCardsFlipCardDemoData>('frontImage'))
                 .setStyles('object-cover rounded-lg border-0 shadow-md')
@@ -336,6 +345,7 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
   //
   [DemoKeys.CARDS_FLIP_CARD_HTML]: {
     code: () => {
+
     return new SmzCardsBuilder<SmzCardsFlipCardDemoData>()
         .setTitle('Demo Cards | Flip Card | Html')
         // .debugMode()

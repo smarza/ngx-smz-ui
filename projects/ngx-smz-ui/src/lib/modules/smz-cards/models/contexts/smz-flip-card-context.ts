@@ -20,11 +20,72 @@ export class SmzFlipCardContext extends SmzCardsBaseContext {
   public dynamicInitialData: (data: any[]) => { key: any, status: SmzFlipCardStatus }[];
   public statusDataProperty: string;
 
+
   constructor() {
     super();
   }
 
   public reset(data: any[]): void {
+
+    if (this.persisteStatus) {
+      // Mantem o status
+      this.resetKeepingStates(data);
+    }
+    else {
+      // Usa sempre o status limpo
+      this.cleanReset(data);
+    }
+  }
+
+  public resetKeepingStates(data: any[]): void {
+
+    this.state.forEach(x => x.timestamp = null);
+
+    const timestamp = new Date().getTime();
+
+    data?.forEach(item => {
+      const key = ObjectUtils.resolveFieldData(item, this.propertyPath);
+
+      let status: SmzFlipCardStatus = 'front';
+
+      // Se houver statusDataProperty então o card pode iniciar em estados diferentes de frontal.
+      if (this.statusDataProperty) {
+        // Pega no dado a propriedade booleana chave que define se o card deverá iniciar virado ou não
+        const value = ObjectUtils.resolveFieldData(item, this.statusDataProperty);
+
+        if (value != null) {
+          status = value == true ? 'back' : 'front';
+        }
+      }
+
+      const match = this.state.find(x => x.key === key);
+
+      if (match) {
+        match.timestamp = timestamp;
+      }
+      else {
+        this.state.push({ key, status, timestamp });
+      }
+
+    });
+
+    this.state = this.state.filter(x => x.timestamp != null);
+
+    const initialData = this.dynamicInitialData != null ? this.dynamicInitialData(data) : [];
+
+    initialData.push(...this.initialData);
+
+    initialData.forEach(item => {
+      const entity = this.state.find(x => x.key === item.key);
+      if (entity != null) {
+        this.setFlipState(entity, item.status);
+      }
+    })
+
+  }
+
+
+  public cleanReset(data: any[]): void {
 
     this.state = [];
 
@@ -32,9 +93,14 @@ export class SmzFlipCardContext extends SmzCardsBaseContext {
 
     data?.forEach(item => {
       const key = ObjectUtils.resolveFieldData(item, this.propertyPath);
+
       let status: SmzFlipCardStatus = 'front';
+
+      // Se houver statusDataProperty então o card pode iniciar em estados diferentes de frontal.
       if (this.statusDataProperty) {
+        // Pega no dado a propriedade booleana chave que define se o card deverá iniciar virado ou não
         const value = ObjectUtils.resolveFieldData(item, this.statusDataProperty);
+
         if (value != null) {
           status = value == true ? 'back' : 'front';
         }
