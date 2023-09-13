@@ -306,10 +306,17 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
   //
   [DemoKeys.CARDS_FLIP_CARD_COMPONENT]: {
     code: () => {
+
+    const data$ = new BehaviorSubject<SmzCardsFlipCardDemoData[]>(SmzCardsFlipCardDemo2);
+
+    // setTimeout(() => {
+    //   data$.next(SmzCardsFlipCardDemo3);
+    // }, 5000);
+
     return new SmzCardsBuilder<SmzCardsFlipCardDemoData>()
         .setTitle('Demo Cards | Flip Card | Component')
         // .debugMode()
-        .setSource(of(SmzCardsFlipCardDemo))
+        .setSource(data$)
         .template()
           .flipCard()
             .setCardSize('160px', '240px')
@@ -320,13 +327,14 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
             .enableAtLeastOneSelectedBehavior()
             .front()
               .component(FrontCardComponent)
-                .addInputWithContext('data')
+                .addDataToInput('data')
                 .addInput('isSelectable', true)
                 .template
               .front
             .back()
               .component(BackCardComponent)
-                .addInputWithContext('data')
+                .addDataToInput('data')
+                .addContextToInput('context')
                 .template
               .back
             .template
@@ -397,12 +405,12 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
               .endIf
             .front()
               .component(ComplexityFrontCardComponent)
-                .addInputWithContext('data')
+                .addDataToInput('data')
                 .template
               .front
             .back()
               .component(ComplexityBackCardComponent)
-                .addInputWithContext('data')
+                .addDataToInput('data')
                 .template
               .back
             .template
@@ -455,10 +463,10 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
         .template()
           .raw()
             .setGrid(BackCardComponent)
-              .addInputWithContext('data')
+              .addDataToInput('data')
               .template
             .setList(FrontCardComponent)
-              .addInputWithContext('data')
+              .addDataToInput('data')
               .addInput('isSelectable', true)
               .template
             .template

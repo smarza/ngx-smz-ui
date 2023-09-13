@@ -10,7 +10,8 @@ export interface SmzAdvancedInjectableInput
     input: string;
     dataPath: string;
     value: any;
-    useAllContext: boolean;
+    injectData: boolean;
+    injectState: boolean;
 }
 
 export interface SmzAdvancedInjectableOutput

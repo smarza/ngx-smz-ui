@@ -3,7 +3,6 @@ import { ObjectUtils } from 'primeng/utils';
 import { SmzCardsBaseContext } from './smz-base-context';
 import { state } from '@angular/animations';
 
-
 export type SmzFlipCardStatus = 'front' | 'back';
 export type SmzFlipCardContextState = { key: string, status: SmzFlipCardStatus, timestamp: number };
 export type SmzFlipCardChanges = { hasChanged: boolean, previous: SmzFlipCardContextState, current: SmzFlipCardContextState, all: SmzFlipCardContextState[] };
@@ -20,13 +19,11 @@ export class SmzFlipCardContext extends SmzCardsBaseContext {
   public dynamicInitialData: (data: any[]) => { key: any, status: SmzFlipCardStatus }[];
   public statusDataProperty: string;
 
-
   constructor() {
     super();
   }
 
   public reset(data: any[]): void {
-
     if (this.persisteStatus) {
       // Mantem o status
       this.resetKeepingStates(data);
@@ -83,7 +80,6 @@ export class SmzFlipCardContext extends SmzCardsBaseContext {
     })
 
   }
-
 
   public cleanReset(data: any[]): void {
 
@@ -164,6 +160,12 @@ export class SmzFlipCardContext extends SmzCardsBaseContext {
     const hasChanged = previous.status !== entity.status;
 
     return { hasChanged, previous, current: entity, all: cloneDeep(this.state) };
+  }
+
+  public getFlipContext(data: any): SmzFlipCardContextState {
+    const key = ObjectUtils.resolveFieldData(data, this.propertyPath);
+    const entity = this.state.find(x => x.key === key);
+    return entity;
   }
 
   public getFlipState(data: any): SmzFlipCardStatus {

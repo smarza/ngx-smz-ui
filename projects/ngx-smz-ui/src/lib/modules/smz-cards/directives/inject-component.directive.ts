@@ -10,6 +10,7 @@ export class SmzInjectDataPathComponent implements AfterContentInit, OnDestroy
 {
     @Input() public smzInjectDataPathComponent: SmzAdvancedInjectable;
     @Input() public data: any;
+    @Input() public state: any;
     public isActive = true;
 
     constructor(public viewContainerRef: ViewContainerRef)
@@ -40,7 +41,10 @@ export class SmzInjectDataPathComponent implements AfterContentInit, OnDestroy
 
         this.smzInjectDataPathComponent.inputs.forEach(i =>
         {
-            if (i.useAllContext) {
+            if (i.injectState) {
+                (<any>componentRef.instance)[i.input] = this.state;
+            }
+            else if (i.injectData) {
                 (<any>componentRef.instance)[i.input] = this.data;
             }
             else if(i.dataPath != null) {

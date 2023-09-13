@@ -1,11 +1,11 @@
 <ng-container [ngSwitch]="mode">
 
   <ng-container *ngSwitchCase="modes.GRID">
-    <ng-template [smzInjectDataPathComponent]="template.gridComponent.componentData" [data]="data"></ng-template>
+    <ng-template [smzInjectDataPathComponent]="template.gridComponent.componentData" [data]="data" [state]="template._context"></ng-template>
   </ng-container>
 
   <ng-container *ngSwitchCase="modes.LIST">
-    <ng-template [smzInjectDataPathComponent]="template.listComponent.componentData" [data]="data"></ng-template>
+    <ng-template [smzInjectDataPathComponent]="template.listComponent.componentData" [data]="data" [state]="template._context"></ng-template>
   </ng-container>
 
   </ng-container>

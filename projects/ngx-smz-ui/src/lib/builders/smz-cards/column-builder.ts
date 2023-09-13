@@ -112,18 +112,23 @@ export class SmzCardsComponentBuilder<TData, TBuilder, TViewData> extends SmzCar
     this._content.componentData = { component: component, inputs: [], outputs: [] };
   }
 
-  public addInputWithContext(input: string): SmzCardsComponentBuilder<TData, TBuilder, TViewData> {
-    this._content.componentData.inputs.push({ input, value: null, useAllContext: true, dataPath: null });
+  public addDataToInput(input: string): SmzCardsComponentBuilder<TData, TBuilder, TViewData> {
+    this._content.componentData.inputs.push({ input, value: null, injectData: true, injectState: false, dataPath: null });
+    return this;
+  }
+
+  public addContextToInput(input: string): SmzCardsComponentBuilder<TData, TBuilder, TViewData> {
+    this._content.componentData.inputs.push({ input, value: null, injectData: false, injectState: true, dataPath: null });
     return this;
   }
 
   public addInputFromModel(input: string, dataPath: any): SmzCardsComponentBuilder<TData, TBuilder, TViewData> {
-    this._content.componentData.inputs.push({ input, dataPath, value: null, useAllContext: false });
+    this._content.componentData.inputs.push({ input, dataPath, value: null, injectData: false, injectState: false });
     return this;
   }
 
   public addInput(input: string, value: any): SmzCardsComponentBuilder<TData, TBuilder, TViewData> {
-    this._content.componentData.inputs.push({ input, value, dataPath: null, useAllContext: false });
+    this._content.componentData.inputs.push({ input, value, dataPath: null, injectData: false, injectState: false });
     return this;
   }
 

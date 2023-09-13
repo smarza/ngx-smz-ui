@@ -1,7 +1,7 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SmzCardsFlipCardDemoData } from '@demos/data/cards/flip-card-data';
-import { ClickStopPropagationModule, NgxSmzServerImageModule, NgxSmzServerImageToBase64Module } from 'ngx-smz-ui';
+import { ClickStopPropagationModule, FlipCardTemplate, NgxSmzServerImageModule, NgxSmzServerImageToBase64Module, SmzFlipCardContext } from 'ngx-smz-ui';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
@@ -28,9 +28,23 @@ import { ButtonModule } from 'primeng/button';
       >
     <div class="absolute inset-0 p-5 grid grid-nogutter items-end justify-center">
       <button pButton clickStopPropagation type="button" label="Help" class="p-button-rounded p-button-help"></button>
+      <button pButton clickStopPropagation type="button" label="Log State" class="p-button-rounded p-button-help" (click)="log()"></button>
     </div>
   `,
 })
 export class BackCardComponent {
   @Input() public data: SmzCardsFlipCardDemoData;
+  @Input() public context: SmzFlipCardContext;
+
+  constructor(private cdr: ChangeDetectorRef) {
+
+  }
+
+  public log(): void {
+    console.log('data:', this.data);
+    console.log('state:', this.context);
+
+    const context = this.context.getFlipContext(this.data);
+    this.context.setFlipState(context, 'front');
+  }
 }

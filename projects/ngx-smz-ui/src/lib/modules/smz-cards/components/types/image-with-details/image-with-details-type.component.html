@@ -35,7 +35,7 @@
 
       <!-- COMPONENTS -->
       <ng-container *ngFor="let component of template.components let i = index">
-        <ng-template [smzInjectDataPathComponent]="component.componentData" [data]="data"></ng-template>
+        <ng-template [smzInjectDataPathComponent]="component.componentData" [data]="data" [state]="template._context"></ng-template>
       </ng-container>
 
       <!-- OTHERS -->
@@ -102,7 +102,7 @@
 
         <!-- COMPONENTS -->
         <ng-container *ngFor="let component of template.components let i = index">
-          <ng-template [smzInjectDataPathComponent]="component.componentData" [data]="data"></ng-template>
+          <ng-template [smzInjectDataPathComponent]="component.componentData" [data]="data" [state]="template._context"></ng-template>
         </ng-container>
 
         <!-- OTHERS -->

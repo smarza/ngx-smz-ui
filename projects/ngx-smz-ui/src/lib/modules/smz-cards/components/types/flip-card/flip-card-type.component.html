@@ -29,7 +29,7 @@
               </ng-container>
 
               <ng-container *ngIf="template.front.component as frontComponent">
-                <ng-template [smzInjectDataPathComponent]="frontComponent.componentData" [data]="data"></ng-template>
+                <ng-template [smzInjectDataPathComponent]="frontComponent.componentData" [data]="data" [state]="template._context"></ng-template>
               </ng-container>
 
               <ng-container *ngIf="template.front.html as frontHtml">
@@ -69,7 +69,7 @@
               </ng-container>
 
               <ng-container *ngIf="template.back.component as backComponent">
-                <ng-template [smzInjectDataPathComponent]="backComponent.componentData" [data]="data"></ng-template>
+                <ng-template [smzInjectDataPathComponent]="backComponent.componentData" [data]="data" [state]="template._context"></ng-template>
               </ng-container>
 
               <ng-container *ngIf="template.back.html as backHtml">

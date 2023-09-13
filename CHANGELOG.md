@@ -5,6 +5,19 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
+## [16.2.51] - 2023-09-13
+
+### Breaking Changes
+- O método "addInputWithContext" nos builders de Cards foi renomeado para "addDataToInput"
+
+### Adicionado
+- Adicionada suporte para compartilhar o contexto de um card em components back e front.
+
+## [16.2.5] - 2023-09-13
+
+### Adicionado
+- Adicionada a opção para persistir o estado de um card durante a mudança dos dados.
+
 ## [16.2.3] - 2023-08-30
 
 ### Adicionado
