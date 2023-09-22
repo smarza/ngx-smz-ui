@@ -31,6 +31,12 @@ export const UiBuilder: SmzUiBuilder = new SmzUiBuilder()
       .allowSuperuser()
       .allowTenantSwitching()
       .forceLowercaseUsername()
+      .addButtons()
+        .item('Teste')
+          .hasClaimAccess(AuthClaimDefinitions.MANAGE_USERS)
+          .setCallback(() => console.log('dsadsad'))
+          .menu
+        .back
       .authorization
     .builder
   .authorization()

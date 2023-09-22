@@ -3,6 +3,7 @@ import { NgxSmzUiConfig } from '../../ngx-smz-ui.config';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzUiAuthenticationBuilder } from './authentication-builder';
 import { LoginResponse } from '../../modules/rbk-utils/auth/models';
+import { SmzGenericMenuBuilder } from '../smz-menu/generic-menu-builder';
 
 export class SmzUiAuthenticationLoginBuilder extends SmzBuilderUtilities<SmzUiAuthenticationLoginBuilder> {
   protected that = this;
@@ -135,6 +136,10 @@ export class SmzUiAuthenticationLoginBuilder extends SmzBuilderUtilities<SmzUiAu
   public setRedirectCallback(callback: (response: LoginResponse) => void): SmzUiAuthenticationLoginBuilder {
     this._state.rbkUtils.authentication.login.redirectCallback = callback;
     return this.that;
+  }
+
+  public addButtons(): SmzGenericMenuBuilder<SmzUiAuthenticationLoginBuilder> {
+    return new SmzGenericMenuBuilder(this, this._state.rbkUtils.authentication.login.page.customButtons);
   }
 
   public get authorization(): SmzUiAuthenticationBuilder {

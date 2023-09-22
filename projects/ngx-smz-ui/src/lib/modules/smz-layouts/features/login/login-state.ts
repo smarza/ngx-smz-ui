@@ -1,4 +1,5 @@
 import { SmzForm } from '../../../smz-forms/models/smz-forms';
+import { SmzMenuItem } from '../../../smz-menu/models/smz-menu-item';
 
 export interface SmzLoginState<TResponse, TPayload> {
   isDebug: boolean;
@@ -26,5 +27,5 @@ export interface SmzLoginState<TResponse, TPayload> {
     background: string;
     card: string;
   }
-
+  customButtons: SmzMenuItem[];
 }

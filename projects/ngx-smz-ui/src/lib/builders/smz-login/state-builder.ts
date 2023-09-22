@@ -4,6 +4,7 @@ import { SmzControlType } from '../../modules/smz-forms/models/control-types';
 import { SmzForm } from '../../modules/smz-forms/models/smz-forms';
 import { SmzLoginState } from '../../modules/smz-layouts/features/login/login-state';
 import { GlobalInjector } from '../../common/services/global-injector';
+import { SmzGenericMenuBuilder } from '../smz-menu/generic-menu-builder';
 
 export class SmzLoginBuilder<TResponse, TPayload> {
   public _state: SmzLoginState<TResponse, TPayload> = {
@@ -60,7 +61,8 @@ export class SmzLoginBuilder<TResponse, TPayload> {
     styleClass: {
       background: 'bg-primary-color',
       card: 'bg-surface-overlay'
-    }
+    },
+    customButtons: []
   };
 
   constructor() {
@@ -100,6 +102,10 @@ export class SmzLoginBuilder<TResponse, TPayload> {
   public useCustomLogo(imagePath: string): SmzLoginBuilder<TResponse, TPayload> {
     this._state.logo.customPath = imagePath;
     return this;
+  }
+
+  public addButtons(): SmzGenericMenuBuilder<SmzLoginBuilder<TResponse, TPayload>> {
+    return new SmzGenericMenuBuilder(this, this._state.customButtons);
   }
 
   public setLogoSize(sizes: 'small' | 'medium' | 'large' | 'hero'): SmzLoginBuilder<TResponse, TPayload> {

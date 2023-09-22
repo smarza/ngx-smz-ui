@@ -7,6 +7,11 @@
     <div *ngIf="state.message" class="ml-auto mr-auto" [innerHtml]="state.message | safeHtml"></div>
     <smz-form-group #formComponent (submit)="login($event)" [config]="state.form"></smz-form-group>
     <button pButton class="" [disabled]="!formComponent.isValid" type="button" [label]="state.loginButtonLabel" (click)="login(formComponent.getData())"></button>
+
+    <ng-container *ngFor="let action of (state.customButtons | smzFlattenMenu : null)">
+      <button *ngIf="action.visible" pButton type="button" smzMenuItemAction [item]="action" [label]="action.label" [icon]="action.icon" [ngClass]="action.styleClass" [disabled]="action.disabled"></button>
+    </ng-container>
+
     <div *ngIf="state.extraInfo" class="text-sm ml-auto mr-auto" [innerHtml]="state.extraInfo | safeHtml"></div>
   </div>
 

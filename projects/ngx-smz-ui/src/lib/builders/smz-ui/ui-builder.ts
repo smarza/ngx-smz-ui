@@ -131,6 +131,7 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
                     showTenantSelector: false,
                     page: {
                         useSmzLoginModule: false,
+                        customButtons: [],
                         state: null,
                         overrideState: {}
                     }

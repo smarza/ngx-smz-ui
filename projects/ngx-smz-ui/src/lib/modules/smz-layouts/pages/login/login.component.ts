@@ -103,6 +103,10 @@ export class LoginComponent {
       .setExtraInfo(authConfig.useWindowsAuthentication ? '<em>Autenticação do Windows</em>' : '')
       .build();
 
+      if (config.rbkUtils.authentication.login.page.customButtons != null) {
+        state.customButtons = config.rbkUtils.authentication.login.page.customButtons;
+      }
+
     return { ...state, ...authConfig.login.page.overrideState };
 
   }

@@ -29,6 +29,11 @@ export const VarejoUiBuilder: SmzUiBuilder = new SmzUiBuilder()
       .useSingleTenantAplication('')
       .overrideAuthenticationUrl('auth')
       .forceLowercaseUsername()
+      .addButtons()
+        .item('Teste')
+          .setCallback(() => console.log('dsadsad'))
+          .menu
+        .back
       .authorization
     .builder
     .authorization()

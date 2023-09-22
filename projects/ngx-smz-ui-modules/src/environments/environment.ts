@@ -8,8 +8,8 @@ export const environment = {
   applicationName: 'Demo Modules Lib',
   version: 'development_v',
   databaseCacheTimeout: 2,
-  serverUrl: 'https://localhost:44332',
-  authenticationApi: 'https://localhost:44332',
+  serverUrl: 'https://localhost:44376',
+  authenticationApi: 'https://localhost:44376',
   applicationId: 'DEMO'
 };
 

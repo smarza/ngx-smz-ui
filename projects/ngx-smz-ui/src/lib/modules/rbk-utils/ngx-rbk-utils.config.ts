@@ -7,6 +7,7 @@ import { LoginResponse } from './auth/models';
 import { CustomError } from './error-handler/error.handler';
 import { HttpBehaviorParameters } from './http/base-api.service';
 import { SmzUiLocale } from '../../state/database/ui-localization/ui-localization.state';
+import { SmzMenuItem } from '../smz-menu/models/smz-menu-item';
 
 export class NgxRbkUtilsConfig {
     public debugMode: boolean;
@@ -77,6 +78,7 @@ export class NgxRbkUtilsConfig {
             forceLowercaseUsername?: boolean;
             page: {
                 useSmzLoginModule: boolean;
+                customButtons?: SmzMenuItem[];
                 state: SmzLoginState<any, any>;
                 overrideState: Partial<SmzLoginState<any, any>>;
             }
