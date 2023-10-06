@@ -5,7 +5,7 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
-## [16.3.0] - 2023-10-06
+## [16.3.1] - 2023-10-06
 
 ### Adicionado
 - Adicionado suporte para mensagens de erro da versão 7.1.1 (Rbk) do backend.

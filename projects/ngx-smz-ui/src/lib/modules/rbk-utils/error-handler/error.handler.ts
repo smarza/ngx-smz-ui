@@ -2,41 +2,44 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { GlobalInjector } from '../../../common/services/global-injector';
 import { nameof } from '../../../common/models/simple-named-entity';
 
+
+export type RbkApiErrorMessageTypes = string | string[] | RbkApiErrorMessage;
+
 interface RbkApiErrorMessage { errors: string[] };
 
 export class CustomError {
     public messages: string[];
     public redirectTo: string;
 
-    private static getErrorMessages(state: HttpErrorResponse): string[] {
+    public static getErrorMessages(error: RbkApiErrorMessageTypes): string[] {
 
         const isDebugMode = GlobalInjector.config.debugMode;
         const results: string[] = [];
 
         if(isDebugMode) {
             console.log(`>> getErrorMessages(state)`);
-            console.log(`>> state: HttpErrorResponse`, state);
+            console.log(`>> original error`, error);
         }
 
-        if (state.error && typeof state.error === 'object' && nameof<RbkApiErrorMessage>('errors') in state.error) {
+        if (error && typeof error === 'object' && nameof<RbkApiErrorMessage>('errors') in error) {
             // Checando se erro é do type RbkApiErrorMessage
-            results.push(...state.error.errors);
+            results.push(...(error as RbkApiErrorMessage).errors);
 
             if(isDebugMode) {
                 console.log(`>>Erro é do type RbkApiErrorMessage`);
             }
         }
-        else if (typeof state.error === 'string') {
+        else if (typeof error === 'string') {
             // Se error for string, retorna como um array de um elemento
-            results.push(state.error);
+            results.push(error);
 
             if(isDebugMode) {
                 console.log(`>>Erro é do type string`);
             }
         }
-        else if (Array.isArray(state.error) && state.error.every((item: any) => typeof item === 'string')) {
+        else if (Array.isArray(error) && error.every((item: any) => typeof item === 'string')) {
             // Se error for um array de string, retorna como um array de um elemento
-            results.push(...state.error);
+            results.push(...error);
 
             if(isDebugMode) {
                 console.log(`>>Erro é do type string[]`);
@@ -51,7 +54,7 @@ export class CustomError {
     }
 
     public static fromApiResponse(state: HttpErrorResponse): CustomError {
-        const error: CustomError = { messages: this.getErrorMessages(state), redirectTo: null };
+        const error: CustomError = { messages: this.getErrorMessages(state.error), redirectTo: null };
         return error;
     }
 
@@ -62,7 +65,7 @@ export class CustomError {
             error.messages.push(`${state.error}`);
         }
         else {
-            error.messages = this.getErrorMessages(state);
+            error.messages = this.getErrorMessages(state.error);
         }
 
         return error;

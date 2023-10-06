@@ -13,6 +13,7 @@ import { InjectComponentService } from '../../../../common/modules/inject-conten
 import { ComponentData, ComponentDataBase } from '../../../../common/modules/inject-content/models/injectable.model';
 import { DialogsActions } from '../../state/dialogs/dialogs.actions';
 import { GlobalInjector } from '../../../../common/services/global-injector';
+import { CustomError, RbkApiErrorMessageTypes } from '../../../rbk-utils/error-handler/error.handler';
 
 @UntilDestroy()
 @Component({
@@ -235,13 +236,17 @@ export class DialogFooterComponent implements OnInit {
             }
 
             (this.store.dispatch(new action(postProcessResponse)) as Observable<any>)
-                .pipe(catchError(err => {
+                .pipe(catchError((err) => {
 
                     if (GlobalInjector.config.debugMode) {
                         console.log('     >> dispatch catchError', err);
                     }
 
-                    const errors: string[] = err.error;
+                    const errors: string[] = CustomError.getErrorMessages(err.error);
+
+                    if (GlobalInjector.config.debugMode) {
+                        console.log('errors', err);
+                    }
 
                     this.dialogConfig.data._context.apiErrors = errors.map(x => ({ severity: 'warn', summary: '', detail: x }));
                     this.dialogConfig.data._context.isGlobalDisabled = false;
@@ -352,9 +357,16 @@ export class DialogFooterComponent implements OnInit {
             this.actions$
                 .pipe(ofActionErrored(button.blockUi.erroredAction), untilDestroyed(this), take(1))
                 .subscribe((err) => {
-                    console.log('ofActionErrored', err);
 
-                    const errors: string[] = err.error;
+                    if (GlobalInjector.config.debugMode) {
+                        console.log('ofActionErrored', err);
+                    }
+
+                    const errors: string[] = CustomError.getErrorMessages(err.error);
+
+                    if (GlobalInjector.config.debugMode) {
+                        console.log('errors', err);
+                    }
 
                     this.dialogConfig.data._context.apiErrors = errors.map(x => ({ severity: 'warn', summary: '', detail: x }));
                     this.dialogConfig.data._context.isGlobalDisabled = false;
