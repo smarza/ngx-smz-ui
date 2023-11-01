@@ -6,6 +6,7 @@ import { SmzTreeNode } from '../../models/tree-node';
 import { SmzTreeContext, SmzTreeState } from '../../models/tree-state';
 import { getTreeNodeFromKey, isArray, uuidv4 } from '../../../../common/utils/utils';
 import { TreeHelperService } from '../../services/tree-helper.service';
+import { SmzNodeHelper } from '../../models/node-helper';
 
 @Component({
   selector: 'smz-ui-tree',
@@ -79,8 +80,11 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
 
   public ngOnInit(): void {
     if (this.treeItems != null) {
-      this.primeSelection = [];
-      this.checkNode(this.treeItems, this.selection);
+
+      this.primeSelection = new SmzNodeHelper(this.state, this.treeItems)
+        .setDefaultKeyProperty(this.selectionKey)
+        .select(this.selection);
+
       this.selectedNodes.emit(this.primeSelection);
     }
   }
@@ -111,46 +115,6 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
     return sincronize ? this.treeHelper.sincronize(key, nodes): nodes;
   }
 
-
-  checkNode(nodes: SmzTreeNode[], str: string[]) {
-
-    nodes.forEach(node => {
-      //check parent
-      if(str.includes(node[this.selectionKey])) {
-        this.primeSelection.push(node);
-      }
-
-      if(node.children != undefined){
-        node.children.forEach(child => {
-          //check child if the parent is not selected
-          if(str.includes(child[this.selectionKey]) && !str.includes(node[this.selectionKey])) {
-            node.partialSelected = true;
-            node.expanded = this.state.selection.expandNodes;
-            child.parent = node;
-          }
-
-          //check the child if the parent is selected
-          //push the parent in str to new iteration and mark all the childs
-          if(str.includes(node[this.selectionKey])){
-            child.parent = node;
-            str.push(child[this.selectionKey]);
-          }
-        });
-      }else{
-        return;
-      }
-
-      this.checkNode(node.children, str);
-
-      node.children.forEach(child => {
-        if(child.partialSelected) {
-          node.partialSelected = true;
-          node.expanded = this.state.selection.expandNodes;
-        }
-      });
-    });
-  }
-
   public bind(): void {
   }
 
@@ -176,8 +140,13 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
     if ((itemsHaveChanged && hasSelection) || (selectionHasChanged && hasItems)) {
 
       if (this.selection.length > 0) {
-        this.primeSelection = [];
-        this.checkNode(this.treeItems, this.selection);
+        this.primeSelection = new SmzNodeHelper(this.state, this.treeItems)
+          .setDefaultKeyProperty(this.selectionKey)
+          .select(this.selection);
+
+        console.log('-- selection', this.selection);
+        console.log('-- primeSelection', this.primeSelection);
+        console.log('-- treeItems', this.treeItems);
         this.selectedNodes.emit(this.primeSelection);
         this.selectionChange.emit(null);
       }
@@ -279,7 +248,6 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
   }
 
   public onSelected(event: { originalEvent: MouseEvent, node: SmzTreeNode }): void {
-    // console.log('onSelected primeSelection', this.primeSelection);
 
     this.selectedNodes.emit(this.primeSelection);
 

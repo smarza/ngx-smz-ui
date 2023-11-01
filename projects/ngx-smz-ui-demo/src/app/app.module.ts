@@ -3,7 +3,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NgxSmzLayoutsModule, NgxSmzFaqsModule, NgxSmzDialogsModule, HephaestusLayoutModule, NgxSmzUiBlockModule, NgxSmzUiModule } from 'ngx-smz-ui';
+import { NgxSmzLayoutsModule, NgxSmzFaqsModule, NgxSmzDialogsModule, HephaestusLayoutModule, NgxSmzUiBlockModule, NgxSmzUiModule, HephaestusProviderModule } from 'ngx-smz-ui';
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
 import { CommonModule } from '@angular/common';
@@ -32,7 +32,8 @@ import { smzHephaestusConfig } from '../globals/deprecated/smz-layouts.config';
     NgxsRouterPluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot(),
 
-    HephaestusLayoutModule.forRoot(smzHephaestusConfig),
+    HephaestusProviderModule.forRoot(smzHephaestusConfig),
+    HephaestusLayoutModule,
 
     // NewAthenaLayoutModule.forRoot(smzAthenaConfig),
     NgxSmzFaqsModule.forRoot(smzFaqsConfig),

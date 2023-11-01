@@ -56,23 +56,24 @@ export class DemoComplexTableComponent implements OnInit {
         for (const key of Object.keys(element)) {
           const isFrozen = false; // key === 'tag';
 
-          columns.push({
-              field: key,
-              property: key,
-              filter: { isGlobalFilterable: true, type: SmzFilterType.TEXT },
-              header: key,
-              isVisible: true,
-              hasSubTotal: false,
-              isFrozen,
-              content: { type: SmzContentType.TEXT, data: null, styleClass: '', ngStyle: {} },
-              width: 'fit',
-              headerStyleClass: '',
-              export: {
-                isExportable: false
-              },
-              actions: []
-            });
-          console.log(key, columns[columns.length - 1]);
+          // columns.push({
+          //     field: key,
+          //     property: key,
+          //     filter: { isGlobalFilterable: true, type: SmzFilterType.TEXT },
+          //     header: key,
+          //     isVisible: true,
+          //     hasSubTotal: false,
+          //     isFrozen,
+          //     content: { type: SmzContentType.TEXT, data: null, styleClass: '', ngStyle: {} },
+          //     width: 'fit',
+          //     headerStyleClass: '',
+          //     export: {
+          //       isExportable: false
+          //     },
+          //     actions: []
+          //   });
+
+          // console.log(key, columns[columns.length - 1]);
         }
 
         console.groupEnd();

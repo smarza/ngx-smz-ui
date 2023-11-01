@@ -3,7 +3,7 @@ import { Observable, of } from 'rxjs';
 import { SmzTreeBuilder, SmzTableState, SmzClipboardService, SmzFilterType, SmzTreeState } from 'ngx-smz-ui';
 import { TreeNode } from 'primeng/api';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-demo-trees',
@@ -15,9 +15,18 @@ export class DemoTreesComponent implements OnInit {
   public items$: Observable<TreeNode[]>;
   public treeState: SmzTreeState;
   public loading = false;
+  public selectionIds: string[] = [];
   constructor(private http: HttpClient) {
 
-    this.items$ = this.http.get<{data: TreeNode[]}>('assets/files.json').pipe(map(x => x.data));
+    this.items$ = this.http
+      .get<{data: TreeNode[]}>('assets/tree-profiles.json')
+      .pipe(
+        map(x => x.data),
+        tap(x => {
+          console.log('tap', x);
+          this.selectionIds = ['0eafdff0-9257-47a0-a886-08dbdabbcc83', '3cea3867-43f9-4546-a887-08dbdabbcc83'];
+        })
+        );
   }
 
   ngOnInit() {
@@ -35,6 +44,7 @@ export class DemoTreesComponent implements OnInit {
 
     this.treeState = new SmzTreeBuilder()
       .setTitle('My awesome tree')
+      .setSelection('checkbox')
       .menu()
         .caption('Novo')
           .item('Arquivo text')
