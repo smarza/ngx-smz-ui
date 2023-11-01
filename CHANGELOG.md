@@ -5,7 +5,7 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
-## [16.3.2] - 2023-11-01
+## [16.3.3] - 2023-11-01
 
 ### Melhorias
 - SmzUiTree - Lógica de Seleção Aprimorada:
@@ -13,6 +13,8 @@ Introduzimos uma lógica de seleção melhorada para a SmzUiTree.
 Agora, a árvore considera tanto preenchimentos parciais quanto totais ao selecionar nós.
 Se todos os filhos de um nó estiverem completamente selecionados até o final do seu branch, esse nó é considerado totalmente selecionado.
 Se alguns (mas não todos) filhos de um nó estiverem selecionados, o nó é marcado como parcialmente selecionado (partialSelected = true).
+
+Nota importante: os itens selecionados na árvore agora passaram a incluir os pais. Atentar para filtrar pelos itens selecionados que possuem leaf = true para identificar apenas os nós finais selecionados.
 
 ## [16.3.1] - 2023-10-06
 

@@ -23,7 +23,6 @@ export class DemoTreesComponent implements OnInit {
       .pipe(
         map(x => x.data),
         tap(x => {
-          console.log('tap', x);
           this.selectionIds = ['0eafdff0-9257-47a0-a886-08dbdabbcc83', '3cea3867-43f9-4546-a887-08dbdabbcc83'];
         })
         );
@@ -31,13 +30,6 @@ export class DemoTreesComponent implements OnInit {
 
   ngOnInit() {
     this.setupTree();
-
-    // setTimeout(() => {
-    //   this.tableState = null;
-    //   setTimeout(() => {
-    //     this.setupTable();
-    //   }, 2000);
-    // }, 2000);
   }
 
   public setupTree(): void {

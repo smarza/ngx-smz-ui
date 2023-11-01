@@ -144,9 +144,6 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
           .setDefaultKeyProperty(this.selectionKey)
           .select(this.selection);
 
-        console.log('-- selection', this.selection);
-        console.log('-- primeSelection', this.primeSelection);
-        console.log('-- treeItems', this.treeItems);
         this.selectedNodes.emit(this.primeSelection);
         this.selectionChange.emit(null);
       }
