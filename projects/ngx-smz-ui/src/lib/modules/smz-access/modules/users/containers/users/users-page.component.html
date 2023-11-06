@@ -12,7 +12,7 @@
       *ngIf="uiConfig.rbkUtils.authorization.users.removalBehavior === 'deactivation'"
       [options]="viewOptions"
       [(ngModel)]="selectedView"
-      (onChange)="handleViewOptionChange($event)"
+      (onChange)="handleViewOptionChange($event.value)"
       optionLabel="label" optionValue="value">
     </p-selectButton>
 

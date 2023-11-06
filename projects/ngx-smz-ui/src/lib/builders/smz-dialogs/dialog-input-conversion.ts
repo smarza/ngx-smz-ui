@@ -574,7 +574,7 @@ export interface InputConfig {
   fileAccept?: string;
 
   showFilter?: boolean;
-  filterMatchMode?: string;
+  filterMatchMode?: 'contains' | 'startsWith' | 'endsWith' | 'equals' | 'notEquals' | 'in' | 'lt' | 'lte' | 'gt' | 'gte';
 
   required: boolean;
   minLength?: number;

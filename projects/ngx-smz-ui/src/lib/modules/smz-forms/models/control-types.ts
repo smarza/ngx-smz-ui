@@ -270,7 +270,7 @@ export interface SmzDropDownControl<T> extends SmzFormsBaseControl
     defaultValue?: T | SimpleEntity<T>;
     showFilter?: Boolean;
     autofocusFilter?: boolean;
-    filterMatchMode?: 'contains' | string;
+    filterMatchMode?: 'contains' | 'startsWith' | 'endsWith' | 'equals' | 'notEquals' | 'in' | 'lt' | 'lte' | 'gt' | 'gte';
     emptyMessage?: string;
     emptyFilterMessage?: string;
     showClear?: boolean;
@@ -283,7 +283,7 @@ export interface SmzLinkedDropDownControl<T> extends SmzFormsBaseControl
     defaultValue?: T;
     showFilter?: Boolean;
     autofocusFilter?: boolean;
-    filterMatchMode?: 'contains' | string;
+    filterMatchMode?: 'contains' | 'startsWith' | 'endsWith' | 'equals' | 'notEquals' | 'in' | 'lt' | 'lte' | 'gt' | 'gte';
     dependsOn?: { propertyName: string, formId?: string };
     emptyMessage?: string;
     emptyFilterMessage?: string;
@@ -296,7 +296,7 @@ export interface SmzLinkedMultiSelectControl<T> extends SmzFormsBaseControl
     defaultValue?: T[];
     showFilter?: Boolean;
     autofocusFilter?: boolean;
-    filterMatchMode?: 'contains' | string;
+    filterMatchMode?: 'contains' | 'startsWith' | 'endsWith' | 'equals' | 'notEquals' | 'in' | 'lt' | 'lte' | 'gt' | 'gte';
     dependsOn?: { propertyName: string, formId?: string };
     defaultLabel?: string;
     emptyMessage?: string;
@@ -311,7 +311,7 @@ export interface SmzMultiSelectControl<T> extends SmzFormsBaseControl
     defaultValue?: T[] | SimpleEntity<T>[];
     showFilter?: Boolean;
     autofocusFilter?: boolean;
-    filterMatchMode?: 'contains' | string;
+    filterMatchMode?: 'contains' | 'startsWith' | 'endsWith' | 'equals' | 'notEquals' | 'in' | 'lt' | 'lte' | 'gt' | 'gte';
     defaultLabel?: string;
     emptyMessage?: string;
     emptyFilterMessage?: string;

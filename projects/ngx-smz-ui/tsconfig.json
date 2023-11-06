@@ -21,8 +21,8 @@
     "allowSyntheticDefaultImports": true,
     "types": [],
     "lib": [
-      "dom",
-      "es2018"
+      "ES2022",
+      "dom"
     ],
     "paths": {
       "@environments/*": ["projects/ngx-smz-ui/src/lib/environments/*"],
@@ -33,10 +33,11 @@
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
-    "strictTemplates": true,
     "skipTemplateCodegen": true,
     "strictMetadataEmit": true,
     "enableResourceInlining": true,
+    "noImplicitAny": false,
+    "strictTemplates": true,
   },
   "exclude": [
     "src/test.ts",

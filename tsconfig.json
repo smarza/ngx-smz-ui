@@ -8,10 +8,15 @@
     "downlevelIteration": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",
-    "resolveJsonModule": true,
     "importHelpers": true,
+    "resolveJsonModule": true,
     "target": "ES2022",
-    "module": "es2020",
+    "module": "ES2022",
+    "noImplicitThis": false,
+    "lib": [
+      "ES2022",
+      "dom"
+    ],
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
@@ -20,11 +25,8 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "suppressImplicitAnyIndexErrors": true,
+    "ignoreDeprecations": "5.0",
     "preserveSymlinks": true,
-    "lib": [
-      "es2018",
-      "dom"
-    ],
     "useDefineForClassFields": false
   },
   "angularCompilerOptions": {

@@ -56,7 +56,7 @@ export const ContentConvertions: ContentConvertionData[] = [
     isGlobalFilterable: true,
     filterType: SmzFilterType.MULTI_SELECT,
     content: () => ({ type: SmzContentType.TEXT, contentStyleClass: 'grid grid-nogutter items-center justify-start gap-2', styleClass: '', data: null, ngStyle: {}, exportAs: null, exportSource: SmzExportableContentSource.DATA }),
-    editable: (input: SmzDropDownControl<never>) => (
+    editable: (input: any) => (
       {
         property: input.propertyName,
         type: SmzEditableType.DROPDOWN,

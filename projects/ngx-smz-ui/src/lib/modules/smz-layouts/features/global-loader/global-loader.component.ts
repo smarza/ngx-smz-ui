@@ -43,7 +43,8 @@ export class GlobalLoaderComponent implements OnInit
     this.router.events
       .pipe(filter(e => e instanceof RouteConfigLoadStart || e instanceof RouteConfigLoadEnd))
       .subscribe(
-        (event: RouterEvent): void =>
+        // (event: RouterEvent): void =>
+        (event: any): void =>
         {
           if (event instanceof RouteConfigLoadStart)
           {

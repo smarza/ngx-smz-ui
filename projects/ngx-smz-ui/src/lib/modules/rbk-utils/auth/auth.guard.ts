@@ -1,4 +1,4 @@
-import { Injectable, Injector, ReflectiveInjector, Inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { CanActivate, ActivatedRouteSnapshot } from '@angular/router';
 import { AuthenticationSelectors } from '../../../state/global/authentication/authentication.selectors';
