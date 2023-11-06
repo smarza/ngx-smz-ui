@@ -50,7 +50,7 @@ export class SmzDialogsVisibilityService
 
     public setValue(input: SmzCheckBoxControl, formId: string, onChangeDropdownEvent: any): void
     {
-        // console.log('setValue', onChangeDropdownEvent);
+        // console.log('setValue 1', onChangeDropdownEvent);
         const dependsOn = formId + input.propertyName;
         const data = this.dependsOn[dependsOn];
         let eventValue = null;
@@ -62,7 +62,7 @@ export class SmzDialogsVisibilityService
                 break;
 
             case SmzControlType.DROPDOWN:
-                eventValue = onChangeDropdownEvent.value.id;
+                eventValue = onChangeDropdownEvent.value?.id;
                 break;
             default:
                 break;

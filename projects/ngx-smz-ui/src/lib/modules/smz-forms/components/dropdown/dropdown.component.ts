@@ -5,6 +5,7 @@ import { SmzFormsBehaviorsConfig } from '../../models/behaviors';
 import { SmzDropDownControl } from '../../models/control-types';
 import { SmzFormsDropdownService } from '../../services/smz-forms-dropdown.service';
 import { SmzFormsVisibilityService } from '../../services/smz-forms-visibility.service';
+import { DropdownChangeEvent } from 'primeng/dropdown';
 
 @Component({
     selector: 'smz-dropdown',
@@ -36,7 +37,7 @@ export class DropdownComponent implements OnInit
         }
     }
 
-    public emitChange(input: SmzDropDownControl<any>, formId: string, event: any): void
+    public emitChange(input: SmzDropDownControl<any>, formId: string, event: DropdownChangeEvent): void
     {
         this.dropdownService.setValue(input, formId, event);
         this.dialogVisibility.setValue(input, formId, event);
