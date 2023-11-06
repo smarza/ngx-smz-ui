@@ -11,7 +11,7 @@ import { WarehousesDbActions } from '@states/database/warehouses/warehouses.acti
 import { DemoFeatureActions } from '@states/demo/demo.actions';
 import { rbkConfig } from './rbk-config';
 
-export const UiConfigBuilder: SmzUiBuilder = new SmzUiBuilder()
+export const UiBuilder: SmzUiBuilder = new SmzUiBuilder()
 .setApplicationName('Overview Demo')
 .setDialogsConfigManually(smzDialogsConfig) // Temporally
 .disableDiagnostics()

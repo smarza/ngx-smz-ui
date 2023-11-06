@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 
 @Component({
-  selector: '[smz-ui-athena-horizontal-menu-node]',
+  selector: '[smz-ui-new-athena-horizontal-menu-node]',
   template: `
       <ng-container *ngFor="let subItem of item.items | isVisible; let subItemIndex = index;">
 
@@ -28,8 +28,8 @@ import { MenuItem } from 'primeng/api';
                     </a>
 
                     <ng-container *ngIf="subItem.expanded">
-                      <ul smz-ui-athena-horizontal-menu-node [item]="subItem" [currentUrl]="currentUrl" (collapse)="collapse.emit()"
-                              role="menu" style="z-index: 100;" class="smz-ui-athena-horizontal-menu-node"></ul>
+                      <ul smz-ui-new-athena-horizontal-menu-node [item]="subItem" [currentUrl]="currentUrl" (collapse)="collapse.emit()"
+                              role="menu" style="z-index: 100;" class="smz-ui-new-athena-horizontal-menu-node"></ul>
                     </ng-container>
 
                 </li>
@@ -41,7 +41,7 @@ import { MenuItem } from 'primeng/api';
   `,
 })
 
-export class AthenaHorizontalMenuNodeComponent implements OnInit {
+export class NewAthenaHorizontalMenuNodeComponent implements OnInit {
   @Input() public item: MenuItem;
   @Input() public index: number;
   @Input() public currentUrl: string;

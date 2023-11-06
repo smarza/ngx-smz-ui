@@ -26,7 +26,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { SmzEditableSourcePipe } from './pipes/editable-source.pipe';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { SmzContentErrorsPipe } from './pipes/content-errors.pipe';
-import { ValidationMessagesComponent } from './components/validation-messages/validation-messages.component';
+import { SmzTableValidationMessagesComponent } from './components/validation-messages/validation-messages.component';
 import { ValidationMessagesPipe } from './components/validation-messages/validation-messages.pipe';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputNumberModule } from 'primeng/inputnumber';
@@ -52,7 +52,7 @@ import { SmzTableHeaderActionsComponent } from './components/table-header-action
         SmzColumnFilter2Component,
         SmzEditableSourcePipe,
         SmzContentErrorsPipe,
-        ValidationMessagesComponent,
+        SmzTableValidationMessagesComponent,
         ValidationMessagesPipe,
         SmzSincronizeTablePipe,
         SmzTableContentComponent,

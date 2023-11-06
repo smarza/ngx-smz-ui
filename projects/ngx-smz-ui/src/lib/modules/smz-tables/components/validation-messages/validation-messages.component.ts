@@ -3,10 +3,10 @@ import { ValidationErrors } from '@angular/forms';
 import { ValidationMessage } from '../../../smz-forms/models/advanced';
 
 @Component({
-    selector: 'smz-validation-messages',
+    selector: 'smz-table-validation-messages',
     templateUrl: './validation-messages.component.html',
 })
-export class ValidationMessagesComponent implements OnInit
+export class SmzTableValidationMessagesComponent implements OnInit
 {
     @Input() public errors: ValidationErrors;
     @Input() public messages: ValidationMessage[];

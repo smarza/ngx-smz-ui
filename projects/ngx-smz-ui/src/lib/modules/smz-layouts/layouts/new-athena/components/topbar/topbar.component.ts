@@ -14,12 +14,12 @@ import { GlobalInjector } from '../../../../../../common/services/global-injecto
 
 @UntilDestroy()
 @Component({
-  selector: 'smz-ui-athena-topbar',
+  selector: 'smz-ui-new-athena-topbar',
   templateUrl: './topbar.component.html',
   styleUrls: ['./topbar.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default,
 })
-export class AthenaTopbarComponent implements AfterContentInit
+export class NewAthenaTopbarComponent implements AfterContentInit
 {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
   @Select(LayoutUiSelectors.topbarTitle) public topbarTitle$: Observable<string>;

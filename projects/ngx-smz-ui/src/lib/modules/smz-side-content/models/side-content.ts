@@ -4,7 +4,7 @@ export interface SmzSideContent {
   // overlay?: boolean;
   fullScreen?: boolean;
   styleClass?: string;
-  style?: string;
+  style?: { [klass: string]: any } | null | undefined;
   blockScroll?: boolean;
   dismissible?: boolean;
   modal?: boolean;

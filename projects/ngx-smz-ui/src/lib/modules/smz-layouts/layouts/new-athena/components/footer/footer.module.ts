@@ -1,14 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { AthenaFooterComponent } from './footer.component';
+import { NewAthenaFooterComponent } from './footer.component';
 import { SidebarModule } from 'primeng/sidebar';
 
 @NgModule({
-  declarations: [AthenaFooterComponent],
+  declarations: [NewAthenaFooterComponent],
   imports: [
     CommonModule,
     SidebarModule,
   ],
-  exports: [AthenaFooterComponent]
+  exports: [NewAthenaFooterComponent]
 })
 export class SmzAthenaFooterModule { }

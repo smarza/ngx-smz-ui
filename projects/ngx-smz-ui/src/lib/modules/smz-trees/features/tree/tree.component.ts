@@ -1,5 +1,5 @@
 import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core'
-import { MenuItem, PrimeTemplate, TreeDragDropService } from 'primeng/api';
+import { MenuItem, PrimeTemplate, TreeDragDropService, TreeNode } from 'primeng/api';
 import { SmzTreeDragEvent, SmzTreeDragResult } from '../../models/drag-and-drop';
 import { SmzTreeMenuItem } from '../../models/tree-menu-item';
 import { SmzTreeNode } from '../../models/tree-node';
@@ -7,6 +7,7 @@ import { SmzTreeContext, SmzTreeState } from '../../models/tree-state';
 import { getTreeNodeFromKey, isArray, uuidv4 } from '../../../../common/utils/utils';
 import { TreeHelperService } from '../../services/tree-helper.service';
 import { SmzNodeHelper } from '../../models/node-helper';
+import { TreeNodeCollapseEvent, TreeNodeDropEvent, TreeNodeExpandEvent, TreeNodeSelectEvent, TreeNodeUnSelectEvent } from 'primeng/tree';
 
 @Component({
   selector: 'smz-ui-tree',
@@ -22,9 +23,9 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
   public treeItems: SmzTreeNode[] = [];
   @Input() public loading: boolean = false;
   @Input() public styleClass = '';
-  @Input() public inlineStyle = '';
+  @Input() public inlineStyle: { [klass: string]: any } = {};
   @Input() public appendTo = 'body';
-  public primeSelection: SmzTreeNode[] = [];
+  public primeSelection: TreeNode<any> | TreeNode<any>[] | any[] | any = [];
   @Input() public selection: string[] = [];
   @Input() public selectionKey: string = 'key';
 
@@ -240,11 +241,11 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
     // }
   }
 
-  public onUnselected(event: { originalEvent: MouseEvent, node: SmzTreeNode }): void {
+  public onUnselected(event: TreeNodeUnSelectEvent): void {
     this.selectedNodes.emit(this.primeSelection);
   }
 
-  public onSelected(event: { originalEvent: MouseEvent, node: SmzTreeNode }): void {
+  public onSelected(event: TreeNodeSelectEvent): void {
 
     this.selectedNodes.emit(this.primeSelection);
 
@@ -255,15 +256,15 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
     }
   }
 
-  public onExpanded(event: { originalEvent: MouseEvent, node: SmzTreeNode }): void {
+  public onExpanded(event: TreeNodeExpandEvent): void {
     this.nodeExpanded.emit({ node: event.node });
   }
 
-  public onCollapsed(event: { originalEvent: MouseEvent, node: SmzTreeNode }): void {
+  public onCollapsed(event: TreeNodeCollapseEvent): void {
     this.nodeCollapsed.emit({ node: event.node });
   }
 
-  public onContextMenuOpen(event: { originalEvent: MouseEvent, node: SmzTreeNode }): void {
+  public onContextMenuOpen(event: TreeNodeCollapseEvent): void {
     if (this.state.menu.isVisible) {
       this.menuItems = this.convertMenu(this.state.menu.items, event.node);
       this.cdr.markForCheck();
@@ -365,7 +366,7 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
   // Inicialmente ele verifica se a operação é permitida e envia o accept para o prime, entretanto
   // o dados do evento só podem ser lidos depois de um tempo pre-definido porque o parent do nó
   // só é atualizado depois que a ui processa a operação.
-  public onDropped(event: { originalEvent: DragEvent, dragNode: SmzTreeNode, dropNode: SmzTreeNode, dropIndex: number, index: number, accept: () => void }): void {
+  public onDropped(event: TreeNodeDropEvent): void {
     const isAllowed = this.check(event);
 
     if (isAllowed) {
@@ -431,7 +432,7 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
 
 
     // Método que verifica se uma operação é permitida ou não, baseado nas regras da configuração
-    public check(event: { originalEvent: any, dragNode: SmzTreeNode, dropNode: SmzTreeNode, dropIndex: number, index: number, accept: () => void }): boolean {
+    public check(event: TreeNodeDropEvent): boolean {
       // console.log(`D&D: Dropped [${event.dragNode.label} (${event.dragNode.type})] into [${event.dropNode.label} (${event.dropNode.type})], index=${event.index}`);
 
       // if (event.dropNode.data.isVirtual == null) {
@@ -487,7 +488,11 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
       let dropType = event.dropNode.type;
       let dropNode = event.dropNode;
       let dropPlace = 'node';
-      if (event.originalEvent.path[0].className.indexOf('droppoint') > -1) {
+
+      const target = event.originalEvent;
+      // TODO: Verificar se existe path em target
+
+      if ((target as any)?.path[0]?.className.indexOf('droppoint') > -1) {
         dropType = (event?.dropNode?.parent?.type) ?? 'ROOT';
         dropNode = event?.dropNode?.parent;
         dropPlace = 'between';

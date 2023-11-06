@@ -12,14 +12,14 @@ import { RouterState } from '@ngxs/router-plugin';
 
 @UntilDestroy()
 @Component({
-  selector: 'smz-ui-athena-horizontal-menu',
+  selector: 'smz-ui-new-athena-horizontal-menu',
   templateUrl: './horizontal-menu.component.html',
   styleUrls: ['./horizontal-menu.component.scss'],
   host: { "(document:click)": "collapseFromOutside($event)" },
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AthenaHorizontalMenuComponent implements OnInit, AfterContentInit, OnChanges {
+export class NewAthenaHorizontalMenuComponent implements OnInit, AfterContentInit, OnChanges {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
   @Select(LayoutUiSelectors.topbarTitle) public topbarTitle$: Observable<string>;
   @Select(LayoutUiSelectors.appContentLogo) public appLogo$: Observable<SmzAppLogo>;

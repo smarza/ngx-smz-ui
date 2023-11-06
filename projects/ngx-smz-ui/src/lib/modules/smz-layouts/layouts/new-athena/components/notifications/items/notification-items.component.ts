@@ -2,7 +2,7 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmi
 import { SmzNotification } from '../../../../../core/models/notifications';
 
 @Component({
-  selector: "[smz-ui-athena-notification-items]",
+  selector: "[smz-ui-new-athena-notification-items]",
   host: { "(document:click)": "collapse($event)" },
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./notification-items.component.scss'],
@@ -18,7 +18,7 @@ import { SmzNotification } from '../../../../../core/models/notifications';
     </li>
   `,
 })
-export class AthenaNotificationItemsComponent implements OnInit, AfterViewInit {
+export class NewAthenaNotificationItemsComponent implements OnInit, AfterViewInit {
   @Input() public items: SmzNotification[];
   @Output() public onClose: EventEmitter<void> = new EventEmitter<void>();
   private isLoaded = false;

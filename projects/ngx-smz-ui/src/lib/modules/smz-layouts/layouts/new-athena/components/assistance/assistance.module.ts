@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { AthenaAssistanceComponent } from './assistance.component';
+import { NewAthenaAssistanceComponent } from './assistance.component';
 import { SharedModule } from 'primeng/api';
 import { SidebarModule } from 'primeng/sidebar';
 import { ButtonModule } from 'primeng/button';
@@ -12,7 +12,7 @@ import { InputBlurDetectionModule } from '../../../../../../common/input-detecti
 import { GlobalAssistanceModule } from '../../../../features/global-assistance/global-assistance.module';
 
 @NgModule({
-  declarations: [AthenaAssistanceComponent],
+  declarations: [NewAthenaAssistanceComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -25,6 +25,6 @@ import { GlobalAssistanceModule } from '../../../../features/global-assistance/g
     InputBlurDetectionModule,
     GlobalAssistanceModule
   ],
-  exports: [AthenaAssistanceComponent]
+  exports: [NewAthenaAssistanceComponent]
 })
 export class AthenaAssistanceModule { }

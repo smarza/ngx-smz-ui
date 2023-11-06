@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { GlobalInjector } from '../../../../../../common/services/global-injector';
 
 @Component({
-  selector: "[smz-ui-athena-profile-menu]",
+  selector: "[smz-ui-new-athena-profile-menu]",
   host: { "(document:click)": "collapse($event)" },
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
@@ -24,10 +24,10 @@ import { GlobalInjector } from '../../../../../../common/services/global-injecto
           <i class="profile-submenu-icon pi pi-angle-down"></i>
         </ng-template>
       </a>
-      <ul *ngIf="isExpanded" class="topbar-menu fadeInDown topbar-menu-visible" smz-ui-athena-profile-menu-items [items]="profile" (collapse)="isExpanded = false"></ul>
+      <ul *ngIf="isExpanded" class="topbar-menu fadeInDown topbar-menu-visible" smz-ui-new-athena-profile-menu-items [items]="profile" (collapse)="isExpanded = false"></ul>
   `,
 })
-export class AthenaProfileMenuComponent implements OnInit, AfterViewInit {
+export class NewAthenaProfileMenuComponent implements OnInit, AfterViewInit {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
   @Input() public profile: MenuItem[] = [];
   @Select(AuthenticationSelectors.userdata) public userData$: Observable<never>;

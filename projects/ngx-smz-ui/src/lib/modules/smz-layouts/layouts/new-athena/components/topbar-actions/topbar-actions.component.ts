@@ -4,7 +4,7 @@ import { SmzNotification } from '../../../../core/models/notifications';
 import { GlobalInjector } from '../../../../../../common/services/global-injector';
 
 @Component({
-  selector: '[smz-ui-athena-topbar-actions]',
+  selector: '[smz-ui-new-athena-topbar-actions]',
   changeDetection: ChangeDetectionStrategy.Default,
   styleUrls: ['./topbar-actions.component.scss'],
   template: `
@@ -28,14 +28,14 @@ import { GlobalInjector } from '../../../../../../common/services/global-injecto
           </ng-container>
 
           <ng-template #modelDrivenNotificationsTemplate>
-            <span class="notification-container" *ngIf="notifications != null" smz-ui-athena-notifications [items]="notifications"></span>
+            <span class="notification-container" *ngIf="notifications != null" smz-ui-new-athena-notifications [items]="notifications"></span>
           </ng-template>
 
           <smz-localization-switch class="mx-3"></smz-localization-switch>
 
           <smz-tenant-switch class="mx-3"></smz-tenant-switch>
 
-          <span id="smz-ui-profile-menu" *ngIf="profile != null" smz-ui-athena-profile-menu [profile]="profile"></span>
+          <span id="smz-ui-profile-menu" *ngIf="profile != null" smz-ui-new-athena-profile-menu [profile]="profile"></span>
 
         </ng-template>
 
@@ -53,12 +53,12 @@ import { GlobalInjector } from '../../../../../../common/services/global-injecto
           </ng-container>
 
           <ng-template #modelDrivenNotificationsTemplate>
-            <span class="notification-container" *ngIf="notifications != null" smz-ui-athena-notifications [items]="notifications"></span>
+            <span class="notification-container" *ngIf="notifications != null" smz-ui-new-athena-notifications [items]="notifications"></span>
           </ng-template>
 
           <smz-tenant-switch class="mx-3"></smz-tenant-switch>
 
-          <span id="smz-ui-profile-menu" *ngIf="profile != null" smz-ui-athena-profile-menu [profile]="profile"></span>
+          <span id="smz-ui-profile-menu" *ngIf="profile != null" smz-ui-new-athena-profile-menu [profile]="profile"></span>
 
         </ng-template>
 

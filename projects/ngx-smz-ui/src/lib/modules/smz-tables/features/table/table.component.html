@@ -313,7 +313,7 @@
                                                     <ng-container *ngIf="form.controls[col.editable.property] as control">
                                                         <div class="relative w-full">
                                                             <input pInputText type="text" [formControl]="$any(control)" style="width: 100%;">
-                                                            <smz-validation-messages [errors]="control.errors" [messages]="uiConfig.dialogs.forms.validationMessages" [isFormInvalid]="form.invalid" [isFormDirty]="form.dirty"></smz-validation-messages>
+                                                            <smz-table-validation-messages [errors]="control.errors" [messages]="uiConfig.dialogs.forms.validationMessages" [isFormInvalid]="form.invalid" [isFormDirty]="form.dirty"></smz-table-validation-messages>
                                                         </div>
                                                     </ng-container>
                                                 </ng-container>
@@ -338,7 +338,7 @@
                                                                 [prefix]="numberData.prefix"
                                                                 [suffix]="numberData.suffix">
                                                             </p-inputNumber>
-                                                            <smz-validation-messages [errors]="control.errors" [messages]="uiConfig.dialogs.forms.validationMessages" [isFormInvalid]="form.invalid" [isFormDirty]="form.dirty"></smz-validation-messages>
+                                                            <smz-table-validation-messages [errors]="control.errors" [messages]="uiConfig.dialogs.forms.validationMessages" [isFormInvalid]="form.invalid" [isFormDirty]="form.dirty"></smz-table-validation-messages>
                                                         </div>
                                                     </ng-container>
                                                 </ng-container>
@@ -350,7 +350,7 @@
                                                     <ng-container *ngIf="form.controls[col.editable.property] as control">
                                                         <div class="relative w-full">
                                                             <p-inputSwitch [formControl]="$any(control)"></p-inputSwitch>
-                                                            <smz-validation-messages [errors]="control.errors" [messages]="uiConfig.dialogs.forms.validationMessages" [isFormInvalid]="form.invalid" [isFormDirty]="form.dirty"></smz-validation-messages>
+                                                            <smz-table-validation-messages [errors]="control.errors" [messages]="uiConfig.dialogs.forms.validationMessages" [isFormInvalid]="form.invalid" [isFormDirty]="form.dirty"></smz-table-validation-messages>
                                                         </div>
                                                     </ng-container>
                                                 </ng-container>
@@ -362,7 +362,7 @@
                                                     <ng-container *ngIf="form.controls[col.editable.property] as control">
                                                         <div class="relative w-full">
                                                             <textarea pInputTextarea type="text" [formControl]="$any(control)" [rows]="$any(col.editable.data).rows" required style="width: 100%;"></textarea>
-                                                            <smz-validation-messages [errors]="control.errors" [messages]="uiConfig.dialogs.forms.validationMessages" [isFormInvalid]="form.invalid" [isFormDirty]="form.dirty"></smz-validation-messages>
+                                                            <smz-table-validation-messages [errors]="control.errors" [messages]="uiConfig.dialogs.forms.validationMessages" [isFormInvalid]="form.invalid" [isFormDirty]="form.dirty"></smz-table-validation-messages>
                                                         </div>
                                                     </ng-container>
                                                 </ng-container>
@@ -374,7 +374,7 @@
                                                     <ng-container *ngIf="form.controls[col.editable.property] as control">
                                                         <div class="relative w-full">
                                                             <p-dropdown [formControl]="$any(control)" appendTo="body" styleClass="w-full" [options]="col.editable.data | editableSource" optionLabel="name" dataKey="id" [placeholder]="$any(col.editable.data).placeholder" [showClear]="!col.editable.validatorsPreset?.isRequired" [filter]="true"></p-dropdown>
-                                                            <smz-validation-messages [errors]="control.errors" [messages]="uiConfig.dialogs.forms.validationMessages" [isFormInvalid]="form.invalid" [isFormDirty]="form.dirty"></smz-validation-messages>
+                                                            <smz-table-validation-messages [errors]="control.errors" [messages]="uiConfig.dialogs.forms.validationMessages" [isFormInvalid]="form.invalid" [isFormDirty]="form.dirty"></smz-table-validation-messages>
                                                         </div>
                                                     </ng-container>
                                                 </ng-container>
@@ -386,7 +386,7 @@
                                                     <ng-container *ngIf="form.controls[col.editable.property] as control">
                                                         <div class="relative w-full">
                                                             <p-calendar [formControl]="$any(control)" appendTo="body" styleClass="w-full" [ngClass]="{ 'pl-5': !control.valid }"></p-calendar>
-                                                            <smz-validation-messages [errors]="control.errors" [messages]="uiConfig.dialogs.forms.validationMessages" [isFormInvalid]="form.invalid" [isFormDirty]="form.dirty"></smz-validation-messages>
+                                                            <smz-table-validation-messages [errors]="control.errors" [messages]="uiConfig.dialogs.forms.validationMessages" [isFormInvalid]="form.invalid" [isFormDirty]="form.dirty"></smz-table-validation-messages>
                                                         </div>
                                                     </ng-container>
                                                 </ng-container>

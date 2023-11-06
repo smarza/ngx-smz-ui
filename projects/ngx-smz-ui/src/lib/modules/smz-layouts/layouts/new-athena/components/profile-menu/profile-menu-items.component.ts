@@ -2,7 +2,7 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmi
 import { MenuItem } from 'primeng/api';
 
 @Component({
-  selector: "[smz-ui-athena-profile-menu-items]",
+  selector: "[smz-ui-new-athena-profile-menu-items]",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <li *ngFor="let item of items | isVisible; let index = index" [ngClass]="{ 'menuitem-active' : item.expanded }">
@@ -23,7 +23,7 @@ import { MenuItem } from 'primeng/api';
             <span class="topbar-item-name" [innerHtml]="item.label"></span>
             <span *ngIf="item.badge != null" class="topbar-badge">{{ item.badge }}</span>
           </a>
-          <ul *ngIf="item.expanded" smz-ui-athena-profile-menu-items [items]="item.items"></ul>
+          <ul *ngIf="item.expanded" smz-ui-new-athena-profile-menu-items [items]="item.items"></ul>
         </ng-container>
 
       </ng-container>
@@ -31,7 +31,7 @@ import { MenuItem } from 'primeng/api';
     </li>
   `,
 })
-export class AthenaProfileMenuItemsComponent implements OnInit, AfterViewInit {
+export class NewAthenaProfileMenuItemsComponent implements OnInit, AfterViewInit {
 
   @Input() public items: MenuItem[];
   @Output() public collapse: EventEmitter<void> = new EventEmitter<void>();

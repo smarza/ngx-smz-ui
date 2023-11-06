@@ -12,12 +12,12 @@ import { GlobalInjector } from '../../../../../../common/services/global-injecto
 
 @UntilDestroy()
 @Component({
-  selector: 'smz-ui-athena-footer',
+  selector: 'smz-ui-new-athena-footer',
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss'],
   host: { 'class': 'z-10' }
 })
-export class AthenaFooterComponent implements OnInit, AfterContentInit
+export class NewAthenaFooterComponent implements OnInit, AfterContentInit
 {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
   @Select(UiAthenaSelectors.state) public state$: Observable<LayoutState>;

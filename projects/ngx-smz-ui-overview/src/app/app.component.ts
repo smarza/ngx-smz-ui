@@ -1,11 +1,34 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 import { Store } from '@ngxs/store';
-import { MenuHelperService, ThemeManagerService, BoilerplateService, CLAIMS_PAGE_ROUTE, ROLES_PAGE_ROUTE } from 'ngx-smz-ui';
+import { MenuHelperService, ThemeManagerService, BoilerplateService, CLAIMS_PAGE_ROUTE, ROLES_PAGE_ROUTE, NewAthenaLayoutModule, RbkAccessControlModule } from 'ngx-smz-ui';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterOutlet,
+
+    // Layout
+    NewAthenaLayoutModule,
+
+    // Shared Modules
+    RbkAccessControlModule
+  ],
+  template: `
+<smz-ui-new-athena-layout [profile]="menuService.profile">
+  <router-outlet></router-outlet>
+  <ng-template pTemplate="headerExtras">
+    <div class="col grid grid-nogutter items-center justify-start flex-nowrap gap-4">
+      <div class="col">mega</div>
+      <div>search</div>
+      <div>uns</div>
+    </div>
+  </ng-template>
+</smz-ui-new-athena-layout>
+  `,
 })
 export class AppComponent {
   constructor(private store: Store, private boilerplateService: BoilerplateService, public menuService: MenuHelperService, private themeManager: ThemeManagerService) {
