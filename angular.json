@@ -192,7 +192,10 @@
               "core-js",
               "rgbcolor",
               "moment",
-              "openai"
+              "openai",
+              "angular2-uuid",
+              "html2canvas",
+              "lodash"
             ],
             "inlineStyleLanguage": "scss",
             "assets": [
