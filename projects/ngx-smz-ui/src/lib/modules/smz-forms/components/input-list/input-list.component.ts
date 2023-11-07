@@ -9,6 +9,7 @@ import { SmzListControl } from '../../models/control-types';
 import { SimpleEntity } from '../../../../../lib/common/models/simple-named-entity';
 import { UUID } from 'angular2-uuid';
 import { MustBeUnique } from '../../../../common/utils/custom-validations';
+import { ListboxClickEvent } from 'primeng/listbox';
 
 @Component({
   selector: 'smz-input-list',
@@ -25,7 +26,7 @@ export class InputListComponent {
   constructor(private cdf: ChangeDetectorRef, private store: Store, private actions$: Actions, public fb: UntypedFormBuilder) {
   }
 
-  public onClick(event: { option: SimpleEntity<any>, value: string }): void {
+  public onClick(event: ListboxClickEvent): void {
       this.isInlineEditingEnabled = false;
       this.editForm = null;
 
