@@ -7,13 +7,15 @@ import { SmzMenuPipe } from './pipes/smz-menu.pipe';
 import { SmzMenuModule } from './components/menu';
 import { SmzFlattenMenuPipe } from './pipes/smz-flatten-menu.pipe';
 import { SmzMenuItemActionsDirective } from './directives/menu-item-actions.directive';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   imports: [
     CommonModule,
     ButtonModule,
     SharedModule,
-    SmzMenuModule
+    SmzMenuModule,
+    TooltipModule
   ],
   exports: [
     SmzMenuComponent,

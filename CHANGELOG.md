@@ -5,6 +5,9 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
+## [16.4.3] - 2023-11-10
+Tooltip
+
 ## [16.3.3] - 2023-11-01
 
 ### Melhorias

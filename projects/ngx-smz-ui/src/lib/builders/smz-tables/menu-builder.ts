@@ -123,6 +123,11 @@ export class SmzMenuItemTableBuilder<TBuilder, TData, TMappedData = TData> exten
     return this.that;
   }
 
+  public setTooltip(message: string): SmzMenuItemTableBuilder<TBuilder, TData, TMappedData> {
+    this._item.tooltip = message;
+    return this.that;
+  }
+
   public get menu(): TBuilder {
     return this._builder;
   }
