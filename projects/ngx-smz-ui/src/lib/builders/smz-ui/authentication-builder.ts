@@ -13,6 +13,16 @@ export class SmzUiAuthenticationBuilder extends SmzBuilderUtilities<SmzUiAuthent
     return this.that;
   }
 
+  public setAuthenticatedRoot(path: string): SmzUiAuthenticationBuilder {
+    this._builder._state.rbkUtils.authentication.authenticatedRoot = path;
+    return this.that;
+  }
+
+  public setNonAuthenticatedRoot(path: string): SmzUiAuthenticationBuilder {
+    this._builder._state.rbkUtils.authentication.nonAuthenticatedRoot = path;
+    return this.that;
+  }
+
   public mapAccessTokenData(from: string, to: string, type: 'array' | 'string' | 'boolean'): SmzUiAuthenticationBuilder {
     this._builder._state.rbkUtils.authentication.accessTokenClaims.push({ claimName: from, propertyName: to, type });
     return this.that;

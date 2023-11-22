@@ -5,8 +5,15 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
+## [16.4.4] - 2023-11-22
+
+### Adicionado
+Adicionada a opção para definir a rota autenticada e não autenticada pelo fluente de configuração
+
 ## [16.4.3] - 2023-11-10
-Tooltip
+
+### Adicionado
+Adicionado suporte para Tooltip nos botões de ação inline da tabela.
 
 ## [16.3.3] - 2023-11-01
 
