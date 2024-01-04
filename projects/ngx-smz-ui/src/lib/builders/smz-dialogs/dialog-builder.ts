@@ -303,6 +303,17 @@ export class SmzDialogBuilder<TResponse> extends SmzBuilderUtilities<SmzDialogBu
     return this;
   }
 
+  public tableFeature(items$: Observable<any>): SmzDialogTableBuilder<TResponse> {
+    const feature: SmzDialogFeature = {
+      type: 'table',
+      data: { items$, state: null } as any,
+    };
+
+    this._state.features.push(feature);
+
+    return new SmzDialogTableBuilder(this, feature);
+  }
+
   public document(state: SmzDocumentState): SmzDialogBuilder<TResponse> {
     const data: any = { state };
     const feature: SmzDialogFeature = {
@@ -371,6 +382,27 @@ export class SmzDialogFormBuilder<TResponse> {
     return formBuilder;
 }
 
+
+  public get dialog(): SmzDialogBuilder<TResponse> {
+    return this._dialogBuilder;
+  }
+}
+
+export class SmzDialogTableBuilder<TResponse> {
+  constructor(public _dialogBuilder: SmzDialogBuilder<TResponse>, public feature: SmzDialogFeature) {
+  }
+
+  public setLayout(breakpoint: 'EXTRA_SMALL' | 'SMALL' | 'MEDIUM' | 'LARGE' | 'EXTRA_LARGE',
+    colType: 'col-1' | 'col-2' | 'col-3' | 'col-4' | 'col-5' | 'col-6' | 'col-7' | 'col-8' | 'col-9' | 'col-10' | 'col-11' | 'col-12' = null): SmzDialogTableBuilder<TResponse> {
+      const template = getSmzTemplate(breakpoint, colType) as any;
+      this.feature.template = { ...this.feature.template, ...template };
+      return this;
+  }
+
+  public addState(state: SmzTableState): SmzDialogTableBuilder<TResponse> {
+    (this.feature.data as any).state = state;
+    return this;
+}
 
   public get dialog(): SmzDialogBuilder<TResponse> {
     return this._dialogBuilder;

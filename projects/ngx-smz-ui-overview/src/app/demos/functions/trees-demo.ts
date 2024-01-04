@@ -163,6 +163,7 @@ export const TreesDemo:{ [key: string]: { items$: Observable<any[]>, code: () =>
         .useTreeEmptyMessage()
         .tree
       .enableFilter()
+      .setSelection('checkbox')
       .dataSource()
         .nested('plant')
           .addChild('topsideModules')

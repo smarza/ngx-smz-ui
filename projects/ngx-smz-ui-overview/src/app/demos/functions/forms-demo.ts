@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import { Observable, of } from 'rxjs';
 import { Store } from '@ngxs/store';
 import { SimpleNamedEntity } from '../../../../../../dist/ngx-smz-ui/lib/common/models/simple-named-entity';
+import { UntypedFormControl } from '@angular/forms';
 
 const store = GlobalInjector.instance.get(Store);
 
@@ -339,7 +340,14 @@ Exame sem intercorrências.`)
 
           })
           .useLabel('Buscar')
-          .validators().required().input
+          .validators()
+            .required()
+            .custom((control: UntypedFormControl): { [key: string]: any } => {
+              if (control.value === '123') return null;
+              return { 'testValidation': true };
+            }
+          )
+            .input
           .group
         .form
 
