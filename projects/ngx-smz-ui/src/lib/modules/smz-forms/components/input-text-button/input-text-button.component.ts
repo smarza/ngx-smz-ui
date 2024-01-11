@@ -5,6 +5,7 @@ import { SmzFormsBehaviorsConfig } from '../../models/behaviors';
 import { SmzTextButtonControl } from '../../models/control-types';
 import { SmzFormViewdata } from '../../models/form-viewdata';
 import { AbstractControl } from '@angular/forms';
+import { isEmpty } from '../../../rbk-utils/utils/utils';
 
 @UntilDestroy()
 @Component({
@@ -47,6 +48,14 @@ export class InputTextButtonComponent implements OnInit {
 
         });
 
+        if (!isEmpty(this.input.defaultValue)) {
+            this.input.isButtonValid = this.control.valid;
+            this.input.buttonMessages = [];
+            this.blocked = false;
+
+            this.viewdata.getData();
+        }
+
     }
 
     public emit(): void {
@@ -65,7 +74,6 @@ export class InputTextButtonComponent implements OnInit {
                 this.blocked = false;
 
                 this.viewdata.getData();
-
             });
 
     }
