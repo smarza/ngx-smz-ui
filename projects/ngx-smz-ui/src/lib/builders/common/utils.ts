@@ -5,7 +5,7 @@ import { TreeNode } from 'primeng/api/treenode';
 import { ObjectUtils } from 'primeng/utils';
 import { SimpleEntity, SimpleNamedEntity, SimpleParentEntity } from '../../common/models/simple-named-entity';
 import { SmzTreeNode } from '../../modules/smz-trees/models/tree-node';
-import { SmzTreeGroupData, SmzTreeGroupNodeConfig, SmzTreeNestedData } from '../../modules/smz-trees/models/tree-state';
+import { SmzTreeGroupData, SmzTreeGroupNodeConfig, SmzTreeNestedData, SmzTreeOverridesConfig } from '../../modules/smz-trees/models/tree-state';
 import { FormGroupConfig } from '../smz-dialogs/dialog-input-conversion';
 import { cloneAndRemoveProperties, toSimpleNamedEntity } from '../../common/utils/utils';
 
@@ -125,7 +125,7 @@ export function createTreeFromNestedData<T = any>(data: T[], config: SmzTreeNest
           const childData = createTreeData(item, child, nodeConfig);
 
           children.push({
-            ...child.group.nodeOverrides,
+            ...transformNodeOverride(child.group.nodeOverridesConfig, childData),
             label: child.group.label,
             key: childKey,
             data: childData,
@@ -145,7 +145,7 @@ export function createTreeFromNestedData<T = any>(data: T[], config: SmzTreeNest
       const data = createTreeData(item, nodeConfig, nodeConfig);
 
       return {
-        ...nodeConfig.nodeOverrides,
+        ...transformNodeOverride(nodeConfig.nodeOverridesConfig, data),
         label,
         key,
         data,
@@ -159,6 +159,15 @@ export function createTreeFromNestedData<T = any>(data: T[], config: SmzTreeNest
   const treeNodes = createTreeNodes(data, config);
 
   return treeNodes;
+
+}
+
+function transformNodeOverride(config: SmzTreeOverridesConfig, item: any): Partial<TreeNode<any>> {
+
+  return {
+    selectable: config.conditionalSelection(item),
+    ...config.nodeOverrides,
+  }
 
 }
 
@@ -178,7 +187,6 @@ function createTreeData(item: any, nodeConfig: SmzTreeNestedData, parentConfig: 
       break;
   }
 }
-
 
 export function groupSimpleParentEntity<TInput extends { parentId: TResponse, data: SimpleEntity<TResponse> }, TResponse>(items: TInput[]): SimpleParentEntity<TResponse>[] {
 

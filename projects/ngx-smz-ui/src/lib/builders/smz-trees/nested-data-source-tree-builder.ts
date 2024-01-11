@@ -14,13 +14,19 @@ export class SmzNestedDataSourceTreeBuilder extends SmzBuilderUtilities<SmzNeste
       type,
       labelKey: 'name',
       valueKey: 'id',
-      nodeOverrides: {},
+      nodeOverridesConfig: {
+        nodeOverrides: {},
+        conditionalSelection: () => undefined
+      },
       group: {
         makeChildrenAsGroup: false,
         label: null,
         key: null,
         type: null,
-        nodeOverrides: { },
+        nodeOverridesConfig: {
+          nodeOverrides: {},
+          conditionalSelection: () => undefined
+        },
       },
       dataType: 'same',
       children: []
@@ -35,13 +41,19 @@ export class SmzNestedDataSourceTreeBuilder extends SmzBuilderUtilities<SmzNeste
       type: key,
       labelKey: 'name',
       valueKey: 'id',
-      nodeOverrides: { },
+      nodeOverridesConfig: {
+        nodeOverrides: {},
+        conditionalSelection: () => undefined
+      },
       group: {
         makeChildrenAsGroup: false,
         label: null,
         key: null,
         type: null,
-        nodeOverrides: { },
+        nodeOverridesConfig: {
+          nodeOverrides: {},
+          conditionalSelection: () => undefined
+        },
       },
       dataType: 'same',
       children: []
@@ -57,7 +69,7 @@ export class SmzNestedDataSourceTreeBuilder extends SmzBuilderUtilities<SmzNeste
   }
 
   public setIcon(icon: string): SmzNestedDataSourceTreeBuilder {
-    this._nestedConfig.nodeOverrides.icon = icon;
+    this._nestedConfig.nodeOverridesConfig.nodeOverrides.icon = icon;
     return this.that;
   }
 
@@ -68,6 +80,16 @@ export class SmzNestedDataSourceTreeBuilder extends SmzBuilderUtilities<SmzNeste
 
   public setDataAsSimpleNamedEntity(): SmzNestedDataSourceTreeBuilder {
     this._nestedConfig.dataType = 'simpleNamedEntity';
+    return this.that;
+  }
+
+  public disableSelection(): SmzNestedDataSourceTreeBuilder {
+    this._nestedConfig.nodeOverridesConfig.nodeOverrides.selectable = false;
+    return this.that;
+  }
+
+  public conditionalSelection(callback: (item: any) => boolean): SmzNestedDataSourceTreeBuilder {
+    this._nestedConfig.nodeOverridesConfig.conditionalSelection = callback;
     return this.that;
   }
 
@@ -97,13 +119,19 @@ export class SmzNestedChildTreeBuilder<TBuilder> extends SmzBuilderUtilities<Smz
       type: key,
       labelKey: 'name',
       valueKey: 'id',
-      nodeOverrides: { },
+      nodeOverridesConfig: {
+        nodeOverrides: {},
+        conditionalSelection: () => undefined
+      },
       group: {
         makeChildrenAsGroup: false,
         label: null,
         key: null,
         type: null,
-        nodeOverrides: { },
+        nodeOverridesConfig: {
+          nodeOverrides: {},
+          conditionalSelection: () => undefined
+        },
       },
       dataType: 'same',
       children: []
@@ -129,12 +157,22 @@ export class SmzNestedChildTreeBuilder<TBuilder> extends SmzBuilderUtilities<Smz
   }
 
   public setIcon(icon: string): SmzNestedChildTreeBuilder<TBuilder> {
-    this._nestedConfig.nodeOverrides.icon = icon;
+    this._nestedConfig.nodeOverridesConfig.nodeOverrides.icon = icon;
     return this.that;
   }
 
   public setType(type: string): SmzNestedChildTreeBuilder<TBuilder> {
     this._nestedConfig.type = type;
+    return this.that;
+  }
+
+  public disableSelection(): SmzNestedChildTreeBuilder<TBuilder> {
+    this._nestedConfig.nodeOverridesConfig.nodeOverrides.selectable = false;
+    return this.that;
+  }
+
+  public conditionalSelection(callback: (item: any) => boolean): SmzNestedChildTreeBuilder<TBuilder> {
+    this._nestedConfig.nodeOverridesConfig.conditionalSelection = callback;
     return this.that;
   }
 
@@ -164,12 +202,22 @@ export class SmzNestedGroupTreeBuilder<TBuilder> extends SmzBuilderUtilities<Smz
   }
 
   public setIcon(icon: string): SmzNestedGroupTreeBuilder<TBuilder> {
-    this._nestedConfig.group.nodeOverrides.icon = icon;
+    this._nestedConfig.group.nodeOverridesConfig.nodeOverrides.icon = icon;
     return this.that;
   }
 
   public setDataAsSimpleNamedEntity(): SmzNestedGroupTreeBuilder<TBuilder> {
     this._nestedConfig.dataType = 'simpleNamedEntity';
+    return this.that;
+  }
+
+  public disableSelection(): SmzNestedGroupTreeBuilder<TBuilder> {
+    this._nestedConfig.group.nodeOverridesConfig.nodeOverrides.selectable = false;
+    return this.that;
+  }
+
+  public conditionalSelection(callback: (item: any) => boolean): SmzNestedGroupTreeBuilder<TBuilder> {
+    this._nestedConfig.group.nodeOverridesConfig.conditionalSelection = callback;
     return this.that;
   }
 

@@ -132,14 +132,19 @@ export interface SmzTreeNestedData{
   labelKey: string;
   valueKey: string;
   type: string;
-  nodeOverrides: Partial<TreeNode>;
+  nodeOverridesConfig: SmzTreeOverridesConfig;
   group: {
     makeChildrenAsGroup: boolean;
     label: string;
     key: string;
     type: string;
-    nodeOverrides: Partial<TreeNode>;
+    nodeOverridesConfig: SmzTreeOverridesConfig;
   };
   dataType: 'simpleNamedEntity' | 'same' | 'clean';
   children?: SmzTreeNestedData[];
+}
+
+export interface SmzTreeOverridesConfig {
+  nodeOverrides: Partial<TreeNode>;
+  conditionalSelection: (item: any) => boolean;
 }

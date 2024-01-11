@@ -156,7 +156,7 @@ export const TreesDemo:{ [key: string]: { items$: Observable<any[]>, code: () =>
     items$: store.select(DemoFeatureSelectors.giants),
     code: () => {
     return new SmzTreeBuilder()
-      .setTitle('Tree with Nested Data')
+      .setTitle('Tree with Nested Data 1')
       .useSincronization()
       .emptyFeedback()
         .setMessage('Árvore vazia')
@@ -166,6 +166,10 @@ export const TreesDemo:{ [key: string]: { items$: Observable<any[]>, code: () =>
       .setSelection('checkbox')
       .dataSource()
         .nested('plant')
+          .conditionalSelection((item: any) => {
+            console.log(item);
+            return false;
+          })
           .addChild('topsideModules')
             .back
           .addChild('hullSpaces')
@@ -175,6 +179,7 @@ export const TreesDemo:{ [key: string]: { items$: Observable<any[]>, code: () =>
               .addChild('plates')
                 .setType('plate')
                 .setIcon('fa-solid fa-bug')
+                // .conditionalSelection((item: any) => item.name !== 'HGP-104-1-2 plate')
                 .makeAsGroup('Chapas')
                   .setIcon('fa-solid fa-circle')
                   .child
