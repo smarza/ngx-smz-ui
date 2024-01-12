@@ -28,6 +28,11 @@ export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormG
     return this;
   }
 
+  public customizeStyles(styleClass: string): SmzFormGroupBuilder<TResponse> {
+    this.group.styleClass = styleClass;
+    return this;
+  }
+
   public customizeInputStyles(styleClass: string): SmzFormGroupBuilder<TResponse> {
     this.group.inputStyleClass = styleClass;
     return this;
@@ -769,6 +774,22 @@ export class SmzFormCheckboxBuilder<TResponse> extends SmzFormInputBuilder<SmzFo
   protected that = this;
   constructor(public _groupBuilder: SmzFormGroupBuilder<TResponse>, private _checkboxInput: SmzCheckBoxControl) {
     super(_groupBuilder, _checkboxInput);
+  }
+
+  public useLabel(label: string): SmzFormCheckboxBuilder<TResponse> {
+    this._checkboxInput.showLabel = true;
+    this._checkboxInput.label = label;
+    return this;
+  }
+
+  public get group(): SmzFormGroupBuilder<TResponse> {
+
+    if (this._checkboxInput.validatorsPreset?.isRequired && this._checkboxInput.showLabel) {
+      this._checkboxInput.label = `${this._checkboxInput.label} *`;
+      this._checkboxInput.name = this._checkboxInput.name.replace(' *', '');
+    }
+
+    return this._groupBuilder;
   }
 }
 

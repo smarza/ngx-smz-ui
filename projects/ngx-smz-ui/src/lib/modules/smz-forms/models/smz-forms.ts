@@ -35,6 +35,7 @@ export interface SmzFormGroup
     template?: SmzTemplate;
     children: SmzControlTypes[];
     inputStyleClass?: string;
+    styleClass?: string;
 }
 
 export interface SmzFormsResponse<T>

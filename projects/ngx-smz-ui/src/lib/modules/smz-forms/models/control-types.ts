@@ -253,6 +253,8 @@ export interface SmzRadioControl<T> extends SmzFormsBaseControl
 
 export interface SmzCheckBoxControl extends SmzFormsBaseControl
 {
+    showLabel?: boolean;
+    label?: string;
     defaultValue?: Boolean;
 
 }

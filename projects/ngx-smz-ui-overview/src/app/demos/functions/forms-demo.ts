@@ -33,10 +33,10 @@ export const FormsDemo: { [key: string]: () => void } = {
     return new SmzFormBuilder<any>()
     .group()
       .setLayout('EXTRA_SMALL', 'col-12')
-      .text('info.input1', 'I\'m required', 'sample').validators().required().group
-      .calendar('info.input2', 'new Date()', new Date()).validators().required().group
-      .checkbox('info.input3', 'I\'m not required').validators().required().group
-      .checkboxGroup('info.input4', 'I\'m required', [{ id: '1', name: 'Option 1'}, { id: '2', name: 'Option 2'}, { id: '3', name: 'Option 3'}]).validators().required().group
+      .text('info.input1', 'I\'m required', 'sample').setLayout('EXTRA_SMALL', 'col-4').validators().required().input.group
+      .checkbox('info.input3', 'I\'m required').setLayout('EXTRA_SMALL', 'col-4').useLabel('Label Text').validators().required().input.group
+      .checkboxGroup('info.input4', 'I\'m required', [{ id: '1', name: 'Option 1'}, { id: '2', name: 'Option 2'}, { id: '3', name: 'Option 3'}]).setLayout('EXTRA_SMALL', 'col-4').validators().required().input.group
+      .calendar('info.input2', 'new Date()', new Date()).setLayout('EXTRA_SMALL', 'col-4').validators().required().input.group
       .contentMask('info.input5', 'Conteúdo com variáveis',
 `Anestesia da região de punho direito com xilocaína 2%.
 Punção da artéria radial direita com agulha seguida da instalação de <variable id="755956dd-1696-4efb-448d-08d9b8dd31be">Introdutor</variable>.
