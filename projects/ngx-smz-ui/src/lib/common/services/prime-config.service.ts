@@ -18,8 +18,18 @@ export class PrimeConfigService {
 
   private filters(): void {
 
-    this.filterUtils.register('multiselectById', (value: string, filter: { id: string }[]): boolean => filter.findIndex(x => x.id === value) > -1);
-    this.filterUtils.register('multiselectByValue', (value: string, filter: { value: string }[]): boolean => filter.findIndex(x => x.value === value) > -1);
+    this.filterUtils.register('multiselectById', (value: string, filter: { id: string }[]): boolean => filter?.findIndex(x => x.id === value) > -1);
+    this.filterUtils.register('multiselectByValue', (value: string, filter: { value: string }[]): boolean => filter?.findIndex(x => x.value === value) > -1);
+
+    // this.filterUtils.register('multiselectByString', (value: string, filter: string[]): boolean => (filter == null || filter?.length === 0 ? true : filter?.findIndex(x => x === value) > -1));
+    this.filterUtils.register('multiselectByString', (value: string, filter: string[]): boolean => {
+      console.log('---- string');
+      console.log('value', value);
+      console.log('filter', filter);
+      console.log('----', filter == null || filter?.length === 0 ? true : filter?.findIndex(x => x === value) > -1);
+      return filter == null || filter?.length === 0 ? true : filter?.findIndex(x => x === value) > -1;
+    });
+
     this.filterUtils.register('dropdown', (value: string, filter: { value: string }[]): boolean => filter == null || Reflect.get(filter, 'id') === value );
 
     // register filter type for array items, when filter has one or more of values

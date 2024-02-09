@@ -409,6 +409,18 @@ export function sortArrayOfObjects<T>(data: T[], dataPath: string, order = 1): T
     });
 }
 
+export function sortArrayOfStrings<T>(data: T[], order = 1): T[] {
+    return data.sort((obj1, obj2) => {
+        if (obj1 > obj2) {
+            return order;
+        }
+        if (obj1 < obj2) {
+            return -order;
+        }
+        return 0;
+    });
+}
+
 export function isSimpleNamedEntity(obj: SimpleNamedEntity): boolean {
     if (obj == null) return false;
 

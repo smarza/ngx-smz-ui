@@ -901,7 +901,11 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
         .text('name', 'Name', '40em')
           .addTooltip((item) => `item ${item.name}`)
           .columns
-        .text('company', 'Company')
+        // .text('company', 'Company')
+        //   .setFilter(SmzFilterType.MULTI_SELECT_STRING)
+        //   .columns
+        .dataTransform('company', 'Company', (data: string) => `${data} (OK)`)
+          .setFilter(SmzFilterType.MULTI_SELECT_STRING)
           .columns
         .table
       .viewport()

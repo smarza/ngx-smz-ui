@@ -1,12 +1,13 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { SmzTableContext, SmzTableState } from '../models/table-state';
-import { cloneDeep } from 'lodash-es';
+import { cloneDeep, forEach } from 'lodash-es';
 import { SmzFilterType } from '../models/filter-types';
 import { longestStringInArray } from '../../../common/utils/utils';
 import { TableHelperService } from '../services/table-helper.service';
 import { applyTableContentNgStyle } from '../../../builders/smz-tables/state-builder';
 import { SmzContentType, SmzDataTransform } from '../models/content-types';
 import { SmzTableContentPipe } from './table-content.pipe';
+import { ObjectUtils } from 'primeng/utils';
 
 @Pipe({
   name: 'cloneTableItems'
@@ -19,10 +20,26 @@ export class SmzCloneTableItemsPipe implements PipeTransform {
 
   transform(items: any[], context: SmzTableContext, tableKey: string, sincronize: boolean): { showSkeleton: boolean, items: any[] } {
 
+    console.log('pipe', items);
+
     this.state = context.state;
 
     const showSkeleton = items == null && context.state.initialState.skeleton.isEnabled;
-    const clonedItems = showSkeleton ? new Array<any>(context.state.initialState.skeleton.rows) : cloneDeep(items);
+
+    let clonedItems: any[] = [];
+
+    if (showSkeleton) {
+      clonedItems = new Array<any>(context.state.initialState.skeleton.rows);
+    }
+    else {
+      clonedItems = cloneDeep(items)
+
+      if (context.columns.some(x => x.content.type == SmzContentType.DATA_TRANSFORM)) {
+        clonedItems = this.includeTransformedData(clonedItems, context);
+      }
+    }
+
+    console.log('clonedItems', clonedItems);
 
     const count = context.state.styles.columnsWidth.samples ?? items?.length;
     const samples = items?.slice(0, items?.length <= count ? items?.length - 1 : count);
@@ -43,7 +60,7 @@ export class SmzCloneTableItemsPipe implements PipeTransform {
             columnItems = samples.map((x, i) => colData.callback(x[col.field], x, i)).filter(x => x != null);
           }
           else {
-            columnItems = samples.map(x => contentPipe.transform(x, col.field).result).filter(x => x != null);
+            columnItems = samples.map(x => contentPipe.transform(x, col.field, col.content.type).result).filter(x => x != null);
           }
 
           if (col.width == 'auto') {
@@ -117,6 +134,27 @@ export class SmzCloneTableItemsPipe implements PipeTransform {
       showSkeleton,
       items: sincronize && !showSkeleton ? this.tableHelper.sincronize(tableKey, clonedItems) : clonedItems
     };
+  }
+  private includeTransformedData(items: any[], context: SmzTableContext): any[] {
+
+    context.columns
+      .filter(x => x.content.type === SmzContentType.DATA_TRANSFORM)
+      .forEach(column => {
+        items.map((item, index) => {
+          console.log('>>>');
+          console.log(index, item);
+          const itemResolved = ObjectUtils.resolveFieldData(item, column.field);
+          const columnContent = column.content.data as SmzDataTransform;
+          const transformedData = columnContent.callback(itemResolved, item, index);
+          const teste = Reflect.set(item, `_${column.field}`, transformedData);
+          console.log('transformedData', transformedData);
+          console.log('teste', teste);
+          console.log('item', item);
+          return item;
+        })
+      });
+
+      return items;
   }
 
   private estimate(items: string[], header: string, hasDropdownSelector: boolean, hasColumnHideButton: boolean, isSortable: boolean, isFilterable: boolean, maxWidth: number, log: boolean): number {

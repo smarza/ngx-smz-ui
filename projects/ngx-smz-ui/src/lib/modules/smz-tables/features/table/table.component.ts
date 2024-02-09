@@ -85,7 +85,8 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
     currency: SmzFilterType.CURRENCY,
     dropdown: SmzFilterType.DROPDOWN,
     multiselect: SmzFilterType.MULTI_SELECT,
-    multiselect_array: SmzFilterType.MULTI_SELECT_ARRAY
+    multiselect_array: SmzFilterType.MULTI_SELECT_ARRAY,
+    multiselect_string: SmzFilterType.MULTI_SELECT_STRING
   }
 
   constructor(

@@ -1,6 +1,6 @@
 import { Injectable, Pipe, PipeTransform } from '@angular/core';
 import { uniqBy, flatten } from 'lodash-es';
-import { sortArray } from '../../utils/utils';
+import { isArray, sortArray, sortArrayOfStrings } from '../../utils/utils';
 
 @Pipe({
     name: 'uniqueFilter'
@@ -10,7 +10,7 @@ import { sortArray } from '../../utils/utils';
 export class UniqueFilterPipe implements PipeTransform
 {
     constructor() { }
-    public transform(items: any[], args: any[] | string, reMap: string = null, initial: any = null, sortBy: string = null, isManyToMany: boolean = false): any
+    public transform(items: any[], args: any[] | string, reMap: string = null, initial: any = null, sortBy: string | boolean = null, isManyToMany: boolean = false, isArrayOfObject: boolean = true): any
     {
         // console.log('------ uniqueFilter');
         // console.log(items, args, reMap);
@@ -32,14 +32,14 @@ export class UniqueFilterPipe implements PipeTransform
             // console.log('uniques', uniques);
             const results = uniques.map(u => (Reflect.get(u, reMap)));
             // console.log('results', results);
-            const afterSort = sortBy != null ? sortArray(results, sortBy) : results;
+            const afterSort = sortBy != null ? isArrayOfObject ? sortArray(results, sortBy as string) : sortArrayOfStrings(results) : results;
             // console.log('afterSort', afterSort);
             // console.log('result 1', initial != null ? [initial, ...afterSort] : afterSort);
             return initial != null ? [initial, ...afterSort] : afterSort;
         }
         else if (reMap != null && isManyToMany)
         {
-            // console.log(2);
+            console.log(2);
             // retorna a lista contendo apenas a propriedade solicitada
 
             const mapped = items.map(u => (Reflect.get(u, reMap)));
@@ -50,16 +50,16 @@ export class UniqueFilterPipe implements PipeTransform
             // console.log('uniques', uniques);
             const results = uniques;
             // console.log('results', results);
-            const afterSort = sortBy != null ? sortArray(results, sortBy) : results;
+            const afterSort = sortBy != null ? isArrayOfObject ? sortArray(results, sortBy as string) : sortArrayOfStrings(results) : results;
             return initial != null ? [initial, ...afterSort] : afterSort;
         }
         else
         {
-            // console.log(3);
+            console.log(3);
             // retorna a lista única com a mesma estrutura original
 
             const results = uniqBy(items, args);
-            const afterSort = sortBy != null ? sortArray(results, sortBy) : results;
+            const afterSort = sortBy != null ? isArrayOfObject ? sortArray(results, sortBy as string) : sortArrayOfStrings(results) : results;
             // console.log('result 2', initial != null ? [initial, ...afterSort] : afterSort);
             return initial != null ? [initial, ...afterSort] : afterSort;
         }

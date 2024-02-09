@@ -402,6 +402,12 @@ export class SmzDataTransformColumnBuilder<TData> extends SmzBaseColumnBuilder<S
       this._column.globalFilterDataType = 'array';
     }
 
+    if (this._column.filterField !== this._column.field) {
+      throw new Error(`You need to overrideFilter after calling setFilter for the field ${this._column.field}`);
+    }
+
+    this._column.filterField = `_${this._column.field}`;
+
     return this;
   }
 

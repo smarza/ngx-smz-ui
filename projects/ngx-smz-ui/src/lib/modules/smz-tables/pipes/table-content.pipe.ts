@@ -1,14 +1,24 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { ObjectUtils } from 'primeng/utils';
+import { SmzContentType } from '../models/content-types';
 
 @Pipe({
   name: 'tableContent'
 })
 
 export class SmzTableContentPipe implements PipeTransform {
-  transform(data: any, field: string): { result: string } {
+  transform(data: any, field: string, columnType: SmzContentType): { result: string } {
     if (data == null) return { result: '' };
-    return { result: ObjectUtils.resolveFieldData(data, field) };
+
+    if (columnType === SmzContentType.DATA_TRANSFORM) {
+      return {
+        result: ObjectUtils.resolveFieldData(data, `_${field}`)
+      };
+    }
+
+    return {
+      result: ObjectUtils.resolveFieldData(data, field)
+    };
   }
 
 }
