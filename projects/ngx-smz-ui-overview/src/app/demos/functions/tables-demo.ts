@@ -906,12 +906,13 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
         //   .columns
         .dataTransform('company', 'Company', (data: string) => `${data} (OK)`)
           .setFilter(SmzFilterType.MULTI_SELECT_STRING)
+          .setFilterableData((data: string) => `${data} (XX)`)
           .columns
         .table
-      .viewport()
-        .usePersistenceByUser('TABLE_VIEWPORT_PERSISTENCE')
-        .saveTriggerOnChange()
-        .table
+      // .viewport()
+      //   .usePersistenceByUser('TABLE_VIEWPORT_PERSISTENCE')
+      //   .saveTriggerOnChange()
+      //   .table
     .build();
     }
   },

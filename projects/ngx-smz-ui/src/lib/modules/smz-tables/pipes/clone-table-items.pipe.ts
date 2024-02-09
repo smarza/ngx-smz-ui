@@ -5,7 +5,7 @@ import { SmzFilterType } from '../models/filter-types';
 import { longestStringInArray } from '../../../common/utils/utils';
 import { TableHelperService } from '../services/table-helper.service';
 import { applyTableContentNgStyle } from '../../../builders/smz-tables/state-builder';
-import { SmzContentType, SmzDataTransform } from '../models/content-types';
+import { SmzContentType, SmzCustomContent, SmzDataTransform, SmzIconContent } from '../models/content-types';
 import { SmzTableContentPipe } from './table-content.pipe';
 import { ObjectUtils } from 'primeng/utils';
 
@@ -134,15 +134,62 @@ export class SmzCloneTableItemsPipe implements PipeTransform {
   private includeTransformedData(items: any[], context: SmzTableContext): any[] {
 
     context.columns
-      .filter(x => x.content.type === SmzContentType.DATA_TRANSFORM)
       .forEach(column => {
-        items.map((item, index) => {
-          const itemResolved = ObjectUtils.resolveFieldData(item, column.field);
-          const columnContent = column.content.data as SmzDataTransform;
-          const transformedData = columnContent.callback(itemResolved, item, index);
-          Reflect.set(item, `_${column.field}`, transformedData);
-          return item;
-        })
+
+        if (column.content.type === SmzContentType.DATA_TRANSFORM) {
+          items.map((item, index) => {
+            const itemResolved = ObjectUtils.resolveFieldData(item, column.field);
+            const columnContent = column.content.data as SmzDataTransform;
+
+            // DOM Data
+            const domData = columnContent.callback(itemResolved, item, index);
+            Reflect.set(item, `_dom_${column.field}`, domData);
+
+            // Filterable Data
+            const filterableData = columnContent.getFilterableData != null ?
+              columnContent.getFilterableData(itemResolved, item, index) :
+              domData;
+
+            Reflect.set(item, `_filterable_${column.field}`, filterableData);
+
+            return item;
+          })
+        }
+
+        if (column.content.type === SmzContentType.CUSTOM) {
+          items.map((item, index) => {
+            const columnContent = column.content.data as SmzCustomContent;
+
+            if (columnContent.getFilterableData != null) {
+              const itemResolved = ObjectUtils.resolveFieldData(item, column.field);
+
+              // Filterable Data
+              const filterableData = columnContent.getFilterableData(itemResolved, item, index)
+
+              Reflect.set(item, `_filterable_${column.field}`, filterableData);
+            }
+
+            return item;
+          })
+        }
+
+        if (column.content.type === SmzContentType.ICON) {
+          items.map((item, index) => {
+            const columnContent = column.content.data as SmzIconContent;
+
+            if (columnContent.getFilterableData != null) {
+              const itemResolved = ObjectUtils.resolveFieldData(item, column.field);
+
+              // Filterable Data
+              const filterableData = columnContent.getFilterableData(itemResolved, item, index)
+
+              Reflect.set(item, `_filterable_${column.field}`, filterableData);
+            }
+
+            return item;
+          })
+        }
+
       });
 
       return items;

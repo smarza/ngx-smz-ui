@@ -5,6 +5,12 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
+## [16.4.14] - 2024-02-09
+Adicionado suporte para adicionar um dado alternativo para filtros nas colunas de DataTransform, Icon e Custom na tabela
+
+## [16.4.13] - 2024-02-09
+Fix no filtro global em colunas com dataTransform
+
 ## [16.4.12] - 2024-02-09
 Adicionando suporte para filtro global em colunas com dataTransform
 

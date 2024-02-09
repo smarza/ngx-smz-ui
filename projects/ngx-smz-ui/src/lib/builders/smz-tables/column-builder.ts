@@ -1,5 +1,5 @@
 import { ObjectUtils } from 'primeng/utils';
-import { SmzContentType, SmzDataTransform, SmzExportableContentType, SmzIconContent } from '../../modules/smz-tables/models/content-types';
+import { SmzContentType, SmzCustomContent, SmzDataTransform, SmzExportableContentType, SmzIconContent } from '../../modules/smz-tables/models/content-types';
 import { SmzEditableType } from '../../modules/smz-tables/models/editable-types';
 import { SmzFilterType } from '../../modules/smz-tables/models/filter-types';
 import { SmzTableColumn } from '../../modules/smz-tables/models/table-column';
@@ -332,6 +332,17 @@ export class SmzCustomColumnBuilder<TData> extends SmzBaseColumnBuilder<SmzCusto
       this._column.filter.isGlobalFilterable = true;
     }
 
+    if (this._column.filterField !== this._column.field) {
+      throw new Error(`You need to overrideFilter after calling setFilter for the field ${this._column.field}`);
+    }
+
+    if (this._column.globalFilterField !== this._column.field) {
+      throw new Error(`You need to overrideGlobalFilter after calling setFilter for the field ${this._column.field}`);
+    }
+
+    this._column.filterField = `_filterable_${this._column.field}`;
+    this._column.globalFilterField = `_filterable_${this._column.field}`;
+
     return this;
   }
 
@@ -347,6 +358,11 @@ export class SmzCustomColumnBuilder<TData> extends SmzBaseColumnBuilder<SmzCusto
     }
 
     this._column.filter.isGlobalFilterable = true;
+    return this;
+  }
+
+  public setFilterableData(getFilterableDataCallback: (data: any, row: any, index: number) => string): SmzCustomColumnBuilder<TData> {
+    (this._column.content.data as SmzCustomContent).getFilterableData = getFilterableDataCallback;
     return this;
   }
 
@@ -369,6 +385,18 @@ export class SmzIconColumnBuilder<TData> extends SmzBaseColumnBuilder<SmzIconCol
   }
   public setFilter(type: SmzFilterType): SmzIconColumnBuilder<TData> {
     this._column.filter.type = type;
+
+    if (this._column.filterField !== this._column.field) {
+      throw new Error(`You need to overrideFilter after calling setFilter for the field ${this._column.field}`);
+    }
+
+    if (this._column.globalFilterField !== this._column.field) {
+      throw new Error(`You need to overrideGlobalFilter after calling setFilter for the field ${this._column.field}`);
+    }
+
+    this._column.filterField = `_filterable_${this._column.field}`;
+    this._column.globalFilterField = `_filterable_${this._column.field}`;
+
     return this;
   }
 
@@ -379,6 +407,11 @@ export class SmzIconColumnBuilder<TData> extends SmzBaseColumnBuilder<SmzIconCol
     }
 
     this._column.filter.isGlobalFilterable = true;
+    return this;
+  }
+
+  public setFilterableData(getFilterableDataCallback: (data: any, row: any, index: number) => string): SmzIconColumnBuilder<TData> {
+    (this._column.content.data as SmzIconContent).getFilterableData = getFilterableDataCallback;
     return this;
   }
 
@@ -410,8 +443,8 @@ export class SmzDataTransformColumnBuilder<TData> extends SmzBaseColumnBuilder<S
       throw new Error(`You need to overrideGlobalFilter after calling setFilter for the field ${this._column.field}`);
     }
 
-    this._column.filterField = `_${this._column.field}`;
-    this._column.globalFilterField = `_${this._column.field}`;
+    this._column.filterField = `_filterable_${this._column.field}`;
+    this._column.globalFilterField = `_filterable_${this._column.field}`;
 
     return this;
   }
@@ -425,6 +458,11 @@ export class SmzDataTransformColumnBuilder<TData> extends SmzBaseColumnBuilder<S
     this._column.export.dataCallback = (data, item, index) => {
       return item == null ? '' : ObjectUtils.resolveFieldData(item, this._column.field);
     };
+    return this;
+  }
+
+  public setFilterableData(getFilterableDataCallback: (data: any, row: any, index: number) => string): SmzDataTransformColumnBuilder<TData> {
+    (this._column.content.data as SmzDataTransform).getFilterableData = getFilterableDataCallback;
     return this;
   }
 

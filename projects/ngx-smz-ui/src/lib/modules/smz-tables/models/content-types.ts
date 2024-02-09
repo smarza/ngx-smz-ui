@@ -4,6 +4,7 @@ export type SmzContentTypes =
   SmzIconContent |
   SmzCurrencyContent |
   SmzDataTransform |
+  SmzCustomContent |
   SmzMaskContent;
 
 export enum SmzExportableContentType {
@@ -35,8 +36,13 @@ export interface SmzTextContent {
 
 }
 
+export interface SmzCustomContent {
+  getFilterableData: (data: any, row: any, index: number) => string;
+}
+
 export interface SmzDataTransform {
   callback: (data: any, row: any, index: number) => string;
+  getFilterableData: (data: any, row: any, index: number) => string;
 }
 
 export interface SmzCalendarContent {
@@ -45,6 +51,7 @@ export interface SmzCalendarContent {
 
 export interface SmzIconContent {
   matches: SmzIconContentMatch[];
+  getFilterableData: (data: any, row: any, index: number) => string;
 }
 
 export interface SmzCurrencyContent {

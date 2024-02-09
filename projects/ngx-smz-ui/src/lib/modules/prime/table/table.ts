@@ -1610,9 +1610,11 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     if (this.filters['global'] && !globalMatch && globalFilterFieldsArray) {
                         for (let j = 0; j < globalFilterFieldsArray.length; j++) {
 
-                            const globalFilterField = globalFilterFieldsArray[j].field || globalFilterFieldsArray[j];
+                            const globalFilterField: string = globalFilterFieldsArray[j].field || globalFilterFieldsArray[j];
+                            const regex = /^_filterable_/;
+                            const columnKey = globalFilterField.replace(regex, "");
 
-                            const column = this.findColumnByKey(globalFilterField);
+                            const column = this.findColumnByKey(columnKey);
 
                             const filterGlobal = <FilterMetadata>this.filters['global'];
                             const matchMode = filterGlobal.matchMode;
