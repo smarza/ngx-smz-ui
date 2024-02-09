@@ -20,8 +20,6 @@ export class SmzCloneTableItemsPipe implements PipeTransform {
 
   transform(items: any[], context: SmzTableContext, tableKey: string, sincronize: boolean): { showSkeleton: boolean, items: any[] } {
 
-    console.log('pipe', items);
-
     this.state = context.state;
 
     const showSkeleton = items == null && context.state.initialState.skeleton.isEnabled;
@@ -38,8 +36,6 @@ export class SmzCloneTableItemsPipe implements PipeTransform {
         clonedItems = this.includeTransformedData(clonedItems, context);
       }
     }
-
-    console.log('clonedItems', clonedItems);
 
     const count = context.state.styles.columnsWidth.samples ?? items?.length;
     const samples = items?.slice(0, items?.length <= count ? items?.length - 1 : count);
@@ -141,15 +137,10 @@ export class SmzCloneTableItemsPipe implements PipeTransform {
       .filter(x => x.content.type === SmzContentType.DATA_TRANSFORM)
       .forEach(column => {
         items.map((item, index) => {
-          console.log('>>>');
-          console.log(index, item);
           const itemResolved = ObjectUtils.resolveFieldData(item, column.field);
           const columnContent = column.content.data as SmzDataTransform;
           const transformedData = columnContent.callback(itemResolved, item, index);
-          const teste = Reflect.set(item, `_${column.field}`, transformedData);
-          console.log('transformedData', transformedData);
-          console.log('teste', teste);
-          console.log('item', item);
+          Reflect.set(item, `_${column.field}`, transformedData);
           return item;
         })
       });

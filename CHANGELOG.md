@@ -5,6 +5,9 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
+## [16.4.12] - 2024-02-09
+Adicionando suporte para filtro global em colunas com dataTransform
+
 ## [16.4.11] - 2024-02-09
 Adicionada funcionalidade para filtrar elementos string com multiselect na tabela (SmzFilterType.MULTI_SELECT_STRING).
 A mecanica de produzir o dado para as colunas com dataTransform foi refeito para suportar o novo filtro. Agora o dado é pré transformado apenas quando detectada qualquer modificação nos dados da tabela, resultando em melhoria significativa de performance. Antes o dado era transformado durante a criação do elemento DOM.
