@@ -37,10 +37,11 @@ export const getAuthenticationInitialState = (): AuthenticationStateModel<any> =
 })
 @Injectable()
 export class AuthenticationState {
-    constructor(private authService: AuthService, private authenticationService: AuthenticationService, private store: Store) { }
+    constructor(private authService: AuthService, private authenticationService: AuthenticationService) { }
 
     @Action(AuthenticationActions.LocalLogin)
     public localLogin(ctx: StateContext<AuthenticationStateModel<any>>, action: AuthenticationActions.LocalLogin): void {
+
         if (GlobalInjector.config.debugMode) console.log(`[Authentication State] Handling LocalLogin`);
         const accessToken = localStorage.getItem(GlobalInjector.config.rbkUtils.authentication.localStoragePrefix + '_access_token');
         const refreshToken = localStorage.getItem(GlobalInjector.config.rbkUtils.authentication.localStoragePrefix + '_refresh_token');
@@ -52,7 +53,7 @@ export class AuthenticationState {
 
             const userdata = generateUserData(accessToken) as BaseUserData;
 
-            if (userdata.hasTenant && userdata.tenant != null) {
+            if (!isEmpty(userdata.tenant) && userdata.tenant != null) {
                 localStorage.setItem(GlobalInjector.config.rbkUtils.authentication.localStoragePrefix + '_tenant', userdata.tenant);
             }
 
@@ -76,7 +77,7 @@ export class AuthenticationState {
             tap((result: LoginResponse) => {
 
                 if (result.redirect == null) {
-                    this.store.dispatch(new AuthenticationActions.RemoteLoginSuccess(result.accessToken, result.refreshToken));
+                    ctx.dispatch(new AuthenticationActions.RemoteLoginSuccess(result.accessToken, result.refreshToken));
                 }
                 else if (GlobalInjector.config.rbkUtils.authentication.login.redirectCallback != null) {
                     GlobalInjector.config.rbkUtils.authentication.login.redirectCallback(result);
@@ -97,7 +98,7 @@ export class AuthenticationState {
 
         const userdata = generateUserData(action.accessToken) as BaseUserData;
 
-        if (userdata.hasTenant && userdata.tenant != null) {
+        if (!isEmpty(userdata.tenant) && userdata.tenant != null) {
             localStorage.setItem(GlobalInjector.config.rbkUtils.authentication.localStoragePrefix + '_tenant', userdata.tenant);
         }
 
@@ -129,7 +130,7 @@ export class AuthenticationState {
 
         return this.authenticationService.switchTenant(action.data).pipe(
             tap((result: JwtResponse) => {
-                this.store.dispatch(new AuthenticationActions.RemoteLoginSuccess(result.accessToken, result.refreshToken));
+                ctx.dispatch(new AuthenticationActions.RemoteLoginSuccess(result.accessToken, result.refreshToken));
                 window.location.href = '';
             })
         );

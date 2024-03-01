@@ -5,6 +5,9 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
+## [16.4.17] - 2024-03-01
+Adicionado um novo recurso de cache que armazena o último Tenant utilizado para login na aplicação. Isso proporciona uma experiência de usuário mais ágil, permitindo uma reautenticação mais rápida e eficiente em usos subsequentes da aplicação.
+
 ## [16.4.16] - 2024-02-27
 Adicionada a Diretiva smzResponsiveBreakpoints: Uma nova diretiva foi introduzida para permitir a criação de layouts responsivos de maneira mais intuitiva e flexível. Esta diretiva permite mostrar ou esconder elementos com base nos tamanhos de tela especificados através de media queries.
 

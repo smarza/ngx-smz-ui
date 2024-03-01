@@ -1,5 +1,4 @@
 import { LoginPayload } from '../../../modules/rbk-utils/auth/auth.service';
-import { RedefinePassword } from '../../../modules/smz-access/models/redefine-password';
 import { SwitchTenant as SwitchTenantRequest } from '../../../modules/smz-access/models/switch-tenant';
 
 export namespace AuthenticationActions {

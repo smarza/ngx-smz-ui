@@ -32,7 +32,8 @@ moment.locale('pt-br');
     AppRoutingModule,
 
     // Não alterar a ordem desse grupo
-    NgxSmzUiModule.forRoot(VarejoUiBuilder),
+    // NgxSmzUiModule.forRoot(VarejoUiBuilder),
+    NgxSmzUiModule.forRoot(UiBuilder),
 
     NgxsModule.forRoot(buildState(), { developmentMode: !environment.production }),
     NgxsRouterPluginModule.forRoot(),

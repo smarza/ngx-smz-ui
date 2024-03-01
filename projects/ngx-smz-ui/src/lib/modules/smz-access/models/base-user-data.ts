@@ -4,6 +4,5 @@ export interface BaseUserData {
   picture: string;
   tenant: string;
   displayName: string;
-  hasTenant: boolean;
   allowedTenants: string[];
 }
