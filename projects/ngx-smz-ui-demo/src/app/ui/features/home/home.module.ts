@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home.component';
-import { NgxSmzTreesModule, SmzRouteData, NgxSmzDialogsModule, NgxSmzFormsModule, NgxSmzDataPipesModule, NgxSmzServerImageModule, SmzDragDropModule } from 'ngx-smz-ui';
+import { NgxSmzTreesModule, SmzRouteData, NgxSmzDialogsModule, NgxSmzFormsModule, NgxSmzDataPipesModule, NgxSmzServerImageModule, SmzDragDropModule, SmzResponsiveBreakpointsDirectiveModule } from 'ngx-smz-ui';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
 import { UI_DEFINITIONS_STATE_NAME } from 'ngx-smz-ui';
@@ -45,7 +45,8 @@ const routes: Routes = [
     NgxSmzServerImageModule,
     AutoCompleteModule,
     FormsModule,
-    SmzDragDropModule
+    SmzDragDropModule,
+    SmzResponsiveBreakpointsDirectiveModule
   ],
   providers: [],
   bootstrap: [HomeComponent]

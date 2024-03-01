@@ -10,6 +10,38 @@
 
 <div class="p-4 grid grid-nogutter items-start justify-start gap-3">
 
+  <!-- <ng-container *ngIfBreakpoint0>
+    0
+  </ng-container>
+
+  <ng-container *ngIfBreakpoint600>
+    600
+  </ng-container>
+
+  <ng-container *ngIfBreakpoint960>
+    960
+  </ng-container>
+
+  <ng-container *ngIfBreakpoint1280>
+    1280
+  </ng-container>
+
+  <ng-container *ngIfBreakpoint1920>
+    1920
+  </ng-container> -->
+
+  <!-- <ng-container *ngIfBreakpointMax1280>
+    Max 1280
+  </ng-container> -->
+
+  <div *smzResponsiveBreakpoints="'(min-width: 0px) and (max-width: 599px)'">Show only on XSmall screens</div>
+  <div *smzResponsiveBreakpoints="'(min-width: 600px) and (max-width: 959px)'">Show only on Small screens</div>
+  <div *smzResponsiveBreakpoints="'(min-width: 961px) and (max-width: 1279px)'">Show only on Medium screens</div>
+  <div *smzResponsiveBreakpoints="'(min-width: 1280px) and (max-width: 1919px)'">Show only on Large screens</div>
+  <div *smzResponsiveBreakpoints="'(min-width: 1920px)'">Show only on XLarge screens</div>
+
+  <div *smzResponsiveBreakpoints="'(min-width: 0px) and (max-width: 1279px)'"><b>Show until 1279px</b></div>
+
   <!-- <button pButton type="button" label="AQUIIII SPEAK" icon="fas fa-angle-left" class="p-button-rounded p-button-text p-button-plain text-xl" styleClass="p-button-lg" (click)="speak()"></button> -->
 
   <!-- <div smzDroppable="groupA" class="w-96 h-96 bg-slate-200 p-4 grid grid-nogutter items-start justify-start gap-3" (onDrop)="dropToA()">

@@ -1,11 +1,36 @@
 # NGX-SMZ-UI
 
+# 16.4.16 Release notes
+
+# Documentação da Diretiva `smzResponsiveBreakpoints`
+
+A diretiva `smzResponsiveBreakpoints` é uma ferramenta poderosa e flexível para Angular, projetada para facilitar a criação de interfaces responsivas. Com essa diretiva, é possível mostrar ou esconder elementos com base no tamanho da tela, permitindo um controle mais refinado sobre a aparência da aplicação em diferentes dispositivos.
+
+## Instalação
+
+Para usar a `smzResponsiveBreakpointsDirective`, certifique-se de que o `LayoutModule` do Angular CDK está instalado e importado no seu módulo.
+
+## Uso
+
+Para aplicar a diretiva `smzResponsiveBreakpoints`, adicione o atributo `*smzResponsiveBreakpoints` a qualquer elemento do seu template HTML, passando os breakpoints desejados como uma string.
+
+### Exemplos
+
+- Mostrar apenas em telas `XSmall`:
+
+  ```html
+  <div *smzResponsiveBreakpoints="'(min-width: 0px) and (max-width: 599px)'">Show only on XSmall screens</div>
+
+
+
+
+
 # 14.3.0 Release notes
 
 * Add/Update packages in dependencies:
    `"marked": "^4.2.3",
    "primeng": "^14.2.2",`
-   
+
 * Add/Update packages in dependencies:
    `"@types/marked": "^4.0.7",`
 

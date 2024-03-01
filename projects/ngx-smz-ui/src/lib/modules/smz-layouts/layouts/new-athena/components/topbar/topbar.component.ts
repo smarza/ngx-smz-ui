@@ -27,7 +27,8 @@ export class NewAthenaTopbarComponent implements AfterContentInit
   @Select(UiAthenaSelectors.layout) public layout$: Observable<NewAthenaLayout>;
   @Input() public notifications: SmzNotification[];
   @Input() public profile: MenuItem[];
-  public headerExtrasTemplate: TemplateRef<any>;
+  public headerLandscapeTemplate: TemplateRef<any>;
+  public headerPortraitTemplate: TemplateRef<any>;
   public horizontalMenuType = MenuType.HORIZONTAL;
   public uiConfig = GlobalInjector.config;
 
@@ -39,8 +40,12 @@ export class NewAthenaTopbarComponent implements AfterContentInit
     {
       switch (item.getType())
       {
-        case 'headerExtras':
-          this.headerExtrasTemplate = item.template;
+        case 'headerExtrasLandscape':
+          this.headerLandscapeTemplate = item.template;
+          break;
+
+        case 'headerExtrasPortrait':
+          this.headerPortraitTemplate = item.template;
           break;
       }
     });

@@ -1,4 +1,4 @@
-import { SmzLayoutsConfig, SmzContentTheme, SmzLoader, HephaestusLayout, MenuType, SidebarState, AthenaLayout, ColorSchemaDefinition } from 'ngx-smz-ui';
+import { SmzLayoutsConfig, SmzContentTheme, SmzLoader, HephaestusLayout, MenuType, SidebarState, NewAthenaLayout } from 'ngx-smz-ui';
 
 export const smzHephaestusConfig: HephaestusLayout = {
     menu: MenuType.STATIC,
@@ -14,12 +14,13 @@ export const smzHephaestusConfig: HephaestusLayout = {
     hideSidebarAfterNavigationEnd: true
 };
 
-export const smzAthenaConfig: AthenaLayout = {
+export const smzAthenaConfig: NewAthenaLayout = {
     menu: MenuType.HORIZONTAL,
     sidebarState: SidebarState.INACTIVE,
     mobileSidebarState: SidebarState.INACTIVE,
     sidebarWidth: '16rem',
     sidebarSlimWidth: '6rem',
+    hideResponsiveMenuButton: true
 };
 
 export const smzLayoutsConfig: SmzLayoutsConfig = {

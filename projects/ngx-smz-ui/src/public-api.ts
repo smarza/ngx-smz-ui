@@ -40,6 +40,7 @@ export * from './lib/modules/smz-timeline/public-api';
 export * from './lib/modules/smz-responsive/smz-responsive.component';
 export * from './lib/modules/smz-multi-tables/public-api';
 
+
 // Verificar se já resolveram o issue para publicar com esse módulo
 export * from './lib/modules/smz-svg/public-api';
 
@@ -105,6 +106,8 @@ export * from './lib/common/directives/safe-image/safe-image.directive';
 
 export * from './lib/common/directives/ng-if-portrait/ng-if-portrait.directive';
 export * from './lib/common/directives/ng-if-landscape/ng-if-landscape.directive';
+
+export * from './lib/common/directives/responsive-breakpoints/responsive-breakpoints.directive';
 
 // DIALOG STUFFS
 

@@ -5,6 +5,13 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
+## [16.4.16] - 2024-02-27
+Adicionada a Diretiva smzResponsiveBreakpoints: Uma nova diretiva foi introduzida para permitir a criação de layouts responsivos de maneira mais intuitiva e flexível. Esta diretiva permite mostrar ou esconder elementos com base nos tamanhos de tela especificados através de media queries.
+
+## [16.4.15] - 2024-02-27
+Adicionado suporte para aceitar templates diferentes para versão landscape e portrait na seção de extras da topbar no tema New Athenas.
+Adicionada flag (hideResponsiveMenuButton) para esconder o botão de acionar menu lateral nos casos de portrait.
+
 ## [16.4.14] - 2024-02-09
 Adicionado suporte para adicionar um dado alternativo para filtros nas colunas de DataTransform, Icon e Custom na tabela
 

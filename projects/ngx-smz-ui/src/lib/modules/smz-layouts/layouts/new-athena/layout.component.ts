@@ -26,7 +26,8 @@ export class NewAthenaLayoutComponent implements OnInit, AfterContentInit {
   @Input() public menu: MenuItem[];
   @Input() public profile: MenuItem[];
   @Input() public notifications: SmzNotification[];
-  public headerExtrasTemplate: TemplateRef<any>;
+  public headerExtrasLandscapeTemplate: TemplateRef<any>;
+  public headerExtrasPortraitTemplate: TemplateRef<any>;
   public footerExtrasTemplate: TemplateRef<any>;
   constructor(public readonly layout: NewAthenaLayout, public readonly routerListener: RouterDataListenerService, private store: Store, public cdr: ChangeDetectorRef) {
     this.store.dispatch(new LayoutUiActions.Initialize());
@@ -40,7 +41,14 @@ export class NewAthenaLayoutComponent implements OnInit, AfterContentInit {
     this.templates.forEach((item) => {
       switch (item.getType()) {
         case 'headerExtras':
-          this.headerExtrasTemplate = item.template;
+          this.headerExtrasLandscapeTemplate = item.template;
+          this.headerExtrasPortraitTemplate = item.template;
+          break;
+        case 'headerExtrasLandscape':
+          this.headerExtrasLandscapeTemplate = item.template;
+          break;
+        case 'headerExtrasPortrait':
+          this.headerExtrasPortraitTemplate = item.template;
           break;
         case 'footerExtras':
           this.footerExtrasTemplate = item.template;

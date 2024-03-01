@@ -78,16 +78,19 @@
               }
             ],
             "styles": [
-              "dist/ngx-smz-ui/resources/assets/scss/styles-ng15.scss",
+              "dist/ngx-smz-ui/resources/assets/scss/styles.scss",
               "dist/ngx-smz-ui/resources/assets/scss/fontawesome-free.scss",
               "node_modules/highlight.js/styles/vs2015.css",
-              "projects/ngx-smz-ui-demo/src/styles.scss"
+              "node_modules/prismjs/themes/prism-okaidia.css",
+              "projects/ngx-smz-ui-overview/src/styles.scss"
             ],
             "scripts": [
               "node_modules/@svgdotjs/svg.js/dist/svg.min.js",
               "node_modules/@svgdotjs/svg.panzoom.js/dist/svg.panzoom.min.js",
-              "node_modules/html2canvas/dist/html2canvas.min.js",
-              "node_modules/marked/marked.min.js"
+              "node_modules/html2pdf.js/dist/html2pdf.bundle.js",
+              "node_modules/marked/marked.min.js",
+              "node_modules/prismjs/prism.js",
+              "node_modules/prismjs/components/prism-css.min.js"
             ]
           },
           "configurations": {

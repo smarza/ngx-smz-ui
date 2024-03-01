@@ -8,6 +8,7 @@ export class NewAthenaLayout {
     sidebarWidth: string;
     sidebarSlimWidth: string;
     enlargeTopbarLogo?: boolean;
+    hideResponsiveMenuButton?: boolean;
 
 }
 

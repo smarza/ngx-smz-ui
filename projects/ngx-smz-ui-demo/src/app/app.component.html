@@ -1,4 +1,4 @@
-<smz-ui-hephaestus-layout [menu]="menuService.menu" [notifications]="menuService.notifications" [profile]="menuService.profile">
+<!-- <smz-ui-hephaestus-layout [menu]="menuService.menu" [notifications]="menuService.notifications" [profile]="menuService.profile">
 
   <router-outlet></router-outlet>
 
@@ -20,20 +20,25 @@
     extras 2
   </ng-template>
 
-</smz-ui-hephaestus-layout>
+</smz-ui-hephaestus-layout> -->
 
-<!-- <smz-ui-new-athena-layout [menu]="menuService.menu" [notifications]="menuService.notifications" [profile]="menuService.profile">
+<smz-ui-new-athena-layout [menu]="menuService.menu" [notifications]="menuService.notifications" [profile]="menuService.profile">
 
   <router-outlet></router-outlet>
 
-  <ng-template pTemplate="headerExtras">
-    extras 1
+  <ng-template pTemplate="headerExtrasLandscape">
+    extras Landscape
+  </ng-template>
+
+  <ng-template pTemplate="headerExtrasPortrait">
+    extras Portrait
   </ng-template>
 
   <ng-template pTemplate="footerExtras">
     extras 2
   </ng-template>
 
-</smz-ui-new-athena-layout> -->
+</smz-ui-new-athena-layout>
 
 <smz-faqs></smz-faqs>
+

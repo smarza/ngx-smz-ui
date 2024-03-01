@@ -11,7 +11,7 @@
                 </ng-container>
             </a>
 
-            <a id="menu-button" class="clickable" (click)="toggle()">
+            <a *ngIf="!layout.hideResponsiveMenuButton" id="menu-button" class="clickable" (click)="toggle()">
                 <i class="pi pi-align-left"></i>
             </a>
 
