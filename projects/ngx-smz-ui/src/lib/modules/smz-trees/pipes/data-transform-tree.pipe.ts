@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { SmzTreeNode } from '../models/tree-node';
-import { SmzTreeState } from '../models/tree-state';
+import { SmzTreeSourceTransform } from '../models/tree-state';
 import { TreeHelperService } from '../services/tree-helper.service';
 
 @Pipe({
@@ -9,20 +9,20 @@ import { TreeHelperService } from '../services/tree-helper.service';
 
 export class SmzDataTransformTreePipe implements PipeTransform {
   constructor(private treeHelper: TreeHelperService) {}
-  transform(items: any[], state: SmzTreeState, key: string, that: any): any[] {
+  transform(items: any[], isDebug: boolean, content: SmzTreeSourceTransform, key: string, that: any): any[] {
 
     const bindedItems = [];
 
-    if (state.content.dataTransform == null) {
-      bindedItems.push(...this.response(items, state.content.sincronize, key));
+    if (content.dataTransform == null) {
+      bindedItems.push(...this.response(items, content.sincronize, key));
     }
     else {
-      bindedItems.push(...this.response(state.content.dataTransform(items), state.content.sincronize, key));
+      bindedItems.push(...this.response(content.dataTransform(items), content.sincronize, key));
     }
 
     that.sincronizeItems(bindedItems);
 
-    if (state.isDebug) {
+    if (isDebug) {
       console.log('SmzDataTransformTreePipe', bindedItems);
     }
 

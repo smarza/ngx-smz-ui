@@ -16,14 +16,14 @@ export class SmzNodeHelper {
 
   public select(selectedKeys: string[]): SmzTreeNode[] {
     this.selectedKeys = selectedKeys;
-    this.primeSelection = resolveSelection(this.nodes, selectedKeys, this.state.selection.expandNodes);
+    this.primeSelection = resolveTreeNodeSelectionIncludingParent(this.nodes, selectedKeys, this.state.selection.expandNodes);
     // checkNode(this.state, this.keyProperty, this.primeSelection, this.nodes, this.selectedKeys);
     return this.primeSelection;
   }
 
 }
 
-function resolveSelection(nodes: SmzTreeNode[], selectedKeys: string[], expandNodes: boolean): SmzTreeNode[] {
+export function resolveTreeNodeSelectionIncludingParent(nodes: SmzTreeNode[], selectedKeys: string[], expandNodes: boolean): SmzTreeNode[] {
   const result: SmzTreeNode[] = [];
 
   function traverse(node: SmzTreeNode): boolean {
@@ -63,6 +63,44 @@ function resolveSelection(nodes: SmzTreeNode[], selectedKeys: string[], expandNo
 
   return result;
 }
+
+export function resolveTreeNodeSelection(nodes: SmzTreeNode[], selectedKeys: string[], expandNodes: boolean): SmzTreeNode[] {
+  const result: SmzTreeNode[] = [];
+
+  function traverse(node: SmzTreeNode): boolean {
+      let isSelected = selectedKeys.includes(node.key!); // Check if the current node is selected
+
+      if (node.children) {
+          let childrenSelected = false; // Flag to check if any child is selected
+
+          for (const child of node.children) {
+              child.parent = node; // setting parent for traversal
+              if (traverse(child)) {
+                  childrenSelected = true;
+              }
+          }
+
+          if (childrenSelected && expandNodes) {
+              node.expanded = true; // Only expand if children are selected and expansion is required
+          }
+      }
+
+      // Include the node only if it's explicitly selected
+      if (isSelected) {
+          result.push(node);
+          return true;
+      }
+
+      return false;
+  }
+
+  for (const node of nodes) {
+      traverse(node);
+  }
+
+  return result;
+}
+
 
 function checkNode(state: SmzTreeState, keyProperty: string, primeSelection: SmzTreeNode[], nodes: SmzTreeNode[], str: string[]) {
 

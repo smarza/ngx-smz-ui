@@ -2,11 +2,10 @@ import { Selector } from "@ngxs/store";
 import { DemoItem, Plant } from "../../models/demo";
 import { DemoFeatureState, DemoFeatureStateModel } from "./demo.state";
 import { TreeNode } from "primeng/api/treenode";
-import { RouterParamsState, RouterParamsStateModel } from "ngx-smz-ui";
-import { HOME_PATH } from "@routes";
 import { FontAwesomeMigrations } from "../../demos/data/icons/fontawesome-migration";
 import { SpecialIcons } from "../../demos/data/icons/especial-icons";
 import { cloneDeep, uniqBy } from "lodash-es";
+import { ParentEntity, SimpleNamedEntity } from 'ngx-smz-ui';
 
 export class DemoFeatureSelectors {
   @Selector([DemoFeatureState])
@@ -86,39 +85,6 @@ export class DemoFeatureSelectors {
     ];
     return results.map((x, i) => ({ ...x, name: `${x.name} (${i})` }));
   }
-
-  // @Selector([RouterParamsState, DemoFeatureState])
-  // public static currentDetails(routeState: RouterParamsStateModel, demoState: DemoFeatureState ): string {
-
-  //   const routeKey = Reflect.get(routeState.params[HOME_PATH], 'key') ?? null;
-
-  //   if (routeKey == null) return null;
-
-  //   const currentMenuItem = demoState.flattenMenu.find(x => x.routeKey === routeKey);
-
-  //   if (currentMenuItem == null) return null;
-
-  //   switch (currentMenuItem.type) {
-  //   case 'venture':
-  //     return { routeKey, type: currentMenuItem.type, data: venturesState.items.find(x => x.id === currentMenuItem.routeKey) };
-
-  //   case 'un':
-  //     return { routeKey, type: currentMenuItem.type, data: unsState.items.find(x => x.id === currentMenuItem.routeKey) };
-
-  //   case 'plant':
-  //     return { routeKey, type: currentMenuItem.type, data: plantsState.items.find(x => x.id === currentMenuItem.routeKey) };
-
-  //   case 'modelfolder':
-  //     return null;
-
-  //   case 'model':
-  //     return { routeKey, type: currentMenuItem.type, data: modelsState.items.find(x => x.id === currentMenuItem.routeKey) };
-
-  //   default:
-  //     return null;
-  //   }
-
-  // }
 
   @Selector([DemoFeatureState])
   public static tree(state: DemoFeatureStateModel): TreeNode[] {
@@ -236,9 +202,33 @@ export class DemoFeatureSelectors {
     return giantsTree;
   }
 
+  public static parentedPortalModelsTree(state: DemoFeatureStateModel): any[] {
+
+    const models = cloneDeep(portalModelsTree);
+
+    const modelsTreeOptions: ParentEntity<string, Partial<TreeNode>>[] = plants.map(x => ({
+      parentId: x.id,
+      data: [
+        ...models.filter(c => c.key === x.id).flatMap(plant => plant.children)]
+    }));
+
+    return modelsTreeOptions;
+  }
+
+  public static plants(state: DemoFeatureStateModel): any[] {
+    return plants;
+  }
+
+//   public static linkedDataSample(state: DemoFeatureStateModel): { main: any[], data: ParentEntity<string, SimpleNamedEntity>[]} {
+//     return {
+//       main: [{ id: 'A', name: 'Group A'}, { id: 'B', name: 'Group B'}],
+//       data: linkedTree
+//     };
+//   }
+
 }
 
-
+const linkedData = [{ parentId: 'A', data: [{ id: 'A1', name: 'Option A1' }, { id: 'A2', name: 'Option A2' }]}, { parentId: 'B', data: [{ id: 'B1', name: 'Option B1' }, { id: 'B2', name: 'Option B2' }]}];
 
 const giantsTree = [
   {
@@ -2118,5 +2108,1703 @@ const giantsTree = [
     "topsideModules": [],
     "hullSpaces": [],
     "id": "c3fe1ff4-e1f0-4271-9610-02f44e4c991f"
+  }
+];
+
+const portalModelsTree = [
+  {
+      "label": "P-74",
+      "data": {
+          "tenantId": "UN-BUZ",
+          "name": "P-74",
+          "description": null,
+          "imagePath": "images/plant/P-74.jpg",
+          "latitude": -24.6487,
+          "longitude": -42.5147,
+          "un": null,
+          "type": {
+              "id": 0,
+              "name": "FPSO"
+          },
+          "id": "c2710611-a76b-40db-8eb2-08dc3c795e33"
+      },
+      "icon": null,
+      "expandedIcon": null,
+      "collapsedIcon": null,
+      "leaf": false,
+      "type": "Plant",
+      "style": null,
+      "styleClass": null,
+      "draggable": false,
+      "droppable": false,
+      "selectable": true,
+      "key": "c2710611-a76b-40db-8eb2-08dc3c795e33",
+      "expanded": true,
+      "children": [
+          {
+              "label": "Mapa de Corrosão",
+              "data": {
+                  "name": "Mapa de Corrosão",
+                  "id": "3e9737fd-a178-4560-b699-08dc3c795e3f"
+              },
+              "icon": null,
+              "expandedIcon": "far fa-folder-open",
+              "collapsedIcon": "far fa-folder",
+              "leaf": false,
+              "type": "ModelFolderNormal",
+              "style": null,
+              "styleClass": null,
+              "draggable": false,
+              "droppable": false,
+              "selectable": true,
+              "key": "3e9737fd-a178-4560-b699-08dc3c795e3f",
+              "expanded": false,
+              "children": [
+                  {
+                      "label": "P-74 - Corrosão - 2020",
+                      "data": {
+                          "tenantId": "UN-BUZ",
+                          "name": "P-74 - Corrosão - 2020",
+                          "description": "Corrosão - 2020 da P-74",
+                          "code": "P-74_CORROSAO_2020",
+                          "imageVirtualPath": null,
+                          "tagsSummary": null,
+                          "files": [
+                              {
+                                  "tenantId": "UN-BUZ",
+                                  "name": "P-74_Mapa_de_Corrosao_2020.zip",
+                                  "date": "2024-03-04T18:31:55.1425664",
+                                  "projectDate": "2024-03-04T18:31:55.1425664",
+                                  "size": "66.133 MB",
+                                  "virtualPath": "/UN-BUZ/MODELS/P-74/Environ/P-74_Mapa_de_Corrosao_2020.zip",
+                                  "viewer": {
+                                      "name": "Environ",
+                                      "id": "73bd5c34-fd2f-4075-4018-08dc3c795e52"
+                                  },
+                                  "id": "8c214607-de48-4c62-4626-08dc3c795e5a"
+                              }
+                          ],
+                          "pointClouds": [],
+                          "subType": 0,
+                          "converterAssociation": false,
+                          "jobViewers": [],
+                          "id": "a4186188-5496-474c-ab7c-08dc3c795e42"
+                      },
+                      "icon": null,
+                      "expandedIcon": null,
+                      "collapsedIcon": null,
+                      "leaf": true,
+                      "type": "ModelNormal",
+                      "style": null,
+                      "styleClass": null,
+                      "draggable": false,
+                      "droppable": false,
+                      "selectable": true,
+                      "key": "a4186188-5496-474c-ab7c-08dc3c795e42",
+                      "expanded": false,
+                      "children": null
+                  },
+                  {
+                      "label": "P-74 - Corrosão - 2021",
+                      "data": {
+                          "tenantId": "UN-BUZ",
+                          "name": "P-74 - Corrosão - 2021",
+                          "description": "Corrosão - 2021 da P-74",
+                          "code": "P-74_CORROSAO_2021",
+                          "imageVirtualPath": null,
+                          "tagsSummary": null,
+                          "files": [
+                              {
+                                  "tenantId": "UN-BUZ",
+                                  "name": "P-74_Mapa_de_Corrosao_2021.zip",
+                                  "date": "2024-03-04T18:31:55.1701922",
+                                  "projectDate": "2024-03-04T18:31:55.1701924",
+                                  "size": "76.623 MB",
+                                  "virtualPath": "/UN-BUZ/MODELS/P-74/Environ/P-74_Mapa_de_Corrosao_2021.zip",
+                                  "viewer": {
+                                      "name": "Environ",
+                                      "id": "73bd5c34-fd2f-4075-4018-08dc3c795e52"
+                                  },
+                                  "id": "f37cfc88-cb04-4f7a-4627-08dc3c795e5a"
+                              }
+                          ],
+                          "pointClouds": [],
+                          "subType": 0,
+                          "converterAssociation": false,
+                          "jobViewers": [],
+                          "id": "630b36e7-ef06-45be-ab7d-08dc3c795e42"
+                      },
+                      "icon": null,
+                      "expandedIcon": null,
+                      "collapsedIcon": null,
+                      "leaf": true,
+                      "type": "ModelNormal",
+                      "style": null,
+                      "styleClass": null,
+                      "draggable": false,
+                      "droppable": false,
+                      "selectable": true,
+                      "key": "630b36e7-ef06-45be-ab7d-08dc3c795e42",
+                      "expanded": false,
+                      "children": null
+                  }
+              ]
+          },
+          {
+              "label": "P-74-Completa",
+              "data": {
+                  "name": "P-74-Completa",
+                  "id": "cdf2bf47-f236-4a4e-b69a-08dc3c795e3f"
+              },
+              "icon": null,
+              "expandedIcon": "far fa-folder-open",
+              "collapsedIcon": "far fa-folder",
+              "leaf": false,
+              "type": "ModelFolderNormal",
+              "style": null,
+              "styleClass": null,
+              "draggable": false,
+              "droppable": false,
+              "selectable": true,
+              "key": "cdf2bf47-f236-4a4e-b69a-08dc3c795e3f",
+              "expanded": false,
+              "children": [
+                  {
+                      "label": "HULL",
+                      "data": {
+                          "name": "HULL",
+                          "id": "5f41aff9-178d-4a1f-b69b-08dc3c795e3f"
+                      },
+                      "icon": null,
+                      "expandedIcon": "far fa-folder-open",
+                      "collapsedIcon": "far fa-folder",
+                      "leaf": false,
+                      "type": "ModelFolderNormal",
+                      "style": null,
+                      "styleClass": null,
+                      "draggable": false,
+                      "droppable": false,
+                      "selectable": true,
+                      "key": "5f41aff9-178d-4a1f-b69b-08dc3c795e3f",
+                      "expanded": false,
+                      "children": [
+                          {
+                              "label": "Accommodation Module",
+                              "data": {
+                                  "tenantId": "UN-BUZ",
+                                  "name": "Accommodation Module",
+                                  "description": "Accommodation Module da P-74",
+                                  "code": "P-74_Acc_Module",
+                                  "imageVirtualPath": "/UN-BUZ/IMAGES/P-74/P-74_Acc_Module.png",
+                                  "tagsSummary": null,
+                                  "files": [
+                                      {
+                                          "tenantId": "UN-BUZ",
+                                          "name": "P-74_Accommodation_Module.env",
+                                          "date": "2024-03-04T18:31:55.1705785",
+                                          "projectDate": "2024-03-04T18:31:55.1705786",
+                                          "size": "306.007 MB",
+                                          "virtualPath": "/UN-BUZ/MODELS/P-74/Environ/P-74_Accommodation_Module.env",
+                                          "viewer": {
+                                              "name": "Environ",
+                                              "id": "73bd5c34-fd2f-4075-4018-08dc3c795e52"
+                                          },
+                                          "id": "450512e3-331a-4950-4630-08dc3c795e5a"
+                                      },
+                                      {
+                                          "tenantId": "UN-BUZ",
+                                          "name": "P-74_Accommodation_Module.nwd",
+                                          "date": "2024-03-04T18:31:55.1706154",
+                                          "projectDate": "2024-03-04T18:31:55.1706155",
+                                          "size": "306.007 MB",
+                                          "virtualPath": "/UN-BUZ/MODELS/P-74/Navisworks/P-74_Accommodation_Module.nwd",
+                                          "viewer": {
+                                              "name": "Navisworks",
+                                              "id": "8d0460d8-6791-447c-401a-08dc3c795e52"
+                                          },
+                                          "id": "983382c9-eac1-4294-4631-08dc3c795e5a"
+                                      },
+                                      {
+                                          "tenantId": "UN-BUZ",
+                                          "name": "P-74_Accommodation_Module.zip",
+                                          "date": "2024-03-04T18:31:55.1706516",
+                                          "projectDate": "2024-03-04T18:31:55.1706517",
+                                          "size": "306.007 MB",
+                                          "virtualPath": "/UN-BUZ/MODELS/P-74/SmartPlantReview/P-74_Accommodation_Module.zip",
+                                          "viewer": {
+                                              "name": "SmartPlantReview",
+                                              "id": "f5b21efb-8cbf-4534-4017-08dc3c795e52"
+                                          },
+                                          "id": "750fb767-deda-48cf-4632-08dc3c795e5a"
+                                      }
+                                  ],
+                                  "pointClouds": [],
+                                  "subType": 0,
+                                  "converterAssociation": false,
+                                  "jobViewers": [],
+                                  "id": "25e45b4e-da91-4b0c-ab96-08dc3c795e42"
+                              },
+                              "icon": null,
+                              "expandedIcon": null,
+                              "collapsedIcon": null,
+                              "leaf": true,
+                              "type": "ModelNormal",
+                              "style": null,
+                              "styleClass": null,
+                              "draggable": false,
+                              "droppable": false,
+                              "selectable": true,
+                              "key": "25e45b4e-da91-4b0c-ab96-08dc3c795e42",
+                              "expanded": false,
+                              "children": null
+                          },
+                          {
+                              "label": "AFT Region",
+                              "data": {
+                                  "tenantId": "UN-BUZ",
+                                  "name": "AFT Region",
+                                  "description": "AFT Region da P-74",
+                                  "code": "P74_AFT",
+                                  "imageVirtualPath": "/UN-BUZ/IMAGES/P-74/P-74_AFT.png",
+                                  "tagsSummary": null,
+                                  "files": [
+                                      {
+                                          "tenantId": "UN-BUZ",
+                                          "name": "P-74_AFT.env",
+                                          "date": "2024-03-04T18:31:55.1706861",
+                                          "projectDate": "2024-03-04T18:31:55.1706861",
+                                          "size": "81.894 MB",
+                                          "virtualPath": "/UN-BUZ/MODELS/P-74/Environ/P-74_AFT.env",
+                                          "viewer": {
+                                              "name": "Environ",
+                                              "id": "73bd5c34-fd2f-4075-4018-08dc3c795e52"
+                                          },
+                                          "id": "7a9f6435-3d14-437b-4633-08dc3c795e5a"
+                                      },
+                                      {
+                                          "tenantId": "UN-BUZ",
+                                          "name": "P-74_AFT.nwd",
+                                          "date": "2024-03-04T18:31:55.1707248",
+                                          "projectDate": "2024-03-04T18:31:55.1707249",
+                                          "size": "81.894 MB",
+                                          "virtualPath": "/UN-BUZ/MODELS/P-74/Navisworks/P-74_AFT.nwd",
+                                          "viewer": {
+                                              "name": "Navisworks",
+                                              "id": "8d0460d8-6791-447c-401a-08dc3c795e52"
+                                          },
+                                          "id": "9cb0b5ee-0a5b-4ae7-4634-08dc3c795e5a"
+                                      },
+                                      {
+                                          "tenantId": "UN-BUZ",
+                                          "name": "P-74_AFT.zip",
+                                          "date": "2024-03-04T18:31:55.1707591",
+                                          "projectDate": "2024-03-04T18:31:55.1707591",
+                                          "size": "81.894 MB",
+                                          "virtualPath": "/UN-BUZ/MODELS/P-74/SmartPlantReview/P-74_AFT.zip",
+                                          "viewer": {
+                                              "name": "SmartPlantReview",
+                                              "id": "f5b21efb-8cbf-4534-4017-08dc3c795e52"
+                                          },
+                                          "id": "f89b57fe-cc8c-43cb-4635-08dc3c795e5a"
+                                      }
+                                  ],
+                                  "pointClouds": [],
+                                  "subType": 0,
+                                  "converterAssociation": false,
+                                  "jobViewers": [],
+                                  "id": "086c204c-5432-4b52-ab97-08dc3c795e42"
+                              },
+                              "icon": null,
+                              "expandedIcon": null,
+                              "collapsedIcon": null,
+                              "leaf": true,
+                              "type": "ModelNormal",
+                              "style": null,
+                              "styleClass": null,
+                              "draggable": false,
+                              "droppable": false,
+                              "selectable": true,
+                              "key": "086c204c-5432-4b52-ab97-08dc3c795e42",
+                              "expanded": false,
+                              "children": null
+                          },
+                          {
+                              "label": "Bow Region",
+                              "data": {
+                                  "tenantId": "UN-BUZ",
+                                  "name": "Bow Region",
+                                  "description": "Bow Region da P-74",
+                                  "code": "P74_Bow_Region",
+                                  "imageVirtualPath": "/UN-BUZ/IMAGES/P-74/P-74_Bow_Region.png",
+                                  "tagsSummary": null,
+                                  "files": [
+                                      {
+                                          "tenantId": "UN-BUZ",
+                                          "name": "P-74_Bow.env",
+                                          "date": "2024-03-04T18:31:55.1707941",
+                                          "projectDate": "2024-03-04T18:31:55.1707942",
+                                          "size": "38.024 MB",
+                                          "virtualPath": "/UN-BUZ/MODELS/P-74/Environ/P-74_Bow.env",
+                                          "viewer": {
+                                              "name": "Environ",
+                                              "id": "73bd5c34-fd2f-4075-4018-08dc3c795e52"
+                                          },
+                                          "id": "422e44ca-0af9-4c9d-4636-08dc3c795e5a"
+                                      },
+                                      {
+                                          "tenantId": "UN-BUZ",
+                                          "name": "P-74_Bow.nwd",
+                                          "date": "2024-03-04T18:31:55.1708281",
+                                          "projectDate": "2024-03-04T18:31:55.1708281",
+                                          "size": "38.024 MB",
+                                          "virtualPath": "/UN-BUZ/MODELS/P-74/Navisworks/P-74_Bow.nwd",
+                                          "viewer": {
+                                              "name": "Navisworks",
+                                              "id": "8d0460d8-6791-447c-401a-08dc3c795e52"
+                                          },
+                                          "id": "36b6527b-86a0-4e6f-4637-08dc3c795e5a"
+                                      },
+                                      {
+                                          "tenantId": "UN-BUZ",
+                                          "name": "P-74_Bow.zip",
+                                          "date": "2024-03-04T18:31:55.1708639",
+                                          "projectDate": "2024-03-04T18:31:55.170864",
+                                          "size": "38.024 MB",
+                                          "virtualPath": "/UN-BUZ/MODELS/P-74/SmartPlantReview/P-74_Bow.zip",
+                                          "viewer": {
+                                              "name": "SmartPlantReview",
+                                              "id": "f5b21efb-8cbf-4534-4017-08dc3c795e52"
+                                          },
+                                          "id": "539621fa-7d45-4c36-4638-08dc3c795e5a"
+                                      }
+                                  ],
+                                  "pointClouds": [],
+                                  "subType": 0,
+                                  "converterAssociation": false,
+                                  "jobViewers": [],
+                                  "id": "f46f04ab-1e02-4989-ab98-08dc3c795e42"
+                              },
+                              "icon": null,
+                              "expandedIcon": null,
+                              "collapsedIcon": null,
+                              "leaf": true,
+                              "type": "ModelNormal",
+                              "style": null,
+                              "styleClass": null,
+                              "draggable": false,
+                              "droppable": false,
+                              "selectable": true,
+                              "key": "f46f04ab-1e02-4989-ab98-08dc3c795e42",
+                              "expanded": false,
+                              "children": null
+                          }
+                      ]
+                  },
+                  {
+                      "label": "M000 - Main Deck",
+                      "data": {
+                          "tenantId": "UN-BUZ",
+                          "name": "M000 - Main Deck",
+                          "description": "Main Deck da P-74",
+                          "code": "P-74_M000",
+                          "imageVirtualPath": "/UN-BUZ/IMAGES/P-74/P-74_M00.png",
+                          "tagsSummary": {
+                              "date": "2024-03-04T18:31:55.091686Z",
+                              "number": 4
+                          },
+                          "files": [
+                              {
+                                  "tenantId": "UN-BUZ",
+                                  "name": "P-74_M00_Main_Deck.env",
+                                  "date": "2024-03-04T18:31:55.1702688",
+                                  "projectDate": "2024-03-04T18:31:55.1702688",
+                                  "size": "43.244 MB",
+                                  "virtualPath": "/UN-BUZ/MODELS/P-74/Environ/P-74_M00_Main_Deck.env",
+                                  "viewer": {
+                                      "name": "Environ",
+                                      "id": "73bd5c34-fd2f-4075-4018-08dc3c795e52"
+                                  },
+                                  "id": "2bae3ed7-00fd-4793-4628-08dc3c795e5a"
+                              },
+                              {
+                                  "tenantId": "UN-BUZ",
+                                  "name": "P-74_M00_Main_Deck.nwd",
+                                  "date": "2024-03-04T18:31:55.1703121",
+                                  "projectDate": "2024-03-04T18:31:55.1703121",
+                                  "size": "43.244 MB",
+                                  "virtualPath": "/UN-BUZ/MODELS/P-74/Navisworks/P-74_M00_Main_Deck.nwd",
+                                  "viewer": {
+                                      "name": "Navisworks",
+                                      "id": "8d0460d8-6791-447c-401a-08dc3c795e52"
+                                  },
+                                  "id": "563ec250-8c99-4cb3-4629-08dc3c795e5a"
+                              }
+                          ],
+                          "pointClouds": [],
+                          "subType": 0,
+                          "converterAssociation": false,
+                          "jobViewers": [],
+                          "id": "45c4bc17-039b-463f-ab7e-08dc3c795e42"
+                      },
+                      "icon": null,
+                      "expandedIcon": null,
+                      "collapsedIcon": null,
+                      "leaf": true,
+                      "type": "ModelNormal",
+                      "style": null,
+                      "styleClass": null,
+                      "draggable": false,
+                      "droppable": false,
+                      "selectable": true,
+                      "key": "45c4bc17-039b-463f-ab7e-08dc3c795e42",
+                      "expanded": false,
+                      "children": null
+                  },
+                  {
+                      "label": "M001 - Flare System",
+                      "data": {
+                          "tenantId": "UN-BUZ",
+                          "name": "M001 - Flare System",
+                          "description": "Flare System da P-74",
+                          "code": "P-74_M001",
+                          "imageVirtualPath": "/UN-BUZ/IMAGES/P-74/P-74_M01.png",
+                          "tagsSummary": {
+                              "date": "2024-03-04T18:31:55.0918626Z",
+                              "number": 4
+                          },
+                          "files": [
+                              {
+                                  "tenantId": "UN-BUZ",
+                                  "name": "P-74_M01_Flare_System.env",
+                                  "date": "2024-03-04T18:31:55.1703511",
+                                  "projectDate": "2024-03-04T18:31:55.1703512",
+                                  "size": "33.708 MB",
+                                  "virtualPath": "/UN-BUZ/MODELS/P-74/Environ/P-74_M01_Flare_System.env",
+                                  "viewer": {
+                                      "name": "Environ",
+                                      "id": "73bd5c34-fd2f-4075-4018-08dc3c795e52"
+                                  },
+                                  "id": "8232dbdc-4f2b-4891-462a-08dc3c795e5a"
+                              },
+                              {
+                                  "tenantId": "UN-BUZ",
+                                  "name": "P-74_M01_Flare_System.nwd",
+                                  "date": "2024-03-04T18:31:55.1703879",
+                                  "projectDate": "2024-03-04T18:31:55.1703879",
+                                  "size": "33.708 MB",
+                                  "virtualPath": "/UN-BUZ/MODELS/P-74/Navisworks/P-74_M01_Flare_System.nwd",
+                                  "viewer": {
+                                      "name": "Navisworks",
+                                      "id": "8d0460d8-6791-447c-401a-08dc3c795e52"
+                                  },
+                                  "id": "c0679f6b-19e0-44c9-462b-08dc3c795e5a"
+                              }
+                          ],
+                          "pointClouds": [],
+                          "subType": 0,
+                          "converterAssociation": false,
+                          "jobViewers": [],
+                          "id": "ee1f1ccc-fe99-4398-ab7f-08dc3c795e42"
+                      },
+                      "icon": null,
+                      "expandedIcon": null,
+                      "collapsedIcon": null,
+                      "leaf": true,
+                      "type": "ModelNormal",
+                      "style": null,
+                      "styleClass": null,
+                      "draggable": false,
+                      "droppable": false,
+                      "selectable": true,
+                      "key": "ee1f1ccc-fe99-4398-ab7f-08dc3c795e42",
+                      "expanded": false,
+                      "children": null
+                  },
+                  {
+                      "label": "M002 - CO2 Compressor",
+                      "data": {
+                          "tenantId": "UN-BUZ",
+                          "name": "M002 - CO2 Compressor",
+                          "description": "CO2 Compressor da P-74",
+                          "code": "P-74_M002",
+                          "imageVirtualPath": "/UN-BUZ/IMAGES/P-74/P-74_M02.png",
+                          "tagsSummary": {
+                              "date": "2024-03-04T18:31:55.0918633Z",
+                              "number": 4
+                          },
+                          "files": [
+                              {
+                                  "tenantId": "UN-BUZ",
+                                  "name": "P-74_M02_CO2_Compression.env",
+                                  "date": "2024-03-04T18:31:55.1704234",
+                                  "projectDate": "2024-03-04T18:31:55.1704235",
+                                  "size": "81.392 MB",
+                                  "virtualPath": "/UN-BUZ/MODELS/P-74/Environ/P-74_M02_CO2_Compression.env",
+                                  "viewer": {
+                                      "name": "Environ",
+                                      "id": "73bd5c34-fd2f-4075-4018-08dc3c795e52"
+                                  },
+                                  "id": "1a04c3ed-9adc-4f36-462c-08dc3c795e5a"
+                              },
+                              {
+                                  "tenantId": "UN-BUZ",
+                                  "name": "P-74_M02_CO2_Compression.nwd",
+                                  "date": "2024-03-04T18:31:55.170458",
+                                  "projectDate": "2024-03-04T18:31:55.1704581",
+                                  "size": "81.392 MB",
+                                  "virtualPath": "/UN-BUZ/MODELS/P-74/Navisworks/P-74_M02_CO2_Compression.nwd",
+                                  "viewer": {
+                                      "name": "Navisworks",
+                                      "id": "8d0460d8-6791-447c-401a-08dc3c795e52"
+                                  },
+                                  "id": "b3e416eb-4155-4fba-462d-08dc3c795e5a"
+                              }
+                          ],
+                          "pointClouds": [],
+                          "subType": 0,
+                          "converterAssociation": false,
+                          "jobViewers": [],
+                          "id": "a3a860a2-04ad-4d52-ab80-08dc3c795e42"
+                      },
+                      "icon": null,
+                      "expandedIcon": null,
+                      "collapsedIcon": null,
+                      "leaf": true,
+                      "type": "ModelNormal",
+                      "style": null,
+                      "styleClass": null,
+                      "draggable": false,
+                      "droppable": false,
+                      "selectable": true,
+                      "key": "a3a860a2-04ad-4d52-ab80-08dc3c795e42",
+                      "expanded": false,
+                      "children": null
+                  },
+                  {
+                      "label": "M003 - Exportation Gas Compression",
+                      "data": {
+                          "tenantId": "UN-BUZ",
+                          "name": "M003 - Exportation Gas Compression",
+                          "description": "Exportation Gas Compression da P74",
+                          "code": "P-74_M003",
+                          "imageVirtualPath": "/UN-BUZ/IMAGES/P-74/P-74_M03.png",
+                          "tagsSummary": {
+                              "date": "2024-03-04T18:31:55.0918638Z",
+                              "number": 4
+                          },
+                          "files": [
+                              {
+                                  "tenantId": "UN-BUZ",
+                                  "name": "P-74_M03_Exportation_Gas_Compression.env",
+                                  "date": "2024-03-04T18:31:55.1704935",
+                                  "projectDate": "2024-03-04T18:31:55.1704935",
+                                  "size": "47.059 MB",
+                                  "virtualPath": "/UN-BUZ/MODELS/P-74/Environ/P-74_M03_Exportation_Gas_Compression.env",
+                                  "viewer": {
+                                      "name": "Environ",
+                                      "id": "73bd5c34-fd2f-4075-4018-08dc3c795e52"
+                                  },
+                                  "id": "bcfd6ca2-e713-49eb-462e-08dc3c795e5a"
+                              },
+                              {
+                                  "tenantId": "UN-BUZ",
+                                  "name": "P-74_M03_Exportation_Gas_Compression.nwd",
+                                  "date": "2024-03-04T18:31:55.1705284",
+                                  "projectDate": "2024-03-04T18:31:55.1705284",
+                                  "size": "47.059 MB",
+                                  "virtualPath": "/UN-BUZ/MODELS/P-74/Navisworks/P-74_M03_Exportation_Gas_Compression.nwd",
+                                  "viewer": {
+                                      "name": "Navisworks",
+                                      "id": "8d0460d8-6791-447c-401a-08dc3c795e52"
+                                  },
+                                  "id": "887870de-a6d4-46a2-462f-08dc3c795e5a"
+                              }
+                          ],
+                          "pointClouds": [],
+                          "subType": 0,
+                          "converterAssociation": false,
+                          "jobViewers": [],
+                          "id": "f2bc98dc-1d81-4332-ab81-08dc3c795e42"
+                      },
+                      "icon": null,
+                      "expandedIcon": null,
+                      "collapsedIcon": null,
+                      "leaf": true,
+                      "type": "ModelNormal",
+                      "style": null,
+                      "styleClass": null,
+                      "draggable": false,
+                      "droppable": false,
+                      "selectable": true,
+                      "key": "f2bc98dc-1d81-4332-ab81-08dc3c795e42",
+                      "expanded": false,
+                      "children": null
+                  },
+                  {
+                      "label": "M004 - Overflow Busca",
+                      "data": {
+                          "tenantId": "UN-BUZ",
+                          "name": "M004 - Overflow Busca",
+                          "description": "Overflow na busca 004",
+                          "code": "P-74_M004",
+                          "imageVirtualPath": "/UN-BUZ/IMAGES/P-74/P-74_M00.png",
+                          "tagsSummary": null,
+                          "files": [],
+                          "pointClouds": [],
+                          "subType": 0,
+                          "converterAssociation": false,
+                          "jobViewers": [],
+                          "id": "3008472a-af53-4492-ab82-08dc3c795e42"
+                      },
+                      "icon": null,
+                      "expandedIcon": null,
+                      "collapsedIcon": null,
+                      "leaf": true,
+                      "type": "ModelNormal",
+                      "style": null,
+                      "styleClass": null,
+                      "draggable": false,
+                      "droppable": false,
+                      "selectable": true,
+                      "key": "3008472a-af53-4492-ab82-08dc3c795e42",
+                      "expanded": false,
+                      "children": null
+                  },
+                  {
+                      "label": "M005 - Overflow Busca",
+                      "data": {
+                          "tenantId": "UN-BUZ",
+                          "name": "M005 - Overflow Busca",
+                          "description": "Overflow na busca 005",
+                          "code": "P-74_M005",
+                          "imageVirtualPath": "/UN-BUZ/IMAGES/P-74/P-74_M00.png",
+                          "tagsSummary": null,
+                          "files": [],
+                          "pointClouds": [],
+                          "subType": 0,
+                          "converterAssociation": false,
+                          "jobViewers": [],
+                          "id": "e4872783-24e7-4f5e-ab83-08dc3c795e42"
+                      },
+                      "icon": null,
+                      "expandedIcon": null,
+                      "collapsedIcon": null,
+                      "leaf": true,
+                      "type": "ModelNormal",
+                      "style": null,
+                      "styleClass": null,
+                      "draggable": false,
+                      "droppable": false,
+                      "selectable": true,
+                      "key": "e4872783-24e7-4f5e-ab83-08dc3c795e42",
+                      "expanded": false,
+                      "children": null
+                  },
+                  {
+                      "label": "M006 - Overflow Busca",
+                      "data": {
+                          "tenantId": "UN-BUZ",
+                          "name": "M006 - Overflow Busca",
+                          "description": "Overflow na busca 006",
+                          "code": "P-74_M006",
+                          "imageVirtualPath": "/UN-BUZ/IMAGES/P-74/P-74_M00.png",
+                          "tagsSummary": null,
+                          "files": [],
+                          "pointClouds": [],
+                          "subType": 0,
+                          "converterAssociation": false,
+                          "jobViewers": [],
+                          "id": "315732bb-f4ff-46f4-ab84-08dc3c795e42"
+                      },
+                      "icon": null,
+                      "expandedIcon": null,
+                      "collapsedIcon": null,
+                      "leaf": true,
+                      "type": "ModelNormal",
+                      "style": null,
+                      "styleClass": null,
+                      "draggable": false,
+                      "droppable": false,
+                      "selectable": true,
+                      "key": "315732bb-f4ff-46f4-ab84-08dc3c795e42",
+                      "expanded": false,
+                      "children": null
+                  },
+                  {
+                      "label": "M007 - Overflow Busca",
+                      "data": {
+                          "tenantId": "UN-BUZ",
+                          "name": "M007 - Overflow Busca",
+                          "description": "Overflow na busca 007",
+                          "code": "P-74_M007",
+                          "imageVirtualPath": "/UN-BUZ/IMAGES/P-74/P-74_M00.png",
+                          "tagsSummary": null,
+                          "files": [],
+                          "pointClouds": [],
+                          "subType": 0,
+                          "converterAssociation": false,
+                          "jobViewers": [],
+                          "id": "11f4ba8f-77f4-413a-ab85-08dc3c795e42"
+                      },
+                      "icon": null,
+                      "expandedIcon": null,
+                      "collapsedIcon": null,
+                      "leaf": true,
+                      "type": "ModelNormal",
+                      "style": null,
+                      "styleClass": null,
+                      "draggable": false,
+                      "droppable": false,
+                      "selectable": true,
+                      "key": "11f4ba8f-77f4-413a-ab85-08dc3c795e42",
+                      "expanded": false,
+                      "children": null
+                  },
+                  {
+                      "label": "M008 - Overflow Busca",
+                      "data": {
+                          "tenantId": "UN-BUZ",
+                          "name": "M008 - Overflow Busca",
+                          "description": "Overflow na busca 008",
+                          "code": "P-74_M008",
+                          "imageVirtualPath": "/UN-BUZ/IMAGES/P-74/P-74_M00.png",
+                          "tagsSummary": null,
+                          "files": [],
+                          "pointClouds": [],
+                          "subType": 0,
+                          "converterAssociation": false,
+                          "jobViewers": [],
+                          "id": "feacb4ef-2bc2-4ba2-ab86-08dc3c795e42"
+                      },
+                      "icon": null,
+                      "expandedIcon": null,
+                      "collapsedIcon": null,
+                      "leaf": true,
+                      "type": "ModelNormal",
+                      "style": null,
+                      "styleClass": null,
+                      "draggable": false,
+                      "droppable": false,
+                      "selectable": true,
+                      "key": "feacb4ef-2bc2-4ba2-ab86-08dc3c795e42",
+                      "expanded": false,
+                      "children": null
+                  },
+                  {
+                      "label": "M009 - Overflow Busca",
+                      "data": {
+                          "tenantId": "UN-BUZ",
+                          "name": "M009 - Overflow Busca",
+                          "description": "Overflow na busca 009",
+                          "code": "P-74_M009",
+                          "imageVirtualPath": "/UN-BUZ/IMAGES/P-74/P-74_M00.png",
+                          "tagsSummary": null,
+                          "files": [],
+                          "pointClouds": [],
+                          "subType": 0,
+                          "converterAssociation": false,
+                          "jobViewers": [],
+                          "id": "279ccfe1-858f-456a-ab87-08dc3c795e42"
+                      },
+                      "icon": null,
+                      "expandedIcon": null,
+                      "collapsedIcon": null,
+                      "leaf": true,
+                      "type": "ModelNormal",
+                      "style": null,
+                      "styleClass": null,
+                      "draggable": false,
+                      "droppable": false,
+                      "selectable": true,
+                      "key": "279ccfe1-858f-456a-ab87-08dc3c795e42",
+                      "expanded": false,
+                      "children": null
+                  },
+                  {
+                      "label": "M010 - Overflow Busca",
+                      "data": {
+                          "tenantId": "UN-BUZ",
+                          "name": "M010 - Overflow Busca",
+                          "description": "Overflow na busca 010",
+                          "code": "P-74_M010",
+                          "imageVirtualPath": "/UN-BUZ/IMAGES/P-74/P-74_M00.png",
+                          "tagsSummary": null,
+                          "files": [],
+                          "pointClouds": [],
+                          "subType": 0,
+                          "converterAssociation": false,
+                          "jobViewers": [],
+                          "id": "cdd601ce-386c-4778-ab88-08dc3c795e42"
+                      },
+                      "icon": null,
+                      "expandedIcon": null,
+                      "collapsedIcon": null,
+                      "leaf": true,
+                      "type": "ModelNormal",
+                      "style": null,
+                      "styleClass": null,
+                      "draggable": false,
+                      "droppable": false,
+                      "selectable": true,
+                      "key": "cdd601ce-386c-4778-ab88-08dc3c795e42",
+                      "expanded": false,
+                      "children": null
+                  },
+                  {
+                      "label": "M011 - Overflow Busca",
+                      "data": {
+                          "tenantId": "UN-BUZ",
+                          "name": "M011 - Overflow Busca",
+                          "description": "Overflow na busca 011",
+                          "code": "P-74_M011",
+                          "imageVirtualPath": "/UN-BUZ/IMAGES/P-74/P-74_M00.png",
+                          "tagsSummary": null,
+                          "files": [],
+                          "pointClouds": [],
+                          "subType": 0,
+                          "converterAssociation": false,
+                          "jobViewers": [],
+                          "id": "cc85db34-bd1d-4942-ab89-08dc3c795e42"
+                      },
+                      "icon": null,
+                      "expandedIcon": null,
+                      "collapsedIcon": null,
+                      "leaf": true,
+                      "type": "ModelNormal",
+                      "style": null,
+                      "styleClass": null,
+                      "draggable": false,
+                      "droppable": false,
+                      "selectable": true,
+                      "key": "cc85db34-bd1d-4942-ab89-08dc3c795e42",
+                      "expanded": false,
+                      "children": null
+                  },
+                  {
+                      "label": "M012 - Overflow Busca",
+                      "data": {
+                          "tenantId": "UN-BUZ",
+                          "name": "M012 - Overflow Busca",
+                          "description": "Overflow na busca 012",
+                          "code": "P-74_M012",
+                          "imageVirtualPath": "/UN-BUZ/IMAGES/P-74/P-74_M00.png",
+                          "tagsSummary": null,
+                          "files": [],
+                          "pointClouds": [],
+                          "subType": 0,
+                          "converterAssociation": false,
+                          "jobViewers": [],
+                          "id": "4e8a9fe5-1e83-4327-ab8a-08dc3c795e42"
+                      },
+                      "icon": null,
+                      "expandedIcon": null,
+                      "collapsedIcon": null,
+                      "leaf": true,
+                      "type": "ModelNormal",
+                      "style": null,
+                      "styleClass": null,
+                      "draggable": false,
+                      "droppable": false,
+                      "selectable": true,
+                      "key": "4e8a9fe5-1e83-4327-ab8a-08dc3c795e42",
+                      "expanded": false,
+                      "children": null
+                  },
+                  {
+                      "label": "M013 - Overflow Busca",
+                      "data": {
+                          "tenantId": "UN-BUZ",
+                          "name": "M013 - Overflow Busca",
+                          "description": "Overflow na busca 013",
+                          "code": "P-74_M013",
+                          "imageVirtualPath": "/UN-BUZ/IMAGES/P-74/P-74_M00.png",
+                          "tagsSummary": null,
+                          "files": [],
+                          "pointClouds": [],
+                          "subType": 0,
+                          "converterAssociation": false,
+                          "jobViewers": [],
+                          "id": "6ed57938-9c0c-47ce-ab8b-08dc3c795e42"
+                      },
+                      "icon": null,
+                      "expandedIcon": null,
+                      "collapsedIcon": null,
+                      "leaf": true,
+                      "type": "ModelNormal",
+                      "style": null,
+                      "styleClass": null,
+                      "draggable": false,
+                      "droppable": false,
+                      "selectable": true,
+                      "key": "6ed57938-9c0c-47ce-ab8b-08dc3c795e42",
+                      "expanded": false,
+                      "children": null
+                  },
+                  {
+                      "label": "M014 - Overflow Busca",
+                      "data": {
+                          "tenantId": "UN-BUZ",
+                          "name": "M014 - Overflow Busca",
+                          "description": "Overflow na busca 014",
+                          "code": "P-74_M014",
+                          "imageVirtualPath": "/UN-BUZ/IMAGES/P-74/P-74_M00.png",
+                          "tagsSummary": null,
+                          "files": [],
+                          "pointClouds": [],
+                          "subType": 0,
+                          "converterAssociation": false,
+                          "jobViewers": [],
+                          "id": "27abcd7e-2896-4960-ab8c-08dc3c795e42"
+                      },
+                      "icon": null,
+                      "expandedIcon": null,
+                      "collapsedIcon": null,
+                      "leaf": true,
+                      "type": "ModelNormal",
+                      "style": null,
+                      "styleClass": null,
+                      "draggable": false,
+                      "droppable": false,
+                      "selectable": true,
+                      "key": "27abcd7e-2896-4960-ab8c-08dc3c795e42",
+                      "expanded": false,
+                      "children": null
+                  },
+                  {
+                      "label": "M015 - Overflow Busca",
+                      "data": {
+                          "tenantId": "UN-BUZ",
+                          "name": "M015 - Overflow Busca",
+                          "description": "Overflow na busca 015",
+                          "code": "P-74_M015",
+                          "imageVirtualPath": "/UN-BUZ/IMAGES/P-74/P-74_M00.png",
+                          "tagsSummary": null,
+                          "files": [],
+                          "pointClouds": [],
+                          "subType": 0,
+                          "converterAssociation": false,
+                          "jobViewers": [],
+                          "id": "973097a7-fded-44c7-ab8d-08dc3c795e42"
+                      },
+                      "icon": null,
+                      "expandedIcon": null,
+                      "collapsedIcon": null,
+                      "leaf": true,
+                      "type": "ModelNormal",
+                      "style": null,
+                      "styleClass": null,
+                      "draggable": false,
+                      "droppable": false,
+                      "selectable": true,
+                      "key": "973097a7-fded-44c7-ab8d-08dc3c795e42",
+                      "expanded": false,
+                      "children": null
+                  },
+                  {
+                      "label": "M016 - Overflow Busca",
+                      "data": {
+                          "tenantId": "UN-BUZ",
+                          "name": "M016 - Overflow Busca",
+                          "description": "Overflow na busca 016",
+                          "code": "P-74_M016",
+                          "imageVirtualPath": "/UN-BUZ/IMAGES/P-74/P-74_M00.png",
+                          "tagsSummary": null,
+                          "files": [],
+                          "pointClouds": [],
+                          "subType": 0,
+                          "converterAssociation": false,
+                          "jobViewers": [],
+                          "id": "c979d53b-592a-48ed-ab8e-08dc3c795e42"
+                      },
+                      "icon": null,
+                      "expandedIcon": null,
+                      "collapsedIcon": null,
+                      "leaf": true,
+                      "type": "ModelNormal",
+                      "style": null,
+                      "styleClass": null,
+                      "draggable": false,
+                      "droppable": false,
+                      "selectable": true,
+                      "key": "c979d53b-592a-48ed-ab8e-08dc3c795e42",
+                      "expanded": false,
+                      "children": null
+                  },
+                  {
+                      "label": "M017 - Overflow Busca",
+                      "data": {
+                          "tenantId": "UN-BUZ",
+                          "name": "M017 - Overflow Busca",
+                          "description": "Overflow na busca 017",
+                          "code": "P-74_M017",
+                          "imageVirtualPath": "/UN-BUZ/IMAGES/P-74/P-74_M00.png",
+                          "tagsSummary": null,
+                          "files": [],
+                          "pointClouds": [],
+                          "subType": 0,
+                          "converterAssociation": false,
+                          "jobViewers": [],
+                          "id": "bf1dbe14-fbad-4492-ab8f-08dc3c795e42"
+                      },
+                      "icon": null,
+                      "expandedIcon": null,
+                      "collapsedIcon": null,
+                      "leaf": true,
+                      "type": "ModelNormal",
+                      "style": null,
+                      "styleClass": null,
+                      "draggable": false,
+                      "droppable": false,
+                      "selectable": true,
+                      "key": "bf1dbe14-fbad-4492-ab8f-08dc3c795e42",
+                      "expanded": false,
+                      "children": null
+                  },
+                  {
+                      "label": "M018 - Overflow Busca",
+                      "data": {
+                          "tenantId": "UN-BUZ",
+                          "name": "M018 - Overflow Busca",
+                          "description": "Overflow na busca 018",
+                          "code": "P-74_M018",
+                          "imageVirtualPath": "/UN-BUZ/IMAGES/P-74/P-74_M00.png",
+                          "tagsSummary": null,
+                          "files": [],
+                          "pointClouds": [],
+                          "subType": 0,
+                          "converterAssociation": false,
+                          "jobViewers": [],
+                          "id": "4b85fbcb-69dc-4a4d-ab90-08dc3c795e42"
+                      },
+                      "icon": null,
+                      "expandedIcon": null,
+                      "collapsedIcon": null,
+                      "leaf": true,
+                      "type": "ModelNormal",
+                      "style": null,
+                      "styleClass": null,
+                      "draggable": false,
+                      "droppable": false,
+                      "selectable": true,
+                      "key": "4b85fbcb-69dc-4a4d-ab90-08dc3c795e42",
+                      "expanded": false,
+                      "children": null
+                  },
+                  {
+                      "label": "M019 - Overflow Busca",
+                      "data": {
+                          "tenantId": "UN-BUZ",
+                          "name": "M019 - Overflow Busca",
+                          "description": "Overflow na busca 019",
+                          "code": "P-74_M019",
+                          "imageVirtualPath": "/UN-BUZ/IMAGES/P-74/P-74_M00.png",
+                          "tagsSummary": null,
+                          "files": [],
+                          "pointClouds": [],
+                          "subType": 0,
+                          "converterAssociation": false,
+                          "jobViewers": [],
+                          "id": "ddc7fb91-9010-40a3-ab91-08dc3c795e42"
+                      },
+                      "icon": null,
+                      "expandedIcon": null,
+                      "collapsedIcon": null,
+                      "leaf": true,
+                      "type": "ModelNormal",
+                      "style": null,
+                      "styleClass": null,
+                      "draggable": false,
+                      "droppable": false,
+                      "selectable": true,
+                      "key": "ddc7fb91-9010-40a3-ab91-08dc3c795e42",
+                      "expanded": false,
+                      "children": null
+                  },
+                  {
+                      "label": "M020 - Overflow Busca",
+                      "data": {
+                          "tenantId": "UN-BUZ",
+                          "name": "M020 - Overflow Busca",
+                          "description": "Overflow na busca 020",
+                          "code": "P-74_M020",
+                          "imageVirtualPath": "/UN-BUZ/IMAGES/P-74/P-74_M00.png",
+                          "tagsSummary": null,
+                          "files": [],
+                          "pointClouds": [],
+                          "subType": 0,
+                          "converterAssociation": false,
+                          "jobViewers": [],
+                          "id": "96f698e1-1324-4355-ab92-08dc3c795e42"
+                      },
+                      "icon": null,
+                      "expandedIcon": null,
+                      "collapsedIcon": null,
+                      "leaf": true,
+                      "type": "ModelNormal",
+                      "style": null,
+                      "styleClass": null,
+                      "draggable": false,
+                      "droppable": false,
+                      "selectable": true,
+                      "key": "96f698e1-1324-4355-ab92-08dc3c795e42",
+                      "expanded": false,
+                      "children": null
+                  },
+                  {
+                      "label": "M021 - Overflow Busca",
+                      "data": {
+                          "tenantId": "UN-BUZ",
+                          "name": "M021 - Overflow Busca",
+                          "description": "Overflow na busca 021",
+                          "code": "P-74_M021",
+                          "imageVirtualPath": "/UN-BUZ/IMAGES/P-74/P-74_M00.png",
+                          "tagsSummary": null,
+                          "files": [],
+                          "pointClouds": [],
+                          "subType": 0,
+                          "converterAssociation": false,
+                          "jobViewers": [],
+                          "id": "89c24a06-b6de-4ec1-ab93-08dc3c795e42"
+                      },
+                      "icon": null,
+                      "expandedIcon": null,
+                      "collapsedIcon": null,
+                      "leaf": true,
+                      "type": "ModelNormal",
+                      "style": null,
+                      "styleClass": null,
+                      "draggable": false,
+                      "droppable": false,
+                      "selectable": true,
+                      "key": "89c24a06-b6de-4ec1-ab93-08dc3c795e42",
+                      "expanded": false,
+                      "children": null
+                  },
+                  {
+                      "label": "M022 - Overflow Busca",
+                      "data": {
+                          "tenantId": "UN-BUZ",
+                          "name": "M022 - Overflow Busca",
+                          "description": "Overflow na busca 022",
+                          "code": "P-74_M022",
+                          "imageVirtualPath": "/UN-BUZ/IMAGES/P-74/P-74_M00.png",
+                          "tagsSummary": null,
+                          "files": [],
+                          "pointClouds": [],
+                          "subType": 0,
+                          "converterAssociation": false,
+                          "jobViewers": [],
+                          "id": "3ba83eef-a0f0-4bd2-ab94-08dc3c795e42"
+                      },
+                      "icon": null,
+                      "expandedIcon": null,
+                      "collapsedIcon": null,
+                      "leaf": true,
+                      "type": "ModelNormal",
+                      "style": null,
+                      "styleClass": null,
+                      "draggable": false,
+                      "droppable": false,
+                      "selectable": true,
+                      "key": "3ba83eef-a0f0-4bd2-ab94-08dc3c795e42",
+                      "expanded": false,
+                      "children": null
+                  },
+                  {
+                      "label": "M023 - Overflow Busca",
+                      "data": {
+                          "tenantId": "UN-BUZ",
+                          "name": "M023 - Overflow Busca",
+                          "description": "Overflow na busca 023",
+                          "code": "P-74_M023",
+                          "imageVirtualPath": "/UN-BUZ/IMAGES/P-74/P-74_M00.png",
+                          "tagsSummary": null,
+                          "files": [],
+                          "pointClouds": [],
+                          "subType": 0,
+                          "converterAssociation": false,
+                          "jobViewers": [],
+                          "id": "64293f50-7964-4f2b-ab95-08dc3c795e42"
+                      },
+                      "icon": null,
+                      "expandedIcon": null,
+                      "collapsedIcon": null,
+                      "leaf": true,
+                      "type": "ModelNormal",
+                      "style": null,
+                      "styleClass": null,
+                      "draggable": false,
+                      "droppable": false,
+                      "selectable": true,
+                      "key": "64293f50-7964-4f2b-ab95-08dc3c795e42",
+                      "expanded": false,
+                      "children": null
+                  }
+              ]
+          },
+          {
+              "label": "Pré-delineamento de Pintura",
+              "data": {
+                  "name": "Pré-delineamento de Pintura",
+                  "id": "500e0d04-2e50-41ba-b69c-08dc3c795e3f"
+              },
+              "icon": null,
+              "expandedIcon": "far fa-folder-open",
+              "collapsedIcon": "far fa-folder",
+              "leaf": false,
+              "type": "ModelFolderNormal",
+              "style": null,
+              "styleClass": null,
+              "draggable": false,
+              "droppable": false,
+              "selectable": true,
+              "key": "500e0d04-2e50-41ba-b69c-08dc3c795e3f",
+              "expanded": false,
+              "children": [
+                  {
+                      "label": "Pré-delineamento de Pintura",
+                      "data": {
+                          "tenantId": "UN-BUZ",
+                          "name": "Pré-delineamento de Pintura",
+                          "description": "Pré-delineamento de Pintura da P-74",
+                          "code": "P-74_DELINEAMENTO",
+                          "imageVirtualPath": null,
+                          "tagsSummary": null,
+                          "files": [
+                              {
+                                  "tenantId": "UN-BUZ",
+                                  "name": "Delineamento_P74.zip",
+                                  "date": "2024-03-04T18:31:55.1708978",
+                                  "projectDate": "2024-03-04T18:31:55.1708978",
+                                  "size": "210.64 MB",
+                                  "virtualPath": "/UN-BUZ/MODELS/P-74/Environ/P-Delineamento_P74.zip",
+                                  "viewer": {
+                                      "name": "Environ",
+                                      "id": "73bd5c34-fd2f-4075-4018-08dc3c795e52"
+                                  },
+                                  "id": "b9798520-088c-4f11-4639-08dc3c795e5a"
+                              }
+                          ],
+                          "pointClouds": [],
+                          "subType": 0,
+                          "converterAssociation": false,
+                          "jobViewers": [],
+                          "id": "eb44efe3-1735-4ebd-ab99-08dc3c795e42"
+                      },
+                      "icon": null,
+                      "expandedIcon": null,
+                      "collapsedIcon": null,
+                      "leaf": true,
+                      "type": "ModelNormal",
+                      "style": null,
+                      "styleClass": null,
+                      "draggable": false,
+                      "droppable": false,
+                      "selectable": true,
+                      "key": "eb44efe3-1735-4ebd-ab99-08dc3c795e42",
+                      "expanded": false,
+                      "children": null
+                  }
+              ]
+          },
+          {
+              "label": "SEPS",
+              "data": {
+                  "name": "SEPS",
+                  "id": "9d9f4759-8d2f-4dcd-b69d-08dc3c795e3f"
+              },
+              "icon": null,
+              "expandedIcon": "far fa-folder-open",
+              "collapsedIcon": "far fa-folder",
+              "leaf": false,
+              "type": "ModelFolderNormal",
+              "style": null,
+              "styleClass": null,
+              "draggable": false,
+              "droppable": false,
+              "selectable": true,
+              "key": "9d9f4759-8d2f-4dcd-b69d-08dc3c795e3f",
+              "expanded": false,
+              "children": [
+                  {
+                      "label": "3010.0F-2018-0029",
+                      "data": {
+                          "tenantId": "UN-BUZ",
+                          "name": "3010.0F-2018-0029",
+                          "description": "SEP 3010.0F-2018-0029 da P-74",
+                          "code": "P-74_SEP_3010.0F-2018-0029",
+                          "imageVirtualPath": null,
+                          "tagsSummary": null,
+                          "files": [
+                              {
+                                  "tenantId": "UN-BUZ",
+                                  "name": "3010.0F-2018-0029.env",
+                                  "date": "2024-03-04T18:31:55.1709336",
+                                  "projectDate": "2024-03-04T18:31:55.1709336",
+                                  "size": "282.555 KB",
+                                  "virtualPath": "/UN-BUZ/MODELS/P-74/Environ/3010.0F-2018-0029.env",
+                                  "viewer": {
+                                      "name": "Environ",
+                                      "id": "73bd5c34-fd2f-4075-4018-08dc3c795e52"
+                                  },
+                                  "id": "f6113c5d-7743-4083-463a-08dc3c795e5a"
+                              },
+                              {
+                                  "tenantId": "UN-BUZ",
+                                  "name": "3010.0F-2018-0029.nwd",
+                                  "date": "2024-03-04T18:31:55.1709675",
+                                  "projectDate": "2024-03-04T18:31:55.1709676",
+                                  "size": "282.555 KB",
+                                  "virtualPath": "/UN-BUZ/MODELS/P-74/Navisworks/3010.0F-2018-0029.nwd",
+                                  "viewer": {
+                                      "name": "Navisworks",
+                                      "id": "8d0460d8-6791-447c-401a-08dc3c795e52"
+                                  },
+                                  "id": "67a3dc14-35de-4cf7-463b-08dc3c795e5a"
+                              },
+                              {
+                                  "tenantId": "UN-BUZ",
+                                  "name": "3010.0F-2018-0029.zip",
+                                  "date": "2024-03-04T18:31:55.1710022",
+                                  "projectDate": "2024-03-04T18:31:55.1710022",
+                                  "size": "282.555 KB",
+                                  "virtualPath": "/UN-BUZ/MODELS/P-74/SmartPlantReview/P-74_Mapa_de_Corrosao_2021.zip",
+                                  "viewer": {
+                                      "name": "SmartPlantReview",
+                                      "id": "f5b21efb-8cbf-4534-4017-08dc3c795e52"
+                                  },
+                                  "id": "542c6f0c-92d3-4188-463c-08dc3c795e5a"
+                              }
+                          ],
+                          "pointClouds": [],
+                          "subType": 0,
+                          "converterAssociation": false,
+                          "jobViewers": [],
+                          "id": "8fbd06e0-9165-468b-ab9a-08dc3c795e42"
+                      },
+                      "icon": null,
+                      "expandedIcon": null,
+                      "collapsedIcon": null,
+                      "leaf": true,
+                      "type": "ModelNormal",
+                      "style": null,
+                      "styleClass": null,
+                      "draggable": false,
+                      "droppable": false,
+                      "selectable": true,
+                      "key": "8fbd06e0-9165-468b-ab9a-08dc3c795e42",
+                      "expanded": false,
+                      "children": null
+                  },
+                  {
+                      "label": "3010.0F-2018-0244",
+                      "data": {
+                          "tenantId": "UN-BUZ",
+                          "name": "3010.0F-2018-0244",
+                          "description": "SEP 3010.0F-2018-0244 da P-74",
+                          "code": "P-74_SEP_3010.0F-2018-0244",
+                          "imageVirtualPath": null,
+                          "tagsSummary": null,
+                          "files": [
+                              {
+                                  "tenantId": "UN-BUZ",
+                                  "name": "3010.0F-2018-0244.env",
+                                  "date": "2024-03-04T18:31:55.1710369",
+                                  "projectDate": "2024-03-04T18:31:55.171037",
+                                  "size": "12.643 KB",
+                                  "virtualPath": "/UN-BUZ/MODELS/P-74/Environ/3010.0F-2018-0244.envp",
+                                  "viewer": {
+                                      "name": "Environ",
+                                      "id": "73bd5c34-fd2f-4075-4018-08dc3c795e52"
+                                  },
+                                  "id": "78ea5d19-f1f0-4133-463d-08dc3c795e5a"
+                              },
+                              {
+                                  "tenantId": "UN-BUZ",
+                                  "name": "3010.0F-2018-0244.nwd",
+                                  "date": "2024-03-04T18:31:55.1710709",
+                                  "projectDate": "2024-03-04T18:31:55.171071",
+                                  "size": "12.643 KB",
+                                  "virtualPath": "/UN-BUZ/MODELS/P-74/Navisworks/3010.0F-2018-0244.nwd",
+                                  "viewer": {
+                                      "name": "Navisworks",
+                                      "id": "8d0460d8-6791-447c-401a-08dc3c795e52"
+                                  },
+                                  "id": "d57fc661-8bf8-4065-463e-08dc3c795e5a"
+                              },
+                              {
+                                  "tenantId": "UN-BUZ",
+                                  "name": "3010.0F-2018-0244.zip",
+                                  "date": "2024-03-04T18:31:55.1711057",
+                                  "projectDate": "2024-03-04T18:31:55.1711057",
+                                  "size": "12.643 KB",
+                                  "virtualPath": "/UN-BUZ/MODELS/P-74/SmartPlantReview/3010.0F-2018-0244.zip",
+                                  "viewer": {
+                                      "name": "SmartPlantReview",
+                                      "id": "f5b21efb-8cbf-4534-4017-08dc3c795e52"
+                                  },
+                                  "id": "6dc94af8-361f-4168-463f-08dc3c795e5a"
+                              }
+                          ],
+                          "pointClouds": [],
+                          "subType": 0,
+                          "converterAssociation": false,
+                          "jobViewers": [],
+                          "id": "178f1fe6-84e2-41bd-ab9b-08dc3c795e42"
+                      },
+                      "icon": null,
+                      "expandedIcon": null,
+                      "collapsedIcon": null,
+                      "leaf": true,
+                      "type": "ModelNormal",
+                      "style": null,
+                      "styleClass": null,
+                      "draggable": false,
+                      "droppable": false,
+                      "selectable": true,
+                      "key": "178f1fe6-84e2-41bd-ab9b-08dc3c795e42",
+                      "expanded": false,
+                      "children": null
+                  }
+              ]
+          }
+      ]
+  },
+  {
+      "label": "P-75",
+      "data": {
+          "tenantId": "UN-BUZ",
+          "name": "P-75",
+          "description": null,
+          "imagePath": "images/plant/P-75.jpg",
+          "latitude": -24.788,
+          "longitude": -42.5094,
+          "un": null,
+          "type": {
+              "id": 0,
+              "name": "FPSO"
+          },
+          "id": "cb3b702f-584e-4493-8eb3-08dc3c795e33"
+      },
+      "icon": null,
+      "expandedIcon": null,
+      "collapsedIcon": null,
+      "leaf": false,
+      "type": "Plant",
+      "style": null,
+      "styleClass": null,
+      "draggable": false,
+      "droppable": false,
+      "selectable": true,
+      "key": "cb3b702f-584e-4493-8eb3-08dc3c795e33",
+      "expanded": true,
+      "children": []
+  },
+  {
+      "label": "P-76",
+      "data": {
+          "tenantId": "UN-BUZ",
+          "name": "P-76",
+          "description": null,
+          "imagePath": "images/plant/P-76.jpg",
+          "latitude": -24.6876,
+          "longitude": -42.5057,
+          "un": null,
+          "type": {
+              "id": 0,
+              "name": "FPSO"
+          },
+          "id": "ed961f7c-df9d-4147-8eb4-08dc3c795e33"
+      },
+      "icon": null,
+      "expandedIcon": null,
+      "collapsedIcon": null,
+      "leaf": false,
+      "type": "Plant",
+      "style": null,
+      "styleClass": null,
+      "draggable": false,
+      "droppable": false,
+      "selectable": true,
+      "key": "ed961f7c-df9d-4147-8eb4-08dc3c795e33",
+      "expanded": true,
+      "children": []
+  },
+  {
+      "label": "P-77",
+      "data": {
+          "tenantId": "UN-BUZ",
+          "name": "P-77",
+          "description": null,
+          "imagePath": "images/plant/P-77.jpg",
+          "latitude": -24.6354,
+          "longitude": -42.4121,
+          "un": null,
+          "type": {
+              "id": 0,
+              "name": "FPSO"
+          },
+          "id": "3da04b15-4229-45a4-8eb5-08dc3c795e33"
+      },
+      "icon": null,
+      "expandedIcon": null,
+      "collapsedIcon": null,
+      "leaf": false,
+      "type": "Plant",
+      "style": null,
+      "styleClass": null,
+      "draggable": false,
+      "droppable": false,
+      "selectable": true,
+      "key": "3da04b15-4229-45a4-8eb5-08dc3c795e33",
+      "expanded": true,
+      "children": []
+  },
+  {
+      "label": "P-78",
+      "data": {
+          "tenantId": "UN-BUZ",
+          "name": "P-78",
+          "description": "Plataforma Petrobras 78 do Campo de BUZIOS - Em Construção.",
+          "imagePath": null,
+          "latitude": -12.0262676,
+          "longitude": -77.1278635,
+          "un": null,
+          "type": {
+              "id": 0,
+              "name": "FPSO"
+          },
+          "id": "d31ab38b-1e85-4e9c-8eb6-08dc3c795e33"
+      },
+      "icon": null,
+      "expandedIcon": null,
+      "collapsedIcon": null,
+      "leaf": false,
+      "type": "Plant",
+      "style": null,
+      "styleClass": null,
+      "draggable": false,
+      "droppable": false,
+      "selectable": true,
+      "key": "d31ab38b-1e85-4e9c-8eb6-08dc3c795e33",
+      "expanded": true,
+      "children": []
+  },
+  {
+      "label": "P-79",
+      "data": {
+          "tenantId": "UN-BUZ",
+          "name": "P-79",
+          "description": "Plataforma Petrobras 79 do Campo de BUZIOS - Em Construção",
+          "imagePath": null,
+          "latitude": -12.0262676,
+          "longitude": -77.1278635,
+          "un": null,
+          "type": {
+              "id": 0,
+              "name": "FPSO"
+          },
+          "id": "fa33bbf3-8b12-4add-8eb7-08dc3c795e33"
+      },
+      "icon": null,
+      "expandedIcon": null,
+      "collapsedIcon": null,
+      "leaf": false,
+      "type": "Plant",
+      "style": null,
+      "styleClass": null,
+      "draggable": false,
+      "droppable": false,
+      "selectable": true,
+      "key": "fa33bbf3-8b12-4add-8eb7-08dc3c795e33",
+      "expanded": true,
+      "children": []
+  }
+];
+
+const plants = [
+  {
+      "tenantId": "UN-BUZ",
+      "name": "P-74",
+      "description": null,
+      "imagePath": "images/plant/P-74.jpg",
+      "latitude": -24.6487,
+      "longitude": -42.5147,
+      "un": {
+          "name": "UN-BUZ",
+          "id": "232e7ff2-fb4d-4734-7428-08dc3c795e2c"
+      },
+      "type": 0,
+      "id": "c2710611-a76b-40db-8eb2-08dc3c795e33"
+  },
+  {
+      "tenantId": "UN-BUZ",
+      "name": "P-75",
+      "description": null,
+      "imagePath": "images/plant/P-75.jpg",
+      "latitude": -24.788,
+      "longitude": -42.5094,
+      "un": {
+          "name": "UN-BUZ",
+          "id": "232e7ff2-fb4d-4734-7428-08dc3c795e2c"
+      },
+      "type": 0,
+      "id": "cb3b702f-584e-4493-8eb3-08dc3c795e33"
+  },
+  {
+      "tenantId": "UN-BUZ",
+      "name": "P-76",
+      "description": null,
+      "imagePath": "images/plant/P-76.jpg",
+      "latitude": -24.6876,
+      "longitude": -42.5057,
+      "un": {
+          "name": "UN-BUZ",
+          "id": "232e7ff2-fb4d-4734-7428-08dc3c795e2c"
+      },
+      "type": 0,
+      "id": "ed961f7c-df9d-4147-8eb4-08dc3c795e33"
+  },
+  {
+      "tenantId": "UN-BUZ",
+      "name": "P-77",
+      "description": null,
+      "imagePath": "images/plant/P-77.jpg",
+      "latitude": -24.6354,
+      "longitude": -42.4121,
+      "un": {
+          "name": "UN-BUZ",
+          "id": "232e7ff2-fb4d-4734-7428-08dc3c795e2c"
+      },
+      "type": 0,
+      "id": "3da04b15-4229-45a4-8eb5-08dc3c795e33"
+  },
+  {
+      "tenantId": "UN-BUZ",
+      "name": "P-78",
+      "description": "Plataforma Petrobras 78 do Campo de BUZIOS - Em Construção.",
+      "imagePath": null,
+      "latitude": -12.0262676,
+      "longitude": -77.1278635,
+      "un": {
+          "name": "UN-BUZ",
+          "id": "232e7ff2-fb4d-4734-7428-08dc3c795e2c"
+      },
+      "type": 0,
+      "id": "d31ab38b-1e85-4e9c-8eb6-08dc3c795e33"
+  },
+  {
+      "tenantId": "UN-BUZ",
+      "name": "P-79",
+      "description": "Plataforma Petrobras 79 do Campo de BUZIOS - Em Construção",
+      "imagePath": null,
+      "latitude": -12.0262676,
+      "longitude": -77.1278635,
+      "un": {
+          "name": "UN-BUZ",
+          "id": "232e7ff2-fb4d-4734-7428-08dc3c795e2c"
+      },
+      "type": 0,
+      "id": "fa33bbf3-8b12-4add-8eb7-08dc3c795e33"
   }
 ];

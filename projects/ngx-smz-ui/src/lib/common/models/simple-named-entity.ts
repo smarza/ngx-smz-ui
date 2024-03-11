@@ -17,6 +17,12 @@ export interface SimpleParentEntity<T>
     data: SimpleEntity<T>[];
 }
 
+export interface ParentEntity<TKey, TData>
+{
+    parentId: TKey;
+    data: TData[];
+}
+
 // nameof<SimpleNamedEntity>('name');
 export const nameof = <T>(name: Extract<keyof T, string>): string => name;
 

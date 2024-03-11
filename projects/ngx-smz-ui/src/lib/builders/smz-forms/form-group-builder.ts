@@ -1,5 +1,5 @@
-import { SmzCalendarControl, SmzCheckBoxControl, SmzCheckBoxGroupControl, SmzColorPickerControl, SmzContentMaskControl, SmzControlType, SmzCurrencyControl, SmzDropDownControl, SmzFileControl, SmzLinkedDropDownControl, SmzLinkedMultiSelectControl, SmzListControl, SmzMaskControl, SmzMultiSelectControl, SmzNumberControl, SmzPasswordControl, SmzRadioControl, SmzSwitchControl, SmzTagAreaControl, SmzTextAreaControl, SmzTextControl, SmzControlTypes, SmzTextButtonControl } from '../../modules/smz-forms/models/control-types';
-import { SimpleEntity, SimpleParentEntity } from '../../common/models/simple-named-entity';
+import { SmzCalendarControl, SmzCheckBoxControl, SmzCheckBoxGroupControl, SmzColorPickerControl, SmzContentMaskControl, SmzControlType, SmzCurrencyControl, SmzDropDownControl, SmzFileControl, SmzLinkedDropDownControl, SmzLinkedMultiSelectControl, SmzListControl, SmzMaskControl, SmzMultiSelectControl, SmzNumberControl, SmzPasswordControl, SmzRadioControl, SmzSwitchControl, SmzTagAreaControl, SmzTextAreaControl, SmzTextControl, SmzControlTypes, SmzTextButtonControl, SmzTreeControl } from '../../modules/smz-forms/models/control-types';
+import { ParentEntity, SimpleEntity, SimpleParentEntity } from '../../common/models/simple-named-entity';
 import { SmzFormBuilder } from './form-builder';
 import { SmzFormGroup, SmzFormsResponse } from '../../modules/smz-forms/models/smz-forms';
 import { SmzFormsBaseControl } from '../../modules/smz-forms/models/controls';
@@ -11,8 +11,12 @@ import { SmzFormViewdata } from '../../modules/smz-forms/models/form-viewdata';
 import { Observable } from 'rxjs';
 import sortBy from 'lodash-es/sortBy';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
-import { UUID } from 'angular2-uuid';
 import { ObjectUtils } from 'primeng/utils';
+import { TreeNode } from 'primeng/api';
+import { SmzDataSourceTreeBuilder } from '../smz-trees/data-source-tree-builder';
+import { getFirstElement, isArray } from '../../common/utils/utils';
+import { forEach } from 'lodash-es';
+import { SmzTreeNodeUtilityBuilder } from '../smz-trees/tree-nodes-utility-builder';
 
 export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormGroupBuilder<TResponse>> {
   protected that = this;
@@ -622,6 +626,43 @@ export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormG
     }
 
     return new SmzFormPasswordBuilder(this, input as SmzPasswordControl);
+  }
+
+  public tree<T>(property: string, label?: string): SmzFormTreeBuilder<T,TResponse> {
+
+    let input = this.group.children.find(x => x.propertyName == property) as SmzTreeControl<T>;
+
+    if (input == null) {
+
+      if (label == null) {
+        throw Error('Label and nodes are required for tree.')
+      }
+
+      input = {
+        propertyName: property,
+        type: SmzControlType.TREE,
+        name: label,
+        defaultValue: null,
+        options: [],
+        showFilter: true,
+        autofocusFilter: true,
+        selectionMode: 'single',
+        scrollHeight: '400px',
+        display: 'comma',
+        content: {
+          sincronize: false,
+          dataTransform: null
+        }
+      };
+
+      this.group.children.push(input);
+    }
+    else {
+
+      input.name = label ?? input.name;
+    }
+
+    return new SmzFormTreeBuilder<T,TResponse>(this, input as SmzTreeControl<T>);
   }
 
   public get form(): SmzFormBuilder<TResponse> {
@@ -1749,4 +1790,178 @@ export function getSmzTemplate(breakpoint: 'EXTRA_SMALL' | 'SMALL' | 'MEDIUM' | 
       return {};
   }
 
+}
+
+export class SmzFormTreeBuilder<T, TResponse> extends SmzFormInputBuilder<SmzFormTreeBuilder<T, TResponse>, TResponse> {
+  protected that = this;
+
+  constructor(public _groupBuilder: SmzFormGroupBuilder<TResponse>, private _treeInput: SmzTreeControl<T>) {
+    super(_groupBuilder, _treeInput);
+
+    if (this._treeInput.options == null) {
+      this._treeInput.options = [];
+    }
+  }
+
+    // Método para adicionar um nó individual ao Tree
+  public addTreeNode(node: TreeNode<T>): SmzFormTreeBuilder<T, TResponse> {
+    // Inicializa o array de nós se estiver vazio
+    if (this._treeInput.options.length === 0) {
+      this._treeInput.options.push({ parentId: null, data: [] });
+    }
+
+    // Obtém o primeiro nó do array para adição
+    const treeData = getFirstElement(this._treeInput.options);
+
+    // Adiciona o novo nó ao array de dados
+    treeData.data.push(node);
+
+    return this;
+  }
+
+  // Método para adicionar múltiplos nós parentes
+  public addParentTreeNodes(parents: ParentEntity<string, TreeNode<T>>[]): SmzFormTreeBuilder<T, TResponse> {
+    // Adiciona os nós parentes ao array de nós
+    this._treeInput.options.push(...parents);
+
+    return this;
+  }
+
+  // Define a propriedade de dependência para o Tree
+  public setTreeDependency(dependencyPropertyName: string): SmzFormTreeBuilder<T, TResponse> {
+    this._treeInput.dependsOn = {
+      propertyName: dependencyPropertyName,
+      formId: this._groupBuilder._formBuilder._state.formId
+    };
+    return this;
+  }
+
+  // Prepara o Tree para transformação de dados
+  public initializeDataTransformation(): SmzDataSourceTreeBuilder<SmzFormTreeBuilder<T, TResponse>> {
+    // Cria uma nova instância do construtor de árvore com transformação de dados
+    return new SmzDataSourceTreeBuilder<SmzFormTreeBuilder<T, TResponse>>(this, this._treeInput.content);
+  }
+
+  // Adiciona dados transformados ao Tree
+  public addRawData(data: T[]): SmzFormTreeBuilder<T, TResponse> {
+    // Verifica se a transformação de dados foi inicializada
+    if (this._treeInput.content.dataTransform == null) {
+      throw Error("You need to call initializeDataTransformation() before calling addRawData()");
+    }
+
+    // Inicializa o array de nós se estiver vazio
+    if (this._treeInput.options.length === 0) {
+      this._treeInput.options.push({ parentId: null, data: [] });
+    }
+
+    // Obtém o primeiro nó do array para adição
+    const treeData = getFirstElement(this._treeInput.options);
+
+    // Transforma e adiciona os dados ao nó
+    const node = this._treeInput.content.dataTransform(data);
+    treeData.data.push(...node);
+
+    return this;
+  }
+
+  // Adiciona dados parentes transformados ao Tree
+  public addParentRawData(parents: ParentEntity<string, T>[]): SmzFormTreeBuilder<T, TResponse> {
+    // Verifica se a transformação de dados foi inicializada
+    if (this._treeInput.content.dataTransform == null) {
+      throw Error("You need to call initializeDataTransformation() before calling addParentRawData()");
+    }
+
+    // Prepara os nós parentes transformados para adição
+    const parentNodes: ParentEntity<string, TreeNode<T>>[] = [];
+    parents?.forEach(element => {
+      parentNodes.push({
+        parentId: element.parentId,
+        data: this._treeInput.content.dataTransform(element.data)
+      });
+    });
+
+    // Adiciona os nós parentes ao array de nós
+    this._treeInput.options.push(...parentNodes);
+
+    return this;
+  }
+
+  public showFilter(): SmzFormTreeBuilder<T,TResponse> {
+    this._treeInput.showFilter = true;
+    this._treeInput.autofocusFilter = false;
+    return this;
+  }
+
+  public setHeightInPixel(height: number): SmzFormTreeBuilder<T,TResponse> {
+    this._treeInput.scrollHeight = `${height}px`;
+    return this;
+  }
+
+  public useChipSeparator(): SmzFormTreeBuilder<T,TResponse> {
+    this._treeInput.display = 'chip';
+    return this;
+  }
+
+  public allowMultiple(): SmzFormTreeBuilder<T,TResponse> {
+    this._treeInput.selectionMode = 'multiple';
+    return this;
+  }
+
+  public allowCheckbox(): SmzFormTreeBuilder<T,TResponse> {
+    this._treeInput.selectionMode = 'checkbox';
+    return this;
+  }
+
+  public setDefaultValue(value: T | SimpleEntity<T>): SmzFormTreeBuilder<T,TResponse> {
+    if (this._treeInput.selectionMode !== 'single') {
+      throw Error("You can't call setDefaultValue for a Multiple or Checkbox Tree Input");
+    }
+
+    if (value != null) {
+      this._treeInput.defaultValue = [value];
+    }
+
+    return this;
+  }
+
+  public setDefaultValues(values: T[] | SimpleEntity<T>[]): SmzFormTreeBuilder<T,TResponse> {
+    if (this._treeInput.selectionMode === 'single') {
+      throw Error("You can't call setDefaultValues for a Single Tree Input");
+    }
+
+    if (values != null && isArray(values)) {
+      this._treeInput.defaultValue = values;
+    }
+
+    return this;
+  }
+
+  public autofocusFilter(): SmzFormTreeBuilder<T,TResponse> {
+
+    if (!this._treeInput.showFilter) {
+      throw Error("You need to call `showFilter` before enabling the autofocusFilter");
+    }
+
+    this._treeInput.autofocusFilter = true;
+
+    return this;
+  }
+
+  public showClear(): SmzFormTreeBuilder<T,TResponse> {
+    this._treeInput.showClear = true;
+    return this;
+  }
+
+  public utilities(): SmzTreeNodeUtilityBuilder<SmzFormTreeBuilder<T, TResponse>> {
+
+    if (this._treeInput.options == null) {
+      throw Error("You can't call utilities without data. Please call 'addTreeNode', 'addParentTreeNodes', 'addRawData' or 'addParentRawData' before calling utilities()");
+    }
+
+    return new SmzTreeNodeUtilityBuilder<SmzFormTreeBuilder<T, TResponse>>(this, this._treeInput.options, null);
+  }
+
+  public get group(): SmzFormGroupBuilder<TResponse> {
+    return this._groupBuilder;
+  }
 }

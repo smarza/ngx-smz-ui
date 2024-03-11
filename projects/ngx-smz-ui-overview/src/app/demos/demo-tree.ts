@@ -796,6 +796,41 @@ export const TreeDemoData: DemoTreeNode[] = [
             data: FormsDemo[DemoKeys.FORMS_INPUT_PASSWORD_WITH_CONFIRMATION],
             key: DemoKeys.FORMS_INPUT_PASSWORD_WITH_CONFIRMATION.toString()
           },
+          {
+            label: 'Tree With Single Selection', icon: 'fa-solid fa-code', type: 'Demo',
+            demoType: 'form',
+            notes: '',
+            data: FormsDemo[DemoKeys.FORMS_INPUT_TREE_SINGLE_SELECTION],
+            key: DemoKeys.FORMS_INPUT_TREE_SINGLE_SELECTION.toString()
+          },
+          {
+            label: 'Tree With Multiple Selection', icon: 'fa-solid fa-code', type: 'Demo',
+            demoType: 'form',
+            notes: '',
+            data: FormsDemo[DemoKeys.FORMS_INPUT_TREE_MULTIPLE_SELECTION],
+            key: DemoKeys.FORMS_INPUT_TREE_MULTIPLE_SELECTION.toString()
+          },
+          {
+            label: 'Tree With Checkbox Selection', icon: 'fa-solid fa-code', type: 'Demo',
+            demoType: 'form',
+            notes: '',
+            data: FormsDemo[DemoKeys.FORMS_INPUT_TREE_CHECKBOX_SELECTION],
+            key: DemoKeys.FORMS_INPUT_TREE_CHECKBOX_SELECTION.toString()
+          },
+          {
+            label: 'Tree With Dependency', icon: 'fa-solid fa-code', type: 'Demo',
+            demoType: 'form',
+            notes: '',
+            data: FormsDemo[DemoKeys.FORMS_INPUT_TREE_CHECKBOX_SELECTION_WITH_DEPENDENCY],
+            key: DemoKeys.FORMS_INPUT_TREE_CHECKBOX_SELECTION_WITH_DEPENDENCY.toString()
+          },
+          {
+            label: 'Tree Selection Utilities', icon: 'fa-solid fa-code', type: 'Demo',
+            demoType: 'form',
+            notes: '',
+            data: FormsDemo[DemoKeys.FORMS_INPUT_TREE_SELECTION_UTILITIES],
+            key: DemoKeys.FORMS_INPUT_TREE_SELECTION_UTILITIES.toString()
+          },
         ]
       },
       {

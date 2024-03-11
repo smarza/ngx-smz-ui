@@ -1,6 +1,5 @@
 import { ChangeDetectorRef } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-import { mergeClone } from '../../../common/utils/deep-merge';
 import { SmzFormsManagerService } from '../services/smz-forms-manager.service';
 import { CONTROL_FUNCTIONS } from './control-type-functions';
 import { SmzControlType, SmzControlTypes, SmzTextButtonControl } from './control-types';
@@ -42,6 +41,7 @@ export class SmzFormViewdata {
                 if (input.advancedSettings == null || !input.advancedSettings.excludeFromResponse) {
 
                     const value = CONTROL_FUNCTIONS[input.type].getValue(this.form, input, formFlattenResponse);
+                    // console.log('from viewport: value', value);
 
                     if (input.visibilityDependsOn == null || input.isVisible) {
 
@@ -151,7 +151,7 @@ export class SmzFormViewdata {
                 }
 
                 if (updateValue) {
-                    CONTROL_FUNCTIONS[input.type].updateValue(control, input);
+                    CONTROL_FUNCTIONS[input.type].applyDefaultValue(control, input);
                 };
             };
         };
@@ -170,7 +170,7 @@ export class SmzFormViewdata {
                 if (input.propertyName === property) {
                     input.defaultValue = newValue;
                     const control = this.form.controls[input.propertyName];
-                    CONTROL_FUNCTIONS[input.type].updateValue(control, input);
+                    CONTROL_FUNCTIONS[input.type].applyDefaultValue(control, input);
                     modified = true;
                 }
             })

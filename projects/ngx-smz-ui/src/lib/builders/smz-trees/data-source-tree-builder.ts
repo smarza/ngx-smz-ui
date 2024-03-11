@@ -1,25 +1,26 @@
 import { TreeNode } from 'primeng/api/treenode';
-import { SmzTreeGroup } from '../../modules/smz-trees/models/tree-state';
+import { SmzTreeGroup, SmzTreeSourceTransform } from '../../modules/smz-trees/models/tree-state';
 import { arrayToTreeNode, arrayToTreeNodeWithRoot, groupTreeNode } from '../common/utils';
-import { SmzTreeBuilder } from './tree-builder';
 import { SmzNestedDataSourceTreeBuilder } from './nested-data-source-tree-builder';
+import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 
-export class SmzDataSourceTreeBuilder {
+export class SmzDataSourceTreeBuilder<TBuilder> extends SmzBuilderUtilities<SmzDataSourceTreeBuilder<TBuilder>> {
+  protected that = this;
 
-  constructor(private _treeBuilder: SmzTreeBuilder) {
-
+  constructor(private _builder: TBuilder, private _content: SmzTreeSourceTransform) {
+    super();
   }
 
-  public grouping(data: SmzTreeGroup): SmzDataSourceTreeBuilder {
-    this._treeBuilder._state.content.dataTransform = (items: any[]) => {
+  public grouping(data: SmzTreeGroup): SmzDataSourceTreeBuilder<TBuilder> {
+    this._content.dataTransform = (items: any[]) => {
       const root = groupTreeNode(items, data.endNode, data.group);
       return root;
     }
-    return this;
+    return this.that;
   }
 
-  public flat(keyPropertyValue: string, labelProperty: string, overrides: Partial<TreeNode<any>> = {}): SmzDataSourceTreeBuilder {
-    this._treeBuilder._state.content.dataTransform = (items: any[]) => {
+  public flat(keyPropertyValue: string, labelProperty: string, overrides: Partial<TreeNode<any>> = {}): SmzDataSourceTreeBuilder<TBuilder> {
+    this._content.dataTransform = (items: any[]) => {
       const root = arrayToTreeNode(items, {
         keyPropertyValue,
         labelProperty,
@@ -31,8 +32,8 @@ export class SmzDataSourceTreeBuilder {
     return this;
   }
 
-  public flatWithRoot(rootName: string, keyPropertyValue: string, labelProperty: string, rootOverrides: Partial<TreeNode<any>> = {}, itemOverrides: Partial<TreeNode<any>> = {}): SmzDataSourceTreeBuilder {
-    this._treeBuilder._state.content.dataTransform = (items: any[]) => {
+  public flatWithRoot(rootName: string, keyPropertyValue: string, labelProperty: string, rootOverrides: Partial<TreeNode<any>> = {}, itemOverrides: Partial<TreeNode<any>> = {}): SmzDataSourceTreeBuilder<TBuilder> {
+    this._content.dataTransform = (items: any[]) => {
       const root = arrayToTreeNodeWithRoot(items, {
         keyPropertyValue,
         labelProperty,
@@ -45,12 +46,12 @@ export class SmzDataSourceTreeBuilder {
     return this;
   }
 
-  public nested(type: string): SmzNestedDataSourceTreeBuilder {
-    return new SmzNestedDataSourceTreeBuilder(this._treeBuilder, this, type);
+  public nested(type: string): SmzNestedDataSourceTreeBuilder<TBuilder> {
+    return new SmzNestedDataSourceTreeBuilder<TBuilder>(this._content, this, type);
   }
 
-  public get tree(): SmzTreeBuilder {
-    return this._treeBuilder;
+  public get tree(): TBuilder {
+    return this._builder;
   }
 
 }

@@ -163,8 +163,8 @@ export class SmzTreeBuilder {
     return this;
   }
 
-  public dataSource(): SmzDataSourceTreeBuilder {
-    return new SmzDataSourceTreeBuilder(this);
+  public dataSource(): SmzDataSourceTreeBuilder<SmzTreeBuilder> {
+    return new SmzDataSourceTreeBuilder<SmzTreeBuilder>(this, this._state.content);
   }
 
   public build(): SmzTreeState {

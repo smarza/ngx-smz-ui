@@ -126,4 +126,8 @@
         <smz-input-text-button [input]="input" [control]="viewdata.form.controls[input.propertyName]" [viewdata]="viewdata" [behaviors]="config.behaviors"></smz-input-text-button>
     </ng-container>
 
+    <ng-container *ngIf="input.type == controlTypes.TREE">
+        <smz-input-tree [input]="input" [control]="viewdata.form.controls[input.propertyName]" [formId]="config.formId" [behaviors]="config.behaviors"></smz-input-tree>
+    </ng-container>
+
 </ng-template>

@@ -5,6 +5,9 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
+## [16.4.21] - 2024-03-11
+Adicionado um componente de input de árvore ao formulário, permitindo seleções simples, múltiplas ou por checkbox através da configuração Fluent.
+
 ## [16.4.17] - 2024-03-01
 Adicionado um novo recurso de cache que armazena o último Tenant utilizado para login na aplicação. Isso proporciona uma experiência de usuário mais ágil, permitindo uma reautenticação mais rápida e eficiente em usos subsequentes da aplicação.
 

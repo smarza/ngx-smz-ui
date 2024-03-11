@@ -16,6 +16,7 @@ import { InputCurrencyComponent } from './components/input-currency/input-curren
 import { MultiSelectComponent } from './components/multi-select/multi-select.component';
 import { ColorPickerComponent } from './components/color-picker/color-picker.component';
 import { InputTextAreaComponent } from './components/input-text-area/input-text-area.component';
+import { InputTreeComponent } from './components/input-tree/input-tree.component';
 
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
@@ -71,6 +72,7 @@ import { InputTextButtonComponent } from './components/input-text-button/input-t
 import { ButtonModule } from 'primeng/button';
 import { FormSubmitComponent } from './features/form-submit/form-submit.component';
 import { AutoFocusModule } from 'primeng/autofocus';
+import { TreeSelectModule } from 'primeng/treeselect';
 
 export const defaultFormsModuleConfig: SmzFormsConfig = {
     behaviors: {
@@ -185,7 +187,8 @@ export const defaultFormsModuleConfig: SmzFormsConfig = {
         SmzInputTagAreaModule,
         NgxSmzDataPipesModule,
         ButtonModule,
-        AutoFocusModule
+        AutoFocusModule,
+        TreeSelectModule
     ],
     // tslint:disable-next-line:max-line-length
     declarations: [
@@ -205,6 +208,7 @@ export const defaultFormsModuleConfig: SmzFormsConfig = {
         InputSwitchComponent,
         InputTextAreaComponent,
         InputTextComponent,
+        InputTreeComponent,
         LinkedDropdownComponent,
         LinkedMultiSelectComponent,
         MultiSelectComponent,
@@ -239,6 +243,7 @@ export const defaultFormsModuleConfig: SmzFormsConfig = {
         InputSwitchComponent,
         InputTextAreaComponent,
         InputTextComponent,
+        InputTreeComponent,
         LinkedDropdownComponent,
         LinkedMultiSelectComponent,
         MultiSelectComponent,

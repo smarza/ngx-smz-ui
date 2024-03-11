@@ -421,7 +421,7 @@ export function sortArrayOfStrings<T>(data: T[], order = 1): T[] {
     });
 }
 
-export function isSimpleNamedEntity(obj: SimpleNamedEntity): boolean {
+export function isSimpleNamedEntity(obj: any): boolean {
     if (obj == null) return false;
 
     return (obj.id != null && obj.name != null);
@@ -565,7 +565,12 @@ export function shorten(text: any, length: number = 0, suffix: string = '', word
     }
 
     return text;
-  }
+}
+
+export function getFirstElement<T>(arr: T[] | null | undefined): T | undefined {
+    return arr?.[0];
+}
+
 
 export function getFirstElements<T>(arr: T[], numElements: number): T[] {
     return arr?.slice(0, numElements);
@@ -574,6 +579,11 @@ export function getFirstElements<T>(arr: T[], numElements: number): T[] {
 export function getLastElements<T>(arr: T[], numElements: number): T[] {
     const startIndex = Math.max(0, arr.length - numElements);
     return arr?.slice(startIndex);
+}
+
+export function isNullOrEmptyString(str: string | null | undefined): boolean {
+    console.log('str', str);
+    return str === null || str === undefined || str.trim().length === 0;
 }
 
 export type GenericObject = {

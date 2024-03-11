@@ -1,13 +1,12 @@
-import { SmzTreeNestedData } from '../../modules/smz-trees/models/tree-state';
+import { SmzTreeNestedData, SmzTreeSourceTransform } from '../../modules/smz-trees/models/tree-state';
 import { createTreeFromNestedData } from '../common/utils';
-import { SmzTreeBuilder } from './tree-builder';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzDataSourceTreeBuilder } from './data-source-tree-builder';
 
-export class SmzNestedDataSourceTreeBuilder extends SmzBuilderUtilities<SmzNestedDataSourceTreeBuilder> {
+export class SmzNestedDataSourceTreeBuilder<TBuilder> extends SmzBuilderUtilities<SmzNestedDataSourceTreeBuilder<TBuilder>> {
   protected that = this;
   private _nestedConfig: SmzTreeNestedData = null;
-  constructor(private _treeBuilder: SmzTreeBuilder, private _dataSourceBuilder: SmzDataSourceTreeBuilder, type: string) {
+  constructor(private _content: SmzTreeSourceTransform, private _dataSourceBuilder: SmzDataSourceTreeBuilder<TBuilder>, type: string) {
     super();
 
     this._nestedConfig = {
@@ -34,7 +33,7 @@ export class SmzNestedDataSourceTreeBuilder extends SmzBuilderUtilities<SmzNeste
 
   }
 
-  public addChild(key: string): SmzNestedChildTreeBuilder<SmzNestedDataSourceTreeBuilder> {
+  public addChild(key: string): SmzNestedChildTreeBuilder<SmzNestedDataSourceTreeBuilder<TBuilder>> {
 
     const child: SmzTreeNestedData = {
       key,
@@ -64,39 +63,39 @@ export class SmzNestedDataSourceTreeBuilder extends SmzBuilderUtilities<SmzNeste
     return new SmzNestedChildTreeBuilder(this.that, child);
   }
 
-  public makeAsGroup(label: string): SmzNestedGroupTreeBuilder<SmzNestedDataSourceTreeBuilder> {
-    return new SmzNestedGroupTreeBuilder<SmzNestedDataSourceTreeBuilder>(this.that, this._nestedConfig, label);
+  public makeAsGroup(label: string): SmzNestedGroupTreeBuilder<SmzNestedDataSourceTreeBuilder<TBuilder>> {
+    return new SmzNestedGroupTreeBuilder<SmzNestedDataSourceTreeBuilder<TBuilder>>(this.that, this._nestedConfig, label);
   }
 
-  public setIcon(icon: string): SmzNestedDataSourceTreeBuilder {
+  public setIcon(icon: string): SmzNestedDataSourceTreeBuilder<TBuilder> {
     this._nestedConfig.nodeOverridesConfig.nodeOverrides.icon = icon;
     return this.that;
   }
 
-  public setType(type: string): SmzNestedDataSourceTreeBuilder {
+  public setType(type: string): SmzNestedDataSourceTreeBuilder<TBuilder> {
     this._nestedConfig.type = type;
     return this.that;
   }
 
-  public setDataAsSimpleNamedEntity(): SmzNestedDataSourceTreeBuilder {
+  public setDataAsSimpleNamedEntity(): SmzNestedDataSourceTreeBuilder<TBuilder> {
     this._nestedConfig.dataType = 'simpleNamedEntity';
     return this.that;
   }
 
-  public disableSelection(): SmzNestedDataSourceTreeBuilder {
+  public disableSelection(): SmzNestedDataSourceTreeBuilder<TBuilder> {
     this._nestedConfig.nodeOverridesConfig.nodeOverrides.selectable = false;
     return this.that;
   }
 
-  public conditionalSelection(callback: (item: any) => boolean): SmzNestedDataSourceTreeBuilder {
+  public conditionalSelection(callback: (item: any) => boolean): SmzNestedDataSourceTreeBuilder<TBuilder> {
     this._nestedConfig.nodeOverridesConfig.conditionalSelection = callback;
     return this.that;
   }
 
-  public get dataSource(): SmzDataSourceTreeBuilder {
+  public get dataSource(): SmzDataSourceTreeBuilder<TBuilder> {
 
     if (this._nestedConfig != null) {
-      this._treeBuilder._state.content.dataTransform = (items: any[]) => {
+      this._content.dataTransform = (items: any[]) => {
         return createTreeFromNestedData(items, this._nestedConfig);
       }
     }

@@ -95,10 +95,12 @@ export interface SmzTreeState {
     validateDrop?: boolean;
     configuration?: { dragType: string, dropType: string }[];
   }
-  content: {
-    sincronize: boolean;
-    dataTransform?: (items: any[]) => TreeNode[];
-  }
+  content: SmzTreeSourceTransform;
+}
+
+export interface SmzTreeSourceTransform {
+  sincronize: boolean;
+  dataTransform?: (items: any[]) => TreeNode[];
 }
 
 export interface SmzTreeContext {

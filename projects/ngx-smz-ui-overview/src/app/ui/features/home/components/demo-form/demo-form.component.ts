@@ -37,13 +37,13 @@ export class DemoFormComponent implements OnInit, OnChanges {
     if (changes.node != null) {
       const node = changes.node.currentValue;
       this.form = node.data();
-      console.log(this.form);
+      // console.log(this.form);
     }
 
   }
 
   public onStatusChanges(event: SmzFormsResponse<any>): void {
-    console.log('onStatusChanges', event);
+    // console.log('onStatusChanges', event);
 
     // if (event.hasUnsavedChanges && event.isValid) {
     //   console.log('hasUnsavedChanges and isValid', event);
@@ -58,19 +58,19 @@ export class DemoFormComponent implements OnInit, OnChanges {
   }
 
   public onValuesChanged(event: any): void {
-    console.log('onValuesChanged', event);
+    // console.log('onValuesChanged', event);
   }
 
   public onSave(event: any): void {
-    console.log('onSave', event);
+    // console.log('onSave', event);
     this.uiBlockService.unBlockAll();
   }
 
 
   public log(): void {
     const data = this.formComponent.getData();
-    console.log('formComponent', this.formComponent);
-    console.log('formResponse', data);
+    // console.log('formComponent', this.formComponent);
+    // console.log('formResponse', data);
     const message = new PrettyJsonPipe().transform(JSON.stringify(data), [true, 3]);
     this.dialog.open(
       new SmzDialogBuilder()

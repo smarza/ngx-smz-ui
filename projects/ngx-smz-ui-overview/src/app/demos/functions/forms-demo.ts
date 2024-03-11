@@ -1,10 +1,10 @@
 import { DemoKeys } from '@demos/demo-keys';
-import { GlobalInjector, SmzFormBuilder, SmzFormsResponse, SmzFormViewdata, ToastActions } from 'ngx-smz-ui';
+import { GlobalInjector, SimpleNamedEntity, SmzFormBuilder, SmzFormsResponse, SmzFormViewdata, ToastActions } from 'ngx-smz-ui';
 import * as moment from 'moment';
 import { Observable, of } from 'rxjs';
 import { Store } from '@ngxs/store';
-import { SimpleNamedEntity } from '../../../../../../dist/ngx-smz-ui/lib/common/models/simple-named-entity';
 import { UntypedFormControl } from '@angular/forms';
+import { DemoFeatureSelectors } from '@states/demo/demo.selectors';
 
 const store = GlobalInjector.instance.get(Store);
 
@@ -629,5 +629,261 @@ Exame sem intercorrências.`)
         .form
     .build();
   },
-}
+  //
+  [DemoKeys.FORMS_INPUT_TREE_SINGLE_SELECTION]: () => {
+    return new SmzFormBuilder<any>()
+      .group()
+        .setLayout('EXTRA_SMALL', 'col-12')
+        .tree('singleTree', 'I\'m required')
+          .initializeDataTransformation()
+            .nested('plant')
+              .conditionalSelection((item: any) => { return false; })
+              .addChild('topsideModules')
+                .back
+              .addChild('hullSpaces')
+                .setType('space')
+                .addChild('structuralMembers')
+                  .setType('structural-members')
+                  .addChild('plates')
+                    .setType('plate')
+                    .setIcon('fa-solid fa-bug')
+                    // .conditionalSelection((item: any) => item.name !== 'HGP-104-1-2 plate')
+                    .makeAsGroup('Chapas')
+                      .setIcon('fa-solid fa-circle')
+                      .child
+                    .back
+                  .addChild('reinforcements')
+                    .setType('reinforcement')
+                    .setIcon('fa-solid fa-user')
+                    .makeAsGroup('Reforços')
+                      .setIcon('fa-solid fa-circle')
+                      .child
+                    .back
+                  .back
+                .back
+              .dataSource
+            .tree
+            .addRawData(store.selectSnapshot(DemoFeatureSelectors.giants))
+          .validators().required().input
+          .group
+      .form
+    .build();
+  },
+  //
+  [DemoKeys.FORMS_INPUT_TREE_MULTIPLE_SELECTION]: () => {
+    return new SmzFormBuilder<any>()
+      .group()
+        .setLayout('EXTRA_SMALL', 'col-12')
+        .tree('multipleTree', 'I\'m required')
+          .allowMultiple()
+          .initializeDataTransformation()
+            .nested('plant')
+              .conditionalSelection((item: any) => { return false; })
+              .addChild('topsideModules')
+                .back
+              .addChild('hullSpaces')
+                .setType('space')
+                .addChild('structuralMembers')
+                  .setType('structural-members')
+                  .addChild('plates')
+                    .setType('plate')
+                    .setIcon('fa-solid fa-bug')
+                    // .conditionalSelection((item: any) => item.name !== 'HGP-104-1-2 plate')
+                    .makeAsGroup('Chapas')
+                      .setIcon('fa-solid fa-circle')
+                      .child
+                    .back
+                  .addChild('reinforcements')
+                    .setType('reinforcement')
+                    .setIcon('fa-solid fa-user')
+                    .makeAsGroup('Reforços')
+                      .setIcon('fa-solid fa-circle')
+                      .child
+                    .back
+                  .back
+                .back
+              .dataSource
+            .tree
+          .addRawData(store.selectSnapshot(DemoFeatureSelectors.giants))
+          .validators().required().input
+          .group
+      .form
+    .build();
+  },
+  //
+  [DemoKeys.FORMS_INPUT_TREE_CHECKBOX_SELECTION]: () => {
+    return new SmzFormBuilder<any>()
+      .group()
+        .setLayout('EXTRA_SMALL', 'col-12')
+        .tree('checkboxTree', 'I\'m required')
+          .allowCheckbox()
+          .initializeDataTransformation()
+            .nested('plant')
+              .conditionalSelection((item: any) => { return false; })
+              .addChild('topsideModules')
+                .back
+              .addChild('hullSpaces')
+                .setType('space')
+                .addChild('structuralMembers')
+                  .setType('structural-members')
+                  .addChild('plates')
+                    .setType('plate')
+                    .setIcon('fa-solid fa-bug')
+                    // .conditionalSelection((item: any) => item.name !== 'HGP-104-1-2 plate')
+                    .makeAsGroup('Chapas')
+                      .setIcon('fa-solid fa-circle')
+                      .disableSelection()
+                      .child
+                    .back
+                  .addChild('reinforcements')
+                    .setType('reinforcement')
+                    .setIcon('fa-solid fa-user')
+                    .makeAsGroup('Reforços')
+                      .setIcon('fa-solid fa-circle')
+                      .child
+                    .back
+                  .back
+                .back
+              .dataSource
+            .tree
+          .addRawData(store.selectSnapshot(DemoFeatureSelectors.giants))
+          .validators().required().input
+          .group
+      .form
+    .build();
+  },
+  //
+  [DemoKeys.FORMS_INPUT_TREE_CHECKBOX_SELECTION_WITH_DEPENDENCY]: () => {
+    return new SmzFormBuilder<any>()
+      .group()
+        .setLayout('EXTRA_SMALL', 'col-12')
+        .dropdown('input1', 'I\'m required', [{ id: 'f2b1ae4b-9d37-435e-b566-d15ba51a9c91', name: 'P-38'}, { id: '219746bc-803c-402f-a0d3-40b9a9bacbc', name: 'P-40'}], 'f2b1ae4b-9d37-435e-b566-d15ba51a9c91')
+          .validators().required().input
+          .group
+        .linkedDropdown('input2', 'input1', 'I\'m required', [{ parentId: '219746bc-803c-402f-a0d3-40b9a9bacbc', data: [{ id: 'A1', name: 'Option P-40 1' }, { id: 'A2', name: 'Option P-40 2' }]}, { parentId: 'f2b1ae4b-9d37-435e-b566-d15ba51a9c91', data: [{ id: 'B1', name: 'Option P-38 1' }, { id: 'B2', name: 'Option P-38 2' }] }], 'B2')
+          .validators().required().input
+        .group
+        .tree('tree', 'I\'m required')
+          .allowCheckbox()
+          .initializeDataTransformation()
+            .nested('plant')
+              .addChild('topsideModules')
+                .back
+              .addChild('hullSpaces')
+                .setType('space')
+                .addChild('structuralMembers')
+                  .setType('structural-members')
+                  .addChild('plates')
+                    .setType('plate')
+                    .setIcon('fa-solid fa-bug')
+                    // .conditionalSelection((item: any) => item.name !== 'HGP-104-1-2 plate')
+                    .makeAsGroup('Chapas')
+                      .setIcon('fa-solid fa-circle')
+                      .disableSelection()
+                      .child
+                    .back
+                  .addChild('reinforcements')
+                    .setType('reinforcement')
+                    .setIcon('fa-solid fa-user')
+                    .makeAsGroup('Reforços')
+                      .setIcon('fa-solid fa-circle')
+                      .child
+                    .back
+                  .back
+                .back
+              .dataSource
+            .tree
+          .setTreeDependency('input1')
+          .addParentRawData([
+            {
+              parentId: 'f2b1ae4b-9d37-435e-b566-d15ba51a9c91',
+              data: [
+                {
+                  "name": "P-38",
+                  "topsideModules": [],
+                  "hullSpaces": [
+                    {
+                      "name": "Tanque n°1 de carga",
+                      "structuralMembers": [
+                        {
+                          "name": "Escoa Superior da Cav.104",
+                          "plates": [
+                            {
+                              "name": "HGP-104-1-2 plate",
+                              "id": "0700c8f1-8ea8-4aa5-b5a3-20f65831c18f"
+                            },
+                            {
+                              "name": "HGP-104-1-4 plate",
+                              "id": "0a4e17d6-a04b-4a0b-bc84-dd4eccac4054"
+                            },
+                            {
+                              "name": "HGP-104-1-1 plate",
+                              "id": "67980107-db46-4209-8b6a-d3d1815d9e1a"
+                            },
+                          ],
+                          "reinforcements": [
+                            {
+                              "name": "HGS-104-1-2 reinforcement",
+                              "id": "2cc85f5b-e7e9-4d62-a528-d127b9e2562d"
+                            },
+                            {
+                              "name": "HGS-104-1-3 reinforcement",
+                              "id": "79bf5fbf-2106-45e9-b6aa-fea5c4fe3584"
+                            },
+                            {
+                              "name": "HGS-104-1-6 reinforcement",
+                              "id": "856b9a44-9ba4-4363-8b4c-2936860436a1"
+                            },
 
+                          ],
+                          "id": "0868ac4f-e17d-4e92-9794-f380540584a2"
+                        },
+                      ],
+                      "id": "b15661d2-e1b1-42ca-bd86-b620ce374939"
+                    }
+                  ],
+                  "id": "f2b1ae4b-9d37-435e-b566-d15ba51a9c91"
+                },
+              ]
+            },
+            {
+              parentId: '219746bc-803c-402f-a0d3-40b9a9bacbc',
+              data: [
+                {
+                  "name": "P-40",
+                  "topsideModules": [],
+                  "hullSpaces": [],
+                  "id": "219746bc-803c-402f-a0d3-40b9a9bacbc"
+                },
+              ]
+            }
+          ])
+          .setDefaultValues(['2cc85f5b-e7e9-4d62-a528-d127b9e2562d'])
+          .validators().required().input
+          .group
+      .form
+    .build();
+  },
+  //
+  [DemoKeys.FORMS_INPUT_TREE_SELECTION_UTILITIES]: () => {
+    return new SmzFormBuilder<any>()
+      .group()
+        .setLayout('EXTRA_SMALL', 'col-12')
+        .dropdown('input1', 'I\'m required', store.selectSnapshot(DemoFeatureSelectors.plants))
+          .validators().required().input
+          .group
+        .tree('tree', 'I\'m required')
+          .setTreeDependency('input1')
+          .addParentTreeNodes(store.selectSnapshot(DemoFeatureSelectors.parentedPortalModelsTree))
+          // .setDefaultValue('45c4bc17-039b-463f-ab7e-08dc3c795e42')
+          .setDefaultValue(null)
+          .utilities()
+            .disableSelectionForAllType()
+            .enableSelectionForType('model')
+            .tree
+          .validators().required().input
+          .group
+      .form
+    .build();
+  },
+};

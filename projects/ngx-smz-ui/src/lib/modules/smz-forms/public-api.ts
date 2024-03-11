@@ -29,6 +29,8 @@ export * from './components/linked-dropdown/linked-dropdown.component';
 export * from './components/linked-multi-select/linked-multi-select.component';
 export * from './components/multi-select/multi-select.component';
 export * from './components/radio-button/radio-button.component';
+export * from './components/input-tree/input-tree.component';
+
 export * from './features/form-group/form-group.component';
 export * from './features/form-submit/form-submit.component';
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SmzDropDownControl, SmzLinkedDropDownControl } from '../models/control-types';
+import { SmzDropDownControl, SmzFormBaseLinkedControl, SmzLinkedDropDownControl } from '../models/control-types';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -9,14 +9,14 @@ export class SmzFormsDropdownService
 {
 
     public dependsOn: { [ key: string ]: { observers: string[], value: any } };
-    public observers: { [ key: string ]: { input: SmzLinkedDropDownControl<any>; options: BehaviorSubject<any> } };
+    public observers: { [ key: string ]: { input: SmzFormBaseLinkedControl; options: BehaviorSubject<any> } };
 
     constructor()
     {
         this.clear();
     }
 
-    public registryObserver(input: SmzLinkedDropDownControl<any>, formId: string): void
+    public registryObserver(input: SmzFormBaseLinkedControl, formId: string): void
     {
         this.observers[formId + input.propertyName] = { input, options: new BehaviorSubject<any[]>([]) };
         const dependsOn = this.getDependsOnKey(input, formId);
@@ -35,12 +35,12 @@ export class SmzFormsDropdownService
         // console.log(this);
     }
 
-    private getDependsOnKey(input: SmzLinkedDropDownControl<any>, formId: string): string
+    private getDependsOnKey(input: SmzFormBaseLinkedControl, formId: string): string
     {
         return input.dependsOn.formId != null ? `${input.dependsOn.formId}${input.dependsOn.propertyName}` : `${formId}${input.dependsOn.propertyName}`;
     }
 
-    public registryDependsOnData(input: SmzDropDownControl<any> | SmzLinkedDropDownControl<any>, formId: string): void
+    public registryDependsOnData(input: SmzFormBaseLinkedControl, formId: string): void
     {
         const dependsOn = formId + input.propertyName;
         const data = this.dependsOn[dependsOn];
@@ -51,7 +51,7 @@ export class SmzFormsDropdownService
         }
     }
 
-    public setValue(input: SmzDropDownControl<any> | SmzLinkedDropDownControl<any>, formId: string, onChangeDropdownEvent: { originalEvent: any, value: any }): void
+    public setValue(input: SmzFormBaseLinkedControl, formId: string, onChangeDropdownEvent: { originalEvent: any, value: any }): void
     {
 
         const dependsOn = formId + input.propertyName;
@@ -71,7 +71,6 @@ export class SmzFormsDropdownService
 
     private emitToObservers(observers: string[], value: any): void
     {
-
         for (let observer of observers)
         {
             const match = this.observers[observer];
@@ -83,6 +82,7 @@ export class SmzFormsDropdownService
             else
             {
                 const options = match.input.options;
+
                 const newOptionsIndex = options.findIndex(x => x.parentId === value.id);
 
                 if (newOptionsIndex > -1)

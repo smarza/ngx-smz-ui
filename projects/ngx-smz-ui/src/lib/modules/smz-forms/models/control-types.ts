@@ -1,4 +1,4 @@
-import { SimpleEntity, SimpleParentEntity } from '../../../common/models/simple-named-entity';
+import { ParentEntity, SimpleEntity, SimpleParentEntity } from '../../../common/models/simple-named-entity';
 import { SmzSmartTagConfig } from '../directives/smart-tag.directive';
 import { SmzFormsBaseControl } from './controls';
 import { SmzTextPattern } from './text-patterns';
@@ -8,6 +8,9 @@ import { SmzFormViewdata } from './form-viewdata';
 import { Observable } from 'rxjs';
 import { ChangeDetectorRef } from '@angular/core';
 import { SmzFormsAdvancedSettings } from './advanced';
+import { TreeNode } from 'primeng/api';
+import { SmzTreeSourceTransform } from '../../smz-trees/models/tree-state';
+import { AbstractControl } from '@angular/forms';
 
 export type SmzControlTypes =
     SmzCalendarControl |
@@ -30,7 +33,9 @@ export type SmzControlTypes =
     SmzTextAreaControl |
     SmzTagAreaControl |
     SmzTextControl |
-    SmzTextButtonControl;
+    SmzTextButtonControl |
+    SmzTreeControl<any>
+    ;
 
 export type SmzLinkedControlTypes =
     SmzDropDownControl<any> |
@@ -61,6 +66,7 @@ export enum SmzControlType
     CONTENT_MASK = 20,
     TEXT_BUTTON = 21,
     DECIMAL = 22, // APENAS PARA API (UI DEFINITION)
+    TREE = 23
 }
 
 export interface SmzTextControl extends SmzFormsBaseControl
@@ -279,7 +285,7 @@ export interface SmzDropDownControl<T> extends SmzFormsBaseControl
 
 }
 
-export interface SmzLinkedDropDownControl<T> extends SmzFormsBaseControl
+export interface SmzLinkedDropDownControl<T> extends SmzFormsBaseControl, SmzFormBaseLinkedControl
 {
     options?: SimpleParentEntity<T>[];
     defaultValue?: T;
@@ -292,7 +298,7 @@ export interface SmzLinkedDropDownControl<T> extends SmzFormsBaseControl
     showClear?: boolean;
 }
 
-export interface SmzLinkedMultiSelectControl<T> extends SmzFormsBaseControl
+export interface SmzLinkedMultiSelectControl<T> extends SmzFormsBaseControl, SmzFormBaseLinkedControl
 {
     options?: SimpleParentEntity<T>[];
     defaultValue?: T[];
@@ -319,4 +325,29 @@ export interface SmzMultiSelectControl<T> extends SmzFormsBaseControl
     emptyFilterMessage?: string;
     showClear?: boolean;
 
+}
+
+export interface SmzTreeControl<T> extends SmzFormsBaseControl, SmzFormBaseLinkedControl
+{
+    options?: ParentEntity<string, TreeNode<T>>[];
+    currentNodes?: TreeNode<T>[];
+    defaultValue?: (T | SimpleEntity<T>)[];
+    showFilter?: Boolean;
+    autofocusFilter?: boolean;
+    emptyMessage?: string;
+    emptyFilterMessage?: string;
+    showClear?: boolean;
+    selectionMode?: 'multiple' | 'checkbox' | 'single';
+    scrollHeight?: string;
+    display?: 'comma' | 'chip';
+    content: SmzTreeSourceTransform;
+    dependsOn?: { propertyName: string, formId?: string };
+}
+
+export interface SmzFormBaseLinkedControl {
+    options?: any;
+    defaultValue?: any;
+    readonly propertyName?: string;
+    dependsOn?: { propertyName: string, formId?: string };
+    _inputFormControl?: AbstractControl;
 }
