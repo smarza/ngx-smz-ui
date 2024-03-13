@@ -831,6 +831,13 @@ export const TreeDemoData: DemoTreeNode[] = [
             data: FormsDemo[DemoKeys.FORMS_INPUT_TREE_SELECTION_UTILITIES],
             key: DemoKeys.FORMS_INPUT_TREE_SELECTION_UTILITIES.toString()
           },
+          {
+            label: 'Tree Property Based', icon: 'fa-solid fa-code', type: 'Demo',
+            demoType: 'form',
+            notes: '',
+            data: FormsDemo[DemoKeys.FORMS_INPUT_TREE_PROPERTY_BASED],
+            key: DemoKeys.FORMS_INPUT_TREE_PROPERTY_BASED.toString()
+          },
         ]
       },
       {

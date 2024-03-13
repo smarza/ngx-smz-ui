@@ -21,6 +21,11 @@
           [scrollHeight]="input.scrollHeight"
           [display]="input.display"
           >
+          <ng-container *ngFor="let inputType of input.allTypes">
+            <ng-template let-node [pTemplate]="inputType">
+              <div [innerHTML]="node.label | safeHtml" [pTooltip]="node.tooltip"></div>
+            </ng-template>
+        </ng-container>
         </p-treeSelect>
         <smz-validation-messages [input]="input" [control]="control" [behaviors]="behaviors"></smz-validation-messages>
     </div>

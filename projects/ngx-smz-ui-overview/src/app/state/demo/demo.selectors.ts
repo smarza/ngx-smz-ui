@@ -219,6 +219,13 @@ export class DemoFeatureSelectors {
     return plants;
   }
 
+  public static treeWithModelsParented(state: DemoFeatureStateModel): any[] {
+    return plantsWithModels.map(x => ({
+        parentId: x.id,
+        data: [...x.folders]})
+      );
+  }
+
 //   public static linkedDataSample(state: DemoFeatureStateModel): { main: any[], data: ParentEntity<string, SimpleNamedEntity>[]} {
 //     return {
 //       main: [{ id: 'A', name: 'Group A'}, { id: 'B', name: 'Group B'}],
@@ -3807,4 +3814,367 @@ const plants = [
       "type": 0,
       "id": "fa33bbf3-8b12-4add-8eb7-08dc3c795e33"
   }
+];
+
+const plantsWithModels = [
+    {
+        "name": "P-74",
+        "folders": [
+            {
+                "name": "Mapa de Corrosão",
+                "folders": null,
+                "models": [
+                    {
+                        "name": "P-74 - Corrosão - 2020",
+                        "plant": {
+                            "name": "P-74",
+                            "id": "c2710611-a76b-40db-8eb2-08dc3c795e33"
+                        },
+                        "conversionTasks": [],
+                        "id": "a4186188-5496-474c-ab7c-08dc3c795e42"
+                    },
+                    {
+                        "name": "P-74 - Corrosão - 2021",
+                        "plant": {
+                            "name": "P-74",
+                            "id": "c2710611-a76b-40db-8eb2-08dc3c795e33"
+                        },
+                        "conversionTasks": [],
+                        "id": "630b36e7-ef06-45be-ab7d-08dc3c795e42"
+                    }
+                ],
+                "id": "3e9737fd-a178-4560-b699-08dc3c795e3f"
+            },
+            {
+                "name": "P-74-Completa",
+                "folders": [
+                    {
+                        "name": "HULL",
+                        "folders": null,
+                        "models": [
+                            {
+                                "name": "Accommodation Module",
+                                "plant": {
+                                    "name": "P-74",
+                                    "id": "c2710611-a76b-40db-8eb2-08dc3c795e33"
+                                },
+                                "conversionTasks": [],
+                                "id": "25e45b4e-da91-4b0c-ab96-08dc3c795e42"
+                            },
+                            {
+                                "name": "AFT Region",
+                                "plant": {
+                                    "name": "P-74",
+                                    "id": "c2710611-a76b-40db-8eb2-08dc3c795e33"
+                                },
+                                "conversionTasks": [],
+                                "id": "086c204c-5432-4b52-ab97-08dc3c795e42"
+                            },
+                            {
+                                "name": "Bow Region",
+                                "plant": {
+                                    "name": "P-74",
+                                    "id": "c2710611-a76b-40db-8eb2-08dc3c795e33"
+                                },
+                                "conversionTasks": [],
+                                "id": "f46f04ab-1e02-4989-ab98-08dc3c795e42"
+                            }
+                        ],
+                        "id": "5f41aff9-178d-4a1f-b69b-08dc3c795e3f"
+                    }
+                ],
+                "models": [
+                    {
+                        "name": "M000 - Main Deck",
+                        "plant": {
+                            "name": "P-74",
+                            "id": "c2710611-a76b-40db-8eb2-08dc3c795e33"
+                        },
+                        "conversionTasks": [],
+                        "id": "45c4bc17-039b-463f-ab7e-08dc3c795e42"
+                    },
+                    {
+                        "name": "M001 - Flare System",
+                        "plant": {
+                            "name": "P-74",
+                            "id": "c2710611-a76b-40db-8eb2-08dc3c795e33"
+                        },
+                        "conversionTasks": [],
+                        "id": "ee1f1ccc-fe99-4398-ab7f-08dc3c795e42"
+                    },
+                    {
+                        "name": "M002 - CO2 Compressor",
+                        "plant": {
+                            "name": "P-74",
+                            "id": "c2710611-a76b-40db-8eb2-08dc3c795e33"
+                        },
+                        "conversionTasks": [],
+                        "id": "a3a860a2-04ad-4d52-ab80-08dc3c795e42"
+                    },
+                    {
+                        "name": "M003 - Exportation Gas Compression",
+                        "plant": {
+                            "name": "P-74",
+                            "id": "c2710611-a76b-40db-8eb2-08dc3c795e33"
+                        },
+                        "conversionTasks": [],
+                        "id": "f2bc98dc-1d81-4332-ab81-08dc3c795e42"
+                    },
+                    {
+                        "name": "M004 - Overflow Busca",
+                        "plant": {
+                            "name": "P-74",
+                            "id": "c2710611-a76b-40db-8eb2-08dc3c795e33"
+                        },
+                        "conversionTasks": [],
+                        "id": "3008472a-af53-4492-ab82-08dc3c795e42"
+                    },
+                    {
+                        "name": "M005 - Overflow Busca",
+                        "plant": {
+                            "name": "P-74",
+                            "id": "c2710611-a76b-40db-8eb2-08dc3c795e33"
+                        },
+                        "conversionTasks": [],
+                        "id": "e4872783-24e7-4f5e-ab83-08dc3c795e42"
+                    },
+                    {
+                        "name": "M006 - Overflow Busca",
+                        "plant": {
+                            "name": "P-74",
+                            "id": "c2710611-a76b-40db-8eb2-08dc3c795e33"
+                        },
+                        "conversionTasks": [],
+                        "id": "315732bb-f4ff-46f4-ab84-08dc3c795e42"
+                    },
+                    {
+                        "name": "M007 - Overflow Busca",
+                        "plant": {
+                            "name": "P-74",
+                            "id": "c2710611-a76b-40db-8eb2-08dc3c795e33"
+                        },
+                        "conversionTasks": [],
+                        "id": "11f4ba8f-77f4-413a-ab85-08dc3c795e42"
+                    },
+                    {
+                        "name": "M008 - Overflow Busca",
+                        "plant": {
+                            "name": "P-74",
+                            "id": "c2710611-a76b-40db-8eb2-08dc3c795e33"
+                        },
+                        "conversionTasks": [],
+                        "id": "feacb4ef-2bc2-4ba2-ab86-08dc3c795e42"
+                    },
+                    {
+                        "name": "M009 - Overflow Busca",
+                        "plant": {
+                            "name": "P-74",
+                            "id": "c2710611-a76b-40db-8eb2-08dc3c795e33"
+                        },
+                        "conversionTasks": [],
+                        "id": "279ccfe1-858f-456a-ab87-08dc3c795e42"
+                    },
+                    {
+                        "name": "M010 - Overflow Busca",
+                        "plant": {
+                            "name": "P-74",
+                            "id": "c2710611-a76b-40db-8eb2-08dc3c795e33"
+                        },
+                        "conversionTasks": [],
+                        "id": "cdd601ce-386c-4778-ab88-08dc3c795e42"
+                    },
+                    {
+                        "name": "M011 - Overflow Busca",
+                        "plant": {
+                            "name": "P-74",
+                            "id": "c2710611-a76b-40db-8eb2-08dc3c795e33"
+                        },
+                        "conversionTasks": [],
+                        "id": "cc85db34-bd1d-4942-ab89-08dc3c795e42"
+                    },
+                    {
+                        "name": "M012 - Overflow Busca",
+                        "plant": {
+                            "name": "P-74",
+                            "id": "c2710611-a76b-40db-8eb2-08dc3c795e33"
+                        },
+                        "conversionTasks": [],
+                        "id": "4e8a9fe5-1e83-4327-ab8a-08dc3c795e42"
+                    },
+                    {
+                        "name": "M013 - Overflow Busca",
+                        "plant": {
+                            "name": "P-74",
+                            "id": "c2710611-a76b-40db-8eb2-08dc3c795e33"
+                        },
+                        "conversionTasks": [],
+                        "id": "6ed57938-9c0c-47ce-ab8b-08dc3c795e42"
+                    },
+                    {
+                        "name": "M014 - Overflow Busca",
+                        "plant": {
+                            "name": "P-74",
+                            "id": "c2710611-a76b-40db-8eb2-08dc3c795e33"
+                        },
+                        "conversionTasks": [],
+                        "id": "27abcd7e-2896-4960-ab8c-08dc3c795e42"
+                    },
+                    {
+                        "name": "M015 - Overflow Busca",
+                        "plant": {
+                            "name": "P-74",
+                            "id": "c2710611-a76b-40db-8eb2-08dc3c795e33"
+                        },
+                        "conversionTasks": [],
+                        "id": "973097a7-fded-44c7-ab8d-08dc3c795e42"
+                    },
+                    {
+                        "name": "M016 - Overflow Busca",
+                        "plant": {
+                            "name": "P-74",
+                            "id": "c2710611-a76b-40db-8eb2-08dc3c795e33"
+                        },
+                        "conversionTasks": [],
+                        "id": "c979d53b-592a-48ed-ab8e-08dc3c795e42"
+                    },
+                    {
+                        "name": "M017 - Overflow Busca",
+                        "plant": {
+                            "name": "P-74",
+                            "id": "c2710611-a76b-40db-8eb2-08dc3c795e33"
+                        },
+                        "conversionTasks": [],
+                        "id": "bf1dbe14-fbad-4492-ab8f-08dc3c795e42"
+                    },
+                    {
+                        "name": "M018 - Overflow Busca",
+                        "plant": {
+                            "name": "P-74",
+                            "id": "c2710611-a76b-40db-8eb2-08dc3c795e33"
+                        },
+                        "conversionTasks": [],
+                        "id": "4b85fbcb-69dc-4a4d-ab90-08dc3c795e42"
+                    },
+                    {
+                        "name": "M019 - Overflow Busca",
+                        "plant": {
+                            "name": "P-74",
+                            "id": "c2710611-a76b-40db-8eb2-08dc3c795e33"
+                        },
+                        "conversionTasks": [],
+                        "id": "ddc7fb91-9010-40a3-ab91-08dc3c795e42"
+                    },
+                    {
+                        "name": "M020 - Overflow Busca",
+                        "plant": {
+                            "name": "P-74",
+                            "id": "c2710611-a76b-40db-8eb2-08dc3c795e33"
+                        },
+                        "conversionTasks": [],
+                        "id": "96f698e1-1324-4355-ab92-08dc3c795e42"
+                    },
+                    {
+                        "name": "M021 - Overflow Busca",
+                        "plant": {
+                            "name": "P-74",
+                            "id": "c2710611-a76b-40db-8eb2-08dc3c795e33"
+                        },
+                        "conversionTasks": [],
+                        "id": "89c24a06-b6de-4ec1-ab93-08dc3c795e42"
+                    },
+                    {
+                        "name": "M022 - Overflow Busca",
+                        "plant": {
+                            "name": "P-74",
+                            "id": "c2710611-a76b-40db-8eb2-08dc3c795e33"
+                        },
+                        "conversionTasks": [],
+                        "id": "3ba83eef-a0f0-4bd2-ab94-08dc3c795e42"
+                    },
+                    {
+                        "name": "M023 - Overflow Busca",
+                        "plant": {
+                            "name": "P-74",
+                            "id": "c2710611-a76b-40db-8eb2-08dc3c795e33"
+                        },
+                        "conversionTasks": [],
+                        "id": "64293f50-7964-4f2b-ab95-08dc3c795e42"
+                    }
+                ],
+                "id": "cdf2bf47-f236-4a4e-b69a-08dc3c795e3f"
+            },
+            {
+                "name": "Pré-delineamento de Pintura",
+                "folders": null,
+                "models": [
+                    {
+                        "name": "Pré-delineamento de Pintura",
+                        "plant": {
+                            "name": "P-74",
+                            "id": "c2710611-a76b-40db-8eb2-08dc3c795e33"
+                        },
+                        "conversionTasks": [
+                            {
+                                "name": "Nome",
+                                "id": "3d37b6cd-5e67-4842-9e36-08dc41c80328"
+                            }
+                        ],
+                        "id": "eb44efe3-1735-4ebd-ab99-08dc3c795e42"
+                    }
+                ],
+                "id": "500e0d04-2e50-41ba-b69c-08dc3c795e3f"
+            },
+            {
+                "name": "SEPS",
+                "folders": null,
+                "models": [
+                    {
+                        "name": "3010.0F-2018-0029",
+                        "plant": {
+                            "name": "P-74",
+                            "id": "c2710611-a76b-40db-8eb2-08dc3c795e33"
+                        },
+                        "conversionTasks": [],
+                        "id": "8fbd06e0-9165-468b-ab9a-08dc3c795e42"
+                    },
+                    {
+                        "name": "3010.0F-2018-0244",
+                        "plant": {
+                            "name": "P-74",
+                            "id": "c2710611-a76b-40db-8eb2-08dc3c795e33"
+                        },
+                        "conversionTasks": [],
+                        "id": "178f1fe6-84e2-41bd-ab9b-08dc3c795e42"
+                    }
+                ],
+                "id": "9d9f4759-8d2f-4dcd-b69d-08dc3c795e3f"
+            }
+        ],
+        "id": "c2710611-a76b-40db-8eb2-08dc3c795e33"
+    },
+    {
+        "name": "P-75",
+        "folders": [],
+        "id": "cb3b702f-584e-4493-8eb3-08dc3c795e33"
+    },
+    {
+        "name": "P-76",
+        "folders": [],
+        "id": "ed961f7c-df9d-4147-8eb4-08dc3c795e33"
+    },
+    {
+        "name": "P-77",
+        "folders": [],
+        "id": "3da04b15-4229-45a4-8eb5-08dc3c795e33"
+    },
+    {
+        "name": "P-78",
+        "folders": [],
+        "id": "d31ab38b-1e85-4e9c-8eb6-08dc3c795e33"
+    },
+    {
+        "name": "P-79",
+        "folders": [],
+        "id": "fa33bbf3-8b12-4add-8eb7-08dc3c795e33"
+    }
 ];

@@ -14,3 +14,11 @@
 .smz-input-content-mask-disabled {
   color: var(--surface-c);
 }
+
+.not-selectable-treenode > div:first-of-type {
+  opacity: 0.6 !important;
+}
+
+.selectable-treenode > div:first-of-type {
+  opacity: 1 !important;
+}

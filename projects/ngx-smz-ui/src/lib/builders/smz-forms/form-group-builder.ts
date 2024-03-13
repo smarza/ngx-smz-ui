@@ -652,7 +652,8 @@ export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormG
         content: {
           sincronize: false,
           dataTransform: null
-        }
+        },
+        allTypes: []
       };
 
       this.group.children.push(input);
@@ -1962,6 +1963,40 @@ export class SmzFormTreeBuilder<T, TResponse> extends SmzFormInputBuilder<SmzFor
   }
 
   public get group(): SmzFormGroupBuilder<TResponse> {
+
+    if (this._treeInput.options?.length > 0) {
+
+      this._treeInput.allTypes = [];
+
+      this._treeInput.options?.forEach(option => {
+        const allOptionTypes = extractUniqueTypesFromNodes(option.data);
+
+        allOptionTypes.forEach(optionType => {
+          if (!this._treeInput.allTypes.includes(optionType)) {
+            this._treeInput.allTypes.push(optionType);
+        }
+        })
+
+      });
+    }
+
     return this._groupBuilder;
   }
+}
+
+function extractUniqueTypesFromNodes(nodes: TreeNode[]): string[] {
+  let types: string[] = [];
+
+  function traverseAndCollectTypes(currentNode: TreeNode) {
+      if (!types.includes(currentNode.type)) {
+          types.push(currentNode.type);
+      }
+
+      currentNode.children?.forEach(childNode => traverseAndCollectTypes(childNode));
+  }
+
+  // Inicia a travessia para cada nodo raiz no array
+  nodes.forEach(node => traverseAndCollectTypes(node));
+
+  return types;
 }

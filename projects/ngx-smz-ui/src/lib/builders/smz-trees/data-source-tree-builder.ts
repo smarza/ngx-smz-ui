@@ -3,6 +3,7 @@ import { SmzTreeGroup, SmzTreeSourceTransform } from '../../modules/smz-trees/mo
 import { arrayToTreeNode, arrayToTreeNodeWithRoot, groupTreeNode } from '../common/utils';
 import { SmzNestedDataSourceTreeBuilder } from './nested-data-source-tree-builder';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
+import { SmzPropertyBasedDataSourceTreeBuilder } from './property-based-data-source-tree-builder';
 
 export class SmzDataSourceTreeBuilder<TBuilder> extends SmzBuilderUtilities<SmzDataSourceTreeBuilder<TBuilder>> {
   protected that = this;
@@ -48,6 +49,10 @@ export class SmzDataSourceTreeBuilder<TBuilder> extends SmzBuilderUtilities<SmzD
 
   public nested(type: string): SmzNestedDataSourceTreeBuilder<TBuilder> {
     return new SmzNestedDataSourceTreeBuilder<TBuilder>(this._content, this, type);
+  }
+
+  public propertyBased(): SmzPropertyBasedDataSourceTreeBuilder<TBuilder> {
+    return new SmzPropertyBasedDataSourceTreeBuilder<TBuilder>(this._content, this);
   }
 
   public get tree(): TBuilder {

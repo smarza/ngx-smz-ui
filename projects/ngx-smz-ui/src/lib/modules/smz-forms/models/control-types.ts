@@ -342,6 +342,7 @@ export interface SmzTreeControl<T> extends SmzFormsBaseControl, SmzFormBaseLinke
     display?: 'comma' | 'chip';
     content: SmzTreeSourceTransform;
     dependsOn?: { propertyName: string, formId?: string };
+    allTypes: string[]
 }
 
 export interface SmzFormBaseLinkedControl {

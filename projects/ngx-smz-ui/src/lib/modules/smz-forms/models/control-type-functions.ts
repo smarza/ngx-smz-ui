@@ -560,7 +560,12 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
             // console.log('match', match);
             // console.log('selection', selection);
 
-            CONTROL_FUNCTIONS[SmzControlType.TREE].setValue(control, input, selection);
+            if (input.selectionMode === 'single') {
+                CONTROL_FUNCTIONS[SmzControlType.TREE].setValue(control, input, selection[0]);
+            }
+            else {
+                CONTROL_FUNCTIONS[SmzControlType.TREE].setValue(control, input, selection);
+            }
 
         },
         setValue: (control: AbstractControl, input: SmzTreeControl<any>, value: any) =>

@@ -1,6 +1,7 @@
 module.exports = {
   prefix: '',
   important: true,
+  safelist: ['opacity-50', 'opacity-100'],
   theme: {
     extend: {
       colors: {

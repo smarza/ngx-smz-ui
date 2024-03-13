@@ -878,9 +878,47 @@ Exame sem intercorrências.`)
           // .setDefaultValue('45c4bc17-039b-463f-ab7e-08dc3c795e42')
           .setDefaultValue(null)
           .utilities()
-            .disableSelectionForAllType()
-            .enableSelectionForType('model')
+            .disableSelectionForAllTypes()
+            .enableSelection('model')
             .tree
+          .validators().required().input
+          .group
+      .form
+    .build();
+  },
+  //
+  [DemoKeys.FORMS_INPUT_TREE_PROPERTY_BASED]: () => {
+    return new SmzFormBuilder<any>()
+      .group()
+        .setLayout('EXTRA_SMALL', 'col-12')
+        .dropdown('input1', 'I\'m required', store.selectSnapshot(DemoFeatureSelectors.plants))
+          .validators().required().input
+          .group
+        .tree('tree', 'I\'m required')
+          .setTreeDependency('input1')
+          .initializeDataTransformation()
+            .propertyBased()
+              .setRootType('folder')
+              .includeData()
+              .addRelation('folders', 'folder')
+              .addRelation('models', 'model')
+              .addRelation('conversionTasks', 'conversionTask')
+              .dataSource
+            .tree
+          .addParentRawData(store.selectSnapshot(DemoFeatureSelectors.treeWithModelsParented))
+          .setDefaultValue('45c4bc17-039b-463f-ab7e-08dc3c795e42')
+          .utilities()
+            .disableSelectionForAllTypes(true)
+            .enableSelection('model', true)
+            .conditionalSelection((node) => {
+
+              if (node.type == 'model' && node.data.conversionTasks?.length > 0) {
+                return false;
+              }
+              return undefined;
+            })
+            .addToolTip('model', 'Aquiiiiii')
+          .tree
           .validators().required().input
           .group
       .form
