@@ -37,6 +37,12 @@ export class SmzTreeNodeUtilityBuilder<TBuilder> extends SmzBuilderUtilities<Smz
     return this.that;
   }
 
+  public addIcon(type: string, icon: string): SmzTreeNodeUtilityBuilder<TBuilder> {
+    this._treeNodes?.forEach(node => updateTreeNodeProperty(node, type, 'icon', icon));
+    this._parentData?.forEach(parentData => parentData.data?.forEach(node => updateTreeNodeProperty(node, type, 'icon', icon)));
+    return this.that;
+  }
+
   public enableSelectionForAllTypes(applyStyles?: boolean): SmzTreeNodeUtilityBuilder<TBuilder> {
     return this.enableSelection(null, applyStyles);
   }
@@ -117,6 +123,34 @@ export class SmzTreeNodeUtilityBuilder<TBuilder> extends SmzBuilderUtilities<Smz
       if (node.children && node.children.length > 0) {
         node.children.forEach(childNode =>
           applyToNodeAndChildren(childNode));
+      }
+    }
+
+    this._treeNodes?.forEach(node => {
+      applyToNodeAndChildren(node);
+    });
+
+    this._parentData?.forEach(parentData => parentData.data?.forEach(node => {
+      applyToNodeAndChildren(node);
+    }));
+
+    return this.that;
+  }
+
+  public forEachType(type: string, callback: (node: TreeNode) => void): SmzTreeNodeUtilityBuilder<TBuilder> {
+
+    function applyToNodeAndChildren(node: TreeNode) {
+
+      if (node.type === type) {
+        callback(node);
+      }
+
+      if (node.children && node.children.length > 0) {
+        node.children.forEach(childNode =>
+          {
+            applyToNodeAndChildren(childNode);
+          }
+        );
       }
     }
 

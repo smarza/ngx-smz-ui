@@ -5,6 +5,7 @@ import { Observable, of } from 'rxjs';
 import { Store } from '@ngxs/store';
 import { UntypedFormControl } from '@angular/forms';
 import { DemoFeatureSelectors } from '@states/demo/demo.selectors';
+import { TreeNode } from 'primeng/api';
 
 const store = GlobalInjector.instance.get(Store);
 
@@ -898,26 +899,32 @@ Exame sem intercorrências.`)
           .setTreeDependency('input1')
           .initializeDataTransformation()
             .propertyBased()
-              .setRootType('folder')
+              .setRootType('RootFolder')
               .includeData()
-              .addRelation('folders', 'folder')
-              .addRelation('models', 'model')
-              .addRelation('conversionTasks', 'conversionTask')
+              .addRelation('folders', 'Folder')
+              .addRelation('models', 'Model')
+              .addRelation('conversionTasks', 'Task')
+              .addConditionalRelation<SimpleNamedEntity>('models', (item): string => {
+                if ((item.name as string).endsWith('Overflow Busca')) {
+                  return 'ModelSearch';
+                }
+                return 'Model';
+              })
               .dataSource
             .tree
           .addParentRawData(store.selectSnapshot(DemoFeatureSelectors.treeWithModelsParented))
           .setDefaultValue('45c4bc17-039b-463f-ab7e-08dc3c795e42')
           .utilities()
             .disableSelectionForAllTypes(true)
-            .enableSelection('model', true)
-            .conditionalSelection((node) => {
-
-              if (node.type == 'model' && node.data.conversionTasks?.length > 0) {
-                return false;
-              }
-              return undefined;
-            })
-            .addToolTip('model', 'Aquiiiiii')
+            .enableSelection('Model', true)
+            .forEachType('RootFolder', (node) => node.label = 'Root Folder')
+            .forEachType('Model', (node) => {
+                node.styleClass = 'text-blue-500';
+              })
+            .forEachType('ModelSearch', (node) => {
+                node.styleClass = 'text-green-500';
+              })
+            .addToolTip('Task', 'Aquiiiiii uma task !!!!!')
           .tree
           .validators().required().input
           .group
