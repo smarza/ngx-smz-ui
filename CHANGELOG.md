@@ -5,7 +5,7 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
-## [16.4.28] - 2024-03-14
+## [16.4.29] - 2024-03-14
 Adicionado um componente de input de árvore ao formulário, permitindo seleções simples, múltiplas ou por checkbox através da configuração Fluent.
 
 ## [16.4.17] - 2024-03-01

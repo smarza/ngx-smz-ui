@@ -61,10 +61,10 @@ export class SmzPropertyBasedDataSourceTreeBuilder<TBuilder> extends SmzBuilderU
 
     if (this._config != null) {
 
-      this._content.dataTransform = (items: any[]) => {
+      this._content.dataTransform = (options: any[]) => {
 
         // Mapeia cada item do array para um TreeNode usando createTreeFromPropertyBasedConfig
-        const trees = items.map(item => createTreeFromPropertyBasedConfig(item, this._config)).filter(tree => tree !== null);
+        const trees = options.map(item => createTreeFromPropertyBasedConfig(item, this._config)).filter(tree => tree !== null);
 
         return trees.length > 0 ? trees : [];
       }
@@ -78,7 +78,16 @@ export class SmzPropertyBasedDataSourceTreeBuilder<TBuilder> extends SmzBuilderU
 function createTreeFromPropertyBasedConfig(item: any, config: SmzTreePropertyBasedConfig): TreeNode | null {
   if (!item || typeof item !== 'object') return null; // Garante que o item é um objeto
 
-  const rootNode: TreeNode = { label: item[config.labelProperty] ?? 'Unknown', type: config.rootType, key: item[config.keyProperty], data: config.includeData ? item : undefined, children: [] };
+  let rootNode: TreeNode = {};
+
+  const rootNodeMatch = config.nodes.find(x => x.type === config.rootType);
+
+  if (rootNodeMatch != null && rootNodeMatch.getTypeCallback != null) {
+      rootNode = { label: item[config.labelProperty] ?? 'Unknown', type: rootNodeMatch.getTypeCallback(item), key: item[config.keyProperty], data: config.includeData ? item : undefined, children: [] };
+  }
+  else {
+    rootNode = { label: item[config.labelProperty] ?? 'Unknown', type: config.rootType, key: item[config.keyProperty], data: config.includeData ? item : undefined, children: [] };
+  }
 
   // Processa cada configuração de nó para adicionar crianças diretamente sem agrupá-las por tipo
   config.nodes.forEach(({ property, type, getTypeCallback }) => {
@@ -90,10 +99,10 @@ function createTreeFromPropertyBasedConfig(item: any, config: SmzTreePropertyBas
         let childNode: TreeNode<any> = null;
 
         if (getTypeCallback != null) {
-          childNode = buildNode(subItem, property, getTypeCallback(subItem), config); // Aqui usamos property ao invés de type para construir o nó
+          childNode = buildNode(subItem, getTypeCallback(subItem), config); // Aqui usamos property ao invés de type para construir o nó
         }
         else if (type != null) {
-          childNode = buildNode(subItem, property, type, config); // Aqui usamos property ao invés de type para construir o nó
+          childNode = buildNode(subItem, type, config); // Aqui usamos property ao invés de type para construir o nó
         }
 
         if (childNode) {
@@ -106,7 +115,7 @@ function createTreeFromPropertyBasedConfig(item: any, config: SmzTreePropertyBas
   return rootNode;
 }
 
-function buildNode(item: any, property: string, type: string, config: SmzTreePropertyBasedConfig): TreeNode | null {
+function buildNode(item: any, type: string, config: SmzTreePropertyBasedConfig): TreeNode | null {
   if (!item || typeof item !== 'object') return null;
 
   // Cria um novo TreeNode sem levar em conta o type, apenas usa a labelProperty para o rótulo
@@ -127,10 +136,10 @@ function buildNode(item: any, property: string, type: string, config: SmzTreePro
         let childNode: TreeNode<any> = null;
 
         if (configItem.getTypeCallback != null) {
-          childNode = buildNode(subItem, configItem.property, configItem.getTypeCallback(subItem), config);
+          childNode = buildNode(subItem, configItem.getTypeCallback(subItem), config);
         }
         else if (type != null) {
-          childNode = buildNode(subItem, configItem.property, configItem.type, config);
+          childNode = buildNode(subItem, configItem.type, config);
         }
 
         if (childNode) {

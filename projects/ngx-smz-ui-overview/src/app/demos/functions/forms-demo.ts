@@ -899,10 +899,9 @@ Exame sem intercorrências.`)
           .setTreeDependency('input1')
           .initializeDataTransformation()
             .propertyBased()
-              .setRootType('RootFolder')
+              .setRootType('Folder')
               .includeData()
               .addRelation('folders', 'Folder')
-              .addRelation('models', 'Model')
               .addRelation('conversionTasks', 'Task')
               .addConditionalRelation<SimpleNamedEntity>('models', (item): string => {
                 if ((item.name as string).endsWith('Overflow Busca')) {
@@ -917,13 +916,9 @@ Exame sem intercorrências.`)
           .utilities()
             .disableSelectionForAllTypes(true)
             .enableSelection('Model', true)
-            .forEachType('RootFolder', (node) => node.label = 'Root Folder')
-            .forEachType('Model', (node) => {
-                node.styleClass = 'text-blue-500';
-              })
-            .forEachType('ModelSearch', (node) => {
-                node.styleClass = 'text-green-500';
-              })
+            .addIcon('Folder', 'fa-regular fa-folder')
+            .forEachType('Model', (node) => node.styleClass = 'text-blue-500')
+            .forEachType('ModelSearch', (node) => node.styleClass = 'text-green-500')
             .addToolTip('Task', 'Aquiiiiii uma task !!!!!')
           .tree
           .validators().required().input
