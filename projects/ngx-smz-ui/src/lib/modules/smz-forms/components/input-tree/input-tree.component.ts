@@ -47,7 +47,11 @@ export class InputTreeComponent implements OnInit
         }
         else {
             // Sem dependencia: assumir que o primeiro elemento do array é a árvore
-            this.nodes$ = of(getFirstElement(this.input.options)?.data);
+            this.input.currentNodes = getFirstElement(this.input.options)?.data;
+            this.nodes$ = of(this.input.currentNodes);
+            setTimeout(() => {
+                CONTROL_FUNCTIONS[this.input.type].applyDefaultValue(this.control, this.input);
+            }, 0);
         }
 
     }

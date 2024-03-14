@@ -4,7 +4,7 @@ import * as moment from 'moment';
 import { Observable, of } from 'rxjs';
 import { Store } from '@ngxs/store';
 import { UntypedFormControl } from '@angular/forms';
-import { DemoFeatureSelectors } from '@states/demo/demo.selectors';
+import { DemoFeatureSelectors, plantsWithModels } from '@states/demo/demo.selectors';
 import { TreeNode } from 'primeng/api';
 
 const store = GlobalInjector.instance.get(Store);
@@ -893,37 +893,68 @@ Exame sem intercorrências.`)
       .group()
         .setLayout('EXTRA_SMALL', 'col-12')
         .dropdown('input1', 'I\'m required', store.selectSnapshot(DemoFeatureSelectors.plants))
+          .setLayout('EXTRA_SMALL', 'col-6')
           .validators().required().input
           .group
-        .tree('tree', 'I\'m required')
+        .tree('tree', 'I\'m related to the Dropdown value')
           .setTreeDependency('input1')
+          .setLayout('EXTRA_SMALL', 'col-6')
+          .showClear()
           .initializeDataTransformation()
             .propertyBased()
               .includeData()
-              .addRelation('folders', 'Folder')
-              .addRelation('conversionTasks', 'Task')
-              .addConditionalRootRelation<SimpleNamedEntity>((item): string => {
-                return 'Folder';
-              })
-              .addConditionalRelation<SimpleNamedEntity>('models', (item): string => {
-                if ((item.name as string).endsWith('Overflow Busca')) {
-                  return 'ModelSearch';
+              .addConditionalRelation('folders', (folder: any): string => {
+                if (folder.projects?.length === 0 || folder.projects?.some(x => x.id === '33eb5a13-0829-43d6-ef60-08dc44100a3a')) {
+                  return 'SelectableFolder';
                 }
-                return 'Model';
-              })
+
+                return 'NonSelectableFolder';
+              }, true)
+              .addRelation('models', 'Model')
               .dataSource
             .tree
           .addParentRawData(store.selectSnapshot(DemoFeatureSelectors.treeWithModelsParented))
-          .setDefaultValue('45c4bc17-039b-463f-ab7e-08dc3c795e42')
+          .setDefaultValue('59d58db0-9fba-4eb0-66af-08dc440f7152')
+          // .setDefaultValue('4b370629-be52-4b3f-66ac-08dc440f7152')
+          .setHeightInPixel(600)
           .utilities()
             .disableSelectionForAllTypes(true)
-            .enableSelection('Model', true)
-            .addIcon('Folder', 'fa-regular fa-folder')
-            .forEachType('Model', (node) => node.styleClass = 'text-blue-500')
-            .forEachType('ModelSearch', (node) => node.styleClass = 'text-green-500')
-            .addToolTip('Task', 'Aquiiiiii uma task !!!!!')
-          .tree
-          .validators().required().input
+            .enableSelection('SelectableFolder', true)
+            .addIcon('SelectableFolder', 'fa-regular fa-folder')
+            .addIcon('NonSelectableFolder', 'fa-regular fa-folder-cloded')
+            .forEachType('NonSelectableFolder', (node) => node.styleClass = 'text-red-500')
+            .addToolTip('NonSelectableFolder', 'Pasta com projetos associados.')
+            .tree
+          .group
+
+        .tree('tree2', 'I\'m not')
+          .setLayout('EXTRA_SMALL', 'col-12')
+          .showClear()
+          .initializeDataTransformation()
+            .propertyBased()
+              .includeData()
+              .addConditionalRelation('folders', (folder: any): string => {
+
+                if (folder.projects?.length === 0 || folder.projects?.some(x => x.id === '33eb5a13-0829-43d6-ef60-08dc44100a3a')) {
+                  return 'SelectableFolder';
+                }
+
+                return 'NonSelectableFolder';
+              }, true)
+              .addRelation('models', 'Model')
+              .dataSource
+            .tree
+          .addRawData(plantsWithModels[0].folders)
+          .setDefaultValue('4b370629-be52-4b3f-66ac-08dc440f7152')
+          .setHeightInPixel(600)
+          .utilities()
+            .disableSelectionForAllTypes(true)
+            .enableSelection('SelectableFolder', true)
+            .addIcon('SelectableFolder', 'fa-regular fa-folder')
+            .addIcon('NonSelectableFolder', 'fa-regular fa-folder-cloded')
+            .forEachType('NonSelectableFolder', (node) => node.styleClass = 'text-red-500')
+            .addToolTip('NonSelectableFolder', 'Pasta com projetos associados.')
+            .tree
           .group
       .form
     .build();
