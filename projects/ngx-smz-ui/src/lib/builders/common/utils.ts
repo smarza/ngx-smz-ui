@@ -44,14 +44,14 @@ export function fixDate(date: FormGroupConfig): Date {
   }
 }
 
-export function groupTreeNode(items: any[], endNode: SmzTreeGroupNodeConfig, group: SmzTreeGroupData): SmzTreeNode[] {
+export function groupTreeNode(items: any[], endNode: SmzTreeGroupNodeConfig, group: SmzTreeGroupData): SmzTreeNode<unknown>[] {
 
-  const result: SmzTreeNode[] = [];
+  const result: SmzTreeNode<unknown>[] = [];
 
   if (group == null) {
 
     items.forEach(item => {
-      const node: SmzTreeNode = {
+      const node: SmzTreeNode<unknown> = {
         ...group.nodeOverrides,
         type: group.type,
         label:  ObjectUtils.resolveFieldData(item, endNode.labelProperty),
@@ -75,7 +75,7 @@ export function groupTreeNode(items: any[], endNode: SmzTreeGroupNodeConfig, gro
   {
       const unique = cloneDeep(uniques[0]);
 
-      const node: SmzTreeNode = {
+      const node: SmzTreeNode<unknown> = {
           ...group.nodeOverrides,
           type: group.type,
           label: ObjectUtils.resolveFieldData(unique, group.labelProperty),
@@ -103,7 +103,7 @@ export function groupTreeNode(items: any[], endNode: SmzTreeGroupNodeConfig, gro
 
 export function createTreeFromNestedData<T = any>(data: T[], config: SmzTreeNestedData): SmzTreeNode<SimpleNamedEntity>[] {
 
-  function createTreeNodes(items: T[], nodeConfig: SmzTreeNestedData): TreeNode<SimpleNamedEntity>[] {
+  function createTreeNodes(items: T[], nodeConfig: SmzTreeNestedData): SmzTreeNode<SimpleNamedEntity>[] {
     if (items == null || nodeConfig == null) {
       return [];
     }
@@ -214,7 +214,7 @@ export function groupSimpleParentEntity<TInput extends { parentId: TResponse, da
   return result;
 }
 
-export function arrayToTreeNodeWithRoot(items: any[], endNode: SmzTreeGroupNodeConfig, rootName: string, overrides: Partial<TreeNode<any>> = {}): SmzTreeNode[] {
+export function arrayToTreeNodeWithRoot(items: any[], endNode: SmzTreeGroupNodeConfig, rootName: string, overrides: Partial<TreeNode<any>> = {}): SmzTreeNode<unknown>[] {
 
   const rootNode = {
     ...overrides,
@@ -225,10 +225,10 @@ export function arrayToTreeNodeWithRoot(items: any[], endNode: SmzTreeGroupNodeC
     children: [],
   };
 
-  const result: SmzTreeNode[] = [rootNode];
+  const result: SmzTreeNode<unknown>[] = [rootNode];
 
   items.forEach(item => {
-    const node: SmzTreeNode = {
+    const node: SmzTreeNode<unknown> = {
       ...endNode.nodeOverrides,
       type: endNode.type,
       label:  ObjectUtils.resolveFieldData(item, endNode.labelProperty),
@@ -243,12 +243,12 @@ export function arrayToTreeNodeWithRoot(items: any[], endNode: SmzTreeGroupNodeC
   return result;
 }
 
-export function arrayToTreeNode(items: any[], endNode: SmzTreeGroupNodeConfig): SmzTreeNode[] {
+export function arrayToTreeNode(items: any[], endNode: SmzTreeGroupNodeConfig): SmzTreeNode<unknown>[] {
 
-const result: SmzTreeNode[] = [];
+const result: SmzTreeNode<unknown>[] = [];
 
 items.forEach(item => {
-  const node: SmzTreeNode = {
+  const node: SmzTreeNode<unknown> = {
     ...endNode.nodeOverrides,
     type: endNode.type,
     label:  ObjectUtils.resolveFieldData(item, endNode.labelProperty),

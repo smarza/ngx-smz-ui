@@ -19,8 +19,8 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
   public treeKey = uuidv4();
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
   @Input() public state: SmzTreeState;
-  @Input() public items: SmzTreeNode[] = [];
-  public treeItems: SmzTreeNode[] = [];
+  @Input() public items: SmzTreeNode<unknown>[] = [];
+  public treeItems: SmzTreeNode<unknown>[] = [];
   @Input() public loading: boolean = false;
   @Input() public styleClass = '';
   @Input() public inlineStyle: { [klass: string]: any } = {};
@@ -30,25 +30,25 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
   @Input() public selectionKey: string = 'key';
 
   // Evento emitido quando o array de nodes selecionados é atualizado
-  @Output() public selectedNodes = new EventEmitter<SmzTreeNode[]>();
+  @Output() public selectedNodes = new EventEmitter<SmzTreeNode<unknown>[]>();
 
   // Evento emitido quando um nó da árvore é selecionado ou é clicado com o botão direito do mouse
-  @Output() public selectionChange = new EventEmitter<SmzTreeNode>();
+  @Output() public selectionChange = new EventEmitter<SmzTreeNode<unknown>>();
 
   // Evento emitido quando um nó é movido para outro pai
-  @Output() public parentChange = new EventEmitter<{ parentNode: SmzTreeNode, node: SmzTreeNode, event: any }>();
+  @Output() public parentChange = new EventEmitter<{ parentNode: SmzTreeNode<unknown>, node: SmzTreeNode<unknown>, event: any }>();
 
   // Evento emitido quando um nó é reordenado dentro do mesmo pai
-  @Output() public reorder = new EventEmitter<{ parentNode: SmzTreeNode, node: SmzTreeNode, childrenIds: string[], event: any }>();
+  @Output() public reorder = new EventEmitter<{ parentNode: SmzTreeNode<unknown>, node: SmzTreeNode<unknown>, childrenIds: string[], event: any }>();
 
   // Evento emitido quando uma operação de arrastar não é permitida
   @Output() public blockedDrop = new EventEmitter<{ blockedEvent: SmzTreeDragEvent }>();
 
   // Evento emitido quando um nó é expandido
-  @Output() public nodeExpanded = new EventEmitter<{ node: SmzTreeNode }>();
+  @Output() public nodeExpanded = new EventEmitter<{ node: SmzTreeNode<unknown> }>();
 
   // Evento emitido quando um nó é colapsado
-  @Output() public nodeCollapsed = new EventEmitter<{ node: SmzTreeNode }>();
+  @Output() public nodeCollapsed = new EventEmitter<{ node: SmzTreeNode<unknown> }>();
 
   // Evento emitido quando toda a árvore é expandida
   @Output() public treeExpanded = new EventEmitter();
@@ -62,15 +62,15 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
   public emptyStateTemplate: TemplateRef<any>;
   public emptyActionsTemplate: TemplateRef<any>;
   public contentTemplates: { type: string, template: TemplateRef<any> }[] = [];
-  public selectedItems: SmzTreeNode[];
+  public selectedItems: SmzTreeNode<unknown>[];
   public documentClickListener = null;
   public menuItems: MenuItem[] = null;
 
   // -- Drag and drop variables
 
-  private dropNode: SmzTreeNode = null;
-  private dragNode: SmzTreeNode = null;
-  private dragParentNode: SmzTreeNode = null;
+  private dropNode: SmzTreeNode<unknown> = null;
+  private dragNode: SmzTreeNode<unknown> = null;
+  private dragParentNode: SmzTreeNode<unknown> = null;
   private dropIndex: number = -1;
   private operationResult = false;
   private operationType: 'reorder' | 'move' | 'not-implemented' | 'none';
@@ -112,7 +112,7 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
     this.treeItems = bindedItems;
   }
 
-  private response(nodes: SmzTreeNode[], sincronize: boolean, key: string): SmzTreeNode[] {
+  private response(nodes: SmzTreeNode<unknown>[], sincronize: boolean, key: string): SmzTreeNode<unknown>[] {
     return sincronize ? this.treeHelper.sincronize(key, nodes): nodes;
   }
 
@@ -272,7 +272,7 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
     this.selectionChange.emit(event.node);
   }
 
-  private convertMenu(items: SmzTreeMenuItem[], context: SmzTreeNode): MenuItem[] {
+  private convertMenu(items: SmzTreeMenuItem[], context: SmzTreeNode<unknown>): MenuItem[] {
     if (items == null) return null;
 
     const results: MenuItem[] = [];

@@ -1,6 +1,7 @@
 import { TreeNode } from 'primeng/api';
 
-export interface SmzTreeNode<T = any> extends TreeNode<T>{
+export interface SmzTreeNode<TNodeData = unknown> extends TreeNode {
   isNew?: boolean;
-  children?: SmzTreeNode<T>[];
+  data?: TNodeData;
+  children?: SmzTreeNode<TNodeData>[];
 }

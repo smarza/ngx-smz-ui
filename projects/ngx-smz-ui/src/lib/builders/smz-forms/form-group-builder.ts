@@ -12,11 +12,10 @@ import { Observable } from 'rxjs';
 import sortBy from 'lodash-es/sortBy';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { ObjectUtils } from 'primeng/utils';
-import { TreeNode } from 'primeng/api';
 import { SmzDataSourceTreeBuilder } from '../smz-trees/data-source-tree-builder';
 import { getFirstElement, isArray } from '../../common/utils/utils';
-import { forEach } from 'lodash-es';
 import { SmzTreeNodeUtilityBuilder } from '../smz-trees/tree-nodes-utility-builder';
+import { SmzTreeNode } from '../../modules/smz-trees/models/tree-node';
 
 export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormGroupBuilder<TResponse>> {
   protected that = this;
@@ -1805,7 +1804,7 @@ export class SmzFormTreeBuilder<T, TResponse> extends SmzFormInputBuilder<SmzFor
   }
 
     // Método para adicionar um nó individual ao Tree
-  public addTreeNode(node: TreeNode<T>): SmzFormTreeBuilder<T, TResponse> {
+  public addTreeNode(node: SmzTreeNode<T>): SmzFormTreeBuilder<T, TResponse> {
     // Inicializa o array de nós se estiver vazio
     if (this._treeInput.options.length === 0) {
       this._treeInput.options.push({ parentId: null, data: [] });
@@ -1821,7 +1820,7 @@ export class SmzFormTreeBuilder<T, TResponse> extends SmzFormInputBuilder<SmzFor
   }
 
   // Método para adicionar múltiplos nós parentes
-  public addParentTreeNodes(parents: ParentEntity<string, TreeNode<T>>[]): SmzFormTreeBuilder<T, TResponse> {
+  public addParentTreeNodes(parents: ParentEntity<string, SmzTreeNode<T>>[]): SmzFormTreeBuilder<T, TResponse> {
     // Adiciona os nós parentes ao array de nós
     this._treeInput.options.push(...parents);
 
@@ -1873,7 +1872,7 @@ export class SmzFormTreeBuilder<T, TResponse> extends SmzFormInputBuilder<SmzFor
     }
 
     // Prepara os nós parentes transformados para adição
-    const parentNodes: ParentEntity<string, TreeNode<T>>[] = [];
+    const parentNodes: ParentEntity<string, SmzTreeNode<T>>[] = [];
     parents?.forEach(element => {
       parentNodes.push({
         parentId: element.parentId,
@@ -1984,10 +1983,10 @@ export class SmzFormTreeBuilder<T, TResponse> extends SmzFormInputBuilder<SmzFor
   }
 }
 
-function extractUniqueTypesFromNodes(nodes: TreeNode[]): string[] {
+function extractUniqueTypesFromNodes(nodes: SmzTreeNode<unknown>[]): string[] {
   let types: string[] = [];
 
-  function traverseAndCollectTypes(currentNode: TreeNode) {
+  function traverseAndCollectTypes(currentNode: SmzTreeNode<unknown>) {
       if (!types.includes(currentNode.type)) {
           types.push(currentNode.type);
       }

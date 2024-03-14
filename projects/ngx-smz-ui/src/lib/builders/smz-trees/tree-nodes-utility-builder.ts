@@ -1,12 +1,12 @@
-import { TreeNode } from 'primeng/api/treenode';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { ParentEntity } from '../../common/models/simple-named-entity';
+import { SmzTreeNode } from '../../modules/smz-trees/models/tree-node';
 
 export class SmzTreeNodeUtilityBuilder<TBuilder> extends SmzBuilderUtilities<SmzTreeNodeUtilityBuilder<TBuilder>> {
   protected that = this;
   private isParent = false;
 
-  constructor(private _builder: TBuilder, private _parentData: ParentEntity<string, TreeNode>[], private _treeNodes: TreeNode[]) {
+  constructor(private _builder: TBuilder, private _parentData: ParentEntity<string, SmzTreeNode<any>>[], private _treeNodes: SmzTreeNode<any>[]) {
     super();
 
     if (this._parentData == null && this._treeNodes == null) {
@@ -76,7 +76,7 @@ export class SmzTreeNodeUtilityBuilder<TBuilder> extends SmzBuilderUtilities<Smz
     return this.that;
   }
 
-  public conditionalSelection(callback: (node: TreeNode) => boolean | undefined, applyStyles?: boolean): SmzTreeNodeUtilityBuilder<TBuilder> {
+  public conditionalSelection(callback: (node: SmzTreeNode<unknown>) => boolean | undefined, applyStyles?: boolean): SmzTreeNodeUtilityBuilder<TBuilder> {
 
     function applyToNodeAndChildren(node) {
       const selectable = callback(node);
@@ -115,7 +115,7 @@ export class SmzTreeNodeUtilityBuilder<TBuilder> extends SmzBuilderUtilities<Smz
     return this.that;
   }
 
-  public forEach(callback: (node: TreeNode) => void): SmzTreeNodeUtilityBuilder<TBuilder> {
+  public forEach<TNodeData>(callback: (node: SmzTreeNode<TNodeData>) => void): SmzTreeNodeUtilityBuilder<TBuilder> {
 
     function applyToNodeAndChildren(node) {
       callback(node)
@@ -137,9 +137,9 @@ export class SmzTreeNodeUtilityBuilder<TBuilder> extends SmzBuilderUtilities<Smz
     return this.that;
   }
 
-  public forEachType(type: string, callback: (node: TreeNode) => void): SmzTreeNodeUtilityBuilder<TBuilder> {
+  public forEachType<TNodeData>(type: string, callback: (node: SmzTreeNode<TNodeData>) => void): SmzTreeNodeUtilityBuilder<TBuilder> {
 
-    function applyToNodeAndChildren(node: TreeNode) {
+    function applyToNodeAndChildren(node: SmzTreeNode<TNodeData>) {
 
       if (node.type === type) {
         callback(node);
@@ -226,7 +226,7 @@ export class SmzTreeNodeUtilityBuilder<TBuilder> extends SmzBuilderUtilities<Smz
 
 }
 
-function updateTreeNodeProperty(node: TreeNode, targetType: string, propertyName: string, newValue: any): void {
+function updateTreeNodeProperty(node: SmzTreeNode<unknown>, targetType: string, propertyName: string, newValue: any): void {
   // Verifica se o tipo do nodo atual corresponde ao tipo alvo
   if (targetType == null || node.type === targetType) {
       // Se sim, atualiza a propriedade desejada com o novo valor

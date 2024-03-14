@@ -7,10 +7,9 @@ import { SmzFormsResponse } from './smz-forms';
 import { SmzFormViewdata } from './form-viewdata';
 import { Observable } from 'rxjs';
 import { ChangeDetectorRef } from '@angular/core';
-import { SmzFormsAdvancedSettings } from './advanced';
-import { TreeNode } from 'primeng/api';
 import { SmzTreeSourceTransform } from '../../smz-trees/models/tree-state';
 import { AbstractControl } from '@angular/forms';
+import { SmzTreeNode } from '../../smz-trees/models/tree-node';
 
 export type SmzControlTypes =
     SmzCalendarControl |
@@ -329,8 +328,8 @@ export interface SmzMultiSelectControl<T> extends SmzFormsBaseControl
 
 export interface SmzTreeControl<T> extends SmzFormsBaseControl, SmzFormBaseLinkedControl
 {
-    options?: ParentEntity<string, TreeNode<T>>[];
-    currentNodes?: TreeNode<T>[];
+    options?: ParentEntity<string, SmzTreeNode<T>>[];
+    currentNodes?: SmzTreeNode<T>[];
     defaultValue?: (T | SimpleEntity<T>)[];
     showFilter?: Boolean;
     autofocusFilter?: boolean;

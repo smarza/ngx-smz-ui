@@ -1,6 +1,7 @@
 import { TreeNode } from 'primeng/api';
 import { SmzTreeMenuItem } from './tree-menu-item';
 import { SmzTreeToolbarButton } from './tree-toolbar-button';
+import { SmzTreeNode } from './tree-node';
 
 export interface SmzTreeState {
   isDebug?: boolean;
@@ -100,7 +101,7 @@ export interface SmzTreeState {
 
 export interface SmzTreeSourceTransform {
   sincronize: boolean;
-  dataTransform?: (items: any[]) => TreeNode[];
+  dataTransform?: (items: any[]) => SmzTreeNode<any>[];
 }
 
 export interface SmzTreeContext {
