@@ -899,10 +899,12 @@ Exame sem intercorrências.`)
           .setTreeDependency('input1')
           .initializeDataTransformation()
             .propertyBased()
-              .setRootType('Folder')
               .includeData()
               .addRelation('folders', 'Folder')
               .addRelation('conversionTasks', 'Task')
+              .addConditionalRootRelation<SimpleNamedEntity>((item): string => {
+                return 'Folder';
+              })
               .addConditionalRelation<SimpleNamedEntity>('models', (item): string => {
                 if ((item.name as string).endsWith('Overflow Busca')) {
                   return 'ModelSearch';
