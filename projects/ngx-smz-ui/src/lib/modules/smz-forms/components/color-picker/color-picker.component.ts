@@ -22,10 +22,10 @@ export class ColorPickerComponent implements OnInit
         this.color = this.control.value;
 
         this.control.valueChanges.pipe(untilDestroyed(this)).subscribe(event => {
-            console.log('valueChanges >>>', event);
+            // console.log('valueChanges >>>', event);
 
             if (event != this.color) {
-                console.log('changed');
+                // console.log('changed');
                 this.onPickerChange(event);
             }
         });

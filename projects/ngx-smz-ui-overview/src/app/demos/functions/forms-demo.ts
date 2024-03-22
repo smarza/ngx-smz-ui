@@ -921,7 +921,7 @@ Exame sem intercorrências.`)
             .disableSelectionForAllTypes(true)
             .enableSelection('SelectableFolder', true)
             .addIcon('SelectableFolder', 'fa-regular fa-folder')
-            .addIcon('NonSelectableFolder', 'fa-regular fa-folder-cloded')
+            .addIcon('NonSelectableFolder', 'fa-regular fa-folder-closed')
             .forEachType('NonSelectableFolder', (node) => node.styleClass = 'text-red-500')
             .addToolTip('NonSelectableFolder', 'Pasta com projetos associados.')
             .tree
