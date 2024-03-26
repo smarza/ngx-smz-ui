@@ -2,7 +2,7 @@ import { DemoKeys } from '@demos/demo-keys';
 import { DemoInjectable5Component } from '@features/home/components/demo-injectable/demo-injectable-5.component';
 import { Store } from '@ngxs/store';
 import { DemoFeatureSelectors } from '@states/demo/demo.selectors';
-import { getFormInputFromDialog, GlobalInjector, SmzDialog, SmzDialogBuilder, SmzDialogsService, SmzFileControl, SmzForm, SmzFormsResponse, SmzFormViewdata, SmzTableBuilder, ToastActions } from 'ngx-smz-ui';
+import { getFormInputFromDialog, GlobalInjector, SimpleNamedEntity, SmzDialog, SmzDialogBuilder, SmzDialogsService, SmzFileControl, SmzForm, SmzFormsResponse, SmzFormViewdata, SmzTableBuilder, ToastActions } from 'ngx-smz-ui';
 import { Observable, of } from 'rxjs';
 import { DemoFeatureActions } from '../../state/demo/demo.actions';
 
@@ -518,31 +518,73 @@ export const DialogsDemo: { [key: string]: () => void } = {
       .build()
     );
   },
-    //
-    [DemoKeys.DIALOGS_WITH_FOCUS_FORM]: () => {
-      service.open(
-        new SmzDialogBuilder<void>()
-          .setTitle(`Form`)
-          .setLayout('EXTRA_SMALL', 'col-12')
-          .setLayout('EXTRA_LARGE', 'col-8')
-          .disableAutoFocus()
-          .form()
-            .group()
-              .dropdown('plate', 'Chapa', [])
-                .validators().required()
-                .group
-              .list('input1', 'I\'m not required', [1.1, 2, 3.1235])
-                .useFractionNumberInput('Ponto', 3)
-                .setLimitCount(4)
-                .useDialogEditMode()
-                .allowOnlyUniqueData()
-                .buttons().all().list
-                .group
-              .form
-              .dialog
-        .build()
-      );
-    },
+  //
+  [DemoKeys.DIALOGS_WITH_MULTIPLE_FORMS]: () => {
+    service.open(
+      new SmzDialogBuilder<void>()
+        .setTitle(`Form`)
+        .setLayout('EXTRA_SMALL', 'col-12')
+        .setLayout('EXTRA_LARGE', 'col-8')
+        .form()
+          .showMultipleErrorsMessages()
+          .group('Grupo de Controle', 'control')
+            .dropdown('plant', 'Planta', [{ id: 'id', name: 'Opção 1'}])
+              .showClear()
+              .validators().required().input
+              .addGroupReaction('groupName', (plant: SimpleNamedEntity) => {
+                if (plant == null) {
+                  return false;
+                }
+                else {
+                  return true;
+                }
+              })
+              .group
+            .form
+          .dialog
+
+        .form()
+          .group('Grupo controlado', 'groupName')
+            .hide()
+            .text('name', 'Nome')
+              .validators().required().input
+              .group
+            .text('email', 'Email')
+              .validators().required().email().input
+              .group
+            .text('sector', 'Gerência')
+              .validators().required().input
+              .group
+            .form
+        .dialog
+      .build()
+    );
+  },
+  //
+  [DemoKeys.DIALOGS_WITH_FOCUS_FORM]: () => {
+    service.open(
+      new SmzDialogBuilder<void>()
+        .setTitle(`Form`)
+        .setLayout('EXTRA_SMALL', 'col-12')
+        .setLayout('EXTRA_LARGE', 'col-8')
+        .disableAutoFocus()
+        .form()
+          .group()
+            .dropdown('plate', 'Chapa', [])
+              .validators().required()
+              .group
+            .list('input1', 'I\'m not required', [1.1, 2, 3.1235])
+              .useFractionNumberInput('Ponto', 3)
+              .setLimitCount(4)
+              .useDialogEditMode()
+              .allowOnlyUniqueData()
+              .buttons().all().list
+              .group
+            .form
+            .dialog
+      .build()
+    );
+  },
   //
   [DemoKeys.DIALOGS_WITH_TABLE_SELECTION]: () => {
     service.open(

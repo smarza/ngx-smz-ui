@@ -6,6 +6,7 @@ import { SmzDropDownControl } from '../../models/control-types';
 import { SmzFormsDropdownService } from '../../services/smz-forms-dropdown.service';
 import { SmzFormsVisibilityService } from '../../services/smz-forms-visibility.service';
 import { DropdownChangeEvent } from 'primeng/dropdown';
+import { CONTROL_FUNCTIONS } from '../../models/control-type-functions';
 
 @Component({
     selector: 'smz-dropdown',
@@ -43,6 +44,5 @@ export class DropdownComponent implements OnInit
         this.dialogVisibility.setValue(input, formId, event);
         this.formsVisibility.setValue(input, formId, event);
     }
-
 
 }

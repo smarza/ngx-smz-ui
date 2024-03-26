@@ -35,3 +35,5 @@ export * from './features/form-group/form-group.component';
 export * from './features/form-submit/form-submit.component';
 
 export * from '../../builders/smz-forms/form-builder';
+
+export * from './services/smz-forms-repository.service';

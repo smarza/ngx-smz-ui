@@ -1,5 +1,5 @@
 import { ViewEncapsulation, Component, OnInit, AfterViewInit, OnDestroy, Input, Output, EventEmitter, OnChanges, SimpleChanges, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
-import { FormGroup, UntypedFormBuilder, AbstractControlOptions } from '@angular/forms';
+import { UntypedFormBuilder, AbstractControlOptions } from '@angular/forms';
 import { debounceTime, takeWhile } from 'rxjs/operators';
 import { InjectableDialogComponentInterface } from '../../../../common/modules/inject-content/models/injectable-dialog-component.interface';
 import { SmzControlType, SmzFileControl } from '../../models/control-types';
@@ -10,6 +10,7 @@ import { replaceAll, uuidv4 } from '../../../../common/utils/utils';
 import { mergeClone } from '../../../../common/utils/deep-merge';
 import { SmzFormViewdata } from '../../models/form-viewdata';
 import { GlobalInjector } from '../../../../common/services/global-injector';
+import { SmzFormsRepositoryService } from '../../services/smz-forms-repository.service';
 
 @Component({
     selector: 'smz-form-group',
@@ -35,7 +36,7 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
     public isInitialized = false;
     public configHasErrors = false;
 
-    constructor(public fb: UntypedFormBuilder, private cdf: ChangeDetectorRef, public manager: SmzFormsManagerService)
+    constructor(public fb: UntypedFormBuilder, private cdf: ChangeDetectorRef, public manager: SmzFormsManagerService, public repository: SmzFormsRepositoryService)
     {
 
     }
@@ -64,6 +65,9 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
         setTimeout(() =>
         {
             if (this.config.formId == null) this.config.formId = uuidv4();
+
+            this.repository.add(this.config, this.cdf);
+
             // console.log(this.config);
             const controlsConfig = {};
 
@@ -529,6 +533,8 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
     ngOnDestroy(): void
     {
         this.isComponentActive = false;
+
+        this.repository.remove(this.config);
     }
 
 }

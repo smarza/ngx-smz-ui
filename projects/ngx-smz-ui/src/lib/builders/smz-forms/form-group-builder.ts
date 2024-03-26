@@ -16,6 +16,8 @@ import { SmzDataSourceTreeBuilder } from '../smz-trees/data-source-tree-builder'
 import { getFirstElement, isArray } from '../../common/utils/utils';
 import { SmzTreeNodeUtilityBuilder } from '../smz-trees/tree-nodes-utility-builder';
 import { SmzTreeNode } from '../../modules/smz-trees/models/tree-node';
+import { SmzDialogsService } from '../../modules/smz-dialogs/services/smz-dialogs.service';
+import { SmzFormsRepositoryService } from '../../modules/smz-forms/services/smz-forms-repository.service';
 
 export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormGroupBuilder<TResponse>> {
   protected that = this;
@@ -931,6 +933,8 @@ export class SmzFormDropdownBuilder<T, TResponse> extends SmzFormInputBuilder<Sm
         throw Error("You need to call `reactive` because 'functions.customBehavior' is already in use.");
       }
 
+      const formsRepository = GlobalInjector.instance.get(SmzFormsRepositoryService);
+
       this._groupBuilder._formBuilder._state.functions.customBehavior = (data, config, form): void => {
 
         if (this._groupBuilder._formBuilder._state.isDebug) {
@@ -950,89 +954,89 @@ export class SmzFormDropdownBuilder<T, TResponse> extends SmzFormInputBuilder<Sm
           console.log(`Reactive Input Found:`, inputValue);
         }
 
+        let option;
+
         if (inputValue != null) {
-          const option = this._dropdownInput.options.find(x => x.id === inputValue);
+          option = this._dropdownInput.options.find(x => x.id === inputValue);
+        }
+
+        if (this._groupBuilder._formBuilder._state.isDebug) {
+          console.log(`Reactive Option Selected:`, option);
+        }
+
+        // VALUE REACTIONS
+        this._valueReactions.forEach(reaction => {
+
+          const newValue = reaction.newValue(option as any);
 
           if (this._groupBuilder._formBuilder._state.isDebug) {
-            console.log(`Reactive Option Selected:`, option);
+            console.log(`Reactive Updating input: '${reaction.propertyName}' with newValue: '${newValue}'`);
           }
 
-          if (option != null)
-          {
-            // VALUE REACTIONS
-            this._valueReactions.forEach(reaction => {
+          form.patchValue({ [reaction.propertyName]: newValue }, { emitEvent: false });
+        });
 
-              const newValue = reaction.newValue(option as any);
+        // DISABLE REACTIONS
+        this._statusReactions.forEach(reaction => {
 
+          const newState = reaction.condition(option as any);
+
+          let destinationInput;
+
+          config.groups.forEach(group => {
+            const match = group.children.find(x => x.propertyName === reaction.propertyName);
+            if (match != null) {
+              destinationInput = match;
+            }
+          })
+
+          if (destinationInput != null) {
+            destinationInput.isDisabled = newState;
+
+            if (newState) {
               if (this._groupBuilder._formBuilder._state.isDebug) {
-                console.log(`Reactive Updating input: '${reaction.propertyName}' with newValue: '${newValue}'`);
+                console.log(`Reactive Disabling input: '${reaction.propertyName}'`);
+              }
+              destinationInput._inputFormControl.disable({ emitEvent: false });
+            }
+            else {
+              if (this._groupBuilder._formBuilder._state.isDebug) {
+                console.log(`Reactive Enabling input: '${reaction.propertyName}'`);
+              }
+              destinationInput._inputFormControl.enable({ emitEvent: false });
+            }
+          }
+        });
+
+        // GROUP REACTIONS
+        this._groupReactions.forEach(reaction => {
+
+          const newState = reaction.visibility(option as any);
+
+          const destinationGroup = formsRepository.getAllGroups().find(x => x.group.key === reaction.groupKey);
+
+          if (destinationGroup != null) {
+
+            destinationGroup.group.isHide = !newState;
+
+            if (newState) {
+              if (this._groupBuilder._formBuilder._state.isDebug) {
+                console.log(`Reactive hiding group: '${reaction.groupKey}'`);
+              }
+            }
+            else {
+              if (this._groupBuilder._formBuilder._state.isDebug) {
+                console.log(`Reactive showing group: '${reaction.groupKey}'`);
               }
 
-              form.patchValue({ [reaction.propertyName]: newValue }, { emitEvent: false });
-            });
+            }
 
-            // DISABLE REACTIONS
-            this._statusReactions.forEach(reaction => {
-
-              const newState = reaction.condition(option as any);
-
-              let destinationInput;
-
-              config.groups.forEach(group => {
-                const match = group.children.find(x => x.propertyName === reaction.propertyName);
-                if (match != null) {
-                  destinationInput = match;
-                }
-              })
-
-              if (destinationInput != null) {
-                destinationInput.isDisabled = newState;
-
-                if (newState) {
-                  if (this._groupBuilder._formBuilder._state.isDebug) {
-                    console.log(`Reactive Disabling input: '${reaction.propertyName}'`);
-                  }
-                  destinationInput._inputFormControl.disable({ emitEvent: false });
-                }
-                else {
-                  if (this._groupBuilder._formBuilder._state.isDebug) {
-                    console.log(`Reactive Enabling input: '${reaction.propertyName}'`);
-                  }
-                  destinationInput._inputFormControl.enable({ emitEvent: false });
-                }
-              }
-            });
-
-            // GROUP REACTIONS
-            this._groupReactions.forEach(reaction => {
-
-              const newState = reaction.visibility(option as any);
-
-              const destinationGroup = config.groups.find(x => x.key === reaction.groupKey);
-
-              if (destinationGroup != null) {
-
-                destinationGroup.isHide = !newState;
-
-                if (newState) {
-                  if (this._groupBuilder._formBuilder._state.isDebug) {
-                    console.log(`Reactive hiding group: '${reaction.groupKey}'`);
-                  }
-                }
-                else {
-                  if (this._groupBuilder._formBuilder._state.isDebug) {
-                    console.log(`Reactive showing group: '${reaction.groupKey}'`);
-                  }
-
-                }
-
-              }
-
-            });
+            formsRepository.applyChanges(destinationGroup.formId);
 
           }
 
-        }
+        });
+
       };
 
     }
