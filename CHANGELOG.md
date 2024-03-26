@@ -5,6 +5,11 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
+## [16.5.2] - 2024-03-26
+Implementação do Repositório de Forms: Agora, os formulários abertos são mantidos em um repositório unificado, facilitando a interação e o acesso cruzado entre diferentes forms. Isso permite que comportamentos customizados em um form específico possam interagir com outros forms abertos simultaneamente.
+
+Group Reaction no Custom Behavior: Com a nova implementação do repositório de forms, o "Group Reaction" dentro do custom behavior foi aprimorado. Agora, é possível alterar a visibilidade de um grupo em um form baseando-se em mudanças ocorridas em um dropdown de outro form. Essa feature amplia significativamente as possibilidades de interação dinâmica entre diferentes partes de uma aplicação, melhorando a experiência do usuário ao permitir reações mais complexas e integradas entre os formulários.
+
 ## [16.5.0] - 2024-03-14 (Testado com primeng-16.0.2)
 Adicionado um componente de input de árvore ao formulário, permitindo seleções simples, múltiplas ou por checkbox através da configuração Fluent.
 
