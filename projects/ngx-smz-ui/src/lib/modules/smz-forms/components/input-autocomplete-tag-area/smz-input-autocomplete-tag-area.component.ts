@@ -1,5 +1,4 @@
 import { Input, OnDestroy, ChangeDetectorRef, Component, ChangeDetectionStrategy, ViewChild, ElementRef, ViewEncapsulation, Optional } from '@angular/core';
-import { SmzSmartTagData, SmzSmartTagOptions } from '../../directives/smart-tag.directive';
 import { OverlayPanel } from 'primeng/overlaypanel';
 import { NgModel } from '@angular/forms';
 import { SmzAutocompleteSelectorComponent } from './smz-autocomplete-selector-component';
@@ -12,7 +11,7 @@ import { SmzSmartAutocompleteTagOption } from '../../directives/smart-autocomple
     template: `
     <label class="smz__input_name" [innerHTML]="input.name"></label>
     <div class="input_inner__wrapper" [id]="input.propertyName">
-        <textarea #inputArea id="inputArea" pInputTextarea smzSmartAutocompleteTag [(ngModel)]="ngModel" [formControl]="control" [options]="input.config.options" [rows]="input.textAreaRows" (tagTyped)="onTag($event)" class="col-12"></textarea>
+        <textarea #inputArea id="inputArea" pInputTextarea smzSmartAutocompleteTag [formControl]="control" [options]="input.config.options" [rows]="input.textAreaRows" (tagTyped)="onTag($event)" class="col-12"></textarea>
         <smz-validation-messages [input]="input" [control]="control" [behaviors]="behaviors"></smz-validation-messages>
     </div>
 
@@ -144,6 +143,7 @@ export class SmzInputAutocompleteTagArea implements OnDestroy {
             items[0].focus();
         }, 0);
     }
+
     public calc(inputElement: any): any {
         // grab the properties from the input that we are interested in
         const {

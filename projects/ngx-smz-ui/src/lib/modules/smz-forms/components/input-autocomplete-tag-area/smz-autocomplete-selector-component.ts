@@ -3,11 +3,10 @@ import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { AutoCompleteCompleteEvent, AutoCompleteLazyLoadEvent, AutoCompleteModule } from 'primeng/autocomplete';
 import { FormsModule } from '@angular/forms';
-import { BehaviorSubject, Observable, debounceTime } from 'rxjs';
+import { BehaviorSubject, debounceTime } from 'rxjs';
 import { Store } from '@ngxs/store';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { isNullOrEmptyString } from '../../../../common/utils/utils';
-import { SmzSmartTagData } from '../../directives/smart-tag.directive';
 import { SmzSmartAutocompleteTagOption } from '../../directives/smart-autocomplete-tag.directive';
 
 @UntilDestroy()

@@ -40,19 +40,7 @@ export class SmzSmartAutocompleteTagDirective implements OnInit, AfterViewInit, 
     constructor(public el: ElementRef, @Optional() public ngModel: NgModel, @Optional() public control: NgControl, private cd: ChangeDetectorRef) { }
 
     ngOnInit() {
-        // if (this.ngModel) {
-        //     this.ngModelSubscription = this.ngModel.valueChanges.subscribe((event) =>{
-        //         this.updateState(event);
-        //     })
-        // }
 
-        // if (this.control) {
-        //     this.ngControlSubscription = this.control.valueChanges.subscribe((event) => {
-        //         this.updateState(event);
-        //     });
-        // }
-
-        // console.log('options', this.options);
     }
 
     ngAfterViewInit() {
