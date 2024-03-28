@@ -56,7 +56,7 @@ import { FileDragDropDirective } from './directives/file-drag-drop.directive';
 import { MessagesModule } from 'primeng/messages';
 import { SafeContentPipeModule } from '../../common/pipes/safe-html.pipe';
 import { FileNameShortenPipe } from './components/file-upload/file-name-shorten.pipe';
-import { SmzInputTagAreaModule } from './components/input-text-area/input-tag-area.component';
+import { SmzInputTagAreaModule } from './components/input-tag-area/smz-input-tag-area.component';
 import { InputTagAreaComponent } from './components/input-tag-area/input-tag-area.component';
 import { NgxSmzDataPipesModule } from '../../common/data-pipes/data-pipes.module';
 import { SmzFormsGlobalInjector } from './services/smz-forms-global-injector';
@@ -73,6 +73,8 @@ import { ButtonModule } from 'primeng/button';
 import { FormSubmitComponent } from './features/form-submit/form-submit.component';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { TreeSelectModule } from 'primeng/treeselect';
+import { SmzInputAutocompleteTagAreaModule } from './components/input-autocomplete-tag-area/smz-input-autocomplete-tag-area.component';
+import { InputAutocompleteTagAreaComponent } from './components/input-autocomplete-tag-area/input-autocomplete-tag-area.component';
 
 export const defaultFormsModuleConfig: SmzFormsConfig = {
     behaviors: {
@@ -185,6 +187,7 @@ export const defaultFormsModuleConfig: SmzFormsConfig = {
         MessagesModule,
         SafeContentPipeModule,
         SmzInputTagAreaModule,
+        SmzInputAutocompleteTagAreaModule,
         NgxSmzDataPipesModule,
         ButtonModule,
         AutoFocusModule,
@@ -218,6 +221,7 @@ export const defaultFormsModuleConfig: SmzFormsConfig = {
         FileDragDropDirective,
         FileNameShortenPipe,
         InputTagAreaComponent,
+        InputAutocompleteTagAreaComponent,
         InputContentMaskComponent,
         TransferValueAccessor,
         InputContentMaskTextPipe,

@@ -74,6 +74,10 @@
         <input-tag-area [input]="input" [control]="viewdata.form.controls[input.propertyName]" [behaviors]="config.behaviors"></input-tag-area>
     </ng-container>
 
+    <ng-container *ngIf="input.type == controlTypes.AUTOCOMPLETE_TAG_AREA">
+        <input-autocomplete-tag-area [input]="input" [control]="viewdata.form.controls[input.propertyName]" [behaviors]="config.behaviors"></input-autocomplete-tag-area>
+    </ng-container>
+
     <ng-container *ngIf="input.type == controlTypes.RADIO">
         <smz-radio-button [input]="input" [control]="viewdata.form.controls[input.propertyName]" [behaviors]="config.behaviors"></smz-radio-button>
     </ng-container>

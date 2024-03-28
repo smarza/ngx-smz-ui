@@ -731,6 +731,13 @@ export const TreeDemoData: DemoTreeNode[] = [
             key: DemoKeys.FORMS_INPUT_TAG_AREA.toString()
           },
           {
+            label: 'Autocomplete Tag Area', icon: 'fa-solid fa-code', type: 'Demo',
+            demoType: 'form',
+            notes: '',
+            data: FormsDemo[DemoKeys.FORMS_INPUT_AUTOCOMPLETE_TAG_AREA],
+            key: DemoKeys.FORMS_INPUT_AUTOCOMPLETE_TAG_AREA.toString()
+          },
+          {
             label: 'Text', icon: 'fa-solid fa-code', type: 'Demo',
             demoType: 'form',
             notes: '',

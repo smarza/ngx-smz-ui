@@ -31,6 +31,7 @@ export type SmzControlTypes =
     SmzSwitchControl |
     SmzTextAreaControl |
     SmzTagAreaControl |
+    SmzAutocompleteTagAreaControl |
     SmzTextControl |
     SmzTextButtonControl |
     SmzTreeControl<any>
@@ -65,7 +66,8 @@ export enum SmzControlType
     CONTENT_MASK = 20,
     TEXT_BUTTON = 21,
     DECIMAL = 22, // APENAS PARA API (UI DEFINITION)
-    TREE = 23
+    TREE = 23,
+    AUTOCOMPLETE_TAG_AREA = 24
 }
 
 export interface SmzTextControl extends SmzFormsBaseControl
@@ -190,6 +192,16 @@ export interface SmzTagAreaControl extends SmzFormsBaseControl
     exportPattern?: SmzTextPattern;
     config: SmzSmartTagConfig;
 
+}
+
+export interface SmzAutocompleteTagAreaControl extends SmzFormsBaseControl
+{
+    defaultValue?: string;
+    textAreaRows?: number;
+    exportPattern?: SmzTextPattern;
+    config: SmzSmartTagConfig;
+    searchDispatchCallback: (string) => void;
+    searchResults$: Observable<string[]>;
 }
 
 export interface SmzColorPickerControl extends SmzFormsBaseControl

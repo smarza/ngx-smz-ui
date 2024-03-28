@@ -45,4 +45,9 @@ export namespace DemoFeatureActions {
     constructor(public key: string, public navigate: boolean) {}
   }
 
+  export class SimulateSearch {
+    public static readonly type = '[DEMO] Simulate Search';
+    constructor(public query: string) {}
+  }
+
 }

@@ -198,6 +198,11 @@ export class DemoFeatureSelectors {
     ];
   }
 
+  @Selector([DemoFeatureState])
+  public static searchResults(state: DemoFeatureStateModel): any[] {
+    return state.searchResults;
+  }
+
   public static giants(state: DemoFeatureStateModel): any[] {
     return giantsTree;
   }

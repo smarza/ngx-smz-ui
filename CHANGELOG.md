@@ -5,6 +5,9 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
+## [16.5.3] - 2024-03-28
+Fix no input TagArea.
+
 ## [16.5.2] - 2024-03-26
 Implementação do Repositório de Forms: Agora, os formulários abertos são mantidos em um repositório unificado, facilitando a interação e o acesso cruzado entre diferentes forms. Isso permite que comportamentos customizados em um form específico possam interagir com outros forms abertos simultaneamente.
 

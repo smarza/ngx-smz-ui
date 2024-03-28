@@ -1,5 +1,5 @@
 import { AbstractControl, UntypedFormGroup } from '@angular/forms';
-import { SmzControlType, SmzControlTypes, SmzCalendarControl, SmzCurrencyControl, SmzPasswordControl, SmzSwitchControl, SmzTextControl, SmzCheckBoxControl, SmzCheckBoxGroupControl, SmzColorPickerControl, SmzDropDownControl, SmzFileControl, SmzLinkedDropDownControl, SmzMultiSelectControl, SmzNumberControl, SmzRadioControl, SmzTextAreaControl, SmzMaskControl, SmzLinkedMultiSelectControl, SmzListControl, SmzTagAreaControl, SmzContentMaskControl, SmzTextButtonControl, SmzTreeControl } from './control-types';
+import { SmzControlType, SmzControlTypes, SmzCalendarControl, SmzCurrencyControl, SmzPasswordControl, SmzSwitchControl, SmzTextControl, SmzCheckBoxControl, SmzCheckBoxGroupControl, SmzColorPickerControl, SmzDropDownControl, SmzFileControl, SmzLinkedDropDownControl, SmzMultiSelectControl, SmzNumberControl, SmzRadioControl, SmzTextAreaControl, SmzMaskControl, SmzLinkedMultiSelectControl, SmzListControl, SmzTagAreaControl, SmzContentMaskControl, SmzTextButtonControl, SmzTreeControl, SmzAutocompleteTagAreaControl } from './control-types';
 import { flatten, isArray, isString } from '../../../common/utils/utils';
 import { executeTextPattern } from './text-patterns';
 import { cloneDeep } from 'lodash-es';
@@ -462,7 +462,7 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
                     {
                         // console.log('------------------');
                         // console.log('---- option', option);
-                        input.defaultValue = input.defaultValue.split(option.value).join(`${open}${option.key}${close}`);
+                        input.defaultValue = input.defaultValue.split(option.value).join(`${open}${option.id}${close}`);
                         // console.log('---- defaultValue', input.defaultValue);
                     });
             }
@@ -489,7 +489,66 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
 
             tags?.forEach(tag =>
                 {
-                    const optionTag = options.find(o => `${input.config.tagCharacteres.open}${o.key}${input.config.tagCharacteres.close}` === tag);
+                    const optionTag = options.find(o => `${input.config.tagCharacteres.open}${o.id}${input.config.tagCharacteres.close}` === tag);
+
+                    if (optionTag) {
+                        result = result.replace(tag, optionTag.value);
+                    }
+                });
+
+            return mapResponseValue(input, result, false);
+
+        },
+    },
+
+    [SmzControlType.AUTOCOMPLETE_TAG_AREA]: {
+        initialize: (input: SmzAutocompleteTagAreaControl) => {
+
+            // console.log('#########################');
+            // console.log('before defaultValue', input.defaultValue);
+
+            if (input.config.tagCharacteres.open == null) input.config.tagCharacteres.open = '[';
+            if (input.config.tagCharacteres.close == null) input.config.tagCharacteres.close = ']';
+
+            const open = input.config.tagCharacteres.open;
+            const close = input.config.tagCharacteres.close;
+
+            if (input.defaultValue != null && input.defaultValue !== '')
+            {
+                const options: SmzSmartTagData[] = flatten(input.config.options.map(x => x.data));
+
+                options?.forEach(option =>
+                    {
+                        // console.log('------------------');
+                        // console.log('---- option', option);
+                        input.defaultValue = input.defaultValue.split(option.value).join(`${open}${option.id}${close}`);
+                        // console.log('---- defaultValue', input.defaultValue);
+                    });
+            }
+
+            // console.log('after defaultValue', input.defaultValue);
+            // console.log('#########################');
+
+        },
+        clear: (control: AbstractControl) => { control.patchValue(''); },
+        applyDefaultValue: (control: AbstractControl, input: SmzAutocompleteTagAreaControl) => { control.patchValue(input.defaultValue); },
+        getValue: (form: UntypedFormGroup, input: SmzAutocompleteTagAreaControl, flattenResponse: boolean) =>
+        {
+            let value = form.get(input.propertyName).value;
+
+            if (value == null) return mapResponseValue(input, value, false);
+
+            value = executeTextPattern(value, input.exportPattern);
+
+            let tags = value.match(/(\[)+[a-z+A-Z+0-9\D\d\S\s].*?]/g);
+
+            const options: SmzSmartTagData[] = flatten(input.config.options.map(x => x.data));
+
+            let result: string = value;
+
+            tags?.forEach(tag =>
+                {
+                    const optionTag = options.find(o => `${input.config.tagCharacteres.open}${o.id}${input.config.tagCharacteres.close}` === tag);
 
                     if (optionTag) {
                         result = result.replace(tag, optionTag.value);

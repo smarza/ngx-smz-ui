@@ -11,7 +11,7 @@ import { Listbox, ListboxModule } from 'primeng/listbox';
 @Component({
     selector: 'smz-input-tag-area',
     template: `
-<textarea #inputArea id="inputArea" pInputTextarea smzSmartTag ([ngModel])="ngModel" [formControl]="control" [options]="config?.options" [rows]="rows" (tagTyped)="onTag($event)" class="col-12"></textarea>
+<textarea #inputArea id="inputArea" pInputTextarea smzSmartTag [(ngModel)]="ngModel" [formControl]="control" [options]="config?.options" [rows]="rows" (tagTyped)="onTag($event)" class="col-12"></textarea>
 <p-overlayPanel #overlay appendTo="body" [style]="{width: '450px'}" (onHide)="onHideOverlay()" styleClass="tag-overlay">
 <ng-template pTemplate>
 <p-listbox *ngIf="currentTag" #listbox (onClick)="hide($event)" (keyup.enter)="hide($event)" styleClass="tag-dropdown" [options]="currentTag.data" [(ngModel)]="currentTagSelection" optionLabel="key"></p-listbox>
@@ -57,7 +57,7 @@ export class SmzInputTagArea implements AfterViewInit, OnDestroy {
             const open = this.config.tagCharacteres.open?.substring(0, 1) ?? '';
             const close = this.config.tagCharacteres.close?.substring(0, 1) ?? '';
 
-            const key = this.currentTagSelection.key;
+            const key = this.currentTagSelection.id;
 
             let next = prev.substring(0, this.currentTagPosition - this.currentTag.key.length);
             next += open;
@@ -130,7 +130,7 @@ export class SmzInputTagArea implements AfterViewInit, OnDestroy {
         // console.log('getBoundingClientRect', element.getBoundingClientRect());
         // console.log('parentNode', element.parentNode);
 
-        this.overlay.toggle({}, target);
+        this.overlay.toggle(null, target);
 
         setTimeout(() => {
             const el: HTMLElement = this.listboxElement.el.nativeElement;

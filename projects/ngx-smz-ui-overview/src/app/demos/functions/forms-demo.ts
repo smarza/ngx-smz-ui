@@ -6,6 +6,7 @@ import { Store } from '@ngxs/store';
 import { UntypedFormControl } from '@angular/forms';
 import { DemoFeatureSelectors, plantsWithModels } from '@states/demo/demo.selectors';
 import { TreeNode } from 'primeng/api';
+import { DemoFeatureActions } from '@states/demo/demo.actions';
 
 const store = GlobalInjector.instance.get(Store);
 
@@ -295,7 +296,31 @@ Exame sem intercorrências.`)
   },
   //
   [DemoKeys.FORMS_INPUT_TAG_AREA]: () => {
-
+    return new SmzFormBuilder<any>()
+      .group()
+        .setLayout('EXTRA_SMALL', 'col-12')
+        .tagArea('description', 'Descrição')
+          .validators().required().input
+          .setTagCharacters('<', '>')
+          .addOption('#', [{ id: 'M0-10', value: 'M0-10'}])
+          .group
+        .form
+      .build();
+  },
+  //
+  [DemoKeys.FORMS_INPUT_AUTOCOMPLETE_TAG_AREA]: () => {
+    return new SmzFormBuilder<any>()
+      .group()
+        .setLayout('EXTRA_SMALL', 'col-12')
+        .autocompleteTagArea('description', 'Descrição com Autocomplete')
+          .validators().required().input
+          .setTagCharacters('<', '>')
+          .setSearchTrigger((query) => store.dispatch(new DemoFeatureActions.SimulateSearch(query)))
+          .setSearchResults(store.select(DemoFeatureSelectors.searchResults))
+          .addOption('#', [{ id: 'M0-10', value: 'M0-10'}])
+          .group
+        .form
+      .build();
   },
   //
   [DemoKeys.FORMS_INPUT_TEXT]: () => {

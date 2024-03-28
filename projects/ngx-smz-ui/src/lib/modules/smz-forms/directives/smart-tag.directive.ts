@@ -18,7 +18,7 @@ export interface SmzSmartTagOptions {
 }
 
 export interface SmzSmartTagData {
-    key: string,
+    id: string,
     value: string
 }
 

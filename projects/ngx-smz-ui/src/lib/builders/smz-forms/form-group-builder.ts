@@ -1,4 +1,4 @@
-import { SmzCalendarControl, SmzCheckBoxControl, SmzCheckBoxGroupControl, SmzColorPickerControl, SmzContentMaskControl, SmzControlType, SmzCurrencyControl, SmzDropDownControl, SmzFileControl, SmzLinkedDropDownControl, SmzLinkedMultiSelectControl, SmzListControl, SmzMaskControl, SmzMultiSelectControl, SmzNumberControl, SmzPasswordControl, SmzRadioControl, SmzSwitchControl, SmzTagAreaControl, SmzTextAreaControl, SmzTextControl, SmzControlTypes, SmzTextButtonControl, SmzTreeControl } from '../../modules/smz-forms/models/control-types';
+import { SmzCalendarControl, SmzCheckBoxControl, SmzCheckBoxGroupControl, SmzColorPickerControl, SmzContentMaskControl, SmzControlType, SmzCurrencyControl, SmzDropDownControl, SmzFileControl, SmzLinkedDropDownControl, SmzLinkedMultiSelectControl, SmzListControl, SmzMaskControl, SmzMultiSelectControl, SmzNumberControl, SmzPasswordControl, SmzRadioControl, SmzSwitchControl, SmzTagAreaControl, SmzTextAreaControl, SmzTextControl, SmzControlTypes, SmzTextButtonControl, SmzTreeControl, SmzAutocompleteTagAreaControl } from '../../modules/smz-forms/models/control-types';
 import { ParentEntity, SimpleEntity, SimpleParentEntity } from '../../common/models/simple-named-entity';
 import { SmzFormBuilder } from './form-builder';
 import { SmzFormGroup, SmzFormsResponse } from '../../modules/smz-forms/models/smz-forms';
@@ -16,8 +16,8 @@ import { SmzDataSourceTreeBuilder } from '../smz-trees/data-source-tree-builder'
 import { getFirstElement, isArray } from '../../common/utils/utils';
 import { SmzTreeNodeUtilityBuilder } from '../smz-trees/tree-nodes-utility-builder';
 import { SmzTreeNode } from '../../modules/smz-trees/models/tree-node';
-import { SmzDialogsService } from '../../modules/smz-dialogs/services/smz-dialogs.service';
 import { SmzFormsRepositoryService } from '../../modules/smz-forms/services/smz-forms-repository.service';
+import { SmzSmartTagData } from '../../modules/smz-forms/directives/smart-tag.directive';
 
 export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormGroupBuilder<TResponse>> {
   protected that = this;
@@ -397,6 +397,26 @@ export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormG
 
     this.group.children.push(input);
     return new SmzFormTagAreaBuilder(this, input);
+  }
+
+  public autocompleteTagArea(property: string, label: string, defaultValue?: string): SmzFormAutocompleteTagAreaBuilder<TResponse> {
+    const input: SmzAutocompleteTagAreaControl = {
+      propertyName: property, type: SmzControlType.AUTOCOMPLETE_TAG_AREA, name: label,
+      config: {
+        tagCharacteres: {
+          open: '[',
+          close: ']'
+        },
+        options: []
+      },
+      defaultValue: defaultValue,
+      textAreaRows: 5,
+      searchDispatchCallback: null,
+      searchResults$: null
+    };
+
+    this.group.children.push(input);
+    return new SmzFormAutocompleteTagAreaBuilder(this, input);
   }
 
   public text(property: string, label?: string, defaultValue?: string): SmzFormTextBuilder<TResponse> {
@@ -1161,44 +1181,6 @@ export class SmzFormRadioGroupBuilder<T,TResponse> extends SmzFormInputBuilder<S
   }
 }
 
-export class SmzFormTagAreaBuilder<TResponse> extends SmzFormInputBuilder<SmzFormTagAreaBuilder<TResponse>, TResponse> {
-  protected that = this;
-  constructor(public _groupBuilder: SmzFormGroupBuilder<TResponse>, private _tagAreaInput: SmzTagAreaControl) {
-    super(_groupBuilder, _tagAreaInput);
-  }
-
-  public setRows(rows: number): SmzFormTagAreaBuilder<TResponse> {
-    this._tagAreaInput.textAreaRows = rows;
-    return this;
-  }
-
-  public setSaveFormat(format: SmzTextPattern): SmzFormTagAreaBuilder<TResponse> {
-    if (format !== SmzTextPattern.NONE) this._tagAreaInput.exportPattern = format;
-    return this;
-  }
-
-  public setTagCharacters(open: string, close: string): SmzFormTagAreaBuilder<TResponse> {
-    const config = this._tagAreaInput.config;
-    if (config == null) {
-      this._tagAreaInput.config = { tagCharacteres: { open, close }, options: [] };
-    }
-    else {
-      this._tagAreaInput.config.tagCharacteres = { open, close };
-    }
-    return this;
-  }
-
-  public addOption(key: string, data: { key: string, value: string }[]): SmzFormTagAreaBuilder<TResponse> {
-    const config = this._tagAreaInput.config;
-    if (config == null) {
-      this._tagAreaInput.config = { tagCharacteres: null, options: [] };
-    }
-
-    this._tagAreaInput.config.options.push({ key, data })
-    return this;
-  }
-}
-
 export class SmzFormNumberBuilder<TResponse> extends SmzFormInputBuilder<SmzFormNumberBuilder<TResponse>, TResponse> {
   protected that = this;
   constructor(public _groupBuilder: SmzFormGroupBuilder<TResponse>, private _numberInput: SmzNumberControl) {
@@ -1794,6 +1776,105 @@ export function getSmzTemplate(breakpoint: 'EXTRA_SMALL' | 'SMALL' | 'MEDIUM' | 
       return {};
   }
 
+}
+
+export class SmzFormTagAreaBuilder<TResponse> extends SmzFormInputBuilder<SmzFormTagAreaBuilder<TResponse>, TResponse> {
+  protected that = this;
+  constructor(public _groupBuilder: SmzFormGroupBuilder<TResponse>, private _tagAreaInput: SmzTagAreaControl) {
+    super(_groupBuilder, _tagAreaInput);
+  }
+
+  public setRows(rows: number): SmzFormTagAreaBuilder<TResponse> {
+    this._tagAreaInput.textAreaRows = rows;
+    return this;
+  }
+
+  public setSaveFormat(format: SmzTextPattern): SmzFormTagAreaBuilder<TResponse> {
+    if (format !== SmzTextPattern.NONE) this._tagAreaInput.exportPattern = format;
+    return this;
+  }
+
+  public setTagCharacters(open: string, close: string): SmzFormTagAreaBuilder<TResponse> {
+    const config = this._tagAreaInput.config;
+    if (config == null) {
+      this._tagAreaInput.config = { tagCharacteres: { open, close }, options: [] };
+    }
+    else {
+      this._tagAreaInput.config.tagCharacteres = { open, close };
+    }
+    return this;
+  }
+
+  public addOption(key: string, data: SmzSmartTagData[]): SmzFormTagAreaBuilder<TResponse> {
+    const config = this._tagAreaInput.config;
+    if (config == null) {
+      this._tagAreaInput.config = { tagCharacteres: null, options: [] };
+    }
+
+    this._tagAreaInput.config.options.push({ key, data })
+    return this;
+  }
+}
+
+export class SmzFormAutocompleteTagAreaBuilder<TResponse> extends SmzFormInputBuilder<SmzFormAutocompleteTagAreaBuilder<TResponse>, TResponse> {
+  protected that = this;
+  constructor(public _groupBuilder: SmzFormGroupBuilder<TResponse>, private _tagAreaInput: SmzAutocompleteTagAreaControl) {
+    super(_groupBuilder, _tagAreaInput);
+  }
+
+  public setRows(rows: number): SmzFormAutocompleteTagAreaBuilder<TResponse> {
+    this._tagAreaInput.textAreaRows = rows;
+    return this;
+  }
+
+  public setSaveFormat(format: SmzTextPattern): SmzFormAutocompleteTagAreaBuilder<TResponse> {
+    if (format !== SmzTextPattern.NONE) this._tagAreaInput.exportPattern = format;
+    return this;
+  }
+
+  public setTagCharacters(open: string, close: string): SmzFormAutocompleteTagAreaBuilder<TResponse> {
+    const config = this._tagAreaInput.config;
+    if (config == null) {
+      this._tagAreaInput.config = { tagCharacteres: { open, close }, options: [] };
+    }
+    else {
+      this._tagAreaInput.config.tagCharacteres = { open, close };
+    }
+    return this;
+  }
+
+  public addOption(key: string, data: SmzSmartTagData[]): SmzFormAutocompleteTagAreaBuilder<TResponse> {
+    const config = this._tagAreaInput.config;
+    if (config == null) {
+      this._tagAreaInput.config = { tagCharacteres: null, options: [] };
+    }
+
+    this._tagAreaInput.config.options.push({ key, data })
+    return this;
+  }
+
+  public setSearchTrigger(callback: (query: string) => any): SmzFormAutocompleteTagAreaBuilder<TResponse> {
+    this._tagAreaInput.searchDispatchCallback = callback;
+    return this;
+  }
+
+  public setSearchResults(selector$: Observable<string[]>): SmzFormAutocompleteTagAreaBuilder<TResponse> {
+    this._tagAreaInput.searchResults$ = selector$;
+    return this;
+  }
+
+  public get group(): SmzFormGroupBuilder<TResponse> {
+
+    if (this._tagAreaInput.searchDispatchCallback == null) {
+      throw Error("You need to call 'setSearchTrigger' and setup a callback to that triggers the dispatch action");
+    }
+
+    if (this._tagAreaInput.searchResults$ == null) {
+      throw Error("You need to call 'setSearchResults' and set a selector with the results");
+    }
+
+    return this._groupBuilder;
+  }
 }
 
 export class SmzFormTreeBuilder<T, TResponse> extends SmzFormInputBuilder<SmzFormTreeBuilder<T, TResponse>, TResponse> {

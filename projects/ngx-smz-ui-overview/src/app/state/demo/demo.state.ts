@@ -18,13 +18,15 @@ export interface DemoFeatureStateModel {
   items: DemoItem[];
   tree: TreeNode[];
   currentRouteKey: string;
+  searchResults: string[];
 }
 
 export const getFtDemoInitialState = (): DemoFeatureStateModel => ({
   lastUpdated: null,
   items: null,
   tree: null,
-  currentRouteKey: null
+  currentRouteKey: null,
+  searchResults: null
 });
 
 @State<DemoFeatureStateModel>({
@@ -171,4 +173,41 @@ export class DemoFeatureState {
 
   }
 
+  @Action(DemoFeatureActions.SimulateSearch)
+  public onSimulateSearch(ctx: StateContext<DemoFeatureStateModel>, action: DemoFeatureActions.SimulateSearch): void {
+    const queryResults = cloneDeep(simulateSearchEndpoint(action.query));
+    ctx.patchState({ searchResults: queryResults })
+  }
+
+}
+
+function simulateSearchEndpoint(input: string): string[] {
+  const results: Set<string> = new Set(); // Usando um Set para evitar duplicatas
+  const minAdditionalLength = 0; // Mínimo de caracteres adicionais
+  const maxAdditionalLength = 5; // Máximo de caracteres adicionais
+  const chars = 'abcdefghijklmnopqrstuvwxyz'; // Caracteres para adicionar ao input
+
+  // Adiciona a string original como um dos resultados
+  results.add(input);
+
+  // Gera outras variações do input adicionando prefixos ou sufixos aleatórios
+  for (let i = 0; i < 10; i++) { // Gera até 4 variações adicionais
+      const additionalLength = Math.floor(Math.random() * (maxAdditionalLength - minAdditionalLength + 1)) + minAdditionalLength;
+      let additionalString = '';
+      for (let j = 0; j < additionalLength; j++) {
+          additionalString += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+
+      // Decide aleatoriamente se o adicional será um prefixo ou sufixo
+      if (Math.random() > 0.5) {
+          results.add(additionalString + input);
+      } else {
+          results.add(input + additionalString);
+      }
+  }
+
+  // Converte o Set para um array e ordena os resultados
+  const sortedResults = Array.from(results).sort();
+
+  return sortedResults;
 }

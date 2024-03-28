@@ -582,7 +582,6 @@ export function getLastElements<T>(arr: T[], numElements: number): T[] {
 }
 
 export function isNullOrEmptyString(str: string | null | undefined): boolean {
-    console.log('str', str);
     return str === null || str === undefined || str.trim().length === 0;
 }
 
