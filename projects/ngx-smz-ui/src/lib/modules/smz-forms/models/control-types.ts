@@ -10,6 +10,7 @@ import { ChangeDetectorRef } from '@angular/core';
 import { SmzTreeSourceTransform } from '../../smz-trees/models/tree-state';
 import { AbstractControl } from '@angular/forms';
 import { SmzTreeNode } from '../../smz-trees/models/tree-node';
+import { SmzSmartAutocompleteTagConfig } from '../directives/smart-autocomplete-tag.directive';
 
 export type SmzControlTypes =
     SmzCalendarControl |
@@ -199,9 +200,7 @@ export interface SmzAutocompleteTagAreaControl extends SmzFormsBaseControl
     defaultValue?: string;
     textAreaRows?: number;
     exportPattern?: SmzTextPattern;
-    config: SmzSmartTagConfig;
-    searchDispatchCallback: (string) => void;
-    searchResults$: Observable<string[]>;
+    config: SmzSmartAutocompleteTagConfig;
 }
 
 export interface SmzColorPickerControl extends SmzFormsBaseControl

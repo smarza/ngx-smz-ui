@@ -315,9 +315,13 @@ Exame sem intercorrências.`)
         .autocompleteTagArea('description', 'Descrição com Autocomplete')
           .validators().required().input
           .setTagCharacters('<', '>')
-          .setSearchTrigger((query) => store.dispatch(new DemoFeatureActions.SimulateSearch(query)))
-          .setSearchResults(store.select(DemoFeatureSelectors.searchResults))
-          .addOption('#', [{ id: 'M0-10', value: 'M0-10'}])
+          .addOption('#')
+            .setLabel('Sugestões baseadas na sua busca')
+            .setEmptyMessage('Nada aqui')
+            .setSearchTriggerLength(3)
+            .setSearchTrigger((query) => store.dispatch(new DemoFeatureActions.SimulateSearch(query)))
+            .setSearchResults(store.select(DemoFeatureSelectors.searchResults))
+            .input
           .group
         .form
       .build();

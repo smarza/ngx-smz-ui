@@ -18,6 +18,7 @@ import { SmzTreeNodeUtilityBuilder } from '../smz-trees/tree-nodes-utility-build
 import { SmzTreeNode } from '../../modules/smz-trees/models/tree-node';
 import { SmzFormsRepositoryService } from '../../modules/smz-forms/services/smz-forms-repository.service';
 import { SmzSmartTagData } from '../../modules/smz-forms/directives/smart-tag.directive';
+import { SmzSmartAutocompleteTagOption } from '../../modules/smz-forms/directives/smart-autocomplete-tag.directive';
 
 export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormGroupBuilder<TResponse>> {
   protected that = this;
@@ -411,8 +412,6 @@ export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormG
       },
       defaultValue: defaultValue,
       textAreaRows: 5,
-      searchDispatchCallback: null,
-      searchResults$: null
     };
 
     this.group.children.push(input);
@@ -1843,37 +1842,71 @@ export class SmzFormAutocompleteTagAreaBuilder<TResponse> extends SmzFormInputBu
     return this;
   }
 
-  public addOption(key: string, data: SmzSmartTagData[]): SmzFormAutocompleteTagAreaBuilder<TResponse> {
-    const config = this._tagAreaInput.config;
-    if (config == null) {
-      this._tagAreaInput.config = { tagCharacteres: null, options: [] };
-    }
-
-    this._tagAreaInput.config.options.push({ key, data })
-    return this;
-  }
-
-  public setSearchTrigger(callback: (query: string) => any): SmzFormAutocompleteTagAreaBuilder<TResponse> {
-    this._tagAreaInput.searchDispatchCallback = callback;
-    return this;
-  }
-
-  public setSearchResults(selector$: Observable<string[]>): SmzFormAutocompleteTagAreaBuilder<TResponse> {
-    this._tagAreaInput.searchResults$ = selector$;
-    return this;
+  public addOption(key: string): SmzFormAutocompleteTagAreaOptionBuilder<TResponse> {
+    return new SmzFormAutocompleteTagAreaOptionBuilder<TResponse>(this, this._tagAreaInput, key);
   }
 
   public get group(): SmzFormGroupBuilder<TResponse> {
+    return this._groupBuilder;
+  }
+}
 
-    if (this._tagAreaInput.searchDispatchCallback == null) {
+export class SmzFormAutocompleteTagAreaOptionBuilder<TResponse> extends SmzBuilderUtilities<SmzFormAutocompleteTagAreaOptionBuilder<TResponse>> {
+  protected that = this;
+  private _option: SmzSmartAutocompleteTagOption;
+  constructor(protected _parent: SmzFormAutocompleteTagAreaBuilder<TResponse>, private _tagAreaInput: SmzAutocompleteTagAreaControl, private key: string) {
+    super();
+
+    this._option = {
+      key,
+      searchTriggerLength: 2,
+      emptyMessage: '',
+      dataSourceDisplayName: null,
+      searchDispatchCallback: null,
+      searchResults$: null,
+      suggestions: [],
+      selected: null
+    };
+
+    this._tagAreaInput.config.options.push(this._option)
+  }
+
+  public setSearchTriggerLength(charactersCount: number): SmzFormAutocompleteTagAreaOptionBuilder<TResponse> {
+    this._option.searchTriggerLength = charactersCount;
+    return this;
+  }
+
+  public setEmptyMessage(emptyMessage: string): SmzFormAutocompleteTagAreaOptionBuilder<TResponse> {
+    this._option.emptyMessage = emptyMessage;
+    return this;
+  }
+
+  public setLabel(text: string): SmzFormAutocompleteTagAreaOptionBuilder<TResponse> {
+    this._option.dataSourceDisplayName = text;
+    return this;
+  }
+
+  public setSearchTrigger(callback: (query: string) => any): SmzFormAutocompleteTagAreaOptionBuilder<TResponse> {
+    this._option.searchDispatchCallback = callback;
+    return this;
+  }
+
+  public setSearchResults(selector$: Observable<string[]>): SmzFormAutocompleteTagAreaOptionBuilder<TResponse> {
+    this._option.searchResults$ = selector$;
+    return this;
+  }
+
+  public get input(): SmzFormAutocompleteTagAreaBuilder<TResponse> {
+
+    if (this._option.searchDispatchCallback == null) {
       throw Error("You need to call 'setSearchTrigger' and setup a callback to that triggers the dispatch action");
     }
 
-    if (this._tagAreaInput.searchResults$ == null) {
+    if (this._option.searchResults$ == null) {
       throw Error("You need to call 'setSearchResults' and set a selector with the results");
     }
 
-    return this._groupBuilder;
+    return this._parent;
   }
 }
 

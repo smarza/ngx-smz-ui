@@ -1,30 +1,27 @@
-import { Input, OnDestroy, ChangeDetectorRef, Component, ChangeDetectionStrategy, ViewChild, ElementRef, ViewEncapsulation, Optional, AfterViewInit } from '@angular/core';
+import { Input, OnDestroy, ChangeDetectorRef, Component, ChangeDetectionStrategy, ViewChild, ElementRef, ViewEncapsulation, Optional } from '@angular/core';
 import { SmzSmartTagData, SmzSmartTagOptions } from '../../directives/smart-tag.directive';
 import { OverlayPanel } from 'primeng/overlaypanel';
 import { NgModel } from '@angular/forms';
 import { SmzAutocompleteSelectorComponent } from './smz-autocomplete-selector-component';
 import { SmzAutocompleteTagAreaControl } from '../../models/control-types';
 import { SmzFormsBehaviorsConfig } from '../../models/behaviors';
+import { SmzSmartAutocompleteTagOption } from '../../directives/smart-autocomplete-tag.directive';
 
 @Component({
     selector: 'smz-input-autocomplete-tag-area',
     template: `
     <label class="smz__input_name" [innerHTML]="input.name"></label>
     <div class="input_inner__wrapper" [id]="input.propertyName">
-        <textarea #inputArea id="inputArea" pInputTextarea smzSmartTag [(ngModel)]="ngModel" [formControl]="control" [options]="input.config.options" [rows]="input.textAreaRows" (tagTyped)="onTag($event)" class="col-12"></textarea>
+        <textarea #inputArea id="inputArea" pInputTextarea smzSmartAutocompleteTag [(ngModel)]="ngModel" [formControl]="control" [options]="input.config.options" [rows]="input.textAreaRows" (tagTyped)="onTag($event)" class="col-12"></textarea>
         <smz-validation-messages [input]="input" [control]="control" [behaviors]="behaviors"></smz-validation-messages>
     </div>
 
     <p-overlayPanel #overlay appendTo="body" [style]="{width: '450px'}" (onHide)="onHideOverlay()" styleClass="tag-overlay">
         <ng-template pTemplate>
-            <smz-autocomplete-selector *ngIf="currentTag"
+            <smz-autocomplete-selector *ngIf="currentOption"
                 #elementSelector
                 styleClass="tag-dropdown"
-                [searchDispatchTrigger]="input.searchDispatchCallback"
-                [searchResults$]="input.searchResults$"
-                [minLength]="2"
-                (suggestionsChanged)="updateOptions($event)"
-                [(currentTagData)]="currentTagSelection"
+                [option]="currentOption"
                 (finished)="hide()"
                 >
             </smz-autocomplete-selector>
@@ -39,44 +36,23 @@ import { SmzFormsBehaviorsConfig } from '../../models/behaviors';
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
-export class SmzInputAutocompleteTagArea implements AfterViewInit, OnDestroy {
-    @Input() public input: SmzAutocompleteTagAreaControl;
-    @Input() public control: any;
-    @Input() public behaviors: SmzFormsBehaviorsConfig;
-
-
+export class SmzInputAutocompleteTagArea implements OnDestroy {
     @ViewChild(OverlayPanel) public overlay: OverlayPanel;
     @ViewChild('inputArea') public inputElement: ElementRef;
     @ViewChild('elementSelector') public selectorElement: SmzAutocompleteSelectorComponent;
 
-    public currentTag: SmzSmartTagOptions;
+    @Input() public input: SmzAutocompleteTagAreaControl;
+    @Input() public control: any;
+    @Input() public behaviors: SmzFormsBehaviorsConfig;
+
+    public currentOption: SmzSmartAutocompleteTagOption;
     public currentTagPosition: number;
-    public currentTagSelection: SmzSmartTagData;
 
     constructor(@Optional() public ngModel: NgModel, private cdr: ChangeDetectorRef) { }
 
-    public ngAfterViewInit(): void {
-    }
-
-    public updateOptions(suggestions: string[]): void {
-
-        if (suggestions == null || this.currentTag == null)
-        {
-            return;
-        }
-
-        this.input.config.options.forEach(option => {
-            if (option.key == this.currentTag.key) {
-                option.data = suggestions.map(x => ({ id: x, value: x }));
-
-                this.cdr.markForCheck();
-            }
-        });
-    }
-
     public onHideOverlay(): void {
 
-        if (this.currentTagSelection != null) {
+        if (this.currentOption != null) {
             const prev: string = this.control.value;
 
             // console.log('------------');
@@ -88,17 +64,17 @@ export class SmzInputAutocompleteTagArea implements AfterViewInit, OnDestroy {
             const open = this.input.config.tagCharacteres.open?.substring(0, 1) ?? '';
             const close = this.input.config.tagCharacteres.close?.substring(0, 1) ?? '';
 
-            const key = this.currentTagSelection.id;
+            const selectedValue = this.currentOption.selected;
 
-            let next = prev.substring(0, this.currentTagPosition - this.currentTag.key.length);
+            let next = prev.substring(0, this.currentTagPosition - this.currentOption.key.length);
             next += open;
-            next += key;
+            next += selectedValue;
             next += close;
             next += prev.substring(this.currentTagPosition, prev.length);
 
             this.control.setValue(next);
 
-            const cursorPosition = this.currentTagPosition + key.length - this.currentTag.key.length + open.length + close.length;
+            const cursorPosition = this.currentTagPosition + selectedValue.length - this.currentOption.key.length + open.length + close.length;
 
             setTimeout(() => {
                 const element = this.inputElement.nativeElement;
@@ -110,22 +86,20 @@ export class SmzInputAutocompleteTagArea implements AfterViewInit, OnDestroy {
             }, 0);
         }
 
-        this.currentTag = null;
+        this.currentOption = null;
         this.currentTagPosition = null;
-        this.currentTagSelection = null;
     }
 
     public hide(): void {
         this.overlay.hide();
     }
 
-    public onTag(event: { tag: SmzSmartTagOptions, position: number }): void {
+    public onTag(event: { tag: SmzSmartAutocompleteTagOption, position: number }): void {
 
         const element = this.inputElement.nativeElement;
 
-        this.currentTag = event.tag;
+        this.currentOption = event.tag;
         this.currentTagPosition = event.position;
-        this.currentTagSelection = { id: this.currentTag.key, value: null };
 
         // console.log('element', element);
 

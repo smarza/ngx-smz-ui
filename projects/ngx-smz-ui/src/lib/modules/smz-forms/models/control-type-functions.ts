@@ -513,18 +513,18 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
             const open = input.config.tagCharacteres.open;
             const close = input.config.tagCharacteres.close;
 
-            if (input.defaultValue != null && input.defaultValue !== '')
-            {
-                const options: SmzSmartTagData[] = flatten(input.config.options.map(x => x.data));
+            // if (input.defaultValue != null && input.defaultValue !== '')
+            // {
+            //     const options: string[] = flatten(input.config.options.map(x => x.suggestions));
 
-                options?.forEach(option =>
-                    {
-                        // console.log('------------------');
-                        // console.log('---- option', option);
-                        input.defaultValue = input.defaultValue.split(option.value).join(`${open}${option.id}${close}`);
-                        // console.log('---- defaultValue', input.defaultValue);
-                    });
-            }
+            //     options?.forEach(option =>
+            //         {
+            //             // console.log('------------------');
+            //             // console.log('---- option', option);
+            //             input.defaultValue = input.defaultValue.split(option).join(`${open}${option}${close}`);
+            //             // console.log('---- defaultValue', input.defaultValue);
+            //         });
+            // }
 
             // console.log('after defaultValue', input.defaultValue);
             // console.log('#########################');
@@ -542,16 +542,16 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
 
             let tags = value.match(/(\[)+[a-z+A-Z+0-9\D\d\S\s].*?]/g);
 
-            const options: SmzSmartTagData[] = flatten(input.config.options.map(x => x.data));
+            const suggestions: string[] = flatten(input.config.options.map(x => x.suggestions));
 
             let result: string = value;
 
             tags?.forEach(tag =>
                 {
-                    const optionTag = options.find(o => `${input.config.tagCharacteres.open}${o.id}${input.config.tagCharacteres.close}` === tag);
+                    const suggestion = suggestions.find(o => `${input.config.tagCharacteres.open}${o}${input.config.tagCharacteres.close}` === tag);
 
-                    if (optionTag) {
-                        result = result.replace(tag, optionTag.value);
+                    if (suggestion) {
+                        result = result.replace(tag, suggestion);
                     }
                 });
 

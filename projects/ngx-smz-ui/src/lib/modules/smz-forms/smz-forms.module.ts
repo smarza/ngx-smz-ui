@@ -77,6 +77,7 @@ import { SmzInputAutocompleteTagArea } from './components/input-autocomplete-tag
 import { SmzAutocompleteSelectorComponent } from './components/input-autocomplete-tag-area/smz-autocomplete-selector-component';
 import { SmzSmartTagModule } from './directives/smart-tag.directive';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { SmzSmartAutocompleteTagModule } from './directives/smart-autocomplete-tag.directive';
 
 export const defaultFormsModuleConfig: SmzFormsConfig = {
     behaviors: {
@@ -195,7 +196,8 @@ export const defaultFormsModuleConfig: SmzFormsConfig = {
         TreeSelectModule,
         SmzAutocompleteSelectorComponent,
         OverlayPanelModule,
-        SmzSmartTagModule
+        SmzSmartTagModule,
+        SmzSmartAutocompleteTagModule
     ],
     // tslint:disable-next-line:max-line-length
     declarations: [

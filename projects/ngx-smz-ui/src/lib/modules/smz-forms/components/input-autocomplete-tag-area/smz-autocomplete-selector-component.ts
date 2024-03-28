@@ -8,6 +8,7 @@ import { Store } from '@ngxs/store';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { isNullOrEmptyString } from '../../../../common/utils/utils';
 import { SmzSmartTagData } from '../../directives/smart-tag.directive';
+import { SmzSmartAutocompleteTagOption } from '../../directives/smart-autocomplete-tag.directive';
 
 @UntilDestroy()
 @Component({
@@ -26,10 +27,10 @@ import { SmzSmartTagData } from '../../directives/smart-tag.directive';
         class="col"
         styleClass="w-full"
 
-        [(ngModel)]="selected"
+        [(ngModel)]="option.selected"
         [suggestions]="suggestions"
         [dropdown]="true"
-        emptyMessage="Nenhum tag com essa expressão na planta"
+        [emptyMessage]="option?.emptyMessage"
 
         (completeMethod)="search($event)"
         (onClear)="onClear()"
@@ -38,7 +39,7 @@ import { SmzSmartTagData } from '../../directives/smart-tag.directive';
         (onSelect)="onSelect()">
 
         <ng-template pTemplate="header">
-          <div class="text-blue-500 font-bold text-lg mx-5 mt-4 mb-0">Tags dos modelos do Proteus</div>
+          <div *ngIf="option.dataSourceDisplayName != null" class="text-blue-500 font-bold text-lg mx-5 mt-4 mb-0">{{ option.dataSourceDisplayName }}</div>
         </ng-template>
 
       </p-autoComplete>
@@ -47,12 +48,8 @@ import { SmzSmartTagData } from '../../directives/smart-tag.directive';
 })
 export class SmzAutocompleteSelectorComponent implements OnInit, AfterViewInit {
   @Input() public isRequired = true;
-  @Input() public selected: string;
-  @Input() public minLength = 2;
-  @Input() public currentTagData: SmzSmartTagData;
-  @Input() public searchDispatchTrigger: (string) => void;
-  @Input() public searchResults$: Observable<string[]>;
-  @Output() public currentTagDataChange: EventEmitter<SmzSmartTagData> = new EventEmitter();
+  @Input() public option: SmzSmartAutocompleteTagOption;
+  @Output() public selectedChange: EventEmitter<string> = new EventEmitter();
   @Output() public suggestionsChanged: EventEmitter<string[]> = new EventEmitter();
   @Output() public finished: EventEmitter<void> = new EventEmitter();
   @Input() public suggestions: string[] = [];
@@ -75,7 +72,7 @@ export class SmzAutocompleteSelectorComponent implements OnInit, AfterViewInit {
 
   public setupListeners(): void {
 
-    this.searchResults$
+    this.option.searchResults$
       .pipe(untilDestroyed(this))
       .subscribe((suggestions: string[]) => {
         this.suggestions = suggestions;
@@ -97,14 +94,14 @@ export class SmzAutocompleteSelectorComponent implements OnInit, AfterViewInit {
           this.cdr.markForCheck();
         }
         else {
-          this.searchDispatchTrigger(query);
+          this.option.searchDispatchCallback(query);
         }
 
       });
   }
 
   public search(event: AutoCompleteCompleteEvent): void {
-    if (event.query.length >= this.minLength) {
+    if (event.query.length >= this.option.searchTriggerLength) {
       this.dispatchGate.next(event.query);
     }
     else {
@@ -114,29 +111,29 @@ export class SmzAutocompleteSelectorComponent implements OnInit, AfterViewInit {
   }
 
   public onClear(): void {
-    this.selected = null;
+    this.option.selected = null;
     this.isValid = false;
 
-    this.currentTagDataChange.emit({ id: this.selected, value: this.selected });
+    this.selectedChange.emit(this.option.selected);
   }
 
   public handleInitialSelection(): void {
-    if (isNullOrEmptyString(this.selected)) {
+    if (isNullOrEmptyString(this.option.selected)) {
       this.onClear();
     }
     else {
       this.isValid = true;
-      this.currentTagDataChange.emit({ id: this.selected, value: this.selected });
+      this.selectedChange.emit(this.option.selected);
     }
   }
 
   public handleSelection(): void {
-    if (isNullOrEmptyString(this.selected)) {
+    if (isNullOrEmptyString(this.option.selected)) {
       this.onClear();
     }
     else {
       this.isValid = true;
-      this.currentTagDataChange.emit({ id: this.selected, value: this.selected });
+      this.selectedChange.emit(this.option.selected);
     }
   }
 
