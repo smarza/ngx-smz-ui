@@ -1,33 +1,35 @@
-import { NgModule, Input, OnDestroy, ChangeDetectorRef, Component, ChangeDetectionStrategy, ViewChild, ElementRef, ViewEncapsulation, Optional, AfterViewInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { SmzSmartTagConfig, SmzSmartTagData, SmzSmartTagModule, SmzSmartTagOptions } from '../../directives/smart-tag.directive';
-import { InputTextareaModule } from 'primeng/inputtextarea';
-import { OverlayPanel, OverlayPanelModule } from 'primeng/overlaypanel';
-import { DropdownModule } from 'primeng/dropdown';
-import { ButtonModule } from 'primeng/button';
-import { UntypedFormControl, FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
+import { Input, OnDestroy, ChangeDetectorRef, Component, ChangeDetectionStrategy, ViewChild, ElementRef, ViewEncapsulation, Optional, AfterViewInit } from '@angular/core';
+import { SmzSmartTagData, SmzSmartTagOptions } from '../../directives/smart-tag.directive';
+import { OverlayPanel } from 'primeng/overlaypanel';
+import { NgModel } from '@angular/forms';
 import { SmzAutocompleteSelectorComponent } from './smz-autocomplete-selector-component';
-import { Observable } from 'rxjs';
+import { SmzAutocompleteTagAreaControl } from '../../models/control-types';
+import { SmzFormsBehaviorsConfig } from '../../models/behaviors';
 
 @Component({
     selector: 'smz-input-autocomplete-tag-area',
     template: `
-<textarea #inputArea id="inputArea" pInputTextarea smzSmartTag [(ngModel)]="ngModel" [formControl]="control" [options]="config?.options" [rows]="rows" (tagTyped)="onTag($event)" class="col-12"></textarea>
-<p-overlayPanel #overlay appendTo="body" [style]="{width: '450px'}" (onHide)="onHideOverlay()" styleClass="tag-overlay">
-    <ng-template pTemplate>
-        <smz-autocomplete-selector *ngIf="currentTag"
-            #elementSelector
-            styleClass="tag-dropdown"
-            [searchDispatchTrigger]="searchDispatchTrigger"
-            [searchResults$]="searchResults$"
-            [minLength]="2"
-            (suggestionsChanged)="updateOptions($event)"
-            [(currentTagData)]="currentTagSelection"
-            (finished)="hide()"
-            >
-        </smz-autocomplete-selector>
-    </ng-template>
-</p-overlayPanel>
+    <label class="smz__input_name" [innerHTML]="input.name"></label>
+    <div class="input_inner__wrapper" [id]="input.propertyName">
+        <textarea #inputArea id="inputArea" pInputTextarea smzSmartTag [(ngModel)]="ngModel" [formControl]="control" [options]="input.config.options" [rows]="input.textAreaRows" (tagTyped)="onTag($event)" class="col-12"></textarea>
+        <smz-validation-messages [input]="input" [control]="control" [behaviors]="behaviors"></smz-validation-messages>
+    </div>
+
+    <p-overlayPanel #overlay appendTo="body" [style]="{width: '450px'}" (onHide)="onHideOverlay()" styleClass="tag-overlay">
+        <ng-template pTemplate>
+            <smz-autocomplete-selector *ngIf="currentTag"
+                #elementSelector
+                styleClass="tag-dropdown"
+                [searchDispatchTrigger]="input.searchDispatchCallback"
+                [searchResults$]="input.searchResults$"
+                [minLength]="2"
+                (suggestionsChanged)="updateOptions($event)"
+                [(currentTagData)]="currentTagSelection"
+                (finished)="hide()"
+                >
+            </smz-autocomplete-selector>
+        </ng-template>
+    </p-overlayPanel>
 `,
     styles: [
         '.p-overlaypanel.autocomplete-tag-overlay { box-shadow: unset; }',
@@ -38,14 +40,15 @@ import { Observable } from 'rxjs';
     encapsulation: ViewEncapsulation.None
 })
 export class SmzInputAutocompleteTagArea implements AfterViewInit, OnDestroy {
+    @Input() public input: SmzAutocompleteTagAreaControl;
+    @Input() public control: any;
+    @Input() public behaviors: SmzFormsBehaviorsConfig;
+
+
     @ViewChild(OverlayPanel) public overlay: OverlayPanel;
     @ViewChild('inputArea') public inputElement: ElementRef;
     @ViewChild('elementSelector') public selectorElement: SmzAutocompleteSelectorComponent;
-    @Input() public config: SmzSmartTagConfig;
-    @Input() public searchDispatchTrigger: (string) => void;
-    @Input() public searchResults$: Observable<string[]>;
-    @Input() public rows: number = 5;
-    @Input() public control: UntypedFormControl;
+
     public currentTag: SmzSmartTagOptions;
     public currentTagPosition: number;
     public currentTagSelection: SmzSmartTagData;
@@ -53,7 +56,6 @@ export class SmzInputAutocompleteTagArea implements AfterViewInit, OnDestroy {
     constructor(@Optional() public ngModel: NgModel, private cdr: ChangeDetectorRef) { }
 
     public ngAfterViewInit(): void {
-        // this.inputElement.nativeElement.addEventListener("input", this.calcEvent);
     }
 
     public updateOptions(suggestions: string[]): void {
@@ -63,7 +65,7 @@ export class SmzInputAutocompleteTagArea implements AfterViewInit, OnDestroy {
             return;
         }
 
-        this.config.options.forEach(option => {
+        this.input.config.options.forEach(option => {
             if (option.key == this.currentTag.key) {
                 option.data = suggestions.map(x => ({ id: x, value: x }));
 
@@ -83,8 +85,8 @@ export class SmzInputAutocompleteTagArea implements AfterViewInit, OnDestroy {
             // console.log('prev', prev);
             // console.log('-');
 
-            const open = this.config.tagCharacteres.open?.substring(0, 1) ?? '';
-            const close = this.config.tagCharacteres.close?.substring(0, 1) ?? '';
+            const open = this.input.config.tagCharacteres.open?.substring(0, 1) ?? '';
+            const close = this.input.config.tagCharacteres.close?.substring(0, 1) ?? '';
 
             const key = this.currentTagSelection.id;
 
@@ -266,20 +268,3 @@ export class SmzInputAutocompleteTagArea implements AfterViewInit, OnDestroy {
         };
     };
 }
-
-@NgModule({
-    imports: [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        InputTextareaModule,
-        SmzSmartTagModule,
-        OverlayPanelModule,
-        DropdownModule,
-        ButtonModule,
-        SmzAutocompleteSelectorComponent
-    ],
-    exports: [SmzInputAutocompleteTagArea],
-    declarations: [SmzInputAutocompleteTagArea]
-})
-export class SmzInputAutocompleteTagAreaModule { }

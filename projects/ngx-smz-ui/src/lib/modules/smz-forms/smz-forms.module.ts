@@ -73,8 +73,10 @@ import { ButtonModule } from 'primeng/button';
 import { FormSubmitComponent } from './features/form-submit/form-submit.component';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { TreeSelectModule } from 'primeng/treeselect';
-import { SmzInputAutocompleteTagAreaModule } from './components/input-autocomplete-tag-area/smz-input-autocomplete-tag-area.component';
-import { InputAutocompleteTagAreaComponent } from './components/input-autocomplete-tag-area/input-autocomplete-tag-area.component';
+import { SmzInputAutocompleteTagArea } from './components/input-autocomplete-tag-area/smz-input-autocomplete-tag-area.component';
+import { SmzAutocompleteSelectorComponent } from './components/input-autocomplete-tag-area/smz-autocomplete-selector-component';
+import { SmzSmartTagModule } from './directives/smart-tag.directive';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 
 export const defaultFormsModuleConfig: SmzFormsConfig = {
     behaviors: {
@@ -187,11 +189,13 @@ export const defaultFormsModuleConfig: SmzFormsConfig = {
         MessagesModule,
         SafeContentPipeModule,
         SmzInputTagAreaModule,
-        SmzInputAutocompleteTagAreaModule,
         NgxSmzDataPipesModule,
         ButtonModule,
         AutoFocusModule,
-        TreeSelectModule
+        TreeSelectModule,
+        SmzAutocompleteSelectorComponent,
+        OverlayPanelModule,
+        SmzSmartTagModule
     ],
     // tslint:disable-next-line:max-line-length
     declarations: [
@@ -210,6 +214,7 @@ export const defaultFormsModuleConfig: SmzFormsConfig = {
         InputPasswordComponent,
         InputSwitchComponent,
         InputTextAreaComponent,
+        SmzInputAutocompleteTagArea,
         InputTextComponent,
         InputTreeComponent,
         LinkedDropdownComponent,
@@ -221,7 +226,6 @@ export const defaultFormsModuleConfig: SmzFormsConfig = {
         FileDragDropDirective,
         FileNameShortenPipe,
         InputTagAreaComponent,
-        InputAutocompleteTagAreaComponent,
         InputContentMaskComponent,
         TransferValueAccessor,
         InputContentMaskTextPipe,
@@ -246,6 +250,7 @@ export const defaultFormsModuleConfig: SmzFormsConfig = {
         InputPasswordComponent,
         InputSwitchComponent,
         InputTextAreaComponent,
+        SmzInputAutocompleteTagArea,
         InputTextComponent,
         InputTreeComponent,
         LinkedDropdownComponent,
