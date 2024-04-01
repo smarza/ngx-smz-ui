@@ -412,6 +412,7 @@ export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormG
       },
       defaultValue: defaultValue,
       textAreaRows: 5,
+      allowCustomValues: false,
     };
 
     this.group.children.push(input);
@@ -1823,6 +1824,11 @@ export class SmzFormAutocompleteTagAreaBuilder<TResponse> extends SmzFormInputBu
 
   public setRows(rows: number): SmzFormAutocompleteTagAreaBuilder<TResponse> {
     this._tagAreaInput.textAreaRows = rows;
+    return this;
+  }
+
+  public allowCustomValues(): SmzFormAutocompleteTagAreaBuilder<TResponse> {
+    this._tagAreaInput.allowCustomValues = true;
     return this;
   }
 

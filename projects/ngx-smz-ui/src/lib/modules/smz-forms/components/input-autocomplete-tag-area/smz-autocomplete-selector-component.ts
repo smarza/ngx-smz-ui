@@ -34,8 +34,8 @@ import { SmzSmartAutocompleteTagOption } from '../../directives/smart-autocomple
         (completeMethod)="search($event)"
         (onClear)="onClear()"
         (onBlur)="handleSelection()"
-        (onLazyLoad)="onLazyLoad($event)"
-        (onSelect)="onSelect()">
+        (onSelect)="onSelect()"
+        (keydown)="handleKeyDown($event)">
 
         <ng-template pTemplate="header">
           <div *ngIf="option.dataSourceDisplayName != null" class="text-blue-500 font-bold text-lg mx-5 mt-4 mb-0">{{ option.dataSourceDisplayName }}</div>
@@ -47,6 +47,7 @@ import { SmzSmartAutocompleteTagOption } from '../../directives/smart-autocomple
 })
 export class SmzAutocompleteSelectorComponent implements OnInit, AfterViewInit {
   @Input() public isRequired = true;
+  @Input() public allowCustomValues = true;
   @Input() public option: SmzSmartAutocompleteTagOption;
   @Output() public selectedChange: EventEmitter<string> = new EventEmitter();
   @Output() public suggestionsChanged: EventEmitter<string[]> = new EventEmitter();
@@ -136,14 +137,29 @@ export class SmzAutocompleteSelectorComponent implements OnInit, AfterViewInit {
     }
   }
 
-  public onLazyLoad(event: AutoCompleteLazyLoadEvent): void {
-    console.log('onLazyLoad', event);
-  }
-
   public onSelect(): void {
     this.handleSelection();
 
     this.finished.emit();
+  }
+
+  public handleKeyDown(event: KeyboardEvent): void {
+    if (event.key === 'Enter') {
+
+      if (this.allowCustomValues) {
+        this.onSelect()
+      }
+      else {
+        if (this.suggestions.includes(this.option.selected)) {
+          this.onSelect()
+        }
+        else {
+          this.onClear();
+          this.cdr.markForCheck();
+        }
+      }
+
+    }
   }
 
 }

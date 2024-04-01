@@ -201,6 +201,7 @@ export interface SmzAutocompleteTagAreaControl extends SmzFormsBaseControl
     textAreaRows?: number;
     exportPattern?: SmzTextPattern;
     config: SmzSmartAutocompleteTagConfig;
+    allowCustomValues: boolean;
 }
 
 export interface SmzColorPickerControl extends SmzFormsBaseControl

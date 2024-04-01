@@ -315,6 +315,7 @@ Exame sem intercorrências.`)
         .autocompleteTagArea('description', 'Descrição com Autocomplete', 'Valor inicial <TAG_EXEMPLO>')
           .validators().required().input
           .setTagCharacters('<', '>')
+          .allowCustomValues()
           .addOption('#')
             .setLabel('Sugestões baseadas na sua busca')
             .setEmptyMessage('Nada aqui')

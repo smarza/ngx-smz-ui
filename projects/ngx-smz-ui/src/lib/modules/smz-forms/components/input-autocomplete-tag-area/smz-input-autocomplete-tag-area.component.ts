@@ -21,6 +21,7 @@ import { SmzSmartAutocompleteTagOption } from '../../directives/smart-autocomple
                 #elementSelector
                 styleClass="tag-dropdown"
                 [option]="currentOption"
+                [allowCustomValues]="input.allowCustomValues"
                 (finished)="hide()"
                 >
             </smz-autocomplete-selector>
