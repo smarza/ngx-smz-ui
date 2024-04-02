@@ -150,7 +150,7 @@ export class SmzAutocompleteSelectorComponent implements OnInit, AfterViewInit {
         this.onSelect()
       }
       else {
-        if (this.suggestions.includes(this.option.selected)) {
+        if (this.suggestions.some(x => x === this.option.selected)) {
           this.onSelect()
         }
         else {

@@ -188,7 +188,7 @@ function simulateSearchEndpoint(input: string): string[] {
   const chars = 'abcdefghijklmnopqrstuvwxyz'; // Caracteres para adicionar ao input
 
   // Adiciona a string original como um dos resultados
-  results.add(input);
+  // results.add(input);
 
   // Gera outras variações do input adicionando prefixos ou sufixos aleatórios
   for (let i = 0; i < 10; i++) { // Gera até 4 variações adicionais
@@ -209,5 +209,5 @@ function simulateSearchEndpoint(input: string): string[] {
   // Converte o Set para um array e ordena os resultados
   const sortedResults = Array.from(results).sort();
 
-  return sortedResults;
+  return sortedResults.filter(x => x !== input);
 }

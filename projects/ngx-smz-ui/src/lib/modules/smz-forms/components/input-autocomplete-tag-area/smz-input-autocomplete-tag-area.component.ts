@@ -53,7 +53,6 @@ export class SmzInputAutocompleteTagArea implements OnDestroy {
     public onHideOverlay(): void {
 
         if (this.currentOption != null) {
-            const prev: string = this.control.value;
 
             // console.log('------------');
             // console.log('currentTagPosition', this.currentTagPosition);
@@ -61,33 +60,50 @@ export class SmzInputAutocompleteTagArea implements OnDestroy {
             // console.log('prev', prev);
             // console.log('-');
 
-            const open = this.input.config.tagCharacteres.open?.substring(0, 1) ?? '';
-            const close = this.input.config.tagCharacteres.close?.substring(0, 1) ?? '';
+            const prev: string = this.control.value;
 
-            const selectedValue = this.currentOption.selected;
+            if (this.currentOption.selected != null) {
+                const open = this.input.config.tagCharacteres.open?.substring(0, 1) ?? '';
+                const close = this.input.config.tagCharacteres.close?.substring(0, 1) ?? '';
 
-            let next = prev.substring(0, this.currentTagPosition - this.currentOption.key.length);
-            next += open;
-            next += selectedValue;
-            next += close;
-            next += prev.substring(this.currentTagPosition, prev.length);
-
-            this.control.setValue(next);
-
-            const cursorPosition = this.currentTagPosition + selectedValue.length - this.currentOption.key.length + open.length + close.length;
-
-            setTimeout(() => {
-                const element = this.inputElement.nativeElement;
-
-                element.focus();
-                element.setSelectionRange(cursorPosition, cursorPosition);
-
-                this.cdr.markForCheck();
-            }, 0);
+                this.updateValue(prev, this.currentOption.selected, open, close);
+            }
+            else {
+                this.updateValue(prev, '', '', '');
+            }
         }
 
         this.currentOption = null;
         this.currentTagPosition = null;
+    }
+
+
+    private updateValue(prev: string, selectedValue: string, open: string, close: string): void {
+        // console.log('--------');
+        // console.log('updateValue');
+        // console.log('prev', prev);
+        // console.log('selectedValue', selectedValue);
+        // console.log('open', open);
+        // console.log('close', close);
+
+        let next = prev.substring(0, this.currentTagPosition - this.currentOption.key.length);
+        next += open;
+        next += selectedValue;
+        next += close;
+        next += prev.substring(this.currentTagPosition, prev.length);
+
+        this.control.setValue(next);
+
+        const cursorPosition = this.currentTagPosition + selectedValue.length - this.currentOption.key.length + open.length + close.length;
+
+        setTimeout(() => {
+            const element = this.inputElement.nativeElement;
+
+            element.focus();
+            element.setSelectionRange(cursorPosition, cursorPosition);
+
+            this.cdr.markForCheck();
+        }, 0);
     }
 
     public hide(): void {

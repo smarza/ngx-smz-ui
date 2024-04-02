@@ -5,6 +5,9 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
+## [16.5.7] - 2024-04-02
+Feature que permite ou bloqueia a inserção de itens customizados no autocomplete area tag.
+
 ## [16.5.6] - 2024-04-01
 Opção para permitir ou proíbir valores personalizados no Autocomplete Tag Area
 
