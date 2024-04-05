@@ -27,7 +27,7 @@ export function showUpdateTenantDialog(tenant: TenantDetails): void {
           .hide()
           .group
         .text(nameof<UpdateTenant>('name'), 'Nome')
-          .validators().required()
+          .validators().required().input
           .group
         .form
       .applyData(tenant)

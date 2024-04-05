@@ -1,7 +1,7 @@
 import { DemoKeys } from '@demos/demo-keys';
 import { Store } from '@ngxs/store';
 import { DemoFeatureSelectors } from '@states/demo/demo.selectors';
-import { GlobalInjector, SimpleNamedEntity, SmzExportableContentType, SmzFilterType, SmzTableBuilder, SmzTableState } from 'ngx-smz-ui';
+import { GlobalInjector, SimpleNamedEntity, SmzExportableContentType, SmzFilterType, SmzTableBuilder, SmzTableState, namesof } from 'ngx-smz-ui';
 import { of } from 'rxjs';
 import { convertorTasks } from './../data/conversor-tasks';
 import { Observable } from 'rxjs/internal/Observable';
@@ -9,6 +9,7 @@ import { DemoFeatureActions } from '@states/demo/demo.actions';
 import { LARGE_TABLE_DATA } from '../data/large-table';
 import { EditableTablePartialData, EditableTablePartialLevels } from '../data/tables/editable-table-partial-data';
 import { DemoItem } from '@models/demo';
+import * as moment from 'moment';
 
 const store = GlobalInjector.instance.get(Store);
 
@@ -901,39 +902,52 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
         .text('name', 'Name', '40em')
           .addTooltip((item) => `item ${item.name}`)
           .columns
-        // .text('company', 'Company')
-        //   .setFilter(SmzFilterType.MULTI_SELECT_STRING)
-        //   .columns
+        .text('company', 'Company')
+          .setFilter(SmzFilterType.MULTI_SELECT_STRING)
+          .columns
         .dataTransform('company', 'Company', (data: string) => `${data} (OK)`)
           .setFilter(SmzFilterType.MULTI_SELECT_STRING)
           .setFilterableData((data: string) => `${data} (XX)`)
           .columns
         .table
-      // .viewport()
-      //   .usePersistenceByUser('TABLE_VIEWPORT_PERSISTENCE')
-      //   .saveTriggerOnChange()
-      //   .table
+      .viewport()
+        .usePersistenceByUser('TABLE_VIEWPORT_PERSISTENCE')
+        .saveTriggerOnChange()
+        .table
+    .build();
+    }
+  },
+  //
+  [DemoKeys.TABLE_PLAYGROUND]: {
+    items$: of([
+      { name: 'name 1', modelFile: { size: '10', date: new Date(), projectDate: new Date() } },
+      { name: 'name 2', modelFile: { size: '11', date: new Date(), projectDate: new Date() } },
+      { name: 'name 2', modelFile: { size: '12', date: new Date(), projectDate: new Date() } },
+      { name: 'name 2', modelFile: { size: '13', date: new Date(), projectDate: new Date() } },
+      { name: 'name 3', modelFile: { size: '14', date: new Date(), projectDate: new Date() } }
+    ]),
+    code: () => {
+    return new SmzTableBuilder()
+      .setTitle('Playground')
+      .enableClearFilters()
+      .enableColumnVisibility()
+      .enableGlobalFilter()
+      .useTableEmptyMessage()
+      .useGridStyle()
+      .setSize('large')
+      .setCustomInitialSorting({ field: 'number', order: -1 })
+      .useStrippedStyle()
+      .columns()
+        .text('name', 'Name')
+          .columns
+        .dataTransform(namesof<any, any>('modelFile', 'size'), 'Tamanho', (data: string) => data == null ? '-' : data)
+          .columns
+        .dataTransform(namesof<any, any>('modelFile', 'date'), 'Data', (data: Date) => data == null ? '-' : moment(data).format('L'))
+          .columns
+        .dataTransform(namesof<any, any>('modelFile', 'projectDate'), 'Data de Projeto', (data: Date) => data == null ? '-' : moment(data).format('L'))
+          .columns
+        .table
     .build();
     }
   },
 }
-
-
-
-
-
-
-      // .setViewport({"filters":{"company":[{"value":"omp","matchMode":"contains","operator":"and"}],"name":[{"value":null,"matchMode":"startsWith","operator":"and"}],"global":{"value":"any C","matchMode":"contains"}},"visibility":[{"key":"name","isVisible":true},{"key":"company","isVisible":true}],"sort":{"mode":"single","field":"company","order":1}})
-      // .setViewport({
-      //   visibility: [
-      //     { key: 'name', isVisible: true },
-      //     { key: 'company', isVisible: true },
-      //   ],
-      //   sort: { field: 'name', mode: 'single', order: 1 },
-      //   filters: {
-      //     'global': { value: 'name 2', matchMode: 'contains' },
-      //     'company': [
-      //       { value: 'b', matchMode: 'endsWith', operator: 'and' }
-      //     ]
-      //   }
-      // })

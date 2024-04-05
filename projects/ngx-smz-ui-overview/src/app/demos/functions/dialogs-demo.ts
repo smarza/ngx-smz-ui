@@ -37,7 +37,7 @@ export const DialogsDemo: { [key: string]: () => void } = {
         .form()
           .group()
             .text('name', 'Nome')
-              .validators().required()
+              .validators().required().input
               .group
             .calendar('date', 'Agendamento')
               .useDateAndTime()
@@ -48,7 +48,7 @@ export const DialogsDemo: { [key: string]: () => void } = {
           .file('file', 'Confirmação')
               .useGlobalLoader()
               .useBinaryFormat()
-              .validators().required()
+              .validators().required().input
               .group
             .form
             .dialog
@@ -155,7 +155,7 @@ export const DialogsDemo: { [key: string]: () => void } = {
             .useDateAndTime()
             .group
         .dropdown('input1', 'I\'m required', [{ id: '1', name: 'Option 1'}, { id: '2', name: 'Option 2'}, { id: '3', name: 'Option 3'}])
-              .validators().required()
+              .validators().required().input
               .group
           .form
         .dialog
@@ -337,8 +337,7 @@ export const DialogsDemo: { [key: string]: () => void } = {
         .group()
           .setLayout('EXTRA_SMALL', 'col-12')
           .checkbox('input', 'Is Valid ?')
-            .validators()
-            .required()
+            .validators().required().input
           .group
         .form
       .dialog
@@ -360,7 +359,7 @@ export const DialogsDemo: { [key: string]: () => void } = {
         .group()
           .setLayout('EXTRA_SMALL', 'col-12')
           .radioGroup('choice', 'Testing...', [{ id: 0, name: 'Failure'}, { id: 1, name: 'Success'}])
-          .validators().required()
+          .validators().required().input
           .group
         .form
       .dialog
@@ -469,7 +468,7 @@ export const DialogsDemo: { [key: string]: () => void } = {
 
             })
             .useLabel('Buscar')
-            .validators().required()
+            .validators().required().input
             .group
             .multiselect('role', 'Perfil', [
               { id: "1", name: "teste 1" },
@@ -479,34 +478,29 @@ export const DialogsDemo: { [key: string]: () => void } = {
             ])
               .setLayout('EXTRA_SMALL', 'col-12')
               .setLayout('EXTRA_LARGE', 'col-12')
-              .validators().required()
+              .validators().required().input
               .group
           .form
 
         .group('Preenchimento automático')
           .text('name', 'Nome')
             .disable()
-            .validators()
-              .required()
+            .validators().required().input
             .group
           .text('email', 'Email')
             .disable()
-            .validators()
-              .required()
-              .email()
+            .validators().required().email().input
             .group
           .text('sector', 'Gerência')
             .disable()
-            .validators()
-              .required()
+            .validators().required().input
             .group
 
           // OCULTOS
           .text('identifier', 'Identificador')
             .disable()
             .hide()
-            .validators()
-              .required()
+            .validators().required().input
             .group
           .switch('isContracted', 'IsContracted')
             .disable()
@@ -571,7 +565,7 @@ export const DialogsDemo: { [key: string]: () => void } = {
         .form()
           .group()
             .dropdown('plate', 'Chapa', [])
-              .validators().required()
+              .validators().required().input
               .group
             .list('input1', 'I\'m not required', [1.1, 2, 3.1235])
               .useFractionNumberInput('Ponto', 3)

@@ -12,7 +12,7 @@ export class SmzTableContentPipe implements PipeTransform {
 
     if (columnType === SmzContentType.DATA_TRANSFORM) {
       return {
-        result: ObjectUtils.resolveFieldData(data, `_dom_${field}`)
+        result: Reflect.get(data, `_dom_${field}`)
       };
     }
 

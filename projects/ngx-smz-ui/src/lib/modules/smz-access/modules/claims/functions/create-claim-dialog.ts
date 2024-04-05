@@ -22,10 +22,10 @@ export function CreateClaimDialog(): SmzDialog<CreateClaim> {
       .group()
         .text(nameof<CreateClaim>('identification'), 'Identificador')
           .setSaveFormat(SmzTextPattern.CLAIM_PATTERN)
-          .validators().required()
+          .validators().required().input
           .group
         .text(nameof<CreateClaim>('description'), 'Nome')
-          .validators().required()
+          .validators().required().input
           .group
         .form
       .dialog

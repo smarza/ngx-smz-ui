@@ -79,22 +79,22 @@ export class LoginComponent {
             .setLayout('EXTRA_SMALL', 'col-12')
             .if(authConfig.login.showTenantSelector)
               .dropdown('tenant', config.locale.authorization.tenant.displayName, tenants, defaultTenant)
-                .validators().required()
+                .validators().required().input
                 .group
             .endIf
           .if(authConfig.useWindowsAuthentication && !environment.production)
             .text(nameof<LoginData>('username'), 'Credencial de Desenvolvimento')
               .setSaveFormat(authConfig.login.forceLowercaseUsername ? SmzTextPattern.LOWERCASE : SmzTextPattern.NONE)
-              .validators().required()
+              .validators().required().input
               .group
             .endIf
           .if(!authConfig.useWindowsAuthentication)
             .text(nameof<LoginData>('username'), 'Usuário')
               .setSaveFormat(authConfig.login.forceLowercaseUsername ? SmzTextPattern.LOWERCASE : SmzTextPattern.NONE)
-              .validators().required()
+              .validators().required().input
               .group
             .password(nameof<LoginData>('password'), 'Senha')
-              .validators().required()
+              .validators().required().input
               .group
             .endIf
           .form

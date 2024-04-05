@@ -15,6 +15,7 @@ export const ValidatorsDemo: { [key: string]: () => void } = {
                 return { 'testValidation': true };
               }
           )
+          .input
         .group
         .form
       .build();

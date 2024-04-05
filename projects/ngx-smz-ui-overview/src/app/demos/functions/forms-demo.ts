@@ -17,15 +17,15 @@ export const FormsDemo: { [key: string]: () => void } = {
     return new SmzFormBuilder<any>()
       .group()
         .setLayout('EXTRA_SMALL', 'col-12')
-        .checkbox('check1', 'I\'m not required').validators().required().group
+        .checkbox('check1', 'I\'m not required').validators().required().input.group
         .text('text1', 'Visible if Check Control True', 'Check box is Enabled')
           .setVisibilityCondition('check1', false, [true])
-          .validators().required()
+          .validators().required().input
           .group
-        .dropdown('dropdown1', 'Dropdown Control', [{ id: 'A', name: 'Group A'}, { id: 'B', name: 'Group B Mostrar'}], 'B').validators().required().group
+        .dropdown('dropdown1', 'Dropdown Control', [{ id: 'A', name: 'Group A'}, { id: 'B', name: 'Group B Mostrar'}], 'B').validators().required().input.group
         .text('text2', 'Visible if Dropdown Control Group B', 'Dropdown is Group B')
           .setVisibilityCondition('dropdown1', false, ['B'])
-          .validators().required()
+          .validators().required().input
           .group
         .form
       .build();
@@ -46,23 +46,23 @@ Através deste instrumento avançou-se sobre uma <variable id="70026d73-50dd-43f
 Realizados os registros pressóricos em:
 <monitoredData id="6416118c-b362-4467-6ae4-08d9b8dd31bd">Monitoração ambulatorial da pressão arterial</monitoredData>
 Na sequência, foi realizada a coronariografia direita.
-Exame sem intercorrências.`).validators().required().group
-      .dropdown('info.input6', 'I\'m required', [{ id: '1', name: 'Option 1'}, { id: '2', name: 'Option 2'}, { id: '3', name: 'Option 3'}]).validators().required().group
-      .dropdown('info.input7', 'I\'m required', [{ id: 'A', name: 'Group A'}, { id: 'B', name: 'Group B'}]).validators().required().group
-      .linkedDropdown('info.input8', 'input7', 'I\'m required', [{ parentId: 'A', data: [{ id: 'A1', name: 'Option A1' }, { id: 'A2', name: 'Option A2' }]}, { parentId: 'B', data: [{ id: 'B1', name: 'Option B1' }, { id: 'B2', name: 'Option B2' }]}]).validators().required().group
-      .multiselect('info.input9', 'I\'m required', [{ id: '1', name: 'Option 1'}, { id: '2', name: 'Option 2'}, { id: '3', name: 'Option 3'}]).validators().required().group
-      .dropdown('info.input10', 'I\'m required', [{ id: 'A', name: 'Group A'}, { id: 'B', name: 'Group B'}]).validators().required().group
-      .linkedMultiselect('info.input11', 'input10', 'I\'m required', [{ parentId: 'A', data: [{ id: 'A1', name: 'Option A1' }, { id: 'A2', name: 'Option A2' }]}, { parentId: 'B', data: [{ id: 'B1', name: 'Option B1' }, { id: 'B2', name: 'Option B2' }]}]).validators().required().group
-      .colorPicker('info.input12', 'I\'m required').validators().required().group
-      .currency('metadata.input13', 'I\'m required').validators().required().group
-      .number('metadata.input14', 'Fraction Number').setFraction(2).setLocale('pt-BR').validators().required().group
-      .radioGroup('metadata.input15', 'Radio', [{id: 'Nenhum', name: 'Nenhum'}, {id: 'Irregularidade', name: 'Irregularidade'}, {id: 'Tortuosidade', name: 'Tortuosidade'}], 'Irregularidade').validators().required().group
-      .switch('metadata.input16', 'IsContracted').validators().required().group
-      .text('metadata.input17', 'I\'m required', 'sample').validators().required().group
-      .textButton('metadata.input18', 'Chave', '', (response: SmzFormsResponse<any>, utils: SmzFormViewdata): Observable<{ isValid: boolean, messages?: string[] }> => { console.log('callback response...', response); return of({ isValid: true }); }).useLabel('Buscar').validators().required().group
-      .file('metadata.input19', 'Confirmação').useBinaryFormat().acceptImages().validators().required().group
-      .list('metadata.input20', 'I\'m not required', ['Option 1', 'Option 2', 'Option 3']).useDialogEditMode().buttons().all().list.validators().required().group
-      .password('metadata.input21', 'Password').validators().required().group
+Exame sem intercorrências.`).validators().required().input.group
+      .dropdown('info.input6', 'I\'m required', [{ id: '1', name: 'Option 1'}, { id: '2', name: 'Option 2'}, { id: '3', name: 'Option 3'}]).validators().required().input.group
+      .dropdown('info.input7', 'I\'m required', [{ id: 'A', name: 'Group A'}, { id: 'B', name: 'Group B'}]).validators().required().input.group
+      .linkedDropdown('info.input8', 'input7', 'I\'m required', [{ parentId: 'A', data: [{ id: 'A1', name: 'Option A1' }, { id: 'A2', name: 'Option A2' }]}, { parentId: 'B', data: [{ id: 'B1', name: 'Option B1' }, { id: 'B2', name: 'Option B2' }]}]).validators().required().input.group
+      .multiselect('info.input9', 'I\'m required', [{ id: '1', name: 'Option 1'}, { id: '2', name: 'Option 2'}, { id: '3', name: 'Option 3'}]).validators().required().input.group
+      .dropdown('info.input10', 'I\'m required', [{ id: 'A', name: 'Group A'}, { id: 'B', name: 'Group B'}]).validators().required().input.group
+      .linkedMultiselect('info.input11', 'input10', 'I\'m required', [{ parentId: 'A', data: [{ id: 'A1', name: 'Option A1' }, { id: 'A2', name: 'Option A2' }]}, { parentId: 'B', data: [{ id: 'B1', name: 'Option B1' }, { id: 'B2', name: 'Option B2' }]}]).validators().required().input.group
+      .colorPicker('info.input12', 'I\'m required').validators().required().input.group
+      .currency('metadata.input13', 'I\'m required').validators().required().input.group
+      .number('metadata.input14', 'Fraction Number').setFraction(2).setLocale('pt-BR').validators().required().input.group
+      .radioGroup('metadata.input15', 'Radio', [{id: 'Nenhum', name: 'Nenhum'}, {id: 'Irregularidade', name: 'Irregularidade'}, {id: 'Tortuosidade', name: 'Tortuosidade'}], 'Irregularidade').validators().required().input.group
+      .switch('metadata.input16', 'IsContracted').validators().required().input.group
+      .text('metadata.input17', 'I\'m required', 'sample').validators().required().input.group
+      .textButton('metadata.input18', 'Chave', '', (response: SmzFormsResponse<any>, utils: SmzFormViewdata): Observable<{ isValid: boolean, messages?: string[] }> => { console.log('callback response...', response); return of({ isValid: true }); }).useLabel('Buscar').validators().required().input.group
+      .file('metadata.input19', 'Confirmação').useBinaryFormat().acceptImages().validators().required().input.group
+      .list('metadata.input20', 'I\'m not required', ['Option 1', 'Option 2', 'Option 3']).useDialogEditMode().buttons().all().list.validators().required().input.group
+      .password('metadata.input21', 'Password').validators().required().input.group
       .form
     .build();
     },
@@ -72,10 +72,10 @@ Exame sem intercorrências.`).validators().required().group
     return new SmzFormBuilder<any>()
       .group()
         .setLayout('EXTRA_SMALL', 'col-12')
-        .text('input1', 'I\'m required', 'sample').disable().validators().required().group
-        .calendar('input2', 'new Date()', new Date()).disable().validators().required().group
-        .checkbox('input3', 'I\'m not required').disable().validators().required().group
-        .checkboxGroup('input4', 'I\'m required', [{ id: '1', name: 'Option 1'}, { id: '2', name: 'Option 2'}, { id: '3', name: 'Option 3'}]).disable().validators().required().group
+        .text('input1', 'I\'m required', 'sample').disable().validators().required().input.group
+        .calendar('input2', 'new Date()', new Date()).disable().validators().required().input.group
+        .checkbox('input3', 'I\'m not required').disable().validators().required().input.group
+        .checkboxGroup('input4', 'I\'m required', [{ id: '1', name: 'Option 1'}, { id: '2', name: 'Option 2'}, { id: '3', name: 'Option 3'}]).disable().validators().required().input.group
         .contentMask('input5', 'Conteúdo com variáveis',
 `Anestesia da região de punho direito com xilocaína 2%.
 Punção da artéria radial direita com agulha seguida da instalação de <variable id="755956dd-1696-4efb-448d-08d9b8dd31be">Introdutor</variable>.
@@ -83,23 +83,23 @@ Através deste instrumento avançou-se sobre uma <variable id="70026d73-50dd-43f
 Realizados os registros pressóricos em:
 <monitoredData id="6416118c-b362-4467-6ae4-08d9b8dd31bd">Monitoração ambulatorial da pressão arterial</monitoredData>
 Na sequência, foi realizada a coronariografia direita.
-Exame sem intercorrências.`).disable().validators().required().group
-        .dropdown('input6', 'I\'m required', [{ id: '1', name: 'Option 1'}, { id: '2', name: 'Option 2'}, { id: '3', name: 'Option 3'}]).disable().validators().required().group
-        .dropdown('input7', 'I\'m required', [{ id: 'A', name: 'Group A'}, { id: 'B', name: 'Group B'}]).disable().validators().required().group
-        .linkedDropdown('input8', 'input7', 'I\'m required', [{ parentId: 'A', data: [{ id: 'A1', name: 'Option A1' }, { id: 'A2', name: 'Option A2' }]}, { parentId: 'B', data: [{ id: 'B1', name: 'Option B1' }, { id: 'B2', name: 'Option B2' }]}]).disable().validators().required().group
-        .multiselect('input9', 'I\'m required', [{ id: '1', name: 'Option 1'}, { id: '2', name: 'Option 2'}, { id: '3', name: 'Option 3'}]).disable().validators().required().group
-        .dropdown('input10', 'I\'m required', [{ id: 'A', name: 'Group A'}, { id: 'B', name: 'Group B'}]).disable().validators().required().group
-        .linkedMultiselect('input11', 'input10', 'I\'m required', [{ parentId: 'A', data: [{ id: 'A1', name: 'Option A1' }, { id: 'A2', name: 'Option A2' }]}, { parentId: 'B', data: [{ id: 'B1', name: 'Option B1' }, { id: 'B2', name: 'Option B2' }]}]).disable().validators().required().group
-        .colorPicker('input12', 'I\'m required').disable().validators().required().group
-        .currency('input13', 'I\'m required').disable().validators().required().group
-        .number('input14', 'Fraction Number').setFraction(2).setLocale('pt-BR').disable().validators().required().group
-        .radioGroup('input15', 'Radio', [{id: 'Nenhum', name: 'Nenhum'}, {id: 'Irregularidade', name: 'Irregularidade'}, {id: 'Tortuosidade', name: 'Tortuosidade'}], 'Irregularidade').disable().validators().required().group
-        .switch('input16', 'IsContracted').disable().validators().required().group
-        .text('input17', 'I\'m required', 'sample').disable().validators().required().group
-        .textButton('input18', 'Chave', '', (response: SmzFormsResponse<any>, utils: SmzFormViewdata): Observable<{ isValid: boolean, messages?: string[] }> => { console.log('callback response...', response); return of({ isValid: true }) }).useLabel('Buscar').disable().validators().required().group
-        .file('input19', 'Confirmação').useBinaryFormat().acceptImages().disable().validators().required().group
-        .list('input20', 'I\'m not required', ['Option 1', 'Option 2', 'Option 3']).useDialogEditMode().buttons().add().all().clear().edit().move().remove().sort().list.disable().validators().required().group
-        .password('input21', 'Password').disable().validators().required().group
+Exame sem intercorrências.`).disable().validators().required().input.group
+        .dropdown('input6', 'I\'m required', [{ id: '1', name: 'Option 1'}, { id: '2', name: 'Option 2'}, { id: '3', name: 'Option 3'}]).disable().validators().required().input.group
+        .dropdown('input7', 'I\'m required', [{ id: 'A', name: 'Group A'}, { id: 'B', name: 'Group B'}]).disable().validators().required().input.group
+        .linkedDropdown('input8', 'input7', 'I\'m required', [{ parentId: 'A', data: [{ id: 'A1', name: 'Option A1' }, { id: 'A2', name: 'Option A2' }]}, { parentId: 'B', data: [{ id: 'B1', name: 'Option B1' }, { id: 'B2', name: 'Option B2' }]}]).disable().validators().required().input.group
+        .multiselect('input9', 'I\'m required', [{ id: '1', name: 'Option 1'}, { id: '2', name: 'Option 2'}, { id: '3', name: 'Option 3'}]).disable().validators().required().input.group
+        .dropdown('input10', 'I\'m required', [{ id: 'A', name: 'Group A'}, { id: 'B', name: 'Group B'}]).disable().validators().required().input.group
+        .linkedMultiselect('input11', 'input10', 'I\'m required', [{ parentId: 'A', data: [{ id: 'A1', name: 'Option A1' }, { id: 'A2', name: 'Option A2' }]}, { parentId: 'B', data: [{ id: 'B1', name: 'Option B1' }, { id: 'B2', name: 'Option B2' }]}]).disable().validators().required().input.group
+        .colorPicker('input12', 'I\'m required').disable().validators().required().input.group
+        .currency('input13', 'I\'m required').disable().validators().required().input.group
+        .number('input14', 'Fraction Number').setFraction(2).setLocale('pt-BR').disable().validators().required().input.group
+        .radioGroup('input15', 'Radio', [{id: 'Nenhum', name: 'Nenhum'}, {id: 'Irregularidade', name: 'Irregularidade'}, {id: 'Tortuosidade', name: 'Tortuosidade'}], 'Irregularidade').disable().validators().required().input.group
+        .switch('input16', 'IsContracted').disable().validators().required().input.group
+        .text('input17', 'I\'m required', 'sample').disable().validators().required().input.group
+        .textButton('input18', 'Chave', '', (response: SmzFormsResponse<any>, utils: SmzFormViewdata): Observable<{ isValid: boolean, messages?: string[] }> => { console.log('callback response...', response); return of({ isValid: true }) }).useLabel('Buscar').disable().validators().required().input.group
+        .file('input19', 'Confirmação').useBinaryFormat().acceptImages().disable().validators().required().input.group
+        .list('input20', 'I\'m not required', ['Option 1', 'Option 2', 'Option 3']).useDialogEditMode().buttons().add().all().clear().edit().move().remove().sort().list.disable().validators().required().input.group
+        .password('input21', 'Password').disable().validators().required().input.group
         .form
       .build();
   },
@@ -421,16 +421,14 @@ Exame sem intercorrências.`)
         .text('input1', 'I\'m not required', 'Texto')
           .group
         .file('file', 'Confirmação')
-          .useGlobalLoader()
           .setDefaultFile(base64Sample, 'teste.jpg', 'image/jpg')
           .useBinaryFormat()
           .acceptImages()
-          .validators()
-          .required()
+          .validators().required().input
           .group
         .file('file2', 'Confirmação')
             .useGlobalLoader()
-            .validators().required()
+            .validators().required().input
             .group
         .form
       .build();
@@ -988,5 +986,19 @@ Exame sem intercorrências.`)
           .group
       .form
     .build();
+  },
+  //
+  [DemoKeys.FORMS_PLAYGROUND]: () => {
+    return new SmzFormBuilder<any>()
+      // .debugMode()
+      .group()
+        .setLayout('EXTRA_SMALL', 'col-12')
+        .file('file', 'Confirmação')
+          .maxDisplayName(40)
+          .useBinaryFormat()
+          .validators().required().input
+          .group
+        .form
+      .build();
   },
 };

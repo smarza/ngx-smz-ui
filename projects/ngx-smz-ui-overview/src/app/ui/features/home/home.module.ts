@@ -33,6 +33,7 @@ import { ComplexityBackCardComponent } from '../../components/complexity/complex
 import { ResultsTableModule } from '../../components/results-table/results-table.module';
 import { DemoFeatureName } from '@states/demo/demo.state';
 import { DemoMultiTablesComponent } from './components/demo-multi-tables/demo-multi-tables.component';
+import { FileUploadModule } from 'primeng/fileupload';
 
 const data: any = {
   layout: {
@@ -105,7 +106,8 @@ const routes: Routes = [
     ComplexityBackCardComponent,
     NgxSmzUiGuidesModule,
     ResultsTableModule,
-    NgxSmzMultiTablesModule
+    NgxSmzMultiTablesModule,
+    FileUploadModule
   ],
   providers: [],
   bootstrap: [HomeComponent]

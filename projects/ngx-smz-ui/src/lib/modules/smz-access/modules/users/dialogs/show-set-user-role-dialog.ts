@@ -30,8 +30,7 @@ export function buildShowSetUserRoleDialog(user: UserDetails, success?: () => vo
           .group
         .dropdown('role', 'Perfil', roles, getFirst(user.roles)?.id)
           .setLayout('EXTRA_SMALL', 'col-12')
-          .validators()
-            .required()
+          .validators().required().input
           .group
         .form
       .dialog

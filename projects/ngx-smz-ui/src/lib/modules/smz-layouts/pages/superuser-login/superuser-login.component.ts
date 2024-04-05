@@ -59,10 +59,10 @@ export class SuperuserLoginComponent {
         .group()
           .setLayout('EXTRA_SMALL', 'col-12')
           .text(nameof<LoginData>('username'), 'Usuário Adminstrativo')
-            .validators().required()
+            .validators().required().input
             .group
           .password(nameof<LoginData>('password'), 'Senha')
-            .validators().required()
+            .validators().required().input
             .group
         .form
         .build()

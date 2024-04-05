@@ -83,7 +83,7 @@ export class DiagnosticsDataCollectComponent implements OnInit {
           .group()
             .text('username', 'Informe seu usuário', '')
                 .setSaveFormat(SmzTextPattern.LOWERCASE)
-                .validators().required()
+                .validators().required().input
                 .group
             .form
           .dialog

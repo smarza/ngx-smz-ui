@@ -30,7 +30,7 @@ export function UpdateRoleClaimsDialog(role: RolesDetails): SmzDialog<UpdateRole
           .excludeFromResponse()
           .group
         .multiselect('claims', 'Permissões de Acesso', claims, role.claims.map(x => x.id))
-          .validators().required()
+          .validators().required().input
           .group
         .form
       .applyData(role)

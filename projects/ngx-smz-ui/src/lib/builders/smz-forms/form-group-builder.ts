@@ -1440,6 +1440,14 @@ export class SmzFormFileBuilder<TResponse> extends SmzFormInputBuilder<SmzFormFi
     return this;
   }
 
+  public get group(): SmzFormGroupBuilder<TResponse> {
+    if(this._fileInput.outputFormat === 'file' && this._fileInput.useGlobalLoader) {
+      throw Error(`There is no need to call 'useGlobalLoader' while using Binary File.`);
+    }
+
+    return this._groupBuilder;
+  }
+
 }
 
 export class SmzFormListBuilder<TResponse> extends SmzFormInputBuilder<SmzFormListBuilder<TResponse>, TResponse> {
@@ -1749,9 +1757,9 @@ export class SmzFormInputValidatorBuilder<TInput, TResponse> {
     return this;
   }
 
-  public get group(): SmzFormGroupBuilder<TResponse> {
-    return this._groupBuilder;
-  }
+  // public get group(): SmzFormGroupBuilder<TResponse> {
+  //   return this._groupBuilder;
+  // }
 
   public get input(): TInput {
     return this._inputBuilder;

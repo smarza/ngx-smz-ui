@@ -5,8 +5,18 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
+## [16.6.0] - 2024-04-05
+Fix no pipe que captura os dados da coluna dataTransform da tabela (funcionalidade publicada na 16.4.14).
+Fix no input de arquivos, onde ele tentava executar o FileReader em um arquivo mesmo quando a opção de binário estivesse selecionada. Agora, o input só executa o FileReader quando o output for base64. Para binário, nenhuma manipulação é realizada, possibilitando selecionar arquivos maiores de 2gb sem travamento ou sobrecarga para os browsers.
+
+Breaking Changes:
+O fluent dos validadores de form não possuem mais o retorno diretamente para o group:
+ANTES: .validators().required().group
+AGORA: .validators().required().input.group
+Isso foi modificado para garantir que o retorno ao grupo será feito pelos builders dos inputs pois cada um deles pode realizar uma verificação individual. Do jeito antigo, os validadores bypassavam essas verificações causando bugs ocultos.
+
 ## [16.5.7] - 2024-04-02
-Feature que permite ou bloqueia a inserção de itens customizados no autocomplete area tag.
+Funcionalidade que permite ou bloqueia a inserção de itens customizados no autocomplete area tag.
 
 ## [16.5.6] - 2024-04-01
 Opção para permitir ou proíbir valores personalizados no Autocomplete Tag Area
@@ -36,7 +46,8 @@ Adicionado suporte para aceitar templates diferentes para versão landscape e po
 Adicionada flag (hideResponsiveMenuButton) para esconder o botão de acionar menu lateral nos casos de portrait.
 
 ## [16.4.14] - 2024-02-09
-Adicionado suporte para adicionar um dado alternativo para filtros nas colunas de DataTransform, Icon e Custom na tabela
+Adicionado suporte para adicionar um dado alternativo para filtros nas colunas de DataTransform, Icon e Custom na tabela.
+Agora a tabela adiciona um novo campo por item para cada uma dessas colunas para armazenar o dado a ser renderizado (_dom_) ou filtrado (_filterable_), dessa forma todo o cálculo é feito apenas uma vez, facilitando a renderização e a busca pelos dados.
 
 ## [16.4.13] - 2024-02-09
 Fix no filtro global em colunas com dataTransform

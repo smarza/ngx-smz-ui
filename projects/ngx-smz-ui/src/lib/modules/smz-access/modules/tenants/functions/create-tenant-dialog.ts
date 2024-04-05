@@ -31,7 +31,7 @@ export function showCreateTenantDialog(): void {
           .setLayout('LARGE', 'col-6')
           .setLayout('EXTRA_LARGE', 'col-6')
           .setSaveFormat(SmzTextPattern.CLAIM_PATTERN)
-          .validators().required()
+          .validators().required().input
           .group
         .text(nameof<CreateTenant>('name'), 'Nome')
           .setLayout('EXTRA_SMALL', 'col-12')
@@ -39,7 +39,7 @@ export function showCreateTenantDialog(): void {
           .setLayout('MEDIUM', 'col-12')
           .setLayout('LARGE', 'col-6')
           .setLayout('EXTRA_LARGE', 'col-6')
-          .validators().required()
+          .validators().required().input
           .group
         .textArea(nameof<CreateTenant>('metadata'), 'Metadado')
           .setRows(3)
@@ -52,7 +52,7 @@ export function showCreateTenantDialog(): void {
           .setLayout('MEDIUM', 'col-12')
           .setLayout('LARGE', 'col-6')
           .setLayout('EXTRA_LARGE', 'col-4')
-          .validators().required()
+          .validators().required().input
           .group
         .text(namesof<CreateTenant, CreateTenantAdminUser>('adminInfo', 'displayName'), 'Nome')
           .setLayout('EXTRA_SMALL', 'col-12')
@@ -60,7 +60,7 @@ export function showCreateTenantDialog(): void {
           .setLayout('MEDIUM', 'col-12')
           .setLayout('LARGE', 'col-6')
           .setLayout('EXTRA_LARGE', 'col-4')
-          .validators().required()
+          .validators().required().input
           .group
         .text(namesof<CreateTenant, CreateTenantAdminUser>('adminInfo', 'email'), 'Email')
           .setLayout('EXTRA_SMALL', 'col-12')
@@ -68,7 +68,7 @@ export function showCreateTenantDialog(): void {
           .setLayout('MEDIUM', 'col-12')
           .setLayout('LARGE', 'col-6')
           .setLayout('EXTRA_LARGE', 'col-4')
-          .validators().email().required()
+          .validators().email().required().input
           .group
         .password(namesof<CreateTenant, CreateTenantAdminUser>('adminInfo', 'password'), 'Senha')
           .setLayout('EXTRA_SMALL', 'col-12')
@@ -76,7 +76,7 @@ export function showCreateTenantDialog(): void {
           .setLayout('MEDIUM', 'col-12')
           .setLayout('LARGE', 'col-6')
           .setLayout('EXTRA_LARGE', 'col-6')
-          .validators().required()
+          .validators().required().input
           .group
         .addPasswordConfirmation(namesof<CreateTenant, CreateTenantAdminUser>('adminInfo', 'password'), 'Confirmação')
           .setLayout('EXTRA_SMALL', 'col-12')
@@ -84,7 +84,7 @@ export function showCreateTenantDialog(): void {
           .setLayout('MEDIUM', 'col-12')
           .setLayout('LARGE', 'col-6')
           .setLayout('EXTRA_LARGE', 'col-6')
-          .validators().required()
+          .validators().required().input
           .group
         .form
       .dialog

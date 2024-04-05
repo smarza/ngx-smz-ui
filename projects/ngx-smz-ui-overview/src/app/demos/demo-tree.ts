@@ -552,6 +552,13 @@ export const TreeDemoData: DemoTreeNode[] = [
     type: 'Category',
     children: [
       {
+        label: 'Playground', icon: 'fa-solid fa-code', type: 'Demo',
+        demoType: 'form',
+        notes: '',
+        data: FormsDemo[DemoKeys.FORMS_PLAYGROUND],
+        key: DemoKeys.FORMS_PLAYGROUND.toString()
+      },
+      {
         label: 'Ui Definitions', type: 'SubCategory',
         children: [
           {
@@ -876,6 +883,13 @@ export const TreeDemoData: DemoTreeNode[] = [
     label: 'Tables',
     type: 'Category',
     children: [
+      {
+        label: 'Playground', icon: 'fa-solid fa-code', type: 'Demo',
+        demoType: 'table',
+        notes: '',
+        data: TablesDemo[DemoKeys.TABLE_PLAYGROUND],
+        key: DemoKeys.TABLE_PLAYGROUND.toString()
+      },
       {
         label: 'Layouts',
         type: 'Category',

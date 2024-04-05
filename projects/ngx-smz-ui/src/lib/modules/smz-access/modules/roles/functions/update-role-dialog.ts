@@ -26,7 +26,7 @@ export function UpdateRoleDialog(claim: RolesDetails): SmzDialog<RenameRole> {
           .group
         .text(nameof<RenameRole>('name'), 'Nome')
           .setSaveFormat(SmzTextPattern.CAPITALIZE_FIRST_LETTERS_FOR_WORDS_WITH_MORE_THAN_3_CHARS)
-          .validators().required()
+          .validators().required().input
           .group
         .form
       .applyData(claim)

@@ -31,8 +31,7 @@ export function buildShowSetUserRolesDialog(user: UserDetails, success?: () => v
           .group
         .multiselect('role', 'Perfil', roles, user.roles.map(x => x.id))
           .setLayout('EXTRA_SMALL', 'col-12')
-          .validators()
-            .required()
+          .validators().required().input
           .group
         .form
       .dialog

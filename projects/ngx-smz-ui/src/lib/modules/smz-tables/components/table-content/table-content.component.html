@@ -25,7 +25,8 @@
 
   <ng-container *ngSwitchCase="contentTypes.dataTransform">
       <ng-container *ngIf="(item | tableContent : col.field : col.content.type) as contentData">
-          <div [innerHtml]="contentData.result" [ngClass]="col.content.styleClass"></div>
+        <div>{{ contentData.result }}</div>
+          <!-- <div [innerHtml]="contentData.result" [ngClass]="col.content.styleClass"></div> -->
       </ng-container>
   </ng-container>
 

@@ -22,7 +22,7 @@ export function CreateRoleDialog(): SmzDialog<CreateRole> {
       .group()
         .text(nameof<CreateRole>('name'), 'Nome do Perfil')
         .setSaveFormat(SmzTextPattern.CAPITALIZE_FIRST_LETTERS_FOR_WORDS_WITH_MORE_THAN_3_CHARS)
-          .validators().required()
+          .validators().required().input
           .group
         .form
       .dialog

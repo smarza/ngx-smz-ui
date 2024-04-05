@@ -24,7 +24,7 @@ export function UpdateClaimDialog(claim: ClaimDetails): SmzDialog<UpdateClaim> {
           .hide()
           .group
         .text(nameof<UpdateClaim>('description'), 'Nome')
-          .validators().required()
+          .validators().required().input
           .group
         .form
       .applyData(claim)

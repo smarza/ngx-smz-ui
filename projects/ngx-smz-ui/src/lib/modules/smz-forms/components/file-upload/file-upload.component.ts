@@ -109,7 +109,39 @@ export class FileUploadComponent {
         if (event.length > 0) {
             const file = event[0];
 
-            const reader = new FileReader();
+            switch (this.input.outputFormat) {
+                case 'base64':
+                    this.handleFileToBase64(file, emitEvent, cdf);
+                    break;
+
+                case 'file':
+                    this.handleFile(file);
+                    this.form.controls[this.input.propertyName].setValue(file, { emitEvent });
+                    cdf.markForCheck();
+                    break;
+            }
+        }
+        else {
+            this.input['hasFile'] = null;
+            this.input._file = null;
+            this.input._fileName = null;
+            this.input.base64 = null;
+            this.input._fileType = null;
+            this.input._fileExtension = null;
+            this.form.controls[this.input.propertyName].setValue(null, { emitEvent });
+        }
+    }
+
+    private handleFile(file: File) {
+        this.input._file = file;
+        this.input._fileName = file.name;
+        this.input['hasFile'] = file.name;
+        this.input._fileType = this.getTypeClass(file.type);
+        this.input._fileExtension = this.getFileExtension(file);
+    }
+
+    private handleFileToBase64(file: File, emitEvent: boolean, cdf: ChangeDetectorRef) {
+        const reader = new FileReader();
 
             this.input.base64 = null;
 
@@ -122,12 +154,7 @@ export class FileUploadComponent {
             reader.onload = (event: ProgressEvent<FileReader>): void => {
                 this.input.base64 = event.target.result as string;
 
-                this.input._file = file;
-                this.input._fileName = file.name;
-                this.input['hasFile'] = file.name;
-
-                this.input._fileType = this.getTypeClass(file.type);
-                this.input._fileExtension = this.getFileExtension(file);
+                this.handleFile(file);
 
                 this.form.controls[this.input.propertyName].setValue(file, { emitEvent });
                 cdf.markForCheck();
@@ -139,17 +166,6 @@ export class FileUploadComponent {
             };
 
             reader.readAsDataURL(file);
-
-        }
-        else {
-            this.input['hasFile'] = null;
-            this.input._file = null;
-            this.input._fileName = null;
-            this.input.base64 = null;
-            this.input._fileType = null;
-            this.input._fileExtension = null;
-            this.form.controls[this.input.propertyName].setValue(null, { emitEvent });
-        }
     }
 
     public formatBytes(bytes, decimals = 2): string {

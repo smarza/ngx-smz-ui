@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { DemoTreeNode } from '@models/demo';
 import { FormGroupComponent, SmzForm, SmzDialogsService, SmzDialogBuilder, SmzFormsResponse, SmzUiBlockService, PrettyJsonPipe } from 'ngx-smz-ui';
+import { FileUploadEvent, FileUploadHandlerEvent } from 'primeng/fileupload';
 
 @Component({
   selector: 'app-demo-form',
@@ -18,6 +19,8 @@ import { FormGroupComponent, SmzForm, SmzDialogsService, SmzDialogBuilder, SmzFo
   </div>
 
   <smz-form-group [config]="form" #formComponent (onChange)="onStatusChanges($event)"></smz-form-group>
+
+  <!-- <p-fileUpload chooseLabel="Choose" [customUpload]="true" (uploadHandler)="onUpload($event)"></p-fileUpload> -->
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -96,5 +99,9 @@ export class DemoFormComponent implements OnInit, OnChanges {
   public clear(): void {
     this.form = null;
     this.cdf.markForCheck();
-}
+  }
+
+  public onUpload(event: FileUploadHandlerEvent): void {
+    console.log('onUpload', event);
+  }
 }
