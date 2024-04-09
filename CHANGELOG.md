@@ -5,7 +5,7 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
-## [16.6.0] - 2024-04-05
+## [16.6.1] - 2024-04-09
 Fix no pipe que captura os dados da coluna dataTransform da tabela (funcionalidade publicada na 16.4.14).
 Fix no input de arquivos, onde ele tentava executar o FileReader em um arquivo mesmo quando a opção de binário estivesse selecionada. Agora, o input só executa o FileReader quando o output for base64. Para binário, nenhuma manipulação é realizada, possibilitando selecionar arquivos maiores de 2gb sem travamento ou sobrecarga para os browsers.
 
