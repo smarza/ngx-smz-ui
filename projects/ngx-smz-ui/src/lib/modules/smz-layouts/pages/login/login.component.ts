@@ -41,7 +41,7 @@ export class LoginComponent {
     const defaultTenant = localTenant ?? getFirst(tenants)?.id;
 
     const state = new SmzLoginBuilder<LoginData, LoginPayload>()
-      .setMessage('Entre com suas credenciais xxx')
+      .setMessage('Entre com suas credenciais')
       .setLogoType('horizontal')
       .setLogoSize('large')
       .setBackground('bg-[#1e293b]')
