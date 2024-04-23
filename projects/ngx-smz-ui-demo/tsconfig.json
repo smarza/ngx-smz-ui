@@ -10,6 +10,8 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "importHelpers": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "target": "ES2022",
     "module": "es2020",
     "lib": [
@@ -54,10 +56,7 @@
     ],
     "useDefineForClassFields": false
   },
-  "files": [
-    "src/main.ts",
-    "src/polyfills.ts"
-  ],
+  "files": ["src/main.ts", "src/polyfills.ts"],
   "include": [
     "src/**/*.d.ts"
   ],

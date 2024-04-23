@@ -1,6 +1,6 @@
 import { DemoKeys } from '@demos/demo-keys';
 import { GlobalInjector, SimpleNamedEntity, SmzFormBuilder, SmzFormsResponse, SmzFormViewdata, ToastActions } from 'ngx-smz-ui';
-import * as moment from 'moment';
+import moment from 'moment';
 import { Observable, of } from 'rxjs';
 import { Store } from '@ngxs/store';
 import { UntypedFormControl } from '@angular/forms';

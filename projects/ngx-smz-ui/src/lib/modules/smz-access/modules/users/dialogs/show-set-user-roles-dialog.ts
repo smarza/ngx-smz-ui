@@ -40,7 +40,11 @@ export function buildShowSetUserRolesDialog(user: UserDetails, success?: () => v
       .confirm()
         .callback(data => store
           .dispatch(new UsersActions.ReplaceUserRoles(data))
-          .subscribe(() => success != null ?? success()))
+          .subscribe(() => {
+            if (success != null) {
+              success()
+            }
+          }))
         .buttons
       .dialog
     .build()

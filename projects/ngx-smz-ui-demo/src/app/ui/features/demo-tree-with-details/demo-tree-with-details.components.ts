@@ -132,7 +132,7 @@ function buildForm(model: TreeNode<{ name: string }>): SmzForm<any> {
           .hide()
           .group
         .text('name', 'Nome', model.data.name)
-          .validators().required()
+          .validators().required().input
           .group
         .form
     .build();

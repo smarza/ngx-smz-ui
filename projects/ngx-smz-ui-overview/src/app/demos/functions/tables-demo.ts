@@ -9,7 +9,7 @@ import { DemoFeatureActions } from '@states/demo/demo.actions';
 import { LARGE_TABLE_DATA } from '../data/large-table';
 import { EditableTablePartialData, EditableTablePartialLevels } from '../data/tables/editable-table-partial-data';
 import { DemoItem } from '@models/demo';
-import * as moment from 'moment';
+import moment from 'moment';
 
 const store = GlobalInjector.instance.get(Store);
 

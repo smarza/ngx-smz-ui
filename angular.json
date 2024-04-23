@@ -38,7 +38,31 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "scss"
+          "inlineTemplate": true,
+          "inlineStyle": true,
+          "style": "scss",
+          "skipTests": true
+        },
+        "@schematics/angular:class": {
+          "skipTests": true
+        },
+        "@schematics/angular:directive": {
+          "skipTests": true
+        },
+        "@schematics/angular:guard": {
+          "skipTests": true
+        },
+        "@schematics/angular:interceptor": {
+          "skipTests": true
+        },
+        "@schematics/angular:pipe": {
+          "skipTests": true
+        },
+        "@schematics/angular:resolver": {
+          "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
         }
       },
       "root": "projects/ngx-smz-ui-demo",
@@ -62,7 +86,6 @@
               "moment",
               "openai"
             ],
-            "aot": true,
             "assets": [
               "projects/ngx-smz-ui-demo/src/favicon.ico",
               "projects/ngx-smz-ui-demo/src/assets",
@@ -94,64 +117,52 @@
             ]
           },
           "configurations": {
-            "development": {
-              "optimization": {
-                "scripts": false,
-                "styles": {
-                  "minify": false,
-                  "inlineCritical": false
-                },
-                "fonts": false
-              },
-              "buildOptimizer": false
-            },
             "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
               "fileReplacements": [
                 {
                   "replace": "projects/ngx-smz-ui-demo/src/environments/environment.ts",
                   "with": "projects/ngx-smz-ui-demo/src/environments/environment.prod.ts"
                 }
               ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "100mb",
-                  "maximumError": "200mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "600kb",
-                  "maximumError": "1000kb"
-                }
-              ]
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
             }
           }
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ngx-smz-ui-demo:build"
+            "buildTarget": "ngx-smz-ui-demo:build"
           },
           "configurations": {
             "development": {
-              "browserTarget": "ngx-smz-ui-demo:build:development"
+              "buildTarget": "ngx-smz-ui-demo:build:development"
             },
             "production": {
-              "browserTarget": "ngx-smz-ui-demo:build:production"
+              "buildTarget": "ngx-smz-ui-demo:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ngx-smz-ui-demo:build"
+            "buildTarget": "ngx-smz-ui-demo:build"
           }
         },
         "lint": {
@@ -171,10 +182,31 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "scss"
+          "inlineTemplate": true,
+          "inlineStyle": true,
+          "style": "scss",
+          "skipTests": true
         },
-        "@schematics/angular:application": {
-          "strict": true
+        "@schematics/angular:class": {
+          "skipTests": true
+        },
+        "@schematics/angular:directive": {
+          "skipTests": true
+        },
+        "@schematics/angular:guard": {
+          "skipTests": true
+        },
+        "@schematics/angular:interceptor": {
+          "skipTests": true
+        },
+        "@schematics/angular:pipe": {
+          "skipTests": true
+        },
+        "@schematics/angular:resolver": {
+          "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
         }
       },
       "root": "projects/ngx-smz-ui-overview",
@@ -233,25 +265,16 @@
           },
           "configurations": {
             "production": {
-              "optimization": {
-                "scripts": false,
-                "styles": {
-                  "minify": false,
-                  "inlineCritical": false
-                },
-                "fonts": false
-              },
-              "buildOptimizer": false,
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500000kb",
-                  "maximumError": "100mb"
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2000kb",
-                  "maximumError": "4000kb"
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
                 }
               ],
               "fileReplacements": [
@@ -263,15 +286,9 @@
               "outputHashing": "all"
             },
             "development": {
-              "optimization": {
-                "scripts": false,
-                "styles": {
-                  "minify": false,
-                  "inlineCritical": false
-                },
-                "fonts": false
-              },
-              "buildOptimizer": false
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
             }
           },
           "defaultConfiguration": "production"
@@ -280,10 +297,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "ngx-smz-ui-overview:build:production"
+              "buildTarget": "ngx-smz-ui-overview:build:production"
             },
             "development": {
-              "browserTarget": "ngx-smz-ui-overview:build:development"
+              "buildTarget": "ngx-smz-ui-overview:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -294,10 +311,31 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "scss"
+          "inlineTemplate": true,
+          "inlineStyle": true,
+          "style": "scss",
+          "skipTests": true
         },
-        "@schematics/angular:application": {
-          "strict": true
+        "@schematics/angular:class": {
+          "skipTests": true
+        },
+        "@schematics/angular:directive": {
+          "skipTests": true
+        },
+        "@schematics/angular:guard": {
+          "skipTests": true
+        },
+        "@schematics/angular:interceptor": {
+          "skipTests": true
+        },
+        "@schematics/angular:pipe": {
+          "skipTests": true
+        },
+        "@schematics/angular:resolver": {
+          "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
         }
       },
       "root": "projects/ngx-smz-ui-modules",
@@ -353,25 +391,16 @@
           },
           "configurations": {
             "production": {
-              "optimization": {
-                "scripts": false,
-                "styles": {
-                  "minify": false,
-                  "inlineCritical": false
-                },
-                "fonts": false
-              },
-              "buildOptimizer": false,
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500000kb",
-                  "maximumError": "100mb"
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2000kb",
-                  "maximumError": "4000kb"
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
                 }
               ],
               "fileReplacements": [
@@ -383,15 +412,9 @@
               "outputHashing": "all"
             },
             "development": {
-              "optimization": {
-                "scripts": false,
-                "styles": {
-                  "minify": false,
-                  "inlineCritical": false
-                },
-                "fonts": false
-              },
-              "buildOptimizer": false
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
             }
           },
           "defaultConfiguration": "production"
@@ -400,10 +423,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "ngx-smz-ui-modules:build:production"
+              "buildTarget": "ngx-smz-ui-modules:build:production"
             },
             "development": {
-              "browserTarget": "ngx-smz-ui-modules:build:development"
+              "buildTarget": "ngx-smz-ui-modules:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -411,14 +434,13 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ngx-smz-ui-modules:build"
+            "buildTarget": "ngx-smz-ui-modules:build"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "main": "projects/ngx-smz-ui-modules/src/test.ts",
-            "polyfills": "projects/ngx-smz-ui-modules/src/polyfills.ts",
             "tsConfig": "projects/ngx-smz-ui-modules/tsconfig.json",
             "karmaConfig": "projects/ngx-smz-ui-modules/karma.conf.js",
             "inlineStyleLanguage": "scss",

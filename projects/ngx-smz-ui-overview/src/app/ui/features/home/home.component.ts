@@ -43,7 +43,8 @@ export class HomeComponent implements OnInit
   {
 
     this.treeState = new SmzTreeBuilder()
-      .setTitle('Fluents')
+      .debugMode()
+      .setTitle('Features')
       .useSincronization()
       .enableFilter()
       .toolbar('rounded-outlined')
@@ -97,7 +98,7 @@ export class HomeComponent implements OnInit
   }
 
   public onSelectedNodes(nodes: DemoTreeNode[]): void {
-
+    console.log('onSelectedNodes', nodes);
     if (isArray(nodes) && nodes.length > 0) {
       const node = nodes[0];
       if (node?.type === 'Demo') {

@@ -266,10 +266,6 @@ export class TableDataSourceService {
           item[i] = ObjectUtils.resolveFieldData(updateData, column.content.dataPath);
           break;
 
-        case SmzEasyTableContentType.TEXT:
-          item[i] = ObjectUtils.resolveFieldData(updateData, column.content.dataPath);
-          break;
-
         case SmzEasyTableContentType.DATA_TRANSFORM:
           item[i] = ObjectUtils.resolveFieldData(updateData, column.content.dataPath);
           break;

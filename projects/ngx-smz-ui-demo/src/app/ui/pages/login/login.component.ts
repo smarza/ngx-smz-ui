@@ -32,10 +32,10 @@ export class LoginComponent {
           .group()
             .setLayout('EXTRA_SMALL', 'col-12')
             .text('username', 'Usuário')
-              .validators().required()
+              .validators().required().input
               .group
             .password('password', 'Senha')
-              .validators().required()
+              .validators().required().input
               .group
             // .addPasswordConfirmation('password', 'Confirme a Senha')
             //   .validators().required()

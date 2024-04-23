@@ -2,7 +2,7 @@ import { ApplicationConfig, DEFAULT_CURRENCY_CODE, LOCALE_ID, importProvidersFro
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import ptBr from '@angular/common/locales/pt';
-import * as moment from 'moment';
+import moment from 'moment';
 import { registerLocaleData } from '@angular/common';
 import { HephaestusProviderModule, NewAthenaProviderModule, NgxSmzUiModule, buildState } from 'ngx-smz-ui';
 import { UiBuilder } from '../globals/smz-ui-config-builder';

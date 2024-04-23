@@ -32,12 +32,20 @@
     </ng-template>
   </ng-container>
 
-  <ng-template let-item pTemplate="listItem">
-    <smz-list-item *ngIf="state.template != null" [isDebug]="state.isDebug" [template]="state.template" [data]="item" [menu]="state.menu" [buttons]="state.buttons" [ngClass]="state.list.styleClass.all"></smz-list-item>
+  <ng-template let-items pTemplate="list">
+    <div *ngIf="state.template != null" class="grid grid-nogutter" [ngClass]="state.view.gridStyleClass">
+        <ng-container *ngFor="let item of items">
+          <smz-list-item [isDebug]="state.isDebug" [template]="state.template" [data]="item" [menu]="state.menu" [buttons]="state.buttons" [ngClass]="state.list.styleClass.all"></smz-list-item>
+        </ng-container>
+    </div>
   </ng-template>
 
-  <ng-template let-item pTemplate="gridItem">
-    <smz-grid-item *ngIf="state.template != null" [isDebug]="state.isDebug" [template]="state.template" [data]="item" [menu]="state.menu" [buttons]="state.buttons" [ngClass]="state.grid.styleClass.all"></smz-grid-item>
+  <ng-template let-items pTemplate="grid">
+    <div *ngIf="state.template != null" class="grid grid-nogutter" [ngClass]="state.view.gridStyleClass">
+      <ng-container *ngFor="let item of items">
+        <smz-grid-item *ngIf="state.template != null" [isDebug]="state.isDebug" [template]="state.template" [data]="item" [menu]="state.menu" [buttons]="state.buttons" [ngClass]="state.grid.styleClass.all"></smz-grid-item>
+      </ng-container>
+    </div>
   </ng-template>
 
 </p-dataView>

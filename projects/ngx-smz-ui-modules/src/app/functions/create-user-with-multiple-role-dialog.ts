@@ -58,11 +58,13 @@ export function showCreateUserWithMultipleRoleDialog(success?: () => void): void
           .validators()
             .length(ModelConstants.petrobrasKey.minLength, ModelConstants.petrobrasKey.maxLength)
             .required()
+            .input
           .group
         .multiselect('role', 'Perfil', roles, [getFirst(roles)?.name])
           .setLayout('EXTRA_SMALL', 'col-12')
           .validators()
             .required()
+            .input
           .group
         .form
       .group('Preenchimento automático')
@@ -93,7 +95,11 @@ export function showCreateUserWithMultipleRoleDialog(success?: () => void): void
       .confirm()
         .callback(data => store
           .dispatch(new UsersFtActions.CreateWithMultipleRoles(data))
-          .subscribe(() => success != null ?? success()))
+          .subscribe(() => {
+            if (success != null) {
+              success()
+            }
+          }))
       .buttons
     .dialog
     .build()

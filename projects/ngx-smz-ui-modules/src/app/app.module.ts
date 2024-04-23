@@ -13,7 +13,7 @@ import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 
 import ptBr from '@angular/common/locales/pt';
-import * as moment from 'moment';
+import moment from 'moment';
 import { environment } from '@environments/environment';
 import { UiBuilder } from '../globals/smz-ui-config-builder';
 import { VarejoUiBuilder } from '../globals/varejo-smz-ui-config-builder';

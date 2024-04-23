@@ -213,7 +213,7 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
       filters: this.table.filters,
       visibility: this.state.columns.map(x => {
         const selectedColumn = this.selectedColumns.find(s => s.field === x.field);
-        return { key: x.field, isVisible: selectedColumn != null ?? false };
+        return { key: x.field, isVisible: selectedColumn != null };
       }),
       sort: { mode: 'single', field: this.table.sortField, order: this.table.sortOrder }
     };

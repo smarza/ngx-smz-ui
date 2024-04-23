@@ -2,7 +2,7 @@ import { DemoKeys } from '@demos/demo-keys';
 import { nameof, namesof, SmzCardsBuilder, SimpleNamedEntity, SimpleEntity } from 'ngx-smz-ui';
 import { BehaviorSubject, of } from 'rxjs';
 import { SmzCardsArchivedDemo, SmzCardsDemo, SmzCardsDemoData } from '../data/cards/cards-data';
-import * as moment from 'moment';
+import moment from 'moment';
 import { SmzCardsFlipCardDemo, SmzCardsFlipCardDemo2, SmzCardsFlipCardDemo3, SmzCardsFlipCardDemoData } from '../data/cards/flip-card-data';
 import { FrontCardComponent } from '@components/cards/front-card.component';
 import { BackCardComponent } from '@components/cards/back-card.component';
