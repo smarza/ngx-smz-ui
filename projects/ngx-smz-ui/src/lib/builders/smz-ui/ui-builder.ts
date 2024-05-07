@@ -498,7 +498,7 @@ const defaultDialogsModuleConfig: SmzDialogsConfig = {
             // confirmClass: 'smz-button-success',
             confirmDependsOnValidation: true,
             cancelName: 'CANCEL',
-            cancelClass: 'smz-button-ghost',
+            cancelClass: 'p-button-outlined',
             okName: 'OK',
             okDependsOnValidation: false,
             saveName: 'SALVAR',

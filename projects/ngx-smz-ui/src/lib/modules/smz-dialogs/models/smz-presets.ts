@@ -406,9 +406,9 @@ const SmzPreset: { [key in SmzPresets]: SmzDialogPreset } = {
                 confirmDependsOnValidation: false,
                 okDependsOnValidation: false,
                 confirmName: 'Sim',
-                confirmClass: 'smz-button-danger',
+                confirmClass: 'p-button-outlined p-button-danger',
                 cancelName: 'Não',
-                cancelClass: 'smz-button-ghost',
+                cancelClass: 'p-button-outlined',
             },
             dialogTemplate: {
                 extraSmall: { row: 'col-12' },

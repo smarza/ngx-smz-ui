@@ -336,7 +336,7 @@ export const DialogsDemo: { [key: string]: () => void } = {
         .form()
         .group()
           .setLayout('EXTRA_SMALL', 'col-12')
-          .checkbox('input', 'Is Valid ?')
+          .checkbox('input', 'Is Valid ?', false)
             .validators().required().input
           .group
         .form
