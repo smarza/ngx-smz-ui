@@ -20,6 +20,8 @@ export class SmzUiAuthenticationBuilder extends SmzBuilderUtilities<SmzUiAuthent
 
   public setNonAuthenticatedRoot(path: string): SmzUiAuthenticationBuilder {
     this._builder._state.rbkUtils.authentication.nonAuthenticatedRoot = path;
+    this._builder._state.rbkUtils.authentication.login.route = path;
+    this._builder._state.rbkUtils.authentication.login.page.useSmzLoginModule = false;
     return this.that;
   }
 

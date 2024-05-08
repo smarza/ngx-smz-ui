@@ -58,7 +58,10 @@ export class SmzLoginComponent implements OnInit, AfterContentInit {
     const payload = this.state.callbacks.payload(form.data);
 
     this.state.callbacks.submit(form.data);
-    this.store.dispatch(new this.state.actions.login(payload));
+
+    if (this.state.actions.login != null) {
+      this.store.dispatch(new this.state.actions.login(payload));
+    }
   }
 
 }

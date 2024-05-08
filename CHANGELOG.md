@@ -5,6 +5,9 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
+## [16.6.6] - 2024-04-18
+Ajustes na mecânica de login para permitir customização externa.
+
 ## [16.6.2] - 2024-04-18
 Correção da mensagem "Entre com suas credenciais xxx" na tela de login.
 
