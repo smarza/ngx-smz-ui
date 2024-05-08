@@ -147,6 +147,11 @@ export class SmzLoginBuilder<TResponse, TPayload> {
     return this;
   }
 
+  public disableLoginActionCall(): SmzLoginBuilder<TResponse, TPayload> {
+    this._state.actions.login = null;
+    return this;
+  }
+
   public setBackground(styleClass: string): SmzLoginBuilder<TResponse, TPayload> {
     this._state.styleClass.background = styleClass;
     return this;

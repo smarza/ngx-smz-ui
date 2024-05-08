@@ -19,7 +19,6 @@ interface LoginData {
   password: string;
 }
 
-
 @Component({
   selector: 'smz-ui-login-page',
   templateUrl: './login.component.html',
@@ -104,7 +103,7 @@ export class LoginComponent {
       .build();
 
       if (config.rbkUtils.authentication.login.page.customButtons != null) {
-        state.customButtons = config.rbkUtils.authentication.login.page.customButtons;
+        state.customButtons = [...config.rbkUtils.authentication.login.page.customButtons];
       }
 
     return { ...state, ...authConfig.login.page.overrideState };

@@ -10,7 +10,10 @@ export class SmzUiAuthenticationLoginBuilder extends SmzBuilderUtilities<SmzUiAu
   constructor(private _builder: SmzUiAuthenticationBuilder, private _state: NgxSmzUiConfig) {
     super();
 
-    this._state.rbkUtils.authentication.login.page.useSmzLoginModule = true;
+    if (this._state.rbkUtils.authentication.nonAuthenticatedRoot == '/login') {
+      this._state.rbkUtils.authentication.login.page.useSmzLoginModule = true;
+    }
+
     this._state.rbkUtils.authentication.login.showTenantSelector = true;
   }
 
