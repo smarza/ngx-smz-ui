@@ -5,7 +5,7 @@
   <ng-template pTemplate="caption" let-primeTable>
     <button *ngIf="uiConfig.rbkUtils.notifications.showRefreshButton" pButton pRipple type="button" icon="fa-solid fa-rotate" pTooltip="Atualizar" class="p-button-rounded p-button-text p-button-plain mr-3" (click)="refresh()"></button>
     <p-selectButton [options]="folders" [(ngModel)]="currentFolder" optionLabel="icon" (onChange)="currentFolder.rebuild()">
-      <ng-template let-item>
+      <ng-template let-item pTemplate>
           <i [ngClass]="item.icon" [pTooltip]="item.tooltip"></i>
           <span class="ml-1 text-sm">({{ item.count$ | async }})</span>
       </ng-template>

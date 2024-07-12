@@ -6,7 +6,7 @@
             fxFlex="grow"
             class="col-12 grid-nogutter smz__input_value"
             [id]="input.propertyName"
-            [options]="service.observers[formId + input.propertyName]?.options | async"
+            [options]="(service.observers[formId + input.propertyName]?.options | async ) | GetCurrentMultiselectOptions : input"
             [formControl]="control"
             optionLabel="name"
             [defaultLabel]="input.defaultLabel"

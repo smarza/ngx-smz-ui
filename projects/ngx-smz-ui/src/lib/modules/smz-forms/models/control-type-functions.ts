@@ -9,6 +9,7 @@ import { GlobalInjector } from '../../../common/services/global-injector';
 import { UUID } from 'angular2-uuid';
 import { TreeHelpers } from '../../smz-trees/utils/tree-helpers';
 import { resolveTreeNodeSelection } from '../../smz-trees/models/node-helper';
+import { SimpleEntity, SimpleParentEntity } from '../../../common/models/simple-named-entity';
 
 export interface SmzControlTypeFunctionsDefinitions
 {
@@ -231,10 +232,11 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
         {
             if (input.defaultValue != null && input.defaultValue.length > 0)
             {
-                const parent = input.options.find(x => x.data.find(d => d.id === input.defaultValue));
-                const option = parent.data.find(d => d.id === input.defaultValue);
+                const result = getMatchingEntities(input.currentOptions ?? [], input.defaultValue);
+                if (result != null) {
+                    control.patchValue(result ?? '');
+                }
 
-                control.patchValue(option ?? '');
             }
             else
             {
@@ -706,4 +708,16 @@ function mapResponseValue(input: SmzControlTypes, value: any, formFlattenRespons
 function flatPropertyName(propertyName: string, isArray: boolean): string
 {
     return `${propertyName}${isArray ? 'Ids' : 'Id'}`;
+}
+
+function getMatchingEntities<T>(options: SimpleEntity<T>[], defaultValueIds: T[]): SimpleEntity<T>[] {
+    const matchingEntities: SimpleEntity<T>[] = [];
+
+        for (const entity of options) {
+            if (defaultValueIds.includes(entity.id)) {
+                matchingEntities.push(entity);
+            }
+    }
+
+    return matchingEntities;
 }

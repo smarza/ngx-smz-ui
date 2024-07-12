@@ -312,6 +312,7 @@ export interface SmzLinkedDropDownControl<T> extends SmzFormsBaseControl, SmzFor
 export interface SmzLinkedMultiSelectControl<T> extends SmzFormsBaseControl, SmzFormBaseLinkedControl
 {
     options?: SimpleParentEntity<T>[];
+    currentOptions?: T[];
     defaultValue?: T[];
     showFilter?: Boolean;
     autofocusFilter?: boolean;
@@ -362,4 +363,5 @@ export interface SmzFormBaseLinkedControl {
     readonly propertyName?: string;
     dependsOn?: { propertyName: string, formId?: string };
     _inputFormControl?: AbstractControl;
+    readonly type?: SmzControlType;
 }

@@ -41,7 +41,7 @@ import { showSwitchTenantDialog } from './show-tenant-switch-dialog';
 
       <!-- PORTRAIT -->
       <ng-template pTemplate="portrait">
-        <i class="fa-solid fa-repeat cursor-pointer text-2xl text-text-color-secondary switch-tenant" (click)="showSwitchDialog()">
+        <i class="fa-solid fa-repeat cursor-pointer text-2xl text-text-color switch-tenant" (click)="showSwitchDialog()">
       </i>
       </ng-template>
 

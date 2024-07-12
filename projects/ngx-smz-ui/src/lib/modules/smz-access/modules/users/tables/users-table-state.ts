@@ -1,5 +1,4 @@
 import { SmzTableBuilder } from '../../../../../builders/smz-tables/state-builder';
-import { AuthenticationSelectors } from '../../../../../state/global/authentication/authentication.selectors';
 import { GlobalInjector } from '../../../../../common/services/global-injector';
 import { SmzFilterType } from '../../../../smz-tables/models/filter-types';
 import { nameof, SimpleNamedEntity } from '../../../../../common/models/simple-named-entity';
