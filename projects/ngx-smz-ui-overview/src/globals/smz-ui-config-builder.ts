@@ -25,12 +25,12 @@ export const UiBuilder: SmzUiBuilder = new SmzUiBuilder()
   .builder
 // .setRbkUtilsConfigManually(rbkConfig)
 .disableUiDefinitions()
-.notifications()
-  .setUpdateRate(30000)
-  .setItemsPerPage(5)
-  .setPagination([5])
-  .setZIndex(999)
-  .builder
+// .notifications()
+//   .setUpdateRate(30000)
+//   .setItemsPerPage(5)
+//   .setPagination([5])
+//   .setZIndex(999)
+//   .builder
 .authentication()
   .mapAccessTokenData('rol', 'roles', 'array')
   .mapAccessTokenData('avatar', 'avatar', 'string')

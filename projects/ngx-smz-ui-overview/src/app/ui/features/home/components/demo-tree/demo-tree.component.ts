@@ -64,6 +64,6 @@ export class DemoTreeComponent implements OnInit, OnChanges {
   }
 
   public selectionChanged(node: SmzTreeNode[]): void {
-    console.log('selectionChanged', node);
+    // console.log('selectionChanged', node);
   }
 }
