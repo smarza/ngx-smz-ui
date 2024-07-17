@@ -98,9 +98,9 @@ export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T, TDa
 
   }
 
-  public overrideFilter(propertyPath?: string): T {
+  public overrideFilter(propertyPath?: string, filterType: SmzFilterType = SmzFilterType.TEXT): T {
     this._column.filterField = propertyPath;
-    this._column.filter.type = SmzFilterType.TEXT;
+    this._column.filter.type = filterType;
     return this.that;
   }
 
