@@ -2,7 +2,7 @@ import { fixDate, isEmpty } from '../common/utils';
 import { Store } from '@ngxs/store';
 import { SmzDialogFeature } from '../../modules/smz-dialogs/models/smz-dialogs';
 import { SmzForm, SmzFormGroup } from '../../modules/smz-forms/models/smz-forms';
-import { SmzCalendarControl, SmzCheckBoxControl, SmzColorPickerControl, SmzControlType, SmzControlTypes, SmzCurrencyControl, SmzDropDownControl, SmzFileControl, SmzLinkedDropDownControl, SmzListControl, SmzMaskControl, SmzMultiSelectControl, SmzNumberControl, SmzPasswordControl, SmzRadioControl, SmzSwitchControl, SmzTextAreaControl, SmzTextControl } from '../../modules/smz-forms/models/control-types';
+import { DefaultPrimeNgFilterMatchMode, SmzCalendarControl, SmzCheckBoxControl, SmzColorPickerControl, SmzControlType, SmzControlTypes, SmzCurrencyControl, SmzDropDownControl, SmzFileControl, SmzLinkedDropDownControl, SmzListControl, SmzMaskControl, SmzMultiSelectControl, SmzNumberControl, SmzPasswordControl, SmzRadioControl, SmzSwitchControl, SmzTextAreaControl, SmzTextControl } from '../../modules/smz-forms/models/control-types';
 import { SimpleNamedEntity } from '../../common/models/simple-named-entity';
 import { SmzFormsBaseControl } from '../../modules/smz-forms/models/controls';
 import { SmzTemplate } from '../../common/models/templates';
@@ -574,7 +574,7 @@ export interface InputConfig {
   fileAccept?: string;
 
   showFilter?: boolean;
-  filterMatchMode?: 'contains' | 'startsWith' | 'endsWith' | 'equals' | 'notEquals' | 'in' | 'lt' | 'lte' | 'gt' | 'gte';
+  filterMatchMode?: DefaultPrimeNgFilterMatchMode | any;
 
   required: boolean;
   minLength?: number;

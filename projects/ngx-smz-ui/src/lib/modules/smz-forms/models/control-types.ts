@@ -289,12 +289,14 @@ export interface SmzDropDownControl<T> extends SmzFormsBaseControl
     defaultValue?: T | SimpleEntity<T>;
     showFilter?: Boolean;
     autofocusFilter?: boolean;
-    filterMatchMode?: 'contains' | 'startsWith' | 'endsWith' | 'equals' | 'notEquals' | 'in' | 'lt' | 'lte' | 'gt' | 'gte';
+    filterMatchMode?: DefaultPrimeNgFilterMatchMode | any;
     emptyMessage?: string;
     emptyFilterMessage?: string;
     showClear?: boolean;
 
 }
+
+export type DefaultPrimeNgFilterMatchMode = 'contains' | 'startsWith' | 'endsWith' | 'equals' | 'notEquals' | 'in' | 'lt' | 'lte' | 'gt' | 'gte';
 
 export interface SmzLinkedDropDownControl<T> extends SmzFormsBaseControl, SmzFormBaseLinkedControl
 {
@@ -302,7 +304,7 @@ export interface SmzLinkedDropDownControl<T> extends SmzFormsBaseControl, SmzFor
     defaultValue?: T;
     showFilter?: Boolean;
     autofocusFilter?: boolean;
-    filterMatchMode?: 'contains' | 'startsWith' | 'endsWith' | 'equals' | 'notEquals' | 'in' | 'lt' | 'lte' | 'gt' | 'gte';
+    filterMatchMode?: DefaultPrimeNgFilterMatchMode | any;
     dependsOn?: { propertyName: string, formId?: string };
     emptyMessage?: string;
     emptyFilterMessage?: string;
@@ -331,7 +333,7 @@ export interface SmzMultiSelectControl<T> extends SmzFormsBaseControl
     defaultValue?: T[] | SimpleEntity<T>[];
     showFilter?: Boolean;
     autofocusFilter?: boolean;
-    filterMatchMode?: 'contains' | 'startsWith' | 'endsWith' | 'equals' | 'notEquals' | 'in' | 'lt' | 'lte' | 'gt' | 'gte';
+    filterMatchMode?: DefaultPrimeNgFilterMatchMode | any;
     defaultLabel?: string;
     emptyMessage?: string;
     emptyFilterMessage?: string;
