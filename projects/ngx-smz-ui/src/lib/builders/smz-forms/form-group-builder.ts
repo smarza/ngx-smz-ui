@@ -721,6 +721,11 @@ export class SmzFormInputBuilder<TInput, TResponse> {
     return this.that;
   }
 
+  public hideLabel(condition?: boolean): TInput {
+    this._input.hideLabel = condition ?? false;
+    return this.that;
+  }
+
   public disable(condition?: boolean): TInput {
     this._input.isDisabled = condition ?? true;
     return this.that;

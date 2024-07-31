@@ -1,4 +1,4 @@
-<label class="smz__input_name" [innerHTML]="input.name"></label>
+<label *ngIf="input.hideLabel != true" class="smz__input_name" [innerHTML]="input.name"></label>
 <div class="input_inner__wrapper">
     <div
         [ngClass]="'smz-input-content-mask ' + input.inputClass"
