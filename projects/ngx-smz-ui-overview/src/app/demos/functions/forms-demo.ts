@@ -55,7 +55,7 @@ Exame sem intercorrências.`).validators().required().input.group
       .linkedMultiselect('info.input11', 'input10', 'I\'m required', [{ parentId: 'A', data: [{ id: 'A1', name: 'Option A1' }, { id: 'A2', name: 'Option A2' }]}, { parentId: 'B', data: [{ id: 'B1', name: 'Option B1' }, { id: 'B2', name: 'Option B2' }]}]).validators().required().input.group
       .colorPicker('info.input12', 'I\'m required').validators().required().input.group
       .currency('metadata.input13', 'I\'m required').validators().required().input.group
-      .number('metadata.input14', 'Fraction Number').setFraction(2).setLocale('pt-BR').validators().required().input.group
+      .number('metadata.input14', 'Fraction Number').setFraction(2, 2).setLocale('pt-BR').validators().required().input.group
       .radioGroup('metadata.input15', 'Radio', [{id: 'Nenhum', name: 'Nenhum'}, {id: 'Irregularidade', name: 'Irregularidade'}, {id: 'Tortuosidade', name: 'Tortuosidade'}], 'Irregularidade').validators().required().input.group
       .switch('metadata.input16', 'IsContracted').validators().required().input.group
       .text('metadata.input17', 'I\'m required', 'sample').validators().required().input.group
@@ -73,7 +73,7 @@ Exame sem intercorrências.`).validators().required().input.group
       .group()
         .setLayout('EXTRA_SMALL', 'col-12')
         .text('input1', 'I\'m required', 'sample').disable().validators().required().input.group
-        .calendar('input2', 'new Date()', new Date()).disable().validators().required().input.group
+        .calendar('input2', 'new Date()', new Date()).validators().required().input.group
         .checkbox('input3', 'I\'m not required').disable().validators().required().input.group
         .checkboxGroup('input4', 'I\'m required', [{ id: '1', name: 'Option 1'}, { id: '2', name: 'Option 2'}, { id: '3', name: 'Option 3'}]).disable().validators().required().input.group
         .contentMask('input5', 'Conteúdo com variáveis',
@@ -92,7 +92,7 @@ Exame sem intercorrências.`).disable().validators().required().input.group
         .linkedMultiselect('input11', 'input10', 'I\'m required', [{ parentId: 'A', data: [{ id: 'A1', name: 'Option A1' }, { id: 'A2', name: 'Option A2' }]}, { parentId: 'B', data: [{ id: 'B1', name: 'Option B1' }, { id: 'B2', name: 'Option B2' }]}]).disable().validators().required().input.group
         .colorPicker('input12', 'I\'m required').disable().validators().required().input.group
         .currency('input13', 'I\'m required').disable().validators().required().input.group
-        .number('input14', 'Fraction Number').setFraction(2).setLocale('pt-BR').disable().validators().required().input.group
+        .number('input14', 'Fraction Number').setFraction(2, 2).setLocale('pt-BR').disable().validators().required().input.group
         .radioGroup('input15', 'Radio', [{id: 'Nenhum', name: 'Nenhum'}, {id: 'Irregularidade', name: 'Irregularidade'}, {id: 'Tortuosidade', name: 'Tortuosidade'}], 'Irregularidade').disable().validators().required().input.group
         .switch('input16', 'IsContracted').disable().validators().required().input.group
         .text('input17', 'I\'m required', 'sample').disable().validators().required().input.group
@@ -260,7 +260,7 @@ Exame sem intercorrências.`)
           .validators().required().input
           .group
         .number('input3', 'Fraction Number')
-          .setFraction(2)
+          .setFraction(2, 2)
           .setLocale('pt-BR')
           .group
         .form

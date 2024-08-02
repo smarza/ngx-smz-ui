@@ -1220,6 +1220,20 @@ export const TreeDemoData: DemoTreeNode[] = [
             data: CardsDemo[DemoKeys.CARDS_RAW],
             key: DemoKeys.CARDS_RAW.toString()
           },
+          {
+            label: 'Empty Message With HTML', icon: 'fa-solid fa-code', type: 'Demo',
+            demoType: 'cards',
+            notes: '',
+            data: CardsDemo[DemoKeys.CARDS_EMPTY_MESSAGE_HTML],
+            key: DemoKeys.CARDS_EMPTY_MESSAGE_HTML.toString()
+          },
+          {
+            label: 'Empty Message With Component Injection', icon: 'fa-solid fa-code', type: 'Demo',
+            demoType: 'cards',
+            notes: '',
+            data: CardsDemo[DemoKeys.CARDS_EMPTY_MESSAGE_COMPONENT],
+            key: DemoKeys.CARDS_EMPTY_MESSAGE_COMPONENT.toString()
+          },
         ]
       },
     ]

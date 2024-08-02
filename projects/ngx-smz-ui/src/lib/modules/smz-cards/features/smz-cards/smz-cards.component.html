@@ -2,7 +2,7 @@
 <ng-container *ngVar="state.items$ | async as items">
 <ng-container *ngVar="items | resetContext : state.template._context">
 
-<p-dataView #dataView [styleClass]="state.view.dataViewStyleClass" [gridStyleClass]="state.view.gridStyleClass" [value]="items ?? []" [paginator]="state.view.paginator" [rows]="state.view.rowsPerPage" [filterBy]="state.view.filterBy" [layout]="state.view.layout" [emptyMessage]="state.locale.emptyMessage">
+<p-dataView #dataView [styleClass]="state.view.dataViewStyleClass" [gridStyleClass]="state.view.gridStyleClass" [value]="items ?? []" [paginator]="state.view.paginator" [rows]="state.view.rowsPerPage" [filterBy]="state.view.filterBy" [layout]="state.view.layout">
 
   <ng-container *ngIf="state.view.showHeader">
     <ng-template pTemplate="header">
@@ -46,6 +46,17 @@
         <smz-grid-item *ngIf="state.template != null" [isDebug]="state.isDebug" [template]="state.template" [data]="item" [menu]="state.menu" [buttons]="state.buttons" [ngClass]="state.grid.styleClass.all"></smz-grid-item>
       </ng-container>
     </div>
+  </ng-template>
+
+  <ng-template pTemplate="empty">
+
+    <ng-container *ngIf="state.view.emptyMessageType === 'html'">
+      <div [innerHTML]="state.locale.emptyMessage | safeHtml" class="w-full h-full"></div>
+    </ng-container>
+
+    <ng-container *ngIf="state.view.emptyMessageType === 'component'">
+      <ng-template [smzInjectDataPathComponent]="state.view.emptyMessageComponent" [data]="items" [state]="state"></ng-template>
+    </ng-container>
   </ng-template>
 
 </p-dataView>

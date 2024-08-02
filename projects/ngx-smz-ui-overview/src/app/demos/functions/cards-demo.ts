@@ -9,6 +9,7 @@ import { BackCardComponent } from '@components/cards/back-card.component';
 import { SmzCardComplexityData } from '../data/cards/flip-card-complexity';
 import { ComplexityFrontCardComponent } from '@components/complexity/complexity-front-card.component';
 import { ComplexityBackCardComponent } from '@components/complexity/complexity-back-card.component';
+import { EmptyMessageComponent } from '../../ui/components/cards/empty-message.component';
 
 export const CardsDemo: { [key: string]: { code: () => void } } = {
   //
@@ -480,6 +481,66 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
           .setPadding('px-0 pt-4')
           .cards
       .build()
-  }
+    }
+  },
+  //
+  [DemoKeys.CARDS_EMPTY_MESSAGE_HTML]: {
+    code: () => {
+    return new SmzCardsBuilder<SmzCardsDemoData>()
+        .setTitle('Demo Cards | HTML Empty Message')
+        .setSource(of([]))
+        .setEmptyMessage('<div class="text-bold">Nenhum evento carregado.</div><div>Ajuste o filtro e carregue os dados novamente</div>')
+        .template()
+          .raw()
+            .setGrid(BackCardComponent)
+              .addDataToInput('data')
+              .template
+            .setList(FrontCardComponent)
+              .addDataToInput('data')
+              .addInput('isSelectable', true)
+              .template
+            .template
+          .cards
+        .grid()
+          .setLayout('')
+          .setPadding('p-2')
+          .cards
+        .list()
+          .setLayout('col-12')
+          .setPadding('px-0 pt-4')
+          .cards
+      .build()
+    }
+  },
+  //
+  [DemoKeys.CARDS_EMPTY_MESSAGE_COMPONENT]: {
+    code: () => {
+    return new SmzCardsBuilder<SmzCardsDemoData>()
+        .setTitle('Demo Cards | Injectable Component Empty Message')
+        .setSource(of([]))
+        .setComponentEmptyMessage(EmptyMessageComponent)
+          .addInput('message', 'Here is the message')
+          .cards
+        .template()
+          .raw()
+            .setGrid(BackCardComponent)
+              .addDataToInput('data')
+              .template
+            .setList(FrontCardComponent)
+              .addDataToInput('data')
+              .addInput('isSelectable', true)
+              .template
+            .template
+          .cards
+        .grid()
+          .setLayout('')
+          .setPadding('p-2')
+          .cards
+        .list()
+          .setLayout('col-12')
+          .setPadding('px-0 pt-4')
+          .cards
+      .build()
+    }
   },
 }
