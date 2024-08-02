@@ -723,7 +723,6 @@ export class SmzFormInputBuilder<TInput, TResponse> {
 
   public hideLabel(): TInput {
     this._input.hideLabel = true;
-    console.log(this._input);
     return this.that;
   }
 
