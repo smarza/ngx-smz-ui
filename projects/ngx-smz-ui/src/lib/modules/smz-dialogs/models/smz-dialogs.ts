@@ -210,7 +210,7 @@ export interface SmzDialogCustomButton<T>
     class?: string;
     dependsOnValidation: boolean;
     closeDialog: boolean;
-    onClick: (data: T) => void;
+    onClick: (data: T, features?: SmzDialogFeature[]) => void;
     visible?: boolean;
     disabled?: boolean;
     tooltip?: string;

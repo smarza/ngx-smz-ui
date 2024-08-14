@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { GlobalInjector } from '../../common/services/global-injector';
-import { SmzDialogCustomButton, SmzDialogTopbarButton } from '../../modules/smz-dialogs/models/smz-dialogs';
+import { SmzDialogCustomButton, SmzDialogFeature, SmzDialogTopbarButton } from '../../modules/smz-dialogs/models/smz-dialogs';
 import { SmzDialogsService } from '../../modules/smz-dialogs/services/smz-dialogs.service';
 import { SmzDialogBuilder } from './dialog-builder';
 import { environment } from '@environments/environment';
@@ -102,7 +102,7 @@ export class SmzDialogCustomButtonBuilder<TResponse> {
     return this;
   }
 
-  public callback(callback: (data: TResponse) => void): SmzDialogCustomButtonBuilder<TResponse> {
+  public callback(callback: (data: TResponse, features?: SmzDialogFeature[]) => void): SmzDialogCustomButtonBuilder<TResponse> {
     this.button.onClick = callback;
     return this;
   }

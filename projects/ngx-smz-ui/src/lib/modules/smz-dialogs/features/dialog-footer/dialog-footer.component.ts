@@ -308,7 +308,7 @@ export class DialogFooterComponent implements OnInit {
 
             const response =  this.responsePostProcesses();
 
-            button.onClick(response);
+            button.onClick(response, this.dialogConfig.data.features);
 
             this.isAnyButtonExecutionInProgress = false;
 
@@ -394,7 +394,7 @@ export class DialogFooterComponent implements OnInit {
 
         const response =  this.responsePostProcesses();
 
-        button.onClick(response);
+        button.onClick(response, this.dialogConfig.data.features);
 
     }
 

@@ -32,7 +32,7 @@ export class SmzFormBuilder<TResponse> {
       ...this.defaultConfig?.forms?.behaviors
     },
     functions: {
-
+      customBehavior: null
     }
   };
 
@@ -70,6 +70,11 @@ export class SmzFormBuilder<TResponse> {
 
   public runCustomFunctionsOnLoad(): SmzFormBuilder<TResponse> {
     this._state.behaviors.runCustomFunctionsOnLoad = true;
+    return this;
+  }
+
+  public setCustomBehavior(callback: (data: SmzFormsResponse<TResponse>, config: SmzForm<TResponse>, form: UntypedFormGroup, outputEvents: {}) => void): SmzFormBuilder<TResponse> {
+    this._state.functions.customBehavior = callback;
     return this;
   }
 

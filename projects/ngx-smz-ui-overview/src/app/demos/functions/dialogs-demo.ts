@@ -2,7 +2,7 @@ import { DemoKeys } from '@demos/demo-keys';
 import { DemoInjectable5Component } from '@features/home/components/demo-injectable/demo-injectable-5.component';
 import { Store } from '@ngxs/store';
 import { DemoFeatureSelectors } from '@states/demo/demo.selectors';
-import { getFormInputFromDialog, GlobalInjector, SimpleNamedEntity, SmzDialog, SmzDialogBuilder, SmzDialogsService, SmzFileControl, SmzForm, SmzFormsResponse, SmzFormViewdata, SmzTableBuilder, ToastActions } from 'ngx-smz-ui';
+import { getFormInputFromDialog, GlobalInjector, SimpleNamedEntity, SmzClipboardService, SmzDialog, SmzDialogBuilder, SmzDialogsService, SmzFileControl, SmzForm, SmzFormsResponse, SmzFormViewdata, SmzTableBuilder, ToastActions } from 'ngx-smz-ui';
 import { Observable, of } from 'rxjs';
 import { DemoFeatureActions } from '../../state/demo/demo.actions';
 
@@ -310,6 +310,17 @@ export const DialogsDemo: { [key: string]: () => void } = {
           .confirm()
             .buttons
           .custom('CUSTOM FIRST')
+            .callback(() => {
+              const clipboard = GlobalInjector.instance.get(SmzClipboardService);
+
+              clipboard.readFromClipboard()
+                .then(text => {
+                  console.log('>>>> Texto da área de transferência:', text);
+                })
+                .catch(err => {
+                  console.error('Erro ao ler a área de transferência:', err);
+                });
+             })
             .buttons
           .dialog
       .build()
