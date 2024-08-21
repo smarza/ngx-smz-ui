@@ -3,8 +3,9 @@ import { DemoInjectable5Component } from '@features/home/components/demo-injecta
 import { Store } from '@ngxs/store';
 import { DemoFeatureSelectors } from '@states/demo/demo.selectors';
 import { getFormInputFromDialog, GlobalInjector, SimpleNamedEntity, SmzClipboardService, SmzDialog, SmzDialogBuilder, SmzDialogsService, SmzFileControl, SmzForm, SmzFormsResponse, SmzFormViewdata, SmzTableBuilder, ToastActions } from 'ngx-smz-ui';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { DemoFeatureActions } from '../../state/demo/demo.actions';
+import { UntypedFormGroup } from '@angular/forms';
 
 const service = GlobalInjector.instance.get(SmzDialogsService);
 const store = GlobalInjector.instance.get(Store);
@@ -691,10 +692,110 @@ const language = 'typescript';
       .build()
     );
   },
+  //
+  [DemoKeys.DIALOGS_WITH_CUSTOM_FORM_VALIDATION]: () => {
+    const validationMessage = new BehaviorSubject<string[]>([]);
+    service.open(
+      new SmzDialogBuilder<void>()
+        .setTitle(`Dialog with Custom Form Validation`)
+        .setLayout('EXTRA_SMALL', 'col-12')
+        .setLayout('LARGE', 'col-4')
+        .setLayout('EXTRA_LARGE', 'col-3')
+        .messageFromSubject(validationMessage)
+        .form()
+          .setCustomValidator(runFormBoundingBoxValidator(validationMessage))
+          .runCustomFunctionsOnLoad()
+          .group('X')
+            .number('boundingBoxMinX', 'Min')
+              .setFraction(1,12)
+              .setLayout('LARGE', 'col-6')
+              .setLayout('MEDIUM', 'col-6')
+              .setLayout('SMALL', 'col-12')
+              .setLayout('EXTRA_SMALL', 'col-12')
+              .group
+            .number('boundingBoxMaxX', 'Max')
+              .setFraction(1,12)
+              .setLayout('LARGE', 'col-6')
+              .setLayout('MEDIUM', 'col-6')
+              .setLayout('SMALL', 'col-12')
+              .setLayout('EXTRA_SMALL', 'col-12')
+              .group
+            .form
+          .group('Y')
+            .number('boundingBoxMinY', 'Min')
+              .setFraction(1,12)
+              .setLayout('LARGE', 'col-6')
+              .setLayout('MEDIUM', 'col-6')
+              .setLayout('SMALL', 'col-12')
+              .setLayout('EXTRA_SMALL', 'col-12')
+              .group
+            .number('boundingBoxMaxY', 'Max')
+              .setFraction(1,12)
+              .setLayout('LARGE', 'col-6')
+              .setLayout('MEDIUM', 'col-6')
+              .setLayout('SMALL', 'col-12')
+              .setLayout('EXTRA_SMALL', 'col-12')
+              .group
+            .form
+          .group('Z')
+            .number('boundingBoxMinZ', 'Min')
+              .setFraction(1,12)
+              .setLayout('LARGE', 'col-6')
+              .setLayout('MEDIUM', 'col-6')
+              .setLayout('SMALL', 'col-12')
+              .setLayout('EXTRA_SMALL', 'col-12')
+              .group
+            .number('boundingBoxMaxZ', 'Max')
+              .setFraction(1,12)
+              .setLayout('LARGE', 'col-6')
+              .setLayout('MEDIUM', 'col-6')
+              .setLayout('SMALL', 'col-12')
+              .setLayout('EXTRA_SMALL', 'col-12')
+              .group
+            .form
+          .dialog
+        .buttons()
+          .confirm()
+            .dependsOnValidation()
+            .callback(() => console.log('Button Pressed'))
+            .buttons
+          .dialog
+      .build()
+    );
+  },
+
 }
 
 function ExecuteBlockUiDemo(value: Number): void {
     setTimeout(() => {
       store.dispatch(new DemoFeatureActions.BlockUiDemo(value));
     }, 2000);
+}
+
+function runFormBoundingBoxValidator(validationMessage: BehaviorSubject<string[]>): (data: SmzFormsResponse<any>, formGroup: UntypedFormGroup) => boolean {
+  return (data: SmzFormsResponse<any>, formGroup: UntypedFormGroup) => {
+    console.log(data);
+    const controls = formGroup.controls;
+
+    const thereIsAtLeastOneValue = Object.values(controls).some(ctrl => ctrl.value !== null && ctrl.value !== undefined);
+
+    if (thereIsAtLeastOneValue) {
+      const allControlsMustHaveValue = Object.values(controls).every(ctrl => ctrl.value !== null && ctrl.value !== undefined);
+
+      if (allControlsMustHaveValue) {
+        console.log('OK');
+        validationMessage.next([]);
+        return true;
+      }
+      else {
+        console.log('ERROR');
+        validationMessage.next(['<div class="text-red-500">Mensagem de erro aqui</div>']);
+        return false;
+      }
+    }
+
+    console.log('OKok');
+    validationMessage.next([]);
+    return true;
+  };
 }

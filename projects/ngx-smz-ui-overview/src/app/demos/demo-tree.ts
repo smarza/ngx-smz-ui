@@ -416,6 +416,17 @@ export const TreeDemoData: DemoTreeNode[] = [
         ]
       },
       {
+        label: 'Dialog With Custom Form Validation', type: 'SubCategory',
+        children: [
+          {
+            label: 'Validation', icon: 'fa-solid fa-code', type: 'Demo',
+            demoType: 'dialog',
+            data: DialogsDemo[DemoKeys.DIALOGS_WITH_CUSTOM_FORM_VALIDATION],
+            key: DemoKeys.DIALOGS_WITH_CUSTOM_FORM_VALIDATION.toString()
+          },
+        ]
+      },
+      {
         label: 'Dialog With Auto Focus Forms', type: 'SubCategory',
         children: [
           {
@@ -557,6 +568,13 @@ export const TreeDemoData: DemoTreeNode[] = [
         notes: '',
         data: FormsDemo[DemoKeys.FORMS_PLAYGROUND],
         key: DemoKeys.FORMS_PLAYGROUND.toString()
+      },
+      {
+        label: 'Custom Validators', icon: 'fa-solid fa-code', type: 'Demo',
+        demoType: 'form',
+        notes: '',
+        data: FormsDemo[DemoKeys.FORMS_CUSTOM_VALIDATORS],
+        key: DemoKeys.FORMS_CUSTOM_VALIDATORS.toString()
       },
       {
         label: 'Ui Definitions', type: 'SubCategory',

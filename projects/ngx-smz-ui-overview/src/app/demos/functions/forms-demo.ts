@@ -1,9 +1,9 @@
 import { DemoKeys } from '@demos/demo-keys';
 import { GlobalInjector, SimpleNamedEntity, SmzFormBuilder, SmzFormsResponse, SmzFormViewdata, ToastActions } from 'ngx-smz-ui';
 import moment from 'moment';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Store } from '@ngxs/store';
-import { UntypedFormControl } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, ValidatorFn } from '@angular/forms';
 import { DemoFeatureSelectors, plantsWithModels } from '@states/demo/demo.selectors';
 import { TreeNode } from 'primeng/api';
 import { DemoFeatureActions } from '@states/demo/demo.actions';
@@ -1001,4 +1001,88 @@ Exame sem intercorrências.`)
         .form
       .build();
   },
+  //
+  [DemoKeys.FORMS_CUSTOM_VALIDATORS]: () => {
+    const validationMessage = new BehaviorSubject<string[]>([]);
+    return new SmzFormBuilder<any>()
+      // .debugMode()
+      .setCustomValidator(runFormBoundingBoxValidator(validationMessage))
+      .group('X')
+        .number('boundingBoxMinX', 'Min')
+          .setFraction(1,12)
+          .setLayout('LARGE', 'col-6')
+          .setLayout('MEDIUM', 'col-6')
+          .setLayout('SMALL', 'col-12')
+          .setLayout('EXTRA_SMALL', 'col-12')
+          .group
+        .number('boundingBoxMaxX', 'Max')
+          .setFraction(1,12)
+          .setLayout('LARGE', 'col-6')
+          .setLayout('MEDIUM', 'col-6')
+          .setLayout('SMALL', 'col-12')
+          .setLayout('EXTRA_SMALL', 'col-12')
+          .group
+        .form
+      .group('Y')
+        .number('boundingBoxMinY', 'Min')
+          .setFraction(1,12)
+          .setLayout('LARGE', 'col-6')
+          .setLayout('MEDIUM', 'col-6')
+          .setLayout('SMALL', 'col-12')
+          .setLayout('EXTRA_SMALL', 'col-12')
+          .group
+        .number('boundingBoxMaxY', 'Max')
+          .setFraction(1,12)
+          .setLayout('LARGE', 'col-6')
+          .setLayout('MEDIUM', 'col-6')
+          .setLayout('SMALL', 'col-12')
+          .setLayout('EXTRA_SMALL', 'col-12')
+          .group
+        .form
+      .group('Z')
+        .number('boundingBoxMinZ', 'Min')
+          .setFraction(1,12)
+          .setLayout('LARGE', 'col-6')
+          .setLayout('MEDIUM', 'col-6')
+          .setLayout('SMALL', 'col-12')
+          .setLayout('EXTRA_SMALL', 'col-12')
+          .group
+        .number('boundingBoxMaxZ', 'Max')
+          .setFraction(1,12)
+          .setLayout('LARGE', 'col-6')
+          .setLayout('MEDIUM', 'col-6')
+          .setLayout('SMALL', 'col-12')
+          .setLayout('EXTRA_SMALL', 'col-12')
+          .group
+        .form
+      .build();
+  },
 };
+
+function runFormBoundingBoxValidator(validationMessage: BehaviorSubject<string[]>): (data: SmzFormsResponse<any>, formGroup: UntypedFormGroup) => boolean {
+  return (data: SmzFormsResponse<any>, formGroup: UntypedFormGroup) => {
+    console.log(data);
+    const controls = formGroup.controls;
+
+    const thereIsAtLeastOneValue = Object.values(controls).some(ctrl => ctrl.value !== null && ctrl.value !== undefined);
+
+    if (thereIsAtLeastOneValue) {
+      const allControlsMustHaveValue = Object.values(controls).every(ctrl => ctrl.value !== null && ctrl.value !== undefined);
+
+      if (allControlsMustHaveValue) {
+        console.log('OK');
+        validationMessage.next([]);
+        return true;
+      }
+      else {
+        console.log('ERROR');
+        validationMessage.next(['<div class="text-red-500">Mensagem de erro aqui</div>']);
+        return false;
+      }
+    }
+
+    console.log('OKok');
+    validationMessage.next([]);
+    return true;
+  };
+}

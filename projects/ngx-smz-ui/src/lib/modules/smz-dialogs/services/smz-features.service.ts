@@ -10,6 +10,8 @@ import { SmzForm } from '../../smz-forms/models/smz-forms';
 import { FormGroupComponent } from '../../smz-forms/features/form-group/form-group.component';
 import { DocumentContentComponent } from '../features/document-content/document-content.component';
 import { MarkdownContentComponent } from '../features/markdown-content/markdown-content.component';
+import { MessageFromObservableContentComponent } from '../features/message-from-observable-content/message-from-observable-content.component';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 
 @Injectable({providedIn: 'root'})
 export class SmzFeaturesService {
@@ -65,6 +67,21 @@ export class SmzFeaturesService {
                       type: feature.type
                   });
                   break;
+
+                case 'messageFromSubject':
+                // MESSAGE FROM OBSERVABLE DETECTED
+
+                const messageFromSubjectData: BehaviorSubject<string[]> = feature.data as BehaviorSubject<string[]>;
+                const messageFromSubject = messageFromSubjectData.pipe(map(stringsArray => stringsArray.join('<br>')));
+
+                data._context.injectables.push({
+                    component: MessageFromObservableContentComponent,
+                    inputs: [{ data: messageFromSubject, input: 'data' }],
+                    outputs: [],
+                    template: featureTemplate,
+                    type: feature.type
+                });
+                break;
 
               case 'html':
                   // HTML DETECTED
