@@ -79,7 +79,7 @@
     </ng-container>
 
     <ng-container *ngIf="input.type == controlTypes.RADIO">
-        <smz-radio-button [input]="input" [control]="viewdata.form.controls[input.propertyName]" [behaviors]="config.behaviors"></smz-radio-button>
+        <smz-radio-button [input]="input" [control]="viewdata.form.controls[input.propertyName]" [formId]="config.formId" [behaviors]="config.behaviors"></smz-radio-button>
     </ng-container>
 
     <ng-container *ngIf="input.type == controlTypes.SWITCH">

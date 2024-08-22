@@ -8,7 +8,8 @@
                 [id]="input.propertyName"
                 [value]="option.id"
                 [label]="option.name"
-                [formControl]="control">
+                [formControl]="control"
+                (onClick)="emitChange(input, formId, $event)">
             </p-radioButton>
         </ng-container>
     </div>

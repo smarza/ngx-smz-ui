@@ -27,6 +27,17 @@ export const FormsDemo: { [key: string]: () => void } = {
           .setVisibilityCondition('dropdown1', false, ['B'])
           .validators().required().input
           .group
+        .radioGroup('inspectionDataLoadBehavior', 'Método de carregamento dos dados da inspeção', [
+            { id: 'giants', name: 'Via Giants' },
+            { id: 'spreedsheet', name: 'Via Upload de Planilha' },
+          ])
+            .validators().required().input
+            .group
+        .file('inspectionSpreadsheetData', 'Planilha')
+            .setVisibilityCondition('inspectionDataLoadBehavior', true, ['spreedsheet'])
+            .acceptXlsx()
+            .maxDisplayName(40)
+            .group
         .form
       .build();
   },

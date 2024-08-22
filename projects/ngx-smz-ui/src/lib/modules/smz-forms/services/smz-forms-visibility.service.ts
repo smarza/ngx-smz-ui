@@ -69,6 +69,10 @@ export class SmzFormsVisibilityService
             case SmzControlType.DROPDOWN:
                 eventValue = onChangeDropdownEvent.value?.id;
                 break;
+
+            case SmzControlType.RADIO:
+                eventValue = onChangeDropdownEvent.value;
+                break;
             default:
                 break;
         }
@@ -99,7 +103,7 @@ export class SmzFormsVisibilityService
 
             if (match == null)
             {
-                console.log('Observer não encontrado.');
+                console.warn('Observer não encontrado.', observer);
             }
             else
             {
@@ -112,6 +116,15 @@ export class SmzFormsVisibilityService
                         break;
 
                     case SmzControlType.DROPDOWN:
+                        if (match.input.visibilityDependsOn.conditions != null) {
+                            stateCondition = match.input.visibilityDependsOn.conditions.findIndex(c => c === value) !== -1;
+                        }
+                        else {
+                            stateCondition = value === match.input.visibilityDependsOn.condition;
+                        }
+                        break;
+
+                    case SmzControlType.RADIO:
                         if (match.input.visibilityDependsOn.conditions != null) {
                             stateCondition = match.input.visibilityDependsOn.conditions.findIndex(c => c === value) !== -1;
                         }
