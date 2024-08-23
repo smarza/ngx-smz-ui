@@ -431,16 +431,16 @@ Exame sem intercorrências.`)
         .setLayout('EXTRA_SMALL', 'col-12')
         .text('input1', 'I\'m not required', 'Texto')
           .group
-        .file('file', 'Confirmação')
-          .setDefaultFile(base64Sample, 'teste.jpg', 'image/jpg')
-          .useBinaryFormat()
+        .file('first', 'Confirmação First')
+          // .setDefaultFile(base64Sample, 'teste.jpg', 'image/jpg')
+          // .useBinaryFormat()
           .acceptImages()
           .validators().required().input
           .group
-        .file('file2', 'Confirmação')
-            .useGlobalLoader()
-            .validators().required().input
-            .group
+        .file('second', 'Confirmação Second')
+          // .useGlobalLoader()
+          .validators().required().input
+          .group
         .form
       .build();
   },
