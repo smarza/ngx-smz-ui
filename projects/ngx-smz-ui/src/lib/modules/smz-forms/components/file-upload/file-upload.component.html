@@ -5,7 +5,6 @@
 
         <!-- ZONA DE DROPPING -->
         <div *ngIf="input._file == null" SmzDragDrop (fileDropped)="input.isDisabled ? notAllowed() : onFilesDropped($event, true, true, this.cdf)" class="file_upload__drag-container grid grid-nogutter items-center justify-center mt-1  mb-1">
-            <div class="text-red-500">1</div>
             <div class="grid grid-nogutter flex-col items-center justify-center pt-3 pb-3">
                 <!-- ICONE DE UPLOAD -->
                 <i [ngClass]="input.dragIconClass" class="text-4xl mb-2"></i>
@@ -25,7 +24,6 @@
 
         <!-- CONTEÚDO COM ARQUIVO CARREGADO -->
         <div *ngIf="input._file != null" class="grid grid-nogutter items-center justify-start flex-nowrap mt-1 mb-1 file_upload-container">
-            <div class="text-red-500">2</div>
             <div class="upload_field" [style.height]="input.thumbnailSize" [style.width]="input.thumbnailSize">
                 <ng-container [ngSwitch]="input._fileType">
 

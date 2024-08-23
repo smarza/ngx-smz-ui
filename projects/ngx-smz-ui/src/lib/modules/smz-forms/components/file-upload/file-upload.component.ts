@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, Input, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
+import { Component, Output, EventEmitter, Input, ChangeDetectorRef } from '@angular/core';
 import { SmzFileControl } from '../../models/control-types';
 import { AbstractControl, UntypedFormGroup } from '@angular/forms';
 import { SmzFormsBehaviorsConfig } from '../../models/behaviors';
