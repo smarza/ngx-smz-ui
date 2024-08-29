@@ -115,7 +115,7 @@
     </ng-container>
 
     <ng-container *ngIf="input.type == controlTypes.MULTI_SELECT">
-        <smz-multi-select [input]="input" [control]="viewdata.form.controls[input.propertyName]" [behaviors]="config.behaviors"></smz-multi-select>
+        <smz-multi-select [input]="input" [control]="viewdata.form.controls[input.propertyName]" [formId]="config.formId" [behaviors]="config.behaviors"></smz-multi-select>
     </ng-container>
 
     <ng-container *ngIf="input.type == controlTypes.LINKED_MULTISELECT">

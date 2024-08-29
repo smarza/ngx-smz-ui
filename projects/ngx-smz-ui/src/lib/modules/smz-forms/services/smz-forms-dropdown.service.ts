@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SmzFormBaseLinkedControl } from '../models/control-types';
 import { BehaviorSubject } from 'rxjs';
-import { CONTROL_FUNCTIONS } from '../models/control-type-functions';
 
 @Injectable({
     providedIn: 'root'

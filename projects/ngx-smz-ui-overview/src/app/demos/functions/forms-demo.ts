@@ -17,7 +17,15 @@ export const FormsDemo: { [key: string]: () => void } = {
     return new SmzFormBuilder<any>()
       .group()
         .setLayout('EXTRA_SMALL', 'col-12')
-        .checkbox('check1', 'I\'m not required').validators().required().input.group
+        .multiselect('multiselect1', 'I\'m required', [{ id: '1', name: 'Option 1'}, { id: '2', name: 'Option 2'}, { id: '3', name: 'Option 3'}], ['2', '1']).validators().required().input.group
+        .text('text3', 'Visible if Multiselect Control Has Option 2', 'Multiselect has Option 2')
+          .setVisibilityCondition('multiselect1', false, ['2', '3'])
+          .validators().required().input
+          .group
+        .checkbox('check1', 'I\'m not required')
+          .setVisibilityCondition('multiselect1', false, ['1'])
+          .validators().required().input
+          .group
         .text('text1', 'Visible if Check Control True', 'Check box is Enabled')
           .setVisibilityCondition('check1', false, [true])
           .validators().required().input
