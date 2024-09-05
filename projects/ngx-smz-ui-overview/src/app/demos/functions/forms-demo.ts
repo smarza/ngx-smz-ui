@@ -17,35 +17,47 @@ export const FormsDemo: { [key: string]: () => void } = {
     return new SmzFormBuilder<any>()
       .group()
         .setLayout('EXTRA_SMALL', 'col-12')
-        .multiselect('multiselect1', 'I\'m required', [{ id: '1', name: 'Option 1'}, { id: '2', name: 'Option 2'}, { id: '3', name: 'Option 3'}], ['2', '1']).validators().required().input.group
-        .text('text3', 'Visible if Multiselect Control Has Option 2', 'Multiselect has Option 2')
-          .setVisibilityCondition('multiselect1', false, ['2', '3'])
-          .validators().required().input
+
+        // Multiselect
+        .multiselect('multiselect1', 'Multiselect',
+          [{ id: '1', name: 'Option 1'}, { id: '2', name: 'Option 2'}, { id: '3', name: 'Option 3'}],
+          [])
           .group
-        .checkbox('check1', 'I\'m not required')
+
+        // Checkboxes
+        .checkbox('check1', 'Multiselect has Option 1')
           .setVisibilityCondition('multiselect1', false, ['1'])
-          .validators().required().input
           .group
-        .text('text1', 'Visible if Check Control True', 'Check box is Enabled')
-          .setVisibilityCondition('check1', false, [true])
-          .validators().required().input
+        .checkbox('check2', 'Multiselect has Option 2')
+          .setVisibilityCondition('multiselect1', false, ['2'])
           .group
-        .dropdown('dropdown1', 'Dropdown Control', [{ id: 'A', name: 'Group A'}, { id: 'B', name: 'Group B Mostrar'}], 'B').validators().required().input.group
-        .text('text2', 'Visible if Dropdown Control Group B', 'Dropdown is Group B')
-          .setVisibilityCondition('dropdown1', false, ['B'])
-          .validators().required().input
+        .checkbox('check3', 'Multiselect has Option 3')
+          .setVisibilityCondition('multiselect1', false, ['3'])
           .group
-        .radioGroup('inspectionDataLoadBehavior', 'Método de carregamento dos dados da inspeção', [
-            { id: 'giants', name: 'Via Giants' },
-            { id: 'spreedsheet', name: 'Via Upload de Planilha' },
-          ])
-            .validators().required().input
-            .group
-        .file('inspectionSpreadsheetData', 'Planilha')
-            .setVisibilityCondition('inspectionDataLoadBehavior', true, ['spreedsheet'])
-            .acceptXlsx()
-            .maxDisplayName(40)
-            .group
+
+        // .text('text3', 'Visible if Multiselect Control Has Option 2 or Option 3', '')
+        //   .setVisibilityCondition('multiselect1', false, ['2', '3'])
+        //   .group
+        // .text('text1', 'Visible if Check Control True', 'Check box is Enabled')
+        //   .setVisibilityCondition('check1', false, [true])
+        //   .validators().required().input
+        //   .group
+        // .dropdown('dropdown1', 'Dropdown Control', [{ id: 'A', name: 'Group A'}, { id: 'B', name: 'Group B Mostrar'}], 'B').validators().required().input.group
+        // .text('text2', 'Visible if Dropdown Control Group B', 'Dropdown is Group B')
+        //   .setVisibilityCondition('dropdown1', false, ['B'])
+        //   .validators().required().input
+        //   .group
+        // .radioGroup('inspectionDataLoadBehavior', 'Método de carregamento dos dados da inspeção', [
+        //     { id: 'giants', name: 'Via Giants' },
+        //     { id: 'spreedsheet', name: 'Via Upload de Planilha' },
+        //   ])
+        //     .validators().required().input
+        //     .group
+        // .file('inspectionSpreadsheetData', 'Planilha')
+        //     .setVisibilityCondition('inspectionDataLoadBehavior', true, ['spreedsheet'])
+        //     .acceptXlsx()
+        //     .maxDisplayName(40)
+        //     .group
         .form
       .build();
   },
