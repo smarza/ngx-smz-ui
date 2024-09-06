@@ -8,6 +8,7 @@ import { SmzFormsBaseControl } from '../../modules/smz-forms/models/controls';
 import { SmzTemplate } from '../../common/models/templates';
 import { cloneDeep } from 'lodash-es';
 import { GlobalInjector } from '../../common/services/global-injector';
+import { UiDefinitionsDbSelectors } from '../../state/database/ui-definitions/ui-definitions.selectors';
 
 export function convertFormCreationFeature(
   entityName: string,
@@ -15,9 +16,8 @@ export function convertFormCreationFeature(
   entity: { [key: string]: any } = null,
   options: InputConversionOptions = null
 ): SmzDialogFeature {
-
-  const state = store.selectSnapshot(x => x.database['uiDefinitions']);
-  const groups = cloneDeep(state.data[entityName].create);
+  const state = store.selectSnapshot(UiDefinitionsDbSelectors.data);
+  const groups = cloneDeep(state[entityName].create);
 
   if (groups == null) throw new Error('UI definitions are empty. Were they manually loaded or set as required state?');
 
@@ -31,8 +31,8 @@ export function convertFormUpdateFeature(
   options: InputConversionOptions = null
 ): SmzDialogFeature {
 
-  const state = store.selectSnapshot(x => x.database['uiDefinitions']);
-  const groups = cloneDeep(state.data[entityName].update);
+  const state = store.selectSnapshot(UiDefinitionsDbSelectors.data);
+  const groups = cloneDeep(state[entityName].update);
 
   if (groups == null) throw new Error('UI definitions are empty. Were they manually loaded or set as required state?');
 
@@ -45,9 +45,8 @@ export function convertFormFeature(
   entity: { [key: string]: any } = null,
   options: InputConversionOptions = null
 ): SmzDialogFeature {
-
-  const state = store.selectSnapshot(x => x.database['uiDefinitions']);
-  const groups = entity != null ? cloneDeep(state.data[entityName].update) : cloneDeep(state.data[entityName].create);
+  const state = store.selectSnapshot(UiDefinitionsDbSelectors.data);
+  const groups = entity != null ? cloneDeep(state[entityName].update) : cloneDeep(state[entityName].create);
 
   if (groups == null) throw new Error('UI definitions are empty. Were they manually loaded or set as required state?');
 
@@ -218,6 +217,8 @@ function convertInputs(inputs: InputConfig[], store: Store, options: InputConver
         ...convertBaseControl(config),
         defaultValue: config.defaultValue,
         type: SmzControlType.TEXT,
+        hideLabel: false,
+        hideName: false,
       };
       results.push(input);
     }
@@ -227,6 +228,7 @@ function convertInputs(inputs: InputConfig[], store: Store, options: InputConver
         ...convertBaseControl(config),
         defaultValue: fixDate(config.defaultValue),
         type: SmzControlType.CALENDAR,
+        hideLabel: false,
       };
       results.push(input);
     }
@@ -236,6 +238,7 @@ function convertInputs(inputs: InputConfig[], store: Store, options: InputConver
         ...convertBaseControl(config),
         defaultValue: config.defaultValue,
         type: SmzControlType.CHECKBOX,
+        hideLabel: false,
       };
       results.push(input);
     }
@@ -245,6 +248,7 @@ function convertInputs(inputs: InputConfig[], store: Store, options: InputConver
         ...convertBaseControl(config),
         defaultValue: config.defaultValue,
         type: SmzControlType.COLOR_PICKER,
+        hideLabel: false,
       };
       results.push(input);
     }
@@ -254,6 +258,7 @@ function convertInputs(inputs: InputConfig[], store: Store, options: InputConver
         ...convertBaseControl(config),
         defaultValue: config.defaultValue,
         type: SmzControlType.CURRENCY,
+        hideLabel: false,
       };
       results.push(input);
     }
@@ -273,7 +278,8 @@ function convertInputs(inputs: InputConfig[], store: Store, options: InputConver
         filterMatchMode: config.filterMatchMode,
         showFilter: config.showFilter,
         options: list,
-        showClear: config.required ? false : true
+        showClear: config.required ? false : true,
+        hideLabel: false,
       };
       results.push(input);
     }
@@ -283,7 +289,8 @@ function convertInputs(inputs: InputConfig[], store: Store, options: InputConver
         ...convertBaseControl(config),
         defaultValue: config.defaultValue,
         type: SmzControlType.FILE,
-        fileAccept: config.fileAccept
+        fileAccept: config.fileAccept,
+        hideLabel: false,
       };
       results.push(input);
     }
@@ -297,7 +304,8 @@ function convertInputs(inputs: InputConfig[], store: Store, options: InputConver
         filterMatchMode: config.filterMatchMode,
         showFilter: config.showFilter,
         options: getInputOptions(config, store, options),
-        showClear: config.required ? false : true
+        showClear: config.required ? false : true,
+        hideLabel: false,
       };
       results.push(input);
     }
@@ -307,6 +315,7 @@ function convertInputs(inputs: InputConfig[], store: Store, options: InputConver
         ...convertBaseControl(config),
         defaultValue: config.defaultValue,
         type: SmzControlType.NUMBER,
+        hideLabel: false,
       };
       results.push(input);
     }
@@ -318,7 +327,8 @@ function convertInputs(inputs: InputConfig[], store: Store, options: InputConver
         type: SmzControlType.NUMBER,
         useFraction: true,
         minFractionDigits: 0,
-        maxFractionDigits: 10
+        maxFractionDigits: 10,
+        hideLabel: false,
       };
       results.push(input);
     }
@@ -328,6 +338,7 @@ function convertInputs(inputs: InputConfig[], store: Store, options: InputConver
         ...convertBaseControl(config),
         defaultValue: config.defaultValue,
         type: SmzControlType.PASSWORD,
+        hideLabel: false,
       };
       results.push(input);
     }
@@ -337,7 +348,8 @@ function convertInputs(inputs: InputConfig[], store: Store, options: InputConver
         ...convertBaseControl(config),
         defaultValue: config.defaultValue,
         type: SmzControlType.RADIO,
-        options: getInputOptions(config, store, options)
+        options: getInputOptions(config, store, options),
+        hideLabel: false,
       };
       results.push(input);
     }
@@ -347,6 +359,7 @@ function convertInputs(inputs: InputConfig[], store: Store, options: InputConver
         ...convertBaseControl(config),
         defaultValue: config.defaultValue,
         type: SmzControlType.SWITCH,
+        hideLabel: false,
       };
       results.push(input);
     }
@@ -356,7 +369,8 @@ function convertInputs(inputs: InputConfig[], store: Store, options: InputConver
         ...convertBaseControl(config),
         defaultValue: config.defaultValue,
         type: SmzControlType.TEXT_AREA,
-        textAreaRows: config.textAreaRows
+        textAreaRows: config.textAreaRows,
+        hideLabel: false,
       };
       results.push(input);
     }
@@ -369,6 +383,7 @@ function convertInputs(inputs: InputConfig[], store: Store, options: InputConver
         characterPattern: config.characterPattern,
         mask: config.mask,
         unmask: config.unmask,
+        hideLabel: false,
       };
       results.push(input);
     }
@@ -388,6 +403,7 @@ function convertInputs(inputs: InputConfig[], store: Store, options: InputConver
         showMoveButton: true,
         showRemoveButton: true,
         showSortButton: false,
+        hideLabel: false,
       };
       results.push(input);
     }
@@ -404,7 +420,8 @@ function convertInputs(inputs: InputConfig[], store: Store, options: InputConver
         filterMatchMode: config.filterMatchMode,
         showFilter: config.showFilter,
         options: data.parentData,
-        showClear: config.required ? false : true
+        showClear: config.required ? false : true,
+        hideLabel: false,
       };
 
       const childInput: SmzLinkedDropDownControl<any> = {
@@ -415,7 +432,8 @@ function convertInputs(inputs: InputConfig[], store: Store, options: InputConver
         showFilter: config.showFilter,
         dependsOn: { propertyName: childConfig.linkedPropertyName },
         options: data.childrenData,
-        showClear: config.required ? false : true
+        showClear: config.required ? false : true,
+        hideLabel: false,
       };
 
       results.push(parentInput);
@@ -483,12 +501,14 @@ function getLinkedDropdownOptions(config: InputConfig, store: Store, options: In
 
 function getDataFromStore(config: InputConfig, store: Store, options: InputConversionOptions) {
   let storeData = null;
+
   if (options != null && options.fieldsToUseSelectors != null && options.fieldsToUseSelectors.find(x => x.propertyName === config.propertyName) != null) {
     const selectorData = options.fieldsToUseSelectors.find(x => x.propertyName === config.propertyName);
 
     storeData = store.selectSnapshot(selectorData.selector);
   }
   else if (!isEmpty(config.sourceName)) {
+    console.warn("getDataFromStore is not working.");
     storeData = store.selectSnapshot(x => x.database[config.sourceName]?.items);
   }
   else {

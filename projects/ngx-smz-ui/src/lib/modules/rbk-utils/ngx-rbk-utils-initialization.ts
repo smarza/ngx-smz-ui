@@ -96,7 +96,6 @@ export function runRbkInitialization() {
     }
 
     if (DATABASE_STATES.length === 0) {
-
         if (configuration.uiDefinitions?.isEnabled) {
             const uiDefinitionsState: DatabaseStateParameters = {
                 state: UiDefinitionsDbState,

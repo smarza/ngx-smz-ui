@@ -1,5 +1,5 @@
 import { DemoKeys } from '@demos/demo-keys';
-import { GlobalInjector, SimpleNamedEntity, SmzFormBuilder, SmzFormsResponse, SmzFormViewdata, ToastActions } from 'ngx-smz-ui';
+import { GlobalInjector, SimpleNamedEntity, SmzFormBuilder, SmzFormsResponse, SmzFormViewdata, ToastActions, UiDefinitionsDbActions } from 'ngx-smz-ui';
 import moment from 'moment';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Store } from '@ngxs/store';
@@ -7,6 +7,7 @@ import { UntypedFormControl, UntypedFormGroup, ValidatorFn } from '@angular/form
 import { DemoFeatureSelectors, plantsWithModels } from '@states/demo/demo.selectors';
 import { TreeNode } from 'primeng/api';
 import { DemoFeatureActions } from '@states/demo/demo.actions';
+import { HttpClient } from '@angular/common/http';
 
 const store = GlobalInjector.instance.get(Store);
 
@@ -572,14 +573,14 @@ Exame sem intercorrências.`)
   //
   [DemoKeys.FORMS_FROM_UI_DEFINITION_CREATE]: () => {
     return new SmzFormBuilder<any>()
-        .fromUiDefinition('entity')
+        .fromUiDefinition('project')
         .form
       .build();
   },
   //
   [DemoKeys.FORMS_FROM_UI_DEFINITION_UPDATE]: () => {
     return new SmzFormBuilder<any>()
-      .fromUiDefinition('entity')
+      .fromUiDefinition('project')
         .forEntity({
           name: 'Name',
           company: 'Company',

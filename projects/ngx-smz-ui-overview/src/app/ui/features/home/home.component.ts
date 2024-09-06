@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { TreeDemoData } from '@demos/demo-tree';
 import { DemoTreeNode } from '@models/demo';
 import { Select, Store } from '@ngxs/store';
-import { isArray, routerParamsListener, SmzDialogBuilder, SmzDialogsService, SmzTableBuilder, SmzTreeBuilder, SmzTreeState, SmzUiBlockService, sortArray } from 'ngx-smz-ui';
+import { isArray, routerParamsListener, SmzDialogBuilder, SmzDialogsService, SmzTableBuilder, SmzTreeBuilder, SmzTreeState, SmzUiBlockService, sortArray, UiDefinitionsDbActions } from 'ngx-smz-ui';
 import { ActivatedRoute } from '@angular/router';
 import { DemoFeatureSelectors } from '@states/demo/demo.selectors';
 import { Observable, of } from 'rxjs';
@@ -10,6 +10,7 @@ import { DemoFeatureActions } from '@states/demo/demo.actions';
 import { HOME_PATH } from '@routes';
 import { tableData } from '../../components/results-table/data';
 import { ResultsTableComponent } from '@components/results-table/results-table.component';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -39,7 +40,7 @@ export class HomeComponent implements OnInit
   //     }
   // })] }) public key$: Observable<any>;
 
-  constructor(private store: Store, private route: ActivatedRoute, public uiBlockService: SmzUiBlockService, private cdf: ChangeDetectorRef, private dialogs: SmzDialogsService)
+  constructor(private store: Store, private http: HttpClient, private route: ActivatedRoute, public uiBlockService: SmzUiBlockService, private cdf: ChangeDetectorRef, private dialogs: SmzDialogsService)
   {
 
     this.treeState = new SmzTreeBuilder()
@@ -67,6 +68,10 @@ export class HomeComponent implements OnInit
             this.selectedNode = null;
           }, 0);
         }
+      });
+
+      http.get<{data: any}>('assets/uidefinitions.json').subscribe((uiDefinitions) => {
+        store.dispatch(new UiDefinitionsDbActions.Inject(uiDefinitions));
       });
   }
 

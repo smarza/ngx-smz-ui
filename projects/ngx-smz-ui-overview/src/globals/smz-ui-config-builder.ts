@@ -24,7 +24,6 @@ export const UiBuilder: SmzUiBuilder = new SmzUiBuilder()
   .setLoader(SmzLoader.CUBE)
   .builder
 // .setRbkUtilsConfigManually(rbkConfig)
-.disableUiDefinitions()
 // .notifications()
 //   .setUpdateRate(30000)
 //   .setItemsPerPage(5)
