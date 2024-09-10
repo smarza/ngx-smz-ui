@@ -5,6 +5,7 @@ import { SmzGaugeState, SmzGaugeThreshold } from '../../modules/smz-gauge/smz-ga
 export class SmzGaugeBuilder extends SmzBuilderUtilities<SmzGaugeBuilder> {
   protected that = this;
   private _state: SmzGaugeState = {
+    debugMode: false,
     size: 200,
     title: null,
     titleStyle: 'font-bold text-2xl',
@@ -19,8 +20,8 @@ export class SmzGaugeBuilder extends SmzBuilderUtilities<SmzGaugeBuilder> {
     minMaxFontColor: "#000000",
     min: 0,
     max: 100,
-    showMin: false,
-    showMax: false,
+    showMin: true,
+    showMax: true,
     unit: null,
     showUnit: true,
     backgroundColor: '#e6e6e6',
@@ -28,6 +29,11 @@ export class SmzGaugeBuilder extends SmzBuilderUtilities<SmzGaugeBuilder> {
   };
   constructor() {
     super();
+  }
+
+  public withDebugMode(debugMode: boolean): SmzGaugeBuilder {
+    this._state.debugMode = debugMode;
+    return this;
   }
 
   public withSize(size: number): SmzGaugeBuilder {

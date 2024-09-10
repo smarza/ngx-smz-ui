@@ -2,7 +2,7 @@ import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { SmzGaugeState } from './smz-gauge.types';
 import { CommonModule } from '@angular/common';
 import { SmzSvgGaugeComponent } from './smz-svg-gauge.component';
-import { BehaviorSubject, Subject, takeUntil, throttleTime } from 'rxjs';
+import { BehaviorSubject, debounceTime, merge, Subject, takeUntil, throttleTime } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -10,7 +10,7 @@ import { BehaviorSubject, Subject, takeUntil, throttleTime } from 'rxjs';
   imports: [CommonModule, SmzSvgGaugeComponent],
   template: `
   <ng-container *ngIf="state; else noState">
-    <div class="flex flex-col items-center justify-center rounded-lg border border-gray-300 p-4 gap-3">
+    <div class="flex flex-col items-center justify-center gap-3">
       <div [ngClass]="state.titleStyle" *ngIf="state.showTitle">{{state.title}}</div>
       <app-svg-gauge
         [title]="state.title"
@@ -53,23 +53,31 @@ export class SmzGaugeComponent implements OnInit, OnDestroy {
   constructor() { }
 
   ngOnInit(): void {
+
+    if (this.state && this.state.debugMode) {
+      console.log('SmzGaugeState', this.state);
+    }
+
     if (this.state && this.state.value$) {
-      this.state.value$
+      // Combinação de throttleTime com debounceTime para garantir emissão do último valor
+      const throttled$ = this.state.value$.pipe(
+        throttleTime(this.state.valueThrottleTime),
+        takeUntil(this.destroy$)
+      );
+
+      const debounced$ = this.state.value$.pipe(
+        debounceTime(this.state.valueThrottleTime), // Debounce com mesmo intervalo do throttle para pegar o último
+        takeUntil(this.destroy$)
+      );
+
+      merge(throttled$, debounced$)
         .pipe(
-          throttleTime(this.state.valueThrottleTime),
           takeUntil(this.destroy$)
         )
         .subscribe(value => {
           this.throttledValue.next(value);
         });
     }
-  }
-  calculatePercentage(value: number): number {
-    if (this.state.max <= this.state.min) {
-      return 0;
-    }
-    const percentage = ((value - this.state.min) / (this.state.max - this.state.min)) * 100;
-    return Math.max(0, Math.min(100, percentage)); // Limita o valor entre 0 e 100
   }
 
   ngOnDestroy(): void {

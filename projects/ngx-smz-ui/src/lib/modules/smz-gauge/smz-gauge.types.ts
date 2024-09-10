@@ -1,6 +1,10 @@
 import { Observable } from 'rxjs';
 
 export interface SmzGaugeState {
+
+  // Debug mode of the gauge
+  debugMode: boolean;
+
   // Size in pixels of the gauge
   size: number;
 
