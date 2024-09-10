@@ -8,32 +8,37 @@ export const DynamicDemo: { [key: string]: () => void } = {
     return {
       component: SmzGaugeComponent,
       stateBuilder: () => new SmzGaugeBuilder()
-      .withTitle('Plano de Pintura')
-      .withValue(of(100)) //createRangeObservable(0, 100, 30000))
-      .withDecimalPlaces(2)
-      .withMin(0)
-      .withMax(100)
-      .withUnit('%')
-      .addThreshold()
-        .withValue(0)
-        .withColor('#264653')
-        .gauge
-      .addThreshold()
-        .withValue(25)
-        .withColor('#2a9d8f')
-        .gauge
-      .addThreshold()
-        .withValue(50)
-        .withColor('#e9c46a')
-        .gauge
-      .addThreshold()
-        .withValue(75)
-        .withColor('#f4a261')
-        .gauge
-      .addThreshold()
-        .withValue(100)
-        .withColor('#e76f51')
-        .gauge
+        .withSize(250)
+        .withTitle('Plano de Pintura')
+        .withTitleStyle('font-bold text-4xl')
+        .withValue(createRangeObservable(0, 100, 10000))
+        .withValueThrottleTime(600)
+        .withBackgroundColor('#e6e6e6')
+        .withFont('bold', '#000000')
+        .withMinMaxFont('bold', '#000000')
+        .withDecimalPlaces(2, false)
+        .withRange(0, 100)
+        .withUnit('%')
+        .addThreshold()
+          .withValue(0)
+          .withColor('#264653')
+          .gauge
+        .addThreshold()
+          .withValue(25)
+          .withColor('#2a9d8f')
+          .gauge
+        .addThreshold()
+          .withValue(50)
+          .withColor('#e9c46a')
+          .gauge
+        .addThreshold()
+          .withValue(75)
+          .withColor('#f4a261')
+          .gauge
+        .addThreshold()
+          .withValue(100)
+          .withColor('#e76f51')
+          .gauge
     }
   },
 }

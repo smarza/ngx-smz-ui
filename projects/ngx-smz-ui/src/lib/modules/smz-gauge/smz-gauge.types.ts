@@ -1,8 +1,14 @@
 import { Observable } from 'rxjs';
 
 export interface SmzGaugeState {
+  // Size in pixels of the gauge
+  size: number;
+
   // Title of the gauge
   title: string;
+
+  // Title style of the gauge
+  titleStyle: string;
 
   // Show the title of the gauge
   showTitle: boolean;
@@ -10,11 +16,31 @@ export interface SmzGaugeState {
   // Value of the gauge
   value$: Observable<number>;
 
-  // Number pipe format of the value
-  numberPipeFormat: string;
+  // Throttle time of the value
+  valueThrottleTime: number;
 
-  // Min and Max of the gauge
+  // Pipe format of the value
+  valuePipeFormat: string;
+
+  // Font weight of the value
+  valueFontWeight: string;
+
+  // Font color of the value
+  valueFontColor: string;
+
+  // Min and Max pipe format
+  minMaxPipeFormat: string;
+
+  // Font weight of the min and max
+  minMaxFontWeight: string;
+
+  // Font color of the min and max
+  minMaxFontColor: string;
+
+  // Min of the gauge
   min: number;
+
+  // Max of the gauge
   max: number;
 
   // Show the min of the gauge
@@ -28,6 +54,9 @@ export interface SmzGaugeState {
 
   // Show the unit of the gauge
   showUnit: boolean;
+
+  // Background color of the gauge
+  backgroundColor: string;
 
   // Thresholds of the gauge
   thresholds: SmzGaugeThreshold[];

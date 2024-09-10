@@ -5,20 +5,38 @@ import { SmzGaugeState, SmzGaugeThreshold } from '../../modules/smz-gauge/smz-ga
 export class SmzGaugeBuilder extends SmzBuilderUtilities<SmzGaugeBuilder> {
   protected that = this;
   private _state: SmzGaugeState = {
+    size: 200,
     title: null,
+    titleStyle: 'font-bold text-2xl',
     showTitle: false,
     value$: null,
-    numberPipeFormat: "1.0-0",
+    valueThrottleTime: 300,
+    valuePipeFormat: "1.0-0",
+    valueFontWeight: "bold",
+    valueFontColor: "#000000",
+    minMaxPipeFormat: "1.0-0",
+    minMaxFontWeight: "bold",
+    minMaxFontColor: "#000000",
     min: 0,
     max: 100,
     showMin: false,
     showMax: false,
     unit: null,
     showUnit: true,
+    backgroundColor: '#e6e6e6',
     thresholds: []
   };
   constructor() {
     super();
+  }
+
+  public withSize(size: number): SmzGaugeBuilder {
+    if (size < 100) {
+      throw new Error('SmzGaugeBuilder: Size must be a positive number');
+    }
+
+    this._state.size = size;
+    return this;
   }
 
   public withTitle(title: string): SmzGaugeBuilder {
@@ -27,12 +45,22 @@ export class SmzGaugeBuilder extends SmzBuilderUtilities<SmzGaugeBuilder> {
     return this;
   }
 
+  public withTitleStyle(titleStyle: string): SmzGaugeBuilder {
+    this._state.titleStyle = titleStyle;
+    return this;
+  }
+
   public withValue(value$: Observable<number>): SmzGaugeBuilder {
     this._state.value$ = value$;
     return this;
   }
 
-  public withDecimalPlaces(decimalPlaces: number): SmzGaugeBuilder {
+  public withValueThrottleTime(valueThrottleTime: number): SmzGaugeBuilder {
+    this._state.valueThrottleTime = valueThrottleTime;
+    return this;
+  }
+
+  public withDecimalPlaces(decimalPlaces: number, includeMinMax: boolean = false): SmzGaugeBuilder {
 
     if (decimalPlaces < 0) {
       throw new Error('SmzGaugeBuilder: Decimal places must be a positive number');
@@ -42,16 +70,17 @@ export class SmzGaugeBuilder extends SmzBuilderUtilities<SmzGaugeBuilder> {
       throw new Error('SmzGaugeBuilder: Decimal places must be less than 3');
     }
 
-    this._state.numberPipeFormat  =`1.${decimalPlaces}-${decimalPlaces}`;
+    this._state.valuePipeFormat  =`1.${decimalPlaces}-${decimalPlaces}`;
+
+    if (includeMinMax) {
+      this._state.minMaxPipeFormat = `1.${decimalPlaces}-${decimalPlaces}`;
+    }
+
     return this;
   }
 
-  public withMin(min: number): SmzGaugeBuilder {
+  public withRange(min: number, max: number): SmzGaugeBuilder {
     this._state.min = min;
-    return this;
-  }
-
-  public withMax(max: number): SmzGaugeBuilder {
     this._state.max = max;
     return this;
   }
@@ -68,6 +97,23 @@ export class SmzGaugeBuilder extends SmzBuilderUtilities<SmzGaugeBuilder> {
     return this;
   }
 
+  public withFont(fontWeight: string, fontColor: string): SmzGaugeBuilder {
+    this._state.valueFontWeight = fontWeight;
+    this._state.valueFontColor = fontColor;
+    return this;
+  }
+
+  public withMinMaxFont(fontWeight: string, fontColor: string): SmzGaugeBuilder {
+    this._state.minMaxFontWeight = fontWeight;
+    this._state.minMaxFontColor = fontColor;
+    return this;
+  }
+
+  public withBackgroundColor(backgroundColor: string): SmzGaugeBuilder {
+    this._state.backgroundColor = backgroundColor;
+    return this;
+  }
+
   public addThreshold(): SmzGaugeThresholdBuilder {
 
     const threshold: SmzGaugeThreshold = {
@@ -80,6 +126,7 @@ export class SmzGaugeBuilder extends SmzBuilderUtilities<SmzGaugeBuilder> {
   }
 
   public build(): SmzGaugeState {
+    this._state.thresholds.sort((a, b) => a.value - b.value);
     return this._state;
   }
 }
