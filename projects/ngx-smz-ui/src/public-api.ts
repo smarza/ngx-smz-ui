@@ -34,6 +34,7 @@ export * from './lib/modules/smz-documents/public-api';
 export * from './lib/modules/smz-export-dialog/public-api';
 export * from './lib/modules/smz-comments/public-api';
 export * from './lib/modules/smz-excels/public-api';
+export * from './lib/modules/smz-gauge/public-api';
 export * from './lib/modules/smz-toast/public_api';
 export * from './lib/modules/smz-cards/public-api';
 export * from './lib/modules/smz-timeline/public-api';
@@ -164,6 +165,8 @@ export * from './lib/builders/smz-ui-guides/ui-guides-builder';
 export * from './lib/builders/common/smz-builder-utilities';
 
 export * from './lib/builders/smz-multi-tables/state-builder';
+
+export * from './lib/builders/smz-gauge/gauge-builder';
 
 // STATES
 

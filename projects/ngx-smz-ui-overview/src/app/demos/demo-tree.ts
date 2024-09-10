@@ -14,12 +14,20 @@ import { CardsDemo } from './functions/cards-demo';
 import { TimelineDemo } from './functions/timeline-demo';
 import { UiGuidesDemo } from './functions/ui-guides-demo';
 import { MultiTablesDemo } from './functions/multi-tables-demo';
+import { DynamicDemo } from './functions/dynamic-demo';
 
 export const TreeDemoData: DemoTreeNode[] = [
   {
     label: 'Charts',
     type: 'Category',
     children: [
+      {
+        label: 'Gauge', icon: 'fa-solid fa-code', type: 'Demo',
+        demoType: 'dynamic',
+        notes: '',
+        data: DynamicDemo[DemoKeys.DYNAMIC_GAUGE],
+        key: DemoKeys.DYNAMIC_GAUGE.toString()
+      },
       {
         label: 'From model', icon: 'fa-solid fa-code', type: 'Demo',
         demoType: 'chart',

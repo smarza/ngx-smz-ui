@@ -6,6 +6,7 @@ import { NeutralDatePoint } from '../data/charts/neutral-date-point';
 import { CreateLinearChart, GroupingType, ChartType, DatasetType, CreateRadialChart, ColorPallete } from 'ngx-smz-ui';
 import { NeutralCategoryPoint } from '../data/charts/neutral-category-point';
 import { SpeedSeries } from '../data/charts/speed-series';
+import { of } from 'rxjs';
 
 export const ChartsDemo: { [key: string]: () => void } = {
   //
