@@ -1,0 +1,13 @@
+// tsconfig.docs.json
+{
+  "include": [
+    "projects/ngx-smz-ui/src/lib/modules/smz-gauge/smz-gauge.types.ts",
+    "projects/ngx-smz-ui/src/lib/builders/smz-gauge/gauge-builder.ts",
+    "projects/ngx-smz-ui/src/lib/modules/smz-gauge/smz-gauge.component.ts"
+  ],
+  "compilerOptions": {
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true
+  }
+}

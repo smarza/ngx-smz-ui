@@ -1,76 +1,132 @@
 import { Observable } from 'rxjs';
 
+/**
+ * Representa o estado de um Gauge (medidor), incluindo suas propriedades de configuração
+ * e estilização, valores dinâmicos, e limites visuais.
+ */
 export interface SmzGaugeState {
-
-  // Debug mode of the gauge
+  /**
+   * Indica se o modo de depuração está ativado.
+   * Permite mostrar informações adicionais para ajudar no desenvolvimento e troubleshooting.
+   */
   debugMode: boolean;
 
-  // Size in pixels of the gauge
+  /**
+   * Define o tamanho do medidor em pixels.
+   */
   size: number;
 
-  // Title of the gauge
+  /**
+   * Título do medidor exibido no topo.
+   */
   title: string;
 
-  // Title style of the gauge
+  /**
+   * Estilo CSS aplicado ao título do medidor.
+   */
   titleStyle: string;
 
-  // Show the title of the gauge
+  /**
+   * Determina se o título do medidor deve ser exibido.
+   */
   showTitle: boolean;
 
-  // Value of the gauge
-  value$: Observable<number>;
+  /**
+   * Valor atual do medidor, representado como um Observable de números.
+   */
+  value$: Observable<number> | null;
 
-  // Throttle time of the value
+  /**
+   * Tempo de "throttle" (limitação) aplicado ao valor do medidor, em milissegundos.
+   * Controla a frequência de atualização do valor exibido.
+   */
   valueThrottleTime: number;
 
-  // Pipe format of the value
+  /**
+   * Formato aplicado ao valor do medidor utilizando pipe.
+   * Permite personalizar a exibição do valor, como formatação de números ou moedas.
+   */
   valuePipeFormat: string;
 
-  // Font weight of the value
+  /**
+   * Define o peso da fonte utilizada para exibir o valor do medidor.
+   */
   valueFontWeight: string;
 
-  // Font color of the value
+  /**
+   * Define a cor da fonte utilizada para exibir o valor do medidor.
+   */
   valueFontColor: string;
 
-  // Min and Max pipe format
+  /**
+   * Formato aplicado aos valores mínimo e máximo do medidor utilizando pipe.
+   */
   minMaxPipeFormat: string;
 
-  // Font weight of the min and max
+  /**
+   * Define o peso da fonte utilizada para exibir os valores mínimo e máximo do medidor.
+   */
   minMaxFontWeight: string;
 
-  // Font color of the min and max
+  /**
+   * Define a cor da fonte utilizada para exibir os valores mínimo e máximo do medidor.
+   */
   minMaxFontColor: string;
 
-  // Min of the gauge
+  /**
+   * Valor mínimo do medidor.
+   */
   min: number;
 
-  // Max of the gauge
+  /**
+   * Valor máximo do medidor.
+   */
   max: number;
 
-  // Show the min of the gauge
+  /**
+   * Indica se o valor mínimo deve ser exibido no medidor.
+   */
   showMin: boolean;
 
-  // Show the max of the gauge
+  /**
+   * Indica se o valor máximo deve ser exibido no medidor.
+   */
   showMax: boolean;
 
-  // Unit of the gauge
+  /**
+   * Unidade de medida exibida no medidor.
+   */
   unit: string;
 
-  // Show the unit of the gauge
+  /**
+   * Indica se a unidade de medida deve ser exibida no medidor.
+   */
   showUnit: boolean;
 
-  // Background color of the gauge
+  /**
+   * Cor de fundo do medidor.
+   */
   backgroundColor: string;
 
-  // Thresholds of the gauge
+  /**
+   * Limites definidos para o medidor, cada um com um valor e uma cor associada.
+   * Permite visualmente destacar diferentes faixas de valores.
+   */
   thresholds: SmzGaugeThreshold[];
 }
 
+/**
+ * Representa um limite (threshold) para o medidor, associando um valor
+ * específico a uma cor visual.
+ */
 export interface SmzGaugeThreshold {
-  // Value of the threshold
+  /**
+   * Valor associado ao limite.
+   */
   value: number;
 
-  // Hexadecimal color of the threshold
+  /**
+   * Cor hexadecimal associada ao limite, usada para destacar visualmente o valor.
+   */
   color: string;
-
 }

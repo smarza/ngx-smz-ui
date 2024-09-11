@@ -122,13 +122,13 @@ export class SmzSvgGaugeComponent implements OnChanges {
   @Input() showMin: boolean = true;
   @Input() showMax: boolean = true;
 
-  public strokeWidth: number;
-  public dashOffset: number;
-  public radius: number;
-  public circumference: number;
-  public dashArray: string;
-  public transformBase: string;
-  public transformProgress: string;
+  public strokeWidth: number | undefined;
+  public dashOffset: number | undefined;
+  public radius: number | undefined;
+  public circumference: number | undefined;
+  public dashArray: string | undefined;
+  public transformBase: string | undefined;
+  public transformProgress: string | undefined;
 
   ngOnChanges(changes: SimpleChanges): void {
     this.calculateGauge();

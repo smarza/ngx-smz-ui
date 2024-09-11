@@ -4,6 +4,10 @@ import { CommonModule } from '@angular/common';
 import { SmzSvgGaugeComponent } from './smz-svg-gauge.component';
 import { BehaviorSubject, debounceTime, merge, Subject, takeUntil, throttleTime } from 'rxjs';
 
+/**
+ * Componente Angular que exibe um Gauge (medidor) personalizado baseado nas configurações fornecidas
+ * pelo estado (`SmzGaugeState`). Este componente utiliza um Gauge SVG para visualização dos valores.
+ */
 @Component({
   standalone: true,
   selector: 'smz-gauge',
@@ -38,38 +42,61 @@ import { BehaviorSubject, debounceTime, merge, Subject, takeUntil, throttleTime 
     </div>
   </ng-template>
   `,
-  styles: [
-    `
-    `
-  ]
+  styles: [`
+    /* Estilos personalizados para o componente Gauge */
+  `]
 })
 export class SmzGaugeComponent implements OnInit, OnDestroy {
-  @Input() state: SmzGaugeState;
+  /**
+   * Estado do Gauge que define todas as configurações necessárias para a exibição.
+   */
+  @Input() state: SmzGaugeState | null = null;
 
-  private throttledValue = new BehaviorSubject<number>(0);
+  /**
+ * Comportamento sujeito para manter o valor atual do medidor.
+ */
+  public throttledValue = new BehaviorSubject<number>(0);
+
+  /**
+   * Observable que mantém o valor do medidor aplicando throttling para limitar a frequência de atualizações.
+   */
   public throttledValue$ = this.throttledValue.asObservable();
+
+  /**
+   * Subject usado para sinalizar a destruição do componente e cancelar assinaturas do RxJS.
+   */
   private destroy$ = new Subject<void>();
 
+  /**
+   * Inicializa uma nova instância do componente SmzGaugeComponent.
+   */
   constructor() { }
 
+  /**
+   * Lifecycle hook que é chamado após a inicialização do componente.
+   * Configura o comportamento do medidor com base no estado fornecido.
+   */
   ngOnInit(): void {
-
+    // Exibe o estado no console se o modo de depuração estiver ativado.
     if (this.state && this.state.debugMode) {
       console.log('SmzGaugeState', this.state);
     }
 
+    // Configura a observação do valor do medidor com throttle e debounce.
     if (this.state && this.state.value$) {
-      // Combinação de throttleTime com debounceTime para garantir emissão do último valor
+      // Throttling do valor do medidor com base no intervalo especificado.
       const throttled$ = this.state.value$.pipe(
         throttleTime(this.state.valueThrottleTime),
         takeUntil(this.destroy$)
       );
 
+      // Debouncing para garantir que o último valor seja emitido após o throttle.
       const debounced$ = this.state.value$.pipe(
-        debounceTime(this.state.valueThrottleTime), // Debounce com mesmo intervalo do throttle para pegar o último
+        debounceTime(this.state.valueThrottleTime),
         takeUntil(this.destroy$)
       );
 
+      // Combina os fluxos de throttle e debounce para atualizar o valor do medidor.
       merge(throttled$, debounced$)
         .pipe(
           takeUntil(this.destroy$)
@@ -80,9 +107,12 @@ export class SmzGaugeComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Lifecycle hook que é chamado quando o componente é destruído.
+   * Emite um valor para destruir o Subject e cancelar todas as assinaturas ativas.
+   */
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
   }
-
 }

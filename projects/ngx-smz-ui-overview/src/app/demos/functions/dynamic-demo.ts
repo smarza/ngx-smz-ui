@@ -12,7 +12,7 @@ export const DynamicDemo: { [key: string]: () => void } = {
         .withTitle('Plano de Pintura')
         .withTitleStyle('font-bold text-4xl')
         .withValue(createRangeObservable(0, 100, 10000))
-        .withValueThrottleTime(300)
+        .withValueThrottleTime(100)
         .withDecimalPlaces(2, false)
         .withRange(0, 100)
         .withUnit('%')
@@ -21,11 +21,11 @@ export const DynamicDemo: { [key: string]: () => void } = {
         .withMinMaxFont('bold', '#000000')
         .addThreshold()
           .withValue(0)
-          .withColor('#264653')
+          .withColor('#e76f51')
           .gauge
         .addThreshold()
           .withValue(25)
-          .withColor('#2a9d8f')
+          .withColor('#f4a261')
           .gauge
         .addThreshold()
           .withValue(50)
@@ -33,11 +33,11 @@ export const DynamicDemo: { [key: string]: () => void } = {
           .gauge
         .addThreshold()
           .withValue(75)
-          .withColor('#f4a261')
+          .withColor('#2a9d8f')
           .gauge
         .addThreshold()
           .withValue(100)
-          .withColor('#e76f51')
+          .withColor('#264653')
           .gauge
     }
   },

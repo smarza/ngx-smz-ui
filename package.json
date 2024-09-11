@@ -18,7 +18,8 @@
     "build-prod-modules": "ng build ngx-smz-ui-modules --configuration=production --stats-json",
     "analyze": "webpack-bundle-analyzer dist/ngx-smz-ui-demo/stats.json --port 8889",
     "rebase": "git pull origin main --rebase",
-    "windows:delete-node-modules": "npx rimraf ./**/node_modules"
+    "windows:delete-node-modules": "npx rimraf ./**/node_modules",
+    "doc": "typedoc --tsconfig tsconfig.docs.json --out docs"
   },
   "private": true,
   "dependencies": {
@@ -33,16 +34,12 @@
     "@angular/platform-browser-dynamic": "^17.0.0",
     "@angular/router": "^17.0.0",
     "@auth0/angular-jwt": "^5.2.0",
-    "@ngxs/router-plugin": "^3.8.2",
-    "@ngxs/store": "^3.8.2",
-    "primeng": "^17.11.0",
-    "rxjs": "~7.8.0",
-    "tslib": "^2.3.0",
-    "zone.js": "~0.14.2",
     "@fortawesome/fontawesome-free": "^6.4.0",
     "@microsoft/signalr": "^6.0.9",
     "@ngneat/tailwind": "^7.0.3",
     "@ngneat/until-destroy": "^9.2.3",
+    "@ngxs/router-plugin": "^3.8.2",
+    "@ngxs/store": "^3.8.2",
     "@svgdotjs/svg.js": "^3.1.2",
     "@svgdotjs/svg.panzoom.js": "^2.1.2",
     "angular2-uuid": "^1.1.1",
@@ -62,9 +59,13 @@
     "openai": "^3.2.1",
     "primeflex": "^3.3.1",
     "primeicons": "^6.0.1",
+    "primeng": "^17.11.0",
     "prismjs": "^1.29.0",
+    "rxjs": "~7.8.0",
     "svg-pan-zoom": "^3.6.1",
-    "tus-js-client": "^3.1.0"
+    "tslib": "^2.3.0",
+    "tus-js-client": "^3.1.0",
+    "zone.js": "~0.14.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^17.0.0",
@@ -77,6 +78,7 @@
     "@types/node": "^18.7.23",
     "ng-packagr": "^17.0.0",
     "tailwindcss": "^3.4.1",
+    "typedoc": "^0.26.7",
     "typescript": "~5.2.2",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack-bundle-analyzer": "^4.9.1"
