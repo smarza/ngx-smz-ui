@@ -120,6 +120,7 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
+
     const itemsHaveChanged = changes.items?.currentValue != null;
     const selectionHasChanged = changes.selection?.currentValue != null;
     const hasSelection = this.selection != null;
@@ -247,13 +248,16 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
 
   public onSelected(event: TreeNodeSelectEvent): void {
 
-    this.selectedNodes.emit(this.primeSelection);
+    // TODO: O prime 17 não atualiza o objeto com a seleção no mesmo ciclo.
+    setTimeout(() => {
+      this.selectedNodes.emit(this.primeSelection);
 
-    this.selectionChange.emit(event.node);
-    if (!event.node.expanded) {
-      event.node.expanded = true;
-      this.nodeExpanded.emit({ node: event.node });
-    }
+      this.selectionChange.emit(event.node);
+      if (!event.node.expanded) {
+        event.node.expanded = true;
+        this.nodeExpanded.emit({ node: event.node });
+      }
+    }, 0);
   }
 
   public onExpanded(event: TreeNodeExpandEvent): void {

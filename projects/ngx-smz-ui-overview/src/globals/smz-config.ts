@@ -20,7 +20,7 @@ export const smzDialogsConfig: SmzDialogsConfig = {
             confirmName: 'CONFIRMAR',
             confirmDependsOnValidation: true,
             cancelName: 'CANCELAR',
-            cancelClass: 'smz-button-ghost',
+            cancelClass: 'p-button-outlined',
             okName: 'OK',
             okDependsOnValidation: false,
         },

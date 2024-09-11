@@ -78,6 +78,7 @@ import { SmzAutocompleteSelectorComponent } from './components/input-autocomplet
 import { SmzSmartTagModule } from './directives/smart-tag.directive';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { SmzSmartAutocompleteTagModule } from './directives/smart-autocomplete-tag.directive';
+import { GetCurrentMultiselectOptionsPipe } from './components/linked-multi-select/get-current-multiselect-options.pipe';
 
 export const defaultFormsModuleConfig: SmzFormsConfig = {
     behaviors: {
@@ -236,6 +237,7 @@ export const defaultFormsModuleConfig: SmzFormsConfig = {
         InputListBatchCrudComponent,
         InputTextButtonComponent,
         FormSubmitComponent,
+        GetCurrentMultiselectOptionsPipe
     ],
     exports: [
         CalendarComponent,

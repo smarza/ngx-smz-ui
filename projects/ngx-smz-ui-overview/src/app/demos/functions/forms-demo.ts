@@ -1,12 +1,13 @@
 import { DemoKeys } from '@demos/demo-keys';
-import { GlobalInjector, SimpleNamedEntity, SmzFormBuilder, SmzFormsResponse, SmzFormViewdata, ToastActions } from 'ngx-smz-ui';
-import * as moment from 'moment';
-import { Observable, of } from 'rxjs';
+import { GlobalInjector, SimpleNamedEntity, SmzFormBuilder, SmzFormsResponse, SmzFormViewdata, ToastActions, UiDefinitionsDbActions } from 'ngx-smz-ui';
+import moment from 'moment';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Store } from '@ngxs/store';
-import { UntypedFormControl } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, ValidatorFn } from '@angular/forms';
 import { DemoFeatureSelectors, plantsWithModels } from '@states/demo/demo.selectors';
 import { TreeNode } from 'primeng/api';
 import { DemoFeatureActions } from '@states/demo/demo.actions';
+import { HttpClient } from '@angular/common/http';
 
 const store = GlobalInjector.instance.get(Store);
 
@@ -17,16 +18,47 @@ export const FormsDemo: { [key: string]: () => void } = {
     return new SmzFormBuilder<any>()
       .group()
         .setLayout('EXTRA_SMALL', 'col-12')
-        .checkbox('check1', 'I\'m not required').validators().required().input.group
-        .text('text1', 'Visible if Check Control True', 'Check box is Enabled')
-          .setVisibilityCondition('check1', false, [true])
-          .validators().required().input
+
+        // Multiselect
+        .multiselect('multiselect1', 'Multiselect',
+          [{ id: '1', name: 'Option 1'}, { id: '2', name: 'Option 2'}, { id: '3', name: 'Option 3'}],
+          [])
           .group
-        .dropdown('dropdown1', 'Dropdown Control', [{ id: 'A', name: 'Group A'}, { id: 'B', name: 'Group B Mostrar'}], 'B').validators().required().input.group
-        .text('text2', 'Visible if Dropdown Control Group B', 'Dropdown is Group B')
-          .setVisibilityCondition('dropdown1', false, ['B'])
-          .validators().required().input
+
+        // Checkboxes
+        .checkbox('check1', 'Multiselect has Option 1')
+          .setVisibilityCondition('multiselect1', false, ['1'])
           .group
+        .checkbox('check2', 'Multiselect has Option 2')
+          .setVisibilityCondition('multiselect1', false, ['2'])
+          .group
+        .checkbox('check3', 'Multiselect has Option 3')
+          .setVisibilityCondition('multiselect1', false, ['3'])
+          .group
+
+        // .text('text3', 'Visible if Multiselect Control Has Option 2 or Option 3', '')
+        //   .setVisibilityCondition('multiselect1', false, ['2', '3'])
+        //   .group
+        // .text('text1', 'Visible if Check Control True', 'Check box is Enabled')
+        //   .setVisibilityCondition('check1', false, [true])
+        //   .validators().required().input
+        //   .group
+        // .dropdown('dropdown1', 'Dropdown Control', [{ id: 'A', name: 'Group A'}, { id: 'B', name: 'Group B Mostrar'}], 'B').validators().required().input.group
+        // .text('text2', 'Visible if Dropdown Control Group B', 'Dropdown is Group B')
+        //   .setVisibilityCondition('dropdown1', false, ['B'])
+        //   .validators().required().input
+        //   .group
+        // .radioGroup('inspectionDataLoadBehavior', 'Método de carregamento dos dados da inspeção', [
+        //     { id: 'giants', name: 'Via Giants' },
+        //     { id: 'spreedsheet', name: 'Via Upload de Planilha' },
+        //   ])
+        //     .validators().required().input
+        //     .group
+        // .file('inspectionSpreadsheetData', 'Planilha')
+        //     .setVisibilityCondition('inspectionDataLoadBehavior', true, ['spreedsheet'])
+        //     .acceptXlsx()
+        //     .maxDisplayName(40)
+        //     .group
         .form
       .build();
   },
@@ -55,7 +87,7 @@ Exame sem intercorrências.`).validators().required().input.group
       .linkedMultiselect('info.input11', 'input10', 'I\'m required', [{ parentId: 'A', data: [{ id: 'A1', name: 'Option A1' }, { id: 'A2', name: 'Option A2' }]}, { parentId: 'B', data: [{ id: 'B1', name: 'Option B1' }, { id: 'B2', name: 'Option B2' }]}]).validators().required().input.group
       .colorPicker('info.input12', 'I\'m required').validators().required().input.group
       .currency('metadata.input13', 'I\'m required').validators().required().input.group
-      .number('metadata.input14', 'Fraction Number').setFraction(2).setLocale('pt-BR').validators().required().input.group
+      .number('metadata.input14', 'Fraction Number').setFraction(2, 2).setLocale('pt-BR').validators().required().input.group
       .radioGroup('metadata.input15', 'Radio', [{id: 'Nenhum', name: 'Nenhum'}, {id: 'Irregularidade', name: 'Irregularidade'}, {id: 'Tortuosidade', name: 'Tortuosidade'}], 'Irregularidade').validators().required().input.group
       .switch('metadata.input16', 'IsContracted').validators().required().input.group
       .text('metadata.input17', 'I\'m required', 'sample').validators().required().input.group
@@ -73,7 +105,7 @@ Exame sem intercorrências.`).validators().required().input.group
       .group()
         .setLayout('EXTRA_SMALL', 'col-12')
         .text('input1', 'I\'m required', 'sample').disable().validators().required().input.group
-        .calendar('input2', 'new Date()', new Date()).disable().validators().required().input.group
+        .calendar('input2', 'new Date()', new Date()).validators().required().input.group
         .checkbox('input3', 'I\'m not required').disable().validators().required().input.group
         .checkboxGroup('input4', 'I\'m required', [{ id: '1', name: 'Option 1'}, { id: '2', name: 'Option 2'}, { id: '3', name: 'Option 3'}]).disable().validators().required().input.group
         .contentMask('input5', 'Conteúdo com variáveis',
@@ -92,7 +124,7 @@ Exame sem intercorrências.`).disable().validators().required().input.group
         .linkedMultiselect('input11', 'input10', 'I\'m required', [{ parentId: 'A', data: [{ id: 'A1', name: 'Option A1' }, { id: 'A2', name: 'Option A2' }]}, { parentId: 'B', data: [{ id: 'B1', name: 'Option B1' }, { id: 'B2', name: 'Option B2' }]}]).disable().validators().required().input.group
         .colorPicker('input12', 'I\'m required').disable().validators().required().input.group
         .currency('input13', 'I\'m required').disable().validators().required().input.group
-        .number('input14', 'Fraction Number').setFraction(2).setLocale('pt-BR').disable().validators().required().input.group
+        .number('input14', 'Fraction Number').setFraction(2, 2).setLocale('pt-BR').disable().validators().required().input.group
         .radioGroup('input15', 'Radio', [{id: 'Nenhum', name: 'Nenhum'}, {id: 'Irregularidade', name: 'Irregularidade'}, {id: 'Tortuosidade', name: 'Tortuosidade'}], 'Irregularidade').disable().validators().required().input.group
         .switch('input16', 'IsContracted').disable().validators().required().input.group
         .text('input17', 'I\'m required', 'sample').disable().validators().required().input.group
@@ -213,10 +245,10 @@ Exame sem intercorrências.`)
     return new SmzFormBuilder<any>()
       .group()
         .setLayout('EXTRA_SMALL', 'col-12')
-        .dropdown('input1', 'I\'m required', [{ id: 'A', name: 'Group A'}, { id: 'B', name: 'Group B'}])
+        .dropdown('input1', 'I\'m required', [{ id: 'A', name: 'Group A'}, { id: 'B', name: 'Group B'}], 'B')
           .validators().required().input
           .group
-        .linkedMultiselect('input2', 'input1', 'I\'m required', [{ parentId: 'A', data: [{ id: 'A1', name: 'Option A1' }, { id: 'A2', name: 'Option A2' }]}, { parentId: 'B', data: [{ id: 'B1', name: 'Option B1' }, { id: 'B2', name: 'Option B2' }]}])
+        .linkedMultiselect('input2', 'input1', 'I\'m required', [{ parentId: 'A', data: [{ id: 'A1', name: 'Option A1' }, { id: 'A2', name: 'Option A2' }]}, { parentId: 'B', data: [{ id: 'B1', name: 'Option B1' }, { id: 'B2', name: 'Option B2' }]}], ['B1', 'B2'])
           .validators().required().input
           .group
         .form
@@ -260,7 +292,7 @@ Exame sem intercorrências.`)
           .validators().required().input
           .group
         .number('input3', 'Fraction Number')
-          .setFraction(2)
+          .setFraction(2, 2)
           .setLocale('pt-BR')
           .group
         .form
@@ -420,16 +452,16 @@ Exame sem intercorrências.`)
         .setLayout('EXTRA_SMALL', 'col-12')
         .text('input1', 'I\'m not required', 'Texto')
           .group
-        .file('file', 'Confirmação')
-          .setDefaultFile(base64Sample, 'teste.jpg', 'image/jpg')
-          .useBinaryFormat()
+        .file('first', 'Confirmação First')
+          // .setDefaultFile(base64Sample, 'teste.jpg', 'image/jpg')
+          // .useBinaryFormat()
           .acceptImages()
           .validators().required().input
           .group
-        .file('file2', 'Confirmação')
-            .useGlobalLoader()
-            .validators().required().input
-            .group
+        .file('second', 'Confirmação Second')
+          // .useGlobalLoader()
+          .validators().required().input
+          .group
         .form
       .build();
   },
@@ -541,14 +573,14 @@ Exame sem intercorrências.`)
   //
   [DemoKeys.FORMS_FROM_UI_DEFINITION_CREATE]: () => {
     return new SmzFormBuilder<any>()
-        .fromUiDefinition('entity')
+        .fromUiDefinition('project')
         .form
       .build();
   },
   //
   [DemoKeys.FORMS_FROM_UI_DEFINITION_UPDATE]: () => {
     return new SmzFormBuilder<any>()
-      .fromUiDefinition('entity')
+      .fromUiDefinition('project')
         .forEntity({
           name: 'Name',
           company: 'Company',
@@ -1001,4 +1033,88 @@ Exame sem intercorrências.`)
         .form
       .build();
   },
+  //
+  [DemoKeys.FORMS_CUSTOM_VALIDATORS]: () => {
+    const validationMessage = new BehaviorSubject<string[]>([]);
+    return new SmzFormBuilder<any>()
+      // .debugMode()
+      .setCustomValidator(runFormBoundingBoxValidator(validationMessage))
+      .group('X')
+        .number('boundingBoxMinX', 'Min')
+          .setFraction(1,12)
+          .setLayout('LARGE', 'col-6')
+          .setLayout('MEDIUM', 'col-6')
+          .setLayout('SMALL', 'col-12')
+          .setLayout('EXTRA_SMALL', 'col-12')
+          .group
+        .number('boundingBoxMaxX', 'Max')
+          .setFraction(1,12)
+          .setLayout('LARGE', 'col-6')
+          .setLayout('MEDIUM', 'col-6')
+          .setLayout('SMALL', 'col-12')
+          .setLayout('EXTRA_SMALL', 'col-12')
+          .group
+        .form
+      .group('Y')
+        .number('boundingBoxMinY', 'Min')
+          .setFraction(1,12)
+          .setLayout('LARGE', 'col-6')
+          .setLayout('MEDIUM', 'col-6')
+          .setLayout('SMALL', 'col-12')
+          .setLayout('EXTRA_SMALL', 'col-12')
+          .group
+        .number('boundingBoxMaxY', 'Max')
+          .setFraction(1,12)
+          .setLayout('LARGE', 'col-6')
+          .setLayout('MEDIUM', 'col-6')
+          .setLayout('SMALL', 'col-12')
+          .setLayout('EXTRA_SMALL', 'col-12')
+          .group
+        .form
+      .group('Z')
+        .number('boundingBoxMinZ', 'Min')
+          .setFraction(1,12)
+          .setLayout('LARGE', 'col-6')
+          .setLayout('MEDIUM', 'col-6')
+          .setLayout('SMALL', 'col-12')
+          .setLayout('EXTRA_SMALL', 'col-12')
+          .group
+        .number('boundingBoxMaxZ', 'Max')
+          .setFraction(1,12)
+          .setLayout('LARGE', 'col-6')
+          .setLayout('MEDIUM', 'col-6')
+          .setLayout('SMALL', 'col-12')
+          .setLayout('EXTRA_SMALL', 'col-12')
+          .group
+        .form
+      .build();
+  },
 };
+
+function runFormBoundingBoxValidator(validationMessage: BehaviorSubject<string[]>): (data: SmzFormsResponse<any>, formGroup: UntypedFormGroup) => boolean {
+  return (data: SmzFormsResponse<any>, formGroup: UntypedFormGroup) => {
+    console.log(data);
+    const controls = formGroup.controls;
+
+    const thereIsAtLeastOneValue = Object.values(controls).some(ctrl => ctrl.value !== null && ctrl.value !== undefined);
+
+    if (thereIsAtLeastOneValue) {
+      const allControlsMustHaveValue = Object.values(controls).every(ctrl => ctrl.value !== null && ctrl.value !== undefined);
+
+      if (allControlsMustHaveValue) {
+        console.log('OK');
+        validationMessage.next([]);
+        return true;
+      }
+      else {
+        console.log('ERROR');
+        validationMessage.next(['<div class="text-red-500">Mensagem de erro aqui</div>']);
+        return false;
+      }
+    }
+
+    console.log('OKok');
+    validationMessage.next([]);
+    return true;
+  };
+}

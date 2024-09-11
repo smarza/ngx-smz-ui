@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs';
 import { SmzMenuItem } from '../../smz-menu/models/smz-menu-item';
 import { SmzCardsTemplates } from './smz-cards-templates';
+import { SmzAdvancedInjectable } from './smz-cards-component';
 
 export interface SmzCardsState<T> {
   items$: Observable<T[]>;
@@ -28,6 +29,8 @@ export interface SmzCardsState<T> {
     dataViewContentStyles: string;
     dataViewStyleClass: string;
     gridStyleClass: string;
+    emptyMessageType: 'html' | 'component';
+    emptyMessageComponent?: SmzAdvancedInjectable;
   }
 }
 

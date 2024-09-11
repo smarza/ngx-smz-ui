@@ -14,12 +14,20 @@ import { CardsDemo } from './functions/cards-demo';
 import { TimelineDemo } from './functions/timeline-demo';
 import { UiGuidesDemo } from './functions/ui-guides-demo';
 import { MultiTablesDemo } from './functions/multi-tables-demo';
+import { DynamicDemo } from './functions/dynamic-demo';
 
 export const TreeDemoData: DemoTreeNode[] = [
   {
     label: 'Charts',
     type: 'Category',
     children: [
+      {
+        label: 'Gauge', icon: 'fa-solid fa-code', type: 'Demo',
+        demoType: 'dynamic',
+        notes: '',
+        data: DynamicDemo[DemoKeys.DYNAMIC_GAUGE],
+        key: DemoKeys.DYNAMIC_GAUGE.toString()
+      },
       {
         label: 'From model', icon: 'fa-solid fa-code', type: 'Demo',
         demoType: 'chart',
@@ -416,6 +424,17 @@ export const TreeDemoData: DemoTreeNode[] = [
         ]
       },
       {
+        label: 'Dialog With Custom Form Validation', type: 'SubCategory',
+        children: [
+          {
+            label: 'Validation', icon: 'fa-solid fa-code', type: 'Demo',
+            demoType: 'dialog',
+            data: DialogsDemo[DemoKeys.DIALOGS_WITH_CUSTOM_FORM_VALIDATION],
+            key: DemoKeys.DIALOGS_WITH_CUSTOM_FORM_VALIDATION.toString()
+          },
+        ]
+      },
+      {
         label: 'Dialog With Auto Focus Forms', type: 'SubCategory',
         children: [
           {
@@ -557,6 +576,13 @@ export const TreeDemoData: DemoTreeNode[] = [
         notes: '',
         data: FormsDemo[DemoKeys.FORMS_PLAYGROUND],
         key: DemoKeys.FORMS_PLAYGROUND.toString()
+      },
+      {
+        label: 'Custom Validators', icon: 'fa-solid fa-code', type: 'Demo',
+        demoType: 'form',
+        notes: '',
+        data: FormsDemo[DemoKeys.FORMS_CUSTOM_VALIDATORS],
+        key: DemoKeys.FORMS_CUSTOM_VALIDATORS.toString()
       },
       {
         label: 'Ui Definitions', type: 'SubCategory',
@@ -1219,6 +1245,20 @@ export const TreeDemoData: DemoTreeNode[] = [
             notes: '',
             data: CardsDemo[DemoKeys.CARDS_RAW],
             key: DemoKeys.CARDS_RAW.toString()
+          },
+          {
+            label: 'Empty Message With HTML', icon: 'fa-solid fa-code', type: 'Demo',
+            demoType: 'cards',
+            notes: '',
+            data: CardsDemo[DemoKeys.CARDS_EMPTY_MESSAGE_HTML],
+            key: DemoKeys.CARDS_EMPTY_MESSAGE_HTML.toString()
+          },
+          {
+            label: 'Empty Message With Component Injection', icon: 'fa-solid fa-code', type: 'Demo',
+            demoType: 'cards',
+            notes: '',
+            data: CardsDemo[DemoKeys.CARDS_EMPTY_MESSAGE_COMPONENT],
+            key: DemoKeys.CARDS_EMPTY_MESSAGE_COMPONENT.toString()
           },
         ]
       },

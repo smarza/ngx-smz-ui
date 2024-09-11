@@ -7,7 +7,7 @@ import { SmzPresetTypes } from './smz-presets';
 import { DynamicDialogConfig } from '../dynamicdialog/dynamicdialog-config';
 import { Message } from 'primeng/api';
 // import { SmzTableState } from 'ngx-smz-ui';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { SmzUiGuidesState, SmzUiGuidesStep } from '../../../standalones/smz-ui-guides/models/smz-ui-guides-state';
 
 export class SmzDynamicDialogConfig extends DynamicDialogConfig {
@@ -97,12 +97,12 @@ export interface SmzDialogPreset
     }
 }
 
-export type FeatureType = 'form' | 'message' | 'component' | 'html' | 'table' | 'document' | 'markdown';
+export type FeatureType = 'form' | 'message' | 'messageFromSubject' | 'component' | 'html' | 'table' | 'document' | 'markdown';
 
 export interface SmzDialogFeature
 {
     type: FeatureType,
-    data: SmzForm<any> | string | string[] | ComponentData; // | SmzDialogTable;
+    data: SmzForm<any> | string | string[] | ComponentData | BehaviorSubject<string[]>; // | SmzDialogTable;
     template?: SmzTemplate;
 };
 
@@ -210,7 +210,7 @@ export interface SmzDialogCustomButton<T>
     class?: string;
     dependsOnValidation: boolean;
     closeDialog: boolean;
-    onClick: (data: T) => void;
+    onClick: (data: T, features?: SmzDialogFeature[]) => void;
     visible?: boolean;
     disabled?: boolean;
     tooltip?: string;

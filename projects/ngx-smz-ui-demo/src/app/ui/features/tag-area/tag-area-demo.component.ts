@@ -39,18 +39,18 @@ export class TagAreaDemoComponent implements OnInit
                   {
                     key: '#',
                     data: [
-                      { key: 'Pinheirinho', value: '<rbk>'},
-                      { key: 'Rio de Janeiro', value: '<rj>'},
-                      { key: 'São Paulo', value: '<sp>'},
+                      { id: 'Pinheirinho', value: '<rbk>'},
+                      { id: 'Rio de Janeiro', value: '<rj>'},
+                      { id: 'São Paulo', value: '<sp>'},
                     ]
                   },
                   {
                     key: '/user',
                     data: [
-                      { key: 'Eduardo', value: '@dudu.abrao'},
-                      { key: 'Filip', value: '@filip.duarte'},
-                      { key: 'Ricardo', value: '@ricardo.igreja'},
-                      { key: 'Rodrigo', value: '@rodrigo.basniak'},
+                      { id: 'Eduardo', value: '@dudu.abrao'},
+                      { id: 'Filip', value: '@filip.duarte'},
+                      { id: 'Ricardo', value: '@ricardo.igreja'},
+                      { id: 'Rodrigo', value: '@rodrigo.basniak'},
                     ]
                   }
                 ]

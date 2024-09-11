@@ -1,3 +1,4 @@
+<div [attr.data-pc-section]="'content'" class="p-menuitem-content">
 <a
   *ngIf="!item.routerLink"
   (keydown)="onItemKeyDown($event)"
@@ -54,3 +55,4 @@
     ><span class="p-menuitem-text" [innerHTML]="item.label"></span
   ></ng-template>
 </a>
+</div>

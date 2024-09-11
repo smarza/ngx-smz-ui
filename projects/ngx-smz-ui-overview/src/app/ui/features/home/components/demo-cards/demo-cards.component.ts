@@ -8,7 +8,7 @@ import { SmzCardsState } from 'ngx-smz-ui';
   <smz-ui-cards *ngIf="state != null" [state]="state">
 
   <ng-template pTemplate="header" let-node>
-    <span>teste</span>
+    <span>Header Template Here</span>
   </ng-template>
 
   </smz-ui-cards>

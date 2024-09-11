@@ -5,7 +5,13 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
-## [16.6.6] - 2024-04-18
+## [17.0.0-rc.2] - 2024-05-08
+Merge das features que estavam na Main
+
+## [17.0.0-rc.1] - 2024-05-06
+Migração para o Angular 17 e Prime 17
+
+## [16.6.6] - 2024-05-02
 Ajustes na mecânica de login para permitir customização externa.
 
 ## [16.6.2] - 2024-04-18

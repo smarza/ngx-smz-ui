@@ -721,6 +721,11 @@ export class SmzFormInputBuilder<TInput, TResponse> {
     return this.that;
   }
 
+  public hideLabel(): TInput {
+    this._input.hideLabel = true;
+    return this.that;
+  }
+
   public disable(condition?: boolean): TInput {
     this._input.isDisabled = condition ?? true;
     return this.that;
@@ -1190,7 +1195,7 @@ export class SmzFormNumberBuilder<TResponse> extends SmzFormInputBuilder<SmzForm
     this._numberInput.useGrouping = false;
   }
 
-  public setFraction(minFractionDigits: number = 0, maxFractionDigits?: number): SmzFormNumberBuilder<TResponse> {
+  public setFraction(minFractionDigits: number = 0, maxFractionDigits: number): SmzFormNumberBuilder<TResponse> {
     this._numberInput.minFractionDigits = minFractionDigits;
     this._numberInput.maxFractionDigits = maxFractionDigits;
 

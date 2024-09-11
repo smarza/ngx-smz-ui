@@ -1,6 +1,6 @@
 <div class="ui-g ui-fluid">
   <div class="ui-g-12 grid-nogutter no-padding">
-    <label class="smz__input_name" [innerHTML]="input.name"></label>
+    <label *ngIf="input.hideLabel != true" class="smz__input_name" [innerHTML]="input.name"></label>
     <div class="input_inner__wrapper grid grid-nogutter">
         <p-multiSelect
             fxFlex="grow"
@@ -14,6 +14,7 @@
             appendTo="body"
             [filter]="input.showFilter ? true : false"
             [filterMatchMode]="input.filterMatchMode != null ? input.filterMatchMode : 'contains'"
+            (onChange)="emitChange(input, formId, $event)"
             [showClear]="input.showClear"
             [emptyMessage]="input.emptyMessage"
             [emptyFilterMessage]="input.emptyFilterMessage"

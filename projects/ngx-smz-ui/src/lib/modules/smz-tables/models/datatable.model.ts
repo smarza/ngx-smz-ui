@@ -11,8 +11,8 @@ export interface TableColumn {
         field: string;
         isSorted: boolean;
         showFilter: boolean;
-        filterMatchMode?: 'matchAllWords' | 'constains' | 'simplenamed' | 'appDate' | 'object' | 'dateRange' | 'arrayString' | 'arraySimpleNamed';
-        filterInputType?: 'inputNumber' | 'inputText' | 'inputSwitch' | 'triStateCheckbox' | 'dropdown' | 'multiSelect' | 'dateRange';
+        filterMatchMode?: SmzTableFilterMatchMode;
+        filterInputType?: SmzTableFilterInputType;
         filterOptions$?: Observable<SimpleNamedEntity[]>;
         filterRemap?: string;
         filterField?: string;
@@ -30,3 +30,7 @@ export interface TableColumn {
     dataKey?: string;
 
 }
+
+export type SmzTableFilterMatchMode = 'matchAllWords' | 'constains' | 'simplenamed' | 'appDate' | 'object' | 'dateRange' | 'arrayString' | 'arraySimpleNamed';
+
+export type SmzTableFilterInputType = 'inputNumber' | 'inputText' | 'inputSwitch' | 'triStateCheckbox' | 'dropdown' | 'multiSelect' | 'dateRange';

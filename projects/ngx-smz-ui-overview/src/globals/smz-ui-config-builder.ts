@@ -10,6 +10,10 @@ import { ShopsDbActions } from '@states/database/shops/shops.actions';
 import { WarehousesDbActions } from '@states/database/warehouses/warehouses.actions';
 import { DemoFeatureActions } from '@states/demo/demo.actions';
 import { rbkConfig } from './rbk-config';
+import { CustomUserTableBuilder } from './custom-user-table-state';
+import { AUTHENTICATED_ROOT_PATH } from '@routes';
+import { SSO_LOGIN_PATH } from '../app/ui/features/home/login-sso/sso.routes';
+import { getSsoAuthInitialState, SSO_AUTH_STATE_NAME, SsoAuthState } from '../app/ui/features/home/login-sso/states/sso-auth.state';
 
 export const UiBuilder: SmzUiBuilder = new SmzUiBuilder()
 .setApplicationName('Overview Demo')
@@ -20,7 +24,12 @@ export const UiBuilder: SmzUiBuilder = new SmzUiBuilder()
   .setLoader(SmzLoader.CUBE)
   .builder
 // .setRbkUtilsConfigManually(rbkConfig)
-.disableUiDefinitions()
+// .notifications()
+//   .setUpdateRate(30000)
+//   .setItemsPerPage(5)
+//   .setPagination([5])
+//   .setZIndex(999)
+//   .builder
 .authentication()
   .mapAccessTokenData('rol', 'roles', 'array')
   .mapAccessTokenData('avatar', 'avatar', 'string')
@@ -29,8 +38,9 @@ export const UiBuilder: SmzUiBuilder = new SmzUiBuilder()
   .mapAccessTokenData('has-tenant', 'hasTenant', 'boolean')
   .mapAccessTokenData('authentication-mode', 'authenticationMode', 'string')
   .setTenantDisplayName('Domínio')
+  .setAuthenticatedRoot(AUTHENTICATED_ROOT_PATH)
+  .setNonAuthenticatedRoot(SSO_LOGIN_PATH) // SSO Customization
   .login()
-    // .useSingleTenantAplication('UN-BUZ')
     .useWindowsAuthentication()
     .allowSuperuser()
     .allowTenantSwitching()
@@ -40,7 +50,12 @@ export const UiBuilder: SmzUiBuilder = new SmzUiBuilder()
     .setMenuLabel('Administrativo')
     .allowMultipleRolesPerUser()
     .users()
-      .allowUserDeactivation()
+      .customTable(CustomUserTableBuilder)
+      .allowUserDeletion()
+      .addButtons()
+        .item('Criar Usuário')
+          .menu
+        .back
       .authorization
     .roles().authorization
     .claims().authorization
@@ -62,6 +77,13 @@ export const UiBuilder: SmzUiBuilder = new SmzUiBuilder()
     .setClearFunction(getDbShopsInitialState)
     .setLoadAction(ShopsDbActions.LoadAll)
     .state
+
+    // SSO Customization
+    .addFeature(SSO_AUTH_STATE_NAME)
+      .setState(SsoAuthState)
+      .setClearFunction(getSsoAuthInitialState)
+      .state
+
   .addFeature(DemoFeatureName)
     .setState(DemoFeatureState)
     .setClearFunction(getFtDemoInitialState)

@@ -41,6 +41,7 @@ import { MarkdownModule } from 'ngx-markdown';
 import { MarkdownContentComponent } from './features/markdown-content/markdown-content.component';
 import { GuideFooterComponent } from './features/guide-footer/guide-footer.component';
 import { AutoFocusModule } from 'primeng/autofocus';
+import { MessageFromObservableContentComponent } from './features/message-from-observable-content/message-from-observable-content.component';
 
 export const ngxsModuleForFeatureDialogsState = NgxsModule.forFeature([DialogsState]);
 
@@ -48,6 +49,7 @@ export const ngxsModuleForFeatureDialogsState = NgxsModule.forFeature([DialogsSt
     declarations: [
         DialogContentManagerComponent,
         MessageContentComponent,
+        MessageFromObservableContentComponent,
         HtmlContentComponent,
         TableContentComponent,
         DialogFooterComponent,

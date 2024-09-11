@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { ComponentData, ComponentDataBase } from '../../common/modules/inject-content/models/injectable.model';
 import { SmzFormBuilder } from '../smz-forms/form-builder';
 import { getSmzTemplate } from '../smz-forms/form-group-builder';
@@ -275,6 +275,16 @@ export class SmzDialogBuilder<TResponse> extends SmzBuilderUtilities<SmzDialogBu
     return this;
   }
 
+  public messageFromSubject(message: BehaviorSubject<string[]>): SmzDialogBuilder<TResponse> {
+    const feature: SmzDialogFeature = {
+      type: 'messageFromSubject',
+      data: message,
+    };
+
+    this._state.features.push(feature);
+    return this;
+  }
+
   public html(html: string[]): SmzDialogBuilder<TResponse> {
     const feature: SmzDialogFeature = {
       type: 'html',
@@ -330,7 +340,6 @@ export class SmzDialogBuilder<TResponse> extends SmzBuilderUtilities<SmzDialogBu
   }
 
   public build(): SmzDialog<TResponse> {
-
     if (this._state.isDebug) {
       console.log(this._state);
     }

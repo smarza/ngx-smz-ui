@@ -9,7 +9,7 @@ import { SmzSmartAutocompleteTagOption } from '../../directives/smart-autocomple
 @Component({
     selector: 'smz-input-autocomplete-tag-area',
     template: `
-    <label class="smz__input_name" [innerHTML]="input.name"></label>
+    <label *ngIf="input.hideLabel != true" class="smz__input_name" [innerHTML]="input.name"></label>
     <div class="input_inner__wrapper" [id]="input.propertyName">
         <textarea #inputArea id="inputArea" pInputTextarea smzSmartAutocompleteTag [formControl]="control" [options]="input.config.options" [rows]="input.textAreaRows" (tagTyped)="onTag($event)" class="col-12"></textarea>
         <smz-validation-messages [input]="input" [control]="control" [behaviors]="behaviors"></smz-validation-messages>

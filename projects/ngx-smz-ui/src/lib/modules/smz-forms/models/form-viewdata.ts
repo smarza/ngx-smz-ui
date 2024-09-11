@@ -8,6 +8,7 @@ import { createObjectFromString } from '../../../common/utils/utils';
 
 export class SmzFormViewdata {
     public isValid: boolean = false;
+    public isCustomValidationValid: boolean = true;
     public hasChanges: boolean = false;
     public originalState: string = '';
 

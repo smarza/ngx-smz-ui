@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { SmzCardsTemplateBuilder, SmzCardViewBuilder } from './template-builder';
 import { cloneDeep } from 'lodash-es';
 import { SmzCardsSourcesBuilder } from './source-builder';
+import { SmzAdvancedInjectable } from '../../modules/smz-cards/models/smz-cards-component';
 
 export class SmzCardsBuilder<TData> {
   public _state: SmzCardsState<TData> = {
@@ -62,7 +63,9 @@ export class SmzCardsBuilder<TData> {
       showHeader: true,
       dataViewContentStyles: '',
       dataViewStyleClass: '',
-      gridStyleClass: ''
+      gridStyleClass: '',
+      emptyMessageType: 'html',
+      emptyMessageComponent: null
     }
   };
 
@@ -203,7 +206,19 @@ export class SmzCardsBuilder<TData> {
 
   public setEmptyMessage(message: string): SmzCardsBuilder<TData> {
     this._state.locale.emptyMessage = message;
+    this._state.view.emptyMessageType = 'html';
     return this;
+  }
+
+  public setComponentEmptyMessage(component: any): SmzCardsInjectableComponentBuilder<SmzCardsBuilder<TData>> {
+    this._state.view.emptyMessageType = 'component';
+    this._state.view.emptyMessageComponent = {
+      component: component,
+      inputs: [],
+      outputs: []
+    };
+
+    return new SmzCardsInjectableComponentBuilder<SmzCardsBuilder<TData>>(this, this._state.view.emptyMessageComponent);
   }
 
   public buttons(items?: SmzMenuItem[]): SmzCardsMenuBuilder {
@@ -257,4 +272,40 @@ export class SmzCardsBuilder<TData> {
 
     return this._state;
   }
+}
+
+export class SmzCardsInjectableComponentBuilder<TBuilder> {
+  protected that = this;
+
+  constructor(protected _parent: TBuilder, protected _injectable: SmzAdvancedInjectable) {
+  }
+
+  public addDataToInput(input: string): SmzCardsInjectableComponentBuilder<TBuilder> {
+    this._injectable.inputs.push({ input, value: null, injectData: true, injectState: false, dataPath: null });
+    return this;
+  }
+
+  public addContextToInput(input: string): SmzCardsInjectableComponentBuilder<TBuilder> {
+    this._injectable.inputs.push({ input, value: null, injectData: false, injectState: true, dataPath: null });
+    return this;
+  }
+
+  public addInputFromModel(input: string, dataPath: any): SmzCardsInjectableComponentBuilder<TBuilder> {
+    this._injectable.inputs.push({ input, dataPath, value: null, injectData: false, injectState: false });
+    return this;
+  }
+  public addInput(input: string, value: any): SmzCardsInjectableComponentBuilder<TBuilder> {
+    this._injectable.inputs.push({ input, value, dataPath: null, injectData: false, injectState: false });
+    return this;
+  }
+
+  public addOutput(output: string, callback: (data: any) => void): SmzCardsInjectableComponentBuilder<TBuilder> {
+    this._injectable.outputs.push({output, callback});
+    return this;
+  }
+
+  public get cards(): TBuilder {
+    return this._parent;
+  }
+
 }

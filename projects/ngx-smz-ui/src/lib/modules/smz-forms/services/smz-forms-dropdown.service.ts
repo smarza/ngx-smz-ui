@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SmzDropDownControl, SmzFormBaseLinkedControl, SmzLinkedDropDownControl } from '../models/control-types';
+import { SmzFormBaseLinkedControl } from '../models/control-types';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -95,7 +95,10 @@ export class SmzFormsDropdownService
                     console.warn('Lista de opções não encontrada.', match.input);
                 }
 
-                match.input._inputFormControl.setValue('');
+                if (match.input.defaultValue == null) {
+                    match.input._inputFormControl.setValue('');
+                }
+
             }
         }
     }

@@ -39,4 +39,11 @@ export class UiDefinitionsDbState {
                 }))
         );
     }
+
+    @Action(UiDefinitionsDbActions.Inject)
+    public inject(ctx: StateContext<UiDefinitionsDbStateModel>, action: UiDefinitionsDbActions.Inject): void {
+        ctx.patchState({
+            data: action.data
+        });
+    }
 }

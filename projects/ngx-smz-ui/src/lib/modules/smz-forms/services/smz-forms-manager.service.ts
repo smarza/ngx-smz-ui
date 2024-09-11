@@ -189,6 +189,18 @@ export class SmzFormsManagerService
                                     }
 
                                     break;
+
+                                case SmzControlType.MULTI_SELECT:
+
+                                    if (inputData.visibilityDependsOn.conditions != null) {
+                                        // console.log('inputData.visibilityDependsOn.conditions', inputData.visibilityDependsOn.conditions);
+                                        eventValue = inputData.visibilityDependsOn.conditions?.some(c => input.defaultValue?.some(v => v === c));
+                                    }
+                                    else {
+                                        eventValue = input.defaultValue.some(x => x === inputData.visibilityDependsOn.condition);
+                                    }
+
+                                break;
                                 default:
                                     break;
                             }

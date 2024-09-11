@@ -1,4 +1,4 @@
-import * as moment from 'moment';
+import moment from 'moment';
 import { SmzDocumentBuilder } from 'ngx-smz-ui';
 import { ReportSummaryBuilder } from './summary-report-document';
 

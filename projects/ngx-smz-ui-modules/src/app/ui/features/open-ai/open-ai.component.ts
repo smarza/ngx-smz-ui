@@ -59,7 +59,7 @@ export class OpenAiComponent {
       .form()
         .group()
           .textArea('prompt', 'Pergunta', 'Qual a capital do Brasil ?')
-            .validators().required()
+            .validators().required().input
             .group
           .form
         .dialog

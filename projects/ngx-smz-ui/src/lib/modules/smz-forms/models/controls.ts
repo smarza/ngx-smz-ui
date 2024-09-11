@@ -17,7 +17,7 @@ export interface SmzFormsBaseControl
     dataDependency?: { propertyName: string, condition: 'some' | 'none', matchValues: any[], callback: (control: SmzFormsBaseControl) => void }[]
     _inputFormControl?: AbstractControl;
     styleClass?: string;
-
+    hideLabel?: boolean;
 }
 
 export interface SmzFormsValidatorsPreset

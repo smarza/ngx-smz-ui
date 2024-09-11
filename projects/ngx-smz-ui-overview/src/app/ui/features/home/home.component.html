@@ -41,6 +41,7 @@
             <app-demo-tree *ngSwitchCase="'tree'" [node]="selectedNode"></app-demo-tree>
             <app-demo-cards *ngSwitchCase="'cards'" [node]="selectedNode"></app-demo-cards>
             <app-demo-timeline *ngSwitchCase="'timeline'" [node]="selectedNode"></app-demo-timeline>
+            <app-demo-dynamic *ngSwitchCase="'dynamic'" [node]="selectedNode"></app-demo-dynamic>
             <div *ngSwitchCase="'dialog'">
               <button pButton pRipple type="button" label="Abrir Dialogo" class="p-button-success" (click)="selectedNode.data()"></button>
             </div>

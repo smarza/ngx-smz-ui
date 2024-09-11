@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SmzCheckBoxControl, SmzControlType, SmzControlTypes } from '../models/control-types';
 import { BehaviorSubject } from 'rxjs';
+import { SimpleNamedEntity } from '../../../common/models/simple-named-entity';
 
 @Injectable({
     providedIn: 'root'
@@ -69,6 +70,14 @@ export class SmzFormsVisibilityService
             case SmzControlType.DROPDOWN:
                 eventValue = onChangeDropdownEvent.value?.id;
                 break;
+
+            case SmzControlType.MULTI_SELECT:
+                eventValue = (onChangeDropdownEvent.value as SimpleNamedEntity[])?.map(x => x.id);
+                break;
+
+            case SmzControlType.RADIO:
+                eventValue = onChangeDropdownEvent.value;
+                break;
             default:
                 break;
         }
@@ -99,7 +108,7 @@ export class SmzFormsVisibilityService
 
             if (match == null)
             {
-                console.log('Observer não encontrado.');
+                console.warn('Observer não encontrado.', observer);
             }
             else
             {
@@ -117,6 +126,24 @@ export class SmzFormsVisibilityService
                         }
                         else {
                             stateCondition = value === match.input.visibilityDependsOn.condition;
+                        }
+                        break;
+
+                    case SmzControlType.RADIO:
+                        if (match.input.visibilityDependsOn.conditions != null) {
+                            stateCondition = match.input.visibilityDependsOn.conditions.findIndex(c => c === value) !== -1;
+                        }
+                        else {
+                            stateCondition = value === match.input.visibilityDependsOn.condition;
+                        }
+                        break;
+
+                    case SmzControlType.MULTI_SELECT:
+                        if (match.input.visibilityDependsOn.conditions != null) {
+                            stateCondition = match.input.visibilityDependsOn.conditions?.some(c => value.some(v => v === c));
+                        }
+                        else {
+                            stateCondition = value?.some(x => x === match.input.visibilityDependsOn.condition);
                         }
                         break;
                     default:

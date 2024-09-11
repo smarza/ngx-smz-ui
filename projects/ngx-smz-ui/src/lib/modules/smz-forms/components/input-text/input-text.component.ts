@@ -11,8 +11,4 @@ export class InputTextComponent
     @Input() public input: SmzTextControl;
     @Input() public control: any;
     @Input() public behaviors: SmzFormsBehaviorsConfig;
-    constructor()
-    {
-    }
-
 }

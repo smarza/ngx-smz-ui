@@ -54,11 +54,6 @@ export const smzLayoutsConfig: SmzLayoutsConfig = {
     },
     themes: {
         content: SmzContentTheme.TAILWIND_LIGHT,
-        system: {
-            enabled: false,
-            dark: SmzContentTheme.VELA_BLUE,
-            light: SmzContentTheme.MDC_LIGHT_DEEPPURPLE
-        }
     },
     loader: {
         type: SmzLoader.CUBE,

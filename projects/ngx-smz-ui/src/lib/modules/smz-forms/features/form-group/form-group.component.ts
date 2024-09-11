@@ -21,7 +21,14 @@ import { SmzFormsRepositoryService } from '../../services/smz-forms-repository.s
 export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy, InjectableDialogComponentInterface<SmzFormsResponse<any>> {
     public isComponentActive = true;
     public viewdata: SmzFormViewdata;
-    public get isValid() { return this.viewdata?.isValid; };
+    public get isValid() {
+        if (this.config?.isDebug) {
+            console.log('formGroup isValid ?', this.viewdata?.isValid);
+            console.log('formGroup isCustomValidationValid ?', this.viewdata?.isCustomValidationValid);
+            console.log('formGroup both ?', this.viewdata?.isValid && this.viewdata?.isCustomValidationValid);
+        }
+        return this.viewdata?.isValid && this.viewdata?.isCustomValidationValid;
+    };
     public getData<T>(): SmzFormsResponse<T> { return this.viewdata?.getData(); };
     @Input() public config: SmzForm<any>;
     @Output() public statusChanges: EventEmitter<SmzFormsResponse<any>> = new EventEmitter<SmzFormsResponse<any>>();
@@ -189,6 +196,7 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
                 if (runCustomFunctionsOnLoad)
                 {
                     this.checkCustomFunctions();
+                    // console.log('isValid after >>>>', this.viewdata.isValid);
                 }
                 else
                 {
@@ -210,6 +218,7 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
                         {
                             // console.log('form statusChanges');
                             this.checkCustomFunctions();
+                            // console.log('isValid after >>>>', this.viewdata.isValid);
                         });
 
                     this.fixRadioBug();
@@ -462,7 +471,7 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
 
         if (this.config.functions?.customValidator != null)
         {
-            this.viewdata.isValid = this.config.functions?.customValidator(data, this.viewdata.form);
+            this.viewdata.isCustomValidationValid = this.config.functions?.customValidator(data, this.viewdata.form);
         }
         // else
         // {

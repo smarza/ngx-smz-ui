@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Store } from '@ngxs/store';
-import { MenuHelperService, ThemeManagerService, BoilerplateService, CLAIMS_PAGE_ROUTE, ROLES_PAGE_ROUTE, NewAthenaLayoutModule, RbkAccessControlModule } from 'ngx-smz-ui';
+import { MenuHelperService, ThemeManagerService, BoilerplateService, CLAIMS_PAGE_ROUTE, ROLES_PAGE_ROUTE, NewAthenaLayoutModule, RbkAccessControlModule, USERS_PAGE_ROUTE, UiDefinitionsDbActions } from 'ngx-smz-ui';
 
 @Component({
   selector: 'app-root',
@@ -32,6 +33,7 @@ import { MenuHelperService, ThemeManagerService, BoilerplateService, CLAIMS_PAGE
 })
 export class AppComponent {
   constructor(private store: Store, private boilerplateService: BoilerplateService, public menuService: MenuHelperService, private themeManager: ThemeManagerService) {
+
     this.boilerplateService.init(() => {
       this.themeManager.createCss('assets/priority-styles.css');
 
@@ -41,6 +43,7 @@ export class AppComponent {
         // { label: 'Permissões', icon: 'fa-solid fa-circle', routerLink: ROLES_PAGE_ROUTE, claim: AuthClaimDefinitions.MANAGE_ROLES },
         { label: 'Permissões de Acesso', icon: 'fa-solid fa-circle', routerLink: CLAIMS_PAGE_ROUTE },
         { label: 'Regras de Acesso', icon: 'fa-solid fa-circle', routerLink: ROLES_PAGE_ROUTE },
+        { label: 'Usuários', icon: 'fa-solid fa-users', routerLink: USERS_PAGE_ROUTE },
       ]);
     });
   }

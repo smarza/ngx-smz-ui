@@ -1,6 +1,6 @@
 import { AbstractControl, UntypedFormGroup } from '@angular/forms';
 import { SmzControlType, SmzControlTypes, SmzCalendarControl, SmzCurrencyControl, SmzPasswordControl, SmzSwitchControl, SmzTextControl, SmzCheckBoxControl, SmzCheckBoxGroupControl, SmzColorPickerControl, SmzDropDownControl, SmzFileControl, SmzLinkedDropDownControl, SmzMultiSelectControl, SmzNumberControl, SmzRadioControl, SmzTextAreaControl, SmzMaskControl, SmzLinkedMultiSelectControl, SmzListControl, SmzTagAreaControl, SmzContentMaskControl, SmzTextButtonControl, SmzTreeControl, SmzAutocompleteTagAreaControl } from './control-types';
-import { flatten, isArray, isString } from '../../../common/utils/utils';
+import { flatten, isArray, isNumber, isString } from '../../../common/utils/utils';
 import { executeTextPattern } from './text-patterns';
 import { cloneDeep } from 'lodash-es';
 import { SmzSmartTagData } from '../directives/smart-tag.directive';
@@ -9,6 +9,7 @@ import { GlobalInjector } from '../../../common/services/global-injector';
 import { UUID } from 'angular2-uuid';
 import { TreeHelpers } from '../../smz-trees/utils/tree-helpers';
 import { resolveTreeNodeSelection } from '../../smz-trees/models/node-helper';
+import { SimpleEntity, SimpleParentEntity } from '../../../common/models/simple-named-entity';
 
 export interface SmzControlTypeFunctionsDefinitions
 {
@@ -231,10 +232,11 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
         {
             if (input.defaultValue != null && input.defaultValue.length > 0)
             {
-                const parent = input.options.find(x => x.data.find(d => d.id === input.defaultValue));
-                const option = parent.data.find(d => d.id === input.defaultValue);
+                const result = getMatchingEntities(input.currentOptions ?? [], input.defaultValue);
+                if (result != null) {
+                    control.patchValue(result ?? '');
+                }
 
-                control.patchValue(option ?? '');
             }
             else
             {
@@ -251,12 +253,23 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
     [SmzControlType.NUMBER]: {
         initialize: (input: SmzNumberControl) => { },
         clear: (control: AbstractControl) => { control.patchValue(''); },
-        applyDefaultValue: (control: AbstractControl, input: SmzNumberControl) => { control.patchValue(input.defaultValue); },
+        applyDefaultValue: (control: AbstractControl, input: SmzNumberControl) => {
+            control.patchValue(input.defaultValue);
+        },
         getValue: (form: UntypedFormGroup, input: SmzNumberControl, flattenResponse: boolean) =>
         {
-            const value = Number(form.get(input.propertyName).value);
-            // console.log('getValue NUMBER', value);
-            return mapResponseValue(input, value, false);
+            const inputValue = form.get(input.propertyName).value;
+
+            if (inputValue == null) {
+                return mapResponseValue(input, null, false);
+            }
+            else if (isNumber(inputValue)) {
+                const value = Number(inputValue);
+                return mapResponseValue(input, value, false);
+            }
+            else {
+                return mapResponseValue(input, null, false);
+            }
         },
     },
     [SmzControlType.PASSWORD]: {
@@ -706,4 +719,16 @@ function mapResponseValue(input: SmzControlTypes, value: any, formFlattenRespons
 function flatPropertyName(propertyName: string, isArray: boolean): string
 {
     return `${propertyName}${isArray ? 'Ids' : 'Id'}`;
+}
+
+function getMatchingEntities<T>(options: SimpleEntity<T>[], defaultValueIds: T[]): SimpleEntity<T>[] {
+    const matchingEntities: SimpleEntity<T>[] = [];
+
+        for (const entity of options) {
+            if (defaultValueIds.includes(entity.id)) {
+                matchingEntities.push(entity);
+            }
+    }
+
+    return matchingEntities;
 }

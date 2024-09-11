@@ -3,7 +3,7 @@ import { Store } from '@ngxs/store';
 import { GlobalInjector, nameof, namesof, SmzTimelineBuilder, SimpleNamedEntity } from 'ngx-smz-ui';
 import { of } from 'rxjs';
 import { SmzCardsArchivedDemo, SmzCardsDemo, SmzCardsDemoData } from '../data/cards/cards-data';
-import * as moment from 'moment';
+import moment from 'moment';
 
 const store = GlobalInjector.instance.get(Store);
 

@@ -1,5 +1,5 @@
 <div class="grid col-12 grid-nogutter input_inner__wrapper flex-gap-1">
-    <label class="col-12 smz__input_name" [for]="input.propertyName" [innerHTML]="input.name"></label>
+    <label *ngIf="input.hideLabel != true" class="col-12 smz__input_name" [for]="input.propertyName" [innerHTML]="input.name"></label>
     <p-inputSwitch
         class="smz__input_value"
         [name]="input.propertyName"

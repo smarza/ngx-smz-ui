@@ -8,6 +8,7 @@ import { ToastActions } from '../../../../state/global/application/application.a
 import { base64ToFile } from '../../../../common/utils/utils';
 import { isEmpty } from '../../../../builders/common/utils';
 import { ApplicationActions } from '../../../../../lib/state/global/application/application.actions';
+import { UUID } from 'angular2-uuid';
 
 @Component({
     selector: 'smz-file-upload',
@@ -22,6 +23,7 @@ export class FileUploadComponent {
     public errors: Message[] = [];
     public files: File[] = [];
     public isZoomActive = false;
+    public uploadControl = UUID.UUID();
 
     constructor(public cdf: ChangeDetectorRef, private store: Store) { }
 
@@ -60,6 +62,7 @@ export class FileUploadComponent {
     }
 
     public onFilesDropped(event: File[], markAsTouched: boolean, emitEvent: boolean, cdf: ChangeDetectorRef): void {
+
         this.files = [];
         const errors: Message[] = [];
 

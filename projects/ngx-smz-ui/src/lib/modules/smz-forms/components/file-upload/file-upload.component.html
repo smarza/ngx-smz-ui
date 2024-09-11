@@ -1,7 +1,7 @@
 <div class="ui-g ui-fluid">
     <div class="ui-g-12 grid-nogutter relative" [ngStyle]="{ padding: 0 }">
 
-        <label class="smz__input_name" [innerHTML]="input.name"></label>
+        <label *ngIf="input.hideLabel != true" class="smz__input_name" [innerHTML]="input.name"></label>
 
         <!-- ZONA DE DROPPING -->
         <div *ngIf="input._file == null" SmzDragDrop (fileDropped)="input.isDisabled ? notAllowed() : onFilesDropped($event, true, true, this.cdf)" class="file_upload__drag-container grid grid-nogutter items-center justify-center mt-1  mb-1">
@@ -10,9 +10,9 @@
                 <i [ngClass]="input.dragIconClass" class="text-4xl mb-2"></i>
                 <span class="grid grid-nogutter gap-2">
                     <!-- INPUT DE UPLOAD MANUAL -->
-                    <input #uploadControl type="file" name="uploadControl" class="upload_manual_control" [attr.disabled]="input.isDisabled" [accept]="input.fileAccept" id="uploadControl" (change)="onInputFiles($event)" />
+                    <input type="file" [name]="uploadControl" class="upload_manual_control" [attr.disabled]="input.isDisabled" [accept]="input.fileAccept" [id]="uploadControl" (change)="onInputFiles($event)" />
                     <!-- BOTÃO PARA SELECIONAR ARQUIVO -->
-                    <label for="uploadControl" [ngClass]="{ 'text-gray-500' : input.isDisabled,'clickable upload_manual_label hvr hvr-grow': !input.isDisabled }">{{ input.inputMessage }}</label>
+                    <label [for]="uploadControl" [ngClass]="{ 'text-gray-500' : input.isDisabled,'clickable upload_manual_label hvr hvr-grow': !input.isDisabled }">{{ input.inputMessage }}</label>
                     <!-- MENSAGEM PARA ARRASTAR -->
                     <span class="upload_field-drag-message">ou {{ input.dragMessage }}</span>
                 </span>
@@ -24,7 +24,6 @@
 
         <!-- CONTEÚDO COM ARQUIVO CARREGADO -->
         <div *ngIf="input._file != null" class="grid grid-nogutter items-center justify-start flex-nowrap mt-1 mb-1 file_upload-container">
-
             <div class="upload_field" [style.height]="input.thumbnailSize" [style.width]="input.thumbnailSize">
                 <ng-container [ngSwitch]="input._fileType">
 
