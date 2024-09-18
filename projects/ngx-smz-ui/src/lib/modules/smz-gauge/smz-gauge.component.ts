@@ -10,7 +10,7 @@ import { BehaviorSubject, debounceTime, merge, Subject, takeUntil, throttleTime 
  */
 @Component({
   standalone: true,
-  selector: 'smz-gauge',
+  selector: 'smz-ui-gauge',
   imports: [CommonModule, SmzSvgGaugeComponent],
   template: `
   <ng-container *ngIf="state; else noState">

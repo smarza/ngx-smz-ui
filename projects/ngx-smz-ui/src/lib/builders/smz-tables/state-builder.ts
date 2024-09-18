@@ -17,6 +17,7 @@ import { SmzTableExcelBuilder } from './excel-builder';
 import { UUID } from 'angular2-uuid';
 import { SmzTableViewportBuilder } from './viewport';
 import { SmzCaptionButtonsBuilder } from './caption-buttons-builder';
+import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 
 // SCROLL TRUE =>
 //   MIN-WIDTH PODE TER PX
@@ -26,7 +27,8 @@ import { SmzCaptionButtonsBuilder } from './caption-buttons-builder';
 //   MIN-WIDTH PODE SER PX
 //   MIN-WIDTH PODE SER AUTO
 
-export class SmzTableBuilder<TData> {
+export class SmzTableBuilder<TData> extends SmzBuilderUtilities<SmzTableBuilder<TData>>{
+  protected that = this;
   public _state: SmzTableState = {
     isValid: true,
     isDebug: false,
@@ -222,6 +224,7 @@ export class SmzTableBuilder<TData> {
   };
 
   constructor(uiDefinitionName?: string) {
+    super();
 
     if (uiDefinitionName) {
       const preferredUiModel = 'create';

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { SmzGaugeState, SmzGaugeThreshold } from './smz-gauge.types';
+import { SmzGaugeThreshold } from './smz-gauge.types';
 
 @Component({
   standalone: true,
@@ -10,15 +10,6 @@ import { SmzGaugeState, SmzGaugeThreshold } from './smz-gauge.types';
   template: `
 
 <svg [attr.width]="size" [attr.height]="size" [attr.viewBox]="'0 0 ' + size + ' ' + size">
-  <!-- Definição de Gradiente Linear -->
-  <defs>
-    <linearGradient id="grad" x1="0" y1="0" x2="1" y2="1">
-      <ng-container *ngFor="let threshold of thresholds">
-        <stop [attr.offset]="threshold.value + '%'" [attr.stop-color]="threshold.color" stop-opacity="1"></stop>
-      </ng-container>
-    </linearGradient>
-  </defs>
-
   <!-- Círculo de Fundo -->
   <circle
     [attr.cx]="size / 2"
@@ -39,13 +30,13 @@ import { SmzGaugeState, SmzGaugeThreshold } from './smz-gauge.types';
     [attr.cy]="size / 2"
     [attr.r]="radius"
     [attr.stroke-width]="strokeWidth"
-    [attr.stroke]="'url(#grad)'"
+    [attr.stroke]="currentColor"
     fill="transparent"
     stroke-linecap="round"
     [attr.stroke-dasharray]="dashArray"
     [attr.stroke-dashoffset]="dashOffset"
     [attr.transform]="transformProgress"
-    style="transition: stroke-dashoffset 0.3s;">
+    style="transition: stroke-dashoffset 0.3s, stroke 0.3s;">
   </circle>
 
   <!-- Texto Central -->
@@ -129,6 +120,7 @@ export class SmzSvgGaugeComponent implements OnChanges {
   public dashArray: string | undefined;
   public transformBase: string | undefined;
   public transformProgress: string | undefined;
+  public currentColor: string = '#000000';
 
   ngOnChanges(changes: SimpleChanges): void {
     this.calculateGauge();
@@ -149,5 +141,74 @@ export class SmzSvgGaugeComponent implements OnChanges {
     const percentNormalized = Math.min(Math.max(this.value, this.min), this.max);
     const progress = (percentNormalized - this.min) / (this.max - this.min);
     this.dashOffset = arc - progress * arc;
+
+    // Calcula a cor interpolada
+    this.currentColor = this.calculateColor(percentNormalized);
+  }
+
+  private calculateColor(value: number): string {
+    if (this.thresholds.length === 0) {
+      // Cor padrão se nenhum threshold for fornecido
+      return '#000000';
+    }
+
+    // Garante que os thresholds estejam ordenados por valor
+    const thresholds = this.thresholds.slice().sort((a, b) => a.value - b.value);
+
+    // Se o valor estiver abaixo do primeiro threshold
+    if (value <= thresholds[0].value) {
+      return thresholds[0].color;
+    }
+
+    // Se o valor estiver acima do último threshold
+    if (value >= thresholds[thresholds.length - 1].value) {
+      return thresholds[thresholds.length - 1].color;
+    }
+
+    // Encontra os thresholds entre os quais o valor atual se encontra
+    for (let i = 0; i < thresholds.length - 1; i++) {
+      const t1 = thresholds[i];
+      const t2 = thresholds[i + 1];
+      if (value >= t1.value && value <= t2.value) {
+        // Calcula o fator de interpolação
+        const factor = (value - t1.value) / (t2.value - t1.value);
+        // Interpola entre as duas cores
+        return this.interpolateColor(t1.color, t2.color, factor);
+      }
+    }
+
+    // Retorna a cor do último threshold por segurança
+    return thresholds[thresholds.length - 1].color;
+  }
+
+  private interpolateColor(color1: string, color2: string, factor: number): string {
+    const rgb1 = this.hexToRgb(color1);
+    const rgb2 = this.hexToRgb(color2);
+
+    const r = Math.round(rgb1.r + factor * (rgb2.r - rgb1.r));
+    const g = Math.round(rgb1.g + factor * (rgb2.g - rgb1.g));
+    const b = Math.round(rgb1.b + factor * (rgb2.b - rgb1.b));
+
+    return this.rgbToHex(r, g, b);
+  }
+
+  private hexToRgb(hex: string): { r: number, g: number, b: number } {
+    hex = hex.replace('#', '');
+    if (hex.length === 3) {
+      hex = hex.split('').map(c => c + c).join('');
+    }
+    const bigint = parseInt(hex, 16);
+    return {
+      r: (bigint >> 16) & 255,
+      g: (bigint >> 8) & 255,
+      b: bigint & 255
+    };
+  }
+
+  private rgbToHex(r: number, g: number, b: number): string {
+    return '#' + [r, g, b].map(x => {
+      const hex = x.toString(16);
+      return hex.length === 1 ? '0' + hex : hex;
+    }).join('');
   }
 }

@@ -45,7 +45,7 @@ export class SmzBuilderUtilities<T> {
    * @protected
    */
   protected cache: BuilderUtilitiesCaches<T> = {
-    if: { isActive: false, data: {} as T }
+    if: { isActive: false, data: null }
   };
 
   /**
@@ -125,7 +125,6 @@ export class SmzBuilderUtilities<T> {
    */
   public get endIf(): T {
     const data = conclude('endif', this.cache.if, this.that);
-
     // Limpando cache após a finalização do bloco condicional
     (data as any)['cache'].data = null;
     (data as any)['cache'].if.isActive = false;

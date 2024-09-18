@@ -177,6 +177,11 @@ export class SmzGaugeBuilder extends SmzBuilderUtilities<SmzGaugeBuilder> {
    * @returns A instância atual do SmzGaugeBuilder para encadeamento de métodos.
    */
   public withRange(min: number, max: number): SmzGaugeBuilder {
+
+    if (this._state.thresholds.length > 0) {
+      throw new Error('SmzGaugeBuilder: Range must be set before thresholds');
+    }
+
     this._state.min = min;
     this._state.max = max;
     return this;
@@ -248,7 +253,7 @@ export class SmzGaugeBuilder extends SmzBuilderUtilities<SmzGaugeBuilder> {
     };
 
     this._state.thresholds.push(threshold);
-    return new SmzGaugeThresholdBuilder(this, threshold);
+    return new SmzGaugeThresholdBuilder(this, threshold, this._state.min, this._state.max);
   }
 
   /**
@@ -256,6 +261,10 @@ export class SmzGaugeBuilder extends SmzBuilderUtilities<SmzGaugeBuilder> {
    * @returns O estado completo do SmzGauge.
    */
   public build(): SmzGaugeState {
+    if (this._state.thresholds.length == 0) {
+      throw new Error('SmzGaugeBuilder: Thresholds must be set before building');
+    }
+
     this._state.thresholds.sort((a, b) => a.value - b.value);
     return this._state;
   }
@@ -281,7 +290,7 @@ export class SmzGaugeThresholdBuilder extends SmzBuilderUtilities<SmzGaugeThresh
    * @param _parent - O builder pai (SmzGaugeBuilder) ao qual este threshold pertence.
    * @param _threshold - O limite (threshold) sendo configurado.
    */
-  constructor(private _parent: SmzGaugeBuilder, private _threshold: SmzGaugeThreshold) {
+  constructor(private _parent: SmzGaugeBuilder, private _threshold: SmzGaugeThreshold, private _min: number, private _max: number) {
     super();
   }
 
@@ -291,6 +300,10 @@ export class SmzGaugeThresholdBuilder extends SmzBuilderUtilities<SmzGaugeThresh
    * @returns A instância atual do SmzGaugeThresholdBuilder para encadeamento de métodos.
    */
   public withValue(value: number): SmzGaugeThresholdBuilder {
+    if (value < this._min || value > this._max) {
+      throw new Error('SmzGaugeThresholdBuilder: Value must be between min and max');
+    }
+
     this._threshold.value = value;
     return this;
   }
@@ -300,8 +313,12 @@ export class SmzGaugeThresholdBuilder extends SmzBuilderUtilities<SmzGaugeThresh
    * @param color - A cor hexadecimal a ser associada ao limite (ex.: "#FF0000").
    * @returns A instância atual do SmzGaugeThresholdBuilder para encadeamento de métodos.
    */
-  public withColor(color: string): SmzGaugeThresholdBuilder {
-    this._threshold.color = color;
+  public withColor(hexaColor: string): SmzGaugeThresholdBuilder {
+    if (!hexaColor.startsWith('#')) {
+      throw new Error('SmzGaugeThresholdBuilder: Color must be a hexadecimal string');
+    }
+
+    this._threshold.color = hexaColor;
     return this;
   }
 
