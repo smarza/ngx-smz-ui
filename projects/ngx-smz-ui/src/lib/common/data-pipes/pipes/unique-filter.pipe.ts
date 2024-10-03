@@ -39,7 +39,6 @@ export class UniqueFilterPipe implements PipeTransform
         }
         else if (reMap != null && isManyToMany)
         {
-            console.log(2);
             // retorna a lista contendo apenas a propriedade solicitada
 
             const mapped = items.map(u => (Reflect.get(u, reMap)));
@@ -55,7 +54,6 @@ export class UniqueFilterPipe implements PipeTransform
         }
         else
         {
-            console.log(3);
             // retorna a lista única com a mesma estrutura original
 
             const results = uniqBy(items, args);

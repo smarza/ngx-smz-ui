@@ -431,10 +431,6 @@ export class SmzDataTransformColumnBuilder<TData> extends SmzBaseColumnBuilder<S
   public setFilter(type: SmzFilterType): SmzDataTransformColumnBuilder<TData> {
     this._column.filter.type = type;
 
-    if (type === SmzFilterType.MULTI_SELECT_ARRAY) {
-      this._column.globalFilterDataType = 'array';
-    }
-
     if (this._column.filterField !== this._column.field) {
       throw new Error(`You need to overrideFilter after calling setFilter for the field ${this._column.field}`);
     }
@@ -443,8 +439,22 @@ export class SmzDataTransformColumnBuilder<TData> extends SmzBaseColumnBuilder<S
       throw new Error(`You need to overrideGlobalFilter after calling setFilter for the field ${this._column.field}`);
     }
 
-    this._column.filterField = `_filterable_${this._column.field}`;
-    this._column.globalFilterField = `_filterable_${this._column.field}`;
+    if (type === SmzFilterType.MULTI_SELECT_ARRAY) {
+      this._column.globalFilterDataType = 'array';
+    }
+
+    switch (type) {
+      case SmzFilterType.MULTI_SELECT_ARRAY:
+        this._column.filterField = this._column.field;
+        break;
+
+      case SmzFilterType.DROPDOWN:
+        this._column.filterField = this._column.field;
+        break;
+
+      default:
+        this._column.filterField = `_filterable_${this._column.field}`;
+    }
 
     return this;
   }
