@@ -43,6 +43,7 @@ import { TriStateCheckboxModule } from 'primeng/tristatecheckbox';
 import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { Subject, Subscription } from 'rxjs';
 import { isArray } from '../../../common/utils/utils';
+import { SmzTableContextColumn } from '../../smz-tables/models/table-column';
 
 @Injectable()
 export class TableService {
@@ -1612,15 +1613,34 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
                             const globalFilterField: string = globalFilterFieldsArray[j].field || globalFilterFieldsArray[j];
                             const regex = /^_filterable_/;
-                            const columnKey = globalFilterField.replace(regex, "");
+                            let columnKey = globalFilterField.replace(regex, "");
+                            let column: SmzTableContextColumn;
+                            let filterFieldValuePath;
 
-                            const column = this.findColumnByKey(columnKey);
+                            if (columnKey.includes(':')) {
+                                const [field, fieldValuePath] = columnKey.split(':');
+                                filterFieldValuePath = fieldValuePath;
+                                column = this.findColumnByKey(field);
+                                columnKey = field;
+                            } else {
+                                column = this.findColumnByKey(columnKey);
+                            }
+
+                            if (!column) {
+                                continue;
+                            }
 
                             const filterGlobal = <FilterMetadata>this.filters['global'];
                             const matchMode = filterGlobal.matchMode;
                             const value = this.value[i];
 
-                            const resolveFieldData = ObjectUtils.resolveFieldData(value, globalFilterField);
+                            let resolveFieldData;
+
+                            if (value[`_dom_${columnKey}`]) {
+                                resolveFieldData = value[`_dom_${columnKey}`];
+                            } else {
+                                resolveFieldData = ObjectUtils.resolveFieldData(value, filterFieldValuePath);
+                            }
 
                             let cellSearchData = resolveFieldData;
 

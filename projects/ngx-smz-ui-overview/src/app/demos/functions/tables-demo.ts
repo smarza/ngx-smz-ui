@@ -303,7 +303,7 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
   },
   //
   [DemoKeys.TABLE_ARRAY_FILTER]: {
-    items$: of(convertorTasks),
+    items$: of(convertorTasks.map(x => ({...x, createdAt: new Date(Date.now() - Math.floor(Math.random() * 10000000000))}))),
     code: () => {
     return new SmzTableBuilder()
       .setTitle('Array Filter Demo')
@@ -320,8 +320,15 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
       .columns()
         .text('name', 'Nome', '8em')
           .columns
-        .text('plantDesign.name', 'Plant Design', '7em')
-          .setFilter(SmzFilterType.MULTI_SELECT)
+        // .date('createdAt', 'Data de criação', '10em')
+        //   .setDateFormat('shortDate')
+        //   .columns
+        .dataTransform('createdAt', 'Data de criação', (createdAt: Date) => (moment(createdAt).format('DD/MM/YYYY')), '10em')
+          .overrideGlobalFilter('createdAt')
+          .columns
+        .dataTransform('plantDesign', 'Plant Design', (plantDesign: any) => (plantDesign.name), '10em')
+          .setFilter(SmzFilterType.MULTI_SELECT_ARRAY)
+          .overrideGlobalFilter('plantDesign.name')
           .columns
         .text('files', 'Arquivos', '4em')
           .setFilter(SmzFilterType.NUMERIC)

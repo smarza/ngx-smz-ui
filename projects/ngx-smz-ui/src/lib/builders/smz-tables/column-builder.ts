@@ -452,6 +452,10 @@ export class SmzDataTransformColumnBuilder<TData> extends SmzBaseColumnBuilder<S
         this._column.filterField = this._column.field;
         break;
 
+      case SmzFilterType.DATE:
+        this._column.filterField = this._column.field;
+        break;
+
       default:
         this._column.filterField = `_filterable_${this._column.field}`;
     }
