@@ -319,6 +319,7 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
       .useCustomActions(60)
       .columns()
         .text('name', 'Nome', '8em')
+          .setFilter(SmzFilterType.MULTI_SELECT_STRING)
           .columns
         // .date('createdAt', 'Data de criação', '10em')
         //   .setDateFormat('shortDate')

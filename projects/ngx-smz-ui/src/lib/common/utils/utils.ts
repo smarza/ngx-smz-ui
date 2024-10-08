@@ -20,6 +20,20 @@ export function isNull(value: any): value is null {
     return value === null;
 }
 
+export function isConvertibleToNumber(value: string): boolean {
+    if (value == null) {
+        return false;
+    }
+
+    // Tenta converter a string para um número
+    const convertedValue = Number(value);
+
+    // Verifica se a conversão resultou em um valor NaN (não é número)
+    // E também garante que o valor original não seja uma string vazia
+    return !isNaN(convertedValue) && value?.toString().trim() !== '';
+}
+
+
 export function isNumber(value: any): value is number {
     return typeof value === 'number';
 }

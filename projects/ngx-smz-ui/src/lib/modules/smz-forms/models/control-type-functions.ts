@@ -1,6 +1,6 @@
 import { AbstractControl, UntypedFormGroup } from '@angular/forms';
 import { SmzControlType, SmzControlTypes, SmzCalendarControl, SmzCurrencyControl, SmzPasswordControl, SmzSwitchControl, SmzTextControl, SmzCheckBoxControl, SmzCheckBoxGroupControl, SmzColorPickerControl, SmzDropDownControl, SmzFileControl, SmzLinkedDropDownControl, SmzMultiSelectControl, SmzNumberControl, SmzRadioControl, SmzTextAreaControl, SmzMaskControl, SmzLinkedMultiSelectControl, SmzListControl, SmzTagAreaControl, SmzContentMaskControl, SmzTextButtonControl, SmzTreeControl, SmzAutocompleteTagAreaControl } from './control-types';
-import { flatten, isArray, isNumber, isString } from '../../../common/utils/utils';
+import { flatten, isArray, isConvertibleToNumber, isNumber, isString } from '../../../common/utils/utils';
 import { executeTextPattern } from './text-patterns';
 import { cloneDeep } from 'lodash-es';
 import { SmzSmartTagData } from '../directives/smart-tag.directive';
@@ -263,7 +263,7 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
             if (inputValue == null) {
                 return mapResponseValue(input, null, false);
             }
-            else if (isNumber(inputValue)) {
+            else if (isConvertibleToNumber(inputValue)) {
                 const value = Number(inputValue);
                 return mapResponseValue(input, value, false);
             }
