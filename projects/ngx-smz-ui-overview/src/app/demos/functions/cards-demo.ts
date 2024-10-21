@@ -392,7 +392,6 @@ export const CardsDemo: { [key: string]: { code: () => void } } = {
   [DemoKeys.CARDS_FLIP_COMPLEXITY]: {
     code: () => {
     return new SmzCardsBuilder<SimpleEntity<Number>>()
-        .hideHeader()
         .hidePaginator()
         .setSource(of(SmzCardComplexityData))
         .template()

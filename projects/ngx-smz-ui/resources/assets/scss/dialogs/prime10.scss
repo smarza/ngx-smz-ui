@@ -388,19 +388,18 @@ smz-dynamicDialog {
         top: -9999px;
     }
 
-
-    input[type="button"],
-    input[type="submit"],
-    input[type="reset"],
-    input[type="file"]::-webkit-file-upload-button,
-    button {
-        -moz-border-radius: 0;
-        -webkit-border-radius: 0;
-        border-radius: 0;
-    }
-    .ui-accordion {
-        width: 100%;
-    }
+    // input[type="button"],
+    // input[type="submit"],
+    // input[type="reset"],
+    // input[type="file"]::-webkit-file-upload-button,
+    // button {
+    //     -moz-border-radius: 0;
+    //     -webkit-border-radius: 0;
+    //     border-radius: 0;
+    // }
+    // .ui-accordion {
+    //     width: 100%;
+    // }
 
     .ui-accordion .ui-accordion-header {
         cursor: pointer;

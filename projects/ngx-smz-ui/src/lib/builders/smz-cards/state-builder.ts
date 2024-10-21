@@ -26,6 +26,7 @@ export class SmzCardsBuilder<TData> {
       listComponent: null
     },
     grid: {
+      isVisible: false,
       styleClass: {
         all: '',
         layout: 'col-12 lg:col-6 xl:col-3',
@@ -34,6 +35,7 @@ export class SmzCardsBuilder<TData> {
       }
     },
     list: {
+      isVisible: false,
       styleClass: {
         all: '',
         layout: 'col-12 lg:col-6 xl:col-3',
@@ -264,6 +266,10 @@ export class SmzCardsBuilder<TData> {
 
     if (this._state.items$ == null) {
       throw Error('[Smz Cards] You can\'t call \'build()\' without setting the source.');
+    }
+
+    if (this._state.grid.isVisible == false || this._state.list.isVisible == false) {
+      this._state.view.showLayoutOptions = false;
     }
 
     if (this._state.isDebug) {

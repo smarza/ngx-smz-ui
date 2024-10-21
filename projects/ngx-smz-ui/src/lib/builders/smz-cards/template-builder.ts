@@ -12,6 +12,8 @@ export class SmzCardViewBuilder<TData> extends SmzBuilderUtilities<SmzCardViewBu
   protected that = this;
   constructor(private _cardsBuilder: SmzCardsBuilder<TData>, private _viewData: SmzCardView, private _layout: 'grid' | 'list') {
     super();
+
+    this._viewData.isVisible = true;
   }
 
   public useAsDefault(): SmzCardViewBuilder<TData> {

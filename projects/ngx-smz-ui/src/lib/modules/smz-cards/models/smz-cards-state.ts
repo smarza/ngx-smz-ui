@@ -48,6 +48,7 @@ export interface SmzCardActions<T> {
 }
 
 export interface SmzCardView {
+  isVisible: boolean;
   styleClass: {
     all: string;
     layout: string;
