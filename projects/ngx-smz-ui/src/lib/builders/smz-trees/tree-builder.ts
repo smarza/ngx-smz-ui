@@ -4,15 +4,17 @@ import { SmzTreeState } from '../../modules/smz-trees/models/tree-state';
 import { SmzTreeToolbarButton } from '../../modules/smz-trees/models/tree-toolbar-button';
 import { SmzDataSourceTreeBuilder } from './data-source-tree-builder';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
+import { SmzTreeNode } from '../../modules/smz-trees/models/tree-node';
 
 export class SmzTreeBuilder {
   public _state: SmzTreeState = {
     isDebug: false,
     menu: {
       behavior: 'context-menu',
-      uniqueAllowedTypes: [],
       isVisible: false,
-      items: []
+      uniqueTypes: [],
+      items: [],
+      getDynamicItems: null
     },
     header: {
       isVisible: true,
@@ -363,6 +365,16 @@ export class SmzTreeMenuBuilder extends SmzBuilderUtilities<SmzTreeMenuBuilder> 
     return this;
   }
 
+  public setExplicitTypes(types: string[]): SmzTreeMenuBuilder {
+    this._treeBuilder._state.menu.uniqueTypes = types;
+    return this;
+  }
+
+  public withDynamicItems(callback: (_: SmzTreeDynamicMenuBuilder, node: SmzTreeNode<unknown>) => SmzTreeMenuItem[]): SmzTreeMenuBuilder {
+    this._treeBuilder._state.menu.getDynamicItems = callback;
+    return this;
+  }
+
   public caption(label: string, icon: string = null): SmzTreeMenuItemBuilder {
     const item: SmzTreeMenuItem = { label, icon, visible: true, disabled: false };
     this._treeBuilder._state.menu.items.push(item);
@@ -381,6 +393,14 @@ export class SmzTreeMenuBuilder extends SmzBuilderUtilities<SmzTreeMenuBuilder> 
   }
 
   public get tree(): SmzTreeBuilder {
+
+    if (this._treeBuilder._state.menu.getDynamicItems == null) {
+      this._treeBuilder._state.menu.getDynamicItems = () => this._treeBuilder._state.menu.items;
+    }
+    else if (this._treeBuilder._state.menu.uniqueTypes.length === 0) {
+      throw new Error('You must set the explicit types before using dynamic items.');
+    }
+
     return this._treeBuilder;
   }
 }
@@ -409,8 +429,8 @@ export class SmzTreeMenuItemBuilder extends SmzBuilderUtilities<SmzTreeMenuItemB
   public showForTypes(...params: string[]): SmzTreeMenuItemBuilder {
     this._item.allowedTypes = params;
     params.forEach(param => {
-      if (!this._menuBuilder._treeBuilder._state.menu.uniqueAllowedTypes.includes(param)) {
-        this._menuBuilder._treeBuilder._state.menu.uniqueAllowedTypes.push(param);
+      if (!this._menuBuilder._treeBuilder._state.menu.uniqueTypes.includes(param)) {
+        this._menuBuilder._treeBuilder._state.menu.uniqueTypes.push(param);
       }
     });
     return this;
@@ -433,6 +453,76 @@ export class SmzTreeMenuItemBuilder extends SmzBuilderUtilities<SmzTreeMenuItemB
   public get menu(): SmzTreeMenuBuilder {
     return this._menuBuilder;
   }
+}
+
+export class SmzTreeDynamicMenuBuilder extends SmzBuilderUtilities<SmzTreeDynamicMenuBuilder> {
+  protected that = this;
+  private _items: SmzTreeMenuItem[] = [];
+  constructor() {
+    super();
+  }
+
+  public item(label: string, icon: string = null): SmzTreeDynamicMenuItemBuilder {
+    const item: SmzTreeMenuItem = { label, icon, visible: true, disabled: false };
+    this._items.push(item);
+    return new SmzTreeDynamicMenuItemBuilder(this, null, item);
+  }
+
+  public separator(): SmzTreeDynamicMenuBuilder {
+    this._items.push({ separator: true });
+    return this;
+  }
+
+  public build(): SmzTreeMenuItem[] {
+    return this._items;
+  }
+
+}
+
+export class SmzTreeDynamicMenuItemBuilder extends SmzBuilderUtilities<SmzTreeDynamicMenuItemBuilder> {
+  protected that = this;
+  constructor(private _menuBuilder: SmzTreeDynamicMenuBuilder, private _parent: SmzTreeDynamicMenuItemBuilder, private _item: SmzTreeMenuItem) {
+    super();
+  }
+
+  public setCallback<T>(callback: (item: T) => void): SmzTreeDynamicMenuItemBuilder {
+    this._item.callback = callback;
+    return this;
+  }
+
+  public setTooltip(tooltip: string): SmzTreeDynamicMenuItemBuilder {
+    this._item.tooltip = tooltip;
+    return this;
+  }
+
+  public hideForTypes(...params: string[]): SmzTreeDynamicMenuItemBuilder {
+    this._item.unallowedTypes = params;
+    return this;
+  }
+
+  public showForTypes(...params: string[]): SmzTreeDynamicMenuItemBuilder {
+    this._item.allowedTypes = params;
+    return this;
+  }
+
+  public item(label: string, icon: string = null): SmzTreeDynamicMenuItemBuilder {
+    const item: SmzTreeMenuItem = { label, icon, visible: true, disabled: false };
+
+    if (this._item.items == null) {
+      this._item.items = [];
+    }
+    this._item.items.push(item);
+    return new SmzTreeDynamicMenuItemBuilder(this._menuBuilder, this, item);
+  }
+
+  public get parent(): SmzTreeDynamicMenuItemBuilder {
+    return this._parent;
+  }
+
+  public get menu(): SmzTreeDynamicMenuBuilder {
+    return this._menuBuilder;
+  }
+
 }
 
 export class SmzTreeDropBuilder {

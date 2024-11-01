@@ -2,7 +2,7 @@ import { DemoKeys } from '@demos/demo-keys';
 import { Store } from '@ngxs/store';
 import { DemoFeatureActions } from '@states/demo/demo.actions';
 import { DemoFeatureSelectors } from '@states/demo/demo.selectors';
-import { GlobalInjector, SmzTreeBuilder } from 'ngx-smz-ui';
+import { GlobalInjector, SmzTreeBuilder, SmzTreeDynamicMenuBuilder, SmzTreeDynamicMenuItemBuilder, SmzTreeMenuBuilder, SmzTreeNode } from 'ngx-smz-ui';
 import { Observable } from 'rxjs';
 
 const store = GlobalInjector.instance.get(Store);
@@ -28,24 +28,30 @@ export const TreesDemo:{ [key: string]: { items$: Observable<any[]>, code: () =>
       .setSelection('checkbox')
       .menu()
         .withInlineMenu('fa-solid fa-gear', 'secondary')
-        .caption('Novo')
-          .item('Arquivo text')
-            .setCallback(node => console.log('TEXT: ', node))
-            .hideForTypes('file')
-            .parent
-          .item('Imagem')
-            .setCallback(node => console.log('IMAGEN: ', node))
-            .showForTypes('folder')
-            .menu
-        .separator()
-        .item('Renomear')
-          .setCallback(node => console.log('RENOMEAR: ', node))
-          .showForTypes('file', 'folder')
-          .menu
-        .item('Excluir')
-          .setCallback(node => console.log('EXCLUIR: ', node))
-          .menu
-        .tree
+        .setExplicitTypes(['CheckGroup', 'CheckCategory', 'Check'])
+        .withDynamicItems((_: SmzTreeDynamicMenuBuilder, node: SmzTreeNode<unknown>) => (
+            _.item(`label: ${node.label}, type: ${node.type}`)
+              .setCallback(node => console.log(node))
+              .menu
+            .separator()
+            .item(`Not Check`)
+              .setCallback(node => console.log(node))
+              .hideForTypes('Check')
+              .menu
+            .item('Is Check')
+              .setCallback(node => console.log(node))
+              .showForTypes('Check')
+              .menu
+            .item('Is CheckGroup')
+              .setCallback(node => console.log(node))
+              .showForTypes('CheckGroup')
+              .menu
+            .item('CheckGroup or CheckCategory')
+              .setCallback(node => console.log(node))
+              .showForTypes('CheckGroup', 'CheckCategory')
+              .menu
+            .build()))
+            .tree
       .enableFilter()
       .toolbar('rounded-outlined')
         .setAlignment('end')

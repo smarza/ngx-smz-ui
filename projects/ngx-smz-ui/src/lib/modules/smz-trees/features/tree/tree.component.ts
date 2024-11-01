@@ -9,6 +9,7 @@ import { TreeHelperService } from '../../services/tree-helper.service';
 import { SmzNodeHelper } from '../../models/node-helper';
 import { TreeNodeCollapseEvent, TreeNodeDropEvent, TreeNodeExpandEvent, TreeNodeSelectEvent, TreeNodeUnSelectEvent } from 'primeng/tree';
 import { Menu } from 'primeng/menu';
+import { SmzTreeDynamicMenuBuilder } from '../../../../builders/smz-trees/tree-builder';
 
 @Component({
   selector: 'smz-ui-tree',
@@ -225,7 +226,7 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
       }
     });
 
-    this.state?.menu?.uniqueAllowedTypes.forEach(type => {
+    this.state?.menu?.uniqueTypes.forEach(type => {
       if (this.contentTemplates.find(x => x.type === type) == null) {
         this.contentTemplates.push({
           type,
@@ -283,7 +284,7 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
 
   public onContextMenuOpen(event: TreeNodeCollapseEvent): void {
     if (this.state.menu.isVisible) {
-      this.menuItems = this.convertMenu(this.state.menu.items, event.node);
+      this.menuItems = this.convertMenu(this.state.menu.getDynamicItems(new SmzTreeDynamicMenuBuilder(), event.node), event.node);
       this.cdr.markForCheck();
     }
     this.selectionChange.emit(event.node);
@@ -291,7 +292,7 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
 
   public onRowMenuOpen(node: TreeNode, menuComponent: Menu, event: any): void {
     if (this.state.menu.isVisible) {
-      this.menuItems = this.convertMenu(this.state.menu.items, node);
+      this.menuItems = this.convertMenu(this.state.menu.getDynamicItems(new SmzTreeDynamicMenuBuilder(), node), node);
       menuComponent.toggle(event);
       this.cdr.markForCheck();
     }

@@ -2,10 +2,10 @@ import { TreeNode } from 'primeng/api';
 import { SmzTreeMenuItem } from './tree-menu-item';
 import { SmzTreeToolbarButton } from './tree-toolbar-button';
 import { SmzTreeNode } from './tree-node';
+import { SmzTreeDynamicMenuBuilder } from '../../../builders/smz-trees/tree-builder';
 
 export interface SmzTreeState {
   isDebug?: boolean;
-
   header?: {
     isVisible?: boolean;
     title?: string,
@@ -43,9 +43,10 @@ export interface SmzTreeState {
      */
     behavior: 'context-menu' | 'row-menu';
     /**
-     * Controls the allowed types of the menu
+     * Controls the types that the menu will be shown
+     * When using Dynamic Items, this property needs to be set manually
      */
-    uniqueAllowedTypes: string[];
+    uniqueTypes: string[];
     /**
      * Controls the icon of the row menu
      */
@@ -58,6 +59,10 @@ export interface SmzTreeState {
      * Items for the popup menu
      */
     items: SmzTreeMenuItem[];
+    /**
+     * Gets the dynamic items for the row menu
+     */
+    getDynamicItems: (_: SmzTreeDynamicMenuBuilder, node: SmzTreeNode<unknown>) => SmzTreeMenuItem[];
   };
   /**
    * Behavior of the empty feedback
