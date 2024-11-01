@@ -1,6 +1,6 @@
 {
   "name": "ngx-smz-ui",
-  "version": "17.1.56",
+  "version": "17.1.57",
   "peerDependencies": {
     "@angular/animations": "^17.0.0",
     "@angular/cdk": "^17.0.0",

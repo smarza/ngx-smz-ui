@@ -345,9 +345,10 @@ export class SmzTreeDragAndDropBuilder {
   }
 }
 
-export class SmzTreeMenuBuilder {
+export class SmzTreeMenuBuilder extends SmzBuilderUtilities<SmzTreeMenuBuilder> {
+  protected that = this;
   constructor(public _treeBuilder: SmzTreeBuilder) {
-
+    super();
   }
 
   public withInlineMenu(icon: string = 'fa-solid fa-gear', severity: 'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'help' | 'danger' = 'primary'): SmzTreeMenuBuilder {
