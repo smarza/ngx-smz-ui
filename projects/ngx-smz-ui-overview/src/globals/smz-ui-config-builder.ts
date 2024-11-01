@@ -51,7 +51,7 @@ export const UiBuilder: SmzUiBuilder = new SmzUiBuilder()
     .allowMultipleRolesPerUser()
     .users()
       .customTable(CustomUserTableBuilder)
-      .allowUserDeletion()
+      .allowUserDeactivation()
       .addButtons()
         .item('Criar Usuário')
           .menu

@@ -880,3 +880,17 @@ The following example shows the input of the function the what the output would 
 # smz-ui-table
 
 See the `smz-ui-table` [documentation](tables.md).
+
+
+
+
+
+
+
+
+
+--
+# Novas funcionalidades do componente de árvore
+
+
+

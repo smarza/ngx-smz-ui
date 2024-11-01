@@ -11,6 +11,7 @@ import { SmzCommentsComponent } from './features/smz-comments/smz-comments.compo
 import { SmzCommentsSectionComponent } from './features/smz-comments-section/smz-comments-section.component';
 import { SmzMessagesModule } from '../smz-messages/smz-messages.module';
 import { ButtonModule } from 'primeng/button';
+import { MentionableTextareaComponent } from './features/smz-comments/mentionable-textarea.component';
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import { ButtonModule } from 'primeng/button';
     NgxSmzFormsModule,
     TreeModule,
     NgxSmzDataPipesModule,
-    SmzMessagesModule
+    SmzMessagesModule,
+    MentionableTextareaComponent
   ],
   exports: [
     SmzCommentsSectionComponent

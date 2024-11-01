@@ -74,9 +74,8 @@ export class UsersPageComponent {
     (event.target as HTMLImageElement).src = GlobalInjector.config.rbkUtils.authorization.users.avatarPlaceholderPath;
   }
 
-  public handleViewOptionChange(event: { value: 'activated' | 'deactivated' }): void {
-
-    switch (event.value) {
+  public handleViewOptionChange(event: 'activated' | 'deactivated'): void {
+    switch (event) {
       case 'activated':
         this.users$ = this.store.select(UsersSelectors.activated);
         this.tableState = { ...this.activatedTableState };

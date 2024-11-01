@@ -39,6 +39,22 @@ export interface SmzTreeState {
      */
     isVisible: boolean;
     /**
+     * Controls the behavior of the menu
+     */
+    behavior: 'context-menu' | 'row-menu';
+    /**
+     * Controls the allowed types of the menu
+     */
+    uniqueAllowedTypes: string[];
+    /**
+     * Controls the icon of the row menu
+     */
+    rowMenuIcon?: string;
+    /**
+     * Controls the severity of the row menu icon
+     */
+    rowMenuIconSeverity?: 'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'help' | 'danger';
+    /**
      * Items for the popup menu
      */
     items: SmzTreeMenuItem[];

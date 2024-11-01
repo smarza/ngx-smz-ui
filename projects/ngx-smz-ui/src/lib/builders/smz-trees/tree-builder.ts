@@ -3,11 +3,14 @@ import { SmzTreeMenuItem } from '../../modules/smz-trees/models/tree-menu-item';
 import { SmzTreeState } from '../../modules/smz-trees/models/tree-state';
 import { SmzTreeToolbarButton } from '../../modules/smz-trees/models/tree-toolbar-button';
 import { SmzDataSourceTreeBuilder } from './data-source-tree-builder';
+import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 
 export class SmzTreeBuilder {
   public _state: SmzTreeState = {
     isDebug: false,
     menu: {
+      behavior: 'context-menu',
+      uniqueAllowedTypes: [],
       isVisible: false,
       items: []
     },
@@ -347,6 +350,18 @@ export class SmzTreeMenuBuilder {
 
   }
 
+  public withInlineMenu(icon: string = 'fa-solid fa-gear', severity: 'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'help' | 'danger' = 'primary'): SmzTreeMenuBuilder {
+    this._treeBuilder._state.menu.behavior = 'row-menu';
+    this._treeBuilder._state.menu.rowMenuIcon = icon;
+    this._treeBuilder._state.menu.rowMenuIconSeverity = severity;
+    return this;
+  }
+
+  public withContextMenu(): SmzTreeMenuBuilder {
+    this._treeBuilder._state.menu.behavior = 'context-menu';
+    return this;
+  }
+
   public caption(label: string, icon: string = null): SmzTreeMenuItemBuilder {
     const item: SmzTreeMenuItem = { label, icon, visible: true, disabled: false };
     this._treeBuilder._state.menu.items.push(item);
@@ -369,9 +384,10 @@ export class SmzTreeMenuBuilder {
   }
 }
 
-export class SmzTreeMenuItemBuilder {
+export class SmzTreeMenuItemBuilder extends SmzBuilderUtilities<SmzTreeMenuItemBuilder> {
+  protected that = this;
   constructor(public _menuBuilder: SmzTreeMenuBuilder, private _parent: SmzTreeMenuItemBuilder, private _item: SmzTreeMenuItem) {
-
+    super();
   }
 
   public setCallback<T>(callback: (item: T) => void): SmzTreeMenuItemBuilder {
@@ -391,6 +407,11 @@ export class SmzTreeMenuItemBuilder {
 
   public showForTypes(...params: string[]): SmzTreeMenuItemBuilder {
     this._item.allowedTypes = params;
+    params.forEach(param => {
+      if (!this._menuBuilder._treeBuilder._state.menu.uniqueAllowedTypes.includes(param)) {
+        this._menuBuilder._treeBuilder._state.menu.uniqueAllowedTypes.push(param);
+      }
+    });
     return this;
   }
 

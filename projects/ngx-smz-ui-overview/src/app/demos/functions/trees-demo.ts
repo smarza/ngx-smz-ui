@@ -27,6 +27,7 @@ export const TreesDemo:{ [key: string]: { items$: Observable<any[]>, code: () =>
       .useSincronization()
       .setSelection('checkbox')
       .menu()
+        .withInlineMenu('fa-solid fa-gear', 'secondary')
         .caption('Novo')
           .item('Arquivo text')
             .setCallback(node => console.log('TEXT: ', node))

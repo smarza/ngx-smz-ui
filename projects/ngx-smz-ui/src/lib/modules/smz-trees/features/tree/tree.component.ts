@@ -8,6 +8,7 @@ import { getTreeNodeFromKey, isArray, uuidv4 } from '../../../../common/utils/ut
 import { TreeHelperService } from '../../services/tree-helper.service';
 import { SmzNodeHelper } from '../../models/node-helper';
 import { TreeNodeCollapseEvent, TreeNodeDropEvent, TreeNodeExpandEvent, TreeNodeSelectEvent, TreeNodeUnSelectEvent } from 'primeng/tree';
+import { Menu } from 'primeng/menu';
 
 @Component({
   selector: 'smz-ui-tree',
@@ -107,6 +108,8 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
 
     if (this.state.isDebug) {
       console.log('---- transformed', bindedItems);
+      console.log('---- treeItems', this.treeItems);
+      console.log('---- menuItems', this.menuItems);
     }
 
     this.treeItems = bindedItems;
@@ -219,11 +222,21 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
             this.emptyActionsTemplate = item.template;
             break;
         }
-
       }
-
-
     });
+
+    this.state?.menu?.uniqueAllowedTypes.forEach(type => {
+      if (this.contentTemplates.find(x => x.type === type) == null) {
+        this.contentTemplates.push({
+          type,
+          template: null
+        });
+      }
+    });
+
+    if (this.state?.isDebug) {
+      console.log('this.contentTemplates', this.contentTemplates);
+    }
   }
 
   public clear(dt: any, context: SmzTreeContext): void {
@@ -274,6 +287,15 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
       this.cdr.markForCheck();
     }
     this.selectionChange.emit(event.node);
+  }
+
+  public onRowMenuOpen(node: TreeNode, menuComponent: Menu, event: any): void {
+    if (this.state.menu.isVisible) {
+      this.menuItems = this.convertMenu(this.state.menu.items, node);
+      menuComponent.toggle(event);
+      this.cdr.markForCheck();
+    }
+    this.selectionChange.emit(node);
   }
 
   private convertMenu(items: SmzTreeMenuItem[], context: SmzTreeNode<unknown>): MenuItem[] {

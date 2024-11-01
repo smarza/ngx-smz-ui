@@ -14,6 +14,7 @@ import { ContextMenuModule } from 'primeng/contextmenu';
 import { SharedModule } from 'primeng/api';
 import { NgxSmzMenuModule } from '../smz-menu/smz-menu.module';
 import { SmzDataTransformTreePipe } from './pipes/data-transform-tree.pipe';
+import { MenuModule } from 'primeng/menu';
 
 @NgModule({
     declarations: [
@@ -34,7 +35,8 @@ import { SmzDataTransformTreePipe } from './pipes/data-transform-tree.pipe';
         TooltipModule,
         InputTextModule,
         SkeletonModule,
-        NgxSmzMenuModule
+        NgxSmzMenuModule,
+        MenuModule
     ],
     exports: [
         SmzTreeComponent,
