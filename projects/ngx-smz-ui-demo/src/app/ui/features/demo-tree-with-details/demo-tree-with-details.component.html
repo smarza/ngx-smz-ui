@@ -31,7 +31,7 @@
             <!-- HEADER -->
             <div class="col grid grid-nogutter items-center justify-between">
               <h3 class="m-0">Detalhes</h3>
-              <smz-ui-form-submit [form]="formComponent" (save)="updateModel($event)"></smz-ui-form-submit>
+              <smz-ui-submit [state]="formComponent" (save)="updateModel($event)"></smz-ui-submit>
             </div>
 
             <!-- CONTEÚDO -->

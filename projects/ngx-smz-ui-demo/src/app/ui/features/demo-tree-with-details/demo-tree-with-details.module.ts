@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SmzRouteData, NgxSmzDataPipesModule, NgxSmzTreeWithDetailsModule, NgxSmzFormsModule } from 'ngx-smz-ui';
+import { SmzRouteData, NgxSmzDataPipesModule, NgxSmzTreeWithDetailsModule, NgxSmzFormsModule, SmzSubmitComponent } from 'ngx-smz-ui';
 import { ButtonModule } from 'primeng/button';
 import { DemoTreeWithDetailsComponent } from './demo-tree-with-details.components';
 
@@ -31,7 +31,8 @@ const routes: Routes = [
     ButtonModule,
     NgxSmzTreeWithDetailsModule,
     NgxSmzDataPipesModule,
-    NgxSmzFormsModule
+    NgxSmzFormsModule,
+    SmzSubmitComponent
   ],
   exports: [],
   declarations: [

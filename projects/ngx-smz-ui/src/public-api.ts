@@ -40,6 +40,7 @@ export * from './lib/modules/smz-cards/public-api';
 export * from './lib/modules/smz-timeline/public-api';
 export * from './lib/modules/smz-responsive/smz-responsive.component';
 export * from './lib/modules/smz-multi-tables/public-api';
+export * from './lib/modules/smz-submit/public-api';
 
 
 // Verificar se já resolveram o issue para publicar com esse módulo
