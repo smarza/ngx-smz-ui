@@ -366,7 +366,7 @@ export class SmzTableBuilder<TData> extends SmzBuilderUtilities<SmzTableBuilder<
   }
 
   public setPaginatorTemplate(template: string): SmzTableBuilder<TData> {
-    this._state.pagination.pageReport.template = template;
+    this._state.locale.paginator.template = template;
     return this;
   }
 
