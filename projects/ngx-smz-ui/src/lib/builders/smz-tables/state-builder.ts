@@ -365,6 +365,11 @@ export class SmzTableBuilder<TData> extends SmzBuilderUtilities<SmzTableBuilder<
     return this;
   }
 
+  public setPaginatorTemplate(template: string): SmzTableBuilder<TData> {
+    this._state.pagination.pageReport.template = template;
+    return this;
+  }
+
   public enableClearFilters(): SmzTableBuilder<TData> {
     this._state.caption.isVisible = true;
     this._state.caption.clearFilters.isButtonVisible = true;
