@@ -5,6 +5,9 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
+## [17.2.6] - 2025-01-28
+Implementação de tratamento de erro no componente de Input Text Button.
+
 ## [17.0.0-rc.2] - 2024-05-08
 Merge das features que estavam na Main
 

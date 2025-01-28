@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, Input, OnInit } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { debounceTime, take, takeWhile } from 'rxjs';
 import { SmzFormsBehaviorsConfig } from '../../models/behaviors';
@@ -13,13 +13,12 @@ import { isEmpty } from '../../../rbk-utils/utils/utils';
     templateUrl: './input-text-button.component.html'
 })
 export class InputTextButtonComponent implements OnInit {
+    private readonly changeDetectorRef = inject(ChangeDetectorRef);
     @Input() public input: SmzTextButtonControl;
     @Input() public control: AbstractControl;
     @Input() public viewdata: SmzFormViewdata
     @Input() public behaviors: SmzFormsBehaviorsConfig;
     public blocked = false;
-    constructor() {
-    }
 
     public ngOnInit(): void {
 
@@ -62,18 +61,26 @@ export class InputTextButtonComponent implements OnInit {
         const data = this.viewdata.getData();
 
         this.input.isButtonValid = false;
-        this.input.buttonMessages = [];
+        this.input.buttonMessages = ['Aguarde...'];
         this.blocked = true;
 
         this.input
             .callback(data, this.viewdata)
             .pipe(take(1), untilDestroyed(this))
-            .subscribe((event: { isValid: boolean, messages?: string[] }) => {
-                this.input.isButtonValid = event.isValid;
-                this.input.buttonMessages = event.messages != null ? event.messages : [];
-                this.blocked = false;
-
-                this.viewdata.getData();
+            .subscribe({
+                next: (event: { isValid: boolean, messages?: string[] }) => {
+                    this.input.isButtonValid = event.isValid;
+                    this.input.buttonMessages = event.messages ?? [];
+                },
+                error: (err) => {
+                    this.input.isButtonValid = false;
+                    this.input.buttonMessages = ['An error not handled occurred while validating the input button. Please try again.'];
+                },
+                complete: () => {
+                    this.viewdata.getData();
+                    this.blocked = false;
+                    this.changeDetectorRef.detectChanges();
+                }
             });
 
     }
