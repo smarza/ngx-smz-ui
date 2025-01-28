@@ -7,6 +7,8 @@ import { UsersActions } from 'ngx-smz-ui';
 import { CADetails } from '../models/cadetails';
 import { UserDetails } from '../models/user-details';
 import { CaService } from '../services/ca.service';
+import { of } from 'rxjs/internal/observable/of';
+import { catchError } from 'rxjs/operators';
 
 export const PROTEUS_STATE_NAME = 'proteus';
 
@@ -30,11 +32,18 @@ export class ProteusState {
 
   @Action(ProteusActions.GetCaEmployee)
   public onImportTopsideSystems$( ctx: StateContext<ProteusStateModel>, action: ProteusActions.GetCaEmployee): Observable<CADetails> {
-    return this.apiService.getEmployeeDetails(action.data).pipe(
-      tap((result: CADetails) => {
-        ctx.patchState({ employeeDetails: result, requestCAErrors: null });
-      })
-    );
+    return this.apiService
+      .withParameters<CaService>({ errorHandlingType: 'toast' })
+      .getEmployeeDetails(action.data)
+        .pipe(
+          tap((result: CADetails) => {
+            ctx.patchState({ employeeDetails: result, requestCAErrors: null });
+          }),
+          catchError(() => {
+            ctx.patchState({ employeeDetails: null });
+            return of(null);
+          })
+        );
   }
 
   @Action(ProteusActions.ClearCaEmployee)
