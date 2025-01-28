@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { MenuHelperService, ThemeManagerService, BoilerplateService, CLAIMS_PAGE_ROUTE, ROLES_PAGE_ROUTE, NewAthenaLayoutModule, RbkAccessControlModule, USERS_PAGE_ROUTE, UiDefinitionsDbActions } from 'ngx-smz-ui';
+import { ProteusModule } from './ui/proteus/proteus.module';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +16,8 @@ import { MenuHelperService, ThemeManagerService, BoilerplateService, CLAIMS_PAGE
     NewAthenaLayoutModule,
 
     // Shared Modules
-    RbkAccessControlModule
+    RbkAccessControlModule,
+    ProteusModule
   ],
   template: `
 <smz-ui-new-athena-layout [profile]="menuService.profile">

@@ -1,4 +1,5 @@
-import { GlobalInjector, SmzTableBuilder, SmzFilterType, nameof, SimpleNamedEntity } from 'ngx-smz-ui';
+import { GlobalInjector, SmzTableBuilder, SmzFilterType, nameof, SimpleNamedEntity, UserDetails } from 'ngx-smz-ui';
+import { showUserUpdateDialog } from '../app/ui/proteus/functions/show-user-update-dialog';
 
 export function CustomUserTableBuilder(): SmzTableBuilder<any> {
 
@@ -12,22 +13,23 @@ export function CustomUserTableBuilder(): SmzTableBuilder<any> {
     .useTableEmptyMessage()
     .menu()
       .item('Atualizar Dados', 'fa-solid fa-user-pen')
+        .setCallback((item: UserDetails) => { showUserUpdateDialog(item); })
         .menu
       .table
     .columns()
-      .custom(nameof<any>('displayName'), 'Nome')
+      .custom(nameof<UserDetails>('displayName'), 'Nome')
         .enableSort()
         .forceGlobalFilter()
         .columns
-      .text(nameof<any>('username'), 'Usuário')
+      .text(nameof<UserDetails>('username'), 'Usuário')
         .addStyles('font-bold')
         .columns
-      .text(nameof<any>('email'), 'Email')
+      .text(nameof<UserDetails>('email'), 'Email')
         .columns
-      .dataTransform(nameof<any>('roles'), roleColumnHeader, (roles: SimpleNamedEntity[]) => roles.map(x => x.name).join(', '))
+      .dataTransform('roles', roleColumnHeader, (roles: SimpleNamedEntity[]) => roles.map(x => x.name).join(', '))
         .setFilter(SmzFilterType.MULTI_SELECT_ARRAY)
         .columns
-      .date(nameof<any>('lastLogin'), 'Último Acesso')
+      .date(nameof<UserDetails>('lastLogin'), 'Último Acesso')
         .setDateFormat('medium')
         .columns
     .table;

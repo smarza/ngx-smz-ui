@@ -9,11 +9,14 @@ import { DemoFeatureName, DemoFeatureState, getFtDemoInitialState } from '@state
 import { ShopsDbActions } from '@states/database/shops/shops.actions';
 import { WarehousesDbActions } from '@states/database/warehouses/warehouses.actions';
 import { DemoFeatureActions } from '@states/demo/demo.actions';
-import { rbkConfig } from './rbk-config';
 import { CustomUserTableBuilder } from './custom-user-table-state';
 import { AUTHENTICATED_ROOT_PATH } from '@routes';
 import { SSO_LOGIN_PATH } from '../app/ui/features/home/login-sso/sso.routes';
 import { getSsoAuthInitialState, SSO_AUTH_STATE_NAME, SsoAuthState } from '../app/ui/features/home/login-sso/states/sso-auth.state';
+import { showUserCreationDialog } from '../app/ui/proteus/functions/show-user-creation-dialog';
+import { getInitialProteusState } from 'src/app/ui/proteus/state/proteus.state';
+import { ProteusState } from 'src/app/ui/proteus/state/proteus.state';
+import { PROTEUS_STATE_NAME } from '../app/ui/proteus/state/proteus.state';
 
 export const UiBuilder: SmzUiBuilder = new SmzUiBuilder()
 .setApplicationName('Overview Demo')
@@ -54,6 +57,7 @@ export const UiBuilder: SmzUiBuilder = new SmzUiBuilder()
       .allowUserDeactivation()
       .addButtons()
         .item('Criar Usuário')
+          .setCallback(() => showUserCreationDialog())
           .menu
         .back
       .authorization
@@ -78,11 +82,16 @@ export const UiBuilder: SmzUiBuilder = new SmzUiBuilder()
     .setLoadAction(ShopsDbActions.LoadAll)
     .state
 
-    // SSO Customization
-    .addFeature(SSO_AUTH_STATE_NAME)
-      .setState(SsoAuthState)
-      .setClearFunction(getSsoAuthInitialState)
-      .state
+  .addFeature(PROTEUS_STATE_NAME)
+    .setState(ProteusState)
+    .setClearFunction(getInitialProteusState)
+    .state
+
+  // SSO Customization
+  .addFeature(SSO_AUTH_STATE_NAME)
+    .setState(SsoAuthState)
+    .setClearFunction(getSsoAuthInitialState)
+    .state
 
   .addFeature(DemoFeatureName)
     .setState(DemoFeatureState)
