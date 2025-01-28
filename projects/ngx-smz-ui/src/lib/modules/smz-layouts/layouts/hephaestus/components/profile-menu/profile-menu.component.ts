@@ -12,7 +12,12 @@ import { GlobalInjector } from '../../../../../../common/services/global-injecto
     <a class="profile clickable grid items-center justify-end m-0 p-0 flex-nowrap gap-2" [ngClass]="{ 'profile-with-icon': !uiConfig.layouts.useAvatar }" (click)="toggle()">
       <ng-container *ngIf="userData$ | async as userdata; else noUserTemplate">
         <span class="username">{{ uiConfig.layouts.profileMessage }}{{ userdata[uiConfig.layouts.usernameProperty] }}</span>
-        <img *ngIf="uiConfig.layouts.useAvatar && userdata[uiConfig.layouts.avatarProperty]" [src]="(userdata[uiConfig.layouts.avatarProperty] ) | safeUrl" class="profile-image">
+        <img
+          *ngIf="uiConfig.layouts.useAvatar && userdata[uiConfig.layouts.avatarProperty]"
+          [src]="(userdata[uiConfig.layouts.avatarProperty] ) | safeUrl"
+          class="profile-image"
+          (error)="handleMissingImage($event, userdata[uiConfig.layouts.usernameProperty], userdata[uiConfig.layouts.avatarProperty])"
+        >
         <i *ngIf="!uiConfig.layouts.useAvatar || (uiConfig.layouts.useAvatar && !userdata[uiConfig.layouts.avatarProperty])" class="fa-solid fa-circle-user profile-image profile-icon-menu"></i>
         <i class="profile-submenu-icon pi pi-angle-down"></i>
       </ng-container>
@@ -50,6 +55,11 @@ export class HephaestusProfileMenuComponent implements OnInit {
   public test(event): void
   {
     console.log(event);
+  }
+
+  public handleMissingImage(event: Event, user: string, notfound: string) {
+    console.warn(`Avatar not found on (${notfound}) for user: ${user}`);
+    (event.target as HTMLImageElement).src = GlobalInjector.config.rbkUtils.authorization.users.avatarPlaceholderPath;
   }
 
 }

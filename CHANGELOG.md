@@ -5,6 +5,9 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
+## [17.2.7] - 2025-01-28
+Implementação de tratamento de erro para os casos onde a imagem do avatar retorna 404. Agora o placeholder será colocado na imagem na barra superior.
+
 ## [17.2.6] - 2025-01-28
 Implementação de tratamento de erro no componente de Input Text Button.
 
