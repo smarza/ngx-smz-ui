@@ -362,6 +362,8 @@ export class SmzCustomColumnBuilder<TData> extends SmzBaseColumnBuilder<SmzCusto
   }
 
   public setFilterableData(getFilterableDataCallback: (data: any, row: any, index: number) => string): SmzCustomColumnBuilder<TData> {
+    this._column.filterField = `_filterable_${this._column.field}`;
+    this._column.globalFilterField = `_filterable_${this._column.field}`;
     (this._column.content.data as SmzCustomContent).getFilterableData = getFilterableDataCallback;
     return this;
   }
@@ -411,6 +413,8 @@ export class SmzIconColumnBuilder<TData> extends SmzBaseColumnBuilder<SmzIconCol
   }
 
   public setFilterableData(getFilterableDataCallback: (data: any, row: any, index: number) => string): SmzIconColumnBuilder<TData> {
+    this._column.filterField = `_filterable_${this._column.field}`;
+    this._column.globalFilterField = `_filterable_${this._column.field}`;
     (this._column.content.data as SmzIconContent).getFilterableData = getFilterableDataCallback;
     return this;
   }
@@ -441,6 +445,10 @@ export class SmzDataTransformColumnBuilder<TData> extends SmzBaseColumnBuilder<S
 
     if ((this._column.content.data as SmzDataTransform).getFilterableData != null) {
       throw new Error(`You need to setFilterableData after setFilter for the field ${this._column.field}`);
+    }
+
+    if (this._column.filterField.startsWith('_filterable_')) {
+      throw new Error(`You need to call setFilter before other filter methods for the field ${this._column.field}`);
     }
 
     if (type === SmzFilterType.MULTI_SELECT_ARRAY) {
@@ -475,6 +483,12 @@ export class SmzDataTransformColumnBuilder<TData> extends SmzBaseColumnBuilder<S
     return this;
   }
 
+  public filterWithTransformedData(): SmzDataTransformColumnBuilder<TData> {
+    this._column.filterField = `_filterable_${this._column.field}`;
+    this._column.globalFilterField = `_filterable_${this._column.field}`;
+    return this;
+  }
+
   public ignoreTransformOnExport(): SmzDataTransformColumnBuilder<TData> {
 
     if (this._column.export.exportAs === SmzExportableContentType.NONE) {
@@ -488,9 +502,8 @@ export class SmzDataTransformColumnBuilder<TData> extends SmzBaseColumnBuilder<S
   }
 
   public setFilterableData(getFilterableDataCallback: (data: any, row: any, index: number) => string): SmzDataTransformColumnBuilder<TData> {
-    this._column.filterField = `_filterable_${this._column.field}`;
     (this._column.content.data as SmzDataTransform).getFilterableData = getFilterableDataCallback;
-    return this;
+    return this.filterWithTransformedData();
   }
 
 }
