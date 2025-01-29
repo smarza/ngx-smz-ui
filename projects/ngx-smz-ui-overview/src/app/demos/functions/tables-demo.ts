@@ -7,7 +7,7 @@ import { convertorTasks } from './../data/conversor-tasks';
 import { Observable } from 'rxjs/internal/Observable';
 import { DemoFeatureActions } from '@states/demo/demo.actions';
 import { LARGE_TABLE_DATA } from '../data/large-table';
-import { EditableTablePartialData, EditableTablePartialLevels } from '../data/tables/editable-table-partial-data';
+import { EditableTablePartialData, EditableTablePartialLevels, Levels } from '../data/tables/editable-table-partial-data';
 import { DemoItem } from '@models/demo';
 import moment from 'moment';
 
@@ -303,7 +303,11 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
   },
   //
   [DemoKeys.TABLE_ARRAY_FILTER]: {
-    items$: of(convertorTasks.map(x => ({...x, createdAt: new Date(Date.now() - Math.floor(Math.random() * 10000000000))}))),
+    items$: of(convertorTasks.map(x => {
+      const createdAt = new Date(Date.now() - Math.floor(Math.random() * 10000000000));
+      console.log('createdAt: ', createdAt);
+      return {...x, createdAt}
+    })),
     code: () => {
     return new SmzTableBuilder()
       .setTitle('Array Filter Demo')
@@ -321,12 +325,11 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
         .text('name', 'Nome', '8em')
           .setFilter(SmzFilterType.MULTI_SELECT_STRING)
           .columns
-        // .date('createdAt', 'Data de criação', '10em')
-        //   .setDateFormat('shortDate')
-        //   .columns
-        .dataTransform('createdAt', 'Data de criação', (createdAt: Date) => (moment(createdAt).format('DD/MM/YYYY')), '10em')
-          .overrideGlobalFilter('createdAt')
+        .date('createdAt', 'Data de criação', '10em')
           .columns
+        // .dataTransform('createdAt', 'Data de criação', (createdAt: Date) => (moment(createdAt).format('DD/MM/YYYY HH:mm:ss')), '10em')
+        //   .overrideGlobalFilter('createdAt')
+        //   .columns
         .dataTransform('plantDesign', 'Plant Design', (plantDesign: any) => (plantDesign.name), '10em')
           .setFilter(SmzFilterType.MULTI_SELECT_ARRAY)
           .overrideGlobalFilter('plantDesign.name')
@@ -765,9 +768,9 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
           .menu
         .table
       .columns()
-        .text('module', 'Módulo', '12em')
+        .text('module', 'Módulo', '10em')
           .columns
-        .text('section', 'Seção', '12em')
+        .text('section', 'Seção', '10em')
           .columns
         .text('system', 'Sistema', 'auto')
           .actions()
@@ -785,8 +788,8 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
         .text('function.name', 'Função', '16em')
           .setFilter(SmzFilterType.MULTI_SELECT)
           .columns
-        .dataTransform('value', 'Corrosão', (value, item) => item.isNotApplicable ? 'N/A' : `<strong>${value.toFixed(2)} %</strong>`, '12em')
-          .disableFilter()
+        .dataTransform('value', 'Corrosão', (value, item) => item.isNotApplicable ? 'N/A' : `<strong>${value.toFixed(2)} %</strong>`, '10em')
+          .setFilter(SmzFilterType.MULTI_SELECT_STRING)
           .editable()
             .text()
             .column
@@ -797,6 +800,10 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
             .dropdown('level')
             .setOptions(EditableTablePartialLevels)
             .column
+          .columns
+        .dataTransform('levelId', 'Level Id', (value: string, item) => value ? `<strong>${Levels[value]}</strong>` : '', '10em')
+          .setFilter(SmzFilterType.MULTI_SELECT_STRING)
+          .setFilterableData((value: string, item) => value ? `${Levels[value]}` : '')
           .columns
         .table
       .build()
