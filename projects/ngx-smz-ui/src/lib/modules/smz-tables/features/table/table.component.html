@@ -59,7 +59,7 @@
 
             <ng-template pTemplate="caption" *ngIf="context.state.caption.isVisible">
 
-                <div class="grid grid-nogutter justify-start items-center gap-2">
+                <div class="grid grid-nogutter items-center gap-2" [ngClass]="'justify-' + context.state.caption.toolbarAlignment">
                     <div *ngIf="context.state.caption.title != null" class="col database-title" [innerHTML]="context.state.caption.title"></div>
                     <ng-container *ngTemplateOutlet="captionTemplate; context: { $implicit: dt }"></ng-container>
 
