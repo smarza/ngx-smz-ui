@@ -206,6 +206,8 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
                     }
                 }
 
+                this.callVisibilityFunctions();
+
                 // Esse timeout garante um adiamento no subscribe de status change do form para não ser executado na primeira inicialização
                 setTimeout(() =>
                 {
@@ -218,6 +220,7 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
                         {
                             // console.log('form statusChanges');
                             this.checkCustomFunctions();
+                            this.callVisibilityFunctions();
                             // console.log('isValid after >>>>', this.viewdata.isValid);
                         });
 
@@ -283,6 +286,26 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
 
         }, 0);
 
+    }
+
+    private callVisibilityFunctions(): void {
+        const formValues = this.viewdata.form.value;
+
+        for (const group of this.config.groups)
+            {
+                for (const input of group.children.filter(x => x.visibilityFunction != null))
+                {
+                    if (this.config.isDebug) {
+                        console.log(`UpdateVisibilityDependsOnFormData called for ${input.propertyName} | Before: ${input.isVisible}`);
+                    }
+
+                    input.isVisible = input.visibilityFunction(formValues);
+
+                    if (this.config.isDebug) {
+                        console.log(`UpdateVisibilityDependsOnFormData called for ${input.propertyName} | After: ${input.isVisible}`);
+                    }
+                };
+            };
     }
 
     public linkInputControls(): void

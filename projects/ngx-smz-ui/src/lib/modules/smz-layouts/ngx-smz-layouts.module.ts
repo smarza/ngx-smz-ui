@@ -6,7 +6,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import localePt from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
 import { NgxSmzRouterParamsModule } from '../smz-router-params/ngx-smz-router-params.module';
-import { MarkdownModule } from 'ngx-markdown';
 import moment from 'moment';
 
 // Register the localization
@@ -20,7 +19,6 @@ moment.locale('pt-br');
         CommonModule,
         NgxSmzLayoutsRoutingModule,
         NgxSmzRouterParamsModule,
-        MarkdownModule.forRoot(),
     ],
     exports: [],
 })

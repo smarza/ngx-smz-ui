@@ -37,7 +37,6 @@ import { NgxSmzDocumentsModule } from '../smz-documents/ngx-smz-documents.module
 import { DocumentContentComponent } from './features/document-content/document-content.component';
 import { ContextMenuService } from 'primeng/api';
 import { SmzToastModule } from '../smz-toast/toast';
-import { MarkdownModule } from 'ngx-markdown';
 import { MarkdownContentComponent } from './features/markdown-content/markdown-content.component';
 import { GuideFooterComponent } from './features/guide-footer/guide-footer.component';
 import { AutoFocusModule } from 'primeng/autofocus';
@@ -83,7 +82,6 @@ export const ngxsModuleForFeatureDialogsState = NgxsModule.forFeature([DialogsSt
         NgxSmzTablesModule,
         NgxSmzDocumentsModule,
         AutoFocusModule,
-        MarkdownModule.forChild(),
     ],
     providers: [SmzDynamicDialogConfig, DynamicDialogConfig, DynamicDialogRef, ContextMenuService]
 })

@@ -742,12 +742,26 @@ export class SmzFormInputBuilder<TInput, TResponse> {
   }
 
   public setVisibilityCondition(inputDependencyName: string, reversed: boolean, conditions?: any[]): TInput {
+
+    if (this._input.visibilityFunction != null) {
+      throw Error('You cannot set visibility condition and visibility condition form data at the same time');
+    }
+
     this._input.visibilityDependsOn = {
       propertyName: inputDependencyName,
       reversed,
       condition: conditions?.length === 1 ? conditions[0] : null,
       conditions: conditions?.length > 1 ? conditions : null
     };
+    return this.that;
+  }
+
+  public setVisibilityFunction(callback: (formValues: TResponse) => boolean): TInput {
+    if (this._input.visibilityDependsOn != null) {
+      throw Error('You cannot set visibility condition form data and visibility condition at the same time');
+    }
+
+    this._input.visibilityFunction = callback;
     return this.that;
   }
 

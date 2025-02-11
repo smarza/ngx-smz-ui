@@ -7,6 +7,7 @@ import { NotFoundModule } from './pages/not-found/not-found.module';
 import { GlobalInjector } from '../../common/services/global-injector';
 import { SuperuserLoginModule } from './pages/superuser-login/superuser-login.module';
 import { DiagnosticsDataCollectModule } from './pages/diagnostics-data-collect/diagnostics-data-collect.module';
+
 export function getLoginModule() { return LoginModule }
 export function getSuperuserLoginModule() { return SuperuserLoginModule }
 export function getErrorModule() { return ErrorModule }

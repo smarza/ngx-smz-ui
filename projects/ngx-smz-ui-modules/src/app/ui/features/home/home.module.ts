@@ -8,7 +8,7 @@ import { RbkAuthGuard, RbkDatabaseStateGuard, UI_DEFINITIONS_STATE_NAME } from '
 import { CodeBlockModule } from '@components/code-block/code-block.module';
 import { DemoTitlePipeModule } from '@pipes/demo-title.pipe';
 import { TabViewModule } from 'primeng/tabview';
-import { OpenAiComponent } from '../open-ai/open-ai.component';
+// import { OpenAiComponent } from '../open-ai/open-ai.component';
 
 const data: SmzRouteData = {
   layout: {
@@ -45,7 +45,7 @@ const routes: Routes = [
     TabViewModule,
     SmzChartModule,
     NgxSmzDataPipesModule,
-    OpenAiComponent
+    // OpenAiComponent
   ],
   providers: [],
   bootstrap: [HomeComponent]

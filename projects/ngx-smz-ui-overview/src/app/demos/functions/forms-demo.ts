@@ -15,7 +15,7 @@ export const FormsDemo: { [key: string]: () => void } = {
   //
   [DemoKeys.FORMS_BEHAVIORS_VISIBILITY_CONDITION]: () => {
 
-    return new SmzFormBuilder<any>()
+    return new SmzFormBuilder<{ multiselect1: { id: string, name: string }[], check1: boolean, check2: boolean, check3: boolean }>()
       .group()
         .setLayout('EXTRA_SMALL', 'col-12')
 
@@ -27,13 +27,16 @@ export const FormsDemo: { [key: string]: () => void } = {
 
         // Checkboxes
         .checkbox('check1', 'Multiselect has Option 1')
-          .setVisibilityCondition('multiselect1', false, ['1'])
+          // .setVisibilityCondition('multiselect1', false, ['1'])
+          .setVisibilityFunction((formValues) => formValues.multiselect1?.map(x => x.id).includes('1'))
           .group
         .checkbox('check2', 'Multiselect has Option 2')
-          .setVisibilityCondition('multiselect1', false, ['2'])
+          // .setVisibilityCondition('multiselect1', false, ['2'])
+          .setVisibilityFunction((formValues) => formValues.multiselect1?.map(x => x.id).includes('2'))
           .group
         .checkbox('check3', 'Multiselect has Option 3')
-          .setVisibilityCondition('multiselect1', false, ['3'])
+          // .setVisibilityCondition('multiselect1', false, ['3'])
+          .setVisibilityFunction((formValues) => formValues.multiselect1?.map(x => x.id).includes('3'))
           .group
 
         // .text('text3', 'Visible if Multiselect Control Has Option 2 or Option 3', '')

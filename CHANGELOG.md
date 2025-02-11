@@ -5,8 +5,11 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
+## [17.2.14] - 2025-02-11
+Implementação opção no fluente de formulários para permitir configurar a visibilidade de campos a partir de uma função.
+
 ## [17.2.10] - 2025-01-30
-Implementação de feature para ajustar o alinhamento da toolbar sem titlo
+Implementação de feature para ajustar o alinhamento da toolbar sem titulo
 
 ## [17.2.9] - 2025-01-29
 Adicionado metodo que permite forçar o filtro do data transform da tabela para ser o valor transformado ao inves do original. Útil para casos onde o valor transformado já é o final e não contém metadados ou HTML.

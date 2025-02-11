@@ -83,8 +83,7 @@
               "raf",
               "core-js",
               "rgbcolor",
-              "moment",
-              "openai"
+              "moment"
             ],
             "assets": [
               "projects/ngx-smz-ui-demo/src/favicon.ico",
@@ -227,7 +226,6 @@
               "core-js",
               "rgbcolor",
               "moment",
-              "openai",
               "angular2-uuid",
               "html2canvas",
               "lodash"
@@ -356,8 +354,7 @@
               "raf",
               "core-js",
               "rgbcolor",
-              "moment",
-              "openai"
+              "moment"
             ],
             "assets": [
               "projects/ngx-smz-ui-modules/src/favicon.ico",
