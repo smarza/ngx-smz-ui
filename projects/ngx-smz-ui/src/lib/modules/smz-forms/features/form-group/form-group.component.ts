@@ -289,7 +289,7 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
     }
 
     private callVisibilityFunctions(): void {
-        const formValues = this.viewdata.form.value;
+        const formValues = this.viewdata.getData()?.data;
 
         for (const group of this.config.groups)
             {

@@ -1712,7 +1712,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         let filterMatchMode = filterMeta.matchMode || FilterMatchMode.STARTS_WITH;
         let dataFieldValue = ObjectUtils.resolveFieldData(rowData, field);
         let filterConstraint = this.filterService.filters[filterMatchMode];
-
         return filterConstraint(dataFieldValue, filterValue, this.filterLocale);
     }
 
@@ -4276,6 +4275,7 @@ export class ReorderableRow implements AfterViewInit {
                 [currencyDisplay]="currencyDisplay"
                 [useGrouping]="useGrouping"
                 [showButtons]="showButtons"
+                [showTime]="showTime"
             ></p-columnFilterFormElement>
             <button
                 #icon
@@ -4346,6 +4346,7 @@ export class ReorderableRow implements AfterViewInit {
                                 [currency]="currency"
                                 [currencyDisplay]="currencyDisplay"
                                 [useGrouping]="useGrouping"
+                                [showTime]="showTime"
                             ></p-columnFilterFormElement>
                             <div>
                                 <button
@@ -4429,6 +4430,8 @@ export class ColumnFilter implements AfterContentInit {
     @Input() useGrouping: boolean = true;
 
     @Input() showButtons: boolean = true;
+
+    @Input() showTime: boolean = false;
 
     @ViewChild('icon') icon: ElementRef;
 
@@ -4915,7 +4918,7 @@ export class ColumnFilter implements AfterContentInit {
                     [useGrouping]="useGrouping"
                 ></p-inputNumber>
                 <p-triStateCheckbox *ngSwitchCase="'boolean'" [ngModel]="filterConstraint?.value" (ngModelChange)="onModelChange($event)"></p-triStateCheckbox>
-                <p-calendar *ngSwitchCase="'date'" [placeholder]="placeholder" [ngModel]="filterConstraint?.value" (ngModelChange)="onModelChange($event)"></p-calendar>
+                <p-calendar *ngSwitchCase="'date'" [placeholder]="placeholder" [ngModel]="filterConstraint?.value" (ngModelChange)="onModelChange($event)" [showTime]="showTime"></p-calendar>
             </ng-container>
         </ng-template>
     `,
@@ -4952,6 +4955,8 @@ export class ColumnFilterFormElement implements OnInit {
     @Input() currencyDisplay: string;
 
     @Input() useGrouping: boolean = true;
+
+    @Input() showTime: boolean = false;
 
     @Input() get showButtons(): boolean {
         return this.colFilter.showButtons;

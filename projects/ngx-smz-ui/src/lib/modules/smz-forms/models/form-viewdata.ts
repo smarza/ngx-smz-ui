@@ -37,14 +37,16 @@ export class SmzFormViewdata {
                 if (this.config.isDebug) {
                     console.log('--------------------------');
                     console.log(`> ${input.propertyName}`, input);
+                    console.log('isVisible', input.isVisible);
+                    console.log('visibilityDependsOn', input.visibilityDependsOn);
+                    console.log('visibilityFunction', input.visibilityFunction);
                 }
 
                 if (input.advancedSettings == null || !input.advancedSettings.excludeFromResponse) {
 
                     const value = CONTROL_FUNCTIONS[input.type].getValue(this.form, input, formFlattenResponse);
-                    // console.log('from viewport: value', value);
 
-                    if (input.visibilityDependsOn == null || input.isVisible) {
+                    if (input.isVisible) {
 
                         if (group.isHide) {
                             // Forçando a validação para true porque o grupo esta oculto

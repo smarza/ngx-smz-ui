@@ -937,10 +937,10 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
   [DemoKeys.TABLE_PLAYGROUND]: {
     items$: of([
       { name: 'name 1', modelFile: { size: '10', date: new Date(), projectDate: new Date() } },
-      { name: 'name 2', modelFile: { size: '11', date: new Date(), projectDate: new Date() } },
-      { name: 'name 2', modelFile: { size: '12', date: new Date(), projectDate: new Date() } },
-      { name: 'name 2', modelFile: { size: '13', date: new Date(), projectDate: new Date() } },
-      { name: 'name 3', modelFile: { size: '14', date: new Date(), projectDate: new Date() } }
+      // { name: 'name 2', modelFile: { size: '11', date: new Date(), projectDate: new Date() } },
+      // { name: 'name 2', modelFile: { size: '12', date: new Date(), projectDate: new Date() } },
+      // { name: 'name 2', modelFile: { size: '13', date: new Date(), projectDate: new Date() } },
+      // { name: 'name 3', modelFile: { size: '14', date: new Date(), projectDate: new Date() } }
     ]),
     code: () => {
     return new SmzTableBuilder()
@@ -958,7 +958,8 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
           .columns
         .dataTransform(namesof<any, any>('modelFile', 'size'), 'Tamanho', (data: string) => data == null ? '-' : data)
           .columns
-        .dataTransform(namesof<any, any>('modelFile', 'date'), 'Data', (data: Date) => data == null ? '-' : moment(data).format('L'))
+        .dataTransform(namesof<any, any>('modelFile', 'date'), 'Data', (data: Date) => data == null ? '-' : moment(data).format('L HH:mm'))
+          .setFilter(SmzFilterType.DATE_TIME)
           .columns
         .dataTransform(namesof<any, any>('modelFile', 'projectDate'), 'Data de Projeto', (data: Date) => data == null ? '-' : moment(data).format('L'))
           .columns

@@ -5,6 +5,16 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
+## [17.2.17] - 2025-02-12
+Implementação de Filtro com data e hora na tabela.
+Agora o fluente da tabela possui a opção: .setFilter(SmzFilterType.DATE_TIME)
+
+## [17.2.16] - 2025-02-12
+Correção da validação para campos ocultos.
+
+## [17.2.15] - 2025-02-12
+O formulário agora enviar o objeto tipado no FormBuilder como parametro da função de visibilidade.
+
 ## [17.2.14] - 2025-02-11
 Implementação opção no fluente de formulários para permitir configurar a visibilidade de campos a partir de uma função.
 

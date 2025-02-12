@@ -156,6 +156,10 @@ export interface SmzTableColumn {
      * Controls whether the field should be filterable using the global filter
      */
     isGlobalFilterable?: boolean;
+    /**
+     * Controls whether the field should be filterable using the global filter
+     */
+    showTime?: boolean;
   };
   /**
    *  Actions are inserted in each cell of the content rows

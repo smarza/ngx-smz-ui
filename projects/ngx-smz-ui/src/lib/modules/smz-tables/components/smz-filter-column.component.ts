@@ -14,7 +14,8 @@ import { ColumnFilter } from '../../prime/table/table';
         [showAddButton]="showAddButton"
         [showMatchModes]="showMatchModes"
         [showOperator]="showOperator"
-        [type]="type">
+        [type]="type"
+        [showTime]="showTime">
 
         <ng-container *ngIf="headerTemplate">
           <ng-template pTemplate="header">
@@ -43,6 +44,7 @@ export class SmzColumnFilterComponent implements AfterContentInit {
   @Input() public showMatchModes = true;
   @Input() public showOperator = true;
   @Input() public type: string = 'text';
+  @Input() public showTime = false;
   public documentClickListener: any;
   public headerTemplate: TemplateRef<any>;
   public filterTemplate: TemplateRef<any>;

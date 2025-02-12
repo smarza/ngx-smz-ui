@@ -166,7 +166,7 @@
                                         </ng-container>
 
                                         <ng-container *ngSwitchCase="filterTypes.date">
-                                            <smz-column-filter type="date" [field]="col.filterField"></smz-column-filter>
+                                            <smz-column-filter type="date" [field]="col.filterField" [showTime]="col.filter.showTime"></smz-column-filter>
                                         </ng-container>
 
                                         <ng-container *ngSwitchCase="filterTypes.text">

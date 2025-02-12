@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { FilterMatchMode, FilterService, PrimeNGConfig } from 'primeng/api';
 import { SimpleNamedEntity } from '../models/simple-named-entity';
 import { GlobalInjector } from './global-injector';
+import moment from 'moment';
 
 
 @Injectable({
@@ -17,6 +18,65 @@ export class PrimeConfigService {
   }
 
   private filters(): void {
+
+    this.filterUtils.register(FilterMatchMode.DATE_IS, (value: Date, filter: Date): boolean => {
+      if (filter == null) {
+        return true;
+      }
+
+      if (value == null) {
+        return false;
+      }
+
+      const isTimeIgnored =
+        filter.getHours() === 0 &&
+        filter.getMinutes() === 0 &&
+        filter.getSeconds() === 0;
+
+    if (isTimeIgnored) {
+      // Compara apenas a data (dia, mês, ano)
+      return moment(value).isSame(filter, 'day');
+    } else {
+      // Compara a data completa (data e hora)
+      return moment(value).isSame(filter, 'minute');
+    }
+    });
+
+    this.filterUtils.register(FilterMatchMode.DATE_BEFORE, (value: Date, filter: Date): boolean => {
+      if (filter == null) {
+        return true;
+      }
+
+      if (value == null) {
+        return false;
+      }
+
+      return value == null ? false : moment(value)?.isBefore(filter);
+    });
+
+    this.filterUtils.register(FilterMatchMode.DATE_AFTER, (value: Date, filter: Date): boolean => {
+      if (filter == null) {
+        return true;
+      }
+
+      if (value == null) {
+        return false;
+      }
+
+      return value == null ? false : moment(value)?.isAfter(filter);
+    });
+
+    this.filterUtils.register(FilterMatchMode.DATE_IS_NOT, (value: Date, filter: Date): boolean => {
+      if (filter == null) {
+        return true;
+      }
+
+      if (value == null) {
+        return false;
+      }
+
+      return value == null ? false : !moment(value)?.isSame(filter);
+    });
 
     this.filterUtils.register('multiselectById', (value: string, filter: { id: string }[]): boolean => filter?.findIndex(x => x.id === value) > -1);
     this.filterUtils.register('multiselectByValue', (value: string, filter: { value: string }[]): boolean => filter?.findIndex(x => x.value === value) > -1);
