@@ -958,9 +958,12 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
           .columns
         .dataTransform(namesof<any, any>('modelFile', 'size'), 'Tamanho', (data: string) => data == null ? '-' : data)
           .columns
-        .dataTransform(namesof<any, any>('modelFile', 'date'), 'Data', (data: Date) => data == null ? '-' : moment(data).format('L HH:mm'))
+        .date(namesof<any, any>('modelFile', 'date'), 'Data')
           .setFilter(SmzFilterType.DATE_TIME)
           .columns
+        // .dataTransform(namesof<any, any>('modelFile', 'date'), 'Data', (data: Date) => data == null ? '-' : moment(data).format('L HH:mm'))
+        //   .setFilter(SmzFilterType.DATE_TIME)
+        //   .columns
         .dataTransform(namesof<any, any>('modelFile', 'projectDate'), 'Data de Projeto', (data: Date) => data == null ? '-' : moment(data).format('L'))
           .columns
         .table

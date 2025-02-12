@@ -281,6 +281,12 @@ export class SmzDateColumnBuilder<TData> extends SmzBaseColumnBuilder<SmzDateCol
 
   public setFilter(type: SmzFilterType): SmzDateColumnBuilder<TData> {
     this._column.filter.type = type;
+
+    if (type === SmzFilterType.DATE_TIME) {
+      this._column.filter.showTime = true;
+      this._column.filter.type = SmzFilterType.DATE;
+    }
+
     return this;
   }
 
@@ -338,6 +344,11 @@ export class SmzCustomColumnBuilder<TData> extends SmzBaseColumnBuilder<SmzCusto
 
     if (this._column.globalFilterField !== this._column.field) {
       throw new Error(`You need to overrideGlobalFilter after calling setFilter for the field ${this._column.field}`);
+    }
+
+    if (type === SmzFilterType.DATE_TIME) {
+      this._column.filter.showTime = true;
+      this._column.filter.type = SmzFilterType.DATE;
     }
 
     this._column.filterField = `_filterable_${this._column.field}`;

@@ -5,8 +5,11 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
+## [17.2.18] - 2025-02-12
+Fix para Filtro de data e hora para funcionar na coluna de data
+
 ## [17.2.17] - 2025-02-12
-Implementação de Filtro com data e hora na tabela.
+Implementação de Filtro com data e hora na tabela para coluna datatransform.
 Agora o fluente da tabela possui a opção: .setFilter(SmzFilterType.DATE_TIME)
 
 ## [17.2.16] - 2025-02-12
