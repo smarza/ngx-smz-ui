@@ -5,6 +5,10 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
+## [17.2.19] - 2025-02-18
+Nova opção para personalizar as classes das logos do footer: rightSideImageStyleClass
+Essa nova opção sobscreve classes de largura.
+
 ## [17.2.18] - 2025-02-12
 Fix para Filtro de data e hora para funcionar na coluna de data
 

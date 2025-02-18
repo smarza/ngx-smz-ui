@@ -44,7 +44,8 @@ export const smzLayoutsConfig: SmzLayoutsConfig = {
     profileMessage: 'Olá, ',
     footer: {
         leftSideText: 'Left Message',
-        rightSideImages: ['assets/layout/images/typo-dark.svg', 'assets/layout/images/typo-dark.svg'],
+        rightSideImages: ['assets/layout/images/typo-light.svg', 'assets/layout/images/typo-light.svg'],
+        // rightSideImageStyleClass: 'max-w-10',
         rightSideText: '© Your Organization - 2021',
         showAppName: true,
         showLogo: true,

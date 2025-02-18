@@ -18,7 +18,7 @@
 
         <ng-container *ngIf="uiConfig.layouts.footer.rightSideImages != null">
             <ng-container *ngFor="let image of uiConfig.layouts.footer.rightSideImages">
-                <img [src]="image" class="h-full max-w-10 ml-4 pb-2 pt-2 hide-mobile">
+                <img [src]="image" class="h-full ml-4 pb-2 pt-2 hide-mobile" [ngClass]="uiConfig.layouts.footer.rightSideImageStyleClass ?? 'max-w-24'">
             </ng-container>
         </ng-container>
     </div>

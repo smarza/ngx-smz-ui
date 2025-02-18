@@ -937,10 +937,10 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
   [DemoKeys.TABLE_PLAYGROUND]: {
     items$: of([
       { name: 'name 1', modelFile: { size: '10', date: new Date(), projectDate: new Date() } },
-      // { name: 'name 2', modelFile: { size: '11', date: new Date(), projectDate: new Date() } },
-      // { name: 'name 2', modelFile: { size: '12', date: new Date(), projectDate: new Date() } },
-      // { name: 'name 2', modelFile: { size: '13', date: new Date(), projectDate: new Date() } },
-      // { name: 'name 3', modelFile: { size: '14', date: new Date(), projectDate: new Date() } }
+      { name: 'name_name_name_name_name_name_name_name_name_name_name_name_name_name_name_name_name_name_name_name_name_name_name_name_name_name_name_name_name_name_name_name_', modelFile: { size: '11', date: new Date(), projectDate: new Date() } },
+      { name: 'name 2', modelFile: { size: '12', date: new Date(), projectDate: new Date() } },
+      { name: 'name 2', modelFile: { size: '13', date: new Date(), projectDate: new Date() } },
+      { name: 'name 3', modelFile: { size: '14', date: new Date(), projectDate: new Date() } }
     ]),
     code: () => {
     return new SmzTableBuilder()
@@ -954,7 +954,8 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
       .setCustomInitialSorting({ field: 'number', order: -1 })
       .useStrippedStyle()
       .columns()
-        .text('name', 'Name')
+        .text('name', 'Name', '10em')
+          .addStyles('break-all')
           .columns
         .dataTransform(namesof<any, any>('modelFile', 'size'), 'Tamanho', (data: string) => data == null ? '-' : data)
           .columns
