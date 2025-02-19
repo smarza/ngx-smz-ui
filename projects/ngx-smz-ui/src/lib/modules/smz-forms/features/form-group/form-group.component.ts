@@ -124,6 +124,7 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
                 for (const input of group.children)
                 {
 
+                    // Esse código é para manter a compatibilidade com versões anteriores
                     (input as any).propertyName = replaceAll(input.propertyName, '.', '_');
 
                     // SETUP INPUT TEMPLATES

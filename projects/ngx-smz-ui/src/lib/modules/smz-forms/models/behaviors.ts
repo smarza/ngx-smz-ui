@@ -15,6 +15,14 @@ export interface SmzFormsBehaviorsConfig
     submitOnEnter?: boolean;
     updateOn?: 'blur' | 'change' | 'submit';
     showMultipleErrorMessages?: boolean;
+
+    // Splitting response by separator.
+    // Any inputs with name containing this separator will be added as an object into the response data
+    // Example:
+    // splitResponseBySeparator: '_'
+    // input1: PRESSURE_MONITOR
+    // response: { PRESSURE: { MONITOR: [] } }
+    nestedResponseKeySeparator?: string
 }
 
 export type ShowErrorsMethodTypes = 'touched' | 'pristine' | 'dirty';

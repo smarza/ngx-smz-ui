@@ -334,17 +334,40 @@ export function replaceAll(string, search, replace) {
     return string.split(search).join(replace);
 }
 
-export function createObjectFromString(str, value: any, separator = '_') {
-    const obj = {};
-    const props = str.split(separator);
+export function createObjectFromString(str: string, value: any, separator = '_', debug = false): any {
+    const obj: any = {};
+    // Caso queira ignorar partes vazias, use filter(Boolean)
+    const props = str.split(separator).filter(Boolean);
     let currentObj = obj;
     for (let i = 0; i < props.length; i++) {
       const prop = props[i];
       currentObj[prop] = i === props.length - 1 ? value : {};
+      if (debug) {
+        console.log(`Após inserir '${prop}':`, obj);
+      }
       currentObj = currentObj[prop];
     }
     return obj;
-  }
+}
+
+export function deepMerge(target: any, source: any): any {
+    for (const key in source) {
+      if (source.hasOwnProperty(key)) {
+        // Se ambos target e source possuem a propriedade como objeto, faz merge recursivamente
+        if (
+          typeof source[key] === 'object' && source[key] !== null &&
+          target[key] && typeof target[key] === 'object'
+        ) {
+          deepMerge(target[key], source[key]);
+        } else {
+          // Caso contrário, atribui diretamente o valor
+          target[key] = source[key];
+        }
+      }
+    }
+    return target;
+}
+
 
 export function replaceItem<T>(items: T[], newItem: T): T[] {
     const index = items.findIndex(x => (x as any).id === (newItem as any).id);

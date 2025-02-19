@@ -4,7 +4,7 @@ import { SmzFormsManagerService } from '../services/smz-forms-manager.service';
 import { CONTROL_FUNCTIONS } from './control-type-functions';
 import { SmzControlType, SmzControlTypes, SmzTextButtonControl } from './control-types';
 import { SmzForm, SmzFormsResponse } from './smz-forms';
-import { createObjectFromString } from '../../../common/utils/utils';
+import { createObjectFromString, deepMerge } from '../../../common/utils/utils';
 
 export class SmzFormViewdata {
     public isValid: boolean = false;
@@ -70,20 +70,20 @@ export class SmzFormViewdata {
 
                         let applied = false;
 
-                        if (value != null) {
+                        if (value != null && this.config.behaviors?.nestedResponseKeySeparator != null) {
+
                             const keys = Object.keys(value);
                             if (keys?.length > 0) {
 
-                                if (keys[0].includes('_')) {
+                                if (keys[0].includes(this.config.behaviors.nestedResponseKeySeparator)) {
                                     const valueOfKey = Reflect.get(value, keys[0]);
-                                    const objectValue = createObjectFromString(keys[0], valueOfKey, '_');
+                                    const objectValue = createObjectFromString(keys[0], valueOfKey, this.config.behaviors.nestedResponseKeySeparator, this.config.isDebug);
 
                                     if (this.config.isDebug) {
-                                        console.log('adding objectValue into response data', objectValue);
+                                        console.log(`Splitting response by separator. Any inputs with name containing ${this.config.behaviors.nestedResponseKeySeparator} will be added as an object into the response data`, objectValue);
                                     }
 
-                                    // response.data = mergeClone(response.data, objectValue);
-                                    response.data = { ...response.data, ...objectValue };
+                                    response.data = deepMerge(response.data, objectValue);
 
                                     applied = true;
                                 }

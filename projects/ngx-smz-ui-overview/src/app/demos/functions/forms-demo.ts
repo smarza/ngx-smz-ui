@@ -70,13 +70,15 @@ export const FormsDemo: { [key: string]: () => void } = {
   //
   [DemoKeys.FORMS_ALL_INPUTS]: () => {
     return new SmzFormBuilder<any>()
+    .withNestedResponseKeySeparator('_')
+    .disableFlattenResponse()
     .group()
       .setLayout('EXTRA_SMALL', 'col-12')
-      .text('info.input1', 'I\'m required', 'sample').setLayout('EXTRA_SMALL', 'col-4').validators().required().input.group
-      .checkbox('info.input3', 'I\'m required').setLayout('EXTRA_SMALL', 'col-4').useLabel('Label Text').validators().required().input.group
-      .checkboxGroup('info.input4', 'I\'m required', [{ id: '1', name: 'Option 1'}, { id: '2', name: 'Option 2'}, { id: '3', name: 'Option 3'}]).setLayout('EXTRA_SMALL', 'col-4').validators().required().input.group
-      .calendar('info.input2', 'new Date()', new Date()).setLayout('EXTRA_SMALL', 'col-4').validators().required().input.group
-      .contentMask('info.input5', 'Conteúdo com variáveis',
+      .text('info_input1', 'I\'m required', 'sample').setLayout('EXTRA_SMALL', 'col-4').validators().required().input.group
+      .checkbox('info_input3', 'I\'m required').setLayout('EXTRA_SMALL', 'col-4').useLabel('Label Text').validators().required().input.group
+      .checkboxGroup('info_input4', 'I\'m required', [{ id: '1', name: 'Option 1'}, { id: '2', name: 'Option 2'}, { id: '3', name: 'Option 3'}]).setLayout('EXTRA_SMALL', 'col-4').validators().required().input.group
+      .calendar('info_input2', 'new Date()', new Date()).setLayout('EXTRA_SMALL', 'col-4').validators().required().input.group
+      .contentMask('info_input5', 'Conteúdo com variáveis',
 `Anestesia da região de punho direito com xilocaína 2%.
 Punção da artéria radial direita com agulha seguida da instalação de <variable id="755956dd-1696-4efb-448d-08d9b8dd31be">Introdutor</variable>.
 Através deste instrumento avançou-se sobre uma <variable id="70026d73-50dd-43f7-448e-08d9b8dd31be">Guia</variable> um <variable id="3c8cf03b-fd29-4f42-448f-08d9b8dd31be">Cateter</variable>.
@@ -84,22 +86,22 @@ Realizados os registros pressóricos em:
 <monitoredData id="6416118c-b362-4467-6ae4-08d9b8dd31bd">Monitoração ambulatorial da pressão arterial</monitoredData>
 Na sequência, foi realizada a coronariografia direita.
 Exame sem intercorrências.`).validators().required().input.group
-      .dropdown('info.input6', 'I\'m required', [{ id: '1', name: 'Option 1'}, { id: '2', name: 'Option 2'}, { id: '3', name: 'Option 3'}]).validators().required().input.group
-      .dropdown('info.input7', 'I\'m required', [{ id: 'A', name: 'Group A'}, { id: 'B', name: 'Group B'}]).validators().required().input.group
-      .linkedDropdown('info.input8', 'input7', 'I\'m required', [{ parentId: 'A', data: [{ id: 'A1', name: 'Option A1' }, { id: 'A2', name: 'Option A2' }]}, { parentId: 'B', data: [{ id: 'B1', name: 'Option B1' }, { id: 'B2', name: 'Option B2' }]}]).validators().required().input.group
-      .multiselect('info.input9', 'I\'m required', [{ id: '1', name: 'Option 1'}, { id: '2', name: 'Option 2'}, { id: '3', name: 'Option 3'}]).validators().required().input.group
-      .dropdown('info.input10', 'I\'m required', [{ id: 'A', name: 'Group A'}, { id: 'B', name: 'Group B'}]).validators().required().input.group
-      .linkedMultiselect('info.input11', 'input10', 'I\'m required', [{ parentId: 'A', data: [{ id: 'A1', name: 'Option A1' }, { id: 'A2', name: 'Option A2' }]}, { parentId: 'B', data: [{ id: 'B1', name: 'Option B1' }, { id: 'B2', name: 'Option B2' }]}]).validators().required().input.group
-      .colorPicker('info.input12', 'I\'m required').validators().required().input.group
-      .currency('metadata.input13', 'I\'m required').validators().required().input.group
-      .number('metadata.input14', 'Fraction Number').setFraction(2, 2).setLocale('pt-BR').validators().required().input.group
-      .radioGroup('metadata.input15', 'Radio', [{id: 'Nenhum', name: 'Nenhum'}, {id: 'Irregularidade', name: 'Irregularidade'}, {id: 'Tortuosidade', name: 'Tortuosidade'}], 'Irregularidade').validators().required().input.group
-      .switch('metadata.input16', 'IsContracted').validators().required().input.group
-      .text('metadata.input17', 'I\'m required', 'sample').validators().required().input.group
-      .textButton('metadata.input18', 'Chave', '', (response: SmzFormsResponse<any>, utils: SmzFormViewdata): Observable<{ isValid: boolean, messages?: string[] }> => { console.log('callback response...', response); return of({ isValid: true }); }).useLabel('Buscar').validators().required().input.group
-      .file('metadata.input19', 'Confirmação').useBinaryFormat().acceptImages().validators().required().input.group
-      .list('metadata.input20', 'I\'m not required', ['Option 1', 'Option 2', 'Option 3']).useDialogEditMode().buttons().all().list.validators().required().input.group
-      .password('metadata.input21', 'Password').validators().required().input.group
+      .dropdown('info_input6', 'I\'m required', [{ id: '1', name: 'Option 1'}, { id: '2', name: 'Option 2'}, { id: '3', name: 'Option 3'}]).validators().required().input.group
+      .dropdown('info_input7', 'I\'m required', [{ id: 'A', name: 'Group A'}, { id: 'B', name: 'Group B'}]).validators().required().input.group
+      .linkedDropdown('info_input8', 'input7', 'I\'m required', [{ parentId: 'A', data: [{ id: 'A1', name: 'Option A1' }, { id: 'A2', name: 'Option A2' }]}, { parentId: 'B', data: [{ id: 'B1', name: 'Option B1' }, { id: 'B2', name: 'Option B2' }]}]).validators().required().input.group
+      .multiselect('info_input9', 'I\'m required', [{ id: '1', name: 'Option 1'}, { id: '2', name: 'Option 2'}, { id: '3', name: 'Option 3'}]).validators().required().input.group
+      .dropdown('info_input10', 'I\'m required', [{ id: 'A', name: 'Group A'}, { id: 'B', name: 'Group B'}]).validators().required().input.group
+      .linkedMultiselect('info_input11', 'input10', 'I\'m required', [{ parentId: 'A', data: [{ id: 'A1', name: 'Option A1' }, { id: 'A2', name: 'Option A2' }]}, { parentId: 'B', data: [{ id: 'B1', name: 'Option B1' }, { id: 'B2', name: 'Option B2' }]}]).validators().required().input.group
+      .colorPicker('info_input12', 'I\'m required').validators().required().input.group
+      .currency('metadata_input13', 'I\'m required').validators().required().input.group
+      .number('metadata_input14', 'Fraction Number').setFraction(2, 2).setLocale('pt-BR').validators().required().input.group
+      .radioGroup('metadata_input15', 'Radio', [{id: 'Nenhum', name: 'Nenhum'}, {id: 'Irregularidade', name: 'Irregularidade'}, {id: 'Tortuosidade', name: 'Tortuosidade'}], 'Irregularidade').validators().required().input.group
+      .switch('metadata_input16', 'IsContracted').validators().required().input.group
+      .text('metadata_input17', 'I\'m required', 'sample').validators().required().input.group
+      .textButton('metadata_input18', 'Chave', '', (response: SmzFormsResponse<any>, utils: SmzFormViewdata): Observable<{ isValid: boolean, messages?: string[] }> => { console.log('callback response...', response); return of({ isValid: true }); }).useLabel('Buscar').validators().required().input.group
+      .file('metadata_input19', 'Confirmação').useBinaryFormat().acceptImages().validators().required().input.group
+      .list('metadata_input20', 'I\'m not required', ['Option 1', 'Option 2', 'Option 3']).useDialogEditMode().buttons().all().list.validators().required().input.group
+      .password('metadata_input21', 'Password').validators().required().input.group
       .form
     .build();
     },
@@ -237,9 +239,10 @@ Exame sem intercorrências.`)
   //
   [DemoKeys.FORMS_INPUT_MULTISELECT]: () => {
     return new SmzFormBuilder<any>()
+      .debugMode()
       .group()
         .setLayout('EXTRA_SMALL', 'col-12')
-        .multiselect('input1', 'I\'m required', [{ id: '1', name: 'Option 1'}, { id: '2', name: 'Option 2'}, { id: '3', name: 'Option 3'}])
+        .multiselect('PRESSURE_MONITOR', 'I\'m required', [{ id: '1', name: 'Option 1'}, { id: '2', name: 'Option 2'}, { id: '3', name: 'Option 3'}])
           .validators().required().input
           .group
       .form

@@ -28,6 +28,7 @@ export class SmzFormBuilder<TResponse> {
       skipEmitChangesOnLoad: false,
       showErrorsMethod: 'touched',
       showMultipleErrorMessages: false,
+      nestedResponseKeySeparator: undefined,
       // updateOn: 'change',
       ...this.defaultConfig?.forms?.behaviors
     },
@@ -75,6 +76,15 @@ export class SmzFormBuilder<TResponse> {
 
   public setCustomBehavior(callback: (data: SmzFormsResponse<TResponse>, config: SmzForm<TResponse>, form: UntypedFormGroup, outputEvents: {}) => void): SmzFormBuilder<TResponse> {
     this._state.functions.customBehavior = callback;
+    return this;
+  }
+
+  public withNestedResponseKeySeparator(separator: string): SmzFormBuilder<TResponse> {
+    if (separator == '.') {
+      throw Error("Separator cannot be a dot (.)");
+    }
+
+    this._state.behaviors.nestedResponseKeySeparator = separator;
     return this;
   }
 
@@ -178,6 +188,11 @@ export class SmzFormBuilder<TResponse> {
   }
 
   public build(): SmzForm<TResponse> {
+
+    if (!allInputsMustHaveUniquePropertyNames(this._state.groups)) {
+      throw Error("All inputs must have unique property names.");
+    }
+
     return this._state;
   }
 
@@ -189,3 +204,11 @@ export class SmzFormBuilder<TResponse> {
     return new SmzFormUiDefinitionBuilder(this, entity);
   }
 }
+
+function allInputsMustHaveUniquePropertyNames(groups: SmzFormGroup[]): boolean {
+  const propertyNames = groups.flatMap(group => group.children.map(input => input.propertyName));
+  const uniquePropertyNames = new Set(propertyNames);
+  return propertyNames.length === uniquePropertyNames.size;
+}
+
+

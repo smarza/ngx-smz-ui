@@ -10,6 +10,7 @@ import { FileUploadEvent, FileUploadHandlerEvent } from 'primeng/fileupload';
     <button pButton pRipple type="button" label="Ver Resposta" (click)="log()"></button>
     <button *ngIf="form != null" pButton pRipple type="button" label="Anular Config" class="p-button-danger" (click)="clear()"></button>
     <button *ngIf="form == null && node != null" pButton pRipple type="button" label="Recriar Config" class="p-button-success" (click)="build()"></button>
+    <button *ngIf="form != null" pButton pRipple type="button" label="Logar Form" class="p-button-success" (click)="logForm()"></button>
     <i *ngIf="!formComponent.viewdata?.form?.touched" class="fa-solid fa-face-meh text-2xl" pTooltip="Ainda não foi tocado"></i>
     <i *ngIf="formComponent.isValid" class="fa-solid fa-check text-green-500 text-2xl" pTooltip="Válido"></i>
     <i *ngIf="!formComponent.isValid" class="fa-solid fa-xmark text-red-500 text-2xl" pTooltip="Com erros"></i>
@@ -85,6 +86,10 @@ export class DemoFormComponent implements OnInit, OnChanges {
           .dialog
       .build()
     );
+  }
+
+  public logForm(): void {
+    console.log('form', this.form);
   }
 
   public build(): void {

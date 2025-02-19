@@ -5,6 +5,17 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
+## [17.2.21] - 2025-02-19
+
+### Adicionado
+Novo comportamento para aninhamento de dados na resposta, utilizando um delimitador definido pelo usuário.
+Agora, ao identificar um separador específico no nome dos inputs, os dados são organizados em objetos aninhados, melhorando a estrutura e a manipulação da resposta.
+
+- Método `withNestedResponseKeySeparator` para configurar o delimitador utilizado no aninhamento dos campos de resposta.
+  *Observação: o separador “.” não é permitido.*
+
+Atualização na propriedade de configuração, que agora passa a ser `nestedResponseKeySeparator`, deixando claro que o comportamento se refere ao aninhamento das chaves na resposta.
+
 ## [17.2.19] - 2025-02-18
 Nova opção para personalizar as classes das logos do footer: rightSideImageStyleClass
 Essa nova opção sobscreve classes de largura.

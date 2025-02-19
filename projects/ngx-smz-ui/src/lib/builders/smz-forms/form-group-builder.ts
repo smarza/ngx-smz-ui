@@ -56,6 +56,10 @@ export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormG
 
   public calendar(property: string, label?: string, defaultValue?: Date): SmzFormCalendarBuilder<TResponse> {
 
+    if (property.includes('.')) {
+      throw Error('Property name cannot contain a dot (.)');
+    }
+
     let input = this.group.children.find(x => x.propertyName == property);
 
     if (input == null) {
@@ -80,6 +84,10 @@ export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormG
 
   public checkbox(property: string, label?: string, defaultValue?: boolean): SmzFormCheckboxBuilder<TResponse> {
 
+    if (property.includes('.')) {
+      throw Error('Property name cannot contain a dot (.)');
+    }
+
     let input = this.group.children.find(x => x.propertyName == property);
 
     if (input == null) {
@@ -103,6 +111,11 @@ export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormG
   }
 
   public checkboxGroup<T>(property: string, label: string, options: SimpleEntity<T>[], defaultValue?: T[]): SmzFormCheckboxGroupBuilder<T,TResponse> {
+
+    if (property.includes('.')) {
+      throw Error('Property name cannot contain a dot (.)');
+    }
+
     const input: SmzCheckBoxGroupControl<T> = {
       propertyName: property, type: SmzControlType.CHECKBOX_GROUP, name: label,
       defaultValue: defaultValue, options: options
@@ -113,6 +126,10 @@ export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormG
   }
 
   public dropdown<T>(property: string, label?: string, options?: SimpleEntity<T>[], defaultValue?: T): SmzFormDropdownBuilder<T,TResponse> {
+
+    if (property.includes('.')) {
+      throw Error('Property name cannot contain a dot (.)');
+    }
 
     let input = this.group.children.find(x => x.propertyName == property) as SmzDropDownControl<T>;
 
@@ -142,6 +159,10 @@ export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormG
 
   public linkedDropdown<T>(property: string, dependsOn: string, label?: string, options?: SimpleParentEntity<T>[], defaultValue?: T): SmzFormLinkedDropdownBuilder<T,TResponse> {
 
+    if (property.includes('.')) {
+      throw Error('Property name cannot contain a dot (.)');
+    }
+
     let input = this.group.children.find(x => x.propertyName == property) as SmzLinkedDropDownControl<T>;
 
     if (input == null) {
@@ -168,6 +189,10 @@ export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormG
 
   public multiselect<T>(property: string, label?: string, options?: SimpleEntity<T>[], defaultValue?: T[]): SmzFormMultiselectBuilder<T,TResponse> {
 
+    if (property.includes('.')) {
+      throw Error('Property name cannot contain a dot (.)');
+    }
+
     let input = this.group.children.find(x => x.propertyName == property) as SmzMultiSelectControl<T>;
 
     if (input == null) {
@@ -193,6 +218,11 @@ export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormG
   }
 
   public linkedMultiselect<T>(property: string, dependsOn: string, label?: string, options?: SimpleParentEntity<T>[], defaultValue?: T[]): SmzFormLinkedMultiselectBuilder<T,TResponse> {
+
+    if (property.includes('.')) {
+      throw Error('Property name cannot contain a dot (.)');
+    }
+
     const input: SmzLinkedMultiSelectControl<T> = {
       propertyName: property, type: SmzControlType.LINKED_MULTISELECT, name: label,
       defaultValue: defaultValue, options: options, dependsOn: { propertyName: dependsOn, formId: this._formBuilder._state.formId }
@@ -203,6 +233,10 @@ export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormG
   }
 
   public colorPicker(property: string, label?: string, defaultValue?: string): SmzFormColorPickerBuilder<TResponse> {
+
+    if (property.includes('.')) {
+      throw Error('Property name cannot contain a dot (.)');
+    }
 
     let input = this.group.children.find(x => x.propertyName == property);
 
@@ -229,6 +263,10 @@ export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormG
 
   public currency(property: string, label?: string, defaultValue?: string): SmzFormCurrencyBuilder<TResponse> {
 
+    if (property.includes('.')) {
+      throw Error('Property name cannot contain a dot (.)');
+    }
+
     let input = this.group.children.find(x => x.propertyName == property);
 
     if (input == null) {
@@ -254,6 +292,10 @@ export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormG
 
   public number(property: string, label?: string, defaultValue?: number): SmzFormNumberBuilder<TResponse> {
 
+    if (property.includes('.')) {
+      throw Error('Property name cannot contain a dot (.)');
+    }
+
     let input = this.group.children.find(x => x.propertyName == property);
 
     if (input == null) {
@@ -278,6 +320,10 @@ export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormG
   }
 
   public radioGroup<T>(property: string, label?: string, options?: SimpleEntity<T>[], defaultValue?: T): SmzFormRadioGroupBuilder<T,TResponse> {
+
+    if (property.includes('.')) {
+      throw Error('Property name cannot contain a dot (.)');
+    }
 
     let input = this.group.children.find(x => x.propertyName == property) as SmzRadioControl<T>;
 
@@ -305,6 +351,10 @@ export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormG
 
   public switch(property: string, label?: string, defaultValue?: boolean): SmzFormSwitchBuilder<TResponse> {
 
+    if (property.includes('.')) {
+      throw Error('Property name cannot contain a dot (.)');
+    }
+
     let input = this.group.children.find(x => x.propertyName == property);
 
     if (input == null) {
@@ -330,6 +380,10 @@ export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormG
 
   public textArea(property: string, label?: string, defaultValue?: string): SmzFormTextAreaBuilder<TResponse> {
 
+    if (property.includes('.')) {
+      throw Error('Property name cannot contain a dot (.)');
+    }
+
     let input = this.group.children.find(x => x.propertyName == property);
 
     if (input == null) {
@@ -354,6 +408,10 @@ export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormG
   }
 
   public contentMask(property: string, label?: string, defaultValue?: string): SmzFormContentMaskBuilder<TResponse> {
+
+    if (property.includes('.')) {
+      throw Error('Property name cannot contain a dot (.)');
+    }
 
     let input = this.group.children.find(x => x.propertyName == property) as SmzContentMaskControl;
 
@@ -383,6 +441,11 @@ export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormG
   }
 
   public tagArea(property: string, label: string, defaultValue?: string): SmzFormTagAreaBuilder<TResponse> {
+
+    if (property.includes('.')) {
+      throw Error('Property name cannot contain a dot (.)');
+    }
+
     const input: SmzTagAreaControl = {
       propertyName: property, type: SmzControlType.TAG_AREA, name: label,
       config: {
@@ -401,6 +464,11 @@ export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormG
   }
 
   public autocompleteTagArea(property: string, label: string, defaultValue?: string): SmzFormAutocompleteTagAreaBuilder<TResponse> {
+
+    if (property.includes('.')) {
+      throw Error('Property name cannot contain a dot (.)');
+    }
+
     const input: SmzAutocompleteTagAreaControl = {
       propertyName: property, type: SmzControlType.AUTOCOMPLETE_TAG_AREA, name: label,
       config: {
@@ -420,6 +488,10 @@ export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormG
   }
 
   public text(property: string, label?: string, defaultValue?: string): SmzFormTextBuilder<TResponse> {
+
+    if (property.includes('.')) {
+      throw Error('Property name cannot contain a dot (.)');
+    }
 
     let input = this.group.children.find(x => x.propertyName == property);
 
@@ -446,6 +518,10 @@ export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormG
   }
 
   public textButton(property: string, label?: string, defaultValue?: string, callback?: (data: SmzFormsResponse<unknown>, utils: SmzFormViewdata) => Observable<{ isValid: boolean, messages?: string[] }>): SmzFormTextButtonBuilder<TResponse> {
+
+    if (property.includes('.')) {
+      throw Error('Property name cannot contain a dot (.)');
+    }
 
     let input = this.group.children.find(x => x.propertyName == property) as SmzTextButtonControl;
 
@@ -477,6 +553,10 @@ export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormG
   }
 
   public file(property: string, label?: string): SmzFormFileBuilder<TResponse> {
+
+    if (property.includes('.')) {
+      throw Error('Property name cannot contain a dot (.)');
+    }
 
     let input = this.group.children.find(x => x.propertyName == property);
 
@@ -510,6 +590,10 @@ export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormG
   }
 
   public list(property: string, label?: string, defaultValue?: string[] | number[]): SmzFormListBuilder<TResponse> {
+
+    if (property.includes('.')) {
+      throw Error('Property name cannot contain a dot (.)');
+    }
 
     let input = this.group.children.find(x => x.propertyName == property);
 
@@ -558,6 +642,10 @@ export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormG
 
   public mask(property: string, label?: string, defaultValue?: string): SmzFormMaskBuilder<TResponse> {
 
+    if (property.includes('.')) {
+      throw Error('Property name cannot contain a dot (.)');
+    }
+
     let input = this.group.children.find(x => x.propertyName == property);
 
     if (input == null) {
@@ -583,6 +671,10 @@ export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormG
   }
 
   public password(property: string, label?: string, defaultValue?: string): SmzFormPasswordBuilder<TResponse> {
+
+    if (property.includes('.')) {
+      throw Error('Property name cannot contain a dot (.)');
+    }
 
     let input = this.group.children.find(x => x.propertyName == property);
 
@@ -618,6 +710,10 @@ export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormG
 
   public addPasswordConfirmation (property: string, label?: string): SmzFormPasswordBuilder<TResponse> {
 
+    if (property.includes('.')) {
+      throw Error('Property name cannot contain a dot (.)');
+    }
+
     let input = this.group.children.find(x => x.propertyName == property + '_confirmation');
 
     if (input == null) {
@@ -650,6 +746,10 @@ export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormG
   }
 
   public tree<T>(property: string, label?: string): SmzFormTreeBuilder<T,TResponse> {
+
+    if (property.includes('.')) {
+      throw Error('Property name cannot contain a dot (.)');
+    }
 
     let input = this.group.children.find(x => x.propertyName == property) as SmzTreeControl<T>;
 
