@@ -31,9 +31,9 @@ import { GlobalInjector } from '../../../../../../common/services/global-injecto
             <span class="notification-container" *ngIf="notifications != null" smz-ui-new-athena-notifications [items]="notifications"></span>
           </ng-template>
 
-          <smz-localization-switch class="mx-3"></smz-localization-switch>
+          <smz-localization-switch *ngIf="showLocalizationSwitch" class="mr-3"></smz-localization-switch>
 
-          <smz-tenant-switch class="mx-3"></smz-tenant-switch>
+          <smz-tenant-switch *ngIf="showTenantSwitch" class="mr-3"></smz-tenant-switch>
 
           <span id="smz-ui-profile-menu" *ngIf="profile != null" smz-ui-new-athena-profile-menu [profile]="profile"></span>
 
@@ -56,7 +56,7 @@ import { GlobalInjector } from '../../../../../../common/services/global-injecto
             <span class="notification-container" *ngIf="notifications != null" smz-ui-new-athena-notifications [items]="notifications"></span>
           </ng-template>
 
-          <smz-tenant-switch class="mx-3"></smz-tenant-switch>
+          <smz-tenant-switch *ngIf="showTenantSwitch" class="mr-3"></smz-tenant-switch>
 
           <span id="smz-ui-profile-menu" *ngIf="profile != null" smz-ui-new-athena-profile-menu [profile]="profile"></span>
 
@@ -72,5 +72,7 @@ export class AthenaTopbarActionsComponent {
   @Input() public notifications: SmzNotification[] = [];
   @Input() public headerExtrasTemplate: TemplateRef<any>;
   public uiConfig = GlobalInjector.config;
+  public showLocalizationSwitch = GlobalInjector.config.rbkUtils.uiLocalization.allowLocalizationSwitching;
+  public showTenantSwitch = GlobalInjector.config.rbkUtils.authentication.allowTenantSwitching;
 
 }

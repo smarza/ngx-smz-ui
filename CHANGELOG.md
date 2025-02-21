@@ -5,6 +5,11 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
+
+## [17.2.23] - 2025-02-21
+
+Ajustes gerais no tema new Athenas (para Fapeng)
+
 ## [17.2.21] - 2025-02-19
 
 ### Adicionado

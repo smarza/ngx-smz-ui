@@ -18,8 +18,8 @@
                 <ng-container *ngTemplateOutlet="headerExtrasTemplate"></ng-container>
             </li>
             <li *ngIf="notifications?.length > 0" class="notifications-item" smz-ui-hephaestus-notifications [items]="notifications"></li>
-            <li><smz-localization-switch></smz-localization-switch></li>
-            <li><smz-tenant-switch></smz-tenant-switch></li>
+            <li *ngIf="showLocalizationSwitch"><smz-localization-switch></smz-localization-switch></li>
+            <li *ngIf="showTenantSwitch"><smz-tenant-switch></smz-tenant-switch></li>
             <li *ngIf="profile?.length > 0" class="profile-item" smz-ui-hephaestus-profile-menu [items]="profile"></li>
         </ul>
     </div>

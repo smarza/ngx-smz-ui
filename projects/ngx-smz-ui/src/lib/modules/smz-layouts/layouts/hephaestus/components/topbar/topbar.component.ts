@@ -30,6 +30,8 @@ export class HephaestusTopbarComponent implements OnInit, AfterContentInit
   public headerExtrasTemplate: TemplateRef<any>;
   public sideBaseStateActive = SidebarState.ACTIVE;
   public uiConfig = GlobalInjector.config;
+  public showLocalizationSwitch = GlobalInjector.config.rbkUtils.uiLocalization.allowLocalizationSwitching;
+  public showTenantSwitch = GlobalInjector.config.rbkUtils.authentication.allowTenantSwitching;
   constructor(private store: Store, private location: Location) { }
 
   ngOnInit(): void

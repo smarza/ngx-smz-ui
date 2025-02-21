@@ -227,10 +227,24 @@ Exame sem intercorrências.`)
       .disableFlattenResponse()
       .group()
         .setLayout('EXTRA_SMALL', 'col-12')
-        .dropdown('input1', 'I\'m required', [{ id: 'A', name: 'Group A'}, { id: 'B', name: 'Group B'}], 'B')
+        .dropdown('plant', 'Planta', [
+            { id: 'A', name: 'Plant A'},
+            { id: 'B', name: 'Plant B'}]
+          )
           .validators().required().input
           .group
-        .linkedDropdown('input2', 'input1', 'I\'m required', [{ parentId: 'A', data: [{ id: 'A1', name: 'Option A1' }, { id: 'A2', name: 'Option A2' }]}, { parentId: 'B', data: [{ id: 'B1', name: 'Option B1' }, { id: 'B2', name: 'Option B2' }]}], 'B2')
+        .linkedDropdown('year', 'plant', 'Ano', [
+            { parentId: 'A', data: [{ id: 'A1', name: '2024' }, { id: 'A2', name: '2025' }]},
+            { parentId: 'B', data: [{ id: 'B1', name: '2024' }, { id: 'B2', name: '2025' }]}]
+          )
+          .validators().required().input
+          .group
+        .linkedDropdown('inspection', 'year', 'Inspeção', [
+            { parentId: 'A1', data: [{ id: 'A1', name: 'Inspeção 2024 1' }, { id: 'A2', name: 'Inspeção 2024 2' }]},
+            { parentId: 'A2', data: [{ id: 'A3', name: 'Inspeção 2025 1' }, { id: 'A4', name: 'Inspeção 2025 2' }]},
+            { parentId: 'B1', data: [{ id: 'B1', name: 'Inspeção 2024 1' }, { id: 'B2', name: 'Inspeção 2024 2' }]},
+            { parentId: 'B2', data: [{ id: 'B3', name: 'Inspeção 2025 1' }, { id: 'B4', name: 'Inspeção 2025 2' }]}
+          ])
           .validators().required().input
           .group
       .form
