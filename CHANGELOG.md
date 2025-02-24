@@ -5,7 +5,7 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
-[17.2.3] - 2025-02-24
+[17.2.25] - 2025-02-24
 
 Melhorias no suporte a múltiplos campos de formulário vinculados em cascata:
 
