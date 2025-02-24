@@ -71,32 +71,76 @@ export class SmzFormsDropdownService
 
     private emitToObservers(observers: string[], value: any): void
     {
+        // console.log(' ');
+        // console.log(' ');
+        // console.log('--------------------------------');
+        // console.log('emitToObservers', observers, value);
+        // console.log('Dependências', this.dependsOn);
+
         for (let observer of observers)
         {
+            // console.log('Emitindo para o observer', observer);
             const match = this.observers[observer];
 
             if (match == null)
             {
-                console.log('Observer não encontrado.');
+                // console.log('Observer não encontrado.');
             }
             else
             {
+                // console.log('Observer encontrado.', match);
                 const options = match.input.options;
 
-                const newOptionsIndex = options.findIndex(x => x.parentId === value.id);
+                let newList = [];
+                let emitValue = null;
 
-                if (newOptionsIndex > -1)
+                // console.log('Observer Dependencies', this.dependsOn[observer]);
+
+                if (value != null)
                 {
-                    this.observers[observer].options.next(options[newOptionsIndex].data);
+                    // console.log(`Procurando opções para o valor ${value}`, options);
+                    const newOptionsIndex = options.findIndex(x => x.parentId === (value?.id ?? value));
+
+                    // console.log('newOptionsIndex', newOptionsIndex);
+
+                    if (newOptionsIndex > -1)
+                    {
+                        // console.log('Opções', newList);
+                        newList = options[newOptionsIndex].data;
+                    }
+                    else
+                    {
+                        console.warn('Lista de opções não encontrada.', match.input);
+                    }
                 }
                 else
                 {
-                    this.observers[observer].options.next([]);
-                    console.warn('Lista de opções não encontrada.', match.input);
+                    // console.log('Setando valor vazio pois o valor do parente é null.');
                 }
 
+                // console.log('Emitindo opções.', newList);
+                this.observers[observer].options.next(newList);
+
                 if (match.input.defaultValue == null) {
+                    // console.log('Setando valor padrão.');
                     match.input._inputFormControl.setValue('');
+                    emitValue = null;
+                }
+                else {
+                    // console.log('Procurando valor padrão na lista de opções.', newList, match.input.defaultValue);
+                    if (newList.find(x => x.id == (match.input.defaultValue?.id ?? match.input.defaultValue))) {
+                        // console.log('Valor padrão encontrado.', match.input.defaultValue);
+                        emitValue = match.input.defaultValue;
+                    }
+                    else {
+                        // console.warn('Valor padrão não encontrado na lista de opções.', match.input.defaultValue);
+                    }
+                }
+
+                if (this.dependsOn[observer].observers.length > 0) {
+                    // console.log('Emitindo para os observers dependentes.', this.dependsOn[observer].observers);
+                    // console.log('Emitindo valor', emitValue);
+                    this.emitToObservers(this.dependsOn[observer].observers, emitValue);
                 }
 
             }

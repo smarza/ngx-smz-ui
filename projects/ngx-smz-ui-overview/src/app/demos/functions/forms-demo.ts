@@ -223,28 +223,31 @@ Exame sem intercorrências.`)
   //
   [DemoKeys.FORMS_INPUT_LINKED_DROPDOWN]: () => {
     return new SmzFormBuilder<any>()
-    .debugMode()
+    // .debugMode()
       .disableFlattenResponse()
       .group()
         .setLayout('EXTRA_SMALL', 'col-12')
         .dropdown('plant', 'Planta', [
             { id: 'A', name: 'Plant A'},
-            { id: 'B', name: 'Plant B'}]
+            { id: 'B', name: 'Plant B'}],
+            'A'
           )
           .validators().required().input
           .group
         .linkedDropdown('year', 'plant', 'Ano', [
             { parentId: 'A', data: [{ id: 'A1', name: '2024' }, { id: 'A2', name: '2025' }]},
-            { parentId: 'B', data: [{ id: 'B1', name: '2024' }, { id: 'B2', name: '2025' }]}]
+            { parentId: 'B', data: [{ id: 'B1', name: '2024' }, { id: 'B2', name: '2025' }]}],
+            'A1'
           )
           .validators().required().input
           .group
         .linkedDropdown('inspection', 'year', 'Inspeção', [
-            { parentId: 'A1', data: [{ id: 'A1', name: 'Inspeção 2024 1' }, { id: 'A2', name: 'Inspeção 2024 2' }]},
-            { parentId: 'A2', data: [{ id: 'A3', name: 'Inspeção 2025 1' }, { id: 'A4', name: 'Inspeção 2025 2' }]},
-            { parentId: 'B1', data: [{ id: 'B1', name: 'Inspeção 2024 1' }, { id: 'B2', name: 'Inspeção 2024 2' }]},
-            { parentId: 'B2', data: [{ id: 'B3', name: 'Inspeção 2025 1' }, { id: 'B4', name: 'Inspeção 2025 2' }]}
-          ])
+            { parentId: 'A1', data: [{ id: 'IA1-1', name: 'Inspeção 2024 1' }, { id: 'IA1-2', name: 'Inspeção 2024 2' }]},
+            { parentId: 'A2', data: [{ id: 'IA2-1', name: 'Inspeção 2025 1' }, { id: 'IA2-2', name: 'Inspeção 2025 2' }]},
+            { parentId: 'B1', data: [{ id: 'IB1-1', name: 'Inspeção 2024 1' }, { id: 'IB1-2', name: 'Inspeção 2024 2' }]},
+            { parentId: 'B2', data: [{ id: 'IB2-1', name: 'Inspeção 2025 1' }, { id: 'IB2-2', name: 'Inspeção 2025 2' }]}],
+            'IA1-1'
+          )
           .validators().required().input
           .group
       .form
