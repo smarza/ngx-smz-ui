@@ -5,10 +5,11 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
-## [17.2.3] - 2025-02-24
+[17.2.3] - 2025-02-24
 
-Implementação do suporte a multiples linked form inputs se referenciando em cascata.
-Agora ao trocar o valor de um dropdown ligado a mais de um dropdown em cascata, o form reage corretamente e limpa os dados, e respeitando o valor default caso exista e faça sentido para a seleção atual.
+Melhorias no suporte a múltiplos campos de formulário vinculados em cascata:
+
+Agora, ao alterar o valor de um dropdown que influencia múltiplos outros dropdowns em cascata, o formulário reage corretamente, garantindo a limpeza dos dados dependentes. Além disso, ele preserva o valor padrão quando aplicável, respeitando a lógica da seleção atual.
 
 ## [17.2.23] - 2025-02-21
 
