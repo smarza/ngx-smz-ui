@@ -291,6 +291,8 @@ function convertInputs(inputs: InputConfig[], store: Store, options: InputConver
         type: SmzControlType.FILE,
         fileAccept: config.fileAccept,
         hideLabel: false,
+        outputFormat: 'base64',
+        useGlobalLoader: true,
       };
       results.push(input);
     }

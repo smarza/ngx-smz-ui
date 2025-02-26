@@ -1,4 +1,35 @@
 {
+    "attachment": {
+        "create": [
+            {
+                "controls": [
+                    {
+                        "controlType": {
+                            "name": "Text",
+                            "id": "12"
+                        },
+                        "propertyName": "name",
+                        "name": "Nome",
+                        "required": true,
+                        "minLength": 3,
+                        "maxLength": 1024
+                    },
+                    {
+                        "controlType": {
+                            "name": "File",
+                            "id": "6"
+                        },
+                        "propertyName": "attachment",
+                        "name": "Arquivo",
+                        "required": true,
+                        "minLength": 1,
+                        "maxLength": 255
+                    }
+                ]
+            }
+        ],
+        "update": []
+    },
     "application": {
         "create": [
             {

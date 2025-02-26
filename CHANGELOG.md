@@ -5,6 +5,14 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
+[17.2.26] - 2025-02-26
+
+Foi adicionada a propriedade outputFormat: 'base64' aos metadados dos campos do tipo file no Ui Definition. Com essa atualização, o input de arquivos agora funciona corretamente para formulários criados via Ui Definition, tanto manualmente quanto pelo Fluent.
+
+Por padrão, o formato 'base64' foi adotado, pois está alinhado ao contrato estabelecido com os endpoints que utilizam Ui Definition. A propriedade outputFormat é essencial para o correto funcionamento do campo file, sendo obrigatória para seu uso.
+
+No entanto, é possível sobrescrever o outputFormat em casos específicos, especialmente para cenários onde a Ui Definition é carregada via Fluent.
+
 [17.2.25] - 2025-02-24
 
 Melhorias no suporte a múltiplos campos de formulário vinculados em cascata:

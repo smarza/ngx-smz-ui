@@ -390,11 +390,12 @@ export const DialogsDemo: { [key: string]: () => void } = {
   [DemoKeys.DIALOGS_FROM_UI_DEFINITION_CREATE]: () => {
     service.open(
       new SmzDialogBuilder<void>()
+        // .debugMode()
         .setTitle(`Create form from ui definition`)
         .setLayout('EXTRA_SMALL', 'col-12')
         .setLayout('LARGE', 'col-4')
         .setLayout('EXTRA_LARGE', 'col-3')
-        .fromUiDefinition('entity')
+        .fromUiDefinition('attachment')
         .dialog
         .buttons()
           .confirm()
@@ -412,7 +413,7 @@ export const DialogsDemo: { [key: string]: () => void } = {
         .setLayout('EXTRA_SMALL', 'col-12')
         .setLayout('LARGE', 'col-4')
         .setLayout('EXTRA_LARGE', 'col-3')
-        .fromUiDefinition('entity')
+        .fromUiDefinition('attachment')
           .forEntity({
             name: 'Name',
             company: 'Company',
