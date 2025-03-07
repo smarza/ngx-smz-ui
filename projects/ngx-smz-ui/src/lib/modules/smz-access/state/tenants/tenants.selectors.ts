@@ -11,19 +11,19 @@ export class TenantsSelectors {
   }
 
   public static single(id: string): (state: TenantsStateModel) => TenantDetails {
-    return createSelector([TenantsState], (state: TenantsStateModel) => id == null ? null : state.items.find(x => x.alias === id));
+    return createSelector([TenantsState], (state: TenantsStateModel) => id == null ? null : state.items.find(x => x.alias?.toLowerCase() === id?.toLowerCase()));
   }
 
   @Selector([TenantsState, AuthenticationState])
   public static userAllowedTenants(state: TenantsStateModel, auth: AuthenticationStateModel<BaseUserData>): TenantDetails[] {
     const allowedTenants = auth.userdata.allowedTenants;
-    return state.items.filter(x => allowedTenants.find(t => t === x.alias));
+    return state.items.filter(x => allowedTenants.find(t => t?.toLowerCase() === x.alias?.toLowerCase()));
   }
 
   @Selector([TenantsState, AuthenticationState])
   public static currentTenant(state: TenantsStateModel, auth: AuthenticationStateModel<BaseUserData>): TenantDetails {
     const userTenant = auth.userdata.tenant;
-    return state.items.find(x => x.name === userTenant);
+    return state.items.find(x => x.alias?.toLowerCase() === userTenant?.toLowerCase());
   }
 
 }

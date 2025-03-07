@@ -5,6 +5,10 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
+[17.2.27] - 2025-03-07
+
+Correção nos selectors que fazem verificação do tentant. Agora todas as verificações são convertidas para minuscula e a comparação é feita com o tenant alias ao inves do name.
+
 [17.2.26] - 2025-02-26
 
 Foi adicionada a propriedade outputFormat: 'base64' aos metadados dos campos do tipo file no Ui Definition. Com essa atualização, o input de arquivos agora funciona corretamente para formulários criados via Ui Definition, tanto manualmente quanto pelo Fluent.
