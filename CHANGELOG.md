@@ -5,6 +5,15 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
+[17.3.0] - 2025-03-17
+
+Foi atualizada a propriedade `overrideResponseFormat` introduzida para fornecer flexibilidade no controle do formato das respostas em campos de formulário.
+Os valores suportados agora são:
+
+- `AppendIdSuffix`: Adiciona 'Id' ou 'Ids' ao nome da propriedade de saída.
+- `IdOnly`: Retorna apenas o ID sem alterar o nome original da propriedade.
+- `Raw`: Retorna o valor original sem qualquer modificação.
+
 [17.2.27] - 2025-03-07
 
 Correção nos selectors que fazem verificação do tentant. Agora todas as verificações são convertidas para minuscula e a comparação é feita com o tenant alias ao inves do name.

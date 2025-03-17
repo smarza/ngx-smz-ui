@@ -15,5 +15,5 @@ export interface SmzFormsAdvancedSettings
     excludeFromResponse?: boolean;
     propagationCallback?: (value: any) => void;
     isPropagating?: boolean;
-    overrideResponseFormat?: 'flat' | 'object';
+    overrideResponseFormat?: 'AppendIdSuffix' | 'IdOnly' | 'Raw';
 }

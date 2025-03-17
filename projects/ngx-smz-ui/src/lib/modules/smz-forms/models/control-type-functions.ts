@@ -680,45 +680,48 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
 
 function mapResponseValue(input: SmzControlTypes, value: any, formFlattenResponseConfig: boolean): { [key: string]: any }
 {
-    const inputOverrideResponseConfig = input.advancedSettings?.overrideResponseFormat
+    const responseFormat = input.advancedSettings?.overrideResponseFormat ?? (formFlattenResponseConfig ? 'AppendIdSuffix' : 'Raw');
 
-    const returnFlatten = inputOverrideResponseConfig == null ?
-        formFlattenResponseConfig :
-        inputOverrideResponseConfig === 'flat';
+    switch (responseFormat) {
+        case 'Raw':
+            return { [input.propertyName]: value };
 
-    if (returnFlatten)
-    {
-        if (isArray(value))
-        {
-            // console.log('value', value);
-            if (value.every(x => x.id != null)) {
-                return { [flatPropertyName(input.propertyName, true)]: value.map(x => x.id) };
+        case 'IdOnly':
+            if (isArray(value))
+            {
+                return { [input.propertyName]: value.map(x => x?.id ?? x) };
+            }
+            else
+            {
+                return { [input.propertyName]: value?.id ?? value };
             }
 
-            return { [flatPropertyName(input.propertyName, true)]: value };
-        }
-        else
-        {
-            return { [flatPropertyName(input.propertyName, false)]: value?.id };
-        }
-    }
-    else
-    {
-        if (isArray(value))
-        {
-            return { [input.propertyName]: value };
-        }
-        else
-        {
-            return { [input.propertyName]: value };
-        }
+        case 'AppendIdSuffix':
+            if (isArray(value))
+            {
+                const suffix = 'Ids';
+                if (value.every(x => x.id != null)) {
+                    return { [flatPropertyName(input.propertyName, suffix)]: value.map(x => x.id) };
+                }
+
+                return { [flatPropertyName(input.propertyName, suffix)]: value };
+            }
+            else
+            {
+                const suffix = 'Id';
+                return { [flatPropertyName(input.propertyName, suffix)]: value?.id ?? value };
+            }
+
+        default:
+            console.warn('Não foi possível identificar o formato de resposta para o input', input.propertyName);
+            return { };
     }
 
 }
 
-function flatPropertyName(propertyName: string, isArray: boolean): string
+function flatPropertyName(propertyName: string, suffix: string): string
 {
-    return `${propertyName}${isArray ? 'Ids' : 'Id'}`;
+    return `${propertyName}${suffix}`;
 }
 
 function getMatchingEntities<T>(options: SimpleEntity<T>[], defaultValueIds: T[]): SimpleEntity<T>[] {

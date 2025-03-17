@@ -172,7 +172,7 @@ export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormG
       }
 
       input = {
-        propertyName: property, type: SmzControlType.LINKED_DROPDOWN, name: label, advancedSettings: { overrideResponseFormat: this.form._state.behaviors.flattenResponse ? 'flat' : 'object' },
+        propertyName: property, type: SmzControlType.LINKED_DROPDOWN, name: label, advancedSettings: { overrideResponseFormat: this.form._state.behaviors.flattenResponse ? 'AppendIdSuffix' : 'IdOnly' },
         defaultValue: defaultValue, options: options, dependsOn: { propertyName: dependsOn, formId: this._formBuilder._state.formId }
       };
 
@@ -836,7 +836,7 @@ export class SmzFormInputBuilder<TInput, TResponse> {
     return this.that;
   }
 
-  public overrideResponseFormat(format: 'flat' | 'object'): TInput {
+  public overrideResponseFormat(format: 'AppendIdSuffix' | 'IdOnly' | 'Raw'): TInput {
     this._input.advancedSettings.overrideResponseFormat = format;
     return this.that;
   }

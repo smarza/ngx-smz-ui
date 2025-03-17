@@ -40,6 +40,14 @@ export const FormsDemo: { [key: string]: () => void } = {
           // .setVisibilityCondition('multiselect1', false, ['3'])
           .setVisibilityFunction((formValues) => formValues.multiselect1Ids?.includes('3'))
           .group
+        .radioGroup('inspectionDataLoadBehavior', 'Método de carregamento dos dados da inspeção', [
+              { id: 'giants', name: 'Via Giants' },
+              { id: 'spreedsheet', name: 'Via Upload de Planilha' },
+            ])
+          .setVisibilityFunction((formValues) => formValues.multiselect1Ids?.includes('3'))
+          .overrideResponseFormat('Raw')
+          .validators().required().input
+          .group
 
         // .text('text3', 'Visible if Multiselect Control Has Option 2 or Option 3', '')
         //   .setVisibilityCondition('multiselect1', false, ['2', '3'])
