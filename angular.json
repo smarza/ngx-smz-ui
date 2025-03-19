@@ -70,12 +70,15 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/ngx-smz-ui-demo",
+            "outputPath": {
+              "base": "dist/ngx-smz-ui-demo"
+            },
             "index": "projects/ngx-smz-ui-demo/src/index.html",
-            "main": "projects/ngx-smz-ui-demo/src/main.ts",
-            "polyfills": "projects/ngx-smz-ui-demo/src/polyfills.ts",
+            "polyfills": [
+              "projects/ngx-smz-ui-demo/src/polyfills.ts"
+            ],
             "tsConfig": "projects/ngx-smz-ui-demo/tsconfig.json",
             "allowedCommonJsDependencies": [
               "jspdf",
@@ -113,7 +116,8 @@
               "node_modules/marked/marked.min.js",
               "node_modules/prismjs/prism.js",
               "node_modules/prismjs/components/prism-css.min.js"
-            ]
+            ],
+            "browser": "projects/ngx-smz-ui-demo/src/main.ts"
           },
           "configurations": {
             "production": {
@@ -213,12 +217,15 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/ngx-smz-ui-overview",
+            "outputPath": {
+              "base": "dist/ngx-smz-ui-overview"
+            },
             "index": "projects/ngx-smz-ui-overview/src/index.html",
-            "main": "projects/ngx-smz-ui-overview/src/main.ts",
-            "polyfills": "projects/ngx-smz-ui-overview/src/polyfills.ts",
+            "polyfills": [
+              "projects/ngx-smz-ui-overview/src/polyfills.ts"
+            ],
             "tsConfig": "projects/ngx-smz-ui-overview/tsconfig.json",
             "allowedCommonJsDependencies": [
               "canvg",
@@ -259,7 +266,8 @@
               "node_modules/marked/marked.min.js",
               "node_modules/prismjs/prism.js",
               "node_modules/prismjs/components/prism-css.min.js"
-            ]
+            ],
+            "browser": "projects/ngx-smz-ui-overview/src/main.ts"
           },
           "configurations": {
             "production": {
@@ -341,12 +349,15 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/ngx-smz-ui-modules",
+            "outputPath": {
+              "base": "dist/ngx-smz-ui-modules"
+            },
             "index": "projects/ngx-smz-ui-modules/src/index.html",
-            "main": "projects/ngx-smz-ui-modules/src/main.ts",
-            "polyfills": "projects/ngx-smz-ui-modules/src/polyfills.ts",
+            "polyfills": [
+              "projects/ngx-smz-ui-modules/src/polyfills.ts"
+            ],
             "tsConfig": "projects/ngx-smz-ui-modules/tsconfig.json",
             "allowedCommonJsDependencies": [
               "jspdf",
@@ -384,7 +395,8 @@
                 "node_modules/marked/marked.min.js",
                 "node_modules/prismjs/prism.js",
                 "node_modules/prismjs/components/prism-css.min.js"
-              ]
+              ],
+              "browser": "projects/ngx-smz-ui-modules/src/main.ts"
           },
           "configurations": {
             "production": {

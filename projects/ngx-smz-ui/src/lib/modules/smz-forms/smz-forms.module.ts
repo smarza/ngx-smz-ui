@@ -44,7 +44,7 @@ import { SmzFormsConfig } from './smz-forms.config';
 import { InputNumberComponent } from './components/input-number/input-number.component';
 import { SmzControlType } from './models/control-types';
 import { LinkedDropdownComponent } from './components/linked-dropdown/linked-dropdown.component';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { SmzTemplatesPipeModule } from '../../common/pipes/templates.pipe';
 import { ValidationMessagesComponent } from './components/validation-messages/validation-messages.component';
 import { ValidationMessagesPipe } from './components/validation-messages/validation-messages.pipe';
@@ -163,43 +163,6 @@ export const defaultFormsModuleConfig: SmzFormsConfig = {
 };
 
 @NgModule({
-    imports: [
-        CommonModule,
-        CalendarModule,
-        CheckboxModule,
-        ClickStopPropagationModule,
-        ColorPickerModule,
-        DropdownModule,
-        FileUploadModule,
-        FlexLayoutModule,
-        FormsModule,
-        HttpClientModule,
-        InjectContentAppModule,
-        InputMaskModule,
-        InputNumberModule,
-        InputSwitchModule,
-        InputTextareaModule,
-        InputTextModule,
-        ListboxModule,
-        MultiSelectModule,
-        NgGroupByPipeModule,
-        PasswordModule,
-        RadioButtonModule,
-        ReactiveFormsModule,
-        SmzTemplatesPipeModule,
-        TooltipModule,
-        MessagesModule,
-        SafeContentPipeModule,
-        SmzInputTagAreaModule,
-        NgxSmzDataPipesModule,
-        ButtonModule,
-        AutoFocusModule,
-        TreeSelectModule,
-        SmzAutocompleteSelectorComponent,
-        OverlayPanelModule,
-        SmzSmartTagModule,
-        SmzSmartAutocompleteTagModule
-    ],
     // tslint:disable-next-line:max-line-length
     declarations: [
         CalendarComponent,
@@ -263,7 +226,46 @@ export const defaultFormsModuleConfig: SmzFormsConfig = {
         RadioButtonComponent,
         FormSubmitComponent,
     ],
-    providers: [DialogService]
+    imports: [
+        CommonModule,
+        CalendarModule,
+        CheckboxModule,
+        ClickStopPropagationModule,
+        ColorPickerModule,
+        DropdownModule,
+        FileUploadModule,
+        FlexLayoutModule,
+        FormsModule,
+        InjectContentAppModule,
+        InputMaskModule,
+        InputNumberModule,
+        InputSwitchModule,
+        InputTextareaModule,
+        InputTextModule,
+        ListboxModule,
+        MultiSelectModule,
+        NgGroupByPipeModule,
+        PasswordModule,
+        RadioButtonModule,
+        ReactiveFormsModule,
+        SmzTemplatesPipeModule,
+        TooltipModule,
+        MessagesModule,
+        SafeContentPipeModule,
+        SmzInputTagAreaModule,
+        NgxSmzDataPipesModule,
+        ButtonModule,
+        AutoFocusModule,
+        TreeSelectModule,
+        SmzAutocompleteSelectorComponent,
+        OverlayPanelModule,
+        SmzSmartTagModule,
+        SmzSmartAutocompleteTagModule
+    ],
+    providers: [
+        DialogService,
+        provideHttpClient(withInterceptorsFromDi())
+    ]
 })
 export class NgxSmzFormsModule {
     constructor(injector: Injector) {

@@ -1,6 +1,6 @@
 import { NgModule, ErrorHandler, ModuleWithProviders } from '@angular/core';
 import { AuthService } from './auth/auth.service';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { TitleService } from './misc/title.service';
 import { MessageService } from 'primeng/api';
 import { AuthInterceptor } from './auth/auth.interceptor';
@@ -12,11 +12,9 @@ import { CachedRouteReuseStrategy } from './utils/reusable-route';
 import { GlobalErrorHandler } from './error-handler/global-error.interceptor';
 
 @NgModule({
-    imports: [
-        HttpClientModule
-    ],
     exports: [],
     declarations: [],
+    imports: [],
     providers: [
         AuthService,
         TitleService,
@@ -49,8 +47,8 @@ import { GlobalErrorHandler } from './error-handler/global-error.interceptor';
             useClass: HttpErrorInterceptor,
             multi: true
         },
-    ],
-})
+        provideHttpClient(withInterceptorsFromDi()),
+    ] })
 export class NgxRbkUtilsModule {
     constructor(private router: Router) {
     }
