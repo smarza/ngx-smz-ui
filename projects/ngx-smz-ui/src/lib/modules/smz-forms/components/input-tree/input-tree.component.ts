@@ -10,6 +10,7 @@ import { getFirstElement } from '../../../../common/utils/utils';
 @Component({
     selector: 'smz-input-tree',
     templateUrl: './input-tree.component.html',
+    standalone: false
 })
 export class InputTreeComponent implements OnInit
 {

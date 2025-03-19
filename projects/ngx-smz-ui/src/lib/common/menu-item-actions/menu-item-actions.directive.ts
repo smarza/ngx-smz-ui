@@ -6,7 +6,8 @@ import { ActionLink } from '../../modules/smz-layouts/core/models/action-link';
 import { LayoutUiActions } from '../../state/ui/layout/layout.actions';
 
 @Directive({
-    selector: '[menuItemAction]'
+    selector: '[menuItemAction]',
+    standalone: false
 })
 export class MenuItemActionsDirective {
     @Input() public item: ActionLink;

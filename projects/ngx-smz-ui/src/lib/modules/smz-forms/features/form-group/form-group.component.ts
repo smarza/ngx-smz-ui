@@ -16,7 +16,8 @@ import { SmzFormsRepositoryService } from '../../services/smz-forms-repository.s
     selector: 'smz-form-group',
     templateUrl: './form-group.component.html',
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy, InjectableDialogComponentInterface<SmzFormsResponse<any>> {
     public isComponentActive = true;

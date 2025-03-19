@@ -9,9 +9,10 @@ import { EasyTableDemoData } from './easy-table-model';
 
 
 @Component({
-  selector: 'app-demo-easy-table',
-  templateUrl: './demo-easy-table.component.html',
-  providers: [DemoTableDataService]
+    selector: 'app-demo-easy-table',
+    templateUrl: './demo-easy-table.component.html',
+    providers: [DemoTableDataService],
+    standalone: false
 })
 
 export class DemoEasyTableComponent implements OnInit, OnDestroy {

@@ -5,9 +5,10 @@ import { NgDomService } from '../../../ng-dom/ng-dom.service';
 import { DemoNgDomContentComponent } from './demo-ng-dom-content.component';
 
 @Component({
-  selector: 'app-demo-ng-dom',
-  templateUrl: './demo-ng-dom.component.html',
-  providers: []
+    selector: 'app-demo-ng-dom',
+    templateUrl: './demo-ng-dom.component.html',
+    providers: [],
+    standalone: false
 })
 
 export class DemoNgDomComponent implements OnInit {

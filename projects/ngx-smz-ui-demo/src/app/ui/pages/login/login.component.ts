@@ -9,8 +9,9 @@ interface LoginData {
 }
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html'
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    standalone: false
 })
 export class LoginComponent {
   public state: SmzLoginState<LoginData, LoginData> = this.buildState();

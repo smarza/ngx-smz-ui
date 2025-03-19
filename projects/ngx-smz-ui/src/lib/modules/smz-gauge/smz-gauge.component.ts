@@ -9,10 +9,9 @@ import { BehaviorSubject, debounceTime, merge, Subject, takeUntil, throttleTime 
  * pelo estado (`SmzGaugeState`). Este componente utiliza um Gauge SVG para visualização dos valores.
  */
 @Component({
-  standalone: true,
-  selector: 'smz-ui-gauge',
-  imports: [CommonModule, SmzSvgGaugeComponent],
-  template: `
+    selector: 'smz-ui-gauge',
+    imports: [CommonModule, SmzSvgGaugeComponent],
+    template: `
   <ng-container *ngIf="state; else noState">
     <div class="flex flex-col items-center justify-center gap-3">
       <div [ngClass]="state.titleStyle" *ngIf="state.showTitle">{{state.title}}</div>
@@ -42,7 +41,7 @@ import { BehaviorSubject, debounceTime, merge, Subject, takeUntil, throttleTime 
     </div>
   </ng-template>
   `,
-  styles: [`
+    styles: [`
     /* Estilos personalizados para o componente Gauge */
   `]
 })

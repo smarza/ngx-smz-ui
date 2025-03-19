@@ -3,7 +3,8 @@ import { TreeNode } from 'primeng/api/treenode';
 import { SmzTreeWithDetailsState } from '../models/tree-with-details-state';
 
 @Pipe({
-  name: 'treeItems'
+    name: 'treeItems',
+    standalone: false
 })
 
 export class TreeItemsPipe implements PipeTransform {

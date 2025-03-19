@@ -13,11 +13,12 @@ import { LayoutUiSelectors } from '../../../../state/ui/layout/layout.selectors'
 
 @UntilDestroy()
 @Component({
-  selector: 'smz-ui-global-loader',
-  templateUrl: './global-loader.component.html',
-  styleUrls: ['./global-loader.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'smz-ui-global-loader',
+    templateUrl: './global-loader.component.html',
+    styleUrls: ['./global-loader.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class GlobalLoaderComponent implements OnInit
 {

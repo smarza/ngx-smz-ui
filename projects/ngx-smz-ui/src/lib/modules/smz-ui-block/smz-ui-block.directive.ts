@@ -3,8 +3,9 @@ import { SmzUiBlockService } from './smz-ui-block.service';
 import { UUID } from 'angular2-uuid';
 
 @Directive({
-  selector: '[smzUiBlock]',
-  host: {}
+    selector: '[smzUiBlock]',
+    host: {},
+    standalone: false
 })
 export class SmzUiBlockDirective implements OnInit, OnDestroy {
   public key: string = UUID.UUID();

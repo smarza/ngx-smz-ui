@@ -5,8 +5,9 @@ import { SmzFormsResponse } from '../../models/smz-forms';
 import { FormGroupComponent } from '../form-group/form-group.component';
 
 @Component({
-  selector: 'smz-ui-form-submit',
-  templateUrl: 'form-submit.component.html'
+    selector: 'smz-ui-form-submit',
+    templateUrl: 'form-submit.component.html',
+    standalone: false
 })
 
 export class FormSubmitComponent implements OnInit, OnChanges, OnDestroy {

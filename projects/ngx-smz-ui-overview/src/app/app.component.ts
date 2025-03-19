@@ -6,20 +6,17 @@ import { MenuHelperService, ThemeManagerService, BoilerplateService, CLAIMS_PAGE
 import { ProteusModule } from './ui/proteus/proteus.module';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [
-    CommonModule,
-    RouterOutlet,
-
-    // Layout
-    NewAthenaLayoutModule,
-
-    // Shared Modules
-    RbkAccessControlModule,
-    ProteusModule
-  ],
-  template: `
+    selector: 'app-root',
+    imports: [
+        CommonModule,
+        RouterOutlet,
+        // Layout
+        NewAthenaLayoutModule,
+        // Shared Modules
+        RbkAccessControlModule,
+        ProteusModule
+    ],
+    template: `
 <smz-ui-new-athena-layout [profile]="menuService.profile">
   <router-outlet></router-outlet>
   <ng-template pTemplate="headerExtras">
@@ -30,7 +27,7 @@ import { ProteusModule } from './ui/proteus/proteus.module';
     </div>
   </ng-template>
 </smz-ui-new-athena-layout>
-  `,
+  `
 })
 export class AppComponent {
   constructor(private store: Store, private boilerplateService: BoilerplateService, public menuService: MenuHelperService, private themeManager: ThemeManagerService) {

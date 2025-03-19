@@ -5,7 +5,8 @@ import { SmzNumberControl } from '../../models/control-types';
 
 @Component({
     selector: 'smz-input-number',
-    templateUrl: './input-number.component.html'
+    templateUrl: './input-number.component.html',
+    standalone: false
 })
 export class InputNumberComponent
 {

@@ -4,10 +4,10 @@ import { SmzNotification } from '../../../../core/models/notifications';
 import { GlobalInjector } from '../../../../../../common/services/global-injector';
 
 @Component({
-  selector: '[smz-ui-new-athena-topbar-actions]',
-  changeDetection: ChangeDetectionStrategy.Default,
-  styleUrls: ['./topbar-actions.component.scss'],
-  template: `
+    selector: '[smz-ui-new-athena-topbar-actions]',
+    changeDetection: ChangeDetectionStrategy.Default,
+    styleUrls: ['./topbar-actions.component.scss'],
+    template: `
       <ng-content></ng-content>
 
       <div id="smz-ui-topbar"></div>
@@ -65,6 +65,7 @@ import { GlobalInjector } from '../../../../../../common/services/global-injecto
       </smz-responsive>
 
   `,
+    standalone: false
 })
 export class AthenaTopbarActionsComponent {
 

@@ -34,7 +34,8 @@ import { SmzSmartAutocompleteTagOption } from '../../directives/smart-autocomple
         '.tag-dropdown.p-dropdown { width: 100%; }'
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class SmzInputAutocompleteTagArea implements OnDestroy {
     @ViewChild(OverlayPanel) public overlay: OverlayPanel;

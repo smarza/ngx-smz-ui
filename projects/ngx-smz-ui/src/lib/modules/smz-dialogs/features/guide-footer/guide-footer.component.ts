@@ -10,6 +10,7 @@ import { SmzUiGuidesService } from '../../../../standalones/smz-ui-guides/servic
     templateUrl: './guide-footer.component.html',
     styleUrls: ['./guide-footer.component.scss'],
     encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class GuideFooterComponent implements OnInit {
 

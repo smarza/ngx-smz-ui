@@ -5,8 +5,9 @@ import { COMBO_CHSARP, DOUGHNUT_CSHARP, HORIZONTAL_BAR_CSHARP, IAGM_CSHARP, LINE
 import { COLORS_CHART_DATA } from './data/chart-colors';
 
 @Component({
-  selector: 'app-demo-chart-colors',
-  templateUrl: './demo-chart-colors.component.html',
+    selector: 'app-demo-chart-colors',
+    templateUrl: './demo-chart-colors.component.html',
+    standalone: false
 })
 export class DemoChartColorsComponent {
   public data;

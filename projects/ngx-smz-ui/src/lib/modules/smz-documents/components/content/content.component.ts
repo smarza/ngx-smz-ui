@@ -4,10 +4,11 @@ import { SmzDocumentConfig } from '../../models/smz-document-config';
 import { SmzDocumentFeatureDefinitions } from '../../models/smz-document-features';
 
 @Component({
-  selector: 'smz-document-content',
-  templateUrl: 'content.component.html',
-  styleUrls: ['content.component.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'smz-document-content',
+    templateUrl: 'content.component.html',
+    styleUrls: ['content.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 
 export class SmzDocumentContentComponent implements OnInit {

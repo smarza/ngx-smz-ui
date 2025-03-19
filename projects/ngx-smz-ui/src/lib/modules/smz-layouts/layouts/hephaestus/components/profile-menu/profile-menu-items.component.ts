@@ -2,10 +2,10 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmi
 import { MenuItem } from 'primeng/api';
 
 @Component({
-  selector: "[smz-ui-hephaestus-profile-menu-items]",
-  host: { "(document:click)": "collapse($event)" },
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
+    selector: "[smz-ui-hephaestus-profile-menu-items]",
+    host: { "(document:click)": "collapse($event)" },
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    template: `
     <li *ngFor="let item of items | isVisible; index as index">
       <a menuItemAction [item]="item" [parent]="null" [breadcrumbs]="false" [tabindex]="index">
       <i *ngIf="item.icon != null" class="pi" [ngClass]="item.icon"></i>
@@ -13,6 +13,7 @@ import { MenuItem } from 'primeng/api';
       </a>
     </li>
   `,
+    standalone: false
 })
 export class HephaestusProfileMenuItemsComponent implements OnInit, AfterViewInit {
 

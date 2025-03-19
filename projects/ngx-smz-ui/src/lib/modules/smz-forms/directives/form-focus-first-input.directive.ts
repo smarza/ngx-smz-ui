@@ -2,7 +2,8 @@ import { Directive, ElementRef, AfterViewInit, Input } from '@angular/core';
 
 @Directive({
     // tslint:disable-next-line:directive-selector
-    selector: '[focusFirstInput]'
+    selector: '[focusFirstInput]',
+    standalone: false
 })
 export class FormFocusFirstInputDirective implements AfterViewInit
 {

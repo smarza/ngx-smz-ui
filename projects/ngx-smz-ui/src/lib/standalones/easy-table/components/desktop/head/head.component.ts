@@ -3,8 +3,9 @@ import { SmzEasyTableState } from '../../../models/smz-easy-table-state';
 import { TableDataSourceService } from '../../../services/table-data-source.service';
 
 @Component({
-  selector: '[et-desktop-head]',
-  templateUrl: 'head.component.html'
+    selector: '[et-desktop-head]',
+    templateUrl: 'head.component.html',
+    standalone: false
 })
 
 export class DesktopHeadComponent implements OnInit {

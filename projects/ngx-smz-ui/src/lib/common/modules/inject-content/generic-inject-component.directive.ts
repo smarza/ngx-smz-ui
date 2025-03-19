@@ -5,7 +5,8 @@ import { SmzInjectableComponent } from './models/injectable.model';
 
 @Directive({
     // tslint:disable-next-line:directive-selector
-    selector: '[smzGenericInjectComponent]'
+    selector: '[smzGenericInjectComponent]',
+    standalone: false
 })
 export class GenericInjectComponentDirective implements AfterContentInit, OnDestroy
 {

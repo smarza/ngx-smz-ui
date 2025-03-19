@@ -2,7 +2,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { environment } from '@environments/environment';
 import { isEmpty } from '../../../builders/common/utils';
 
-@Pipe({ name: 'serverPath' })
+@Pipe({
+    name: 'serverPath',
+    standalone: false
+})
 export class ServerPathPipe implements PipeTransform
 {
     constructor() { }

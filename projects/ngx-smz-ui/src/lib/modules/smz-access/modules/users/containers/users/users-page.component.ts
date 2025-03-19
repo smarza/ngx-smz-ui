@@ -9,9 +9,10 @@ import { SmzAuthorizationUsersTableBuilder } from '../../tables/users-table-stat
 import { SmzAuthorizationDeactivatedUsersTableBuilder } from '../../tables/deactivated-users-table-state';
 
 @Component({
-  selector: 'smz-ui-users-page',
-  templateUrl: './users-page.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'smz-ui-users-page',
+    templateUrl: './users-page.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class UsersPageComponent {
 

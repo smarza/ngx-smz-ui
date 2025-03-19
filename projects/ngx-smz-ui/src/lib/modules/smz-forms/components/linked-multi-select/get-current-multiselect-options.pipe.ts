@@ -3,7 +3,8 @@ import { SmzLinkedMultiSelectControl } from '../../models/control-types';
 import { CONTROL_FUNCTIONS } from '../../models/control-type-functions';
 
 @Pipe({
-  name: 'GetCurrentMultiselectOptions'
+    name: 'GetCurrentMultiselectOptions',
+    standalone: false
 })
 
 export class GetCurrentMultiselectOptionsPipe implements PipeTransform {

@@ -3,11 +3,12 @@ import { AfterViewInit, ChangeDetectorRef, Directive, DoCheck, ElementRef, Event
 import { NgModel } from '@angular/forms';
 
 @Directive({
-  selector: '[smzInputText]',
-  host: {
-      class: 'p-inputtext p-component p-element',
-      '[class.p-filled]': 'filled'
-  }
+    selector: '[smzInputText]',
+    host: {
+        class: 'p-inputtext p-component p-element',
+        '[class.p-filled]': 'filled'
+    },
+    standalone: false
 })
 export class SmzInputTextPipe implements DoCheck, AfterViewInit {
 

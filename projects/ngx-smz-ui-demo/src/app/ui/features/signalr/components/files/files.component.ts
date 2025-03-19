@@ -5,8 +5,9 @@ import { Observable } from 'rxjs';
 import { ChatFile } from '../../models/chat';
 
 @Component({
-  selector: 'app-signalr-files',
-  templateUrl: `files.component.html`
+    selector: 'app-signalr-files',
+    templateUrl: `files.component.html`,
+    standalone: false
 })
 export class FilesComponent
 {

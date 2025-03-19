@@ -10,9 +10,10 @@ effect(() => {
 });
 
 @Component({
-  selector: 'app-signals-demo',
-  templateUrl: './signals-demo.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-signals-demo',
+    templateUrl: './signals-demo.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class SignalsDemoComponent implements OnInit {
   count = signal(0);

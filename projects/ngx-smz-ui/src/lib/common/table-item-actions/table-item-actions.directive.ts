@@ -1,7 +1,8 @@
 import { Directive, ElementRef, HostListener, Input, OnInit, Renderer2 } from '@angular/core';
 
 @Directive({
-    selector: '[tableItemAction]'
+    selector: '[tableItemAction]',
+    standalone: false
 })
 export class TableItemActionsDirective implements OnInit {
     @Input() public isClickable: boolean;

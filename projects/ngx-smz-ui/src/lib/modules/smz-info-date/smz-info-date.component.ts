@@ -5,6 +5,7 @@ import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core
     templateUrl: './smz-info-date.component.html',
     styleUrls: ['./smz-info-date.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class SmzInfoDateComponent implements OnInit
 {

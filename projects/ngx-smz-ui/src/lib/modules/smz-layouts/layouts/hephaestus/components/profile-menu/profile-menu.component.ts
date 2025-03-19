@@ -6,9 +6,9 @@ import { Observable } from 'rxjs';
 import { GlobalInjector } from '../../../../../../common/services/global-injector';
 
 @Component({
-  selector: "[smz-ui-hephaestus-profile-menu]",
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
+    selector: "[smz-ui-hephaestus-profile-menu]",
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    template: `
     <a class="profile clickable grid items-center justify-end m-0 p-0 flex-nowrap gap-2" [ngClass]="{ 'profile-with-icon': !uiConfig.layouts.useAvatar }" (click)="toggle()">
       <ng-container *ngIf="userData$ | async as userdata; else noUserTemplate">
         <span class="username">{{ uiConfig.layouts.profileMessage }}{{ userdata[uiConfig.layouts.usernameProperty] }}</span>
@@ -29,6 +29,7 @@ import { GlobalInjector } from '../../../../../../common/services/global-injecto
     </a>
     <ul *ngIf="isExpanded" class="profile-menu fade-in-up" smz-ui-hephaestus-profile-menu-items [items]="items" (onClose)="collapse()"></ul>
   `,
+    standalone: false
 })
 export class HephaestusProfileMenuComponent implements OnInit {
   @Input() public items: MenuItem[] = [];

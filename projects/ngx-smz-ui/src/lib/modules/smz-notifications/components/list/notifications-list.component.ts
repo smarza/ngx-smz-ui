@@ -11,11 +11,12 @@ import { NotificationsUiSelectors } from '../../../../state/ui/notifications/not
 import { GlobalInjector } from '../../../../common/services/global-injector';
 
 @Component({
-  selector: 'smz-notifications-list',
-  templateUrl: 'notifications-list.component.html',
-  styleUrls: ['notifications-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+    selector: 'smz-notifications-list',
+    templateUrl: 'notifications-list.component.html',
+    styleUrls: ['notifications-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 
 export class NotificationsListComponent {

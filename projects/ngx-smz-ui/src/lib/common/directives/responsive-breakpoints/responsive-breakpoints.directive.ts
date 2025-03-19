@@ -4,7 +4,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Directive({
-  selector: '[smzResponsiveBreakpoints]'
+    selector: '[smzResponsiveBreakpoints]',
+    standalone: false
 })
 export class SmzResponsiveBreakpointsDirective implements OnInit, OnDestroy {
   private hasView = false;

@@ -45,7 +45,8 @@ import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
     styleUrls: ['./overlaypanel.css'],
     host: {
         'class': 'p-element'
-    }
+    },
+    standalone: false
 })
 export class OverlayPanel implements AfterContentInit, OnDestroy {
 

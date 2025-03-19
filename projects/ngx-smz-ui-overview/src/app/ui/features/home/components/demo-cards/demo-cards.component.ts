@@ -3,8 +3,8 @@ import { DemoItem, DemoTreeNode } from '@models/demo';
 import { SmzCardsState } from 'ngx-smz-ui';
 
 @Component({
-  selector: 'app-demo-cards',
-  template: `
+    selector: 'app-demo-cards',
+    template: `
   <smz-ui-cards *ngIf="state != null" [state]="state">
 
   <ng-template pTemplate="header" let-node>
@@ -13,7 +13,8 @@ import { SmzCardsState } from 'ngx-smz-ui';
 
   </smz-ui-cards>
 `,
-  changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 
 export class DemoCardsComponent implements OnInit, OnChanges {

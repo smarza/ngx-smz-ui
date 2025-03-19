@@ -4,6 +4,7 @@ import { Component, ViewEncapsulation, Input } from '@angular/core';
     selector: 'smz-html-content',
     templateUrl: './html-content.component.html',
     encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class HtmlContentComponent
 {

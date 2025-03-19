@@ -7,7 +7,8 @@ import { SmzForm, SmzFormsResponse } from '../../../modules/smz-forms/models/smz
 
 @Directive({
     // tslint:disable-next-line:directive-selector
-    selector: '[appInjectContent]'
+    selector: '[appInjectContent]',
+    standalone: false
 })
 export class InjectContentDirective implements AfterContentInit
 {

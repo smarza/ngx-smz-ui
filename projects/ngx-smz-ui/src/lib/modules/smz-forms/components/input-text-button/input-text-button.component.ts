@@ -10,7 +10,8 @@ import { isEmpty } from '../../../rbk-utils/utils/utils';
 @UntilDestroy()
 @Component({
     selector: 'smz-input-text-button',
-    templateUrl: './input-text-button.component.html'
+    templateUrl: './input-text-button.component.html',
+    standalone: false
 })
 export class InputTextButtonComponent implements OnInit {
     private readonly changeDetectorRef = inject(ChangeDetectorRef);

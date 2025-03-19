@@ -10,7 +10,8 @@ import { extendStyles, toggleNativeDragInteractions, toggleVisibility } from '..
     selector: '[smzDraggable]',
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class SmzDraggable implements AfterViewInit, OnDestroy {
     @Input() allow: string[] = null;

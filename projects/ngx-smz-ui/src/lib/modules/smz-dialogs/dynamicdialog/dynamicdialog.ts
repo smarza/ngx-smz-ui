@@ -82,7 +82,8 @@ const hideAnimation = animation([
     styleUrls: ['./dialog.css'],
     host: {
         'class': 'p-element'
-    }
+    },
+    standalone: false
 })
 export class DynamicDialogComponent implements AfterViewInit, OnInit, OnDestroy
 {

@@ -6,10 +6,10 @@ import { Observable } from 'rxjs';
 import { GlobalInjector } from '../../../../../../common/services/global-injector';
 
 @Component({
-  selector: "[smz-ui-new-athena-profile-menu]",
-  host: { "(document:click)": "collapse($event)" },
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
+    selector: "[smz-ui-new-athena-profile-menu]",
+    host: { "(document:click)": "collapse($event)" },
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    template: `
       <!-- <ng-content></ng-content> -->
       <a class="profile clickable grid items-center justify-end m-0 p-0 flex-nowrap gap-2" [ngClass]="{ 'profile-with-icon': !uiConfig.layouts.useAvatar }" (click)="toggle()">
         <ng-container *ngIf="userData$ | async as userdata; else noUserTemplate">
@@ -31,6 +31,7 @@ import { GlobalInjector } from '../../../../../../common/services/global-injecto
       </a>
       <ul *ngIf="isExpanded" class="topbar-menu fadeInDown topbar-menu-visible" smz-ui-new-athena-profile-menu-items [items]="profile" (collapse)="isExpanded = false"></ul>
   `,
+    standalone: false
 })
 export class NewAthenaProfileMenuComponent implements OnInit, AfterViewInit {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;

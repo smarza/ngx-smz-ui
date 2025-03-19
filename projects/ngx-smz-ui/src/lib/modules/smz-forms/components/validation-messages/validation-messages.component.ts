@@ -7,6 +7,7 @@ import { GlobalInjector } from '../../../../common/services/global-injector';
 @Component({
     selector: 'smz-validation-messages',
     templateUrl: './validation-messages.component.html',
+    standalone: false
 })
 export class ValidationMessagesComponent {
     @Input() public input: SmzControlTypes;

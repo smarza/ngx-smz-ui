@@ -5,7 +5,8 @@ import { SmzTagAreaControl } from '../../models/control-types';
 
 @Component({
     selector: 'input-tag-area',
-    templateUrl: './input-tag-area.component.html'
+    templateUrl: './input-tag-area.component.html',
+    standalone: false
 })
 export class InputTagAreaComponent
 {

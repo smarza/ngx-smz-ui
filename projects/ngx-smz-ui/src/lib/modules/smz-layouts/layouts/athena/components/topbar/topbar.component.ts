@@ -14,10 +14,11 @@ import { GlobalInjector } from '../../../../../../common/services/global-injecto
 
 @UntilDestroy()
 @Component({
-  selector: 'smz-ui-athena-topbar',
-  templateUrl: './topbar.component.html',
-  styleUrls: ['./topbar.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'smz-ui-athena-topbar',
+    templateUrl: './topbar.component.html',
+    styleUrls: ['./topbar.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class AthenaTopbarComponent implements AfterContentInit
 {

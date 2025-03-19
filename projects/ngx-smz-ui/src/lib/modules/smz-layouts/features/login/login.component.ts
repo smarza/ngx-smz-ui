@@ -10,9 +10,10 @@ import { SmzLoginBuilder } from '../../../../builders/smz-login/state-builder';
 import { PrimeTemplate } from 'primeng/api';
 
 @Component({
-  selector: 'smz-ui-login',
-  templateUrl: './login.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'smz-ui-login',
+    templateUrl: './login.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class SmzLoginComponent implements OnInit, AfterContentInit {
   @ContentChildren(forwardRef(() => PrimeTemplate)) templates: QueryList<PrimeTemplate>;

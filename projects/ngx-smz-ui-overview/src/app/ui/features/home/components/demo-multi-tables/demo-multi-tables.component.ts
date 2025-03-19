@@ -4,10 +4,11 @@ import { Store } from '@ngxs/store';
 import { SmzMultiTablesState } from 'ngx-smz-ui';
 
 @Component({
-  selector: 'app-demo-multi-tables',
-  template: `
+    selector: 'app-demo-multi-tables',
+    template: `
   <smz-ui-multi-tables [state]="state"></smz-ui-multi-tables>`,
-  changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 
 export class DemoMultiTablesComponent implements OnInit, OnChanges {

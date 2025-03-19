@@ -4,8 +4,8 @@ import { FormGroupComponent, SmzForm, SmzDialogsService, SmzDialogBuilder, SmzFo
 import { FileUploadEvent, FileUploadHandlerEvent } from 'primeng/fileupload';
 
 @Component({
-  selector: 'app-demo-form',
-  template: `
+    selector: 'app-demo-form',
+    template: `
   <div *ngIf="formComponent" class="grid grid-nogutter items-center justify-start gap-2">
     <button pButton pRipple type="button" label="Ver Resposta" (click)="log()"></button>
     <button *ngIf="form != null" pButton pRipple type="button" label="Anular Config" class="p-button-danger" (click)="clear()"></button>
@@ -23,7 +23,8 @@ import { FileUploadEvent, FileUploadHandlerEvent } from 'primeng/fileupload';
 
   <!-- <p-fileUpload chooseLabel="Choose" [customUpload]="true" (uploadHandler)="onUpload($event)"></p-fileUpload> -->
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 
 export class DemoFormComponent implements OnInit, OnChanges {

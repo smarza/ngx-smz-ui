@@ -9,9 +9,10 @@ import { DemoFeatureActions } from '@states/demo/demo.actions'
 import { SimpleNamedEntity } from 'ngx-smz-ui';
 
 @Component({
-  selector: 'app-demo-tables',
-  templateUrl: './demo-tables.component.html',
-  providers: [DemoTableDataService]
+    selector: 'app-demo-tables',
+    templateUrl: './demo-tables.component.html',
+    providers: [DemoTableDataService],
+    standalone: false
 })
 
 export class DemoTablesComponent implements OnInit {

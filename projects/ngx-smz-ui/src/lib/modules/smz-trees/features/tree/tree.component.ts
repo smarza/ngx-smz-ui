@@ -12,10 +12,11 @@ import { Menu } from 'primeng/menu';
 import { SmzTreeDynamicMenuBuilder } from '../../../../builders/smz-trees/tree-builder';
 
 @Component({
-  selector: 'smz-ui-tree',
-  templateUrl: './tree.component.html',
-  changeDetection: ChangeDetectionStrategy.Default,
-  providers: [TreeDragDropService]
+    selector: 'smz-ui-tree',
+    templateUrl: './tree.component.html',
+    changeDetection: ChangeDetectionStrategy.Default,
+    providers: [TreeDragDropService],
+    standalone: false
 })
 export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
   public treeKey = uuidv4();

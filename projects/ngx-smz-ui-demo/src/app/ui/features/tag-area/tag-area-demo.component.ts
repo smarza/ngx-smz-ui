@@ -9,6 +9,7 @@ interface Response
 @Component({
     selector: 'app-tag-area-demo',
     templateUrl: './tag-area-demo.component.html',
+    standalone: false
 })
 export class TagAreaDemoComponent implements OnInit
 {

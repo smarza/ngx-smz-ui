@@ -8,15 +8,16 @@ import { SVG } from '@svgdotjs/svg.js';
 import { SmzSvgBaseFeature, SmzSvgBuilder, SmzSvgRoot, SmzSvgState, SmzSVGWrapper } from 'ngx-smz-ui';
 
 @Component({
-  selector: 'app-svg-gcab',
-  template: `
+    selector: 'app-svg-gcab',
+    template: `
   <div>Playground Works !!</div>
 
   <div class="grid grid-nogutter w-full items-start align-middle">
     <smz-svg *ngIf="flowchartState != null" [state]="flowchartState"></smz-svg>
   </div>
 
-  `
+  `,
+    standalone: false
 })
 
 export class SvgGcabComponent implements OnInit, AfterViewInit {

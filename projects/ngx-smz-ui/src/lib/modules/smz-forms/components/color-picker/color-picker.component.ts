@@ -6,8 +6,9 @@ import { SmzColorPickerControl } from '../../models/control-types';
 
 @UntilDestroy()
 @Component({
-  selector: 'smz-color-picker',
-  templateUrl: './color-picker.component.html',
+    selector: 'smz-color-picker',
+    templateUrl: './color-picker.component.html',
+    standalone: false
 })
 export class ColorPickerComponent implements OnInit
 {

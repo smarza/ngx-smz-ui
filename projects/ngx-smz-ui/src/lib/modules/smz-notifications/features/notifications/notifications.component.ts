@@ -8,11 +8,12 @@ import { GlobalInjector } from '../../../../common/services/global-injector';
 import { showNotificationsDialog } from '../../dialogs/show-notifications-dialog';
 
 @Component({
-  selector: 'smz-ui-notifications',
-  templateUrl: './notifications.component.html',
-  styleUrls: ['./notifications.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+    selector: 'smz-ui-notifications',
+    templateUrl: './notifications.component.html',
+    styleUrls: ['./notifications.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class SmzNotificationsComponent {
   public uiConfig = GlobalInjector.config;

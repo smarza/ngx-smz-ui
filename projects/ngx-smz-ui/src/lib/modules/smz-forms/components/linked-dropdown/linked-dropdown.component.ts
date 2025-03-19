@@ -9,6 +9,7 @@ import { tap } from 'rxjs/operators';
 @Component({
     selector: 'smz-linked-dropdown',
     templateUrl: './linked-dropdown.component.html',
+    standalone: false
 })
 export class LinkedDropdownComponent implements OnInit, AfterViewInit
 {

@@ -13,10 +13,11 @@ import { AthenaLayout } from './layout.config';
 import { SmzNotification } from '../../core/models/notifications';
 
 @Component({
-  selector: 'smz-ui-athena-layout',
-  templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'smz-ui-athena-layout',
+    templateUrl: './layout.component.html',
+    styleUrls: ['./layout.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class AthenaLayoutComponent implements OnInit, AfterContentInit {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;

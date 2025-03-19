@@ -3,8 +3,8 @@ import { SmzEasyTableHeader, SmzEasyTableState } from '../../../models/smz-easy-
 import { TableDataSourceService } from '../../../services/table-data-source.service';
 
 @Component({
-  selector: 'et-sort',
-  template: `
+    selector: 'et-sort',
+    template: `
   <ng-container *ngIf="header.sort != null">
 
     <i *ngIf="!header.sort.isActive" class="fa-solid fa-sort cursor-pointer" (click)="toggle()"></i>
@@ -16,7 +16,8 @@ import { TableDataSourceService } from '../../../services/table-data-source.serv
 
   </ng-container>
 `,
-  changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.Default,
+    standalone: false
 })
 
 export class SortComponent implements OnInit {

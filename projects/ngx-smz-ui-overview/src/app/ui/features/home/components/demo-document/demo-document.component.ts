@@ -6,9 +6,10 @@ import { SmzDocumentState } from 'ngx-smz-ui';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-demo-document',
-  template: `<smz-ui-document *ngIf="state != null" [state]="state"></smz-ui-document>`,
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-demo-document',
+    template: `<smz-ui-document *ngIf="state != null" [state]="state"></smz-ui-document>`,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 
 export class DemoDocumentComponent implements OnInit, OnChanges {

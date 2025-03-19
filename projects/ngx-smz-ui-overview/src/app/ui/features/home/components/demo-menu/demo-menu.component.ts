@@ -3,9 +3,10 @@ import { DemoTreeNode } from '@models/demo';
 import { SmzMenuItem } from 'ngx-smz-ui';
 
 @Component({
-  selector: 'app-demo-menu',
-  template: `<smz-menu [items]="menuItems" [data]="data"></smz-menu>`,
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-demo-menu',
+    template: `<smz-menu [items]="menuItems" [data]="data"></smz-menu>`,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 
 export class DemoMenuComponent implements OnInit, OnChanges {

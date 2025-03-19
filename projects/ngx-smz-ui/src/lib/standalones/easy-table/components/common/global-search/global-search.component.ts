@@ -5,8 +5,8 @@ import { SmzEasyTableState } from '../../../models/smz-easy-table-state';
 import { TableDataSourceService } from '../../../services/table-data-source.service';
 
 @Component({
-  selector: 'et-global-search',
-  template: `
+    selector: 'et-global-search',
+    template: `
   <span class="p-input-icon-left w-full p-input-icon-right">
     <i class="pi pi-search"></i>
     <input class="w-full" type="text" pInputText [placeholder]="state.locale.globalSearch.placeholder" [(ngModel)]="value" (ngModelChange)="onSearchChange($event)"/>
@@ -14,7 +14,8 @@ import { TableDataSourceService } from '../../../services/table-data-source.serv
     <i *ngIf="value == null || value === ''" class=""></i>
   </span>
 `,
-  changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 
 @UntilDestroy()

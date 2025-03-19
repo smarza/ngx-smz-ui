@@ -5,8 +5,9 @@ import { SmzSvgComponent, SmzSvgState, SmzSvgPin, SmzSvgBuilder, SmzSVGWrapper, 
 import { Container } from '@svgdotjs/svg.js';
 
 @Component({
-  selector: 'app-svg',
-  templateUrl: `svg.component.html`,
+    selector: 'app-svg',
+    templateUrl: `svg.component.html`,
+    standalone: false
 })
 export class SvgComponent implements OnInit, AfterViewInit {
   @ViewChild(SmzSvgComponent) public smzSvgComponent: SmzSvgComponent;

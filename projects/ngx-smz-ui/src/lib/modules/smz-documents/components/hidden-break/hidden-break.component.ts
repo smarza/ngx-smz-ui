@@ -3,8 +3,9 @@ import { SmzDocumentConfig } from '../../models/smz-document-config';
 import { SmzDocumentHiddenBreak } from '../../models/smz-document-features';
 
 @Component({
-  selector: 'smz-document-hidden-break',
-  templateUrl: 'hidden-break.component.html'
+    selector: 'smz-document-hidden-break',
+    templateUrl: 'hidden-break.component.html',
+    standalone: false
 })
 
 export class SmzDocumentHiddenBreakComponent implements OnInit {

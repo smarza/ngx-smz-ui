@@ -3,7 +3,8 @@ import { uniqBy, flatten } from 'lodash-es';
 import { isArray, sortArray, sortArrayOfStrings } from '../../utils/utils';
 
 @Pipe({
-    name: 'uniqueFilter'
+    name: 'uniqueFilter',
+    standalone: false
 })
 
 @Injectable()

@@ -5,7 +5,8 @@ import { CustomerService } from '../data-service/customer.service';
 @Component({
     templateUrl: './demo-prime.component.html',
     styleUrls: ['./demo-prime.component.scss'],
-    providers: [CustomerService]
+    providers: [CustomerService],
+    standalone: false
 })
 export class DemoPrimeComponent implements OnInit {
 

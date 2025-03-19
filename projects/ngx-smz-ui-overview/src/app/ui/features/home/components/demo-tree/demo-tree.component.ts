@@ -7,8 +7,8 @@ import { Store } from '@ngxs/store';
 import { DemoFeatureSelectors } from '@states/demo/demo.selectors';
 
 @Component({
-  selector: 'app-demo-tree',
-  template: `
+    selector: 'app-demo-tree',
+    template: `
   <div *ngIf="state != null" style="height: 675px;">
   <ng-container *ngClone="items$ | async as items">
     <smz-ui-tree #smzTree [items]="items" [state]="state" [selection]="selection" (selectedNodes)="selectionChanged($event)">
@@ -25,7 +25,8 @@ import { DemoFeatureSelectors } from '@states/demo/demo.selectors';
   </ng-container>
   </div>
 `,
-  changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.Default,
+    standalone: false
 })
 
 export class DemoTreeComponent implements OnInit, OnChanges {

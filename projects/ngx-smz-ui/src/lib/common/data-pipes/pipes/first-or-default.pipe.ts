@@ -1,7 +1,8 @@
 import { NgModule, Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'firstOrDefault'
+    name: 'firstOrDefault',
+    standalone: false
 })
 export class FirstOrDefaultPipe implements PipeTransform {
 

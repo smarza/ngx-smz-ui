@@ -12,9 +12,10 @@ import { MustBeUnique } from '../../../../common/utils/custom-validations';
 import { ListboxClickEvent } from 'primeng/listbox';
 
 @Component({
-  selector: 'smz-input-list',
-  templateUrl: './input-list.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'smz-input-list',
+    templateUrl: './input-list.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class InputListComponent {
   @Input() public input: SmzListControl;

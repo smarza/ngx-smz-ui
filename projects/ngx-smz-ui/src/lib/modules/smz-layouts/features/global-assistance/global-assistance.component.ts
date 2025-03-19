@@ -16,10 +16,11 @@ import { ToastActions } from '../../../../state/global/application/application.a
 
 @UntilDestroy()
 @Component({
-  selector: 'smz-ui-global-assistance',
-  templateUrl: './global-assistance.component.html',
-  styleUrls: ['./global-assistance.component.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'smz-ui-global-assistance',
+    templateUrl: './global-assistance.component.html',
+    styleUrls: ['./global-assistance.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class GlobalAssistanceComponent implements OnInit {
   @Select(LayoutUiSelectors.assistance) public assistance$: Observable<Assistance>;

@@ -11,16 +11,15 @@ import { SmzSmartAutocompleteTagOption } from '../../directives/smart-autocomple
 
 @UntilDestroy()
 @Component({
-  selector: 'smz-autocomplete-selector',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ButtonModule,
-    AutoCompleteModule,
-    FormsModule
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
+    selector: 'smz-autocomplete-selector',
+    imports: [
+        CommonModule,
+        ButtonModule,
+        AutoCompleteModule,
+        FormsModule
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    template: `
     <div class="col-12 px-0 grid grid-nogutter items-center justify-start gap-2">
       <p-autoComplete
         class="col"

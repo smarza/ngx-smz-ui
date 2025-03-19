@@ -2,8 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 
 @Component({
-  selector: '[smz-ui-new-athena-horizontal-menu-node]',
-  template: `
+    selector: '[smz-ui-new-athena-horizontal-menu-node]',
+    template: `
       <ng-container *ngFor="let subItem of item.items | isVisible; let subItemIndex = index;">
 
           <ng-container [ngSwitch]="subItem | hasChild">
@@ -39,6 +39,7 @@ import { MenuItem } from 'primeng/api';
 
       </ng-container>
   `,
+    standalone: false
 })
 
 export class NewAthenaHorizontalMenuNodeComponent implements OnInit {

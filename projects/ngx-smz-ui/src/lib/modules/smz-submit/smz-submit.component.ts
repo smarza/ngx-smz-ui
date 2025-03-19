@@ -7,10 +7,9 @@ import { SmzFormsResponse } from '../smz-forms/models/smz-forms';
 import { SmzSubmitState } from './smz-submit';
 
 @Component({
-  standalone: true,
-  imports: [CommonModule, ButtonModule],
-  selector: 'smz-ui-submit',
-  template: `
+    imports: [CommonModule, ButtonModule],
+    selector: 'smz-ui-submit',
+    template: `
   <ng-container *ngIf="state != null && response != null">
     <div class="grid grid-nogutter items-center justify-start gap-2">
       <button pButton pRipple type="button" [icon]="saveIcon" [ngClass]="saveStyleClass" [disabled]="!response.isValid || !response.hasUnsavedChanges" (click)="submitSave()" [label]="saveLabel"></button>

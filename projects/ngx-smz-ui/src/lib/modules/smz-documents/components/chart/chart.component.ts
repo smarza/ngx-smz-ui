@@ -5,8 +5,9 @@ import { SmzDocumentChart } from '../../models/smz-document-features';
 
 
 @Component({
-  selector: 'smz-document-chart',
-  templateUrl: 'chart.component.html'
+    selector: 'smz-document-chart',
+    templateUrl: 'chart.component.html',
+    standalone: false
 })
 
 export class SmzDocumentChartComponent implements OnInit {

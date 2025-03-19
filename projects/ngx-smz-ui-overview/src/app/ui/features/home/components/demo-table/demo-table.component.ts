@@ -6,8 +6,8 @@ import { SmzTableComponent, SmzTableState } from 'ngx-smz-ui';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-demo-table',
-  template: `
+    selector: 'app-demo-table',
+    template: `
   <button pButton label="Extract Viewport" (click)="getViewport()" class="p-button-ghost"></button>
 <smz-ui-table table [items]="items$ | async" [state]="state">
   <ng-template pTemplate="rowContent" let-item>
@@ -32,7 +32,8 @@ import { Observable } from 'rxjs';
 
     </ng-template>
 </smz-ui-table>`,
-  changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 
 export class DemoTableComponent implements OnInit, OnChanges {

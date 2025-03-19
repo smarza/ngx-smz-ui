@@ -14,10 +14,11 @@ import { SmzMenuItem } from '../../../../../smz-menu/models/smz-menu-item';
 
 @UntilDestroy()
 @Component({
-  selector: 'smz-ui-hephaestus-sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss'],
-  host: { 'class': 'z-30' }
+    selector: 'smz-ui-hephaestus-sidebar',
+    templateUrl: './sidebar.component.html',
+    styleUrls: ['./sidebar.component.scss'],
+    host: { 'class': 'z-30' },
+    standalone: false
 })
 export class HephaestusSidebarComponent implements AfterContentInit
 {

@@ -11,6 +11,7 @@ import { CONTROL_FUNCTIONS } from '../../models/control-type-functions';
 @Component({
     selector: 'smz-dropdown',
     templateUrl: './dropdown.component.html',
+    standalone: false
 })
 export class DropdownComponent implements OnInit
 {

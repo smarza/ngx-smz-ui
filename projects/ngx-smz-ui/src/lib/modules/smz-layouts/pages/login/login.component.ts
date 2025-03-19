@@ -20,8 +20,9 @@ interface LoginData {
 }
 
 @Component({
-  selector: 'smz-ui-login-page',
-  templateUrl: './login.component.html',
+    selector: 'smz-ui-login-page',
+    templateUrl: './login.component.html',
+    standalone: false
 })
 export class LoginComponent {
 

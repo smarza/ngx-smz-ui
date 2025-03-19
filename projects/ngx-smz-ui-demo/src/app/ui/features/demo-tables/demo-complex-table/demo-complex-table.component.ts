@@ -6,7 +6,8 @@ import { CustomerService } from '../data-service/customer.service';
 @Component({
     templateUrl: './demo-complex-table.component.html',
     styleUrls: ['./demo-complex-table.component.scss'],
-    providers: [CustomerService]
+    providers: [CustomerService],
+    standalone: false
 })
 export class DemoComplexTableComponent implements OnInit {
 

@@ -5,8 +5,8 @@ import { SVG } from '@svgdotjs/svg.js';
 import { SmzSVGWrapper } from 'ngx-smz-ui';
 
 @Component({
-  selector: 'app-svg-playground',
-  template: `
+    selector: 'app-svg-playground',
+    template: `
   <div>Playground Works !!</div>
 
   <div class="grid grid-nogutter gap-2">
@@ -27,7 +27,8 @@ import { SmzSVGWrapper } from 'ngx-smz-ui';
     <svg class="w-full h-full border-2 border-solid border-red-300" id="canvas"></svg>
   </div>
 
-  `
+  `,
+    standalone: false
 })
 
 export class SvgPlaygroundComponent implements OnInit, AfterViewInit {

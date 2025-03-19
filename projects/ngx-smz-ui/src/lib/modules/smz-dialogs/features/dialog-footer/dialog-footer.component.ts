@@ -21,6 +21,7 @@ import { CustomError, RbkApiErrorMessageTypes } from '../../../rbk-utils/error-h
     templateUrl: './dialog-footer.component.html',
     styleUrls: ['./dialog-footer.component.scss'],
     encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class DialogFooterComponent implements OnInit {
     public isAnyButtonExecutionInProgress = false;
@@ -480,7 +481,8 @@ export class DialogFooterComponent implements OnInit {
 
 @Directive({
     // tslint:disable-next-line:directive-selector
-    selector: '[confirmOnEnter]'
+    selector: '[confirmOnEnter]',
+    standalone: false
 })
 export class ConfirmOnEnterDirective {
     @Input('confirmOnEnter') public confirmOnEnter: boolean = false;

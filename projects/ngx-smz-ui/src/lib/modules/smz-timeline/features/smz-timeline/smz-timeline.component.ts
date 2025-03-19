@@ -4,11 +4,12 @@ import { SmzCardsSource } from '../../../smz-cards/models/smz-cards-state';
 import { SmzTimelineState } from '../../models/smz-timeline-state';
 
 @Component({
-  selector: 'smz-ui-timeline',
-  templateUrl: './smz-timeline.component.html',
-  styleUrls: ['./smz-timeline.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+    selector: 'smz-ui-timeline',
+    templateUrl: './smz-timeline.component.html',
+    styleUrls: ['./smz-timeline.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 
 export class SmzTimelineComponent implements OnInit, AfterContentInit {

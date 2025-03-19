@@ -7,6 +7,7 @@ import { SmzDocumentState } from '../../../smz-documents/models/smz-document';
     templateUrl: './document-content.component.html',
     styleUrls: ['./document-content.component.scss'],
     encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class DocumentContentComponent
 {

@@ -19,7 +19,8 @@ import { Component,Input,ChangeDetectionStrategy, ViewEncapsulation } from '@ang
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./tag-message.component.css']
+    styleUrls: ['./tag-message.component.css'],
+    standalone: false
 })
 export class SmzTagMessage {
 

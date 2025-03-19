@@ -7,7 +7,8 @@ import { SmzTableContextColumn } from '../models/table-column';
 import { SmzTableState, SmzTableContext } from '../models/table-state';
 
 @Pipe({
-  name: 'tableContext'
+    name: 'tableContext',
+    standalone: false
 })
 
 export class SmzTableContextPipe implements PipeTransform {

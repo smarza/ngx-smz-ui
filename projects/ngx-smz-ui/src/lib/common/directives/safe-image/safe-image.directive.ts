@@ -2,7 +2,8 @@ import { AfterViewInit, Directive, ElementRef, Input, NgModule, OnChanges, Simpl
 import { isEmpty } from '../../../builders/common/utils';
 
 @Directive({
-  selector: "img[safeImage]",
+    selector: "img[safeImage]",
+    standalone: false
 })
 export class SafeImageDirective implements AfterViewInit, OnChanges {
   constructor(private el: ElementRef) { }

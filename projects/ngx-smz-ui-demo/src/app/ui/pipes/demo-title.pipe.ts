@@ -4,7 +4,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 
 @Pipe({
-  name: 'demoTitle'
+    name: 'demoTitle',
+    standalone: false
 })
 
 export class DemoTitlePipe implements PipeTransform {

@@ -22,16 +22,15 @@ interface UsernameLoginData {
 }
 
 @Component({
-  standalone: true,
-  selector: 'sso-login-page',
-  template: '<smz-ui-login *ngIf="state != null" [state]="state"></smz-ui-login>',
-  imports: [
-    CommonModule,
-    SharedModule,
-    ButtonModule,
-    NgxSmzFormsModule,
-    SmzLoginModule
-  ]
+    selector: 'sso-login-page',
+    template: '<smz-ui-login *ngIf="state != null" [state]="state"></smz-ui-login>',
+    imports: [
+        CommonModule,
+        SharedModule,
+        ButtonModule,
+        NgxSmzFormsModule,
+        SmzLoginModule
+    ]
 })
 export class SsoLoginPageComponent {
 

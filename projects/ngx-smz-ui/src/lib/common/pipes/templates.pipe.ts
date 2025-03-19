@@ -4,6 +4,7 @@ import { SmzTemplate, SmzBreakpoints } from '../models/templates';
 
 @Pipe({
     name: 'setTemplateClasses',
+    standalone: false
 })
 export class SetTemplateClassesPipe implements PipeTransform {
 

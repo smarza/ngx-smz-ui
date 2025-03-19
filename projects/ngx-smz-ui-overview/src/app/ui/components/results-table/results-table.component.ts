@@ -5,8 +5,9 @@ import { Store } from '@ngxs/store';
 
 @UntilDestroy()
 @Component({
-  selector: 'app-results-table',
-  templateUrl: 'results-table.component.html',
+    selector: 'app-results-table',
+    templateUrl: 'results-table.component.html',
+    standalone: false
 })
 export class ResultsTableComponent implements OnInit {
   @ViewChild(SmzTableComponent) public table: SmzTableComponent;

@@ -14,10 +14,11 @@ import { UsersActions } from '../../../../state/users/users.actions';
 
 @UntilDestroy()
 @Component({
-  selector: 'app-user-claims',
-  templateUrl: './user-claims.component.html',
-  styleUrls: ['./user-claims.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-user-claims',
+    templateUrl: './user-claims.component.html',
+    styleUrls: ['./user-claims.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class UserClaimsComponent implements OnInit {
   @Input() public username: string;

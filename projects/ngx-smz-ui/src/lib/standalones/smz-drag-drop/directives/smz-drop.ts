@@ -8,7 +8,8 @@ import { SmzDraggableService } from '../services/smz-draggable.service';
     selector: '[smzDroppable]',
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class SmzDroppable implements AfterViewInit, OnDestroy {
     @Input('smzDroppable') scope: string | string[];

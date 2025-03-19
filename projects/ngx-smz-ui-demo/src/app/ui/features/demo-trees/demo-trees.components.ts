@@ -6,9 +6,10 @@ import { HttpClient } from '@angular/common/http';
 import { map, tap } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-demo-trees',
-  templateUrl: './demo-trees.component.html',
-  providers: []
+    selector: 'app-demo-trees',
+    templateUrl: './demo-trees.component.html',
+    providers: [],
+    standalone: false
 })
 
 export class DemoTreesComponent implements OnInit {

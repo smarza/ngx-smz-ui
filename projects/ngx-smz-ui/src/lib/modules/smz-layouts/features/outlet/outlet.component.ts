@@ -13,9 +13,10 @@ import { isEmpty } from '../../../rbk-utils/utils/utils';
 import { UiLocalizationDbActions } from '../../../../state/database/ui-localization/ui-localization.actions';
 
 @Component({
-  selector: 'smz-ui-outlet',
-  templateUrl: './outlet.component.html',
-  styleUrls: ['./outlet.component.scss']
+    selector: 'smz-ui-outlet',
+    templateUrl: './outlet.component.html',
+    styleUrls: ['./outlet.component.scss'],
+    standalone: false
 })
 export class OutletComponent implements OnInit, AfterContentInit {
   @ContentChildren(forwardRef(() => PrimeTemplate)) templates: QueryList<PrimeTemplate>;

@@ -7,7 +7,8 @@ import { SmzMenuItem } from '../models/smz-menu-item';
 import { GlobalInjector } from '../../../common/services/global-injector';
 
 @Pipe({
-  name: 'smzFlattenMenu'
+    name: 'smzFlattenMenu',
+    standalone: false
 })
 
 export class SmzFlattenMenuPipe implements PipeTransform {

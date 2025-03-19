@@ -2,10 +2,10 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmi
 import { SmzNotification } from '../../../../core/models/notifications';
 
 @Component({
-  selector: "[smz-ui-hephaestus-notification-items]",
-  host: { "(document:click)": "collapse($event)" },
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
+    selector: "[smz-ui-hephaestus-notification-items]",
+    host: { "(document:click)": "collapse($event)" },
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    template: `
     <li role="menuitem" *ngFor="let item of items; let index = index;">
       <a menuItemAction [item]="item" [parent]="null" [breadcrumbs]="false" [tabindex]="index">
         <i *ngIf="item.icon != null" class="pi" [ngClass]="item.icon"></i>
@@ -16,6 +16,7 @@ import { SmzNotification } from '../../../../core/models/notifications';
       </a>
     </li>
   `,
+    standalone: false
 })
 export class HephaestusNotificationItemsComponent implements OnInit, AfterViewInit {
   @Input() public items: SmzNotification[];

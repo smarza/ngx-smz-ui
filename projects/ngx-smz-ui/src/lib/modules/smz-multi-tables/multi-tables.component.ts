@@ -4,8 +4,8 @@ import { cloneDeep } from 'lodash-es';
 import { UUID } from 'angular2-uuid';
 
 @Component({
-  selector: 'smz-ui-multi-tables',
-  template: `
+    selector: 'smz-ui-multi-tables',
+    template: `
 <ng-container *ngIf="state != null">
 
 <p-tabView [styleClass]="state.styleClass">
@@ -24,7 +24,8 @@ import { UUID } from 'angular2-uuid';
 </p-tabView>
 
 </ng-container>
-  `
+  `,
+    standalone: false
 })
 
 export class SmzMultiTablesComponent implements OnInit {

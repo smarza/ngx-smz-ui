@@ -7,8 +7,9 @@ import { ShopDetails } from '@models/shop';
 import { ShopsDbSelectors } from '@states/database/shops/shops.selector';
 
 @Component({
-  selector: 'app-demo-reolvers-details',
-  template: `<smz-ui-table #smzTable [items]="items$ | async" [state]="tableState"></smz-ui-table>`
+    selector: 'app-demo-reolvers-details',
+    template: `<smz-ui-table #smzTable [items]="items$ | async" [state]="tableState"></smz-ui-table>`,
+    standalone: false
 })
 
 export class DemoResolversListComponent implements OnInit {

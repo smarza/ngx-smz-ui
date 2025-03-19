@@ -6,9 +6,10 @@ import { GlobalInjector } from '../../common/services/global-injector';
 import { Store } from '@ngxs/store';
 
 @Component({
-  selector: 'smz-menu',
-  templateUrl: 'smz-menu.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'smz-menu',
+    templateUrl: 'smz-menu.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 
 export class SmzMenuComponent {

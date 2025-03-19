@@ -4,13 +4,14 @@ import { SmzForm } from '../../models/smz-forms';
 import { MustBeUnique } from '../../../../../lib/common/utils/custom-validations';
 
 @Component({
-  selector: 'smz-input-list-inline-crud',
-  template: `
+    selector: 'smz-input-list-inline-crud',
+    template: `
     <ng-container *ngIf="form != null">
       <smz-form-group #formComponent [config]="form" clickStopPropagation></smz-form-group>
       <button pButton (click)="confirm()" type="button" [disabled]="!formComponent.isValid" icon="pi pi-check" label="Confirmar" styleClass="mr-2"></button>
     </ng-container>
   `,
+    standalone: false
 })
 
 export class InputListInlineCrudComponent implements OnInit {

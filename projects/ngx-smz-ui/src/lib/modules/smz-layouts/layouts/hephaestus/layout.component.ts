@@ -17,11 +17,12 @@ import { GlobalInjector } from '../../../../common/services/global-injector';
 import { SmzMenuItem } from '../../../smz-menu/models/smz-menu-item';
 
 @Component({
-  selector: 'smz-ui-hephaestus-layout',
-  templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.Default
+    selector: 'smz-ui-hephaestus-layout',
+    templateUrl: './layout.component.html',
+    styleUrls: ['./layout.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.Default,
+    standalone: false
 })
 export class HephaestusLayoutComponent implements OnInit, AfterContentInit {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;

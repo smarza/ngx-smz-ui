@@ -4,9 +4,10 @@ import { SmzDocumentState } from '../../models/smz-document';
 import { SmzDocumentFeatureDefinitions } from '../../models/smz-document-features';
 
 @Component({
-  selector: 'smz-ui-document',
-  templateUrl: 'smz-document.component.html',
-  providers: [ NgStyle ],
+    selector: 'smz-ui-document',
+    templateUrl: 'smz-document.component.html',
+    providers: [NgStyle],
+    standalone: false
 })
 
 export class SmzDocumentComponent implements OnInit {

@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'removeOneTab'
+    name: 'removeOneTab',
+    standalone: false
 })
 
 export class RemoveOneTabPipe implements PipeTransform {

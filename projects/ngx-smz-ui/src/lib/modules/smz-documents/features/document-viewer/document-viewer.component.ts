@@ -11,7 +11,8 @@ import { Store } from '@ngxs/store';
     styleUrls: ['./document-viewer.component.scss'],
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
-    providers: [SmzDocumentsService]
+    providers: [SmzDocumentsService],
+    standalone: false
 })
 export class SmzDocumentViewerComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges
 {

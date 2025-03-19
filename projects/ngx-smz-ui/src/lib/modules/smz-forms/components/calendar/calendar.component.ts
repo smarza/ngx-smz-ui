@@ -6,6 +6,7 @@ import { SmzCalendarControl } from '../../models/control-types';
 @Component({
     selector: 'smz-calendar',
     templateUrl: './calendar.component.html',
+    standalone: false
 })
 export class CalendarComponent implements OnInit
 {

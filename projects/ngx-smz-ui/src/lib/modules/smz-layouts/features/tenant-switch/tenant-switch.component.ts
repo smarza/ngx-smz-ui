@@ -15,16 +15,15 @@ import { SmzResponsiveComponent } from '../../../smz-responsive/smz-responsive.c
 import { showSwitchTenantDialog } from './show-tenant-switch-dialog';
 
 @Component({
-  selector: 'smz-tenant-switch',
-  standalone: true,
-  imports: [CommonModule, DropdownModule, FormsModule, SharedModule, SmzResponsiveComponent],
-  host: { class: 'h-full relative' },
-  styles: [
-    '.smz-tenant-switch-small .p-inputtext { padding: 0.5rem 0.75rem !important; }'
-  ],
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.Default,
-  template: `
+    selector: 'smz-tenant-switch',
+    imports: [CommonModule, DropdownModule, FormsModule, SharedModule, SmzResponsiveComponent],
+    host: { class: 'h-full relative' },
+    styles: [
+        '.smz-tenant-switch-small .p-inputtext { padding: 0.5rem 0.75rem !important; }'
+    ],
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.Default,
+    template: `
   <ng-container *ngIf="(isSuperuserLogged$ | async) === false">
   <ng-container *ngIf="showTenantSwitch">
 
@@ -49,7 +48,7 @@ import { showSwitchTenantDialog } from './show-tenant-switch-dialog';
 
   </ng-container>
   </ng-container>
-  `,
+  `
 })
 export class SmzTenantSwitchComponent implements OnInit {
   public showTenantSwitch = GlobalInjector.config.rbkUtils.authentication.allowTenantSwitching;

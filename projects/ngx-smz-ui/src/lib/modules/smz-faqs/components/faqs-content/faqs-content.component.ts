@@ -11,7 +11,8 @@ import { Confirmable } from '../../../smz-dialogs/decorators/confirmable.decorat
 @Component({
     selector: 'smz-faqs-content',
     templateUrl: './faqs-content.component.html',
-    styleUrls: ['./faqs-content.component.scss']
+    styleUrls: ['./faqs-content.component.scss'],
+    standalone: false
 })
 export class FaqsContentComponent implements OnInit
 {

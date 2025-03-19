@@ -3,8 +3,8 @@ import { DemoTreeNode } from '@models/demo';
 import { SmzTimelineState } from 'ngx-smz-ui';
 
 @Component({
-  selector: 'app-demo-timeline',
-  template: `
+    selector: 'app-demo-timeline',
+    template: `
   <smz-ui-timeline *ngIf="state != null" [state]="state">
 
   <ng-template pTemplate="header" let-node>
@@ -13,7 +13,8 @@ import { SmzTimelineState } from 'ngx-smz-ui';
 
   </smz-ui-timeline>
 `,
-  changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 
 export class DemoTimelineComponent implements OnInit, OnChanges {

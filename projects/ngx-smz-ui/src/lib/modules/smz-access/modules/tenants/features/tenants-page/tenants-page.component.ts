@@ -15,9 +15,10 @@ import { GlobalInjector } from '../../../../../../common/services/global-injecto
 
 @UntilDestroy()
 @Component({
-  selector: 'app-tenants-page',
-  templateUrl: 'tenants-page.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-tenants-page',
+    templateUrl: 'tenants-page.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class TenantsPageComponent implements OnInit {
   @Select(TenantsSelectors.all) public tenants$: Observable<TenantDetails[]>;

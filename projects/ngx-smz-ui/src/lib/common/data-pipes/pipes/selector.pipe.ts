@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Store } from '@ngxs/store';
 
 @Pipe({
-  name: 'select$'
+    name: 'select$',
+    standalone: false
 })
 
 export class SelectorPipe implements PipeTransform {

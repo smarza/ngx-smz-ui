@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Pipe({
-  name: 'contentErrors'
+    name: 'contentErrors',
+    standalone: false
 })
 
 export class SmzContentErrorsPipe implements PipeTransform {

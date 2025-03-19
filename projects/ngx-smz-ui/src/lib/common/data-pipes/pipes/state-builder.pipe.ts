@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { cloneDeep } from 'lodash-es';
 
 @Pipe({
-  name: 'stateBuilder'
+    name: 'stateBuilder',
+    standalone: false
 })
 
 export class StateBuilderPipe implements PipeTransform {

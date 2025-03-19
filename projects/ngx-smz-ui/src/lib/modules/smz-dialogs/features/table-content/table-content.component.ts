@@ -7,7 +7,8 @@ import { SmzTableState } from '../../../smz-tables/models/table-state';
     templateUrl: './table-content.component.html',
     styleUrls: ['./table-content.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class TableContentComponent
 {

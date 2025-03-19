@@ -2,7 +2,8 @@ import { Directive, ElementRef, Input, OnDestroy, OnInit, Renderer2 } from '@ang
 import { Store } from '@ngxs/store';
 
 @Directive({
-  selector: '[uiActionDispatch]',
+    selector: '[uiActionDispatch]',
+    standalone: false
 })
 export class ActionDispatchDirective implements OnInit, OnDestroy {
   @Input() public method: 'click' | 'onClick' = 'click';

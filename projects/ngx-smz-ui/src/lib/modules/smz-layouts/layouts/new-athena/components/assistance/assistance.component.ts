@@ -15,10 +15,11 @@ import { MenuType } from '../../../../core/models/menu-types';
 
 @UntilDestroy()
 @Component({
-  selector: 'smz-ui-new-athena-assistance',
-  templateUrl: './assistance.component.html',
-  styleUrls: ['./assistance.component.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'smz-ui-new-athena-assistance',
+    templateUrl: './assistance.component.html',
+    styleUrls: ['./assistance.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class NewAthenaAssistanceComponent implements OnInit {
   @Select(LayoutUiSelectors.assistance) public assistance$: Observable<Assistance>;

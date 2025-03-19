@@ -9,8 +9,9 @@ export interface Chat {
 }
 
 @Component({
-  selector: 'app-home',
-  templateUrl: `signalr.component.html`
+    selector: 'app-home',
+    templateUrl: `signalr.component.html`,
+    standalone: false
 })
 export class SignalRComponent
 {

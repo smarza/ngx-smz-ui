@@ -5,11 +5,12 @@ import { DataView } from 'primeng/dataview';
 import { SmzCardsSource, SmzCardsState } from '../../models/smz-cards-state';
 
 @Component({
-  selector: 'smz-ui-cards',
-  templateUrl: './smz-cards.component.html',
-  styleUrls: ['./smz-cards.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Default,
-  encapsulation: ViewEncapsulation.None
+    selector: 'smz-ui-cards',
+    templateUrl: './smz-cards.component.html',
+    styleUrls: ['./smz-cards.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Default,
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 
 export class SmzCardsComponent implements OnInit, AfterContentInit, AfterViewInit {

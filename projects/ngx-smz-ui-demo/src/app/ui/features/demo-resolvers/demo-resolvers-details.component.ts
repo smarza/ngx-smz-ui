@@ -7,8 +7,8 @@ import { ShopDetails } from '@models/shop';
 import { ShopsDbSelectors } from '@states/database/shops/shops.selector';
 
 @Component({
-  selector: 'app-demo-reolvers-details',
-  template: `
+    selector: 'app-demo-reolvers-details',
+    template: `
     Details Works!
 
     <h2>From Route Resolve</h2>
@@ -20,7 +20,8 @@ import { ShopsDbSelectors } from '@states/database/shops/shops.selector';
     <div>
     {{ shop$ | async | json }}
     </div>
-  `
+  `,
+    standalone: false
 })
 
 export class DemoResolversDetailsComponent implements OnInit {

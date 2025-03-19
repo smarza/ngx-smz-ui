@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { SmzSideContent } from 'ngx-smz-ui'
 
 @Component({
-  selector: 'app-side-content',
-  templateUrl: './side-content.component.html',
-  styleUrls: ['./side-content.component.scss']
+    selector: 'app-side-content',
+    templateUrl: './side-content.component.html',
+    styleUrls: ['./side-content.component.scss'],
+    standalone: false
 })
 export class SideContentComponent implements OnInit {
 

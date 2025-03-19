@@ -5,16 +5,15 @@ import { ClickStopPropagationModule, FlipCardTemplate, NgxSmzServerImageModule, 
 import { ButtonModule } from 'primeng/button';
 
 @Component({
-  selector: 'app-back-card',
-  standalone: true,
-  imports: [CommonModule, NgxSmzServerImageModule, NgxSmzServerImageToBase64Module, ButtonModule, ClickStopPropagationModule],
-  host: { class: 'w-full h-full relative' },
-  encapsulation: ViewEncapsulation.None,
-  styles: [`
+    selector: 'app-back-card',
+    imports: [CommonModule, NgxSmzServerImageModule, NgxSmzServerImageToBase64Module, ButtonModule, ClickStopPropagationModule],
+    host: { class: 'w-full h-full relative' },
+    encapsulation: ViewEncapsulation.None,
+    styles: [`
   .app-back-card {}
   `
-  ],
-  template: `
+    ],
+    template: `
     <img
         serverImageToBase64
         [path]="data.backImage"
@@ -30,7 +29,7 @@ import { ButtonModule } from 'primeng/button';
       <button pButton clickStopPropagation type="button" label="Help" class="p-button-rounded p-button-help"></button>
       <button pButton clickStopPropagation type="button" label="Log State" class="p-button-rounded p-button-help" (click)="log()"></button>
     </div>
-  `,
+  `
 })
 export class BackCardComponent {
   @Input() public data: SmzCardsFlipCardDemoData;

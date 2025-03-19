@@ -4,7 +4,8 @@ import { Table } from 'primeng/table';
 import { takeWhile } from 'rxjs/operators';
 
 @Directive({
-    selector: '[rbkInputClearExtension]'
+    selector: '[rbkInputClearExtension]',
+    standalone: false
 })
 export class InputClearExtensionDirective implements OnInit, OnDestroy {
     @Input() public rbkInputClearExtension: { table: TreeTable | Table, component: any };

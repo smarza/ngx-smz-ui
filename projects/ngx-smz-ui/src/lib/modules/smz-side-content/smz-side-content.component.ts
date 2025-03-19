@@ -5,10 +5,11 @@ import { LayoutUiActions } from '../../state/ui/layout/layout.actions';
 import { SmzSideContent, SmzSideContentDefault } from './models/side-content';
 
 @Component({
-  selector: 'smz-side-content',
-  templateUrl: 'smz-side-content.component.html',
-  styleUrls: ['smz-side-content.component.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'smz-side-content',
+    templateUrl: 'smz-side-content.component.html',
+    styleUrls: ['smz-side-content.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 
 export class SmzSideContentComponent implements OnInit, AfterContentInit, OnChanges, OnDestroy {

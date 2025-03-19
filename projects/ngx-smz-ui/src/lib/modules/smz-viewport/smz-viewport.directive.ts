@@ -22,7 +22,8 @@ import type { InViewportConfigOptions } from './types';
 export const InViewportMetadata = Symbol('InViewportMetadata');
 
 @Directive({
-  selector: '[smzViewport]'
+    selector: '[smzViewport]',
+    standalone: false
 })
 export class SmzViewportDirective implements AfterViewInit, OnDestroy {
   @Input('smzViewportOptions')

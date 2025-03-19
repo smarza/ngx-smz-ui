@@ -25,10 +25,11 @@ import { ApplicationActions } from '../../../../state/global/application/applica
 import { GlobalInjector } from '../../../../common/services/global-injector';
 
 @Component({
-  selector: 'smz-ui-table',
-  templateUrl: './table.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [TableEditableService, TableFormsService]
+    selector: 'smz-ui-table',
+    templateUrl: './table.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [TableEditableService, TableFormsService],
+    standalone: false
 })
 export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentInit, OnChanges, OnDestroy {
   public uiConfig = GlobalInjector.config;

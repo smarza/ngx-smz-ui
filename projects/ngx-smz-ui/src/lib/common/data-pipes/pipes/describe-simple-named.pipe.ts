@@ -3,7 +3,8 @@ import { cloneDeep } from 'lodash-es';
 import { SimpleNamedEntity } from '../../models/simple-named-entity';
 
 @Pipe({
- name: 'describeSimpleNamed'
+    name: 'describeSimpleNamed',
+    standalone: false
 })
 
 @Injectable()

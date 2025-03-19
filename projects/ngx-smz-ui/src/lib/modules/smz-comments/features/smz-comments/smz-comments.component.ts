@@ -8,8 +8,8 @@ import { CommentsDialogs } from './../../functions/comments.dialogs';
 import { CreateComment } from './../../models/create-comment';
 
 @Component({
-  selector: 'smz-comments',
-  template: `
+    selector: 'smz-comments',
+    template: `
   <!-- <mentionable-textarea [users]="users" class="w-full"></mentionable-textarea> -->
   <ng-container *ngIf="data.length > 0; else elseEmpty">
     <p-tree [value]="data">
@@ -50,9 +50,10 @@ import { CreateComment } from './../../models/create-comment';
     <smz-icon-message [icon]="'far fa-comment'" [message]="state.locale.emptyMessage" [comment]="state.locale.firstMessage"></smz-icon-message>
   </ng-template>
 `,
-  styleUrls: ['./smz-comments.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Default,
-  encapsulation: ViewEncapsulation.None
+    styleUrls: ['./smz-comments.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Default,
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 
 export class SmzCommentsComponent {

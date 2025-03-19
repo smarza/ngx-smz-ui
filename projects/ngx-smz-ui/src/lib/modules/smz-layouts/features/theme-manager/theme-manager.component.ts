@@ -6,9 +6,10 @@ import { ThemeManagerService } from './theme-manager.service';
 import { GlobalInjector } from '../../../../common/services/global-injector';
 
 @Component({
-  selector: 'smz-ui-theme-manager',
-  template: ``,
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'smz-ui-theme-manager',
+    template: ``,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ThemeManagerComponent implements OnInit
 {

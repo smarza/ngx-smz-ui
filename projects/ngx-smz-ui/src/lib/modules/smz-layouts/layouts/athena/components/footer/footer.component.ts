@@ -12,10 +12,11 @@ import { GlobalInjector } from '../../../../../../common/services/global-injecto
 
 @UntilDestroy()
 @Component({
-  selector: 'smz-ui-athena-footer',
-  templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.scss'],
-  host: { 'class': 'z-10' }
+    selector: 'smz-ui-athena-footer',
+    templateUrl: './footer.component.html',
+    styleUrls: ['./footer.component.scss'],
+    host: { 'class': 'z-10' },
+    standalone: false
 })
 export class AthenaFooterComponent implements OnInit, AfterContentInit
 {

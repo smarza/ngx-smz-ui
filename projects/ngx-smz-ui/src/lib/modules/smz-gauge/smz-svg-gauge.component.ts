@@ -3,11 +3,10 @@ import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } f
 import { SmzGaugeThreshold } from './smz-gauge.types';
 
 @Component({
-  standalone: true,
-  selector: 'app-svg-gauge',
-  imports: [CommonModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
+    selector: 'app-svg-gauge',
+    imports: [CommonModule],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    template: `
 
 <svg [attr.width]="size" [attr.height]="size" [attr.viewBox]="'0 0 ' + size + ' ' + size">
   <!-- Círculo de Fundo -->
@@ -82,14 +81,14 @@ import { SmzGaugeThreshold } from './smz-gauge.types';
 </svg>
 
   `,
-  styles: [
-    `
+    styles: [
+        `
 svg {
   display: block;
   margin: 0 auto;
 }
     `
-  ]
+    ]
 })
 export class SmzSvgGaugeComponent implements OnChanges {
   @Input() title: string = 'Plano de Pintura';

@@ -6,7 +6,8 @@ import { HighlightResult } from 'ngx-highlightjs';
     templateUrl: './code-block.component.html',
     styleUrls: ['./code-block.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class CodeBlockComponent implements OnInit, OnChanges
 {

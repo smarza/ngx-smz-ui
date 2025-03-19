@@ -6,6 +6,7 @@ import { SmzTextAreaControl } from '../../models/control-types';
 @Component({
     selector: 'smz-input-text-area',
     templateUrl: './input-text-area.component.html',
+    standalone: false
 })
 export class InputTextAreaComponent
 {

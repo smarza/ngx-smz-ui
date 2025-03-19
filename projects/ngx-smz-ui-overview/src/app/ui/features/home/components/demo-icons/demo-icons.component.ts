@@ -4,9 +4,10 @@ import { SmzTableState } from 'ngx-smz-ui';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-demo-icons',
-  template: `<smz-ui-table *ngIf="state != null" [items]="items$ | async" [state]="state"></smz-ui-table>`,
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-demo-icons',
+    template: `<smz-ui-table *ngIf="state != null" [items]="items$ | async" [state]="state"></smz-ui-table>`,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 
 export class DemoIconsComponent implements OnInit, OnChanges {

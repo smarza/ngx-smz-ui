@@ -5,12 +5,13 @@ import { CountryService } from './country.service';
 declare const window;
 
 @Component({
-  selector: 'app-home',
-  templateUrl: `home.component.html`,
-  styleUrls: ['home.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  host: { 'class': 'absolute inset-0 p-3' },
-  providers: [CountryService]
+    selector: 'app-home',
+    templateUrl: `home.component.html`,
+    styleUrls: ['home.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    host: { 'class': 'absolute inset-0 p-3' },
+    providers: [CountryService],
+    standalone: false
 })
 export class HomeComponent
 {

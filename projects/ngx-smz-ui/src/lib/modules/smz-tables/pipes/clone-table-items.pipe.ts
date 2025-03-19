@@ -10,7 +10,8 @@ import { SmzTableContentPipe } from './table-content.pipe';
 import { ObjectUtils } from 'primeng/utils';
 
 @Pipe({
-  name: 'cloneTableItems'
+    name: 'cloneTableItems',
+    standalone: false
 })
 
 export class SmzCloneTableItemsPipe implements PipeTransform {

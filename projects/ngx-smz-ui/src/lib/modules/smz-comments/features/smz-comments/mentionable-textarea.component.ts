@@ -5,10 +5,9 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ListboxModule } from 'primeng/listbox';
 
 @Component({
-  standalone: true,
-  imports: [CommonModule, FormsModule, InputTextareaModule, ListboxModule],
-  selector: 'mentionable-textarea',
-  template: `
+    imports: [CommonModule, FormsModule, InputTextareaModule, ListboxModule],
+    selector: 'mentionable-textarea',
+    template: `
     <div class="w-full">
       <textarea pInputTextarea [(ngModel)]="commentText" (keyup)="onTextChange($event)" rows="5"></textarea>
       <ul *ngIf="filteredUsers.length > 0" class="mention-suggestions">
@@ -16,9 +15,9 @@ import { ListboxModule } from 'primeng/listbox';
       </ul>
     </div>
   `,
-  styles: [],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+    styles: [],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None
 })
 export class MentionableTextareaComponent {
   @Input() public users: string[] = [];

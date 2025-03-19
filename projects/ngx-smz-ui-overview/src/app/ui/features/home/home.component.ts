@@ -13,9 +13,10 @@ import { ResultsTableComponent } from '@components/results-table/results-table.c
 import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: `home.component.html`,
-  host: { 'class': 'absolute inset-0 p-3' }
+    selector: 'app-home',
+    templateUrl: `home.component.html`,
+    host: { 'class': 'absolute inset-0 p-3' },
+    standalone: false
 })
 export class HomeComponent implements OnInit
 {

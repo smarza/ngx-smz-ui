@@ -5,12 +5,13 @@ import { SmzDialogsService } from '../../../modules/smz-dialogs/public-api';
 import { SmzDialogBuilder } from '../../../builders/smz-dialogs/dialog-builder';
 
 @Directive({
-  selector: "img[serverImage]",
-  host: {
-    '(error)':'updateUrl()',
-    '(load)': 'load()',
-    '[src]':'src'
-   }
+    selector: "img[serverImage]",
+    host: {
+        '(error)': 'updateUrl()',
+        '(load)': 'load()',
+        '[src]': 'src'
+    },
+    standalone: false
 })
 export class ServerImageDirective implements AfterViewInit, OnChanges {
 

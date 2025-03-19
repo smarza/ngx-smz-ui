@@ -4,10 +4,10 @@ import { SmzNotification } from '../../../../core/models/notifications';
 import { GlobalInjector } from '../../../../../../common/services/global-injector';
 
 @Component({
-  selector: '[smz-ui-athena-topbar-actions]',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ['./topbar-actions.component.scss'],
-  template: `
+    selector: '[smz-ui-athena-topbar-actions]',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrls: ['./topbar-actions.component.scss'],
+    template: `
       <ng-content></ng-content>
 
       <div id="smz-ui-topbar"></div>
@@ -33,6 +33,7 @@ import { GlobalInjector } from '../../../../../../common/services/global-injecto
       <span id="smz-ui-profile-menu" *ngIf="profile != null" smz-ui-athena-profile-menu [profile]="profile"></span>
 
   `,
+    standalone: false
 })
 export class AthenaTopbarActionsComponent {
   @Input() public profile: MenuItem[] = [];

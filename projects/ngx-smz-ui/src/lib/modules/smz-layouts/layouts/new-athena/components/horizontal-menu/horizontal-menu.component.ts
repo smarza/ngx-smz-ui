@@ -12,12 +12,13 @@ import { RouterState } from '@ngxs/router-plugin';
 
 @UntilDestroy()
 @Component({
-  selector: 'smz-ui-new-athena-horizontal-menu',
-  templateUrl: './horizontal-menu.component.html',
-  styleUrls: ['./horizontal-menu.component.scss'],
-  host: { "(document:click)": "collapseFromOutside($event)" },
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'smz-ui-new-athena-horizontal-menu',
+    templateUrl: './horizontal-menu.component.html',
+    styleUrls: ['./horizontal-menu.component.scss'],
+    host: { "(document:click)": "collapseFromOutside($event)" },
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class NewAthenaHorizontalMenuComponent implements OnInit, AfterContentInit, OnChanges {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;

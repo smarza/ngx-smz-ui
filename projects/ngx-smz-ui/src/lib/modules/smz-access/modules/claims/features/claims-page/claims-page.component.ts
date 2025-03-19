@@ -17,9 +17,10 @@ import { GlobalInjector } from '../../../../../../common/services/global-injecto
 
 @UntilDestroy()
 @Component({
-  selector: 'app-claims-page',
-  templateUrl: 'claims-page.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-claims-page',
+    templateUrl: 'claims-page.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ClaimsPageComponent implements OnInit {
   public claims$: Observable<ClaimDetails[]>;

@@ -3,9 +3,10 @@ import { DemoTreeNode } from '@models/demo';
 import { SmzCommentsState } from 'ngx-smz-ui';
 
 @Component({
-  selector: 'app-demo-comments',
-  template: `<smz-comments-section *ngIf="state != null" [state]="state"></smz-comments-section>`,
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-demo-comments',
+    template: `<smz-comments-section *ngIf="state != null" [state]="state"></smz-comments-section>`,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 
 export class DemoCommentsComponent implements OnInit, OnChanges {

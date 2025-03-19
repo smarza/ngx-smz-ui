@@ -3,8 +3,8 @@ import { PrimeTemplate } from 'primeng/api';
 import { ColumnFilter } from '../../prime/table/table';
 
 @Component({
-  selector: 'smz-column-filter',
-  template: `
+    selector: 'smz-column-filter',
+    template: `
   <div (click)="bindDocumentClickListener()">
       <p-columnFilter
         [currency]="currency"
@@ -31,6 +31,7 @@ import { ColumnFilter } from '../../prime/table/table';
 
       </p-columnFilter>
   <div>`,
+    standalone: false
 })
 
 export class SmzColumnFilterComponent implements AfterContentInit {

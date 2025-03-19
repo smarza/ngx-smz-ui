@@ -4,10 +4,11 @@ import { UiActions, Confirmable } from 'ngx-smz-ui';
 import { SmzSmartTagConfig, SmzSmartTagOptions } from '../../smart-tag.directive';
 
 @Component({
-  selector: 'app-details',
-  templateUrl: './details.component.html',
-  styleUrls: ['./details.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-details',
+    templateUrl: './details.component.html',
+    styleUrls: ['./details.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class DetailsComponent implements OnInit {
 

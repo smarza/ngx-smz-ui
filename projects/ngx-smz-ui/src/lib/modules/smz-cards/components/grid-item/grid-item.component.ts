@@ -4,9 +4,10 @@ import { SmzCardsView } from '../../models/smz-cards-types';
 import { SmzCardsTemplate, SmzCardsTemplates } from '../../models/smz-cards-templates';
 
 @Component({
-  selector: 'smz-grid-item',
-  templateUrl: 'grid-item.component.html',
-  changeDetection: ChangeDetectionStrategy.Default,
+    selector: 'smz-grid-item',
+    templateUrl: 'grid-item.component.html',
+    changeDetection: ChangeDetectionStrategy.Default,
+    standalone: false
 })
 
 export class SmzGridItemComponent implements OnInit {

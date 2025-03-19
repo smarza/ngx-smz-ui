@@ -2,11 +2,11 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmi
 import { SmzNotification } from '../../../../../core/models/notifications';
 
 @Component({
-  selector: "[smz-ui-athena-notification-items]",
-  host: { "(document:click)": "collapse($event)" },
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ['./notification-items.component.scss'],
-  template: `
+    selector: "[smz-ui-athena-notification-items]",
+    host: { "(document:click)": "collapse($event)" },
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrls: ['./notification-items.component.scss'],
+    template: `
     <li role="menuitem" *ngFor="let item of items; let index = index;">
       <a menuItemAction class="grid grid-nogutter items-center justify-start" style="display: flex;" [item]="item" [parent]="null" [breadcrumbs]="false" [tabindex]="index">
         <i *ngIf="item.icon != null" class="pi mr-3" [ngClass]="item.icon"></i>
@@ -17,6 +17,7 @@ import { SmzNotification } from '../../../../../core/models/notifications';
       </a>
     </li>
   `,
+    standalone: false
 })
 export class AthenaNotificationItemsComponent implements OnInit, AfterViewInit {
   @Input() public items: SmzNotification[];

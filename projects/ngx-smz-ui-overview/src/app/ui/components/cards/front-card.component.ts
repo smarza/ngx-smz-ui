@@ -4,16 +4,15 @@ import { SmzCardsFlipCardDemoData } from '@demos/data/cards/flip-card-data';
 import { NgxSmzServerImageModule } from 'ngx-smz-ui';
 
 @Component({
-  selector: 'app-front-card',
-  standalone: true,
-  imports: [CommonModule, NgxSmzServerImageModule],
-  host: { class: 'w-full h-full relative' },
-  encapsulation: ViewEncapsulation.None,
-  styles: [`
+    selector: 'app-front-card',
+    imports: [CommonModule, NgxSmzServerImageModule],
+    host: { class: 'w-full h-full relative' },
+    encapsulation: ViewEncapsulation.None,
+    styles: [`
   .app-front-card {}
   `
-  ],
-  template: `
+    ],
+    template: `
     <img
         serverImage
         [path]="data.frontImage"
@@ -25,7 +24,7 @@ import { NgxSmzServerImageModule } from 'ngx-smz-ui';
         class="w-full h-full rounded-lg"
         draggable="false"
       >
-  `,
+  `
 })
 export class FrontCardComponent {
   @Input() public data: SmzCardsFlipCardDemoData;

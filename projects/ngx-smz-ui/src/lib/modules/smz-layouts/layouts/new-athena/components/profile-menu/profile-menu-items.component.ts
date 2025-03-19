@@ -2,9 +2,9 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmi
 import { MenuItem } from 'primeng/api';
 
 @Component({
-  selector: "[smz-ui-new-athena-profile-menu-items]",
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
+    selector: "[smz-ui-new-athena-profile-menu-items]",
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    template: `
     <li *ngFor="let item of items | isVisible; let index = index" [ngClass]="{ 'menuitem-active' : item.expanded }">
 
       <ng-container [ngSwitch]="item | hasChild">
@@ -30,6 +30,7 @@ import { MenuItem } from 'primeng/api';
 
     </li>
   `,
+    standalone: false
 })
 export class NewAthenaProfileMenuItemsComponent implements OnInit, AfterViewInit {
 

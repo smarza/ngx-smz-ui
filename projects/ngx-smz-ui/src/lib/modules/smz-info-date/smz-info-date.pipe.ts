@@ -4,7 +4,8 @@ import moment from 'moment';
 // const moment = moment_;
 
 @Pipe({
-    name: 'smzInfoDate'
+    name: 'smzInfoDate',
+    standalone: false
 })
 export class SmzInfoDatePipe implements PipeTransform
 {

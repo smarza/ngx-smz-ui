@@ -5,8 +5,9 @@ import { Observable } from 'rxjs';
 import { ChatMessage } from '../../models/chat';
 
 @Component({
-  selector: 'app-signalr-messages',
-  templateUrl: `messages.component.html`
+    selector: 'app-signalr-messages',
+    templateUrl: `messages.component.html`,
+    standalone: false
 })
 export class MessagesComponent
 {

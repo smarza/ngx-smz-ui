@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-demo-injectable-4',
-  template: `
+    selector: 'app-demo-injectable-4',
+    template: `
 <div class="py-12 bg-white">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="lg:text-center">
@@ -69,7 +69,8 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   </div>
 </div>
   `,
-  changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.Default,
+    standalone: false
 })
 
 export class DemoInjectable4Component {

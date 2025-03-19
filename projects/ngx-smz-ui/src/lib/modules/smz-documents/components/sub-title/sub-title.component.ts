@@ -3,8 +3,9 @@ import { SmzDocumentConfig } from '../../models/smz-document-config';
 import { SmzDocumentSubTitle } from '../../models/smz-document-features';
 
 @Component({
-  selector: 'smz-document-sub-title',
-  templateUrl: 'sub-title.component.html'
+    selector: 'smz-document-sub-title',
+    templateUrl: 'sub-title.component.html',
+    standalone: false
 })
 
 export class SmzDocumentSubTitleComponent implements OnInit {

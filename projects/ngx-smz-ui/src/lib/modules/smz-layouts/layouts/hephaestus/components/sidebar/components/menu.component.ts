@@ -2,8 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 
 @Component({
-  selector: 'smz-ui-hephaestus-menu-expandable-item',
-  template: `
+    selector: 'smz-ui-hephaestus-menu-expandable-item',
+    template: `
       <li [ngClass]="{ 'active-menuitem': item.expanded }">
 
           <a [tabindex]="index" (click)="item.expanded = !item.expanded;">
@@ -32,7 +32,8 @@ import { MenuItem } from 'primeng/api';
           </ng-container>
 
       </li>
-  `
+  `,
+    standalone: false
 })
 
 export class HephaestusMenuExpandableItemComponent implements OnInit {
@@ -45,8 +46,8 @@ export class HephaestusMenuExpandableItemComponent implements OnInit {
 }
 
 @Component({
-  selector: 'smz-ui-hephaestus-menu-item',
-  template: `
+    selector: 'smz-ui-hephaestus-menu-item',
+    template: `
       <li [ngClass]="{ 'active-menuitem': currentUrl | urlChecker : item.routerLink }">
         <a class="p-ripple" [ngClass]="{ 'active-route': currentUrl | urlChecker : item.routerLink, 'opacity-50 hover:bg-inherit select-none focus:shadow-none cursor-default': item.disabled }" menuItemAction [item]="item" [parent]="parent" [breadcrumbs]="true" [tabindex]="index">
             <i class="layout-menuitem-icon" [ngClass]="item.icon"></i>
@@ -59,7 +60,8 @@ export class HephaestusMenuExpandableItemComponent implements OnInit {
         </ng-container>
 
       </li>
-  `
+  `,
+    standalone: false
 })
 
 export class HephaestusMenuItemComponent implements OnInit {
@@ -73,8 +75,8 @@ export class HephaestusMenuItemComponent implements OnInit {
 }
 
 @Component({
-  selector: 'smz-ui-hephaestus-menu-node',
-  template: `
+    selector: 'smz-ui-hephaestus-menu-node',
+    template: `
       <ul role="menu" style="z-index: 100;">
 
           <ng-container *ngFor="let subItem of item.items | isVisible; let subItemIndex = index;">
@@ -94,7 +96,8 @@ export class HephaestusMenuItemComponent implements OnInit {
           </ng-container>
 
       </ul>
-  `
+  `,
+    standalone: false
 })
 
 export class HephaestusMenuNodeComponent implements OnInit {
@@ -107,8 +110,8 @@ export class HephaestusMenuNodeComponent implements OnInit {
 }
 
 @Component({
-  selector: '[smz-ui-hephaestus-menu-slim-node]',
-  template: `
+    selector: '[smz-ui-hephaestus-menu-slim-node]',
+    template: `
     <ng-container *ngFor="let subItem of item.items | isVisible; let last = last; let subItemIndex = index;">
 
         <ng-container [ngSwitch]="subItem | hasChild">
@@ -132,6 +135,7 @@ export class HephaestusMenuNodeComponent implements OnInit {
 
     </ng-container>
   `,
+    standalone: false
 })
 
 export class HephaestusMenuSlimNodeComponent implements OnInit {

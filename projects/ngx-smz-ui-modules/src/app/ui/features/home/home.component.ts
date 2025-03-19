@@ -6,8 +6,9 @@ import { UserData } from '@models/user-data';
 import { LARGE_TABLE_DATA } from '../../../../../../ngx-smz-ui-overview/src/app/demos/data/large-table';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: `home.component.html`,
+    selector: 'app-home',
+    templateUrl: `home.component.html`,
+    standalone: false
 })
 export class HomeComponent
 {

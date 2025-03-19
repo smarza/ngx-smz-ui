@@ -10,6 +10,7 @@ import { MultiSelectChangeEvent } from 'primeng/multiselect';
 @Component({
     selector: 'smz-multi-select',
     templateUrl: './multi-select.component.html',
+    standalone: false
 })
 export class MultiSelectComponent
 {

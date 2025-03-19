@@ -2,14 +2,15 @@ import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit } from '
 import { SmzNotification } from '../../../../core/models/notifications';
 
 @Component({
-  selector: '[smz-ui-hephaestus-notifications]',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
+    selector: '[smz-ui-hephaestus-notifications]',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    template: `
     <a (click)="toggle()">
       <i class="pi pi-bell"></i><span class="topbar-badge">{{ items.length }}</span>
     </a>
     <ul *ngIf="isExpanded" class="notifications-menu fade-in-up" smz-ui-hephaestus-notification-items (onClose)="collapse()" [items]="items"></ul>
   `,
+    standalone: false
 })
 export class HephaestusNotificationsComponent implements OnInit {
   @Input() public items: SmzNotification[] = [];

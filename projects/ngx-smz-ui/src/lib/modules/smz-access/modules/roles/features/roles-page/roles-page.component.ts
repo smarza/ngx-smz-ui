@@ -22,9 +22,10 @@ import { GlobalInjector } from '../../../../../../common/services/global-injecto
 
 @UntilDestroy()
 @Component({
-  selector: 'app-roles-page',
-  templateUrl: 'roles-page.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-roles-page',
+    templateUrl: 'roles-page.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class RolesPageComponent implements OnInit {
   @Select(RolesSelectors.all) public roles$: Observable<RolesDetails[]>;

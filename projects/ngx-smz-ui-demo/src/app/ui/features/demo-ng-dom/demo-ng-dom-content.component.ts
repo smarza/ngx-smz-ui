@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleCha
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'demo-ng-dom-content',
-  template: `
+    selector: 'demo-ng-dom-content',
+    template: `
   <section class="grid grid-nogutter justify-start flex-col gap-1 col-12 h-full">
     <h4>demo-ng-dom-content works</h4>
     <div class="p-1 flex-grow grid grid-nogutter flex-col justify-start gap-1">
@@ -12,7 +12,8 @@ import { Observable } from 'rxjs';
     </div>
   </section>
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 
 export class DemoNgDomContentComponent implements OnInit, OnChanges {

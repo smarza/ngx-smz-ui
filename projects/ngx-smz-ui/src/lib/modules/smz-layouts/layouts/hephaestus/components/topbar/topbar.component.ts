@@ -15,10 +15,11 @@ import { GlobalInjector } from '../../../../../../common/services/global-injecto
 
 @UntilDestroy()
 @Component({
-  selector: 'smz-ui-hephaestus-topbar',
-  templateUrl: './topbar.component.html',
-  styleUrls: ['./topbar.component.scss'],
-  host: { 'class': 'z-10' }
+    selector: 'smz-ui-hephaestus-topbar',
+    templateUrl: './topbar.component.html',
+    styleUrls: ['./topbar.component.scss'],
+    host: { 'class': 'z-10' },
+    standalone: false
 })
 export class HephaestusTopbarComponent implements OnInit, AfterContentInit
 {

@@ -42,7 +42,7 @@ import { cloneDeep } from 'lodash-es';
                 opacity: 1
             })),
             transition('void => *', [
-                style({transform: '{{showTransformParams}}', opacity: 0}),
+                style({ transform: '{{showTransformParams}}', opacity: 0 }),
                 animate('{{showTransitionParams}}')
             ]),
             transition('* => void', [
@@ -58,7 +58,8 @@ import { cloneDeep } from 'lodash-es';
     changeDetection: ChangeDetectionStrategy.Default,
     host: {
         'class': 'p-element'
-    }
+    },
+    standalone: false
 })
 export class ToastItem implements AfterViewInit, OnDestroy {
 
@@ -183,7 +184,8 @@ export class ToastItem implements AfterViewInit, OnDestroy {
     styleUrls: ['./toast.css'],
     host: {
         'class': 'p-element'
-    }
+    },
+    standalone: false
 })
 export class Toast implements OnInit,AfterContentInit,OnDestroy {
 

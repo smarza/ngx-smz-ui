@@ -14,16 +14,15 @@ import { UiLocalizationDbActions } from '../../../../state/database/ui-localizat
 
 
 @Component({
-  selector: 'smz-localization-switch',
-  standalone: true,
-  imports: [CommonModule, DropdownModule, FormsModule, SharedModule, SmzResponsiveComponent],
-  host: { class: 'h-full relative' },
-  styles: [
-    '.smz-localization-switch-small .p-inputtext { padding: 0.5rem 0.75rem !important; }'
-  ],
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.Default,
-  template: `
+    selector: 'smz-localization-switch',
+    imports: [CommonModule, DropdownModule, FormsModule, SharedModule, SmzResponsiveComponent],
+    host: { class: 'h-full relative' },
+    styles: [
+        '.smz-localization-switch-small .p-inputtext { padding: 0.5rem 0.75rem !important; }'
+    ],
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.Default,
+    template: `
   <ng-container *ngIf="showLocalizationSwitch">
 
     <smz-responsive class="col grid grid-nogutter w-full items-center justify-start">
@@ -62,7 +61,7 @@ import { UiLocalizationDbActions } from '../../../../state/database/ui-localizat
     </smz-responsive>
 
   </ng-container>
-  `,
+  `
 })
 export class SmzLocalizationSwitchComponent implements OnInit {
   public showLocalizationSwitch = GlobalInjector.config.rbkUtils.uiLocalization.allowLocalizationSwitching;

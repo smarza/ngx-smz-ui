@@ -1,7 +1,8 @@
 import { Injectable, Pipe, PipeTransform } from '@angular/core';
 import { cloneDeep } from 'lodash-es';
 @Pipe({
- name: 'clone'
+    name: 'clone',
+    standalone: false
 })
 
 @Injectable()

@@ -3,8 +3,8 @@ import { DemoTreeNode } from '../../../../../models/demo';
 import { SmzInjectableComponent } from 'ngx-smz-ui';
 
 @Component({
-  selector: 'app-demo-dynamic',
-  template: `
+    selector: 'app-demo-dynamic',
+    template: `
   <ng-container *ngIf="injectable != null; else noInjectable">
     <ng-template [smzStandaloneInjectComponent]="injectable"></ng-template>
   </ng-container>
@@ -12,7 +12,8 @@ import { SmzInjectableComponent } from 'ngx-smz-ui';
     <p>No injectable data on this demo</p>
   </ng-template>
 `,
-  changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 
 export class DemoDynamicComponent implements OnInit {

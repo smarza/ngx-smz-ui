@@ -7,10 +7,9 @@ import { Observable } from 'rxjs';
 import { ProteusSelectors } from '../state/proteus.selector';
 
 @Component({
-  selector: 'app-proteus-login-metadata',
-  standalone: true,
-  imports: [CommonModule, NgxSmzDataPipesModule, NgxSmzServerImageModule],
-  template: `
+    selector: 'app-proteus-login-metadata',
+    imports: [CommonModule, NgxSmzDataPipesModule, NgxSmzServerImageModule],
+    template: `
   <ng-container *ngIf="(currentCAUser$ | async) as details">
 
   <!-- <div [innerHTML]="details | prettyjson"></div> -->

@@ -4,11 +4,12 @@ import { GlobalInjector } from '../../../../common/services/global-injector';
 
 
 @Component({
-  selector: 'smz-notification-item',
-  templateUrl: 'notification-item.component.html',
-  styleUrls: ['notification-item.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+    selector: 'smz-notification-item',
+    templateUrl: 'notification-item.component.html',
+    styleUrls: ['notification-item.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 
 export class NotificationItemComponent implements OnInit {

@@ -13,6 +13,7 @@ import { UUID } from 'angular2-uuid';
 @Component({
     selector: 'smz-file-upload',
     templateUrl: './file-upload.component.html',
+    standalone: false
 })
 export class FileUploadComponent {
     @Input() public input: SmzFileControl;

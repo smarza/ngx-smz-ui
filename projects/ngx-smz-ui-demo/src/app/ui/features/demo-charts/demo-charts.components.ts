@@ -4,10 +4,11 @@ import { COMBO_CHSARP, DOUGHNUT_CSHARP, HORIZONTAL_BAR_CSHARP, IAGM_CSHARP, LINE
 import { SmzChartInteractionEvent } from 'ngx-smz-ui';
 
 @Component({
-  selector: 'app-demo-charts',
-  templateUrl: './demo-charts.component.html',
-  styleUrls: ['./demo-charts.component.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'app-demo-charts',
+    templateUrl: './demo-charts.component.html',
+    styleUrls: ['./demo-charts.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class DemoChartsComponent {
   public verticalBarChart;

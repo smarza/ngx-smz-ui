@@ -3,8 +3,8 @@ import { DemoTreeNode } from '@models/demo';
 import { SmzChart } from 'ngx-smz-ui';
 
 @Component({
-  selector: 'app-demo-chart',
-  template: `
+    selector: 'app-demo-chart',
+    template: `
     <div class="grid grid-cols-2 gap-4 mt-4">
       <div *ngIf="chart?.model != null">
         <h5>Vertical bar chart - Raw model</h5>
@@ -27,7 +27,8 @@ import { SmzChart } from 'ngx-smz-ui';
       </div>
     </div>
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 
 export class DemoChartComponent implements OnInit, OnChanges {

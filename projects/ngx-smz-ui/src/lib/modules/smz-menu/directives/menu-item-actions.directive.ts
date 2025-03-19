@@ -5,7 +5,8 @@ import { ConfirmableFunction, CriticalConfirmableFunction } from '../../smz-dial
 import { SmzMenuItem } from '../models/smz-menu-item';
 
 @Directive({
-    selector: '[smzMenuItemAction]'
+    selector: '[smzMenuItemAction]',
+    standalone: false
 })
 export class SmzMenuItemActionsDirective {
     @Input() public item: SmzMenuItem;

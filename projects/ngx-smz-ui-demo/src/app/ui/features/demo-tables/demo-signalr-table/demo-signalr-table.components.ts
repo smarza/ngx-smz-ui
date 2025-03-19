@@ -10,9 +10,10 @@ import { SimpleNamedEntity } from 'ngx-smz-ui';
 import { MenuItem } from 'primeng/api';
 
 @Component({
-  selector: 'app-demo-signalr-table',
-  templateUrl: './demo-signalr-table.component.html',
-  providers: [DemoTableDataService]
+    selector: 'app-demo-signalr-table',
+    templateUrl: './demo-signalr-table.component.html',
+    providers: [DemoTableDataService],
+    standalone: false
 })
 
 export class DemoSignalRTableComponent implements OnInit, OnDestroy {

@@ -26,7 +26,8 @@ export interface SmzSmartAutocompleteTagOption {
 
 @Directive({
     selector: '[smzSmartAutocompleteTag]',
-    host: {}
+    host: {},
+    standalone: false
 })
 export class SmzSmartAutocompleteTagDirective implements OnInit, AfterViewInit, OnDestroy {
 

@@ -11,11 +11,12 @@ import { SmzTextPattern } from '../../../smz-forms/public-api';
 import { DiagnosticsData } from '../../../rbk-utils/error-handler/diagnostics-data';
 
 @Component({
-  selector: 'smz-ui-diagnostics-data-collect',
-  template: ``,
-  host: {
-    'class': 'absolute inset-0 bg-black'
-  }
+    selector: 'smz-ui-diagnostics-data-collect',
+    template: ``,
+    host: {
+        'class': 'absolute inset-0 bg-black'
+    },
+    standalone: false
 })
 export class DiagnosticsDataCollectComponent implements OnInit {
   public uiConfig = GlobalInjector.config;

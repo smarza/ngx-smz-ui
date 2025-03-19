@@ -2,15 +2,15 @@ import { AfterViewInit, Directive, ElementRef, EventEmitter, forwardRef, HostLis
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 
 @Directive({
-  selector:
-    "[transfervalue][formControlName], [transfervalue][formControl], [transfervalue][ngModel]",
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => TransferValueAccessor),
-      multi: true
-    }
-  ]
+    selector: "[transfervalue][formControlName], [transfervalue][formControl], [transfervalue][ngModel]",
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => TransferValueAccessor),
+            multi: true
+        }
+    ],
+    standalone: false
 })
 export class TransferValueAccessor
   implements ControlValueAccessor, AfterViewInit, OnDestroy {

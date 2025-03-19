@@ -5,7 +5,10 @@ export class NgVarContext<T = unknown> {
   public ngVar: T = null!;
 }
 
-@Directive({ selector: '[ngVar]' })
+@Directive({
+    selector: '[ngVar]',
+    standalone: false
+})
 export class NgVar<T = unknown> {
   private _context: NgVarContext<T> = new NgVarContext<T>();
   @Input() public set ngVar(context: T) {

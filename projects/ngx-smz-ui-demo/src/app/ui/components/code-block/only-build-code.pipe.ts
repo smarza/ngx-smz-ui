@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'onlyBuildCode'
+    name: 'onlyBuildCode',
+    standalone: false
 })
 
 export class OnlyBuildCodePipe implements PipeTransform {

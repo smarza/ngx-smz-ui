@@ -1,7 +1,8 @@
 import { Directive, ViewContainerRef } from '@angular/core';
 
 @Directive({
-  selector: '[pDynamicDialogContent]'
+    selector: '[pDynamicDialogContent]',
+    standalone: false
 })
 export class DynamicDialogContent {
 
@@ -11,7 +12,8 @@ export class DynamicDialogContent {
 
 
 @Directive({
-  selector: '[pDynamicDialogFooter]'
+    selector: '[pDynamicDialogFooter]',
+    standalone: false
 })
 export class DynamicDialogFooter {
 

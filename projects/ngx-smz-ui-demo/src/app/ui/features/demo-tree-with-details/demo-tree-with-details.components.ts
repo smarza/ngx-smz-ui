@@ -6,9 +6,10 @@ import { TreeDemoFeatureActions } from '@states/tree-demo/tree-demo.actions';
 import { TreeNode } from 'primeng/api';
 
 @Component({
-  selector: 'app-demo-tree-with-details',
-  templateUrl: './demo-tree-with-details.component.html',
-  changeDetection: ChangeDetectionStrategy.Default
+    selector: 'app-demo-tree-with-details',
+    templateUrl: './demo-tree-with-details.component.html',
+    changeDetection: ChangeDetectionStrategy.Default,
+    standalone: false
 })
 
 export class DemoTreeWithDetailsComponent implements OnInit {

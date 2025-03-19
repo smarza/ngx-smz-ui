@@ -10,9 +10,10 @@ import startsWith from 'lodash-es/startsWith';
 import { GlobalInjector } from '../../../../common/services/global-injector';
 
 @Component({
-  selector: 'smz-ui-error',
-  templateUrl: './error.component.html',
-  styleUrls: ['./error.component.scss'],
+    selector: 'smz-ui-error',
+    templateUrl: './error.component.html',
+    styleUrls: ['./error.component.scss'],
+    standalone: false
 })
 export class ErrorComponent implements OnInit {
   public uiConfig = GlobalInjector.config;

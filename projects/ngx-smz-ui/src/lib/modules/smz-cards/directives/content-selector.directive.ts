@@ -3,7 +3,8 @@ import { ObjectUtils } from 'primeng/utils';
 import { SmzCardsContentType, SmzCardsContentTypes } from '../models/smz-cards-contents';
 
 @Directive({
-  selector: "div[contentSelector]",
+    selector: "div[contentSelector]",
+    standalone: false
 })
 export class SmzCardsContentSelectorDirective implements AfterViewInit, OnChanges {
 

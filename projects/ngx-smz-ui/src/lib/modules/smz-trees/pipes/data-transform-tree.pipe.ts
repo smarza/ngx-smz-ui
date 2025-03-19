@@ -4,7 +4,8 @@ import { SmzTreeSourceTransform } from '../models/tree-state';
 import { TreeHelperService } from '../services/tree-helper.service';
 
 @Pipe({
-  name: 'dataTransformTree'
+    name: 'dataTransformTree',
+    standalone: false
 })
 
 export class SmzDataTransformTreePipe implements PipeTransform {

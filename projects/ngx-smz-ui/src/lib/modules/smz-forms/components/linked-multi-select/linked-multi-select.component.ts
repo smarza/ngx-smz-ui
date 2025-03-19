@@ -7,6 +7,7 @@ import { SmzFormsDropdownService } from '../../services/smz-forms-dropdown.servi
 @Component({
     selector: 'smz-linked-multi-select',
     templateUrl: './linked-multi-select.component.html',
+    standalone: false
 })
 export class LinkedMultiSelectComponent implements OnInit
 {

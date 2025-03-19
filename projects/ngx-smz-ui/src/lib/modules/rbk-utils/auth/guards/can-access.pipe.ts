@@ -3,7 +3,8 @@ import { Store } from '@ngxs/store';
 import { GlobalInjector } from '../../../../common/services/global-injector';
 
 @Pipe({
-    name: 'rbkCanAccess'
+    name: 'rbkCanAccess',
+    standalone: false
 })
 
 @Injectable()

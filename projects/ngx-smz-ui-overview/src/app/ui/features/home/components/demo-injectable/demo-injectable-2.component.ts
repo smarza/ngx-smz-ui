@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-demo-injectable-2',
-  template: `
+    selector: 'app-demo-injectable-2',
+    template: `
   <div class="border-2 border-solid border-slate-700 bg-blue-300 grid grid-nogutter items-center justify-center text-lg font-bold h-full">app-demo-injectable-2<div>
   `,
-  changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.Default,
+    standalone: false
 })
 
 export class DemoInjectable2Component {

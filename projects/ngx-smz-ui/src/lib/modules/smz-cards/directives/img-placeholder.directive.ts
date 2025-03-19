@@ -3,10 +3,11 @@ import { Directive, HostBinding, Input } from '@angular/core';
 @Directive({
     selector: '[imgPlaceholder]',
     host: {
-        '(error)':'updateUrl()',
+        '(error)': 'updateUrl()',
         '(load)': 'load()',
-        '[src]':'src'
-       }
+        '[src]': 'src'
+    },
+    standalone: false
 })
 export class ImgPlaceholderDirective {
     @Input() public placeholder: string = 'assets/images/placeholder.jpeg';

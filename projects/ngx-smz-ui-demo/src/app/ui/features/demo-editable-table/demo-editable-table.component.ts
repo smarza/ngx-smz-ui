@@ -10,9 +10,10 @@ import { CountriesDbSelectors } from '@states/database/countries/countries.selec
 
 
 @Component({
-  selector: 'demo-editable-table',
-  templateUrl: 'demo-editable-table.component.html',
-  providers: [DemoTableDataService]
+    selector: 'demo-editable-table',
+    templateUrl: 'demo-editable-table.component.html',
+    providers: [DemoTableDataService],
+    standalone: false
 })
 
 export class DemoEditableTableComponent implements OnInit {

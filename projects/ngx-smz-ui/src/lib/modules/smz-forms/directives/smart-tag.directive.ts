@@ -25,7 +25,8 @@ export interface SmzSmartTagData {
 
 @Directive({
     selector: '[smzSmartTag]',
-    host: {}
+    host: {},
+    standalone: false
 })
 export class SmzSmartTag implements OnInit, AfterViewInit, OnDestroy {
 

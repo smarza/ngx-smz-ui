@@ -4,7 +4,8 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 @Pipe({
-    name: 'urlChecker'
+    name: 'urlChecker',
+    standalone: false
 })
 
 @Injectable()
