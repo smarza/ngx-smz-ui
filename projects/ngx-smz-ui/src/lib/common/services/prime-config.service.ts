@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FilterMatchMode, FilterService, PrimeNGConfig } from 'primeng/api';
+import { FilterMatchMode, FilterService } from 'primeng/api';
 import { SimpleNamedEntity } from '../models/simple-named-entity';
 import { GlobalInjector } from './global-injector';
 import moment from 'moment';
@@ -10,7 +10,7 @@ import moment from 'moment';
 })
 export class PrimeConfigService {
 
-  constructor(private filterUtils: FilterService, private config: PrimeNGConfig) { }
+  constructor(private filterUtils: FilterService) { }
   public init(): void {
     this.filters();
     this.setFilterMatchModeOptions();
@@ -106,35 +106,36 @@ export class PrimeConfigService {
   }
 
   private setFilterMatchModeOptions(): void {
-    this.config.filterMatchModeOptions = {
-      text: [
-        FilterMatchMode.CONTAINS,
-        FilterMatchMode.STARTS_WITH,
-        FilterMatchMode.NOT_CONTAINS,
-        FilterMatchMode.ENDS_WITH,
-        FilterMatchMode.EQUALS,
-        FilterMatchMode.NOT_EQUALS
-      ],
-      numeric: [
-        FilterMatchMode.EQUALS,
-        FilterMatchMode.NOT_EQUALS,
-        FilterMatchMode.LESS_THAN,
-        FilterMatchMode.LESS_THAN_OR_EQUAL_TO,
-        FilterMatchMode.GREATER_THAN,
-        FilterMatchMode.GREATER_THAN_OR_EQUAL_TO
-      ],
-      date: [
-        FilterMatchMode.DATE_IS,
-        FilterMatchMode.DATE_IS_NOT,
-        FilterMatchMode.DATE_BEFORE,
-        FilterMatchMode.DATE_AFTER
-      ]
-    };
+    // TODO: FIXME
+    // this.config.filterMatchModeOptions = {
+    //   text: [
+    //     FilterMatchMode.CONTAINS,
+    //     FilterMatchMode.STARTS_WITH,
+    //     FilterMatchMode.NOT_CONTAINS,
+    //     FilterMatchMode.ENDS_WITH,
+    //     FilterMatchMode.EQUALS,
+    //     FilterMatchMode.NOT_EQUALS
+    //   ],
+    //   numeric: [
+    //     FilterMatchMode.EQUALS,
+    //     FilterMatchMode.NOT_EQUALS,
+    //     FilterMatchMode.LESS_THAN,
+    //     FilterMatchMode.LESS_THAN_OR_EQUAL_TO,
+    //     FilterMatchMode.GREATER_THAN,
+    //     FilterMatchMode.GREATER_THAN_OR_EQUAL_TO
+    //   ],
+    //   date: [
+    //     FilterMatchMode.DATE_IS,
+    //     FilterMatchMode.DATE_IS_NOT,
+    //     FilterMatchMode.DATE_BEFORE,
+    //     FilterMatchMode.DATE_AFTER
+    //   ]
+    // };
   }
 
   private setTranslation(): void {
-
-    this.config.setTranslation(GlobalInjector.config.locale.translation);
+    // TODO: FIXME
+    // this.config.setTranslation(GlobalInjector.config.locale.translation);
   }
 
 }

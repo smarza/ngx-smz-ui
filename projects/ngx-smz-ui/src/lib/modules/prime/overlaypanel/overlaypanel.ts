@@ -1,7 +1,7 @@
 import {NgModule,Component,Input,Output,OnDestroy,EventEmitter,Renderer2,ElementRef,ChangeDetectorRef,NgZone,
         ContentChildren,TemplateRef,AfterContentInit,QueryList,ChangeDetectionStrategy, ViewEncapsulation, ViewRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {SharedModule,PrimeTemplate, PrimeNGConfig, OverlayService} from 'primeng/api';
+import {SharedModule,PrimeTemplate, OverlayService} from 'primeng/api';
 import {RippleModule} from 'primeng/ripple';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {ZIndexUtils} from 'primeng/utils';
@@ -106,7 +106,7 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
 
     overlaySubscription: Subscription;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, private zone: NgZone, public config: PrimeNGConfig, public overlayService: OverlayService) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, private zone: NgZone, public overlayService: OverlayService) {}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -210,9 +210,11 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
     }
 
     align() {
-        if (this.autoZIndex) {
-            ZIndexUtils.set('overlay', this.container, this.baseZIndex + this.config.zIndex.overlay);
-        }
+        // TODO: FIXME
+        // PrimeNGConfig
+        // if (this.autoZIndex) {
+        //     ZIndexUtils.set('overlay', this.container, this.baseZIndex + this.config.zIndex.overlay);
+        // }
 
         if (this.mousePosition) {
             this.cursorPosition(this.container, this.mouseEvent);

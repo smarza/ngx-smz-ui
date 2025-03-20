@@ -1,6 +1,5 @@
 import {NgModule,Component,Input,Output,OnInit,AfterViewInit,AfterContentInit,OnDestroy,ElementRef,ViewChild,EventEmitter,ContentChildren,QueryList,TemplateRef,ChangeDetectionStrategy, NgZone, ChangeDetectorRef, ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {Message, PrimeNGConfig} from 'primeng/api';
 import {PrimeTemplate,SharedModule} from 'primeng/api';
 import {MessageService} from 'primeng/api';
 import {ObjectUtils, UniqueComponentId} from 'primeng/utils';
@@ -10,6 +9,7 @@ import {trigger,state,style,transition,animate,query,animateChild,AnimationEvent
 import { ZIndexUtils } from 'primeng/utils';
 import {ProgressBarModule} from 'primeng/progressbar';
 import { cloneDeep } from 'lodash-es';
+import { Message } from 'primeng/message';
 
 @Component({
     selector: 'p-toastItem',
@@ -102,30 +102,31 @@ export class ToastItem implements AfterViewInit, OnDestroy {
     }
 
     initTimeout() {
-        if (!this.message.sticky) {
+        // TODO: FIXME
+        // if (!this.message.sticky) {
 
-            this.zone.runOutsideAngular(() => {
-                this.timeout = setTimeout(() => {
-                }, this.timeoutValue);
-            });
+        //     this.zone.runOutsideAngular(() => {
+        //         this.timeout = setTimeout(() => {
+        //         }, this.timeoutValue);
+        //     });
 
-            this.cdr.markForCheck();
+        //     this.cdr.markForCheck();
 
-            this.progressTimer = setInterval(() => {
-                this.progress = this.progress + this.add;
-                this.cdr.markForCheck();
-                if (this.progress >= 100) {
-                    this.progress = 100;
-                    clearInterval(this.progressTimer);
-                    this.cdr.markForCheck();
+        //     this.progressTimer = setInterval(() => {
+        //         this.progress = this.progress + this.add;
+        //         this.cdr.markForCheck();
+        //         if (this.progress >= 100) {
+        //             this.progress = 100;
+        //             clearInterval(this.progressTimer);
+        //             this.cdr.markForCheck();
 
-                    this.onClose.emit({
-                        index: this.index,
-                        message: this.message
-                    });
-                }
-            }, this.tick);
-        }
+        //             this.onClose.emit({
+        //                 index: this.index,
+        //                 message: this.message
+        //             });
+        //         }
+        //     }, this.tick);
+        // }
     }
 
     clearTimeout() {
@@ -231,7 +232,7 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
 
     template: TemplateRef<any>;
 
-    constructor(public messageService: MessageService, private cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
+    constructor(public messageService: MessageService, private cd: ChangeDetectorRef) {}
 
     styleElement: any;
 
@@ -329,12 +330,13 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
     }
 
     onAnimationStart(event: AnimationEvent) {
-        if (event.fromState === 'void') {
-            this.containerViewChild.nativeElement.setAttribute(this.id, '');
-            if (this.autoZIndex && this.containerViewChild.nativeElement.style.zIndex === '') {
-                ZIndexUtils.set('modal', this.containerViewChild.nativeElement, this.baseZIndex || this.config.zIndex.modal);
-            }
-        }
+        // TODO: FIXME
+        // if (event.fromState === 'void') {
+        //     this.containerViewChild.nativeElement.setAttribute(this.id, '');
+        //     if (this.autoZIndex && this.containerViewChild.nativeElement.style.zIndex === '') {
+        //         ZIndexUtils.set('modal', this.containerViewChild.nativeElement, this.baseZIndex || this.config.zIndex.modal);
+        //     }
+        // }
     }
 
     onAnimationEnd(event: AnimationEvent) {

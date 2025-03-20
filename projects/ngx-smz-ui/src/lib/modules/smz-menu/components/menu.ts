@@ -24,7 +24,7 @@ import {
 } from "@angular/animations";
 import { CommonModule } from "@angular/common";
 import { DomHandler, ConnectedOverlayScrollHandler } from "primeng/dom";
-import { MenuItem, OverlayService, PrimeNGConfig } from "primeng/api";
+import { MenuItem, OverlayService } from "primeng/api";
 import { ZIndexUtils } from "primeng/utils";
 import { RouterModule } from "@angular/router";
 import { RippleModule } from "primeng/ripple";
@@ -177,7 +177,8 @@ export class Menu implements OnDestroy {
     public el: ElementRef,
     public renderer: Renderer2,
     private cd: ChangeDetectorRef,
-    public config: PrimeNGConfig,
+    // TODO: FIXME
+    // public config: PrimeNGConfig,
     public overlayService: OverlayService
   ) {}
 
@@ -249,13 +250,14 @@ export class Menu implements OnDestroy {
   }
 
   moveOnTop() {
-    if (this.autoZIndex) {
-      ZIndexUtils.set(
-        "menu",
-        this.container,
-        this.baseZIndex + this.config.zIndex.menu
-      );
-    }
+    // TODO: FIXME
+    // if (this.autoZIndex) {
+    //   ZIndexUtils.set(
+    //     "menu",
+    //     this.container,
+    //     this.baseZIndex + this.config.zIndex.menu
+    //   );
+    // }
   }
 
   hide() {

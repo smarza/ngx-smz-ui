@@ -1,60 +1,61 @@
-/* Add your variable customizations of layout here */
-/* source-sans-pro-300 - latin-ext_latin */
-@font-face {
-  font-family: "Source Sans Pro";
-  font-style: normal;
-  font-weight: 300;
-  src: url("./styles/layout/fonts/source-sans-pro-v11-latin-ext_latin-300.eot");
-  /* IE9 Compat Modes */
-  src: local("Source Sans Pro Light"), local("SourceSansPro-Light"),
-    url("./styles/layout/fonts/source-sans-pro-v11-latin-ext_latin-300.eot#iefix") format("embedded-opentype"),
-    url("./styles/layout/fonts/source-sans-pro-v11-latin-ext_latin-300.woff2") format("woff2"),
-    url("./styles/layout/fonts/source-sans-pro-v11-latin-ext_latin-300.woff") format("woff"),
-    url("./styles/layout/fonts/source-sans-pro-v11-latin-ext_latin-300.ttf") format("truetype");
-  /* Legacy iOS */
-}
-/* source-sans-pro-regular - latin-ext_latin */
-@font-face {
-  font-family: "Source Sans Pro";
-  font-style: normal;
-  font-weight: 400;
-  src: url("./styles/layout/fonts/source-sans-pro-v11-latin-ext_latin-regular.eot");
-  /* IE9 Compat Modes */
-  src: local("Source Sans Pro Regular"), local("SourceSansPro-Regular"),
-    url("./styles/layout/fonts/source-sans-pro-v11-latin-ext_latin-regular.eot#iefix") format("embedded-opentype"),
-    url("./styles/layout/fonts/source-sans-pro-v11-latin-ext_latin-regular.woff2") format("woff2"),
-    url("./styles/layout/fonts/source-sans-pro-v11-latin-ext_latin-regular.woff") format("woff"),
-    url("./styles/layout/fonts/source-sans-pro-v11-latin-ext_latin-regular.ttf") format("truetype");
-  /* Legacy iOS */
-}
-/* source-sans-pro-italic - latin-ext_latin */
-@font-face {
-  font-family: "Source Sans Pro";
-  font-style: italic;
-  font-weight: 400;
-  src: url("./styles/layout/fonts/source-sans-pro-v11-latin-ext_latin-italic.eot");
-  /* IE9 Compat Modes */
-  src: local("Source Sans Pro Italic"), local("SourceSansPro-Italic"),
-    url("./styles/layout/fonts/source-sans-pro-v11-latin-ext_latin-italic.eot#iefix") format("embedded-opentype"),
-    url("./styles/layout/fonts/source-sans-pro-v11-latin-ext_latin-italic.woff2") format("woff2"),
-    url("./styles/layout/fonts/source-sans-pro-v11-latin-ext_latin-italic.woff") format("woff"),
-    url("./styles/layout/fonts/source-sans-pro-v11-latin-ext_latin-italic.ttf") format("truetype");
-  /* Legacy iOS */
-}
-/* source-sans-pro-700 - latin-ext_latin */
-@font-face {
-  font-family: "Source Sans Pro";
-  font-style: normal;
-  font-weight: 700;
-  src: url("./styles/layout/fonts/source-sans-pro-v11-latin-ext_latin-700.eot");
-  /* IE9 Compat Modes */
-  src: local("Source Sans Pro Bold"), local("SourceSansPro-Bold"),
-    url("./styles/layout/fonts/source-sans-pro-v11-latin-ext_latin-700.eot#iefix") format("embedded-opentype"),
-    url("./styles/layout/fonts/source-sans-pro-v11-latin-ext_latin-700.woff2") format("woff2"),
-    url("./styles/layout/fonts/source-sans-pro-v11-latin-ext_latin-700.woff") format("woff"),
-    url("./styles/layout/fonts/source-sans-pro-v11-latin-ext_latin-700.ttf") format("truetype");
-  /* Legacy iOS */
-}
+// TODO: FIXME
+// /* Add your variable customizations of layout here */
+// /* source-sans-pro-300 - latin-ext_latin */
+// @font-face {
+//   font-family: "Source Sans Pro";
+//   font-style: normal;
+//   font-weight: 300;
+//   src: url("./styles/layout/fonts/source-sans-pro-v11-latin-ext_latin-300.eot");
+//   /* IE9 Compat Modes */
+//   src: local("Source Sans Pro Light"), local("SourceSansPro-Light"),
+//     url("./styles/layout/fonts/source-sans-pro-v11-latin-ext_latin-300.eot#iefix") format("embedded-opentype"),
+//     url("./styles/layout/fonts/source-sans-pro-v11-latin-ext_latin-300.woff2") format("woff2"),
+//     url("./styles/layout/fonts/source-sans-pro-v11-latin-ext_latin-300.woff") format("woff"),
+//     url("./styles/layout/fonts/source-sans-pro-v11-latin-ext_latin-300.ttf") format("truetype");
+//   /* Legacy iOS */
+// }
+// /* source-sans-pro-regular - latin-ext_latin */
+// @font-face {
+//   font-family: "Source Sans Pro";
+//   font-style: normal;
+//   font-weight: 400;
+//   src: url("./styles/layout/fonts/source-sans-pro-v11-latin-ext_latin-regular.eot");
+//   /* IE9 Compat Modes */
+//   src: local("Source Sans Pro Regular"), local("SourceSansPro-Regular"),
+//     url("./styles/layout/fonts/source-sans-pro-v11-latin-ext_latin-regular.eot#iefix") format("embedded-opentype"),
+//     url("./styles/layout/fonts/source-sans-pro-v11-latin-ext_latin-regular.woff2") format("woff2"),
+//     url("./styles/layout/fonts/source-sans-pro-v11-latin-ext_latin-regular.woff") format("woff"),
+//     url("./styles/layout/fonts/source-sans-pro-v11-latin-ext_latin-regular.ttf") format("truetype");
+//   /* Legacy iOS */
+// }
+// /* source-sans-pro-italic - latin-ext_latin */
+// @font-face {
+//   font-family: "Source Sans Pro";
+//   font-style: italic;
+//   font-weight: 400;
+//   src: url("./styles/layout/fonts/source-sans-pro-v11-latin-ext_latin-italic.eot");
+//   /* IE9 Compat Modes */
+//   src: local("Source Sans Pro Italic"), local("SourceSansPro-Italic"),
+//     url("./styles/layout/fonts/source-sans-pro-v11-latin-ext_latin-italic.eot#iefix") format("embedded-opentype"),
+//     url("./styles/layout/fonts/source-sans-pro-v11-latin-ext_latin-italic.woff2") format("woff2"),
+//     url("./styles/layout/fonts/source-sans-pro-v11-latin-ext_latin-italic.woff") format("woff"),
+//     url("./styles/layout/fonts/source-sans-pro-v11-latin-ext_latin-italic.ttf") format("truetype");
+//   /* Legacy iOS */
+// }
+// /* source-sans-pro-700 - latin-ext_latin */
+// @font-face {
+//   font-family: "Source Sans Pro";
+//   font-style: normal;
+//   font-weight: 700;
+//   src: url("./styles/layout/fonts/source-sans-pro-v11-latin-ext_latin-700.eot");
+//   /* IE9 Compat Modes */
+//   src: local("Source Sans Pro Bold"), local("SourceSansPro-Bold"),
+//     url("./styles/layout/fonts/source-sans-pro-v11-latin-ext_latin-700.eot#iefix") format("embedded-opentype"),
+//     url("./styles/layout/fonts/source-sans-pro-v11-latin-ext_latin-700.woff2") format("woff2"),
+//     url("./styles/layout/fonts/source-sans-pro-v11-latin-ext_latin-700.woff") format("woff"),
+//     url("./styles/layout/fonts/source-sans-pro-v11-latin-ext_latin-700.ttf") format("truetype");
+//   /* Legacy iOS */
+// }
 .loader {
   min-height: 100%;
 }

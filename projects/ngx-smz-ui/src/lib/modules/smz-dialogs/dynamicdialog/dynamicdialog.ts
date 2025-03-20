@@ -7,7 +7,6 @@ import { DomHandler } from 'primeng/dom';
 import { ZIndexUtils } from 'primeng/utils';
 import { DynamicDialogRef } from './dynamicdialog-ref';
 import { SmzDynamicDialogConfig } from '../models/smz-dialogs';
-import { PrimeNGConfig } from 'primeng/api';
 import { SmzDockService } from '../../smz-dock/services/smz-dock.service';
 import { TooltipModule } from 'primeng/tooltip';
 import { DialogOverlayPanel } from './dialog-overlay-panel';
@@ -32,7 +31,8 @@ const hideAnimation = animation([
         <div #overlayPanelClip id="overlay-clip" *ngIf="dialogConfig.data.behaviors.showAsLinkedOverlayPanel" class="fixed inset-0 p-component-overlay p-component-overlay-enter" [ngClass]="dialogConfig.data.overlayPanel?.overlayPanelStylesClass"></div>
         <div #highlightPanel id="highlight-clip" *ngIf="dialogConfig.data.behaviors.showAsLinkedOverlayPanel" class="fixed inset-0" [ngClass]="dialogConfig.data.overlayPanel?.hightlightStyleClass"></div>
         <div #mask id="dialog-mask" [ngClass]="{'p-dialog-mask-free': dialogConfig.data.behaviors.showAsLinkedOverlayPanel, 'p-component-overlay p-component-overlay-enter' : config.modal !== false && !dialogConfig.data.behaviors.showAsLinkedOverlayPanel, 'p-dialog-mask-scrollblocker': config.modal !== false, 'smz-dialog-minimized': minimized }" class="smz_form_grid_container p-dialog-mask">
-            <div #dialogContainer id="dialog-container" pAutoFocus [autofocus]="config.autoFocus" [ngClass]="{'p-dialog p-dynamic-dialog p-component': true, 'p-dialog-rtl': config.rtl, 'p-dialog-maximized': maximized}" [ngStyle]="config.style" [class]="config.styleClass"
+            <!-- TODO: FIXME | pAutoFocus was removed -->
+            <div #dialogContainer id="dialog-container"  [autofocus]="config.autoFocus" [ngClass]="{'p-dialog p-dynamic-dialog p-component': true, 'p-dialog-rtl': config.rtl, 'p-dialog-maximized': maximized}" [ngStyle]="config.style" [class]="config.styleClass"
                 [@animation]="{value: 'visible', params: {transform: transformOptions, transition: config.transitionOptions || '150ms cubic-bezier(0, 0, 0.2, 1)'}}"
                 (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" role="dialog" *ngIf="visible"
                 [style.width]="config.width" [style.height]="config.height">
@@ -141,8 +141,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnInit, OnDestroy
     private overlayPanel: DialogOverlayPanel;
 
     constructor(private cd: ChangeDetectorRef, public renderer: Renderer2,
-        public config: DynamicDialogConfig, private dialogRef: DynamicDialogRef, public zone: NgZone, public dialogConfig: SmzDynamicDialogConfig, public primeNGConfig: PrimeNGConfig,
-        public dockService: SmzDockService) { }
+        public config: DynamicDialogConfig, private dialogRef: DynamicDialogRef, public zone: NgZone, public dialogConfig: SmzDynamicDialogConfig, public dockService: SmzDockService) { }
 
     ngOnInit()
     {
@@ -205,22 +204,22 @@ export class DynamicDialogComponent implements AfterViewInit, OnInit, OnDestroy
 
     moveOnTop()
     {
+        // TODO: FIXME
+        // if (this.config.autoZIndex !== false) {
+        //     ZIndexUtils.set('modal', this.container, (this.config.baseZIndex||0) + this.primeNGConfig.zIndex.modal);
+        //     this.wrapper.style.zIndex = String(parseInt(this.container.style.zIndex, 10) - 1);
 
-        if (this.config.autoZIndex !== false) {
-            ZIndexUtils.set('modal', this.container, (this.config.baseZIndex||0) + this.primeNGConfig.zIndex.modal);
-            this.wrapper.style.zIndex = String(parseInt(this.container.style.zIndex, 10) - 1);
+        //     if (GlobalInjector.config.debugMode) {
+        //         console.groupCollapsed('DynamicDialogComponent => moveOnTop()');
 
-            if (GlobalInjector.config.debugMode) {
-                console.groupCollapsed('DynamicDialogComponent => moveOnTop()');
+        //         console.log('config.baseZIndex', this.config.baseZIndex);
+        //         console.log('DomHandler.zindex', DomHandler.zindex);
+        //         console.log('primeNGConfig', this.primeNGConfig);
+        //         console.log('wrapper.style.zIndex', this.wrapper.style.zIndex);
 
-                console.log('config.baseZIndex', this.config.baseZIndex);
-                console.log('DomHandler.zindex', DomHandler.zindex);
-                console.log('primeNGConfig', this.primeNGConfig);
-                console.log('wrapper.style.zIndex', this.wrapper.style.zIndex);
-
-                console.groupEnd();
-            }
-		}
+        //         console.groupEnd();
+        //     }
+		// }
     }
 
     onAnimationStart(event: AnimationEvent)
