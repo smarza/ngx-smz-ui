@@ -1,0 +1,66 @@
+import { Component, HostBinding, Input, OnInit, ChangeDetectionStrategy, TemplateRef, ContentChildren, QueryList, AfterContentInit, forwardRef, inject } from '@angular/core';
+import { Store } from '@ngxs/store';
+import { LayoutUiSelectors } from '../../../../state/ui/layout/layout.selectors';
+import { SmzLoginData } from '../../core/models/login';
+import { SmzFormsResponse } from '../../../smz-forms/models/smz-forms';
+import { SmzLoginState } from './login-state';
+import { SmzLoginBuilder } from '../../../../builders/smz-login/state-builder';
+import { PrimeTemplate } from 'primeng/api';
+
+@Component({
+    selector: 'smz-ui-login',
+    templateUrl: './login.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
+})
+export class SmzLoginComponent implements OnInit, AfterContentInit {
+  @ContentChildren(forwardRef(() => PrimeTemplate)) templates: QueryList<PrimeTemplate>;
+  public appLogo$ = inject(Store).select(LayoutUiSelectors.appContentLogo);
+  @Input() public state: SmzLoginState<any, any> = this.buildState();
+  public baseClass = 'fixed inset-0';
+  public extraTemplate: TemplateRef<any>;
+
+  constructor(private store: Store) { }
+
+  @HostBinding('class') get colorClass() { return `${this.state.styleClass.background} ${this.baseClass}`; };
+
+  public buildState(): SmzLoginState<unknown, unknown> {
+    return new SmzLoginBuilder()
+      .setPayloadCallback(
+        (response: any) => (
+          {
+            username: response.username,
+            password: response.password,
+          }))
+      .build();
+  }
+
+  public ngOnInit(): void {
+    const isAuthenticated = this.store.selectSnapshot(this.state.isAuthenticatedSelector);
+
+    if (isAuthenticated) this.store.dispatch(new this.state.actions.logout(this.state.logoutRedirection));
+  }
+
+
+  public ngAfterContentInit() {
+    this.templates.forEach((item) => {
+      switch (item.getType()) {
+
+        case 'extra':
+          this.extraTemplate = item.template;
+          break;
+      }
+    });
+  }
+
+  public login(form: SmzFormsResponse<SmzLoginData>): void {
+    const payload = this.state.callbacks.payload(form.data);
+
+    this.state.callbacks.submit(form.data);
+
+    if (this.state.actions.login != null) {
+      this.store.dispatch(new this.state.actions.login(payload));
+    }
+  }
+
+}

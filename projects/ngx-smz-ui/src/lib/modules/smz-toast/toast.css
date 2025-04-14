@@ -1,0 +1,101 @@
+.p-toast {
+    position: fixed;
+    width: 25rem;
+}
+
+.p-toast .p-progressbar {
+    height: 5px;
+}
+
+.p-toast .p-progressbar-determinate .p-progressbar-value-animate {
+    transition: width 150ms ease-in-out !important;
+}
+
+.p-toast .p-toast-message .p-toast-message-content {
+    padding: 10px 10px 20px 10px !important;
+    border-width: 0 !important;
+}
+
+.p-progressbar .p-progressbar-value {
+    background: var(--color-success) !important;
+}
+
+.toast-progress-warn .p-progressbar .p-progressbar-value {
+    background: var(--color-warning) !important;
+}
+
+.toast-progress-error .p-progressbar .p-progressbar-value {
+    background: var(--color-danger) !important;
+}
+
+.toast-progress-info .p-progressbar .p-progressbar-value {
+    background: var(--color-info) !important;
+}
+
+.toast-progress-success .p-progressbar .p-progressbar-value {
+    background: var(--color-success) !important;
+}
+
+.p-toast-message {
+    overflow: hidden;
+}
+
+.p-toast-message-content {
+    display: flex;
+    align-items: flex-start;
+}
+
+.p-toast-message-text {
+    flex: 1 1 auto;
+}
+
+.p-toast-top-right {
+	top: 20px;
+	right: 20px;
+}
+
+.p-toast-top-left {
+	top: 20px;
+	left: 20px;
+}
+
+.p-toast-bottom-left {
+	bottom: 20px;
+	left: 20px;
+}
+
+.p-toast-bottom-right {
+	bottom: 20px;
+	right: 20px;
+}
+
+.p-toast-top-center {
+	top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.p-toast-bottom-center {
+	bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.p-toast-center {
+	left: 50%;
+	top: 50%;
+    min-width: 20vw;
+    transform: translate(-50%, -50%);
+}
+
+.p-toast-icon-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.p-toast-icon-close.p-link {
+	cursor: pointer;
+}

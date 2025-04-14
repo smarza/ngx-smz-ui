@@ -1,0 +1,18 @@
+@use "primeicons/primeicons.css";
+@plugin 'tailwindcss-primeui';
+@layer tailwind, primeng;
+
+@layer tailwind {
+  @import "tailwindcss";
+}
+
+// @import "tailwindcss";
+// @import "tailwindcss-primeui";
+// @import "primeicons/primeicons.css";
+
+.page-overlap-demo {
+  left: -50px;
+  right: -50px;
+  top: 0px;
+  bottom: 0px;
+}

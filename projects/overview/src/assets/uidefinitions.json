@@ -1,0 +1,533 @@
+{
+    "attachment": {
+        "create": [
+            {
+                "controls": [
+                    {
+                        "controlType": {
+                            "name": "Text",
+                            "id": "12"
+                        },
+                        "propertyName": "name",
+                        "name": "Nome",
+                        "required": true,
+                        "minLength": 3,
+                        "maxLength": 1024
+                    },
+                    {
+                        "controlType": {
+                            "name": "File",
+                            "id": "6"
+                        },
+                        "propertyName": "attachment",
+                        "name": "Arquivo",
+                        "required": true,
+                        "minLength": 1,
+                        "maxLength": 255
+                    }
+                ]
+            }
+        ],
+        "update": []
+    },
+    "application": {
+        "create": [
+            {
+                "controls": [
+                    {
+                        "controlType": {
+                            "name": "Text",
+                            "id": "12"
+                        },
+                        "propertyName": "name",
+                        "name": "Nome",
+                        "required": true,
+                        "minLength": 3,
+                        "maxLength": 64
+                    },
+                    {
+                        "controlType": {
+                            "name": "TextArea",
+                            "id": "13"
+                        },
+                        "propertyName": "url",
+                        "name": "Url",
+                        "textAreaRows": 5,
+                        "required": true,
+                        "minLength": 3,
+                        "maxLength": 1024
+                    },
+                    {
+                        "controlType": {
+                            "name": "Text",
+                            "id": "12"
+                        },
+                        "propertyName": "description",
+                        "name": "Descri\u00E7\u00E3o",
+                        "required": true
+                    },
+                    {
+                        "controlType": {
+                            "name": "CheckBox",
+                            "id": "1"
+                        },
+                        "propertyName": "isProteus",
+                        "name": "Aplicativo Proteus?",
+                        "required": true
+                    },
+                    {
+                        "controlType": {
+                            "name": "Number",
+                            "id": "8"
+                        },
+                        "propertyName": "order",
+                        "name": "Ordem",
+                        "required": true
+                    }
+                ]
+            }
+        ],
+        "update": [
+            {
+                "controls": [
+                    {
+                        "controlType": {
+                            "name": "Text",
+                            "id": "12"
+                        },
+                        "propertyName": "id",
+                        "name": "Id",
+                        "isVisible": false,
+                        "required": true
+                    }
+                ]
+            },
+            {
+                "controls": [
+                    {
+                        "controlType": {
+                            "name": "Text",
+                            "id": "12"
+                        },
+                        "propertyName": "name",
+                        "name": "Nome",
+                        "required": true,
+                        "minLength": 3,
+                        "maxLength": 64
+                    },
+                    {
+                        "controlType": {
+                            "name": "TextArea",
+                            "id": "13"
+                        },
+                        "propertyName": "url",
+                        "name": "Url",
+                        "textAreaRows": 5,
+                        "required": true,
+                        "minLength": 3,
+                        "maxLength": 1024
+                    },
+                    {
+                        "controlType": {
+                            "name": "Text",
+                            "id": "12"
+                        },
+                        "propertyName": "description",
+                        "name": "Descri\u00E7\u00E3o",
+                        "required": true
+                    },
+                    {
+                        "controlType": {
+                            "name": "CheckBox",
+                            "id": "1"
+                        },
+                        "propertyName": "isProteus",
+                        "name": "Aplicativo Proteus?",
+                        "required": true
+                    },
+                    {
+                        "controlType": {
+                            "name": "Number",
+                            "id": "8"
+                        },
+                        "propertyName": "order",
+                        "name": "Ordem",
+                        "required": true
+                    }
+                ]
+            }
+        ]
+    },
+    "consolidationTask": {
+        "create": [
+            {
+                "controls": [
+                    {
+                        "controlType": {
+                            "name": "DropDown",
+                            "id": "5"
+                        },
+                        "dataSource": {
+                            "name": "Store",
+                            "id": "1"
+                        },
+                        "sourceName": "plants",
+                        "propertyName": "plant",
+                        "name": "Plataforma",
+                        "showFilter": true,
+                        "required": true
+                    },
+                    {
+                        "controlType": {
+                            "name": "Text",
+                            "id": "12"
+                        },
+                        "propertyName": "name",
+                        "name": "Nome",
+                        "required": true,
+                        "minLength": 3,
+                        "maxLength": 64
+                    }
+                ]
+            }
+        ],
+        "update": [
+            {
+                "controls": [
+                    {
+                        "controlType": {
+                            "name": "Text",
+                            "id": "12"
+                        },
+                        "propertyName": "id",
+                        "name": "Id",
+                        "isVisible": false,
+                        "required": true
+                    }
+                ]
+            },
+            {
+                "controls": [
+                    {
+                        "controlType": {
+                            "name": "Text",
+                            "id": "12"
+                        },
+                        "propertyName": "name",
+                        "name": "Nome",
+                        "required": true,
+                        "minLength": 3,
+                        "maxLength": 64
+                    }
+                ]
+            }
+        ]
+    },
+    "project": {
+        "create": [
+            {
+                "controls": [
+                    {
+                        "controlType": {
+                            "name": "Text",
+                            "id": "12"
+                        },
+                        "propertyName": "name",
+                        "name": "Nome",
+                        "required": true,
+                        "minLength": 3,
+                        "maxLength": 64
+                    },
+                    {
+                        "controlType": {
+                            "name": "Text",
+                            "id": "12"
+                        },
+                        "propertyName": "path",
+                        "name": "Diret\u00F3rio",
+                        "required": true,
+                        "minLength": 3,
+                        "maxLength": 256
+                    }
+                ]
+            }
+        ],
+        "update": [
+            {
+                "controls": [
+                    {
+                        "controlType": {
+                            "name": "Text",
+                            "id": "12"
+                        },
+                        "propertyName": "id",
+                        "name": "Id",
+                        "isVisible": false,
+                        "required": true
+                    }
+                ]
+            },
+            {
+                "controls": [
+                    {
+                        "controlType": {
+                            "name": "Text",
+                            "id": "12"
+                        },
+                        "propertyName": "name",
+                        "name": "Nome",
+                        "required": true,
+                        "minLength": 3,
+                        "maxLength": 64
+                    },
+                    {
+                        "controlType": {
+                            "name": "Text",
+                            "id": "12"
+                        },
+                        "propertyName": "path",
+                        "name": "Diret\u00F3rio",
+                        "required": true,
+                        "minLength": 3,
+                        "maxLength": 256
+                    }
+                ]
+            }
+        ]
+    },
+    "resource": {
+        "create": [],
+        "update": [
+            {
+                "controls": [
+                    {
+                        "controlType": {
+                            "name": "Text",
+                            "id": "12"
+                        },
+                        "propertyName": "id",
+                        "name": "Id",
+                        "isVisible": false,
+                        "required": true
+                    }
+                ]
+            },
+            {
+                "controls": [
+                    {
+                        "controlType": {
+                            "name": "Number",
+                            "id": "8"
+                        },
+                        "propertyName": "quantity",
+                        "name": "Quantidade",
+                        "required": true
+                    }
+                ]
+            }
+        ]
+    },
+    "model": {
+        "create": [
+            {
+                "controls": [
+                    {
+                        "controlType": {
+                            "name": "Text",
+                            "id": "12"
+                        },
+                        "propertyName": "name",
+                        "name": "Nome",
+                        "required": true,
+                        "minLength": 3,
+                        "maxLength": 255
+                    },
+                    {
+                        "controlType": {
+                            "name": "TextArea",
+                            "id": "13"
+                        },
+                        "propertyName": "description",
+                        "name": "Descri\u00E7\u00E3o",
+                        "textAreaRows": 5,
+                        "required": true,
+                        "minLength": 3,
+                        "maxLength": 4096
+                    },
+                    {
+                        "controlType": {
+                            "name": "Text",
+                            "id": "12"
+                        },
+                        "propertyName": "code",
+                        "name": "C\u00F3digo",
+                        "required": true,
+                        "minLength": 3,
+                        "maxLength": 64
+                    }
+                ]
+            }
+        ],
+        "update": []
+    },
+    "modelFolder": {
+        "create": [
+            {
+                "controls": [
+                    {
+                        "controlType": {
+                            "name": "Text",
+                            "id": "12"
+                        },
+                        "propertyName": "name",
+                        "name": "Nome",
+                        "required": true,
+                        "minLength": 3,
+                        "maxLength": 255
+                    }
+                ]
+            }
+        ],
+        "update": [
+            {
+                "controls": [
+                    {
+                        "controlType": {
+                            "name": "Text",
+                            "id": "12"
+                        },
+                        "propertyName": "id",
+                        "name": "Id",
+                        "isVisible": false,
+                        "required": true
+                    }
+                ]
+            },
+            {
+                "controls": [
+                    {
+                        "controlType": {
+                            "name": "Text",
+                            "id": "12"
+                        },
+                        "propertyName": "name",
+                        "name": "Nome",
+                        "required": true,
+                        "minLength": 3,
+                        "maxLength": 255
+                    }
+                ]
+            }
+        ]
+    },
+    "pointCloud": {
+        "create": [
+            {
+                "controls": [
+                    {
+                        "controlType": {
+                            "name": "Text",
+                            "id": "12"
+                        },
+                        "propertyName": "physicalPath",
+                        "name": "Caminho de Rede para Nuvem de Pontos",
+                        "required": false
+                    }
+                ]
+            }
+        ],
+        "update": [
+            {
+                "controls": [
+                    {
+                        "controlType": {
+                            "name": "Text",
+                            "id": "12"
+                        },
+                        "propertyName": "id",
+                        "name": "Id",
+                        "isVisible": false,
+                        "required": true
+                    }
+                ]
+            },
+            {
+                "controls": [
+                    {
+                        "controlType": {
+                            "name": "Text",
+                            "id": "12"
+                        },
+                        "propertyName": "physicalPath",
+                        "name": "Caminho de Rede para Nuvem de Pontos",
+                        "required": false
+                    }
+                ]
+            }
+        ]
+    },
+    "applicationOption": {
+        "create": [
+            {
+                "controls": [
+                    {
+                        "controlType": {
+                            "name": "Number",
+                            "id": "8"
+                        },
+                        "propertyName": "value",
+                        "name": "Valor",
+                        "required": false
+                    },
+                    {
+                        "controlType": {
+                            "name": "CheckBox",
+                            "id": "1"
+                        },
+                        "propertyName": "enabled",
+                        "name": "Habilitado",
+                        "required": false
+                    }
+                ]
+            }
+        ],
+        "update": [
+            {
+                "controls": [
+                    {
+                        "controlType": {
+                            "name": "Text",
+                            "id": "12"
+                        },
+                        "propertyName": "id",
+                        "name": "Id",
+                        "isVisible": false,
+                        "required": true
+                    }
+                ]
+            },
+            {
+                "controls": [
+                    {
+                        "controlType": {
+                            "name": "Number",
+                            "id": "8"
+                        },
+                        "propertyName": "value",
+                        "name": "Valor",
+                        "required": false
+                    },
+                    {
+                        "controlType": {
+                            "name": "CheckBox",
+                            "id": "1"
+                        },
+                        "propertyName": "enabled",
+                        "name": "Habilitado",
+                        "required": false
+                    }
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,39 @@
+:root {
+    --smz-dialog-padding: 1em;
+}
+
+smz-general-dialog {
+    p-toolbar .ui-toolbar {
+        background-color: unset;
+        border: unset;
+        padding: var(--smz-dialog-padding);
+    }
+
+    .smz-dialog-container {
+        position: absolute;
+        top: var(--smz-dialog-padding);
+        left: var(--smz-dialog-padding);
+        right: var(--smz-dialog-padding);
+        bottom: calc(var(--smz-dialog-padding) * 4);
+        overflow: scroll;
+    }
+
+
+    .smz-dialog-footer {
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        z-index: auto; /* was 2001 */
+    }
+
+    .smz_dialog_disabled {
+        user-select: none !important;
+        pointer-events: none !important;
+        filter: brightness(70%) !important;
+    }
+
+    .smz-group-right {
+        float: right;
+    }
+}

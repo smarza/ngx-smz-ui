@@ -1,0 +1,58 @@
+ <ng-container *ngIf="menu != null">
+    <ng-container *ngIf="layout$ | async as layout">
+        <ng-container *ngIf="appName$ | async as appName">
+            <ng-container *ngIf="(currentRoute$ | async) as route">
+
+                <div class="layout-menu-container">
+                    <div class="layout-menu-content">
+
+                        <ul id="menu-ul" class="layout-menu">
+
+                            <!-- NÍVEL 1 -->
+                            <ng-container *ngFor="let item of menu | isVisible; let last = last; let itemIndex = index;">
+
+                                <ng-container [ngSwitch]="item | hasChild">
+
+                                    <ng-container *ngSwitchCase="false">
+                                        <li class="layout-root-menuitem" [ngClass]="{ 'active-menuitem' : item.expanded }">
+                                            <div class="layout-menuitem-root-text clickable" menuItemAction [item]="item" [parent]="null" [breadcrumbs]="true" (collapse)="collapseAll(menu)">{{ item.label }}</div>
+
+                                            <a class="p-ripple" menuItemAction [item]="item" [parent]="null" [breadcrumbs]="true" (collapse)="collapseAll(menu)" [tabindex]="itemIndex" [ngClass]="{ 'active-first-route': route.url | urlChecker : item.routerLink }">
+                                                <i *ngIf="item.icon" class="layout-menuitem-icon" [ngClass]="item.icon"></i>
+                                                <span>{{ item.label }}</span>
+                                                <span class="p-ink"></span>
+                                            </a>
+
+                                        </li>
+                                    </ng-container>
+
+                                    <ng-container *ngSwitchCase="true">
+                                        <li class="layout-root-menuitem" [ngClass]="{ 'active-menuitem' : item.expanded }">
+                                            <div class="layout-menuitem-root-text">{{ item.label }}</div>
+
+                                            <a class="p-ripple" [tabindex]="itemIndex" (click)="toogleOnly(item, menu)">
+                                                <i *ngIf="item.icon" class="layout-menuitem-icon" [ngClass]="item.icon"></i>
+                                                <span>{{ item.label }}</span>
+                                                <i class="pi pi-fw pi-angle-down layout-menuitem-toggler"></i>
+
+                                                <span class="p-ink"></span>
+                                            </a>
+
+                                            <ul smz-ui-new-athena-horizontal-menu-node [item]="item" [currentUrl]="route.url" role="menu" style="z-index: 100;" (collapse)="collapseAll(menu)"></ul>
+
+                                        </li>
+                                    </ng-container>
+
+                                </ng-container>
+
+                            </ng-container>
+
+                        </ul>
+
+                    </div>
+                </div>
+
+            </ng-container>
+        </ng-container>
+    </ng-container>
+</ng-container>

@@ -1,0 +1,27 @@
+<ng-container *ngVar="isLoading$ | async as isLoading">
+<ng-container *ngVar="loader$ | async as loader">
+
+  <div class="layout-page-container" [class.blur-page]='isLoading' [class.hide-bg]='!isLoading'></div>
+  <ng-container *ngIf="isLoading">
+    <ng-container [ngSwitch]="loader.type">
+
+      <!-- LOADER CUBE -->
+      <ng-container *ngSwitchCase="loaders.CUBE">
+          <smz-ui-loader-cube [title]="loader.title" [message]="loader.message"></smz-ui-loader-cube>
+      </ng-container>
+
+      <!-- LOADER SQUARE -->
+      <ng-container *ngSwitchCase="loaders.SQUARE">
+        <smz-ui-loader-square [title]="loader.title" [message]="loader.message"></smz-ui-loader-square>
+      </ng-container>
+
+      <!-- DEFAULT LOADER -->
+      <ng-container *ngSwitchDefault>
+        <smz-ui-loader-cube [title]="loader.title" [message]="loader.message"></smz-ui-loader-cube>
+      </ng-container>
+
+    </ng-container>
+  </ng-container>
+
+</ng-container>
+</ng-container>

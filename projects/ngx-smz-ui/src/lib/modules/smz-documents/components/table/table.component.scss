@@ -1,0 +1,10 @@
+smz-document-table {
+
+  .smz-document-table-tag {
+    table { page-break-inside: auto; }
+    div   { page-break-inside: avoid; }
+    thead { display: table-header-group }
+    tfoot { display: table-footer-group }
+  }
+
+}

@@ -1,0 +1,52 @@
+/* EXTRAS */
+@import "./extras/extras.scss";
+
+/* PRETTY JSON */
+@import "./extras/pretty-json.scss";
+
+/* SMZ-TABLES */
+@import "./smz-tables.scss";
+
+/* SMZ-TREES */
+@import "./smz-trees.scss";
+
+/* COLORS */
+@import "./extras/colors.scss";
+
+/* DIVIDERS */
+@import "./extras/dividers.scss";
+
+/* PÁGINAS DE ERRO E NOTFOUND */
+@import "./pages/app-exceptions.scss";
+
+/* DIALOGS */
+@import "./smz-dialogs.scss";
+
+/* DOCKS */
+@import "./smz-dock.scss";
+
+/* FORMS */
+@import "./smz-forms.scss";
+
+/* DOCUMENTS */
+@import "./documents/documents.scss";
+
+/* BROWSER STUFFS */
+@import "./extras/browser.scss";
+
+@import "./smz-prime-fix";
+
+/* OVERLAY DO PRIME */
+@import "./overlay-panel/overlay-panel.scss";
+
+
+/* FOI FEITO UM OVERRIDE DO PRIME GRID ORIGINAL PARA ADICIONAR !IMPORTANT */
+@import './prime-grid/grid';
+
+/* PRIME ICONS */
+// @import "primeicons/primeicons.css";
+
+/* ANIMATIONS */
+// @import "hover.css/css/hover-min.css";
+@import "animate.css/animate.min.css";
+

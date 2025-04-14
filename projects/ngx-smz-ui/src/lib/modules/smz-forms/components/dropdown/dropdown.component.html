@@ -1,0 +1,23 @@
+
+<label *ngIf="input.hideLabel != true" class="smz__input_name" [innerHTML]="input.name"></label>
+<div class="input_inner__wrapper grid grid-nogutter">
+<p-select
+  appendTo="body"
+  class="col-12 grid-nogutter smz__input_value flex-1"
+  [options]="input.options"
+  [formControl]="control"
+  optionLabel="name"
+  [autoDisplayFirst]="false"
+  dataKey="id"
+  [filter]="input.showFilter ? true : false"
+  [filterMatchMode]="input.filterMatchMode != null ? input.filterMatchMode : 'contains'"
+  (onChange)="emitChange(input, formId, $event)"
+  [emptyMessage]="input.emptyMessage"
+  [showClear]="input.showClear"
+  [emptyFilterMessage]="input.emptyFilterMessage">
+
+  <!-- TODO: AutofocusFilter foi removido pois não existe no primeng
+            [autofocusFilter]="input.autofocusFilter" -->
+
+  </p-select>
+<smz-validation-messages [input]="input" [control]="control" [behaviors]="behaviors"></smz-validation-messages>

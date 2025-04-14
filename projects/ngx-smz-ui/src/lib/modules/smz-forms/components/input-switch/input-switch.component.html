@@ -1,0 +1,12 @@
+<div class="grid col-12 grid-nogutter input_inner__wrapper flex-gap-1">
+    <label *ngIf="input.hideLabel != true" class="col-12 smz__input_name" [for]="input.propertyName" [innerHTML]="input.name"></label>
+    <p-toggleswitch
+        class="smz__input_value"
+        [name]="input.propertyName"
+        [id]="input.propertyName"
+        [formControl]="control"
+        [attr.disabled]="input.isDisabled"
+        binary="true">
+    </p-toggleswitch >
+    <smz-validation-messages [input]="input" [control]="control" [behaviors]="behaviors"></smz-validation-messages>
+</div>

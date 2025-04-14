@@ -1,0 +1,30 @@
+<ng-container *ngIf="nodes$ | async as nodes">
+
+<label *ngIf="input.hideLabel != true" class="smz__input_name" [innerHTML]="input.name"></label>
+<div class="input_inner__wrapper grid grid-nogutter">
+    <p-treeSelect
+      class="col-12 grid-nogutter smz__input_value flex-1"
+      containerStyleClass="w-full"
+      [formControl]="control"
+      [options]="nodes"
+      [placeholder]="input.name"
+      appendTo="body"
+      [filter]="input.showFilter ? true : false"
+      [selectionMode]="input.selectionMode"
+      [filterInputAutoFocus]="input.autofocusFilter"
+      [emptyMessage]="input.emptyMessage"
+      [showClear]="input.showClear"
+      [filterPlaceholder]="input.emptyFilterMessage"
+      [scrollHeight]="input.scrollHeight"
+      [display]="input.display"
+      >
+      <ng-container *ngFor="let inputType of input.allTypes">
+        <ng-template let-node [pTemplate]="inputType">
+          <div [innerHTML]="node.label | safeHtml" [pTooltip]="node.tooltip"></div>
+        </ng-template>
+    </ng-container>
+    </p-treeSelect>
+    <smz-validation-messages [input]="input" [control]="control" [behaviors]="behaviors"></smz-validation-messages>
+</div>
+
+</ng-container>

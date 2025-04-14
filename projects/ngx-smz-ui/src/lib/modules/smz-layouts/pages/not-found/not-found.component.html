@@ -1,0 +1,16 @@
+<!-- VERSÃO DESKTOP -->
+<div class="grid justify-center items-center vertical-container exception-page">
+
+  <div class="grid justify-center items-center col-12 lg:col-6 grid-nogutter">
+      <div class="grid col-8 items-center">
+          <div class="col-12 exception-label-error">{{ uiConfig.layouts.pages.notFoundTitle }}</div>
+          <div class="col-4 exception-separator"></div>
+          <div class="col-12 exception-label-message">{{ uiConfig.layouts.pages.notFoundMessage }}</div>
+          <button class="col-4 p-button-lg p-button-ghost" pButton type="button" [routerLink]="uiConfig.rbkUtils.authentication.authenticatedRoot" label="Ir para Home"></button>
+      </div>
+  </div>
+
+  <div class="col-12 lg:col-6 exception-image-container">
+      <img [src]="uiConfig.layouts.pages.notFoundImagePath"/>
+  </div>
+</div>

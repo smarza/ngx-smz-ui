@@ -1,0 +1,88 @@
+<!-- <button type="button" pButton pRipple label="Block" (click)="uiBlockService.blockAll()"></button>
+<button type="button" pButton pRipple label="Unblock" (click)="uiBlockService.unBlockAll()"></button> -->
+
+<!-- <button type="button" pButton label="buildDialog" (click)="buildDialog()"></button> -->
+
+<div class="grid grid-nogutter items-start justify-start h-full">
+
+  <!-- TREE -->
+  <div class="h-full col-12 lg:col-3 p-2">
+
+    <div class="h-full w-full rounded shadow-md p-3">
+      <div smzUiBlock #treeContainer id="treeContainer" [component]="treeContainer" class="h-full">
+          <smz-ui-tree
+            [items]="items"
+            [state]="treeState"
+            [selection]="currentRouteKey$ | async"
+            (selectedNodes)="onSelectedNodes($event)">
+          </smz-ui-tree>
+      </div>
+    </div>
+  </div>
+
+  <!-- DETAILS -->
+  <div class="h-full col-12 lg:col-9 p-2">
+    <div #tabContainer class="h-full items-stretch flex-col grid justify-start grid-nogutter py-3 rounded shadow-md w-full overflow-y-auto">
+      <p-tabs [value]="selectedTabIndex">
+
+        <p-tablist>
+          <p-tab [value]="0" [disabled]="selectedNode == null">Exemplo</p-tab>
+          <p-tab [value]="1">Código</p-tab>
+        </p-tablist>
+
+        <p-tabpanels>
+          <p-tabpanel [value]="0">
+            <ng-container [ngSwitch]="selectedNode?.demoType">
+              <app-demo-form *ngSwitchCase="'form'"  [node]="selectedNode"></app-demo-form>
+              <app-demo-table *ngSwitchCase="'table'" [node]="selectedNode"></app-demo-table>
+              <app-demo-multi-tables *ngSwitchCase="'multi-tables'" [node]="selectedNode"></app-demo-multi-tables>
+              <app-demo-icons *ngSwitchCase="'icons'" [node]="selectedNode"></app-demo-icons>
+              <app-demo-chart *ngSwitchCase="'chart'" [node]="selectedNode"></app-demo-chart>
+              <app-demo-document *ngSwitchCase="'document'" [node]="selectedNode"></app-demo-document>
+              <app-demo-comments *ngSwitchCase="'comments'" [node]="selectedNode"></app-demo-comments>
+              <app-demo-menu *ngSwitchCase="'menu'" [node]="selectedNode"></app-demo-menu>
+              <app-demo-tree *ngSwitchCase="'tree'" [node]="selectedNode"></app-demo-tree>
+              <app-demo-cards *ngSwitchCase="'cards'" [node]="selectedNode"></app-demo-cards>
+              <app-demo-timeline *ngSwitchCase="'timeline'" [node]="selectedNode"></app-demo-timeline>
+              <app-demo-dynamic *ngSwitchCase="'dynamic'" [node]="selectedNode"></app-demo-dynamic>
+              <div *ngSwitchCase="'dialog'">
+                <button pButton pRipple type="button" label="Abrir Dialogo" class="p-button-success" (click)="selectedNode.data()"></button>
+              </div>
+              <div *ngSwitchCase="'ui-guide'">
+                <button pButton pRipple type="button" label="Iniciar Guia" class="p-button-success" (click)="selectedNode.data()"></button>
+              </div>
+            </ng-container>
+          </p-tabpanel>
+          <p-tabpanel [value]="1">
+            <ng-template pTemplate="header"><div id="codeTab">Código</div></ng-template>
+
+            <!-- CONTEÚDO -->
+            <ng-container *ngIf="selectedNode != null; else noSelectionTemplate">
+
+              <!-- HEADER -->
+              <div class="grid grid-nogutter items-center justify-between py-2">
+                <h3 class="m-0">{{ selectedNode | demoTitle }}</h3>
+              </div>
+
+              <!-- CONTEÚDO -->
+              <div class="flex-grow relative w-full mt-1 mb-3 h-full overflow-y-auto">
+                <p>{{ selectedNode.notes }}</p>
+                <demo-code-block [code]="$any(selectedNode.data?.code ?? selectedNode.data)"></demo-code-block>
+              </div>
+
+            </ng-container>
+
+            <ng-template #noSelectionTemplate>
+              <div class="grid grid-nogutter items-center justify-center p-4 flex-col flex-grow mt-10">
+                <i class="fas fa-info-circle text-5xl text-yellow-500 mb-4"></i>
+                <div class="text-lg">Escolha um demo.</div>
+              </div>
+            </ng-template>
+          </p-tabpanel>
+      </p-tabpanels>
+
+      </p-tabs>
+    </div>
+  </div>
+
+</div>

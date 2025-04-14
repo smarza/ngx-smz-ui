@@ -1,0 +1,24 @@
+<div class="input_inner__wrapper flex flex-col flex-auto p-0 gap-1">
+    <label *ngIf="input.hideLabel != true" class="smz__input_name" [innerHTML]="input.name"></label>
+    <p-datepicker
+        class="w-full smz__input_value"
+        styleClass="w-full"
+        [monthNavigator]="true"
+        [yearNavigator]="true"
+        [yearRange]="input.yearRange != null ? input.yearRange : '1930:2030'"
+        [dateFormat]="input.dateFormat != null ? input.dateFormat : 'dd/mm/yy'"
+
+        [touchUI]="input.touchUI != null ? input.touchUI : false"
+        [focusTrap]="input.focusTrap != null ? input.focusTrap : true"
+        [keepInvalid]="input.keepInvalid != null? input.keepInvalid : false"
+        [showButtonBar]="input.showButtonBar != null ? input.showButtonBar : false"
+        [showOnFocus]="input.showOnFocus != null ? input.showOnFocus : true"
+        [showIcon]="input.showIcon != null ? input.showIcon : false"
+        [timeOnly]="input.timeOnly"
+        [showTime]="input.showTime"
+
+        [id]="input.propertyName"
+        [formControl]="control">
+    </p-datepicker>
+    <smz-validation-messages [input]="input" [control]="control" [behaviors]="behaviors"></smz-validation-messages>
+</div>

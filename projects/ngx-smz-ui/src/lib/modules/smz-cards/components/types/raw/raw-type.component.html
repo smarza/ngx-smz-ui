@@ -1,0 +1,32 @@
+<ng-container [ngSwitch]="mode">
+
+  <ng-container *ngSwitchCase="modes.GRID">
+    <ng-template [smzInjectDataPathComponent]="template.gridComponent.componentData" [data]="data" [state]="template._context"></ng-template>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="modes.LIST">
+    <ng-template [smzInjectDataPathComponent]="template.listComponent.componentData" [data]="data" [state]="template._context"></ng-template>
+  </ng-container>
+
+  </ng-container>
+
+
+
+<!-- <div class="w-full bg-white space-y-3 p-4 rounded-lg shadow">
+  <div class="flex items-center space-x-2 text-sm">
+    <div>
+      <a href="#" class="text-blue-500 font-bold hover:underline">#1002</a>
+    </div>
+    <div class="text-gray-500">10/10/2021</div>
+    <div>
+      <span
+        class="p-1.5 text-xs font-medium uppercase tracking-wider text-gray-800 bg-gray-200 rounded-lg bg-opacity-50">Canceled</span>
+    </div>
+  </div>
+  <div class="text-sm text-gray-700">
+    Kring New Fit office chair, mesh + PU, black
+  </div>
+  <div class="text-sm font-medium text-black">
+    $200.00
+  </div>
+</div> -->

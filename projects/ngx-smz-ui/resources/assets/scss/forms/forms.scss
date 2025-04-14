@@ -1,0 +1,24 @@
+.smz-input-content-mask-variable {
+  cursor: not-allowed;
+  user-select: none !important;
+}
+
+.smz-input-content-mask {
+  color: var(--text-color);
+  background: var(--surface-a);
+  border: 1px solid var(--surface-d);
+  border-radius: 2px;
+  padding: 0.5em;
+}
+
+.smz-input-content-mask-disabled {
+  color: var(--surface-c);
+}
+
+.not-selectable-treenode > div:first-of-type {
+  opacity: 0.6 !important;
+}
+
+.selectable-treenode > div:first-of-type {
+  opacity: 1 !important;
+}

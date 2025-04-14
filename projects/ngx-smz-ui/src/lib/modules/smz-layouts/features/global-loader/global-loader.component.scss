@@ -1,0 +1,69 @@
+.blur-page {
+      animation-duration: 300ms;
+      animation-fill-mode: forwards;
+      animation-name: page_blur;
+
+    }
+
+    .blur-page:after{
+        position: absolute; content: ''; display: block; top: 0; left: 0; height: 100%; width: 100%;
+        background: radial-gradient(ellipse at center,rgba(0, 0, 0, 0.26) 0%, rgba(0, 0, 0, 0.42) 100%);
+        mix-blend-mode: multiply;
+    }
+
+    @-webkit-keyframes page_blur {
+      0% {
+        filter: blur(0px);
+      }
+      100% {
+        filter: blur(3px);
+      }
+    }
+
+    .layout-container {
+      height: 100%;
+    }
+
+    .layout-page-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        user-select: none;
+        display: block;
+        z-index: 10000;
+    }
+
+    .hide-bg {
+        display: none;
+    }
+
+    app-featured-loading {
+        z-index: 10001;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

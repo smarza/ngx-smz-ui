@@ -1,0 +1,21 @@
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { NgVarModule } from '../../common/directives/ng-var/ng-var.module';
+import { TabsModule  } from 'primeng/tabs';
+import { NgxSmzTablesModule } from '../smz-tables/ngx-smz-tables.module';
+import { SmzMultiTablesComponent } from './multi-tables.component';
+import { SafeContentPipeModule } from '../../common/pipes/safe-html.pipe';
+
+@NgModule({
+  imports: [
+    CommonModule,
+    TabsModule ,
+    NgVarModule,
+    NgxSmzTablesModule,
+    SafeContentPipeModule
+  ],
+  exports: [SmzMultiTablesComponent],
+  declarations: [SmzMultiTablesComponent],
+  providers: [],
+})
+export class NgxSmzMultiTablesModule { }

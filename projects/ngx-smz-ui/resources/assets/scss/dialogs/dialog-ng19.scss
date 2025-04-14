@@ -1,0 +1,137 @@
+:root {
+  --p-dialog-background: var(--p-overlay-modal-background);
+  --p-dialog-border-color: var(--p-overlay-modal-border-color);
+  --p-dialog-color: var(--p-overlay-modal-color);
+  --p-dialog-border-radius: var(--p-overlay-modal-border-radius);
+  --p-dialog-shadow: var(--p-overlay-modal-shadow);
+  --p-dialog-header-padding: var(--p-overlay-modal-padding);
+  --p-dialog-header-gap: 0.5rem;
+  --p-dialog-title-font-size: 1.25rem;
+  --p-dialog-title-font-weight: 600;
+  --p-dialog-content-padding: 0 var(--p-overlay-modal-padding) var(--p-overlay-modal-padding) var(--p-overlay-modal-padding);
+  --p-dialog-footer-padding: 0 var(--p-overlay-modal-padding) var(--p-overlay-modal-padding) var(--p-overlay-modal-padding);
+  --p-dialog-footer-gap: 0.5rem;
+}
+
+@layer primeng {
+  /* Elemento de máscara do diálogo */
+  .p-dialog-mask {
+    background-color: var(--p-mask-background);
+    transition-duration: 0.2s;
+  }
+
+  /* Elemento raiz do diálogo */
+  .p-dialog {
+    background: var(--p-dialog-background);
+    color: var(--p-dialog-color);
+    border: 0 none;
+    border-radius: var(--p-dialog-border-radius);
+    box-shadow: var(--p-dialog-shadow);
+  }
+
+  /* Cabeçalho do diálogo */
+  .p-dialog-header {
+    background: var(--p-dialog-background);
+    color: var(--p-dialog-color);
+    padding: var(--p-dialog-header-padding);
+    border-bottom: 0 none;
+    border-top-right-radius: var(--p-dialog-border-radius);
+    border-top-left-radius: var(--p-dialog-border-radius);
+    display: flex;
+    align-items: center;
+    gap: var(--p-dialog-header-gap);
+  }
+
+  /* Título do diálogo */
+  .p-dialog-title {
+    font-size: var(--p-dialog-title-font-size);
+    font-weight: var(--p-dialog-title-font-weight);
+  }
+
+  /* Ações no header (ex.: botões de fechar ou maximizar) */
+  .p-dialog-header-actions {
+    display: flex;
+    gap: var(--p-dialog-header-gap);
+    margin-left: auto;
+  }
+
+  /* Botões de maximizar e fechar */
+  .p-dialog-maximize-button,
+  .p-dialog-close-button {
+    width: 2rem;
+    height: 2rem;
+    color: var(--p-dialog-header-icon);
+    background: transparent;
+    border: 0 none;
+    border-radius: 50%;
+    transition: none;
+  }
+
+  .p-dialog-maximize-button:enabled:hover,
+  .p-dialog-close-button:enabled:hover {
+    color: var(--p-dialog-header-icon-hover);
+    background: var(--p-dialog-header-icon-bg-hover);
+  }
+
+  .p-dialog-maximize-button:focus-visible,
+  .p-dialog-close-button:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 1px var(--p-dialog-focus-ring);
+  }
+
+  /* Conteúdo do diálogo */
+  .p-dialog-content {
+    background: var(--p-dialog-background);
+    color: var(--p-dialog-color);
+    padding: var(--p-dialog-content-padding);
+  }
+
+  /* Footer do diálogo */
+  .p-dialog-footer {
+    background: var(--p-dialog-background);
+    color: var(--p-dialog-color);
+    padding: var(--p-dialog-footer-padding);
+    border-top: 0 none;
+    border-bottom-right-radius: var(--p-dialog-border-radius);
+    border-bottom-left-radius: var(--p-dialog-border-radius);
+    display: flex;
+    gap: var(--p-dialog-footer-gap);
+    justify-content: flex-end;
+  }
+
+  /* Botões dentro do footer */
+  .p-dialog-footer button {
+    width: auto;
+  }
+
+  .p-dialog-footer .p-toolbar {
+    border: 0 !important;
+  }
+
+  /* Animações para o overlay da máscara */
+  @keyframes p-dialog-mask-enter {
+    from {
+      background-color: transparent;
+    }
+    to {
+      background-color: var(--p-dialog-mask-background);
+    }
+  }
+
+  @keyframes p-dialog-mask-leave {
+    from {
+      background-color: var(--p-dialog-mask-background);
+    }
+    to {
+      background-color: transparent;
+    }
+  }
+
+  .p-dialog-mask-enter {
+    animation: p-dialog-mask-enter 150ms forwards;
+  }
+
+  .p-dialog-mask-leave {
+    animation: p-dialog-mask-leave 150ms forwards;
+  }
+}

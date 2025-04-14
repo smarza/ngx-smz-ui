@@ -1,0 +1,6 @@
+main.ts
+polyfills.ts
+test.ts
+karma.conf.js
+tailwind.config.js
+dist/**/*

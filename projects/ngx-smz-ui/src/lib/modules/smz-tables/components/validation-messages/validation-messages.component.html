@@ -1,0 +1,3 @@
+<ng-container *ngIf="isFormDirty && isFormInvalid">
+    <div class="text-red-500 text-sm mt-2" [ngStyle]="{ 'min-height': '18px' }">{{ (errors | validationMessages : messages) }}</div>
+</ng-container>

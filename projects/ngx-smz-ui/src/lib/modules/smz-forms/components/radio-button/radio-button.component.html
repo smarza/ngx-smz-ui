@@ -1,0 +1,17 @@
+<div class="flex flex-col col-12 input_inner__wrapper gap-1">
+    <label *ngIf="input.hideLabel != true" class="smz__input_name" class="col-12" [for]="input.propertyName" [innerHTML]="input.name"></label>
+    <div class="col-12 flex flex-row gap-2">
+        <ng-container *ngFor="let option of input.options">
+            <p-radioButton
+                class="smz__input_value"
+                [name]="input.propertyName"
+                [id]="input.propertyName"
+                [value]="option.id"
+                [formControl]="control"
+                (onClick)="emitChange(input, formId, $event)">
+            </p-radioButton>
+            <label [for]="input.propertyName">{{option.name}}</label>
+        </ng-container>
+    </div>
+    <smz-validation-messages [input]="input" [control]="control" [behaviors]="behaviors"></smz-validation-messages>
+</div>

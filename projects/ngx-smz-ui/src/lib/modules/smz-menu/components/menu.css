@@ -1,0 +1,28 @@
+.p-menu-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.p-menu ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.p-menu .p-menuitem-link {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  overflow: hidden;
+  position: relative;
+}
+
+.p-menuitem-child .p-menuitem-link {
+  padding-left: 24px;
+}
+
+.p-menu .p-menuitem-text {
+  line-height: 1;
+}

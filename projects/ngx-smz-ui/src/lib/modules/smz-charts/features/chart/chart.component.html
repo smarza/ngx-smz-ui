@@ -1,0 +1,20 @@
+<div [ngClass]="{ 'invisible fixed': type == null || type === 'empty' }"
+    [style.width]="responsive && !width ? null : width"
+    [style.height]="responsive && !height ? null : height"
+    class="{{styleClass}}">
+    <canvas [attr.width]="responsive && !width ? null : width"
+            [attr.height]="responsive && !height ? null : height">
+    </canvas>
+</div>
+
+<ng-container *ngIf="type === 'empty'" >
+    <div class="relative h-full"
+        [ngStyle]="{ height: responsive && !height ? 'auto' : height + 'px', width: responsive && !width ? 'auto' : width + 'px'}"
+        class="h-full">
+        <div class="text-center smz-chart-title" *ngIf="title != null">{{title}}</div>
+        <div class="grid grid-nogutter flex-col gap-3 items-center justify-center h-full">
+            <i class="fa-solid fa-chart-bar text-4xl"></i>
+            <p>{{uiConfig.dialogs.charts.emptyMessage}}</p>
+        </div>
+    </div>
+</ng-container>

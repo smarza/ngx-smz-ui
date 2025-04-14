@@ -1,0 +1,29 @@
+<div class="grid grid-nogutter items-center justify-start flex-col gap-2" [ngClass]="state.viewer.container.styleClass">
+
+    <div class="grid grid-nogutter items-start justify-start gap-2">
+
+        <ng-container *ngIf="state.viewer.zoom.isEnabled">
+            <button pButton type="button" class="p-button p-button-outlined" label="ZOOM -" (click)="documentService.lessZoom()"></button>
+            <button pButton type="button" class="p-button p-button-outlined" label="100%" (click)="documentService.restoreZoom()"></button>
+            <button pButton type="button" class="p-button p-button-outlined" label="ZOOM +" (click)="documentService.moreZoom()"></button>
+        </ng-container>
+        <button *ngIf="state.viewer.open.isEnabled" pButton type="button" class="p-button p-button-success" [label]="state.viewer.open.label" (click)="documentService.generate('open')" [disabled]="state.isDebug"></button>
+        <button *ngIf="state.viewer.print.isEnabled" pButton type="button" class="p-button p-button-success" [label]="state.viewer.print.label" (click)="documentService.generate('print')" [disabled]="state.isDebug"></button>
+        <button *ngIf="state.viewer.download.isEnabled" pButton type="button" class="p-button p-button-success" [label]="state.viewer.download.label" (click)="documentService.generate('download')" [disabled]="state.isDebug"></button>
+    </div>
+
+    <div class="pager" [ngClass]="state.viewer.paper.styleClass"
+        [style.transform]="'scale(' + documentService.zoom + ')'"
+        [style.width.pt]="state.viewer.paper.ptWidth"
+        [style.padding-left]="state.export.margin.left + 'pt !important'"
+        [style.padding-right]="state.export.margin.right + 'pt !important'"
+        [style.padding-top]="state.export.margin.top + 'pt !important'"
+        [style.padding-bottom]="state.export.margin.bottom + 'pt !important'"
+        >
+        <div #paper [style.font-family]="state.globals.font.family" [style.padding]="state.export.paddingCompensation">
+            <ng-content select="header"></ng-content>
+            <ng-content select="content"></ng-content>
+        </div>
+    </div>
+
+</div>

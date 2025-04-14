@@ -1,0 +1,9 @@
+@use "./styles.scss";
+
+/* VARIÁVEIS GLOBAIS */
+@use "./styles/variables.scss";
+
+.clear-overlay {
+    background-color: unset;
+    z-index: 1;
+}

@@ -1,0 +1,38 @@
+<ng-container *ngIf="state != null">
+<ng-container *ngIf="state.items$ | async as items">
+
+<div *ngIf="state.title.isVisible || headerTemplate != null || state.sources.length > 0" class="grid grid-nogutter lg:flex-row xl:flex-row md:flex-col sm:flex-col items-center justify-between gap-2 mb-3">
+  <div class="grid grid-nogutter items-center justify-start gap-2">
+    <div *ngIf="state.title.isVisible" class="text-lg" [innerHtml]="state.title.getText() | safeHtml"></div>
+  </div>
+
+  <div class="grid grid-nogutter items-center justify-end gap-3">
+    <ng-container *ngIf="headerTemplate != null">
+      <ng-container *ngTemplateOutlet="headerTemplate; context: { $implicit: state }"></ng-container>
+    </ng-container>
+
+    <ng-container *ngIf="state.sources.length > 0">
+      <p-select appendTo="body" [options]="state.sources" dataKey="key" [(ngModel)]="state.selectedSource" optionLabel="label" (onChange)="updateMainSource($event)"></p-select>
+    </ng-container>
+  </div>
+</div>
+
+<ng-container *ngIf="items?.length > 0; else emptyTemplate">
+    <p-timeline [value]="items" [align]="state.view.align" [styleClass]="state.view.styleClass.timeline">
+      <ng-template pTemplate="marker" let-event>
+          <span [ngClass]="state.marker.styleClass">
+              <i [ngClass]="state.marker.icon"></i>
+          </span>
+      </ng-template>
+      <ng-template pTemplate="content" let-event>
+        <smz-grid-item *ngIf="state.template != null" [isDebug]="state.isDebug" [template]="state.template" [data]="event" [menu]="state.menu" [buttons]="state.buttons" [ngClass]="state.view.styleClass.event"></smz-grid-item>
+      </ng-template>
+    </p-timeline>
+</ng-container>
+
+<ng-template #emptyTemplate>
+  <div>{{ state.locale.emptyMessage }}</div>
+</ng-template>
+
+</ng-container>
+</ng-container>

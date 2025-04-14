@@ -1,0 +1,20 @@
+<label *ngIf="input.hideLabel != true" class="smz__input_name" [innerHTML]="input.name"></label>
+<div class="input_inner__wrapper grid grid-nogutter items-center justify-start flex-nowrap mt-1">
+    <p-colorPicker
+        [id]="input.propertyName"
+        class="smz__input_value"
+        appendTo="body"
+        [formControl]="control">
+    </p-colorPicker>
+    <div class="flex-grow">
+        <input
+        #colorinput
+        class="smz__input_value colorpicker-hexa-input ml-2"
+        pInputText
+        [disabled]="input.isDisabled"
+        [(ngModel)]="color"
+        (keyup)="onInputChange(colorinput.value)"
+        (blur)="markAsTouched()"/>
+    </div>
+    <smz-validation-messages [input]="input" [control]="control" [behaviors]="behaviors"></smz-validation-messages>
+</div>

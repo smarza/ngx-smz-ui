@@ -1,0 +1,37 @@
+<smz-ui-table [items]="roles$ | async" [state]="tableState">
+
+    <ng-template pTemplate="caption">
+      <button pButton type="button" class="p-button p-button-primary mx-1" label="CRIAR" (click)="showCreationDialog()" [disabled]="!(canCreateClaims | rbkCanAccessAny)"></button>
+    </ng-template>
+
+    <!-- CONTEÚDOS COM OVERRIDE -->
+    <ng-template pTemplate="content" let-item let-col="col">
+
+      <ng-container [ngSwitch]="col.field">
+
+        <ng-container *ngSwitchCase="'claims'">
+          <div class="grid grid-nogutter items-start justify-start flex-col gap-1">
+              <ng-container *ngVar="(item.claims | smzInitial : 3) as limitedClaims">
+                <!-- <div [innerHTML]="limitedClaims | prettyjson"></div> -->
+                <ul class="list-disc">
+                  <ng-container *ngFor="let claim of limitedClaims">
+                    <li class="">{{ claim.name }}</li>
+                  </ng-container>
+                  <li *ngIf="item.claims.length > 3">(...)</li>
+                </ul>
+                <button
+                  *ngIf="item.claims.length > 3"
+                  type="button"
+                  (click)="onShowRoleClaimsDialog(item)"
+                  class="block rounded-md bg-amber-400 px-2.5 py-1.5 text-center text-sm font-semibold text-black shadow-sm hover:bg-amber-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500">
+                  <i class="fa-solid fa-circle-info mr-2"></i>Ver mais
+                </button>
+              </ng-container>
+          </div>
+        </ng-container>
+
+      </ng-container>
+
+    </ng-template>
+
+</smz-ui-table>

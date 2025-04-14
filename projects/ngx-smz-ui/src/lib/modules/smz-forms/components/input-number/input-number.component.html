@@ -1,0 +1,27 @@
+<label  *ngIf="input.hideLabel != true" class="smz__input_name" [innerHTML]="input.name"></label>
+<div class="input_inner__wrapper">
+    <p-inputMask
+        *ngIf="!input.useFraction"
+        class="smz__input_value flex-1"
+        slotChar=""
+        [autoClear]="false"
+        mask="9?9999999999999999999999999999999"
+        characterPattern="([0-9])"
+        [id]="input.propertyName"
+        [pAutoFocus]="input.autoFocus"
+        [formControl]="control">
+    </p-inputMask>
+    <p-inputNumber
+        *ngIf="input.useFraction"
+        class="smz__input_value flex-1"
+        [formControl]="control"
+        [locale]="input.locale"
+        [minFractionDigits]="input.minFractionDigits"
+        [maxFractionDigits]="input.maxFractionDigits"
+        [useGrouping]="input.useGrouping"
+        [id]="input.propertyName"
+        [pAutoFocus]="input.autoFocus"
+        (onInput)="onInput($event)">
+    </p-inputNumber>
+    <smz-validation-messages [input]="input" [control]="control" [behaviors]="behaviors"></smz-validation-messages>
+</div>

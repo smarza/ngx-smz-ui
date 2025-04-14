@@ -1,0 +1,76 @@
+/* Exception */
+.exception-body {
+  height: 100vh;
+  font-size: 16px;
+  margin: 0;
+  @include border-box();
+
+  background: {
+    position: top right;
+    repeat: no-repeat;
+    size: contain;
+  }
+
+  .exception-container {
+    height: 100%;
+    padding-left: 100px;
+
+    img {
+      display: inline-block;
+      width: 60px;
+      height: 60px;
+      margin: 100px 0;
+    }
+
+    h1 {
+      font-size: 80px;
+      color: $textColor;
+    }
+
+    p {
+      color: $textColor;
+      margin-top: 0;
+      margin-bottom: 40px;
+    }
+  }
+
+  &.error-body {
+    background-image: url("../images/error.png");
+    border-top: 7px solid #ef5350;
+  }
+
+  &.access-body {
+    background-image: url("../images/access.png");
+    border-top: 7px solid #f6a821;
+  }
+
+  &.notfound-body {
+    background-image: url("../images/404.png");
+    border-top: 7px solid #ffc800;
+  }
+}
+
+@media (max-width: 1280px) {
+  .exception-body {
+    background-size: cover;
+    text-align: center;
+
+    .exception-container {
+      padding-left: 0;
+      padding-top: 200px;
+      @include border-box();
+
+      img {
+        margin-top: 0;
+      }
+
+      h1 {
+        font-size: 40px;
+      }
+
+      p {
+        padding: 0 25px;
+      }
+    }
+  }
+}

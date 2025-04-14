@@ -1,10 +1,33 @@
 {
-	"version": "2.0.0",
-	"tasks": [
+  // For more information, visit: https://go.microsoft.com/fwlink/?LinkId=733558
+  "version": "2.0.0",
+  "tasks": [
 		{
-			"label": "Build Watch Lib",
+			"label": "Run: Cronos 4292",
+			"dependsOrder": "sequence",
+			"dependsOn":["Build smz-ui", "Build smz-ui-layout", "Start: Cronos 4292"]
+		},
+		{
+			"label": "Start: Cronos 4292",
 			"type": "npm",
-			"script": "build-watch-lib",
+			"script": "serve:cronos",
+			"group": "none",
+			"isBackground": true,
+			"options": {
+				"statusbar": {
+					"hide" : true
+				}
+			},
+			"presentation": {
+				"group": "groupA",
+				"reveal": "always",
+				"panel": "new"
+    	},
+		},
+		{
+			"label": "Build smz-ui",
+			"type": "npm",
+			"script": "build-watch:smz-ui",
 			"group": "build",
 			"isBackground": true,
 			"options": {
@@ -41,82 +64,11 @@
     	}
 		},
 		{
-			"label": "Start: Demo Overview",
+			"label": "Build smz-ui-layout",
 			"type": "npm",
-			"script": "start:overview",
-			"group": "none",
+			"script": "build-watch:smz-ui-layout",
+			"group": "build",
 			"isBackground": true,
-			"options": {
-				"statusbar": {
-					"hide" : true
-				}
-			},
-			"presentation": {
-				"group": "groupA",
-				"reveal": "always",
-				"panel": "new"
-    	},
-		},
-		{
-			"label": "Start: Demo Labs",
-			"type": "npm",
-			"script": "start",
-			"group": "none",
-			"isBackground": true,
-			"options": {
-				"statusbar": {
-					"hide" : true
-				}
-			},
-			"presentation": {
-				"group": "groupA",
-				"reveal": "always",
-				"panel": "new"
-    	},
-		},
-		{
-			"label": "Start: Demo Modules",
-			"type": "npm",
-			"script": "start:modules",
-			"group": "none",
-			"isBackground": true,
-			"options": {
-				"statusbar": {
-					"hide" : true
-				}
-			},
-			"presentation": {
-				"group": "groupA",
-				"reveal": "always",
-				"panel": "new"
-    	},
-		},
-		{
-			"label": "Demo: Overview 4104",
-			"dependsOrder": "sequence",
-			"dependsOn":["Build Watch Lib", "Start: Demo Overview"]
-		},
-		{
-			"label": "Demo: Labs 4103",
-			"dependsOrder": "sequence",
-			"dependsOn":["Build Watch Lib", "Start: Demo Labs"]
-		},
-		{
-			"label": "Demo: Modules 4107",
-			"dependsOrder": "sequence",
-			"dependsOn":["Build Watch Lib", "Start: Demo Modules"]
-		},
-		{
-			"label": "Build: Prod",
-			"type": "npm",
-			"script": "build-prod-lib",
-			"group": "none",
-			"isBackground": true,
-			"presentation": {
-				"group": "groupA",
-				"reveal": "always",
-				"panel": "new"
-    	},
 			"options": {
 				"statusbar": {
 					"hide" : true
@@ -137,84 +89,18 @@
 				"background": {
 					"activeOnStart": true,
 					"beginsPattern": {
-						"regexp": "Building\\.\\.\\.$"
+						"regexp": "Compiling\\.\\.\\.$"
 					},
 					"endsPattern": {
-						"regexp": "Build at.*"
+						"regexp": "Compilation complete.*"
 					}
 				}
 			},
-		},
-		{
-			"label": "Lib: Release",
-			"dependsOrder": "sequence",
-			"dependsOn":["Version", "Commit"]
-		},
-		{
-			"label": "Lib: Build Prod",
-			"dependsOrder": "sequence",
-			"dependsOn":["Build: Prod"]
-		},
-		{
-			"label": "Lib: Publish",
-			"type": "shell",
-			"command": "cd dist/ngx-smz-ui;npm publish",
-			"group": "none",
-			"isBackground": true,
 			"presentation": {
-				"group": "groupRelease",
+				"group": "groupA",
 				"reveal": "always",
-				"panel": "shared"
-    	},
-			"options": {
-				"statusbar": {
-					"hide" : false
-				}
-			}
+				"panel": "new"
+    	}
 		},
-		{
-			"label": "Version",
-			"type": "shell",
-			"command": "cd projects/ngx-smz-ui && npm version ${input:newVersionType}",
-			"presentation": {
-				"group": "groupRelease",
-				"reveal": "always",
-				"panel": "shared"
-    	},
-			"options": {
-				"statusbar": {
-					"hide" : true
-				}
-			}
-		},
-		{
-			"label": "Commit",
-			"type": "shell",
-			"command": "git add . && git commit -m \"feat: ${input:newVersionType} | ${input:newVersionDescription}\"",
-			"presentation": {
-				"group": "groupRelease",
-				"reveal": "always",
-				"panel": "shared"
-    	},
-			"options": {
-				"statusbar": {
-					"hide" : true
-				}
-			}
-		}
-	],
-	"inputs": [
-		{
-				"id": "newVersionType",
-				"description": "patch, minor, major, prepatch, preminor, premajor or prerelease",
-				"default": "patch",
-				"type": "promptString"
-		},
-		{
-			"id": "newVersionDescription",
-			"description": "New version description",
-			"default": "Release",
-			"type": "promptString"
-	},
-]
+  ]
 }
