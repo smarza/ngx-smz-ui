@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { DemoTreeNode } from '../../../../../models/demo';
-import { SmzTreeNode, SmzTreeState } from 'ngx-smz-ui';
+import { SmzTreeNode, SmzTreeState } from '@ngx-smz/core';
 import { Observable } from 'rxjs';
 import { Store } from '@ngxs/store';
 

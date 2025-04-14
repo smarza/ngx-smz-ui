@@ -1,5 +1,5 @@
 import { environment } from '../environments/environment';
-import { NgxRbkUtilsConfig } from 'ngx-smz-ui';
+import { NgxRbkUtilsConfig } from '@ngx-smz/core';
 
 // Partial<NgxRbkUtilsConfig>
 export const rbkConfig: any = {

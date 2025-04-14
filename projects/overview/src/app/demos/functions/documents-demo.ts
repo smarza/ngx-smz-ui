@@ -1,4 +1,4 @@
-import { SmzChart, SmzDocumentBuilder } from 'ngx-smz-ui';
+import { SmzChart, SmzDocumentBuilder } from '@ngx-smz/core';
 import { buildSummaryReportDocument } from './summary-document/summary-report-document';
 import { DemoKeys } from '../demo-keys';
 import { LINE, VERTICAL_BAR } from '../data/chart-data-original';

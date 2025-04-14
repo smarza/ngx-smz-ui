@@ -1,4 +1,4 @@
-import { GlobalInjector, SimpleNamedEntity, SmzFormBuilder, SmzFormsResponse, SmzFormViewdata, ToastActions } from 'ngx-smz-ui';
+import { GlobalInjector, SimpleNamedEntity, SmzFormBuilder, SmzFormsResponse, SmzFormViewdata, ToastActions } from '@ngx-smz/core';
 import moment from 'moment';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Store } from '@ngxs/store';

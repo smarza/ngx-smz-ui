@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { DemoTreeNode } from '../../../../../models/demo';
-import { FormGroupComponent, SmzForm, SmzDialogsService, SmzDialogBuilder, SmzFormsResponse, SmzUiBlockService, PrettyJsonPipe } from 'ngx-smz-ui';
+import { FormGroupComponent, SmzForm, SmzDialogsService, SmzDialogBuilder, SmzFormsResponse, SmzUiBlockService, PrettyJsonPipe } from '@ngx-smz/core';
 import { FileUploadEvent, FileUploadHandlerEvent } from 'primeng/fileupload';
 
 @Component({

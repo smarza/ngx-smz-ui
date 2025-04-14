@@ -1,4 +1,4 @@
-import { SimpleNamedEntity } from 'ngx-smz-ui';
+import { SimpleNamedEntity } from '@ngx-smz/core';
 import { TreeNode } from 'primeng/api';
 
 export interface DemoTreeNode extends TreeNode {

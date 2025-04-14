@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { tap } from 'rxjs/internal/operators/tap';
 import { Injectable } from '@angular/core';
 import { ProteusActions } from './proteus.actions';
-import { UsersActions } from 'ngx-smz-ui';
+import { UsersActions } from '@ngx-smz/core';
 import { CADetails } from '../models/cadetails';
 import { UserDetails } from '../models/user-details';
 import { CaService } from '../services/ca.service';

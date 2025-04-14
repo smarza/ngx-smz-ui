@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { NgxSmzDataPipesModule, NgxSmzServerImageModule } from 'ngx-smz-ui';
+import { NgxSmzDataPipesModule, NgxSmzServerImageModule } from '@ngx-smz/core';
 import { ProteusSelectors } from '../state/proteus.selector';
 
 @Component({

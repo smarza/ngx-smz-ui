@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home.component';
-import { NgxSmzMultiTablesModule, NgxSmzCardsModule, NgxSmzTablesModule, NgxSmzTreesModule, NgxSmzDialogsModule, NgxSmzFormsModule, SmzChartModule, NgxSmzDocumentsModule, NgCloneModule, NgVarModule, NgxSmzMenuModule, NgxSmzUiBlockModule, NgxSmzCommentsModule, NgxSmzTimelineModule, NgxSmzDataPipesModule, StandaloneInjectComponentDirective } from 'ngx-smz-ui';
+import { NgxSmzMultiTablesModule, NgxSmzCardsModule, NgxSmzTablesModule, NgxSmzTreesModule, NgxSmzDialogsModule, NgxSmzFormsModule, SmzChartModule, NgxSmzDocumentsModule, NgCloneModule, NgVarModule, NgxSmzMenuModule, NgxSmzUiBlockModule, NgxSmzCommentsModule, NgxSmzTimelineModule, NgxSmzDataPipesModule, StandaloneInjectComponentDirective } from '@ngx-smz/core';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
-import { RbkAuthGuard, NgxSmzUiGuidesModule } from 'ngx-smz-ui';
+import { RbkAuthGuard, NgxSmzUiGuidesModule } from '@ngx-smz/core';
 import { CodeBlockModule } from '../../components/code-block/code-block.module';
 import { DemoTitlePipeModule } from '../../pipes/demo-title.pipe';
 import { TabsModule  } from 'primeng/tabs';

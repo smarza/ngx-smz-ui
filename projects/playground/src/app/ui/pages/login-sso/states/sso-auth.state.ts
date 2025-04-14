@@ -2,7 +2,7 @@ import { State, Action, StateContext } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { AuthenticationActions, LoginResponse } from 'ngx-smz-ui';
+import { AuthenticationActions, LoginResponse } from '@ngx-smz/core';
 import { SsoAuthActions } from './sso-auth.actions';
 import { SsoAuthService } from '../sso-auth.service';
 

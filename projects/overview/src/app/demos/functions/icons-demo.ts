@@ -1,7 +1,7 @@
 import { DemoKeys } from '../../demos/demo-keys';
 import { Store } from '@ngxs/store';
 import { DemoFeatureSelectors } from '../../state/demo/demo.selectors';
-import { GlobalInjector, SmzTableBuilder } from 'ngx-smz-ui';
+import { GlobalInjector, SmzTableBuilder } from '@ngx-smz/core';
 import { Observable } from 'rxjs';
 
 const store = GlobalInjector.instance.get(Store);

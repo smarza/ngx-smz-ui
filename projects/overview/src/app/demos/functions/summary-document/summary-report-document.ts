@@ -1,5 +1,5 @@
 
-import { SmzDocumentBuilder, SmzDocumentState } from 'ngx-smz-ui';
+import { SmzDocumentBuilder, SmzDocumentState } from '@ngx-smz/core';
 import { ReportHeaderSummary } from './header';
 import { ReportSectionHistory } from './section-history';
 import { ReportSectionHistory2 } from './section-history-2';

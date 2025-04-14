@@ -1,4 +1,4 @@
-import { SimpleNamedEntity } from 'ngx-smz-ui';
+import { SimpleNamedEntity } from '@ngx-smz/core';
 
 export interface ClaimOverride {
   claim: SimpleNamedEntity;

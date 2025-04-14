@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { TreeDemoData } from '../../../demos/demo-tree';
 import { DemoTreeNode } from '../../../models/demo';
 import { Store } from '@ngxs/store';
-import { isArray, routerParamsListener, SmzDialogBuilder, SmzDialogsService, SmzTreeBuilder, SmzTreeState, SmzUiBlockService, sortArray, UiDefinitionsDbActions } from 'ngx-smz-ui';
+import { isArray, routerParamsListener, SmzDialogBuilder, SmzDialogsService, SmzTreeBuilder, SmzTreeState, SmzUiBlockService, sortArray, UiDefinitionsDbActions } from '@ngx-smz/core';
 import { ActivatedRoute } from '@angular/router';
 import { DemoFeatureSelectors } from '../../../state/demo/demo.selectors';
 import { DemoFeatureActions } from '../../../state/demo/demo.actions';

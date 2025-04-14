@@ -1,6 +1,6 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ClickStopPropagationModule, NgxSmzServerImageModule, SimpleEntity, SmzDialogsService } from 'ngx-smz-ui';
+import { ClickStopPropagationModule, NgxSmzServerImageModule, SimpleEntity, SmzDialogsService } from '@ngx-smz/core';
 import { ButtonModule } from 'primeng/button';
 import { Store } from '@ngxs/store';
 

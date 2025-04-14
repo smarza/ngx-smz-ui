@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { DemoTreeNode } from '../../../../../models/demo';
-import { SmzInjectableComponent } from 'ngx-smz-ui';
+import { SmzInjectableComponent } from '@ngx-smz/core';
 
 @Component({
   standalone: false,

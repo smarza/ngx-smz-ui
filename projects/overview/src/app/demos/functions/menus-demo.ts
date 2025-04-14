@@ -1,5 +1,5 @@
 import { DemoKeys } from '../../demos/demo-keys';
-import { SmzMenuBuilder } from 'ngx-smz-ui';
+import { SmzMenuBuilder } from '@ngx-smz/core';
 
 export const MenusDemo: { [key: string]: () => void } = {
   //

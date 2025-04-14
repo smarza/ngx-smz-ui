@@ -1,5 +1,5 @@
 import { Store } from '@ngxs/store';
-import { GlobalInjector, RolesSelectors, SmzDialogBuilder, SmzFormsResponse, UsersActions, SmzDialogsService, nameof, CreateUser } from 'ngx-smz-ui';
+import { GlobalInjector, RolesSelectors, SmzDialogBuilder, SmzFormsResponse, UsersActions, SmzDialogsService, nameof, CreateUser } from '@ngx-smz/core';
 import { catchError, map, Observable, of } from 'rxjs';
 import { ProteusLoginMetadataComponent } from '../components/proteus-login-metadata.component';
 import { CreateUserMetadata } from '../models/create-user-metadata';

@@ -5,7 +5,7 @@ import { routes } from './app.routes';
 import ptBr from '@angular/common/locales/pt';
 import moment from 'moment';
 import { registerLocaleData } from '@angular/common';
-import { NewAthenaProviderModule, NgxSmzUiModule, buildState } from 'ngx-smz-ui';
+import { NewAthenaProviderModule, NgxSmzUiModule, buildState } from '@ngx-smz/core';
 import { UiBuilder } from '../globals/smz-ui-config-builder';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsRouterPluginModule } from '@ngxs/router-plugin';

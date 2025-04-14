@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgCloneModule, NgxSmzDataPipesModule, NgxSmzFormsModule, NgxSmzTablesModule } from 'ngx-smz-ui';
+import { NgCloneModule, NgxSmzDataPipesModule, NgxSmzFormsModule, NgxSmzTablesModule } from '@ngx-smz/core';
 import { ButtonModule } from 'primeng/button';
 import { PanelModule } from 'primeng/panel';
 import { TabViewModule } from 'primeng/tabview';

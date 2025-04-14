@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, Input, OnChanges, OnInit, S
 import { DemoTreeNode } from '../../../../../models/demo';
 import { Store } from '@ngxs/store';
 import { DemoFeatureSelectors } from '../../../../../state/demo/demo.selectors';
-import { SmzDocumentState } from 'ngx-smz-ui';
+import { SmzDocumentState } from '@ngx-smz/core';
 
 @Component({
   standalone: false,

@@ -2,7 +2,7 @@ import { DemoKeys } from '../../demos/demo-keys';
 import { DemoInjectable5Component } from '../../ui/features/home/components/demo-injectable/demo-injectable-5.component';
 import { Store } from '@ngxs/store';
 import { DemoFeatureSelectors } from '../../state/demo/demo.selectors';
-import { getFormInputFromDialog, GlobalInjector, SimpleNamedEntity, SmzClipboardService, SmzDialog, SmzDialogBuilder, SmzDialogsService, SmzFileControl, SmzForm, SmzFormsResponse, SmzFormViewdata, SmzTableBuilder, ToastActions } from 'ngx-smz-ui';
+import { getFormInputFromDialog, GlobalInjector, SimpleNamedEntity, SmzClipboardService, SmzDialog, SmzDialogBuilder, SmzDialogsService, SmzFileControl, SmzForm, SmzFormsResponse, SmzFormViewdata, SmzTableBuilder, ToastActions } from '@ngx-smz/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { DemoFeatureActions } from '../../state/demo/demo.actions';
 import { UntypedFormGroup } from '@angular/forms';

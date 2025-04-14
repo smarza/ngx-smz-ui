@@ -2,7 +2,7 @@ import { DemoKeys } from '../../demos/demo-keys';
 import { Store } from '@ngxs/store';
 import { DemoFeatureActions } from '../../state/demo/demo.actions';
 import { DemoFeatureSelectors } from '../../state/demo/demo.selectors';
-import { GlobalInjector, SmzTreeBuilder, SmzTreeDynamicMenuBuilder, SmzTreeDynamicMenuItemBuilder, SmzTreeMenuBuilder, SmzTreeNode } from 'ngx-smz-ui';
+import { GlobalInjector, SmzTreeBuilder, SmzTreeDynamicMenuBuilder, SmzTreeDynamicMenuItemBuilder, SmzTreeMenuBuilder, SmzTreeNode } from '@ngx-smz/core';
 import { Observable } from 'rxjs';
 
 const store = GlobalInjector.instance.get(Store);

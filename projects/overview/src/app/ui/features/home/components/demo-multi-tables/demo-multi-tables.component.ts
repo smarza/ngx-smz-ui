@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { DemoTreeNode } from '../../../../../models/demo';
 import { Store } from '@ngxs/store';
-import { SmzMultiTablesState } from 'ngx-smz-ui';
+import { SmzMultiTablesState } from '@ngx-smz/core';
 
 @Component({
   standalone: false,

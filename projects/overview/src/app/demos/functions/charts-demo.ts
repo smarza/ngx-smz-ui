@@ -3,7 +3,7 @@ import { VERTICAL_BAR } from '../data/chart-data-original';
 import { DemoKeys } from '../../demos/demo-keys';
 import { VERTICAL_BAR_CSHARP } from '../data/chart-data-csharp';
 import { NeutralDatePoint } from '../data/charts/neutral-date-point';
-import { CreateLinearChart, GroupingType, ChartType, DatasetType, CreateRadialChart, ColorPallete } from 'ngx-smz-ui';
+import { CreateLinearChart, GroupingType, ChartType, DatasetType, CreateRadialChart, ColorPallete } from '@ngx-smz/core';
 import { NeutralCategoryPoint } from '../data/charts/neutral-category-point';
 import { SpeedSeries } from '../data/charts/speed-series';
 import { of } from 'rxjs';

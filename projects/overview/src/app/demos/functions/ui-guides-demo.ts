@@ -1,4 +1,4 @@
-import { GlobalInjector, SmzUiGuidesBuilder, SmzUiGuidesService } from 'ngx-smz-ui';
+import { GlobalInjector, SmzUiGuidesBuilder, SmzUiGuidesService } from '@ngx-smz/core';
 import { DemoKeys } from '../../demos/demo-keys';
 
 const service = GlobalInjector.instance.get(SmzUiGuidesService);

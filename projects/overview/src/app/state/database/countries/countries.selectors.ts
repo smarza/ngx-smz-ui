@@ -1,6 +1,6 @@
 
 import { Selector } from '@ngxs/store';
-import { SimpleNamedEntity } from 'ngx-smz-ui';
+import { SimpleNamedEntity } from '@ngx-smz/core';
 import { CountriesDbState, CountriesDbStateModel } from './countries.state';
 
 export class CountriesDbSelectors {

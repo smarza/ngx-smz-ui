@@ -1,5 +1,5 @@
 import { Route } from '@angular/router';
-import { RbkDatabaseStateGuard, TENANTS_STATE_NAME } from 'ngx-smz-ui';
+import { RbkDatabaseStateGuard, TENANTS_STATE_NAME } from '@ngx-smz/core';
 import { SsoLoginPageComponent } from './components/sso-login-page.component';
 
 export const SSO_LOGIN_PATH = 'login-sso';

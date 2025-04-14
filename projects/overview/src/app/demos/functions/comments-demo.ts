@@ -1,5 +1,5 @@
 import { DemoKeys } from '../../demos/demo-keys';
-import { SmzCommentsBuilder } from 'ngx-smz-ui';
+import { SmzCommentsBuilder } from '@ngx-smz/core';
 
 export const CommentsDemo: { [key: string]: () => void } = {
   //

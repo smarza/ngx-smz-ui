@@ -1,6 +1,6 @@
 import { signal, WritableSignal } from '@angular/core';
-import { SmzTenantSwitchComponent } from 'ngx-smz-ui';
-import { Topbar } from 'ngx-smz-ui-layout';
+import { SmzTenantSwitchComponent } from '@ngx-smz/core';
+import { Topbar } from '@ngx-smz/layout';
 
 export const appTopbar: WritableSignal<Topbar> = signal<Topbar>({
   showMenuToggle: true,

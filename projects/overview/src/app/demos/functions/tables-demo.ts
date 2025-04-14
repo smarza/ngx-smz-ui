@@ -1,7 +1,7 @@
 import { DemoKeys } from '../../demos/demo-keys';
 import { Store } from '@ngxs/store';
 import { DemoFeatureSelectors } from '../../state/demo/demo.selectors';
-import { GlobalInjector, SimpleNamedEntity, SmzExportableContentType, SmzFilterType, SmzTableBuilder, SmzTableState, namesof } from 'ngx-smz-ui';
+import { GlobalInjector, SimpleNamedEntity, SmzExportableContentType, SmzFilterType, SmzTableBuilder, SmzTableState, namesof } from '@ngx-smz/core';
 import { of } from 'rxjs';
 import { convertorTasks } from './../data/conversor-tasks';
 import { Observable } from 'rxjs/internal/Observable';

@@ -1,5 +1,5 @@
 import { DemoKeys } from '../../demos/demo-keys';
-import { SmzGaugeBuilder, SmzGaugeComponent } from 'ngx-smz-ui';
+import { SmzGaugeBuilder, SmzGaugeComponent } from '@ngx-smz/core';
 import { interval, map, Observable, takeWhile } from 'rxjs';
 
 export const DynamicDemo: { [key: string]: () => void } = {

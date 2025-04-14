@@ -1,4 +1,4 @@
-import { SmzDocumentBuilder } from 'ngx-smz-ui';
+import { SmzDocumentBuilder } from '@ngx-smz/core';
 import { ReportSummaryBuilder } from './summary-report-document';
 
 

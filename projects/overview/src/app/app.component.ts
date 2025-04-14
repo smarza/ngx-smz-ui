@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Store } from '@ngxs/store';
-import { MenuHelperService, ThemeManagerService, BoilerplateService, CLAIMS_PAGE_ROUTE, ROLES_PAGE_ROUTE, NewAthenaLayoutModule, RbkAccessControlModule, USERS_PAGE_ROUTE } from 'ngx-smz-ui';
+import { MenuHelperService, ThemeManagerService, BoilerplateService, CLAIMS_PAGE_ROUTE, ROLES_PAGE_ROUTE, NewAthenaLayoutModule, RbkAccessControlModule, USERS_PAGE_ROUTE } from '@ngx-smz/core';
 import { ProteusModule } from './ui/proteus/proteus.module';
 import { ButtonModule } from 'primeng/button';
 import { updatePreset, usePreset } from '@primeng/themes';

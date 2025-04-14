@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '@environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
-import { BaseApiService } from 'ngx-smz-ui';
+import { BaseApiService } from '@ngx-smz/core';
 import { Login } from '../models/login';
 import { JwtResponse } from '../models/jwt-response';
 import { GetEmployeeDetails } from '../models/get-employee-details';

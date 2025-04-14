@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges
 import { LARGE_TABLE_DATA } from '../../../../../demos/data/large-table';
 import { DemoItem, DemoTreeNode } from '../../../../../models/demo';
 import { Store } from '@ngxs/store';
-import { SmzTableComponent, SmzTableState } from 'ngx-smz-ui';
+import { SmzTableComponent, SmzTableState } from '@ngx-smz/core';
 import { Observable } from 'rxjs';
 
 @Component({

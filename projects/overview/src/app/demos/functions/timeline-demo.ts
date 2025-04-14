@@ -1,6 +1,6 @@
 import { DemoKeys } from '../../demos/demo-keys';
 import { Store } from '@ngxs/store';
-import { GlobalInjector, nameof, namesof, SmzTimelineBuilder, SimpleNamedEntity } from 'ngx-smz-ui';
+import { GlobalInjector, nameof, namesof, SmzTimelineBuilder, SimpleNamedEntity } from '@ngx-smz/core';
 import { of } from 'rxjs';
 import { SmzCardsArchivedDemo, SmzCardsDemo, SmzCardsDemoData } from '../data/cards/cards-data';
 import moment from 'moment';

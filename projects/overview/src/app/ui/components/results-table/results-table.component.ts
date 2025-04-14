@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { SmzClipboardService, SmzColumnCollectionBuilder, SmzExportableContentType, SmzTableBuilder, SmzTableComponent, SmzTableState, SmzTableViewportStateData } from 'ngx-smz-ui';
+import { SmzClipboardService, SmzColumnCollectionBuilder, SmzExportableContentType, SmzTableBuilder, SmzTableComponent, SmzTableState, SmzTableViewportStateData } from '@ngx-smz/core';
 import { Store } from '@ngxs/store';
 
 @Component({

@@ -1,5 +1,5 @@
 import { signal, WritableSignal } from '@angular/core';
-import { LayoutConfig } from 'ngx-smz-ui-layout';
+import { LayoutConfig } from '@ngx-smz/layout';
 
 export const appLayout: WritableSignal<LayoutConfig> = signal<LayoutConfig>({
   preset: 'Aura',

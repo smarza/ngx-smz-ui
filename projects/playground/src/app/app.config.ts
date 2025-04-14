@@ -5,9 +5,9 @@ import { provideRouter, withEnabledBlockingInitialNavigation, withInMemoryScroll
 import Aura from '@primeng/themes/aura';
 import { providePrimeNG } from 'primeng/config';
 import { routes } from './app.routes';
-import { provideSmzUILayout } from 'ngx-smz-ui-layout';
+import { provideSmzUILayout } from '@ngx-smz/layout';
 import { NgxsModule } from '@ngxs/store';
-import { buildState, NgxSmzUiModule } from 'ngx-smz-ui';
+import { buildState, NgxSmzUiModule } from '@ngx-smz/core';
 import { UiBuilder } from '../../../overview/src/globals/smz-ui-config-builder';
 import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
 import { environment } from '@environments/environment';

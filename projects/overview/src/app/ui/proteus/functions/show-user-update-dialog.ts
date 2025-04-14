@@ -1,5 +1,5 @@
 import { Store } from '@ngxs/store';
-import { GlobalInjector, SmzDialogBuilder, SmzDialogsService, UserDetails, showMessage } from 'ngx-smz-ui';
+import { GlobalInjector, SmzDialogBuilder, SmzDialogsService, UserDetails, showMessage } from '@ngx-smz/core';
 import { ProteusLoginMetadataComponent } from '../components/proteus-login-metadata.component';
 import { ProteusActions } from '../state/proteus.actions';
 import { ProteusSelectors } from '../state/proteus.selector';

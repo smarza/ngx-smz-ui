@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { TenantsSelectors } from 'ngx-smz-ui';
-import { SMZ_UI_LAYOUT_CONFIG } from 'ngx-smz-ui-layout';
+import { TenantsSelectors } from '@ngx-smz/core';
+import { SMZ_UI_LAYOUT_CONFIG } from '@ngx-smz/layout';
 import { ButtonModule } from 'primeng/button';
 @Component({
     selector: 'app-home-page',

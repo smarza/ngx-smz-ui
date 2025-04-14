@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Input, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SmzCardsFlipCardDemoData } from '../../../demos/data/cards/flip-card-data';
-import { ClickStopPropagationModule, FlipCardTemplate, NgxSmzServerImageModule, NgxSmzServerImageToBase64Module, SmzFlipCardContext } from 'ngx-smz-ui';
+import { ClickStopPropagationModule, FlipCardTemplate, NgxSmzServerImageModule, NgxSmzServerImageToBase64Module, SmzFlipCardContext } from '@ngx-smz/core';
 import { ButtonModule } from 'primeng/button';
 
 @Component({

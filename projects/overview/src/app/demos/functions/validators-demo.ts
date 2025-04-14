@@ -1,5 +1,5 @@
 import { DemoKeys } from '../../demos/demo-keys';
-import { SmzFormBuilder } from 'ngx-smz-ui';
+import { SmzFormBuilder } from '@ngx-smz/core';
 import { UntypedFormControl } from '@angular/forms';
 
 export const ValidatorsDemo: { [key: string]: () => void } = {

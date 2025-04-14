@@ -5,7 +5,7 @@ import { TreeNode } from "primeng/api";
 import { FontAwesomeMigrations } from "../../demos/data/icons/fontawesome-migration";
 import { SpecialIcons } from "../../demos/data/icons/especial-icons";
 import { cloneDeep, uniqBy } from "lodash-es";
-import { ParentEntity, SimpleNamedEntity } from 'ngx-smz-ui';
+import { ParentEntity, SimpleNamedEntity } from '@ngx-smz/core';
 
 export class DemoFeatureSelectors {
 

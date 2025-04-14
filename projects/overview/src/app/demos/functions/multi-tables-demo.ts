@@ -1,6 +1,6 @@
 import { DemoKeys } from '../../demos/demo-keys';
 import { Store } from '@ngxs/store';
-import { GlobalInjector, SmzFilterType, SmzMultiTablesBuilder, SmzTableBuilder, SmzTableState } from 'ngx-smz-ui';
+import { GlobalInjector, SmzFilterType, SmzMultiTablesBuilder, SmzTableBuilder, SmzTableState } from '@ngx-smz/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { TablesDemo } from './tables-demo';
 import { EditableTablePartialData, EditableTablePartialLevels } from '../data/tables/editable-table-partial-data';

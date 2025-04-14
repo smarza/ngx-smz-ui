@@ -1,5 +1,5 @@
 import { DemoKeys } from '../../demos/demo-keys';
-import { nameof, namesof, SmzCardsBuilder, SimpleNamedEntity, SimpleEntity } from 'ngx-smz-ui';
+import { nameof, namesof, SmzCardsBuilder, SimpleNamedEntity, SimpleEntity } from '@ngx-smz/core';
 import { BehaviorSubject, of } from 'rxjs';
 import { SmzCardsArchivedDemo, SmzCardsDemo, SmzCardsDemoData } from '../data/cards/cards-data';
 import moment from 'moment';

@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { BoilerplateService } from 'ngx-smz-ui';
+import { BoilerplateService } from '@ngx-smz/core';
 
 @Component({
     selector: 'app-root',

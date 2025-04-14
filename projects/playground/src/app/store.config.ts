@@ -1,7 +1,7 @@
 // import { environment } from '@environments/environment';
 import { NgxsConfig } from '@ngxs/store';
 import { NgxsRouterPluginOptions } from '@ngxs/router-plugin';
-import { buildState } from 'ngx-smz-ui';
+import { buildState } from '@ngx-smz/core';
 
 export const STATES_MODULES = buildState();
 

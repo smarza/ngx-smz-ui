@@ -1,5 +1,5 @@
 
-import { SmzChart, SmzDocumentBuilder, SmzDocumentWidthTypes } from 'ngx-smz-ui';
+import { SmzChart, SmzDocumentBuilder, SmzDocumentWidthTypes } from '@ngx-smz/core';
 import { ReportSummaryBuilder } from './summary-report-document';
 
 export const ReportSectionHistory: ReportSummaryBuilder<any> = (builder, data): SmzDocumentBuilder => builder

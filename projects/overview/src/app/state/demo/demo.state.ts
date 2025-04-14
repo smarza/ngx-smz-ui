@@ -6,7 +6,7 @@ import { DemoItem } from '../../models/demo';
 import { Observable, of, throwError } from 'rxjs';
 import { DemoDataService } from './demo-data.service';
 import { catchError, tap } from 'rxjs/operators';
-import { removeElementFromArray, ToastActions } from 'ngx-smz-ui';
+import { removeElementFromArray, ToastActions } from '@ngx-smz/core';
 import { TreeNode } from 'primeng/api';
 import { Navigate } from '@ngxs/router-plugin';
 import { HOME_PATH } from '../../../routes';

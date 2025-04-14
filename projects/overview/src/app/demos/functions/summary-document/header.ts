@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { SmzDocumentBuilder } from 'ngx-smz-ui';
+import { SmzDocumentBuilder } from '@ngx-smz/core';
 import { ReportSummaryBuilder } from './summary-report-document';
 
 export const ReportHeaderSummary: ReportSummaryBuilder<any> = (builder, data): SmzDocumentBuilder => builder

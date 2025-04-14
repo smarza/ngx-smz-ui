@@ -1,4 +1,4 @@
-import { SimpleEntity } from 'ngx-smz-ui';
+import { SimpleEntity } from '@ngx-smz/core';
 export interface SmzCardsDemoData {
   tankId: string,
   type: SimpleEntity<number>,

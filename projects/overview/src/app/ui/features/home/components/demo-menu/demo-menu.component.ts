@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { DemoTreeNode } from '../../../../../models/demo';
-import { SmzMenuItem } from 'ngx-smz-ui';
+import { SmzMenuItem } from '@ngx-smz/core';
 
 @Component({
   standalone: false,

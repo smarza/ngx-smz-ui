@@ -1,5 +1,5 @@
 import { signal, WritableSignal } from '@angular/core';
-import { Footer } from 'ngx-smz-ui-layout';
+import { Footer } from '@ngx-smz/layout';
 
 export const appFooter: WritableSignal<Footer> = signal<Footer>({
     leftLogoPath: {

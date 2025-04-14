@@ -1,4 +1,4 @@
-import { SmzLayoutsConfig, SmzContentTheme, SmzLoader, HephaestusLayout, MenuType, SidebarState, AthenaLayout } from 'ngx-smz-ui';
+import { SmzLayoutsConfig, SmzContentTheme, SmzLoader, HephaestusLayout, MenuType, SidebarState, AthenaLayout } from '@ngx-smz/core';
 
 export const smzHephaestusConfig: HephaestusLayout = {
     menu: MenuType.STATIC,

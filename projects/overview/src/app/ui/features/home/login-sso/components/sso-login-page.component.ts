@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { AuthenticationActions, GlobalInjector, NgxSmzFormsModule, SimpleEntity, SmzFormBuilder, SmzLoginBuilder, SmzLoginModule, SmzLoginState, SmzTextPattern, TenantsSelectors, getFirst, nameof } from 'ngx-smz-ui';
+import { AuthenticationActions, GlobalInjector, NgxSmzFormsModule, SimpleEntity, SmzFormBuilder, SmzLoginBuilder, SmzLoginModule, SmzLoginState, SmzTextPattern, TenantsSelectors, getFirst, nameof } from '@ngx-smz/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';

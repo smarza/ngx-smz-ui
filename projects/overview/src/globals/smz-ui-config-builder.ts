@@ -1,4 +1,4 @@
-import { SmzLoader, SmzUiBuilder } from 'ngx-smz-ui';
+import { SmzLoader, SmzUiBuilder } from '@ngx-smz/core';
 import { smzDialogsConfig } from './smz-config';
 import { smzLayoutsConfig } from './smz-layouts.config';
 import { CountriesDbName, CountriesDbState, getDbCountriesInitialState } from '../app/state/database/countries/countries.state';

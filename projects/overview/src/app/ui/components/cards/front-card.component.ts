@@ -1,7 +1,7 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SmzCardsFlipCardDemoData } from '../../../demos/data/cards/flip-card-data';
-import { NgxSmzServerImageModule } from 'ngx-smz-ui';
+import { NgxSmzServerImageModule } from '@ngx-smz/core';
 
 @Component({
   selector: 'app-front-card',

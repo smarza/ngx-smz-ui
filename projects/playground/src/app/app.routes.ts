@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { AppLayout, NotfoundPageComponent, AccessPageComponent, ErrorPageComponent } from 'ngx-smz-ui-layout';
+import { AppLayout, NotfoundPageComponent, AccessPageComponent, ErrorPageComponent } from '@ngx-smz/layout';
 import { HomePageComponent } from './ui/pages/home-page.component';
 import { AtivoLoginPageComponent } from './ui/pages/login-sso/components/ativo-login-page.component';
 export const routes: Routes = [

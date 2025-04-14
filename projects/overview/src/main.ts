@@ -3,7 +3,7 @@ import { environment } from './environments/environment';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
 import { appConfig } from './app/app.config';
-import { SmzUiEnvironment } from 'ngx-smz-ui';
+import { SmzUiEnvironment } from '@ngx-smz/core';
 
 SmzUiEnvironment.production = environment.production;
 SmzUiEnvironment.serverUrl = environment.serverUrl;

@@ -1,4 +1,4 @@
-import { GlobalInjector, SmzTableBuilder, SmzFilterType, nameof, SimpleNamedEntity, UserDetails } from 'ngx-smz-ui';
+import { GlobalInjector, SmzTableBuilder, SmzFilterType, nameof, SimpleNamedEntity, UserDetails } from '@ngx-smz/core';
 import { showUserUpdateDialog } from '../app/ui/proteus/functions/show-user-update-dialog';
 
 export function CustomUserTableBuilder(): SmzTableBuilder<any> {

@@ -1,6 +1,6 @@
 
 import { ReportSummaryBuilder } from './summary-report-document';
-import { SmzDocumentBuilder } from 'ngx-smz-ui';
+import { SmzDocumentBuilder } from '@ngx-smz/core';
 
 export const ReportSectionHistory2: ReportSummaryBuilder<any> = (builder, data): SmzDocumentBuilder => builder
 

@@ -1,4 +1,4 @@
-import { SimpleEntity } from 'ngx-smz-ui';
+import { SimpleEntity } from '@ngx-smz/core';
 type SmzCardComplexity = { number: Number };
 
 export const SmzCardComplexityData: SimpleEntity<Number>[] = [
