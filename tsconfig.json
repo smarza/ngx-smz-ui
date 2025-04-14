@@ -18,8 +18,8 @@
     "target": "ES2022",
     "module": "ES2022",
     "paths": {
-      "ngx-smz-ui": ["./dist/ngx-smz-ui"],
-      "ngx-smz-ui-layout": ["./dist/ngx-smz-ui-layout"],
+      "@ngx-smz/core": ["./dist/ngx-smz-ui"],
+      "@ngx-smz/layout": ["./dist/ngx-smz-ui-layout"],
       "@components/*": ["./projects/cronos/src/app/ui/components/*"],
       "@environments/*": ["./projects/cronos/src/environments/*"],
       "@features/*": ["./projects/cronos/src/app/ui/features/*"],
