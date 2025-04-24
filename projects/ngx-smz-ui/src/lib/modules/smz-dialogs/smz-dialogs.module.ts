@@ -28,7 +28,6 @@ import { TableContentComponent } from './features/table-content/table-content.co
 import { NgxSmzDocumentsModule } from '../smz-documents/ngx-smz-documents.module';
 import { DocumentContentComponent } from './features/document-content/document-content.component';
 import { ContextMenuService } from 'primeng/api';
-import { SmzToastModule } from '../smz-toast/toast';
 import { MarkdownContentComponent } from './features/markdown-content/markdown-content.component';
 import { GuideFooterComponent } from './features/guide-footer/guide-footer.component';
 import { AutoFocusModule } from 'primeng/autofocus';
@@ -55,7 +54,6 @@ import { MessageFromObservableContentComponent } from './features/message-from-o
         DialogModule,
         // ngxsModuleForFeatureDialogsState,
         OverlayPanelModule,
-        SmzToastModule,
         TableModule,
         ButtonModule,
         MessageModule,

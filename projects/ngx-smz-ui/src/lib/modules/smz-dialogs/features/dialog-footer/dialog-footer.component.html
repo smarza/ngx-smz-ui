@@ -8,7 +8,6 @@
                     <p-button
                         *ngIf="customButton.visible == null || customButton.visible"
                         [label]="customButton.name"
-                        [ngClass]="customButton.class"
                         [styleClass]="customButton.class"
                         [disabled]="context.isGlobalDisabled || customButton.dependsOnValidation && !isValid() || customButton.disabled"
                         [pTooltip]="customButton.tooltip"
@@ -22,7 +21,6 @@
             <p-button
                 *ngIf="context.behaviors.showCancelButton"
                 [label]="context.builtInButtons.cancelName"
-                [ngClass]="context.builtInButtons.cancelClass"
                 [styleClass]="context.builtInButtons.cancelClass"
                 (onClick)="close()">
             </p-button>
@@ -33,7 +31,6 @@
                 [confirmOnEnter]="context.isLoading ? false : context.behaviors.confirmOnEnter"
                 [dialogId]="context.id"
                 [label]="context.builtInButtons.confirmName"
-                [ngClass]="context.builtInButtons.confirmClass"
                 [styleClass]="context.builtInButtons.confirmClass"
                 [disabled]="context.isGlobalDisabled"
                 (onClick)="confirm()">
@@ -45,7 +42,6 @@
                 [confirmOnEnter]="context.isLoading ? false : context.behaviors.confirmOnEnter"
                 [dialogId]="context.id"
                 [label]="context.builtInButtons.okName"
-                [ngClass]="context.builtInButtons.okClass"
                 [styleClass]="context.builtInButtons.okClass"
                 [disabled]="context.isGlobalDisabled"
                 (onClick)="ok()">
@@ -57,7 +53,6 @@
                 [confirmOnEnter]="context.isLoading ? false : context.behaviors.confirmOnEnter"
                 [dialogId]="context.id"
                 [label]="context.builtInButtons.saveName"
-                [ngClass]="context.builtInButtons.saveClass"
                 [styleClass]="context.builtInButtons.saveClass"
                 [icon]="context.isLoading ? 'fa-solid fa-spinner fa-spin' : ''"
                 [disabled]="context.isGlobalDisabled"
@@ -71,7 +66,6 @@
                     <p-button
                         *ngIf="customButton.visible == null || customButton.visible"
                         [label]="customButton.name"
-                        [ngClass]="customButton.class"
                         [styleClass]="customButton.class"
                         [disabled]="context.isGlobalDisabled || customButton.disabled"
                         [pTooltip]="customButton.tooltip"
