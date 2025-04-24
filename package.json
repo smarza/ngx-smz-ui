@@ -13,7 +13,7 @@
     "build-watch:smz-ui-layout": "ng build ngx-smz-ui-layout --watch --configuration development",
     "build-prod-smz-ui": "ng build ngx-smz-ui --configuration=production",
     "build-prod-smz-ui-layout": "ng build ngx-smz-ui-layout --configuration=production",
-    "serve:cronos": "ng serve --project cronos --configuration development --port 4292 --no-hmr",
+    "serve:cronos": "ng serve --project cronos --configuration development --port 4104 --no-hmr",
     "build:cronos": "ng build cronos --configuration development",
     "windows:delete-node-modules": "npx rimraf ./**/node_modules"
   },

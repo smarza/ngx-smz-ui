@@ -52,7 +52,6 @@ import { LinkedMultiSelectComponent } from './components/linked-multi-select/lin
 
 import { ClickStopPropagationModule } from '../../common/stop-click-propagation/click-stop-propagation.module';
 import { FileDragDropDirective } from './directives/file-drag-drop.directive';
-import { MessagesModule } from 'primeng/messages';
 import { SafeContentPipeModule } from '../../common/pipes/safe-html.pipe';
 import { FileNameShortenPipe } from './components/file-upload/file-name-shorten.pipe';
 import { SmzInputTagAreaModule } from './components/input-tag-area/smz-input-tag-area.component';
@@ -78,6 +77,7 @@ import { SmzSmartTagModule } from './directives/smart-tag.directive';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { SmzSmartAutocompleteTagModule } from './directives/smart-autocomplete-tag.directive';
 import { GetCurrentMultiselectOptionsPipe } from './components/linked-multi-select/get-current-multiselect-options.pipe';
+import { MessageModule } from 'primeng/message';
 
 export const defaultFormsModuleConfig: SmzFormsConfig = {
     behaviors: {
@@ -248,7 +248,7 @@ export const defaultFormsModuleConfig: SmzFormsConfig = {
         ReactiveFormsModule,
         SmzTemplatesPipeModule,
         TooltipModule,
-        MessagesModule,
+        MessageModule,
         SafeContentPipeModule,
         SmzInputTagAreaModule,
         NgxSmzDataPipesModule,

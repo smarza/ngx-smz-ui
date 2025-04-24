@@ -331,10 +331,6 @@
               }
             ],
             "styles": [
-              "dist/ngx-smz-ui/resources/assets/scss/styles.scss",
-              "dist/ngx-smz-ui/resources/assets/scss/fontawesome-free.scss",
-              "node_modules/highlight.js/styles/vs2015.css",
-              "node_modules/prismjs/themes/prism-okaidia.css",
               "projects/overview/src/styles.scss"
             ],
             "scripts": [

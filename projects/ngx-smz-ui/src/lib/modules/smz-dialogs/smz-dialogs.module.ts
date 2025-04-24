@@ -1,4 +1,4 @@
-import { NgModule, ModuleWithProviders, Injector } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
@@ -21,13 +21,10 @@ import { DialogFooterComponent, ConfirmOnEnterDirective } from './features/dialo
 import { SmzTemplatesPipeModule } from '../../common/pipes/templates.pipe';
 import { TooltipModule } from 'primeng/tooltip';
 import { HtmlContentComponent } from './features/html-content/html-content.component';
-import { MessagesModule } from 'primeng/messages';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { SafeContentPipeModule } from '../../common/pipes/safe-html.pipe';
 import { NgxSmzTablesModule } from '../smz-tables/ngx-smz-tables.module';
 import { TableContentComponent } from './features/table-content/table-content.component';
-import { NgxsModule } from '@ngxs/store';
-import { DialogsState } from './state/dialogs/dialogs.state';
 import { NgxSmzDocumentsModule } from '../smz-documents/ngx-smz-documents.module';
 import { DocumentContentComponent } from './features/document-content/document-content.component';
 import { ContextMenuService } from 'primeng/api';
@@ -70,7 +67,6 @@ import { MessageFromObservableContentComponent } from './features/message-from-o
         ToolbarModule,
         SmzTemplatesPipeModule,
         TooltipModule,
-        MessagesModule,
         ProgressBarModule,
         SafeContentPipeModule,
         NgxSmzTablesModule,

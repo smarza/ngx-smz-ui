@@ -17,7 +17,11 @@
         </span>
 
         <!-- MENSAGEM DE ERRO PARA SELEÇÃO DE ARQUIVO -->
-        <p-messages [(value)]="errors" [enableService]="false" [ngStyle]="{ 'width': '100%;' }" styleClass="dialog-messages"></p-messages>
+         @for (error of errors; track error) {
+            <p-message [ngStyle]="{ 'width': '100%;' }" styleClass="dialog-messages">
+                {{error}}
+            </p-message>
+         }
     </div>
 </div>
 

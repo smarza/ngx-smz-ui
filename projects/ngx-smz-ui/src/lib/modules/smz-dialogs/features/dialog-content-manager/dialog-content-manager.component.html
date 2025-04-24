@@ -1,10 +1,14 @@
 <div class="smz-dialog-content smz_form_grid_container" [ngClass]="config.data.contentClass">
 
-    <div class="container">
+    <div class="smz-dialog-container">
         <div [ngClass]="config.data.featureContainerClass ?? 'grid grid-nogutter items-start justify-start'">
 
             <!-- <p-progressBar *ngIf="config.data._context.isLoading" mode="indeterminate" [ngStyle]="{ 'width': '100%;' }" styleClass="dialog-loading"></p-progressBar> -->
-            <p-messages [(value)]="config.data._context.apiErrors" [enableService]="false" [ngStyle]="{ 'width': '100%;' }" styleClass="dialog-messages"></p-messages>
+            @for (error of config.data._context.apiErrors; track error) {
+                <p-message [ngStyle]="{ 'width': '100%;' }" styleClass="dialog-messages">
+                    {{error}}
+                </p-message>
+            }
 
             <ng-container *ngFor="let feature of config.data._context.injectables">
                 <div class="col" [ngClass]="(feature.template != null ? feature.template : config.data._context.featureTemplate) | setTemplateClasses : ['row']">
