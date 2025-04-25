@@ -9,11 +9,12 @@ export type SmzUILayoutConfigType = {
     topbar: WritableSignal<Topbar>;
     layout: WritableSignal<LayoutConfig>;
     state: WritableSignal<LayoutState>;
+    hasClaim?: (claims: string[]) => boolean;
 };
 
 @Injectable({ providedIn: 'root' })
 export class SmzUILayout {
-
+    hasClaim = (claims: string[]) => false;
     sidebar = signal<MenuItem[]>([]);
     footer = signal<Footer>({});
     topbar = signal<Topbar>({
@@ -35,7 +36,7 @@ export class SmzUILayout {
     });
 
     setConfig(config: SmzUILayoutConfigType): void {
-        const { sidebar, footer, topbar } = config || {};
+        const { sidebar, footer, topbar, hasClaim } = config || {};
 
         if (sidebar) {
             this.sidebar = sidebar;
@@ -47,6 +48,10 @@ export class SmzUILayout {
 
         if (topbar) {
             this.topbar = topbar;
+        };
+
+        if (hasClaim) {
+            this.hasClaim = hasClaim;
         };
     }
 }

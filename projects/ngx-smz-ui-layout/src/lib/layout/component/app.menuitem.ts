@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import { Component, HostBinding, inject, Input } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Subscription } from 'rxjs';
@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { RippleModule } from 'primeng/ripple';
 import { MenuItem } from 'primeng/api';
 import { LayoutService } from '../service/layout.service';
+import { SMZ_UI_LAYOUT_CONFIG } from '../../config/provide';
 
 @Component({
     // eslint-disable-next-line @angular-eslint/component-selector
@@ -45,7 +46,9 @@ import { LayoutService } from '../service/layout.service';
 
             <ul *ngIf="item.items && item.visible !== false" [@children]="submenuAnimation">
                 <ng-template ngFor let-child let-i="index" [ngForOf]="item.items">
-                    <li app-menuitem [item]="child" [index]="i" [parentKey]="key" [class]="child['badgeClass']"></li>
+                    @if (hasClaim(child['claims'])) {
+                        <li app-menuitem [item]="child" [index]="i" [parentKey]="key" [class]="child['badgeClass']"></li>
+                    }
                 </ng-template>
             </ul>
         </ng-container>
@@ -77,6 +80,8 @@ export class AppMenuitem {
     @Input() @HostBinding('class.layout-root-menuitem') root!: boolean;
 
     @Input() parentKey!: string;
+
+    public hasClaim = inject(SMZ_UI_LAYOUT_CONFIG).hasClaim;
 
     active = false;
 
