@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BaseApiService } from '../http/base-api.service';
 import { Observable, Subject, Subscription, switchMap, throttleTime } from 'rxjs';
@@ -9,9 +9,11 @@ import { LocationStrategy } from '@angular/common';
 import { ApplicationSelectors } from '../../../state/global/application/application.selector';
 import { AuthenticationSelectors } from '../../../state/global/authentication/authentication.selectors';
 import { ToastActions } from '../../../state/global/application/application.actions.toast';
+import { SmzEnvironment } from '../../../config/config';
 
 @Injectable({ providedIn: 'root' })
 export class DiagnosticsService extends BaseApiService {
+    private readonly environment = inject(SmzEnvironment);
 
     private logSubject = new Subject<DiagnosticsData>();
     private logSubscription: Subscription;
@@ -36,7 +38,8 @@ export class DiagnosticsService extends BaseApiService {
     }
 
     private actualLogCall(data: DiagnosticsData): Observable<void> {
-        return this.http.post<void>(GlobalInjector.config.rbkUtils.diagnostics.url, data,
+        const url = `${this.environment.serverUrl}${GlobalInjector.config.rbkUtils.diagnostics.url}`;
+        return this.http.post<void>(url, data,
             this.generateDefaultHeaders({
                 loadingBehavior: 'none',
                 authentication: false,

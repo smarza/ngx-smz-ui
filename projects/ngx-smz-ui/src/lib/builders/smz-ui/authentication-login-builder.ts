@@ -17,8 +17,8 @@ export class SmzUiAuthenticationLoginBuilder extends SmzBuilderUtilities<SmzUiAu
   }
 
   public overrideAuthenticationUrl(path: string = 'authentication'): SmzUiAuthenticationLoginBuilder {
-    this._state.rbkUtils.authentication.login.url = `https://localhost:44380/api/${path}/login`;
-    this._state.rbkUtils.authentication.refreshToken.url = `https://localhost:44380/api/${path}/refresh-token`;
+    this._state.rbkUtils.authentication.login.url = `/api/${path}/login`;
+    this._state.rbkUtils.authentication.refreshToken.url = `/api/${path}/refresh-token`;
     return this.that;
   }
 

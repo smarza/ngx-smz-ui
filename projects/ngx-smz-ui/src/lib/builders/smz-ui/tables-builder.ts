@@ -15,7 +15,7 @@ export class SmzUiTablesBuilder extends SmzBuilderUtilities<SmzUiTablesBuilder> 
   }
 
   public setExportApiRelativeUrl(controller: string, endpoint: string): SmzUiTablesBuilder {
-    this._builder._state.tables.export.absoluteApiUrl = `https://localhost:44380/api/${controller}/${endpoint}`;
+    this._builder._state.tables.export.absoluteApiUrl = `/api/${controller}/${endpoint}`;
     return this.that;
   }
 

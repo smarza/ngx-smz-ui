@@ -22,14 +22,13 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
     public _state: NgxSmzUiConfig = {
         debugMode: false,
         legacyMode: false,
-        serverUrl: 'https://localhost:44380',
         rbkUtils: {
             debugMode: false,
             applicationName: 'application',
             useTitleService: true,
             uiDefinitions: {
                 isEnabled: true,
-                url: 'https://localhost:44380/api/ui-definitions',
+                url: '/api/ui-definitions',
                 httpBehavior: {
                     authentication: false,
                     compression: true,
@@ -40,7 +39,7 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
             },
             uiLocalization: {
                 isEnabled: false,
-                url: 'https://localhost:44380/api/ui-localization',
+                url: '/api/ui-localization',
                 current: null,
                 locales: [],
                 httpBehavior: {
@@ -53,7 +52,7 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
                 allowLocalizationSwitching: false
             },
             diagnostics: {
-                url: 'https://localhost:44380/api/diagnostics',
+                url: '/api/diagnostics',
                 throttleTime: 5000
             },
             notifications: {
@@ -121,7 +120,7 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
                 useSingleTenantAplication: false,
                 allowTenantSwitching: false,
                 login: {
-                    url: 'https://localhost:44380/api/authentication/login',
+                    url: '/api/authentication/login',
                     route: 'login',
                     errorHandlingType: 'toast',
                     responsePropertyName: 'accessToken',
@@ -137,7 +136,7 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
                     }
                 },
                 refreshToken: {
-                    url: 'https://localhost:44380/api/authentication/refresh-token',
+                    url: '/api/authentication/refresh-token',
                     errorHandlingType: 'toast',
                     responsePropertyName: 'refreshToken',
                     loadingBehavior: 'global',
@@ -222,7 +221,7 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
         },
         tables: {
             export: {
-                absoluteApiUrl: 'https://localhost:44380/api/table-exporter/generate-tables',
+                absoluteApiUrl: '/api/table-exporter/generate-tables',
                 requestLimit: 30000000
             }
         },

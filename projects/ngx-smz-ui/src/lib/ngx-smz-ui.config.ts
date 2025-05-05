@@ -14,7 +14,6 @@ export const SmzUiEnvironment = {
 export class NgxSmzUiConfig {
     public debugMode: boolean;
     public legacyMode: boolean;
-    public serverUrl: string;
     public rbkUtils: NgxRbkUtilsConfig;
     public tables: SmzTablesConfig;
     public dialogs: SmzDialogsConfig;

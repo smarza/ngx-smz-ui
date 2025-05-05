@@ -7,7 +7,7 @@ export class SmzUiNotificationsBuilder extends SmzBuilderUtilities<SmzUiNotifica
     super();
 
     this._builder._state.rbkUtils.notifications = {
-      url: `https://localhost:44380/api/notifications`,
+      url: `/api/notifications`,
       updateMethod: 'interval',
       updateRate: 100000,
       httpBehavior: {
