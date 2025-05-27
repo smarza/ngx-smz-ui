@@ -17,8 +17,8 @@ export class HomePageComponent {
 
     toggleMenuVisibility() {
         this.smzUILayoutConfig.topbar.update((state) => ({ ...state, showMenuToggle: !state.showMenuToggle }));
-        const tenant = this.store.selectSnapshot(TenantsSelectors.currentTenant);
-        console.log(tenant);
+        // const tenant = this.store.selectSnapshot(TenantsSelectors.currentTenant);
+        // console.log(tenant);
     }
 
 }

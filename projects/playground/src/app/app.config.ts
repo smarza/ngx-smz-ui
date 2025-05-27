@@ -1,14 +1,14 @@
 import { provideHttpClient, withFetch } from '@angular/common/http';
-import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, inject, provideAppInitializer, provideZoneChangeDetection } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter, withEnabledBlockingInitialNavigation, withInMemoryScrolling } from '@angular/router';
 import Aura from '@primeng/themes/aura';
 import { providePrimeNG } from 'primeng/config';
 import { routes } from './app.routes';
-import { provideSmzUILayout } from '@ngx-smz/layout';
+import { provideSmzUILayout, SMZ_UI_LAYOUT_CONFIG } from '@ngx-smz/layout';
 import { NgxsModule } from '@ngxs/store';
 import { buildState, NgxSmzUiModule } from '@ngx-smz/core';
-import { UiBuilder } from '../../../overview/src/globals/smz-ui-config-builder';
+import { UiBuilder } from './globais/smz-ui-config-builder';
 import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
 import { environment } from '@environments/environment';
 
@@ -33,12 +33,18 @@ export const appConfig: ApplicationConfig = {
         NgxsModule.forRoot(buildState(), { developmentMode: !environment.production }),
         NgxsRouterPluginModule.forRoot(),
       ]),
-    provideSmzUILayout({
-      sidebar: appSidebar,
-      footer: appFooter,
-      topbar: appTopbar,
-      layout: appLayout,
-      state: appLayoutState
-    }),
+    provideSmzUILayout(() => [
+      {
+        sidebar: appSidebar,
+        footer: appFooter,
+        topbar: appTopbar,
+        layout: appLayout,
+        state: appLayoutState
+      }
+    ]),
+    provideAppInitializer(async () => {
+      const config = inject(SMZ_UI_LAYOUT_CONFIG);
+      config.hasClaim = (claims: string[]) => true;
+    })
   ]
 };

@@ -12,13 +12,13 @@ export const appTopbar: WritableSignal<Topbar> = signal<Topbar>({
   showConfigurator: true,
   showDarkModeToggle: true,
   menuItems: [
-    {
-      component: {
-        component: SmzTenantSwitchComponent,
-        inputs: [],
-        outputs: []
-      }
-    },
+    // {
+    //   component: {
+    //     component: SmzTenantSwitchComponent,
+    //     inputs: [],
+    //     outputs: []
+    //   }
+    // },
     {
         icon: 'pi pi-calendar',
         label: 'Calendar',
