@@ -3,7 +3,11 @@ import { MenuItem } from 'primeng/api';
 export const INITIAL_SIDEBAR: MenuItem[] = [
     {
         label: 'Home',
-        items: [{ label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/'] }]
+        items: [
+            { label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/'] },
+            { label: 'Page 1', icon: 'pi pi-fw pi-home', routerLink: ['/page-1'] },
+            { label: 'Page 2', icon: 'pi pi-fw pi-home', routerLink: ['/page-2'] },
+        ]
     },
     {
         label: 'UI Components',

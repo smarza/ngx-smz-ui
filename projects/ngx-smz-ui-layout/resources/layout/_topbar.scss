@@ -14,9 +14,10 @@
     align-items: center;
 
     .layout-topbar-logo-container {
-        width: 20rem;
+        width: auto;
         display: flex;
         align-items: center;
+        gap: 0.5rem;
     }
 
     .layout-topbar-logo {
@@ -35,6 +36,12 @@
         &:focus-visible {
             @include focused();
         }
+    }
+
+    .layout-topbar-app-name {
+        font-size: 1.5rem;
+        color: var(--text-color);
+        font-weight: 500;
     }
 
     .layout-topbar-action {
@@ -80,7 +87,20 @@
         display: none;
     }
 
-    .layout-topbar-actions {
+    .layout-topbar-page-title {
+        font-size: 1.25rem;
+        font-weight: 500;
+        margin-left: 0.5rem;
+    }
+
+    .layout-topbar-left-actions {
+        margin-left: 1rem;
+        margin-right: auto;
+        display: flex;
+        align-items: center;
+    }
+
+    .layout-topbar-right-actions {
         margin-left: auto;
         display: flex;
         align-items: center;
@@ -96,6 +116,14 @@
     .layout-config-menu {
         display: flex;
         gap: 0.5rem;
+    }
+
+    .topbar-separator {
+        display: block;
+        width: 1px;
+        align-self: stretch;
+        border-left: 1px solid var(--surface-border);
+        margin: 0 1rem;
     }
 }
 
@@ -159,6 +187,18 @@
 
         .layout-topbar-menu-content {
             flex-direction: column;
+        }
+
+        .layout-topbar-app-name {
+            display: none;
+        }
+
+        .layout-topbar-page-title {
+            display: none;
+        }
+
+        .topbar-separator {
+            display: none;
         }
     }
 }

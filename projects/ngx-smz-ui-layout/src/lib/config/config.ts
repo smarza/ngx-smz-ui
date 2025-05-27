@@ -19,6 +19,7 @@ export class SmzUILayout {
     footer = signal<Footer>({});
     topbar = signal<Topbar>({
         showMenuToggle: true,
+        showBackButton: true,
     });
     layout = signal<LayoutConfig>({
       preset: 'Aura',

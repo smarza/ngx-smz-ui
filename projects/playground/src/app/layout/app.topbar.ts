@@ -4,6 +4,7 @@ import { Topbar } from '@ngx-smz/layout';
 
 export const appTopbar: WritableSignal<Topbar> = signal<Topbar>({
   showMenuToggle: true,
+  showBackButton: true,
   logoPath: {
     light: 'horizontal-light.svg',
     dark: 'horizontal-dark.svg'

@@ -12,6 +12,8 @@ import { PrimeNG } from 'primeng/config';
 import { MenuModule } from 'primeng/menu';
 import { ButtonModule } from 'primeng/button';
 import { MenuItem } from 'primeng/api';
+import { NavigationService } from '../service/navigation.service';
+import { PageTitleService } from '../service/page-title.service';
 
 @Component({
   selector: 'app-topbar',
@@ -35,14 +37,34 @@ import { MenuItem } from 'primeng/api';
           @if (topbar.logoPath?.dark && layoutService.isDarkTheme()) {
             <img [src]="topbar.logoPath?.dark" [alt]="topbar.logoPath?.dark" class="max-h-9 min-h-8" />
           }
-          @if (topbar.appName) {
-            <span>{{ topbar.appName }}</span>
-          }
         </a>
+
+        @if (topbar.appName) {
+          <span class="layout-topbar-app-name">{{ topbar.appName }}</span>
+        }
+    </div>
+
+    <div class="layout-topbar-left-actions">
+
+        @if (topbar.showBackButton || pageTitleService.hasTitle()) {
+          <span class="topbar-separator"></span>
+        }
+
+        @if (topbar.showBackButton && navigationService.canGoBackSignal()) {
+          <button class="layout-menu-button layout-topbar-action" (click)="navigationService.goBack()">
+            <i class="pi pi-arrow-left"></i>
+          </button>
+        }
+
+        @if (pageTitleService.hasTitle()) {
+          <span class="layout-topbar-page-title">
+            <span>{{ pageTitleService.title() }}</span>
+          </span>
+        }
 
     </div>
 
-    <div class="layout-topbar-actions">
+    <div class="layout-topbar-right-actions">
 
       <button class="layout-topbar-menu-button layout-topbar-action" pStyleClass="@next" enterFromClass="hidden" enterActiveClass="animate-scalein" leaveToClass="hidden" leaveActiveClass="animate-fadeout" [hideOnOutsideClick]="true">
         <i class="pi pi-ellipsis-v"></i>
@@ -103,6 +125,8 @@ export class AppTopbar
   primeNG = inject(PrimeNG);
   public data: Signal<Topbar> = inject(SMZ_UI_LAYOUT_CONFIG).topbar;
   public layoutService: LayoutService = inject(LayoutService);
+  public navigationService: NavigationService = inject(NavigationService);
+  public pageTitleService: PageTitleService = inject(PageTitleService);
 
   toggleDarkMode()
   {
@@ -117,6 +141,7 @@ export class AppTopbar
 export interface Topbar
 {
   showMenuToggle?: boolean;
+  showBackButton?: boolean;
   showConfigurator?: boolean;
   showDarkModeToggle?: boolean;
   logoPath?: {
