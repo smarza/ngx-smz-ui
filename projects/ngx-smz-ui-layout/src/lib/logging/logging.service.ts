@@ -22,7 +22,7 @@ export class LoggingService {
   /** expose current settings */
   public readonly isEnabled = computed(() => this.enabled());
   public readonly currentLevel = computed(() => this.configFn().level ?? 'debug');
-  public readonly activeScopes = computed(() => this.configFn().scopes ?? []);
+  public readonly activeScopes = computed(() => this.configFn().restrictedScopes ?? []);
 
   /** toggle logging global */
   public enable(): void { this.enabled.set(true); }
@@ -47,7 +47,7 @@ export class LoggingService {
       return false;
     }
     // respeita scopes se fornecido
-    const scopes = cfg.scopes;
+    const scopes = cfg.restrictedScopes;
     if (scopes && scopes.length > 0 && owner) {
       if (!(scopes.includes(LoggingScope['*' as any]) || scopes.includes(owner))) {
         return false;

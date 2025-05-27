@@ -10,7 +10,7 @@ export class SmzCoreLogging {
       enabled: false,
       production: false,
       level: 'debug',
-      scopes: []
+      restrictedScopes: []
     });
 
     setConfig(config: SmzCoreLoggingConfigType): void {

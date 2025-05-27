@@ -17,8 +17,7 @@ import { appFooter } from './layout/app.footer';
 import { appTopbar } from './layout/app.topbar';
 import { appLayout } from './layout/app.layout';
 import { appLayoutState } from './layout/app.state';
-import { appCoreLogging } from './layout/app.core-logging';
-import { appLayoutLogging } from './layout/app.layout-logging';
+import { appLoggingCore, appLoggingLayout } from './layout/app.logging';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -35,16 +34,15 @@ export const appConfig: ApplicationConfig = {
         NgxsModule.forRoot(buildState(), { developmentMode: !environment.production }),
         NgxsRouterPluginModule.forRoot(),
       ]),
-    provideSmzCoreLogging(() => [{ logging: appCoreLogging }]),
-    provideSmzLayoutLogging(() => [{ logging: appLayoutLogging }]),
+    provideSmzCoreLogging(() => [{ logging: appLoggingCore }]),
+    provideSmzLayoutLogging(() => [{ logging: appLoggingLayout }]),
     provideSmzUILayout(() => [
       {
         sidebar: appSidebar,
         footer: appFooter,
         topbar: appTopbar,
         layout: appLayout,
-        state: appLayoutState,
-        logging: appLayoutLogging
+        state: appLayoutState
       }
     ]),
     provideAppInitializer(async () => {
