@@ -1,4 +1,4 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, signal, computed, inject } from '@angular/core';
 import {
   Router,
   NavigationEnd,
@@ -6,9 +6,14 @@ import {
   RouterStateSnapshot
 } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { LoggingService, ScopedLogger } from '../../logging/logging.service';
+import { LoggingScope } from '../../logging/logging-scope';
 
 @Injectable({ providedIn: 'root' })
 export class PageTitleService {
+  private router = inject(Router);
+  private loggingService = inject(LoggingService);
+  private logger: ScopedLogger = this.loggingService.scoped(LoggingScope.PageTitleService);
   // signal que guarda o título (ou null)
   private titleSignal = signal<string | null>(null);
 
@@ -18,7 +23,7 @@ export class PageTitleService {
   // boolean para visibilidade (false quando null)
   public readonly hasTitle = computed(() => this.titleSignal() !== null);
 
-  constructor(private router: Router) {
+  constructor() {
     // toda vez que uma navegação termina, atualiza o título
     this.router.events
       .pipe(filter(evt => evt instanceof NavigationEnd))

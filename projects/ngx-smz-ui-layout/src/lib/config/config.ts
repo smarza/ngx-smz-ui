@@ -3,6 +3,7 @@ import { MenuItem } from 'primeng/api';
 import { Footer } from '../layout/component/app.footer';
 import { Topbar } from '../layout/component/app.topbar';
 import { LayoutConfig, LayoutState } from '../layout/service/layout.service';
+
 export type SmzUILayoutConfigType = {
     sidebar: WritableSignal<MenuItem[]>;
     footer: WritableSignal<Footer>;
@@ -54,5 +55,6 @@ export class SmzUILayout {
         if (hasClaim) {
             this.hasClaim = hasClaim;
         };
+
     }
 }

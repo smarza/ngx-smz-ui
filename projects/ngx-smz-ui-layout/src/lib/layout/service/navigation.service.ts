@@ -1,62 +1,92 @@
 // navigation.service.ts
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, signal, computed, inject } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { LoggingService, ScopedLogger } from '../../logging/logging.service';
+import { LoggingScope } from '../../logging/logging-scope';
 
 @Injectable({ providedIn: 'root' })
 export class NavigationService {
-  /** Sempre começamos com a raiz como entry-point */
+  private router = inject(Router);
+  private location = inject(Location);
   private history = signal<string[]>(['/']);
-
-  /** Flag para indicar que o próximo NavigationEnd vem de um goBack() */
   private isPopping = signal(false);
-
-  /** Signal público que informa se há para onde voltar */
   public readonly canGoBack = computed(() => this.history().length > 1);
 
-  constructor(private location: Location, private router: Router) {
+  private loggingService = inject(LoggingService);
+  private logger: ScopedLogger = this.loggingService.scoped(LoggingScope.NavigationService);
+
+  constructor() {
+
     this.router.events
       .pipe(filter(evt => evt instanceof NavigationEnd))
       .subscribe((evt: NavigationEnd) => {
-        const url = evt.urlAfterRedirects;
+        const raw = evt.url;
+        const finalUrl = evt.urlAfterRedirects;
+        const hist = this.history();
 
+        this.logger.log(`🔔 NavigationEnd raw="${raw}", final="${finalUrl}"`);
+        this.logger.log(`   isPopping=${this.isPopping()}, history=[${hist.join(' → ')}]`);
+
+        // 1) Caso goBack()
         if (this.isPopping()) {
-          // foi um goBack(): só limpa o flag, não mexe no history
+          this.logger.log(' → Caso goBack(): limpando flag isPopping');
           this.isPopping.set(false);
           return;
         }
 
-        const hist = this.history();
-        // Se for o primeiro evento (somente ['/'] no history):
+        // 2) Primeira navegação, history === ['/']
         if (hist.length === 1 && hist[0] === '/') {
-          if (url === '/' || url === '') {
-            // navegação inicial para raiz → ignora (não duplica '/')
+          // 2.a) redirect "/" -> "/home" (ou outro default)
+          if (raw === '/' && finalUrl !== '/') {
+            this.logger.log(` → Detectado redirect "/" → "${finalUrl}", ajustando history`);
+            this.history.set([finalUrl]);
             return;
-          } else {
-            // navegação inicial para sub-rota → adiciona após '/'
-            this.history.update(list => [...list, url]);
+          }
+
+          // 2.b) entrou direto em sub-rota sem passar por "/"
+          if (raw === finalUrl && raw !== '/') {
+            this.logger.log(` → Entrada direta em sub-rota "${finalUrl}", iniciando history ["/", "${finalUrl}"]`);
+            this.history.set(['/']);
+            this.history.update(h => [...h, finalUrl]);
+            return;
+          }
+
+          // 2.c) navegação inicial em "/" sem redirect
+          if (finalUrl === '/') {
+            this.logger.log(' → Navegação inicial em "/", mantendo history');
             return;
           }
         }
 
-        // navegação normal após a inicial
-        this.history.update(list => [...list, url]);
+        // 3) Demais navegações internas
+        this.logger.log(` → Navegação normal para "${finalUrl}", adicionando ao history`);
+        this.history.update(h => [...h, finalUrl]);
       });
   }
 
-  /** Para usar no template: [disabled]="!navigationService.canGoBack()" */
+  /** Para template: [disabled]="!navigationService.canGoBackSignal()" */
   public canGoBackSignal(): boolean {
-    return this.canGoBack();
+    const c = this.canGoBack();
+    this.logger.log(`canGoBackSignal() → ${c}`);
+    return c;
   }
 
-  /** Volta um passo, removendo do history e chamando Location.back() */
+  /** Volta um passo: remove do history e chama Location.back() */
   public goBack(): void {
+    this.logger.log('goBack() chamado');
     if (!this.canGoBack()) {
+      this.logger.log(' → Não há para onde voltar, abortando');
       return;
     }
+    this.logger.log(' → isPopping=true e removendo último item do history');
     this.isPopping.set(true);
-    this.history.update(list => list.slice(0, -1));
+    this.history.update(h => {
+      const newHist = h.slice(0, -1);
+      this.logger.log(`   novo history = [${newHist.join(' → ')}]`);
+      return newHist;
+    });
     this.location.back();
   }
 }

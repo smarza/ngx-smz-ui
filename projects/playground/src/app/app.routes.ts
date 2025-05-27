@@ -18,9 +18,10 @@ export const routes: Routes = [
           smzUiRoot: true,
         },
         children: [
-          { path: '', component: HomePageComponent, data: { title: 'Home' } },
+          { path: 'home', component: HomePageComponent, data: { title: 'Home' } },
           { path: 'page-1', component: Page1Component, data: { title: 'Page 1' } },
           { path: 'page-2', component: Page2Component, data: {} },
+          { path: '', redirectTo: 'home', pathMatch: 'full' },
         ]
       },
       { path: 'notfound', component: NotfoundPageComponent },

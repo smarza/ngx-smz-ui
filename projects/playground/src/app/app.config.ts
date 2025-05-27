@@ -7,16 +7,18 @@ import { providePrimeNG } from 'primeng/config';
 import { routes } from './app.routes';
 import { provideSmzUILayout, SMZ_UI_LAYOUT_CONFIG } from '@ngx-smz/layout';
 import { NgxsModule } from '@ngxs/store';
-import { buildState, NgxSmzUiModule } from '@ngx-smz/core';
+import { buildState, NgxSmzUiModule, provideSmzCoreLogging } from '@ngx-smz/core';
 import { UiBuilder } from './globais/smz-ui-config-builder';
 import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
 import { environment } from '@environments/environment';
-
+import { provideSmzLayoutLogging } from '@ngx-smz/layout';
 import { appSidebar } from './layout/app.sidebar';
 import { appFooter } from './layout/app.footer';
 import { appTopbar } from './layout/app.topbar';
 import { appLayout } from './layout/app.layout';
 import { appLayoutState } from './layout/app.state';
+import { appCoreLogging } from './layout/app.core-logging';
+import { appLayoutLogging } from './layout/app.layout-logging';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -33,13 +35,16 @@ export const appConfig: ApplicationConfig = {
         NgxsModule.forRoot(buildState(), { developmentMode: !environment.production }),
         NgxsRouterPluginModule.forRoot(),
       ]),
+    provideSmzCoreLogging(() => [{ logging: appCoreLogging }]),
+    provideSmzLayoutLogging(() => [{ logging: appLayoutLogging }]),
     provideSmzUILayout(() => [
       {
         sidebar: appSidebar,
         footer: appFooter,
         topbar: appTopbar,
         layout: appLayout,
-        state: appLayoutState
+        state: appLayoutState,
+        logging: appLayoutLogging
       }
     ]),
     provideAppInitializer(async () => {
