@@ -1,4 +1,11 @@
-<label *ngIf="input.hideName == false && input.hideLabel != true" class="smz__input_name" [innerHTML]="input.name"></label>
+<smz-label
+    class="smz__input_name"
+    [text]="input.name"
+    [propertyName]="input.propertyName"
+    [showLabel]="input.hideName == false && input.hideLabel != true"
+    [warning]="input.warning">
+</smz-label>
+
 <div class="input_inner__wrapper">
 
     <div class="p-inputgroup">

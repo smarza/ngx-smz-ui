@@ -1,6 +1,13 @@
 <ng-container *ngIf="nodes$ | async as nodes">
 
-<label *ngIf="input.hideLabel != true" class="smz__input_name" [innerHTML]="input.name"></label>
+<smz-label
+    class="smz__input_name"
+    [text]="input.name"
+    [propertyName]="input.propertyName"
+    [showLabel]="input.hideLabel != true"
+    [warning]="input.warning">
+</smz-label>
+
 <div class="input_inner__wrapper grid grid-nogutter">
     <p-treeSelect
       class="col-12 grid-nogutter smz__input_value flex-1"

@@ -1837,6 +1837,11 @@ export class SmzFormInputValidatorBuilder<TInput, TResponse> {
 
   }
 
+  public withWarning(warning: (formValues: any) => string | null): SmzFormInputValidatorBuilder<TInput, TResponse> {
+    this._input.warningFunction = warning;
+    return this;
+  }
+
   public required(): SmzFormInputValidatorBuilder<TInput, TResponse> {
     this._input.validatorsPreset.isRequired = true;
     if(this._input.type == SmzControlType.CALENDAR) {

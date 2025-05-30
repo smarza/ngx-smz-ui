@@ -1,5 +1,12 @@
 <div class="grid col-12 grid-nogutter input_inner__wrapper flex-gap-1">
-    <label *ngIf="input.hideLabel != true" class="col-12 smz__input_name" [for]="input.propertyName" [innerHTML]="input.name"></label>
+    <smz-label
+        class="smz__input_name"
+        [text]="input.name"
+        [propertyName]="input.propertyName"
+        [showLabel]="input.hideLabel != true"
+        [warning]="input.warning">
+    </smz-label>
+
     <p-toggleswitch
         class="smz__input_value"
         [name]="input.propertyName"

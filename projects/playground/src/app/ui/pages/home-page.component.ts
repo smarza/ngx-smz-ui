@@ -8,6 +8,7 @@ import { ButtonModule } from 'primeng/button';
     imports: [ButtonModule],
     template: `
         <h1>Home Page</h1>
+        <div class="text-red-500">Red</div>
         <button pButton type="button" label="Toggle Menu Visibility" (click)="toggleMenuVisibility()"></button>
     `
 })

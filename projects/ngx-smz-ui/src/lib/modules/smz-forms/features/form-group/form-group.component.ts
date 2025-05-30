@@ -1,4 +1,4 @@
-import { ViewEncapsulation, Component, OnInit, AfterViewInit, OnDestroy, Input, Output, EventEmitter, OnChanges, SimpleChanges, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
+import { ViewEncapsulation, Component, OnInit, AfterViewInit, OnDestroy, Input, Output, EventEmitter, OnChanges, SimpleChanges, ChangeDetectorRef, ChangeDetectionStrategy, signal, inject } from '@angular/core';
 import { UntypedFormBuilder, AbstractControlOptions } from '@angular/forms';
 import { debounceTime, takeWhile } from 'rxjs/operators';
 import { InjectableDialogComponentInterface } from '../../../../common/modules/inject-content/models/injectable-dialog-component.interface';
@@ -11,6 +11,8 @@ import { mergeClone } from '../../../../common/utils/deep-merge';
 import { SmzFormViewdata } from '../../models/form-viewdata';
 import { GlobalInjector } from '../../../../common/services/global-injector';
 import { SmzFormsRepositoryService } from '../../services/smz-forms-repository.service';
+import { LoggingService, ScopedLogger } from '../../../../logging/logging.service';
+import { LoggingScope } from '../../../../logging/logging-scope';
 
 @Component({
     selector: 'smz-form-group',
@@ -20,6 +22,8 @@ import { SmzFormsRepositoryService } from '../../services/smz-forms-repository.s
     standalone: false
 })
 export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy, InjectableDialogComponentInterface<SmzFormsResponse<any>> {
+    private readonly loggingService = inject(LoggingService);
+    private logger: ScopedLogger = this.loggingService.scoped(LoggingScope.Forms);
     public isComponentActive = true;
     public viewdata: SmzFormViewdata;
     public get isValid() {
@@ -209,6 +213,7 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
                 }
 
                 this.callVisibilityFunctions();
+                this.callWarningFunctions();
 
                 // Esse timeout garante um adiamento no subscribe de status change do form para não ser executado na primeira inicialização
                 setTimeout(() =>
@@ -223,6 +228,7 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
                             // console.log('form statusChanges');
                             this.checkCustomFunctions();
                             this.callVisibilityFunctions();
+                            this.callWarningFunctions();
                             // console.log('isValid after >>>>', this.viewdata.isValid);
                         });
 
@@ -308,6 +314,25 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
                     }
                 };
             };
+    }
+
+    private callWarningFunctions(): void {
+        const formValues = this.viewdata.getData()?.data;
+
+        for (const group of this.config.groups) {
+            for (const input of group.children.filter(x => x.warningFunction != null)) {
+                this.logger.log(`Calling warningFunction for ${input.propertyName}`);
+                const warning = input.warningFunction(formValues);
+                this.logger.log(`warningFunction returned ${warning}`);
+
+                if (input.warning != null) {
+                    input.warning.set(warning);
+                }
+                else {
+                    input.warning = signal(warning);
+                }
+            };
+        };
     }
 
     public linkInputControls(): void

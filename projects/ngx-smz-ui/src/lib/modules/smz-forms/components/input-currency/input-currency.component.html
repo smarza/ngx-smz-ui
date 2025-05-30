@@ -1,4 +1,11 @@
-<label class="smz__input_name" [innerHTML]="input.name"></label>
+<smz-label
+    class="smz__input_name"
+    [text]="input.name"
+    [propertyName]="input.propertyName"
+    [showLabel]="input.hideLabel != true"
+    [warning]="input.warning">
+</smz-label>
+
 <div class="p-inputgroup input_inner__wrapper">
     <span class="p-inputgroup-addon">R$</span>
     <input pInputText class="col-12 smz__input_value flex-1" [id]="input.propertyName" type="number"

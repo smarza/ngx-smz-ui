@@ -2,6 +2,7 @@ import { SmzControlType } from './control-types';
 import { AbstractControl } from '@angular/forms';
 import { SmzFormsAdvancedSettings } from './advanced';
 import { SmzTemplate } from '../../../common/models/templates';
+import { WritableSignal } from '@angular/core';
 
 export interface SmzFormsBaseControl
 {
@@ -15,6 +16,8 @@ export interface SmzFormsBaseControl
     validatorsPreset?: SmzFormsValidatorsPreset;
     visibilityDependsOn?: { propertyName: string, reversed: boolean, formId?: string, condition?: any, conditions?: any[] };
     visibilityFunction?: (formValues: any) => boolean;
+    warningFunction?: (formValues: any) => string | null;
+    warning?: WritableSignal<string | null>;
     dataDependency?: { propertyName: string, condition: 'some' | 'none', matchValues: any[], callback: (control: SmzFormsBaseControl) => void }[]
     _inputFormControl?: AbstractControl;
     styleClass?: string;

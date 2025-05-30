@@ -78,6 +78,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { SmzSmartAutocompleteTagModule } from './directives/smart-autocomplete-tag.directive';
 import { GetCurrentMultiselectOptionsPipe } from './components/linked-multi-select/get-current-multiselect-options.pipe';
 import { MessageModule } from 'primeng/message';
+import { LabelComponent } from './components/label.component';
 
 export const defaultFormsModuleConfig: SmzFormsConfig = {
     behaviors: {
@@ -258,7 +259,8 @@ export const defaultFormsModuleConfig: SmzFormsConfig = {
         SmzAutocompleteSelectorComponent,
         OverlayPanelModule,
         SmzSmartTagModule,
-        SmzSmartAutocompleteTagModule
+        SmzSmartAutocompleteTagModule,
+        LabelComponent
     ],
     providers: [
         DialogService,

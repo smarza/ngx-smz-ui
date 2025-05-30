@@ -1,6 +1,10 @@
-
-
-<label *ngIf="input.hideLabel != true" class="smz__input_name" [innerHTML]="input.name"></label>
+<smz-label
+    class="smz__input_name"
+    [text]="input.name"
+    [propertyName]="input.propertyName"
+    [showLabel]="input.hideLabel != true"
+    [warning]="input.warning">
+</smz-label>
 
 <!-- ZONA DE DROPPING -->
 <div *ngIf="input._file == null" SmzDragDrop (fileDropped)="input.isDisabled ? notAllowed() : onFilesDropped($event, true, true, this.cdf)" class="file_upload__drag-container grid grid-nogutter items-center justify-center mt-1  mb-1">

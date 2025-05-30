@@ -6,6 +6,7 @@ export default {
     content: [
         './projects/playground/src/**/*.{html,ts,scss,css}',
         './projects/ngx-smz-ui-layout/src/**/*.{html,ts,scss,css}',
+        './projects/ngx-smz-ui/src/**/*.{html,ts,scss,css}',
     ],
     plugins: [PrimeUI],
     theme: {
@@ -16,8 +17,10 @@ export default {
             xl: '1200px',
             '2xl': '1920px'
         },
-        colors: {
-          'surface-border': 'var(--surface-border)'
+        extend: {
+            colors: {
+                'surface-border': 'var(--surface-border)'
+            }
         }
     }
 };
