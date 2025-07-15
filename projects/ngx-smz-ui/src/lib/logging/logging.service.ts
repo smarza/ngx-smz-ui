@@ -9,6 +9,8 @@ export interface ScopedLogger {
   warn(message?: any, ...optionalParams: any[]): void;
   error(message?: any, ...optionalParams: any[]): void;
   debug(message?: any, ...optionalParams: any[]): void;
+  groupCollapsed(label?: string): void;
+  groupEnd(): void;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -31,7 +33,7 @@ export class LoggingService {
 
   private shouldLog(
     method: 'debug' | 'info' | 'warn' | 'error',
-    owner?: LoggingScope
+    owner?: LoggingScope | string
   ): boolean {
     if (!this.enabled()) {
       return false;
@@ -49,7 +51,7 @@ export class LoggingService {
     // respeita scopes se fornecido
     const scopes = cfg.restrictedScopes;
     if (scopes && scopes.length > 0 && owner) {
-      if (!(scopes.includes(LoggingScope['*' as any]) || scopes.includes(owner))) {
+      if (!(scopes.includes(LoggingScope['*' as any]) || scopes.includes(owner as LoggingScope))) {
         return false;
       }
     }
@@ -76,11 +78,21 @@ export class LoggingService {
     console.debug(message, ...optionalParams);
   }
 
+  public groupCollapsed(label?: string): void {
+    if (!this.enabled()) return;
+    console.groupCollapsed(label);
+  }
+
+  public groupEnd(): void {
+    if (!this.enabled()) return;
+    console.groupEnd();
+  }
+
   /**
    * Retorna um logger com prefixo [owner] e restringe pelos scopes do config
    * owner agora é um LoggingScope
    */
-  public scoped(owner: LoggingScope): ScopedLogger {
+  public scoped(owner: LoggingScope | string): ScopedLogger {
     const prefix = `[${owner}]`;
     return {
       log: (msg?: any, ...params: any[]) => {
@@ -98,6 +110,14 @@ export class LoggingService {
       debug: (msg?: any, ...params: any[]) => {
         if (!this.shouldLog('debug', owner)) return;
         console.debug(prefix, msg, ...params);
+      },
+      groupCollapsed: (label?: string) => {
+        if (!this.shouldLog('info', owner)) return;
+        console.groupCollapsed(prefix, label);
+      },
+      groupEnd: () => {
+        if (!this.shouldLog('info', owner)) return;
+        console.groupEnd();
       }
     };
   }
