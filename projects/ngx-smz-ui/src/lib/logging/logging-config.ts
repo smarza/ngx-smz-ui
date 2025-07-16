@@ -4,5 +4,5 @@ export interface LoggingConfig {
   enabled: boolean;
   production?: boolean;
   level?: 'debug' | 'info' | 'warn' | 'error';
-  restrictedScopes?: LoggingScope[];
+  restrictedScopes?: (LoggingScope | string)[];
 }

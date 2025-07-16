@@ -51,7 +51,7 @@ export class LoggingService {
     // respeita scopes se fornecido
     const scopes = cfg.restrictedScopes;
     if (scopes && scopes.length > 0 && owner) {
-      if (!(scopes.includes(LoggingScope['*' as any]) || scopes.includes(owner as LoggingScope))) {
+      if (!(scopes.includes('*' as any) || scopes.includes(owner))) {
         return false;
       }
     }
