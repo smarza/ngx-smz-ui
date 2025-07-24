@@ -46,7 +46,7 @@ export class SmzFormViewdata {
 
                     const value = CONTROL_FUNCTIONS[input.type].getValue(this.form, input, formFlattenResponse);
 
-                    if (input.isVisible) {
+                    if (input.isVisible || input.forceIncludeInResponse) {
 
                         if (group.isHide) {
                             // Forçando a validação para true porque o grupo esta oculto

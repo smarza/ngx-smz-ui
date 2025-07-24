@@ -19,6 +19,7 @@ export interface SmzFormsBaseControl
     _inputFormControl?: AbstractControl;
     styleClass?: string;
     hideLabel?: boolean;
+    forceIncludeInResponse?: boolean;
 }
 
 export interface SmzFormsValidatorsPreset
