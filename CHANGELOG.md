@@ -9,6 +9,69 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
 Foi corrigido o problema onde o editar perfil não funcionava para aplicações com apenas um perfil por usuário.
 
+[19.3.6] - 2025-07-16
+
+### Melhorias
+- Modificação na configuração de logging para permitir que 'restrictedScopes' aceite strings, proporcionando maior flexibilidade na configuração dos escopos de log.
+- Ajuste no serviço de logging para lidar com escopos de string, melhorando a flexibilidade do sistema de logging.
+
+[19.3.5] - 2025-07-15
+
+### Adicionado
+- Aprimoramento do serviço de logging com métodos groupCollapsed e groupEnd para melhor organização dos logs.
+- Exportação do tipo ScopedLogger para melhorar as capacidades de logging.
+
+[19.3.3] - 2025-05-30
+
+### Adicionado
+- Funcionalidade de warning nos inputs de formulário para melhor feedback ao usuário.
+- Novo componente LabelComponent para renderização consistente de labels em formulários.
+- Aprimoramento das capacidades de logging nos componentes de grupo de formulário para melhor rastreabilidade.
+
+[19.3.2] - 2025-05-27
+
+### Melhorias
+- Refatoração da configuração de logging para usar 'restrictedScopes' ao invés de 'scopes', proporcionando maior clareza na configuração.
+- Consolidação da inicialização de logging na configuração da aplicação para melhor clareza e manutenibilidade.
+
+[19.3.1] - 2025-05-27
+
+### Adicionado
+- Introdução da funcionalidade de logging com novo LoggingService, LoggingConfig e LoggingScope.
+- Aprimoramento dos serviços de navegação e título de página com capacidades de logging para melhor rastreabilidade.
+
+[19.3.0] - 2025-05-27
+
+### Adicionado
+- Aprimoramento dos estilos e funcionalidades da topbar com novos recursos de botão voltar e título de página.
+- Introdução de serviços de navegação e título de página para melhor gerenciamento de roteamento.
+
+[19.2.5] - 2025-05-27
+
+### Melhorias
+- Remoção da codificação hardcoded de URL do servidor nas chamadas de API.
+- Refatoração dos serviços para utilizar configuração de ambiente para manipulação dinâmica de URLs.
+
+[19.2.4] - 2025-05-27
+
+### Adicionado
+- Novo AccessControlService para validação de claims.
+- Aprimoramento dos componentes de layout para utilizar verificações de claim para visibilidade de itens de menu.
+
+[19.2.3] - 2025-05-27
+
+### Melhorias
+- Refatoração do ToastService para incluir opções de progresso.
+- Implementação de novo SmzToastComponent para exibição aprimorada de mensagens.
+- Remoção de imports não utilizados do SmzToastModule em diálogos e layouts.
+
+[19.2.1] - 2025-04-24
+
+### Melhorias
+- Remoção de estilos não utilizados do angular.json.
+- Refatoração dos componentes de mensagem em smz-dialogs e smz-forms para usar p-message.
+- Aprimoramento da configuração do tailwind com novas cores de tema e gradientes de fundo.
+
 [17.3.0] - 2025-03-17
 
 Foi atualizada a propriedade `overrideResponseFormat` introduzida para fornecer flexibilidade no controle do formato das respostas em campos de formulário.
