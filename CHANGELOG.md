@@ -5,6 +5,10 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
+[19.3.7] - 2025-08-13
+
+Foi corrigido o problema onde o editar perfil não funcionava para aplicações com apenas um perfil por usuário.
+
 [17.3.0] - 2025-03-17
 
 Foi atualizada a propriedade `overrideResponseFormat` introduzida para fornecer flexibilidade no controle do formato das respostas em campos de formulário.

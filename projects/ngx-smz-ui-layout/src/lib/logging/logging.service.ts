@@ -31,7 +31,7 @@ export class LoggingService {
 
   private shouldLog(
     method: 'debug' | 'info' | 'warn' | 'error',
-    owner?: LoggingScope
+    owner?: LoggingScope | string
   ): boolean {
     if (!this.enabled()) {
       return false;
@@ -49,7 +49,7 @@ export class LoggingService {
     // respeita scopes se fornecido
     const scopes = cfg.restrictedScopes;
     if (scopes && scopes.length > 0 && owner) {
-      if (!(scopes.includes(LoggingScope['*' as any]) || scopes.includes(owner))) {
+      if (!(scopes.includes('*' as any) || scopes.includes(owner))) {
         return false;
       }
     }
@@ -78,9 +78,9 @@ export class LoggingService {
 
   /**
    * Retorna um logger com prefixo [owner] e restringe pelos scopes do config
-   * owner agora é um LoggingScope
+   * owner agora é um LoggingScope ou string
    */
-  public scoped(owner: LoggingScope): ScopedLogger {
+  public scoped(owner: LoggingScope | string): ScopedLogger {
     const prefix = `[${owner}]`;
     return {
       log: (msg?: any, ...params: any[]) => {
