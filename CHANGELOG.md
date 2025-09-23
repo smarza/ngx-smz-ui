@@ -5,6 +5,17 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
+[19.4.3] - 2025-01-15
+
+### Adicionado
+-
+
+### Corrigido
+-
+
+### Melhorias
+-
+
 [19.4.2] - 2025-01-15
 
 ### Corrigido
