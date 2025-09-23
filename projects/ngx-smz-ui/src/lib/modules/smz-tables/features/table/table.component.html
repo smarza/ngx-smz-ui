@@ -16,9 +16,10 @@
 
     <ng-template #tableTemplate>
 
-        <ng-container *ngVar="state.source?.items$ != null ? (state.source.items$ | async) : null as source">
+        <ng-container *ngVar="state.source?.items$ != null ? (state.source.items$ | async) : null as observableSource">
+        <ng-container *ngVar="state.source?.signalItems != null ? state.source.signalItems() : null as signalSource">
 
-        <ng-container *ngIf="(source ?? items | cloneTableItems : context: tableKey: context.state.rowExpansion.sincronize) as clonedData">
+        <ng-container *ngIf="((observableSource ?? signalSource ?? items) | cloneTableItems : context: tableKey: context.state.rowExpansion.sincronize) as clonedData">
         <p-table #dt
             dataKey="id"
             editMode="row"
@@ -532,6 +533,7 @@
 
         </ng-container>
 
+        </ng-container>
         </ng-container>
     </ng-template>
 

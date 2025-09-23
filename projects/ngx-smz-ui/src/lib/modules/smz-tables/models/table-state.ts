@@ -3,10 +3,12 @@ import { Observable } from 'rxjs';
 import { SmzMenuItem } from '../../smz-menu/models/smz-menu-item';
 import { EditableChanges } from './editable-model';
 import { SmzTableCaptionButton, SmzTableColumn, SmzTableContextColumn } from "./table-column";
+import { WritableSignal } from '@angular/core';
 
 export interface SmzTableState {
   source?: {
     items$?: Observable<any[]>;
+    signalItems: WritableSignal<any[]> | null;
   }
   /**
    * Custom actions

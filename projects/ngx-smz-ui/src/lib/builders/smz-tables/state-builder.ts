@@ -18,6 +18,7 @@ import { SmzTableViewportBuilder } from './viewport';
 import { SmzCaptionButtonsBuilder } from './caption-buttons-builder';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { generateGUID } from '../../common/utils/guid-generator';
+import { WritableSignal } from '@angular/core';
 
 // SCROLL TRUE =>
 //   MIN-WIDTH PODE TER PX
@@ -34,7 +35,8 @@ export class SmzTableBuilder<TData> extends SmzBuilderUtilities<SmzTableBuilder<
     isDebug: false,
     columns: [],
     source: {
-      items$: null
+      items$: null,
+      signalItems: null
     },
     actions: {
       customActions: {
@@ -260,7 +262,18 @@ export class SmzTableBuilder<TData> extends SmzBuilderUtilities<SmzTableBuilder<
   }
 
   public addSource(items$: Observable<any[]>): SmzTableBuilder<TData> {
+    if (this._state.source.signalItems != null) {
+      throw Error('You can\'t call addSource() after addSignalSource().');
+    }
     this._state.source.items$ = items$;
+    return this;
+  }
+
+  public addSignalSource(signalItems: WritableSignal<any[]>): SmzTableBuilder<TData> {
+    if (this._state.source.items$ != null) {
+      throw Error('You can\'t call addSignalSource() after addSource().');
+    }
+    this._state.source.signalItems = signalItems;
     return this;
   }
 

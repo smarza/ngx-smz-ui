@@ -14,11 +14,12 @@ export class SmzMenuItemActionsDirective {
     @Output() public collapse: EventEmitter<void> = new EventEmitter<void>();
 
     constructor(private store: Store) {
+        console.log('smzMenuItemActionsDirective constructor', this.item);
     }
 
     @HostListener('click', ['$event'])
     public onClick(event: any): void {
-
+        console.log('smzMenuItemAction clicked', this.item);
         if (this.item.disabled)
             return ;
 

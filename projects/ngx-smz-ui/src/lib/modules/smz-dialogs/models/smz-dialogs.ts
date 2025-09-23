@@ -71,8 +71,8 @@ export interface SmzDialog<T>
     domElementId?: string;
 
     contentClass?: string;
+    contentStyleClass?: string;
     containerStyleClass?: string;
-
     featureContainerClass?: string;
 
 }

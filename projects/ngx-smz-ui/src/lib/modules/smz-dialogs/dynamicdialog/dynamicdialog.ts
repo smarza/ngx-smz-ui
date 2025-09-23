@@ -32,7 +32,7 @@ const hideAnimation = animation([
         <div #overlayPanelClip id="overlay-clip" *ngIf="dialogConfig.data.behaviors.showAsLinkedOverlayPanel" class="fixed inset-0 p-component-overlay p-component-overlay-enter" [ngClass]="dialogConfig.data.overlayPanel?.overlayPanelStylesClass"></div>
         <div #highlightPanel id="highlight-clip" *ngIf="dialogConfig.data.behaviors.showAsLinkedOverlayPanel" class="fixed inset-0" [ngClass]="dialogConfig.data.overlayPanel?.hightlightStyleClass"></div>
         <div #mask id="dialog-mask" [ngClass]="{'p-dialog-mask-free': dialogConfig.data.behaviors.showAsLinkedOverlayPanel, 'p-component-overlay p-component-overlay-enter' : config.modal !== false && !dialogConfig.data.behaviors.showAsLinkedOverlayPanel, 'p-dialog-mask-scrollblocker': config.modal !== false, 'smz-dialog-minimized': minimized }" class="smz_form_grid_container p-dialog-mask">
-            <div #dialogContainer id="dialog-container" [pAutoFocus]="config.autoFocus" [ngClass]="{'p-dialog p-dynamic-dialog p-component': true, 'p-dialog-rtl': config.rtl, 'p-dialog-maximized': maximized}" [ngStyle]="config.style" [class]="config.styleClass"
+            <div #dialogContainer id="dialog-container" [pAutoFocus]="config.autoFocus" [ngClass]="{'p-dialog p-dynamic-dialog p-component': true, 'p-dialog-rtl': config.rtl, 'p-dialog-maximized': maximized}" [ngStyle]="config.style" class="{{ config.styleClass }} {{ dialogConfig?.data?.containerStyleClass }}"
                 [@animation]="{value: 'visible', params: {transform: transformOptions, transition: config.transitionOptions || '150ms cubic-bezier(0, 0, 0.2, 1)'}}"
                 (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" role="dialog" *ngIf="visible"
                 [style.width]="config.width" [style.height]="config.height">
@@ -58,7 +58,7 @@ const hideAnimation = animation([
                         </button>
                     </div>
                 </div>
-                <div class="p-dialog-content {{ dialogConfig?.data?.containerStyleClass }}" [ngStyle]="config.contentStyle" [ngClass]="{ 'disable-ui-dialog-content': dialogConfig.data._context.isGlobalDisabled }">
+                <div class="p-dialog-content {{ dialogConfig?.data?.contentStyleClass }}" [ngStyle]="config.contentStyle" [ngClass]="{ 'disable-ui-dialog-content': dialogConfig.data._context.isGlobalDisabled }">
                     <ng-template pDynamicDialogContent></ng-template>
                 </div>
                 <div class="p-dialog-footer" *ngIf="config.footer" [ngStyle]="config.footerStyle" [ngClass]="{ 'disable-container': dialogConfig.data._context.isGlobalDisabled }">

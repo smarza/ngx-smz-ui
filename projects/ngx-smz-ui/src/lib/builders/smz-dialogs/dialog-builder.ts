@@ -74,7 +74,7 @@ export class SmzDialogBuilder<TResponse> extends SmzBuilderUtilities<SmzDialogBu
     features: [],
     contentClass: '',
     featureContainerClass: null,
-    containerStyleClass: ''
+    contentStyleClass: ''
   };
 
   public createdByUiDefinitions = false;
@@ -134,9 +134,9 @@ export class SmzDialogBuilder<TResponse> extends SmzBuilderUtilities<SmzDialogBu
     return this;
   }
 
-  public setMinHeight(percentageOfScreen: 50 | 60 | 70 | 80): SmzDialogBuilder<TResponse> {
-    const styleClass = ['min-h-[50vh]', 'min-h-[60vh]', 'min-h-[70vh]', 'min-h-[80vh]'];
-    this._state.contentClass = `min-h-[${percentageOfScreen}vh]`;
+  public setMinHeight(percentageOfScreen: 50 | 60 | 65 | 70 | 75 | 80 | 85 | 90): SmzDialogBuilder<TResponse> {
+    const styleClass = ['min-h-[50vh]', 'min-h-[60vh]', 'min-h-[65vh]', 'min-h-[70vh]', 'min-h-[75vh]', 'min-h-[80vh]', 'min-h-[85vh]', 'min-h-[90vh]'];
+    this._state.containerStyleClass = `min-h-[${percentageOfScreen}vh]`;
     return this;
   }
 
@@ -145,7 +145,7 @@ export class SmzDialogBuilder<TResponse> extends SmzBuilderUtilities<SmzDialogBu
     return this;
   }
   public setContainerStyles(styleClass: string): SmzDialogBuilder<TResponse> {
-    this._state.containerStyleClass = styleClass;
+    this._state.contentStyleClass = styleClass;
     return this;
   }
 

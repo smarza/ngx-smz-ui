@@ -5,6 +5,34 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
+[19.4.2] - 2025-01-15
+
+### Corrigido
+- Correção do comportamento de submit automático em formulários quando o usuário pressiona Enter em campos de texto.
+- Implementação de prevenção do submit nativo do HTML para evitar submissão indesejada de formulários.
+- Adição de controle explícito sobre eventos de teclado (Enter) em formulários através do método `onEnter()`.
+
+### Melhorias
+- Aprimoramento do controle de foco automático em formulários com a diretiva `focusFirstInput`.
+- Melhoria na configuração de comportamentos de formulário para maior flexibilidade no controle de submissão.
+
+[19.3.9] - 2025-01-15
+
+### Adicionado
+- Suporte para Angular 20 no pacote @ngx-smz/core, mantendo compatibilidade com Angular 19.
+
+[19.3.8] - 2025-01-15
+
+### Adicionado
+- Suporte para WritableSignal como fonte de dados nas tabelas através do método `addSignalSource()` no SmzTableBuilder.
+- Nova funcionalidade de overlay panel para diálogos com configuração de posicionamento e destaque visual.
+- Melhorias na configuração de diálogos com novos métodos para controle de foco automático e estilos de container.
+
+### Melhorias
+- Aprimoramento do sistema de diálogos com suporte a configurações mais flexíveis de comportamento e estilos.
+- Otimização do componente de tabela para melhor performance com fontes de dados reativas.
+- Refatoração dos modelos de diálogo para suportar configurações mais avançadas de overlay panel.
+
 [19.3.7] - 2025-08-13
 
 Foi corrigido o problema onde o editar perfil não funcionava para aplicações com apenas um perfil por usuário.
