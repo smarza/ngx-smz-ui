@@ -556,17 +556,22 @@ export class FormGroupComponent implements OnInit, AfterViewInit, OnChanges, OnD
 
     }
 
-    public onEnter(): void
+    public onEnter(event: any): void
     {
-        if (this.config.behaviors.submitOnEnter && this.viewdata.isValid) {
+        event.preventDefault();
+        if (this.config.behaviors?.submitOnEnter && this.viewdata.isValid) {
             this.submit.emit(this.getData());
         }
+    }
+
+    public onSubmit(event: any): void
+    {
+        event.preventDefault();
     }
 
     ngOnDestroy(): void
     {
         this.isComponentActive = false;
-
         this.repository.remove(this.config);
     }
 

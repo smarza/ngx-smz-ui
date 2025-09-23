@@ -3,7 +3,7 @@
 <div class="smz_form_grid_container">
 
     <ng-container *ngIf="viewdata?.form != null && !configHasErrors">
-        <form focusFirstInput [focus]="!config.behaviors.avoidFocusOnLoad" [formGroup]="viewdata.form" class="smz_form__wrapper" (keyup.enter)="onEnter()">
+        <form focusFirstInput [focus]="!config.behaviors.avoidFocusOnLoad" [formGroup]="viewdata.form" class="smz_form__wrapper" (submit)="$event.preventDefault()" (keydown.enter)="onEnter($event)">
             <ng-container *ngTemplateOutlet="groupTemplate"></ng-container>
         </form>
     </ng-container>

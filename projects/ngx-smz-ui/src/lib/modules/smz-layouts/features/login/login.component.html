@@ -5,7 +5,7 @@
 
   <div *ngIf="state.isFormVisible" class="w-full grid grid-nogutter flex-col items-stretch justify-center gap-4 p-6">
     <div *ngIf="state.message" class="ml-auto mr-auto" [innerHtml]="state.message | safeHtml"></div>
-    <smz-form-group #formComponent (submit)="login($event)" [config]="state.form"></smz-form-group>
+    <smz-form-group #formComponent (submit)="login(formComponent.getData())" [config]="state.form"></smz-form-group>
     <button pButton class="" [disabled]="!formComponent.isValid" type="button" [label]="state.loginButtonLabel" (click)="login(formComponent.getData())"></button>
 
     <ng-container *ngFor="let action of (state.customButtons | smzFlattenMenu : null)">

@@ -5,6 +5,22 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
+[17.3.2] - 2025-01-27
+
+### Corrigido
+- Correção do comportamento de submit automático em formulários quando o usuário pressiona Enter em campos de texto.
+- Implementação de prevenção do submit nativo do HTML para evitar submissão indesejada de formulários.
+- Adição de controle explícito sobre eventos de teclado (Enter) em formulários através do método `onEnter()`.
+
+### Melhorias
+- Aprimoramento do controle de foco automático em formulários com a diretiva `focusFirstInput`.
+- Melhoria na configuração de comportamentos de formulário para maior flexibilidade no controle de submissão.
+
+[17.3.1] - 2025-07-24
+
+
+Update version to 17.3.1 and enhance dialog input conversion logic to include hidden fields in response. Added 'forceIncludeInResponse' property to control models and adjusted visibility checks in form view data processing.
+
 [17.3.0] - 2025-03-17
 
 Foi atualizada a propriedade `overrideResponseFormat` introduzida para fornecer flexibilidade no controle do formato das respostas em campos de formulário.
