@@ -7,14 +7,9 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
 [19.4.3] - 2025-01-15
 
-### Adicionado
--
-
-### Corrigido
--
-
-### Melhorias
--
+### Atualizado
+- Atualização da versão do pacote @ngx-smz/core para 19.4.3.
+- Atualização das dependências peer para suportar Angular >=19.2.0 <21.0.0.
 
 [19.4.2] - 2025-01-15
 
