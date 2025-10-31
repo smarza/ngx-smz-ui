@@ -5,6 +5,10 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
+[17.3.3] - 2025-10-31
+
+- Exposição do componente de arvore do prime (dt) a partir do nosso SmzTreeComponent
+
 [17.3.2] - 2025-01-27
 
 ### Corrigido

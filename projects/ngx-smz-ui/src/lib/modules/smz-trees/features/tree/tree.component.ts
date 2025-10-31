@@ -7,7 +7,7 @@ import { SmzTreeContext, SmzTreeState } from '../../models/tree-state';
 import { getTreeNodeFromKey, isArray, uuidv4 } from '../../../../common/utils/utils';
 import { TreeHelperService } from '../../services/tree-helper.service';
 import { SmzNodeHelper } from '../../models/node-helper';
-import { TreeNodeCollapseEvent, TreeNodeDropEvent, TreeNodeExpandEvent, TreeNodeSelectEvent, TreeNodeUnSelectEvent } from 'primeng/tree';
+import { Tree, TreeNodeCollapseEvent, TreeNodeDropEvent, TreeNodeExpandEvent, TreeNodeSelectEvent, TreeNodeUnSelectEvent } from 'primeng/tree';
 import { Menu } from 'primeng/menu';
 import { SmzTreeDynamicMenuBuilder } from '../../../../builders/smz-trees/tree-builder';
 
@@ -19,6 +19,7 @@ import { SmzTreeDynamicMenuBuilder } from '../../../../builders/smz-trees/tree-b
 })
 export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
   public treeKey = uuidv4();
+  @ViewChild(Tree) public dt: Tree;
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
   @Input() public state: SmzTreeState;
   @Input() public items: SmzTreeNode<unknown>[] = [];
