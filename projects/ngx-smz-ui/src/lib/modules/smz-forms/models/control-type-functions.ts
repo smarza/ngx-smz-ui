@@ -10,6 +10,8 @@ import { TreeHelpers } from '../../smz-trees/utils/tree-helpers';
 import { resolveTreeNodeSelection } from '../../smz-trees/models/node-helper';
 import { SimpleEntity } from '../../../common/models/simple-named-entity';
 import { generateGUID } from '../../../common/utils/guid-generator';
+import moment from 'moment';
+import { isEmpty, normalizeDateToUtc } from '../../rbk-utils/utils/utils';
 
 export interface SmzControlTypeFunctionsDefinitions
 {
@@ -18,7 +20,6 @@ export interface SmzControlTypeFunctionsDefinitions
     applyDefaultValue: (control: AbstractControl, input: SmzControlTypes) => void;
     getValue: (form: UntypedFormGroup, input: SmzControlTypes, flattenResponse: boolean) => any;
     setValue?: (control: AbstractControl, input: SmzControlTypes, value: any) => void;
-
 }
 
 export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefinitions } =
@@ -30,7 +31,19 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
         getValue: (form: UntypedFormGroup, input: SmzCalendarControl, flattenResponse: boolean) =>
         {
             const value = form.get(input.propertyName).value;
-            // console.log('getValue CALENDAR', value);
+
+            if (!isEmpty(value) && !input.showTime && value instanceof Date) {
+
+                // Input está configurado para não mostrar o horário, então vamos remover o horário
+                try {
+                    const date = normalizeDateToUtc(value);
+                    return mapResponseValue(input, date, false);
+                } catch (error) {
+                    console.error('Erro ao normalizar data para UTC', input, value, error);
+                    return mapResponseValue(input, value, false);
+                }
+            }
+
             return mapResponseValue(input, value, false);
         },
     },

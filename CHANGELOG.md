@@ -5,6 +5,20 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
+[19.5.1] - 2026-01-16
+
+### Adicionado
+- Foi adicionado suporte para conversão automatica de data e hora para a propriedade "createdAt".
+
+[19.5.0] - 2026-01-15
+
+### Adicionado
+- Nova função `normalizeDateToUtc()` para normalizar datas para UTC, removendo informações de horário.
+
+### Melhorias
+- Normalização de datas em campos de calendário quando `showTime` está desabilitado, garantindo que apenas a data seja enviada sem informações de horário.
+- Aprimoramento da função `fixDateProperties()` para normalizar datas de propriedades que começam com 'date', terminam com 'Date' ou são 'birthdate', removendo informações de horário e mantendo apenas a data.
+
 [19.4.3] - 2025-01-15
 
 ### Atualizado

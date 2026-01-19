@@ -1,6 +1,6 @@
 {
   "name": "@ngx-smz/core",
-  "version": "19.4.3",
+  "version": "19.5.0",
   "peerDependencies": {
     "@angular/common": ">=19.2.0 <21.0.0",
     "@angular/core": ">=19.2.0 <21.0.0",
