@@ -1,0 +1,97 @@
+<div *ngIf="annualPlanning$ | async as annualPlanning" class="flex flex-row">
+
+  <div class="flex flex-col gap-2">
+
+    <div class="row-header">
+
+      <div class="w-full grid grid-nogutter items-center justify-start gap-4">
+
+        <div class="flex-col items-start bg-slate-100 border-l-sky-700 border-l-4 px-5 py-2">
+          <span class="text-text-color-secondary">{{ annualPlanning.plant.name }}</span>
+          <div class="text-text-color-secondary font-semibold text-xl pt-1.5 pb-1">
+            {{ annualPlanning.description }}
+          </div>
+        </div>
+
+        <div class="flex-col items-start bg-slate-100 px-5 py-2">
+          <span class="text-text-color-secondary">Ano</span>
+          <div class="text-text-color-secondary font-semibold text-xl pt-1.5 pb-1">
+            {{ annualPlanning.year }}
+          </div>
+        </div>
+
+        <div class="flex-col items-start bg-slate-100 px-5 py-2">
+          <span class="text-text-color-secondary">Estado</span>
+          <div class="text-text-color-secondary font-semibold text-xl pt-1.5 pb-1">
+            {{ getPlanningStatus(annualPlanning.status) }}
+          </div>
+        </div>
+
+        <div class="flex-col items-start bg-slate-100 px-5 py-2">
+          <span class="text-text-color-secondary">Privacidade</span>
+          <div class="text-text-color-secondary font-semibold text-xl pt-1.5 pb-1">
+            {{ getPlanningPrivacy(annualPlanning.privacy) }}
+          </div>
+        </div>
+
+        <div class="flex-col items-start bg-slate-100 px-5 py-2">
+          <span class="text-text-color-secondary">Proprietário</span>
+          <div class="text-text-color-secondary font-semibold text-xl pt-1.5 pb-1">
+            {{ annualPlanning.owner }}
+          </div>
+        </div>
+
+        <div class="flex-col items-start bg-slate-100 px-5 py-2">
+          <span class="text-text-color-secondary">Origem</span>
+          <div class="text-text-color-secondary font-semibold text-xl pt-1.5 pb-1">
+            {{ annualPlanning.isInspectionDataFromGiants ? 'Giants' : 'Planilha' }}
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row-table">
+      <div class="panel custom-col-span-12">
+        <div>
+          <p-accordion>
+              <p-accordionTab header="Dados de Inspeção">
+                <smz-ui-table class="w-full" [state]="inspectionDataTableState"></smz-ui-table>
+              </p-accordionTab>
+
+              <p-accordionTab header="Dados de RTI">
+                <smz-ui-table class="w-full" [state]="rtiDataTableState"></smz-ui-table>
+              </p-accordionTab>
+
+              <p-accordionTab *ngIf="annualPlanning.hasWeatherData">
+                @if ((hasWeatherDataErrors$ | async) === true) {
+                  <ng-template pTemplate="header">
+                  <span class="flex items-center justify-start gap-2 text-red-500"
+                    pTooltip="Dados meteorológicos com erros serão substituídos por dados históricos do modelo e não serão usados nos cálculos."
+                    tooltipPosition="top">
+                      <span>Dados Meteorológicos</span>
+                      <i class="fa-solid fa-triangle-exclamation text-lg"></i>
+                  </span>
+                </ng-template>
+                }
+                @else {
+                  <ng-template pTemplate="header">
+                    <span class="white-space-nowrap">Dados Meteorológicos</span>
+                  </ng-template>
+                }
+                <smz-ui-table class="w-full" [state]="weatherDataTableState"></smz-ui-table>
+              </p-accordionTab>
+          </p-accordion>
+        </div>
+      </div>
+    </div>
+
+    <div class="row-table">
+      <ng-container *ngFor="let summary of annualPlanning.summaries">
+        <app-data-table class="panel custom-col-span-4" [data]="summary"></app-data-table>
+      </ng-container>
+    </div>
+
+  </div>
+
+  </div>

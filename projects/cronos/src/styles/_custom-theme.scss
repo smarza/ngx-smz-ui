@@ -1,0 +1,85 @@
+html:not(.app-dark) {
+
+  // ------------------------------
+  //  Cores do Cronos
+
+  --cronos-orange-color: #FF945B;
+  --cronos-orange-color-hover: #dd7f48;
+  --cronos-light-blue-color: #208FBC;
+  --cronos-dark-blue-color: #002B36;
+
+  // ------------------------------
+  //  Customizações de variáveis
+
+  --p-form-field-background: var(--p-surface-50);
+  --p-menu-item-icon-color: var(--cronos-light-blue-color);
+
+  --p-datatable-header-background: unset;
+  --p-datatable-header-cell-background: var(--cronos-dark-blue-color);
+  --p-datatable-header-cell-color: white;
+  --p-datatable-header-cell-border-color: white;
+
+  --p-datatable-header-cell-hover-background: var(--cronos-light-blue-color);
+  --p-datatable-header-cell-hover-color: white;
+
+  app-sidebar {
+    --surface-overlay: var(--cronos-dark-blue-color);
+  }
+
+  // ------------------------------
+  //  Customizações de layout
+
+  .layout-sidebar {
+    --surface-hover: var(--cronos-dark-blue-color);
+
+    .layout-menuitem-root-text {
+      --text-color: var(--cronos-orange-color);
+    }
+
+    ul {
+      --text-color: white;
+    }
+
+    .active-route {
+      background-color: var(--cronos-dark-blue-color);
+      --primary-color: white;
+    }
+  }
+
+
+  .layout-main .layout-container {
+    background: white;
+    padding: 10px 30px;
+    border-radius: 8px;
+  }
+
+  .p-dialog-header {
+    background: var(--cronos-dark-blue-color);
+    color: white;
+    padding: 0.75em 1em 0.75em 1em !important;
+
+    .p-dialog-title {
+      font-size: medium;
+    }
+  }
+
+  .smz__group_name {
+    font-size: 1em;
+  }
+
+  .p-tabpanels {
+    --p-tabs-tabpanel-background: transparent;
+    --p-tabs-tabpanel-padding: 0px
+  }
+
+  app-ativo-login {
+    .p-button {
+      --p-button-primary-background: var(--cronos-orange-color);
+      --p-button-primary-border-color: var(--cronos-orange-color);
+      --p-button-primary-hover-background: var(--cronos-orange-color-hover);
+      --p-button-primary-hover-border-color: var(--cronos-orange-color-hover);
+      --p-button-primary-hover-color: white;
+    }
+  }
+
+}

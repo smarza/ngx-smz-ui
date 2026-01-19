@@ -1,0 +1,13 @@
+@media (min-width: 1025px) {
+  .layout-wrapper.layout-horizontal
+    .layout-menu-container
+    .layout-menu
+    > li
+    > ul {
+    min-width: 320px;
+  }
+}
+
+.exception-label-error {
+  color: var(--text-color) !important;
+}
