@@ -5,6 +5,10 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
+[19.6.1] - 2026-02-05
+
+### Corrigido
+- Correção do erro ao tentar parsear um blob que não é um JSON.
 
 [19.6.0] - 2026-02-05
 

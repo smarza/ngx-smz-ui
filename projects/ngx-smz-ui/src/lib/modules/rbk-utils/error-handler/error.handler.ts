@@ -132,7 +132,7 @@ export class HttpErrorHandler {
     }
 
     private static isBlobError(err: any) {
-      return err instanceof HttpErrorResponse && err.error instanceof Blob && err.error.type === 'application/json';
+      return err instanceof HttpErrorResponse && err.error instanceof Blob && err.error?.type?.includes('application/json') === true;
     }
 
     private static async parseBlob(err: HttpErrorResponse): Promise<HttpErrorResponse> {
