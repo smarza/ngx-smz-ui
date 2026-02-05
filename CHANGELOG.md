@@ -5,6 +5,30 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
+
+[19.6.0] - 2026-02-05
+
+### Atualizado
+- @ngx-smz/layout e @ngx-smz/core agora possuem a mesma versão.
+- A flag `useLegacyThemeManager` foi removida do pacote @ngx-smz/core.
+- Foi adicionado um scss para o layout legacy do primeng no pacote @ngx-smz/layout:
+  - Aplique o scss no seu arquivo de styles.scss:
+  - Para usar o layout legacy:
+    - no seu arquivo de styles.scss:
+      ```scss
+        @use '@ngx-smz/layout/resources/layout/legacy-layout.scss';
+      ```
+  - Para usar o layout moderno:
+    - no seu arquivo de styles.scss:
+      ```scss
+        @use '@ngx-smz/layout/resources/layout/layout.scss';
+      ```
+
+[19.5.3] - 2026-02-03
+
+### Melhorias
+- Remoção do tema legacy do primeng para usar o tema do primeng. A flag `useLegacyThemeManager` foi adicionada para permitir a utilização do tema legacy do primeng. O valor padrão é não usar o tema legacy do primeng.
+
 [19.5.1] - 2026-01-16
 
 ### Adicionado
