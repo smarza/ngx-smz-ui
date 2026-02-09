@@ -23,11 +23,11 @@ import { GlobalInjector } from '../../../../../../common/services/global-injecto
             </ng-container>
           </span>
 
-          <ng-container *ngIf="uiConfig.rbkUtils.notifications.url != null; else modelDrivenNotificationsTemplate">
+          <ng-container *ngIf="uiConfig.rbkUtils.notifications.url != null; else modelDrivenNotificationsTemplate1">
             <smz-ui-notifications id="smz-ui-notifications" class="mt-2"></smz-ui-notifications>
           </ng-container>
 
-          <ng-template #modelDrivenNotificationsTemplate>
+          <ng-template #modelDrivenNotificationsTemplate1>
             <span class="notification-container" *ngIf="notifications != null" smz-ui-new-athena-notifications [items]="notifications"></span>
           </ng-template>
 
@@ -48,11 +48,11 @@ import { GlobalInjector } from '../../../../../../common/services/global-injecto
             </ng-container>
           </span>
 
-          <ng-container *ngIf="uiConfig.rbkUtils.notifications.url != null; else modelDrivenNotificationsTemplate">
+          <ng-container *ngIf="uiConfig.rbkUtils.notifications.url != null; else modelDrivenNotificationsTemplate2">
             <smz-ui-notifications id="smz-ui-notifications" class="mt-2"></smz-ui-notifications>
           </ng-container>
 
-          <ng-template #modelDrivenNotificationsTemplate>
+          <ng-template #modelDrivenNotificationsTemplate2>
             <span class="notification-container" *ngIf="notifications != null" smz-ui-new-athena-notifications [items]="notifications"></span>
           </ng-template>
 
