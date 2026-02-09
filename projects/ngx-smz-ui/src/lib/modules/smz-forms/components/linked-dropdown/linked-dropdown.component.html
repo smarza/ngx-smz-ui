@@ -1,5 +1,4 @@
-<ng-container *ngIf="options$ | async as options">
-
+@if (options$ | async; as options) {
   <smz-label
     class="smz__input_name"
     [text]="input.name"
@@ -7,27 +6,24 @@
     [showLabel]="input.hideLabel != true"
     [warning]="input.warning">
   </smz-label>
-
   <div class="input_inner__wrapper grid grid-nogutter">
-      <p-select
-          appendTo="body"
-          class="col-12 grid-nogutter smz__input_value flex-1"
-          [options]="options"
-          [formControl]="control"
-          optionLabel="name"
-          [autoDisplayFirst]="false"
-          dataKey="id"
-          (onChange)="service.setValue(input, formId, $event)"
-          [filter]="input.showFilter ? true : false"
-          [filterMatchMode]="input.filterMatchMode != null ? input.filterMatchMode : 'contains'"
-          [showClear]="input.showClear"
-          [emptyMessage]="input.emptyMessage"
-          [emptyFilterMessage]="input.emptyFilterMessage">
-
-          <!-- TODO: AutofocusFilter foi removido pois não existe no primeng
-              [autofocusFilter]="input.autofocusFilter" -->
-      </p-select>
-      <smz-validation-messages [input]="input" [control]="control" [behaviors]="behaviors"></smz-validation-messages>
+    <p-select
+      appendTo="body"
+      class="col-12 grid-nogutter smz__input_value flex-1"
+      [options]="options"
+      [formControl]="control"
+      optionLabel="name"
+      [autoDisplayFirst]="false"
+      dataKey="id"
+      (onChange)="service.setValue(input, formId, $event)"
+      [filter]="input.showFilter ? true : false"
+      [filterMatchMode]="input.filterMatchMode != null ? input.filterMatchMode : 'contains'"
+      [showClear]="input.showClear"
+      [emptyMessage]="input.emptyMessage"
+      [emptyFilterMessage]="input.emptyFilterMessage">
+      <!-- TODO: AutofocusFilter foi removido pois não existe no primeng
+      [autofocusFilter]="input.autofocusFilter" -->
+    </p-select>
+    <smz-validation-messages [input]="input" [control]="control" [behaviors]="behaviors"></smz-validation-messages>
   </div>
-
-</ng-container>
+}

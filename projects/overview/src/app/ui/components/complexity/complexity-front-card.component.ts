@@ -1,11 +1,11 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { NgxSmzServerImageModule, SimpleEntity } from '@ngx-smz/core';
 
 @Component({
   selector: 'app-complexity-front-card',
   standalone: true,
-  imports: [CommonModule, NgxSmzServerImageModule],
+  imports: [NgxSmzServerImageModule],
   host: { class: 'w-full h-full relative' },
   encapsulation: ViewEncapsulation.None,
   styles: [`

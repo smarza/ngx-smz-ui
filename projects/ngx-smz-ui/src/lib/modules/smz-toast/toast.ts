@@ -30,26 +30,30 @@ export interface Message {
     selector: 'p-toastItem',
     template: `
         <div #container [attr.id]="message.id" [class]="message.styleClass" [ngClass]="['p-toast-message-' + message.severity, 'p-toast-message']" [@messageState]="{value: 'visible', params: {showTransformParams: showTransformOptions, hideTransformParams: hideTransformOptions, showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}"
-                (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
-            <div class="p-toast-message-content relative" role="alert" aria-live="assertive" aria-atomic="true"  [ngClass]="message.contentStyleClass">
-                <ng-container *ngIf="!template">
+          (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
+          <div class="p-toast-message-content relative" role="alert" aria-live="assertive" aria-atomic="true"  [ngClass]="message.contentStyleClass">
+            @if (!template) {
                     <span [class]="'p-toast-message-icon pi' + (message.icon ? ' ' + message.icon : '')" [ngClass]="{'pi-info-circle': message.severity == 'info', 'pi-exclamation-triangle': message.severity == 'warn',
                         'pi-times-circle': message.severity == 'error', 'pi-check' :message.severity == 'success'}"></span>
-                    <div class="p-toast-message-text">
-                        <div class="p-toast-summary">{{message.summary}}</div>
-                        <div class="p-toast-detail">{{message.detail}}</div>
-                    </div>
-                    <div *ngIf="showProgress" class="absolute bottom-2 left-2 right-3">
-                        <p-progressBar [value]="progress" class="w-full" [ngClass]="[ 'toast-progress-' + message.severity ]" [showValue]="false"></p-progressBar>
-                    </div>
-                </ng-container>
-                <ng-container *ngTemplateOutlet="template; context: {$implicit: message}"></ng-container>
-                <button type="button" class="p-toast-icon-close p-link" (click)="onCloseIconClick($event)" (keydown.enter)="onCloseIconClick($event)" *ngIf="message.closable !== false" pRipple>
-                    <span class="p-toast-icon-close-icon pi pi-times"></span>
-                </button>
-            </div>
+              <div class="p-toast-message-text">
+                <div class="p-toast-summary">{{message.summary}}</div>
+                <div class="p-toast-detail">{{message.detail}}</div>
+              </div>
+              @if (showProgress) {
+                <div class="absolute bottom-2 left-2 right-3">
+                  <p-progressBar [value]="progress" class="w-full" [ngClass]="[ 'toast-progress-' + message.severity ]" [showValue]="false"></p-progressBar>
+                </div>
+              }
+            }
+            <ng-container *ngTemplateOutlet="template; context: {$implicit: message}"></ng-container>
+            @if (message.closable !== false) {
+              <button type="button" class="p-toast-icon-close p-link" (click)="onCloseIconClick($event)" (keydown.enter)="onCloseIconClick($event)" pRipple>
+                <span class="p-toast-icon-close-icon pi pi-times"></span>
+              </button>
+            }
+          </div>
         </div>
-    `,
+        `,
     animations: [
         trigger('messageState', [
             state('visible', style({
@@ -181,12 +185,14 @@ export class ToastItem implements AfterViewInit, OnDestroy {
     selector: 'p-toast',
     template: `
         <div #container [ngClass]="'p-toast p-component p-toast-' + position" [ngStyle]="style" [class]="styleClass">
-            <p-toastItem *ngFor="let msg of messages; let i=index" [message]="msg" [index]="i" (onClose)="onMessageClose($event)"
-                    [template]="template" @toastAnimation (@toastAnimation.start)="onAnimationStart($event)" (@toastAnimation.done)="onAnimationEnd($event)"
-                    [showTransformOptions]="showTransformOptions" [hideTransformOptions]="hideTransformOptions"
-                    [showTransitionOptions]="showTransitionOptions" [hideTransitionOptions]="hideTransitionOptions"></p-toastItem>
+          @for (msg of messages; track msg; let i = $index) {
+            <p-toastItem [message]="msg" [index]="i" (onClose)="onMessageClose($event)"
+              [template]="template" @toastAnimation (@toastAnimation.start)="onAnimationStart($event)" (@toastAnimation.done)="onAnimationEnd($event)"
+              [showTransformOptions]="showTransformOptions" [hideTransformOptions]="hideTransformOptions"
+            [showTransitionOptions]="showTransitionOptions" [hideTransitionOptions]="hideTransitionOptions"></p-toastItem>
+          }
         </div>
-    `,
+        `,
     animations: [
         trigger('toastAnimation', [
             transition(':enter, :leave', [

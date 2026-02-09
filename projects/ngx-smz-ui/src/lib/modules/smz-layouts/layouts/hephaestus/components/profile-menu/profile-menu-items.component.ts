@@ -6,13 +6,17 @@ import { MenuItem } from 'primeng/api';
     host: { "(document:click)": "collapse($event)" },
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
-    <li *ngFor="let item of items | isVisible; index as index">
-      <a menuItemAction [item]="item" [parent]="null" [breadcrumbs]="false" [tabindex]="index">
-      <i *ngIf="item.icon != null" class="pi" [ngClass]="item.icon"></i>
-        <span>{{ item.label }}</span>
-      </a>
-    </li>
-  `,
+    @for (item of items | isVisible; track item; let index = $index) {
+      <li>
+        <a menuItemAction [item]="item" [parent]="null" [breadcrumbs]="false" [tabindex]="index">
+          @if (item.icon != null) {
+            <i class="pi" [ngClass]="item.icon"></i>
+          }
+          <span>{{ item.label }}</span>
+        </a>
+      </li>
+    }
+    `,
     standalone: false
 })
 export class HephaestusProfileMenuItemsComponent implements OnInit, AfterViewInit {

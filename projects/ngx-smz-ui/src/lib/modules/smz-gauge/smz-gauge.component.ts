@@ -12,9 +12,11 @@ import { BehaviorSubject, debounceTime, merge, Subject, takeUntil, throttleTime 
     selector: 'smz-ui-gauge',
     imports: [CommonModule, SmzSvgGaugeComponent],
     template: `
-  <ng-container *ngIf="state; else noState">
+  @if (state) {
     <div class="flex flex-col items-center justify-center gap-3">
-      <div [ngClass]="state.titleStyle" *ngIf="state.showTitle">{{state.title}}</div>
+      @if (state.showTitle) {
+        <div [ngClass]="state.titleStyle">{{state.title}}</div>
+      }
       <app-svg-gauge
         [title]="state.title"
         [min]="state.min"
@@ -34,12 +36,11 @@ import { BehaviorSubject, debounceTime, merge, Subject, takeUntil, throttleTime 
         [backgroundColor]="state.backgroundColor">
       </app-svg-gauge>
     </div>
-  </ng-container>
-  <ng-template #noState>
+  } @else {
     <div class="gauge-container">
       <div class="gauge-title">No state was provided to Gauge</div>
     </div>
-  </ng-template>
+  }
   `,
     styles: [`
     /* Estilos personalizados para o componente Gauge */

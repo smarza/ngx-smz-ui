@@ -37,34 +37,35 @@ import { ClaimDefinitions } from '@models/claim-definitions';
   ],
   template: `
   <div class="relative h-[calc(100vh-205px)]">
-    <div class="absolute inset-0" *ngIf="annualPlanning$ | async as annualPlanning">
-
-      <ng-container *ngIf="annualPlanning.scenarios?.length > 0; else emptyScenarios">
-        <smz-ui-cards *ngIf="state != null" [state]="state">
-          <ng-template pTemplate="header" let-node>
-            <app-auto-refresh-table [actions]="refreshActions" [manualActions]="manualActions"></app-auto-refresh-table>
+    @if (annualPlanning$ | async; as annualPlanning) {
+      <div class="absolute inset-0">
+        @if (annualPlanning.scenarios?.length > 0) {
+          @if (state != null) {
+            <smz-ui-cards [state]="state">
+              <ng-template pTemplate="header" let-node>
+                <app-auto-refresh-table [actions]="refreshActions" [manualActions]="manualActions"></app-auto-refresh-table>
+                <p-menu #menu [model]="scenarioOptions" [popup]="true" appendTo="body" [style]="{'max-width': '170px'}"/>
+                <p-button (onClick)="menu.toggle($event)" label="Novo Cenário" [disabled]="!(manageAnnualPlanningClaim | rbkCanAccess)" styleClass="text-lg" icon="fa-solid fa-plus"/>
+                <button pButton icon="fa-solid fa-code-compare" class="p-button-primary"
+                  label="Comparar ({{selectedScenarioIds().length}}/2)"
+                  tooltip="Selecione dois cenários para comparar"
+                  (click)="navigateToScenarioComparisonPageRoute()"
+                  [disabled]="selectedScenarioIds().length !== 2 || !(manageAnnualPlanningClaim | rbkCanAccess)">
+                </button>
+              </ng-template>
+            </smz-ui-cards>
+          }
+        } @else {
+          <div class="grid grid-nogutter flex-col items-center justify-center h-full">
+            <i class="fa-solid fa-circle-info text-6xl"></i>
+            <h4 class="font-bold mb-2">Nenhum cenário disponível</h4>
+            <p class="text-lg">Adicione um novo cenário para começar o planejamento</p>
             <p-menu #menu [model]="scenarioOptions" [popup]="true" appendTo="body" [style]="{'max-width': '170px'}"/>
             <p-button (onClick)="menu.toggle($event)" label="Novo Cenário" [disabled]="!(manageAnnualPlanningClaim | rbkCanAccess)" styleClass="text-lg" icon="fa-solid fa-plus"/>
-            <button pButton icon="fa-solid fa-code-compare" class="p-button-primary"
-              label="Comparar ({{selectedScenarioIds().length}}/2)"
-              tooltip="Selecione dois cenários para comparar"
-              (click)="navigateToScenarioComparisonPageRoute()"
-              [disabled]="selectedScenarioIds().length !== 2 || !(manageAnnualPlanningClaim | rbkCanAccess)">
-            </button>
-          </ng-template>
-        </smz-ui-cards>
-      </ng-container>
-
-      <ng-template #emptyScenarios>
-        <div class="grid grid-nogutter flex-col items-center justify-center h-full">
-          <i class="fa-solid fa-circle-info text-6xl"></i>
-          <h4 class="font-bold mb-2">Nenhum cenário disponível</h4>
-          <p class="text-lg">Adicione um novo cenário para começar o planejamento</p>
-          <p-menu #menu [model]="scenarioOptions" [popup]="true" appendTo="body" [style]="{'max-width': '170px'}"/>
-          <p-button (onClick)="menu.toggle($event)" label="Novo Cenário" [disabled]="!(manageAnnualPlanningClaim | rbkCanAccess)" styleClass="text-lg" icon="fa-solid fa-plus"/>
-        </div>
-      </ng-template>
-    </div>
+          </div>
+        }
+      </div>
+    }
   </div>
   `
 })

@@ -52,35 +52,37 @@ import { SmzGaugeThreshold } from './smz-gauge.types';
   </text>
 
   <!-- Texto Min -->
-  <text
-    *ngIf="showMin"
-    x="18%"
-    y="93%"
-    text-anchor="middle"
-    dy=".3em"
-    [attr.font-size]="size * 0.06"
-    [attr.font-weight]="minMaxFontWeight"
-    [attr.color]="minMaxFontColor"
-    fill="#333">
-    {{ min | number: minMaxPipeFormat }}{{unit}}
-  </text>
+  @if (showMin) {
+    <text
+      x="18%"
+      y="93%"
+      text-anchor="middle"
+      dy=".3em"
+      [attr.font-size]="size * 0.06"
+      [attr.font-weight]="minMaxFontWeight"
+      [attr.color]="minMaxFontColor"
+      fill="#333">
+      {{ min | number: minMaxPipeFormat }}{{unit}}
+    </text>
+  }
 
   <!-- Texto Max -->
-  <text
-    *ngIf="showMax"
-    x="82%"
-    y="93%"
-    text-anchor="middle"
-    dy=".3em"
-    [attr.font-size]="size * 0.06"
-    [attr.font-weight]="minMaxFontWeight"
-    [attr.color]="minMaxFontColor"
-    fill="#333">
-    {{ max | number: minMaxPipeFormat }}{{unit}}
-  </text>
+  @if (showMax) {
+    <text
+      x="82%"
+      y="93%"
+      text-anchor="middle"
+      dy=".3em"
+      [attr.font-size]="size * 0.06"
+      [attr.font-weight]="minMaxFontWeight"
+      [attr.color]="minMaxFontColor"
+      fill="#333">
+      {{ max | number: minMaxPipeFormat }}{{unit}}
+    </text>
+  }
 </svg>
 
-  `,
+`,
     styles: [
         `
 svg {

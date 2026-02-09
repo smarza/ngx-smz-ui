@@ -1,22 +1,22 @@
 <div class="grid col-12 grid-nogutter input_inner__wrapper flex-gap-1">
-    <smz-label
-        class="smz__input_name"
-        [text]="input.name"
-        [propertyName]="input.propertyName"
-        [showLabel]="input.hideLabel != true"
-        [warning]="input.warning">
-    </smz-label>
-    <div class="col-12 flex-gap-1">
-        <ng-container *ngFor="let option of input.options">
-            <p-checkbox
-                class="smz__input_value"
-                [name]="input.propertyName"
-                [id]="input.propertyName"
-                [value]="option.id"
-                [formControl]="control">
-            </p-checkbox>
-            <label [for]="input.propertyName" class="text-sm">{{option.name}}</label>
-        </ng-container>
-    </div>
-    <smz-validation-messages [input]="input" [control]="control" [behaviors]="behaviors"></smz-validation-messages>
+  <smz-label
+    class="smz__input_name"
+    [text]="input.name"
+    [propertyName]="input.propertyName"
+    [showLabel]="input.hideLabel != true"
+    [warning]="input.warning">
+  </smz-label>
+  <div class="col-12 flex-gap-1">
+    @for (option of input.options; track option) {
+      <p-checkbox
+        class="smz__input_value"
+        [name]="input.propertyName"
+        [id]="input.propertyName"
+        [value]="option.id"
+        [formControl]="control">
+      </p-checkbox>
+      <label [for]="input.propertyName" class="text-sm">{{option.name}}</label>
+    }
+  </div>
+  <smz-validation-messages [input]="input" [control]="control" [behaviors]="behaviors"></smz-validation-messages>
 </div>

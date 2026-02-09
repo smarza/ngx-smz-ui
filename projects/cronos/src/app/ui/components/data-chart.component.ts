@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ChartOptions, TooltipItem } from 'chart.js';
 import { ChartModule } from 'primeng/chart';
 import { NgCloneModule } from '@ngx-smz/core';
@@ -8,7 +8,7 @@ import { ChartData } from '@models/chart-data';
 @Component({
   selector: 'app-data-chart',
   standalone: true,
-  imports: [CommonModule, NgCloneModule, ChartModule],
+  imports: [NgCloneModule, ChartModule],
   template: `
   <ng-container *ngClone="data as data">
     <p-chart [type]="data.type" [data]="data" [options]="chartOptions"/>

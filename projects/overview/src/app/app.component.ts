@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Store } from '@ngxs/store';
@@ -13,17 +13,12 @@ import Nora from '@primeng/themes/nora';
   selector: 'app-root',
   standalone: true,
   imports: [
-    CommonModule,
     RouterOutlet,
-
-    // Layout
     NewAthenaLayoutModule,
-
-    // Shared Modules
     RbkAccessControlModule,
     ProteusModule,
     ButtonModule
-  ],
+],
   template: `
 <smz-ui-new-athena-layout [profile]="menuService.profile">
   <router-outlet></router-outlet>

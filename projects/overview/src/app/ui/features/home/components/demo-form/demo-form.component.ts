@@ -7,21 +7,35 @@ import { FileUploadEvent, FileUploadHandlerEvent } from 'primeng/fileupload';
   standalone: false,
   selector: 'app-demo-form',
   template: `
-  <div *ngIf="formComponent" class="grid grid-nogutter items-center justify-start gap-2">
-    <button pButton pRipple type="button" label="Ver Resposta" (click)="log()"></button>
-    <button *ngIf="form != null" pButton pRipple type="button" label="Anular Config" class="p-button-danger" (click)="clear()"></button>
-    <button *ngIf="form == null && node != null" pButton pRipple type="button" label="Recriar Config" class="p-button-success" (click)="build()"></button>
-    <button *ngIf="form != null" pButton pRipple type="button" label="Logar Form" class="p-button-success" (click)="logForm()"></button>
-    <i *ngIf="!formComponent.viewdata?.form?.touched" class="fa-solid fa-face-meh text-2xl" pTooltip="Ainda não foi tocado"></i>
-    <i *ngIf="formComponent.isValid" class="fa-solid fa-check text-green-500 text-2xl" pTooltip="Válido"></i>
-    <i *ngIf="!formComponent.isValid" class="fa-solid fa-xmark text-red-500 text-2xl" pTooltip="Com erros"></i>
-    <i class="fa-solid fa-cash-register text-gray-100 text-2xl" [ngClass]="{ 'text-blue-500': formComponent?.viewdata?.hasChanges }" [pTooltip]="formComponent?.viewdata?.hasChanges ? 'Modificado' : 'Não modificado'"></i>
-    <div class="col"></div>
-    <smz-ui-form-submit [form]="formComponent" (save)="onSave($event)"></smz-ui-form-submit>
-  </div>
-
+  @if (formComponent) {
+    <div class="grid grid-nogutter items-center justify-start gap-2">
+      <button pButton pRipple type="button" label="Ver Resposta" (click)="log()"></button>
+      @if (form != null) {
+        <button pButton pRipple type="button" label="Anular Config" class="p-button-danger" (click)="clear()"></button>
+      }
+      @if (form == null && node != null) {
+        <button pButton pRipple type="button" label="Recriar Config" class="p-button-success" (click)="build()"></button>
+      }
+      @if (form != null) {
+        <button pButton pRipple type="button" label="Logar Form" class="p-button-success" (click)="logForm()"></button>
+      }
+      @if (!formComponent.viewdata?.form?.touched) {
+        <i class="fa-solid fa-face-meh text-2xl" pTooltip="Ainda não foi tocado"></i>
+      }
+      @if (formComponent.isValid) {
+        <i class="fa-solid fa-check text-green-500 text-2xl" pTooltip="Válido"></i>
+      }
+      @if (!formComponent.isValid) {
+        <i class="fa-solid fa-xmark text-red-500 text-2xl" pTooltip="Com erros"></i>
+      }
+      <i class="fa-solid fa-cash-register text-gray-100 text-2xl" [ngClass]="{ 'text-blue-500': formComponent?.viewdata?.hasChanges }" [pTooltip]="formComponent?.viewdata?.hasChanges ? 'Modificado' : 'Não modificado'"></i>
+      <div class="col"></div>
+      <smz-ui-form-submit [form]="formComponent" (save)="onSave($event)"></smz-ui-form-submit>
+    </div>
+  }
+  
   <smz-form-group [config]="form" #formComponent (onChange)="onStatusChanges($event)"></smz-form-group>
-
+  
   <!-- <p-fileUpload chooseLabel="Choose" [customUpload]="true" (uploadHandler)="onUpload($event)"></p-fileUpload> -->
   `,
   changeDetection: ChangeDetectionStrategy.OnPush

@@ -22,44 +22,36 @@ import { SelectModule } from 'primeng/select';
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.Default,
     template: `
-  <ng-container *ngIf="showLocalizationSwitch">
-
+  @if (showLocalizationSwitch) {
     <smz-responsive class="col grid grid-nogutter w-full items-center justify-start">
-
-    <!-- LANDSCAPE -->
+      <!-- LANDSCAPE -->
       <ng-template pTemplate="landscape">
-
         <div  class="h-full grid grid-nogutter items-center justify-center">
           <p-select appendTo="body" [options]="locales$ | async" styleClass="smz-tenant-switch-small" optionLabel="alias" dataKey="name" [(ngModel)]="selected" (onChange)="onSelectorChange($event.value)">
-
             <ng-template pTemplate="selectedItem">
-                <div class="flex align-items-center gap-2" *ngIf="selected">
-                    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selected.country.toLowerCase()" style="width: 18px"/>
-                    <div>{{ selected.name }}</div>
+              @if (selected) {
+                <div class="flex align-items-center gap-2">
+                  <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selected.country.toLowerCase()" style="width: 18px"/>
+                  <div>{{ selected.name }}</div>
                 </div>
+              }
             </ng-template>
             <ng-template let-locale pTemplate="item">
-                <div class="flex align-items-center gap-2">
-                    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + locale.country.toLowerCase()" style="width: 18px"/>
-                    <div>{{ locale.name }}</div>
-                </div>
+              <div class="flex align-items-center gap-2">
+                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + locale.country.toLowerCase()" style="width: 18px"/>
+                <div>{{ locale.name }}</div>
+              </div>
             </ng-template>
-
-        </p-select>
-
+          </p-select>
         </div>
-
       </ng-template>
-
       <!-- PORTRAIT -->
       <ng-template pTemplate="portrait">
         <i class="fa-solid fa-repeat cursor-pointer text-2xl text-text-color switch-tenant" (click)="showSwitchDialog()">
-      </i>
+        </i>
       </ng-template>
-
     </smz-responsive>
-
-  </ng-container>
+  }
   `
 })
 export class SmzLocalizationSwitchComponent implements OnInit {

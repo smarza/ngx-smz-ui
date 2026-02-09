@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, inject, Input, NgZone, Output } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -9,11 +9,10 @@ import { ToastModule } from 'primeng/toast';
   selector: 'smz-ui-toast',
   standalone: true,
   imports: [
-    CommonModule,
     ToastModule,
     ButtonModule,
-    ProgressBarModule,
-  ],
+    ProgressBarModule
+],
   template: `
   <!-- <p-toast /> -->
 <p-toast position="bottom-right">

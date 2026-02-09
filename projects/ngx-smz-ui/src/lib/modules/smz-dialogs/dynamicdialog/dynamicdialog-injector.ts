@@ -1,4 +1,4 @@
-import { Injector, Type, InjectionToken, InjectFlags } from '@angular/core';
+import { Injector, Type, InjectionToken } from '@angular/core';
 
 export class DynamicDialogInjector implements Injector {
 	

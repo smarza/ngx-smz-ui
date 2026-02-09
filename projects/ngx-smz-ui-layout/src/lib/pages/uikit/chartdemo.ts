@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
 import { FluidModule } from 'primeng/fluid';
@@ -8,7 +8,7 @@ import { LayoutService } from '../../layout/service/layout.service';
 @Component({
     selector: 'app-chart-demo',
     standalone: true,
-    imports: [CommonModule, ChartModule, FluidModule],
+    imports: [ChartModule, FluidModule],
     template: `
         <p-fluid class="grid grid-cols-12 gap-8">
             <div class="col-span-12 xl:col-span-6">

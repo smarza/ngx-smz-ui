@@ -5,7 +5,7 @@ import { SmzCommentsState } from '@ngx-smz/core';
 @Component({
   standalone: false,
   selector: 'app-demo-comments',
-  template: `<smz-comments-section *ngIf="state != null" [state]="state"></smz-comments-section>`,
+  template: `@if (state != null) {<smz-comments-section [state]="state"></smz-comments-section>}`,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 

@@ -1,5 +1,5 @@
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, DestroyRef, ElementRef, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ButtonModule } from 'primeng/button';
 import { AutoCompleteCompleteEvent, AutoCompleteModule } from 'primeng/autocomplete';
 import { FormsModule } from '@angular/forms';
@@ -12,36 +12,37 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
     selector: 'smz-autocomplete-selector',
     imports: [
-        CommonModule,
-        ButtonModule,
-        AutoCompleteModule,
-        FormsModule
-    ],
+    ButtonModule,
+    AutoCompleteModule,
+    FormsModule
+],
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
     <div class="col-12 px-0 grid grid-nogutter items-center justify-start gap-2">
       <p-autoComplete
         class="col"
         styleClass="w-full"
-
+    
         [(ngModel)]="option.selected"
         [suggestions]="suggestions"
         [dropdown]="true"
         [emptyMessage]="option.emptyMessage"
-
+    
         (completeMethod)="search($event)"
         (onClear)="onClear()"
         (onBlur)="handleSelection()"
         (onSelect)="onSelect()"
         (keydown)="handleKeyDown($event)">
-
+    
         <ng-template pTemplate="header">
-          <div *ngIf="option.dataSourceDisplayName != null" class="text-blue-500 font-bold text-lg mx-5 mt-4 mb-0">{{ option.dataSourceDisplayName }}</div>
+          @if (option.dataSourceDisplayName != null) {
+            <div class="text-blue-500 font-bold text-lg mx-5 mt-4 mb-0">{{ option.dataSourceDisplayName }}</div>
+          }
         </ng-template>
-
+    
       </p-autoComplete>
     </div>
-`
+    `
 })
 export class SmzAutocompleteSelectorComponent implements OnInit, AfterViewInit {
   private readonly destroyRef = inject(DestroyRef);

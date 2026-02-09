@@ -13,18 +13,22 @@ import { PrimeNG } from 'primeng/config';
 @Component({
     selector: 'p-overlayPanel',
     template: `
-        <div *ngIf="render" [ngClass]="'p-overlaypanel p-component'" [ngStyle]="style" [class]="styleClass" (click)="onOverlayClick($event)"
+        @if (render) {
+          <div [ngClass]="'p-overlaypanel p-component'" [ngStyle]="style" [class]="styleClass" (click)="onOverlayClick($event)"
             [@animation]="{value: (overlayVisible ? 'open': 'close'), params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}"
-                (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)">
+            (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)">
             <div class="p-overlaypanel-content" (click)="onContentClick()" (mousedown)="onContentClick()">
-                <ng-content></ng-content>
-                <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+              <ng-content></ng-content>
+              <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
             </div>
-            <button *ngIf="showCloseIcon" type="button" class="p-overlaypanel-close p-link" (click)="onCloseClick($event)" (keydown.enter)="hide()" [attr.aria-label]="ariaCloseLabel" pRipple>
+            @if (showCloseIcon) {
+              <button type="button" class="p-overlaypanel-close p-link" (click)="onCloseClick($event)" (keydown.enter)="hide()" [attr.aria-label]="ariaCloseLabel" pRipple>
                 <span class="p-overlaypanel-close-icon pi pi-times"></span>
-            </button>
-        </div>
-    `,
+              </button>
+            }
+          </div>
+        }
+        `,
     animations: [
         trigger('animation', [
             state('void', style({

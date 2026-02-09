@@ -1,5 +1,5 @@
 import { Component, inject, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { GlobalInjector, NgxSmzTablesModule, RbkAccessControlModule, SmzDialogBuilder, SmzDialogsService, SmzTableComponent } from '@ngx-smz/core';
 import { AnnualPlanningDetails } from '@models/annual-planning-details';
 import { UpdateTableStatePipe } from './update-table-state.pipe';
@@ -15,14 +15,13 @@ import { EnvironSituation, EnvironSituationValues } from './situation-options';
   selector: 'app-annual-planning-painting-plan',
   standalone: true,
   imports: [
-    CommonModule,
     NgxSmzTablesModule,
     ButtonModule,
     UpdateTableStatePipe,
     RbkAccessControlModule
-  ],
+],
   template: `
-  <ng-container *ngIf="annualPlanning.selectedPlan; else noSelectedPlan">
+  @if (annualPlanning.selectedPlan) {
     <div>
       <smz-ui-table #smzTable class="w-full" [state]="annualPlanning | updateTableState">
         <ng-template pTemplate="caption" let-primeTable>
@@ -35,8 +34,7 @@ import { EnvironSituation, EnvironSituationValues } from './situation-options';
         </ng-template>
       </smz-ui-table>
     </div>
-  </ng-container>
-  <ng-template #noSelectedPlan>
+  } @else {
     <div class="relative h-[calc(100vh-205px)]">
       <div class="absolute inset-0">
         <div class="grid grid-nogutter flex-col items-center justify-center h-full">
@@ -46,7 +44,7 @@ import { EnvironSituation, EnvironSituationValues } from './situation-options';
         </div>
       </div>
     </div>
-  </ng-template>
+  }
   `
 })
 export class AnnualPlanningPaintingPlanComponent {

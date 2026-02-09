@@ -11,7 +11,7 @@ import { SelectModule } from 'primeng/select';
 import { ssoEnvironment, SsoLoginEnviroment } from '../sso.environment';
 import { SsoSessionLoginPayload } from '../sso-login-payload';
 import { SsoAuthActions } from '../states/sso-auth.actions';
-import { CommonModule, Location } from '@angular/common';
+import { Location } from '@angular/common';
 import { NavigateToExternalSsoUrl } from '../sso-redirect-function';
 import { InputTextModule } from 'primeng/inputtext';
 
@@ -27,7 +27,7 @@ interface UsernameLoginData {
 @Component({
     selector: 'app-ativo-login',
     standalone: true,
-    imports: [CommonModule, ButtonModule, SelectModule, FormsModule, InputTextModule, RouterModule, RippleModule, AppFloatingConfigurator],
+    imports: [ButtonModule, SelectModule, FormsModule, InputTextModule, RouterModule, RippleModule, AppFloatingConfigurator],
     template: `
     <app-floating-configurator />
     <div class="bg-gradient-to-b from-[#0B3F54] to-[#021722] dark:from-surface-50 dark:to-surface-100 flex items-center justify-center min-h-screen min-w-[100vw] overflow-hidden">

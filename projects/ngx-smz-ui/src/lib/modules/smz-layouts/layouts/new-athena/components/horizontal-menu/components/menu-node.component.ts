@@ -4,41 +4,38 @@ import { MenuItem } from 'primeng/api';
 @Component({
     selector: '[smz-ui-new-athena-horizontal-menu-node]',
     template: `
-      <ng-container *ngFor="let subItem of item.items | isVisible; let subItemIndex = index;">
-
-          <ng-container [ngSwitch]="subItem | hasChild">
-
-            <ng-container *ngSwitchCase="false">
-                <li [ngClass]="{ 'active-menuitem': currentUrl | urlChecker : subItem.routerLink }">
-                    <a class="p-ripple" menuItemAction [item]="subItem" [parent]="item" [breadcrumbs]="true" [tabindex]="subItemIndex" (collapse)="collapse.emit()">
-                        <i *ngIf="subItem.icon" class="layout-menuitem-icon" [ngClass]="subItem.icon"></i>
-                        <span>{{ subItem.label }}</span>
-                        <span class="p-ink"></span>
-                    </a>
-                </li>
-            </ng-container>
-
-            <ng-container *ngSwitchCase="true">
-                <li [ngClass]="{ 'active-menuitem' : subItem.expanded }">
-                    <a class="p-ripple" [tabindex]="subItemIndex" (click)="toogleOnly(subItem, subItem.items)">
-                        <i *ngIf="subItem.icon" class="layout-menuitem-icon" [ngClass]="subItem.icon"></i>
-                        <span>{{ subItem.label }}</span>
-                        <i class="pi pi-fw pi-angle-down layout-menuitem-toggler"></i>
-                        <span class="p-ink"></span>
-                    </a>
-
-                    <ng-container *ngIf="subItem.expanded">
-                      <ul smz-ui-new-athena-horizontal-menu-node [item]="subItem" [currentUrl]="currentUrl" (collapse)="collapse.emit()"
-                              role="menu" style="z-index: 100;" class="smz-ui-new-athena-horizontal-menu-node"></ul>
-                    </ng-container>
-
-                </li>
-            </ng-container>
-
-          </ng-container>
-
-      </ng-container>
-  `,
+      @for (subItem of item.items | isVisible; track subItem; let subItemIndex = $index) {
+        @switch (subItem | hasChild) {
+          @case (false) {
+            <li [ngClass]="{ 'active-menuitem': currentUrl | urlChecker : subItem.routerLink }">
+              <a class="p-ripple" menuItemAction [item]="subItem" [parent]="item" [breadcrumbs]="true" [tabindex]="subItemIndex" (collapse)="collapse.emit()">
+                @if (subItem.icon) {
+                  <i class="layout-menuitem-icon" [ngClass]="subItem.icon"></i>
+                }
+                <span>{{ subItem.label }}</span>
+                <span class="p-ink"></span>
+              </a>
+            </li>
+          }
+          @case (true) {
+            <li [ngClass]="{ 'active-menuitem' : subItem.expanded }">
+              <a class="p-ripple" [tabindex]="subItemIndex" (click)="toogleOnly(subItem, subItem.items)">
+                @if (subItem.icon) {
+                  <i class="layout-menuitem-icon" [ngClass]="subItem.icon"></i>
+                }
+                <span>{{ subItem.label }}</span>
+                <i class="pi pi-fw pi-angle-down layout-menuitem-toggler"></i>
+                <span class="p-ink"></span>
+              </a>
+              @if (subItem.expanded) {
+                <ul smz-ui-new-athena-horizontal-menu-node [item]="subItem" [currentUrl]="currentUrl" (collapse)="collapse.emit()"
+                role="menu" style="z-index: 100;" class="smz-ui-new-athena-horizontal-menu-node"></ul>
+              }
+            </li>
+          }
+        }
+      }
+      `,
     standalone: false
 })
 

@@ -2,7 +2,7 @@ import { AvailableSystemPipe } from './pipes/available-system-pipe';
 import { BehaviorSubject } from 'rxjs';
 import { ButtonModule } from 'primeng/button';
 import { cloneDeep } from 'lodash-es';
-import { CommonModule, Location } from '@angular/common';
+import { Location } from '@angular/common';
 import { Component, Input, ChangeDetectionStrategy, ChangeDetectorRef, inject, ViewEncapsulation, OnChanges, SimpleChanges } from '@angular/core';
 import { ComputeTeamManHoursUsedPipe } from './pipes/compute-team-man-hours-used.pipe';
 import { Confirmable, nameof, NgVarModule, NgxSmzTablesModule, RbkAccessControlModule, SimpleNamedEntity, SmzFilterType, SmzGaugeBuilder, SmzGaugeComponent,
@@ -24,19 +24,14 @@ import { TooltipModule } from 'primeng/tooltip';
   selector: 'app-scenario-panting-plan',
   standalone: true,
   imports: [
-    CommonModule,
     NgxSmzTablesModule,
     NgVarModule,
     NgPipesModule,
     ToolbarModule,
     ButtonModule,
-    // AvailableSystemPipe,
-    // SystemByTeamPipe,
-    // ComputeTeamManHoursUsedPipe,
-    // SmzGaugeComponent,
     RbkAccessControlModule,
     TooltipModule
-  ],
+],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   host: { class: '' },

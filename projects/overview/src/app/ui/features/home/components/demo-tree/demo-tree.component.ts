@@ -8,22 +8,21 @@ import { Store } from '@ngxs/store';
   standalone: false,
   selector: 'app-demo-tree',
   template: `
-  <div *ngIf="state != null" style="height: 675px;">
-  <ng-container *ngClone="items$ | async as items">
-    <smz-ui-tree #smzTree [items]="items" [state]="state" [selection]="selection" (selectedNodes)="selectionChanged($event)">
-
-      <ng-template pTemplate="type:AuditTemplate" let-node>
-        <span (click)="log(smzTree)">Template => {{ node.label }}</span>
-      </ng-template>
-
-      <ng-template pTemplate="type:disk" let-node>
-        <span>disk => {{ node.label }}</span>
-      </ng-template>
-
-    </smz-ui-tree>
-  </ng-container>
-  </div>
-`,
+  @if (state != null) {
+    <div style="height: 675px;">
+      <ng-container *ngClone="items$ | async as items">
+        <smz-ui-tree #smzTree [items]="items" [state]="state" [selection]="selection" (selectedNodes)="selectionChanged($event)">
+          <ng-template pTemplate="type:AuditTemplate" let-node>
+            <span (click)="log(smzTree)">Template => {{ node.label }}</span>
+          </ng-template>
+          <ng-template pTemplate="type:disk" let-node>
+            <span>disk => {{ node.label }}</span>
+          </ng-template>
+        </smz-ui-tree>
+      </ng-container>
+    </div>
+  }
+  `,
   changeDetection: ChangeDetectionStrategy.Default
 })
 

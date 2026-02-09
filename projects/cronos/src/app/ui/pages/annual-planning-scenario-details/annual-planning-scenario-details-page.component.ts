@@ -45,54 +45,43 @@ export interface AnnualPlanningScenarioDetailsPageComponentRouteEvent {
   encapsulation: ViewEncapsulation.None,
   template: `
 
-<ng-container *ngIf="scenario$ | async as scenario">
-<ng-container *ngIf="planning$ | async">
-  <p-tabView class="col-12">
-
-    <!-- CONFIGURAÇÕES -->
-  <p-tabPanel  header="Configurações">
-    <ng-template pTemplate="details" let-item let-type="strategyName">
-
-      <ng-container [ngSwitch]="scenario.strategyName">
-
-        <ng-container *ngSwitchCase="'CorrosionGoalStrategy'">
-          <app-corrosion-goal-scenario-settings [scenario]="scenario"></app-corrosion-goal-scenario-settings>
-        </ng-container>
-
-        <ng-container *ngSwitchCase="'AvailableManHourStrategy'">
-          <app-available-man-hour-scenario-settings [scenario]="scenario"></app-available-man-hour-scenario-settings>
-        </ng-container>
-
-        <ng-container *ngSwitchCase="'CriticityStrategy'">
-          <app-criticity-scenario-settings [scenario]="scenario"></app-criticity-scenario-settings>
-        </ng-container>
-
-        <ng-container *ngSwitchCase="'PrioritizationStrategy'">
-          <app-prioritization-scenario-settings [scenario]="scenario"></app-prioritization-scenario-settings>
-        </ng-container>
-
-        <ng-container *ngSwitchCase="'RtiStrategy'">
-          <app-rti-scenario-settings [scenario]="scenario"></app-rti-scenario-settings>
-        </ng-container>
-
-      </ng-container>
-    </ng-template>
-  </p-tabPanel>
-
-  <!-- PLANO -->
-  <p-tabPanel  header="Plano">
-    <app-scenario-panting-plan [scenario]="scenario"></app-scenario-panting-plan>
-  </p-tabPanel>
-
-  <!-- RESULTADOS -->
-  <p-tabPanel  header="Resultados">
-    <app-scenario-results-visualization [scenario]="scenario"></app-scenario-results-visualization>
-  </p-tabPanel>
-
-  </p-tabView>
-</ng-container>
-</ng-container>
-  `,
+@if (scenario$ | async; as scenario) {
+  @if (planning$ | async) {
+    <p-tabView class="col-12">
+      <!-- CONFIGURAÇÕES -->
+      <p-tabPanel  header="Configurações">
+        <ng-template pTemplate="details" let-item let-type="strategyName">
+          @switch (scenario.strategyName) {
+            @case ('CorrosionGoalStrategy') {
+              <app-corrosion-goal-scenario-settings [scenario]="scenario"></app-corrosion-goal-scenario-settings>
+            }
+            @case ('AvailableManHourStrategy') {
+              <app-available-man-hour-scenario-settings [scenario]="scenario"></app-available-man-hour-scenario-settings>
+            }
+            @case ('CriticityStrategy') {
+              <app-criticity-scenario-settings [scenario]="scenario"></app-criticity-scenario-settings>
+            }
+            @case ('PrioritizationStrategy') {
+              <app-prioritization-scenario-settings [scenario]="scenario"></app-prioritization-scenario-settings>
+            }
+            @case ('RtiStrategy') {
+              <app-rti-scenario-settings [scenario]="scenario"></app-rti-scenario-settings>
+            }
+          }
+        </ng-template>
+      </p-tabPanel>
+      <!-- PLANO -->
+      <p-tabPanel  header="Plano">
+        <app-scenario-panting-plan [scenario]="scenario"></app-scenario-panting-plan>
+      </p-tabPanel>
+      <!-- RESULTADOS -->
+      <p-tabPanel  header="Resultados">
+        <app-scenario-results-visualization [scenario]="scenario"></app-scenario-results-visualization>
+      </p-tabPanel>
+    </p-tabView>
+  }
+}
+`,
   styles: [`
     app-annual-planning-scenario-details-page {
       .p-tabview-panels { padding: 0 !important; }

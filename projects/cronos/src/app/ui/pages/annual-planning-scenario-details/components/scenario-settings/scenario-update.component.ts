@@ -17,18 +17,20 @@ import { StrategyFormData } from './models/strategy-form-data';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-  <ng-container *ngIf="onValidationError$ | async as onValidationError">
+  @if (onValidationError$ | async; as onValidationError) {
     <div class="absolute right-2 top-0 grid grid-nogutter items-center justify-end w-full">
-      <span *ngIf="onValidationError" style="color: red">Finalize o preenchimento do formulário para editar o cenário</span>
+      @if (onValidationError) {
+        <span style="color: red">Finalize o preenchimento do formulário para editar o cenário</span>
+      }
     </div>
-  </ng-container>
+  }
   <smz-form-group [config]="data.generalForm" (statusChanges)="updateGeneralForm($event)"></smz-form-group>
   <div class="grid grid-nogutter items-center justify-start gap-2">
     <div class="smz__group_name">Configuração da Equipe</div>
     <p-button label="Adicionar" icon="fa-solid fa-plus" (onClick)="addTeam()" [disabled]="!allowEditing" [rounded]="true" size="small"/>
   </div>
   <p-tabView class="w-full" [(activeIndex)]="activeIndex">
-    <ng-container *ngFor="let team of teamTabs; let i = index;">
+    @for (team of teamTabs; track team; let i = $index) {
       <p-tabPanel>
         <ng-template pTemplate="header">
           <div class="grid grid-nogutter items-center justify-start gap-2">
@@ -38,18 +40,19 @@ import { StrategyFormData } from './models/strategy-form-data';
         </ng-template>
         <div class="grid grid-nogutter items-start justify-start flex-gap-1 w-full">
           <smz-form-group class="col-6" [config]="team.form" (statusChanges)="updateTeamForm()"></smz-form-group>
-          <smz-ui-tree
-            *ngIf="showHidroblastLocationsTree"
-            class="col-6 h-[380px]"
-            #smzTree
-            [items]="data.hidroblastLocations"
-            [state]="team.tree"
-            [selection]="team.primeSelectionState"
-            (selectedNodes)="updateTeamHidroblast($event, i)"
-          ></smz-ui-tree>
+          @if (showHidroblastLocationsTree) {
+            <smz-ui-tree
+              class="col-6 h-[380px]"
+              #smzTree
+              [items]="data.hidroblastLocations"
+              [state]="team.tree"
+              [selection]="team.primeSelectionState"
+              (selectedNodes)="updateTeamHidroblast($event, i)"
+            ></smz-ui-tree>
+          }
         </div>
       </p-tabPanel>
-    </ng-container>
+    }
   </p-tabView>
   `,
   styles: [`

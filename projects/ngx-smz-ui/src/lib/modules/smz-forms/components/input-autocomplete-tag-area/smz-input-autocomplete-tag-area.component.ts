@@ -9,25 +9,29 @@ import { SmzSmartAutocompleteTagOption } from '../../directives/smart-autocomple
 @Component({
     selector: 'smz-input-autocomplete-tag-area',
     template: `
-    <label *ngIf="input.hideLabel != true" class="smz__input_name" [innerHTML]="input.name"></label>
+    @if (input.hideLabel != true) {
+      <label class="smz__input_name" [innerHTML]="input.name"></label>
+    }
     <div class="input_inner__wrapper" [id]="input.propertyName">
-        <textarea #inputArea id="inputArea" pInputTextarea smzSmartAutocompleteTag [formControl]="control" [options]="input.config.options" [rows]="input.textAreaRows" (tagTyped)="onTag($event)" class="col-12"></textarea>
-        <smz-validation-messages [input]="input" [control]="control" [behaviors]="behaviors"></smz-validation-messages>
+      <textarea #inputArea id="inputArea" pInputTextarea smzSmartAutocompleteTag [formControl]="control" [options]="input.config.options" [rows]="input.textAreaRows" (tagTyped)="onTag($event)" class="col-12"></textarea>
+      <smz-validation-messages [input]="input" [control]="control" [behaviors]="behaviors"></smz-validation-messages>
     </div>
-
+    
     <p-overlayPanel #overlay appendTo="body" [style]="{width: '450px'}" (onHide)="onHideOverlay()" styleClass="tag-overlay">
-        <ng-template pTemplate>
-            <smz-autocomplete-selector *ngIf="currentOption"
-                #elementSelector
-                styleClass="tag-dropdown"
-                [option]="currentOption"
-                [allowCustomValues]="input.allowCustomValues"
-                (finished)="hide()"
-                >
-            </smz-autocomplete-selector>
-        </ng-template>
+      <ng-template pTemplate>
+        @if (currentOption) {
+          <smz-autocomplete-selector
+            #elementSelector
+            styleClass="tag-dropdown"
+            [option]="currentOption"
+            [allowCustomValues]="input.allowCustomValues"
+            (finished)="hide()"
+            >
+          </smz-autocomplete-selector>
+        }
+      </ng-template>
     </p-overlayPanel>
-`,
+    `,
     styles: [
         '.p-overlaypanel.autocomplete-tag-overlay { box-shadow: unset; }',
         '.p-overlaypanel.autocomplete-tag-overlay .p-overlaypanel-content { padding: 0; }',

@@ -7,7 +7,7 @@ import { SmzDocumentState } from '@ngx-smz/core';
 @Component({
   standalone: false,
   selector: 'app-demo-document',
-  template: `<smz-ui-document *ngIf="state != null" [state]="state"></smz-ui-document>`,
+  template: `@if (state != null) {<smz-ui-document [state]="state"></smz-ui-document>}`,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 

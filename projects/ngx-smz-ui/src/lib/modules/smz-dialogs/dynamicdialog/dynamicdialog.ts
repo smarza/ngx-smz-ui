@@ -28,45 +28,67 @@ const hideAnimation = animation([
     selector: 'smz-dynamicDialog',
     template: `
 
-        <div #overlayBlendClip id="blend-clip" *ngIf="dialogConfig.data.behaviors.showAsLinkedOverlayPanel" class="fixed inset-0" [ngClass]="dialogConfig.data.overlayPanel?.overlayBlendStylesClass"></div>
-        <div #overlayPanelClip id="overlay-clip" *ngIf="dialogConfig.data.behaviors.showAsLinkedOverlayPanel" class="fixed inset-0 p-component-overlay p-component-overlay-enter" [ngClass]="dialogConfig.data.overlayPanel?.overlayPanelStylesClass"></div>
-        <div #highlightPanel id="highlight-clip" *ngIf="dialogConfig.data.behaviors.showAsLinkedOverlayPanel" class="fixed inset-0" [ngClass]="dialogConfig.data.overlayPanel?.hightlightStyleClass"></div>
-        <div #mask id="dialog-mask" [ngClass]="{'p-dialog-mask-free': dialogConfig.data.behaviors.showAsLinkedOverlayPanel, 'p-component-overlay p-component-overlay-enter' : config.modal !== false && !dialogConfig.data.behaviors.showAsLinkedOverlayPanel, 'p-dialog-mask-scrollblocker': config.modal !== false, 'smz-dialog-minimized': minimized }" class="smz_form_grid_container p-dialog-mask">
-            <div #dialogContainer id="dialog-container" [pAutoFocus]="config.autoFocus" [ngClass]="{'p-dialog p-dynamic-dialog p-component': true, 'p-dialog-rtl': config.rtl, 'p-dialog-maximized': maximized}" [ngStyle]="config.style" class="{{ config.styleClass }} {{ dialogConfig?.data?.containerStyleClass }}"
-                [@animation]="{value: 'visible', params: {transform: transformOptions, transition: config.transitionOptions || '150ms cubic-bezier(0, 0, 0.2, 1)'}}"
-                (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" role="dialog" *ngIf="visible"
-                [style.width]="config.width" [style.height]="config.height">
-                <div class="p-dialog-header" [ngStyle]="config.headerStyle" *ngIf="config.showHeader === false ? false: true">
-                    <div class="p-dialog-title w-full" [innerHTML]="config.header | safeHtml"></div>
-                    <div class="p-dialog-header-icons" [ngClass]="{ 'disable-a': dialogConfig.data._context.isGlobalDisabled }">
-                        <ng-container *ngFor="let topbarButton of dialogConfig.data.topbarButtons">
-                            <button [ngClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'" type="button" (click)="topbarButton.onClick()" *ngIf="topbarButton.visible" [pTooltip]="topbarButton.tooltip">
-                                <span [ngClass]="topbarButton.class"></span>
-                            </button>
-                        </ng-container>
-                        <button [ngClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'" type="button" (click)="minimize()" (keydown.enter)="minimize()" *ngIf="config.minimizable !== false">
-                            <span class="p-dialog-header-close-icon pi pi-minus"></span>
-                        </button>
-                        <button [ngClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'" type="button" (click)="maximize()" (keydown.enter)="maximize()" *ngIf="config.maximizable !== false && !maximized">
-                            <span class="p-dialog-header-close-icon" [ngClass]="maximizeIcon"></span>
-                        </button>
-                        <button [ngClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'" type="button" (click)="maximize()" (keydown.enter)="maximize()" *ngIf="maximized && !config.blockRestoreButton">
-                            <span class="p-dialog-header-close-icon" [ngClass]="minimizeIcon"></span>
-                        </button>
-                        <button [ngClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'" type="button" (click)="hide()" (keydown.enter)="hide()" *ngIf="config.closable !== false">
-                            <span class="p-dialog-header-close-icon pi pi-times"></span>
-                        </button>
-                    </div>
-                </div>
-                <div class="p-dialog-content {{ dialogConfig?.data?.contentStyleClass }}" [ngStyle]="config.contentStyle" [ngClass]="{ 'disable-ui-dialog-content': dialogConfig.data._context.isGlobalDisabled }">
-                    <ng-template pDynamicDialogContent></ng-template>
-                </div>
-                <div class="p-dialog-footer" *ngIf="config.footer" [ngStyle]="config.footerStyle" [ngClass]="{ 'disable-container': dialogConfig.data._context.isGlobalDisabled }">
-                    <ng-template pDynamicDialogFooter></ng-template>
-                </div>
-            </div>
+@if (dialogConfig.data.behaviors.showAsLinkedOverlayPanel) {
+  <div #overlayBlendClip id="blend-clip" class="fixed inset-0" [ngClass]="dialogConfig.data.overlayPanel?.overlayBlendStylesClass"></div>
+}
+@if (dialogConfig.data.behaviors.showAsLinkedOverlayPanel) {
+  <div #overlayPanelClip id="overlay-clip" class="fixed inset-0 p-component-overlay p-component-overlay-enter" [ngClass]="dialogConfig.data.overlayPanel?.overlayPanelStylesClass"></div>
+}
+@if (dialogConfig.data.behaviors.showAsLinkedOverlayPanel) {
+  <div #highlightPanel id="highlight-clip" class="fixed inset-0" [ngClass]="dialogConfig.data.overlayPanel?.hightlightStyleClass"></div>
+}
+<div #mask id="dialog-mask" [ngClass]="{'p-dialog-mask-free': dialogConfig.data.behaviors.showAsLinkedOverlayPanel, 'p-component-overlay p-component-overlay-enter' : config.modal !== false && !dialogConfig.data.behaviors.showAsLinkedOverlayPanel, 'p-dialog-mask-scrollblocker': config.modal !== false, 'smz-dialog-minimized': minimized }" class="smz_form_grid_container p-dialog-mask">
+  @if (visible) {
+    <div #dialogContainer id="dialog-container" [pAutoFocus]="config.autoFocus" [ngClass]="{'p-dialog p-dynamic-dialog p-component': true, 'p-dialog-rtl': config.rtl, 'p-dialog-maximized': maximized}" [ngStyle]="config.style" class="{{ config.styleClass }} {{ dialogConfig?.data?.containerStyleClass }}"
+      [@animation]="{value: 'visible', params: {transform: transformOptions, transition: config.transitionOptions || '150ms cubic-bezier(0, 0, 0.2, 1)'}}"
+      (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" role="dialog"
+      [style.width]="config.width" [style.height]="config.height">
+      @if (config.showHeader === false ? false: true) {
+        <div class="p-dialog-header" [ngStyle]="config.headerStyle">
+          <div class="p-dialog-title w-full" [innerHTML]="config.header | safeHtml"></div>
+          <div class="p-dialog-header-icons" [ngClass]="{ 'disable-a': dialogConfig.data._context.isGlobalDisabled }">
+            @for (topbarButton of dialogConfig.data.topbarButtons; track topbarButton) {
+              @if (topbarButton.visible) {
+                <button [ngClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'" type="button" (click)="topbarButton.onClick()" [pTooltip]="topbarButton.tooltip">
+                  <span [ngClass]="topbarButton.class"></span>
+                </button>
+              }
+            }
+            @if (config.minimizable !== false) {
+              <button [ngClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'" type="button" (click)="minimize()" (keydown.enter)="minimize()">
+                <span class="p-dialog-header-close-icon pi pi-minus"></span>
+              </button>
+            }
+            @if (config.maximizable !== false && !maximized) {
+              <button [ngClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'" type="button" (click)="maximize()" (keydown.enter)="maximize()">
+                <span class="p-dialog-header-close-icon" [ngClass]="maximizeIcon"></span>
+              </button>
+            }
+            @if (maximized && !config.blockRestoreButton) {
+              <button [ngClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'" type="button" (click)="maximize()" (keydown.enter)="maximize()">
+                <span class="p-dialog-header-close-icon" [ngClass]="minimizeIcon"></span>
+              </button>
+            }
+            @if (config.closable !== false) {
+              <button [ngClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'" type="button" (click)="hide()" (keydown.enter)="hide()">
+                <span class="p-dialog-header-close-icon pi pi-times"></span>
+              </button>
+            }
+          </div>
         </div>
-	`,
+      }
+      <div class="p-dialog-content {{ dialogConfig?.data?.contentStyleClass }}" [ngStyle]="config.contentStyle" [ngClass]="{ 'disable-ui-dialog-content': dialogConfig.data._context.isGlobalDisabled }">
+        <ng-template pDynamicDialogContent></ng-template>
+      </div>
+      @if (config.footer) {
+        <div class="p-dialog-footer" [ngStyle]="config.footerStyle" [ngClass]="{ 'disable-container': dialogConfig.data._context.isGlobalDisabled }">
+          <ng-template pDynamicDialogFooter></ng-template>
+        </div>
+      }
+    </div>
+  }
+</div>
+`,
     animations: [
         trigger('animation', [
             transition('void => visible', [

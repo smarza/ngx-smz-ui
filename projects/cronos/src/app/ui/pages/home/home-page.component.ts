@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NgxSmzDataPipesModule } from '@ngx-smz/core';
@@ -8,10 +8,9 @@ import { LayoutService } from '@ngx-smz/layout';
   selector: 'app-home',
   standalone: true,
   imports: [
-    CommonModule,
     RouterModule,
     NgxSmzDataPipesModule
-  ],
+],
   template: `
   <div class="absolute inset-0 grid grid-nogutter justify-center">
     <div class="border border-orange-200 w-20 h-20 text-red-500">

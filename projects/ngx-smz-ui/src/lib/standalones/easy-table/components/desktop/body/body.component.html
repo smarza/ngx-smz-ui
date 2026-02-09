@@ -1,49 +1,38 @@
-<ng-container *ngFor="let row of dataSource.viewport.paginator.data; let even = even; let odd = odd">
-
+@for (row of dataSource.viewport.paginator.data; track row; let even = $even; let odd = $odd) {
   <tr [ngClass]="even ? state.desktop.body.evenRow.styleClass : state.desktop.body.oddRow.styleClass">
-
-    <ng-container *ngFor="let column of state.desktop.body.columns; let index = index">
-
-      <td *ngIf="column.isVisible" [ngClass]="column.styleClass">
-
-        <ng-container [ngSwitch]="column.content.type">
-
-          <ng-container *ngSwitchCase="type.TEXT">
-            <div [innerHtml]="row[index] | safeHtml"></div>
-          </ng-container>
-
-          <ng-container *ngSwitchCase="type.CUSTOM">
-            <div>
+    @for (column of state.desktop.body.columns; track column; let index = $index) {
+      @if (column.isVisible) {
+        <td [ngClass]="column.styleClass">
+          @switch (column.content.type) {
+            @case (type.TEXT) {
+              <div [innerHtml]="row[index] | safeHtml"></div>
+            }
+            @case (type.CUSTOM) {
+              <div>
                 <ng-container *ngTemplateOutlet="contentService.contentTemplate; context: { $implicit: row[index], row: row['raw'], col: column }"></ng-container>
-            </div>
-          </ng-container>
-
-          <ng-container *ngSwitchCase="type.DATA_TRANSFORM">
-            <div [innerHtml]="$any(column.content).callback(row[index], row['raw'], index) | safeHtml" [ngClass]="$any(column.content).styleClass"></div>
-          </ng-container>
-
-          <ng-container *ngSwitchCase="type.CALENDAR">
-            <div>{{ row[index] | date: $any(column.content).format }}</div>
-          </ng-container>
-
-          <ng-container *ngSwitchCase="type.ACTION">
-            <smz-menu [callback]="$any(column.content).callback" [items]="$any(column.content).items" [id]="row['id']" [data]="row['raw']"></smz-menu>
-          </ng-container>
-
-          <ng-container *ngSwitchDefault>-</ng-container>
-
-        </ng-container>
-
-      </td>
-
-    </ng-container>
-
+              </div>
+            }
+            @case (type.DATA_TRANSFORM) {
+              <div [innerHtml]="$any(column.content).callback(row[index], row['raw'], index) | safeHtml" [ngClass]="$any(column.content).styleClass"></div>
+            }
+            @case (type.CALENDAR) {
+              <div>{{ row[index] | date: $any(column.content).format }}</div>
+            }
+            @case (type.ACTION) {
+              <smz-menu [callback]="$any(column.content).callback" [items]="$any(column.content).items" [id]="row['id']" [data]="row['raw']"></smz-menu>
+            }
+            @default {
+              -
+            }
+          }
+        </td>
+      }
+    }
   </tr>
+}
 
-</ng-container>
-
-<ng-container *ngIf="dataSource.viewport.paginator.data?.length === 0">
+@if (dataSource.viewport.paginator.data?.length === 0) {
   <tr [ngClass]="state.desktop.body.evenRow.styleClass">
     <td [colSpan]="state.desktop.head.visibleCount" class="text-center py-2">{{ state.locale.emptyMessage }}</td>
   </tr>
-</ng-container>
+}

@@ -12,7 +12,7 @@
   [ariaCloseLabel]="config.ariaCloseLabel != null ? config.ariaCloseLabel : defaultConfig.ariaCloseLabel"
   [closeOnEscape]="config.closeOnEscape != null ? config.closeOnEscape : defaultConfig.closeOnEscape"
   [appendTo]="appendToBody === true ? 'body' : null">
-  <ng-container *ngIf="contentTemplate != null">
+  @if (contentTemplate != null) {
     <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
-  </ng-container>
+  }
 </p-sidebar>

@@ -1,51 +1,52 @@
 <div class="grid">
 
-    <div class="col-12">
-        <h3>{{ manager.config.placeholders.searchTitle }}</h3>
-        <div class="p-inputgroup">
-            <span class="p-inputgroup-addon"><i class="fa-solid fa-magnifying-glass"></i></span>
-            <input type="text" [(ngModel)]="keywords" pInputText [placeholder]="manager.config.placeholders.searchPlaceholder">
-            <button pButton [disabled]="keywords === ''" (click)="keywords = ''" type="button" icon="fa-solid fa-xmark" class="p-button-warn"></button>
-        </div>
+  <div class="col-12">
+    <h3>{{ manager.config.placeholders.searchTitle }}</h3>
+    <div class="p-inputgroup">
+      <span class="p-inputgroup-addon"><i class="fa-solid fa-magnifying-glass"></i></span>
+      <input type="text" [(ngModel)]="keywords" pInputText [placeholder]="manager.config.placeholders.searchPlaceholder">
+      <button pButton [disabled]="keywords === ''" (click)="keywords = ''" type="button" icon="fa-solid fa-xmark" class="p-button-warn"></button>
     </div>
+  </div>
 
-    <div class="col-12">
-        <ng-container *ngIf="(items | searchFaqs : keywords) as filtered">
-            <ng-container *ngIf="filtered.length > 0; else emptyTemplate">
-                <h3>{{ manager.config.placeholders.contentTitle }}</h3>
-                <p-accordion>
-                    <ng-container *ngFor="let item of filtered">
-                        <p-accordionTab [header]="item.question" [selected]="item.metadata?.selected">
-                            <div *ngIf="manager.config.creationClaim | rbkCanAccess" class="faqs__actions">
-                                <a class="clickable hvr-icon-push mr-2" (click)="update(item)"><i class="far fa-edit hvr-icon"></i></a>
-                                <a class="clickable hvr-icon-push" (click)="delete(item)"><i class="far fa-trash-alt hvr-icon"></i></a>
-                            </div>
-                            <div class="faqs__answer" [innerHTML]="(item.answer | highlight : keywords) | safeHtml"></div>
-                         </p-accordionTab>
-                    </ng-container>
-                </p-accordion>
-            </ng-container>
-        </ng-container>
-    </div>
-
-    <div class="col-12">
-        <ng-container *ngIf="(manager.config.creationClaim | rbkCanAccess) && formConfig != null">
-            <h3>{{ manager.config.placeholders.creationTitle }}</h3>
-            <smz-form-group #creationComponent [config]="formConfig"></smz-form-group>
-            <button pButton type="button" class="p-button p-button-ghost" label="ENVIAR" [disabled]="!creationComponent.isValid" (click)="create(creationComponent)"></button>
-        </ng-container>
-    </div>
-</div>
-
-
-<ng-template #emptyTemplate>
-    <smz-icon-message
-        [message]="manager.config.placeholders.emptyMessage"
+  <div class="col-12">
+    @if ((items | searchFaqs : keywords); as filtered) {
+      @if (filtered.length > 0) {
+        <h3>{{ manager.config.placeholders.contentTitle }}</h3>
+        <p-accordion>
+          @for (item of filtered; track item) {
+            <p-accordionTab [header]="item.question" [selected]="item.metadata?.selected">
+              @if (manager.config.creationClaim | rbkCanAccess) {
+                <div class="faqs__actions">
+                  <a class="clickable hvr-icon-push mr-2" (click)="update(item)"><i class="far fa-edit hvr-icon"></i></a>
+                  <a class="clickable hvr-icon-push" (click)="delete(item)"><i class="far fa-trash-alt hvr-icon"></i></a>
+                </div>
+              }
+              <div class="faqs__answer" [innerHTML]="(item.answer | highlight : keywords) | safeHtml"></div>
+            </p-accordionTab>
+          }
+        </p-accordion>
+      } @else {
+        <smz-icon-message
+          [message]="manager.config.placeholders.emptyMessage"
         [comment]="(manager.config.creationClaim | rbkCanAccess) ?
         manager.config.placeholders.creationMessage :
             (keywords === '') ?
             manager.config.placeholders.supportMessage :
             manager.config.placeholders.noSearchResultsMessage"
-            >
-    </smz-icon-message>
-</ng-template>
+          >
+        </smz-icon-message>
+      }
+    }
+  </div>
+
+  <div class="col-12">
+    @if ((manager.config.creationClaim | rbkCanAccess) && formConfig != null) {
+      <h3>{{ manager.config.placeholders.creationTitle }}</h3>
+      <smz-form-group #creationComponent [config]="formConfig"></smz-form-group>
+      <button pButton type="button" class="p-button p-button-ghost" label="ENVIAR" [disabled]="!creationComponent.isValid" (click)="create(creationComponent)"></button>
+    }
+  </div>
+</div>
+
+

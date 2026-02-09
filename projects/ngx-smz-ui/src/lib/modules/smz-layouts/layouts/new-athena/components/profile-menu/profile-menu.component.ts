@@ -11,25 +11,29 @@ import { GlobalInjector } from '../../../../../../common/services/global-injecto
     template: `
       <!-- <ng-content></ng-content> -->
       <a class="profile clickable grid items-center justify-end m-0 p-0 flex-nowrap gap-2" [ngClass]="{ 'profile-with-icon': !uiConfig.layouts.useAvatar }" (click)="toggle()">
-        <ng-container *ngIf="userData$ | async as userdata; else noUserTemplate">
+        @if (userData$ | async; as userdata) {
           <span class="username">{{ uiConfig.layouts.profileMessage }}{{ userdata[uiConfig.layouts.usernameProperty] }}</span>
-          <img
-            *ngIf="uiConfig.layouts.useAvatar && userdata[uiConfig.layouts.avatarProperty]"
-            [src]="(userdata[uiConfig.layouts.avatarProperty] ) | safeUrl"
-            class="profile-image"
-            (error)="handleMissingImage($event, userdata[uiConfig.layouts.usernameProperty], userdata[uiConfig.layouts.avatarProperty])"
-          >
-          <i *ngIf="!uiConfig.layouts.useAvatar || (uiConfig.layouts.useAvatar && !userdata[uiConfig.layouts.avatarProperty])" class="fa-solid fa-circle-user profile-icon profile-icon-menu"></i>
+          @if (uiConfig.layouts.useAvatar && userdata[uiConfig.layouts.avatarProperty]) {
+            <img
+              [src]="(userdata[uiConfig.layouts.avatarProperty] ) | safeUrl"
+              class="profile-image"
+              (error)="handleMissingImage($event, userdata[uiConfig.layouts.usernameProperty], userdata[uiConfig.layouts.avatarProperty])"
+              >
+          }
+          @if (!uiConfig.layouts.useAvatar || (uiConfig.layouts.useAvatar && !userdata[uiConfig.layouts.avatarProperty])) {
+            <i class="fa-solid fa-circle-user profile-icon profile-icon-menu"></i>
+          }
           <i class="profile-submenu-icon pi pi-angle-down"></i>
-        </ng-container>
-
-        <ng-template #noUserTemplate>
+        } @else {
           <i class="fa-solid fa-circle-user profile-icon profile-icon-menu"></i>
           <i class="profile-submenu-icon pi pi-angle-down"></i>
-        </ng-template>
+        }
+      
       </a>
-      <ul *ngIf="isExpanded" class="topbar-menu fadeInDown topbar-menu-visible" smz-ui-new-athena-profile-menu-items [items]="profile" (collapse)="isExpanded = false"></ul>
-  `,
+      @if (isExpanded) {
+        <ul class="topbar-menu fadeInDown topbar-menu-visible" smz-ui-new-athena-profile-menu-items [items]="profile" (collapse)="isExpanded = false"></ul>
+      }
+      `,
     standalone: false
 })
 export class NewAthenaProfileMenuComponent implements OnInit, AfterViewInit {

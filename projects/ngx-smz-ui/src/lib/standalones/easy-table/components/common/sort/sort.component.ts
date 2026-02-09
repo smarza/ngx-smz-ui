@@ -5,17 +5,20 @@ import { TableDataSourceService } from '../../../services/table-data-source.serv
 @Component({
     selector: 'et-sort',
     template: `
-  <ng-container *ngIf="header.sort != null">
-
-    <i *ngIf="!header.sort.isActive" class="fa-solid fa-sort cursor-pointer" (click)="toggle()"></i>
-
-    <ng-container *ngIf="header.sort.isActive">
-      <i *ngIf="header.sort.order === 1" class="fa-solid fa-arrow-up-a-z cursor-pointer" (click)="toggle()"></i>
-      <i *ngIf="header.sort.order === -1" class="fa-solid fa-sort-alpha-down-alt cursor-pointer" (click)="toggle()"></i>
-    </ng-container>
-
-  </ng-container>
-`,
+  @if (header.sort != null) {
+    @if (!header.sort.isActive) {
+      <i class="fa-solid fa-sort cursor-pointer" (click)="toggle()"></i>
+    }
+    @if (header.sort.isActive) {
+      @if (header.sort.order === 1) {
+        <i class="fa-solid fa-arrow-up-a-z cursor-pointer" (click)="toggle()"></i>
+      }
+      @if (header.sort.order === -1) {
+        <i class="fa-solid fa-sort-alpha-down-alt cursor-pointer" (click)="toggle()"></i>
+      }
+    }
+  }
+  `,
     changeDetection: ChangeDetectionStrategy.Default,
     standalone: false
 })

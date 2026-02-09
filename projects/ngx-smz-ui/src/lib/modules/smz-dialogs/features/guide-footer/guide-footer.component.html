@@ -1,46 +1,44 @@
-<ng-container *ngIf="dialogConfig.data?.overlayPanel as overlay">
-
-    <p-toolbar class="smz-guide-footer">
-        <div class="w-full grid grid-nogutter items-center justify-between gap-2">
-
-            <button
-                *ngIf="overlay.state.allowBackNavigation"
-                [disabled]="overlay.state.context.step <= 1"
-                pButton
-                type="button"
-                icon="fa-solid fa-arrow-left-long"
-                class="p-button-rounded p-button-text text-lg w-11 h-11"
-                (click)="previous()">
-            </button>
-
-            <div *ngIf="overlay.state.showSummaryCount" class="grid grid-nogutter items-center justify-center gap-2">
-                <ng-container *ngFor="let step of overlay.state.steps; let index = index">
-                    <div
-                        class="rounded-full h-4 w-4 border-1 border-surface-border"
-                        [ngClass]="{ 'bg-primary-color' : overlay.state.context.step === (index + 1), 'bg-surface-ground' : overlay.state.context.step !== (index + 1) }">
-                    </div>
-                </ng-container>
+@if (dialogConfig.data?.overlayPanel; as overlay) {
+  <p-toolbar class="smz-guide-footer">
+    <div class="w-full grid grid-nogutter items-center justify-between gap-2">
+      @if (overlay.state.allowBackNavigation) {
+        <button
+          [disabled]="overlay.state.context.step <= 1"
+          pButton
+          type="button"
+          icon="fa-solid fa-arrow-left-long"
+          class="p-button-rounded p-button-text text-lg w-11 h-11"
+          (click)="previous()">
+        </button>
+      }
+      @if (overlay.state.showSummaryCount) {
+        <div class="grid grid-nogutter items-center justify-center gap-2">
+          @for (step of overlay.state.steps; track step; let index = $index) {
+            <div
+              class="rounded-full h-4 w-4 border-1 border-surface-border"
+              [ngClass]="{ 'bg-primary-color' : overlay.state.context.step === (index + 1), 'bg-surface-ground' : overlay.state.context.step !== (index + 1) }">
             </div>
-
-            <button
-                *ngIf="overlay.state.context.step === overlay.state.steps.length"
-                pButton
-                type="button"
-                icon="fa-solid fa-check"
-                class="p-button-rounded p-button-text text-lg w-11 h-11"
-                (click)="conclude()">
-            </button>
-
-            <button
-                *ngIf="overlay.state.context.step < overlay.state.steps.length"
-                pButton
-                type="button"
-                icon="fa-solid fa-arrow-right-long"
-                class="p-button-rounded p-button-text text-lg w-11 h-11"
-                (click)="next()">
-            </button>
-
+          }
         </div>
-    </p-toolbar>
-
-</ng-container>
+      }
+      @if (overlay.state.context.step === overlay.state.steps.length) {
+        <button
+          pButton
+          type="button"
+          icon="fa-solid fa-check"
+          class="p-button-rounded p-button-text text-lg w-11 h-11"
+          (click)="conclude()">
+        </button>
+      }
+      @if (overlay.state.context.step < overlay.state.steps.length) {
+        <button
+          pButton
+          type="button"
+          icon="fa-solid fa-arrow-right-long"
+          class="p-button-rounded p-button-text text-lg w-11 h-11"
+          (click)="next()">
+        </button>
+      }
+    </div>
+  </p-toolbar>
+}

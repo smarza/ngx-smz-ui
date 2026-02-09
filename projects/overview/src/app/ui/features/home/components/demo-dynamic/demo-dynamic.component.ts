@@ -6,13 +6,12 @@ import { SmzInjectableComponent } from '@ngx-smz/core';
   standalone: false,
   selector: 'app-demo-dynamic',
   template: `
-  <ng-container *ngIf="injectable != null; else noInjectable">
+  @if (injectable != null) {
     <ng-template [smzStandaloneInjectComponent]="injectable"></ng-template>
-  </ng-container>
-  <ng-template #noInjectable>
+  } @else {
     <p>No injectable data on this demo</p>
-  </ng-template>
-`,
+  }
+  `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 

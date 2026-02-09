@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { SmzGaugeBuilder, SmzGaugeComponent, SmzGaugeState } from '@ngx-smz/core';
 import { PanelModule } from 'primeng/panel';
 import { of } from 'rxjs';
@@ -9,24 +9,23 @@ import { GaugePanel } from '@models/gauge-panel';
 @Component({
   selector: 'app-data-gauge',
   standalone: true,
-  imports: [CommonModule, PanelModule, SmzGaugeComponent],
+  imports: [PanelModule, SmzGaugeComponent],
   template: `
     <p-panel [toggleable]="true" >
       <ng-template pTemplate="header">
         <div class="flex align-items-center gap-2">
-            <span class="font-bold text-sm">{{ data?.title ?? '' }}</span>
+          <span class="font-bold text-sm">{{ data?.title ?? '' }}</span>
         </div>
       </ng-template>
-      <ng-container *ngIf="gaugeState != null; else emptyTable" >
+      @if (gaugeState != null) {
         <smz-ui-gauge [state]="gaugeState"></smz-ui-gauge>
-      </ng-container>
-      <ng-template #emptyTable>
+      } @else {
         <div class="w-full h-full flex justify-center items-center">
           <p>Nenhum dado.</p>
         </div>
-      </ng-template>
+      }
     </p-panel>
-  `
+    `
 })
 export class DataGaugeComponent implements OnInit {
   @Input() public data: GaugePanel;

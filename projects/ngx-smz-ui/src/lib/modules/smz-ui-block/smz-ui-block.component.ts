@@ -10,11 +10,11 @@ export interface SmzUiBlockConfig {
 @Component({
     selector: 'smz-ui-block',
     template: `
-  <ng-container *ngFor="let block of service.blocks">
+  @for (block of service.blocks; track block) {
     <p-blockUI [target]="block.component" [blocked]="block.blocked">
       <i class="pi pi-lock" style="font-size: 2rem"></i>
     </p-blockUI>
-  </ng-container>
+  }
   `,
     standalone: false
 })

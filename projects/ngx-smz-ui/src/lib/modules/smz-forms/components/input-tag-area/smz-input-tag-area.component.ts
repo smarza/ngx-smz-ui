@@ -13,9 +13,11 @@ import { Listbox, ListboxModule } from 'primeng/listbox';
     template: `
 <textarea #inputArea id="inputArea" pInputTextarea smzSmartTag [(ngModel)]="ngModel" [formControl]="control" [options]="config?.options" [rows]="rows" (tagTyped)="onTag($event)" class="col-12"></textarea>
 <p-overlayPanel #overlay appendTo="body" [style]="{width: '450px'}" (onHide)="onHideOverlay()" styleClass="tag-overlay">
-<ng-template pTemplate>
-<p-listbox *ngIf="currentTag" #listbox (onClick)="hide($event)" (keyup.enter)="hide($event)" styleClass="tag-dropdown" [options]="currentTag.data" [(ngModel)]="currentTagSelection" optionLabel="key"></p-listbox>
-</ng-template>
+  <ng-template pTemplate>
+    @if (currentTag) {
+      <p-listbox #listbox (onClick)="hide($event)" (keyup.enter)="hide($event)" styleClass="tag-dropdown" [options]="currentTag.data" [(ngModel)]="currentTagSelection" optionLabel="key"></p-listbox>
+    }
+  </ng-template>
 </p-overlayPanel>
 `,
     styles: [

@@ -10,12 +10,12 @@ import { SmzSubmitState } from './smz-submit';
     imports: [CommonModule, ButtonModule],
     selector: 'smz-ui-submit',
     template: `
-  <ng-container *ngIf="state != null && response != null">
+  @if (state != null && response != null) {
     <div class="grid grid-nogutter items-center justify-start gap-2">
       <button pButton pRipple type="button" [icon]="saveIcon" [ngClass]="saveStyleClass" [disabled]="!response.isValid || !response.hasUnsavedChanges" (click)="submitSave()" [label]="saveLabel"></button>
       <button pButton pRipple type="button" [icon]="resetIcon" [ngClass]="resetStyleClass" [disabled]="!response.hasUnsavedChanges" (click)="cancel()" [label]="resetLabel"></button>
     </div>
-  </ng-container>
+  }
   `
 })
 

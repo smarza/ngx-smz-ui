@@ -6,14 +6,14 @@ import { SmzTimelineState } from '@ngx-smz/core';
   standalone: false,
   selector: 'app-demo-timeline',
   template: `
-  <smz-ui-timeline *ngIf="state != null" [state]="state">
-
-  <ng-template pTemplate="header" let-node>
-    <span>teste</span>
-  </ng-template>
-
-  </smz-ui-timeline>
-`,
+  @if (state != null) {
+    <smz-ui-timeline [state]="state">
+      <ng-template pTemplate="header" let-node>
+        <span>teste</span>
+      </ng-template>
+    </smz-ui-timeline>
+  }
+  `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 

@@ -6,14 +6,14 @@ import { SmzCardsState } from '@ngx-smz/core';
   standalone: false,
   selector: 'app-demo-cards',
   template: `
-  <smz-ui-cards *ngIf="state != null" [state]="state">
-
-  <ng-template pTemplate="header" let-node>
-    <span>Header Template Here</span>
-  </ng-template>
-
-  </smz-ui-cards>
-`,
+  @if (state != null) {
+    <smz-ui-cards [state]="state">
+      <ng-template pTemplate="header" let-node>
+        <span>Header Template Here</span>
+      </ng-template>
+    </smz-ui-cards>
+  }
+  `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 

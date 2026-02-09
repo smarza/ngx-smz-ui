@@ -98,140 +98,160 @@ export class TableService {
     selector: 'p-table',
     template: `
         <div
-            #container
-            [ngStyle]="style"
-            [class]="styleClass"
-            [ngClass]="{ 'p-datatable p-component': true, 'p-datatable-hoverable-rows': rowHover || selectionMode, 'p-datatable-scrollable': scrollable, 'p-datatable-flex-scrollable': scrollable && scrollHeight === 'flex' }"
-            [attr.id]="id"
-        >
-            <div class="p-datatable-loading-overlay p-component-overlay" *ngIf="loading && showLoader">
-                <i [class]="'p-datatable-loading-icon pi-spin ' + loadingIcon"></i>
+          #container
+          [ngStyle]="style"
+          [class]="styleClass"
+          [ngClass]="{ 'p-datatable p-component': true, 'p-datatable-hoverable-rows': rowHover || selectionMode, 'p-datatable-scrollable': scrollable, 'p-datatable-flex-scrollable': scrollable && scrollHeight === 'flex' }"
+          [attr.id]="id"
+          >
+          @if (loading && showLoader) {
+            <div class="p-datatable-loading-overlay p-component-overlay">
+              <i [class]="'p-datatable-loading-icon pi-spin ' + loadingIcon"></i>
             </div>
-            <div *ngIf="captionTemplate" class="p-datatable-header">
-                <ng-container *ngTemplateOutlet="captionTemplate"></ng-container>
+          }
+          @if (captionTemplate) {
+            <div class="p-datatable-header">
+              <ng-container *ngTemplateOutlet="captionTemplate"></ng-container>
             </div>
+          }
+          @if (paginator && (paginatorPosition === 'top' || paginatorPosition == 'both')) {
             <p-paginator
-                [rows]="rows"
-                [first]="first"
-                [totalRecords]="totalRecords"
-                [pageLinkSize]="pageLinks"
-                styleClass="p-paginator-top"
-                [alwaysShow]="alwaysShowPaginator"
-                (onPageChange)="onPageChange($event)"
-                [rowsPerPageOptions]="rowsPerPageOptions"
-                *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition == 'both')"
-                [templateLeft]="paginatorLeftTemplate"
-                [templateRight]="paginatorRightTemplate"
-                [dropdownAppendTo]="paginatorDropdownAppendTo"
-                [dropdownScrollHeight]="paginatorDropdownScrollHeight"
-                [currentPageReportTemplate]="currentPageReportTemplate"
-                [showFirstLastIcon]="showFirstLastIcon"
-                [dropdownItemTemplate]="paginatorDropdownItemTemplate"
-                [showCurrentPageReport]="showCurrentPageReport"
-                [showJumpToPageDropdown]="showJumpToPageDropdown"
-                [showJumpToPageInput]="showJumpToPageInput"
-                [showPageLinks]="showPageLinks"
+              [rows]="rows"
+              [first]="first"
+              [totalRecords]="totalRecords"
+              [pageLinkSize]="pageLinks"
+              styleClass="p-paginator-top"
+              [alwaysShow]="alwaysShowPaginator"
+              (onPageChange)="onPageChange($event)"
+              [rowsPerPageOptions]="rowsPerPageOptions"
+              [templateLeft]="paginatorLeftTemplate"
+              [templateRight]="paginatorRightTemplate"
+              [dropdownAppendTo]="paginatorDropdownAppendTo"
+              [dropdownScrollHeight]="paginatorDropdownScrollHeight"
+              [currentPageReportTemplate]="currentPageReportTemplate"
+              [showFirstLastIcon]="showFirstLastIcon"
+              [dropdownItemTemplate]="paginatorDropdownItemTemplate"
+              [showCurrentPageReport]="showCurrentPageReport"
+              [showJumpToPageDropdown]="showJumpToPageDropdown"
+              [showJumpToPageInput]="showJumpToPageInput"
+              [showPageLinks]="showPageLinks"
             ></p-paginator>
-
-            <div #wrapper class="p-datatable-wrapper" [ngStyle]="{ maxHeight: virtualScroll ? '' : scrollHeight }">
-                <p-scroller
-                    #scroller
-                    *ngIf="virtualScroll"
-                    [items]="processedData"
-                    [columns]="columns"
-                    [style]="{ height: scrollHeight !== 'flex' ? scrollHeight : undefined }"
-                    [scrollHeight]="scrollHeight !== 'flex' ? undefined : '100%'"
-                    [itemSize]="virtualScrollItemSize || _virtualRowHeight"
-                    [step]="rows"
-                    [delay]="lazy ? virtualScrollDelay : 0"
-                    [inline]="true"
-                    [lazy]="lazy"
-                    (onLazyLoad)="onLazyItemLoad($event)"
-                    [loaderDisabled]="true"
-                    [showSpacer]="false"
-                    [showLoader]="$any(loadingBodyTemplate)"
-                    [options]="virtualScrollOptions"
-                    [autoSize]="true"
+          }
+        
+          <div #wrapper class="p-datatable-wrapper" [ngStyle]="{ maxHeight: virtualScroll ? '' : scrollHeight }">
+            @if (virtualScroll) {
+              <p-scroller
+                #scroller
+                [items]="processedData"
+                [columns]="columns"
+                [style]="{ height: scrollHeight !== 'flex' ? scrollHeight : undefined }"
+                [scrollHeight]="scrollHeight !== 'flex' ? undefined : '100%'"
+                [itemSize]="virtualScrollItemSize || _virtualRowHeight"
+                [step]="rows"
+                [delay]="lazy ? virtualScrollDelay : 0"
+                [inline]="true"
+                [lazy]="lazy"
+                (onLazyLoad)="onLazyItemLoad($event)"
+                [loaderDisabled]="true"
+                [showSpacer]="false"
+                [showLoader]="$any(loadingBodyTemplate)"
+                [options]="virtualScrollOptions"
+                [autoSize]="true"
                 >
-                    <ng-template pTemplate="content" let-items let-scrollerOptions="options">
-                        <ng-container *ngTemplateOutlet="buildInTable; context: { $implicit: items, options: scrollerOptions }"></ng-container>
-                    </ng-template>
-                </p-scroller>
-                <ng-container *ngIf="!virtualScroll">
-                    <ng-container *ngTemplateOutlet="buildInTable; context: { $implicit: processedData, options: { columns } }"></ng-container>
-                </ng-container>
-
-                <ng-template #buildInTable let-items let-scrollerOptions="options">
-                    <table
-                        #table
-                        role="table"
-                        [ngClass]="{ 'p-datatable-table': true, 'p-datatable-scrollable-table': scrollable, 'p-datatable-resizable-table': resizableColumns, 'p-datatable-resizable-table-fit': resizableColumns && columnResizeMode === 'fit' }"
-                        [class]="tableStyleClass"
-                        [style]="tableStyle"
-                        [attr.id]="id + '-table'"
-                    >
-                        <ng-container *ngTemplateOutlet="colGroupTemplate; context: { $implicit: scrollerOptions.columns }"></ng-container>
-                        <thead #thead class="p-datatable-thead">
-                            <ng-container *ngTemplateOutlet="headerGroupedTemplate || headerTemplate; context: { $implicit: scrollerOptions.columns }"></ng-container>
-                        </thead>
-                        <tbody
-                            class="p-datatable-tbody p-datatable-frozen-tbody"
-                            *ngIf="frozenValue || frozenBodyTemplate"
-                            [value]="frozenValue"
-                            [frozenRows]="true"
-                            [pTableBody]="scrollerOptions.columns"
-                            [pTableBodyTemplate]="frozenBodyTemplate"
-                            [frozen]="true"
-                        ></tbody>
-                        <tbody
-                            class="p-datatable-tbody"
-                            [ngClass]="scrollerOptions.contentStyleClass"
-                            [style]="scrollerOptions.contentStyle"
-                            [value]="dataToRender(scrollerOptions.rows)"
-                            [pTableBody]="scrollerOptions.columns"
-                            [pTableBodyTemplate]="bodyTemplate"
-                            [scrollerOptions]="scrollerOptions"
-                        ></tbody>
-                        <tbody *ngIf="scrollerOptions.spacerStyle" [style]="'height: calc(' + scrollerOptions.spacerStyle.height + ' - ' + scrollerOptions.rows.length * scrollerOptions.itemSize + 'px);'" class="p-datatable-scroller-spacer"></tbody>
-                        <tfoot *ngIf="footerGroupedTemplate || footerTemplate" #tfoot class="p-datatable-tfoot">
-                            <ng-container *ngTemplateOutlet="footerGroupedTemplate || footerTemplate; context: { $implicit: scrollerOptions.columns }"></ng-container>
-                        </tfoot>
-                    </table>
+                <ng-template pTemplate="content" let-items let-scrollerOptions="options">
+                  <ng-container *ngTemplateOutlet="buildInTable; context: { $implicit: items, options: scrollerOptions }"></ng-container>
                 </ng-template>
-            </div>
-
+              </p-scroller>
+            }
+            @if (!virtualScroll) {
+              <ng-container *ngTemplateOutlet="buildInTable; context: { $implicit: processedData, options: { columns } }"></ng-container>
+            }
+        
+            <ng-template #buildInTable let-items let-scrollerOptions="options">
+              <table
+                #table
+                role="table"
+                [ngClass]="{ 'p-datatable-table': true, 'p-datatable-scrollable-table': scrollable, 'p-datatable-resizable-table': resizableColumns, 'p-datatable-resizable-table-fit': resizableColumns && columnResizeMode === 'fit' }"
+                [class]="tableStyleClass"
+                [style]="tableStyle"
+                [attr.id]="id + '-table'"
+                >
+                <ng-container *ngTemplateOutlet="colGroupTemplate; context: { $implicit: scrollerOptions.columns }"></ng-container>
+                <thead #thead class="p-datatable-thead">
+                  <ng-container *ngTemplateOutlet="headerGroupedTemplate || headerTemplate; context: { $implicit: scrollerOptions.columns }"></ng-container>
+                </thead>
+                @if (frozenValue || frozenBodyTemplate) {
+                  <tbody
+                    class="p-datatable-tbody p-datatable-frozen-tbody"
+                    [value]="frozenValue"
+                    [frozenRows]="true"
+                    [pTableBody]="scrollerOptions.columns"
+                    [pTableBodyTemplate]="frozenBodyTemplate"
+                    [frozen]="true"
+                  ></tbody>
+                }
+                <tbody
+                  class="p-datatable-tbody"
+                  [ngClass]="scrollerOptions.contentStyleClass"
+                  [style]="scrollerOptions.contentStyle"
+                  [value]="dataToRender(scrollerOptions.rows)"
+                  [pTableBody]="scrollerOptions.columns"
+                  [pTableBodyTemplate]="bodyTemplate"
+                  [scrollerOptions]="scrollerOptions"
+                ></tbody>
+                @if (scrollerOptions.spacerStyle) {
+                  <tbody [style]="'height: calc(' + scrollerOptions.spacerStyle.height + ' - ' + scrollerOptions.rows.length * scrollerOptions.itemSize + 'px);'" class="p-datatable-scroller-spacer"></tbody>
+                }
+                @if (footerGroupedTemplate || footerTemplate) {
+                  <tfoot #tfoot class="p-datatable-tfoot">
+                    <ng-container *ngTemplateOutlet="footerGroupedTemplate || footerTemplate; context: { $implicit: scrollerOptions.columns }"></ng-container>
+                  </tfoot>
+                }
+              </table>
+            </ng-template>
+          </div>
+        
+          @if (paginator && (paginatorPosition === 'bottom' || paginatorPosition == 'both')) {
             <p-paginator
-                [rows]="rows"
-                [first]="first"
-                [totalRecords]="totalRecords"
-                [pageLinkSize]="pageLinks"
-                styleClass="p-paginator-bottom"
-                [alwaysShow]="alwaysShowPaginator"
-                (onPageChange)="onPageChange($event)"
-                [rowsPerPageOptions]="rowsPerPageOptions"
-                *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition == 'both')"
-                [templateLeft]="paginatorLeftTemplate"
-                [templateRight]="paginatorRightTemplate"
-                [dropdownAppendTo]="paginatorDropdownAppendTo"
-                [dropdownScrollHeight]="paginatorDropdownScrollHeight"
-                [currentPageReportTemplate]="currentPageReportTemplate"
-                [showFirstLastIcon]="showFirstLastIcon"
-                [dropdownItemTemplate]="paginatorDropdownItemTemplate"
-                [showCurrentPageReport]="showCurrentPageReport"
-                [showJumpToPageDropdown]="showJumpToPageDropdown"
-                [showJumpToPageInput]="showJumpToPageInput"
-                [showPageLinks]="showPageLinks"
+              [rows]="rows"
+              [first]="first"
+              [totalRecords]="totalRecords"
+              [pageLinkSize]="pageLinks"
+              styleClass="p-paginator-bottom"
+              [alwaysShow]="alwaysShowPaginator"
+              (onPageChange)="onPageChange($event)"
+              [rowsPerPageOptions]="rowsPerPageOptions"
+              [templateLeft]="paginatorLeftTemplate"
+              [templateRight]="paginatorRightTemplate"
+              [dropdownAppendTo]="paginatorDropdownAppendTo"
+              [dropdownScrollHeight]="paginatorDropdownScrollHeight"
+              [currentPageReportTemplate]="currentPageReportTemplate"
+              [showFirstLastIcon]="showFirstLastIcon"
+              [dropdownItemTemplate]="paginatorDropdownItemTemplate"
+              [showCurrentPageReport]="showCurrentPageReport"
+              [showJumpToPageDropdown]="showJumpToPageDropdown"
+              [showJumpToPageInput]="showJumpToPageInput"
+              [showPageLinks]="showPageLinks"
             ></p-paginator>
-
-            <div *ngIf="summaryTemplate" class="p-datatable-footer">
-                <ng-container *ngTemplateOutlet="summaryTemplate"></ng-container>
+          }
+        
+          @if (summaryTemplate) {
+            <div class="p-datatable-footer">
+              <ng-container *ngTemplateOutlet="summaryTemplate"></ng-container>
             </div>
-
-            <div #resizeHelper class="p-column-resizer-helper" style="display:none" *ngIf="resizableColumns"></div>
-            <span #reorderIndicatorUp class="pi pi-arrow-down p-datatable-reorder-indicator-up" style="display: none;" *ngIf="reorderableColumns"></span>
-            <span #reorderIndicatorDown class="pi pi-arrow-up p-datatable-reorder-indicator-down" style="display: none;" *ngIf="reorderableColumns"></span>
+          }
+        
+          @if (resizableColumns) {
+            <div #resizeHelper class="p-column-resizer-helper" style="display:none"></div>
+          }
+          @if (reorderableColumns) {
+            <span #reorderIndicatorUp class="pi pi-arrow-down p-datatable-reorder-indicator-up" style="display: none;"></span>
+          }
+          @if (reorderableColumns) {
+            <span #reorderIndicatorDown class="pi pi-arrow-up p-datatable-reorder-indicator-down" style="display: none;"></span>
+          }
         </div>
-    `,
+        `,
     providers: [TableService],
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
@@ -2530,20 +2550,22 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 @Component({
     selector: '[pTableBody]',
     template: `
-        <ng-container *ngIf="!dt.expandedRowTemplate">
-            <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="value" [ngForTrackBy]="$any(dt.rowTrackBy)">
-                <ng-container *ngIf="dt.groupHeaderTemplate && !dt.virtualScroll && dt.rowGroupMode === 'subheader' && shouldRenderRowGroupHeader(value, rowData, rowIndex)" role="row">
-                    <ng-container
-                        *ngTemplateOutlet="dt.groupHeaderTemplate; context: { $implicit: rowData, rowIndex: getRowIndex(rowIndex), columns: columns, editing: dt.editMode === 'row' && dt.isRowEditing(rowData), frozen: frozen }"
-                    ></ng-container>
-                </ng-container>
-                <ng-container *ngIf="dt.rowGroupMode !== 'rowspan'">
-                    <ng-container
-                        *ngTemplateOutlet="rowData ? template : dt.loadingBodyTemplate; context: { $implicit: rowData, rowIndex: getRowIndex(rowIndex), columns: columns, editing: dt.editMode === 'row' && dt.isRowEditing(rowData), frozen: frozen }"
-                    ></ng-container>
-                </ng-container>
-                <ng-container *ngIf="dt.rowGroupMode === 'rowspan'">
-                    <ng-container
+        @if (!dt.expandedRowTemplate) {
+          @for (rowData of value; track $any(dt.rowTrackBy)(rowIndex, rowData); let rowIndex = $index) {
+            @if (dt.groupHeaderTemplate && !dt.virtualScroll && dt.rowGroupMode === 'subheader' && shouldRenderRowGroupHeader(value, rowData, rowIndex)) {
+              <ng-container role="row">
+                <ng-container
+                  *ngTemplateOutlet="dt.groupHeaderTemplate; context: { $implicit: rowData, rowIndex: getRowIndex(rowIndex), columns: columns, editing: dt.editMode === 'row' && dt.isRowEditing(rowData), frozen: frozen }"
+                ></ng-container>
+              </ng-container>
+            }
+            @if (dt.rowGroupMode !== 'rowspan') {
+              <ng-container
+                *ngTemplateOutlet="rowData ? template : dt.loadingBodyTemplate; context: { $implicit: rowData, rowIndex: getRowIndex(rowIndex), columns: columns, editing: dt.editMode === 'row' && dt.isRowEditing(rowData), frozen: frozen }"
+              ></ng-container>
+            }
+            @if (dt.rowGroupMode === 'rowspan') {
+              <ng-container
                         *ngTemplateOutlet="
                             rowData ? template : dt.loadingBodyTemplate;
                             context: {
@@ -2556,60 +2578,66 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                                 rowspan: calculateRowGroupSize(value, rowData, rowIndex)
                             }
                         "
-                    ></ng-container>
-                </ng-container>
-                <ng-container *ngIf="dt.groupFooterTemplate && !dt.virtualScroll && dt.rowGroupMode === 'subheader' && shouldRenderRowGroupFooter(value, rowData, rowIndex)" role="row">
-                    <ng-container
-                        *ngTemplateOutlet="dt.groupFooterTemplate; context: { $implicit: rowData, rowIndex: getRowIndex(rowIndex), columns: columns, editing: dt.editMode === 'row' && dt.isRowEditing(rowData), frozen: frozen }"
-                    ></ng-container>
-                </ng-container>
-            </ng-template>
-        </ng-container>
-        <ng-container *ngIf="dt.expandedRowTemplate && !(frozen && dt.frozenExpandedRowTemplate)">
-            <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="value" [ngForTrackBy]="$any(dt.rowTrackBy)">
-                <ng-container *ngIf="!dt.groupHeaderTemplate">
-                    <ng-container
-                        *ngTemplateOutlet="template; context: { $implicit: rowData, rowIndex: getRowIndex(rowIndex), columns: columns, expanded: dt.isRowExpanded(rowData), editing: dt.editMode === 'row' && dt.isRowEditing(rowData), frozen: frozen }"
-                    ></ng-container>
-                </ng-container>
-                <ng-container *ngIf="dt.groupHeaderTemplate && dt.rowGroupMode === 'subheader' && shouldRenderRowGroupHeader(value, rowData, getRowIndex(rowIndex))" role="row">
-                    <ng-container
+            ></ng-container>
+          }
+          @if (dt.groupFooterTemplate && !dt.virtualScroll && dt.rowGroupMode === 'subheader' && shouldRenderRowGroupFooter(value, rowData, rowIndex)) {
+            <ng-container role="row">
+              <ng-container
+                *ngTemplateOutlet="dt.groupFooterTemplate; context: { $implicit: rowData, rowIndex: getRowIndex(rowIndex), columns: columns, editing: dt.editMode === 'row' && dt.isRowEditing(rowData), frozen: frozen }"
+              ></ng-container>
+            </ng-container>
+          }
+        }
+        }
+        @if (dt.expandedRowTemplate && !(frozen && dt.frozenExpandedRowTemplate)) {
+          @for (rowData of value; track $any(dt.rowTrackBy)(rowIndex, rowData); let rowIndex = $index) {
+            @if (!dt.groupHeaderTemplate) {
+              <ng-container
+                *ngTemplateOutlet="template; context: { $implicit: rowData, rowIndex: getRowIndex(rowIndex), columns: columns, expanded: dt.isRowExpanded(rowData), editing: dt.editMode === 'row' && dt.isRowEditing(rowData), frozen: frozen }"
+              ></ng-container>
+            }
+            @if (dt.groupHeaderTemplate && dt.rowGroupMode === 'subheader' && shouldRenderRowGroupHeader(value, rowData, getRowIndex(rowIndex))) {
+              <ng-container role="row">
+                <ng-container
                         *ngTemplateOutlet="
                             dt.groupHeaderTemplate;
                             context: { $implicit: rowData, rowIndex: getRowIndex(rowIndex), columns: columns, expanded: dt.isRowExpanded(rowData), editing: dt.editMode === 'row' && dt.isRowEditing(rowData), frozen: frozen }
                         "
-                    ></ng-container>
-                </ng-container>
-                <ng-container *ngIf="dt.isRowExpanded(rowData)">
-                    <ng-container *ngTemplateOutlet="dt.expandedRowTemplate; context: { $implicit: rowData, rowIndex: getRowIndex(rowIndex), columns: columns, frozen: frozen }"></ng-container>
-                    <ng-container *ngIf="dt.groupFooterTemplate && dt.rowGroupMode === 'subheader' && shouldRenderRowGroupFooter(value, rowData, getRowIndex(rowIndex))" role="row">
-                        <ng-container
+                ></ng-container>
+              </ng-container>
+            }
+            @if (dt.isRowExpanded(rowData)) {
+              <ng-container *ngTemplateOutlet="dt.expandedRowTemplate; context: { $implicit: rowData, rowIndex: getRowIndex(rowIndex), columns: columns, frozen: frozen }"></ng-container>
+              @if (dt.groupFooterTemplate && dt.rowGroupMode === 'subheader' && shouldRenderRowGroupFooter(value, rowData, getRowIndex(rowIndex))) {
+                <ng-container role="row">
+                  <ng-container
                             *ngTemplateOutlet="
                                 dt.groupFooterTemplate;
                                 context: { $implicit: rowData, rowIndex: getRowIndex(rowIndex), columns: columns, expanded: dt.isRowExpanded(rowData), editing: dt.editMode === 'row' && dt.isRowEditing(rowData), frozen: frozen }
                             "
-                        ></ng-container>
-                    </ng-container>
+                  ></ng-container>
                 </ng-container>
-            </ng-template>
-        </ng-container>
-        <ng-container *ngIf="dt.frozenExpandedRowTemplate && frozen">
-            <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="value" [ngForTrackBy]="$any(dt.rowTrackBy)">
-                <ng-container
-                    *ngTemplateOutlet="template; context: { $implicit: rowData, rowIndex: getRowIndex(rowIndex), columns: columns, expanded: dt.isRowExpanded(rowData), editing: dt.editMode === 'row' && dt.isRowEditing(rowData), frozen: frozen }"
-                ></ng-container>
-                <ng-container *ngIf="dt.isRowExpanded(rowData)">
-                    <ng-container *ngTemplateOutlet="dt.frozenExpandedRowTemplate; context: { $implicit: rowData, rowIndex: getRowIndex(rowIndex), columns: columns, frozen: frozen }"></ng-container>
-                </ng-container>
-            </ng-template>
-        </ng-container>
-        <ng-container *ngIf="dt.loading">
-            <ng-container *ngTemplateOutlet="dt.loadingBodyTemplate; context: { $implicit: columns, frozen: frozen }"></ng-container>
-        </ng-container>
-        <ng-container *ngIf="dt.isEmpty() && !dt.loading">
-            <ng-container *ngTemplateOutlet="dt.emptyMessageTemplate; context: { $implicit: columns, frozen: frozen }"></ng-container>
-        </ng-container>
-    `,
+              }
+            }
+          }
+        }
+        @if (dt.frozenExpandedRowTemplate && frozen) {
+          @for (rowData of value; track $any(dt.rowTrackBy)(rowIndex, rowData); let rowIndex = $index) {
+            <ng-container
+              *ngTemplateOutlet="template; context: { $implicit: rowData, rowIndex: getRowIndex(rowIndex), columns: columns, expanded: dt.isRowExpanded(rowData), editing: dt.editMode === 'row' && dt.isRowEditing(rowData), frozen: frozen }"
+            ></ng-container>
+            @if (dt.isRowExpanded(rowData)) {
+              <ng-container *ngTemplateOutlet="dt.frozenExpandedRowTemplate; context: { $implicit: rowData, rowIndex: getRowIndex(rowIndex), columns: columns, frozen: frozen }"></ng-container>
+            }
+          }
+        }
+        @if (dt.loading) {
+          <ng-container *ngTemplateOutlet="dt.loadingBodyTemplate; context: { $implicit: columns, frozen: frozen }"></ng-container>
+        }
+        @if (dt.isEmpty() && !dt.loading) {
+          <ng-container *ngTemplateOutlet="dt.emptyMessageTemplate; context: { $implicit: columns, frozen: frozen }"></ng-container>
+        }
+        `,
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
     host: {
@@ -2903,8 +2931,10 @@ export class SortableColumn implements OnInit, OnDestroy {
     selector: 'p-sortIcon',
     template: `
         <i class="p-sortable-column-icon pi pi-fw" [ngClass]="{ 'pi-sort-amount-up-alt': sortOrder === 1, 'pi-sort-amount-down': sortOrder === -1, 'pi-sort-alt': sortOrder === 0 }"></i>
-        <span *ngIf="isMultiSorted()" class="p-sortable-column-badge">{{ getBadgeValue() }}</span>
-    `,
+        @if (isMultiSorted()) {
+          <span class="p-sortable-column-badge">{{ getBadgeValue() }}</span>
+        }
+        `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
@@ -3855,13 +3885,13 @@ export class CancelEditableRow {
 @Component({
     selector: 'p-cellEditor',
     template: `
-        <ng-container *ngIf="editing">
-            <ng-container *ngTemplateOutlet="inputTemplate"></ng-container>
-        </ng-container>
-        <ng-container *ngIf="!editing">
-            <ng-container *ngTemplateOutlet="outputTemplate"></ng-container>
-        </ng-container>
-    `,
+        @if (editing) {
+          <ng-container *ngTemplateOutlet="inputTemplate"></ng-container>
+        }
+        @if (!editing) {
+          <ng-container *ngTemplateOutlet="outputTemplate"></ng-container>
+        }
+        `,
     encapsulation: ViewEncapsulation.None,
     host: {
         class: 'p-element'
@@ -4290,123 +4320,142 @@ export class ReorderableRow implements AfterViewInit {
     selector: 'p-columnFilter',
     template: `
         <div class="p-column-filter" [ngClass]="{ 'p-column-filter-row': display === 'row', 'p-column-filter-menu': display === 'menu' }">
+          @if (display === 'row') {
             <p-columnFilterFormElement
-                *ngIf="display === 'row'"
-                class="p-fluid"
-                [type]="type"
-                [field]="field"
-                [filterConstraint]="$any(dt.filters[field])"
-                [filterTemplate]="filterTemplate"
-                [placeholder]="placeholder"
-                [minFractionDigits]="minFractionDigits"
-                [maxFractionDigits]="maxFractionDigits"
-                [prefix]="prefix"
-                [suffix]="suffix"
-                [locale]="locale"
-                [localeMatcher]="localeMatcher"
-                [currency]="currency"
-                [currencyDisplay]="currencyDisplay"
-                [useGrouping]="useGrouping"
-                [showButtons]="showButtons"
-                [showTime]="showTime"
+              class="p-fluid"
+              [type]="type"
+              [field]="field"
+              [filterConstraint]="$any(dt.filters[field])"
+              [filterTemplate]="filterTemplate"
+              [placeholder]="placeholder"
+              [minFractionDigits]="minFractionDigits"
+              [maxFractionDigits]="maxFractionDigits"
+              [prefix]="prefix"
+              [suffix]="suffix"
+              [locale]="locale"
+              [localeMatcher]="localeMatcher"
+              [currency]="currency"
+              [currencyDisplay]="currencyDisplay"
+              [useGrouping]="useGrouping"
+              [showButtons]="showButtons"
+              [showTime]="showTime"
             ></p-columnFilterFormElement>
+          }
+          @if (showMenuButton) {
             <button
-                #icon
-                *ngIf="showMenuButton"
-                type="button"
-                class="p-column-filter-menu-button p-link"
-                aria-haspopup="true"
-                [attr.aria-expanded]="overlayVisible"
-                [ngClass]="{ 'p-column-filter-menu-button-open': overlayVisible, 'p-column-filter-menu-button-active': hasFilter() }"
-                (click)="toggleMenu()"
-                (keydown)="onToggleButtonKeyDown($event)"
-            >
-                <span class="pi pi-filter-icon pi-filter"></span>
+              #icon
+              type="button"
+              class="p-column-filter-menu-button p-link"
+              aria-haspopup="true"
+              [attr.aria-expanded]="overlayVisible"
+              [ngClass]="{ 'p-column-filter-menu-button-open': overlayVisible, 'p-column-filter-menu-button-active': hasFilter() }"
+              (click)="toggleMenu()"
+              (keydown)="onToggleButtonKeyDown($event)"
+              >
+              <span class="pi pi-filter-icon pi-filter"></span>
             </button>
-            <button #icon *ngIf="showClearButton && display === 'row'" [ngClass]="{ 'p-hidden-space': !hasRowFilter() }" type="button" class="p-column-filter-clear-button p-link" (click)="clearFilter()">
-                <span class="pi pi-filter-slash"></span>
+          }
+          @if (showClearButton && display === 'row') {
+            <button #icon [ngClass]="{ 'p-hidden-space': !hasRowFilter() }" type="button" class="p-column-filter-clear-button p-link" (click)="clearFilter()">
+              <span class="pi pi-filter-slash"></span>
             </button>
+          }
+          @if (showMenu && overlayVisible) {
             <div
-                *ngIf="showMenu && overlayVisible"
-                [ngClass]="{ 'p-column-filter-overlay p-component p-fluid': true, 'p-column-filter-overlay-menu': display === 'menu' }"
-                (click)="onContentClick()"
-                [@overlayAnimation]="'visible'"
-                (@overlayAnimation.start)="onOverlayAnimationStart($event)"
-                (@overlayAnimation.done)="onOverlayAnimationEnd($event)"
-                (keydown.escape)="onEscape()"
-            >
-                <ng-container *ngTemplateOutlet="headerTemplate; context: { $implicit: field }"></ng-container>
-                <ul *ngIf="display === 'row'; else menu" class="p-column-filter-row-items">
+              [ngClass]="{ 'p-column-filter-overlay p-component p-fluid': true, 'p-column-filter-overlay-menu': display === 'menu' }"
+              (click)="onContentClick()"
+              [@overlayAnimation]="'visible'"
+              (@overlayAnimation.start)="onOverlayAnimationStart($event)"
+              (@overlayAnimation.done)="onOverlayAnimationEnd($event)"
+              (keydown.escape)="onEscape()"
+              >
+              <ng-container *ngTemplateOutlet="headerTemplate; context: { $implicit: field }"></ng-container>
+              @if (display === 'row') {
+                <ul class="p-column-filter-row-items">
+                  @for (matchMode of matchModes; track matchMode; let i = $index) {
                     <li
-                        class="p-column-filter-row-item"
-                        *ngFor="let matchMode of matchModes; let i = index"
-                        (click)="onRowMatchModeChange(matchMode.value)"
-                        (keydown)="onRowMatchModeKeyDown($event)"
-                        (keydown.enter)="this.onRowMatchModeChange(matchMode.value)"
-                        [ngClass]="{ 'p-highlight': isRowMatchModeSelected(matchMode.value) }"
-                        [attr.tabindex]="i === 0 ? '0' : null"
-                    >
-                        {{ matchMode.label }}
+                      class="p-column-filter-row-item"
+                      (click)="onRowMatchModeChange(matchMode.value)"
+                      (keydown)="onRowMatchModeKeyDown($event)"
+                      (keydown.enter)="this.onRowMatchModeChange(matchMode.value)"
+                      [ngClass]="{ 'p-highlight': isRowMatchModeSelected(matchMode.value) }"
+                      [attr.tabindex]="i === 0 ? '0' : null"
+                      >
+                      {{ matchMode.label }}
                     </li>
-                    <li class="p-column-filter-separator"></li>
-                    <li class="p-column-filter-row-item" (click)="onRowClearItemClick()" (keydown)="onRowMatchModeKeyDown($event)" (keydown.enter)="onRowClearItemClick()">{{ noFilterLabel }}</li>
+                  }
+                  <li class="p-column-filter-separator"></li>
+                  <li class="p-column-filter-row-item" (click)="onRowClearItemClick()" (keydown)="onRowMatchModeKeyDown($event)" (keydown.enter)="onRowClearItemClick()">{{ noFilterLabel }}</li>
                 </ul>
-                <ng-template #menu>
-                    <div class="p-column-filter-operator" *ngIf="isShowOperator">
-                        <p-select [options]="operatorOptions" [ngModel]="operator" (ngModelChange)="onOperatorChange($event)" styleClass="p-column-filter-operator-dropdown"></p-select>
+              } @else {
+                @if (isShowOperator) {
+                  <div class="p-column-filter-operator">
+                    <p-select [options]="operatorOptions" [ngModel]="operator" (ngModelChange)="onOperatorChange($event)" styleClass="p-column-filter-operator-dropdown"></p-select>
+                  </div>
+                }
+                <div class="p-column-filter-constraints">
+                  @for (fieldConstraint of fieldConstraints; track fieldConstraint; let i = $index) {
+                    <div class="p-column-filter-constraint">
+                      @if (showMatchModes && matchModes) {
+                        <p-select
+                          [options]="matchModes"
+                          [ngModel]="fieldConstraint.matchMode"
+                          (ngModelChange)="onMenuMatchModeChange($event, fieldConstraint)"
+                          styleClass="p-column-filter-matchmode-dropdown"
+                        ></p-select>
+                      }
+                      <p-columnFilterFormElement
+                        [type]="type"
+                        [field]="field"
+                        [filterConstraint]="fieldConstraint"
+                        [filterTemplate]="filterTemplate"
+                        [placeholder]="placeholder"
+                        [minFractionDigits]="minFractionDigits"
+                        [maxFractionDigits]="maxFractionDigits"
+                        [prefix]="prefix"
+                        [suffix]="suffix"
+                        [locale]="locale"
+                        [localeMatcher]="localeMatcher"
+                        [currency]="currency"
+                        [currencyDisplay]="currencyDisplay"
+                        [useGrouping]="useGrouping"
+                        [showTime]="showTime"
+                      ></p-columnFilterFormElement>
+                      <div>
+                        @if (showRemoveIcon) {
+                          <button
+                            type="button"
+                            pButton
+                            icon="pi pi-trash"
+                            class="p-column-filter-remove-button p-button-text p-button-danger p-button-sm"
+                            (click)="removeConstraint(fieldConstraint)"
+                            pRipple
+                            [label]="removeRuleButtonLabel"
+                          ></button>
+                        }
+                      </div>
                     </div>
-                    <div class="p-column-filter-constraints">
-                        <div *ngFor="let fieldConstraint of fieldConstraints; let i = index" class="p-column-filter-constraint">
-                            <p-select
-                                *ngIf="showMatchModes && matchModes"
-                                [options]="matchModes"
-                                [ngModel]="fieldConstraint.matchMode"
-                                (ngModelChange)="onMenuMatchModeChange($event, fieldConstraint)"
-                                styleClass="p-column-filter-matchmode-dropdown"
-                            ></p-select>
-                            <p-columnFilterFormElement
-                                [type]="type"
-                                [field]="field"
-                                [filterConstraint]="fieldConstraint"
-                                [filterTemplate]="filterTemplate"
-                                [placeholder]="placeholder"
-                                [minFractionDigits]="minFractionDigits"
-                                [maxFractionDigits]="maxFractionDigits"
-                                [prefix]="prefix"
-                                [suffix]="suffix"
-                                [locale]="locale"
-                                [localeMatcher]="localeMatcher"
-                                [currency]="currency"
-                                [currencyDisplay]="currencyDisplay"
-                                [useGrouping]="useGrouping"
-                                [showTime]="showTime"
-                            ></p-columnFilterFormElement>
-                            <div>
-                                <button
-                                    *ngIf="showRemoveIcon"
-                                    type="button"
-                                    pButton
-                                    icon="pi pi-trash"
-                                    class="p-column-filter-remove-button p-button-text p-button-danger p-button-sm"
-                                    (click)="removeConstraint(fieldConstraint)"
-                                    pRipple
-                                    [label]="removeRuleButtonLabel"
-                                ></button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-column-filter-add-rule" *ngIf="isShowAddConstraint">
-                        <button type="button" pButton [label]="addRuleButtonLabel" icon="pi pi-plus" class="p-column-filter-add-button p-button-text p-button-sm" (click)="addConstraint()" pRipple></button>
-                    </div>
-                    <div class="p-column-filter-buttonbar">
-                        <button *ngIf="showClearButton" type="button" pButton class="p-button-outlined p-button-sm" (click)="clearFilter()" [label]="clearButtonLabel" pRipple></button>
-                        <button *ngIf="showApplyButton" type="button" pButton (click)="applyFilter()" class="p-button-sm" [label]="applyButtonLabel" pRipple></button>
-                    </div>
-                </ng-template>
-                <ng-container *ngTemplateOutlet="footerTemplate; context: { $implicit: field }"></ng-container>
+                  }
+                </div>
+                @if (isShowAddConstraint) {
+                  <div class="p-column-filter-add-rule">
+                    <button type="button" pButton [label]="addRuleButtonLabel" icon="pi pi-plus" class="p-column-filter-add-button p-button-text p-button-sm" (click)="addConstraint()" pRipple></button>
+                  </div>
+                }
+                <div class="p-column-filter-buttonbar">
+                  @if (showClearButton) {
+                    <button type="button" pButton class="p-button-outlined p-button-sm" (click)="clearFilter()" [label]="clearButtonLabel" pRipple></button>
+                  }
+                  @if (showApplyButton) {
+                    <button type="button" pButton (click)="applyFilter()" class="p-button-sm" [label]="applyButtonLabel" pRipple></button>
+                  }
+                </div>
+              }
+              <ng-container *ngTemplateOutlet="footerTemplate; context: { $implicit: field }"></ng-container>
             </div>
+          }
         </div>
-    `,
+        `,
     animations: [trigger('overlayAnimation', [transition(':enter', [style({ opacity: 0, transform: 'scaleY(0.8)' }), animate('.12s cubic-bezier(0, 0, 0.2, 1)')]), transition(':leave', [animate('.1s linear', style({ opacity: 0 }))])])],
     encapsulation: ViewEncapsulation.None,
     host: {
@@ -4905,8 +4954,8 @@ export class ColumnFilter implements AfterContentInit {
 @Component({
     selector: 'p-columnFilterFormElement',
     template: `
-        <ng-container *ngIf="filterTemplate; else builtInElement">
-            <ng-container
+        @if (filterTemplate) {
+          <ng-container
                 *ngTemplateOutlet="
                     filterTemplate;
                     context: {
@@ -4928,34 +4977,40 @@ export class ColumnFilter implements AfterContentInit {
                         showButtons: showButtons
                     }
                 "
-            ></ng-container>
-        </ng-container>
-        <ng-template #builtInElement>
-            <ng-container [ngSwitch]="type">
-                <input *ngSwitchCase="'text'" type="text" pInputText [value]="filterConstraint?.value" (input)="onModelChange($any($event.target).value)" (keydown.enter)="onTextInputEnterKeyDown($any($event))" [attr.placeholder]="placeholder" />
-                <p-inputNumber
-                    *ngSwitchCase="'numeric'"
-                    [ngModel]="filterConstraint?.value"
-                    (ngModelChange)="onModelChange($event)"
-                    (onKeyDown)="onNumericInputKeyDown($event)"
-                    [showButtons]="showButtons"
-                    [minFractionDigits]="minFractionDigits"
-                    [maxFractionDigits]="maxFractionDigits"
-                    [prefix]="prefix"
-                    [suffix]="suffix"
-                    [placeholder]="placeholder"
-                    [mode]="currency ? 'currency' : 'decimal'"
-                    [locale]="locale"
-                    [localeMatcher]="localeMatcher"
-                    [currency]="currency"
-                    [currencyDisplay]="currencyDisplay"
-                    [useGrouping]="useGrouping"
-                ></p-inputNumber>
-                <p-checkbox *ngSwitchCase="'boolean'" [ngModel]="filterConstraint?.value" [binary]="false" (ngModelChange)="onModelChange($event)"></p-checkbox>
-                <p-calendar *ngSwitchCase="'date'" [placeholder]="placeholder" [ngModel]="filterConstraint?.value" (ngModelChange)="onModelChange($event)" [showTime]="showTime"></p-calendar>
-            </ng-container>
-        </ng-template>
-    `,
+        ></ng-container>
+        } @else {
+          @switch (type) {
+            @case ('text') {
+              <input type="text" pInputText [value]="filterConstraint?.value" (input)="onModelChange($any($event.target).value)" (keydown.enter)="onTextInputEnterKeyDown($any($event))" [attr.placeholder]="placeholder" />
+            }
+            @case ('numeric') {
+              <p-inputNumber
+                [ngModel]="filterConstraint?.value"
+                (ngModelChange)="onModelChange($event)"
+                (onKeyDown)="onNumericInputKeyDown($event)"
+                [showButtons]="showButtons"
+                [minFractionDigits]="minFractionDigits"
+                [maxFractionDigits]="maxFractionDigits"
+                [prefix]="prefix"
+                [suffix]="suffix"
+                [placeholder]="placeholder"
+                [mode]="currency ? 'currency' : 'decimal'"
+                [locale]="locale"
+                [localeMatcher]="localeMatcher"
+                [currency]="currency"
+                [currencyDisplay]="currencyDisplay"
+                [useGrouping]="useGrouping"
+              ></p-inputNumber>
+            }
+            @case ('boolean') {
+              <p-checkbox [ngModel]="filterConstraint?.value" [binary]="false" (ngModelChange)="onModelChange($event)"></p-checkbox>
+            }
+            @case ('date') {
+              <p-calendar [placeholder]="placeholder" [ngModel]="filterConstraint?.value" (ngModelChange)="onModelChange($event)" [showTime]="showTime"></p-calendar>
+            }
+          }
+        }
+        `,
     encapsulation: ViewEncapsulation.None,
     host: {
         class: 'p-element'

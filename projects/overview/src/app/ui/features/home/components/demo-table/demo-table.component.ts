@@ -10,29 +10,26 @@ import { Observable } from 'rxjs';
   selector: 'app-demo-table',
   template: `
   <button pButton label="Extract Viewport" (click)="getViewport()" class="p-button-ghost"></button>
-<smz-ui-table table [items]="items$ | async" [state]="state">
-  <ng-template pTemplate="rowContent" let-item>
-    <div class="grid grid-nogutter justify-start items-start">
-      <div [innerHTML]="item | prettyjson: [true, 3]"></div>
-    </div>
-  </ng-template>
+  <smz-ui-table table [items]="items$ | async" [state]="state">
+    <ng-template pTemplate="rowContent" let-item>
+      <div class="grid grid-nogutter justify-start items-start">
+        <div [innerHTML]="item | prettyjson: [true, 3]"></div>
+      </div>
+    </ng-template>
     <!-- CONTEÚDOS COM OVERRIDE -->
     <ng-template pTemplate="content" let-item let-col="col">
-
-    <ng-container [ngSwitch]="col.field">
-
-      <ng-container *ngSwitchCase="'status.name'">
-        <div class="px-3 py-1 text-sm text-slate-800 rounded text-center" [ngClass]="item.status.background"><strong>{{ item.status.name }}</strong></div>
-      </ng-container>
-
-      <ng-container *ngSwitchCase="'country.name'">
-        <div class="px-3 py-1 text-sm text-slate-800 rounded text-center"><strong>{{ item.country?.name }}</strong></div>
-      </ng-container>
-
-    </ng-container>
-
+  
+      @switch (col.field) {
+        @case ('status.name') {
+          <div class="px-3 py-1 text-sm text-slate-800 rounded text-center" [ngClass]="item.status.background"><strong>{{ item.status.name }}</strong></div>
+        }
+        @case ('country.name') {
+          <div class="px-3 py-1 text-sm text-slate-800 rounded text-center"><strong>{{ item.country?.name }}</strong></div>
+        }
+      }
+  
     </ng-template>
-</smz-ui-table>`,
+  </smz-ui-table>`,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 

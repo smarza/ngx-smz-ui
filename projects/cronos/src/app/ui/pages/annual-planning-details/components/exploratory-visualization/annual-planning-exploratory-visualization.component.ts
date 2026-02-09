@@ -17,42 +17,39 @@ import { MessagesModule } from 'primeng/messages';
   styleUrls: ['./annual-planning-exploratory-visualization.scss'],
   encapsulation: ViewEncapsulation.None,
   template: `
-    <div *ngIf="annualPlanning$ | async as annualPlanning" class="flex flex-row">
-
-      <div class="flex flex-col col">
-        <ng-container *ngFor="let group of annualPlanning.preliminaryResults?.groups; let i = index;">
-
-          <div class="row-title panel">
-            <div *ngIf="i > 0" class="w-full h-[1px] bg-gray-300 my-4"></div>
-            <div class="text-3xl font-bold">{{ group.title }}</div>
-          </div>
-
-          <div class="bg-gray-200 rounded p-3 m-2" *ngIf="group.messageDetail">
-            <i class="fa-solid fa-circle-info"></i>
-            <span class="ml-3">{{ group.messageDetail }}</span>
-          </div>
-
-          <div class="grid grid-nogutter items-center gap-4 px-2">
-            <ng-container *ngFor="let gauge of group.gauges">
-              <app-data-gauge class="panel col" [data]="gauge"></app-data-gauge>
-            </ng-container>
-          </div>
-
-          <div class="row-visualization">
-            <ng-container *ngFor="let visualization of group.visualizations">
-              <app-data-visualization class="panel custom-col-span-6" [data]="visualization" [maintainAspectRatio]="false" [aspectRatio]="1"></app-data-visualization>
-            </ng-container>
-
-            <ng-container *ngFor="let summary of group.summaries">
-              <app-data-table class="panel custom-col-span-6" [data]="summary"></app-data-table>
-            </ng-container>
-          </div>
-
-        </ng-container>
-
+    @if (annualPlanning$ | async; as annualPlanning) {
+      <div class="flex flex-row">
+        <div class="flex flex-col col">
+          @for (group of annualPlanning.preliminaryResults?.groups; track group; let i = $index) {
+            <div class="row-title panel">
+              @if (i > 0) {
+                <div class="w-full h-[1px] bg-gray-300 my-4"></div>
+              }
+              <div class="text-3xl font-bold">{{ group.title }}</div>
+            </div>
+            @if (group.messageDetail) {
+              <div class="bg-gray-200 rounded p-3 m-2">
+                <i class="fa-solid fa-circle-info"></i>
+                <span class="ml-3">{{ group.messageDetail }}</span>
+              </div>
+            }
+            <div class="grid grid-nogutter items-center gap-4 px-2">
+              @for (gauge of group.gauges; track gauge) {
+                <app-data-gauge class="panel col" [data]="gauge"></app-data-gauge>
+              }
+            </div>
+            <div class="row-visualization">
+              @for (visualization of group.visualizations; track visualization) {
+                <app-data-visualization class="panel custom-col-span-6" [data]="visualization" [maintainAspectRatio]="false" [aspectRatio]="1"></app-data-visualization>
+              }
+              @for (summary of group.summaries; track summary) {
+                <app-data-table class="panel custom-col-span-6" [data]="summary"></app-data-table>
+              }
+            </div>
+          }
+        </div>
       </div>
-
-    </div>
+    }
     `
 })
 export class AnnualPlanningExploratoryVisualizationComponent {

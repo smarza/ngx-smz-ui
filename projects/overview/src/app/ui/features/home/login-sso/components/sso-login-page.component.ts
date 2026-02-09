@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { AuthenticationActions, GlobalInjector, NgxSmzFormsModule, SimpleEntity, SmzFormBuilder, SmzLoginBuilder, SmzLoginModule, SmzLoginState, SmzTextPattern, TenantsSelectors, getFirst, nameof } from '@ngx-smz/core';
-import { CommonModule } from '@angular/common';
+
 import { SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { NavigateToExternalSsoUrl } from '../sso-redirect-function';
@@ -24,14 +24,13 @@ interface UsernameLoginData {
 @Component({
   standalone: true,
   selector: 'sso-login-page',
-  template: '<smz-ui-login *ngIf="state != null" [state]="state"></smz-ui-login>',
+  template: '@if (state != null) {<smz-ui-login [state]="state"></smz-ui-login>}',
   imports: [
-    CommonModule,
     SharedModule,
     ButtonModule,
     NgxSmzFormsModule,
     SmzLoginModule
-  ]
+]
 })
 export class SsoLoginPageComponent {
 

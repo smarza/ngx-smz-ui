@@ -1,59 +1,58 @@
 
 <ng-container *ngVar="(users$ | async) as users">
 
-<smz-ui-table #smzdt [items]="users" [state]="tableState" [loading]="false">
+  <smz-ui-table #smzdt [items]="users" [state]="tableState" [loading]="false">
 
-  <ng-template pTemplate="caption" let-primeTable>
-    <ng-container *ngFor="let action of (uiConfig.rbkUtils.authorization.users.pageActions | smzFlattenMenu : null)">
-      <button *ngIf="action.visible" pButton type="button" smzMenuItemAction [item]="action" [label]="action.label" [icon]="action.icon" [ngClass]="action.styleClass" [disabled]="action.disabled"></button>
-    </ng-container>
+    <ng-template pTemplate="caption" let-primeTable>
+      @for (action of (uiConfig.rbkUtils.authorization.users.pageActions | smzFlattenMenu : null); track action) {
+        @if (action.visible) {
+          <button pButton type="button" smzMenuItemAction [item]="action" [label]="action.label" [icon]="action.icon" [ngClass]="action.styleClass" [disabled]="action.disabled"></button>
+        }
+      }
 
-    <p-selectButton
-      *ngIf="uiConfig.rbkUtils.authorization.users.removalBehavior === 'deactivation'"
-      appendTo="body"
-      [options]="viewOptions"
-      [(ngModel)]="selectedView"
-      (onChange)="handleViewOptionChange($event.value)"
-      optionLabel="label" optionValue="value">
-    </p-selectButton>
+      @if (uiConfig.rbkUtils.authorization.users.removalBehavior === 'deactivation') {
+        <p-selectButton
+          appendTo="body"
+          [options]="viewOptions"
+          [(ngModel)]="selectedView"
+          (onChange)="handleViewOptionChange($event.value)"
+          optionLabel="label" optionValue="value">
+        </p-selectButton>
+      }
 
-  </ng-template>
+    </ng-template>
 
     <!-- CONTEÚDOS COM OVERRIDE -->
     <ng-template pTemplate="content" let-item let-col="col">
 
-      <ng-container [ngSwitch]="col.field">
-
-        <ng-container *ngSwitchCase="'displayName'">
+      @switch (col.field) {
+        @case ('displayName') {
           <div class="grid grid-nogutter items-center gap-3 justify-start">
-
             <!-- CONTROLE DE ACESSO NÃO ENCONTROU O IDENTIFICADOR DO USUÁRIO -->
-            <img
-             *ngIf="item.avatar == null"
-             [src]="uiConfig.rbkUtils.authorization.users.avatarPlaceholderPath"
-             class="w-14 align-middle"
-             />
-
-             <!-- USUÁRIO COM AVATAR INFORMADO PELO CONTROLE DE ACESSO -->
-            <img
-              *ngIf="item.avatar != null"
-              [src]="item.avatar"
-              (error)="handleMissingImage($event, item.name, item.avatar)"
-              class="w-14 align-middle"
-            />
-
+            @if (item.avatar == null) {
+              <img
+                [src]="uiConfig.rbkUtils.authorization.users.avatarPlaceholderPath"
+                class="w-14 align-middle"
+                />
+            }
+            <!-- USUÁRIO COM AVATAR INFORMADO PELO CONTROLE DE ACESSO -->
+            @if (item.avatar != null) {
+              <img
+                [src]="item.avatar"
+                (error)="handleMissingImage($event, item.name, item.avatar)"
+                class="w-14 align-middle"
+                />
+            }
             <span>{{ item.displayName }}</span>
           </div>
-        </ng-container>
-
-        <ng-container *ngSwitchCase="'role.name'">
-            {{ item.role?.name }}
-        </ng-container>
-
-      </ng-container>
+        }
+        @case ('role.name') {
+          {{ item.role?.name }}
+        }
+      }
 
     </ng-template>
 
-</smz-ui-table>
+  </smz-ui-table>
 
 </ng-container>

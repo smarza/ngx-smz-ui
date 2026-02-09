@@ -1,82 +1,78 @@
-<ng-container *ngIf="dialogConfig.data._context as context">
-
-    <p-toolbar class="smz-dialog-footer">
-        <div class="grid grid-nogutter items-center justify-end gap-2">
-
-            <ng-container *ngIf="context.customButtonsOrder == null || context.customButtonsOrder === 'first'">
-                <ng-container *ngFor="let customButton of context.customButtons">
-                    <p-button
-                        *ngIf="customButton.visible == null || customButton.visible"
-                        [label]="customButton.name"
-                        [styleClass]="customButton.class"
-                        [disabled]="context.isGlobalDisabled || customButton.dependsOnValidation && !isValid() || customButton.disabled"
-                        [pTooltip]="customButton.tooltip"
-                        appendTo="body"
-                        tooltipPosition="top"
-                        (onClick)="customClick(customButton)">
-                    </p-button>
-                </ng-container>
-            </ng-container>
-
+@if (dialogConfig.data._context; as context) {
+  <p-toolbar class="smz-dialog-footer">
+    <div class="grid grid-nogutter items-center justify-end gap-2">
+      @if (context.customButtonsOrder == null || context.customButtonsOrder === 'first') {
+        @for (customButton of context.customButtons; track customButton) {
+          @if (customButton.visible == null || customButton.visible) {
             <p-button
-                *ngIf="context.behaviors.showCancelButton"
-                [label]="context.builtInButtons.cancelName"
-                [styleClass]="context.builtInButtons.cancelClass"
-                (onClick)="close()">
+              [label]="customButton.name"
+              [styleClass]="customButton.class"
+              [disabled]="context.isGlobalDisabled || customButton.dependsOnValidation && !isValid() || customButton.disabled"
+              [pTooltip]="customButton.tooltip"
+              appendTo="body"
+              tooltipPosition="top"
+              (onClick)="customClick(customButton)">
             </p-button>
-
-            <!-- DependsOnValidation -->
+          }
+        }
+      }
+      @if (context.behaviors.showCancelButton) {
+        <p-button
+          [label]="context.builtInButtons.cancelName"
+          [styleClass]="context.builtInButtons.cancelClass"
+          (onClick)="close()">
+        </p-button>
+      }
+      <!-- DependsOnValidation -->
+      @if (context.behaviors.showConfirmButton) {
+        <p-button
+          [confirmOnEnter]="context.isLoading ? false : context.behaviors.confirmOnEnter"
+          [dialogId]="context.id"
+          [label]="context.builtInButtons.confirmName"
+          [styleClass]="context.builtInButtons.confirmClass"
+          [disabled]="context.isGlobalDisabled"
+          (onClick)="confirm()">
+        </p-button>
+      }
+      <!-- DependsOnValidation -->
+      @if (context.behaviors.showOkButton) {
+        <p-button
+          [confirmOnEnter]="context.isLoading ? false : context.behaviors.confirmOnEnter"
+          [dialogId]="context.id"
+          [label]="context.builtInButtons.okName"
+          [styleClass]="context.builtInButtons.okClass"
+          [disabled]="context.isGlobalDisabled"
+          (onClick)="ok()">
+        </p-button>
+      }
+      <!-- DependsOnValidation -->
+      @if (context.behaviors.showSaveButton) {
+        <p-button
+          [confirmOnEnter]="context.isLoading ? false : context.behaviors.confirmOnEnter"
+          [dialogId]="context.id"
+          [label]="context.builtInButtons.saveName"
+          [styleClass]="context.builtInButtons.saveClass"
+          [icon]="context.isLoading ? 'fa-solid fa-spinner fa-spin' : ''"
+          [disabled]="context.isGlobalDisabled"
+          (onClick)="save()">
+        </p-button>
+      }
+      @if (context.customButtonsOrder === 'last') {
+        @for (customButton of context.customButtons; track customButton) {
+          <!-- DependsOnValidation -->
+          @if (customButton.visible == null || customButton.visible) {
             <p-button
-                *ngIf="context.behaviors.showConfirmButton"
-                [confirmOnEnter]="context.isLoading ? false : context.behaviors.confirmOnEnter"
-                [dialogId]="context.id"
-                [label]="context.builtInButtons.confirmName"
-                [styleClass]="context.builtInButtons.confirmClass"
-                [disabled]="context.isGlobalDisabled"
-                (onClick)="confirm()">
+              [label]="customButton.name"
+              [styleClass]="customButton.class"
+              [disabled]="context.isGlobalDisabled || customButton.disabled"
+              [pTooltip]="customButton.tooltip"
+              appendTo="body"
+              tooltipPosition="top"
+              (onClick)="customClick(customButton)">
             </p-button>
-
-            <!-- DependsOnValidation -->
-            <p-button
-                *ngIf="context.behaviors.showOkButton"
-                [confirmOnEnter]="context.isLoading ? false : context.behaviors.confirmOnEnter"
-                [dialogId]="context.id"
-                [label]="context.builtInButtons.okName"
-                [styleClass]="context.builtInButtons.okClass"
-                [disabled]="context.isGlobalDisabled"
-                (onClick)="ok()">
-            </p-button>
-
-            <!-- DependsOnValidation -->
-            <p-button
-                *ngIf="context.behaviors.showSaveButton"
-                [confirmOnEnter]="context.isLoading ? false : context.behaviors.confirmOnEnter"
-                [dialogId]="context.id"
-                [label]="context.builtInButtons.saveName"
-                [styleClass]="context.builtInButtons.saveClass"
-                [icon]="context.isLoading ? 'fa-solid fa-spinner fa-spin' : ''"
-                [disabled]="context.isGlobalDisabled"
-                (onClick)="save()">
-            </p-button>
-
-            <ng-container *ngIf="context.customButtonsOrder === 'last'">
-                <ng-container *ngFor="let customButton of context.customButtons">
-
-                    <!-- DependsOnValidation -->
-                    <p-button
-                        *ngIf="customButton.visible == null || customButton.visible"
-                        [label]="customButton.name"
-                        [styleClass]="customButton.class"
-                        [disabled]="context.isGlobalDisabled || customButton.disabled"
-                        [pTooltip]="customButton.tooltip"
-                        appendTo="body"
-                        tooltipPosition="top"
-                        (onClick)="customClick(customButton)">
-                    </p-button>
-                </ng-container>
-            </ng-container>
-
-        </div>
-    </p-toolbar>
-
-</ng-container>
+          }
+        }
+      }
+    </div>
+  </p-toolbar>
+}

@@ -1,14 +1,12 @@
-<ng-container *ngIf="nodes$ | async as nodes">
-
-<smz-label
+@if (nodes$ | async; as nodes) {
+  <smz-label
     class="smz__input_name"
     [text]="input.name"
     [propertyName]="input.propertyName"
     [showLabel]="input.hideLabel != true"
     [warning]="input.warning">
-</smz-label>
-
-<div class="input_inner__wrapper grid grid-nogutter">
+  </smz-label>
+  <div class="input_inner__wrapper grid grid-nogutter">
     <p-treeSelect
       class="col-12 grid-nogutter smz__input_value flex-1"
       containerStyleClass="w-full"
@@ -25,13 +23,12 @@
       [scrollHeight]="input.scrollHeight"
       [display]="input.display"
       >
-      <ng-container *ngFor="let inputType of input.allTypes">
+      @for (inputType of input.allTypes; track inputType) {
         <ng-template let-node [pTemplate]="inputType">
           <div [innerHTML]="node.label | safeHtml" [pTooltip]="node.tooltip"></div>
         </ng-template>
-    </ng-container>
+      }
     </p-treeSelect>
     <smz-validation-messages [input]="input" [control]="control" [behaviors]="behaviors"></smz-validation-messages>
-</div>
-
-</ng-container>
+  </div>
+}

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { PanelModule } from 'primeng/panel';
 import { NgxSmzTablesModule, SimpleNamedEntity, SmzTableBuilder, SmzTableState } from '@ngx-smz/core';
 import { SelectButtonChangeEvent, SelectButtonModule } from 'primeng/selectbutton';
@@ -10,12 +10,12 @@ import { DataChartComponent } from './data-chart.component';
 @Component({
   selector: 'app-data-visualization',
   standalone: true,
-  imports: [CommonModule, PanelModule, NgxSmzTablesModule, SelectButtonModule, FormsModule, DataChartComponent],
+  imports: [PanelModule, NgxSmzTablesModule, SelectButtonModule, FormsModule, DataChartComponent],
   template: `
     <p-panel [toggleable]="true">
       <ng-template pTemplate="header">
         <div class="flex align-items-center gap-2">
-            <span class="font-bold">{{ data?.title ?? '' }}</span>
+          <span class="font-bold">{{ data?.title ?? '' }}</span>
         </div>
       </ng-template>
       <ng-template pTemplate="icons">
@@ -25,23 +25,22 @@ import { DataChartComponent } from './data-chart.component';
           </ng-template>
         </p-selectButton>
       </ng-template>
-
-      <ng-container *ngIf="panelView === 'table'">
-        <ng-container *ngIf="tableState != null; else emptyTable">
+    
+      @if (panelView === 'table') {
+        @if (tableState != null) {
           <smz-ui-table class="w-full" [items]="data.tableData.data" [state]="tableState"></smz-ui-table>
-        </ng-container>
-        <ng-template #emptyTable>
+        } @else {
           <div class="w-full h-full flex justify-center items-center">
             <p>Nenhum dado.</p>
           </div>
-        </ng-template>
-      </ng-container>
-
-      <ng-container *ngIf="panelView === 'chart'">
+        }
+      }
+    
+      @if (panelView === 'chart') {
         <app-data-chart [data]="data.chartData" [maintainAspectRatio]="maintainAspectRatio" [aspectRatio]="aspectRatio"></app-data-chart>
-      </ng-container>
+      }
     </p-panel>
-  `,
+    `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })

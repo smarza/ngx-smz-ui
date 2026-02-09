@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 @Component({
   standalone: false,
   selector: 'app-demo-icons',
-  template: `<smz-ui-table *ngIf="state != null" [items]="items$ | async" [state]="state"></smz-ui-table>`,
+  template: `@if (state != null) {<smz-ui-table [items]="items$ | async" [state]="state"></smz-ui-table>}`,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 

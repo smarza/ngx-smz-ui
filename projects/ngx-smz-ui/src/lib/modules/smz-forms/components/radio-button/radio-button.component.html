@@ -1,23 +1,23 @@
 <div class="flex flex-col col-12 input_inner__wrapper gap-1">
-    <smz-label
-        class="smz__input_name"
-        [text]="input.name"
-        [propertyName]="input.propertyName"
-        [showLabel]="input.hideLabel != true"
-        [warning]="input.warning">
-    </smz-label>
-    <div class="col-12 flex flex-row gap-2">
-        <ng-container *ngFor="let option of input.options">
-            <p-radioButton
-                class="smz__input_value"
-                [name]="input.propertyName"
-                [id]="input.propertyName"
-                [value]="option.id"
-                [formControl]="control"
-                (onClick)="emitChange(input, formId, $event)">
-            </p-radioButton>
-            <label [for]="input.propertyName">{{option.name}}</label>
-        </ng-container>
-    </div>
-    <smz-validation-messages [input]="input" [control]="control" [behaviors]="behaviors"></smz-validation-messages>
+  <smz-label
+    class="smz__input_name"
+    [text]="input.name"
+    [propertyName]="input.propertyName"
+    [showLabel]="input.hideLabel != true"
+    [warning]="input.warning">
+  </smz-label>
+  <div class="col-12 flex flex-row gap-2">
+    @for (option of input.options; track option) {
+      <p-radioButton
+        class="smz__input_value"
+        [name]="input.propertyName"
+        [id]="input.propertyName"
+        [value]="option.id"
+        [formControl]="control"
+        (onClick)="emitChange(input, formId, $event)">
+      </p-radioButton>
+      <label [for]="input.propertyName">{{option.name}}</label>
+    }
+  </div>
+  <smz-validation-messages [input]="input" [control]="control" [behaviors]="behaviors"></smz-validation-messages>
 </div>

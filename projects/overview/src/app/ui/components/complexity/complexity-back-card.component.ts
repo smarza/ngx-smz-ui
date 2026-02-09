@@ -1,5 +1,5 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ClickStopPropagationModule, NgxSmzServerImageModule, SimpleEntity, SmzDialogsService } from '@ngx-smz/core';
 import { ButtonModule } from 'primeng/button';
 import { Store } from '@ngxs/store';
@@ -7,7 +7,7 @@ import { Store } from '@ngxs/store';
 @Component({
   selector: 'app-complexity-back-card',
   standalone: true,
-  imports: [CommonModule, NgxSmzServerImageModule, ButtonModule, ClickStopPropagationModule],
+  imports: [NgxSmzServerImageModule, ButtonModule, ClickStopPropagationModule],
   host: { class: 'w-full h-full relative' },
   encapsulation: ViewEncapsulation.None,
   styles: [`

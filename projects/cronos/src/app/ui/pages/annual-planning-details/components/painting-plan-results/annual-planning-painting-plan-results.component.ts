@@ -17,12 +17,12 @@ import { SCENARIO_STRATEGY_COLORS } from '../scenarios/scenario-strategy-colors'
     ScenarioResultsVisualizationComponent
   ],
   template: `
-  <ng-container *ngIf="annualPlanning.selectedPlan; else noSelectedPlan">
+  @if (annualPlanning.selectedPlan) {
     <div class="grid grid-nogutter items-start justify-start flex-gap-1 w-full">
       <ng-container *ngVar="scenarioStrategyColors[annualPlanning.selectedPlan.strategyName] as scenarioColor">
-          <div class="col-12 grid grid-nogutter flex-col items-start justify-start flex-gap-1">
-            <div class="m-4 grid grid-nogutter items-center justify-center gap-4">
-              <h2 class="m-0">{{ annualPlanning.selectedPlan.name }}</h2>
+        <div class="col-12 grid grid-nogutter flex-col items-start justify-start flex-gap-1">
+          <div class="m-4 grid grid-nogutter items-center justify-center gap-4">
+            <h2 class="m-0">{{ annualPlanning.selectedPlan.name }}</h2>
             <div class="text-sm border border-gray-300 rounded-md p-2" [ngClass]="scenarioColor.background">
               <span [ngClass]="scenarioColor.text">{{ annualPlanning.selectedPlan.strategyDisplayName }}</span>
             </div>
@@ -31,9 +31,7 @@ import { SCENARIO_STRATEGY_COLORS } from '../scenarios/scenario-strategy-colors'
         </div>
       </ng-container>
     </div>
-  </ng-container>
-
-  <ng-template #noSelectedPlan>
+  } @else {
     <div class="relative h-[calc(100vh-205px)]">
       <div class="absolute inset-0">
         <div class="grid grid-nogutter flex-col items-center justify-center h-full">
@@ -43,7 +41,8 @@ import { SCENARIO_STRATEGY_COLORS } from '../scenarios/scenario-strategy-colors'
         </div>
       </div>
     </div>
-  </ng-template>
+  }
+  
   `
 })
 export class AnnualPlanningPaintingPlanResultsComponent {

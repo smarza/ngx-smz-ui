@@ -8,8 +8,10 @@ import { SmzNotification } from '../../../../core/models/notifications';
     <a (click)="toggle()">
       <i class="pi pi-bell"></i><span class="topbar-badge">{{ items.length }}</span>
     </a>
-    <ul *ngIf="isExpanded" class="notifications-menu fade-in-up" smz-ui-hephaestus-notification-items (onClose)="collapse()" [items]="items"></ul>
-  `,
+    @if (isExpanded) {
+      <ul class="notifications-menu fade-in-up" smz-ui-hephaestus-notification-items (onClose)="collapse()" [items]="items"></ul>
+    }
+    `,
     standalone: false
 })
 export class HephaestusNotificationsComponent implements OnInit {

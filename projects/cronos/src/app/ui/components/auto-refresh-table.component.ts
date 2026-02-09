@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, Input, OnDestroy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { environment } from '@environments/environment';
@@ -12,16 +12,17 @@ import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-auto-refresh-table',
   template: `
-  <p-button *ngIf="showRefreshButton" icon="fa-solid fa-arrows-rotate" styleClass="p-button-rounded p-button-text p-button-lg w-10 h-10" (click)="manualRefreshData()" [disabled]="!enabled"></p-button>
+  @if (showRefreshButton) {
+    <p-button icon="fa-solid fa-arrows-rotate" styleClass="p-button-rounded p-button-text p-button-lg w-10 h-10" (click)="manualRefreshData()" [disabled]="!enabled"></p-button>
+  }
   <p-select appendTo="body" [options]="options" [(ngModel)]="selected" optionLabel="name" optionValue="id" (onChange)="changeChoice()" [disabled]="!enabled"></p-select>
-`,
+  `,
   standalone: true,
   imports: [
-    CommonModule,
     FormsModule,
     SelectModule,
     ButtonModule
-  ],
+],
   host: { class: 'grid grid-nogutter items-center justify-start gap-2' }
 })
 

@@ -5,11 +5,13 @@ import { BehaviorSubject } from 'rxjs';
   standalone: false,
   selector: 'app-demo-injectable-4',
   template: `Component Works With Error Listener!!
-  <ng-container *ngIf="onValidationError$ | async as onValidationError">
+  @if (onValidationError$ | async; as onValidationError) {
     <div class="grid grid-nogutter items-center justify-end w-full">
-      <span *ngIf="onValidationError" style="color: red"> onValidationError Triggered</span>
+      @if (onValidationError) {
+        <span style="color: red"> onValidationError Triggered</span>
+      }
     </div>
-  </ng-container>
+  }
   `,
   changeDetection: ChangeDetectionStrategy.Default,
 })

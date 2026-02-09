@@ -1,42 +1,37 @@
-<ng-container [ngSwitch]="routerListener.data?.layout?.mode">
 
+@switch (routerListener.data?.layout?.mode) {
   <!-- LAYOUT SIMPLES -->
-  <ng-container *ngSwitchCase="'none'">
+  @case ('none') {
     <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
-  </ng-container>
-
+  }
   <!-- LAYOUT COMPLETO -->
-  <ng-container *ngSwitchCase="'full'">
+  @case ('full') {
     <ng-container *ngTemplateOutlet="layoutTemplate">
       <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
     </ng-container>
-  </ng-container>
-
+  }
   <!-- LAYOUT APENAS COM MENU LATERAL -->
-  <ng-container *ngSwitchCase="'menu-only'">
+  @case ('menu-only') {
     <ng-container *ngTemplateOutlet="layoutTemplate">
       <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
     </ng-container>
-  </ng-container>
-
+  }
   <!-- LAYOUT APENAS COM BARRA SUPERIOR -->
-  <ng-container *ngSwitchCase="'topbar-only'">
+  @case ('topbar-only') {
     <ng-container *ngTemplateOutlet="layoutTemplate">
       <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
     </ng-container>
-  </ng-container>
-
-  <ng-container *ngSwitchCase="'custom'">
+  }
+  @case ('custom') {
     <ng-container *ngTemplateOutlet="layoutTemplate">
       <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
     </ng-container>
-  </ng-container>
-
-  <ng-container *ngSwitchDefault>
+  }
+  @default {
     <!-- Nenhum tipo de layout foi encontrado. -->
     <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
-  </ng-container>
-</ng-container>
+  }
+}
 
 <smz-ui-theme-manager></smz-ui-theme-manager>
 <smz-ui-global-loader></smz-ui-global-loader>
@@ -44,5 +39,5 @@
 <smz-ui-block></smz-ui-block>
 <smz-export-dialog></smz-export-dialog>
 <!-- <ng-container *ngIf="toast$ | async as toast">
-  <p-toast [position]="toast.position"></p-toast>
+<p-toast [position]="toast.position"></p-toast>
 </ng-container> -->

@@ -8,12 +8,16 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     selector: 'et-global-search',
     template: `
   <p-iconfield class="p-input-icon-left w-full p-input-icon-right">
-      <p-inputicon styleClass="pi pi-search" />
-      <input class="w-full" type="text" pInputText [placeholder]="state.locale.globalSearch.placeholder" [(ngModel)]="value" (ngModelChange)="onSearchChange($event)"/>
-      <i *ngIf="value != null && value !== ''" class="pi pi-times cursor-pointer" (click)="clear()"></i>
-      <i *ngIf="value == null || value === ''" class=""></i>
+    <p-inputicon styleClass="pi pi-search" />
+    <input class="w-full" type="text" pInputText [placeholder]="state.locale.globalSearch.placeholder" [(ngModel)]="value" (ngModelChange)="onSearchChange($event)"/>
+    @if (value != null && value !== '') {
+      <i class="pi pi-times cursor-pointer" (click)="clear()"></i>
+    }
+    @if (value == null || value === '') {
+      <i class=""></i>
+    }
   </p-iconfield>
-`,
+  `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: false
 })

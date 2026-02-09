@@ -11,45 +11,37 @@ import { CreateComment } from './../../models/create-comment';
     selector: 'smz-comments',
     template: `
   <!-- <mentionable-textarea [users]="users" class="w-full"></mentionable-textarea> -->
-  <ng-container *ngIf="data.length > 0; else elseEmpty">
+  @if (data.length > 0) {
     <p-tree [value]="data">
-        <ng-template let-node pTemplate="default">
-
-          <!-- CONTAINER -->
-          <div class="grid grid-nogutter items-start justify-start flex-nowrap gap-3 mb-3 py-1">
-
-              <!-- AVATAR -->
-              <img class="w-20" [src]="node.data.avatar | safeUrl"/>
-
-              <!-- CONTENT -->
-              <div class="col grid grid-nogutter flex-col items-start justify-start gap-2">
-
-                  <!-- NAME AND DATE -->
-                  <div class="grid grid-nogutter items-center justify-start gap-2">
-
-                      <!-- DISPLAY NAME -->
-                      <div class="font-bold leading-4">{{ node.data.displayName }}</div>
-
-                      <!-- DATE -->
-                      <div class="text-xs pt-px">{{ node.data.date | simpleCalendar : 'fromNow' }}</div>
-                  </div>
-
-                  <!-- MESSAGE -->
-                  <div [innerHTML]="node.label | safeHtml"></div>
-
-                  <!-- ACTIONS -->
-                  <a *ngIf="state.response.enabled" class="cursor-pointer text-sm" (click)="showCreateDialog(node)">{{ state.locale.answser }}</a>
-              </div>
-
+      <ng-template let-node pTemplate="default">
+        <!-- CONTAINER -->
+        <div class="grid grid-nogutter items-start justify-start flex-nowrap gap-3 mb-3 py-1">
+          <!-- AVATAR -->
+          <img class="w-20" [src]="node.data.avatar | safeUrl"/>
+          <!-- CONTENT -->
+          <div class="col grid grid-nogutter flex-col items-start justify-start gap-2">
+            <!-- NAME AND DATE -->
+            <div class="grid grid-nogutter items-center justify-start gap-2">
+              <!-- DISPLAY NAME -->
+              <div class="font-bold leading-4">{{ node.data.displayName }}</div>
+              <!-- DATE -->
+              <div class="text-xs pt-px">{{ node.data.date | simpleCalendar : 'fromNow' }}</div>
+            </div>
+            <!-- MESSAGE -->
+            <div [innerHTML]="node.label | safeHtml"></div>
+            <!-- ACTIONS -->
+            @if (state.response.enabled) {
+              <a class="cursor-pointer text-sm" (click)="showCreateDialog(node)">{{ state.locale.answser }}</a>
+            }
           </div>
-        </ng-template>
+        </div>
+      </ng-template>
     </p-tree>
-  </ng-container>
-
-  <ng-template #elseEmpty>
+  } @else {
     <smz-icon-message [icon]="'far fa-comment'" [message]="state.locale.emptyMessage" [comment]="state.locale.firstMessage"></smz-icon-message>
-  </ng-template>
-`,
+  }
+  
+  `,
     styleUrls: ['./smz-comments.component.scss'],
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,

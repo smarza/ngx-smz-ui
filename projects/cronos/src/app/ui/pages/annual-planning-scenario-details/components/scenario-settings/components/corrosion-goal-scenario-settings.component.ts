@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, Input, OnInit, ViewEncapsulation, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ScenarioUpdateComponent } from '../scenario-update.component';
 import { ScenarioDetails } from '@models/scenario-details';
 import { UpdateScenarioWithCorrosionGoalStrategy } from '@models/update-scenario-with-corrosion-goal-strategy';
@@ -21,7 +21,7 @@ import { ScenarioStatusDescription } from '@models/scenario-status';
 @Component({
   selector: 'app-corrosion-goal-scenario-settings',
   standalone: true,
-  imports: [CommonModule, ButtonModule, ScenarioUpdateComponent, ToolbarModule, RbkAccessControlModule],
+  imports: [ButtonModule, ScenarioUpdateComponent, ToolbarModule, RbkAccessControlModule],
   host: { class: '' },
   encapsulation: ViewEncapsulation.None,
   styleUrl: './scenario-settings.component.scss',

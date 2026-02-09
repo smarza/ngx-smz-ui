@@ -1,10 +1,10 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-empty-message',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   host: { class: 'w-full h-full relative' },
   encapsulation: ViewEncapsulation.None,
   styles: [`

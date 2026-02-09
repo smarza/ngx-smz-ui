@@ -17,18 +17,20 @@ import { cloneDeep } from 'lodash-es';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-  <ng-container *ngIf="onValidationError$ | async as onValidationError">
+  @if (onValidationError$ | async; as onValidationError) {
     <div class="absolute right-2 top-0 grid grid-nogutter items-center justify-end w-full">
-      <span *ngIf="onValidationError" style="color: red">Finalize o preenchimento do formulário para criar o cenário</span>
+      @if (onValidationError) {
+        <span style="color: red">Finalize o preenchimento do formulário para criar o cenário</span>
+      }
     </div>
-  </ng-container>
+  }
   <smz-form-group [config]="data.generalForm" (statusChanges)="updateGeneralForm($event)" (unsavedChanges)="testUnsavedChanges($event)" (formChanges)="testFormChanges($event)"></smz-form-group>
   <div class="grid grid-nogutter items-center justify-start gap-2">
     <div class="smz__group_name mt-1">Configuração da Equipe</div>
     <p-button label="Adicionar" icon="fa-solid fa-plus" (onClick)="addTeam()" [rounded]="true" size="small"/>
   </div>
   <p-tabView class="w-full" [(activeIndex)]="activeIndex">
-    <ng-container *ngFor="let team of teamTabs; let i = index;">
+    @for (team of teamTabs; track team; let i = $index) {
       <p-tabPanel>
         <ng-template pTemplate="header">
           <div class="grid grid-nogutter items-center justify-start gap-2">
@@ -50,7 +52,7 @@ import { cloneDeep } from 'lodash-es';
           }
         </div>
       </p-tabPanel>
-    </ng-container>
+    }
   </p-tabView>
   `,
   styles: [`

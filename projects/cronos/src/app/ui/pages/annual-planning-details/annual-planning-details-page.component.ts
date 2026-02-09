@@ -35,9 +35,8 @@ interface RouteEvent { planningId?: string; }
     AnnualPlanningPaintingPlanResultsComponent
   ],
   template: `
-<ng-container *ngIf="annualPlanning$ | async as annualPlanning">
+@if (annualPlanning$ | async; as annualPlanning) {
   <p-tabView class="w-full" [(activeIndex)]="activeIndex">
-
     <!-- DADOS GERAIS -->
     <p-tabPanel>
       <ng-template pTemplate="header">
@@ -47,7 +46,6 @@ interface RouteEvent { planningId?: string; }
       </ng-template>
       <app-annual-planning-general-data></app-annual-planning-general-data>
     </p-tabPanel>
-
     <!-- VISUALIZAÇÃO EXPLORATÓRIA -->
     <p-tabPanel [disabled]="annualPlanning.status == annualPlanningStatus.PRE_EXPLORATORY_VIEW_CALCULATION_FAILED">
       <ng-template pTemplate="header">
@@ -55,9 +53,10 @@ interface RouteEvent { planningId?: string; }
           <div>Visualização Exploratória</div>
         </div>
       </ng-template>
-      <app-annual-planning-exploratory-visualization *ngIf="annualPlanning.status != annualPlanningStatus.PRE_EXPLORATORY_VIEW_CALCULATION_FAILED"></app-annual-planning-exploratory-visualization>
+      @if (annualPlanning.status != annualPlanningStatus.PRE_EXPLORATORY_VIEW_CALCULATION_FAILED) {
+        <app-annual-planning-exploratory-visualization></app-annual-planning-exploratory-visualization>
+      }
     </p-tabPanel>
-
     <!-- CENÁRIOS -->
     <p-tabPanel [disabled]="annualPlanning.status == annualPlanningStatus.PRE_EXPLORATORY_VIEW_CALCULATION_FAILED">
       <ng-template pTemplate="header">
@@ -65,34 +64,41 @@ interface RouteEvent { planningId?: string; }
           <div>Cenários</div>
         </div>
       </ng-template>
-      <app-annual-planning-scenarios *ngIf="annualPlanning.status != annualPlanningStatus.PRE_EXPLORATORY_VIEW_CALCULATION_FAILED" [annualPlanningId]="annualPlanning.id"></app-annual-planning-scenarios>
+      @if (annualPlanning.status != annualPlanningStatus.PRE_EXPLORATORY_VIEW_CALCULATION_FAILED) {
+        <app-annual-planning-scenarios [annualPlanningId]="annualPlanning.id"></app-annual-planning-scenarios>
+      }
     </p-tabPanel>
-
     <!-- PLANO DE PINTURA -->
     <p-tabPanel [disabled]="annualPlanning.status == annualPlanningStatus.PRE_EXPLORATORY_VIEW_CALCULATION_FAILED">
       <ng-template pTemplate="header">
         <div class="flex items-center gap-2">
           <div>Plano de Pintura</div>
-          <i *ngIf="annualPlanning.selectedPlan != null" class="fa-solid fa-check text-green-500"></i>
+          @if (annualPlanning.selectedPlan != null) {
+            <i class="fa-solid fa-check text-green-500"></i>
+          }
         </div>
       </ng-template>
-      <app-annual-planning-painting-plan *ngIf="annualPlanning.status != annualPlanningStatus.PRE_EXPLORATORY_VIEW_CALCULATION_FAILED" [annualPlanning]="annualPlanning"></app-annual-planning-painting-plan>
+      @if (annualPlanning.status != annualPlanningStatus.PRE_EXPLORATORY_VIEW_CALCULATION_FAILED) {
+        <app-annual-planning-painting-plan [annualPlanning]="annualPlanning"></app-annual-planning-painting-plan>
+      }
     </p-tabPanel>
-
     <!-- RESULTADOS DO PLANO DE PINTURA -->
     <p-tabPanel [disabled]="annualPlanning.status == annualPlanningStatus.PRE_EXPLORATORY_VIEW_CALCULATION_FAILED">
       <ng-template pTemplate="header">
         <div class="flex items-center gap-2">
           <div>Resultados do Plano de Pintura</div>
-          <i *ngIf="annualPlanning.selectedPlan != null" class="fa-solid fa-check text-green-500"></i>
+          @if (annualPlanning.selectedPlan != null) {
+            <i class="fa-solid fa-check text-green-500"></i>
+          }
         </div>
       </ng-template>
-      <app-annual-planning-painting-plan-results *ngIf="annualPlanning.status != annualPlanningStatus.PRE_EXPLORATORY_VIEW_CALCULATION_FAILED" [annualPlanning]="annualPlanning"></app-annual-planning-painting-plan-results>
+      @if (annualPlanning.status != annualPlanningStatus.PRE_EXPLORATORY_VIEW_CALCULATION_FAILED) {
+        <app-annual-planning-painting-plan-results [annualPlanning]="annualPlanning"></app-annual-planning-painting-plan-results>
+      }
     </p-tabPanel>
-
   </p-tabView>
-</ng-container>
-  `
+}
+`
 })
 export class AnnualPlanningDetailsPageComponent {
   private readonly store = inject(Store);

@@ -34,18 +34,20 @@ import { ClaimDefinitions } from '@models/claim-definitions';
   template: `
   <ng-container *ngVar="scenarioStrategyColors[data.strategyName] as scenarioColor">
     <div class="rounded-2xl absolute inset-0 drop-shadow-md" [ngClass]="scenarioColor.background"></div>
-
+  
     <div class="max-w-sm mx-auto relative" [ngClass]="scenarioColor.text">
-
+  
       <div class="text-center p-4 rounded-t-2xl" [ngClass]="scenarioColor.background">
         <div class="text-2xl font-bold">
-        {{ data.strategyDisplayName }}
-        <i *ngIf="data.isSelectedPlan" class="fa-solid fa-star ml-2" pTooltip="Plano de pintura eleito"></i>
+          {{ data.strategyDisplayName }}
+          @if (data.isSelectedPlan) {
+            <i class="fa-solid fa-star ml-2" pTooltip="Plano de pintura eleito"></i>
+          }
         </div>
       </div>
-
+  
       <div class="grid grid-nogutter items-start justify-between flex-col gap-3 p-6 rounded-2xl shadow-inset bg-gradient-to-b from-[#d8d8d8] to-[#acacac]">
-
+  
         <button
           pButton
           class="justify-center w-full gap-2 py-2 rounded-2xl bg-slate-700 text-white"
@@ -55,7 +57,7 @@ import { ClaimDefinitions } from '@models/claim-definitions';
           [disabled]="!canAccessScenarioPage()"
           (click)="navigateToScenarioDetailsPageRoute()">
         </button>
-
+  
         @if(!data.isSelectedPlan) {
           <button
             pButton
@@ -68,40 +70,40 @@ import { ClaimDefinitions } from '@models/claim-definitions';
           </button>
         }
         @else {
-          <button
-            pButton
-            class="justify-center w-full gap-2 py-2 rounded-2xl bg-slate-700 text-white"
-            label="Desselecionar Plano"
-            icon="fa-regular fa-star"
-            clickStopPropagation
-            [disabled]="!canSelectPlan() || !(manageAnnualPlanningClaim | rbkCanAccess)"
-            (click)="deselectPlan()">
-          </button>
-        }
-
         <button
           pButton
           class="justify-center w-full gap-2 py-2 rounded-2xl bg-slate-700 text-white"
-          label="Recalcular"
-          icon="fa-solid fa-calculator"
+          label="Desselecionar Plano"
+          icon="fa-regular fa-star"
           clickStopPropagation
-          [disabled]="!canAccessScenarioPage() || !(manageAnnualPlanningClaim | rbkCanAccess)"
-          (click)="data.isSelectedPlan ? confirmPlanRecalculation() : confirmScenarioRecalculation()">
+          [disabled]="!canSelectPlan() || !(manageAnnualPlanningClaim | rbkCanAccess)"
+          (click)="deselectPlan()">
         </button>
-
-        <button
-          pButton
-          class="justify-center w-full gap-2 py-2 rounded-2xl bg-slate-700 text-white"
-          label="Remover"
-          icon="fa-solid fa-trash"
-          clickStopPropagation
-          [disabled]="!canAccessScenarioPage() || !(manageAnnualPlanningClaim | rbkCanAccess)"
-          (click)="data.isSelectedPlan ? removeSelectedPlan() : removeScenario()">
-        </button>
-
-      </div>
+      }
+  
+      <button
+        pButton
+        class="justify-center w-full gap-2 py-2 rounded-2xl bg-slate-700 text-white"
+        label="Recalcular"
+        icon="fa-solid fa-calculator"
+        clickStopPropagation
+        [disabled]="!canAccessScenarioPage() || !(manageAnnualPlanningClaim | rbkCanAccess)"
+        (click)="data.isSelectedPlan ? confirmPlanRecalculation() : confirmScenarioRecalculation()">
+      </button>
+  
+      <button
+        pButton
+        class="justify-center w-full gap-2 py-2 rounded-2xl bg-slate-700 text-white"
+        label="Remover"
+        icon="fa-solid fa-trash"
+        clickStopPropagation
+        [disabled]="!canAccessScenarioPage() || !(manageAnnualPlanningClaim | rbkCanAccess)"
+        (click)="data.isSelectedPlan ? removeSelectedPlan() : removeScenario()">
+      </button>
+  
     </div>
-
+  </div>
+  
   </ng-container>
   `,
   styles: [`
