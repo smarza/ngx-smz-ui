@@ -35,7 +35,6 @@
             [multiSortMeta]="context.state.sort.multiSortMeta"
             [scrollable]="context.state.viewport.scrollable"
             [scrollHeight]="context.state.viewport.scrollHeight"
-            [scrollDirection]="context.state.viewport.scrollDirection"
             [filterDelay]="0"
             [globalFilterFields]="context.globalFilter"
             [columns]="context.visibleColumns"
@@ -339,7 +338,7 @@
                               @if (editableService.context[item.id]?.form; as form) {
                                 @if (form.controls[col.editable.property]; as control) {
                                   <div class="relative w-full">
-                                    <p-inputSwitch [formControl]="$any(control)"></p-inputSwitch>
+                                    <p-toggleswitch [formControl]="$any(control)"></p-toggleswitch>
                                     <smz-table-validation-messages [errors]="control.errors" [messages]="uiConfig.dialogs.forms.validationMessages" [isFormInvalid]="form.invalid" [isFormDirty]="form.dirty"></smz-table-validation-messages>
                                   </div>
                                 }

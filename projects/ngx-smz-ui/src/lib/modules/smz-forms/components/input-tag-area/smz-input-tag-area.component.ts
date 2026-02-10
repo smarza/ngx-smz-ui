@@ -2,8 +2,8 @@ import { NgModule, Input, OnDestroy, ChangeDetectorRef, Component, ChangeDetecti
 import { CommonModule } from '@angular/common';
 import { SmzSmartTagConfig, SmzSmartTagData, SmzSmartTagModule, SmzSmartTagOptions } from '../../directives/smart-tag.directive';
 import { TextareaModule } from 'primeng/textarea';
-import { OverlayPanel, OverlayPanelModule } from 'primeng/overlaypanel';
-import { DropdownModule } from 'primeng/dropdown';
+import { OverlayPanel, OverlayPanelModule } from '../../../prime/overlaypanel/overlaypanel';
+import { SelectModule } from 'primeng/select';
 import { ButtonModule } from 'primeng/button';
 import { UntypedFormControl, FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { Listbox, ListboxModule } from 'primeng/listbox';
@@ -249,7 +249,7 @@ export class SmzInputTagArea implements AfterViewInit, OnDestroy {
         TextareaModule,
         SmzSmartTagModule,
         OverlayPanelModule,
-        DropdownModule,
+        SelectModule,
         ButtonModule,
         ListboxModule
     ],

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SmzFormBaseLinkedControl } from '../models/control-types';
 import { BehaviorSubject } from 'rxjs';
+import { SelectChangeEvent } from 'primeng/select';
 
 @Injectable({
     providedIn: 'root'
@@ -51,7 +52,7 @@ export class SmzFormsDropdownService
         }
     }
 
-    public setValue(input: SmzFormBaseLinkedControl, formId: string, onChangeDropdownEvent: { originalEvent: any, value: any }): void
+    public setValue(input: SmzFormBaseLinkedControl, formId: string, onChangeDropdownEvent: SelectChangeEvent): void
     {
 
         const dependsOn = formId + input.propertyName;

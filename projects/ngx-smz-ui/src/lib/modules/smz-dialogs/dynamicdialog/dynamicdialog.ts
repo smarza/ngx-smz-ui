@@ -191,7 +191,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnInit, OnDestroy
         this.cd.detectChanges();
     }
 
-    @HostListener('document:keydown.escape', ['$event']) onEscapeHandler(event: KeyboardEvent)
+    @HostListener('document:keydown.escape', ['$event']) onEscapeHandler(event: Event)
     {
         if (this.config?.closeOnEscape && !this.dialogConfig.data._context.isLoading)
         {

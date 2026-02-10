@@ -31,7 +31,7 @@ import {
 import { FormsModule } from '@angular/forms';
 import { BlockableUI, FilterMatchMode, FilterMetadata, FilterOperator, FilterService, OverlayService, PrimeTemplate, SelectItem, SharedModule, SortMeta, TableState, TranslationKeys } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
-import { CalendarModule } from 'primeng/calendar';
+import { DatePickerModule } from 'primeng/datepicker';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { SelectModule } from 'primeng/select';
 import { InputNumberModule } from 'primeng/inputnumber';
@@ -137,7 +137,7 @@ export class TableService {
               [showPageLinks]="showPageLinks"
             ></p-paginator>
           }
-        
+
           <div #wrapper class="p-datatable-wrapper" [ngStyle]="{ maxHeight: virtualScroll ? '' : scrollHeight }">
             @if (virtualScroll) {
               <p-scroller
@@ -166,7 +166,7 @@ export class TableService {
             @if (!virtualScroll) {
               <ng-container *ngTemplateOutlet="buildInTable; context: { $implicit: processedData, options: { columns } }"></ng-container>
             }
-        
+
             <ng-template #buildInTable let-items let-scrollerOptions="options">
               <table
                 #table
@@ -210,7 +210,7 @@ export class TableService {
               </table>
             </ng-template>
           </div>
-        
+
           @if (paginator && (paginatorPosition === 'bottom' || paginatorPosition == 'both')) {
             <p-paginator
               [rows]="rows"
@@ -234,13 +234,13 @@ export class TableService {
               [showPageLinks]="showPageLinks"
             ></p-paginator>
           }
-        
+
           @if (summaryTemplate) {
             <div class="p-datatable-footer">
               <ng-container *ngTemplateOutlet="summaryTemplate"></ng-container>
             </div>
           }
-        
+
           @if (resizableColumns) {
             <div #resizeHelper class="p-column-resizer-helper" style="display:none"></div>
           }
@@ -2908,8 +2908,8 @@ export class SortableColumn implements OnInit, OnDestroy {
     }
 
     @HostListener('keydown.enter', ['$event'])
-    onEnterKey(event: MouseEvent) {
-        this.onClick(event);
+    onEnterKey(event: Event) {
+        this.onClick(<MouseEvent>event);
     }
 
     isEnabled() {
@@ -3062,7 +3062,7 @@ export class SelectableRow implements OnInit, OnDestroy {
     }
 
     @HostListener('keydown.arrowdown', ['$event'])
-    onArrowDownKeyDown(event: KeyboardEvent) {
+    onArrowDownKeyDown(event: Event) {
         if (!this.isEnabled()) {
             return;
         }
@@ -3078,7 +3078,7 @@ export class SelectableRow implements OnInit, OnDestroy {
     }
 
     @HostListener('keydown.arrowup', ['$event'])
-    onArrowUpKeyDown(event: KeyboardEvent) {
+    onArrowUpKeyDown(event: Event) {
         if (!this.isEnabled()) {
             return;
         }
@@ -3096,7 +3096,7 @@ export class SelectableRow implements OnInit, OnDestroy {
     @HostListener('keydown.enter', ['$event'])
     @HostListener('keydown.shift.enter', ['$event'])
     @HostListener('keydown.meta.enter', ['$event'])
-    onEnterKeyDown(event: KeyboardEvent) {
+    onEnterKeyDown(event: Event) {
         if (!this.isEnabled()) {
             return;
         }
@@ -3585,7 +3585,7 @@ export class EditableColumn implements AfterViewInit, OnDestroy {
     }
 
     @HostListener('keydown.enter', ['$event'])
-    onEnterKeyDown(event: KeyboardEvent) {
+    onEnterKeyDown(event: Event) {
         if (this.isEnabled()) {
             if (this.dt.isEditingCellValid()) {
                 this.closeEditingCell(true, event);
@@ -3596,7 +3596,7 @@ export class EditableColumn implements AfterViewInit, OnDestroy {
     }
 
     @HostListener('keydown.tab', ['$event'])
-    onTabKeyDown(event: KeyboardEvent) {
+    onTabKeyDown(event: Event) {
         if (this.isEnabled()) {
             if (this.dt.isEditingCellValid()) {
                 this.closeEditingCell(true, event);
@@ -3607,7 +3607,7 @@ export class EditableColumn implements AfterViewInit, OnDestroy {
     }
 
     @HostListener('keydown.escape', ['$event'])
-    onEscapeKeyDown(event: KeyboardEvent) {
+    onEscapeKeyDown(event: Event) {
         if (this.isEnabled()) {
             if (this.dt.isEditingCellValid()) {
                 this.closeEditingCell(false, event);
@@ -3620,18 +3620,18 @@ export class EditableColumn implements AfterViewInit, OnDestroy {
     @HostListener('keydown.tab', ['$event'])
     @HostListener('keydown.shift.tab', ['$event'])
     @HostListener('keydown.meta.tab', ['$event'])
-    onShiftKeyDown(event: KeyboardEvent) {
+    onShiftKeyDown(event: Event) {
         if (this.isEnabled()) {
-            if (event.shiftKey) this.moveToPreviousCell(event);
+            if ((<KeyboardEvent>event).shiftKey) this.moveToPreviousCell(<KeyboardEvent>event);
             else {
-                this.moveToNextCell(event);
+                this.moveToNextCell(<KeyboardEvent>event);
             }
         }
     }
     @HostListener('keydown.arrowdown', ['$event'])
-    onArrowDown(event: KeyboardEvent) {
+    onArrowDown(event: Event) {
         if (this.isEnabled()) {
-            let currentCell = this.findCell(event.target);
+            let currentCell = this.findCell((<KeyboardEvent>event).target);
             if (currentCell) {
                 let cellIndex = DomHandler.index(currentCell);
                 let targetCell = this.findNextEditableColumnByIndex(currentCell, cellIndex);
@@ -3651,7 +3651,7 @@ export class EditableColumn implements AfterViewInit, OnDestroy {
     }
 
     @HostListener('keydown.arrowup', ['$event'])
-    onArrowUp(event: KeyboardEvent) {
+    onArrowUp(event: Event) {
         if (this.isEnabled()) {
             let currentCell = this.findCell(event.target);
             if (currentCell) {
@@ -3673,16 +3673,16 @@ export class EditableColumn implements AfterViewInit, OnDestroy {
     }
 
     @HostListener('keydown.arrowleft', ['$event'])
-    onArrowLeft(event: KeyboardEvent) {
+    onArrowLeft(event: Event) {
         if (this.isEnabled()) {
-            this.moveToPreviousCell(event);
+            this.moveToPreviousCell(<KeyboardEvent>event);
         }
     }
 
     @HostListener('keydown.arrowright', ['$event'])
-    onArrowRight(event: KeyboardEvent) {
+    onArrowRight(event: Event) {
         if (this.isEnabled()) {
-            this.moveToNextCell(event);
+            this.moveToNextCell(<KeyboardEvent>event);
         }
     }
 
@@ -5006,7 +5006,7 @@ export class ColumnFilter implements AfterContentInit {
               <p-checkbox [ngModel]="filterConstraint?.value" [binary]="false" (ngModelChange)="onModelChange($event)"></p-checkbox>
             }
             @case ('date') {
-              <p-calendar [placeholder]="placeholder" [ngModel]="filterConstraint?.value" (ngModelChange)="onModelChange($event)" [showTime]="showTime"></p-calendar>
+              <p-datePicker [placeholder]="placeholder" [ngModel]="filterConstraint?.value" (ngModelChange)="onModelChange($event)" [showTime]="showTime"></p-datePicker>
             }
           }
         }
@@ -5098,7 +5098,7 @@ export class ColumnFilterFormElement implements OnInit {
     FormsModule,
     ButtonModule,
     SelectButtonModule,
-    CalendarModule,
+    DatePickerModule,
     InputNumberModule,
     ScrollerModule
     ],

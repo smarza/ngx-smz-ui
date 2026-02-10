@@ -15,7 +15,8 @@
         <h3>{{ manager.config.placeholders.contentTitle }}</h3>
         <p-accordion>
           @for (item of filtered; track item) {
-            <p-accordionTab [header]="item.question" [selected]="item.metadata?.selected">
+            <p-accordion-panel [value]="item.metadata?.selected">
+              <p-accordion-header>{{ item.question }}</p-accordion-header>
               @if (manager.config.creationClaim | rbkCanAccess) {
                 <div class="faqs__actions">
                   <a class="clickable hvr-icon-push mr-2" (click)="update(item)"><i class="far fa-edit hvr-icon"></i></a>
@@ -23,7 +24,7 @@
                 </div>
               }
               <div class="faqs__answer" [innerHTML]="(item.answer | highlight : keywords) | safeHtml"></div>
-            </p-accordionTab>
+            </p-accordion-panel>
           }
         </p-accordion>
       } @else {

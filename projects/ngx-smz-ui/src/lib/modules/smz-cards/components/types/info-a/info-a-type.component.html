@@ -13,7 +13,7 @@
       }
       <!-- TAGS -->
       <div class="col-12 grid grid-nogutter items-center justify-start" [ngClass]="template.tagsContainerStyleClass">
-        @for (tag of template.tags let i = index; track tag) {
+        @for (tag of template.tags; track tag) {
           @if (!tag.hideInGrid) {
             <div contentSelector [content]="tag" [data]="data" class="" [ngClass]="tag.conditionalStyleClass != null ? tag.conditionalStyleClass(data) : (tag.styleClass ?? 'px-2 py-1 text-sm bg-gray-200 text-surface-50 rounded')"></div>
           }
@@ -21,7 +21,7 @@
       </div>
       <!-- INFOS -->
       <div class="col-12 grid grid-nogutter items-center justify-start" [ngClass]="template.infosContainerStyleClass">
-        @for (info of template.infos let i = index; track info) {
+        @for (info of template.infos; track info) {
           @if (!info.content.hideInGrid) {
             <div class="grid grid-nogutter items-center justify-start gap-2 mr-3">
               <div class="rounded-2xl h-4 w-4" [ngClass]="info.bulletStyleClass ?? 'bg-gray-200'"></div>
@@ -65,7 +65,7 @@
       }
       <!-- TAGS -->
       <div class="col-12 grid grid-nogutter items-center justify-start" [ngClass]="template.tagsContainerStyleClass">
-        @for (tag of template.tags let i = index; track tag) {
+        @for (tag of template.tags; track tag) {
           @if (!tag.hideInList) {
             <div contentSelector [content]="tag" [data]="data" [ngClass]="tag.conditionalStyleClass != null ? tag.conditionalStyleClass(data) : (tag.styleClass ?? 'px-2 py-1 text-sm bg-gray-200 text-surface-50 rounded')"></div>
           }
@@ -73,7 +73,7 @@
       </div>
       <!-- INFOS -->
       <div class="col-12 grid grid-nogutter items-center justify-start" [ngClass]="template.infosContainerStyleClass">
-        @for (info of template.infos let i = index; track info) {
+        @for (info of template.infos; track info) {
           @if (!info.content.hideInList) {
             <div class="grid grid-nogutter items-center justify-start gap-2 mr-3">
               <div class="rounded-2xl h-4 w-4 bg-gray-200" [ngClass]="info.bulletStyleClass"></div>

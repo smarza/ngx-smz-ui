@@ -1,5 +1,5 @@
 import { Input, OnDestroy, ChangeDetectorRef, Component, ChangeDetectionStrategy, ViewChild, ElementRef, ViewEncapsulation, Optional } from '@angular/core';
-import { OverlayPanel } from 'primeng/overlaypanel';
+import { Popover } from 'primeng/popover';
 import { NgModel } from '@angular/forms';
 import { SmzAutocompleteSelectorComponent } from './smz-autocomplete-selector-component';
 import { SmzAutocompleteTagAreaControl } from '../../models/control-types';
@@ -16,8 +16,8 @@ import { SmzSmartAutocompleteTagOption } from '../../directives/smart-autocomple
       <textarea #inputArea id="inputArea" pInputTextarea smzSmartAutocompleteTag [formControl]="control" [options]="input.config.options" [rows]="input.textAreaRows" (tagTyped)="onTag($event)" class="col-12"></textarea>
       <smz-validation-messages [input]="input" [control]="control" [behaviors]="behaviors"></smz-validation-messages>
     </div>
-    
-    <p-overlayPanel #overlay appendTo="body" [style]="{width: '450px'}" (onHide)="onHideOverlay()" styleClass="tag-overlay">
+
+    <p-popover #overlay appendTo="body" [style]="{width: '450px'}" (onHide)="onHideOverlay()" styleClass="tag-overlay">
       <ng-template pTemplate>
         @if (currentOption) {
           <smz-autocomplete-selector
@@ -30,7 +30,7 @@ import { SmzSmartAutocompleteTagOption } from '../../directives/smart-autocomple
           </smz-autocomplete-selector>
         }
       </ng-template>
-    </p-overlayPanel>
+    </p-popover>
     `,
     styles: [
         '.p-overlaypanel.autocomplete-tag-overlay { box-shadow: unset; }',
@@ -42,7 +42,7 @@ import { SmzSmartAutocompleteTagOption } from '../../directives/smart-autocomple
     standalone: false
 })
 export class SmzInputAutocompleteTagArea implements OnDestroy {
-    @ViewChild(OverlayPanel) public overlay: OverlayPanel;
+    @ViewChild(Popover) public overlay: Popover;
     @ViewChild('inputArea') public inputElement: ElementRef;
     @ViewChild('elementSelector') public selectorElement: SmzAutocompleteSelectorComponent;
 

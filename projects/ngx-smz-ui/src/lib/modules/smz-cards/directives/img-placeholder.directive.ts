@@ -1,24 +1,24 @@
-import { Directive, HostBinding, Input } from '@angular/core';
+import { Directive, ElementRef, HostBinding, Input } from '@angular/core';
 
 @Directive({
     selector: '[imgPlaceholder]',
     host: {
         '(error)': 'updateUrl()',
-        '(load)': 'load()',
-        '[src]': 'src'
+        '(load)': 'load()'
     },
     standalone: false
 })
 export class ImgPlaceholderDirective {
     @Input() public placeholder: string = 'assets/images/placeholder.jpeg';
-    @Input() public src: string;
-    @HostBinding('class') public className;
+    @HostBinding('class') public className: string;
 
-    public updateUrl() {
-      this.src = this.placeholder;
-    }
-    public load(){
-      this.className = 'image-loaded';
+    constructor(private readonly elementRef: ElementRef<HTMLImageElement>) {}
+
+    public updateUrl(): void {
+        this.elementRef.nativeElement.src = this.placeholder;
     }
 
+    public load(): void {
+        this.className = 'image-loaded';
+    }
 }

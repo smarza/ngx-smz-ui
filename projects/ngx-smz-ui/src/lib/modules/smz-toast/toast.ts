@@ -1,11 +1,10 @@
-import {NgModule,Component,Input,Output,OnInit,AfterViewInit,AfterContentInit,OnDestroy,ElementRef,ViewChild,EventEmitter,ContentChildren,QueryList,TemplateRef,ChangeDetectionStrategy, NgZone, ChangeDetectorRef, ViewEncapsulation, inject} from '@angular/core';
+import {NgModule,Component,Input,Output,OnInit,AfterViewInit,AfterContentInit,OnDestroy,ElementRef,ViewChild,EventEmitter,ContentChildren,QueryList,TemplateRef,ChangeDetectionStrategy, NgZone, ChangeDetectorRef, ViewEncapsulation, inject, AnimationCallbackEvent} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {PrimeTemplate,SharedModule} from 'primeng/api';
 import {MessageService} from 'primeng/api';
 import {ObjectUtils, UniqueComponentId} from 'primeng/utils';
 import {RippleModule} from 'primeng/ripple';
 import {Subscription} from 'rxjs';
-import {trigger,state,style,transition,animate,query,animateChild,AnimationEvent} from '@angular/animations';
 import { ZIndexUtils } from 'primeng/utils';
 import {ProgressBarModule} from 'primeng/progressbar';
 import { PrimeNG } from 'primeng/config';
@@ -29,7 +28,10 @@ export interface Message {
 @Component({
     selector: 'p-toastItem',
     template: `
-        <div #container [attr.id]="message.id" [class]="message.styleClass" [ngClass]="['p-toast-message-' + message.severity, 'p-toast-message']" [@messageState]="{value: 'visible', params: {showTransformParams: showTransformOptions, hideTransformParams: hideTransformOptions, showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}"
+        <div #container [attr.id]="message.id" [class]="message.styleClass" [ngClass]="['p-toast-message-' + message.severity, 'p-toast-message']"
+          [style.--show-transform]="showTransformOptions" [style.--show-transition]="showTransitionOptions"
+          [style.--hide-transform]="hideTransformOptions" [style.--hide-transition]="hideTransitionOptions"
+          animate.enter="toast-item-enter" (animate.leave)="onLeave($event)"
           (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
           <div class="p-toast-message-content relative" role="alert" aria-live="assertive" aria-atomic="true"  [ngClass]="message.contentStyleClass">
             @if (!template) {
@@ -54,25 +56,6 @@ export interface Message {
           </div>
         </div>
         `,
-    animations: [
-        trigger('messageState', [
-            state('visible', style({
-                transform: 'translateY(0)',
-                opacity: 1
-            })),
-            transition('void => *', [
-                style({ transform: '{{showTransformParams}}', opacity: 0 }),
-                animate('{{showTransitionParams}}')
-            ]),
-            transition('* => void', [
-                animate(('{{hideTransitionParams}}'), style({
-                    height: 0,
-                    opacity: 0,
-                    transform: '{{hideTransformParams}}'
-                }))
-            ])
-        ])
-    ],
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.Default,
     host: {
@@ -100,6 +83,10 @@ export class ToastItem implements AfterViewInit, OnDestroy {
 
     @Output() onClose: EventEmitter<any> = new EventEmitter();
 
+    @Output() enterStart = new EventEmitter<void>();
+
+    @Output() leaveDone = new EventEmitter<void>();
+
     @ViewChild('container') containerViewChild: ElementRef;
 
     timeout: any;
@@ -112,12 +99,28 @@ export class ToastItem implements AfterViewInit, OnDestroy {
     constructor(private zone: NgZone, public cdr: ChangeDetectorRef) {}
 
     ngAfterViewInit() {
+        this.enterStart.emit();
         this.initTimeout();
 
         this.tick = 150;
         this.timeoutValue = this.message.life || 3000;
         this.add = (100 * this.tick) / this.timeoutValue;
         this.progress = this.add;
+    }
+
+    onLeave(event: AnimationCallbackEvent) {
+        const el = this.containerViewChild?.nativeElement as HTMLElement;
+        if (!el) {
+            event.animationComplete();
+            return;
+        }
+        el.classList.add('toast-item-leave');
+        const onEnd = () => {
+            el.removeEventListener('animationend', onEnd);
+            event.animationComplete();
+            this.leaveDone.emit();
+        };
+        el.addEventListener('animationend', onEnd);
     }
 
     initTimeout() {
@@ -187,19 +190,12 @@ export class ToastItem implements AfterViewInit, OnDestroy {
         <div #container [ngClass]="'p-toast p-component p-toast-' + position" [ngStyle]="style" [class]="styleClass">
           @for (msg of messages; track msg; let i = $index) {
             <p-toastItem [message]="msg" [index]="i" (onClose)="onMessageClose($event)"
-              [template]="template" @toastAnimation (@toastAnimation.start)="onAnimationStart($event)" (@toastAnimation.done)="onAnimationEnd($event)"
+              [template]="template" (enterStart)="onAnimationStart()" (leaveDone)="onAnimationEnd()"
               [showTransformOptions]="showTransformOptions" [hideTransformOptions]="hideTransformOptions"
             [showTransitionOptions]="showTransitionOptions" [hideTransitionOptions]="hideTransitionOptions"></p-toastItem>
           }
         </div>
         `,
-    animations: [
-        trigger('toastAnimation', [
-            transition(':enter, :leave', [
-                query('@*', animateChild())
-            ])
-        ])
-    ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./toast.css'],
@@ -351,20 +347,16 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
         this.cd.detectChanges();
     }
 
-    onAnimationStart(event: AnimationEvent) {
-        if (event.fromState === 'void') {
-            this.containerViewChild.nativeElement.setAttribute(this.id, '');
-            if (this.autoZIndex && this.containerViewChild.nativeElement.style.zIndex === '') {
-                ZIndexUtils.set('modal', this.containerViewChild.nativeElement, this.baseZIndex || this.primeConfig.zIndex.modal);
-            }
+    onAnimationStart() {
+        this.containerViewChild.nativeElement.setAttribute(this.id, '');
+        if (this.autoZIndex && this.containerViewChild.nativeElement.style.zIndex === '') {
+            ZIndexUtils.set('modal', this.containerViewChild.nativeElement, this.baseZIndex || this.primeConfig.zIndex.modal);
         }
     }
 
-    onAnimationEnd(event: AnimationEvent) {
-        if (event.toState === 'void') {
-            if (this.autoZIndex && ObjectUtils.isEmpty(this.messages)) {
-                ZIndexUtils.clear(this.containerViewChild.nativeElement);
-            }
+    onAnimationEnd() {
+        if (this.autoZIndex && ObjectUtils.isEmpty(this.messages)) {
+            ZIndexUtils.clear(this.containerViewChild.nativeElement);
         }
     }
 

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Injector, NgModule } from '@angular/core';
 import { BadgeModule } from 'primeng/badge';
-import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { OverlayPanelModule } from '../prime/overlaypanel/overlaypanel';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { NgxSmzTablesModule } from '../smz-tables/ngx-smz-tables.module';

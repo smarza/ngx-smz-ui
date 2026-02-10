@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { HephaestusSidebarComponent } from './sidebar.component';
-import { SidebarModule } from 'primeng/sidebar';
+import { DrawerModule } from 'primeng/drawer';
 import { RouterModule } from '@angular/router';
 import { HephaestusMenuItemComponent, HephaestusMenuExpandableItemComponent, HephaestusMenuNodeComponent, HephaestusMenuSlimNodeComponent } from './components/menu.component';
 import { HasChildPipe } from './pipes/has-child.pipe';
@@ -21,7 +21,7 @@ import { UrlCheckerPipeModule } from '../../../../../../common/url-checker/url-c
   imports: [
     CommonModule,
     RouterModule,
-    SidebarModule,
+    DrawerModule,
     MenuItemActionsModule,
     IsVisiblePipeModule,
     UrlCheckerPipeModule

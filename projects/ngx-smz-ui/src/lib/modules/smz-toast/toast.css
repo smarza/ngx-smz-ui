@@ -40,6 +40,35 @@
     overflow: hidden;
 }
 
+/* Enter/leave animations (animate.enter / animate.leave) - use CSS variables from component */
+.toast-item-enter {
+    animation: toast-enter var(--show-transition, 300ms ease-out) forwards;
+}
+
+@keyframes toast-enter {
+    from {
+        transform: var(--show-transform, translateY(100%));
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.toast-item-leave {
+    animation: toast-leave var(--hide-transition, 250ms ease-in) forwards;
+}
+
+@keyframes toast-leave {
+    to {
+        height: 0;
+        opacity: 0;
+        transform: var(--hide-transform, translateY(-100%));
+        overflow: hidden;
+    }
+}
+
 .p-toast-message-content {
     display: flex;
     align-items: flex-start;

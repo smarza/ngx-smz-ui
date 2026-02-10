@@ -5,6 +5,32 @@
     left: 0;
 }
 
+/* Enter/leave (animate.enter / animate.leave) - use CSS variables from component */
+.overlay-enter {
+    animation: overlay-enter-anim var(--show-transition, 0s cubic-bezier(0, 0, 0.2, 1)) forwards;
+}
+
+@keyframes overlay-enter-anim {
+    from {
+        transform: scaleY(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.overlay-leave {
+    animation: overlay-leave-anim var(--hide-transition, 0s linear) forwards;
+}
+
+@keyframes overlay-leave-anim {
+    to {
+        opacity: 0;
+    }
+}
+
 .p-overlaypanel-flipped {
     margin-top: 0;
     margin-bottom: 10px;

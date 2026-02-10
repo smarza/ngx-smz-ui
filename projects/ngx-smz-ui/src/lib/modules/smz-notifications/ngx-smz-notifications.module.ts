@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { SmzNotificationsComponent } from './features/notifications/notifications.component';
 import { SmzNotificationsService } from './services/smz-notifications.service';
 import { BadgeModule } from 'primeng/badge';
-import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { OverlayPanelModule } from '../prime/overlaypanel/overlaypanel';
 import { ButtonModule } from 'primeng/button';
 import { NotificationsListComponent } from './components/list/notifications-list.component';
 import { NotificationItemComponent } from './components/item/notification-item.component';

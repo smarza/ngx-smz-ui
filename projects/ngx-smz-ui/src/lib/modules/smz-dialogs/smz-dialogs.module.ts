@@ -11,7 +11,7 @@ import { NgxSmzFormsModule } from '../smz-forms/smz-forms.module';
 import { InjectContentAppModule } from '../../common/modules/inject-content/inject-content.module';
 import { DialogContentManagerComponent } from './features/dialog-content-manager/dialog-content-manager.component';
 import { NgGroupByPipeModule } from '../../common/pipes/group-by.pipe';
-import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { OverlayPanelModule } from '../prime/overlaypanel/overlaypanel';
 import { SmzDynamicDialogConfig } from './models/smz-dialogs';
 import { MessageContentComponent } from './features/message-content/message-content.component';
 import { DynamicDialogRef } from './dynamicdialog/dynamicdialog-ref';

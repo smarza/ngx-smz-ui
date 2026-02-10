@@ -1,4 +1,4 @@
-<p-sidebar
+<p-drawer
   [(visible)]="visible"
   (onHide)="onHide.emit()"
   [position]="position != null ? position : 'right'"
@@ -15,4 +15,4 @@
   @if (contentTemplate != null) {
     <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
   }
-</p-sidebar>
+</p-drawer>

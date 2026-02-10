@@ -1,10 +1,9 @@
 import {NgModule,Component,Input,Output,OnDestroy,EventEmitter,Renderer2,ElementRef,ChangeDetectorRef,NgZone,
         ContentChildren,TemplateRef,AfterContentInit,QueryList,ChangeDetectionStrategy, ViewEncapsulation, ViewRef,
-        inject} from '@angular/core';
+        inject, ViewChild, AnimationCallbackEvent} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SharedModule,PrimeTemplate, OverlayService} from 'primeng/api';
 import {RippleModule} from 'primeng/ripple';
-import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {ZIndexUtils} from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
@@ -14,38 +13,23 @@ import { PrimeNG } from 'primeng/config';
     selector: 'p-overlayPanel',
     template: `
         @if (render) {
-          <div [ngClass]="'p-overlaypanel p-component'" [ngStyle]="style" [class]="styleClass" (click)="onOverlayClick($event)"
-            [@animation]="{value: (overlayVisible ? 'open': 'close'), params: {showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions}}"
-            (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)">
-            <div class="p-overlaypanel-content" (click)="onContentClick()" (mousedown)="onContentClick()">
-              <ng-content></ng-content>
-              <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+          @if (overlayVisible) {
+            <div #overlayPanel [ngClass]="'p-overlaypanel p-component'" [ngStyle]="style" [class]="styleClass" (click)="onOverlayClick($event)"
+              [style.--show-transition]="showTransitionOptions" [style.--hide-transition]="hideTransitionOptions"
+              animate.enter="overlay-enter" (animate.leave)="onLeaveDone($event)">
+              <div class="p-overlaypanel-content" (click)="onContentClick()" (mousedown)="onContentClick()">
+                <ng-content></ng-content>
+                <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+              </div>
+              @if (showCloseIcon) {
+                <button type="button" class="p-overlaypanel-close p-link" (click)="onCloseClick($event)" (keydown.enter)="hide()" [attr.aria-label]="ariaCloseLabel" pRipple>
+                  <span class="p-overlaypanel-close-icon pi pi-times"></span>
+                </button>
+              }
             </div>
-            @if (showCloseIcon) {
-              <button type="button" class="p-overlaypanel-close p-link" (click)="onCloseClick($event)" (keydown.enter)="hide()" [attr.aria-label]="ariaCloseLabel" pRipple>
-                <span class="p-overlaypanel-close-icon pi pi-times"></span>
-              </button>
-            }
-          </div>
+          }
         }
         `,
-    animations: [
-        trigger('animation', [
-            state('void', style({
-                transform: 'scaleY(0.8)',
-                opacity: 0
-            })),
-            state('close', style({
-                opacity: 0
-            })),
-            state('open', style({
-                transform: 'translateY(0)',
-                opacity: 1
-            })),
-            transition('void => open', animate('{{showTransitionParams}}')),
-            transition('open => close', animate('{{hideTransitionParams}}')),
-        ])
-    ],
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./overlaypanel.css'],
@@ -85,6 +69,8 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
     @Output() onHide: EventEmitter<any> = new EventEmitter();
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+
+    @ViewChild('overlayPanel') overlayPanelRef: ElementRef<HTMLDivElement>;
 
     container: HTMLDivElement;
 
@@ -175,13 +161,42 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
     }
 
     show(event, target?) {
-        // console.log('show');
-
         this.mouseEvent = event;
         this.target = target||event.currentTarget||event.target;
         this.overlayVisible = true;
         this.render = true;
         this.cd.markForCheck();
+
+        this.zone.runOutsideAngular(() => {
+            setTimeout(() => this.afterOverlayShown());
+        });
+    }
+
+    private afterOverlayShown() {
+        const el = this.overlayPanelRef?.nativeElement;
+        if (!el) {
+            return;
+        }
+
+        this.container = el;
+        this.onShow.emit(null);
+        this.appendContainer();
+        this.align();
+        this.bindDocumentClickListener();
+        this.bindDocumentResizeListener();
+        this.bindScrollListener();
+
+        if (this.focusOnShow) {
+            this.focus();
+        }
+
+        this.overlayEventListener = (e: Event) => {
+            if (this.container && this.container.contains(e.target as Node)) {
+                this.selfClick = true;
+            }
+        };
+
+        this.overlaySubscription = this.overlayService.clickObservable.subscribe(this.overlayEventListener);
     }
 
     onOverlayClick(event) {
@@ -276,57 +291,32 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
         element.style.left = left + 'px';
     }
 
-    onAnimationStart(event: AnimationEvent) {
-        if (event.toState === 'open') {
-            this.container = event.element;
-            this.onShow.emit(null);
-            this.appendContainer();
-            this.align();
-            this.bindDocumentClickListener();
-            this.bindDocumentResizeListener();
-            this.bindScrollListener();
+    onLeaveDone(event: AnimationCallbackEvent) {
+        const el = event.target as HTMLElement;
+        el.classList.add('overlay-leave');
+        const onEnd = () => {
+            el.removeEventListener('animationend', onEnd);
+            event.animationComplete();
 
-            if (this.focusOnShow) {
-                this.focus();
+            if (this.destroyCallback) {
+                this.destroyCallback();
+                this.destroyCallback = null;
             }
 
-            this.overlayEventListener = (e) => {
-                if (this.container && this.container.contains(e.target)) {
-                    this.selfClick = true;
-                }
+            if (this.overlaySubscription) {
+                this.overlaySubscription.unsubscribe();
             }
 
-            this.overlaySubscription = this.overlayService.clickObservable.subscribe(this.overlayEventListener);
-        }
-    }
+            if (this.autoZIndex && this.container) {
+                ZIndexUtils.clear(this.container);
+            }
 
-    onAnimationEnd(event: AnimationEvent) {
-        switch (event.toState) {
-            case 'void':
-                if (this.destroyCallback) {
-                    this.destroyCallback();
-                    this.destroyCallback = null;
-                }
-
-                if (this.overlaySubscription) {
-                    this.overlaySubscription.unsubscribe();
-                }
-            break;
-
-            case 'close':
-                if (this.autoZIndex) {
-                    ZIndexUtils.clear(this.container);
-                }
-
-                if (this.overlaySubscription) {
-                    this.overlaySubscription.unsubscribe();
-                }
-
-                this.onContainerDestroy();
-                this.onHide.emit({});
-                this.render = false;
-            break;
-        }
+            this.onContainerDestroy();
+            this.onHide.emit({});
+            this.render = false;
+            this.cd.markForCheck();
+        };
+        el.addEventListener('animationend', onEnd);
     }
 
     focus() {

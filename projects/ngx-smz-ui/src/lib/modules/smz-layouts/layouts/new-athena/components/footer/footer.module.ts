@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { NewAthenaFooterComponent } from './footer.component';
-import { SidebarModule } from 'primeng/sidebar';
+import { DrawerModule } from 'primeng/drawer';
 
 @NgModule({
   declarations: [NewAthenaFooterComponent],
   imports: [
     CommonModule,
-    SidebarModule,
+    DrawerModule,
   ],
   exports: [NewAthenaFooterComponent]
 })

@@ -3,8 +3,8 @@
     <span>{{ timer }}</span>
   }</h5>
   <div class="grid grid-nogutter gap-2">
-    <p-inputSwitch class="col-12" [(ngModel)]="globalIsLoading" (onChange)="changeGlobalLoading($event, 5)"></p-inputSwitch>
-    <p-inputSwitch class="col-12" [(ngModel)]="globalIsLoading" (onChange)="changeGlobalLoading($event, 60)"></p-inputSwitch>
+    <p-toggleswitch class="col-12" [(ngModel)]="globalIsLoading" (onChange)="changeGlobalLoading($event, 5)"></p-toggleswitch>
+    <p-toggleswitch class="col-12" [(ngModel)]="globalIsLoading" (onChange)="changeGlobalLoading($event, 60)"></p-toggleswitch>
     @for (loader of loaders; track loader) {
       <button
         pButton pRipple type="button" [label]="loader.name" class="p-button-outlined mr-2 mb-2" (click)="onSetGlobalLoader(loader.id)">

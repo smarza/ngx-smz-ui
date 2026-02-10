@@ -2,6 +2,7 @@
   "name": "@ngx-smz/core",
   "version": "19.6.1",
   "peerDependencies": {
+    "@angular/animations": ">=19.2.0 <21.0.0",
     "@angular/common": ">=19.2.0 <21.0.0",
     "@angular/core": ">=19.2.0 <21.0.0",
     "@angular/forms": ">=19.2.0 <21.0.0",

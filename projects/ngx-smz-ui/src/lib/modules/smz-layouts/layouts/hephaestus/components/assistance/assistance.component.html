@@ -2,7 +2,7 @@
   @if (assistance.isEnabled) {
     <a id="layout-config-button" class="layout-config-button" [ngClass]="assistance.buttonPosition" style="cursor: pointer;" (click)="showAssistance()"><i class="pi pi-cog"></i></a>
   }
-  <p-sidebar [(visible)]="isVisible" [position]="assistance.sidebarData.position" styleClass="assistence_sidebar" (onHide)="onHide()" (onShow)="onShow()">
+  <p-drawer [(visible)]="isVisible" [position]="assistance.sidebarData.position" styleClass="assistence_sidebar" (onHide)="onHide()" (onShow)="onShow()">
     <div class="grid flex-col items-start justify-start p-2 grid-nogutter">
       <h5>Menu</h5>
       <div class="grid grid-nogutter">
@@ -18,5 +18,5 @@
       </div>
       <smz-ui-global-assistance></smz-ui-global-assistance>
     </div>
-  </p-sidebar>
+  </p-drawer>
 }

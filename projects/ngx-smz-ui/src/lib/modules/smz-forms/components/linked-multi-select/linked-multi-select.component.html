@@ -13,7 +13,7 @@
       [options]="(service.observers[formId + input.propertyName]?.options | async ) | GetCurrentMultiselectOptions : input"
       [formControl]="control"
       optionLabel="name"
-      [defaultLabel]="input.defaultLabel"
+      [placeholder]="input.defaultLabel"
       [panelStyle]="{ minWidth: '20em' }"
       appendTo="body"
       [filter]="input.showFilter ? true : false"

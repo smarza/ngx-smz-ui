@@ -36,7 +36,7 @@ export class NewAthenaNotificationsComponent implements OnInit, AfterViewInit {
     }, 0);
   }
 
-  public collapse(): void {
+  public collapse(event: Event): void {
     if (this.isLoaded && !this._eref.nativeElement.contains(event.target)){
       this.isExpanded = false;
     }

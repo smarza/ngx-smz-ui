@@ -26,18 +26,18 @@
           }
           <!-- TAGS -->
           <div class="col-12 grid grid-nogutter items-center justify-start gap-2">
-            @for (tag of template.tags let i = index; track tag) {
+            @for (tag of template.tags; track tag) {
               @if (!tag.hideInGrid) {
                 <div contentSelector [content]="tag" [data]="data" [ngClass]="tag.conditionalStyleClass != null ? tag.conditionalStyleClass(data) : (tag.styleClass ?? 'px-2 py-1 text-sm bg-gray-200 text-surface-50 rounded')"></div>
               }
             }
           </div>
           <!-- COMPONENTS -->
-          @for (component of template.components let i = index; track component) {
+          @for (component of template.components; track component) {
             <ng-template [smzInjectDataPathComponent]="component.componentData" [data]="data" [state]="template._context"></ng-template>
           }
           <!-- OTHERS -->
-          @for (other of template.others let i = index; track other) {
+          @for (other of template.others; track other) {
             @if (!other.hideInGrid) {
               <div contentSelector [content]="other" [data]="data" [ngClass]="other.conditionalStyleClass != null ? other.conditionalStyleClass(data) : (other.styleClass ?? 'text-sm')"></div>
             }
@@ -88,18 +88,18 @@
             }
             <!-- TAGS -->
             <div class="col-12 grid grid-nogutter items-center justify-start gap-2">
-              @for (tag of template.tags let i = index; track tag) {
+              @for (tag of template.tags; track tag) {
                 @if (!tag.hideInList) {
                   <div contentSelector [content]="tag" [data]="data" [ngClass]="tag.styleClass ?? 'px-2 py-1 text-sm bg-gray-200 text-surface-50 rounded'"></div>
                 }
               }
             </div>
             <!-- COMPONENTS -->
-            @for (component of template.components let i = index; track component) {
+            @for (component of template.components; track component) {
               <ng-template [smzInjectDataPathComponent]="component.componentData" [data]="data" [state]="template._context"></ng-template>
             }
             <!-- OTHERS -->
-            @for (other of template.others let i = index; track other) {
+            @for (other of template.others; track other) {
               @if (!other.hideInList) {
                 <div contentSelector [content]="other" [data]="data" [ngClass]="other.styleClass ?? 'text-sm'"></div>
               }

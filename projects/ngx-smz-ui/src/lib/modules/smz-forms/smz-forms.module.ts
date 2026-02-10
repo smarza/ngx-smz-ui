@@ -74,11 +74,11 @@ import { TreeSelectModule } from 'primeng/treeselect';
 import { SmzInputAutocompleteTagArea } from './components/input-autocomplete-tag-area/smz-input-autocomplete-tag-area.component';
 import { SmzAutocompleteSelectorComponent } from './components/input-autocomplete-tag-area/smz-autocomplete-selector-component';
 import { SmzSmartTagModule } from './directives/smart-tag.directive';
-import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { SmzSmartAutocompleteTagModule } from './directives/smart-autocomplete-tag.directive';
 import { GetCurrentMultiselectOptionsPipe } from './components/linked-multi-select/get-current-multiselect-options.pipe';
 import { MessageModule } from 'primeng/message';
 import { LabelComponent } from './components/label.component';
+import { PopoverModule } from 'primeng/popover';
 
 export const defaultFormsModuleConfig: SmzFormsConfig = {
     behaviors: {
@@ -257,10 +257,10 @@ export const defaultFormsModuleConfig: SmzFormsConfig = {
         AutoFocusModule,
         TreeSelectModule,
         SmzAutocompleteSelectorComponent,
-        OverlayPanelModule,
         SmzSmartTagModule,
         SmzSmartAutocompleteTagModule,
-        LabelComponent
+        LabelComponent,
+        PopoverModule
     ],
     providers: [
         DialogService,

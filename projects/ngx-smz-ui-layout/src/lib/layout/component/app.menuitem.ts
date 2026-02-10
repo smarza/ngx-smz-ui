@@ -52,7 +52,7 @@ import { SMZ_UI_LAYOUT_CONFIG } from '../../config/provide';
               }
             </a>
           }
-        
+
           @if (item.items && item.visible !== false) {
             <ul [@children]="submenuAnimation">
               @for (child of item.items; track child; let i = $index) {
