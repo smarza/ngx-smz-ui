@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { Confirmable, NgxSmzFormsModule, NgxSmzTreesModule, SmzForm, SmzFormsResponse, SmzTreeNode, SmzTreeState } from '@ngx-smz/core';
 import { BehaviorSubject } from 'rxjs';
-import { TabViewModule } from 'primeng/tabview';
+import { TabsModule } from 'primeng/tabs';
 import { FormControl, FormsModule } from '@angular/forms';
 import { cloneDeep } from 'lodash-es';
 import { StrategyFormData } from './models/strategy-form-data';
@@ -12,7 +12,7 @@ import { StrategyFormData } from './models/strategy-form-data';
 @Component({
   selector: 'app-scenario-update',
   standalone: true,
-  imports: [ CommonModule, ButtonModule, NgxSmzFormsModule, TabViewModule, FormsModule, NgxSmzTreesModule],
+  imports: [ CommonModule, ButtonModule, NgxSmzFormsModule, TabsModule, FormsModule, NgxSmzTreesModule],
   host: { class: 'w-full h-full relative items-start justify-start' },
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -29,9 +29,9 @@ import { StrategyFormData } from './models/strategy-form-data';
     <div class="smz__group_name">Configuração da Equipe</div>
     <p-button label="Adicionar" icon="fa-solid fa-plus" (onClick)="addTeam()" [disabled]="!allowEditing" [rounded]="true" size="small"/>
   </div>
-  <p-tabView class="w-full" [(activeIndex)]="activeIndex">
+  <p-tabs class="w-full" [(value)]="activeIndex">
     @for (team of teamTabs; track team; let i = $index) {
-      <p-tabPanel>
+      <p-tablist>
         <ng-template pTemplate="header">
           <div class="grid grid-nogutter items-center justify-start gap-2">
             <div class="font-bold white-space-nowrap">Equipe {{ i + 1 }}</div>
@@ -51,9 +51,9 @@ import { StrategyFormData } from './models/strategy-form-data';
             ></smz-ui-tree>
           }
         </div>
-      </p-tabPanel>
+      </p-tablist>
     }
-  </p-tabView>
+  </p-tabs>
   `,
   styles: [`
   app-scenario-update {

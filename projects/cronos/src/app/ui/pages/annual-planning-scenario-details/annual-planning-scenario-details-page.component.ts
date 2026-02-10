@@ -2,7 +2,7 @@
 import { Component, inject, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngxs/store';
-import { TabViewModule } from 'primeng/tabview';
+import { TabsModule } from 'primeng/tabs';
 import { CorrosionGoalScenarioSettingsComponent } from './components/scenario-settings/components/corrosion-goal-scenario-settings.component';
 import { ScenarioPaintingPlanComponent } from './components/panting-plan/scenario-panting-plan.component';
 import { ActivatedRoute } from '@angular/router';
@@ -33,7 +33,7 @@ export interface AnnualPlanningScenarioDetailsPageComponentRouteEvent {
   standalone: true,
   imports: [
     CommonModule,
-    TabViewModule,
+    TabsModule,
     CorrosionGoalScenarioSettingsComponent,
     AvailableManHourScenarioSettingsComponent,
     CriticityScenarioSettingsComponent,
@@ -47,38 +47,35 @@ export interface AnnualPlanningScenarioDetailsPageComponentRouteEvent {
 
 @if (scenario$ | async; as scenario) {
   @if (planning$ | async) {
-    <p-tabView class="col-12">
-      <!-- CONFIGURAÇÕES -->
-      <p-tabPanel  header="Configurações">
-        <ng-template pTemplate="details" let-item let-type="strategyName">
-          @switch (scenario.strategyName) {
-            @case ('CorrosionGoalStrategy') {
-              <app-corrosion-goal-scenario-settings [scenario]="scenario"></app-corrosion-goal-scenario-settings>
-            }
-            @case ('AvailableManHourStrategy') {
-              <app-available-man-hour-scenario-settings [scenario]="scenario"></app-available-man-hour-scenario-settings>
-            }
-            @case ('CriticityStrategy') {
-              <app-criticity-scenario-settings [scenario]="scenario"></app-criticity-scenario-settings>
-            }
-            @case ('PrioritizationStrategy') {
-              <app-prioritization-scenario-settings [scenario]="scenario"></app-prioritization-scenario-settings>
-            }
-            @case ('RtiStrategy') {
-              <app-rti-scenario-settings [scenario]="scenario"></app-rti-scenario-settings>
-            }
-          }
-        </ng-template>
-      </p-tabPanel>
-      <!-- PLANO -->
-      <p-tabPanel  header="Plano">
-        <app-scenario-panting-plan [scenario]="scenario"></app-scenario-panting-plan>
-      </p-tabPanel>
-      <!-- RESULTADOS -->
-      <p-tabPanel  header="Resultados">
-        <app-scenario-results-visualization [scenario]="scenario"></app-scenario-results-visualization>
-      </p-tabPanel>
-    </p-tabView>
+    <p-tabs class="col-12">
+
+      <p-tablist>
+          <p-tab value="0">Configurações</p-tab>
+          <p-tab value="1">Plano</p-tab>
+          <p-tab value="2">Resultados</p-tab>
+      </p-tablist>
+
+      <p-tabpanels>
+          <p-tabpanel value="0">
+            <ng-template pTemplate="details" let-item let-type="strategyName">
+              @switch (scenario.strategyName) {
+                @case ('CorrosionGoalStrategy') {
+                  <app-corrosion-goal-scenario-settings [scenario]="scenario"></app-corrosion-goal-scenario-settings>
+                }
+                @case ('AvailableManHourStrategy') {
+                  <app-available-man-hour-scenario-settings [scenario]="scenario"></app-available-man-hour-scenario-settings>
+                }
+              }
+            </ng-template>
+          </p-tabpanel>
+          <p-tabpanel value="1">
+            <app-scenario-panting-plan [scenario]="scenario"></app-scenario-panting-plan>
+          </p-tabpanel>
+          <p-tabpanel value="2">
+            <app-scenario-results-visualization [scenario]="scenario"></app-scenario-results-visualization>
+          </p-tabpanel>
+        </p-tabpanels>
+      </p-tabs>
   }
 }
 `,

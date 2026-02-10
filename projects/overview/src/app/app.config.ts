@@ -14,7 +14,7 @@ import { smzAthenaConfig } from '../globals/smz-layouts.config';
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { providePrimeNG } from 'primeng/config';
 import MyPreset from '../theme.preset';
-import Aura from '@primeng/themes/aura';
+import Aura from '@primeuix/themes/aura';
 
 registerLocaleData(ptBr);
 moment.locale('pt-br');

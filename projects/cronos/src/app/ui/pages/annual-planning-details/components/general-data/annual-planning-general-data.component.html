@@ -45,31 +45,29 @@
         <div class="panel custom-col-span-12">
           <div>
             <p-accordion>
-              <p-accordionTab header="Dados de Inspeção">
+              <p-accordion-panel>
+                <p-accordion-header>Dados de Inspeção</p-accordion-header>
                 <smz-ui-table class="w-full" [state]="inspectionDataTableState"></smz-ui-table>
-              </p-accordionTab>
-              <p-accordionTab header="Dados de RTI">
+              </p-accordion-panel>
+              <p-accordion-panel>
+                <p-accordion-header>Dados de RTI</p-accordion-header>
                 <smz-ui-table class="w-full" [state]="rtiDataTableState"></smz-ui-table>
-              </p-accordionTab>
+              </p-accordion-panel>
               @if (annualPlanning.hasWeatherData) {
-                <p-accordionTab>
+                <p-accordion-panel>
                   @if ((hasWeatherDataErrors$ | async) === true) {
-                    <ng-template pTemplate="header">
-                      <span class="flex items-center justify-start gap-2 text-red-500"
-                        pTooltip="Dados meteorológicos com erros serão substituídos por dados históricos do modelo e não serão usados nos cálculos."
-                        tooltipPosition="top">
-                        <span>Dados Meteorológicos</span>
-                        <i class="fa-solid fa-triangle-exclamation text-lg"></i>
-                      </span>
-                    </ng-template>
+                    <p-accordion-header class="flex items-center justify-start gap-2 text-red-500"
+                      pTooltip="Dados meteorológicos com erros serão substituídos por dados históricos do modelo e não serão usados nos cálculos."
+                      tooltipPosition="top">
+                      <span>Dados Meteorológicos</span>
+                      <i class="fa-solid fa-triangle-exclamation text-lg"></i>
+                    </p-accordion-header>
                   }
                   @else {
-                  <ng-template pTemplate="header">
-                    <span class="white-space-nowrap">Dados Meteorológicos</span>
-                  </ng-template>
+                    <p-accordion-header class="white-space-nowrap">Dados Meteorológicos</p-accordion-header>
                 }
                 <smz-ui-table class="w-full" [state]="weatherDataTableState"></smz-ui-table>
-              </p-accordionTab>
+              </p-accordion-panel>
             }
           </p-accordion>
         </div>

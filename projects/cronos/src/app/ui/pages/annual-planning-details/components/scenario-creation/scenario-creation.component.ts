@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { Confirmable, NgxSmzFormsModule, NgxSmzTreesModule, SmzForm, SmzFormsResponse, SmzTreeNode, SmzTreeState } from '@ngx-smz/core';
 import { BehaviorSubject } from 'rxjs';
-import { TabViewModule } from 'primeng/tabview';
+import { TabsModule } from 'primeng/tabs';
 import { FormControl, FormsModule } from '@angular/forms';
 import { StrategyFormData } from './models/strategy-form-data';
 import { cloneDeep } from 'lodash-es';
@@ -12,7 +12,7 @@ import { cloneDeep } from 'lodash-es';
 @Component({
   selector: 'app-scenario-creation',
   standalone: true,
-  imports: [ CommonModule, ButtonModule, NgxSmzFormsModule, TabViewModule, FormsModule, NgxSmzTreesModule],
+  imports: [ CommonModule, ButtonModule, NgxSmzFormsModule, TabsModule, FormsModule, NgxSmzTreesModule],
   host: { class: 'w-full h-full relative items-start justify-start' },
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -29,15 +29,18 @@ import { cloneDeep } from 'lodash-es';
     <div class="smz__group_name mt-1">Configuração da Equipe</div>
     <p-button label="Adicionar" icon="fa-solid fa-plus" (onClick)="addTeam()" [rounded]="true" size="small"/>
   </div>
-  <p-tabView class="w-full" [(activeIndex)]="activeIndex">
+  <p-tabs class="w-full" [(value)]="activeIndex">
     @for (team of teamTabs; track team; let i = $index) {
-      <p-tabPanel>
-        <ng-template pTemplate="header">
+      <p-tablist>
+        <p-tab value="0">Equipe {{ i + 1 }}</p-tab>
+      </p-tablist>
+      <p-tabpanels>
+        <p-tabpanel value="0">
           <div class="grid grid-nogutter items-center justify-start gap-2">
             <div class="font-bold white-space-nowrap">Equipe {{ i + 1 }} rendered: {{ activeIndex === i }}</div>
             <p-button icon="fa-solid fa-trash" (onClick)="removeTeam(i)" [rounded]="true" [text]="true" [disabled]="teamTabs.length === 1"/>
           </div>
-        </ng-template>
+        </p-tabpanel>
         <div class="grid grid-nogutter items-start justify-start flex-gap-1 w-full">
           <smz-form-group class="col-6" [config]="team.form" (statusChanges)="updateTeamForm()"></smz-form-group>
           @if(activeIndex === i && showHidroblastLocationsTree) {
@@ -51,9 +54,9 @@ import { cloneDeep } from 'lodash-es';
             ></smz-ui-tree>
           }
         </div>
-      </p-tabPanel>
+      </p-tabpanels>
     }
-  </p-tabView>
+  </p-tabs>
   `,
   styles: [`
   app-scenario-creation {

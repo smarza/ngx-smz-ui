@@ -1,7 +1,7 @@
 import { signal, WritableSignal } from '@angular/core';
-import { definePreset } from '@primeng/themes';
+import { definePreset } from '@primeuix/themes';
 import { LayoutConfig } from '@ngx-smz/layout';
-import Aura from '@primeng/themes/aura';
+import Aura from '@primeuix/themes/aura';
 
 export const appLayout: WritableSignal<LayoutConfig> = signal<LayoutConfig>({
   preset: 'Aura',

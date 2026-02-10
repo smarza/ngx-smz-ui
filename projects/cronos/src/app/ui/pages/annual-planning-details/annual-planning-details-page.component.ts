@@ -2,7 +2,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Select, Store } from '@ngxs/store';
-import { TabViewModule } from 'primeng/tabview';
+import { TabsModule  } from 'primeng/tabs';
 import { AnnualPlanningGeneralDataComponent } from './components/general-data/annual-planning-general-data.component';
 import { AnnualPlanningExploratoryVisualizationComponent } from './components/exploratory-visualization/annual-planning-exploratory-visualization.component';
 import { AnnualPlanningScenariosComponent } from './components/scenarios/annual-planning-scenarios.component';
@@ -27,7 +27,7 @@ interface RouteEvent { planningId?: string; }
   standalone: true,
   imports: [
     CommonModule,
-    TabViewModule,
+    TabsModule,
     AnnualPlanningGeneralDataComponent,
     AnnualPlanningExploratoryVisualizationComponent,
     AnnualPlanningScenariosComponent,
@@ -36,67 +36,55 @@ interface RouteEvent { planningId?: string; }
   ],
   template: `
 @if (annualPlanning$ | async; as annualPlanning) {
-  <p-tabView class="w-full" [(activeIndex)]="activeIndex">
+  <p-tabs class="w-full" [(value)]="activeIndex">
     <!-- DADOS GERAIS -->
-    <p-tabPanel>
+    <p-tablist>
       <ng-template pTemplate="header">
         <div class="flex items-center gap-2">
           <div>Dados Gerais</div>
         </div>
       </ng-template>
       <app-annual-planning-general-data></app-annual-planning-general-data>
-    </p-tabPanel>
-    <!-- VISUALIZAÇÃO EXPLORATÓRIA -->
-    <p-tabPanel [disabled]="annualPlanning.status == annualPlanningStatus.PRE_EXPLORATORY_VIEW_CALCULATION_FAILED">
-      <ng-template pTemplate="header">
-        <div class="flex items-center gap-2">
-          <div>Visualização Exploratória</div>
-        </div>
-      </ng-template>
-      @if (annualPlanning.status != annualPlanningStatus.PRE_EXPLORATORY_VIEW_CALCULATION_FAILED) {
-        <app-annual-planning-exploratory-visualization></app-annual-planning-exploratory-visualization>
-      }
-    </p-tabPanel>
-    <!-- CENÁRIOS -->
-    <p-tabPanel [disabled]="annualPlanning.status == annualPlanningStatus.PRE_EXPLORATORY_VIEW_CALCULATION_FAILED">
-      <ng-template pTemplate="header">
-        <div class="flex items-center gap-2">
-          <div>Cenários</div>
-        </div>
-      </ng-template>
-      @if (annualPlanning.status != annualPlanningStatus.PRE_EXPLORATORY_VIEW_CALCULATION_FAILED) {
-        <app-annual-planning-scenarios [annualPlanningId]="annualPlanning.id"></app-annual-planning-scenarios>
-      }
-    </p-tabPanel>
-    <!-- PLANO DE PINTURA -->
-    <p-tabPanel [disabled]="annualPlanning.status == annualPlanningStatus.PRE_EXPLORATORY_VIEW_CALCULATION_FAILED">
-      <ng-template pTemplate="header">
-        <div class="flex items-center gap-2">
-          <div>Plano de Pintura</div>
-          @if (annualPlanning.selectedPlan != null) {
-            <i class="fa-solid fa-check text-green-500"></i>
-          }
-        </div>
-      </ng-template>
-      @if (annualPlanning.status != annualPlanningStatus.PRE_EXPLORATORY_VIEW_CALCULATION_FAILED) {
-        <app-annual-planning-painting-plan [annualPlanning]="annualPlanning"></app-annual-planning-painting-plan>
-      }
-    </p-tabPanel>
-    <!-- RESULTADOS DO PLANO DE PINTURA -->
-    <p-tabPanel [disabled]="annualPlanning.status == annualPlanningStatus.PRE_EXPLORATORY_VIEW_CALCULATION_FAILED">
-      <ng-template pTemplate="header">
-        <div class="flex items-center gap-2">
-          <div>Resultados do Plano de Pintura</div>
-          @if (annualPlanning.selectedPlan != null) {
-            <i class="fa-solid fa-check text-green-500"></i>
-          }
-        </div>
-      </ng-template>
-      @if (annualPlanning.status != annualPlanningStatus.PRE_EXPLORATORY_VIEW_CALCULATION_FAILED) {
-        <app-annual-planning-painting-plan-results [annualPlanning]="annualPlanning"></app-annual-planning-painting-plan-results>
-      }
-    </p-tabPanel>
-  </p-tabView>
+    </p-tablist>
+
+    <p-tablist>
+        <!-- VISUALIZAÇÃO EXPLORATÓRIA -->
+        <p-tab value="0" [disabled]="annualPlanning.status == annualPlanningStatus.PRE_EXPLORATORY_VIEW_CALCULATION_FAILED">Visualização Exploratória</p-tab>
+        <!-- CENÁRIOS -->
+        <p-tab value="1" [disabled]="annualPlanning.status == annualPlanningStatus.PRE_EXPLORATORY_VIEW_CALCULATION_FAILED">Cenários</p-tab>
+        <!-- PLANO DE PINTURA -->
+        <p-tab value="2" [disabled]="annualPlanning.status == annualPlanningStatus.PRE_EXPLORATORY_VIEW_CALCULATION_FAILED">Plano de Pintura</p-tab>
+        <!-- RESULTADOS DO PLANO DE PINTURA -->
+        <p-tab value="3" [disabled]="annualPlanning.status == annualPlanningStatus.PRE_EXPLORATORY_VIEW_CALCULATION_FAILED">Resultados do Plano de Pintura</p-tab>
+    </p-tablist>
+
+    <p-tabpanels>
+        <!-- VISUALIZAÇÃO EXPLORATÓRIA -->
+        <p-tabpanel value="0">
+            @if (annualPlanning.status != annualPlanningStatus.PRE_EXPLORATORY_VIEW_CALCULATION_FAILED) {
+              <app-annual-planning-exploratory-visualization></app-annual-planning-exploratory-visualization>
+            }
+        </p-tabpanel>
+        <!-- CENÁRIOS -->
+        <p-tabpanel value="1">
+            @if (annualPlanning.status != annualPlanningStatus.PRE_EXPLORATORY_VIEW_CALCULATION_FAILED) {
+              <app-annual-planning-scenarios [annualPlanningId]="annualPlanning.id"></app-annual-planning-scenarios>
+            }
+        </p-tabpanel>
+        <!-- PLANO DE PINTURA -->
+        <p-tabpanel value="2">
+            @if (annualPlanning.status != annualPlanningStatus.PRE_EXPLORATORY_VIEW_CALCULATION_FAILED) {
+              <app-annual-planning-painting-plan [annualPlanning]="annualPlanning"></app-annual-planning-painting-plan>
+            }
+        </p-tabpanel>
+        <!-- RESULTADOS DO PLANO DE PINTURA -->
+        <p-tabpanel value="3">
+            @if (annualPlanning.status != annualPlanningStatus.PRE_EXPLORATORY_VIEW_CALCULATION_FAILED) {
+              <app-annual-planning-painting-plan-results [annualPlanning]="annualPlanning"></app-annual-planning-painting-plan-results>
+            }
+        </p-tabpanel>
+    </p-tabpanels>
+  </p-tabs>
 }
 `
 })

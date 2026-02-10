@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
-
-import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
 import { ScenarioDetails } from '@models/scenario-details';
 import { DataVisualizationComponent } from '@components/data-visualization.component';
 import { DataTableComponent } from '@components/data-table.component';
@@ -10,7 +9,7 @@ import { ScenarioPaintingPlan } from '@models/scenario-painting-plan';
 @Component({
   selector: 'app-scenario-results-visualization',
   standalone: true,
-  imports: [DataVisualizationComponent, DataTableComponent, DataGaugeComponent, MessagesModule],
+  imports: [DataVisualizationComponent, DataTableComponent, DataGaugeComponent, MessageModule],
   templateUrl: './scenario-results.component.html',
   styleUrls: ['./scenario-results.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

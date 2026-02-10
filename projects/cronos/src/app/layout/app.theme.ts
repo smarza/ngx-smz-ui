@@ -1,7 +1,7 @@
-import { definePreset } from '@primeng/themes';
-import Aura from '@primeng/themes/aura';
-import { AuraBaseDesignTokens } from '@primeng/themes/aura/base';
-import { Preset } from '@primeng/themes/types';
+import { definePreset } from '@primeuix/themes';
+import Aura from '@primeuix/themes/aura';
+import { AuraBaseDesignTokens } from '@primeuix/themes/aura/base';
+import { Preset } from '@primeuix/themes/types';
 
 const myPreset: Preset<AuraBaseDesignTokens> = {
   semantic: {

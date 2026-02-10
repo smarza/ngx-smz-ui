@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NgCloneModule, NgxSmzDataPipesModule, NgxSmzFormsModule, NgxSmzTablesModule } from '@ngx-smz/core';
 import { ButtonModule } from 'primeng/button';
 import { PanelModule } from 'primeng/panel';
-import { TabViewModule } from 'primeng/tabview';
+import { TabsModule } from 'primeng/tabs';
 import { ResultsTableComponent } from './results-table.component';
 
 @NgModule({
@@ -14,7 +14,7 @@ import { ResultsTableComponent } from './results-table.component';
     NgxSmzTablesModule,
     NgCloneModule,
     PanelModule,
-    TabViewModule,
+    TabsModule,
     NgxSmzDataPipesModule,
   ],
   exports: [ResultsTableComponent],

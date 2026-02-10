@@ -5,9 +5,9 @@ import { Store } from '@ngxs/store';
 import { MenuHelperService, ThemeManagerService, BoilerplateService, CLAIMS_PAGE_ROUTE, ROLES_PAGE_ROUTE, NewAthenaLayoutModule, RbkAccessControlModule, USERS_PAGE_ROUTE } from '@ngx-smz/core';
 import { ProteusModule } from './ui/proteus/proteus.module';
 import { ButtonModule } from 'primeng/button';
-import { updatePreset, usePreset } from '@primeng/themes';
-import Aura from '@primeng/themes/aura';
-import Nora from '@primeng/themes/nora';
+import { updatePreset, usePreset } from '@primeuix/themes';
+import Aura from '@primeuix/themes/aura';
+import Nora from '@primeuix/themes/nora';
 
 @Component({
   selector: 'app-root',

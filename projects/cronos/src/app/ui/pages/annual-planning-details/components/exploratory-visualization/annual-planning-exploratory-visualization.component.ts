@@ -8,12 +8,12 @@ import { DataGaugeComponent } from '@components/data-gauge.component';
 import { AnnualPlanningsFtSelectors } from '@state/features/annual-plannings/annual-plannings.selectors';
 import { Observable } from 'rxjs';
 import { AnnualPlanningDetails } from '@models/annual-planning-details';
-import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
 
 @Component({
   selector: 'app-annual-planning-exploratory-visualization',
   standalone: true,
-  imports: [CommonModule, DataVisualizationComponent, DataTableComponent, DataGaugeComponent, MessagesModule],
+  imports: [CommonModule, DataVisualizationComponent, DataTableComponent, DataGaugeComponent, MessageModule],
   styleUrls: ['./annual-planning-exploratory-visualization.scss'],
   encapsulation: ViewEncapsulation.None,
   template: `

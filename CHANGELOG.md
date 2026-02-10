@@ -5,6 +5,15 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
+[21.0.0-alpha.1] - 2026-02-10
+
+### Atualizado
+- Atualização para Angular 21.
+- Atualização para PrimeNG 21.
+- Atualização para PrimeFlex 4.
+- Atualização para PrimeIcons 7.
+- Atualização para TailwindCSS 3.4.17.
+
 [19.6.1] - 2026-02-05
 
 ### Corrigido
