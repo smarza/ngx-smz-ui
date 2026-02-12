@@ -15,12 +15,21 @@ export class UrlCheckerPipe implements PipeTransform {
     }
     public transform(routerUrl: string, menuRouterLink: string[]): boolean {
 
-        if (menuRouterLink == null) return false;
+        const isRouterUrlInvalid = routerUrl == null || typeof routerUrl !== 'string';
+        if (isRouterUrlInvalid) {
+            return false;
+        }
+
+        if (menuRouterLink == null) {
+            return false;
+        }
 
         const currentRouterPaths = routerUrl.split('/').filter(x => x !== '');
         const currentMenuPaths = `/${menuRouterLink.join('/')}`.split('/').filter(x => x !== '');
 
-        if (currentMenuPaths.length === 0 && currentRouterPaths.length !== 0) return false;
+        if (currentMenuPaths.length === 0 && currentRouterPaths.length !== 0) {
+            return false;
+        }
 
         let result = true;
 

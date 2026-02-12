@@ -5,6 +5,11 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
+[21.0.0-alpha.2] - 2026-02-12
+
+### Atualizado
+- Proteção para erros de tipo na pipe UrlCheckerPipe.
+
 [21.0.0-alpha.1] - 2026-02-10
 
 ### Atualizado

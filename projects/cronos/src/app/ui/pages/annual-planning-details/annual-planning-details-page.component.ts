@@ -2,7 +2,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Select, Store } from '@ngxs/store';
-import { TabsModule  } from 'primeng/tabs';
+import { TabsModule } from 'primeng/tabs';
 import { AnnualPlanningGeneralDataComponent } from './components/general-data/annual-planning-general-data.component';
 import { AnnualPlanningExploratoryVisualizationComponent } from './components/exploratory-visualization/annual-planning-exploratory-visualization.component';
 import { AnnualPlanningScenariosComponent } from './components/scenarios/annual-planning-scenarios.component';
