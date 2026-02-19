@@ -1,6 +1,5 @@
 import { Component, Input, OnInit, AfterViewInit } from '@angular/core';
-import { AbstractControl } from '@angular/forms';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { SmzFormsBehaviorsConfig } from '../../models/behaviors';
 import { SmzLinkedDropDownControl } from '../../models/control-types';
 import { SmzFormsDropdownService } from '../../services/smz-forms-dropdown.service';
@@ -9,6 +8,7 @@ import { tap } from 'rxjs/operators';
 @Component({
     selector: 'smz-linked-dropdown',
     templateUrl: './linked-dropdown.component.html',
+    standalone: false
 })
 export class LinkedDropdownComponent implements OnInit, AfterViewInit
 {

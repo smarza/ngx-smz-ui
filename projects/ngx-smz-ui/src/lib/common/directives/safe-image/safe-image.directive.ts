@@ -2,7 +2,8 @@ import { AfterViewInit, Directive, ElementRef, Input, NgModule, OnChanges, Simpl
 import { isEmpty } from '../../../builders/common/utils';
 
 @Directive({
-  selector: "img[safeImage]",
+    selector: "img[safeImage]",
+    standalone: false
 })
 export class SafeImageDirective implements AfterViewInit, OnChanges {
   constructor(private el: ElementRef) { }
@@ -10,7 +11,7 @@ export class SafeImageDirective implements AfterViewInit, OnChanges {
   @Input() public placeholder = 'assets/images/placeholder.jpeg';
 
   public ngOnChanges(changes: SimpleChanges): void {
-    if (!changes.path?.isFirstChange()) {
+    if (!changes['path']?.isFirstChange()) {
       this.setupImage();
     }
   }

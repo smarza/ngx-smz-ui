@@ -17,16 +17,17 @@ export interface SmzSmartAutocompleteTagOption {
     searchTriggerLength: number
     dataSourceDisplayName: string;
     emptyMessage: string;
-    searchDispatchCallback: (string) => void;
+    searchDispatchCallback: (query: string) => void;
     searchResults$: Observable<string[]>;
     suggestions: string[];
-    selected: string;
+    selected: string | null;
 }
 
 
 @Directive({
     selector: '[smzSmartAutocompleteTag]',
-    host: {}
+    host: {},
+    standalone: false
 })
 export class SmzSmartAutocompleteTagDirective implements OnInit, AfterViewInit, OnDestroy {
 
@@ -48,7 +49,7 @@ export class SmzSmartAutocompleteTagDirective implements OnInit, AfterViewInit, 
     }
 
     @HostListener('input', ['$event'])
-    onInput(e) {
+    onInput(e: Event) {
         this.updateState(e);
     }
 

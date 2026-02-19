@@ -2,17 +2,18 @@ import { Component, Output, EventEmitter, Input, ChangeDetectorRef } from '@angu
 import { SmzFileControl } from '../../models/control-types';
 import { AbstractControl, UntypedFormGroup } from '@angular/forms';
 import { SmzFormsBehaviorsConfig } from '../../models/behaviors';
-import { Message } from 'primeng/api';
+import { Message } from '../../../../modules/smz-toast/toast';
 import { Store } from '@ngxs/store';
 import { ToastActions } from '../../../../state/global/application/application.actions.toast';
 import { base64ToFile } from '../../../../common/utils/utils';
 import { isEmpty } from '../../../../builders/common/utils';
 import { ApplicationActions } from '../../../../../lib/state/global/application/application.actions';
-import { UUID } from 'angular2-uuid';
+import { generateGUID } from '../../../../common/utils/guid-generator';
 
 @Component({
     selector: 'smz-file-upload',
     templateUrl: './file-upload.component.html',
+    standalone: false
 })
 export class FileUploadComponent {
     @Input() public input: SmzFileControl;
@@ -23,7 +24,7 @@ export class FileUploadComponent {
     public errors: Message[] = [];
     public files: File[] = [];
     public isZoomActive = false;
-    public uploadControl = UUID.UUID();
+    public uploadControl = generateGUID();
 
     constructor(public cdf: ChangeDetectorRef, private store: Store) { }
 

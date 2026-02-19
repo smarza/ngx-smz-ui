@@ -1,17 +1,18 @@
-<ng-container *ngIf="state != null">
-
-<div class="grid grid-nogutter items-start flex-col justify-start gap-2">
-
-  <et-title *ngIf="state.title.isVisible" class="col-12" [state]="state"></et-title>
-
-  <div *ngIf="state.globalSearch.isEnabled" class="col-12 grid grid-nogutter items-center justify-end">
-    <et-global-search class="col-4" [state]="state" [dataSource]="dataService"></et-global-search>
+@if (state != null) {
+  <div class="grid grid-nogutter items-start flex-col justify-start gap-2">
+    @if (state.title.isVisible) {
+      <et-title class="col-12" [state]="state"></et-title>
+    }
+    @if (state.globalSearch.isEnabled) {
+      <div class="col-12 grid grid-nogutter items-center justify-end">
+        <et-global-search class="col-4" [state]="state" [dataSource]="dataService"></et-global-search>
+      </div>
+    }
+    @if (state.desktop.enabled) {
+      <et-desktop-table class="col-12" [state]="state" [dataSource]="dataService" [contentService]="contentService"></et-desktop-table>
+    }
+    @if (state.mobile.enabled) {
+      <et-mobile-table  class="col-12" [state]="state" [data]="[]"></et-mobile-table>
+    }
   </div>
-
-  <et-desktop-table *ngIf="state.desktop.enabled" class="col-12" [state]="state" [dataSource]="dataService" [contentService]="contentService"></et-desktop-table>
-
-  <et-mobile-table  *ngIf="state.mobile.enabled" class="col-12" [state]="state" [data]="[]"></et-mobile-table>
-
-</div>
-
-</ng-container>
+}

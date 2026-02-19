@@ -12,7 +12,7 @@ export function CreateRadialChart<TData>(data: TData[]): RadialChartBuilder<TDat
 
 export class RadialChartBuilder<TData> extends BaseChartBuilder<RadialChartBuilder<TData>, TData>
 {
-    protected that = this;
+    protected override that = this;
     constructor(originalData: TData[])
     {
         super(originalData);

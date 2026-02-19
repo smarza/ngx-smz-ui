@@ -3,11 +3,10 @@ import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } f
 import { SmzGaugeThreshold } from './smz-gauge.types';
 
 @Component({
-  standalone: true,
-  selector: 'app-svg-gauge',
-  imports: [CommonModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
+    selector: 'app-svg-gauge',
+    imports: [CommonModule],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    template: `
 
 <svg [attr.width]="size" [attr.height]="size" [attr.viewBox]="'0 0 ' + size + ' ' + size">
   <!-- Círculo de Fundo -->
@@ -53,43 +52,45 @@ import { SmzGaugeThreshold } from './smz-gauge.types';
   </text>
 
   <!-- Texto Min -->
-  <text
-    *ngIf="showMin"
-    x="18%"
-    y="93%"
-    text-anchor="middle"
-    dy=".3em"
-    [attr.font-size]="size * 0.06"
-    [attr.font-weight]="minMaxFontWeight"
-    [attr.color]="minMaxFontColor"
-    fill="#333">
-    {{ min | number: minMaxPipeFormat }}{{unit}}
-  </text>
+  @if (showMin) {
+    <text
+      x="18%"
+      y="93%"
+      text-anchor="middle"
+      dy=".3em"
+      [attr.font-size]="size * 0.06"
+      [attr.font-weight]="minMaxFontWeight"
+      [attr.color]="minMaxFontColor"
+      fill="#333">
+      {{ min | number: minMaxPipeFormat }}{{unit}}
+    </text>
+  }
 
   <!-- Texto Max -->
-  <text
-    *ngIf="showMax"
-    x="82%"
-    y="93%"
-    text-anchor="middle"
-    dy=".3em"
-    [attr.font-size]="size * 0.06"
-    [attr.font-weight]="minMaxFontWeight"
-    [attr.color]="minMaxFontColor"
-    fill="#333">
-    {{ max | number: minMaxPipeFormat }}{{unit}}
-  </text>
+  @if (showMax) {
+    <text
+      x="82%"
+      y="93%"
+      text-anchor="middle"
+      dy=".3em"
+      [attr.font-size]="size * 0.06"
+      [attr.font-weight]="minMaxFontWeight"
+      [attr.color]="minMaxFontColor"
+      fill="#333">
+      {{ max | number: minMaxPipeFormat }}{{unit}}
+    </text>
+  }
 </svg>
 
-  `,
-  styles: [
-    `
+`,
+    styles: [
+        `
 svg {
   display: block;
   margin: 0 auto;
 }
     `
-  ]
+    ]
 })
 export class SmzSvgGaugeComponent implements OnChanges {
   @Input() title: string = 'Plano de Pintura';

@@ -1,35 +1,41 @@
+/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
+/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
     "outDir": "./dist/out-tsc",
-    "sourceMap": true,
-    "declaration": false,
-    "downlevelIteration": true,
-    "experimentalDecorators": true,
-    "moduleResolution": "node",
-    "importHelpers": true,
-    "resolveJsonModule": true,
-    "target": "ES2022",
-    "module": "ES2022",
-    "noImplicitThis": false,
-    "lib": [
-      "ES2022",
-      "dom"
-    ],
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "strictNullChecks": false,
+    "strict": false,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "ignoreDeprecations": "5.0",
-    "preserveSymlinks": true,
-    "useDefineForClassFields": false
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "bundler",
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "ES2022",
+    "paths": {
+      "@ngx-smz/core": ["./dist/ngx-smz-ui"],
+      "@ngx-smz/layout": ["./dist/ngx-smz-ui-layout"],
+      "@components/*": ["./projects/cronos/src/app/ui/components/*"],
+      "@environments/*": ["./projects/cronos/src/environments/*"],
+      "@features/*": ["./projects/cronos/src/app/ui/features/*"],
+      "@models/*": ["./projects/cronos/src/app/auto-generated/models/*", "./projects/cronos/src/app/models/*"],
+      "@services/*": ["./projects/cronos/src/app/auto-generated/services/*", "./projects/cronos/src/app/services/*"],
+      "@state/*": ["./projects/cronos/src/app/auto-generated/state/*", "./projects/cronos/src/app/state/*"],
+      "@pages/*": ["./projects/cronos/src/app/ui/pages/*"],
+      "@pipes/*": ["./projects/cronos/src/app/ui/pipes/*"],
+      "@routes": ["./projects/cronos/src/routes"],
+      "@utils/*": ["./projects/cronos/src/app/utils/*"],
+    },
   },
   "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
     "strictTemplates": true
   }
 }

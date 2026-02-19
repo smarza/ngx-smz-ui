@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Actions, ofActionDispatched, Store } from '@ngxs/store';
 import { take } from 'rxjs/operators';
 import { Confirmable } from '../../../smz-dialogs/decorators/confirmable.decorator';
@@ -7,14 +7,15 @@ import { DialogsActions } from '../../../smz-dialogs/state/dialogs/dialogs.actio
 import { SmzFormsBehaviorsConfig } from '../../models/behaviors';
 import { SmzListControl } from '../../models/control-types';
 import { SimpleEntity } from '../../../../../lib/common/models/simple-named-entity';
-import { UUID } from 'angular2-uuid';
 import { MustBeUnique } from '../../../../common/utils/custom-validations';
 import { ListboxClickEvent } from 'primeng/listbox';
+import { generateGUID } from '../../../../common/utils/guid-generator';
 
 @Component({
-  selector: 'smz-input-list',
-  templateUrl: './input-list.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'smz-input-list',
+    templateUrl: './input-list.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class InputListComponent {
   @Input() public input: SmzListControl;
@@ -169,10 +170,10 @@ export class InputListComponent {
         {
             // add new item
             if (this.input.crud?.insertAtBeginning) {
-                this.input.listBoxOptions = [{ id: UUID.UUID(), name: event.value }, ...this.input.listBoxOptions];
+                this.input.listBoxOptions = [{ id: generateGUID(), name: event.value }, ...this.input.listBoxOptions];
             }
             else {
-                this.input.listBoxOptions = [...this.input.listBoxOptions, { id: UUID.UUID(), name: event.value }];
+                this.input.listBoxOptions = [...this.input.listBoxOptions, { id: generateGUID(), name: event.value }];
             }
 
             this.current = event.value;
@@ -192,10 +193,10 @@ export class InputListComponent {
         {
             // add new item
             if (this.input.crud?.insertAtBeginning) {
-                this.input.listBoxOptions = [...event.values.map(x => ({ id: UUID.UUID(), name: x })), ...this.input.listBoxOptions];
+                this.input.listBoxOptions = [...event.values.map(x => ({ id: generateGUID(), name: x })), ...this.input.listBoxOptions];
             }
             else {
-                this.input.listBoxOptions = [...this.input.listBoxOptions, ...event.values.map(x => ({ id: UUID.UUID(), name: x }))];
+                this.input.listBoxOptions = [...this.input.listBoxOptions, ...event.values.map(x => ({ id: generateGUID(), name: x }))];
             }
 
             this.current = event.values[0];
@@ -218,7 +219,6 @@ export class InputListComponent {
   }
 
 }
-
 
 function move(input, from, to) {
   let numberOfDeletedElm = 1;

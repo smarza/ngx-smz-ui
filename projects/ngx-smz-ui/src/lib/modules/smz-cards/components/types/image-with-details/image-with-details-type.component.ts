@@ -5,9 +5,10 @@ import { ImageWithDetailsTemplate } from '../../../models/smz-cards-templates';
 import { SmzCardsImageContent, SmzCardsTextContent } from '../../../models/smz-cards-contents';
 
 @Component({
-  selector: 'smz-image-with-details-type',
-  templateUrl: 'image-with-details-type.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'smz-image-with-details-type',
+    templateUrl: 'image-with-details-type.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 
 export class SmzImageWithDetailsTypeComponent implements OnInit {

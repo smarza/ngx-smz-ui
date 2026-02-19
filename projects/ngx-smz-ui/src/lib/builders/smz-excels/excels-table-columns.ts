@@ -8,7 +8,7 @@ import { SmzExcelsTablesBuilder } from './excels-tables';
 
 export class SmzExcelsTableColumnsBuilder extends SmzBuilderUtilities<SmzExcelsTableColumnsBuilder> {
 
-  protected that = this;
+  protected override that = this;
   private _dataProperties: string[] = [];
   private defaultColumn: SmzExcelColumn = {
     data: [],

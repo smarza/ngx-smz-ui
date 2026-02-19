@@ -2,18 +2,21 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, HostBind
 import { SmzNotification } from '../../../../core/models/notifications';
 
 @Component({
-  selector: '[smz-ui-new-athena-notifications]',
-  host: { "(document:click)": "collapse($event)" },
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ['./notifications.component.scss'],
-  template: `
+    selector: '[smz-ui-new-athena-notifications]',
+    host: { "(document:click)": "collapse($event)" },
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrls: ['./notifications.component.scss'],
+    template: `
       <a class="notification clickable" (click)="toggle()">
-          <!-- <span class="username">Notificações</span>
-          <i class="profile-submenu-icon pi pi-angle-down"></i> -->
-          <i class="pi pi-bell"></i><span class="topbar-badge">{{ items.length }}</span>
+        <!-- <span class="username">Notificações</span>
+        <i class="profile-submenu-icon pi pi-angle-down"></i> -->
+        <i class="pi pi-bell"></i><span class="topbar-badge">{{ items.length }}</span>
       </a>
-      <ul *ngIf="isExpanded" class="topbar-menu topbar-notification-menu-top-adjust fadeInDown topbar-menu-visible" smz-ui-new-athena-notification-items [items]="items"></ul>
-  `,
+      @if (isExpanded) {
+        <ul class="topbar-menu topbar-notification-menu-top-adjust fadeInDown topbar-menu-visible" smz-ui-new-athena-notification-items [items]="items"></ul>
+      }
+      `,
+    standalone: false
 })
 export class NewAthenaNotificationsComponent implements OnInit, AfterViewInit {
   @Input() public items: SmzNotification[] = [];
@@ -33,7 +36,7 @@ export class NewAthenaNotificationsComponent implements OnInit, AfterViewInit {
     }, 0);
   }
 
-  public collapse(): void {
+  public collapse(event: Event): void {
     if (this.isLoaded && !this._eref.nativeElement.contains(event.target)){
       this.isExpanded = false;
     }

@@ -1,26 +1,27 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, ViewEncapsulation } from '@angular/core';
-import { Select, Store } from '@ngxs/store';
+import { ChangeDetectionStrategy, Component, inject, ViewEncapsulation } from '@angular/core';
+import { Store } from '@ngxs/store';
 import { NotificationsUiActions } from '../../../../state/ui/notifications/notifications.actions';
 import { SmzTableBuilder } from '../../../../builders/smz-tables/state-builder';
 import { NotificationData, NotificationFolder, NotificationFolderStatus, NotificationStatus } from '../../../../state/ui/notifications/notifications.model';
 import { SmzTableState } from '../../../smz-tables/models/table-state';
 import { Confirmable } from '../../../smz-dialogs/decorators/confirmable.decorator';
 import { Navigate } from '@ngxs/router-plugin';
-import { Observable } from 'rxjs';
 import { NotificationsUiSelectors } from '../../../../state/ui/notifications/notifications.selectors';
 import { GlobalInjector } from '../../../../common/services/global-injector';
 
 @Component({
-  selector: 'smz-notifications-list',
-  templateUrl: 'notifications-list.component.html',
-  styleUrls: ['notifications-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+    selector: 'smz-notifications-list',
+    templateUrl: 'notifications-list.component.html',
+    styleUrls: ['notifications-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 
 export class NotificationsListComponent {
-  @Select(NotificationsUiSelectors.all) public notifications$: Observable<NotificationData[]>;
-  @Select(NotificationsUiSelectors.hasRuningRequest) public hasRuningRequest$: Observable<boolean>;
+  private readonly store = inject(Store);
+  public notifications$ = inject(Store).select(NotificationsUiSelectors.all);
+  public hasRuningRequest$ = inject(Store).select(NotificationsUiSelectors.hasRuningRequest);
   public tableState: SmzTableState;
   public status = NotificationStatus;
   public selected: NotificationData[] = [];
@@ -42,7 +43,7 @@ export class NotificationsListComponent {
     }
   ]
   public currentFolder = this.folders[0];
-  constructor(private store: Store, private cdf: ChangeDetectorRef) {
+  constructor() {
     this.setupInboxTable();
   }
 

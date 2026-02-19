@@ -1,6 +1,6 @@
 import { Directive, OnDestroy, AfterViewInit, ElementRef, HostListener, Input, Output, EventEmitter, NgZone } from '@angular/core';
 import { DomHandler } from 'primeng/dom';
-import { UUID } from 'angular2-uuid';
+import { generateGUID } from '../../../common/utils/guid-generator';
 import { SmzDragEventData } from '../models/drag-event';
 import { SmzDraggableService } from '../services/smz-draggable.service';
 
@@ -8,7 +8,8 @@ import { SmzDraggableService } from '../services/smz-draggable.service';
     selector: '[smzDroppable]',
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: false
 })
 export class SmzDroppable implements AfterViewInit, OnDestroy {
     @Input('smzDroppable') scope: string | string[];
@@ -20,7 +21,7 @@ export class SmzDroppable implements AfterViewInit, OnDestroy {
     @Output() onDrop: EventEmitter<SmzDragEventData> = new EventEmitter();
 
     @Output() onDropBlocked: EventEmitter<SmzDragEventData> = new EventEmitter();
-    public key = UUID.UUID();
+    public key = generateGUID();
     public counter = 0;
 
     constructor(public el: ElementRef, public zone: NgZone, public smzDraggableService: SmzDraggableService) {}

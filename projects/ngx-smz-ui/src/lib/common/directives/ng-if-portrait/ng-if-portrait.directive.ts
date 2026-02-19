@@ -3,7 +3,8 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Subscription } from 'rxjs';
 
 @Directive({
-  selector: '[ngIfPortrait]'
+    selector: '[ngIfPortrait]',
+    standalone: false
 })
 export class NgIfPortraitDirective implements OnDestroy {
   private hasView = false;

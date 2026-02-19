@@ -6,8 +6,8 @@ import { SmzDocumentBuilder } from '../document-builder';
 import { SmzDocumentRowBuilder } from '../document-content';
 
 export class SmzCellChartBuilder extends SmzDocumentBaseCellBuilder<SmzCellChartBuilder> {
-  protected that = this;
-  constructor(public _rowBuilder: SmzDocumentRowBuilder, public _cell: SmzDocumentCell, public _data: SmzDocumentChart, public _documentBuilder: SmzDocumentBuilder) {
+  protected override that = this;
+  constructor(public override _rowBuilder: SmzDocumentRowBuilder, public override _cell: SmzDocumentCell, public override _data: SmzDocumentChart, public override _documentBuilder: SmzDocumentBuilder) {
     super(_rowBuilder, _cell, _data, _documentBuilder);
     const defaultConfig = cloneDeep(this._documentBuilder._state.config);
     _data.container = { styles: defaultConfig.charts.container };
@@ -32,13 +32,13 @@ export class SmzCellChartBuilder extends SmzDocumentBaseCellBuilder<SmzCellChart
     return this.that;
   }
 
-  public setWidth(width: SmzDocumentWidthTypes): SmzCellChartBuilder {
+  public override setWidth(width: SmzDocumentWidthTypes): SmzCellChartBuilder {
     const newStyle = width === 'auto' ? 'col' : `${width}`;
     this._data.flexWidth = newStyle;
     return this;
   }
 
-  public setHeight(height: string): SmzCellChartBuilder {
+  public override setHeight(height: string): SmzCellChartBuilder {
     this._cell.height = height;
     this._data.height = height;
     return this.that;

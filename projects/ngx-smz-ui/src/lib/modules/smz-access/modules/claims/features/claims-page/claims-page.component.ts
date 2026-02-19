@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { UntilDestroy } from '@ngneat/until-destroy';
 import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs/internal/Observable';
 import { SmzTableState } from '../../../../../smz-tables/models/table-state';
@@ -11,15 +10,14 @@ import { UpdateClaimDialog } from '../../functions/update-claim-dialog';
 import { Confirmable } from '../../../../../smz-dialogs/decorators/confirmable.decorator';
 import { ClaimsActions } from '../../../../state/claims/claims.actions';
 import { CreateClaimDialog } from '../../functions/create-claim-dialog';
-import { AuthenticationSelectors } from '../../../../../../state/global/authentication/authentication.selectors';
 import { AuthClaimDefinitions } from '../../../../models/auth-claim-definitions';
 import { GlobalInjector } from '../../../../../../common/services/global-injector';
 
-@UntilDestroy()
 @Component({
-  selector: 'app-claims-page',
-  templateUrl: 'claims-page.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-claims-page',
+    templateUrl: 'claims-page.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ClaimsPageComponent implements OnInit {
   public claims$: Observable<ClaimDetails[]>;
@@ -37,7 +35,7 @@ export class ClaimsPageComponent implements OnInit {
     const validationSelectors = GlobalInjector.config.rbkUtils.authorization.validationSelectors;
     const canOverideClaimProtection = this.store.selectSnapshot(validationSelectors.hasClaimAccess(AuthClaimDefinitions.CHANGE_CLAIM_PROTECTION)) as boolean;
 
-    return new SmzTableBuilder()
+    return new SmzTableBuilder<ClaimDetails>()
       .setTitle('Gerenciar Permissões de Acesso')
       .enableClearFilters()
       .enableGlobalFilter()

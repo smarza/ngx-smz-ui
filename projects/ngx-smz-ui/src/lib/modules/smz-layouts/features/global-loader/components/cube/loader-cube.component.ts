@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'smz-ui-loader-cube',
-  templateUrl: './loader-cube.component.html',
-  styleUrls: ['./loader-cube.component.scss']
+    selector: 'smz-ui-loader-cube',
+    templateUrl: './loader-cube.component.html',
+    styleUrls: ['./loader-cube.component.scss'],
+    standalone: false
 })
 export class LoaderCubeComponent implements OnInit
 {

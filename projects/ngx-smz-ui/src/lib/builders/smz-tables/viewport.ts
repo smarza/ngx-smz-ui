@@ -6,7 +6,7 @@ import { Store } from '@ngxs/store';
 import { AuthenticationSelectors } from '../../state/global/authentication/authentication.selectors';
 
 export class SmzTableViewportBuilder<TData> extends SmzBuilderUtilities<SmzTableViewportBuilder<TData>> {
-  protected that = this;
+  protected override that = this;
   constructor(private _tableBuilder: SmzTableBuilder<TData>) {
     super();
 

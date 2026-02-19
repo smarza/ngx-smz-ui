@@ -18,10 +18,11 @@ import { SmzChartInteractionEvent } from '../../models/chart-click-event';
 import { GlobalInjector } from '../../../../common/services/global-injector';
 
 @Component({
-  selector: 'smz-ui-chart',
-  templateUrl: './chart.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+    selector: 'smz-ui-chart',
+    templateUrl: './chart.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class SmzChartComponent implements AfterViewInit, OnDestroy {
   @Input() type: SmzChartTypes;

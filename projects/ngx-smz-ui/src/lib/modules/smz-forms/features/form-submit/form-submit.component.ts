@@ -5,8 +5,9 @@ import { SmzFormsResponse } from '../../models/smz-forms';
 import { FormGroupComponent } from '../form-group/form-group.component';
 
 @Component({
-  selector: 'smz-ui-form-submit',
-  templateUrl: 'form-submit.component.html'
+    selector: 'smz-ui-form-submit',
+    templateUrl: 'form-submit.component.html',
+    standalone: false
 })
 
 export class FormSubmitComponent implements OnInit, OnChanges, OnDestroy {
@@ -28,7 +29,7 @@ export class FormSubmitComponent implements OnInit, OnChanges, OnDestroy {
   public ngOnInit(): void { }
 
   public ngOnChanges(changes: SimpleChanges): void {
-    if (changes.form.currentValue != null) {
+    if (changes['form'].currentValue != null) {
       this.hookFormChanges();
     }
     else {

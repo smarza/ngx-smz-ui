@@ -2,7 +2,7 @@ import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzUiBuilder } from './ui-builder';
 
 export class SmzUiHttpBehaviorsBuilder extends SmzBuilderUtilities<SmzUiHttpBehaviorsBuilder> {
-  protected that = this;
+  protected override that = this;
   constructor(private _builder: SmzUiBuilder) {
     super();
   }

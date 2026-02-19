@@ -5,8 +5,8 @@ import { NgIfLandscapeDirectiveModule } from '../../common/directives/ng-if-land
 import { NgIfPortraitDirectiveModule } from '../../common/directives/ng-if-portrait/ng-if-portrait.directive';
 
 @Component({
-  selector: 'smz-responsive',
-  template: `
+    selector: 'smz-responsive',
+    template: `
 
   <ng-container *ngIfLandscape>
     <ng-container *ngTemplateOutlet="landscapeTemplate"></ng-container>
@@ -18,9 +18,8 @@ import { NgIfPortraitDirectiveModule } from '../../common/directives/ng-if-portr
   </ng-container>
 
   `,
-  standalone: true,
-  imports: [CommonModule, NgIfLandscapeDirectiveModule, NgIfPortraitDirectiveModule],
-  changeDetection: ChangeDetectionStrategy.Default
+    imports: [CommonModule, NgIfLandscapeDirectiveModule, NgIfPortraitDirectiveModule],
+    changeDetection: ChangeDetectionStrategy.Default
 })
 
 export class SmzResponsiveComponent implements AfterContentInit {

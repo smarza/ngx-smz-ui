@@ -8,7 +8,8 @@ import { FaqsManagerService } from '../../services/faqs-manager.service';
     selector: 'smz-faqs',
     templateUrl: './smz-faqs.component.html',
     styleUrls: ['./smz-faqs.component.scss'],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class SmzFaqsComponent implements OnInit
 {
@@ -34,7 +35,7 @@ export class SmzFaqsComponent implements OnInit
                 const activedRoute = this.getActivatedRoute();
 
                 const data = activedRoute.snapshot.data;
-                const faqs: FaqsRouterConfig = data.faqs;
+                const faqs: FaqsRouterConfig = data['faqs'];
 
                 if (faqs && faqs.enabled)
                 {

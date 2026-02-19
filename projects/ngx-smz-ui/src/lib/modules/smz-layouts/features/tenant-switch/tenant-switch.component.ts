@@ -1,70 +1,48 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GlobalInjector } from '../../../../common/services/global-injector';
-import { DropdownChangeEvent, DropdownModule } from 'primeng/dropdown';
-import { Observable } from 'rxjs';
+import { SelectChangeEvent, SelectModule } from 'primeng/select';
 import { TenantsSelectors } from '../../../smz-access/state/tenants/tenants.selectors';
-import { Select, Store } from '@ngxs/store';
+import { Store } from '@ngxs/store';
 import { TenantDetails } from '../../../smz-access/models/tenant-details';
 import { FormsModule } from '@angular/forms';
 import { SwitchTenant } from '../../../smz-access/models/switch-tenant';
 import { AuthenticationActions } from '../../../../state/global/authentication/authentication.actions';
 import { AuthenticationSelectors } from '../../../../state/global/authentication/authentication.selectors';
 import { SharedModule } from 'primeng/api';
-import { SmzResponsiveComponent } from '../../../smz-responsive/smz-responsive.component';
 import { showSwitchTenantDialog } from './show-tenant-switch-dialog';
 
 @Component({
-  selector: 'smz-tenant-switch',
-  standalone: true,
-  imports: [CommonModule, DropdownModule, FormsModule, SharedModule, SmzResponsiveComponent],
-  host: { class: 'h-full relative' },
-  styles: [
-    '.smz-tenant-switch-small .p-inputtext { padding: 0.5rem 0.75rem !important; }'
-  ],
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.Default,
-  template: `
-  <ng-container *ngIf="(isSuperuserLogged$ | async) === false">
-  <ng-container *ngIf="showTenantSwitch">
-
-    <smz-responsive class="col grid grid-nogutter w-full items-center justify-start">
-
-    <!-- LANDSCAPE -->
-      <ng-template pTemplate="landscape">
-
-        <div  class="h-full grid grid-nogutter items-center justify-center">
-          <p-dropdown [options]="userAllowedTenants$ | async" styleClass="smz-tenant-switch-small" optionLabel="alias" dataKey="name" appendTo="body" [(ngModel)]="selected" (onChange)="onSelectorChange($event)"></p-dropdown>
-        </div>
-
-      </ng-template>
-
-      <!-- PORTRAIT -->
-      <ng-template pTemplate="portrait">
-        <i class="fa-solid fa-repeat cursor-pointer text-2xl text-text-color switch-tenant" (click)="showSwitchDialog()">
-      </i>
-      </ng-template>
-
-    </smz-responsive>
-
-  </ng-container>
-  </ng-container>
-  `,
+    selector: 'smz-tenant-switch',
+    imports: [CommonModule, SelectModule, FormsModule, SharedModule],
+    host: { class: 'w-full h-full relative' },
+    styles: [
+        '.smz-tenant-switch-small .p-inputtext { padding: 0.5rem 0.75rem !important; }'
+    ],
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.Default,
+    template: `
+  @if ((isAuthenticated$ | async) && (isSuperuserLogged$ | async) === false && showTenantSwitch) {
+    <p-select appendTo="body" [options]="userAllowedTenants$ | async" styleClass="smz-tenant-switch-small w-full" optionLabel="alias" dataKey="name" [(ngModel)]="selected" (onChange)="onSelectorChange($event)"></p-select>
+  }
+  `
 })
 export class SmzTenantSwitchComponent implements OnInit {
+  private readonly store = inject(Store);
   public showTenantSwitch = GlobalInjector.config.rbkUtils.authentication.allowTenantSwitching;
   public selected: TenantDetails;
-  @Select(TenantsSelectors.userAllowedTenants) public userAllowedTenants$: Observable<TenantDetails[]>;
-  @Select(AuthenticationSelectors.isSuperuserLogged) public isSuperuserLogged$: Observable<boolean>;
+  public userAllowedTenants$ = this.store.select(TenantsSelectors.userAllowedTenants);
+  public isSuperuserLogged$ = this.store.select(AuthenticationSelectors.isSuperuserLogged);
+  public isAuthenticated$ = this.store.select(AuthenticationSelectors.isAuthenticated);
 
-  constructor(private store: Store) {
+  constructor() {
     this.selected = this.store.selectSnapshot(TenantsSelectors.currentTenant);
   }
 
   public ngOnInit(): void {
   }
 
-  public onSelectorChange(event: DropdownChangeEvent): void {
+  public onSelectorChange(event: SelectChangeEvent): void {
 
     if (event.originalEvent == null) {
       // Evento não foi trigado pelo usuário

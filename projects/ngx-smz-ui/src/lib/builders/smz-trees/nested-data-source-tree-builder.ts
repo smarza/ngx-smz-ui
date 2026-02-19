@@ -4,7 +4,7 @@ import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzDataSourceTreeBuilder } from './data-source-tree-builder';
 
 export class SmzNestedDataSourceTreeBuilder<TBuilder> extends SmzBuilderUtilities<SmzNestedDataSourceTreeBuilder<TBuilder>> {
-  protected that = this;
+  protected override that = this;
   private _nestedConfig: SmzTreeNestedData = null;
   constructor(private _content: SmzTreeSourceTransform, private _dataSourceBuilder: SmzDataSourceTreeBuilder<TBuilder>, type: string) {
     super();
@@ -106,7 +106,7 @@ export class SmzNestedDataSourceTreeBuilder<TBuilder> extends SmzBuilderUtilitie
 }
 
 export class SmzNestedChildTreeBuilder<TBuilder> extends SmzBuilderUtilities<SmzNestedChildTreeBuilder<TBuilder>> {
-  protected that = this;
+  protected override that = this;
   constructor(private _builder: TBuilder, private _nestedConfig: SmzTreeNestedData) {
     super();
   }
@@ -182,7 +182,7 @@ export class SmzNestedChildTreeBuilder<TBuilder> extends SmzBuilderUtilities<Smz
 }
 
 export class SmzNestedGroupTreeBuilder<TBuilder> extends SmzBuilderUtilities<SmzNestedGroupTreeBuilder<TBuilder>> {
-  protected that = this;
+  protected override that = this;
   constructor(private _builder: TBuilder, private _nestedConfig: SmzTreeNestedData, private label: string) {
     super();
 

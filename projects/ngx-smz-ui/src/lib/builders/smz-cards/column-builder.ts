@@ -35,10 +35,10 @@ export abstract class SmzCardsBaseBuilder<TData, TBuilder, T extends SmzCardsBas
 }
 
 export class SmzCardsTextBuilder<TData, TBuilder, TViewData> extends SmzCardsBaseBuilder<TData, TBuilder, SmzCardsTextBuilder<TData, TBuilder, TViewData>, TViewData> {
-  protected that = this;
+  protected override that = this;
   private _iconConfigurations: SmzCardsIconContent[] = [];
 
-  constructor(protected _builder: TBuilder, protected _parent: TViewData, protected _content: SmzCardsTextContent<TData>, dataPath: string, key: string = uuidv4()) {
+  constructor(protected override _builder: TBuilder, protected override _parent: TViewData, protected override _content: SmzCardsTextContent<TData>, dataPath: string, key: string = uuidv4()) {
     super(_builder, _parent, _content, key);
 
     this._content.type = SmzCardsContentType.TEXT;
@@ -76,7 +76,7 @@ export class SmzCardsTextBuilder<TData, TBuilder, TViewData> extends SmzCardsBas
     return this;
   }
 
-  public get template(): TViewData {
+  public override get template(): TViewData {
 
     if (this._iconConfigurations.length > 0) {
       this._content.callback = (value: any): string => {
@@ -103,9 +103,9 @@ export class SmzCardsTextBuilder<TData, TBuilder, TViewData> extends SmzCardsBas
 }
 
 export class SmzCardsComponentBuilder<TData, TBuilder, TViewData> extends SmzCardsBaseBuilder<TData, TBuilder, SmzCardsComponentBuilder<TData, TBuilder, TViewData>, TViewData> {
-  protected that = this;
+  protected override that = this;
 
-  constructor(protected _builder: TBuilder, protected _parent: TViewData, protected _content: SmzCardsComponentContent<TData>, component: any, key: string = uuidv4()) {
+  constructor(protected override _builder: TBuilder, protected override _parent: TViewData, protected override _content: SmzCardsComponentContent<TData>, component: any, key: string = uuidv4()) {
     super(_builder, _parent, _content, key);
 
     this._content.type = SmzCardsContentType.COMPONENT;
@@ -137,15 +137,15 @@ export class SmzCardsComponentBuilder<TData, TBuilder, TViewData> extends SmzCar
     return this;
   }
 
-  public get template(): TViewData {
+  public override get template(): TViewData {
     return this._parent;
   }
 
 }
 
 export class SmzCardsImageBuilder<TData, TBuilder, TViewData> extends SmzCardsBaseBuilder<TData, TBuilder, SmzCardsImageBuilder<TData, TBuilder, TViewData>, TViewData> {
-  protected that = this;
-  constructor(protected _builder: TBuilder, protected _parent: TViewData, protected _content: SmzCardsImageContent<TData>, dataPath: string, private baseImageStyles: string, key: string = uuidv4()) {
+  protected override that = this;
+  constructor(protected override _builder: TBuilder, protected override _parent: TViewData, protected override _content: SmzCardsImageContent<TData>, dataPath: string, private baseImageStyles: string, key: string = uuidv4()) {
     super(_builder, _parent, _content, key);
 
       this._content.type = SmzCardsContentType.IMAGE;
@@ -208,7 +208,7 @@ export class SmzCardsImageBuilder<TData, TBuilder, TViewData> extends SmzCardsBa
     return this;
   }
 
-  public get template(): TViewData {
+  public override get template(): TViewData {
     return this._parent;
   }
 

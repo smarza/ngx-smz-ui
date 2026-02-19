@@ -3,7 +3,8 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Subscription } from 'rxjs';
 
 @Directive({
-  selector: '[ngIfLandscape]',
+    selector: '[ngIfLandscape]',
+    standalone: false
 })
 export class NgIfLandscapeDirective implements OnDestroy {
   private hasView = false;

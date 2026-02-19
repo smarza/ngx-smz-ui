@@ -1,6 +1,6 @@
-@import "./styles/variables.scss";
-@import "./styles.scss";
-@import "./styles/schema.scss";
+@use "./styles/variables.scss";
+@use "./styles.scss";
+@use "./styles/schema.scss";
 
 .layout-wrapper.layout-slim .layout-content-wrapper .p-component-overlay {
     display: none;

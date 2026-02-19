@@ -1,19 +1,20 @@
-import { ChangeDetectorRef, Component, inject, Input, OnInit } from '@angular/core';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { debounceTime, take, takeWhile } from 'rxjs';
+import { ChangeDetectorRef, Component, DestroyRef, inject, Input, OnInit } from '@angular/core';
+import { debounceTime, take } from 'rxjs';
 import { SmzFormsBehaviorsConfig } from '../../models/behaviors';
 import { SmzTextButtonControl } from '../../models/control-types';
 import { SmzFormViewdata } from '../../models/form-viewdata';
 import { AbstractControl } from '@angular/forms';
 import { isEmpty } from '../../../rbk-utils/utils/utils';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-@UntilDestroy()
 @Component({
     selector: 'smz-input-text-button',
-    templateUrl: './input-text-button.component.html'
+    templateUrl: './input-text-button.component.html',
+    standalone: false
 })
 export class InputTextButtonComponent implements OnInit {
     private readonly changeDetectorRef = inject(ChangeDetectorRef);
+    private readonly destroyRef = inject(DestroyRef);
     @Input() public input: SmzTextButtonControl;
     @Input() public control: AbstractControl;
     @Input() public viewdata: SmzFormViewdata
@@ -23,7 +24,7 @@ export class InputTextButtonComponent implements OnInit {
     public ngOnInit(): void {
 
     this.control.statusChanges
-        .pipe(debounceTime(this.viewdata.config.behaviors?.debounceTime ?? 200), untilDestroyed(this))
+        .pipe(debounceTime(this.viewdata.config.behaviors?.debounceTime ?? 200), takeUntilDestroyed(this.destroyRef))
         .subscribe(() => {
 
             // Usuário alterou o input
@@ -47,7 +48,7 @@ export class InputTextButtonComponent implements OnInit {
 
         });
 
-        if (!isEmpty(this.input.defaultValue)) {
+        if (!isEmpty(this.input.defaultValue ?? '')) {
             this.input.isButtonValid = this.control.valid;
             this.input.buttonMessages = [];
             this.blocked = false;
@@ -66,7 +67,7 @@ export class InputTextButtonComponent implements OnInit {
 
         this.input
             .callback(data, this.viewdata)
-            .pipe(take(1), untilDestroyed(this))
+            .pipe(take(1), takeUntilDestroyed(this.destroyRef))
             .subscribe({
                 next: (event: { isValid: boolean, messages?: string[] }) => {
                     this.input.isButtonValid = event.isValid;

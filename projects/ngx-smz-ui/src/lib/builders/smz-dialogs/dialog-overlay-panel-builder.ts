@@ -3,7 +3,7 @@ import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzUiGuidesState, SmzUiGuidesStep } from '../../standalones/smz-ui-guides/models/smz-ui-guides-state';
 
 export class SmzDialogOverlayPanelBuilder<TResponse> extends SmzBuilderUtilities<SmzDialogOverlayPanelBuilder<TResponse>> {
-  protected that = this;
+  protected override that = this;
   constructor(public _dialogBuilder: SmzDialogBuilder<TResponse>, private targetElementId: string, private guideState: SmzUiGuidesState) {
     super();
 

@@ -1,36 +1,35 @@
-import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { Select, Store } from '@ngxs/store';
-import { Observable } from 'rxjs';
+import { Component, DestroyRef, inject, OnInit, ViewEncapsulation } from '@angular/core';
+import { Store } from '@ngxs/store';
 import { cloneDeep } from 'lodash-es';
 import { UiAthenaSelectors } from '../../state/ui-layout.selectors';
 import { LayoutUiSelectors } from '../../../../../../state/ui/layout/layout.selectors';
-import { Assistance } from '../../../../core/models/assistance';
 import { InputChangeData } from '../../../../../../common/input-detection/input-detection.directive';
 import { UiAthenaActions } from '../../state/ui-layout.actions';
 import { LayoutUiActions } from '../../../../../../state/ui/layout/layout.actions';
 import { SmzContentTheme } from '../../../../core/models/themes';
 import { AthenaLayout, AthenaMenuTypes } from '../../layout.config';
 import { MenuType } from '../../../../core/models/menu-types';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-@UntilDestroy()
 @Component({
-  selector: 'smz-ui-athena-assistance',
-  templateUrl: './assistance.component.html',
-  styleUrls: ['./assistance.component.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'smz-ui-athena-assistance',
+    templateUrl: './assistance.component.html',
+    styleUrls: ['./assistance.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class AthenaAssistanceComponent implements OnInit {
-  @Select(LayoutUiSelectors.assistance) public assistance$: Observable<Assistance>;
+  private readonly destroyRef = inject(DestroyRef);
+  public assistance$ = inject(Store).select(LayoutUiSelectors.assistance);
   public isVisible = false;
-  public menuTypes = [];
+  public menuTypes: { label: string, value: AthenaMenuTypes }[] = [];
   public menuType: AthenaMenuTypes = MenuType.STATIC;
   public layout: AthenaLayout;
-  constructor(private store: Store, private cdr: ChangeDetectorRef) {
+  constructor(private store: Store) {
 
     this.store
       .select(UiAthenaSelectors.layout)
-      .pipe(untilDestroyed(this))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(config => {
         this.layout = cloneDeep(config);
         this.menuType = config.menu;
@@ -38,9 +37,9 @@ export class AthenaAssistanceComponent implements OnInit {
 
     this.store
       .select(LayoutUiSelectors.assistance)
-      .pipe(untilDestroyed(this))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(assistance => {
-        this.isVisible = assistance.isVisible;
+        this.isVisible = assistance.isVisible ?? false;
       });
 
     this.setupData();

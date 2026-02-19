@@ -9,7 +9,7 @@ import { SmzExcelsTableColumnsBuilder } from './excels-table-columns';
 
 
 export class SmzExcelsTableColumnTextBuilder extends SmzBuilderUtilities<SmzExcelsTableColumnTextBuilder> {
-  protected that = this;
+  protected override that = this;
 
   constructor(protected _builder: SmzExcelsTableColumnsBuilder, protected _state: SmzExcelColumn) {
     super();
@@ -41,7 +41,7 @@ export class SmzExcelsTableColumnTextBuilder extends SmzBuilderUtilities<SmzExce
 }
 
 export class SmzExcelsTableColumnDateBuilder extends SmzBuilderUtilities<SmzExcelsTableColumnDateBuilder> {
-  protected that = this;
+  protected override that = this;
 
   constructor(protected _builder: SmzExcelsTableColumnsBuilder, protected _state: SmzExcelColumn) {
     super();
@@ -78,7 +78,7 @@ export class SmzExcelsTableColumnDateBuilder extends SmzBuilderUtilities<SmzExce
 }
 
 export class SmzExcelsTableColumnAutoDetectBuilder extends SmzBuilderUtilities<SmzExcelsTableColumnAutoDetectBuilder> {
-  protected that = this;
+  protected override that = this;
 
   constructor(protected _builder: SmzExcelsTableColumnsBuilder, protected _state: SmzExcelColumn) {
     super();
@@ -110,7 +110,7 @@ export class SmzExcelsTableColumnAutoDetectBuilder extends SmzBuilderUtilities<S
 }
 
 export class SmzExcelsTableColumnNumberBuilder extends SmzBuilderUtilities<SmzExcelsTableColumnNumberBuilder> {
-  protected that = this;
+  protected override that = this;
 
   constructor(protected _builder: SmzExcelsTableColumnsBuilder, protected _state: SmzExcelColumn) {
     super();
@@ -176,7 +176,7 @@ export class SmzExcelsTableColumnNumberBuilder extends SmzBuilderUtilities<SmzEx
 }
 
 export class SmzExcelsTableColumnHyperlinkBuilder extends SmzBuilderUtilities<SmzExcelsTableColumnHyperlinkBuilder> {
-  protected that = this;
+  protected override that = this;
 
   constructor(protected _builder: SmzExcelsTableColumnsBuilder, protected _state: SmzExcelColumn) {
     super();

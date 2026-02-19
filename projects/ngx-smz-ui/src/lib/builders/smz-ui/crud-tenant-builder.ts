@@ -7,7 +7,7 @@ import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzUiAuthorizationBuilder } from './authorization-builder';
 
 export class SmzUiTenantCrudBuilder<TData> extends SmzBuilderUtilities<SmzUiTenantCrudBuilder<TData>> {
-  protected that = this;
+  protected override that = this;
   private _config: {
     router?: {
       path: string,

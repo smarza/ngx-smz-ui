@@ -5,7 +5,7 @@ import { SmzSvgState } from '../../modules/smz-svg/models/smz-svg';
 import { SmzSvgRefPoint } from '../../modules/smz-svg/models/world-coordinates';
 
 export class SmzSvgWorldCoordinatesBuilder extends SmzBuilderUtilities<SmzSvgWorldCoordinatesBuilder> {
-  protected that = this;
+  protected override that = this;
   constructor(private _svgBuilder: SmzSvgBuilder, private _state: SmzSvgState) {
     super();
 

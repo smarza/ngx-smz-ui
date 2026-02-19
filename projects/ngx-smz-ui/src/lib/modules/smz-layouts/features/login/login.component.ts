@@ -1,8 +1,6 @@
-import { Component, HostBinding, Input, OnInit, ChangeDetectionStrategy, TemplateRef, ContentChildren, QueryList, AfterContentInit, forwardRef } from '@angular/core';
-import { Select, Store } from '@ngxs/store';
+import { Component, HostBinding, Input, OnInit, ChangeDetectionStrategy, TemplateRef, ContentChildren, QueryList, AfterContentInit, forwardRef, inject } from '@angular/core';
+import { Store } from '@ngxs/store';
 import { LayoutUiSelectors } from '../../../../state/ui/layout/layout.selectors';
-import { Observable } from 'rxjs';
-import { SmzAppLogo } from '../../core/models/logo';
 import { SmzLoginData } from '../../core/models/login';
 import { SmzFormsResponse } from '../../../smz-forms/models/smz-forms';
 import { SmzLoginState } from './login-state';
@@ -10,13 +8,14 @@ import { SmzLoginBuilder } from '../../../../builders/smz-login/state-builder';
 import { PrimeTemplate } from 'primeng/api';
 
 @Component({
-  selector: 'smz-ui-login',
-  templateUrl: './login.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'smz-ui-login',
+    templateUrl: './login.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class SmzLoginComponent implements OnInit, AfterContentInit {
   @ContentChildren(forwardRef(() => PrimeTemplate)) templates: QueryList<PrimeTemplate>;
-  @Select(LayoutUiSelectors.appContentLogo) public appLogo$: Observable<SmzAppLogo>;
+  public appLogo$ = inject(Store).select(LayoutUiSelectors.appContentLogo);
   @Input() public state: SmzLoginState<any, any> = this.buildState();
   public baseClass = 'fixed inset-0';
   public extraTemplate: TemplateRef<any>;

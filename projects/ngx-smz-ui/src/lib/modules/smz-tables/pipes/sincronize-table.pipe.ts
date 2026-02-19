@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { TableHelperService } from '../services/table-helper.service';
 
 @Pipe({
-  name: 'sincronizeTable'
+    name: 'sincronizeTable',
+    standalone: false
 })
 
 export class SmzSincronizeTablePipe implements PipeTransform {

@@ -1,19 +1,20 @@
-import { AfterViewInit, Directive, ElementRef, HostBinding, HostListener, Input, NgModule, OnChanges, SimpleChanges } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, HostBinding, HostListener, inject, Input, NgModule, OnChanges, SimpleChanges } from '@angular/core';
 import { isEmpty } from '../../../builders/common/utils';
-import { environment } from '@environments/environment';
 import { SmzDialogsService } from '../../../modules/smz-dialogs/public-api';
 import { SmzDialogBuilder } from '../../../builders/smz-dialogs/dialog-builder';
+import { SmzEnvironment } from '../../../config';
 
 @Directive({
-  selector: "img[serverImage]",
-  host: {
-    '(error)':'updateUrl()',
-    '(load)': 'load()',
-    '[src]':'src'
-   }
+    selector: "img[serverImage]",
+    host: {
+        '(error)': 'updateUrl()',
+        '(load)': 'load()',
+        '[src]': 'src'
+    },
+    standalone: false
 })
 export class ServerImageDirective implements AfterViewInit, OnChanges {
-
+  private readonly environment = inject(SmzEnvironment);
   @Input() public src: string;
   @Input() public path: string;
   @Input() public placeholder = 'assets/images/placeholder.jpeg';
@@ -27,7 +28,7 @@ export class ServerImageDirective implements AfterViewInit, OnChanges {
   constructor(private el: ElementRef, private dialogs: SmzDialogsService) { }
 
   public ngOnChanges(changes: SimpleChanges): void {
-    if (!changes.path?.isFirstChange()) {
+    if (!changes['path']?.isFirstChange()) {
       this.setupImage();
     }
   }
@@ -72,7 +73,7 @@ export class ServerImageDirective implements AfterViewInit, OnChanges {
 
     const img = new Image();
 
-    if (this.useServerPath && environment.serverUrl == null) {
+    if (this.useServerPath && this.environment.serverUrl == null) {
       throw Error("ServerPathPipe needs a property named 'serverUrl' on environment constant");
     }
 
@@ -80,7 +81,7 @@ export class ServerImageDirective implements AfterViewInit, OnChanges {
       this.path = this.placeholder;
     }
     else if (this.useServerPath){
-      let path = environment.serverUrl;
+      let path = this.environment.serverUrl;
       const relativeUrl = this.path;
 
       if (relativeUrl.startsWith("/")) {

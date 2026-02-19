@@ -4,7 +4,8 @@ import { SmzTextControl } from '../../models/control-types';
 
 @Component({
     selector: 'smz-input-text',
-    templateUrl: './input-text.component.html'
+    templateUrl: './input-text.component.html',
+    standalone: false
 })
 export class InputTextComponent
 {

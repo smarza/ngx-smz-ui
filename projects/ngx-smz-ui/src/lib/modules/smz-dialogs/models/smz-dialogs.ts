@@ -5,13 +5,12 @@ import { SmzTemplate } from '../../../common/models/templates';
 import { SmzFormsBehaviorsConfig } from '../../smz-forms/models/behaviors';
 import { SmzPresetTypes } from './smz-presets';
 import { DynamicDialogConfig } from '../dynamicdialog/dynamicdialog-config';
-import { Message } from 'primeng/api';
-// import { SmzTableState } from 'ngx-smz-ui';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { SmzUiGuidesState, SmzUiGuidesStep } from '../../../standalones/smz-ui-guides/models/smz-ui-guides-state';
+import { Message } from '../../smz-toast/toast';
 
 export class SmzDynamicDialogConfig extends DynamicDialogConfig {
-    data?: SmzDialog<any>;
+    declare data?: SmzDialog<any>;
 }
 
 export interface SmzDialog<T>
@@ -72,8 +71,8 @@ export interface SmzDialog<T>
     domElementId?: string;
 
     contentClass?: string;
+    contentStyleClass?: string;
     containerStyleClass?: string;
-
     featureContainerClass?: string;
 
 }
@@ -231,5 +230,5 @@ export interface SmzDialogTopbarButton
 
 export interface SmzDialogTable {
     items$: Observable<any[]>;
-    state: any; // SmzTableState;
+    state: any;
 }

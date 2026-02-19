@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { ObjectUtils } from 'primeng/utils';
 
 @Pipe({
-  name: 'getData'
+    name: 'getData',
+    standalone: false
 })
 
 export class SmzGetDataPipe implements PipeTransform {

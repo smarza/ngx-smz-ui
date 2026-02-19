@@ -1,16 +1,16 @@
-import { Injector, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SmzTableComponent } from './features/table/table.component';
-import { TableModule } from '../prime/table/table';
+// import { TableModule } from '../prime/table/table';
+import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { NgxSmzDataPipesModule } from '../../common/data-pipes/data-pipes.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MultiSelectModule } from 'primeng/multiselect';
-import { CalendarModule } from 'primeng/calendar';
+import { DatePickerModule } from 'primeng/datepicker';
 import { SmzTableContextPipe } from './pipes/table-context.pipe';
 import { SharedModule } from 'primeng/api';
-import { DropdownModule } from 'primeng/dropdown';
 import { SmzTableContentPipe } from './pipes/table-content.pipe';
 import { SmzContentIconMatchesPipe } from './pipes/content-icon-matches.pipe';
 import { SmzFilterObjectPipe } from './pipes/filter-object.pipe';
@@ -22,13 +22,12 @@ import { SmzCloneTableItemsPipe } from './pipes/clone-table-items.pipe';
 import { SkeletonModule } from 'primeng/skeleton';
 import { SmzColumnFilterComponent } from './components/smz-filter-column.component';
 import { SmzColumnFilter2Component } from './components/smz-filter-column-2.component';
-import { InputTextareaModule } from 'primeng/inputtextarea';
 import { SmzEditableSourcePipe } from './pipes/editable-source.pipe';
-import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { OverlayPanelModule } from '../prime/overlaypanel/overlaypanel';
 import { SmzContentErrorsPipe } from './pipes/content-errors.pipe';
 import { SmzTableValidationMessagesComponent } from './components/validation-messages/validation-messages.component';
 import { ValidationMessagesPipe } from './components/validation-messages/validation-messages.pipe';
-import { InputSwitchModule } from 'primeng/inputswitch';
+import { ToggleSwitchModule  } from 'primeng/toggleswitch';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { NgxSmzMenuModule } from '../smz-menu/smz-menu.module';
 import { ToggleButtonModule } from 'primeng/togglebutton';
@@ -37,8 +36,12 @@ import { SmzTableContentComponent } from './components/table-content/table-conte
 import { NgVarModule } from '../../common/directives/ng-var/ng-var.module';
 import { SmzTableContentActionsComponent } from './components/table-content-actions/table-content-actions.component';
 import { SmzTableCaptionButtonsComponent } from './components/table-caption-buttons/table-caption-buttons.component';
-import { RbkAccessControlModule } from '../rbk-utils/public-api';
+import { RbkAccessControlModule } from '../rbk-utils/auth/guards/access-control.module';
 import { SmzTableHeaderActionsComponent } from './components/table-header-actions/table-header-actions.component';
+import { TextareaModule } from 'primeng/textarea';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
+import { SelectModule } from 'primeng/select';
 
 @NgModule({
     declarations: [
@@ -68,23 +71,25 @@ import { SmzTableHeaderActionsComponent } from './components/table-header-action
         InputTextModule,
         NgxSmzDataPipesModule,
         MultiSelectModule,
-        DropdownModule,
-        CalendarModule,
+        SelectModule,
+        DatePickerModule,
         FormsModule,
         TableItemActionsModule,
         ClickStopPropagationModule,
         NgxSmzDataInfoModule,
         TooltipModule,
         SkeletonModule,
-        InputTextareaModule,
+        TextareaModule,
         OverlayPanelModule,
         ReactiveFormsModule,
-        InputSwitchModule,
+        ToggleSwitchModule,
         InputNumberModule,
         NgxSmzMenuModule,
         ToggleButtonModule,
         NgVarModule,
-        RbkAccessControlModule
+        RbkAccessControlModule,
+        IconFieldModule,
+        InputIconModule
     ],
     exports: [
         SmzTableComponent,

@@ -1,16 +1,18 @@
-import { Injectable } from '@angular/core';
-import { FilterMatchMode, FilterService, PrimeNGConfig } from 'primeng/api';
+import { inject, Injectable } from '@angular/core';
+import { FilterMatchMode, FilterService } from 'primeng/api';
 import { SimpleNamedEntity } from '../models/simple-named-entity';
 import { GlobalInjector } from './global-injector';
 import moment from 'moment';
-
+import { PrimeNG } from 'primeng/config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PrimeConfigService {
 
-  constructor(private filterUtils: FilterService, private config: PrimeNGConfig) { }
+  private readonly primeConfig = inject(PrimeNG);
+
+  constructor(private filterUtils: FilterService) { }
   public init(): void {
     this.filters();
     this.setFilterMatchModeOptions();
@@ -106,7 +108,7 @@ export class PrimeConfigService {
   }
 
   private setFilterMatchModeOptions(): void {
-    this.config.filterMatchModeOptions = {
+    this.primeConfig.filterMatchModeOptions = {
       text: [
         FilterMatchMode.CONTAINS,
         FilterMatchMode.STARTS_WITH,
@@ -133,8 +135,7 @@ export class PrimeConfigService {
   }
 
   private setTranslation(): void {
-
-    this.config.setTranslation(GlobalInjector.config.locale.translation);
+    this.primeConfig.setTranslation(GlobalInjector.config.locale.translation);
   }
 
 }

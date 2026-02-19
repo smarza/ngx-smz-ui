@@ -1,35 +1,35 @@
-import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { Select, Store } from '@ngxs/store';
-import { Observable } from 'rxjs';
+import { Component, DestroyRef, inject, ViewEncapsulation } from '@angular/core';
+import { Store } from '@ngxs/store';
 import { cloneDeep } from 'lodash-es';
 import { UiHephaestusSelectors } from '../../state/ui-layout.selectors';
 import { LayoutUiSelectors } from '../../../../../../state/ui/layout/layout.selectors';
-import { Assistance } from '../../../../core/models/assistance';
 import { InputChangeData } from '../../../../../../common/input-detection/input-detection.directive';
 import { UiHephaestusActions } from '../../state/ui-layout.actions';
 import { LayoutUiActions } from '../../../../../../state/ui/layout/layout.actions';
 import { HephaestusLayout, HephaestusMenuTypes } from '../../layout.config';
 import { MenuType } from '../../../../core/models/menu-types';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-@UntilDestroy()
 @Component({
-  selector: 'smz-ui-hephaestus-assistance',
-  templateUrl: './assistance.component.html',
-  styleUrls: ['./assistance.component.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'smz-ui-hephaestus-assistance',
+    templateUrl: './assistance.component.html',
+    styleUrls: ['./assistance.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
-export class HephaestusAssistanceComponent implements OnInit {
-  @Select(LayoutUiSelectors.assistance) public assistance$: Observable<Assistance>;
+export class HephaestusAssistanceComponent{
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly store = inject(Store);
+  public assistance$ = inject(Store).select(LayoutUiSelectors.assistance);
   public isVisible = false;
-  public menuTypes = [];
+  public menuTypes: { label: string, value: HephaestusMenuTypes }[] = [];
   public menuType: HephaestusMenuTypes = MenuType.STATIC;
   public layout: HephaestusLayout;
-  constructor(private store: Store, private cdr: ChangeDetectorRef) {
+  constructor() {
 
     this.store
       .select(UiHephaestusSelectors.layout)
-      .pipe(untilDestroyed(this))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(config => {
         this.layout = cloneDeep(config);
         this.menuType = config.menu;
@@ -37,15 +37,12 @@ export class HephaestusAssistanceComponent implements OnInit {
 
     this.store
       .select(LayoutUiSelectors.assistance)
-      .pipe(untilDestroyed(this))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(assistance => {
-        this.isVisible = assistance.isVisible;
+        this.isVisible = assistance.isVisible ?? false;
       });
 
     this.setupData();
-  }
-
-  public ngOnInit(): void {
   }
 
   public setSidebarWidth(event: InputChangeData): void {

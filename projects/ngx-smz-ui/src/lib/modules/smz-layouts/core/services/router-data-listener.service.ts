@@ -53,7 +53,7 @@ export class RouterDataListenerService
           while (route.firstChild) {
 
             route.firstChild.data.subscribe(r => {
-              const layout = r.layout;
+              const layout = r['layout'];
 
               if (currentRouteData == null && layout !== null) {
 

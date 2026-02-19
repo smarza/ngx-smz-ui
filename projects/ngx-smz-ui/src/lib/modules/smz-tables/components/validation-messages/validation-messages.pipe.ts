@@ -4,7 +4,8 @@ import { ValidationMessage } from '../../../smz-forms/models/advanced';
 
 @Pipe({
     name: 'validationMessages',
-    pure: false
+    pure: false,
+    standalone: false
 })
 
 @Injectable()

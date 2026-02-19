@@ -8,7 +8,7 @@ import { SmzSvgWorldCoordinatesBuilder } from './svg-world-coordinates';
 import { GlobalInjector } from '../../common/services/global-injector';
 
 export class SmzSvgBuilder extends SmzBuilderUtilities<SmzSvgBuilder> {
-  protected that = this;
+  protected override that = this;
   private defaultConfig = GlobalInjector.config;
   public _state: SmzSvgState = {
     isDebug: false,

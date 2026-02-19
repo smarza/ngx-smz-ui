@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { State, Action, StateContext } from '@ngxs/store';
-
 import { DialogsActions } from './dialogs.actions';
 import { SmzDialogsService } from '../../services/smz-dialogs.service';
 import { SmzDialog } from '../../models/smz-dialogs';
@@ -59,7 +58,6 @@ export class DialogsState {
 
   @Action(DialogsActions.Confirmation)
   public onConfirmation(ctx: StateContext<DialogsStateModel>, action: DialogsActions.Confirmation): void {
-
 
     const dialog: SmzDialog<any> = {
         title: action.title,

@@ -5,7 +5,7 @@ import { SmzCardsTemplateBuilder } from '../template-builder';
 import { SmzCardsBaseTemplateBuilder } from './base-card-type.builder';
 
 export class SmzCardsImageWithDetailsBuilder<TData, TBuilder> extends SmzCardsBaseTemplateBuilder<TData, TBuilder, SmzCardsImageWithDetailsBuilder<TData, TBuilder>> {
-  constructor(protected _builder: TBuilder, protected _parent: SmzCardsTemplateBuilder<TData, TBuilder>, protected _template: ImageWithDetailsTemplate<TData>) {
+  constructor(protected override _builder: TBuilder, protected override _parent: SmzCardsTemplateBuilder<TData, TBuilder>, protected override _template: ImageWithDetailsTemplate<TData>) {
     super(_builder, _parent, _template);
     _template.type = SmzCardsTemplate.IMAGE_WITH_DETAILS;
     _template.tags = [];

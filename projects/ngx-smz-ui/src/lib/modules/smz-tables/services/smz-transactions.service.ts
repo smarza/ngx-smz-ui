@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { UUID } from 'angular2-uuid';
-import { take } from 'rxjs/operators';
 import { SmzTransaction } from '../models/editable-transaction';
+import { generateGUID } from '../../../common/utils/guid-generator';
 
 // SERVIÇO SINGLETON
 @Injectable({ providedIn: 'root' })
@@ -14,7 +13,7 @@ export class SmzTransactionsService {
 
   public add(dispatchAction: any, success: () => void, failure: (errors: string[]) => void): string {
 
-    const transactionId = UUID.UUID();
+    const transactionId = generateGUID();
 
     const transaction: SmzTransaction = {
       transactionId,

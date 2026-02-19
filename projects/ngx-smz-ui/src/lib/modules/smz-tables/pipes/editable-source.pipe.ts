@@ -3,7 +3,8 @@ import { Store } from '@ngxs/store';
 import { SmzDropdownEditable, SmzEditableTypes } from '../models/editable-types';
 
 @Pipe({
-  name: 'editableSource'
+    name: 'editableSource',
+    standalone: false
 })
 
 export class SmzEditableSourcePipe implements PipeTransform {

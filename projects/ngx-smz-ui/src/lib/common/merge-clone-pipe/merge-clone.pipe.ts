@@ -4,7 +4,8 @@ import { NgModule } from '@angular/core';
 import { mergeClone } from '../utils/deep-merge';
 
 @Pipe({
-    name: 'mergeClone'
+    name: 'mergeClone',
+    standalone: false
 })
 
 @Injectable()

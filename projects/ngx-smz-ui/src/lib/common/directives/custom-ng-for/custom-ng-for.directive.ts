@@ -1,6 +1,9 @@
 import { Directive, Input, NgModule, TemplateRef, ViewContainerRef } from '@angular/core';
 
-@Directive({ selector: '[customNgForOf]' })
+@Directive({
+    selector: '[customNgForOf]',
+    standalone: false
+})
 export class CustomNgForDirective {
   constructor(
     private templateRef: TemplateRef<any>,

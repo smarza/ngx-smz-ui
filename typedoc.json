@@ -1,7 +1,0 @@
-{
-  "entryPoints": [
-    "projects/ngx-smz-ui/src/**/*.ts" // Inclua todos os arquivos TypeScript do projeto
-  ],
-  "entryPointStrategy": "expand",
-  "out": "docs"
-}

@@ -4,10 +4,11 @@ import { LayoutUiSelectors } from '../../state/ui/layout/layout.selectors';
 import { SmzExportDialogService } from './smz-export-dialog.service';
 
 @Component({
-  selector: 'smz-export-dialog',
-  template: ``,
-  providers: [SmzExportDialogService],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'smz-export-dialog',
+    template: ``,
+    providers: [SmzExportDialogService],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 
 export class SmzExportDialogComponent implements OnInit {

@@ -4,8 +4,9 @@ import { SmzDocumentConfig } from '../../models/smz-document-config';
 import { SmzDocumentComponent } from '../../models/smz-document-features';
 
 @Component({
-  selector: 'smz-document-injectable',
-  templateUrl: 'injectable.component.html'
+    selector: 'smz-document-injectable',
+    templateUrl: 'injectable.component.html',
+    standalone: false
 })
 
 export class SmzDocumentInjectableComponent {

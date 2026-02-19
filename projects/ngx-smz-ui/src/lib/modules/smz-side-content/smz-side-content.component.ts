@@ -5,10 +5,11 @@ import { LayoutUiActions } from '../../state/ui/layout/layout.actions';
 import { SmzSideContent, SmzSideContentDefault } from './models/side-content';
 
 @Component({
-  selector: 'smz-side-content',
-  templateUrl: 'smz-side-content.component.html',
-  styleUrls: ['smz-side-content.component.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'smz-side-content',
+    templateUrl: 'smz-side-content.component.html',
+    styleUrls: ['smz-side-content.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 
 export class SmzSideContentComponent implements OnInit, AfterContentInit, OnChanges, OnDestroy {
@@ -28,14 +29,14 @@ export class SmzSideContentComponent implements OnInit, AfterContentInit, OnChan
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
-    if (changes.visible?.isFirstChange()) {
-      this.appendToBody = changes.visible.currentValue;
+    if (changes['visible']?.isFirstChange()) {
+      this.appendToBody = changes['visible'].currentValue;
       this.store.dispatch(new LayoutUiActions.RestoreLayoutPosition());
       return;
     }
 
-    if (changes.overlay != null) {
-      const overlay: boolean = changes.overlay.currentValue;
+    if (changes['overlay'] != null) {
+      const overlay: boolean = changes['overlay'].currentValue;
 
       if (overlay) {
         this.store.dispatch(new LayoutUiActions.RestoreLayoutPosition());
@@ -52,8 +53,8 @@ export class SmzSideContentComponent implements OnInit, AfterContentInit, OnChan
         }
       }
     }
-    else if (changes.visible != null) {
-      const visible: boolean = changes.visible.currentValue;
+    else if (changes['visible'] != null) {
+      const visible: boolean = changes['visible'].currentValue;
 
       this.appendToBody = visible;
 
@@ -72,7 +73,7 @@ export class SmzSideContentComponent implements OnInit, AfterContentInit, OnChan
         }
       }
     }
-    else if (changes.position != null) {
+    else if (changes['position'] != null) {
       if (!this.visible || this.overlay) {
         this.store.dispatch(new LayoutUiActions.RestoreLayoutPosition());
       }

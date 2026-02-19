@@ -3,8 +3,9 @@ import { SmzDocumentConfig } from '../../models/smz-document-config';
 import { SmzDocumentFieldsGroup } from '../../models/smz-document-features';
 
 @Component({
-  selector: 'smz-document-fields-group',
-  templateUrl: 'fields-group.component.html'
+    selector: 'smz-document-fields-group',
+    templateUrl: 'fields-group.component.html',
+    standalone: false
 })
 
 export class SmzDocumentFieldsGroupComponent implements OnInit {

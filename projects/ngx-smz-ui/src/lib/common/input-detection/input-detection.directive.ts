@@ -6,7 +6,8 @@ export interface InputChangeData {
 }
 
 @Directive({
-    selector: '[appInputChangeDetection]'
+    selector: '[appInputChangeDetection]',
+    standalone: false
 })
 export class InputChangeDetectionDirective
 {

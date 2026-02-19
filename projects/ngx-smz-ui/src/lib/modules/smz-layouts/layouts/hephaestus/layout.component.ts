@@ -1,9 +1,6 @@
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Input, OnInit, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { Select, Store } from '@ngxs/store';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, inject, Input, OnInit, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { Store } from '@ngxs/store';
 import { PrimeTemplate, MenuItem } from 'primeng/api';
-import { Observable } from 'rxjs';
-import { Assistance } from '../../core/models/assistance';
-import { LayoutState } from '../../core/models/layout';
 import { RouterDataListenerService } from '../../core/services/router-data-listener.service';
 import { LayoutUiActions } from '../../../../state/ui/layout/layout.actions';
 import { LayoutUiSelectors } from '../../../../state/ui/layout/layout.selectors';
@@ -17,17 +14,18 @@ import { GlobalInjector } from '../../../../common/services/global-injector';
 import { SmzMenuItem } from '../../../smz-menu/models/smz-menu-item';
 
 @Component({
-  selector: 'smz-ui-hephaestus-layout',
-  templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.Default
+    selector: 'smz-ui-hephaestus-layout',
+    templateUrl: './layout.component.html',
+    styleUrls: ['./layout.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.Default,
+    standalone: false
 })
 export class HephaestusLayoutComponent implements OnInit, AfterContentInit {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
-  @Select(UiHephaestusSelectors.state) public state$: Observable<LayoutState>;
-  @Select(LayoutUiSelectors.assistance) public assistance$: Observable<Assistance>;
-  @Select(LayoutUiSelectors.contentClass) public contentClass$: Observable<string>;
+  public state$ = inject(Store).select(UiHephaestusSelectors.state);
+  public assistance$ = inject(Store).select(LayoutUiSelectors.assistance);
+  public contentClass$ = inject(Store).select(LayoutUiSelectors.contentClass);
   @Input() public menu: SmzMenuItem[];
   @Input() public profile: MenuItem[];
   @Input() public notifications: SmzNotification[];

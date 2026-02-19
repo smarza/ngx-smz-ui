@@ -5,7 +5,8 @@ import { AuthenticationState, AuthenticationStateModel } from '../../../../state
 import { BaseUserData } from '../../models/base-user-data';
 
 export class TenantsSelectors {
-  @Selector([TenantsState, AuthenticationState])
+
+  @Selector([TenantsState])
   public static all(state: TenantsStateModel): TenantDetails[] {
     return state.items;
   }
@@ -16,13 +17,13 @@ export class TenantsSelectors {
 
   @Selector([TenantsState, AuthenticationState])
   public static userAllowedTenants(state: TenantsStateModel, auth: AuthenticationStateModel<BaseUserData>): TenantDetails[] {
-    const allowedTenants = auth.userdata.allowedTenants;
-    return state.items.filter(x => allowedTenants.find(t => t?.toLowerCase() === x.alias?.toLowerCase()));
+    const allowedTenants = auth.userdata?.allowedTenants;
+    return state.items.filter(x => allowedTenants?.find(t => t?.toLowerCase() === x.alias?.toLowerCase()));
   }
 
   @Selector([TenantsState, AuthenticationState])
   public static currentTenant(state: TenantsStateModel, auth: AuthenticationStateModel<BaseUserData>): TenantDetails {
-    const userTenant = auth.userdata.tenant;
+    const userTenant = auth.userdata?.tenant;
     return state.items.find(x => x.alias?.toLowerCase() === userTenant?.toLowerCase());
   }
 

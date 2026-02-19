@@ -1,0 +1,40 @@
+/* APP CUSTOMIZATION */
+@use './tailwind.css';
+@use 'primeicons/primeicons.css';
+@use '../../../dist/ngx-smz-ui-layout/resources/layout/layout.scss';
+@use '../../../dist/ngx-smz-ui/resources/assets/scss/styles.scss';
+@use '../../../dist/ngx-smz-ui/resources/assets/scss/fontawesome-free.scss';
+
+@use "styles/custom-colors";
+@use "styles/custom-table";
+@use "styles/custom-tabview";
+@use "styles/custom-menu";
+@use "styles/custom-panel";
+@use "styles/custom-form";
+@use "styles/custom-tooltip";
+@use "styles/custom-theme";
+
+/* Definição das colunas para cada painel */
+.custom-col-span-4 {
+  grid-column: span 4;
+}
+
+.custom-col-span-8 {
+  grid-column: span 8;
+}
+
+.custom-col-span-6 {
+  grid-column: span 6;
+}
+
+.custom-col-span-12 {
+  grid-column: span 12;
+}
+
+.custom-col-span-2 {
+  grid-column: span 2;
+}
+
+.custom-col-span-3 {
+  grid-column: span 3;
+}

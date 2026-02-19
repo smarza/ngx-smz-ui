@@ -12,17 +12,18 @@ import { Menu } from 'primeng/menu';
 import { SmzTreeDynamicMenuBuilder } from '../../../../builders/smz-trees/tree-builder';
 
 @Component({
-  selector: 'smz-ui-tree',
-  templateUrl: './tree.component.html',
-  changeDetection: ChangeDetectionStrategy.Default,
-  providers: [TreeDragDropService]
+    selector: 'smz-ui-tree',
+    templateUrl: './tree.component.html',
+    changeDetection: ChangeDetectionStrategy.Default,
+    providers: [TreeDragDropService],
+    standalone: false
 })
 export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
   public treeKey = uuidv4();
   @ViewChild(Tree) public dt: Tree;
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
   @Input() public state: SmzTreeState;
-  @Input() public items: SmzTreeNode<unknown>[] = [];
+  @Input() public items: unknown[] = [];
   public treeItems: SmzTreeNode<unknown>[] = [];
   @Input() public loading: boolean = false;
   @Input() public styleClass = '';
@@ -126,22 +127,22 @@ export class SmzTreeComponent implements OnInit, AfterContentInit, OnChanges {
 
   public ngOnChanges(changes: SimpleChanges): void {
 
-    const itemsHaveChanged = changes.items?.currentValue != null;
-    const selectionHasChanged = changes.selection?.currentValue != null;
+    const itemsHaveChanged = changes['items']?.currentValue != null;
+    const selectionHasChanged = changes['selection']?.currentValue != null;
     const hasSelection = this.selection != null;
     const hasItems = this.treeItems != null;
 
     if (this.state?.isDebug) {
       console.log('-------------------');
-      console.log('itemsHaveChanged', itemsHaveChanged, changes.items?.currentValue);
-      console.log('selectionHasChanged', selectionHasChanged, changes.selection?.currentValue);
+      console.log('itemsHaveChanged', itemsHaveChanged, changes['items']?.currentValue);
+      console.log('selectionHasChanged', selectionHasChanged, changes['selection']?.currentValue);
       console.log('hasSelection', hasSelection, this.selection);
       console.log('hasItems', hasItems, this.items);
       console.log('primeSelection', this.primeSelection);
     }
 
     if (itemsHaveChanged) {
-      this.transformItems(changes.items?.currentValue);
+      this.transformItems(changes['items']?.currentValue);
     }
 
     if ((itemsHaveChanged && hasSelection) || (selectionHasChanged && hasItems)) {

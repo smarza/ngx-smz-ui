@@ -1,28 +1,26 @@
-import { AfterContentInit, Component, ContentChildren, forwardRef, HostListener, Input, OnInit, QueryList, TemplateRef } from '@angular/core';
-import { Select, Store } from '@ngxs/store';
+import { AfterContentInit, Component, ContentChildren, forwardRef, HostListener, inject, Input, OnInit, QueryList, TemplateRef } from '@angular/core';
+import { Store } from '@ngxs/store';
 import { RouterDataListenerService } from '../../core/services/router-data-listener.service';
 import { PrimeTemplate, MenuItem } from 'primeng/api';
-import { Observable } from 'rxjs';
 import { LayoutUiSelectors } from '../../../../state/ui/layout/layout.selectors';
-import { SmzToastData } from '../../core/models/toasts';
 import { PrimeConfigService } from '../../../../common/services/prime-config.service';
 import { LayoutUiActions } from '../../../../state/ui/layout/layout.actions';
 import { GlobalInjector } from '../../../../common/services/global-injector';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { isEmpty } from '../../../rbk-utils/utils/utils';
 import { UiLocalizationDbActions } from '../../../../state/database/ui-localization/ui-localization.actions';
 
 @Component({
-  selector: 'smz-ui-outlet',
-  templateUrl: './outlet.component.html',
-  styleUrls: ['./outlet.component.scss']
+    selector: 'smz-ui-outlet',
+    templateUrl: './outlet.component.html',
+    styleUrls: ['./outlet.component.scss'],
+    standalone: false
 })
 export class OutletComponent implements OnInit, AfterContentInit {
-  @ContentChildren(forwardRef(() => PrimeTemplate)) templates: QueryList<PrimeTemplate>;
-  @Select(LayoutUiSelectors.toast) public toast$: Observable<SmzToastData>;
+  @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+  public toast$ = inject(Store).select(LayoutUiSelectors.toast);
   @Input() public menu: MenuItem[];
-  public layoutTemplate: TemplateRef<any>;
-  public contentTemplate: TemplateRef<any>;
+  public layoutTemplate: TemplateRef<any> | undefined;
+  public contentTemplate: TemplateRef<any> | undefined;
 
   @HostListener('mouseleave')
   public onMouseLeave(): void {
@@ -39,7 +37,7 @@ export class OutletComponent implements OnInit, AfterContentInit {
   }
 
   constructor(
-    public readonly routerListener: RouterDataListenerService,
+    public readonly routerListener: RouterDataListenerService = inject(RouterDataListenerService),
     private store: Store,
     private primeConfig: PrimeConfigService,
     private breakpointObserver: BreakpointObserver) {

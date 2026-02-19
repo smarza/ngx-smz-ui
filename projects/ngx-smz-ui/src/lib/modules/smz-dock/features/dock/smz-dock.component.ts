@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { SmzDockItem, SmzDockService } from '../../services/smz-dock.service';
 
 @Component({
-  selector: 'smz-ui-dock',
-  templateUrl: './smz-dock.component.html'
+    selector: 'smz-ui-dock',
+    templateUrl: './smz-dock.component.html',
+    standalone: false
 })
 
 export class SmzDockComponent implements OnInit {

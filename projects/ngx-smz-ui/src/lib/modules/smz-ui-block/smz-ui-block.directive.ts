@@ -1,13 +1,14 @@
 import { Directive, ElementRef, OnInit, Input, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { SmzUiBlockService } from './smz-ui-block.service';
-import { UUID } from 'angular2-uuid';
+import { generateGUID } from '../../common/utils/guid-generator';
 
 @Directive({
-  selector: '[smzUiBlock]',
-  host: {}
+    selector: '[smzUiBlock]',
+    host: {},
+    standalone: false
 })
 export class SmzUiBlockDirective implements OnInit, OnDestroy {
-  public key: string = UUID.UUID();
+  public key: string = generateGUID();
   @Input() public component: any;
 
   constructor(public el: ElementRef, private service: SmzUiBlockService, private cdr: ChangeDetectorRef) {

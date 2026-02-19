@@ -3,8 +3,8 @@
   class="grid grid-nogutter items-stretch justify-start h-full w-full relative"
   [ngClass]="data.container.styles">
 
-  <ng-container *ngFor="let field of data.fields">
+  @for (field of data.fields; track field) {
     <smz-document-field [ngClass]="field.flexWidth" [data]="field" [config]="config"></smz-document-field>
-  </ng-container>
+  }
 
 </div>

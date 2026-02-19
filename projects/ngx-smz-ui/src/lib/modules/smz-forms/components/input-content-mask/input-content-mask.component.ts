@@ -7,6 +7,7 @@ import { SmzContentMaskControl } from '../../models/control-types';
     templateUrl: './input-content-mask.component.html',
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class InputContentMaskComponent
 {

@@ -1,16 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AbstractControl } from '@angular/forms';
 import { SmzDialogsVisibilityService } from '../../../smz-dialogs/services/smz-dialogs-visibility.service';
 import { SmzFormsBehaviorsConfig } from '../../models/behaviors';
 import { SmzDropDownControl } from '../../models/control-types';
 import { SmzFormsDropdownService } from '../../services/smz-forms-dropdown.service';
 import { SmzFormsVisibilityService } from '../../services/smz-forms-visibility.service';
-import { DropdownChangeEvent } from 'primeng/dropdown';
-import { CONTROL_FUNCTIONS } from '../../models/control-type-functions';
+import { SelectChangeEvent } from 'primeng/select';
 
 @Component({
     selector: 'smz-dropdown',
     templateUrl: './dropdown.component.html',
+    standalone: false
 })
 export class DropdownComponent implements OnInit
 {
@@ -38,7 +37,7 @@ export class DropdownComponent implements OnInit
         }
     }
 
-    public emitChange(input: SmzDropDownControl<any>, formId: string, event: DropdownChangeEvent): void
+    public emitChange(input: SmzDropDownControl<any>, formId: string, event: SelectChangeEvent): void
     {
         this.dropdownService.setValue(input, formId, event);
         this.dialogVisibility.setValue(input, formId, event);

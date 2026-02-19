@@ -1,27 +1,23 @@
-import { AfterContentInit, Component, ContentChildren, OnInit, QueryList, TemplateRef } from '@angular/core';
-import { Select, Store } from '@ngxs/store';
-import { UntilDestroy } from '@ngneat/until-destroy';
+import { AfterContentInit, Component, ContentChildren, inject, OnInit, QueryList, TemplateRef } from '@angular/core';
+import { Store } from '@ngxs/store';
 import { PrimeTemplate } from 'primeng/api';
-import { Observable } from 'rxjs';
 import { LayoutUiSelectors } from '../../../../../../state/ui/layout/layout.selectors';
-import { LayoutState } from '../../../../core/models/layout';
-import { SmzAppLogo } from '../../../../core/models/logo';
 import { UiAthenaSelectors } from '../../state/ui-layout.selectors';
 import { UiAthenaActions } from '../../state/ui-layout.actions';
 import { GlobalInjector } from '../../../../../../common/services/global-injector';
 
-@UntilDestroy()
 @Component({
-  selector: 'smz-ui-new-athena-footer',
-  templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.scss'],
-  host: { 'class': 'z-10' }
+    selector: 'smz-ui-new-athena-footer',
+    templateUrl: './footer.component.html',
+    styleUrls: ['./footer.component.scss'],
+    host: { 'class': 'z-10' },
+    standalone: false
 })
 export class NewAthenaFooterComponent implements OnInit, AfterContentInit
 {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
-  @Select(UiAthenaSelectors.state) public state$: Observable<LayoutState>;
-  @Select(LayoutUiSelectors.appContentLogo) public appLogo$: Observable<SmzAppLogo>;
+  public state$ = inject(Store).select(UiAthenaSelectors.state);
+  public appLogo$ = inject(Store).select(LayoutUiSelectors.appContentLogo);
   public footerExtrasTemplate: TemplateRef<any>;
   public uiConfig = GlobalInjector.config;
   constructor(private store: Store) { }

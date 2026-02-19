@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { AbstractControl } from '@angular/forms';
 import { SmzFormsBehaviorsConfig } from '../../models/behaviors';
 import { SmzMultiSelectControl } from '../../models/control-types';
 import { SmzFormsDropdownService } from '../../services/smz-forms-dropdown.service';
@@ -10,6 +9,7 @@ import { MultiSelectChangeEvent } from 'primeng/multiselect';
 @Component({
     selector: 'smz-multi-select',
     templateUrl: './multi-select.component.html',
+    standalone: false
 })
 export class MultiSelectComponent
 {

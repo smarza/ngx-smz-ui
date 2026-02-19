@@ -14,7 +14,7 @@ export class RbkFeatureStateGuard implements CanActivate {
     public canActivate(snapshot: ActivatedRouteSnapshot): Observable<boolean> {
         if (GlobalInjector.config.debugMode) console.groupCollapsed(`RbkFeatureStateGuard on route /${snapshot.routeConfig.path}`);
 
-        const states = snapshot.routeConfig.data.requiredFeatureStates as string[];
+        const states = snapshot.routeConfig.data['requiredFeatureStates'] as string[];
 
         if (states == null ||
             states?.length === 0) {

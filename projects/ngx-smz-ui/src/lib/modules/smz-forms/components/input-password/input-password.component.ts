@@ -6,6 +6,7 @@ import { SmzPasswordControl } from '../../models/control-types';
 @Component({
     selector: 'smz-input-password',
     templateUrl: './input-password.component.html',
+    standalone: false
 })
 export class InputPasswordComponent
 {

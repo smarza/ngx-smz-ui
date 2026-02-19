@@ -2,7 +2,6 @@
 import { SmzDocumentCell, SmzDocumentRow, SmzDocumentContent } from '../../modules/smz-documents/models/smz-document';
 import { SmzDocumentTitle, SmzDocumentFeatureDefinitions, SmzDocumentDivider, SmzDocumentField, SmzDocumentImage, SmzDocumentSpacer, SmzDocumentSubTitle, SmzDocumentFieldsGroup, SmzDocumentTable, SmzDocumentChart, SmzDocumentPageBreak, SmzDocumentComponent, SmzDocumentHiddenBreak } from '../../modules/smz-documents/models/smz-document-features';
 import { SmzDocumentBuilder } from './document-builder';
-import { UUID } from 'angular2-uuid';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzChart } from '../../modules/smz-charts/models/chart';
 import { cloneDeep } from 'lodash-es';
@@ -19,9 +18,10 @@ import { SmzCellSubTitleBuilder } from './content-cells/sub-title';
 import { SmzCellComponentBuilder } from './content-cells/component';
 import { SmzInjectableComponent } from '../../common/modules/inject-content/models/injectable.model';
 import { SmzCellHiddenBreakBuilder } from './content-cells/hidden-break';
+import { generateGUID } from '../../common/utils/guid-generator';
 
 export class SmzDocumentContentBuilder extends SmzBuilderUtilities<SmzDocumentContentBuilder> {
-  protected that = this;
+  protected override that = this;
   constructor(private _documentBuilder: SmzDocumentBuilder, private _content: SmzDocumentContent) {
     super();
     const defaultConfig = cloneDeep(this._documentBuilder._state.config);
@@ -46,7 +46,7 @@ export class SmzDocumentContentBuilder extends SmzBuilderUtilities<SmzDocumentCo
   }
 
   public row(): SmzDocumentRowBuilder {
-    const row: SmzDocumentRow = { id: UUID.UUID(), cells: [] };
+    const row: SmzDocumentRow = { id: generateGUID(), cells: [] };
     this._content.rows.push(row)
     return new SmzDocumentRowBuilder(this, row, this._documentBuilder, this._content);
   }
@@ -70,7 +70,7 @@ export class SmzDocumentContentBuilder extends SmzBuilderUtilities<SmzDocumentCo
   }
 }
 export class SmzDocumentRowBuilder extends SmzBuilderUtilities<SmzDocumentRowBuilder>{
-  protected that = this;
+  protected override that = this;
   constructor(private _contentBuilder: SmzDocumentContentBuilder, private _row: SmzDocumentRow, private _documentBuilder: SmzDocumentBuilder, private _content: SmzDocumentContent) {
     super();
   }

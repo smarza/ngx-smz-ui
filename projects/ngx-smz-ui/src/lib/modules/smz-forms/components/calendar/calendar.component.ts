@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AbstractControl } from '@angular/forms';
 import { SmzFormsBehaviorsConfig } from '../../models/behaviors';
 import { SmzCalendarControl } from '../../models/control-types';
 
 @Component({
     selector: 'smz-calendar',
     templateUrl: './calendar.component.html',
+    standalone: false
 })
 export class CalendarComponent implements OnInit
 {

@@ -1,10 +1,9 @@
 import { createSelector, Selector } from '@ngxs/store';
 import { ClaimsState, ClaimsStateModel } from './claims.state';
 import { ClaimDetails } from '../../models/claim-details';
-import { AuthenticationState, AuthenticationStateModel } from '../../../../state/global/authentication/authentication.state';
 
 export class ClaimsSelectors {
-  @Selector([ClaimsState, AuthenticationState])
+  @Selector([ClaimsState])
   public static all(state: ClaimsStateModel): ClaimDetails[] {
     return state.items;
   }

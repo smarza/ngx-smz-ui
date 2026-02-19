@@ -3,7 +3,7 @@ import { ParentEntity } from '../../common/models/simple-named-entity';
 import { SmzTreeNode } from '../../modules/smz-trees/models/tree-node';
 
 export class SmzTreeNodeUtilityBuilder<TBuilder> extends SmzBuilderUtilities<SmzTreeNodeUtilityBuilder<TBuilder>> {
-  protected that = this;
+  protected override that = this;
   private isParent = false;
 
   constructor(private _builder: TBuilder, private _parentData: ParentEntity<string, SmzTreeNode<any>>[], private _treeNodes: SmzTreeNode<any>[]) {

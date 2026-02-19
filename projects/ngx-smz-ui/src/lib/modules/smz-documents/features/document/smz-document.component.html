@@ -12,14 +12,16 @@
 
   <!-- BODY -->
   <content>
-    <ng-container *ngFor="let content of state.contents">
-
-      <ng-container [ngSwitch]="content.type">
-        <smz-document-content *ngSwitchCase="'content'" [data]="content" [config]="state.config" [isDebug]="state.isDebug" [state]="state"></smz-document-content>
-        <smz-document-page-break *ngSwitchCase="'page-break'"></smz-document-page-break>
-      </ng-container>
-
-    </ng-container>
+    @for (content of state.contents; track content) {
+      @switch (content.type) {
+        @case ('content') {
+          <smz-document-content [data]="content" [config]="state.config" [isDebug]="state.isDebug" [state]="state"></smz-document-content>
+        }
+        @case ('page-break') {
+          <smz-document-page-break></smz-document-page-break>
+        }
+      }
+    }
   </content>
 
 </document-viewer>

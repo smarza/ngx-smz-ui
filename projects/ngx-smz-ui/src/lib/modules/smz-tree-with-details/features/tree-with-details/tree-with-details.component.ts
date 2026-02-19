@@ -5,11 +5,12 @@ import { SmzTreeNode } from '../../../smz-trees/models/tree-node';
 import { SmzTreeWithDetailsState } from '../../models/tree-with-details-state';
 
 @Component({
-  selector: 'smz-ui-tree-with-details',
-  templateUrl: './tree-with-details.component.html',
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { class: 'absolute inset-0' },
+    selector: 'smz-ui-tree-with-details',
+    templateUrl: './tree-with-details.component.html',
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    host: { class: 'absolute inset-0' },
+    standalone: false
 })
 export class SmzTreeWithDetailsComponent implements OnInit, AfterContentInit, OnChanges {
   @ViewChild(SmzTreeComponent) public treeComponent: SmzTreeComponent;

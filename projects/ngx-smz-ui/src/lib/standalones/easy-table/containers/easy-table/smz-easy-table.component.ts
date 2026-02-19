@@ -6,9 +6,10 @@ import { TableContentService } from '../../services/table-content.service';
 import { TableDataSourceService } from '../../services/table-data-source.service';
 
 @Component({
-  selector: 'smz-easy-table',
-  templateUrl: 'smz-easy-table.component.html',
-  providers: [TableDataSourceService, TableContentService]
+    selector: 'smz-easy-table',
+    templateUrl: 'smz-easy-table.component.html',
+    providers: [TableDataSourceService, TableContentService],
+    standalone: false
 })
 
 export class SmzEasyTableComponent implements OnInit, AfterContentInit, OnDestroy {

@@ -3,7 +3,7 @@ import { SmzTableBuilder } from './state-builder';
 
 export class SmzTableExcelBuilder<TData> extends SmzBuilderUtilities<SmzTableExcelBuilder<TData>> {
 
-  protected that = this;
+  protected override that = this;
   constructor(private _builder: SmzTableBuilder<TData>) {
     super();
 

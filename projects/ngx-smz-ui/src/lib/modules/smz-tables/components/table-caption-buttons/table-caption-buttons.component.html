@@ -1,3 +1,5 @@
-<ng-container *ngFor="let action of buttons">
-  <button *ngIf="action.visibilityCondition()" pButton type="button" [ngClass]="action.styleClass" [icon]="action.icon" [label]="action.label" (click)="action.callback()" [disabled]="!(action.activationCondition() && action.claimsWithAccess | rbkCanAccess)" [pTooltip]="action.tooltip != null ? action.tooltip() : null"></button>
-</ng-container>
+@for (action of buttons; track action) {
+  @if (action.visibilityCondition()) {
+    <button pButton type="button" [ngClass]="action.styleClass" [icon]="action.icon" [label]="action.label" (click)="action.callback()" [disabled]="!(action.activationCondition() && action.claimsWithAccess | rbkCanAccess)" [pTooltip]="action.tooltip != null ? action.tooltip() : null"></button>
+  }
+}

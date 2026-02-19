@@ -2,9 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { SmzTableContextColumn } from '../../models/table-column';
 
 @Component({
-  selector: 'smz-table-content',
-  templateUrl: 'table-content.component.html',
-  // host: { class: 'grid grid-nogutter items-center justify-start gap-2' }
+    selector: 'smz-table-content',
+    templateUrl: 'table-content.component.html',
+    standalone: false
 })
 
 export class SmzTableContentComponent implements OnInit {

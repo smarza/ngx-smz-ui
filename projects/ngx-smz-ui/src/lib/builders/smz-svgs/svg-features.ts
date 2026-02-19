@@ -1,13 +1,13 @@
 import { Container, Element } from '@svgdotjs/svg.js';
-import { SmzSvgFeature, SmzSvgPin, SmzSvgRoot, SmzSvgAnchorTypes, SmzSvgBaseFeature } from '../../modules/smz-svg/models/smz-svg';
+import { SmzSvgPin, SmzSvgRoot, SmzSvgAnchorTypes, SmzSvgBaseFeature } from '../../modules/smz-svg/models/smz-svg';
 import { SmzSvgBaseFeatureBuilder } from './svg-base-feature';
 import { SmzSvgBuilder } from './svg-builder';
 import { SmzSvgFeatureBuilder } from './svg-feature';
 
 
 export class SmzSvgRootBuilder extends SmzSvgBaseFeatureBuilder<SmzSvgRootBuilder> {
-  protected that = this;
-  constructor(public _featureBuilder: SmzSvgFeatureBuilder, public _feature: SmzSvgRoot, public _svgBuilder: SmzSvgBuilder) {
+  protected override that = this;
+  constructor(public override _featureBuilder: SmzSvgFeatureBuilder, public override _feature: SmzSvgRoot, public override _svgBuilder: SmzSvgBuilder) {
     super(_featureBuilder, _feature, _svgBuilder);
   }
 
@@ -16,15 +16,15 @@ export class SmzSvgRootBuilder extends SmzSvgBaseFeatureBuilder<SmzSvgRootBuilde
     return this.that;
   }
 
-  public get feature(): SmzSvgFeatureBuilder {
+  public override get feature(): SmzSvgFeatureBuilder {
     return this._featureBuilder;
   }
 
 }
 
 export class SmzSvgPinBuilder extends SmzSvgBaseFeatureBuilder<SmzSvgPinBuilder> {
-  protected that = this;
-  constructor(public _featureBuilder: SmzSvgFeatureBuilder, public _feature: SmzSvgPin, public _svgBuilder: SmzSvgBuilder) {
+  protected override that = this;
+  constructor(public override _featureBuilder: SmzSvgFeatureBuilder, public override _feature: SmzSvgPin, public override _svgBuilder: SmzSvgBuilder) {
     super(_featureBuilder, _feature, _svgBuilder);
   }
 
@@ -65,7 +65,7 @@ export class SmzSvgPinBuilder extends SmzSvgBaseFeatureBuilder<SmzSvgPinBuilder>
     return this.that;
   }
 
-  public setColor(color: string): SmzSvgPinBuilder {
+  public override setColor(color: string): SmzSvgPinBuilder {
     this._feature.color = color;
     return this.that;
   }

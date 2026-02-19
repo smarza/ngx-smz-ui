@@ -7,17 +7,18 @@ import { SmzForm } from '../../models/smz-forms';
 import { FormGroupComponent } from '../../features/form-group/form-group.component';
 
 @Component({
-  selector: 'smz-input-list-dialog-crud',
-  template: `
-    <ng-container *ngIf="form != null">
+    selector: 'smz-input-list-dialog-crud',
+    template: `
+    @if (form != null) {
       <div class="grid grid-nogutter items-start justify-start">
         <smz-form-group class="col" #formComponent [config]="form" clickStopPropagation></smz-form-group>
         <div class="w-full grid grid-nogutter items-start justify-end">
           <button pButton (click)="confirm()" type="button" [disabled]="!formComponent.isValid" icon="pi pi-check" label="Confirmar" styleClass="mr-2"></button>
         </div>
       </div>
-    </ng-container>
-  `,
+    }
+    `,
+    standalone: false
 })
 
 export class InputListBatchCrudComponent implements OnInit {

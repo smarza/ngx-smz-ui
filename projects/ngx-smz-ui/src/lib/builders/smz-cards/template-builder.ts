@@ -9,7 +9,7 @@ import { SmzCardsRawBuilder } from './types/raw-builder';
 
 
 export class SmzCardViewBuilder<TData> extends SmzBuilderUtilities<SmzCardViewBuilder<TData>> {
-  protected that = this;
+  protected override that = this;
   constructor(private _cardsBuilder: SmzCardsBuilder<TData>, private _viewData: SmzCardView, private _layout: 'grid' | 'list') {
     super();
 
@@ -46,7 +46,7 @@ export class SmzCardViewBuilder<TData> extends SmzBuilderUtilities<SmzCardViewBu
 }
 
 export class SmzCardsTemplateBuilder<TData, TBuilder> extends SmzBuilderUtilities<SmzCardsTemplateBuilder<TData, TBuilder>> {
-  protected that = this;
+  protected override that = this;
   private hasTemplate = false;
   constructor(private _builder: TBuilder, private _template: SmzCardsTemplates<TData>) {
     super();

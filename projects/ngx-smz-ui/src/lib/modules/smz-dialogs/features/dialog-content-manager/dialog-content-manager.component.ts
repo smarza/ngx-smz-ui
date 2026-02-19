@@ -8,6 +8,7 @@ import { SmzDialogsVisibilityService } from '../../services/smz-dialogs-visibili
     templateUrl: './dialog-content-manager.component.html',
     styleUrls: ['./dialog-content-manager.component.scss'],
     encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class DialogContentManagerComponent implements OnInit
 {

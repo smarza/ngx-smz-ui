@@ -5,7 +5,8 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 @Pipe({
-    name: 'isVisible'
+    name: 'isVisible',
+    standalone: false
 })
 
 @Injectable()

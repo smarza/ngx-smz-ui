@@ -1,31 +1,28 @@
-import { AfterContentInit, Component, ContentChildren, Input, QueryList, TemplateRef } from '@angular/core';
-import { Select } from '@ngxs/store';
-import { UntilDestroy } from '@ngneat/until-destroy';
+import { AfterContentInit, Component, ContentChildren, inject, Input, QueryList, TemplateRef } from '@angular/core';
+import { Store } from '@ngxs/store';
 import { MenuItem, PrimeTemplate } from 'primeng/api';
-import { Observable } from 'rxjs';
 import { LayoutUiSelectors } from '../../../../../../state/ui/layout/layout.selectors';
 import { RouterState } from '@ngxs/router-plugin';
-import { SmzAppLogo } from '../../../../core/models/logo';
 import { UiHephaestusSelectors } from '../../state/ui-layout.selectors';
-import { HephaestusLayout } from '../../layout.config';
 import { MenuType } from '../../../../core/models/menu-types';
 import { GlobalInjector } from '../../../../../../common/services/global-injector';
 import { SmzMenuItem } from '../../../../../smz-menu/models/smz-menu-item';
+import { Observable } from 'rxjs';
 
-@UntilDestroy()
 @Component({
-  selector: 'smz-ui-hephaestus-sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss'],
-  host: { 'class': 'z-30' }
+    selector: 'smz-ui-hephaestus-sidebar',
+    templateUrl: './sidebar.component.html',
+    styleUrls: ['./sidebar.component.scss'],
+    host: { 'class': 'z-30' },
+    standalone: false
 })
 export class HephaestusSidebarComponent implements AfterContentInit
 {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
-  @Select(UiHephaestusSelectors.layout) public layout$: Observable<HephaestusLayout>;
-  @Select(LayoutUiSelectors.appName) public appName$: Observable<string>;
-  @Select(RouterState.state) public currentRoute$: Observable<any>;
-  @Select(LayoutUiSelectors.appDarkLogo) public appLayoutLogo$: Observable<SmzAppLogo>;
+  public layout$ = inject(Store).select(UiHephaestusSelectors.layout);
+  public appName$ = inject(Store).select(LayoutUiSelectors.appName);
+  public currentRoute$: Observable<any> = inject(Store).select(RouterState.state);
+  public appLayoutLogo$ = inject(Store).select(LayoutUiSelectors.appDarkLogo);
   public headerExtrasTemplate: TemplateRef<any>;
   @Input() public menu: SmzMenuItem[];
   public isAnyMenuExpanded = false;

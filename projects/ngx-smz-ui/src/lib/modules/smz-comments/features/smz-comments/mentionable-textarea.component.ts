@@ -1,24 +1,27 @@
 import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
-import { InputTextareaModule } from 'primeng/inputtextarea';
+import { TextareaModule } from 'primeng/textarea';
 import { ListboxModule } from 'primeng/listbox';
 
 @Component({
-  standalone: true,
-  imports: [CommonModule, FormsModule, InputTextareaModule, ListboxModule],
-  selector: 'mentionable-textarea',
-  template: `
+    imports: [FormsModule, TextareaModule, ListboxModule],
+    selector: 'mentionable-textarea',
+    template: `
     <div class="w-full">
       <textarea pInputTextarea [(ngModel)]="commentText" (keyup)="onTextChange($event)" rows="5"></textarea>
-      <ul *ngIf="filteredUsers.length > 0" class="mention-suggestions">
-        <li *ngFor="let user of filteredUsers" (click)="selectUser(user)">{{ user }}</li>
-      </ul>
+      @if (filteredUsers.length > 0) {
+        <ul class="mention-suggestions">
+          @for (user of filteredUsers; track user) {
+            <li (click)="selectUser(user)">{{ user }}</li>
+          }
+        </ul>
+      }
     </div>
-  `,
-  styles: [],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+    `,
+    styles: [],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None
 })
 export class MentionableTextareaComponent {
   @Input() public users: string[] = [];

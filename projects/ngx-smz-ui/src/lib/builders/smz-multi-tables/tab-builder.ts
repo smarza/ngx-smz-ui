@@ -7,7 +7,7 @@ import { SmzTableState } from '../../modules/smz-tables/models/table-state';
 
 export class SmzMultiTablesTabBuilder extends SmzBuilderUtilities<SmzMultiTablesTabBuilder> {
 
-  protected that = this;
+  protected override that = this;
   constructor(private _builder: SmzMultiTablesBuilder, private _tab: SmzMultiTablesTab, private label: string) {
     super();
 
@@ -20,11 +20,13 @@ export class SmzMultiTablesTabBuilder extends SmzBuilderUtilities<SmzMultiTables
   }
 
   public allowClose(): SmzMultiTablesTabBuilder {
+    throw new Error('Closeable tabs are not supported in PrimeNG v19');
     this._tab.closable = true;
     return this.that;
   }
 
   public setAsSelected(): SmzMultiTablesTabBuilder {
+    throw new Error('Selected tab is not supported in PrimeNG v19');
     this._tab.selected = true;
     return this.that;
   }

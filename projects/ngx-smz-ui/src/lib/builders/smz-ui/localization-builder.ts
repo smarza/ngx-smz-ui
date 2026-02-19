@@ -1,10 +1,9 @@
-import { environment } from '@environments/environment';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzUiBuilder } from './ui-builder';
 import { SmzUiLocale } from '../../state/database/ui-localization/ui-localization.state';
 
 export class SmzUiLocalizationBuilder extends SmzBuilderUtilities<SmzUiLocalizationBuilder> {
-  protected that = this;
+  protected override that = this;
   constructor(private _builder: SmzUiBuilder) {
     super();
 

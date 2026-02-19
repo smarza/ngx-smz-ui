@@ -1,40 +1,41 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, inject, ViewEncapsulation } from '@angular/core';
 import { SmzDynamicDialogConfig } from '../../models/smz-dialogs';
 import { DynamicDialogRef } from '../../dynamicdialog/dynamicdialog-ref';
-import { UntilDestroy } from '@ngneat/until-destroy';
 import { SmzUiGuidesService } from '../../../../standalones/smz-ui-guides/services/smz-ui-guides.service';
 
-@UntilDestroy()
 @Component({
     selector: 'smz-guide-footer',
     templateUrl: './guide-footer.component.html',
     styleUrls: ['./guide-footer.component.scss'],
     encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
-export class GuideFooterComponent implements OnInit {
-
-    constructor(public refService: DynamicDialogRef, public dialogConfig: SmzDynamicDialogConfig, public guidesServices: SmzUiGuidesService) { }
-
-    public ngOnInit(): void {
-    }
+export class GuideFooterComponent {
+    private readonly refService = inject(DynamicDialogRef);
+    public readonly dialogConfig = inject(SmzDynamicDialogConfig);
+    private readonly guidesServices = inject(SmzUiGuidesService);
 
     public previous(): void {
-        const overlay = this.dialogConfig.data.overlayPanel;
+        const overlay = this.dialogConfig.data?.overlayPanel;
 
-        overlay.state.context.step--;
-        this.closeCurrentDialog();
-        this.guidesServices.showCurrentStep(overlay.state);
+        if (overlay) {
+            overlay.state.context.step--;
+            this.closeCurrentDialog();
+            this.guidesServices.showCurrentStep(overlay.state);
+        }
     }
 
     public next(): void {
-        const overlay = this.dialogConfig.data.overlayPanel;
+        const overlay = this.dialogConfig.data?.overlayPanel;
 
-        const step = overlay.state.steps[overlay.state.context.step];
-        overlay.callbacks.concluded(step);
+        if (overlay) {
+            const step = overlay.state.steps[overlay.state.context.step];
+            overlay.callbacks.concluded(step);
 
-        overlay.state.context.step++;
-        this.closeCurrentDialog();
-        this.guidesServices.showCurrentStep(overlay.state);
+            overlay.state.context.step++;
+            this.closeCurrentDialog();
+            this.guidesServices.showCurrentStep(overlay.state);
+        }
     }
 
     public conclude(): void {

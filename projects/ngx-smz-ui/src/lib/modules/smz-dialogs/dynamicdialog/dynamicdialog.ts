@@ -1,4 +1,4 @@
-import { Component, NgModule, Type, ViewChild, OnDestroy, ComponentRef, AfterViewInit, ChangeDetectorRef, Renderer2, NgZone, ElementRef, ChangeDetectionStrategy, ViewRef, HostListener, HostBinding, OnInit, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
+import { Component, NgModule, Type, ViewChild, OnDestroy, ComponentRef, AfterViewInit, ChangeDetectorRef, Renderer2, NgZone, ElementRef, ChangeDetectionStrategy, ViewRef, HostListener, HostBinding, OnInit, Output, EventEmitter, ViewEncapsulation, inject } from '@angular/core';
 import { trigger, style, transition, animate, AnimationEvent, animation, useAnimation } from '@angular/animations';
 import { DynamicDialogContent, DynamicDialogFooter } from './dynamicdialogcontent';
 import { DynamicDialogConfig } from './dynamicdialog-config';
@@ -7,13 +7,13 @@ import { DomHandler } from 'primeng/dom';
 import { ZIndexUtils } from 'primeng/utils';
 import { DynamicDialogRef } from './dynamicdialog-ref';
 import { SmzDynamicDialogConfig } from '../models/smz-dialogs';
-import { PrimeNGConfig } from 'primeng/api';
 import { SmzDockService } from '../../smz-dock/services/smz-dock.service';
 import { TooltipModule } from 'primeng/tooltip';
 import { DialogOverlayPanel } from './dialog-overlay-panel';
 import { SafeContentPipeModule } from '../../../common/pipes/safe-html.pipe';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { GlobalInjector } from '../../../common/services/global-injector';
+import { PrimeNG } from 'primeng/config';
 
 const showAnimation = animation([
     style({ transform: '{{transform}}', opacity: 0 }),
@@ -28,45 +28,67 @@ const hideAnimation = animation([
     selector: 'smz-dynamicDialog',
     template: `
 
-        <div #overlayBlendClip id="blend-clip" *ngIf="dialogConfig.data.behaviors.showAsLinkedOverlayPanel" class="fixed inset-0" [ngClass]="dialogConfig.data.overlayPanel?.overlayBlendStylesClass"></div>
-        <div #overlayPanelClip id="overlay-clip" *ngIf="dialogConfig.data.behaviors.showAsLinkedOverlayPanel" class="fixed inset-0 p-component-overlay p-component-overlay-enter" [ngClass]="dialogConfig.data.overlayPanel?.overlayPanelStylesClass"></div>
-        <div #highlightPanel id="highlight-clip" *ngIf="dialogConfig.data.behaviors.showAsLinkedOverlayPanel" class="fixed inset-0" [ngClass]="dialogConfig.data.overlayPanel?.hightlightStyleClass"></div>
-        <div #mask id="dialog-mask" [ngClass]="{'p-dialog-mask-free': dialogConfig.data.behaviors.showAsLinkedOverlayPanel, 'p-component-overlay p-component-overlay-enter' : config.modal !== false && !dialogConfig.data.behaviors.showAsLinkedOverlayPanel, 'p-dialog-mask-scrollblocker': config.modal !== false, 'smz-dialog-minimized': minimized }" class="smz_form_grid_container p-dialog-mask">
-            <div #dialogContainer id="dialog-container" pAutoFocus [autofocus]="config.autoFocus" [ngClass]="{'p-dialog p-dynamic-dialog p-component': true, 'p-dialog-rtl': config.rtl, 'p-dialog-maximized': maximized}" [ngStyle]="config.style" [class]="config.styleClass"
-                [@animation]="{value: 'visible', params: {transform: transformOptions, transition: config.transitionOptions || '150ms cubic-bezier(0, 0, 0.2, 1)'}}"
-                (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" role="dialog" *ngIf="visible"
-                [style.width]="config.width" [style.height]="config.height">
-                <div class="p-dialog-header" [ngStyle]="config.headerStyle" *ngIf="config.showHeader === false ? false: true">
-                    <div class="p-dialog-title w-full" [innerHTML]="config.header | safeHtml"></div>
-                    <div class="p-dialog-header-icons" [ngClass]="{ 'disable-a': dialogConfig.data._context.isGlobalDisabled }">
-                        <ng-container *ngFor="let topbarButton of dialogConfig.data.topbarButtons">
-                            <button [ngClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'" type="button" (click)="topbarButton.onClick()" *ngIf="topbarButton.visible" [pTooltip]="topbarButton.tooltip">
-                                <span [ngClass]="topbarButton.class"></span>
-                            </button>
-                        </ng-container>
-                        <button [ngClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'" type="button" (click)="minimize()" (keydown.enter)="minimize()" *ngIf="config.minimizable !== false">
-                            <span class="p-dialog-header-close-icon pi pi-minus"></span>
-                        </button>
-                        <button [ngClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'" type="button" (click)="maximize()" (keydown.enter)="maximize()" *ngIf="config.maximizable !== false && !maximized">
-                            <span class="p-dialog-header-close-icon" [ngClass]="maximizeIcon"></span>
-                        </button>
-                        <button [ngClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'" type="button" (click)="maximize()" (keydown.enter)="maximize()" *ngIf="maximized && !config.blockRestoreButton">
-                            <span class="p-dialog-header-close-icon" [ngClass]="minimizeIcon"></span>
-                        </button>
-                        <button [ngClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'" type="button" (click)="hide()" (keydown.enter)="hide()" *ngIf="config.closable !== false">
-                            <span class="p-dialog-header-close-icon pi pi-times"></span>
-                        </button>
-                    </div>
-                </div>
-                <div class="p-dialog-content {{ dialogConfig?.data?.containerStyleClass }}" [ngStyle]="config.contentStyle" [ngClass]="{ 'disable-ui-dialog-content': dialogConfig.data._context.isGlobalDisabled }">
-                    <ng-template pDynamicDialogContent></ng-template>
-                </div>
-                <div class="p-dialog-footer" *ngIf="config.footer" [ngStyle]="config.footerStyle" [ngClass]="{ 'disable-container': dialogConfig.data._context.isGlobalDisabled }">
-                    <ng-template pDynamicDialogFooter></ng-template>
-                </div>
-            </div>
+@if (dialogConfig.data.behaviors.showAsLinkedOverlayPanel) {
+  <div #overlayBlendClip id="blend-clip" class="fixed inset-0" [ngClass]="dialogConfig.data.overlayPanel?.overlayBlendStylesClass"></div>
+}
+@if (dialogConfig.data.behaviors.showAsLinkedOverlayPanel) {
+  <div #overlayPanelClip id="overlay-clip" class="fixed inset-0 p-component-overlay p-component-overlay-enter" [ngClass]="dialogConfig.data.overlayPanel?.overlayPanelStylesClass"></div>
+}
+@if (dialogConfig.data.behaviors.showAsLinkedOverlayPanel) {
+  <div #highlightPanel id="highlight-clip" class="fixed inset-0" [ngClass]="dialogConfig.data.overlayPanel?.hightlightStyleClass"></div>
+}
+<div #mask id="dialog-mask" [ngClass]="{'p-dialog-mask-free': dialogConfig.data.behaviors.showAsLinkedOverlayPanel, 'p-component-overlay p-component-overlay-enter' : config.modal !== false && !dialogConfig.data.behaviors.showAsLinkedOverlayPanel, 'p-dialog-mask-scrollblocker': config.modal !== false, 'smz-dialog-minimized': minimized }" class="smz_form_grid_container p-dialog-mask">
+  @if (visible) {
+    <div #dialogContainer id="dialog-container" [pAutoFocus]="config.autoFocus" [ngClass]="{'p-dialog p-dynamic-dialog p-component': true, 'p-dialog-rtl': config.rtl, 'p-dialog-maximized': maximized}" [ngStyle]="config.style" class="{{ config.styleClass }} {{ dialogConfig?.data?.containerStyleClass }}"
+      [@animation]="{value: 'visible', params: {transform: transformOptions, transition: config.transitionOptions || '150ms cubic-bezier(0, 0, 0.2, 1)'}}"
+      (@animation.start)="onAnimationStart($event)" (@animation.done)="onAnimationEnd($event)" role="dialog"
+      [style.width]="config.width" [style.height]="config.height">
+      @if (config.showHeader === false ? false: true) {
+        <div class="p-dialog-header" [ngStyle]="config.headerStyle">
+          <div class="p-dialog-title w-full" [innerHTML]="config.header | safeHtml"></div>
+          <div class="p-dialog-header-icons" [ngClass]="{ 'disable-a': dialogConfig.data._context.isGlobalDisabled }">
+            @for (topbarButton of dialogConfig.data.topbarButtons; track topbarButton) {
+              @if (topbarButton.visible) {
+                <button [ngClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'" type="button" (click)="topbarButton.onClick()" [pTooltip]="topbarButton.tooltip">
+                  <span [ngClass]="topbarButton.class"></span>
+                </button>
+              }
+            }
+            @if (config.minimizable !== false) {
+              <button [ngClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'" type="button" (click)="minimize()" (keydown.enter)="minimize()">
+                <span class="p-dialog-header-close-icon pi pi-minus"></span>
+              </button>
+            }
+            @if (config.maximizable !== false && !maximized) {
+              <button [ngClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'" type="button" (click)="maximize()" (keydown.enter)="maximize()">
+                <span class="p-dialog-header-close-icon" [ngClass]="maximizeIcon"></span>
+              </button>
+            }
+            @if (maximized && !config.blockRestoreButton) {
+              <button [ngClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'" type="button" (click)="maximize()" (keydown.enter)="maximize()">
+                <span class="p-dialog-header-close-icon" [ngClass]="minimizeIcon"></span>
+              </button>
+            }
+            @if (config.closable !== false) {
+              <button [ngClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'" type="button" (click)="hide()" (keydown.enter)="hide()">
+                <span class="p-dialog-header-close-icon pi pi-times"></span>
+              </button>
+            }
+          </div>
         </div>
-	`,
+      }
+      <div class="p-dialog-content {{ dialogConfig?.data?.contentStyleClass }}" [ngStyle]="config.contentStyle" [ngClass]="{ 'disable-ui-dialog-content': dialogConfig.data._context.isGlobalDisabled }">
+        <ng-template pDynamicDialogContent></ng-template>
+      </div>
+      @if (config.footer) {
+        <div class="p-dialog-footer" [ngStyle]="config.footerStyle" [ngClass]="{ 'disable-container': dialogConfig.data._context.isGlobalDisabled }">
+          <ng-template pDynamicDialogFooter></ng-template>
+        </div>
+      }
+    </div>
+  }
+</div>
+`,
     animations: [
         trigger('animation', [
             transition('void => visible', [
@@ -82,10 +104,13 @@ const hideAnimation = animation([
     styleUrls: ['./dialog.css'],
     host: {
         'class': 'p-element'
-    }
+    },
+    standalone: false
 })
 export class DynamicDialogComponent implements AfterViewInit, OnInit, OnDestroy
 {
+    private readonly primeConfig = inject(PrimeNG);
+
 
     visible: boolean = true;
 
@@ -140,8 +165,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnInit, OnDestroy
     private overlayPanel: DialogOverlayPanel;
 
     constructor(private cd: ChangeDetectorRef, public renderer: Renderer2,
-        public config: DynamicDialogConfig, private dialogRef: DynamicDialogRef, public zone: NgZone, public dialogConfig: SmzDynamicDialogConfig, public primeNGConfig: PrimeNGConfig,
-        public dockService: SmzDockService) { }
+        public config: DynamicDialogConfig, private dialogRef: DynamicDialogRef, public zone: NgZone, public dialogConfig: SmzDynamicDialogConfig, public dockService: SmzDockService) { }
 
     ngOnInit()
     {
@@ -167,7 +191,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnInit, OnDestroy
         this.cd.detectChanges();
     }
 
-    @HostListener('document:keydown.escape', ['$event']) onEscapeHandler(event: KeyboardEvent)
+    @HostListener('document:keydown.escape', ['$event']) onEscapeHandler(event: Event)
     {
         if (this.config?.closeOnEscape && !this.dialogConfig.data._context.isLoading)
         {
@@ -204,9 +228,8 @@ export class DynamicDialogComponent implements AfterViewInit, OnInit, OnDestroy
 
     moveOnTop()
     {
-
         if (this.config.autoZIndex !== false) {
-            ZIndexUtils.set('modal', this.container, (this.config.baseZIndex||0) + this.primeNGConfig.zIndex.modal);
+            ZIndexUtils.set('modal', this.container, (this.config.baseZIndex||0) + this.primeConfig.zIndex.modal);
             this.wrapper.style.zIndex = String(parseInt(this.container.style.zIndex, 10) - 1);
 
             if (GlobalInjector.config.debugMode) {
@@ -214,7 +237,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnInit, OnDestroy
 
                 console.log('config.baseZIndex', this.config.baseZIndex);
                 console.log('DomHandler.zindex', DomHandler.zindex);
-                console.log('primeNGConfig', this.primeNGConfig);
+                console.log('primeConfig', this.primeConfig);
                 console.log('wrapper.style.zIndex', this.wrapper.style.zIndex);
 
                 console.groupEnd();

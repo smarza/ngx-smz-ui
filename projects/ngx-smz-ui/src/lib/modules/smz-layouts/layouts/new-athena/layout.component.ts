@@ -1,4 +1,4 @@
-import { AfterContentInit, ChangeDetectorRef, Component, ContentChildren, Input, OnInit, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, ChangeDetectorRef, Component, ContentChildren, inject, Input, OnInit, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { PrimeTemplate, MenuItem } from 'primeng/api';
 import { Observable } from 'rxjs';
@@ -13,16 +13,17 @@ import { NewAthenaLayout } from './layout.config';
 import { SmzNotification } from '../../core/models/notifications';
 
 @Component({
-  selector: 'smz-ui-new-athena-layout',
-  templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'smz-ui-new-athena-layout',
+    templateUrl: './layout.component.html',
+    styleUrls: ['./layout.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class NewAthenaLayoutComponent implements OnInit, AfterContentInit {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
-  @Select(LayoutUiSelectors.contentClass) public contentClass$: Observable<string>;
-  @Select(UiAthenaSelectors.state) public state$: Observable<LayoutState>;
-  @Select(LayoutUiSelectors.assistance) public assistance$: Observable<Assistance>;
+  public contentClass$ = inject(Store).select(LayoutUiSelectors.contentClass);
+  public state$ = inject(Store).select(UiAthenaSelectors.state);
+  public assistance$ = inject(Store).select(LayoutUiSelectors.assistance);
   @Input() public menu: MenuItem[];
   @Input() public profile: MenuItem[];
   @Input() public notifications: SmzNotification[];

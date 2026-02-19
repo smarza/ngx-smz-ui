@@ -3,8 +3,9 @@ import { SmzEasyTableState } from '../../../models/smz-easy-table-state';
 import { TableDataSourceService } from '../../../services/table-data-source.service';
 
 @Component({
-  selector: 'et-pagination',
-  templateUrl: 'pagination.component.html'
+    selector: 'et-pagination',
+    templateUrl: 'pagination.component.html',
+    standalone: false
 })
 
 export class PaginationComponent implements OnInit {

@@ -10,7 +10,7 @@ import { SmzGenericMenuBuilder } from '../smz-menu/generic-menu-builder';
 import { SmzMenuItem } from '../../modules/smz-menu/models/smz-menu-item';
 
 export class SmzUiUsersCrudBuilder<TData> extends SmzBuilderUtilities<SmzUiUsersCrudBuilder<TData>> {
-  protected that = this;
+  protected override that = this;
   private _config: SmzAuthorizationUserState<TData>;
   private _menu: MenuCreation;
 

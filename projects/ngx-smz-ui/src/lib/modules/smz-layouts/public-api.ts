@@ -9,7 +9,7 @@ export * from './core/models/positions';
 export * from './core/models/route-layout-data';
 export * from './core/models/sidebar-states';
 
-export { ColorSchema, ColorSchemaDefinition, SmzColorSchemas } from './core/models/color-schemas';
+export type { ColorSchema, ColorSchemaDefinition, SmzColorSchemas } from './core/models/color-schemas';
 
 // -------------------------------------------------------
 // EXPORT COM PROBLEMAS
@@ -31,7 +31,8 @@ export * from './core/models/menu-creation';
 export * from './core/functions/sort-menu-build';
 
 export { SmzLoader, SmzLoaders } from './core/models/loaders';
-export { SmzContentTheme, SmzContentThemes, ContentTheme } from './core/models/themes';
+export { SmzContentTheme, SmzContentThemes } from './core/models/themes';
+export type { ContentTheme } from './core/models/themes';
 
 // MODULES
 export * from './ngx-smz-layouts.module';
@@ -64,3 +65,8 @@ export * from './layouts/new-athena/layout-provider.module';
 export * from './layouts/new-athena/layout.module';
 export * from './layouts/new-athena/layout.component';
 export * from './layouts/new-athena/layout.config';
+
+// COMPONENTS
+export * from './features/tenant-switch/tenant-switch.component';
+export * from './features/global-loader/global-loader.module';
+export * from './features/global-loader/global-loader.component';

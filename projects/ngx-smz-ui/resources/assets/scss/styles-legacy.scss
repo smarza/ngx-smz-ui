@@ -1,0 +1,76 @@
+/* PRIME */
+@import "./legacy/primeng.min.css";
+
+/* PRIME FLEX */
+// @import "primeflex/primeflex.min.css";
+
+@import 'primeflex/core/_variables';
+@import 'primeflex/core/_mixins';
+
+/* FOI FEITO UM OVERRIDE DO PRIME GRID ORIGINAL PARA ADICIONAR !IMPORTANT */
+@import './prime-grid/grid';
+
+@import 'primeflex/core/_formlayout';
+@import 'primeflex/core/_elevation'; /* PODE CO-EXISTIR COM TAILWIND */
+@import 'primeflex/core/_border'; /* PODE CO-EXISTIR COM TAILWIND */
+@import 'primeflex/core/_borderradius'; /* PODE CO-EXISTIR COM TAILWIND */
+@import 'primeflex/core/_zindex'; /* PODE CO-EXISTIR COM TAILWIND */
+@import 'primeflex/core/_transform'; /* PODE CO-EXISTIR COM TAILWIND */
+@import 'primeflex/core/_animation'; /* SOMA COM TAILWIND */
+@import 'primeflex/core/_utils';
+
+/* PRIME ICONS */
+@import "primeicons/primeicons.css";
+
+/* ANIMATIONS */
+@import "hover.css/css/hover-min.css";
+@import "animate.css/animate.min.css";
+
+/* LIBRARY */
+
+/* PRIME E ETC.. */
+@import "./smz-vendors.scss";
+
+/* EXTRAS */
+@import "./extras/extras.scss";
+
+/* PRETTY JSON */
+@import "./extras/pretty-json.scss";
+
+/* SMZ-TABLES */
+@import "./smz-tables.scss";
+
+/* SMZ-TREES */
+@import "./smz-trees.scss";
+
+/* COLORS */
+@import "./extras/colors.scss";
+
+/* TAG MESSAGES */
+/* @import "./extras/tag-messages.scss"; */
+
+/* DIVIDERS */
+@import "./extras/dividers.scss";
+
+/* PÁGINAS DE ERRO E NOTFOUND */
+@import "./pages/app-exceptions.scss";
+
+/* DIALOGS */
+@import "./smz-dialogs.scss";
+
+/* DOCKS */
+@import "./smz-dock.scss";
+
+/* FORMS */
+@import "./smz-forms.scss";
+
+/* DOCUMENTS */
+@import "./documents/documents.scss";
+
+/* BROWSER STUFFS */
+@import "./extras/browser.scss";
+
+@import "./smz-prime-fix";
+
+/* OVERLAY DO PRIME */
+@import "./overlay-panel/overlay-panel.scss";

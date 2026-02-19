@@ -5,11 +5,12 @@ import { FlipCardTemplate } from '../../../models/smz-cards-templates';
 import { SmzCardsImageContent, SmzCardsTextContent } from '../../../models/smz-cards-contents';
 
 @Component({
-  selector: 'smz-flip-card-type',
-  templateUrl: 'flip-card-type.component.html',
-  styleUrls: ['flip-card-type.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Default,
-  encapsulation: ViewEncapsulation.None
+    selector: 'smz-flip-card-type',
+    templateUrl: 'flip-card-type.component.html',
+    styleUrls: ['flip-card-type.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Default,
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 
 export class SmzFlipCardTypeComponent implements OnInit {

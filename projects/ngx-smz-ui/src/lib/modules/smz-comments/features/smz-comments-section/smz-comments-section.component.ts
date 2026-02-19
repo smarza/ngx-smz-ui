@@ -13,9 +13,10 @@ import { CreateComment } from '../../models/create-comment';
 import { SmzCommentsState } from '../../models/smz-comments-state';
 
 @Component({
-  selector: 'smz-comments-section',
-  templateUrl: './smz-comments-section.component.html',
-  encapsulation: ViewEncapsulation.None
+    selector: 'smz-comments-section',
+    templateUrl: './smz-comments-section.component.html',
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class SmzCommentsSectionComponent implements OnInit {
   @Input() public state: SmzCommentsState;

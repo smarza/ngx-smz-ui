@@ -3,11 +3,12 @@ import { GlobalInjector } from '../../common/services/global-injector';
 import { SmzDialogCustomButton, SmzDialogFeature, SmzDialogTopbarButton } from '../../modules/smz-dialogs/models/smz-dialogs';
 import { SmzDialogsService } from '../../modules/smz-dialogs/services/smz-dialogs.service';
 import { SmzDialogBuilder } from './dialog-builder';
-import { environment } from '@environments/environment';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
+import { inject } from '@angular/core';
+import { SmzEnvironment } from '../../config';
 
 export class SmzDialogButtonsBuilder<TResponse> extends SmzBuilderUtilities<SmzDialogButtonsBuilder<TResponse>> {
-  protected that = this;
+  protected override that = this;
   constructor(public _dialogBuilder: SmzDialogBuilder<TResponse>) {
     super();
   }
@@ -301,7 +302,7 @@ export class SmzDialogHelpButtonBuilder<TResponse> {
   }
 
   public addSourceFromServer(path: string): SmzDialogHelpButtonBuilder<TResponse> {
-    this._path = `${environment.serverUrl}/${path}`;
+    this._path = `${inject(SmzEnvironment).serverUrl}/${path}`;
     return this;
   }
 

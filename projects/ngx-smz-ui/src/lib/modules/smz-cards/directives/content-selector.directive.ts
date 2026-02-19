@@ -3,7 +3,8 @@ import { ObjectUtils } from 'primeng/utils';
 import { SmzCardsContentType, SmzCardsContentTypes } from '../models/smz-cards-contents';
 
 @Directive({
-  selector: "div[contentSelector]",
+    selector: "div[contentSelector]",
+    standalone: false
 })
 export class SmzCardsContentSelectorDirective implements AfterViewInit, OnChanges {
 
@@ -13,7 +14,7 @@ export class SmzCardsContentSelectorDirective implements AfterViewInit, OnChange
   constructor(private el: ElementRef) { }
 
   public ngOnChanges(changes: SimpleChanges): void {
-    if (!changes.data?.isFirstChange()) {
+    if (!changes['data']?.isFirstChange()) {
       this.setupInnerHtml();
     }
   }

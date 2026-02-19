@@ -54,7 +54,7 @@ export interface SmzTreeState {
     /**
      * Controls the severity of the row menu icon
      */
-    rowMenuIconSeverity?: 'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'help' | 'danger';
+    rowMenuIconSeverity?: 'primary' | 'secondary' | 'success' | 'info' | 'contrast' | 'help' | 'danger';
     /**
      * Items for the popup menu
      */

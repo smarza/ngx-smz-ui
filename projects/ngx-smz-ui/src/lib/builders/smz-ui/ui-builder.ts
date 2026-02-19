@@ -1,4 +1,3 @@
-import { environment } from '@environments/environment';
 import { mergeClone } from '../../common/utils/deep-merge';
 import { NgxRbkUtilsConfig } from '../../modules/rbk-utils/ngx-rbk-utils.config';
 import { SmzDialogsConfig } from '../../modules/smz-dialogs/smz-dialogs.config';
@@ -19,7 +18,7 @@ import { SmzUiTablesBuilder } from './tables-builder';
 import { SmzUiLocalizationBuilder } from './localization-builder';
 
 export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
-    protected that = this;
+    protected override that = this;
     public _state: NgxSmzUiConfig = {
         debugMode: false,
         legacyMode: false,
@@ -29,7 +28,7 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
             useTitleService: true,
             uiDefinitions: {
                 isEnabled: true,
-                url: `${environment.serverUrl}/api/ui-definitions`,
+                url: '/api/ui-definitions',
                 httpBehavior: {
                     authentication: false,
                     compression: true,
@@ -40,7 +39,7 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
             },
             uiLocalization: {
                 isEnabled: false,
-                url: `${environment.serverUrl}/api/ui-localization`,
+                url: '/api/ui-localization',
                 current: null,
                 locales: [],
                 httpBehavior: {
@@ -53,7 +52,7 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
                 allowLocalizationSwitching: false
             },
             diagnostics: {
-                url: `${environment.serverUrl}/api/diagnostics`,
+                url: '/api/diagnostics',
                 throttleTime: 5000
             },
             notifications: {
@@ -121,7 +120,7 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
                 useSingleTenantAplication: false,
                 allowTenantSwitching: false,
                 login: {
-                    url: `${environment.authenticationApi}/api/authentication/login`,
+                    url: '/api/authentication/login',
                     route: 'login',
                     errorHandlingType: 'toast',
                     responsePropertyName: 'accessToken',
@@ -137,7 +136,7 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
                     }
                 },
                 refreshToken: {
-                    url: `${environment.authenticationApi}/api/authentication/refresh-token`,
+                    url: '/api/authentication/refresh-token',
                     errorHandlingType: 'toast',
                     responsePropertyName: 'refreshToken',
                     loadingBehavior: 'global',
@@ -222,7 +221,7 @@ export class SmzUiBuilder extends SmzBuilderUtilities<SmzUiBuilder> {
         },
         tables: {
             export: {
-                absoluteApiUrl: `${environment.serverUrl}/api/table-exporter/generate-tables`,
+                absoluteApiUrl: '/api/table-exporter/generate-tables',
                 requestLimit: 30000000
             }
         },

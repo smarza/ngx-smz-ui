@@ -4,7 +4,8 @@ import { ValidationMessage } from '../../models/advanced';
 
 @Pipe({
     name: 'validationMessages',
-    pure: false
+    pure: false,
+    standalone: false
 })
 
 @Injectable()

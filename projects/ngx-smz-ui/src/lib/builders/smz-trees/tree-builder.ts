@@ -348,12 +348,12 @@ export class SmzTreeDragAndDropBuilder {
 }
 
 export class SmzTreeMenuBuilder extends SmzBuilderUtilities<SmzTreeMenuBuilder> {
-  protected that = this;
+  protected override that = this;
   constructor(public _treeBuilder: SmzTreeBuilder) {
     super();
   }
 
-  public withInlineMenu(icon: string = 'fa-solid fa-gear', severity: 'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'help' | 'danger' = 'primary'): SmzTreeMenuBuilder {
+  public withInlineMenu(icon: string = 'fa-solid fa-gear', severity: 'primary' | 'secondary' | 'success' | 'info' | 'help' | 'danger' | 'contrast' = 'primary'): SmzTreeMenuBuilder {
     this._treeBuilder._state.menu.behavior = 'row-menu';
     this._treeBuilder._state.menu.rowMenuIcon = icon;
     this._treeBuilder._state.menu.rowMenuIconSeverity = severity;
@@ -406,7 +406,7 @@ export class SmzTreeMenuBuilder extends SmzBuilderUtilities<SmzTreeMenuBuilder> 
 }
 
 export class SmzTreeMenuItemBuilder extends SmzBuilderUtilities<SmzTreeMenuItemBuilder> {
-  protected that = this;
+  protected override that = this;
   constructor(public _menuBuilder: SmzTreeMenuBuilder, private _parent: SmzTreeMenuItemBuilder, private _item: SmzTreeMenuItem) {
     super();
   }
@@ -456,7 +456,7 @@ export class SmzTreeMenuItemBuilder extends SmzBuilderUtilities<SmzTreeMenuItemB
 }
 
 export class SmzTreeDynamicMenuBuilder extends SmzBuilderUtilities<SmzTreeDynamicMenuBuilder> {
-  protected that = this;
+  protected override that = this;
   private _items: SmzTreeMenuItem[] = [];
   constructor() {
     super();
@@ -480,7 +480,7 @@ export class SmzTreeDynamicMenuBuilder extends SmzBuilderUtilities<SmzTreeDynami
 }
 
 export class SmzTreeDynamicMenuItemBuilder extends SmzBuilderUtilities<SmzTreeDynamicMenuItemBuilder> {
-  protected that = this;
+  protected override that = this;
   constructor(private _menuBuilder: SmzTreeDynamicMenuBuilder, private _parent: SmzTreeDynamicMenuItemBuilder, private _item: SmzTreeMenuItem) {
     super();
   }

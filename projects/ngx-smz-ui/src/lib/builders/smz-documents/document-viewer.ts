@@ -3,7 +3,7 @@ import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzDocumentViewer } from '../../modules/smz-documents/models/smz-document-viewer';
 
 export class SmzDocumentViewerBuilder extends SmzBuilderUtilities<SmzDocumentViewerBuilder> {
-  protected that = this;
+  protected override that = this;
   constructor(private _documentBuilder: SmzDocumentBuilder, private _viewer: SmzDocumentViewer) {
     super();
   }

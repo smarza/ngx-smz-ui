@@ -5,7 +5,8 @@ import { ConfirmableFunction, CriticalConfirmableFunction } from '../../smz-dial
 import { SmzMenuItem } from '../models/smz-menu-item';
 
 @Directive({
-    selector: '[smzMenuItemAction]'
+    selector: '[smzMenuItemAction]',
+    standalone: false
 })
 export class SmzMenuItemActionsDirective {
     @Input() public item: SmzMenuItem;
@@ -13,11 +14,12 @@ export class SmzMenuItemActionsDirective {
     @Output() public collapse: EventEmitter<void> = new EventEmitter<void>();
 
     constructor(private store: Store) {
+        console.log('smzMenuItemActionsDirective constructor', this.item);
     }
 
     @HostListener('click', ['$event'])
     public onClick(event: any): void {
-
+        console.log('smzMenuItemAction clicked', this.item);
         if (this.item.disabled)
             return ;
 

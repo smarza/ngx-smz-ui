@@ -1,4 +1,4 @@
-import { TreeNode } from 'primeng/api/treenode';
+import { TreeNode } from 'primeng/api';
 import { SmzTreeGroup, SmzTreeSourceTransform } from '../../modules/smz-trees/models/tree-state';
 import { arrayToTreeNode, arrayToTreeNodeWithRoot, groupTreeNode } from '../common/utils';
 import { SmzNestedDataSourceTreeBuilder } from './nested-data-source-tree-builder';
@@ -6,7 +6,7 @@ import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzPropertyBasedDataSourceTreeBuilder } from './property-based-data-source-tree-builder';
 
 export class SmzDataSourceTreeBuilder<TBuilder> extends SmzBuilderUtilities<SmzDataSourceTreeBuilder<TBuilder>> {
-  protected that = this;
+  protected override that = this;
 
   constructor(private _builder: TBuilder, private _content: SmzTreeSourceTransform) {
     super();

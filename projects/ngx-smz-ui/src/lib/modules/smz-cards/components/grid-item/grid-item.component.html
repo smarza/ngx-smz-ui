@@ -1,21 +1,17 @@
-<ng-container [ngSwitch]="template.type">
 
-  <ng-container *ngSwitchCase="type.RAW">
+@switch (template.type) {
+  @case (type.RAW) {
     <smz-raw-type [data]="data" [template]="$any(template)" [menu]="menu" [buttons]="buttons" [mode]="mode" [isDebug]="isDebug"></smz-raw-type>
-  </ng-container>
-
-  <ng-container *ngSwitchCase="type.IMAGE_WITH_DETAILS">
+  }
+  @case (type.IMAGE_WITH_DETAILS) {
     <smz-image-with-details-type [template]="$any(template)" [menu]="menu" [buttons]="buttons" [data]="data" [mode]="mode" [isDebug]="isDebug"></smz-image-with-details-type>
-  </ng-container>
-
-  <ng-container *ngSwitchCase="type.INFO_A">
+  }
+  @case (type.INFO_A) {
     <smz-info-a-type [template]="$any(template)" [menu]="menu" [buttons]="buttons" [data]="data" [mode]="mode" [isDebug]="isDebug"></smz-info-a-type>
-  </ng-container>
-
-  <ng-container *ngSwitchCase="type.FLIP_CARD">
+  }
+  @case (type.FLIP_CARD) {
     <smz-flip-card-type [template]="$any(template)" [menu]="menu" [buttons]="buttons" [data]="data" [mode]="mode" [isDebug]="isDebug"></smz-flip-card-type>
-  </ng-container>
-
-  <ng-container *ngSwitchDefault></ng-container>
-
-</ng-container>
+  }
+  @default {
+  }
+}

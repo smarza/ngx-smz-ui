@@ -4,6 +4,13 @@ import { SmzDialogsConfig } from './modules/smz-dialogs/smz-dialogs.config';
 import { SmzLayoutsConfig } from './modules/smz-layouts/core/globals/smz-layouts.config';
 import { SmzTablesConfig } from './modules/smz-tables/models/table-configs';
 
+export const SmzUiEnvironment = {
+  production: false,
+  serverUrl: '',
+  authenticationApi: '',
+  baseHref: ''
+};
+
 export class NgxSmzUiConfig {
     public debugMode: boolean;
     public legacyMode: boolean;

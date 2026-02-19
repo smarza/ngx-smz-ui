@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { SmzCardsBaseContext } from '../models/contexts/smz-base-context';
 
 @Pipe({
-  name: 'resetContext'
+    name: 'resetContext',
+    standalone: false
 })
 
 export class SmzCardsResetContextPipe implements PipeTransform {

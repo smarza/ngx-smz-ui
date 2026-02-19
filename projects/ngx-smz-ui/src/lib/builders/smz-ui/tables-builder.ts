@@ -1,11 +1,10 @@
-import { environment } from '@environments/environment';
 import { SmzLayoutsConfig } from '../../modules/smz-layouts/core/globals/smz-layouts.config';
 import { SmzLoader } from '../../modules/smz-layouts/core/models/loaders';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzUiBuilder } from './ui-builder';
 
 export class SmzUiTablesBuilder extends SmzBuilderUtilities<SmzUiTablesBuilder> {
-  protected that = this;
+  protected override that = this;
   constructor(private _builder: SmzUiBuilder) {
     super();
   }
@@ -16,7 +15,7 @@ export class SmzUiTablesBuilder extends SmzBuilderUtilities<SmzUiTablesBuilder> 
   }
 
   public setExportApiRelativeUrl(controller: string, endpoint: string): SmzUiTablesBuilder {
-    this._builder._state.tables.export.absoluteApiUrl = `${environment.serverUrl}/api/${controller}/${endpoint}`;
+    this._builder._state.tables.export.absoluteApiUrl = `/api/${controller}/${endpoint}`;
     return this.that;
   }
 

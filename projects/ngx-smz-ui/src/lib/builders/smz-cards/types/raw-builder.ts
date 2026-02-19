@@ -5,7 +5,7 @@ import { SmzCardsTemplateBuilder } from '../template-builder';
 import { SmzCardsBaseTemplateBuilder } from './base-card-type.builder';
 
 export class SmzCardsRawBuilder<TData, TBuilder> extends SmzCardsBaseTemplateBuilder<TData, TBuilder, SmzCardsRawBuilder<TData, TBuilder>> {
-  constructor(protected _builder: TBuilder, protected _parent: SmzCardsTemplateBuilder<TData, TBuilder>, protected _template: RawTemplate<TData>) {
+  constructor(protected override _builder: TBuilder, protected override _parent: SmzCardsTemplateBuilder<TData, TBuilder>, protected override _template: RawTemplate<TData>) {
     super(_builder, _parent, _template);
     _template.type = SmzCardsTemplate.RAW;
   }
@@ -22,7 +22,7 @@ export class SmzCardsRawBuilder<TData, TBuilder> extends SmzCardsBaseTemplateBui
     return new SmzCardsComponentBuilder<TData, TBuilder, SmzCardsRawBuilder<TData, TBuilder>>(this._builder, this, content, component);
   }
 
-  public get template(): SmzCardsTemplateBuilder<TData, TBuilder> {
+  public override get template(): SmzCardsTemplateBuilder<TData, TBuilder> {
     return this._parent;
   }
 

@@ -2,8 +2,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { ObjectUtils } from 'primeng/utils';
 
 @Pipe({
-  name: 'tableContent',
-  pure: false,
+    name: 'tableContent',
+    pure: false,
+    standalone: false
 })
 
 export class SmzTableContentPipe implements PipeTransform {

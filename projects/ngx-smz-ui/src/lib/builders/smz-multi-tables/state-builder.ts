@@ -2,10 +2,10 @@ import { cloneDeep } from 'lodash-es';
 import { SmzMultiTablesState, SmzMultiTablesTab } from '../../modules/smz-multi-tables/multi-tables.state';
 import { SmzMultiTablesTabBuilder } from './tab-builder';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
-import { UUID } from 'angular2-uuid';
+import { generateGUID } from '../../common/utils/guid-generator';
 
 export class SmzMultiTablesBuilder extends SmzBuilderUtilities<SmzMultiTablesBuilder> {
-  protected that = this;
+  protected override that = this;
   public _state: SmzMultiTablesState = {
     isDebug: false,
     styleClass: '',
@@ -23,7 +23,7 @@ export class SmzMultiTablesBuilder extends SmzBuilderUtilities<SmzMultiTablesBui
 
 
   public tab(label: string): SmzMultiTablesTabBuilder {
-    const id = UUID.UUID();
+    const id = generateGUID();
     const newTab: SmzMultiTablesTab = {
       _id: id,
       _originalId: id,

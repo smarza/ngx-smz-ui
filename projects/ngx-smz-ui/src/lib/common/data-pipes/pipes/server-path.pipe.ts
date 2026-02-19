@@ -1,10 +1,15 @@
-import { Pipe, PipeTransform } from '@angular/core';
-import { environment } from '@environments/environment';
+import { inject, Pipe, PipeTransform } from '@angular/core';
 import { isEmpty } from '../../../builders/common/utils';
+import { SmzEnvironment } from '../../../config';
 
-@Pipe({ name: 'serverPath' })
+@Pipe({
+    name: 'serverPath',
+    standalone: false
+})
 export class ServerPathPipe implements PipeTransform
 {
+  private readonly environment = inject(SmzEnvironment);
+
     constructor() { }
     transform(url: string, placeholder?: string)
     {
@@ -13,11 +18,11 @@ export class ServerPathPipe implements PipeTransform
         if (isEmpty(url))
             return placeholderPath;
 
-        if (environment.serverUrl == null) {
+        if (this.environment.serverUrl == null) {
             throw Error("ServerPathPipe needs a property named 'serverUrl' on environment constant");
         }
 
-        return `${environment.serverUrl}/${url}`;
+        return `${this.environment.serverUrl}/${url}`;
     }
 
 }

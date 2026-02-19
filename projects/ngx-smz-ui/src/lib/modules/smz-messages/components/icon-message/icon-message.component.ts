@@ -3,7 +3,8 @@ import { Component, OnInit, Input } from '@angular/core';
 @Component({
     selector: 'smz-icon-message',
     templateUrl: './icon-message.component.html',
-    styleUrls: ['../../css/messages.css']
+    styleUrls: ['../../css/messages.css'],
+    standalone: false
 })
 export class SmzIconMessageComponent implements OnInit
 {

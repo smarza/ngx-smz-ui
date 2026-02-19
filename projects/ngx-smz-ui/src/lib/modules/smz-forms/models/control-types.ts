@@ -141,7 +141,6 @@ export interface SmzCalendarControl extends SmzFormsBaseControl
     showOnFocus?: boolean;
     showIcon?: boolean;
     dateFormat?: string;
-    yearRange?: string;
     timeOnly?: boolean;
     showTime?: boolean;
 

@@ -2,7 +2,8 @@ import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
 import cloneDeep from 'lodash-es/cloneDeep';
 
 @Directive({
-  selector: '[ngClone]',
+    selector: '[ngClone]',
+    standalone: false
 })
 export class NgCloneDirective {
   @Input() public set ngClone(context: unknown) {

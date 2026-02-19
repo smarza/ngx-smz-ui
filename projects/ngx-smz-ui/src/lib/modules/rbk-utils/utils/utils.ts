@@ -64,11 +64,24 @@ export function clearArray<T>(array: T[]): void {
     }
 }
 
+export function normalizeDateToUtc(date: Date): Date {
+    return new Date(Date.UTC(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate(),
+      0, 0, 0, 0
+    ));
+}
+
 export function fixDateProperties(data: { [key: string]: any }) {
     if (data != null) {
         for (const key of Object.keys(data)) {
             if (typeof data[key] === 'string') {
                 if (key.startsWith('date') || key.endsWith('Date') || key ==='birthdate') {
+                    const fixedDate = fixStringDate(data[key]);
+                    data[key] = new Date(fixedDate.getUTCFullYear(), fixedDate.getUTCMonth(), fixedDate.getUTCDate());
+                }
+                else if (key === 'createdAt') {
                     data[key] = fixStringDate(data[key]);
                 }
                 else if (key === 'lastUpdate') {

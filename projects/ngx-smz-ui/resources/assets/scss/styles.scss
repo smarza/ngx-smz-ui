@@ -1,40 +1,3 @@
-/* TAILWIND */
-@import 'tailwindcss/base.css' layer(tailwindcss);
-@import 'tailwindcss/utilities.css';
-
-/* PRIME */
-@import "primeng/resources/primeng.min.css";
-
-/* PRIME FLEX */
-// @import "primeflex/primeflex.min.css";
-
-@import 'primeflex/core/_variables';
-@import 'primeflex/core/_mixins';
-
-/* FOI FEITO UM OVERRIDE DO PRIME GRID ORIGINAL PARA ADICIONAR !IMPORTANT */
-@import './prime-grid/grid';
-
-@import 'primeflex/core/_formlayout';
-@import 'primeflex/core/_elevation'; /* PODE CO-EXISTIR COM TAILWIND */
-@import 'primeflex/core/_border'; /* PODE CO-EXISTIR COM TAILWIND */
-@import 'primeflex/core/_borderradius'; /* PODE CO-EXISTIR COM TAILWIND */
-@import 'primeflex/core/_zindex'; /* PODE CO-EXISTIR COM TAILWIND */
-@import 'primeflex/core/_transform'; /* PODE CO-EXISTIR COM TAILWIND */
-@import 'primeflex/core/_animation'; /* SOMA COM TAILWIND */
-@import 'primeflex/core/_utils';
-
-/* PRIME ICONS */
-@import "primeicons/primeicons.css";
-
-/* ANIMATIONS */
-@import "hover.css/css/hover-min.css";
-@import "animate.css/animate.min.css";
-
-/* LIBRARY */
-
-/* PRIME E ETC.. */
-@import "./smz-vendors.scss";
-
 /* EXTRAS */
 @import "./extras/extras.scss";
 
@@ -49,9 +12,6 @@
 
 /* COLORS */
 @import "./extras/colors.scss";
-
-/* TAG MESSAGES */
-/* @import "./extras/tag-messages.scss"; */
 
 /* DIVIDERS */
 @import "./extras/dividers.scss";
@@ -79,5 +39,14 @@
 /* OVERLAY DO PRIME */
 @import "./overlay-panel/overlay-panel.scss";
 
-/* SCROLL BAR */
-@import "./extras/custom-scroll.scss";
+
+/* FOI FEITO UM OVERRIDE DO PRIME GRID ORIGINAL PARA ADICIONAR !IMPORTANT */
+@import './prime-grid/grid';
+
+/* PRIME ICONS */
+// @import "primeicons/primeicons.css";
+
+/* ANIMATIONS */
+// @import "hover.css/css/hover-min.css";
+@import "animate.css/animate.min.css";
+

@@ -5,7 +5,7 @@ import { TreeNode } from 'primeng/api';
 import { ObjectUtils } from 'primeng/utils';
 
 export class SmzPropertyBasedDataSourceTreeBuilder<TBuilder> extends SmzBuilderUtilities<SmzPropertyBasedDataSourceTreeBuilder<TBuilder>> {
-  protected that = this;
+  protected override that = this;
   private _config: SmzTreePropertyBasedConfig = {
     labelProperty: 'name',
     keyProperty: 'id',

@@ -5,7 +5,7 @@ import { SmzSvgPin, SmzSvgRoot, SmzSvgState } from '../../modules/smz-svg/models
 import { SmzSvgPinBuilder, SmzSvgRootBuilder } from './svg-features';
 
 export class SmzSvgDispatchBuilder extends SmzBuilderUtilities<SmzSvgDispatchBuilder> {
-  protected that = this;
+  protected override that = this;
   constructor(private _svgBuilder: SmzSvgBuilder, private _state: SmzSvgState) {
     super();
 

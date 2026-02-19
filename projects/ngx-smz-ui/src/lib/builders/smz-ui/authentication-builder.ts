@@ -3,7 +3,7 @@ import { SmzUiAuthenticationLoginBuilder } from './authentication-login-builder'
 import { SmzUiBuilder } from './ui-builder';
 
 export class SmzUiAuthenticationBuilder extends SmzBuilderUtilities<SmzUiAuthenticationBuilder> {
-  protected that = this;
+  protected override that = this;
   constructor(private _builder: SmzUiBuilder) {
     super();
   }

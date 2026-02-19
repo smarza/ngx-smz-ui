@@ -2,34 +2,42 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmi
 import { MenuItem } from 'primeng/api';
 
 @Component({
-  selector: "[smz-ui-athena-profile-menu-items]",
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <li *ngFor="let item of items | isVisible; let index = index" [ngClass]="{ 'menuitem-active' : item.expanded }">
-
-      <ng-container [ngSwitch]="item | hasChild">
-
-        <ng-container *ngSwitchCase="false">
-          <a menuItemAction [item]="item" [parent]="null" [breadcrumbs]="false" [tabindex]="index" class="clickable" (collapse)="collapse.emit()">
-            <i *ngIf="item.icon != null" class="topbar-icon" [ngClass]="item.icon"></i>
-            <span class="topbar-item-name" [innerHtml]="item.label"></span>
-            <span *ngIf="item.badge != null" class="topbar-badge">{{ item.badge }}</span>
-          </a>
-        </ng-container>
-
-        <ng-container *ngSwitchCase="true">
-          <a [tabindex]="index" class="clickable" (click)="toogleOnly(item, item.items)">
-            <i *ngIf="item.icon != null" class="topbar-icon" [ngClass]="item.icon"></i>
-            <span class="topbar-item-name" [innerHtml]="item.label"></span>
-            <span *ngIf="item.badge != null" class="topbar-badge">{{ item.badge }}</span>
-          </a>
-          <ul *ngIf="item.expanded" smz-ui-athena-profile-menu-items [items]="item.items"></ul>
-        </ng-container>
-
-      </ng-container>
-
-    </li>
-  `,
+    selector: "[smz-ui-athena-profile-menu-items]",
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    template: `
+    @for (item of items | isVisible; track item; let index = $index) {
+      <li [ngClass]="{ 'menuitem-active' : item.expanded }">
+        @switch (item | hasChild) {
+          @case (false) {
+            <a menuItemAction [item]="item" [parent]="null" [breadcrumbs]="false" [tabindex]="index" class="clickable" (collapse)="collapse.emit()">
+              @if (item.icon != null) {
+                <i class="topbar-icon" [ngClass]="item.icon"></i>
+              }
+              <span class="topbar-item-name" [innerHtml]="item.label"></span>
+              @if (item.badge != null) {
+                <span class="topbar-badge">{{ item.badge }}</span>
+              }
+            </a>
+          }
+          @case (true) {
+            <a [tabindex]="index" class="clickable" (click)="toogleOnly(item, item.items)">
+              @if (item.icon != null) {
+                <i class="topbar-icon" [ngClass]="item.icon"></i>
+              }
+              <span class="topbar-item-name" [innerHtml]="item.label"></span>
+              @if (item.badge != null) {
+                <span class="topbar-badge">{{ item.badge }}</span>
+              }
+            </a>
+            @if (item.expanded) {
+              <ul smz-ui-athena-profile-menu-items [items]="item.items"></ul>
+            }
+          }
+        }
+      </li>
+    }
+    `,
+    standalone: false
 })
 export class AthenaProfileMenuItemsComponent implements OnInit, AfterViewInit {
 

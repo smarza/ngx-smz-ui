@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'lib-ngx-smz-ui',
-  template: `
+    selector: 'lib-ngx-smz-ui',
+    template: `
     <p>
       ngx-smz-ui works!
     </p>
   `,
-  styles: [
-  ]
+    styles: [],
+    standalone: false
 })
 export class NgxSmzUiComponent implements OnInit {
 

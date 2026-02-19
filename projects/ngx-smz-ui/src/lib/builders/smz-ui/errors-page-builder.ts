@@ -5,7 +5,7 @@ import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzUiBuilder } from './ui-builder';
 
 export class SmzUiErrorsPageBuilder extends SmzBuilderUtilities<SmzUiErrorsPageBuilder> {
-  protected that = this;
+  protected override that = this;
   constructor(private _builder: SmzUiBuilder, private _state: NgxSmzUiConfig) {
     super();
   }

@@ -5,6 +5,7 @@ import { ValidationMessage } from '../../../smz-forms/models/advanced';
 @Component({
     selector: 'smz-table-validation-messages',
     templateUrl: './validation-messages.component.html',
+    standalone: false
 })
 export class SmzTableValidationMessagesComponent implements OnInit
 {

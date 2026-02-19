@@ -5,7 +5,7 @@ import { SmzMultiTablesTabBuilder } from './tab-builder';
 
 export class SmzMultiTablesTabHeaderBuilder extends SmzBuilderUtilities<SmzMultiTablesTabHeaderBuilder> {
 
-  protected that = this;
+  protected override that = this;
   constructor(private _builder: SmzMultiTablesTabBuilder, private _tab: SmzMultiTablesTab) {
     super();
   }

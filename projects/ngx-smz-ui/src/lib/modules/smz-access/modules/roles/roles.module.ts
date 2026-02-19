@@ -10,7 +10,6 @@ import { RbkAuthGuard } from '../../../rbk-utils/auth/auth.guard';
 import { RbkDatabaseStateGuard } from '../../../rbk-utils/utils/state/database-state.guard';
 import { NgxSmzTablesModule } from '../../../smz-tables/ngx-smz-tables.module';
 import { NgxSmzDataPipesModule } from '../../../../common/data-pipes/data-pipes.module';
-import { NgPipesModule } from 'ngx-pipes';
 import { NgVarModule } from '../../../../common/directives/ng-var/ng-var.module';
 import { RbkAccessControlModule } from '../../../rbk-utils/auth/guards/access-control.module';
 
@@ -45,7 +44,6 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     NgxSmzTablesModule,
     NgxSmzDataPipesModule,
-    NgPipesModule,
     NgVarModule,
     ButtonModule,
     RbkAccessControlModule,

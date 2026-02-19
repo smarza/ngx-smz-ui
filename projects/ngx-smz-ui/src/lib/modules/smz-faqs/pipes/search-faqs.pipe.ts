@@ -3,7 +3,8 @@ import { deepClone, isEmpty } from '../../rbk-utils/utils/utils';
 import { FaqDetails } from '../models/faqs';
 
 @Pipe({
-    name: 'searchFaqs'
+    name: 'searchFaqs',
+    standalone: false
 })
 
 @Injectable()

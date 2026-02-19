@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'filterObject'
+    name: 'filterObject',
+    standalone: false
 })
 
 export class SmzFilterObjectPipe implements PipeTransform {

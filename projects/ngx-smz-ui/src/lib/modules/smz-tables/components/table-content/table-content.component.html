@@ -1,41 +1,42 @@
-<smz-table-content-actions *ngIf="col.actionsAlignment === 'begin'" [col]="col" [contentTypes]="contentTypes" [item]="item" [rowIndex]="rowIndex"></smz-table-content-actions>
+@if (col.actionsAlignment === 'begin') {
+  <smz-table-content-actions [col]="col" [contentTypes]="contentTypes" [item]="item" [rowIndex]="rowIndex"></smz-table-content-actions>
+}
 
-<ng-container [ngSwitch]="col.content.type">
-  <ng-container *ngSwitchCase="contentTypes.custom">
-      <div [ngClass]="col.content.styleClass">
-          <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: item, col: col }"></ng-container>
-      </div>
-  </ng-container>
+@switch (col.content.type) {
+  @case (contentTypes.custom) {
+    <div [ngClass]="col.content.styleClass">
+      <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: item, col: col }"></ng-container>
+    </div>
+  }
+  @case (contentTypes.currency) {
+    <div [ngClass]="col.content.styleClass">
+      R$ {{ (item | tableContent : col.field : col.content.type).result }}
+    </div>
+  }
+  @case (contentTypes.calendar) {
+    <div [ngClass]="col.content.styleClass">
+      {{ (item | tableContent : col.field : col.content.type).result | date: col.content.data['format'] }}
+    </div>
+  }
+  @case (contentTypes.text) {
+    <div [innerHtml]="(item | tableContent : col.field : col.content.type).result" [ngClass]="col.content.styleClass"></div>
+  }
+  @case (contentTypes.dataTransform) {
+    @if ((item | tableContent : col.field : col.content.type); as contentData) {
+      <div [innerHtml]="contentData.result" [ngClass]="col.content.styleClass"></div>
+    }
+  }
+  @case (contentTypes.icon) {
+    <div [ngClass]="col.content.styleClass">
+      @if ((col.content.data['matches'] | contentIconMatches : (item | tableContent : col.field : col.content.type).result); as match) {
+        @if (match != null) {
+          <i [ngClass]="match.icon + ' ' + match.class" [pTooltip]="match.tooltip"></i>
+        }
+      }
+    </div>
+  }
+}
 
-  <ng-container *ngSwitchCase="contentTypes.currency">
-      <div [ngClass]="col.content.styleClass">
-          R$ {{ (item | tableContent : col.field : col.content.type).result }}
-      </div>
-  </ng-container>
-
-  <ng-container *ngSwitchCase="contentTypes.calendar">
-      <div [ngClass]="col.content.styleClass">
-          {{ (item | tableContent : col.field : col.content.type).result | date: col.content.data['format'] }}
-      </div>
-  </ng-container>
-
-  <ng-container *ngSwitchCase="contentTypes.text">
-      <div [innerHtml]="(item | tableContent : col.field : col.content.type).result" [ngClass]="col.content.styleClass"></div>
-  </ng-container>
-
-  <ng-container *ngSwitchCase="contentTypes.dataTransform">
-      <ng-container *ngIf="(item | tableContent : col.field : col.content.type) as contentData">
-          <div [innerHtml]="contentData.result" [ngClass]="col.content.styleClass"></div>
-      </ng-container>
-  </ng-container>
-
-  <ng-container *ngSwitchCase="contentTypes.icon">
-      <div [ngClass]="col.content.styleClass">
-          <ng-container *ngIf="(col.content.data['matches'] | contentIconMatches : (item | tableContent : col.field : col.content.type).result) as match">
-              <i *ngIf="match != null" [ngClass]="match.icon + ' ' + match.class" [pTooltip]="match.tooltip"></i>
-          </ng-container>
-      </div>
-  </ng-container>
-</ng-container>
-
-<smz-table-content-actions *ngIf="col.actionsAlignment === 'end'" [col]="col" [contentTypes]="contentTypes" [item]="item" [rowIndex]="rowIndex"></smz-table-content-actions>
+@if (col.actionsAlignment === 'end') {
+  <smz-table-content-actions [col]="col" [contentTypes]="contentTypes" [item]="item" [rowIndex]="rowIndex"></smz-table-content-actions>
+}

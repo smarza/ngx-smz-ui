@@ -2,7 +2,8 @@ import { Injectable, Pipe, PipeTransform } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 
 @Pipe({
-    name: 'hasChild'
+    name: 'hasChild',
+    standalone: false
 })
 
 @Injectable()

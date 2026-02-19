@@ -1,6 +1,5 @@
 import { Injector, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ListboxModule } from 'primeng/listbox';
 
@@ -18,15 +17,15 @@ import { ColorPickerComponent } from './components/color-picker/color-picker.com
 import { InputTextAreaComponent } from './components/input-text-area/input-text-area.component';
 import { InputTreeComponent } from './components/input-tree/input-tree.component';
 
-import { CalendarModule } from 'primeng/calendar';
-import { DropdownModule } from 'primeng/dropdown';
+import { DatePickerModule } from 'primeng/datepicker';
+import { SelectModule  } from 'primeng/select';
 import { FileUploadModule } from 'primeng/fileupload';
 import { InputTextModule } from 'primeng/inputtext';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { ColorPickerModule } from 'primeng/colorpicker';
-import { InputTextareaModule } from 'primeng/inputtextarea';
-import { InputSwitchModule } from 'primeng/inputswitch';
+import { TextareaModule } from 'primeng/textarea';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { InputNumberModule } from 'primeng/inputnumber';
 
 import { NgGroupByPipeModule } from '../../common/pipes/group-by.pipe';
@@ -44,7 +43,7 @@ import { SmzFormsConfig } from './smz-forms.config';
 import { InputNumberComponent } from './components/input-number/input-number.component';
 import { SmzControlType } from './models/control-types';
 import { LinkedDropdownComponent } from './components/linked-dropdown/linked-dropdown.component';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { SmzTemplatesPipeModule } from '../../common/pipes/templates.pipe';
 import { ValidationMessagesComponent } from './components/validation-messages/validation-messages.component';
 import { ValidationMessagesPipe } from './components/validation-messages/validation-messages.pipe';
@@ -53,7 +52,6 @@ import { LinkedMultiSelectComponent } from './components/linked-multi-select/lin
 
 import { ClickStopPropagationModule } from '../../common/stop-click-propagation/click-stop-propagation.module';
 import { FileDragDropDirective } from './directives/file-drag-drop.directive';
-import { MessagesModule } from 'primeng/messages';
 import { SafeContentPipeModule } from '../../common/pipes/safe-html.pipe';
 import { FileNameShortenPipe } from './components/file-upload/file-name-shorten.pipe';
 import { SmzInputTagAreaModule } from './components/input-tag-area/smz-input-tag-area.component';
@@ -76,9 +74,11 @@ import { TreeSelectModule } from 'primeng/treeselect';
 import { SmzInputAutocompleteTagArea } from './components/input-autocomplete-tag-area/smz-input-autocomplete-tag-area.component';
 import { SmzAutocompleteSelectorComponent } from './components/input-autocomplete-tag-area/smz-autocomplete-selector-component';
 import { SmzSmartTagModule } from './directives/smart-tag.directive';
-import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { SmzSmartAutocompleteTagModule } from './directives/smart-autocomplete-tag.directive';
 import { GetCurrentMultiselectOptionsPipe } from './components/linked-multi-select/get-current-multiselect-options.pipe';
+import { MessageModule } from 'primeng/message';
+import { LabelComponent } from './components/label.component';
+import { PopoverModule } from 'primeng/popover';
 
 export const defaultFormsModuleConfig: SmzFormsConfig = {
     behaviors: {
@@ -163,43 +163,6 @@ export const defaultFormsModuleConfig: SmzFormsConfig = {
 };
 
 @NgModule({
-    imports: [
-        CommonModule,
-        CalendarModule,
-        CheckboxModule,
-        ClickStopPropagationModule,
-        ColorPickerModule,
-        DropdownModule,
-        FileUploadModule,
-        FlexLayoutModule,
-        FormsModule,
-        HttpClientModule,
-        InjectContentAppModule,
-        InputMaskModule,
-        InputNumberModule,
-        InputSwitchModule,
-        InputTextareaModule,
-        InputTextModule,
-        ListboxModule,
-        MultiSelectModule,
-        NgGroupByPipeModule,
-        PasswordModule,
-        RadioButtonModule,
-        ReactiveFormsModule,
-        SmzTemplatesPipeModule,
-        TooltipModule,
-        MessagesModule,
-        SafeContentPipeModule,
-        SmzInputTagAreaModule,
-        NgxSmzDataPipesModule,
-        ButtonModule,
-        AutoFocusModule,
-        TreeSelectModule,
-        SmzAutocompleteSelectorComponent,
-        OverlayPanelModule,
-        SmzSmartTagModule,
-        SmzSmartAutocompleteTagModule
-    ],
     // tslint:disable-next-line:max-line-length
     declarations: [
         CalendarComponent,
@@ -244,7 +207,7 @@ export const defaultFormsModuleConfig: SmzFormsConfig = {
         CheckBoxComponent,
         CheckBoxGroupComponent,
         ColorPickerComponent,
-        DropdownComponent,
+        SelectModule,
         FileUploadComponent,
         FormGroupComponent,
         InputCurrencyComponent,
@@ -263,7 +226,46 @@ export const defaultFormsModuleConfig: SmzFormsConfig = {
         RadioButtonComponent,
         FormSubmitComponent,
     ],
-    providers: [DialogService]
+    imports: [
+        CommonModule,
+        DatePickerModule,
+        CheckboxModule,
+        ClickStopPropagationModule,
+        ColorPickerModule,
+        SelectModule,
+        FileUploadModule,
+        FormsModule,
+        InjectContentAppModule,
+        InputMaskModule,
+        InputNumberModule,
+        ToggleSwitchModule,
+        TextareaModule,
+        InputTextModule,
+        ListboxModule,
+        MultiSelectModule,
+        NgGroupByPipeModule,
+        PasswordModule,
+        RadioButtonModule,
+        ReactiveFormsModule,
+        SmzTemplatesPipeModule,
+        TooltipModule,
+        MessageModule,
+        SafeContentPipeModule,
+        SmzInputTagAreaModule,
+        NgxSmzDataPipesModule,
+        ButtonModule,
+        AutoFocusModule,
+        TreeSelectModule,
+        SmzAutocompleteSelectorComponent,
+        SmzSmartTagModule,
+        SmzSmartAutocompleteTagModule,
+        LabelComponent,
+        PopoverModule
+    ],
+    providers: [
+        DialogService,
+        provideHttpClient(withInterceptorsFromDi())
+    ]
 })
 export class NgxSmzFormsModule {
     constructor(injector: Injector) {

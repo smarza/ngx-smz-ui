@@ -21,8 +21,13 @@ export class AuthenticationSelectors {
     }
 
     @Selector([AuthenticationState])
-    public static userdata<T>(state: AuthenticationStateModel<T>): T {
-        return state.userdata as T;
+    public static userdata(state: AuthenticationStateModel<BaseUserData>): BaseUserData {
+        return state.userdata;
+    }
+
+    @Selector([AuthenticationState])
+    public static userdataPicture(state: AuthenticationStateModel<BaseUserData>): string {
+        return state.userdata.picture;
     }
 
     @Selector([AuthenticationState])

@@ -1,9 +1,9 @@
 import { NgModule, Input, OnDestroy, ChangeDetectorRef, Component, ChangeDetectionStrategy, ViewChild, ElementRef, ViewEncapsulation, Optional, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SmzSmartTagConfig, SmzSmartTagData, SmzSmartTagModule, SmzSmartTagOptions } from '../../directives/smart-tag.directive';
-import { InputTextareaModule } from 'primeng/inputtextarea';
-import { OverlayPanel, OverlayPanelModule } from 'primeng/overlaypanel';
-import { DropdownModule } from 'primeng/dropdown';
+import { TextareaModule } from 'primeng/textarea';
+import { OverlayPanel, OverlayPanelModule } from '../../../prime/overlaypanel/overlaypanel';
+import { SelectModule } from 'primeng/select';
 import { ButtonModule } from 'primeng/button';
 import { UntypedFormControl, FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { Listbox, ListboxModule } from 'primeng/listbox';
@@ -13,9 +13,11 @@ import { Listbox, ListboxModule } from 'primeng/listbox';
     template: `
 <textarea #inputArea id="inputArea" pInputTextarea smzSmartTag [(ngModel)]="ngModel" [formControl]="control" [options]="config?.options" [rows]="rows" (tagTyped)="onTag($event)" class="col-12"></textarea>
 <p-overlayPanel #overlay appendTo="body" [style]="{width: '450px'}" (onHide)="onHideOverlay()" styleClass="tag-overlay">
-<ng-template pTemplate>
-<p-listbox *ngIf="currentTag" #listbox (onClick)="hide($event)" (keyup.enter)="hide($event)" styleClass="tag-dropdown" [options]="currentTag.data" [(ngModel)]="currentTagSelection" optionLabel="key"></p-listbox>
-</ng-template>
+  <ng-template pTemplate>
+    @if (currentTag) {
+      <p-listbox #listbox (onClick)="hide($event)" (keyup.enter)="hide($event)" styleClass="tag-dropdown" [options]="currentTag.data" [(ngModel)]="currentTagSelection" optionLabel="key"></p-listbox>
+    }
+  </ng-template>
 </p-overlayPanel>
 `,
     styles: [
@@ -23,7 +25,8 @@ import { Listbox, ListboxModule } from 'primeng/listbox';
         '.tag-dropdown.p-dropdown { width: 100%; }'
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class SmzInputTagArea implements AfterViewInit, OnDestroy {
     @ViewChild(OverlayPanel) public overlay: OverlayPanel;
@@ -243,10 +246,10 @@ export class SmzInputTagArea implements AfterViewInit, OnDestroy {
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        InputTextareaModule,
+        TextareaModule,
         SmzSmartTagModule,
         OverlayPanelModule,
-        DropdownModule,
+        SelectModule,
         ButtonModule,
         ListboxModule
     ],

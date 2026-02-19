@@ -5,8 +5,8 @@ import { SmzDocumentBuilder } from '../document-builder';
 import { SmzDocumentRowBuilder } from '../document-content';
 
 export class SmzCellPageBreakBuilder extends SmzDocumentBaseCellBuilder<SmzCellPageBreakBuilder> {
-  protected that = this;
-  constructor(public _rowBuilder: SmzDocumentRowBuilder, public _cell: SmzDocumentCell, public _data: SmzDocumentPageBreak, public _documentBuilder: SmzDocumentBuilder) {
+  protected override that = this;
+  constructor(public override _rowBuilder: SmzDocumentRowBuilder, public override _cell: SmzDocumentCell, public override _data: SmzDocumentPageBreak, public override _documentBuilder: SmzDocumentBuilder) {
     super(_rowBuilder, _cell, _data, _documentBuilder);
   }
 

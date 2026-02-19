@@ -11,7 +11,8 @@ import { Store } from '@ngxs/store';
     styleUrls: ['./document-viewer.component.scss'],
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
-    providers: [SmzDocumentsService]
+    providers: [SmzDocumentsService],
+    standalone: false
 })
 export class SmzDocumentViewerComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges
 {
@@ -26,7 +27,7 @@ export class SmzDocumentViewerComponent implements OnInit, AfterViewInit, OnDest
     }
 
     public ngOnChanges(changes: SimpleChanges): void {
-        if (changes.state.currentValue != null) {
+        if (changes['state']?.currentValue != null) {
             this.documentService.setZoom(this.state.viewer.zoom.initial);
             this.documentService.setFilename(this.state.export.filename);
             this.documentService.setState(this.state);

@@ -1,0 +1,7 @@
+.p-datatable.p-datatable-sm .p-datatable-header {
+  padding: 0.5rem 0;
+}
+
+.p-datatable-header span.p-input-icon-left {
+  min-width: 15em;
+}

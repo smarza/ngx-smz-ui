@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Store, } from '@ngxs/store';
 import { LayoutUiActions } from '../../../../state/ui/layout/layout.actions';
 import { LayoutUiSelectors } from '../../../../state/ui/layout/layout.selectors';
@@ -8,56 +8,61 @@ import { GlobalInjector } from '../../../../common/services/global-injector';
 @Component({
   selector: 'smz-ui-theme-manager',
   template: ``,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false
 })
-export class ThemeManagerComponent implements OnInit
+export class ThemeManagerComponent
 {
   public currentContentTheme: string;
   public contentLink: HTMLLinkElement;
 
   constructor(private store: Store, private themeManagerService: ThemeManagerService)
   {
-    this.contentLink = this.themeManagerService._document.createElement('link');
-    this.contentLink.setAttribute('rel', 'stylesheet');
-    this.contentLink.setAttribute('type', 'text/css');
-    this.contentLink.setAttribute('href', '');
 
-    this.store
-      .select(LayoutUiSelectors.contentTheme)
-      .subscribe((newTheme) =>
-      {
-        if (newTheme !== this.currentContentTheme)
-        {
-          this.contentLink.setAttribute('href', newTheme);
-          this.currentContentTheme = newTheme;
+    // TODO: Esse código deve ser removido após a implementação do tema do primeng
+    // O prime na versão 19 modificou a forma de como os temas são aplicados
 
-          // Adicioar estilos de content da lib
-          this.themeManagerService._document.head.appendChild(this.contentLink);
+    //   this.contentLink = this.themeManagerService._document.createElement('link');
+    //   this.contentLink.setAttribute('rel', 'stylesheet');
+    //   this.contentLink.setAttribute('type', 'text/css');
+    //   this.contentLink.setAttribute('href', '');
 
-          // Adicionar estilos prioritários do projeto client
-          this.themeManagerService.propagate();
+    //   this.store
+    //     .select(LayoutUiSelectors.contentTheme)
+    //     .subscribe((newTheme) =>
+    //     {
+    //       if (newTheme !== this.currentContentTheme)
+    //       {
+    //         console.log('newTheme', newTheme);
+    //         this.contentLink.setAttribute('href', newTheme);
+    //         this.currentContentTheme = newTheme;
 
-          // console.log(this.themeManagerService._document.styleSheets);
-        }
-      });
+    //         // Adicioar estilos de content da lib
+    //         this.themeManagerService._document.head.appendChild(this.contentLink);
 
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
-        const systemColor = event.matches ? "dark" : "light";
+    //         // Adicionar estilos prioritários do projeto client
+    //         this.themeManagerService.propagate();
 
-        switch (systemColor) {
-          case 'dark':
-            this.store.dispatch(new LayoutUiActions.SetContentTheme( GlobalInjector.config.layouts.themes.system.dark));
-            break;
+    //         // console.log(this.themeManagerService._document.styleSheets);
+    //       }
+    //     });
 
-          case 'light':
-            this.store.dispatch(new LayoutUiActions.SetContentTheme( GlobalInjector.config.layouts.themes.system.light));
-            break;
-        }
-    });
-  }
+    //   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event =>
+    //   {
 
-  ngOnInit(): void
-  {
+    //     const systemColor = event.matches ? "dark" : "light";
+
+    //     switch (systemColor)
+    //     {
+    //       case 'dark':
+    //         this.store.dispatch(new LayoutUiActions.SetContentTheme(GlobalInjector.config.layouts.themes.system.dark));
+    //         break;
+
+    //       case 'light':
+    //         this.store.dispatch(new LayoutUiActions.SetContentTheme(GlobalInjector.config.layouts.themes.system.light));
+    //         break;
+    //     }
+    //   });
   }
 
 }

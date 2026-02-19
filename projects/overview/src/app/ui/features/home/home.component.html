@@ -1,0 +1,112 @@
+<!-- <button type="button" pButton pRipple label="Block" (click)="uiBlockService.blockAll()"></button>
+<button type="button" pButton pRipple label="Unblock" (click)="uiBlockService.unBlockAll()"></button> -->
+
+<!-- <button type="button" pButton label="buildDialog" (click)="buildDialog()"></button> -->
+
+<div class="grid grid-nogutter items-start justify-start h-full">
+
+  <!-- TREE -->
+  <div class="h-full col-12 lg:col-3 p-2">
+
+    <div class="h-full w-full rounded shadow-md p-3">
+      <div smzUiBlock #treeContainer id="treeContainer" [component]="treeContainer" class="h-full">
+        <smz-ui-tree
+          [items]="items"
+          [state]="treeState"
+          [selection]="currentRouteKey$ | async"
+          (selectedNodes)="onSelectedNodes($event)">
+        </smz-ui-tree>
+      </div>
+    </div>
+  </div>
+
+  <!-- DETAILS -->
+  <div class="h-full col-12 lg:col-9 p-2">
+    <div #tabContainer class="h-full items-stretch flex-col grid justify-start grid-nogutter py-3 rounded shadow-md w-full overflow-y-auto">
+      <p-tabs [value]="selectedTabIndex">
+
+        <p-tablist>
+          <p-tab [value]="0" [disabled]="selectedNode == null">Exemplo</p-tab>
+          <p-tab [value]="1">Código</p-tab>
+        </p-tablist>
+
+        <p-tabpanels>
+          <p-tabpanel [value]="0">
+            @switch (selectedNode?.demoType) {
+              @case ('form') {
+                <app-demo-form  [node]="selectedNode"></app-demo-form>
+              }
+              @case ('table') {
+                <app-demo-table [node]="selectedNode"></app-demo-table>
+              }
+              @case ('multi-tables') {
+                <app-demo-multi-tables [node]="selectedNode"></app-demo-multi-tables>
+              }
+              @case ('icons') {
+                <app-demo-icons [node]="selectedNode"></app-demo-icons>
+              }
+              @case ('chart') {
+                <app-demo-chart [node]="selectedNode"></app-demo-chart>
+              }
+              @case ('document') {
+                <app-demo-document [node]="selectedNode"></app-demo-document>
+              }
+              @case ('comments') {
+                <app-demo-comments [node]="selectedNode"></app-demo-comments>
+              }
+              @case ('menu') {
+                <app-demo-menu [node]="selectedNode"></app-demo-menu>
+              }
+              @case ('tree') {
+                <app-demo-tree [node]="selectedNode"></app-demo-tree>
+              }
+              @case ('cards') {
+                <app-demo-cards [node]="selectedNode"></app-demo-cards>
+              }
+              @case ('timeline') {
+                <app-demo-timeline [node]="selectedNode"></app-demo-timeline>
+              }
+              @case ('dynamic') {
+                <app-demo-dynamic [node]="selectedNode"></app-demo-dynamic>
+              }
+              @case ('dialog') {
+                <div>
+                  <button pButton pRipple type="button" label="Abrir Dialogo" class="p-button-success" (click)="selectedNode.data()"></button>
+                </div>
+              }
+              @case ('ui-guide') {
+                <div>
+                  <button pButton pRipple type="button" label="Iniciar Guia" class="p-button-success" (click)="selectedNode.data()"></button>
+                </div>
+              }
+            }
+          </p-tabpanel>
+          <p-tabpanel [value]="1">
+            <ng-template pTemplate="header"><div id="codeTab">Código</div></ng-template>
+
+            <!-- CONTEÚDO -->
+            @if (selectedNode != null) {
+              <!-- HEADER -->
+              <div class="grid grid-nogutter items-center justify-between py-2">
+                <h3 class="m-0">{{ selectedNode | demoTitle }}</h3>
+              </div>
+              <!-- CONTEÚDO -->
+              <div class="flex-grow relative w-full mt-1 mb-3 h-full overflow-y-auto">
+                <p>{{ selectedNode.notes }}</p>
+                <demo-code-block [code]="$any(selectedNode.data?.code ?? selectedNode.data)"></demo-code-block>
+              </div>
+            } @else {
+              <div class="grid grid-nogutter items-center justify-center p-4 flex-col flex-grow mt-10">
+                <i class="fas fa-info-circle text-5xl text-yellow-500 mb-4"></i>
+                <div class="text-lg">Escolha um demo.</div>
+              </div>
+            }
+
+          </p-tabpanel>
+        </p-tabpanels>
+
+      </p-tabs>
+    </div>
+  </div>
+
+</div>

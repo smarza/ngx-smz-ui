@@ -1,4 +1,10 @@
-<label *ngIf="input.hideLabel != true" class="smz__input_name" [innerHTML]="input.name"></label>
+<smz-label
+    class="smz__input_name"
+    [text]="input.name"
+    [propertyName]="input.propertyName"
+    [showLabel]="input.hideLabel != true"
+    [warning]="input.warning">
+</smz-label>
 <div class="input_inner__wrapper grid grid-nogutter items-center justify-start flex-nowrap mt-1">
     <p-colorPicker
         [id]="input.propertyName"

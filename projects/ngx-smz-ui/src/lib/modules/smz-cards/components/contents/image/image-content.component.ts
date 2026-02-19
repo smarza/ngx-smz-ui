@@ -2,9 +2,10 @@ import { Component, Input, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } 
 import { SmzCardsImageContent } from '../../../models/smz-cards-contents';
 
 @Component({
-  selector: 'smz-image-content',
-  templateUrl: 'image-content.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'smz-image-content',
+    templateUrl: 'image-content.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 
 export class SmzImageContentComponent implements OnInit {

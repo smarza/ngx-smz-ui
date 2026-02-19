@@ -2,8 +2,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { shorten } from '../../utils/utils';
 
 @Pipe({
-  name: 'prettyjson',
-  pure:true
+    name: 'prettyjson',
+    pure: true,
+    standalone: false
 })
 export class PrettyJsonPipe implements PipeTransform {
   transform(value: any, args: any[] = [true, 3]): string {

@@ -3,7 +3,7 @@ import { SmzMenuItem } from '../../modules/smz-menu/models/smz-menu-item';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 
 export class SmzMenuBuilder extends SmzBuilderUtilities<SmzMenuBuilder> {
-  protected that = this;
+  protected override that = this;
   private _items: SmzMenuItem[] = [];
   constructor() {
     super();

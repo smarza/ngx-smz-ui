@@ -1,8 +1,6 @@
-import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { Select, Store } from '@ngxs/store';
-import { Observable } from 'rxjs';
-import { Assistance, SmzAssistanceButtonPositions, SmzAssistancePositions } from '../../core/models/assistance';
+import { ChangeDetectorRef, Component, DestroyRef, inject, OnInit, ViewEncapsulation } from '@angular/core';
+import { Store } from '@ngxs/store';
+import { SmzAssistanceButtonPositions, SmzAssistancePositions } from '../../core/models/assistance';
 import { SmzLoader, SmzLoaders } from '../../core/models/loaders';
 import { SmzContentTheme, SmzContentThemes } from '../../core/models/themes';
 import { LayoutUiActions } from '../../../../state/ui/layout/layout.actions';
@@ -13,18 +11,20 @@ import { ColorSchemaDefinition, SmzColorSchemas } from '../../core/models/color-
 import { ApplicationSelectors } from '../../../../state/global/application/application.selector';
 import { ApplicationActions } from '../../../../state/global/application/application.actions';
 import { ToastActions } from '../../../../state/global/application/application.actions.toast';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-@UntilDestroy()
 @Component({
-  selector: 'smz-ui-global-assistance',
-  templateUrl: './global-assistance.component.html',
-  styleUrls: ['./global-assistance.component.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'smz-ui-global-assistance',
+    templateUrl: './global-assistance.component.html',
+    styleUrls: ['./global-assistance.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class GlobalAssistanceComponent implements OnInit {
-  @Select(LayoutUiSelectors.assistance) public assistance$: Observable<Assistance>;
+  private readonly destroyRef = inject(DestroyRef);
+  public assistance$ = inject(Store).select(LayoutUiSelectors.assistance);
   public globalIsLoading: boolean;
-  public timer: number;
+  public timer: number | null;
   public contentThemes = SmzContentThemes;
   public colorSchemes = SmzColorSchemas;
   public loaders = SmzLoaders;
@@ -36,7 +36,7 @@ export class GlobalAssistanceComponent implements OnInit {
 
     this.store
       .select(ApplicationSelectors.globalIsLoading)
-      .pipe(untilDestroyed(this))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((newValue) => {
         if (newValue !== this.globalIsLoading) {
           this.globalIsLoading = newValue;
@@ -71,8 +71,11 @@ export class GlobalAssistanceComponent implements OnInit {
       this.store.dispatch(new ApplicationActions.StartGlobalLoading);
     }
 
+    // TODO: Verificar se é está funcionando corretamente
     const timer = setInterval(() => {
-      this.timer--;
+      if (this.timer != null) {
+        this.timer--;
+      }
     }, 1000);
 
     setTimeout(() => {

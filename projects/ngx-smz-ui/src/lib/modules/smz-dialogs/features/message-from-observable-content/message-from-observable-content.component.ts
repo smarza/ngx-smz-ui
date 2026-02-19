@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
     selector: 'smz-message-from-observablecontent',
     templateUrl: './message-from-observable-content.component.html',
     encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class MessageFromObservableContentComponent
 {

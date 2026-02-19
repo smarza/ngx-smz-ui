@@ -4,7 +4,7 @@ import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzTableBuilder } from './state-builder';
 
 export class SmzMenuTableBuilder<TData, TMappedData> extends SmzBuilderUtilities<SmzMenuTableBuilder<TData, TMappedData>> {
-  protected that = this;
+  protected override that = this;
   constructor(private _tableBuilder: SmzTableBuilder<TData>) {
     super();
   }
@@ -34,7 +34,7 @@ export class SmzMenuTableBuilder<TData, TMappedData> extends SmzBuilderUtilities
 }
 
 export class SmzMenuItemTableBuilder<TBuilder, TData, TMappedData = TData> extends SmzBuilderUtilities<SmzMenuItemTableBuilder<TBuilder, TData, TMappedData>> {
-  protected that = this;
+  protected override that = this;
   constructor(private _builder: TBuilder, private _parent: SmzMenuItemTableBuilder<TBuilder, TData, TMappedData>, private _item: SmzMenuItem) {
     super();
   }

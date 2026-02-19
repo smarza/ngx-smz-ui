@@ -19,7 +19,7 @@ import { GlobalInjector } from '../../common/services/global-injector';
 // https://html2canvas.hertzen.com/configuration
 
 export class SmzDocumentBuilder extends SmzBuilderUtilities<SmzDocumentBuilder> {
-  protected that = this;
+  protected override that = this;
   private defaultConfig = GlobalInjector.config.rbkUtils;
   public _state: SmzDocumentState = {
     isDebug: false,

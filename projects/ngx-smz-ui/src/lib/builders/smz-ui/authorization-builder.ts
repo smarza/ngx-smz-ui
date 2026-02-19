@@ -9,7 +9,7 @@ import { SmzUiUsersCrudBuilder } from './crud-users-builder';
 import { SmzUiBuilder } from './ui-builder';
 
 export class SmzUiAuthorizationBuilder<TData> extends SmzBuilderUtilities<SmzUiAuthorizationBuilder<TData>> {
-  protected that = this;
+  protected override that = this;
   public _menuLocation: 'navigation-bar' | 'profile' = 'navigation-bar';
   public _menu: MenuCreation;
   constructor(private _builder: SmzUiBuilder, private _state: NgxSmzUiConfig) {

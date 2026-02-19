@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { HephaestusFooterComponent } from './footer.component';
-import { SidebarModule } from 'primeng/sidebar';
+import { DrawerModule } from 'primeng/drawer';
 
 @NgModule({
   declarations: [HephaestusFooterComponent],
   imports: [
     CommonModule,
-    SidebarModule,
+    DrawerModule,
   ],
   exports: [HephaestusFooterComponent]
 })

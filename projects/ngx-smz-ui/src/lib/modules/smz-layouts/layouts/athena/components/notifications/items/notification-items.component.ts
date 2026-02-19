@@ -2,21 +2,26 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmi
 import { SmzNotification } from '../../../../../core/models/notifications';
 
 @Component({
-  selector: "[smz-ui-athena-notification-items]",
-  host: { "(document:click)": "collapse($event)" },
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ['./notification-items.component.scss'],
-  template: `
-    <li role="menuitem" *ngFor="let item of items; let index = index;">
-      <a menuItemAction class="grid grid-nogutter items-center justify-start" style="display: flex;" [item]="item" [parent]="null" [breadcrumbs]="false" [tabindex]="index">
-        <i *ngIf="item.icon != null" class="pi mr-3" [ngClass]="item.icon"></i>
-        <div class="notification-item">
-          <div class="notification-summary">{{ item.summary }}</div>
-          <div class="notification-detail" [innerHtml]="item.details"></div>
-        </div>
-      </a>
-    </li>
-  `,
+    selector: "[smz-ui-athena-notification-items]",
+    host: { "(document:click)": "collapse($event)" },
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrls: ['./notification-items.component.scss'],
+    template: `
+    @for (item of items; track item; let index = $index) {
+      <li role="menuitem">
+        <a menuItemAction class="grid grid-nogutter items-center justify-start" style="display: flex;" [item]="item" [parent]="null" [breadcrumbs]="false" [tabindex]="index">
+          @if (item.icon != null) {
+            <i class="pi mr-3" [ngClass]="item.icon"></i>
+          }
+          <div class="notification-item">
+            <div class="notification-summary">{{ item.summary }}</div>
+            <div class="notification-detail" [innerHtml]="item.details"></div>
+          </div>
+        </a>
+      </li>
+    }
+    `,
+    standalone: false
 })
 export class AthenaNotificationItemsComponent implements OnInit, AfterViewInit {
   @Input() public items: SmzNotification[];

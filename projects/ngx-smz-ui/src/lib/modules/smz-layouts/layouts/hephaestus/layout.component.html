@@ -2,43 +2,43 @@
 
   <ng-template pTemplate="layout">
 
-    <ng-container *ngIf="state$ | async as state">
-
+    @if (state$ | async; as state) {
       <div class="layout-wrapper" [ngClass]="state.wrapperClass">
-
         <div class="layout-content-wrapper" [ngClass]="{ 'sidebar-spacer': routerListener.data.layout.mode !== 'topbar-only' }">
-
           <!-- MENU SUPERIOR -->
-          <ng-container *ngIf="routerListener.data.layout.mode === 'full' || routerListener.data.layout.mode === 'topbar-only'">
+          @if (routerListener.data.layout.mode === 'full' || routerListener.data.layout.mode === 'topbar-only') {
             <smz-ui-hephaestus-topbar [notifications]="notifications" [profile]="profile">
-              <ng-template *ngIf="headerExtrasTemplate != null" pTemplate="headerExtras">
-                <ng-container *ngTemplateOutlet="headerExtrasTemplate"></ng-container>
-              </ng-template>
+              @if (headerExtrasTemplate != null) {
+                <ng-template pTemplate="headerExtras">
+                  <ng-container *ngTemplateOutlet="headerExtrasTemplate"></ng-container>
+                </ng-template>
+              }
             </smz-ui-hephaestus-topbar>
-          </ng-container>
-
+          }
           <!-- CONTEÚDO -->
           <div class="layout-content {{ routerListener.data.layout.contentStyleClass }}" [ngStyle]="{ padding: routerListener.data.layout.contentPadding }" [ngClass]="contentClass$ | async">
             <div class="p-component-overlay z-20 bg-black/40" (click)="hideMenu()"></div>
             <ng-container *ngTemplateOutlet="content"></ng-container>
           </div>
-
           <!-- FOOTER -->
-          <ng-container *ngIf="routerListener.data.layout.mode === 'full'">
-            <smz-ui-hephaestus-footer *ngIf="!routerListener.data.layout.hideFooter">
-              <ng-template *ngIf="footerExtrasTemplate != null" pTemplate="footerExtras">
-                <ng-container *ngTemplateOutlet="footerExtrasTemplate"></ng-container>
-              </ng-template>
-            </smz-ui-hephaestus-footer>
-          </ng-container>
-
+          @if (routerListener.data.layout.mode === 'full') {
+            @if (!routerListener.data.layout.hideFooter) {
+              <smz-ui-hephaestus-footer>
+                @if (footerExtrasTemplate != null) {
+                  <ng-template pTemplate="footerExtras">
+                    <ng-container *ngTemplateOutlet="footerExtrasTemplate"></ng-container>
+                  </ng-template>
+                }
+              </smz-ui-hephaestus-footer>
+            }
+          }
           <!-- BARRA LATERAL -->
-          <smz-ui-hephaestus-sidebar *ngIf="routerListener.data.layout.mode === 'full' || routerListener.data.layout.mode === 'menu-only'" [menu]="menu"></smz-ui-hephaestus-sidebar>
-
+          @if (routerListener.data.layout.mode === 'full' || routerListener.data.layout.mode === 'menu-only') {
+            <smz-ui-hephaestus-sidebar [menu]="menu"></smz-ui-hephaestus-sidebar>
+          }
         </div>
-
       </div>
-    </ng-container>
+    }
 
   </ng-template>
 

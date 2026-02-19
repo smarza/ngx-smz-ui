@@ -18,7 +18,7 @@ export class RbkDatabaseStateGuard implements CanActivate {
 
         if (config.debugMode) console.groupCollapsed(`RbkDatabaseStateGuard on route /${snapshot.routeConfig.path}`);
 
-        const states: string[] = snapshot.routeConfig.data.requiredStates ?? [];
+        const states: string[] = snapshot.routeConfig.data['requiredStates'] ?? [];
 
         const allowTenantSwitching = config.rbkUtils.authentication.allowTenantSwitching;
 

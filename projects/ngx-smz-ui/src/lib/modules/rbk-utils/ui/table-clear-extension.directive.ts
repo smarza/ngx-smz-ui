@@ -1,7 +1,8 @@
 import { Directive, Input, NgModule, OnInit, EventEmitter, OnDestroy } from '@angular/core';
 
 @Directive({
-    selector: '[rbkTableClearExtension]'
+    selector: '[rbkTableClearExtension]',
+    standalone: false
 })
 export class TableClearExtensionDirective implements OnInit {
     @Input() public rbkTableClearExtension: any;

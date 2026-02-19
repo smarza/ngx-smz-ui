@@ -1,32 +1,28 @@
-import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, ElementRef, Input, OnChanges, QueryList, SimpleChanges, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { Select } from '@ngxs/store';
-import { UntilDestroy } from '@ngneat/until-destroy';
+import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, ElementRef, inject, Input, OnChanges, QueryList, SimpleChanges, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { Store } from '@ngxs/store';
 import { MenuItem, PrimeTemplate } from 'primeng/api';
-import { Observable } from 'rxjs';
 import { LayoutUiSelectors } from '../../../../../../state/ui/layout/layout.selectors';
-import { SmzAppLogo } from '../../../../core/models/logo';
 import { MenuType } from '../../../../core/models/menu-types';
 import { UiAthenaSelectors } from '../../state/ui-layout.selectors';
-import { AthenaLayout } from '../../layout.config';
 import { RouterState } from '@ngxs/router-plugin';
+import { Observable } from 'rxjs';
 
-@UntilDestroy()
 @Component({
-  selector: 'smz-ui-athena-horizontal-menu',
-  templateUrl: './horizontal-menu.component.html',
-  styleUrls: ['./horizontal-menu.component.scss'],
-  host: { "(document:click)": "collapseFromOutside($event)" },
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'smz-ui-athena-horizontal-menu',
+    templateUrl: './horizontal-menu.component.html',
+    styleUrls: ['./horizontal-menu.component.scss'],
+    host: { "(document:click)": "collapseFromOutside($event)" },
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class AthenaHorizontalMenuComponent implements AfterContentInit, OnChanges {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
-  @Select(LayoutUiSelectors.topbarTitle) public topbarTitle$: Observable<string>;
-  @Select(LayoutUiSelectors.appContentLogo) public appLogo$: Observable<SmzAppLogo>;
-
-  @Select(UiAthenaSelectors.layout) public layout$: Observable<AthenaLayout>;
-  @Select(LayoutUiSelectors.appName) public appName$: Observable<string>;
-  @Select(RouterState.state) public currentRoute$: Observable<any>;
+  public topbarTitle$ = inject(Store).select(LayoutUiSelectors.topbarTitle);
+  public appLogo$ = inject(Store).select(LayoutUiSelectors.appContentLogo);
+  public layout$ = inject(Store).select(UiAthenaSelectors.layout);
+  public appName$ = inject(Store).select(LayoutUiSelectors.appName);
+  public currentRoute$: Observable<any> = inject(Store).select(RouterState.state);
   @Input() public menu: MenuItem[];
   public isAnyMenuExpanded = false;
   public menuType = MenuType;
@@ -45,9 +41,9 @@ export class AthenaHorizontalMenuComponent implements AfterContentInit, OnChange
 
   public ngOnChanges(changes: SimpleChanges): void
   {
-      if (changes.menu != null)
+      if (changes['menu'] != null)
       {
-          const data = changes.menu.currentValue;
+          const data = changes['menu'].currentValue;
 
           if (data == null) {
             document.documentElement.style.setProperty('--layout-menu-height', '0em');

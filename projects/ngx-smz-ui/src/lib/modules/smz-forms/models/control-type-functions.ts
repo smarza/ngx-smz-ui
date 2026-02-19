@@ -1,15 +1,17 @@
 import { AbstractControl, UntypedFormGroup } from '@angular/forms';
 import { SmzControlType, SmzControlTypes, SmzCalendarControl, SmzCurrencyControl, SmzPasswordControl, SmzSwitchControl, SmzTextControl, SmzCheckBoxControl, SmzCheckBoxGroupControl, SmzColorPickerControl, SmzDropDownControl, SmzFileControl, SmzLinkedDropDownControl, SmzMultiSelectControl, SmzNumberControl, SmzRadioControl, SmzTextAreaControl, SmzMaskControl, SmzLinkedMultiSelectControl, SmzListControl, SmzTagAreaControl, SmzContentMaskControl, SmzTextButtonControl, SmzTreeControl, SmzAutocompleteTagAreaControl } from './control-types';
-import { flatten, isArray, isConvertibleToNumber, isNumber, isString } from '../../../common/utils/utils';
+import { flatten, isArray, isConvertibleToNumber, isString } from '../../../common/utils/utils';
 import { executeTextPattern } from './text-patterns';
 import { cloneDeep } from 'lodash-es';
 import { SmzSmartTagData } from '../directives/smart-tag.directive';
 import { mapInputContentMaskText, unmapInputContentMaskText } from '../components/input-content-mask/input-content-mask.pipe';
 import { GlobalInjector } from '../../../common/services/global-injector';
-import { UUID } from 'angular2-uuid';
 import { TreeHelpers } from '../../smz-trees/utils/tree-helpers';
 import { resolveTreeNodeSelection } from '../../smz-trees/models/node-helper';
-import { SimpleEntity, SimpleParentEntity } from '../../../common/models/simple-named-entity';
+import { SimpleEntity } from '../../../common/models/simple-named-entity';
+import { generateGUID } from '../../../common/utils/guid-generator';
+import moment from 'moment';
+import { isEmpty, normalizeDateToUtc } from '../../rbk-utils/utils/utils';
 
 export interface SmzControlTypeFunctionsDefinitions
 {
@@ -18,7 +20,6 @@ export interface SmzControlTypeFunctionsDefinitions
     applyDefaultValue: (control: AbstractControl, input: SmzControlTypes) => void;
     getValue: (form: UntypedFormGroup, input: SmzControlTypes, flattenResponse: boolean) => any;
     setValue?: (control: AbstractControl, input: SmzControlTypes, value: any) => void;
-
 }
 
 export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefinitions } =
@@ -30,7 +31,19 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
         getValue: (form: UntypedFormGroup, input: SmzCalendarControl, flattenResponse: boolean) =>
         {
             const value = form.get(input.propertyName).value;
-            // console.log('getValue CALENDAR', value);
+
+            if (!isEmpty(value) && !input.showTime && value instanceof Date) {
+
+                // Input está configurado para não mostrar o horário, então vamos remover o horário
+                try {
+                    const date = normalizeDateToUtc(value);
+                    return mapResponseValue(input, date, false);
+                } catch (error) {
+                    console.error('Erro ao normalizar data para UTC', input, value, error);
+                    return mapResponseValue(input, value, false);
+                }
+            }
+
             return mapResponseValue(input, value, false);
         },
     },
@@ -329,7 +342,7 @@ export const CONTROL_FUNCTIONS: { [key: string]: SmzControlTypeFunctionsDefiniti
             input.options = cloneDeep(input.defaultValue);
 
             if (input.options != null) {
-                input.listBoxOptions = input.options.map(x => ({ id: UUID.UUID(), name: x }));
+                input.listBoxOptions = input.options.map(x => ({ id: generateGUID(), name: x }));
             }
 
             if (input.editMode == null) input.editMode = 'dialog';

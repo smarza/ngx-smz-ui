@@ -6,7 +6,8 @@ import { SmzMaskControl } from '../../models/control-types';
 @Component({
     selector: 'smz-input-mask',
     templateUrl: './input-mask.component.html',
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class InputMaskComponent
 {

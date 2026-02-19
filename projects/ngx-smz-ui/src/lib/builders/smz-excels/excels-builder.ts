@@ -5,7 +5,7 @@ import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzExcelsSheetsBuilder } from './excels-sheets';
 
 export class SmzExcelsBuilder extends SmzBuilderUtilities<SmzExcelsBuilder> {
-  protected that = this;
+  protected override that = this;
   private defaultConfig = GlobalInjector.config;
   public _state: SmzExcelState = {
     isDebug: false,

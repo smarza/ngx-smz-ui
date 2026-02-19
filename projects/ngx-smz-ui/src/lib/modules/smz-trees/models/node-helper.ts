@@ -20,10 +20,10 @@ export class SmzNodeHelper {
     return this.primeSelection;
   }
 
-  private selectNodes(tree: SmzTreeNode[], checkedNodes: SmzTreeNode[], keys: string[]) {
+  private selectNodes(tree: SmzTreeNode[], checkedNodes: SmzTreeNode[], keys: string[] | null) {
     for (const node of tree) {
       if (node.key != null) {
-        if (keys.includes(node.key) || (node.parent && checkedNodes.includes(node.parent))) {
+        if (keys != null && keys.includes(node.key) || (node.parent && checkedNodes.includes(node.parent))) {
           checkedNodes.push(node);
         }
       }

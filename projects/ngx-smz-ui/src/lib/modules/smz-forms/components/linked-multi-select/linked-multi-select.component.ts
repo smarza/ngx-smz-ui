@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AbstractControl } from '@angular/forms';
 import { SmzFormsBehaviorsConfig } from '../../models/behaviors';
 import { SmzLinkedMultiSelectControl } from '../../models/control-types';
 import { SmzFormsDropdownService } from '../../services/smz-forms-dropdown.service';
@@ -7,6 +6,7 @@ import { SmzFormsDropdownService } from '../../services/smz-forms-dropdown.servi
 @Component({
     selector: 'smz-linked-multi-select',
     templateUrl: './linked-multi-select.component.html',
+    standalone: false
 })
 export class LinkedMultiSelectComponent implements OnInit
 {

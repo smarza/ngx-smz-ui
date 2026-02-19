@@ -3,8 +3,9 @@ import { SmzDocumentConfig } from '../../models/smz-document-config';
 import { SmzDocumentImage } from '../../models/smz-document-features';
 
 @Component({
-  selector: 'smz-document-image',
-  templateUrl: 'image.component.html'
+    selector: 'smz-document-image',
+    templateUrl: 'image.component.html',
+    standalone: false
 })
 
 export class SmzDocumentImageComponent implements OnInit {

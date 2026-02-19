@@ -19,6 +19,8 @@
     "./resources/assets/images/tables/*.*",
     "./resources/assets/images/dock/*.*",
     "./resources/assets/locales/*.*",
+    "./resources/assets/themes/**/*.*",
+    "./resources/assets/scss/legacy/**/*.*",
     "./tailwind.preset.js"
   ],
   "lib": {

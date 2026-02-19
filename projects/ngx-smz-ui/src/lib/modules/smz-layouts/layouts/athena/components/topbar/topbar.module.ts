@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { AthenaTopbarComponent } from './topbar.component';
-import { SidebarModule } from 'primeng/sidebar';
+import { DrawerModule } from 'primeng/drawer';
 import { RouterModule } from '@angular/router';
 import { AthenaTopbarActionsModule } from '../topbar-actions/topbar-actions.module';
 
@@ -10,7 +10,7 @@ import { AthenaTopbarActionsModule } from '../topbar-actions/topbar-actions.modu
   imports: [
     CommonModule,
     RouterModule,
-    SidebarModule,
+    DrawerModule,
     AthenaTopbarActionsModule
   ],
   exports: [AthenaTopbarComponent]

@@ -1,42 +1,30 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
-
+import { Component, Input, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, inject } from '@angular/core';
 import { TemplateRef } from '@angular/core';
-import { RouterEvent, RouteConfigLoadStart, RouteConfigLoadEnd, Router } from '@angular/router';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { Select, Store } from '@ngxs/store';
-import { Observable } from 'rxjs';
+import { RouteConfigLoadStart, RouteConfigLoadEnd, Router } from '@angular/router';
+import { Store } from '@ngxs/store';
 import { filter } from 'rxjs/operators';
 import { ApplicationSelectors } from '../../../../state/global/application/application.selector';
-import { LoaderData } from '../../core/models/layout';
 import { SmzLoader } from '../../core/models/loaders';
 import { LayoutUiSelectors } from '../../../../state/ui/layout/layout.selectors';
 
-@UntilDestroy()
 @Component({
-  selector: 'smz-ui-global-loader',
-  templateUrl: './global-loader.component.html',
-  styleUrls: ['./global-loader.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'smz-ui-global-loader',
+    templateUrl: './global-loader.component.html',
+    styleUrls: ['./global-loader.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
-export class GlobalLoaderComponent implements OnInit
+export class GlobalLoaderComponent
 {
-  @Select(LayoutUiSelectors.loader) public loader$: Observable<LoaderData>;
-  @Select(ApplicationSelectors.globalIsLoading) public isLoading$: Observable<LoaderData>;
+  private readonly router = inject(Router);
+  private readonly cdr = inject(ChangeDetectorRef);
+  public loader$ = inject(Store).select(LayoutUiSelectors.loader);
+  public isLoading$ = inject(Store).select(ApplicationSelectors.globalIsLoading);
   @Input() public template: TemplateRef<any>;
   public loaders = SmzLoader;
   public isRouterLoading: boolean = false;
-  public test = false;
   public isNavigationEnded = false;
-
-  constructor(private router: Router, private cdr: ChangeDetectorRef)
-  {
-    // this.setupRouterListener();
-  }
-
-  public ngOnInit(): void
-  {
-  }
 
   public setupRouterListener(): void
   {

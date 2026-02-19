@@ -5,8 +5,9 @@ import { TableContentService } from '../../../services/table-content.service';
 import { TableDataSourceService } from '../../../services/table-data-source.service';
 
 @Component({
-  selector: '[et-desktop-body]',
-  templateUrl: 'body.component.html'
+    selector: '[et-desktop-body]',
+    templateUrl: 'body.component.html',
+    standalone: false
 })
 
 export class DesktopBodyComponent implements OnInit {

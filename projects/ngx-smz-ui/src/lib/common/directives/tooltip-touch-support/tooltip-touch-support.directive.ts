@@ -2,7 +2,8 @@ import { Directive, HostBinding, OnInit, ViewChild } from '@angular/core';
 import { Tooltip } from 'primeng/tooltip';
 
 @Directive({
-  selector: '[appTooltipTouchSupport]',
+    selector: '[appTooltipTouchSupport]',
+    standalone: false
 })
 export class TooltipTouchSupportDirective implements OnInit {
   @HostBinding('tabindex') public tabindex = '0';

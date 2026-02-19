@@ -1,61 +1,62 @@
-<ng-container *ngIf="assistance$ | async as assistance">
-
-  <h5 class="mt-4">Global Loading <span *ngIf="timer != null">{{ timer }}</span></h5>
+@if (assistance$ | async; as assistance) {
+  <h5 class="mt-4">Global Loading @if (timer != null) {
+    <span>{{ timer }}</span>
+  }</h5>
   <div class="grid grid-nogutter gap-2">
-    <p-inputSwitch class="col-12" [(ngModel)]="globalIsLoading" (onChange)="changeGlobalLoading($event, 5)"></p-inputSwitch>
-    <p-inputSwitch class="col-12" [(ngModel)]="globalIsLoading" (onChange)="changeGlobalLoading($event, 60)"></p-inputSwitch>
-    <button
-      *ngFor="let loader of loaders"
-      pButton pRipple type="button" [label]="loader.name" class="p-button-outlined mr-2 mb-2" (click)="onSetGlobalLoader(loader.id)">
-    </button>
+    <p-toggleswitch class="col-12" [(ngModel)]="globalIsLoading" (onChange)="changeGlobalLoading($event, 5)"></p-toggleswitch>
+    <p-toggleswitch class="col-12" [(ngModel)]="globalIsLoading" (onChange)="changeGlobalLoading($event, 60)"></p-toggleswitch>
+    @for (loader of loaders; track loader) {
+      <button
+        pButton pRipple type="button" [label]="loader.name" class="p-button-outlined mr-2 mb-2" (click)="onSetGlobalLoader(loader.id)">
+      </button>
+    }
   </div>
-
   <h5>Toast Messages</h5>
   <div class="grid grid-nogutter gap-2">
-    <button
-      *ngFor="let toast of toasts"
-      pButton pRipple type="button" [label]="toast.name" class="p-button-outlined mr-2 mb-2" (click)="onShowToast(toast.id)">
-    </button>
+    @for (toast of toasts; track toast) {
+      <button
+        pButton pRipple type="button" [label]="toast.name" class="p-button-outlined mr-2 mb-2" (click)="onShowToast(toast.id)">
+      </button>
+    }
   </div>
-
   <h5>Toast Positions</h5>
   <div class="grid grid-nogutter gap-2">
-    <button
-      *ngFor="let toastPosition of toastPositions"
-      pButton pRipple type="button" [label]="toastPosition.name" class="p-button-outlined mr-2 mb-2" (click)="onSetToastPosition(toastPosition.id)">
-    </button>
+    @for (toastPosition of toastPositions; track toastPosition) {
+      <button
+        pButton pRipple type="button" [label]="toastPosition.name" class="p-button-outlined mr-2 mb-2" (click)="onSetToastPosition(toastPosition.id)">
+      </button>
+    }
   </div>
-
   <h5>Assistance Positions</h5>
   <div class="grid grid-nogutter gap-2">
-    <button
-      *ngFor="let assistancePosition of assistancePositions"
-      pButton pRipple type="button" [label]="assistancePosition.name" class="p-button-outlined mr-2 mb-2" (click)="onSetAssistancePosition(assistancePosition.id)">
-    </button>
+    @for (assistancePosition of assistancePositions; track assistancePosition) {
+      <button
+        pButton pRipple type="button" [label]="assistancePosition.name" class="p-button-outlined mr-2 mb-2" (click)="onSetAssistancePosition(assistancePosition.id)">
+      </button>
+    }
   </div>
-
   <h5>Assistance Button Positions</h5>
   <div class="grid grid-nogutter gap-2">
-    <button
-      *ngFor="let assistanceButtonPosition of assistanceButtonPositions"
-      pButton pRipple type="button" [label]="assistanceButtonPosition.name" class="p-button-outlined mr-2 mb-2" (click)="onSetAssistanceButtonPosition(assistanceButtonPosition.id)">
-    </button>
+    @for (assistanceButtonPosition of assistanceButtonPositions; track assistanceButtonPosition) {
+      <button
+        pButton pRipple type="button" [label]="assistanceButtonPosition.name" class="p-button-outlined mr-2 mb-2" (click)="onSetAssistanceButtonPosition(assistanceButtonPosition.id)">
+      </button>
+    }
   </div>
-
   <h5>Content Themes</h5>
   <div class="grid grid-nogutter gap-2">
-    <button
-      *ngFor="let content of contentThemes"
-      pButton pRipple type="button" [label]="content.name" class="mr-2 mb-2" [ngClass]="{ 'p-button-outlined': content.tone === 'light', 'p-button-secondary': content.tone === 'dark'}" (click)="onSetContentTheme(content.id)">
-    </button>
+    @for (content of contentThemes; track content) {
+      <button
+        pButton pRipple type="button" [label]="content.name" class="mr-2 mb-2" [ngClass]="{ 'p-button-outlined': content.tone === 'light', 'p-button-secondary': content.tone === 'dark'}" (click)="onSetContentTheme(content.id)">
+      </button>
+    }
   </div>
-
   <h5>Color Schemas</h5>
   <div class="grid grid-nogutter gap-2">
-    <button
-      *ngFor="let schema of colorSchemes"
-      pButton pRipple type="button" [label]="schema.name" class="p-button-outlined mr-2 mb-2" [ngStyle]="{ 'background': schema.color, 'color': schema.constrast }" (click)="onSetColorSchema(schema.id)">
-    </button>
+    @for (schema of colorSchemes; track schema) {
+      <button
+        pButton pRipple type="button" [label]="schema.name" class="p-button-outlined mr-2 mb-2" [ngStyle]="{ 'background': schema.color, 'color': schema.constrast }" (click)="onSetColorSchema(schema.id)">
+      </button>
+    }
   </div>
-
-</ng-container>
+}

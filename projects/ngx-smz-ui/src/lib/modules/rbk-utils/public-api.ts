@@ -39,3 +39,4 @@ export * from './pipes/rbk-safe-html.pipe';
 export * from './pipes/rbk-pipes.module';
 
 export { CanAccess } from './utils/can-access';
+export { AccessControlService } from './auth/access-control.service';

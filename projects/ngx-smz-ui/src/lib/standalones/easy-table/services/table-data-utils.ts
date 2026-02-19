@@ -21,7 +21,7 @@ export function paginator(items: SmzEasyTableData[], currentPage: number, curren
 			const properties = Object.keys(item);
 
 			for (const property of properties) {
-				const matchIndex = items.findIndex(x => x.id === item.id);
+				const matchIndex = items.findIndex(x => x['id'] === item['id']);
 
 				if (matchIndex != null) {
 					// console.log('##############################');

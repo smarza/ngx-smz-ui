@@ -5,8 +5,8 @@ import { SmzDocumentBuilder } from '../document-builder';
 import { SmzDocumentRowBuilder } from '../document-content';
 
 export class SmzCellImageBuilder extends SmzDocumentBaseCellBuilder<SmzCellImageBuilder> {
-  protected that = this;
-  constructor(public _rowBuilder: SmzDocumentRowBuilder, public _cell: SmzDocumentCell, public _data: SmzDocumentImage, public _documentBuilder: SmzDocumentBuilder) {
+  protected override that = this;
+  constructor(public override _rowBuilder: SmzDocumentRowBuilder, public override _cell: SmzDocumentCell, public override _data: SmzDocumentImage, public override _documentBuilder: SmzDocumentBuilder) {
     super(_rowBuilder, _cell, _data, _documentBuilder);
     const defaultConfig = this._documentBuilder._state.config.images;
     _data.container = { styles: defaultConfig.container };

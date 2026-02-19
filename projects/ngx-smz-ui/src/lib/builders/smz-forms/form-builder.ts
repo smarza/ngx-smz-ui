@@ -1,4 +1,3 @@
-import { UUID } from 'angular2-uuid';
 import { SmzDialogBuilder } from '../smz-dialogs/dialog-builder';
 import { SmzForm, SmzFormGroup, SmzFormsResponse } from '../../modules/smz-forms/models/smz-forms';
 import { SmzFormGroupBuilder } from './form-group-builder';
@@ -7,12 +6,12 @@ import { isSimpleNamedEntity } from '../../common/utils/utils';
 import flatten from 'lodash-es/flatten';
 import { GlobalInjector } from '../../common/services/global-injector';
 import { UntypedFormGroup } from '@angular/forms';
-
+import { generateGUID } from '../../common/utils/guid-generator';
 export class SmzFormBuilder<TResponse> {
   private defaultConfig = GlobalInjector.config.dialogs;
   public _state: SmzForm<TResponse> = {
     isDebug: false,
-    formId: UUID.UUID(),
+    formId: generateGUID(),
     groups: [],
     template: {
       extraSmall: { horizontalAlignment: 'justify-between', verticalAlignment: 'items-start' },

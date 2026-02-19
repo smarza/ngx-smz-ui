@@ -15,7 +15,8 @@ import { DesktopTableComponent } from './containers/desktop/desktop-table.compon
 import { SmzEasyTableComponent } from './containers/easy-table/smz-easy-table.component';
 import { MobileTableComponent } from './containers/mobile/mobile-table.component';
 import { SmzTableContentPipe } from './pipes/table-content.pipe';
-import { TableDataSourceService } from './services/table-data-source.service';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
 
 @NgModule({
   imports: [
@@ -24,7 +25,9 @@ import { TableDataSourceService } from './services/table-data-source.service';
     NgxSmzMenuModule,
     SafeContentPipeModule,
     InputTextModule,
-    FormsModule
+    FormsModule,
+    IconFieldModule,
+    InputIconModule
   ],
   exports: [
     SmzEasyTableComponent

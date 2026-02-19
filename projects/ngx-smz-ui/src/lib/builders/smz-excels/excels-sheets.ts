@@ -6,7 +6,7 @@ import { SmzExcelsTablesBuilder } from './excels-tables';
 
 export class SmzExcelsSheetsBuilder extends SmzBuilderUtilities<SmzExcelsSheetsBuilder> {
 
-  protected that = this;
+  protected override that = this;
 
   constructor(private _builder: SmzExcelsBuilder, private _: SmzExcelState, private _state: SmzExcelTableSheet) {
     super();

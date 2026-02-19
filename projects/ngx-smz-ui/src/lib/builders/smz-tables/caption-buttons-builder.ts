@@ -3,7 +3,7 @@ import { SmzTableCaptionButton } from '../../modules/smz-tables/models/table-col
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 
 export class SmzCaptionButtonsBuilder<TData> extends SmzBuilderUtilities<SmzCaptionButtonsBuilder<TData>> {
-  protected that = this;
+  protected override that = this;
   constructor(protected _parent: SmzTableBuilder<TData>) {
     super();
   }

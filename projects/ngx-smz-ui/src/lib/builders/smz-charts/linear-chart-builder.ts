@@ -16,7 +16,7 @@ export function CreateLinearChart<TData>(data: TData[]): LinearChartBuilder<TDat
 
 export class LinearChartBuilder<TData> extends BaseChartBuilder<LinearChartBuilder<TData>, TData>
 {
-    protected that = this;
+    protected override that = this;
     constructor(originalData: TData[])
     {
         super(originalData);

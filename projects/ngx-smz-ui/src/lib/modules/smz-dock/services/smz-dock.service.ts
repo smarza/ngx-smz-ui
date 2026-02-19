@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { UUID } from 'angular2-uuid';
 import { MenuItem } from 'primeng/api';
 import { DynamicDialogComponent } from '../../smz-dialogs/dynamicdialog/dynamicdialog';
 import { DynamicDialogConfig } from '../../smz-dialogs/dynamicdialog/dynamicdialog-config';
+import { generateGUID } from '../../../common/utils/guid-generator';
 
 export interface SmzDockItem extends MenuItem {
   id: string;
@@ -20,7 +20,7 @@ export class SmzDockService {
     const config: DynamicDialogConfig = component.config;
 
     const newItem: SmzDockItem = {
-      id: UUID.UUID(),
+      id: generateGUID(),
       label: config.minimizeLabel,
       icon: config.minimizeDockImagePath,
       type: 'dialog',

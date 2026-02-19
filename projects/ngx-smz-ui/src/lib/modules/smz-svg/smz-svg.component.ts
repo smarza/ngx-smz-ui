@@ -13,9 +13,10 @@ import { toDecimal, Wait } from '../../common/utils/utils';
 import { SmzSvgWorldCoordinates } from './models/world-coordinates';
 
 @Component({
-  selector: 'smz-svg',
-  templateUrl: 'smz-svg.component.html',
-  changeDetection: ChangeDetectionStrategy.Default
+    selector: 'smz-svg',
+    templateUrl: 'smz-svg.component.html',
+    changeDetection: ChangeDetectionStrategy.Default,
+    standalone: false
 })
 
 export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
@@ -33,7 +34,7 @@ export class SmzSvgComponent implements OnChanges, AfterViewInit, OnDestroy {
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
-    if (changes.state.currentValue != null) {
+    if (changes['state']?.currentValue != null) {
 
       if (this.hasViewInit) {
         this.initialize();

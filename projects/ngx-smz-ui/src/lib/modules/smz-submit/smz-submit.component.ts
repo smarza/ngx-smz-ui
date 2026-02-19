@@ -7,16 +7,15 @@ import { SmzFormsResponse } from '../smz-forms/models/smz-forms';
 import { SmzSubmitState } from './smz-submit';
 
 @Component({
-  standalone: true,
-  imports: [CommonModule, ButtonModule],
-  selector: 'smz-ui-submit',
-  template: `
-  <ng-container *ngIf="state != null && response != null">
+    imports: [CommonModule, ButtonModule],
+    selector: 'smz-ui-submit',
+    template: `
+  @if (state != null && response != null) {
     <div class="grid grid-nogutter items-center justify-start gap-2">
       <button pButton pRipple type="button" [icon]="saveIcon" [ngClass]="saveStyleClass" [disabled]="!response.isValid || !response.hasUnsavedChanges" (click)="submitSave()" [label]="saveLabel"></button>
       <button pButton pRipple type="button" [icon]="resetIcon" [ngClass]="resetStyleClass" [disabled]="!response.hasUnsavedChanges" (click)="cancel()" [label]="resetLabel"></button>
     </div>
-  </ng-container>
+  }
   `
 })
 
@@ -38,7 +37,7 @@ export class SmzSubmitComponent implements OnInit, OnChanges, OnDestroy {
   public ngOnInit(): void { }
 
   public ngOnChanges(changes: SimpleChanges): void {
-    if (changes.form.currentValue != null) {
+    if (changes['form']?.currentValue != null) {
       this.hookFormChanges();
     }
     else {

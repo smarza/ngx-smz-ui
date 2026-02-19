@@ -1,4 +1,4 @@
-export const enum AuthClaimDefinitions {
+export enum AuthClaimDefinitions {
   OVERRIDE_USER_CLAIMS = 'OVERRIDE_USER_CLAIMS',
   MANAGE_USER_ROLES = 'MANAGE_USER_ROLES',
   MANAGE_TENANT_SPECIFIC_ROLES = 'MANAGE_TENANT_SPECIFIC_ROLES',

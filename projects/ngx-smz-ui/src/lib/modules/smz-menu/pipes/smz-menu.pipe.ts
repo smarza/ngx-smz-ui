@@ -6,7 +6,8 @@ import { AuthenticationSelectors } from '../../../state/global/authentication/au
 import { GlobalInjector } from '../../../common/services/global-injector';
 
 @Pipe({
-  name: 'smzMenu'
+    name: 'smzMenu',
+    standalone: false
 })
 
 export class SmzMenuPipe implements PipeTransform {

@@ -6,9 +6,9 @@ import { LayoutUiState } from './layout/layout.state';
 import { RouterParamsState } from '../../modules/smz-router-params/state/router-params/router-params.state';
 import { CommentsUiState } from './comments/comments.state';
 import { ExcelsUiState } from './excels/excels.state';
+import { DialogsState } from '../../modules/smz-dialogs/state/dialogs/dialogs.state';
 
-
-export const UI_STATES: any[] = [LayoutUiState, NotificationsUiState, RouterParamsState, CommentsUiState, ExcelsUiState];
+export const UI_STATES: any[] = [LayoutUiState, NotificationsUiState, RouterParamsState, CommentsUiState, ExcelsUiState, DialogsState];
 
 export const UI_REQUIRED_ACTIONS = [];
 

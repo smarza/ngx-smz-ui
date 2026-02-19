@@ -7,7 +7,7 @@ import { AuthenticationSelectors } from '../../state/global/authentication/authe
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 
 export class SmzCardsSourcesBuilder<TItem> extends SmzBuilderUtilities<SmzCardsSourcesBuilder<TItem>> {
-  protected that = this;
+  protected override that = this;
   constructor(private _builder: SmzCardsBuilder<TItem>) {
     super();
     if (this._builder._state.items$ != null) {

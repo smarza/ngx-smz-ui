@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { ObjectUtils } from 'primeng/utils';
 
 @Pipe({
-  name: 'cardsContent'
+    name: 'cardsContent',
+    standalone: false
 })
 
 export class SmzCardsContentPipe implements PipeTransform {

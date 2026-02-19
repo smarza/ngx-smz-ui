@@ -2,7 +2,8 @@ import { Pipe, PipeTransform, NgModule } from '@angular/core';
 import { getProperty, isArray, isUndefined } from '../utils/utils';
 
 @Pipe({
-  name: 'groupBy',
+    name: 'groupBy',
+    standalone: false
 })
 export class GroupByPipe implements PipeTransform {
   public transform(input: any, prop: string): Array<any> {

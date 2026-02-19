@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { SmzIconContentMatch } from '../models/content-types';
 
 @Pipe({
-  name: 'contentIconMatches'
+    name: 'contentIconMatches',
+    standalone: false
 })
 export class SmzContentIconMatchesPipe implements PipeTransform {
   transform(options: SmzIconContentMatch[], value: any): SmzIconContentMatch {

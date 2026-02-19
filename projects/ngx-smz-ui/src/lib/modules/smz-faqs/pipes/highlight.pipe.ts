@@ -3,7 +3,8 @@ import { isEmpty } from '../../rbk-utils/utils/utils';
 
 
 @Pipe({
-    name: 'highlight'
+    name: 'highlight',
+    standalone: false
 })
 
 export class HighlightSearch implements PipeTransform

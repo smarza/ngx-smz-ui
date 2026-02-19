@@ -1,7 +1,7 @@
 import { cloneDeep } from 'lodash-es';
 import groupBy from 'lodash-es/groupBy';
 import mapValues from 'lodash-es/mapValues';
-import { TreeNode } from 'primeng/api/treenode';
+import { TreeNode } from 'primeng/api';
 import { ObjectUtils } from 'primeng/utils';
 import { SimpleEntity, SimpleNamedEntity, SimpleParentEntity } from '../../common/models/simple-named-entity';
 import { SmzTreeNode } from '../../modules/smz-trees/models/tree-node';

@@ -1,28 +1,28 @@
-import { ChangeDetectorRef, Component, Directive, ElementRef, HostListener, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, DestroyRef, Directive, ElementRef, HostListener, inject, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { SmzDynamicDialogConfig, SmzDialogCustomButton } from '../../models/smz-dialogs';
 import { DynamicDialogRef } from '../../dynamicdialog/dynamicdialog-ref';
-import { SmzDialogsConfig } from '../../smz-dialogs.config';
 import { SmzDialogsVisibilityService } from '../../services/smz-dialogs-visibility.service';
 import { Actions, ofActionErrored, ofActionSuccessful, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { catchError, take } from 'rxjs/operators';
 import { FormGroupComponent } from '../../../smz-forms/features/form-group/form-group.component';
 import { SmzForm } from '../../../smz-forms/models/smz-forms';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { InjectComponentService } from '../../../../common/modules/inject-content/inject-component.service';
 import { ComponentData, ComponentDataBase } from '../../../../common/modules/inject-content/models/injectable.model';
 import { DialogsActions } from '../../state/dialogs/dialogs.actions';
 import { GlobalInjector } from '../../../../common/services/global-injector';
-import { CustomError, RbkApiErrorMessageTypes } from '../../../rbk-utils/error-handler/error.handler';
+import { CustomError } from '../../../rbk-utils/error-handler/error.handler';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-@UntilDestroy()
 @Component({
     selector: 'smz-dialog-footer',
     templateUrl: './dialog-footer.component.html',
     styleUrls: ['./dialog-footer.component.scss'],
     encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class DialogFooterComponent implements OnInit {
+    private readonly destroyRef = inject(DestroyRef);
     public isAnyButtonExecutionInProgress = false;
 
     constructor(
@@ -61,9 +61,9 @@ export class DialogFooterComponent implements OnInit {
 
         this.isAnyButtonExecutionInProgress = true;
 
-        const context = this.dialogConfig.data._context;
+        const context = this.dialogConfig.data?._context;
 
-        if (context.builtInButtons.confirmDependsOnValidation && !this.onSubmit()) {
+        if (context?.builtInButtons.confirmDependsOnValidation && !this.onSubmit()) {
             this.isAnyButtonExecutionInProgress = false;
             return;
         }
@@ -96,11 +96,15 @@ export class DialogFooterComponent implements OnInit {
                 console.log('           Forms... ');
             }
 
-            this.dialogConfig.data.features
-                .filter(x => x.type === 'form')
+            this.dialogConfig.data?.features
+                .filter(x => x.type === 'form' && x.data != null)
                 .forEach(feature => {
-                    const formFeature = feature.data as SmzForm<never>;
-                    const form = formFeature.context.form;
+                    const formFeature = feature.data as SmzForm<any>;
+                    const form = formFeature.context?.form;
+
+                    if (form == null) {
+                        return;
+                    }
 
                     if (GlobalInjector.config.debugMode) {
                         console.log('               > formFeature:', formFeature);
@@ -113,9 +117,9 @@ export class DialogFooterComponent implements OnInit {
                         if (GlobalInjector.config.debugMode) {
                             console.log(`               > control for ${field}:`, control);
                         }
-                        control.markAsTouched({ onlySelf: true });
+                        control?.markAsTouched({ onlySelf: true });
 
-                        formFeature.context.cdf.markForCheck();
+                        formFeature.context?.cdf.markForCheck();
                     });
                 });
 
@@ -123,10 +127,15 @@ export class DialogFooterComponent implements OnInit {
                 console.log('           Components... ');
             }
 
-            this.dialogConfig.data.features
+            this.dialogConfig.data?.features
                 .filter(x => x.type === 'component' || x.type === 'table')
                 .forEach(feature => {
                     const componentFeature = feature.data as ComponentData;
+
+                    if (componentFeature == null || componentFeature.componentId == null) {
+                        return;
+                    }
+
                     const injected = this.injectComponent.getComponent(componentFeature.componentId);
 
                     if (GlobalInjector.config.debugMode) {
@@ -170,8 +179,8 @@ export class DialogFooterComponent implements OnInit {
 
         this.isAnyButtonExecutionInProgress = true;
 
-        const context = this.dialogConfig.data._context;
-        if (context.builtInButtons.okDependsOnValidation && !this.onSubmit()) {
+        const context = this.dialogConfig.data?._context;
+        if (context?.builtInButtons.okDependsOnValidation && !this.onSubmit()) {
             this.isAnyButtonExecutionInProgress = false;
             return;
         }
@@ -198,23 +207,25 @@ export class DialogFooterComponent implements OnInit {
 
         if (GlobalInjector.config.debugMode) {
             console.groupCollapsed('Dialog Save Pressed:');
-            console.log('     >> context', this.dialogConfig.data._context);
+            console.log('     >> context', this.dialogConfig.data?._context);
             console.log('     >> onSubmit()', this.onSubmit());
             console.log('     >> data', this.dialogConfig.data);
         }
 
-        const context = this.dialogConfig.data._context;
-        if (context.builtInButtons.saveDependsOnValidation && !this.onSubmit()) {
+        const context = this.dialogConfig.data?._context;
+        if (context?.builtInButtons.saveDependsOnValidation && !this.onSubmit()) {
             this.isAnyButtonExecutionInProgress = false;
             return;
         }
 
-        this.dialogConfig.data._context.isGlobalDisabled = true;
-        this.dialogConfig.data._context.isLoading = true;
-        this.dialogConfig.data._context.apiErrors = [];
+        if (this.dialogConfig.data?._context != null) {
+            this.dialogConfig.data._context.isGlobalDisabled = true;
+            this.dialogConfig.data._context.isLoading = true;
+            this.dialogConfig.data._context.apiErrors = [];
+        }
 
-        this.dialogConfig.data._context.injectables.forEach((injectable) => {
-            const instance = injectable.ref.componentRef.instance;
+        this.dialogConfig.data?._context?.injectables?.forEach((injectable) => {
+            const instance = injectable?.ref?.componentRef?.instance;
 
             if (instance?.form != null) {
                 const formComponent = instance as FormGroupComponent;
@@ -248,14 +259,16 @@ export class DialogFooterComponent implements OnInit {
                         console.log('errors', err);
                     }
 
-                    this.dialogConfig.data._context.apiErrors = errors.map(x => ({ severity: 'warn', summary: '', detail: x }));
-                    this.dialogConfig.data._context.isGlobalDisabled = false;
-                    this.dialogConfig.data._context.isLoading = false;
+                    if (this.dialogConfig.data?._context != null) {
+                        this.dialogConfig.data._context.apiErrors = errors.map(x => ({ severity: 'warn', summary: '', detail: x }));
+                        this.dialogConfig.data._context.isGlobalDisabled = false;
+                        this.dialogConfig.data._context.isLoading = false;
+                    }
 
                     this.cdf.markForCheck();
 
-                    this.dialogConfig.data._context.injectables.forEach((injectable) => {
-                        const instance = injectable.ref.componentRef.instance;
+                    this.dialogConfig.data?._context?.injectables?.forEach((injectable) => {
+                        const instance = injectable?.ref?.componentRef?.instance;
 
                         if (instance?.form != null) {
                             const formComponent = instance as FormGroupComponent;
@@ -274,9 +287,11 @@ export class DialogFooterComponent implements OnInit {
                         console.log('     >> dispatch subscribe');
                     }
 
-                    this.dialogConfig.data._context.isGlobalDisabled = false;
-                    this.dialogConfig.data._context.isLoading = false;
-                    this.dialogConfig.data._context.apiErrors = [];
+                    if (this.dialogConfig.data?._context != null) {
+                        this.dialogConfig.data._context.isGlobalDisabled = false;
+                        this.dialogConfig.data._context.isLoading = false;
+                        this.dialogConfig.data._context.apiErrors = [];
+                    }
 
                     this.isAnyButtonExecutionInProgress = false;
                     this.refService.close();
@@ -308,7 +323,7 @@ export class DialogFooterComponent implements OnInit {
 
             const response =  this.responsePostProcesses();
 
-            button.onClick(response, this.dialogConfig.data.features);
+            button.onClick(response, this.dialogConfig.data?.features);
 
             this.isAnyButtonExecutionInProgress = false;
 
@@ -322,12 +337,13 @@ export class DialogFooterComponent implements OnInit {
 
         if (button.dependsOnValidation && !this.onSubmit()) return;
 
-        this.dialogConfig.data._context.isGlobalDisabled = true;
-        this.dialogConfig.data._context.isLoading = true;
-        this.dialogConfig.data._context.apiErrors = [];
+        if (this.dialogConfig.data?._context != null) {
+            this.dialogConfig.data._context.isGlobalDisabled = true;
+            this.dialogConfig.data._context.isLoading = true;
+            this.dialogConfig.data._context.apiErrors = [];
 
-        this.dialogConfig.data._context.injectables.forEach((injectable) => {
-            const instance = injectable.ref.componentRef.instance;
+            this.dialogConfig.data._context.injectables?.forEach((injectable) => {
+                const instance = injectable?.ref?.componentRef?.instance;
 
             if (instance?.form != null) {
                 const formComponent = instance as FormGroupComponent;
@@ -337,45 +353,53 @@ export class DialogFooterComponent implements OnInit {
             else if (instance.blockUi != null) {
                 instance.blockUi();
             }
-
-        });
+            });
+        }
 
         this.cdf.markForCheck();
 
         this.actions$
-            .pipe(ofActionSuccessful(button.blockUi.successAction), untilDestroyed(this), take(1))
+            .pipe(ofActionSuccessful(button?.blockUi?.successAction), takeUntilDestroyed(this.destroyRef), take(1))
             .subscribe(() => {
-                this.dialogConfig.data._context.isGlobalDisabled = false;
-                this.dialogConfig.data._context.isLoading = false;
-                this.dialogConfig.data._context.apiErrors = [];
+                if (this.dialogConfig.data?._context != null) {
+                    this.dialogConfig.data._context.isGlobalDisabled = false;
+                    this.dialogConfig.data._context.isLoading = false;
+                    this.dialogConfig.data._context.apiErrors = [];
 
-                this.refService.close();
+                    this.refService.close();
+                }
             });
 
-        if (button.blockUi.erroredAction != null) {
+        if (button?.blockUi?.erroredAction != null) {
 
             this.actions$
-                .pipe(ofActionErrored(button.blockUi.erroredAction), untilDestroyed(this), take(1))
-                .subscribe((err) => {
+                .pipe(ofActionErrored(button.blockUi.erroredAction), takeUntilDestroyed(this.destroyRef), take(1))
+                .subscribe((err: any) => {
 
                     if (GlobalInjector.config.debugMode) {
                         console.log('ofActionErrored', err);
                     }
 
-                    const errors: string[] = CustomError.getErrorMessages(err.error);
+                    if (err.error != null) {
+                        const errors: string[] = CustomError.getErrorMessages(err.error);
 
-                    if (GlobalInjector.config.debugMode) {
-                        console.log('errors', err);
+                        if (GlobalInjector.config.debugMode) {
+                                console.log('errors', err);
+                        }
+
+                        if (this.dialogConfig.data?._context != null) {
+                            this.dialogConfig.data._context.apiErrors = errors.map(x => ({ severity: 'warn', summary: '', detail: x }));
+                        }
                     }
 
-                    this.dialogConfig.data._context.apiErrors = errors.map(x => ({ severity: 'warn', summary: '', detail: x }));
+                    if (this.dialogConfig.data?._context != null) {
                     this.dialogConfig.data._context.isGlobalDisabled = false;
                     this.dialogConfig.data._context.isLoading = false;
 
                     this.cdf.markForCheck();
 
-                    this.dialogConfig.data._context.injectables.forEach((injectable) => {
-                        const instance = injectable.ref.componentRef.instance;
+                    this.dialogConfig.data._context.injectables?.forEach((injectable) => {
+                        const instance = injectable?.ref?.componentRef?.instance;
 
                         if (instance?.form != null) {
                             const formComponent = instance as FormGroupComponent;
@@ -388,13 +412,13 @@ export class DialogFooterComponent implements OnInit {
 
                     });
 
-                });
+                }});
 
         }
 
         const response =  this.responsePostProcesses();
 
-        button.onClick(response, this.dialogConfig.data.features);
+        button?.onClick?.(response, this.dialogConfig.data?.features);
 
     }
 
@@ -409,7 +433,7 @@ export class DialogFooterComponent implements OnInit {
             console.log('           Calling isValid()');
         }
 
-        for (const injectable of this.dialogConfig.data._context.injectables) {
+        for (const injectable of this.dialogConfig.data?._context?.injectables ?? []) {
 
             if (GlobalInjector.config.debugMode) console.log('           >> injectable', injectable);
 
@@ -454,15 +478,15 @@ export class DialogFooterComponent implements OnInit {
 
     private responsePostProcesses(): any {
         const config = this.dialogConfig.data;
-        const response = config.behaviors.useAdvancedResponse ?
-            this.proccessAdvancedResponse(config._context.advancedResponse) :
-            this.proccessSimpleResponse(config._context.simpleResponse);
+        const response = config?.behaviors?.useAdvancedResponse ?
+            this.proccessAdvancedResponse(config?._context?.advancedResponse) :
+            this.proccessSimpleResponse(config?._context?.simpleResponse);
 
         if (GlobalInjector.config.debugMode) {
             console.log('     >> response', response);
         }
 
-        return config.callbacks?.postProcessResponse != null ? config.callbacks.postProcessResponse(response, config) : response;
+        return config?.callbacks?.postProcessResponse != null ? config?.callbacks?.postProcessResponse(response, config) : response;
     }
 
     private proccessAdvancedResponse(response: any): any {
@@ -480,7 +504,8 @@ export class DialogFooterComponent implements OnInit {
 
 @Directive({
     // tslint:disable-next-line:directive-selector
-    selector: '[confirmOnEnter]'
+    selector: '[confirmOnEnter]',
+    standalone: false
 })
 export class ConfirmOnEnterDirective {
     @Input('confirmOnEnter') public confirmOnEnter: boolean = false;
@@ -499,7 +524,7 @@ export class ConfirmOnEnterDirective {
             if (this.confirmOnEnter) {
 
                 // console.log(this.dialogsService);
-                this.store.dispatch(new DialogsActions.ConfirmOnEnter(this.el, this.dialogId, this.clickEvent, this.delayConfirmation ? 300 : null));
+                this.store.dispatch(new DialogsActions.ConfirmOnEnter(this.el, this.dialogId, this.clickEvent, this.delayConfirmation ? 300 : undefined));
             }
 
         }

@@ -1,7 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { UntilDestroy } from '@ngneat/until-destroy';
-import { Select, Store } from '@ngxs/store';
-import { Observable } from 'rxjs/internal/Observable';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { Store } from '@ngxs/store';
 import { SmzTableState } from '../../../../../smz-tables/models/table-state';
 import { TenantDetails } from '../../../../models/tenant-details';
 import { TenantsSelectors } from '../../../../state/tenants/tenants.selectors';
@@ -13,14 +11,14 @@ import { showCreateTenantDialog } from '../../functions/create-tenant-dialog';
 import { nameof } from '../../../../../../common/models/simple-named-entity';
 import { GlobalInjector } from '../../../../../../common/services/global-injector';
 
-@UntilDestroy()
 @Component({
-  selector: 'app-tenants-page',
-  templateUrl: 'tenants-page.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-tenants-page',
+    templateUrl: 'tenants-page.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class TenantsPageComponent implements OnInit {
-  @Select(TenantsSelectors.all) public tenants$: Observable<TenantDetails[]>;
+  public tenants$ = inject(Store).select(TenantsSelectors.all);
   public tableState: SmzTableState = this.buildTableState();
   constructor(private store: Store, private dialogs: SmzDialogsService) {
   }
@@ -30,7 +28,7 @@ export class TenantsPageComponent implements OnInit {
 
   public buildTableState(): SmzTableState {
     const displayName = GlobalInjector.config.locale.authorization.tenant.displayName;
-    return new SmzTableBuilder()
+    return new SmzTableBuilder<TenantDetails>()
       .setTitle(`Gerenciar ${displayName}s`)
       .enableClearFilters()
       .enableGlobalFilter()

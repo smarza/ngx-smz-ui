@@ -1,14 +1,14 @@
-import { Injectable } from '@angular/core';
-import { Message } from 'primeng/api/message';
+import { Injectable, NgZone, signal, WritableSignal } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { isWithinTime } from '../utils/utils';
 import { GlobalInjector } from '../../../common/services/global-injector';
+import { Message } from '../../smz-toast/toast';
 
 @Injectable({providedIn: 'root'})
 export class ToastService {
   public lastMessage: Message;
   public lastUpdated: Date;
-  constructor(private messageService: MessageService) {
+  constructor(private messageService: MessageService, private zone: NgZone) {
 
     if (GlobalInjector.config.rbkUtils.toastConfig == null || GlobalInjector.config.rbkUtils.toastConfig.debounceDistinctDelay == null) {
       throw Error('You need to set the \'debounceDistinctDelay\' at rbkconfig.rbkUtils.toastConfig.');
@@ -48,8 +48,58 @@ export class ToastService {
   }
 
   private send(message: Message): void {
-    this.messageService.add(message);
+    // Definir as opções de progresso
+    const progressOptions = this.initializeProgressOptions(message);
+
+    // TODO: Implementar o timeout do ProgressBar do Toast
+    // Definir o timeout para finalizar a execução após o tempo de vida da mensagem
+    // progressOptions.timeout = setTimeout(() => {
+    //   this.finalizeMessage(progressOptions);
+    // }, message.life);
+
+    // // Iniciar o timer de progresso
+    // progressOptions.progressTimer = this.startProgressTimer(progressOptions);
+
+    // Adicionar a mensagem ao serviço de mensagens
+    this.messageService.add({ ...message, ...progressOptions });
     this.registry(message);
+  }
+
+  private initializeProgressOptions(message: Message) {
+    const tick = 200;
+    const add = (100 * tick) / message.life;
+
+    return {
+      showProgress: true,
+      progress: signal(0),
+      progressTimer: null,
+      timeout: null,
+      add,
+      tick,
+    };
+  }
+
+  private startProgressTimer(progressOptions: any) {
+    return setInterval(() => {
+      progressOptions.progress.update((progress: number) => {
+        console.log('progress', progress);
+        return progress + progressOptions.add;
+      });
+
+      // Verificar se o progresso atingiu 100 e parar o timer
+      if (progressOptions.progress() >= 100) {
+        progressOptions.progress.set(100);
+        clearInterval(progressOptions.progressTimer);
+        console.log('Progress complete:', progressOptions.progress);
+        this.messageService.clear(); // Limpar a mensagem quando o progresso for completo
+      }
+    }, progressOptions.tick);
+  }
+
+  private finalizeMessage(progressOptions: any) {
+    // Função de finalização, pode incluir outras lógicas se necessário
+    console.log('Message lifecycle complete.');
+    this.messageService.clear();
   }
 
   private registry(message: Message): void {

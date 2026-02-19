@@ -1,29 +1,28 @@
-<ng-container *ngIf="options$ | async as options">
-
-<div class="ui-g ui-fluid">
-    <div class="ui-g-12 grid-nogutter" [ngStyle]="{ padding: 0 }">
-        <label *ngIf="input.hideLabel != true" class="smz__input_name" [innerHTML]="input.name"></label>
-        <div class="input_inner__wrapper grid grid-nogutter">
-            <p-dropdown
-                fxFlex="grow"
-                class="col-12 grid-nogutter smz__input_value"
-                [options]="options"
-                [formControl]="control"
-                optionLabel="name"
-                [autoDisplayFirst]="false"
-                dataKey="id"
-                appendTo="body"
-                (onChange)="service.setValue(input, formId, $event)"
-                [filter]="input.showFilter ? true : false"
-                [filterMatchMode]="input.filterMatchMode != null ? input.filterMatchMode : 'contains'"
-                [showClear]="input.showClear"
-                [emptyMessage]="input.emptyMessage"
-                [emptyFilterMessage]="input.emptyFilterMessage"
-                [autofocusFilter]="input.autofocusFilter">
-            </p-dropdown>
-            <smz-validation-messages [input]="input" [control]="control" [behaviors]="behaviors"></smz-validation-messages>
-        </div>
-    </div>
-</div>
-
-</ng-container>
+@if (options$ | async; as options) {
+  <smz-label
+    class="smz__input_name"
+    [text]="input.name"
+    [propertyName]="input.propertyName"
+    [showLabel]="input.hideLabel != true"
+    [warning]="input.warning">
+  </smz-label>
+  <div class="input_inner__wrapper grid grid-nogutter">
+    <p-select
+      appendTo="body"
+      class="col-12 grid-nogutter smz__input_value flex-1"
+      [options]="options"
+      [formControl]="control"
+      optionLabel="name"
+      dataKey="id"
+      (onChange)="service.setValue(input, formId, $event)"
+      [filter]="input.showFilter ? true : false"
+      [filterMatchMode]="input.filterMatchMode != null ? input.filterMatchMode : 'contains'"
+      [showClear]="input.showClear"
+      [emptyMessage]="input.emptyMessage"
+      [emptyFilterMessage]="input.emptyFilterMessage">
+      <!-- TODO: AutofocusFilter foi removido pois não existe no primeng
+      [autofocusFilter]="input.autofocusFilter" -->
+    </p-select>
+    <smz-validation-messages [input]="input" [control]="control" [behaviors]="behaviors"></smz-validation-messages>
+  </div>
+}

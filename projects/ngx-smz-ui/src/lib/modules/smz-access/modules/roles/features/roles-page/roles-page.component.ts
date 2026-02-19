@@ -1,7 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { UntilDestroy } from '@ngneat/until-destroy';
-import { Select, Store } from '@ngxs/store';
-import { Observable } from 'rxjs/internal/Observable';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { Store } from '@ngxs/store';
 import { RolesDetails } from '../../../../models/roles-details';
 import { RolesSelectors } from '../../../../state/roles/roles.selectors';
 import { SmzTableState } from '../../../../../smz-tables/models/table-state';
@@ -12,22 +10,21 @@ import { UpdateRoleClaimsDialog } from '../../functions/update-role-claims-dialo
 import { Confirmable } from '../../../../../smz-dialogs/decorators/confirmable.decorator';
 import { RolesActions } from '../../../../state/roles/roles.actions';
 import { CreateRoleDialog } from '../../functions/create-role-dialog';
-import { nameof, namesof, SimpleNamedEntity } from '../../../../../../common/models/simple-named-entity';
+import { nameof } from '../../../../../../common/models/simple-named-entity';
 import { showRoleClaimsDialog } from '../../functions/show-role-claims-dialog';
 import { RoleSourceDescription } from '../../../../models/role-source';
 import { RoleModeDescription } from '../../../../models/role-mode';
 import { AuthClaimDefinitions } from '../../../../models/auth-claim-definitions';
-import { AuthenticationSelectors } from '../../../../../../state/global/authentication/authentication.selectors';
 import { GlobalInjector } from '../../../../../../common/services/global-injector';
 
-@UntilDestroy()
 @Component({
-  selector: 'app-roles-page',
-  templateUrl: 'roles-page.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-roles-page',
+    templateUrl: 'roles-page.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class RolesPageComponent implements OnInit {
-  @Select(RolesSelectors.all) public roles$: Observable<RolesDetails[]>;
+  public roles$ = inject(Store).select(RolesSelectors.all);
   public tableState: SmzTableState = this.buildTableState();
   public canCreateClaims = [AuthClaimDefinitions.MANAGE_APPLICATION_WIDE_ROLES, AuthClaimDefinitions.MANAGE_TENANT_SPECIFIC_ROLES]
   constructor(private store: Store, private dialogs: SmzDialogsService) { }
@@ -38,7 +35,7 @@ export class RolesPageComponent implements OnInit {
   public buildTableState(): SmzTableState {
     const validationSelectors = GlobalInjector.config.rbkUtils.authorization.validationSelectors;
 
-    return new SmzTableBuilder()
+    return new SmzTableBuilder<RolesDetails>()
       .setTitle('Gerenciar Perfis')
       .enableClearFilters()
       .enableGlobalFilter()
@@ -67,9 +64,9 @@ export class RolesPageComponent implements OnInit {
           .columns
         .custom(nameof<RolesDetails>('claims'), 'Permissões')
           .columns
-        .dataTransform(nameof<RolesDetails>('mode'), 'Modo', (mode) => RoleModeDescription[mode], '12em')
+        .dataTransform(nameof<RolesDetails>('mode'), 'Modo', (mode: number) => RoleModeDescription[mode as keyof typeof RoleModeDescription], '12em')
           .columns
-        .dataTransform(nameof<RolesDetails>('source'), 'Fonte', (source) => RoleSourceDescription[source], '12em')
+        .dataTransform(nameof<RolesDetails>('source'), 'Fonte', (source: number) => RoleSourceDescription[source as keyof typeof RoleSourceDescription], '12em')
           .columns
         .table
       .build();

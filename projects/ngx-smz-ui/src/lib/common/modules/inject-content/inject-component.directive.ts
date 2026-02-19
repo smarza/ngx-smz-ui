@@ -5,7 +5,8 @@ import { InjectComponentService } from './inject-component.service';
 
 @Directive({
     // tslint:disable-next-line:directive-selector
-    selector: '[appInjectComponent]'
+    selector: '[appInjectComponent]',
+    standalone: false
 })
 export class InjectComponentDirective implements AfterContentInit
 {

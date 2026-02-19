@@ -7,7 +7,8 @@ import {
 } from '@angular/core';
 
 @Directive({
-  selector: '[SmzDragDrop]'
+    selector: '[SmzDragDrop]',
+    standalone: false
 })
 export class FileDragDropDirective {
   @HostBinding('class.file_drag-drop_fileover') fileOver: boolean;

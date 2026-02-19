@@ -2,8 +2,9 @@ import { AfterContentInit, Component, ContentChildren, EventEmitter, Input, OnIn
 import { PrimeTemplate } from 'primeng/api';
 
 @Component({
-  selector: 'smz-data-info',
-  templateUrl: 'smz-data-info.component.html'
+    selector: 'smz-data-info',
+    templateUrl: 'smz-data-info.component.html',
+    standalone: false
 })
 
 export class SmzDataInfoComponent implements OnInit, AfterContentInit {

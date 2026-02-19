@@ -2,7 +2,7 @@ import { Store } from '@ngxs/store';
 import { cloneDeep, flatten, sortBy } from 'lodash-es';
 import { GlobalInjector } from '../../../lib/common/services/global-injector';
 import { SmzMenuItem } from '../../modules/smz-menu/models/smz-menu-item';
-import { SmzTableState, SmzTableViewportStateData } from '../../modules/smz-tables/models/table-state';
+import { SmzTableState } from '../../modules/smz-tables/models/table-state';
 import { StateBuilderFunctions } from './state-builder-functions';
 import { SmzColumnCollectionBuilder } from './column-builder';
 import { SmzMenuTableBuilder } from './menu-builder';
@@ -12,12 +12,13 @@ import { convertFormFeature } from '../smz-dialogs/dialog-input-conversion';
 import { UiDefinitionsDbSelectors } from '../../state/database/ui-definitions/ui-definitions.selectors';
 import { SmzBatchMenuBuilder } from './batch-menu-builder';
 import { SmzEditableTableBuilder } from './editable-builder';
-import { Observable, filter } from 'rxjs';
+import { Observable } from 'rxjs';
 import { SmzTableExcelBuilder } from './excel-builder';
-import { UUID } from 'angular2-uuid';
 import { SmzTableViewportBuilder } from './viewport';
 import { SmzCaptionButtonsBuilder } from './caption-buttons-builder';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
+import { generateGUID } from '../../common/utils/guid-generator';
+import { WritableSignal } from '@angular/core';
 
 // SCROLL TRUE =>
 //   MIN-WIDTH PODE TER PX
@@ -28,13 +29,14 @@ import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 //   MIN-WIDTH PODE SER AUTO
 
 export class SmzTableBuilder<TData> extends SmzBuilderUtilities<SmzTableBuilder<TData>>{
-  protected that = this;
+  protected override that = this;
   public _state: SmzTableState = {
     isValid: true,
     isDebug: false,
     columns: [],
     source: {
-      items$: null
+      items$: null,
+      signalItems: null
     },
     actions: {
       customActions: {
@@ -202,7 +204,7 @@ export class SmzTableBuilder<TData> extends SmzBuilderUtilities<SmzTableBuilder<
         persistance: 'none',
         saveTrigger: 'onDestroy',
         auto: {
-          key: UUID.UUID(),
+          key: generateGUID(),
         },
         manual: {
           loadCallback: null,
@@ -260,7 +262,18 @@ export class SmzTableBuilder<TData> extends SmzBuilderUtilities<SmzTableBuilder<
   }
 
   public addSource(items$: Observable<any[]>): SmzTableBuilder<TData> {
+    if (this._state.source.signalItems != null) {
+      throw Error('You can\'t call addSource() after addSignalSource().');
+    }
     this._state.source.items$ = items$;
+    return this;
+  }
+
+  public addSignalSource(signalItems: WritableSignal<any[]>): SmzTableBuilder<TData> {
+    if (this._state.source.items$ != null) {
+      throw Error('You can\'t call addSignalSource() after addSource().');
+    }
+    this._state.source.signalItems = signalItems;
     return this;
   }
 
@@ -1007,7 +1020,6 @@ export class SmzTableBuilder<TData> extends SmzBuilderUtilities<SmzTableBuilder<
     if (this._state.isDebug) {
       console.log(cloneDeep(this._state));
     }
-
     return this._state;
   }
 }

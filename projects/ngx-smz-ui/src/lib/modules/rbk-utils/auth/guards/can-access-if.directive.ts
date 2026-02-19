@@ -3,7 +3,10 @@ import { Store } from '@ngxs/store';
 import { AuthenticationSelectors } from '../../../../state/global/authentication/authentication.selectors';
 import { GlobalInjector } from '../../../../common/services/global-injector';
 
-@Directive({ selector: '[rbkClaimGuard]'})
+@Directive({
+    selector: '[rbkClaimGuard]',
+    standalone: false
+})
 export class RbkClaimGuardDirective {
 
   constructor(

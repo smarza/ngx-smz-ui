@@ -1,3 +1,5 @@
-<ng-container *ngFor="let action of col.headerActions">
-  <i *ngIf="action.condition(col)" [ngClass]="action.icon + ' ' + action.styleClass" class="cursor-pointer" (click)="action.callback(col)" [pTooltip]="action.tooltip != null ? action.tooltip(col) : null"></i>
-</ng-container>
+@for (action of col.headerActions; track action) {
+  @if (action.condition(col)) {
+    <i [ngClass]="action.icon + ' ' + action.styleClass" class="cursor-pointer" (click)="action.callback(col)" [pTooltip]="action.tooltip != null ? action.tooltip(col) : null"></i>
+  }
+}

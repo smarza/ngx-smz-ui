@@ -1,93 +1,74 @@
-<ng-container *ngIf="data.breakPage.enabled">
+@if (data.breakPage.enabled) {
   <div class="page-break-tag"></div>
-  <div *ngIf="data.breakPage.overlap > 0" class="w-full" [ngClass]="{ 'bg-red-500': isDebug }" [style.padding]="data.breakPage.overlap + 'px !important'"></div>
-</ng-container>
+  @if (data.breakPage.overlap > 0) {
+    <div class="w-full" [ngClass]="{ 'bg-red-500': isDebug }" [style.padding]="data.breakPage.overlap + 'px !important'"></div>
+  }
+}
 
-<table
-  *ngIf="!data.breakPage.enabled"
-  class="w-full h-full border-collapse bg-white smz-document-content-tag"
-  [ngClass]="data.container.styles"
-  cellspacing="0"
-  cellpadding="0"
-  >
-
-  <ng-container *ngFor="let row of data?.rows">
-
-    <tr>
-
-      <ng-container *ngFor="let cell of row.cells">
-
-        <td class="relative" [style.height]="cell.height" [style.width]="cell.width" [colSpan]="cell.colspan" [rowSpan]="cell.rowspan" [ngClass]="data.cellStyles">
-
-          <ng-container [ngSwitch]="cell.data?.type">
-
-            <ng-container *ngSwitchCase="'content'">
-              <smz-document-content [data]="$any(cell.data)" [config]="config" [state]="state"></smz-document-content>
-            </ng-container>
-
-            <ng-container *ngSwitchCase="featureDefinitions.TITLE">
-              <smz-document-title [data]="$any(cell.data)" [config]="config"></smz-document-title>
-            </ng-container>
-
-            <ng-container *ngSwitchCase="featureDefinitions.DIVIDER">
-              <smz-document-divider [data]="$any(cell.data)" [config]="config"></smz-document-divider>
-            </ng-container>
-
-            <ng-container *ngSwitchCase="featureDefinitions.FIELD">
-              <smz-document-field [data]="$any(cell.data)" [config]="config"></smz-document-field>
-            </ng-container>
-
-            <ng-container *ngSwitchCase="featureDefinitions.IMAGE">
-              <smz-document-image [data]="$any(cell.data)" [config]="config"></smz-document-image>
-            </ng-container>
-
-            <ng-container *ngSwitchCase="featureDefinitions.SPACER">
-              <smz-document-spacer [data]="$any(cell.data)" [config]="config"></smz-document-spacer>
-            </ng-container>
-
-            <ng-container *ngSwitchCase="featureDefinitions.HIDDEN_BREAK">
-              <smz-document-hidden-break [data]="$any(cell.data)" [config]="config"></smz-document-hidden-break>
-            </ng-container>
-
-            <ng-container *ngSwitchCase="featureDefinitions.SUB_TITLE">
-              <smz-document-sub-title [data]="$any(cell.data)" [config]="config"></smz-document-sub-title>
-            </ng-container>
-
-            <ng-container *ngSwitchCase="featureDefinitions.FIELDS_GROUP">
-              <smz-document-fields-group [data]="$any(cell.data)" [config]="config"></smz-document-fields-group>
-            </ng-container>
-
-            <ng-container *ngSwitchCase="featureDefinitions.TABLE">
-              <smz-document-table [data]="$any(cell.data)" [config]="config"></smz-document-table>
-            </ng-container>
-
-            <ng-container *ngSwitchCase="featureDefinitions.CHART">
-              <smz-document-chart [data]="$any(cell.data)" [config]="config" [state]="state"></smz-document-chart>
-            </ng-container>
-
-            <ng-container *ngSwitchCase="featureDefinitions.PAGE_BREAK">
-              <smz-document-page-break></smz-document-page-break>
-            </ng-container>
-
-            <ng-container *ngSwitchCase="featureDefinitions.COMPONENT">
-              <smz-document-injectable [data]="$any(cell.data)" [config]="config" [state]="state"></smz-document-injectable>
-            </ng-container>
-
-            <ng-container *ngSwitchDefault>unknown cell data type</ng-container>
-
-          </ng-container>
-
-          <div *ngIf="isDebug"
-            class="absolute inset-0 w-full h-full border-dotted border border-red-500 cursor-pointer hover:bg-red-700 hover:opacity-10 transition-all"
-            [pTooltip]="'colspan: ' + cell.colspan + ' - rowspan: ' + cell.rowspan" appendTo="body" [hideDelay]="200" [showDelay]="50">
-          </div>
-
-        </td>
-
-      </ng-container>
-
-    </tr>
-
-  </ng-container>
-
-</table>
+@if (!data.breakPage.enabled) {
+  <table
+    class="w-full h-full border-collapse bg-white smz-document-content-tag"
+    [ngClass]="data.container.styles"
+    cellspacing="0"
+    cellpadding="0"
+    >
+    @for (row of data?.rows; track row) {
+      <tr>
+        @for (cell of row.cells; track cell) {
+          <td class="relative" [style.height]="cell.height" [style.width]="cell.width" [colSpan]="cell.colspan" [rowSpan]="cell.rowspan" [ngClass]="data.cellStyles">
+            @switch (cell.data?.type) {
+              @case ('content') {
+                <smz-document-content [data]="$any(cell.data)" [config]="config" [state]="state"></smz-document-content>
+              }
+              @case (featureDefinitions.TITLE) {
+                <smz-document-title [data]="$any(cell.data)" [config]="config"></smz-document-title>
+              }
+              @case (featureDefinitions.DIVIDER) {
+                <smz-document-divider [data]="$any(cell.data)" [config]="config"></smz-document-divider>
+              }
+              @case (featureDefinitions.FIELD) {
+                <smz-document-field [data]="$any(cell.data)" [config]="config"></smz-document-field>
+              }
+              @case (featureDefinitions.IMAGE) {
+                <smz-document-image [data]="$any(cell.data)" [config]="config"></smz-document-image>
+              }
+              @case (featureDefinitions.SPACER) {
+                <smz-document-spacer [data]="$any(cell.data)" [config]="config"></smz-document-spacer>
+              }
+              @case (featureDefinitions.HIDDEN_BREAK) {
+                <smz-document-hidden-break [data]="$any(cell.data)" [config]="config"></smz-document-hidden-break>
+              }
+              @case (featureDefinitions.SUB_TITLE) {
+                <smz-document-sub-title [data]="$any(cell.data)" [config]="config"></smz-document-sub-title>
+              }
+              @case (featureDefinitions.FIELDS_GROUP) {
+                <smz-document-fields-group [data]="$any(cell.data)" [config]="config"></smz-document-fields-group>
+              }
+              @case (featureDefinitions.TABLE) {
+                <smz-document-table [data]="$any(cell.data)" [config]="config"></smz-document-table>
+              }
+              @case (featureDefinitions.CHART) {
+                <smz-document-chart [data]="$any(cell.data)" [config]="config" [state]="state"></smz-document-chart>
+              }
+              @case (featureDefinitions.PAGE_BREAK) {
+                <smz-document-page-break></smz-document-page-break>
+              }
+              @case (featureDefinitions.COMPONENT) {
+                <smz-document-injectable [data]="$any(cell.data)" [config]="config" [state]="state"></smz-document-injectable>
+              }
+              @default {
+                unknown cell data type
+              }
+            }
+            @if (isDebug) {
+              <div
+                class="absolute inset-0 w-full h-full border-dotted border border-red-500 cursor-pointer hover:bg-red-700 hover:opacity-10 transition-all"
+                [pTooltip]="'colspan: ' + cell.colspan + ' - rowspan: ' + cell.rowspan" appendTo="body" [hideDelay]="200" [showDelay]="50">
+              </div>
+            }
+          </td>
+        }
+      </tr>
+    }
+  </table>
+}

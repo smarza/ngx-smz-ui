@@ -2,41 +2,44 @@
 
   <ng-template pTemplate="layout">
 
-    <ng-container *ngIf="state$ | async as state">
-
+    @if (state$ | async; as state) {
       <div #layoutWrapper class="layout-wrapper" [ngClass]="state.wrapperClass">
-
-          <!-- MENU SUPERIOR -->
-          <ng-container *ngIf="routerListener.data.layout.mode === 'full' || routerListener.data.layout.mode === 'topbar-only'">
-            <smz-ui-athena-topbar [notifications]="notifications" [profile]="profile">
-              <ng-template *ngIf="headerExtrasTemplate != null" pTemplate="headerExtras">
+        <!-- MENU SUPERIOR -->
+        @if (routerListener.data.layout.mode === 'full' || routerListener.data.layout.mode === 'topbar-only') {
+          <smz-ui-athena-topbar [notifications]="notifications" [profile]="profile">
+            @if (headerExtrasTemplate != null) {
+              <ng-template pTemplate="headerExtras">
                 <ng-container *ngTemplateOutlet="headerExtrasTemplate"></ng-container>
               </ng-template>
-            </smz-ui-athena-topbar>
-          </ng-container>
-
-          <smz-ui-athena-horizontal-menu *ngIf="routerListener.data.layout.mode === 'full' || routerListener.data.layout.mode === 'menu-only'" [menu]="menu"></smz-ui-athena-horizontal-menu>
-
-          <!-- CONTEÚDO -->
-          <div class="layout-content" [ngClass]="{ 'layout-content-no-footer': routerListener.data.layout.hideFooter || routerListener.data.layout.mode === 'none' }">
-            <div *ngIf="state.isOverlayVisible" class="p-component-overlay clear-overlay" (click)="hideMenu()"></div>
-            <div class="layout-content-container {{ routerListener.data.layout.contentStyleClass }}" [ngStyle]="{ padding: routerListener.data.layout.contentPadding }" [ngClass]="contentClass$ | async">
-              <ng-container *ngTemplateOutlet="content"></ng-container>
-            </div>
+            }
+          </smz-ui-athena-topbar>
+        }
+        @if (routerListener.data.layout.mode === 'full' || routerListener.data.layout.mode === 'menu-only') {
+          <smz-ui-athena-horizontal-menu [menu]="menu"></smz-ui-athena-horizontal-menu>
+        }
+        <!-- CONTEÚDO -->
+        <div class="layout-content" [ngClass]="{ 'layout-content-no-footer': routerListener.data.layout.hideFooter || routerListener.data.layout.mode === 'none' }">
+          @if (state.isOverlayVisible) {
+            <div class="p-component-overlay clear-overlay" (click)="hideMenu()"></div>
+          }
+          <div class="layout-content-container {{ routerListener.data.layout.contentStyleClass }}" [ngStyle]="{ padding: routerListener.data.layout.contentPadding }" [ngClass]="contentClass$ | async">
+            <ng-container *ngTemplateOutlet="content"></ng-container>
           </div>
-
-          <!-- FOOTER -->
-          <ng-container *ngIf="routerListener.data.layout.mode === 'full'">
-            <smz-ui-athena-footer *ngIf="!routerListener.data.layout.hideFooter">
-              <ng-template *ngIf="footerExtrasTemplate != null" pTemplate="footerExtras">
-                <ng-container *ngTemplateOutlet="footerExtrasTemplate"></ng-container>
-              </ng-template>
-            </smz-ui-athena-footer>
-          </ng-container>
-
         </div>
-
-    </ng-container>
+        <!-- FOOTER -->
+        @if (routerListener.data.layout.mode === 'full') {
+          @if (!routerListener.data.layout.hideFooter) {
+            <smz-ui-athena-footer>
+              @if (footerExtrasTemplate != null) {
+                <ng-template pTemplate="footerExtras">
+                  <ng-container *ngTemplateOutlet="footerExtrasTemplate"></ng-container>
+                </ng-template>
+              }
+            </smz-ui-athena-footer>
+          }
+        }
+      </div>
+    }
 
   </ng-template>
 

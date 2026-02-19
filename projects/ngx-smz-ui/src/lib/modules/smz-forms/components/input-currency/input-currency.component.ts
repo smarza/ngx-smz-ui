@@ -6,6 +6,7 @@ import { SmzCurrencyControl } from '../../models/control-types';
 @Component({
     selector: 'smz-input-currency',
     templateUrl: './input-currency.component.html',
+    standalone: false
 })
 export class InputCurrencyComponent
 {

@@ -6,30 +6,29 @@
   <table class="w-full h-full border-collapse table-fixed smz-document-table-tag" cellspacing="0" cellpadding="0">
 
     <thead>
-      <tr *ngIf="data?.header.isVisible" class="relative">
-        <ng-container *ngFor="let column of data?.header.columns">
-          <th
-            class="relative"
-            [colSpan]="column.colspan"
-            [rowSpan]="column.rowspan"
-            [style.height]="column.height"
-            [style.width]="column.width"
-            [style.background]="column.headerStyles.background ?? data.header.background"
-            [style.color]="column.headerStyles.color ?? data.header.color"
-            [ngClass]="column.headerStyles.styles ?? data.header.styles">
-            {{ column.value }}
-          </th>
-        </ng-container>
-      </tr>
+      @if (data?.header.isVisible) {
+        <tr class="relative">
+          @for (column of data?.header.columns; track column) {
+            <th
+              class="relative"
+              [colSpan]="column.colspan"
+              [rowSpan]="column.rowspan"
+              [style.height]="column.height"
+              [style.width]="column.width"
+              [style.background]="column.headerStyles.background ?? data.header.background"
+              [style.color]="column.headerStyles.color ?? data.header.color"
+              [ngClass]="column.headerStyles.styles ?? data.header.styles">
+              {{ column.value }}
+            </th>
+          }
+        </tr>
+      }
     </thead>
 
     <tbody>
-      <ng-container *ngFor="let row of data?.content.items$ | async; let index = index">
-
+      @for (row of data?.content.items$ | async; track row; let index = $index) {
         <tr class="relative" [style.background]="data.content.background">
-
-          <ng-container *ngFor="let column of data?.header.columns">
-
+          @for (column of data?.header.columns; track column) {
             <td
               class="relative"
               [colSpan]="column.colspan"
@@ -41,12 +40,9 @@
               [ngClass]="column.contentStyles.styles ?? data.content.styles">
               <div [innerHtml]="((row | getData : column.property : column.dataTransform : index).result) | safeHtml"></div>
             </td>
-
-          </ng-container>
-
+          }
         </tr>
-
-      </ng-container>
+      }
     </tbody>
 
   </table>

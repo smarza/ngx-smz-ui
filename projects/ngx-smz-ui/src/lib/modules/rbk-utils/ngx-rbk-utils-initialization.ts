@@ -149,8 +149,7 @@ function getRouteRoot(routes: Routes): Route {
 
     for (let index = 0; index < routes.length; index++) {
         const route = routes[index];
-
-        if (route.data?.smzUiRoot === true) {
+        if (route.data?.['smzUiRoot'] === true) {
             return route;
         }
         else if (route.children?.length > 0) {

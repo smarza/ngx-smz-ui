@@ -1,15 +1,14 @@
 import { cloneDeep } from 'lodash-es';
 import { ObjectUtils } from 'primeng/utils';
 import { SmzCardsBaseContext } from './smz-base-context';
-import { state } from '@angular/animations';
 
 export type SmzFlipCardStatus = 'front' | 'back';
 export type SmzFlipCardContextState = { key: string, status: SmzFlipCardStatus, timestamp: number };
 export type SmzFlipCardChanges = { hasChanged: boolean, previous: SmzFlipCardContextState, current: SmzFlipCardContextState, all: SmzFlipCardContextState[] };
 
 export class SmzFlipCardContext extends SmzCardsBaseContext {
-  protected state: SmzFlipCardContextState[] = [];
-  public propertyPath = 'id';
+  protected override state: SmzFlipCardContextState[] = [];
+  public override propertyPath = 'id';
 
   // Quantidade de cartas que podem ficar viradas ao mesmo tempo. (-1 = sem restrição)
   private maxFlipCardsAllowed: number = -1;
@@ -23,7 +22,7 @@ export class SmzFlipCardContext extends SmzCardsBaseContext {
     super();
   }
 
-  public reset(data: any[]): void {
+  public override reset(data: any[]): void {
     if (this.persisteStatus) {
       // Mantem o status
       this.resetKeepingStates(data);

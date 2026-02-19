@@ -1,15 +1,17 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BaseApiService } from '../http/base-api.service';
 import { Observable } from 'rxjs';
 import { LoginResponse } from './models';
 import { map } from 'rxjs/operators';
 import { GlobalInjector } from '../../../common/services/global-injector';
+import { SmzEnvironment } from '../../../config/config';
 
 export interface LoginPayload { username: string, password: string, extraProperties: {[name: string]: string} };
 
 @Injectable({ providedIn: 'root' })
 export class AuthService extends BaseApiService {
+    private readonly environment = inject(SmzEnvironment);
     constructor(private http: HttpClient) {
         super();
     }
@@ -21,7 +23,9 @@ export class AuthService extends BaseApiService {
             data = { ...data, ...extraProperties };
         }
 
-        return this.http.post<any>(GlobalInjector.config.rbkUtils.authentication.login.url, data,
+        const url = `${this.environment.serverUrl}${GlobalInjector.config.rbkUtils.authentication.login.url}`;
+
+        return this.http.post<any>(url, data,
             this.generateDefaultHeaders({
                 loadingBehavior: GlobalInjector.config.rbkUtils.authentication.login.loadingBehavior,
                 authentication: false,
@@ -42,7 +46,10 @@ export class AuthService extends BaseApiService {
         if (extraProperties != null) {
           data = { ...data, ...extraProperties };
         }
-        return this.http.post<LoginResponse>(GlobalInjector.config.rbkUtils.authentication.refreshToken.url, data,
+
+        const url = `${this.environment.serverUrl}${GlobalInjector.config.rbkUtils.authentication.refreshToken.url}`;
+
+        return this.http.post<LoginResponse>(url, data,
             this.generateDefaultHeaders({
                 loadingBehavior: GlobalInjector.config.rbkUtils.authentication.refreshToken.loadingBehavior,
                 authentication: false,

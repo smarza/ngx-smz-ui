@@ -265,8 +265,8 @@ export abstract class SmzBaseColumnBuilder<T extends SmzBaseColumnBuilder<T, TDa
 }
 
 export class SmzDateColumnBuilder<TData> extends SmzBaseColumnBuilder<SmzDateColumnBuilder<TData>, TData> {
-  protected that = this;
-  constructor(protected _table: SmzTableBuilder<TData>, protected _parent: SmzColumnCollectionBuilder<TData>, field: string, header: string, width: string = 'auto') {
+  protected override that = this;
+  constructor(protected override _table: SmzTableBuilder<TData>, protected override _parent: SmzColumnCollectionBuilder<TData>, field: string, header: string, width: string = 'auto') {
     super(_table, _parent, SmzContentType.CALENDAR, SmzFilterType.DATE, field, header, true, width);
 
     this._column.export.exportAs = SmzExportableContentType.DATETIME;
@@ -293,8 +293,8 @@ export class SmzDateColumnBuilder<TData> extends SmzBaseColumnBuilder<SmzDateCol
 }
 
 export class SmzCurrencyColumnBuilder<TData> extends SmzBaseColumnBuilder<SmzCurrencyColumnBuilder<TData>, TData> {
-  protected that = this;
-  constructor(protected _table: SmzTableBuilder<TData>, protected _parent: SmzColumnCollectionBuilder<TData>, field: string, header: string, width: string = 'auto') {
+  protected override that = this;
+  constructor(protected override _table: SmzTableBuilder<TData>, protected override _parent: SmzColumnCollectionBuilder<TData>, field: string, header: string, width: string = 'auto') {
     super(_table, _parent, SmzContentType.CURRENCY, SmzFilterType.TEXT, field, header, true, width);
 
     this._column.export.exportAs = SmzExportableContentType.NUMBER;
@@ -307,8 +307,8 @@ export class SmzCurrencyColumnBuilder<TData> extends SmzBaseColumnBuilder<SmzCur
 }
 
 export class SmzTextColumnBuilder<TData> extends SmzBaseColumnBuilder<SmzTextColumnBuilder<TData>, TData> {
-  protected that = this;
-  constructor(protected _table: SmzTableBuilder<TData>, protected _parent: SmzColumnCollectionBuilder<TData>, field: string, header: string, width: string = 'auto') {
+  protected override that = this;
+  constructor(protected override _table: SmzTableBuilder<TData>, protected override _parent: SmzColumnCollectionBuilder<TData>, field: string, header: string, width: string = 'auto') {
     super(_table, _parent, SmzContentType.TEXT, SmzFilterType.TEXT, field, header, true, width);
 
     this._column.export.exportAs = SmzExportableContentType.TEXT;
@@ -322,8 +322,8 @@ export class SmzTextColumnBuilder<TData> extends SmzBaseColumnBuilder<SmzTextCol
 }
 
 export class SmzCustomColumnBuilder<TData> extends SmzBaseColumnBuilder<SmzCustomColumnBuilder<TData>, TData> {
-  protected that = this;
-  constructor(protected _table: SmzTableBuilder<TData>, protected _parent: SmzColumnCollectionBuilder<TData>, field: string, header: string, width: string = 'auto') {
+  protected override that = this;
+  constructor(protected override _table: SmzTableBuilder<TData>, protected override _parent: SmzColumnCollectionBuilder<TData>, field: string, header: string, width: string = 'auto') {
     super(_table, _parent, SmzContentType.CUSTOM, SmzFilterType.NONE, field, header, false, width);
 
     this._column.export.exportAs = SmzExportableContentType.NONE;
@@ -382,8 +382,8 @@ export class SmzCustomColumnBuilder<TData> extends SmzBaseColumnBuilder<SmzCusto
 }
 
 export class SmzIconColumnBuilder<TData> extends SmzBaseColumnBuilder<SmzIconColumnBuilder<TData>, TData> {
-  protected that = this;
-  constructor(protected _table: SmzTableBuilder<TData>, protected _parent: SmzColumnCollectionBuilder<TData>, field: string, header: string, width: string = 'auto') {
+  protected override that = this;
+  constructor(protected override _table: SmzTableBuilder<TData>, protected override _parent: SmzColumnCollectionBuilder<TData>, field: string, header: string, width: string = 'auto') {
     super(_table, _parent, SmzContentType.ICON, SmzFilterType.NONE, field, header, false, width);
 
     this._column.export.exportAs = SmzExportableContentType.NONE;
@@ -433,8 +433,8 @@ export class SmzIconColumnBuilder<TData> extends SmzBaseColumnBuilder<SmzIconCol
 }
 
 export class SmzDataTransformColumnBuilder<TData> extends SmzBaseColumnBuilder<SmzDataTransformColumnBuilder<TData>, TData> {
-  protected that = this;
-  constructor(protected _table: SmzTableBuilder<TData>, protected _parent: SmzColumnCollectionBuilder<TData>, field: string, header: string, callback: (data: any, row: any, index: number) => string, width: string = 'auto') {
+  protected override that = this;
+  constructor(protected override _table: SmzTableBuilder<TData>, protected override _parent: SmzColumnCollectionBuilder<TData>, field: string, header: string, callback: (data: any, row: any, index: number) => string, width: string = 'auto') {
     super(_table, _parent, SmzContentType.DATA_TRANSFORM, SmzFilterType.NONE, field, header, false, width);
 
     (this._column.content.data as SmzDataTransform).callback = callback;
@@ -526,7 +526,7 @@ export class SmzDataTransformColumnBuilder<TData> extends SmzBaseColumnBuilder<S
 }
 
 export class SmzColumnCollectionBuilder<TData> extends SmzBuilderUtilities<SmzColumnCollectionBuilder<TData>> {
-  protected that = this;
+  protected override that = this;
   constructor(private _tableBuilder: SmzTableBuilder<TData>) {
     super();
   }

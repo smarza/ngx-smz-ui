@@ -3,8 +3,8 @@ import { PrimeTemplate } from 'primeng/api';
 import { ColumnFilter } from '../../prime/table/table';
 
 @Component({
-  selector: 'smz-column-filter-2',
-  template: `
+    selector: 'smz-column-filter-2',
+    template: `
     <p-columnFilter
       [currency]="currency"
       [display]="display"
@@ -14,21 +14,22 @@ import { ColumnFilter } from '../../prime/table/table';
       [showMatchModes]="showMatchModes"
       [showOperator]="showOperator"
       [type]="type">
-
-      <ng-container *ngIf="headerTemplate">
+    
+      @if (headerTemplate) {
         <ng-template pTemplate="header">
           <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
         </ng-template>
-      </ng-container>
-
-      <ng-container *ngIf="filterTemplate">
+      }
+    
+      @if (filterTemplate) {
         <ng-template pTemplate="filter" let-value let-filter="filterCallback">
           <ng-container *ngTemplateOutlet="filterTemplate; context: { $implicit: value, filter: filter }"></ng-container>
         </ng-template>
-      </ng-container>
-
+      }
+    
     </p-columnFilter>
-`,
+    `,
+    standalone: false
 })
 
 export class SmzColumnFilter2Component implements AfterContentInit, AfterViewInit {

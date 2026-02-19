@@ -4,7 +4,7 @@ import { SmzTableColumn, SmzTableContentAction } from '../../modules/smz-tables/
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 
 export class SmzContentActionsBuilder<TColumn extends SmzBaseColumnBuilder<TColumn, TData>, TData> extends SmzBuilderUtilities<SmzContentActionsBuilder<TColumn, TData>> {
-  protected that = this;
+  protected override that = this;
   constructor(protected _table: SmzTableBuilder<TData>, protected _parent: SmzBaseColumnBuilder<TColumn, TData>) {
     super();
   }

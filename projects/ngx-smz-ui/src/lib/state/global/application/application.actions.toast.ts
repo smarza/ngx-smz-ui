@@ -1,5 +1,4 @@
-import { Message } from 'primeng/api';
-
+import { Message } from '../../../modules/smz-toast/toast';
 
 export namespace ToastActions {
     export class Custom {

@@ -1,0 +1,78 @@
+<p-toolbar>
+  <div class="p-toolbar-group-start">
+    <div class="text-2xl font-bold">Painel de Planejamento</div>
+  </div>
+  <div class="p-toolbar-group-center">
+    @if (isEditing) {
+      <div class="text-red-500 font-bold bg-white border border-red-500 rounded-md px-2 py-1">
+        <span class="fa-solid fa-circle-exclamation py-1 px-3 mr-2"></span>
+        <span>Atenção: alterações não salvas serão perdidas.</span>
+      </div>
+    }
+  </div>
+  <div class="p-toolbar-group-end">
+    @if (!isEditing) {
+      <p-button label="Editar" icon="fa-solid fa-pencil" class="mr-2" severity="secondary" size="large" (onClick)="beginEditing()" [disabled]="!allowEditing || !(manageAnnualPlanningClaim | rbkCanAccess)"/>
+    }
+    @if (isEditing) {
+      <p-button label="Salvar" icon="fa-solid fa-save" class="mr-2" severity="success" size="large" (onClick)="save()"/>
+    }
+    @if (isEditing) {
+      <p-button label="Cancelar" icon="fa-solid fa-xmark" severity="danger" size="large" (onClick)="cancelEditing()"/>
+    }
+  </div>
+</p-toolbar>
+<!-- <div *ngIf="editingScenario != null" class="relative flex flex-nowrap justify-start h-full overflow-x-auto">
+<ng-container *ngVar="(editingScenario.results.systems | availableSystemPipe) as availableSystems">
+  <div class="available-system-table-panel m-2 flex flex-col border border-gray-300 bg-white rounded-md">
+    <div class="flex items-center justify-center py-4">
+      <div class="text-lg font-bold">Sistemas Disponíveis<span class="text-sm text-gray-500 ml-2">({{ availableSystems.length }})</span></div>
+    </div>
+    <smz-ui-table [items]="availableSystems" [state]="availableSystemTableState">
+      <ng-template pTemplate="caption" let-primeTable>
+        <div class="col flex flex-col gap-2 py-3">
+          <div class="text-sm font-bold">Legenda</div>
+          <div *ngIf="scenario.considerProximity" class="flex items-center gap-2 text-sm">
+            <div class="fa-solid fa-circle-exclamation text-red-500"></div>
+            <div>Sistema não contemplado por hidrojato.</div>
+          </div>
+          <div *ngIf="scenario.considerProximity" class="flex items-center gap-2 text-sm">
+            <div class="fa-solid fa-circle-check text-green-500"></div>
+            <div>Sistema contemplado por hidrojato.</div>
+          </div>
+          <div class="flex items-center gap-2 text-sm">
+            <div class="fa-solid fa-circle-exclamation text-yellow-500"></div>
+            <div>Sistema não possui corrosão computada.</div>
+          </div>
+        </div>
+      </ng-template>
+    </smz-ui-table>
+  </div>
+</ng-container>
+<ng-container *ngFor="let team of uiTeams; let index = index">
+  <ng-container *ngVar="(editingScenario.results.systems | systemByTeamPipe : team.team) as systemsByTeam">
+    <div class="team-table-panel m-2 border border-gray-300 bg-white rounded-md">
+      <div class="flex items-center justify-center py-4 gap-2">
+        <div class="text-lg font-bold">{{ team.team.name }}<span class="text-sm text-gray-500 ml-2">({{ systemsByTeam.length }})</span></div>
+        <div *ngIf="team.isBellowMinimum" class="text-orange-500 font-bold bg-white border border-orange-500 rounded-md px-2 py-1" [pTooltip]="'Atenção: o tempo de pintura utilizado está abaixo do mínimo recomendado.'">
+          <span class="fa-solid fa-circle-exclamation py-1 px-3 mr-2"></span>
+          <span>Abaixo do mínimo recomendado</span>
+        </div>
+        <div *ngIf="team.isAboveMaximum" class="text-red-500 font-bold bg-white border border-red-500 rounded-md px-2 py-1" [pTooltip]="'Atenção: o tempo de pintura utilizado está acima do máximo recomendado.'">
+          <span class="fa-solid fa-circle-exclamation py-1 px-3 mr-2"></span>
+          <span>Acima do máximo recomendado</span>
+        </div>
+      </div>
+      <smz-ui-table [items]="systemsByTeam" [state]="team.tableState">
+        <ng-template pTemplate="caption" let-primeTable>
+          <ng-container *ngVar="systemsByTeam | computeTeamManHoursUsedPipe : team">
+            <div class="col">
+              <smz-ui-gauge [state]="team.gaugeState"></smz-ui-gauge>
+            </div>
+          </ng-container>
+        </ng-template>
+      </smz-ui-table>
+    </div>
+  </ng-container>
+</ng-container>
+</div> -->

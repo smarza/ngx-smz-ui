@@ -21,7 +21,6 @@ export class BaseApiService {
         this.oneTimeOnlyParameters = parameters;
         return this as any;
     }
-    constructor() { }
 
     protected generateDefaultHeaders(parameters: Partial<HttpBehaviorParameters>): { headers: HttpHeaders } {
 

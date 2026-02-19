@@ -3,8 +3,9 @@ import { SmzDocumentConfig } from '../../models/smz-document-config';
 import { SmzDocumentSpacer } from '../../models/smz-document-features';
 
 @Component({
-  selector: 'smz-document-spacer',
-  templateUrl: 'spacer.component.html'
+    selector: 'smz-document-spacer',
+    templateUrl: 'spacer.component.html',
+    standalone: false
 })
 
 export class SmzDocumentSpacerComponent implements OnInit {

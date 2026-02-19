@@ -5,7 +5,7 @@ import { SmzUiFeatureStateBuilder } from './feature-state-builder';
 import { SmzUiBuilder } from './ui-builder';
 
 export class SmzUiStatesBuilder extends SmzBuilderUtilities<SmzUiStatesBuilder> {
-  protected that = this;
+  protected override that = this;
   constructor(private _builder: SmzUiBuilder) {
     super();
   }

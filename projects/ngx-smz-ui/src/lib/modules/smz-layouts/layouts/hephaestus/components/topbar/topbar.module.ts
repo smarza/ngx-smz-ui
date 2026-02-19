@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { HephaestusTopbarComponent } from './topbar.component';
-import { SidebarModule } from 'primeng/sidebar';
+import { DrawerModule } from 'primeng/drawer';
 import { HephaestusProfileMenuModule } from '../profile-menu/profile-menu.module';
 import { HephaestusNotificationsModule } from '../notifications/notifications.module';
 import { ButtonModule } from 'primeng/button';
@@ -12,7 +12,7 @@ import { SmzLocalizationSwitchComponent } from '../../../../features/localizatio
   declarations: [HephaestusTopbarComponent],
   imports: [
     CommonModule,
-    SidebarModule,
+    DrawerModule,
     HephaestusProfileMenuModule,
     HephaestusNotificationsModule,
     ButtonModule,

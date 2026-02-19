@@ -191,19 +191,19 @@ export class SmzEditableCollectionBuilder<TData> {
 }
 
 export class SmzTextEditableBuilder<TData> extends SmzBaseEditableBuilder<SmzTextEditableBuilder<TData>, TData> {
-  constructor(protected _table: SmzTableBuilder<TData>, protected _parent: SmzBaseColumnBuilder<any, TData>, property: string) {
+  constructor(protected override _table: SmzTableBuilder<TData>, protected override _parent: SmzBaseColumnBuilder<any, TData>, property: string) {
     super(_table, _parent, SmzEditableType.TEXT, property, {});
   }
 }
 
 export class SmzSwitchEditableBuilder<TData> extends SmzBaseEditableBuilder<SmzSwitchEditableBuilder<TData>, TData> {
-  constructor(protected _table: SmzTableBuilder<TData>, protected _parent: SmzBaseColumnBuilder<any, TData>, property: string) {
+  constructor(protected override _table: SmzTableBuilder<TData>, protected override _parent: SmzBaseColumnBuilder<any, TData>, property: string) {
     super(_table, _parent, SmzEditableType.SWITCH, property, {});
   }
 }
 
 export class SmzDropdownEditableBuilder<TData> extends SmzBaseEditableBuilder<SmzDropdownEditableBuilder<TData>, TData> {
-  constructor(protected _table: SmzTableBuilder<TData>, protected _parent: SmzBaseColumnBuilder<any, TData>, property: string, placeholder = 'Selecione uma opção') {
+  constructor(protected override _table: SmzTableBuilder<TData>, protected override _parent: SmzBaseColumnBuilder<any, TData>, property: string, placeholder = 'Selecione uma opção') {
     super(_table, _parent, SmzEditableType.DROPDOWN, property, {});
 
     (this._editable.data as SmzDropdownEditable).placeholder = placeholder;
@@ -229,7 +229,7 @@ export class SmzDropdownEditableBuilder<TData> extends SmzBaseEditableBuilder<Sm
 }
 
 export class SmzNumberEditableBuilder<TData> extends SmzBaseEditableBuilder<SmzNumberEditableBuilder<TData>, TData> {
-  constructor(protected _table: SmzTableBuilder<TData>, protected _parent: SmzBaseColumnBuilder<any, TData>, property: string) {
+  constructor(protected override _table: SmzTableBuilder<TData>, protected override _parent: SmzBaseColumnBuilder<any, TData>, property: string) {
     super(_table, _parent, SmzEditableType.NUMBER, property, {
       mode: 'decimal',
       minFractionDigits: null,

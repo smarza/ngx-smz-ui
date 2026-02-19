@@ -3,8 +3,9 @@ import { SmzDocumentConfig } from '../../models/smz-document-config';
 import { SmzDocumentDivider } from '../../models/smz-document-features';
 
 @Component({
-  selector: 'smz-document-divider',
-  templateUrl: 'divider.component.html'
+    selector: 'smz-document-divider',
+    templateUrl: 'divider.component.html',
+    standalone: false
 })
 
 export class SmzDocumentDividerComponent implements OnInit {

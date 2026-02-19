@@ -6,8 +6,8 @@ import { SmzDocumentBuilder } from '../document-builder';
 import { SmzDocumentRowBuilder } from '../document-content';
 
 export class SmzCellComponentBuilder extends SmzDocumentBaseCellBuilder<SmzCellComponentBuilder> {
-  protected that = this;
-  constructor(public _rowBuilder: SmzDocumentRowBuilder, public _cell: SmzDocumentCell, public _data: SmzDocumentComponent, public _documentBuilder: SmzDocumentBuilder) {
+  protected override that = this;
+  constructor(public override _rowBuilder: SmzDocumentRowBuilder, public override _cell: SmzDocumentCell, public override _data: SmzDocumentComponent, public override _documentBuilder: SmzDocumentBuilder) {
     super(_rowBuilder, _cell, _data, _documentBuilder);
     const defaultConfig = cloneDeep(this._documentBuilder._state.config);
     _data.container = { styles: defaultConfig.components.container };
@@ -42,7 +42,7 @@ export class SmzCellComponentBuilder extends SmzDocumentBaseCellBuilder<SmzCellC
     return this.that;
   }
 
-  public setWidth(width: SmzDocumentWidthTypes): SmzCellComponentBuilder {
+  public override setWidth(width: SmzDocumentWidthTypes): SmzCellComponentBuilder {
     const newStyle = width === 'auto' ? 'col' : `${width}`;
     this._data.flexWidth = newStyle;
     return this;

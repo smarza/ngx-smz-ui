@@ -2,9 +2,10 @@ import { TreeNode } from 'primeng/api';
 import { ObjectUtils } from 'primeng/utils';
 import { SimpleNamedEntity } from '../models/simple-named-entity';
 import { b64toBlob, handleBase64 } from './base64-helper';
-import { HttpClient } from '@angular/common/http';
 import { GlobalInjector } from '../services/global-injector';
-import { environment } from '@environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { inject } from '@angular/core';
+import { SmzEnvironment } from '../../config';
 
 export function getFirst<T>(array: T[]) {
     return array == null || array.length === 0 ? null : array[0];
@@ -674,7 +675,7 @@ export function downloadFromUrl(url: string, filename: string): void {
 export function downloadFromServerUrl(relativeUrl: string, filename: string): void {
     const http: HttpClient = GlobalInjector.instance.get(HttpClient);
 
-    let path = environment.serverUrl;
+    let path = inject(SmzEnvironment).serverUrl;
 
     if (relativeUrl.startsWith("/")) {
         path = `${path}${relativeUrl}`;

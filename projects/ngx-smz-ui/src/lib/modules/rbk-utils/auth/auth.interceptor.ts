@@ -1,5 +1,5 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpErrorResponse } from '@angular/common/http';
-import { Injectable, Injector } from '@angular/core';
+import { inject, Injectable, Injector } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, switchMap, share } from 'rxjs/operators';
 import { Store } from '@ngxs/store';
@@ -11,9 +11,11 @@ import { GlobalInjector } from '../../../common/services/global-injector';
 import { NgxSmzUiConfig } from '../../../ngx-smz-ui.config';
 import { DiagnosticsService } from '../error-handler/diagnostic.service';
 import { AuthenticationSelectors } from '../../../state/global/authentication/authentication.selectors';
+import { SmzEnvironment } from '../../../config/config';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
+    private readonly environment = inject(SmzEnvironment);
     private config: NgxSmzUiConfig;
 
     constructor(private injector: Injector, private store: Store, private diagnosticsService: DiagnosticsService) { }
@@ -64,7 +66,8 @@ export class AuthInterceptor implements HttpInterceptor {
                 // checks if a url is to an admin api or not
                 if (error.status === 401) {
                     // check if the response is from the token refresh end point
-                    const isFromRefreshTokenEndpoint = error.url === this.config.rbkUtils.authentication.refreshToken.url;
+                    const url = `${this.environment.serverUrl}${this.config.rbkUtils.authentication.refreshToken.url}`;
+                    const isFromRefreshTokenEndpoint = error.url === url;
                     if (isFromRefreshTokenEndpoint) {
                         console.error('Problem while trying to automatically refresh the token, redirecting to login');
 

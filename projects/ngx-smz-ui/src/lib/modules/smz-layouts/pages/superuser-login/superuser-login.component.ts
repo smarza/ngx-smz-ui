@@ -15,8 +15,9 @@ interface LoginData {
 }
 
 @Component({
-  selector: 'smz-ui-superuser-login-page',
-  templateUrl: './superuser-login.component.html',
+    selector: 'smz-ui-superuser-login-page',
+    templateUrl: './superuser-login.component.html',
+    standalone: false
 })
 export class SuperuserLoginComponent {
 

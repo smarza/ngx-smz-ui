@@ -1,108 +1,95 @@
 <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
 
-  <div *ngIf="state.paginator.isVisible" class="flex-1 flex justify-between sm:hidden">
-
-    <button
-      (click)="previous()"
-      [disabled]="dataSource.viewport.paginator.prePage == null"
-      [ngClass]="{ 'cursor-not-allowed': dataSource.viewport.paginator.prePage == null }"
-      class="relative inline-flex items-center px-4 py-2 cursor-pointer border border-solid border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-      {{ state.locale.paginator.previous }}
-    </button>
-
-    <button
-      (click)="next()"
-      [disabled]="dataSource.viewport.paginator.nextPage == null"
-      [ngClass]="{ 'cursor-not-allowed': dataSource.viewport.paginator.nextPage == null }"
-      class="ml-3 relative inline-flex items-center px-4 py-2 cursor-pointer border border-solid border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-      {{ state.locale.paginator.next }}
-    </button>
-
-  </div>
+  @if (state.paginator.isVisible) {
+    <div class="flex-1 flex justify-between sm:hidden">
+      <button
+        (click)="previous()"
+        [disabled]="dataSource.viewport.paginator.prePage == null"
+        [ngClass]="{ 'cursor-not-allowed': dataSource.viewport.paginator.prePage == null }"
+        class="relative inline-flex items-center px-4 py-2 cursor-pointer border border-solid border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+        {{ state.locale.paginator.previous }}
+      </button>
+      <button
+        (click)="next()"
+        [disabled]="dataSource.viewport.paginator.nextPage == null"
+        [ngClass]="{ 'cursor-not-allowed': dataSource.viewport.paginator.nextPage == null }"
+        class="ml-3 relative inline-flex items-center px-4 py-2 cursor-pointer border border-solid border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+        {{ state.locale.paginator.next }}
+      </button>
+    </div>
+  }
 
   <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
 
     <div>
       <p class="text-sm text-gray-700">
 
-        <ng-container *ngIf="state.paginator.isVisible">
+        @if (state.paginator.isVisible) {
           {{ state.locale.paginator.showing }}
           <span class="font-medium">{{ dataSource.viewport.paginator.showing }}</span>
           {{ state.locale.paginator.to }}
           <span class="font-medium">{{ dataSource.viewport.paginator.to }}</span>
           {{ state.locale.paginator.of }}
-        </ng-container>
+        }
 
-        <ng-container *ngIf="state.paginator.showResults && dataSource.viewport.paginator?.total > 0">
+        @if (state.paginator.showResults && dataSource.viewport.paginator?.total > 0) {
           <span class="font-medium">{{ dataSource.viewport.paginator.total }}</span>
           {{ state.locale.paginator.results }}
-        </ng-container>
+        }
 
       </p>
 
     </div>
 
-    <div *ngIf="state.paginator.isVisible">
-      <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
-
-        <button
-          (click)="previous()"
-          [disabled]="dataSource.viewport.paginator.prePage == null"
-          [ngClass]="{ 'cursor-not-allowed': dataSource.viewport.paginator.prePage == null }"
-          class="relative inline-flex items-center px-2 py-2 rounded-l-md cursor-pointer border border-solid border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-
-          <span class="sr-only">{{ state.locale.paginator.previous }}</span>
-
-          <!-- Heroicon name: solid/chevron-left -->
-          <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-            <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
-          </svg>
-        </button>
-
-        <ng-container *ngFor="let page of dataSource.viewport.paginator.pages">
-
-          <ng-container *ngIf="page.isVisible">
-
-            <ng-container *ngIf="page.isCurrent">
-              <button
-                (click)="goTo(page.number)"
-                aria-current="page"
-                class="z-10 bg-indigo-50 border-indigo-500 text-indigo-600 relative inline-flex items-center px-4 py-2 border border-solid text-sm font-medium">
-                {{ page.number }}
-              </button>
-            </ng-container>
-
-            <ng-container *ngIf="!page.isCurrent">
-              <button
-                (click)="goTo(page.number)"
-                class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 cursor-pointer border border-solid text-sm font-medium">
-                {{ page.number }}
-              </button>
-            </ng-container>
-
-          </ng-container>
-
-            <ng-container *ngIf="page.showEllipsis">
+    @if (state.paginator.isVisible) {
+      <div>
+        <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+          <button
+            (click)="previous()"
+            [disabled]="dataSource.viewport.paginator.prePage == null"
+            [ngClass]="{ 'cursor-not-allowed': dataSource.viewport.paginator.prePage == null }"
+            class="relative inline-flex items-center px-2 py-2 rounded-l-md cursor-pointer border border-solid border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+            <span class="sr-only">{{ state.locale.paginator.previous }}</span>
+            <!-- Heroicon name: solid/chevron-left -->
+            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          @for (page of dataSource.viewport.paginator.pages; track page) {
+            @if (page.isVisible) {
+              @if (page.isCurrent) {
+                <button
+                  (click)="goTo(page.number)"
+                  aria-current="page"
+                  class="z-10 bg-indigo-50 border-indigo-500 text-indigo-600 relative inline-flex items-center px-4 py-2 border border-solid text-sm font-medium">
+                  {{ page.number }}
+                </button>
+              }
+              @if (!page.isCurrent) {
+                <button
+                  (click)="goTo(page.number)"
+                  class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 cursor-pointer border border-solid text-sm font-medium">
+                  {{ page.number }}
+                </button>
+              }
+            }
+            @if (page.showEllipsis) {
               <span class="relative inline-flex items-center px-4 py-2 border border-solid border-gray-300 bg-white text-sm font-medium text-gray-700"> ... </span>
-            </ng-container>
-
-        </ng-container>
-
-        <button
-          (click)="next()"
-          [disabled]="dataSource.viewport.paginator.nextPage == null"
-          [ngClass]="{ 'cursor-not-allowed': dataSource.viewport.paginator.nextPage == null }"
-          class="relative inline-flex items-center px-2 py-2 rounded-r-md cursor-pointer border border-solid border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-
-          <span class="sr-only">{{ state.locale.paginator.next }}</span>
-          <!-- Heroicon name: solid/chevron-right -->
-
-          <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
-          </svg>
-        </button>
-
-      </nav>
-    </div>
+            }
+          }
+          <button
+            (click)="next()"
+            [disabled]="dataSource.viewport.paginator.nextPage == null"
+            [ngClass]="{ 'cursor-not-allowed': dataSource.viewport.paginator.nextPage == null }"
+            class="relative inline-flex items-center px-2 py-2 rounded-r-md cursor-pointer border border-solid border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+            <span class="sr-only">{{ state.locale.paginator.next }}</span>
+            <!-- Heroicon name: solid/chevron-right -->
+            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+            </svg>
+          </button>
+        </nav>
+      </div>
+    }
   </div>
 </div>

@@ -5,7 +5,7 @@ import { SmzBaseUiDefinitionBuilder } from '../common/base-ui-definition-builder
 import { GlobalInjector } from '../../common/services/global-injector';
 
 export class SmzDialogUiDefinitionBuilder<TResponse> extends SmzBaseUiDefinitionBuilder<SmzDialogUiDefinitionBuilder<TResponse>> {
-  protected that = this;
+  protected override that = this;
 
   constructor(public _dialogBuilder: SmzDialogBuilder<TResponse>, private entityName: string) {
     super();

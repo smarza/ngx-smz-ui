@@ -3,7 +3,7 @@ import { cloneDeep } from 'lodash-es';
 import { CommentsUiState, CommentsUiStateModel } from './comments.state';
 import { sortArray } from '../../../common/utils/utils';
 import { DbData } from '../../../modules/smz-faqs/models/faqs';
-import { TreeNode } from 'primeng/api/treenode';
+import { TreeNode } from 'primeng/api';
 import { SmzCommentsDetails } from '../../../modules/smz-comments/models/comments-details';
 
 export class CommentsUiSelector

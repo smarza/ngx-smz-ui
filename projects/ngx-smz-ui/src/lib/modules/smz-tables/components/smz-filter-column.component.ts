@@ -1,36 +1,37 @@
 import { AfterContentInit, ChangeDetectorRef, Component, ContentChildren, ElementRef, Input, QueryList, Renderer2, TemplateRef, ViewChild } from '@angular/core';
 import { PrimeTemplate } from 'primeng/api';
-import { ColumnFilter } from '../../prime/table/table';
+import { ColumnFilter } from 'primeng/table';
 
 @Component({
-  selector: 'smz-column-filter',
-  template: `
+    selector: 'smz-column-filter',
+    template: `
   <div (click)="bindDocumentClickListener()">
-      <p-columnFilter
-        [currency]="currency"
-        [display]="display"
-        [field]="field"
-        [matchMode]="matchMode"
-        [showAddButton]="showAddButton"
-        [showMatchModes]="showMatchModes"
-        [showOperator]="showOperator"
-        [type]="type"
-        [showTime]="showTime">
-
-        <ng-container *ngIf="headerTemplate">
-          <ng-template pTemplate="header">
-            <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-          </ng-template>
-        </ng-container>
-
-        <ng-container *ngIf="filterTemplate">
-          <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-            <ng-container *ngTemplateOutlet="filterTemplate; context: { $implicit: value, filter: filter }"></ng-container>
-          </ng-template>
-        </ng-container>
-
-      </p-columnFilter>
-  <div>`,
+    <p-columnFilter
+      [currency]="currency"
+      [display]="display"
+      [field]="field"
+      [matchMode]="matchMode"
+      [showAddButton]="showAddButton"
+      [showMatchModes]="showMatchModes"
+      [showOperator]="showOperator"
+      [type]="type">
+      <!-- TODO: [showTime]="showTime" -->
+  
+      @if (headerTemplate) {
+        <ng-template pTemplate="header">
+          <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+        </ng-template>
+      }
+  
+      @if (filterTemplate) {
+        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+          <ng-container *ngTemplateOutlet="filterTemplate; context: { $implicit: value, filter: filter }"></ng-container>
+        </ng-template>
+      }
+  
+    </p-columnFilter>
+    <div>`,
+    standalone: false
 })
 
 export class SmzColumnFilterComponent implements AfterContentInit {

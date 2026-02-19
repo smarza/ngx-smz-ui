@@ -14,6 +14,7 @@ import {
   ChangeDetectionStrategy,
   ViewEncapsulation,
   ViewRef,
+  inject,
 } from "@angular/core";
 import {
   trigger,
@@ -24,21 +25,23 @@ import {
 } from "@angular/animations";
 import { CommonModule } from "@angular/common";
 import { DomHandler, ConnectedOverlayScrollHandler } from "primeng/dom";
-import { MenuItem, OverlayService, PrimeNGConfig } from "primeng/api";
+import { MenuItem, OverlayService } from "primeng/api";
 import { ZIndexUtils } from "primeng/utils";
 import { RouterModule } from "@angular/router";
 import { RippleModule } from "primeng/ripple";
 import { TooltipModule } from "primeng/tooltip";
 import { SmzMenuItem } from '../models/smz-menu-item';
 import { ConfirmableFunction, CriticalConfirmableFunction } from '../../smz-dialogs/decorators/confirmable.decorator';
+import { PrimeNG } from 'primeng/config';
 
 @Component({
-  selector: "[smzMenuItemContent]",
-  encapsulation: ViewEncapsulation.None,
-  templateUrl: "./menu-item-content.html",
-  host: {
-    class: "p-element",
-  },
+    selector: "[smzMenuItemContent]",
+    encapsulation: ViewEncapsulation.None,
+    templateUrl: "./menu-item-content.html",
+    host: {
+        class: "p-element",
+    },
+    standalone: false
 })
 export class MenuItemContent {
   @Input("smzMenuItemContent") item: MenuItem;
@@ -109,27 +112,30 @@ export class MenuItemContent {
 }
 
 @Component({
-  selector: "smz-menu-items",
-  templateUrl: "./menu.html",
-  animations: [
-    trigger("overlayAnimation", [
-      transition(":enter", [
-        style({ opacity: 0, transform: "scaleY(0.8)" }),
-        animate("{{showTransitionParams}}"),
-      ]),
-      transition(":leave", [
-        animate("{{hideTransitionParams}}", style({ opacity: 0 })),
-      ]),
-    ]),
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  styleUrls: ["./menu.css"],
-  host: {
-    class: "p-element",
-  },
+    selector: "smz-menu-items",
+    templateUrl: "./menu.html",
+    animations: [
+        trigger("overlayAnimation", [
+            transition(":enter", [
+                style({ opacity: 0, transform: "scaleY(0.8)" }),
+                animate("{{showTransitionParams}}"),
+            ]),
+            transition(":leave", [
+                animate("{{hideTransitionParams}}", style({ opacity: 0 })),
+            ]),
+        ]),
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ["./menu.css"],
+    host: {
+        class: "p-element",
+    },
+    standalone: false
 })
 export class Menu implements OnDestroy {
+  private readonly primeConfig = inject(PrimeNG);
+
   @Input() model: MenuItem[];
 
   @Input() popup: boolean;
@@ -175,7 +181,6 @@ export class Menu implements OnDestroy {
     public el: ElementRef,
     public renderer: Renderer2,
     private cd: ChangeDetectorRef,
-    public config: PrimeNGConfig,
     public overlayService: OverlayService
   ) {}
 
@@ -251,7 +256,7 @@ export class Menu implements OnDestroy {
       ZIndexUtils.set(
         "menu",
         this.container,
-        this.baseZIndex + this.config.zIndex.menu
+        this.baseZIndex + this.primeConfig.zIndex.menu
       );
     }
   }

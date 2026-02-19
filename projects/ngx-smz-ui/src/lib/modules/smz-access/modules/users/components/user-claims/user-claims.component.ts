@@ -1,5 +1,4 @@
-import { Component, Input, EventEmitter, Output, OnInit, ViewEncapsulation } from '@angular/core';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { Component, Input, EventEmitter, Output, OnInit, ViewEncapsulation, DestroyRef, inject } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { UsersSelectors } from '../../../../state/users/users.selectors';
 import { SmzDialogsService } from '../../../../../smz-dialogs/services/smz-dialogs.service';
@@ -11,20 +10,22 @@ import { AddClaimsOverride } from '../../../../models/add-claims-override';
 import { ClaimsSelectors } from '../../../../state/claims/claims.selectors';
 import { ClaimDetails } from '../../../../models/claim-details';
 import { UsersActions } from '../../../../state/users/users.actions';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-@UntilDestroy()
 @Component({
-  selector: 'app-user-claims',
-  templateUrl: './user-claims.component.html',
-  styleUrls: ['./user-claims.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-user-claims',
+    templateUrl: './user-claims.component.html',
+    styleUrls: ['./user-claims.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class UserClaimsComponent implements OnInit {
+  private readonly destroyRef = inject(DestroyRef);
   @Input() public username: string;
   @Output() public desassociateClaim = new EventEmitter<ClaimOverride[]>();
   public claims: ClaimDetails[];
   public targetClaims: ClaimOverride[] = [];
-  public user: UserDetails;
+  public user: UserDetails | undefined;
 
   constructor(private store: Store, private dialogs: SmzDialogsService) {
   }
@@ -33,9 +34,7 @@ export class UserClaimsComponent implements OnInit {
 
     this.store
       .select(UsersSelectors.single(this.username))
-      .pipe(
-        untilDestroyed(this),
-      )
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(user => {
           this.user = user;
           this.refreshViewData();
@@ -77,12 +76,16 @@ export class UserClaimsComponent implements OnInit {
 
   public refreshViewData(): void {
 
+    if (!this.user) {
+      return;
+    }
+
     this.targetClaims = [...this.user.overridedClaims];
 
     const claims = this.store.selectSnapshot(ClaimsSelectors.all);
 
     this.claims = claims.filter(claim => {
-      return this.user.claims.findIndex(u => u.id === claim.id) !== -1 ? false : true;
+      return this.user?.claims.findIndex(u => u.id === claim.id) !== -1 ? false : true;
     });
   }
 }

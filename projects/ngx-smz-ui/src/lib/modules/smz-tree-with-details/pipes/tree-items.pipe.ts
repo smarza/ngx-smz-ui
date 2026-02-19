@@ -1,9 +1,10 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { TreeNode } from 'primeng/api/treenode';
+import { TreeNode } from 'primeng/api';
 import { SmzTreeWithDetailsState } from '../models/tree-with-details-state';
 
 @Pipe({
-  name: 'treeItems'
+    name: 'treeItems',
+    standalone: false
 })
 
 export class TreeItemsPipe implements PipeTransform {

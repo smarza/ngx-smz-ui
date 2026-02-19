@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SmzLoginBuilder } from '../../../../builders/smz-login/state-builder';
 import { SmzLoginState } from '../../features/login/login-state';
 import { GlobalInjector } from '../../../../common/services/global-injector';
@@ -10,8 +10,8 @@ import { SmzFormBuilder } from '../../../../builders/smz-forms/form-builder';
 import { isEmpty } from '../../../rbk-utils/utils/utils';
 import { compareInsensitive, getFirst } from '../../../../common/utils/utils';
 import { AuthenticationActions } from '../../../../state/global/authentication/authentication.actions';
-import { environment } from '@environments/environment';
 import { SmzTextPattern } from '../../../smz-forms/public-api';
+import { SmzEnvironment } from '../../../../config';
 
 interface LoginData {
   tenant?: SimpleEntity<string>;
@@ -20,8 +20,9 @@ interface LoginData {
 }
 
 @Component({
-  selector: 'smz-ui-login-page',
-  templateUrl: './login.component.html',
+    selector: 'smz-ui-login-page',
+    templateUrl: './login.component.html',
+    standalone: false
 })
 export class LoginComponent {
 
@@ -58,11 +59,11 @@ export class LoginComponent {
         }
         else if (authConfig.useSingleTenantAplication) {
           // Aplicação configurada para único Tenant
-          extraProperties.tenant = authConfig.login.applicationTenant;
+          extraProperties['tenant'] = authConfig.login.applicationTenant;
         }
         else if (authConfig.login.showTenantSelector) {
           // Adicionar Tenant escolhido pelo usuário no seletor de Tenants
-          extraProperties.tenant = response.tenant.id;
+          extraProperties['tenant'] = response.tenant.id;
         }
 
         return { username: response.username, password: response.password, extraProperties };
@@ -81,7 +82,7 @@ export class LoginComponent {
                 .validators().required().input
                 .group
             .endIf
-          .if(authConfig.useWindowsAuthentication && !environment.production)
+          .if(authConfig.useWindowsAuthentication && !inject(SmzEnvironment).production)
             .text(nameof<LoginData>('username'), 'Credencial de Desenvolvimento')
               .setSaveFormat(authConfig.login.forceLowercaseUsername ? SmzTextPattern.LOWERCASE : SmzTextPattern.NONE)
               .validators().required().input

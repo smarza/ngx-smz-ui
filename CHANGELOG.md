@@ -5,6 +5,69 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
+[21.0.0-alpha.2] - 2026-02-12
+
+### Atualizado
+- Proteção para erros de tipo na pipe UrlCheckerPipe.
+
+[21.0.0-alpha.1] - 2026-02-10
+
+### Atualizado
+- Atualização para Angular 21.
+- Atualização para PrimeNG 21.
+- Atualização para PrimeFlex 4.
+- Atualização para PrimeIcons 7.
+- Atualização para TailwindCSS 3.4.17.
+
+[19.6.1] - 2026-02-05
+
+### Corrigido
+- Correção do erro ao tentar parsear um blob que não é um JSON.
+
+[19.6.0] - 2026-02-05
+
+### Atualizado
+- @ngx-smz/layout e @ngx-smz/core agora possuem a mesma versão.
+- A flag `useLegacyThemeManager` foi removida do pacote @ngx-smz/core.
+- Foi adicionado um scss para o layout legacy do primeng no pacote @ngx-smz/layout:
+  - Aplique o scss no seu arquivo de styles.scss:
+  - Para usar o layout legacy:
+    - no seu arquivo de styles.scss:
+      ```scss
+        @use '@ngx-smz/layout/resources/layout/legacy-layout.scss';
+      ```
+  - Para usar o layout moderno:
+    - no seu arquivo de styles.scss:
+      ```scss
+        @use '@ngx-smz/layout/resources/layout/layout.scss';
+      ```
+
+[19.5.3] - 2026-02-03
+
+### Melhorias
+- Remoção do tema legacy do primeng para usar o tema do primeng. A flag `useLegacyThemeManager` foi adicionada para permitir a utilização do tema legacy do primeng. O valor padrão é não usar o tema legacy do primeng.
+
+[19.5.1] - 2026-01-16
+
+### Adicionado
+- Foi adicionado suporte para conversão automatica de data e hora para a propriedade "createdAt".
+
+[19.5.0] - 2026-01-15
+
+### Adicionado
+- Nova função `normalizeDateToUtc()` para normalizar datas para UTC, removendo informações de horário.
+
+### Melhorias
+- Normalização de datas em campos de calendário quando `showTime` está desabilitado, garantindo que apenas a data seja enviada sem informações de horário.
+- Aprimoramento da função `fixDateProperties()` para normalizar datas de propriedades que começam com 'date', terminam com 'Date' ou são 'birthdate', removendo informações de horário e mantendo apenas a data.
+
+[19.4.3] - 2025-01-15
+
+### Atualizado
+- Atualização da versão do pacote @ngx-smz/core para 19.4.3.
+- Atualização das dependências peer para suportar Angular >=19.2.0 <21.0.0.
+
+[19.4.2] - 2025-01-15
 [17.3.3] - 2025-10-31
 
 - Exposição do componente de arvore do prime (dt) a partir do nosso SmzTreeComponent
@@ -20,6 +83,89 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org).
 - Aprimoramento do controle de foco automático em formulários com a diretiva `focusFirstInput`.
 - Melhoria na configuração de comportamentos de formulário para maior flexibilidade no controle de submissão.
 
+[19.3.9] - 2025-01-15
+
+### Adicionado
+- Suporte para Angular 20 no pacote @ngx-smz/core, mantendo compatibilidade com Angular 19.
+
+[19.3.8] - 2025-01-15
+
+### Adicionado
+- Suporte para WritableSignal como fonte de dados nas tabelas através do método `addSignalSource()` no SmzTableBuilder.
+- Nova funcionalidade de overlay panel para diálogos com configuração de posicionamento e destaque visual.
+- Melhorias na configuração de diálogos com novos métodos para controle de foco automático e estilos de container.
+
+### Melhorias
+- Aprimoramento do sistema de diálogos com suporte a configurações mais flexíveis de comportamento e estilos.
+- Otimização do componente de tabela para melhor performance com fontes de dados reativas.
+- Refatoração dos modelos de diálogo para suportar configurações mais avançadas de overlay panel.
+
+[19.3.7] - 2025-08-13
+
+Foi corrigido o problema onde o editar perfil não funcionava para aplicações com apenas um perfil por usuário.
+
+[19.3.6] - 2025-07-16
+
+### Melhorias
+- Modificação na configuração de logging para permitir que 'restrictedScopes' aceite strings, proporcionando maior flexibilidade na configuração dos escopos de log.
+- Ajuste no serviço de logging para lidar com escopos de string, melhorando a flexibilidade do sistema de logging.
+
+[19.3.5] - 2025-07-15
+
+### Adicionado
+- Aprimoramento do serviço de logging com métodos groupCollapsed e groupEnd para melhor organização dos logs.
+- Exportação do tipo ScopedLogger para melhorar as capacidades de logging.
+
+[19.3.3] - 2025-05-30
+
+### Adicionado
+- Funcionalidade de warning nos inputs de formulário para melhor feedback ao usuário.
+- Novo componente LabelComponent para renderização consistente de labels em formulários.
+- Aprimoramento das capacidades de logging nos componentes de grupo de formulário para melhor rastreabilidade.
+
+[19.3.2] - 2025-05-27
+
+### Melhorias
+- Refatoração da configuração de logging para usar 'restrictedScopes' ao invés de 'scopes', proporcionando maior clareza na configuração.
+- Consolidação da inicialização de logging na configuração da aplicação para melhor clareza e manutenibilidade.
+
+[19.3.1] - 2025-05-27
+
+### Adicionado
+- Introdução da funcionalidade de logging com novo LoggingService, LoggingConfig e LoggingScope.
+- Aprimoramento dos serviços de navegação e título de página com capacidades de logging para melhor rastreabilidade.
+
+[19.3.0] - 2025-05-27
+
+### Adicionado
+- Aprimoramento dos estilos e funcionalidades da topbar com novos recursos de botão voltar e título de página.
+- Introdução de serviços de navegação e título de página para melhor gerenciamento de roteamento.
+
+[19.2.5] - 2025-05-27
+
+### Melhorias
+- Remoção da codificação hardcoded de URL do servidor nas chamadas de API.
+- Refatoração dos serviços para utilizar configuração de ambiente para manipulação dinâmica de URLs.
+
+[19.2.4] - 2025-05-27
+
+### Adicionado
+- Novo AccessControlService para validação de claims.
+- Aprimoramento dos componentes de layout para utilizar verificações de claim para visibilidade de itens de menu.
+
+[19.2.3] - 2025-05-27
+
+### Melhorias
+- Refatoração do ToastService para incluir opções de progresso.
+- Implementação de novo SmzToastComponent para exibição aprimorada de mensagens.
+- Remoção de imports não utilizados do SmzToastModule em diálogos e layouts.
+
+[19.2.1] - 2025-04-24
+
+### Melhorias
+- Remoção de estilos não utilizados do angular.json.
+- Refatoração dos componentes de mensagem em smz-dialogs e smz-forms para usar p-message.
+- Aprimoramento da configuração do tailwind com novas cores de tema e gradientes de fundo.
 [17.3.1] - 2025-07-24
 
 

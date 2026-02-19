@@ -1,16 +1,22 @@
-<label *ngIf="input.hideName == false && input.hideLabel != true" class="smz__input_name" [innerHTML]="input.name"></label>
+<smz-label
+    class="smz__input_name"
+    [text]="input.name"
+    [propertyName]="input.propertyName"
+    [showLabel]="input.hideName == false && input.hideLabel != true"
+    [warning]="input.warning">
+</smz-label>
+
 <div class="input_inner__wrapper">
 
     <div class="p-inputgroup">
         <input
             pInputText
-            fxFlex="grow"
-            class="col-12 smz__input_value"
+            class="col-12 smz__input_value flex-1"
             [id]="input.propertyName"
             type="text"
             [placeholder]="input.placeholder"
             [formControl]="$any(control)">
-        <button type="button" [disabled]="!control.valid || blocked" pButton class="min-w-fit" [label]="input.label" [icon]="input.icon" styleClass="p-button-warn" (click)="emit()"></button>
+        <button type="button" [disabled]="!control.valid || blocked" pButton class="min-w-fit mt-3" [label]="input.label" [icon]="input.icon" styleClass="p-button-warn" (click)="emit()"></button>
     </div>
 
     <smz-validation-messages [input]="input" [control]="control" [behaviors]="behaviors" [extraMessages]="input.buttonMessages"></smz-validation-messages>

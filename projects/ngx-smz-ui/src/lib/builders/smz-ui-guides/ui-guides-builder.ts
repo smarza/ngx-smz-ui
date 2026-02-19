@@ -6,7 +6,7 @@ import { SmzUiGuidesStepBuilder } from './step-builder';
 import { SmzUiGuidesStepOverridesBuilder } from './step-overrides-builder';
 
 export class SmzUiGuidesBuilder extends SmzBuilderUtilities<SmzUiGuidesBuilder> {
-  protected that = this;
+  protected override that = this;
   public _state: SmzUiGuidesState = {
     context: {
       step: 1

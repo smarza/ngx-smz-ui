@@ -4,7 +4,8 @@ import { takeWhile } from 'rxjs/operators';
 import { SmzAdvancedInjectable } from '../models/smz-cards-component';
 
 @Directive({
-    selector: '[smzInjectDataPathComponent]'
+    selector: '[smzInjectDataPathComponent]',
+    standalone: false
 })
 export class SmzInjectDataPathComponent implements AfterContentInit, OnDestroy
 {

@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { SmzContentMaskControl } from '../../models/control-types';
 
 @Pipe({
-  name: 'inputContentMaskText'
+    name: 'inputContentMaskText',
+    standalone: false
 })
 
 export class InputContentMaskTextPipe implements PipeTransform {

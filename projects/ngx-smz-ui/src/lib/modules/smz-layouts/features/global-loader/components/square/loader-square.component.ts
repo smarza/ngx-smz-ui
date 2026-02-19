@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'smz-ui-loader-square',
-  templateUrl: './loader-square.component.html',
-  styleUrls: ['./loader-square.component.scss']
+    selector: 'smz-ui-loader-square',
+    templateUrl: './loader-square.component.html',
+    styleUrls: ['./loader-square.component.scss'],
+    standalone: false
 })
 export class LoaderSquareComponent implements OnInit
 {

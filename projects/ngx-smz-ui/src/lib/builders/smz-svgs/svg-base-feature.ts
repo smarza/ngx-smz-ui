@@ -7,7 +7,8 @@ import { isEmpty } from '../common/utils';
 import { Container } from '@svgdotjs/svg.js';
 
 export class SmzSvgBaseFeatureBuilder<T> extends SmzBuilderUtilities<T> {
-  protected that: T;
+  // FIXME: Verificar se está funcionando
+  declare protected that: T;
   constructor(public _featureBuilder: SmzSvgFeatureBuilder, public _feature: SmzSvgFeature, public _svgBuilder: SmzSvgBuilder) {
     super();
   }

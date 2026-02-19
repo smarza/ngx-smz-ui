@@ -3,7 +3,8 @@ import { ObjectUtils } from 'primeng/utils';
 import { SmzContentType } from '../models/content-types';
 
 @Pipe({
-  name: 'tableContent'
+    name: 'tableContent',
+    standalone: false
 })
 
 export class SmzTableContentPipe implements PipeTransform {

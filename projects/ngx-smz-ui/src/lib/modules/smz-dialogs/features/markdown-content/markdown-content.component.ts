@@ -4,6 +4,7 @@ import { Component, ViewEncapsulation, Input } from '@angular/core';
     selector: 'smz-markdown-content',
     templateUrl: './markdown-content.component.html',
     encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class MarkdownContentComponent
 {

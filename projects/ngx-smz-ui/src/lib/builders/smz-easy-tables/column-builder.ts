@@ -69,7 +69,7 @@ export abstract class SmzEasyBaseColumnBuilder<T extends SmzEasyBaseColumnBuilde
 }
 
 export class SmzEasyColumnCollectionBuilder extends SmzBuilderUtilities<SmzEasyColumnCollectionBuilder> {
-  protected that = this;
+  protected override that = this;
   constructor(private _tableBuilder: SmzEasyTableBuilder) {
     super();
   }
@@ -96,7 +96,7 @@ export class SmzEasyColumnCollectionBuilder extends SmzBuilderUtilities<SmzEasyC
 }
 
 export class SmzEasyTextColumnBuilder extends SmzEasyBaseColumnBuilder<SmzEasyTextColumnBuilder> {
-  constructor(protected _table: SmzEasyTableBuilder, protected _parent: SmzEasyColumnCollectionBuilder, header: string, dataPath: string, key: string = uuidv4()) {
+  constructor(protected override _table: SmzEasyTableBuilder, protected override _parent: SmzEasyColumnCollectionBuilder, header: string, dataPath: string, key: string = uuidv4()) {
     super(_table, _parent, SmzEasyTableContentType.TEXT, key, header);
 
     (this._column.content as SmzEasyTableTextContent).dataPath = dataPath;
@@ -105,7 +105,7 @@ export class SmzEasyTextColumnBuilder extends SmzEasyBaseColumnBuilder<SmzEasyTe
 }
 
 export class SmzEasyDateColumnBuilder extends SmzEasyBaseColumnBuilder<SmzEasyDateColumnBuilder> {
-  constructor(protected _table: SmzEasyTableBuilder, protected _parent: SmzEasyColumnCollectionBuilder, header: string, dataPath: string, key: string = uuidv4()) {
+  constructor(protected override _table: SmzEasyTableBuilder, protected override _parent: SmzEasyColumnCollectionBuilder, header: string, dataPath: string, key: string = uuidv4()) {
     super(_table, _parent, SmzEasyTableContentType.CALENDAR, key, header);
 
     (this._column.content as SmzEasyTableCalendarContent).dataPath = dataPath;
@@ -119,7 +119,7 @@ export class SmzEasyDateColumnBuilder extends SmzEasyBaseColumnBuilder<SmzEasyDa
 }
 
 export class SmzEasyCustomColumnBuilder extends SmzEasyBaseColumnBuilder<SmzEasyCustomColumnBuilder> {
-  constructor(protected _table: SmzEasyTableBuilder, protected _parent: SmzEasyColumnCollectionBuilder, header: string, dataPath: string, key: string = uuidv4()) {
+  constructor(protected override _table: SmzEasyTableBuilder, protected override _parent: SmzEasyColumnCollectionBuilder, header: string, dataPath: string, key: string = uuidv4()) {
     super(_table, _parent, SmzEasyTableContentType.CUSTOM, key, header);
 
     (this._column.content as SmzEasyTableCustomContent).dataPath = dataPath;
@@ -134,7 +134,7 @@ export class SmzEasyCustomColumnBuilder extends SmzEasyBaseColumnBuilder<SmzEasy
 }
 
 export class SmzEasyDataTransformColumnBuilder extends SmzEasyBaseColumnBuilder<SmzEasyDataTransformColumnBuilder> {
-  constructor(protected _table: SmzEasyTableBuilder, protected _parent: SmzEasyColumnCollectionBuilder, header: string, dataPath: string, key: string = uuidv4()) {
+  constructor(protected override _table: SmzEasyTableBuilder, protected override _parent: SmzEasyColumnCollectionBuilder, header: string, dataPath: string, key: string = uuidv4()) {
     super(_table, _parent, SmzEasyTableContentType.DATA_TRANSFORM, key, header);
 
     (this._column.content as SmzEasyTableDataTransformContent).dataPath = dataPath;

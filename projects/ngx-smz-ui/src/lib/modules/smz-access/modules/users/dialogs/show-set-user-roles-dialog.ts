@@ -8,7 +8,6 @@ import { SmzDialogBuilder } from '../../../../../builders/smz-dialogs/dialog-bui
 import { ReplaceUserRoles } from '../../../models/replace-user-roles';
 import { UsersActions } from '../../../state/users/users.actions';
 
-
 export function buildShowSetUserRolesDialog(user: UserDetails, success?: () => void): void {
 
   const store: Store = GlobalInjector.instance.get(Store);

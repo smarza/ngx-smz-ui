@@ -3,7 +3,8 @@ import { SmzCardsImageContent } from '../models/smz-cards-contents';
 import cloneDeep from 'lodash-es/cloneDeep';
 
 @Pipe({
-  name: 'transformContent'
+    name: 'transformContent',
+    standalone: false
 })
 
 export class SmzCardsTransformContentPipe implements PipeTransform {

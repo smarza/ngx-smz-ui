@@ -3,7 +3,7 @@ import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzUiStatesBuilder } from './states-builder';
 
 export class SmzUiDatabaseStateBuilder extends SmzBuilderUtilities<SmzUiDatabaseStateBuilder> {
-  protected that = this;
+  protected override that = this;
 
   constructor(private _builder: SmzUiStatesBuilder, private _parameter: DatabaseStateParameters) {
     super();

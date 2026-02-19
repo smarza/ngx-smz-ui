@@ -4,6 +4,7 @@ import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
     selector: 'smz-message-content',
     templateUrl: './message-content.component.html',
     encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class MessageContentComponent implements OnInit
 {

@@ -38,10 +38,10 @@ export class RbkAuthGuard implements CanActivate {
 
             const routeData = snapshot.routeConfig.data;
 
-            if (routeData != null && routeData.claim != null) {
-                if (GlobalInjector.config.debugMode) console.log('[RbkAuthGuard] The selected route needs this claim: ', routeData.claim);
+            if (routeData != null && routeData['claim'] != null) {
+                if (GlobalInjector.config.debugMode) console.log('[RbkAuthGuard] The selected route needs this claim: ', routeData['claim']);
 
-                const allowedClaim = routeData.claim as string;
+                const allowedClaim = routeData['claim'] as string;
                 const validationSelectors = GlobalInjector.config.rbkUtils.authorization.validationSelectors;
 
                 hasAccess = this.store.selectSnapshot(validationSelectors.hasClaimAccess(allowedClaim));

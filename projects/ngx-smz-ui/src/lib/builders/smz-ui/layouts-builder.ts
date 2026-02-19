@@ -6,7 +6,7 @@ import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzUiBuilder } from './ui-builder';
 
 export class SmzUiLayoutsBuilder extends SmzBuilderUtilities<SmzUiLayoutsBuilder> {
-  protected that = this;
+  protected override that = this;
   constructor(private _builder: SmzUiBuilder, config: SmzLayoutsConfig) {
     super();
 

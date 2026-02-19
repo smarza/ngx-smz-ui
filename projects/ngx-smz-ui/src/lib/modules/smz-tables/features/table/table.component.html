@@ -1,547 +1,495 @@
-<ng-container *ngIf="state | tableContext as context; else noStateTemplate">
-
-    <ng-container *ngIf="(context.state.emptyFeedback != null && (context.state.emptyFeedback.extraInfo || context.state.emptyFeedback.image || context.state.emptyFeedback.actionButtons)) && (items != null && items.length === 0) && context.state.emptyFeedback.isFeatured; else tableTemplate">
-        <smz-data-info
-            [image]="context.state.emptyFeedback.image"
-            [message]="context.state.emptyFeedback.message"
-            [callbackInfo]="context.state.emptyFeedback.extraInfo"
-            [actions]="context.state.emptyFeedback.actionButtons">
-
-            <ng-template pTemplate="actions">
-                <ng-container *ngTemplateOutlet="emptyActionsTemplate; context: { $implicit: {} }"></ng-container>
-            </ng-template>
-
-        </smz-data-info>
-    </ng-container>
-
-    <ng-template #tableTemplate>
-
-        <ng-container *ngVar="state.source?.items$ != null ? (state.source.items$ | async) : null as source">
-
-        <ng-container *ngIf="(source ?? items | cloneTableItems : context: tableKey: context.state.rowExpansion.sincronize) as clonedData">
-
-        <p-table #dt
+@if (state | tableContext; as context) {
+  @if ((context.state.emptyFeedback != null && (context.state.emptyFeedback.extraInfo || context.state.emptyFeedback.image || context.state.emptyFeedback.actionButtons)) && (items != null && items.length === 0) && context.state.emptyFeedback.isFeatured) {
+    <smz-data-info
+      [image]="context.state.emptyFeedback.image"
+      [message]="context.state.emptyFeedback.message"
+      [callbackInfo]="context.state.emptyFeedback.extraInfo"
+      [actions]="context.state.emptyFeedback.actionButtons">
+      <ng-template pTemplate="actions">
+        <ng-container *ngTemplateOutlet="emptyActionsTemplate; context: { $implicit: {} }"></ng-container>
+      </ng-template>
+    </smz-data-info>
+  } @else {
+    <ng-container *ngVar="state.source?.items$ != null ? (state.source.items$ | async) : null as observableSource">
+      <ng-container *ngVar="state.source?.signalItems != null ? state.source.signalItems() : null as signalSource">
+        @if (((observableSource ?? signalSource ?? items) | cloneTableItems : context: tableKey: context.state.rowExpansion.sincronize); as clonedData) {
+          <p-table #dt
             dataKey="id"
             editMode="row"
+            [stripedRows]="context.state.styles.striped"
             [value]="clonedData.items"
             [(selection)]="selectedItems"
             [tableStyleClass]="context.state.styles.tableStyleClass"
-            [styleClass]="'p-datatable-smz-ui-table' + (context.state.styles.striped ? ' p-datatable-striped' : '') + (context.state.styles.showGrid ? ' p-datatable-show-grid' : '') + (context.state.styles.size === 'extra-small' ? ' p-datatable-xs' : '') + (context.state.styles.size === 'small' ? ' p-datatable-sm' : '') + (context.state.styles.size === 'large' ? ' p-datatable-lg' : '')"
+            [styleClass]="'p-datatable-smz-ui-table' + (context.state.styles.showGrid ? ' p-datatable-gridlines' : '') + (context.state.styles.size === 'extra-small' ? ' p-datatable-xs' : '') + (context.state.styles.size === 'small' ? ' p-datatable-sm' : '') + (context.state.styles.size === 'large' ? ' p-datatable-lg' : '')"
             [rowHover]="context.state.actions.rowBehavior.hoverable"
             [rows]="context.state.pagination.rows"
             [showCurrentPageReport]="context.state.pagination.pageReport.isVisible"
             [rowsPerPageOptions]="context.state.pagination.rowsPerPageOptions"
             [loading]="loading"
             [paginator]="context.state.pagination.isVisible"
+            paginatorDropdownAppendTo="body"
             [currentPageReportTemplate]="context.state.locale.paginator.template"
             [sortField]="context.state.sort.field"
             [sortMode]="context.state.sort.mode"
             [sortOrder]="context.state.sort.order"
             [multiSortMeta]="context.state.sort.multiSortMeta"
-
             [scrollable]="context.state.viewport.scrollable"
             [scrollHeight]="context.state.viewport.scrollHeight"
-            [scrollDirection]="context.state.viewport.scrollDirection"
-
             [filterDelay]="0"
             [globalFilterFields]="context.globalFilter"
-
             [columns]="context.visibleColumns"
             [frozenColumns]="context.frozenColumns"
             [frozenWidth]="context.state.frozen.isEnabled ? context.state.frozen.width : null"
             [resizableColumns]="context.state.viewport.resizableColumns"
             [columnResizeMode]="context.state.viewport.columnResizeMode"
-
             (onPage)="onPage($event)"
             (onFilter)="onFilter($event)"
             (selectionChange)="emitSelection($event)"
             >
-
-            <ng-template pTemplate="caption" *ngIf="context.state.caption.isVisible">
-
+            @if (context.state.caption.isVisible) {
+              <ng-template pTemplate="caption">
                 <div class="grid grid-nogutter items-center gap-2" [ngClass]="'justify-' + context.state.caption.toolbarAlignment">
-                    <div *ngIf="context.state.caption.title != null" class="col database-title" [innerHTML]="context.state.caption.title"></div>
-                    <ng-container *ngTemplateOutlet="captionTemplate; context: { $implicit: dt }"></ng-container>
-
-                    <smz-table-caption-buttons [buttons]="context.state.caption.buttons"></smz-table-caption-buttons>
-
-                    <button *ngIf="context.state.caption.exportToPdf.isButtonVisible" pButton [label]="context.state.locale.exportToPdf.label" class="p-button-outlined" icon="fa-solid fa-file-pdf" (click)="exportToPdf(context, clonedData.items)" [disabled]="clonedData.showSkeleton"></button>
-                    <button *ngIf="context.state.caption.exportToExcel.isButtonVisible" pButton [label]="context.state.locale.exportToExcel.label" class="p-button-outlined" icon="fa-solid fa-file-excel" (click)="exportToExcel(dt, context, clonedData.items)" [disabled]="clonedData.showSkeleton"></button>
-                    <button *ngIf="context.state.editable.creation.isButtonVisible" pButton [label]="context.state.editable.creation.buttonLabel" class="p-button-outlined" icon="fa-solid fa-plus" (click)="editableService.onRowCreateInit(dt, context.columns)" [disabled]="clonedData.showSkeleton || editableService.isEditing || editableService.isCreating || context.state.editable.creation.isButtonDisabled"></button>
-                    <button *ngIf="context.state.caption.rowSelection.isButtonVisible" pButton [label]="context.state.locale.rowSelection.label" class="p-button-outlined" icon="fa-solid fa-check-double" (click)="onRowSelection(context)" [disabled]="clonedData.showSkeleton"></button>
-                    <button *ngIf="context.state.caption.clearFilters.isButtonVisible" pButton [label]="context.state.locale.clearFilters.label" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(dt, context)" [disabled]="clonedData.showSkeleton"></button>
-
+                  @if (context.state.caption.title != null) {
+                    <div class="col database-title" [innerHTML]="context.state.caption.title"></div>
+                  }
+                  <ng-container *ngTemplateOutlet="captionTemplate; context: { $implicit: dt }"></ng-container>
+                  <smz-table-caption-buttons [buttons]="context.state.caption.buttons"></smz-table-caption-buttons>
+                  @if (context.state.caption.exportToPdf.isButtonVisible) {
+                    <button pButton [label]="context.state.locale.exportToPdf.label" class="p-button-outlined" icon="fa-solid fa-file-pdf" (click)="exportToPdf(context, clonedData.items)" [disabled]="clonedData.showSkeleton"></button>
+                  }
+                  @if (context.state.caption.exportToExcel.isButtonVisible) {
+                    <button pButton [label]="context.state.locale.exportToExcel.label" class="p-button-outlined" icon="fa-solid fa-file-excel" (click)="exportToExcel(table, context, clonedData.items)" [disabled]="clonedData.showSkeleton"></button>
+                  }
+                  @if (context.state.editable.creation.isButtonVisible) {
+                    <button pButton [label]="context.state.editable.creation.buttonLabel" class="p-button-outlined" icon="fa-solid fa-plus" (click)="editableService.onRowCreateInit(table, context.columns)" [disabled]="clonedData.showSkeleton || editableService.isEditing || editableService.isCreating || context.state.editable.creation.isButtonDisabled"></button>
+                  }
+                  @if (context.state.caption.rowSelection.isButtonVisible) {
+                    <button pButton [label]="context.state.locale.rowSelection.label" class="p-button-outlined" icon="fa-solid fa-check-double" (click)="onRowSelection(context)" [disabled]="clonedData.showSkeleton"></button>
+                  }
+                  @if (context.state.caption.clearFilters.isButtonVisible) {
+                    <button pButton [label]="context.state.locale.clearFilters.label" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(table, context)" [disabled]="clonedData.showSkeleton"></button>
+                  }
+                  @if (context.state.caption.columnVisibility.showDropdownSelector) {
                     <p-multiSelect
-                        #columnMultiselect
-                        *ngIf="context.state.caption.columnVisibility.showDropdownSelector"
-                        class="ml-2 col-12 md:col-2"
-                        styleClass="w-full"
-                        [options]="context.hideableColumns"
-                        [(ngModel)]="selectedColumns"
-                        [placeholder]="context.state.locale.columnVisibility.placeholder"
-                        [selectedItemsLabel]="context.state.locale.columnVisibility.selectedItemsLabel"
-                        optionLabel="name"
-                        dataKey="field"
-                        optionLabel="header"
-                        [filter]="true"
-                        (onPanelHide)="updateColumnsVisibility(true)"
-                        [pTooltip]="context.state.locale.columnVisibility.pTooltip">
+                      #columnMultiselect
+                      class="ml-2 col-12 md:col-2"
+                      styleClass="w-full"
+                      [options]="context.hideableColumns"
+                      [(ngModel)]="selectedColumns"
+                      [placeholder]="context.state.locale.columnVisibility.placeholder"
+                      [selectedItemsLabel]="context.state.locale.columnVisibility.selectedItemsLabel"
+                      optionLabel="name"
+                      dataKey="field"
+                      optionLabel="header"
+                      [filter]="true"
+                      (onPanelHide)="updateColumnsVisibility(true)"
+                      [pTooltip]="context.state.locale.columnVisibility.pTooltip">
                     </p-multiSelect>
-
-                    <span *ngIf="context.state.caption.globalFilter.isVisible" class="p-input-icon-left col-12" [ngClass]="{ 'md:col-2': !context.state.caption.globalFilter.expanded }">
-                        <i class="pi pi-search"></i>
-                        <input #inputGlobal [(ngModel)]="globalSearchInput" pInputText type="text" styleClass="database-global-search" (input)="updateGlobalFilter(inputGlobal.value)"  [disabled]="clonedData.showSkeleton" [placeholder]="context.state.locale.globalFilter.placeholder" />
-                    </span>
+                  }
+                  @if (context.state.caption.globalFilter.isVisible) {
+                    <p-iconfield class="col-12" [ngClass]="{ 'md:col-2': !context.state.caption.globalFilter.expanded }">
+                      <p-inputicon styleClass="pi pi-search" />
+                      <input #inputGlobal [(ngModel)]="globalSearchInput" pInputText type="text" styleClass="database-global-search" (input)="updateGlobalFilter(inputGlobal.value)"  [disabled]="clonedData.showSkeleton" [placeholder]="context.state.locale.globalFilter.placeholder" />
+                    </p-iconfield>
+                  }
                 </div>
-
-                <div *ngIf="toolbarTemplate != null" class="grid grid-nogutter items-center mt-2" [ngClass]="'justify-' + context.state.caption.toolbarAlignment">
+                @if (toolbarTemplate != null) {
+                  <div class="grid grid-nogutter items-center mt-2" [ngClass]="'justify-' + context.state.caption.toolbarAlignment">
                     <ng-container *ngTemplateOutlet="toolbarTemplate; context: { $implicit: dt }"></ng-container>
-                </div>
-
-                <!-- <button type="button" pButton icon="pi pi-file-pdf" label="Exportar"
-                    (click)="tableExporter.exportPdf(dt, context, dt.filteredValue != null ? dt.filteredValue : clonedData.items, context.state.title != null ? context.state.title : 'Exportação')"
-                    class="p-button-warning mr-2" pTooltip="Exportar para PDF" tooltipPosition="bottom">
-                </button> -->
-
-            </ng-template>
-
+                  </div>
+                }
+              </ng-template>
+            }
             <ng-template pTemplate="header" let-columns>
-                <tr [ngClass]="{ 'invisible-header': !context.state.header.isVisible }">
-
-                    <th *ngIf="context.state.caption.rowSelection.isEnabled" [ngStyle]="context.state.caption.rowSelection.ngStyle">
-                        <ng-container *ngIf="!context.state.actions.batchActions.isVisible">
-                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                        </ng-container>
-                    </th>
-
-                    <th *ngIf="context.state.rowExpansion.isEnabled" [ngStyle]="context.state.rowExpansion.ngStyle"></th>
-
-                    <ng-container *ngFor="let col of columns">
-
-                        <ng-container *ngIf="context.state.viewport.resizableColumns; else nonResizable">
-                            <ng-container *ngIf="col.isOrderable">
-                                <th [pSortableColumn]="col.sortField" pResizableColumn [ngStyle]="col.content.ngStyle" [ngClass]="col.headerStyleClass">
-                                    <ng-container *ngTemplateOutlet="headerContent"></ng-container>
-                                </th>
-                            </ng-container>
-
-                            <ng-container *ngIf="!col.isOrderable">
-                                <th pResizableColumn [ngStyle]="col.content.ngStyle" [ngClass]="col.headerStyleClass">
-                                    <ng-container *ngTemplateOutlet="headerContent"></ng-container>
-                                </th>
-                            </ng-container>
-                        </ng-container>
-
-                        <ng-template #nonResizable>
-                            <ng-container *ngIf="col.isOrderable">
-                                <th [pSortableColumn]="col.sortField" [ngStyle]="col.content.ngStyle" [ngClass]="col.headerStyleClass">
-                                    <ng-container *ngTemplateOutlet="headerContent"></ng-container>
-                                </th>
-                            </ng-container>
-
-                            <ng-container *ngIf="!col.isOrderable">
-                                <th [ngStyle]="col.content.ngStyle" [ngClass]="col.headerStyleClass">
-                                    <ng-container *ngTemplateOutlet="headerContent"></ng-container>
-                                </th>
-                            </ng-container>
-                        </ng-template>
-
-                        <ng-template #headerContent>
-                            <div class="flex justify-start items-center">
-                                <span class="mr-1">{{ col.header }}</span>
-
-                                <smz-table-header-actions clickStopPropagation class="ml-1 mt-1" *ngIf="col.showHeaderActions" [col]="col"></smz-table-header-actions>
-
-                                <p-sortIcon [field]="col.sortField" *ngIf="!clonedData.showSkeleton && col.isOrderable"></p-sortIcon>
-
-                                <ng-container *ngIf="!clonedData.showSkeleton">
-                                    <ng-container [ngSwitch]="col.filter.type">
-
-                                        <ng-container *ngSwitchCase="filterTypes.currency">
-                                            <smz-column-filter type="numeric" currency="BRL" [field]="col.filterField"></smz-column-filter>
-                                        </ng-container>
-
-                                        <ng-container *ngSwitchCase="filterTypes.numeric">
-                                            <smz-column-filter type="numeric" [field]="col.filterField"></smz-column-filter>
-                                        </ng-container>
-
-                                        <ng-container *ngSwitchCase="filterTypes.date">
-                                            <smz-column-filter type="date" [field]="col.filterField" [showTime]="col.filter.showTime"></smz-column-filter>
-                                        </ng-container>
-
-                                        <ng-container *ngSwitchCase="filterTypes.text">
-                                            <smz-column-filter type="text" [field]="col.filterField"></smz-column-filter>
-                                        </ng-container>
-
-                                        <ng-container *ngSwitchCase="filterTypes.boolean">
-                                            <smz-column-filter type="boolean" [field]="col.filterField"></smz-column-filter>
-                                        </ng-container>
-
-                                        <ng-container *ngSwitchCase="filterTypes.dropdown">
-                                            <ng-container *ngIf="col.filterField | filterObject as filterField">
-                                                <smz-column-filter [field]="filterField + '.id'" matchMode="dropdown" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
-                                                    <ng-template pTemplate="header">
-                                                        <div class="px-3 pt-3 pb-0">
-                                                            <span class="p-text-bold">{{ col.header }}</span>
-                                                        </div>
-                                                    </ng-template>
-                                                    <ng-template pTemplate="filter" let-value let-filter="filter">
-                                                        <p-dropdown [ngModel]="value" [options]="(clonedData.items != null ? clonedData.items : []) | uniqueFilter : filterField + '.id' : filterField : null : 'name' : false" [placeholder]="context.state.locale.dropdownFilter.placeholder" (onChange)="filter($event.value)" optionLabel="name" dataKey="id"></p-dropdown>
-                                                    </ng-template>
-                                                </smz-column-filter>
-                                            </ng-container>
-                                        </ng-container>
-
-                                        <ng-container *ngSwitchCase="filterTypes.multiselect">
-                                            <ng-container *ngIf="col.filterField | filterObject as filterField">
-                                                <smz-column-filter [field]="filterField" matchMode="in" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
-                                                    <ng-template pTemplate="header">
-                                                        <div class="px-3 pt-3 pb-0">
-                                                            <span class="p-text-bold">{{ col.header }}</span>
-                                                        </div>
-                                                    </ng-template>
-                                                    <ng-template pTemplate="filter" let-value let-filter="filter">
-                                                        <p-multiSelect [ngModel]="value" [options]="(clonedData.items != null ? clonedData.items : []) | uniqueFilter : filterField + '.id' : filterField : null : 'name' : false" [placeholder]="context.state.locale.dropdownFilter.placeholder" (onChange)="filter($event.value)" optionLabel="name" dataKey="id"></p-multiSelect>
-                                                    </ng-template>
-                                                </smz-column-filter>
-                                            </ng-container>
-                                        </ng-container>
-
-                                        <ng-container *ngSwitchCase="filterTypes.multiselect_array">
-                                            <ng-container *ngIf="col.filterField | filterObject as filterField">
-                                                <smz-column-filter [field]="filterField" matchMode="array-some" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
-                                                    <ng-template pTemplate="header">
-                                                        <div class="px-3 pt-3 pb-0">
-                                                            <span class="p-text-bold">{{ col.header }}</span>
-                                                        </div>
-                                                    </ng-template>
-                                                    <ng-template pTemplate="filter" let-value let-filter="filter">
-                                                        <p-multiSelect [ngModel]="value" [options]="(clonedData.items != null ? clonedData.items : []) | uniqueFilter : filterField + '.id' : filterField : null : 'name' : true" [placeholder]="context.state.locale.dropdownFilter.placeholder" (onChange)="filter($event.value)" optionLabel="name" dataKey="id" [maxSelectedLabels]="2" [selectedItemsLabel]="'{0}'"></p-multiSelect>
-                                                    </ng-template>
-                                                </smz-column-filter>
-                                            </ng-container>
-                                        </ng-container>
-
-                                        <ng-container *ngSwitchCase="filterTypes.multiselect_string">
-                                            <ng-container *ngIf="col.filterField | filterObject as filterField">
-                                                <smz-column-filter [field]="filterField" matchMode="multiselectByString" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
-                                                    <ng-template pTemplate="header">
-                                                        <div class="px-3 pt-3 pb-0">
-                                                            <span class="p-text-bold">{{ col.header }}</span>
-                                                        </div>
-                                                    </ng-template>
-                                                    <ng-template pTemplate="filter" let-value let-filter="filter">
-                                                        <p-multiSelect [ngModel]="value" [options]="(clonedData.items != null ? clonedData.items : []) | uniqueFilter : filterField : filterField : null : true : false : false" [placeholder]="context.state.locale.dropdownFilter.placeholder" (onChange)="filter($event.value)" [maxSelectedLabels]="2" [selectedItemsLabel]="'{0}'"></p-multiSelect>
-                                                    </ng-template>
-                                                </smz-column-filter>
-                                            </ng-container>
-                                        </ng-container>
-
-                                    </ng-container>
-                                </ng-container>
-
-                                <button *ngIf="context.state.caption.columnVisibility.showColumnHideButton" pButton type="button" icon="fa-solid fa-eye-slash" class="p-button-rounded p-button-text p-button-plain" (click)="hideColumn(col, context)"></button>
-
-                            </div>
-                        </ng-template>
-
-                    </ng-container>
-
-                    <th *ngIf="context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible|| context.state.editable.isEditable" [ngStyle]="context.state.editable.isEditable ? context.state.editable.ngStyle : context.state.actions.customActions.ngStyle"></th>
-
-                </tr>
-
-                <tr *ngIf="context.state.actions.batchActions.isVisible">
-                    <th [attr.colspan]="columns.length + ((context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible || context.state.editable.isEditable) ? 1 : 0) + (context.state.caption.rowSelection.isEnabled ? 1 : 0) + (context.state.rowExpansion.isEnabled ? 1 : 0)"
-                    [ngStyle]="context.state.actions.customActions.ngStyle" class="px-0">
-                        <div class="grid grid-nogutter items-center justify-start">
-                            <p-tableHeaderCheckbox class="mr-4"></p-tableHeaderCheckbox>
-                            <ng-container *ngIf="selectedItems?.length > 0">
-                                <ng-container *ngFor="let batchItem of context.state.actions.batchActions.items">
-                                    <button *ngIf="batchItem.visible" pButton [label]="batchItem.label" class="p-button-rounded p-button-text p-button-plain animate__animated animate__fadeIn" [ngClass]="batchItem.styleClass" [icon]="batchItem.icon" (click)="batchItem.command(selectedItems); selectedItems = [];" [disabled]="batchItem.disabled" [pTooltip]="batchItem.tooltip"></button>
-                                </ng-container>
-                            </ng-container>
-
-                        </div>
-                    </th>
-                </tr>
-            </ng-template>
-
-            <ng-template pTemplate="body" let-item let-editing="editing" let-rowIndex="rowIndex" let-columns="columns">
-                <tr #editableRowElement
-                    [pEditableRow]="item"
-                    tableItemAction
-                    [isClickable]="context.state.actions.rowBehavior.isClickable"
-                    [callback]="context.state.actions.rowBehavior.clickCallback"
-                    [expandRowOnClick]="context.state.actions.rowBehavior.expandRowOnClick"
-                    [item]="item"
-                    class="p-selectable-row"
-                    [ngClass]="{ 'highlight-row': item?.id === state.actions.rowBehavior.highlights, 'preserve-in-small': state.actions.rowBehavior.preserveLayoutInSmallDevices }"
-                    >
-
-                    <td *ngIf="context.state.caption.rowSelection.isEnabled && !clonedData.showSkeleton"
-                        clickStopPropagation
-                        class="{{ state.actions.rowBehavior.cellStyleClass }}"
-                        [ngClass]="{ 'opacity-50 pointer-events-none': editableService.context[item.id]?.hasErrors || editableService.context[item.id]?.isLoading }"
-                        [ngStyle]="context.state.caption.rowSelection.ngStyle"
-                        >
-                        <p-tableCheckbox [value]="item"></p-tableCheckbox>
-                    </td>
-
-                    <td *ngIf="context.state.rowExpansion.isEnabled && !clonedData.showSkeleton"
-                        clickStopPropagation
-                        class="{{ state.actions.rowBehavior.cellStyleClass }}"
-                        [ngClass]="{ 'opacity-50 pointer-events-none': editableService.context[item.id]?.hasErrors || editableService.context[item.id]?.isLoading, 'grid grid-nogutter justify-start items-center gap-2': context.state.rowExpansion.highlightNewItems && item._isNew }"
-                        [ngStyle]="context.state.rowExpansion.ngStyle"
-                        >
-                        <p-toggleButton [(ngModel)]="item._isExpanded" [onIcon]="'fa-solid fa-chevron-down'" [offIcon]="'fa-solid fa-chevron-right'" (onChange)="item._isNew = false"></p-toggleButton>
-                        <div *ngIf="context.state.rowExpansion.highlightNewItems && item._isNew" class="rounded bg-cyan-400 text-sm text-white px-2 py-0 smz-table-new-tag" (click)="item._isNew = false">{{ context.state.rowExpansion.highlightLabel }}</div>
-                    </td>
-
-                    <ng-container *ngFor="let col of columns">
-
-                        <ng-container *ngIf="clonedData.showSkeleton; else dataTemplate">
-                            <td class="{{ state.actions.rowBehavior.cellStyleClass }}" [ngStyle]="col.content.ngStyle"><p-skeleton width="100%" height="1rem"></p-skeleton></td>
-                        </ng-container>
-
-                        <ng-template #dataTemplate>
-
-                            <td class="{{ state.actions.rowBehavior.cellStyleClass }}" [ngClass]="{ 'opacity-50 pointer-events-none': editableService.context[item.id]?.hasErrors || editableService.context[item.id]?.isLoading }" [ngStyle]="col.content.ngStyle">
-                                <span class="p-column-title">{{ col.header }}</span>
-
-                                <p-cellEditor>
-
-                                    <!-- CELULAR COM EDITOR -->
-                                    <ng-template pTemplate="input">
-                                        <ng-container [ngSwitch]="col.editable.type">
-                                            <ng-container *ngSwitchCase="editableTypes.none">
-                                                <smz-table-content class="cursor-default" [ngClass]="col.content.contentStyleClass" [col]="col" [contentTypes]="contentTypes" [item]="item" [rowIndex]="rowIndex" [contentTemplate]="contentTemplate"></smz-table-content>
-                                            </ng-container>
-
-                                            <ng-container *ngSwitchCase="editableTypes.custom">
-                                                <ng-container *ngTemplateOutlet="editableTemplate; context: { $implicit: item, col: col }"></ng-container>
-                                            </ng-container>
-
-                                            <!-- INPUT TEXT -->
-                                            <ng-container *ngSwitchCase="editableTypes.text">
-                                                <ng-container *ngIf="editableService.context[item.id]?.form as form">
-                                                    <ng-container *ngIf="form.controls[col.editable.property] as control">
-                                                        <div class="relative w-full">
-                                                            <input pInputText type="text" [formControl]="$any(control)" style="width: 100%;">
-                                                            <smz-table-validation-messages [errors]="control.errors" [messages]="uiConfig.dialogs.forms.validationMessages" [isFormInvalid]="form.invalid" [isFormDirty]="form.dirty"></smz-table-validation-messages>
-                                                        </div>
-                                                    </ng-container>
-                                                </ng-container>
-                                            </ng-container>
-
-                                            <!-- INPUT NUMBER -->
-                                            <ng-container *ngSwitchCase="editableTypes.number">
-                                                <ng-container *ngIf="editableService.context[item.id]?.form as form">
-                                                    <ng-container *ngIf="form.controls[col.editable.property] as control">
-                                                        <div class="relative w-full">
-                                                            <p-inputNumber
-                                                                *ngVar="col.editable.data as numberData"
-                                                                [formControl]="$any(control)"
-                                                                [mode]="numberData.mode"
-                                                                [minFractionDigits]="numberData.minFractionDigits"
-                                                                [maxFractionDigits]="numberData.maxFractionDigits"
-                                                                [currency]="numberData.currency"
-                                                                [useGrouping]="numberData.useGrouping"
-                                                                [allowEmpty]="numberData.allowEmpty"
-                                                                [showClear]="numberData.showClear"
-                                                                [showButtons]="numberData.showButtons"
-                                                                [prefix]="numberData.prefix"
-                                                                [suffix]="numberData.suffix">
-                                                            </p-inputNumber>
-                                                            <smz-table-validation-messages [errors]="control.errors" [messages]="uiConfig.dialogs.forms.validationMessages" [isFormInvalid]="form.invalid" [isFormDirty]="form.dirty"></smz-table-validation-messages>
-                                                        </div>
-                                                    </ng-container>
-                                                </ng-container>
-                                            </ng-container>
-
-                                            <!-- INPUT SWITCH -->
-                                            <ng-container *ngSwitchCase="editableTypes.switch">
-                                                <ng-container *ngIf="editableService.context[item.id]?.form as form">
-                                                    <ng-container *ngIf="form.controls[col.editable.property] as control">
-                                                        <div class="relative w-full">
-                                                            <p-inputSwitch [formControl]="$any(control)"></p-inputSwitch>
-                                                            <smz-table-validation-messages [errors]="control.errors" [messages]="uiConfig.dialogs.forms.validationMessages" [isFormInvalid]="form.invalid" [isFormDirty]="form.dirty"></smz-table-validation-messages>
-                                                        </div>
-                                                    </ng-container>
-                                                </ng-container>
-                                            </ng-container>
-
-                                            <!-- INPUT TEXT AREA -->
-                                            <ng-container *ngSwitchCase="editableTypes.area">
-                                                <ng-container *ngIf="editableService.context[item.id]?.form as form">
-                                                    <ng-container *ngIf="form.controls[col.editable.property] as control">
-                                                        <div class="relative w-full">
-                                                            <textarea pInputTextarea type="text" [formControl]="$any(control)" [rows]="$any(col.editable.data).rows" required style="width: 100%;"></textarea>
-                                                            <smz-table-validation-messages [errors]="control.errors" [messages]="uiConfig.dialogs.forms.validationMessages" [isFormInvalid]="form.invalid" [isFormDirty]="form.dirty"></smz-table-validation-messages>
-                                                        </div>
-                                                    </ng-container>
-                                                </ng-container>
-                                            </ng-container>
-
-                                            <!-- INPUT DROPDOWN -->
-                                            <ng-container *ngSwitchCase="editableTypes.dropdown">
-                                                <ng-container *ngIf="editableService.context[item.id]?.form as form">
-                                                    <ng-container *ngIf="form.controls[col.editable.property] as control">
-                                                        <div class="relative w-full">
-                                                            <p-dropdown [formControl]="$any(control)" appendTo="body" styleClass="w-full" [options]="col.editable.data | editableSource" optionLabel="name" dataKey="id" [placeholder]="$any(col.editable.data).placeholder" [showClear]="!col.editable.validatorsPreset?.isRequired" [filter]="true"></p-dropdown>
-                                                            <smz-table-validation-messages [errors]="control.errors" [messages]="uiConfig.dialogs.forms.validationMessages" [isFormInvalid]="form.invalid" [isFormDirty]="form.dirty"></smz-table-validation-messages>
-                                                        </div>
-                                                    </ng-container>
-                                                </ng-container>
-                                            </ng-container>
-
-                                             <!-- INPUT CALENDAR -->
-                                            <ng-container *ngSwitchCase="editableTypes.calendar">
-                                                <ng-container *ngIf="editableService.context[item.id]?.form as form">
-                                                    <ng-container *ngIf="form.controls[col.editable.property] as control">
-                                                        <div class="relative w-full">
-                                                            <p-calendar [formControl]="$any(control)" appendTo="body" styleClass="w-full" [ngClass]="{ 'pl-5': !control.valid }"></p-calendar>
-                                                            <smz-table-validation-messages [errors]="control.errors" [messages]="uiConfig.dialogs.forms.validationMessages" [isFormInvalid]="form.invalid" [isFormDirty]="form.dirty"></smz-table-validation-messages>
-                                                        </div>
-                                                    </ng-container>
-                                                </ng-container>
-                                            </ng-container>
-                                        </ng-container>
-                                    </ng-template>
-
-                                    <!-- CELULAR COM CONTEÚDO -->
-                                    <ng-template pTemplate="output">
-                                        <smz-table-content
-                                            [col]="col"
-                                            [pTooltip]="col.content.tooltip != null ? col.content.tooltip(item) : null"
-                                            tooltipPosition="left"
-                                            [ngClass]="col.content.contentStyleClass" [contentTypes]="contentTypes" [item]="item" [rowIndex]="rowIndex" [contentTemplate]="contentTemplate">
-                                        </smz-table-content>
-                                    </ng-template>
-                                </p-cellEditor>
-
-                            </td>
-
-                        </ng-template>
-
-                    </ng-container>
-
-                    <ng-container *ngIf="context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible || context.state.editable.isEditable">
-
-                        <td [ngStyle]="context.state.actions.customActions.ngStyle" class="px-0">
-
-                            <div class="grid grid-nogutter items-center justify-center">
-                                <ng-container *ngIf="clonedData.showSkeleton; else menuTemplate">
-                                    <div class="w-full">
-                                        <p-skeleton width="100%" height="1rem"></p-skeleton>
-                                    </div>
-                                </ng-container>
-
-                                <ng-template #menuTemplate>
-
-                                    <!-- SEM EDITAR -->
-                                    <ng-container *ngIf="!editing">
-                                        <button *ngIf="context.state.editable.update.isButtonVisible" pButton type="button" icon="pi pi-pencil" (click)="editableService.onRowEditInit(item)" class="p-button-rounded p-button-text mx-1" [disabled]="editableService.isEditing || editableService.isCreating || context.state.editable.update.isButtonDisabled || (!context.state.editable.update.condition(item))" pInitEditableRow></button>
-                                        <button *ngIf="context.state.editable.remove.isButtonVisible" pButton type="button" icon="pi pi-trash" (click)="editableService.onRowRemove($event, dt, item)" class="p-button-rounded p-button-text p-button-secondary mx-1" [disabled]="editableService.isEditing || editableService.isCreating || context.state.editable.remove.isButtonDisabled || (!context.state.editable.remove.condition(item))"></button>
-                                    </ng-container>
-
-                                    <!-- EDITANDO -->
-                                    <ng-container *ngIf="editing">
-
-                                        <ng-container *ngIf="editableService.context[item.id] as editableContext">
-                                            <!-- COM LOADING -->
-                                            <ng-container *ngIf="editableContext.isLoading">
-                                                <button pButton type="button" icon="fa-solid fa-rotate fa-spin" [disabled]="true" class="p-button-rounded p-button-text p-button-info mr-2"></button>
-                                            </ng-container>
-
-                                            <!-- SEM LOADING -->
-                                            <ng-container *ngIf="!editableContext.isLoading">
-
-                                                <!-- EDITANDO -->
-                                                <ng-container *ngIf="!editableContext.hasErrors">
-
-                                                    <!-- CRIANDO -->
-                                                    <ng-container *ngIf="item._context?.isCreating">
-                                                        <button pButton type="button" icon="pi pi-check" (click)="editableService.onRowCreateSave($event, dt, editableRowElement, item)" [disabled]="!editableContext.hasChanged || !editableService.context[item.id]?.form.valid" class="p-button-rounded p-button-text p-button-success mr-2"></button>
-                                                        <button pButton type="button" icon="pi pi-times" (click)="editableService.onRowCreateCancel($event, dt, item)" class="p-button-rounded p-button-text p-button-danger"></button>
-                                                    </ng-container>
-
-                                                    <!-- ATUALIZANDO -->
-                                                    <ng-container *ngIf="item._context?.isUpdating">
-                                                        <button pButton type="button" icon="pi pi-check" (click)="editableService.onRowEditSave($event, dt, editableRowElement, item)" [disabled]="!editableContext.hasChanged || !editableService.context[item.id]?.form.valid" class="p-button-rounded p-button-text p-button-success mr-2"></button>
-                                                        <button pButton type="button" icon="pi pi-times" (click)="editableService.onRowEditCancel($event, dt, item)" class="p-button-rounded p-button-text p-button-danger"></button>
-                                                    </ng-container>
-
-                                                </ng-container>
-
-                                                <!-- COM ERRORS -->
-                                                <ng-container *ngIf="editableContext.hasErrors">
-                                                    <p-overlayPanel #errorsOverlay appendTo="body" [style]="{ width: '450px' }">
-                                                        <ng-template pTemplate>
-                                                            <div [innerHtml]="editableContext.errors | contentErrors"></div>
-                                                        </ng-template>
-                                                    </p-overlayPanel>
-                                                    <button pButton type="button" icon="fas fa-exclamation-triangle" [disabled]="false" class="p-button-sm p-button-rounded p-button-text p-button-danger mr-2" (click)="errorsOverlay.toggle($event)"></button>
-
-                                                    <!-- CRIANDO -->
-                                                    <button *ngIf="item._context?.isCreating" pButton type="button" icon="pi pi-times" (click)="editableService.onRowCreateCancel($event, dt, item)" class="p-button-sm p-button-rounded p-button-text p-button-danger"></button>
-
-                                                    <!-- ATUALIZANDO -->
-                                                    <button *ngIf="item._context?.isUpdating" pButton type="button" icon="pi pi-times" (click)="editableService.onRowEditCancel($event, dt, item)" class="p-button-sm p-button-rounded p-button-text p-button-danger"></button>
-
-                                                </ng-container>
-                                            </ng-container>
-                                        </ng-container>
-
-                                    </ng-container>
-
-
-                                    <!-- CUSTOM MENU -->
-                                    <ng-container *ngIf="context.state.actions.customActions.isVisible && !editing">
-                                        <ng-container *ngTemplateOutlet="actionsTemplate; context: { $implicit: item }"></ng-container>
-                                    </ng-container>
-
-                                    <!-- MENU -->
-                                    <ng-container *ngIf="context.state.actions.menu.isVisible && !editing">
-                                        <smz-menu [callback]="context.state.actions.menu.callback" [items]="context.state.actions.menu.items" [data]="item" [behavior]="context.state.actions.menu.behavior" [ngClass]="{ 'ml-2': context.state.actions.customActions.isVisible }" [icon]="context.state.actions.menu.styles.icon" [styleClass]="context.state.actions.menu.styles.styleClass" [buttonClass]="context.state.actions.menu.styles.buttonClass"></smz-menu>
-                                    </ng-container>
+              <tr [ngClass]="{ 'invisible-header': !context.state.header.isVisible }">
+                @if (context.state.caption.rowSelection.isEnabled) {
+                  <th [ngStyle]="context.state.caption.rowSelection.ngStyle">
+                    @if (!context.state.actions.batchActions.isVisible) {
+                      <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    }
+                  </th>
+                }
+                @if (context.state.rowExpansion.isEnabled) {
+                  <th [ngStyle]="context.state.rowExpansion.ngStyle"></th>
+                }
+                @for (col of columns; track col) {
+                  @if (context.state.viewport.resizableColumns) {
+                    @if (col.isOrderable) {
+                      <th [pSortableColumn]="col.sortField" pResizableColumn [ngStyle]="col.content.ngStyle" [ngClass]="col.headerStyleClass">
+                        <ng-container *ngTemplateOutlet="headerContent"></ng-container>
+                      </th>
+                    }
+                    @if (!col.isOrderable) {
+                      <th pResizableColumn [ngStyle]="col.content.ngStyle" [ngClass]="col.headerStyleClass">
+                        <ng-container *ngTemplateOutlet="headerContent"></ng-container>
+                      </th>
+                    }
+                  } @else {
+                    @if (col.isOrderable) {
+                      <th [pSortableColumn]="col.sortField" [ngStyle]="col.content.ngStyle" [ngClass]="col.headerStyleClass">
+                        <ng-container *ngTemplateOutlet="headerContent"></ng-container>
+                      </th>
+                    }
+                    @if (!col.isOrderable) {
+                      <th [ngStyle]="col.content.ngStyle" [ngClass]="col.headerStyleClass">
+                        <ng-container *ngTemplateOutlet="headerContent"></ng-container>
+                      </th>
+                    }
+                  }
+                  <ng-template #headerContent>
+                    <div class="flex justify-start items-center">
+                      <span class="mr-1">{{ col.header }}</span>
+                      @if (col.showHeaderActions) {
+                        <smz-table-header-actions clickStopPropagation class="ml-1 mt-1" [col]="col"></smz-table-header-actions>
+                      }
+                      @if (!clonedData.showSkeleton && col.isOrderable) {
+                        <p-sortIcon [field]="col.sortField"></p-sortIcon>
+                      }
+                      @if (!clonedData.showSkeleton) {
+                        @switch (col.filter.type) {
+                          @case (filterTypes.currency) {
+                            <smz-column-filter type="numeric" currency="BRL" [field]="col.filterField"></smz-column-filter>
+                          }
+                          @case (filterTypes.numeric) {
+                            <smz-column-filter type="numeric" [field]="col.filterField"></smz-column-filter>
+                          }
+                          @case (filterTypes.date) {
+                            <smz-column-filter type="date" [field]="col.filterField" [showTime]="col.filter.showTime"></smz-column-filter>
+                          }
+                          @case (filterTypes.text) {
+                            <smz-column-filter type="text" [field]="col.filterField"></smz-column-filter>
+                          }
+                          @case (filterTypes.boolean) {
+                            <smz-column-filter type="boolean" [field]="col.filterField"></smz-column-filter>
+                          }
+                          @case (filterTypes.dropdown) {
+                            @if (col.filterField | filterObject; as filterField) {
+                              <smz-column-filter [field]="filterField + '.id'" matchMode="dropdown" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                                <ng-template pTemplate="header">
+                                  <div class="px-3 pt-3 pb-0">
+                                    <span class="p-text-bold">{{ col.header }}</span>
+                                  </div>
                                 </ng-template>
-                            </div>
-
-                        </td>
-
-                    </ng-container>
-
-                </tr>
-
-                <tr *ngIf="item?._isExpanded">
-                    <td [attr.colspan]="columns.length + ((context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible || context.state.editable.isEditable) ? 1 : 0) + (context.state.caption.rowSelection.isEnabled ? 1 : 0) + (context.state.rowExpansion.isEnabled ? 1 : 0)">
-                        <ng-container *ngTemplateOutlet="rowContentTemplate; context: { $implicit: item }"></ng-container>
-                    </td>
-                </tr>
-            </ng-template>
-
-            <ng-template pTemplate="emptymessage" let-columns>
+                                <ng-template pTemplate="filter" let-value let-filter="filter">
+                                  <p-select appendTo="body" [ngModel]="value" [options]="(clonedData.items != null ? clonedData.items : []) | uniqueFilter : filterField + '.id' : filterField : null : 'name' : false" [placeholder]="context.state.locale.dropdownFilter.placeholder" (onChange)="filter($event.value)" optionLabel="name" dataKey="id"></p-select>
+                                </ng-template>
+                              </smz-column-filter>
+                            }
+                          }
+                          @case (filterTypes.multiselect) {
+                            @if (col.filterField | filterObject; as filterField) {
+                              <smz-column-filter [field]="filterField" matchMode="in" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                                <ng-template pTemplate="header">
+                                  <div class="px-3 pt-3 pb-0">
+                                    <span class="p-text-bold">{{ col.header }}</span>
+                                  </div>
+                                </ng-template>
+                                <ng-template pTemplate="filter" let-value let-filter="filter">
+                                  <p-multiSelect [ngModel]="value" [options]="(clonedData.items != null ? clonedData.items : []) | uniqueFilter : filterField + '.id' : filterField : null : 'name' : false" [placeholder]="context.state.locale.dropdownFilter.placeholder" (onChange)="filter($event.value)" optionLabel="name" dataKey="id"></p-multiSelect>
+                                </ng-template>
+                              </smz-column-filter>
+                            }
+                          }
+                          @case (filterTypes.multiselect_array) {
+                            @if (col.filterField | filterObject; as filterField) {
+                              <smz-column-filter [field]="filterField" matchMode="array-some" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                                <ng-template pTemplate="header">
+                                  <div class="px-3 pt-3 pb-0">
+                                    <span class="p-text-bold">{{ col.header }}</span>
+                                  </div>
+                                </ng-template>
+                                <ng-template pTemplate="filter" let-value let-filter="filter">
+                                  <p-multiSelect [ngModel]="value" [options]="(clonedData.items != null ? clonedData.items : []) | uniqueFilter : filterField + '.id' : filterField : null : 'name' : true" [placeholder]="context.state.locale.dropdownFilter.placeholder" (onChange)="filter($event.value)" optionLabel="name" dataKey="id" [maxSelectedLabels]="2" [selectedItemsLabel]="'{0}'"></p-multiSelect>
+                                </ng-template>
+                              </smz-column-filter>
+                            }
+                          }
+                          @case (filterTypes.multiselect_string) {
+                            @if (col.filterField | filterObject; as filterField) {
+                              <smz-column-filter [field]="filterField" matchMode="multiselectByString" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                                <ng-template pTemplate="header">
+                                  <div class="px-3 pt-3 pb-0">
+                                    <span class="p-text-bold">{{ col.header }}</span>
+                                  </div>
+                                </ng-template>
+                                <ng-template pTemplate="filter" let-value let-filter="filter">
+                                  <p-multiSelect [ngModel]="value" [options]="(clonedData.items != null ? clonedData.items : []) | uniqueFilter : filterField : filterField : null : true : false : false" [placeholder]="context.state.locale.dropdownFilter.placeholder" (onChange)="filter($event.value)" [maxSelectedLabels]="2" [selectedItemsLabel]="'{0}'"></p-multiSelect>
+                                </ng-template>
+                              </smz-column-filter>
+                            }
+                          }
+                        }
+                      }
+                      @if (context.state.caption.columnVisibility.showColumnHideButton) {
+                        <button pButton type="button" icon="fa-solid fa-eye-slash" class="p-button-rounded p-button-text p-button-plain" (click)="hideColumn(col, context)"></button>
+                      }
+                    </div>
+                  </ng-template>
+                }
+                @if (context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible|| context.state.editable.isEditable) {
+                  <th [ngStyle]="context.state.editable.isEditable ? context.state.editable.ngStyle : context.state.actions.customActions.ngStyle"></th>
+                }
+              </tr>
+              @if (context.state.actions.batchActions.isVisible) {
                 <tr>
-                    <td [attr.colspan]="columns.length + ((context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible || context.state.editable.isEditable) ? 1 : 0) + (context.state.caption.rowSelection.isEnabled ? 1 : 0) + (context.state.rowExpansion.isEnabled ? 1 : 0)" [ngStyle]="{ 'text-align': 'center' }">
-                        <div [innerHtml]="context.state.emptyFeedback.message"></div>
-                        <ng-container *ngIf="context.state.caption.clearFilters.isButtonVisible && hasFilters()">
-                            <button pButton [label]="context.state.locale.clearFilters.label" class="p-button-outlined mt-3" icon="pi pi-filter-slash" (click)="clear(dt, context)"></button>
-                        </ng-container>
-                    </td>
+                  <th [attr.colspan]="columns.length + ((context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible || context.state.editable.isEditable) ? 1 : 0) + (context.state.caption.rowSelection.isEnabled ? 1 : 0) + (context.state.rowExpansion.isEnabled ? 1 : 0)"
+                    [ngStyle]="context.state.actions.customActions.ngStyle" class="px-0">
+                    <div class="grid grid-nogutter items-center justify-start">
+                      <p-tableHeaderCheckbox class="mr-4"></p-tableHeaderCheckbox>
+                      @if (selectedItems?.length > 0) {
+                        @for (batchItem of context.state.actions.batchActions.items; track batchItem) {
+                          @if (batchItem.visible) {
+                            <button pButton [label]="batchItem.label" class="p-button-rounded p-button-text p-button-plain animate__animated animate__fadeIn" [ngClass]="batchItem.styleClass" [icon]="batchItem.icon" (click)="batchItem.command(selectedItems); selectedItems = [];" [disabled]="batchItem.disabled" [pTooltip]="batchItem.tooltip"></button>
+                          }
+                        }
+                      }
+                    </div>
+                  </th>
                 </tr>
+              }
             </ng-template>
-        </p-table>
-
-        </ng-container>
-
-        </ng-container>
-    </ng-template>
-
-</ng-container>
-
-<ng-template #noStateTemplate>
-    <ng-container *ngIf="emptyStateTemplate != null">
-        <ng-container *ngTemplateOutlet="emptyStateTemplate; context: { $implicit: {} }"></ng-container>
+            <ng-template pTemplate="body" let-item let-editing="editing" let-rowIndex="rowIndex" let-columns="columns">
+              <tr #editableRowElement
+                [pEditableRow]="item"
+                tableItemAction
+                [isClickable]="context.state.actions.rowBehavior.isClickable"
+                [callback]="context.state.actions.rowBehavior.clickCallback"
+                [expandRowOnClick]="context.state.actions.rowBehavior.expandRowOnClick"
+                [item]="item"
+                class="p-selectable-row"
+                [ngClass]="{ 'highlight-row': item?.id === state.actions.rowBehavior.highlights, 'preserve-in-small': state.actions.rowBehavior.preserveLayoutInSmallDevices }"
+                >
+                @if (context.state.caption.rowSelection.isEnabled && !clonedData.showSkeleton) {
+                  <td
+                    clickStopPropagation
+                    class="{{ state.actions.rowBehavior.cellStyleClass }}"
+                    [ngClass]="{ 'opacity-50 pointer-events-none': editableService.context[item.id]?.hasErrors || editableService.context[item.id]?.isLoading }"
+                    [ngStyle]="context.state.caption.rowSelection.ngStyle"
+                    >
+                    <p-tableCheckbox [value]="item"></p-tableCheckbox>
+                  </td>
+                }
+                @if (context.state.rowExpansion.isEnabled && !clonedData.showSkeleton) {
+                  <td
+                    clickStopPropagation
+                    class="{{ state.actions.rowBehavior.cellStyleClass }}"
+                    [ngClass]="{ 'opacity-50 pointer-events-none': editableService.context[item.id]?.hasErrors || editableService.context[item.id]?.isLoading, 'grid grid-nogutter justify-start items-center gap-2': context.state.rowExpansion.highlightNewItems && item._isNew }"
+                    [ngStyle]="context.state.rowExpansion.ngStyle"
+                    >
+                    <p-toggleButton [(ngModel)]="item._isExpanded" [onIcon]="'fa-solid fa-chevron-down'" [offIcon]="'fa-solid fa-chevron-right'" (onChange)="item._isNew = false"></p-toggleButton>
+                    @if (context.state.rowExpansion.highlightNewItems && item._isNew) {
+                      <div class="rounded bg-cyan-400 text-sm text-white px-2 py-0 smz-table-new-tag" (click)="item._isNew = false">{{ context.state.rowExpansion.highlightLabel }}</div>
+                    }
+                  </td>
+                }
+                @for (col of columns; track col) {
+                  @if (clonedData.showSkeleton) {
+                    <td class="{{ state.actions.rowBehavior.cellStyleClass }}" [ngStyle]="col.content.ngStyle"><p-skeleton width="100%" height="1rem"></p-skeleton></td>
+                  } @else {
+                    <td class="{{ state.actions.rowBehavior.cellStyleClass }}" [ngClass]="{ 'opacity-50 pointer-events-none': editableService.context[item.id]?.hasErrors || editableService.context[item.id]?.isLoading }" [ngStyle]="col.content.ngStyle">
+                      <span class="p-column-title">{{ col.header }}</span>
+                      <p-cellEditor>
+                        <!-- CELULAR COM EDITOR -->
+                        <ng-template pTemplate="input">
+                          @switch (col.editable.type) {
+                            @case (editableTypes.none) {
+                              <smz-table-content class="cursor-default" [ngClass]="col.content.contentStyleClass" [col]="col" [contentTypes]="contentTypes" [item]="item" [rowIndex]="rowIndex" [contentTemplate]="contentTemplate"></smz-table-content>
+                            }
+                            @case (editableTypes.custom) {
+                              <ng-container *ngTemplateOutlet="editableTemplate; context: { $implicit: item, col: col }"></ng-container>
+                            }
+                            <!-- INPUT TEXT -->
+                            @case (editableTypes.text) {
+                              @if (editableService.context[item.id]?.form; as form) {
+                                @if (form.controls[col.editable.property]; as control) {
+                                  <div class="relative w-full">
+                                    <input pInputText type="text" [formControl]="$any(control)" style="width: 100%;">
+                                    <smz-table-validation-messages [errors]="control.errors" [messages]="uiConfig.dialogs.forms.validationMessages" [isFormInvalid]="form.invalid" [isFormDirty]="form.dirty"></smz-table-validation-messages>
+                                  </div>
+                                }
+                              }
+                            }
+                            <!-- INPUT NUMBER -->
+                            @case (editableTypes.number) {
+                              @if (editableService.context[item.id]?.form; as form) {
+                                @if (form.controls[col.editable.property]; as control) {
+                                  <div class="relative w-full">
+                                    <p-inputNumber
+                                      *ngVar="col.editable.data as numberData"
+                                      [formControl]="$any(control)"
+                                      [mode]="numberData.mode"
+                                      [minFractionDigits]="numberData.minFractionDigits"
+                                      [maxFractionDigits]="numberData.maxFractionDigits"
+                                      [currency]="numberData.currency"
+                                      [useGrouping]="numberData.useGrouping"
+                                      [allowEmpty]="numberData.allowEmpty"
+                                      [showClear]="numberData.showClear"
+                                      [showButtons]="numberData.showButtons"
+                                      [prefix]="numberData.prefix"
+                                      [suffix]="numberData.suffix">
+                                    </p-inputNumber>
+                                    <smz-table-validation-messages [errors]="control.errors" [messages]="uiConfig.dialogs.forms.validationMessages" [isFormInvalid]="form.invalid" [isFormDirty]="form.dirty"></smz-table-validation-messages>
+                                  </div>
+                                }
+                              }
+                            }
+                            <!-- INPUT SWITCH -->
+                            @case (editableTypes.switch) {
+                              @if (editableService.context[item.id]?.form; as form) {
+                                @if (form.controls[col.editable.property]; as control) {
+                                  <div class="relative w-full">
+                                    <p-toggleswitch [formControl]="$any(control)"></p-toggleswitch>
+                                    <smz-table-validation-messages [errors]="control.errors" [messages]="uiConfig.dialogs.forms.validationMessages" [isFormInvalid]="form.invalid" [isFormDirty]="form.dirty"></smz-table-validation-messages>
+                                  </div>
+                                }
+                              }
+                            }
+                            <!-- INPUT TEXT AREA -->
+                            @case (editableTypes.area) {
+                              @if (editableService.context[item.id]?.form; as form) {
+                                @if (form.controls[col.editable.property]; as control) {
+                                  <div class="relative w-full">
+                                    <textarea pInputTextarea type="text" [formControl]="$any(control)" [rows]="$any(col.editable.data).rows" required style="width: 100%;"></textarea>
+                                    <smz-table-validation-messages [errors]="control.errors" [messages]="uiConfig.dialogs.forms.validationMessages" [isFormInvalid]="form.invalid" [isFormDirty]="form.dirty"></smz-table-validation-messages>
+                                  </div>
+                                }
+                              }
+                            }
+                            <!-- INPUT DROPDOWN -->
+                            @case (editableTypes.dropdown) {
+                              @if (editableService.context[item.id]?.form; as form) {
+                                @if (form.controls[col.editable.property]; as control) {
+                                  <div class="relative w-full">
+                                    <p-select appendTo="body" [formControl]="$any(control)" styleClass="w-full" [options]="col.editable.data | editableSource" optionLabel="name" dataKey="id" [placeholder]="$any(col.editable.data).placeholder" [showClear]="!col.editable.validatorsPreset?.isRequired" [filter]="true"></p-select>
+                                    <smz-table-validation-messages [errors]="control.errors" [messages]="uiConfig.dialogs.forms.validationMessages" [isFormInvalid]="form.invalid" [isFormDirty]="form.dirty"></smz-table-validation-messages>
+                                  </div>
+                                }
+                              }
+                            }
+                            <!-- INPUT CALENDAR -->
+                            @case (editableTypes.calendar) {
+                              @if (editableService.context[item.id]?.form; as form) {
+                                @if (form.controls[col.editable.property]; as control) {
+                                  <div class="relative w-full">
+                                    <p-datepicker [formControl]="$any(control)" appendTo="body" styleClass="w-full" [ngClass]="{ 'pl-5': !control.valid }"></p-datepicker>
+                                    <smz-table-validation-messages [errors]="control.errors" [messages]="uiConfig.dialogs.forms.validationMessages" [isFormInvalid]="form.invalid" [isFormDirty]="form.dirty"></smz-table-validation-messages>
+                                  </div>
+                                }
+                              }
+                            }
+                          }
+                        </ng-template>
+                        <!-- CELULAR COM CONTEÚDO -->
+                        <ng-template pTemplate="output">
+                          <smz-table-content
+                            [col]="col"
+                            [pTooltip]="col.content.tooltip != null ? col.content.tooltip(item) : null"
+                            tooltipPosition="left"
+                            [ngClass]="col.content.contentStyleClass" [contentTypes]="contentTypes" [item]="item" [rowIndex]="rowIndex" [contentTemplate]="contentTemplate">
+                          </smz-table-content>
+                        </ng-template>
+                      </p-cellEditor>
+                    </td>
+                  }
+                }
+                @if (context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible || context.state.editable.isEditable) {
+                  <td [ngStyle]="context.state.actions.customActions.ngStyle" class="px-0">
+                    <div class="grid grid-nogutter items-center justify-center">
+                      @if (clonedData.showSkeleton) {
+                        <div class="w-full">
+                          <p-skeleton width="100%" height="1rem"></p-skeleton>
+                        </div>
+                      } @else {
+                        <!-- SEM EDITAR -->
+                        @if (!editing) {
+                          @if (context.state.editable.update.isButtonVisible) {
+                            <button pButton type="button" icon="pi pi-pencil" (click)="editableService.onRowEditInit(item)" class="p-button-rounded p-button-text mx-1" [disabled]="editableService.isEditing || editableService.isCreating || context.state.editable.update.isButtonDisabled || (!context.state.editable.update.condition(item))" pInitEditableRow></button>
+                          }
+                          @if (context.state.editable.remove.isButtonVisible) {
+                            <button pButton type="button" icon="pi pi-trash" (click)="editableService.onRowRemove($event, table, item)" class="p-button-rounded p-button-text p-button-secondary mx-1" [disabled]="editableService.isEditing || editableService.isCreating || context.state.editable.remove.isButtonDisabled || (!context.state.editable.remove.condition(item))"></button>
+                          }
+                        }
+                        <!-- EDITANDO -->
+                        @if (editing) {
+                          @if (editableService.context[item.id]; as editableContext) {
+                            <!-- COM LOADING -->
+                            @if (editableContext.isLoading) {
+                              <button pButton type="button" icon="fa-solid fa-rotate fa-spin" [disabled]="true" class="p-button-rounded p-button-text p-button-info mr-2"></button>
+                            }
+                            <!-- SEM LOADING -->
+                            @if (!editableContext.isLoading) {
+                              <!-- EDITANDO -->
+                              @if (!editableContext.hasErrors) {
+                                <!-- CRIANDO -->
+                                @if (item._context?.isCreating) {
+                                  <button pButton type="button" icon="pi pi-check" (click)="editableService.onRowCreateSave($event, table, editableRowElement, item)" [disabled]="!editableContext.hasChanged || !editableService.context[item.id]?.form.valid" class="p-button-rounded p-button-text p-button-success mr-2"></button>
+                                  <button pButton type="button" icon="pi pi-times" (click)="editableService.onRowCreateCancel($event, table, item)" class="p-button-rounded p-button-text p-button-danger"></button>
+                                }
+                                <!-- ATUALIZANDO -->
+                                @if (item._context?.isUpdating) {
+                                  <button pButton type="button" icon="pi pi-check" (click)="editableService.onRowEditSave($event, table, editableRowElement, item)" [disabled]="!editableContext.hasChanged || !editableService.context[item.id]?.form.valid" class="p-button-rounded p-button-text p-button-success mr-2"></button>
+                                  <button pButton type="button" icon="pi pi-times" (click)="editableService.onRowEditCancel($event, table, item)" class="p-button-rounded p-button-text p-button-danger"></button>
+                                }
+                              }
+                              <!-- COM ERRORS -->
+                              @if (editableContext.hasErrors) {
+                                <p-overlayPanel #errorsOverlay appendTo="body" [style]="{ width: '450px' }">
+                                  <ng-template pTemplate>
+                                    <div [innerHtml]="editableContext.errors | contentErrors"></div>
+                                  </ng-template>
+                                </p-overlayPanel>
+                                <button pButton type="button" icon="fas fa-exclamation-triangle" [disabled]="false" class="p-button-sm p-button-rounded p-button-text p-button-danger mr-2" (click)="errorsOverlay.toggle($event)"></button>
+                                <!-- CRIANDO -->
+                                @if (item._context?.isCreating) {
+                                  <button pButton type="button" icon="pi pi-times" (click)="editableService.onRowCreateCancel($event, table, item)" class="p-button-sm p-button-rounded p-button-text p-button-danger"></button>
+                                }
+                                <!-- ATUALIZANDO -->
+                                @if (item._context?.isUpdating) {
+                                  <button pButton type="button" icon="pi pi-times" (click)="editableService.onRowEditCancel($event, table, item)" class="p-button-sm p-button-rounded p-button-text p-button-danger"></button>
+                                }
+                              }
+                            }
+                          }
+                        }
+                        <!-- CUSTOM MENU -->
+                        @if (context.state.actions.customActions.isVisible && !editing) {
+                          <ng-container *ngTemplateOutlet="actionsTemplate; context: { $implicit: item }"></ng-container>
+                        }
+                        <!-- MENU -->
+                        @if (context.state.actions.menu.isVisible && !editing) {
+                          <smz-menu [callback]="context.state.actions.menu.callback" [items]="context.state.actions.menu.items" [data]="item" [behavior]="context.state.actions.menu.behavior" [ngClass]="{ 'ml-2': context.state.actions.customActions.isVisible }" [icon]="context.state.actions.menu.styles.icon" [styleClass]="context.state.actions.menu.styles.styleClass" [buttonClass]="context.state.actions.menu.styles.buttonClass"></smz-menu>
+                        }
+                      }
+                    </div>
+                  </td>
+                }
+              </tr>
+              @if (item?._isExpanded) {
+                <tr>
+                  <td [attr.colspan]="columns.length + ((context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible || context.state.editable.isEditable) ? 1 : 0) + (context.state.caption.rowSelection.isEnabled ? 1 : 0) + (context.state.rowExpansion.isEnabled ? 1 : 0)">
+                    <ng-container *ngTemplateOutlet="rowContentTemplate; context: { $implicit: item }"></ng-container>
+                  </td>
+                </tr>
+              }
+            </ng-template>
+            <ng-template pTemplate="emptymessage" let-columns>
+              <tr>
+                <td [attr.colspan]="columns.length + ((context.state.actions.menu.isVisible || context.state.actions.customActions.isVisible || context.state.editable.isEditable) ? 1 : 0) + (context.state.caption.rowSelection.isEnabled ? 1 : 0) + (context.state.rowExpansion.isEnabled ? 1 : 0)" [ngStyle]="{ 'text-align': 'center' }">
+                  <div [innerHtml]="context.state.emptyFeedback.message"></div>
+                  @if (context.state.caption.clearFilters.isButtonVisible && hasFilters()) {
+                    <button pButton [label]="context.state.locale.clearFilters.label" class="p-button-outlined mt-3" icon="pi pi-filter-slash" (click)="clear(table, context)"></button>
+                  }
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        }
+      </ng-container>
     </ng-container>
-</ng-template>
+  }
+} @else {
+  @if (emptyStateTemplate != null) {
+    <ng-container *ngTemplateOutlet="emptyStateTemplate; context: { $implicit: {} }"></ng-container>
+  }
+}
+

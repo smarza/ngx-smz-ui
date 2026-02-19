@@ -48,7 +48,7 @@ import { SmzGaugeState, SmzGaugeThreshold } from '../../modules/smz-gauge/smz-ga
  * ```
  */
 export class SmzGaugeBuilder extends SmzBuilderUtilities<SmzGaugeBuilder> {
-  protected that = this;
+  protected override that = this;
   private _state: SmzGaugeState = {
     debugMode: false,
     size: 200,
@@ -283,7 +283,7 @@ function getRandomColor(): string {
  * Permite a configuração de valores específicos e cores associadas.
  */
 export class SmzGaugeThresholdBuilder extends SmzBuilderUtilities<SmzGaugeThresholdBuilder> {
-  protected that = this;
+  protected override that = this;
 
   /**
    * Inicializa uma nova instância do SmzGaugeThresholdBuilder.

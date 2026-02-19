@@ -8,7 +8,8 @@ import { RadioButtonClickEvent } from 'primeng/radiobutton';
 @Component({
     selector: 'smz-radio-button',
     templateUrl: './radio-button.component.html',
-    host: { class: 'grid grid-nogutter' }
+    host: { class: 'grid grid-nogutter' },
+    standalone: false
 })
 export class RadioButtonComponent
 {

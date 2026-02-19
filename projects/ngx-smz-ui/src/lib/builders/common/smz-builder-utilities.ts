@@ -1,5 +1,7 @@
 import cloneDeep from 'lodash-es/cloneDeep';
-import { environment } from '../../environments/environment';
+import { inject } from '@angular/core';
+import { SmzEnvironment } from '../../config';
+
 
 /**
  * Interface que define as caches utilizadas nas utilidades do builder.
@@ -90,7 +92,7 @@ export class SmzBuilderUtilities<T> {
     this.cache.if.isActive = true;
 
     // Se estiver em ambiente de produção, criar um backup do estado atual
-    if (environment.production) {
+    if (inject(SmzEnvironment).production) {
       this.cache.if.data = cloneDeep(this.that);
     }
 
@@ -111,7 +113,7 @@ export class SmzBuilderUtilities<T> {
     this.cache.if.isActive = true;
 
     // Se não estiver em ambiente de produção, criar um backup do estado atual
-    if (!environment.production) {
+    if (!inject(SmzEnvironment).production) {
       this.cache.if.data = cloneDeep(this.that);
     }
 

@@ -7,7 +7,8 @@ import { SmzTableContextColumn } from '../models/table-column';
 import { SmzTableState, SmzTableContext } from '../models/table-state';
 
 @Pipe({
-  name: 'tableContext'
+    name: 'tableContext',
+    standalone: false
 })
 
 export class SmzTableContextPipe implements PipeTransform {
@@ -57,7 +58,9 @@ export class SmzTableContextPipe implements PipeTransform {
       }
 
       if (column.filter.isGlobalFilterable) {
-        globalFilter.push(`${column.field}:${column.globalFilterField}`);
+        globalFilter.push(column.field);
+        // TODO: Global filter customizado, não é compatível com o globalFilterFields do primeNG
+        // globalFilter.push(`${column.field}:${column.globalFilterField}`);
       }
 
       columns.push(contextColumn);

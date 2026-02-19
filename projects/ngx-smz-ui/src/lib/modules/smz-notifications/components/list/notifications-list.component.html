@@ -1,46 +1,51 @@
 <ng-container *ngVar="hasRuningRequest$ | async as hasRuningRequest">
 
-<smz-ui-table #smzTable [items]="(notifications$ | async) | filterBy : ['status'] : currentFolder.status" [state]="tableState" [loading]="hasRuningRequest" (selectionChange)="onSelect($event)">
+  <smz-ui-table #smzTable [items]="(notifications$ | async) | filterBy : ['status'] : currentFolder.status" [state]="tableState" [loading]="hasRuningRequest" (selectionChange)="onSelect($event)">
 
-  <ng-template pTemplate="caption" let-primeTable>
-    <button *ngIf="uiConfig.rbkUtils.notifications.showRefreshButton" pButton pRipple type="button" icon="fa-solid fa-rotate" pTooltip="Atualizar" class="p-button-rounded p-button-text p-button-plain mr-3" (click)="refresh()"></button>
-    <p-selectButton [options]="folders" [(ngModel)]="currentFolder" optionLabel="icon" (onChange)="currentFolder.rebuild()">
-      <ng-template let-item pTemplate>
+    <ng-template pTemplate="caption" let-primeTable>
+      @if (uiConfig.rbkUtils.notifications.showRefreshButton) {
+        <button pButton pRipple type="button" icon="fa-solid fa-rotate" pTooltip="Atualizar" class="p-button-rounded p-button-text p-button-plain mr-3" (click)="refresh()"></button>
+      }
+      <p-selectButton appendTo="body" [options]="folders" [(ngModel)]="currentFolder" optionLabel="icon" (onChange)="currentFolder.rebuild()">
+        <ng-template #item let-item>
           <i [ngClass]="item.icon" [pTooltip]="item.tooltip"></i>
           <span class="ml-1 text-sm">({{ item.count$ | async }})</span>
-      </ng-template>
-    </p-selectButton>
-  </ng-template>
+        </ng-template>
+      </p-selectButton>
+    </ng-template>
 
-  <!-- CONTEÚDOS COM OVERRIDE -->
-  <ng-template pTemplate="content" let-item let-col="col">
+    <!-- CONTEÚDOS COM OVERRIDE -->
+    <ng-template pTemplate="content" let-item let-col="col">
 
-    <ng-container [ngSwitch]="col.field">
-      <ng-container *ngSwitchCase="'searchData'">
-
-        <div class="grid grid-nogutter items-center justify-between" (mouseenter)="item._showActions = true" (mouseleave)="item._showActions = false">
-
-          <div class="col">
-            <smz-notification-item [item]="item" [showDate]="true"></smz-notification-item>
+      @switch (col.field) {
+        @case ('searchData') {
+          <div class="grid grid-nogutter items-center justify-between" (mouseenter)="item._showActions = true" (mouseleave)="item._showActions = false">
+            <div class="col">
+              <smz-notification-item [item]="item" [showDate]="true"></smz-notification-item>
+            </div>
+            @if (item._showActions) {
+              <div class="grid grid-nogutter items-center justify-start gap-4 flex-col pl-4 animate__animated animate__fadeIn relative">
+                @if (item.status !== status.ARCHIVED) {
+                  <i #archiveButton pTooltip="Arquivar" appendTo="body" tooltipZIndex="9999" tooltipPosition="bottom" class="fa-solid fa-box-archive p-button-rounded p-button-text p-button-plain relative text-gray-500" (click)="archive([item])"></i>
+                }
+                @if (item.status === status.ARCHIVED) {
+                  <i #inboxButton pTooltip="Desarquivar" appendTo="body" tooltipZIndex="9999" tooltipPosition="bottom" class="fa-solid fa-inbox p-button-rounded p-button-text p-button-plain relative text-gray-500" (click)="moveToInbox([item])"></i>
+                }
+                @if (item.route != '') {
+                  <i #routeButton pTooltip="Navegar" appendTo="body" tooltipZIndex="9999" tooltipPosition="bottom" class="fa-solid fa-share p-button-rounded p-button-text p-button-plain relative text-gray-500" (click)="navigate(item)"></i>
+                }
+                @if (item.link != '') {
+                  <i #linkButton pTooltip="Abrir Link" appendTo="body" tooltipZIndex="9999" tooltipPosition="bottom" class="fa-solid fa-up-right-from-square p-button-rounded p-button-text p-button-plain relative text-gray-500" (click)="openLink(item)"></i>
+                }
+                <i #trashButton pTooltip="Excluir" appendTo="body" tooltipZIndex="9999" tooltipPosition="bottom" class="fa-solid fa-trash p-button-rounded p-button-text p-button-plain relative text-gray-500" styleClass="relative" (click)="remove(item)"></i>
+              </div>
+            }
           </div>
+        }
+      }
 
-          <div class="grid grid-nogutter items-center justify-start gap-4 flex-col pl-4 animate__animated animate__fadeIn relative" *ngIf="item._showActions">
-            <i #archiveButton *ngIf="item.status !== status.ARCHIVED" pTooltip="Arquivar" appendTo="body" tooltipZIndex="9999" tooltipPosition="bottom" class="fa-solid fa-box-archive p-button-rounded p-button-text p-button-plain relative text-gray-500" (click)="archive([item])"></i>
-            <i #inboxButton *ngIf="item.status === status.ARCHIVED" pTooltip="Desarquivar" appendTo="body" tooltipZIndex="9999" tooltipPosition="bottom" class="fa-solid fa-inbox p-button-rounded p-button-text p-button-plain relative text-gray-500" (click)="moveToInbox([item])"></i>
+    </ng-template>
 
-            <i #routeButton *ngIf="item.route != ''" pTooltip="Navegar" appendTo="body" tooltipZIndex="9999" tooltipPosition="bottom" class="fa-solid fa-share p-button-rounded p-button-text p-button-plain relative text-gray-500" (click)="navigate(item)"></i>
-            <i #linkButton *ngIf="item.link != ''" pTooltip="Abrir Link" appendTo="body" tooltipZIndex="9999" tooltipPosition="bottom" class="fa-solid fa-up-right-from-square p-button-rounded p-button-text p-button-plain relative text-gray-500" (click)="openLink(item)"></i>
-
-            <i #trashButton pTooltip="Excluir" appendTo="body" tooltipZIndex="9999" tooltipPosition="bottom" class="fa-solid fa-trash p-button-rounded p-button-text p-button-plain relative text-gray-500" styleClass="relative" (click)="remove(item)"></i>
-          </div>
-
-        </div>
-
-      </ng-container>
-    </ng-container>
-
-  </ng-template>
-
-</smz-ui-table>
+  </smz-ui-table>
 
 </ng-container>

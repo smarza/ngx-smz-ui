@@ -12,13 +12,13 @@ export class CachedRouteReuseStrategy implements RouteReuseStrategy {
   private lastRoute: ActivatedRouteSnapshot;
 
   shouldDetach(route: ActivatedRouteSnapshot): boolean {
-    return route.data?.cacheStrategy?.isReusable || false;
+    return route.data['cacheStrategy']?.isReusable || false;
   }
 
   store(route: ActivatedRouteSnapshot, handle: DetachedRouteHandle): void {
     // console.log('store');
     const id = this.createIdentifier(route);
-    if (route.data?.cacheStrategy?.isReusable) {
+    if (route.data['cacheStrategy']?.isReusable) {
       if (handle != null)
       {
         this.handlers[id] = handle;
@@ -54,8 +54,8 @@ export class CachedRouteReuseStrategy implements RouteReuseStrategy {
     // console.log('------');
 
     if (this.lastRoute != null) {
-      const currentCacheStrategy: ReusableRouteConfig = route.data.cacheStrategy ? route.data.cacheStrategy : undefined;
-      const lastCacheStrategy: ReusableRouteConfig = this.lastRoute.data.cacheStrategy;
+      const currentCacheStrategy: ReusableRouteConfig = route.data['cacheStrategy'] ? route.data['cacheStrategy'] : undefined;
+      const lastCacheStrategy: ReusableRouteConfig = this.lastRoute.data['cacheStrategy'];
 
       // console.log('currentCacheStrategy', currentCacheStrategy);
       // console.log('lastCacheStrategy', lastCacheStrategy);

@@ -1,14 +1,13 @@
-import { environment } from '@environments/environment';
 import { SmzBuilderUtilities } from '../common/smz-builder-utilities';
 import { SmzUiBuilder } from './ui-builder';
 
 export class SmzUiNotificationsBuilder extends SmzBuilderUtilities<SmzUiNotificationsBuilder> {
-  protected that = this;
+  protected override that = this;
   constructor(private _builder: SmzUiBuilder) {
     super();
 
     this._builder._state.rbkUtils.notifications = {
-      url: `${environment.serverUrl}/api/notifications`,
+      url: `/api/notifications`,
       updateMethod: 'interval',
       updateRate: 100000,
       httpBehavior: {

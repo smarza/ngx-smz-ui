@@ -69,7 +69,8 @@ module.exports = {
         "indent": "off",
         "@typescript-eslint/indent": [
             "error",
-            2
+            2,
+            { "MemberExpression": "off" }
         ],
         "@typescript-eslint/member-delimiter-style": [
             "error",
@@ -96,7 +97,6 @@ module.exports = {
                 }
             }
         ],
-        "@typescript-eslint/member-ordering": "error",
         "@typescript-eslint/naming-convention": [
             "error",
             {
@@ -105,7 +105,7 @@ module.exports = {
             }
         ],
         "@typescript-eslint/no-empty-function": "off",
-        "@typescript-eslint/no-empty-interface": "error",
+        "@typescript-eslint/no-empty-interface": "off",
         "@typescript-eslint/no-inferrable-types": [
             "error",
             {
@@ -189,7 +189,7 @@ module.exports = {
             "rxjs/Rx"
         ],
         "no-throw-literal": "error",
-        "no-trailing-spaces": "error",
+        "no-trailing-spaces": "warn",
         "no-multi-spaces": "error",
         "no-undef-init": "error",
         "no-underscore-dangle": "error",

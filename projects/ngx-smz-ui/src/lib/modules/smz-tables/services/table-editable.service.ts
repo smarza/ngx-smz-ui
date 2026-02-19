@@ -4,17 +4,17 @@ import { isSimpleNamedEntity, removeElementFromArray, setNestedObject } from '..
 import { EditableChanges, EditableRowContext } from '../models/editable-model';
 import { SmzEditableType } from '../models/editable-types';
 import { SmzTableState } from '../models/table-state';
-import { Table } from '../../prime/table/table';
+// import { Table } from '../../prime/table/table';
+import { Table } from 'primeng/table';
 import { SmzTransactionsService } from './smz-transactions.service';
 import { takeWhile } from 'rxjs/operators';
-import { UUID } from 'angular2-uuid';
 import { TableFormsService } from './table-forms.service';
 import { Store } from '@ngxs/store';
-import { AuthenticationSelectors } from '../../../state/global/authentication/authentication.selectors';
 import { Confirmable } from '../../smz-dialogs/decorators/confirmable.decorator';
 import { cloneDeep } from 'lodash-es';
 import { SmzTableContextColumn } from '../models/table-column';
 import { GlobalInjector } from '../../../common/services/global-injector';
+import { generateGUID } from '../../../common/utils/guid-generator';
 
 // SERVIÇO COM INSTANCIAS DIFERENTES POR TABELA
 @Injectable()
@@ -64,11 +64,11 @@ export class TableEditableService {
 
     }
 
-    public onRowCreateInit(table: Table, columns: SmzTableContextColumn[]): void {
+    public onRowCreateInit(table: Table<any>, columns: SmzTableContextColumn[]): void {
 
         this.state.editable.creation.onInit();
 
-        let creationValues = { id: UUID.UUID() };
+        let creationValues = { id: generateGUID() };
 
         columns
             .filter(x => x.editable != null)
@@ -93,7 +93,7 @@ export class TableEditableService {
     }
 
     @Confirmable('Tem certeza de que deseja excluir este item ?', 'Confirmação', true)
-    public onRowRemove(event: MouseEvent, table: Table, row: any): void {
+    public onRowRemove(event: MouseEvent, table: Table<any>, row: any): void {
 
         this.state.editable.remove.onInit(row);
 
@@ -246,7 +246,7 @@ export class TableEditableService {
         }
     }
 
-    public onRowEditSave(event: MouseEvent, table: Table, editableRowElement: any, row: any): void {
+    public onRowEditSave(event: MouseEvent, table: Table<any>, editableRowElement: any, row: any): void {
 
         // PEGAR CONTEXTO ATUAL
         const context = this.context[row.id];
@@ -346,7 +346,7 @@ export class TableEditableService {
 
     }
 
-    public onRowCreateSave(event: MouseEvent, table: Table, editableRowElement: any, row: any): void {
+    public onRowCreateSave(event: MouseEvent, table: Table<any>, editableRowElement: any, row: any): void {
 
         // PEGAR CONTEXTO ATUAL
         const context = this.context[row.id];
@@ -445,7 +445,7 @@ export class TableEditableService {
 
     }
 
-    public onRowEditCancel(event: MouseEvent, table: Table, row: any): void {
+    public onRowEditCancel(event: MouseEvent, table: Table<any>, row: any): void {
 
         const context = this.context[row.id];
 
@@ -489,7 +489,7 @@ export class TableEditableService {
         delete row['_context'];
     }
 
-    public onRowCreateCancel(event: MouseEvent, table: Table, row: any): void {
+    public onRowCreateCancel(event: MouseEvent, table: Table<any>, row: any): void {
 
         // REMOVER ITEM DE CRIAÇÃO DA LISTA DA TABELA
         removeElementFromArray(table.value, row.id);

@@ -1,9 +1,6 @@
-import { AfterContentInit, ChangeDetectorRef, Component, ContentChildren, Input, OnInit, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { Select, Store } from '@ngxs/store';
+import { AfterContentInit, ChangeDetectorRef, Component, ContentChildren, inject, Input, OnInit, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { Store } from '@ngxs/store';
 import { PrimeTemplate, MenuItem } from 'primeng/api';
-import { Observable } from 'rxjs';
-import { Assistance } from '../../core/models/assistance';
-import { LayoutState } from '../../core/models/layout';
 import { RouterDataListenerService } from '../../core/services/router-data-listener.service';
 import { LayoutUiActions } from '../../../../state/ui/layout/layout.actions';
 import { LayoutUiSelectors } from '../../../../state/ui/layout/layout.selectors';
@@ -13,16 +10,17 @@ import { AthenaLayout } from './layout.config';
 import { SmzNotification } from '../../core/models/notifications';
 
 @Component({
-  selector: 'smz-ui-athena-layout',
-  templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'smz-ui-athena-layout',
+    templateUrl: './layout.component.html',
+    styleUrls: ['./layout.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class AthenaLayoutComponent implements OnInit, AfterContentInit {
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
-  @Select(LayoutUiSelectors.contentClass) public contentClass$: Observable<string>;
-  @Select(UiAthenaSelectors.state) public state$: Observable<LayoutState>;
-  @Select(LayoutUiSelectors.assistance) public assistance$: Observable<Assistance>;
+  public contentClass$ = inject(Store).select(LayoutUiSelectors.contentClass);
+  public state$ = inject(Store).select(UiAthenaSelectors.state);
+  public assistance$ = inject(Store).select(LayoutUiSelectors.assistance);
   @Input() public menu: MenuItem[];
   @Input() public profile: MenuItem[];
   @Input() public notifications: SmzNotification[];

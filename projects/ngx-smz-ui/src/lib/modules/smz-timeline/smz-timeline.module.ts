@@ -4,7 +4,7 @@ import { NgxSmzServerImageModule } from '../../common/directives/server-image/se
 import { DataViewModule } from 'primeng/dataview';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-import { DropdownModule } from 'primeng/dropdown';
+import { SelectModule } from 'primeng/select';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { NgxSmzMenuModule } from '../smz-menu/smz-menu.module';
 import { TooltipModule } from 'primeng/tooltip';
@@ -23,7 +23,7 @@ import { NgxSmzCardsModule } from '../smz-cards/smz-cards.module';
     DataViewModule,
     ButtonModule,
     InputTextModule,
-    DropdownModule,
+    SelectModule,
     FormsModule,
     MultiSelectModule,
     NgxSmzServerImageModule,

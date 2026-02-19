@@ -21,7 +21,7 @@ import { SmzSmartTagData } from '../../modules/smz-forms/directives/smart-tag.di
 import { SmzSmartAutocompleteTagOption } from '../../modules/smz-forms/directives/smart-autocomplete-tag.directive';
 
 export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormGroupBuilder<TResponse>> {
-  protected that = this;
+  protected override that = this;
   private defaultConfig = GlobalInjector.config.dialogs;
   constructor(public _formBuilder: SmzFormBuilder<TResponse>, public group: SmzFormGroup) {
     super();
@@ -539,7 +539,7 @@ export class SmzFormGroupBuilder<TResponse> extends SmzBuilderUtilities<SmzFormG
         hideName: false,
         icon: 'fa-solid fa-rotate-right',
         placeholder: '',
-        styleClass: 'p-button-success'
+        styleClass: ''
       };
 
       this.group.children.push(input);
@@ -918,8 +918,8 @@ export class SmzFormInputBuilder<TInput, TResponse> {
 }
 
 export class SmzFormCalendarBuilder<TResponse> extends SmzFormInputBuilder<SmzFormCalendarBuilder<TResponse>, TResponse> {
-  protected that = this;
-  constructor(public _groupBuilder: SmzFormGroupBuilder<TResponse>, private _calendarInput: SmzCalendarControl) {
+  protected override that = this;
+  constructor(public override _groupBuilder: SmzFormGroupBuilder<TResponse>, public _calendarInput: SmzCalendarControl) {
     super(_groupBuilder, _calendarInput);
 
     _calendarInput.timeOnly = false;
@@ -953,8 +953,8 @@ export class SmzFormCalendarBuilder<TResponse> extends SmzFormInputBuilder<SmzFo
 }
 
 export class SmzFormCheckboxBuilder<TResponse> extends SmzFormInputBuilder<SmzFormCheckboxBuilder<TResponse>, TResponse> {
-  protected that = this;
-  constructor(public _groupBuilder: SmzFormGroupBuilder<TResponse>, private _checkboxInput: SmzCheckBoxControl) {
+  protected override that = this;
+  constructor(public override _groupBuilder: SmzFormGroupBuilder<TResponse>, public _checkboxInput: SmzCheckBoxControl) {
     super(_groupBuilder, _checkboxInput);
   }
 
@@ -964,7 +964,7 @@ export class SmzFormCheckboxBuilder<TResponse> extends SmzFormInputBuilder<SmzFo
     return this;
   }
 
-  public get group(): SmzFormGroupBuilder<TResponse> {
+  public override get group(): SmzFormGroupBuilder<TResponse> {
 
     if (this._checkboxInput.validatorsPreset?.isRequired && this._checkboxInput.showLabel) {
       this._checkboxInput.label = `${this._checkboxInput.label} *`;
@@ -976,29 +976,29 @@ export class SmzFormCheckboxBuilder<TResponse> extends SmzFormInputBuilder<SmzFo
 }
 
 export class SmzFormColorPickerBuilder<TResponse> extends SmzFormInputBuilder<SmzFormColorPickerBuilder<TResponse>, TResponse> {
-  protected that = this;
-  constructor(public _groupBuilder: SmzFormGroupBuilder<TResponse>, private _colorPickerInput: SmzColorPickerControl) {
+  protected override that = this;
+  constructor(public override _groupBuilder: SmzFormGroupBuilder<TResponse>, public _colorPickerInput: SmzColorPickerControl) {
     super(_groupBuilder, _colorPickerInput);
   }
 }
 
 export class SmzFormCurrencyBuilder<TResponse> extends SmzFormInputBuilder<SmzFormCurrencyBuilder<TResponse>, TResponse> {
-  protected that = this;
-  constructor(public _groupBuilder: SmzFormGroupBuilder<TResponse>, private _currencyInput: SmzCurrencyControl) {
+  protected override that = this;
+  constructor(public override _groupBuilder: SmzFormGroupBuilder<TResponse>, public _currencyInput: SmzCurrencyControl) {
     super(_groupBuilder, _currencyInput);
   }
 }
 
 export class SmzFormSwitchBuilder<TResponse> extends SmzFormInputBuilder<SmzFormSwitchBuilder<TResponse>, TResponse> {
-  protected that = this;
-  constructor(public _groupBuilder: SmzFormGroupBuilder<TResponse>, private _switchInput: SmzSwitchControl) {
+  protected override that = this;
+  constructor(public override _groupBuilder: SmzFormGroupBuilder<TResponse>, public _switchInput: SmzSwitchControl) {
     super(_groupBuilder, _switchInput);
   }
 }
 
 export class SmzFormCheckboxGroupBuilder<T,TResponse> extends SmzFormInputBuilder<SmzFormCheckboxGroupBuilder<T,TResponse>, TResponse> {
-  protected that = this;
-  constructor(public _groupBuilder: SmzFormGroupBuilder<TResponse>, private _checkboxGroupInput: SmzCheckBoxGroupControl<T>) {
+  protected override that = this;
+  constructor(public override _groupBuilder: SmzFormGroupBuilder<TResponse>, public _checkboxGroupInput: SmzCheckBoxGroupControl<T>) {
     super(_groupBuilder, _checkboxGroupInput);
   }
 
@@ -1013,12 +1013,12 @@ interface FormDisableReactions<T> { propertyName: string, condition: (option: T)
 interface FormGroupReactions<T> { groupKey: string, visibility: (option: T) => boolean }
 
 export class SmzFormDropdownBuilder<T, TResponse> extends SmzFormInputBuilder<SmzFormDropdownBuilder<T, TResponse>, TResponse> {
-  protected that = this;
+  protected override that = this;
   private _groupReactions: FormGroupReactions<any>[] = [];
   private _valueReactions: FormValueReactions<any>[] = [];
   private _statusReactions: FormDisableReactions<any>[] = [];
 
-  constructor(public _groupBuilder: SmzFormGroupBuilder<TResponse>, private _dropdownInput: SmzDropDownControl<T>) {
+  constructor(public override _groupBuilder: SmzFormGroupBuilder<TResponse>, public _dropdownInput: SmzDropDownControl<T>) {
     super(_groupBuilder, _dropdownInput);
   }
 
@@ -1064,7 +1064,7 @@ export class SmzFormDropdownBuilder<T, TResponse> extends SmzFormInputBuilder<Sm
     return this;
   }
 
-  public get group(): SmzFormGroupBuilder<TResponse> {
+  public override get group(): SmzFormGroupBuilder<TResponse> {
 
     if (this._valueReactions.length > 0 || this._statusReactions.length > 0  || this._groupReactions.length > 0) {
 
@@ -1185,8 +1185,8 @@ export class SmzFormDropdownBuilder<T, TResponse> extends SmzFormInputBuilder<Sm
 }
 
 export class SmzFormLinkedDropdownBuilder<T,TResponse> extends SmzFormInputBuilder<SmzFormLinkedDropdownBuilder<T,TResponse>, TResponse> {
-  protected that = this;
-  constructor(public _groupBuilder: SmzFormGroupBuilder<TResponse>, private _linkedDropdownInput: SmzLinkedDropDownControl<T>) {
+  protected override that = this;
+  constructor(public override _groupBuilder: SmzFormGroupBuilder<TResponse>, public _linkedDropdownInput: SmzLinkedDropDownControl<T>) {
     super(_groupBuilder, _linkedDropdownInput);
   }
 
@@ -1220,8 +1220,8 @@ export class SmzFormLinkedDropdownBuilder<T,TResponse> extends SmzFormInputBuild
 }
 
 export class SmzFormLinkedMultiselectBuilder<T,TResponse> extends SmzFormInputBuilder<SmzFormLinkedMultiselectBuilder<T,TResponse>, TResponse> {
-  protected that = this;
-  constructor(public _groupBuilder: SmzFormGroupBuilder<TResponse>, private _linkedMultiselectInput: SmzLinkedMultiSelectControl<T>) {
+  protected override that = this;
+  constructor(public override _groupBuilder: SmzFormGroupBuilder<TResponse>, public _linkedMultiselectInput: SmzLinkedMultiSelectControl<T>) {
     super(_groupBuilder, _linkedMultiselectInput);
   }
 
@@ -1255,8 +1255,8 @@ export class SmzFormLinkedMultiselectBuilder<T,TResponse> extends SmzFormInputBu
 }
 
 export class SmzFormMultiselectBuilder<T,TResponse> extends SmzFormInputBuilder<SmzFormMultiselectBuilder<T,TResponse>, TResponse> {
-  protected that = this;
-  constructor(public _groupBuilder: SmzFormGroupBuilder<TResponse>, private _multiselectInput: SmzMultiSelectControl<T>) {
+  protected override that = this;
+  constructor(public override _groupBuilder: SmzFormGroupBuilder<TResponse>, public _multiselectInput: SmzMultiSelectControl<T>) {
     super(_groupBuilder, _multiselectInput);
   }
 
@@ -1289,8 +1289,8 @@ export class SmzFormMultiselectBuilder<T,TResponse> extends SmzFormInputBuilder<
 }
 
 export class SmzFormRadioGroupBuilder<T,TResponse> extends SmzFormInputBuilder<SmzFormRadioGroupBuilder<T,TResponse> , TResponse> {
-  protected that = this;
-  constructor(public _groupBuilder: SmzFormGroupBuilder<TResponse>, private _radioGroupInput: SmzRadioControl<T>) {
+  protected override that = this;
+  constructor(public override _groupBuilder: SmzFormGroupBuilder<TResponse>, public _radioGroupInput: SmzRadioControl<T>) {
     super(_groupBuilder, _radioGroupInput);
   }
 
@@ -1301,8 +1301,8 @@ export class SmzFormRadioGroupBuilder<T,TResponse> extends SmzFormInputBuilder<S
 }
 
 export class SmzFormNumberBuilder<TResponse> extends SmzFormInputBuilder<SmzFormNumberBuilder<TResponse>, TResponse> {
-  protected that = this;
-  constructor(public _groupBuilder: SmzFormGroupBuilder<TResponse>, private _numberInput: SmzNumberControl) {
+  protected override that = this;
+  constructor(public override _groupBuilder: SmzFormGroupBuilder<TResponse>, public _numberInput: SmzNumberControl) {
     super(_groupBuilder, _numberInput);
 
     this._numberInput.minFractionDigits = 0;
@@ -1333,8 +1333,8 @@ export class SmzFormNumberBuilder<TResponse> extends SmzFormInputBuilder<SmzForm
 }
 
 export class SmzFormTextAreaBuilder<TResponse> extends SmzFormInputBuilder<SmzFormTextAreaBuilder<TResponse>, TResponse> {
-  protected that = this;
-  constructor(public _groupBuilder: SmzFormGroupBuilder<TResponse>, private _textAreaInput: SmzTextAreaControl) {
+  protected override that = this;
+  constructor(public override _groupBuilder: SmzFormGroupBuilder<TResponse>, public _textAreaInput: SmzTextAreaControl) {
     super(_groupBuilder, _textAreaInput);
   }
 
@@ -1350,8 +1350,8 @@ export class SmzFormTextAreaBuilder<TResponse> extends SmzFormInputBuilder<SmzFo
 }
 
 export class SmzFormContentMaskBuilder<TResponse> extends SmzFormInputBuilder<SmzFormContentMaskBuilder<TResponse>, TResponse> {
-  protected that = this;
-  constructor(public _groupBuilder: SmzFormGroupBuilder<TResponse>, private _contentMaskInput: SmzContentMaskControl) {
+  protected override that = this;
+  constructor(public override _groupBuilder: SmzFormGroupBuilder<TResponse>, public _contentMaskInput: SmzContentMaskControl) {
     super(_groupBuilder, _contentMaskInput);
   }
 
@@ -1395,12 +1395,12 @@ export class SmzFormContentMaskBuilder<TResponse> extends SmzFormInputBuilder<Sm
 
 
 export class SmzFormTextBuilder<TResponse> extends SmzFormInputBuilder<SmzFormTextBuilder<TResponse>, TResponse> {
-  protected that = this;
-  constructor(public _groupBuilder: SmzFormGroupBuilder<TResponse>, private _textInput: SmzTextControl) {
+  protected override that = this;
+  constructor(public override _groupBuilder: SmzFormGroupBuilder<TResponse>, public _textInput: SmzTextControl) {
     super(_groupBuilder, _textInput);
   }
 
-  public hideLabel(): SmzFormTextBuilder<TResponse> {
+  public override hideLabel(): SmzFormTextBuilder<TResponse> {
     this._textInput.hideName = true;
     return this;
   }
@@ -1418,12 +1418,12 @@ export class SmzFormTextBuilder<TResponse> extends SmzFormInputBuilder<SmzFormTe
 
 
 export class SmzFormTextButtonBuilder<TResponse> extends SmzFormInputBuilder<SmzFormTextButtonBuilder<TResponse>, TResponse> {
-  protected that = this;
-  constructor(public _groupBuilder: SmzFormGroupBuilder<TResponse>, private _textButtonInput: SmzTextButtonControl) {
+  protected override that = this;
+  constructor(public override _groupBuilder: SmzFormGroupBuilder<TResponse>, public _textButtonInput: SmzTextButtonControl) {
     super(_groupBuilder, _textButtonInput);
   }
 
-  public hideLabel(): SmzFormTextButtonBuilder<TResponse> {
+  public override hideLabel(): SmzFormTextButtonBuilder<TResponse> {
     this._textButtonInput.hideName = true;
     return this;
   }
@@ -1453,8 +1453,8 @@ export class SmzFormTextButtonBuilder<TResponse> extends SmzFormInputBuilder<Smz
 }
 
 export class SmzFormFileBuilder<TResponse> extends SmzFormInputBuilder<SmzFormFileBuilder<TResponse>, TResponse> {
-  protected that = this;
-  constructor(public _groupBuilder: SmzFormGroupBuilder<TResponse>, private _fileInput: SmzFileControl) {
+  protected override that = this;
+  constructor(public override _groupBuilder: SmzFormGroupBuilder<TResponse>, public _fileInput: SmzFileControl) {
     super(_groupBuilder, _fileInput);
   }
 
@@ -1559,7 +1559,7 @@ export class SmzFormFileBuilder<TResponse> extends SmzFormInputBuilder<SmzFormFi
     return this;
   }
 
-  public get group(): SmzFormGroupBuilder<TResponse> {
+  public override get group(): SmzFormGroupBuilder<TResponse> {
     if(this._fileInput.outputFormat === 'file' && this._fileInput.useGlobalLoader) {
       throw Error(`There is no need to call 'useGlobalLoader' while using Binary File.`);
     }
@@ -1570,8 +1570,8 @@ export class SmzFormFileBuilder<TResponse> extends SmzFormInputBuilder<SmzFormFi
 }
 
 export class SmzFormListBuilder<TResponse> extends SmzFormInputBuilder<SmzFormListBuilder<TResponse>, TResponse> {
-  protected that = this;
-  constructor(public _groupBuilder: SmzFormGroupBuilder<TResponse>, private _listInput: SmzListControl) {
+  protected override that = this;
+  constructor(public override _groupBuilder: SmzFormGroupBuilder<TResponse>, public _listInput: SmzListControl) {
     super(_groupBuilder, _listInput);
 
     const textInput: SmzTextControl = {
@@ -1609,7 +1609,7 @@ export class SmzFormListBuilder<TResponse> extends SmzFormInputBuilder<SmzFormLi
     return this;
   }
 
-  public hideLabel(): SmzFormListBuilder<TResponse> {
+  public override hideLabel(): SmzFormListBuilder<TResponse> {
     this._listInput.hideName = true;
     return this;
   }
@@ -1676,7 +1676,7 @@ export class SmzFormListBuilder<TResponse> extends SmzFormInputBuilder<SmzFormLi
     return new SmzFormListButtonsBuilder<TResponse>(this, this._listInput);
   }
 
-  public get group(): SmzFormGroupBuilder<TResponse> {
+  public override get group(): SmzFormGroupBuilder<TResponse> {
     if (this._listInput.allowBatchCreation && this._listInput.crud?.inputData?.type === SmzControlType.NUMBER) {
       throw Error("You cannot call allowBatchCreation while using a number list input");
     }
@@ -1776,8 +1776,8 @@ export class SmzFormListButtonsBuilder<TResponse> {
 }
 
 export class SmzFormMaskBuilder<TResponse> extends SmzFormInputBuilder<SmzFormMaskBuilder<TResponse>, TResponse> {
-  protected that = this;
-  constructor(public _groupBuilder: SmzFormGroupBuilder<TResponse>, private _maskInput: SmzMaskControl) {
+  protected override that = this;
+  constructor(public override _groupBuilder: SmzFormGroupBuilder<TResponse>, public _maskInput: SmzMaskControl) {
     super(_groupBuilder, _maskInput);
   }
 
@@ -1803,8 +1803,8 @@ export class SmzFormMaskBuilder<TResponse> extends SmzFormInputBuilder<SmzFormMa
 }
 
 export class SmzFormPasswordBuilder<TResponse> extends SmzFormInputBuilder<SmzFormPasswordBuilder<TResponse>, TResponse> {
-  protected that = this;
-  constructor(public _groupBuilder: SmzFormGroupBuilder<TResponse>, private _passwordInput: SmzPasswordControl) {
+  protected override that = this;
+  constructor(public override _groupBuilder: SmzFormGroupBuilder<TResponse>, public _passwordInput: SmzPasswordControl) {
     super(_groupBuilder, _passwordInput);
   }
 
@@ -1835,6 +1835,11 @@ export class SmzFormInputValidatorBuilder<TInput, TResponse> {
       ..._input.advancedSettings
     };
 
+  }
+
+  public withWarning(warning: (formValues: any) => string | null): SmzFormInputValidatorBuilder<TInput, TResponse> {
+    this._input.warningFunction = warning;
+    return this;
   }
 
   public required(): SmzFormInputValidatorBuilder<TInput, TResponse> {
@@ -1906,8 +1911,8 @@ export function getSmzTemplate(breakpoint: 'EXTRA_SMALL' | 'SMALL' | 'MEDIUM' | 
 }
 
 export class SmzFormTagAreaBuilder<TResponse> extends SmzFormInputBuilder<SmzFormTagAreaBuilder<TResponse>, TResponse> {
-  protected that = this;
-  constructor(public _groupBuilder: SmzFormGroupBuilder<TResponse>, private _tagAreaInput: SmzTagAreaControl) {
+  protected override that = this;
+  constructor(public override _groupBuilder: SmzFormGroupBuilder<TResponse>, public _tagAreaInput: SmzTagAreaControl) {
     super(_groupBuilder, _tagAreaInput);
   }
 
@@ -1944,8 +1949,8 @@ export class SmzFormTagAreaBuilder<TResponse> extends SmzFormInputBuilder<SmzFor
 }
 
 export class SmzFormAutocompleteTagAreaBuilder<TResponse> extends SmzFormInputBuilder<SmzFormAutocompleteTagAreaBuilder<TResponse>, TResponse> {
-  protected that = this;
-  constructor(public _groupBuilder: SmzFormGroupBuilder<TResponse>, private _tagAreaInput: SmzAutocompleteTagAreaControl) {
+  protected override that = this;
+  constructor(public override _groupBuilder: SmzFormGroupBuilder<TResponse>, public _tagAreaInput: SmzAutocompleteTagAreaControl) {
     super(_groupBuilder, _tagAreaInput);
   }
 
@@ -1979,13 +1984,13 @@ export class SmzFormAutocompleteTagAreaBuilder<TResponse> extends SmzFormInputBu
     return new SmzFormAutocompleteTagAreaOptionBuilder<TResponse>(this, this._tagAreaInput, key);
   }
 
-  public get group(): SmzFormGroupBuilder<TResponse> {
+  public override get group(): SmzFormGroupBuilder<TResponse> {
     return this._groupBuilder;
   }
 }
 
 export class SmzFormAutocompleteTagAreaOptionBuilder<TResponse> extends SmzBuilderUtilities<SmzFormAutocompleteTagAreaOptionBuilder<TResponse>> {
-  protected that = this;
+  protected override that = this;
   private _option: SmzSmartAutocompleteTagOption;
   constructor(protected _parent: SmzFormAutocompleteTagAreaBuilder<TResponse>, private _tagAreaInput: SmzAutocompleteTagAreaControl, private key: string) {
     super();
@@ -2044,9 +2049,9 @@ export class SmzFormAutocompleteTagAreaOptionBuilder<TResponse> extends SmzBuild
 }
 
 export class SmzFormTreeBuilder<T, TResponse> extends SmzFormInputBuilder<SmzFormTreeBuilder<T, TResponse>, TResponse> {
-  protected that = this;
+  protected override that = this;
 
-  constructor(public _groupBuilder: SmzFormGroupBuilder<TResponse>, private _treeInput: SmzTreeControl<T>) {
+  constructor(public override _groupBuilder: SmzFormGroupBuilder<TResponse>, public _treeInput: SmzTreeControl<T>) {
     super(_groupBuilder, _treeInput);
 
     if (this._treeInput.options == null) {
@@ -2212,7 +2217,7 @@ export class SmzFormTreeBuilder<T, TResponse> extends SmzFormInputBuilder<SmzFor
     return new SmzTreeNodeUtilityBuilder<SmzFormTreeBuilder<T, TResponse>>(this, this._treeInput.options, null);
   }
 
-  public get group(): SmzFormGroupBuilder<TResponse> {
+  public override get group(): SmzFormGroupBuilder<TResponse> {
 
     if (this._treeInput.options?.length > 0) {
 

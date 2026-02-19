@@ -1,10 +1,16 @@
-<label *ngIf="input.hideLabel != true" class="smz__input_name" [innerHTML]="input.name"></label>
+<smz-label
+    class="smz__input_name"
+    [text]="input.name"
+    [propertyName]="input.propertyName"
+    [showLabel]="input.hideLabel != true"
+    [warning]="input.warning">
+</smz-label>
+
 <div class="input_inner__wrapper">
     <textarea
         pInputTextarea
         [rows]="input.textAreaRows != null ? input.textAreaRows : 5"
-        fxFlex="grow"
-        class="col-12 smz__input_value"
+        class="col-12 smz__input_value flex-1"
         [id]="input.propertyName"
         [formControl]="control">
     </textarea>

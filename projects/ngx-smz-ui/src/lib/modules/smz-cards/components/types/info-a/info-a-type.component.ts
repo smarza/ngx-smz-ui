@@ -4,9 +4,10 @@ import { SmzCardsView } from '../../../models/smz-cards-types';
 import { InfoATemplate } from '../../../models/smz-cards-templates';
 
 @Component({
-  selector: 'smz-info-a-type',
-  templateUrl: 'info-a-type.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'smz-info-a-type',
+    templateUrl: 'info-a-type.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 
 export class SmzInfoATypeComponent implements OnInit {

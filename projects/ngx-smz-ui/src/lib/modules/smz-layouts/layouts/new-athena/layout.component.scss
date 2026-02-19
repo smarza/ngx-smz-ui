@@ -1,7 +1,7 @@
-@import "./styles.scss";
+@use "./styles.scss";
 
 /* VARIÁVEIS GLOBAIS */
-@import "./styles/variables.scss";
+@use "./styles/variables.scss";
 
 .clear-overlay {
     background-color: unset;

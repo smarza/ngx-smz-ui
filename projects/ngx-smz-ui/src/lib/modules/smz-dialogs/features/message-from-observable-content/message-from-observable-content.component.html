@@ -1,2 +1,4 @@
-<div *ngIf="data | async as message" [innerHTML]="message | safeHtml">
-</div>
+@if (data | async; as message) {
+  <div [innerHTML]="message | safeHtml">
+  </div>
+}

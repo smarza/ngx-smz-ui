@@ -6,7 +6,7 @@ import { SmzFormsGlobalInjector } from '../../modules/smz-forms/services/smz-for
 import { SmzFormBuilder } from './form-builder';
 
 export class SmzFormUiDefinitionBuilder<TResponse> extends SmzBaseUiDefinitionBuilder<SmzFormUiDefinitionBuilder<TResponse>> {
-  protected that = this;
+  protected override that = this;
 
   constructor(public _formBuilder: SmzFormBuilder<TResponse>, private entityName: string) {
     super();

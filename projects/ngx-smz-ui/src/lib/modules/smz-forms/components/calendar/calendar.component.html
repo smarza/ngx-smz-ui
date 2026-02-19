@@ -1,29 +1,28 @@
-<div class="ui-g ui-fluid">
-    <div class="ui-g-12 grid-nogutter" [ngStyle]="{ padding: 0 }">
-        <label *ngIf="input.hideLabel != true" class="smz__input_name" [innerHTML]="input.name"></label>
-        <div class="input_inner__wrapper grid grid-nogutter">
-            <p-calendar
-                fxFlex="grow"
-                class="col-12 grid-nogutter smz__input_value"
-                [monthNavigator]="true"
-                [yearNavigator]="true"
-                [yearRange]="input.yearRange != null ? input.yearRange : '1930:2030'"
-                [dateFormat]="input.dateFormat != null ? input.dateFormat : 'dd/mm/yy'"
+<div class="input_inner__wrapper flex flex-col flex-auto p-0 gap-1">
+    <smz-label
+        class="smz__input_name"
+        [text]="input.name"
+        [propertyName]="input.propertyName"
+        [showLabel]="input.hideLabel != true"
+        [warning]="input.warning">
+    </smz-label>
+    <p-datepicker
+        class="w-full smz__input_value"
+        styleClass="w-full"
+        appendTo="body"
+        [dateFormat]="input.dateFormat != null ? input.dateFormat : 'dd/mm/yy'"
 
-                [touchUI]="input.touchUI != null ? input.touchUI : false"
-                [focusTrap]="input.focusTrap != null ? input.focusTrap : true"
-                [keepInvalid]="input.keepInvalid != null? input.keepInvalid : false"
-                [showButtonBar]="input.showButtonBar != null ? input.showButtonBar : false"
-                [showOnFocus]="input.showOnFocus != null ? input.showOnFocus : true"
-                [showIcon]="input.showIcon != null ? input.showIcon : false"
-                [timeOnly]="input.timeOnly"
-                [showTime]="input.showTime"
+        [touchUI]="input.touchUI != null ? input.touchUI : false"
+        [focusTrap]="input.focusTrap != null ? input.focusTrap : true"
+        [keepInvalid]="input.keepInvalid != null? input.keepInvalid : false"
+        [showButtonBar]="input.showButtonBar != null ? input.showButtonBar : false"
+        [showOnFocus]="input.showOnFocus != null ? input.showOnFocus : true"
+        [showIcon]="input.showIcon != null ? input.showIcon : false"
+        [timeOnly]="input.timeOnly"
+        [showTime]="input.showTime"
 
-                [id]="input.propertyName"
-                [formControl]="control"
-                appendTo="body">
-            </p-calendar>
-            <smz-validation-messages [input]="input" [control]="control" [behaviors]="behaviors"></smz-validation-messages>
-        </div>
-    </div>
+        [id]="input.propertyName"
+        [formControl]="control">
+    </p-datepicker>
+    <smz-validation-messages [input]="input" [control]="control" [behaviors]="behaviors"></smz-validation-messages>
 </div>

@@ -9,7 +9,7 @@ interface RbkApiErrorMessage { errors: string[] };
 
 export class CustomError {
     public messages: string[];
-    public redirectTo: string;
+    public redirectTo: string | null;
 
     public static getErrorMessages(error: RbkApiErrorMessageTypes): string[] {
 
@@ -71,7 +71,7 @@ export class CustomError {
         return error;
     }
 
-    public static fromSingleError(message: string, redirectTo: string = null): CustomError {
+    public static fromSingleError(message: string, redirectTo: string | null = null): CustomError {
         return { messages: [message], redirectTo };
     }
 
@@ -132,7 +132,7 @@ export class HttpErrorHandler {
     }
 
     private static isBlobError(err: any) {
-      return err instanceof HttpErrorResponse && err.error instanceof Blob && err.error.type === 'application/json';
+      return err instanceof HttpErrorResponse && err.error instanceof Blob && err.error?.type?.includes('application/json') === true;
     }
 
     private static async parseBlob(err: HttpErrorResponse): Promise<HttpErrorResponse> {
@@ -146,7 +146,7 @@ export class HttpErrorHandler {
                     headers: err.headers,
                     status: err.status,
                     statusText: err.statusText,
-                    url: err.url
+                    url: err.url ?? undefined
                 }));
             } catch (e) {
                 reject(err);

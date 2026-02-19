@@ -3,7 +3,7 @@ import { SmzTimelineBuilder } from './state-builder';
 import { SmzTimelineMarker, SmzTimelineView } from '../../modules/smz-timeline/models/smz-timeline-state';
 
 export class SmzTimelineViewBuilder extends SmzBuilderUtilities<SmzTimelineViewBuilder> {
-  protected that = this;
+  protected override that = this;
   private _styles = {
     timeline: '',
     event: ''
@@ -53,7 +53,7 @@ export class SmzTimelineViewBuilder extends SmzBuilderUtilities<SmzTimelineViewB
 }
 
 export class SmzTimelineMarkerBuilder extends SmzBuilderUtilities<SmzTimelineMarkerBuilder> {
-  protected that = this;
+  protected override that = this;
   constructor(private _builder: SmzTimelineBuilder<any>, private _markerData: SmzTimelineMarker) {
     super();
   }

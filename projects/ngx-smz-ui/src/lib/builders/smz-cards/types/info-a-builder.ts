@@ -6,7 +6,7 @@ import { SmzCardsBaseTemplateBuilder } from './base-card-type.builder';
 
 export class SmzCardsInfoABuilder<TData, TBuilder> extends SmzCardsBaseTemplateBuilder<TData, TBuilder, SmzCardsInfoABuilder<TData, TBuilder>> {
   private _bulletStyleClass: string;
-  constructor(protected _builder: TBuilder, protected _parent: SmzCardsTemplateBuilder<TData, TBuilder>, protected _template: InfoATemplate<TData>) {
+  constructor(protected override _builder: TBuilder, protected override _parent: SmzCardsTemplateBuilder<TData, TBuilder>, protected override _template: InfoATemplate<TData>) {
     super(_builder, _parent, _template);
 
     _template.type = SmzCardsTemplate.INFO_A;
@@ -71,7 +71,7 @@ export class SmzCardsInfoABuilder<TData, TBuilder> extends SmzCardsBaseTemplateB
     return new SmzCardsTextBuilder<TData, TBuilder, SmzCardsInfoABuilder<TData, TBuilder>>(this._builder, this, info.content, dataPath);
   }
 
-  public get template(): SmzCardsTemplateBuilder<TData, TBuilder> {
+  public override get template(): SmzCardsTemplateBuilder<TData, TBuilder> {
 
     if (this._bulletStyleClass != null) {
       if (this._template.infos.length === 0) {

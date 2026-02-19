@@ -7,7 +7,7 @@ import { SmzCardsComponentBuilder, SmzCardsImageBuilder } from '../column-builde
 import { SmzCardsTemplateBuilder } from '../template-builder';
 
 export class SmzCardsFlipCardBuilder<TData, TBuilder> extends SmzBuilderUtilities<SmzCardsFlipCardBuilder<TData, TBuilder>> {
-  protected that = this;
+  protected override that = this;
 
   constructor(protected _builder: TBuilder, protected _parent: SmzCardsTemplateBuilder<TData, TBuilder>, protected _template: FlipCardTemplate<TData>) {
     super();
@@ -131,7 +131,7 @@ export class SmzCardsFlipCardBuilder<TData, TBuilder> extends SmzBuilderUtilitie
 }
 
 export class SmzCardsFlipCardSideBuilder<TData, TBuilder> extends SmzBuilderUtilities<SmzCardsFlipCardSideBuilder<TData, TBuilder>> {
-  protected that = this;
+  protected override that = this;
   constructor(private _builder: TBuilder, private _templateBuilder: SmzCardsFlipCardBuilder<TData, TBuilder>, private _side: SmzFlipCardSide<TData>) {
     super();
   }

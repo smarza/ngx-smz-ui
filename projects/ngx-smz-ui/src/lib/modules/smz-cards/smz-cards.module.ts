@@ -5,7 +5,6 @@ import { DataViewModule } from 'primeng/dataview';
 import { SmzCardsComponent } from './features/smz-cards/smz-cards.component';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-import { DropdownModule } from 'primeng/dropdown';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { SmzGridItemComponent } from './components/grid-item/grid-item.component';
 import { SmzListItemComponent } from './components/list-item/list-item.component';
@@ -30,7 +29,9 @@ import { SmzFlipCardTypeComponent } from './components/types/flip-card/flip-card
 import { ClickStopPropagationModule } from '../../common/stop-click-propagation/click-stop-propagation.module';
 import { SmzCardsResetContextPipe } from './pipes/reset-context.pipe';
 import { NgVarModule } from '../../common/directives/ng-var/ng-var.module';
-
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
+import { SelectModule } from 'primeng/select';
 @NgModule({
   imports: [
     CommonModule,
@@ -38,7 +39,7 @@ import { NgVarModule } from '../../common/directives/ng-var/ng-var.module';
     DataViewModule,
     ButtonModule,
     InputTextModule,
-    DropdownModule,
+    SelectModule,
     FormsModule,
     MultiSelectModule,
     NgxSmzServerImageModule,
@@ -47,7 +48,9 @@ import { NgVarModule } from '../../common/directives/ng-var/ng-var.module';
     SafeContentPipeModule,
     NgxSmzDataPipesModule,
     ClickStopPropagationModule,
-    NgVarModule
+    NgVarModule,
+    IconFieldModule,
+    InputIconModule
   ],
   exports: [SmzCardsComponent, SmzGridItemComponent, SharedModule],
   declarations: [

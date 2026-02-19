@@ -2,12 +2,12 @@ import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component
 import { PrimeTemplate, FilterMetadata } from 'primeng/api';
 import { SmzContentType, SmzExportableContentType } from '../../models/content-types';
 import { SmzFilterType } from '../../models/filter-types';
-import { SmzTableState, SmzTableContext, SmzTableViewportState, SmzTableViewportStateData } from '../../models/table-state';
+import { SmzTableState, SmzTableContext, SmzTableViewportStateData } from '../../models/table-state';
 import { SmzTableColumn } from '../../models/table-column';
 import { SmzEditableType } from '../../models/editable-types';
 import { TableEditableService } from '../../services/table-editable.service';
 import { TableFormsService } from '../../services/table-forms.service';
-import { Table } from '../../../prime/table/table';
+// import { Table } from '../../../prime/table/table';
 import { shorten, uuidv4 } from '../../../../common/utils/utils';
 import { TableHelperService } from '../../services/table-helper.service';
 import { SmzExportableColumn, SmzExportDialogData } from '../../../smz-export-dialog/smz-export-dialog.model';
@@ -23,18 +23,20 @@ import { ObjectUtils } from 'primeng/utils';
 import { isBoolean } from 'lodash-es';
 import { ApplicationActions } from '../../../../state/global/application/application.actions';
 import { GlobalInjector } from '../../../../common/services/global-injector';
+import { Table } from 'primeng/table';
 
 @Component({
-  selector: 'smz-ui-table',
-  templateUrl: './table.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [TableEditableService, TableFormsService]
+    selector: 'smz-ui-table',
+    templateUrl: './table.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [TableEditableService, TableFormsService],
+    standalone: false
 })
 export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentInit, OnChanges, OnDestroy {
   public uiConfig = GlobalInjector.config;
   public tableKey = uuidv4();
   @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate>;
-  @ViewChild('dt') public table: Table;
+  @ViewChild('dt') public table: Table<any>;
   @ViewChild('columnMultiselect') public columnMultiselect: any;
   @Input() public state: SmzTableState;
   @Input() public items: any[] = [];
@@ -204,7 +206,6 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
 
     this.isViewInit = true;
     this.cdr.markForCheck();
-
   }
 
   public extractViewportStateData(): SmzTableViewportStateData {
@@ -277,9 +278,9 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
 
   public ngOnChanges(changes: SimpleChanges): void {
 
-    if (changes.state != null) {
+    if (changes['state'] != null) {
 
-      const newState: SmzTableState = changes.state.currentValue;
+      const newState: SmzTableState = changes['state'].currentValue;
 
       if (newState != null) {
 
@@ -302,7 +303,7 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
       this.cdr.markForCheck();
     }
 
-    if (changes.items != null) {
+    if (changes['items'] != null) {
 
       setTimeout(() => {
         if (this.table != null && this.table.onPageChange != null) {

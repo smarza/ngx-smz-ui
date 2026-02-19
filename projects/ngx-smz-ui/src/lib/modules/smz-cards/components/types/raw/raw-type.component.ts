@@ -4,9 +4,10 @@ import { RawTemplate } from '../../../models/smz-cards-templates';
 import { SmzCardsView } from '../../../models/smz-cards-types';
 
 @Component({
-  selector: 'smz-raw-type',
-  templateUrl: 'raw-type.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'smz-raw-type',
+    templateUrl: 'raw-type.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 
 export class SmzRawTypeComponent implements OnInit {
