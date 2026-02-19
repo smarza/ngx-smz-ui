@@ -541,6 +541,7 @@ function convertBaseControl(config: InputConfig): SmzFormsBaseControl {
     name: config.required ? config.name + ' *' : config.name,
     propertyName: config.propertyName,
     isVisible: config.isVisible,
+    forceIncludeInResponse: !config.isVisible, // All hidden fields in UI definitions are forced to be included in the response
     advancedSettings: {
       excludeFromResponse: config.excludeFromResponse,
     },
@@ -558,6 +559,7 @@ function convertBaseParentControl(parentConfig: InputConfig, childConfig: InputC
     name: childConfig.required ? parentConfig.name + ' *' : parentConfig.name,
     propertyName: parentConfig.propertyName,
     isVisible: childConfig.isVisible,
+    forceIncludeInResponse: !childConfig.isVisible, // All hidden fields in UI definitions are forced to be included in the response
     advancedSettings: {
       excludeFromResponse: childConfig.excludeFromResponse,
     },

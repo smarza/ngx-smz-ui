@@ -68,6 +68,11 @@ e este projeto adere ao [Versionamento Semântico](https://semver.org).
 - Atualização das dependências peer para suportar Angular >=19.2.0 <21.0.0.
 
 [19.4.2] - 2025-01-15
+[17.3.3] - 2025-10-31
+
+- Exposição do componente de arvore do prime (dt) a partir do nosso SmzTreeComponent
+
+[17.3.2] - 2025-01-27
 
 ### Corrigido
 - Correção do comportamento de submit automático em formulários quando o usuário pressiona Enter em campos de texto.
@@ -161,6 +166,10 @@ Foi corrigido o problema onde o editar perfil não funcionava para aplicações 
 - Remoção de estilos não utilizados do angular.json.
 - Refatoração dos componentes de mensagem em smz-dialogs e smz-forms para usar p-message.
 - Aprimoramento da configuração do tailwind com novas cores de tema e gradientes de fundo.
+[17.3.1] - 2025-07-24
+
+
+Update version to 17.3.1 and enhance dialog input conversion logic to include hidden fields in response. Added 'forceIncludeInResponse' property to control models and adjusted visibility checks in form view data processing.
 
 [17.3.0] - 2025-03-17
 
