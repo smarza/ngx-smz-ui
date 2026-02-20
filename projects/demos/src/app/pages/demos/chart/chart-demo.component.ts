@@ -28,9 +28,8 @@ export class ChartDemoComponent implements OnInit {
       this.chartCache.set(useCase.id, charts);
     });
 
-    this.toc.setItems(
-      this.useCases.map((u) => ({ id: u.id, label: u.title })),
-    );
+    const tocItems = this.useCases.map((u) => ({ id: u.id, label: u.title }));
+    this.toc.setItems(tocItems);
 
     this.destroyRef.onDestroy(() => this.toc.clear());
   }
@@ -44,22 +43,38 @@ export class ChartDemoComponent implements OnInit {
       return [];
     }
 
-    const hasModel = typeof result === 'object' && 'model' in result;
+    const isModelShape =
+      typeof result === 'object' && 'model' in result;
 
-    if (!hasModel) {
-      const c = result as any;
-      return c.type ? [{ type: c.type, data: c.data, config: c.config ?? c.options ?? {} }] : [];
+    if (!isModelShape) {
+      return this.normalizeSingleChart(result);
     }
 
+    return this.normalizeModelResult(result as { model?: any; cSharp?: any });
+  }
+
+  private normalizeSingleChart(raw: any): ChartItem[] {
+    const hasType = raw?.type != null;
+
+    if (!hasType) {
+      return [];
+    }
+
+    const config = raw.config ?? raw.options ?? {};
+    return [{ type: raw.type, data: raw.data, config }];
+  }
+
+  private normalizeModelResult(r: { model?: any; cSharp?: any }): ChartItem[] {
     const out: ChartItem[] = [];
-    const r = result as { model?: any; cSharp?: any };
 
     if (r.model?.type) {
-      out.push({ type: r.model.type, data: r.model.data, config: r.model.config ?? {} });
+      const config = r.model.config ?? {};
+      out.push({ type: r.model.type, data: r.model.data, config });
     }
 
     if (r.cSharp?.type) {
-      out.push({ type: r.cSharp.type, data: r.cSharp.data, config: r.cSharp.config ?? {} });
+      const config = r.cSharp.config ?? {};
+      out.push({ type: r.cSharp.type, data: r.cSharp.data, config });
     }
 
     return out;
