@@ -41,7 +41,24 @@
     <aside class="demos-sidebar demos-sidebar--right">
       <div class="demos-toc">
         <h3 class="demos-toc__title">On this page</h3>
-        <p class="demos-toc__placeholder">Os títulos da página aparecerão aqui.</p>
+        @if (toc.items().length > 0) {
+          <nav class="demos-toc__nav" aria-label="On this page">
+            <ul class="demos-toc__list">
+              @for (item of toc.items(); track item.id) {
+                <li class="demos-toc__item">
+                  <a
+                    [routerLink]="currentPath"
+                    [fragment]="item.id"
+                    class="demos-toc__link"
+                    [class.demos-toc__link--active]="item.id === toc.activeId()"
+                  >{{ item.label }}</a>
+                </li>
+              }
+            </ul>
+          </nav>
+        } @else {
+          <p class="demos-toc__placeholder">Os títulos da página aparecerão aqui.</p>
+        }
       </div>
     </aside>
   </div>

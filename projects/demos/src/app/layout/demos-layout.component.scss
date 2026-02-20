@@ -1,4 +1,5 @@
 .demos-layout {
+  --demos-header-height: 4rem;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -70,6 +71,10 @@
 
 .demos-sidebar {
   flex-shrink: 0;
+  align-self: flex-start;
+  position: sticky;
+  top: var(--demos-header-height, 4rem);
+  max-height: calc(100vh - var(--demos-header-height, 4rem));
   overflow-y: auto;
   border-right: 1px solid var(--demos-border, #e2e8f0);
 }
@@ -135,6 +140,12 @@
   min-width: 0;
   padding: 2rem 2.5rem;
   overflow-y: auto;
+  scroll-behavior: smooth;
+
+  /* TOC targets ficam visíveis abaixo do header ao navegar por âncora */
+  [id] {
+    scroll-margin-top: var(--demos-header-height, 4rem);
+  }
 }
 
 .demos-toc__title {
@@ -144,6 +155,46 @@
   letter-spacing: 0.05em;
   color: var(--demos-muted, #64748b);
   margin-bottom: 0.75rem;
+}
+
+.demos-toc__nav {
+  margin: 0;
+}
+
+.demos-toc__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.demos-toc__item {
+  margin: 0;
+}
+
+.demos-toc__link {
+  display: block;
+  padding: 0.25rem 0;
+  font-size: 0.8125rem;
+  color: var(--demos-text, #0f172a);
+  text-decoration: none;
+  border-left: 2px solid transparent;
+  padding-left: 0.5rem;
+  margin-left: 0;
+}
+
+.demos-toc__link:hover {
+  color: #0284c7;
+}
+
+.demos-toc__link--active {
+  border-left-color: #0ea5e9;
+  color: #0284c7;
+  font-weight: 500;
+}
+
+.demos-toc__link:focus-visible {
+  outline: 2px solid #0ea5e9;
+  outline-offset: 2px;
 }
 
 .demos-toc__placeholder {

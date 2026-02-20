@@ -7,6 +7,12 @@
   --demos-border: #e2e8f0;
   --demos-hover: #f1f5f9;
   --demos-input-bg: #f1f5f9;
+  --demos-header-height: 4rem;
+}
+
+/* TOC: âncoras ficam visíveis abaixo do header ao clicar nos links "On this page" */
+.demos-main [id] {
+  scroll-margin-top: var(--demos-header-height);
 }
 
 *,

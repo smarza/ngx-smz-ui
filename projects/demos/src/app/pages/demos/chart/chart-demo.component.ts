@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { SmzChartModule } from '@ngx-smz/core';
 import { CHART_USE_CASES, ChartUseCase } from './chart-use-cases';
 import { DemoCodeBlockComponent } from '../../../components/demo-code-block/demo-code-block.component';
+import { DemosTocService } from '../../../layout/demos-toc.service';
 
 type ChartItem = { type: string; data: any; config: any };
 
@@ -15,6 +16,9 @@ type ChartItem = { type: string; data: any; config: any };
 export class ChartDemoComponent implements OnInit {
   readonly useCases = CHART_USE_CASES;
 
+  private readonly toc = inject(DemosTocService);
+  private readonly destroyRef = inject(DestroyRef);
+
   /** Cache: resultado de cada getConfig() chamado uma única vez (como no overview ao selecionar o nó). */
   private chartCache = new Map<string, ChartItem[]>();
 
@@ -23,6 +27,12 @@ export class ChartDemoComponent implements OnInit {
       const charts = this.normalizeResult(useCase.getConfig());
       this.chartCache.set(useCase.id, charts);
     });
+
+    this.toc.setItems(
+      this.useCases.map((u) => ({ id: u.id, label: u.title })),
+    );
+
+    this.destroyRef.onDestroy(() => this.toc.clear());
   }
 
   getCharts(useCase: ChartUseCase): ChartItem[] {
