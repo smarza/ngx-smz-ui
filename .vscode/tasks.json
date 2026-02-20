@@ -2,105 +2,111 @@
   // For more information, visit: https://go.microsoft.com/fwlink/?LinkId=733558
   "version": "2.0.0",
   "tasks": [
-		{
-			"label": "Run: Cronos 4292",
-			"dependsOrder": "sequence",
-			"dependsOn":["Build smz-ui", "Build smz-ui-layout", "Start: Cronos 4292"]
-		},
-		{
-			"label": "Start: Cronos 4292",
-			"type": "npm",
-			"script": "serve:cronos",
-			"group": "none",
-			"isBackground": true,
-			"options": {
-				"statusbar": {
-					"hide" : true
-				}
-			},
-			"presentation": {
-				"group": "groupA",
-				"reveal": "always",
-				"panel": "new"
-    	},
-		},
-		{
-			"label": "Build smz-ui",
-			"type": "npm",
-			"script": "build-watch:smz-ui",
-			"group": "build",
-			"isBackground": true,
-			"options": {
-				"statusbar": {
-					"hide" : true
-				}
-			},
-			"problemMatcher": {
-				"owner": "typescript",
-				"source": "ts",
-				"pattern":   {
-					"regexp": "^\\s*(?:ERROR in )?([^\\s].*)[\\(:](\\d+)[,:](\\d+)(?:\\):\\s+|\\s+-\\s+)(error|warning|info)\\s+TS(\\d+)\\s*:\\s*(.*)$",
-					"file": 1,
-					"line": 2,
-					"column": 3,
-					"severity": 4,
-					"code": 5,
-					"message": 6
-				},
-				"background": {
-					"activeOnStart": true,
-					"beginsPattern": {
-						"regexp": "Compiling\\.\\.\\.$"
-					},
-					"endsPattern": {
-						"regexp": "Compilation complete.*"
-					}
-				}
-			},
-			"presentation": {
-				"group": "groupA",
-				"reveal": "always",
-				"panel": "new"
-    	}
-		},
-		{
-			"label": "Build smz-ui-layout",
-			"type": "npm",
-			"script": "build-watch:smz-ui-layout",
-			"group": "build",
-			"isBackground": true,
-			"options": {
-				"statusbar": {
-					"hide" : true
-				}
-			},
-			"problemMatcher": {
-				"owner": "typescript",
-				"source": "ts",
-				"pattern":   {
-					"regexp": "^\\s*(?:ERROR in )?([^\\s].*)[\\(:](\\d+)[,:](\\d+)(?:\\):\\s+|\\s+-\\s+)(error|warning|info)\\s+TS(\\d+)\\s*:\\s*(.*)$",
-					"file": 1,
-					"line": 2,
-					"column": 3,
-					"severity": 4,
-					"code": 5,
-					"message": 6
-				},
-				"background": {
-					"activeOnStart": true,
-					"beginsPattern": {
-						"regexp": "Compiling\\.\\.\\.$"
-					},
-					"endsPattern": {
-						"regexp": "Compilation complete.*"
-					}
-				}
-			},
-			"presentation": {
-				"group": "groupA",
-				"reveal": "always",
-				"panel": "new"
-    	}
-		},
+    {
+      "label": "Install dependencies",
+      "type": "npm",
+      "script": "install",
+      "group": "build"
+    },
+    {
+      "label": "Run Overview",
+      "dependsOrder": "sequence",
+      "dependsOn": ["Build smz-ui", "Build smz-ui-layout", "Start: Overview"]
+    },
+    {
+      "label": "Start: Overview",
+      "type": "npm",
+      "script": "start:overview",
+      "group": "none",
+      "isBackground": true,
+      "options": {
+        "statusbar": {
+          "hide": true
+        }
+      },
+      "presentation": {
+        "group": "groupA",
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "Build smz-ui",
+      "type": "npm",
+      "script": "build-watch:smz-ui",
+      "group": "build",
+      "isBackground": true,
+      "options": {
+        "statusbar": {
+          "hide": true
+        }
+      },
+      "problemMatcher": {
+        "owner": "typescript",
+        "source": "ts",
+        "pattern": {
+          "regexp": "^\\s*(?:ERROR in )?([^\\s].*)[\\(:](\\d+)[,:](\\d+)(?:\\):\\s+|\\s+-\\s+)(error|warning|info)\\s+TS(\\d+)\\s*:\\s*(.*)$",
+          "file": 1,
+          "line": 2,
+          "column": 3,
+          "severity": 4,
+          "code": 5,
+          "message": 6
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": {
+            "regexp": "Compiling\\.\\.\\.$"
+          },
+          "endsPattern": {
+            "regexp": "Compilation complete.*"
+          }
+        }
+      },
+      "presentation": {
+        "group": "groupA",
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "Build smz-ui-layout",
+      "type": "npm",
+      "script": "build-watch:smz-ui-layout",
+      "group": "build",
+      "isBackground": true,
+      "options": {
+        "statusbar": {
+          "hide": true
+        }
+      },
+      "problemMatcher": {
+        "owner": "typescript",
+        "source": "ts",
+        "pattern": {
+          "regexp": "^\\s*(?:ERROR in )?([^\\s].*)[\\(:](\\d+)[,:](\\d+)(?:\\):\\s+|\\s+-\\s+)(error|warning|info)\\s+TS(\\d+)\\s*:\\s*(.*)$",
+          "file": 1,
+          "line": 2,
+          "column": 3,
+          "severity": 4,
+          "code": 5,
+          "message": 6
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": {
+            "regexp": "Compiling\\.\\.\\.$"
+          },
+          "endsPattern": {
+            "regexp": "Compilation complete.*"
+          }
+        }
+      },
+      "presentation": {
+        "group": "groupA",
+        "reveal": "always",
+        "panel": "new"
+      }
+    }
   ]
 }

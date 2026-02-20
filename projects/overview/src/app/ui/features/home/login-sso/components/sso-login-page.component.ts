@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngxs/store';
 import { AuthenticationActions, GlobalInjector, NgxSmzFormsModule, SimpleEntity, SmzFormBuilder, SmzLoginBuilder, SmzLoginModule, SmzLoginState, SmzTextPattern, TenantsSelectors, getFirst, nameof } from '@ngx-smz/core';
-
 import { SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { NavigateToExternalSsoUrl } from '../sso-redirect-function';
@@ -10,7 +9,7 @@ import { SsoSessionLoginPayload, UsernameLoginPayload } from '../sso-login-paylo
 import { SsoAuthActions } from '../states/sso-auth.actions';
 import { Location } from '@angular/common';
 import { SsoLoginEnviroment, ssoEnvironment } from '../sso.environment';
-import { environment } from '@environments/environment';
+import { environment } from '../../../../../../environments/environment';
 
 interface SsoSessionLoginData {
   tenant?: SimpleEntity<string>;

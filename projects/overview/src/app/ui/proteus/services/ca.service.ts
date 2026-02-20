@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { environment } from '@environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { BaseApiService } from '@ngx-smz/core';
@@ -9,6 +8,7 @@ import { GetEmployeeDetails } from '../models/get-employee-details';
 import { CADetails } from '../models/cadetails';
 import { UpdateEmployee } from '../models/update-employee';
 import { UserDetails } from '../models/user-details';
+import { environment } from '../../../../environments/environment';
 
 
 @Injectable({ providedIn: 'root' })

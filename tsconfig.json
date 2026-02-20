@@ -20,16 +20,6 @@
     "paths": {
       "@ngx-smz/core": ["./dist/ngx-smz-ui"],
       "@ngx-smz/layout": ["./dist/ngx-smz-ui-layout"],
-      "@components/*": ["./projects/cronos/src/app/ui/components/*"],
-      "@environments/*": ["./projects/cronos/src/environments/*"],
-      "@features/*": ["./projects/cronos/src/app/ui/features/*"],
-      "@models/*": ["./projects/cronos/src/app/auto-generated/models/*", "./projects/cronos/src/app/models/*"],
-      "@services/*": ["./projects/cronos/src/app/auto-generated/services/*", "./projects/cronos/src/app/services/*"],
-      "@state/*": ["./projects/cronos/src/app/auto-generated/state/*", "./projects/cronos/src/app/state/*"],
-      "@pages/*": ["./projects/cronos/src/app/ui/pages/*"],
-      "@pipes/*": ["./projects/cronos/src/app/ui/pipes/*"],
-      "@routes": ["./projects/cronos/src/routes"],
-      "@utils/*": ["./projects/cronos/src/app/utils/*"],
     },
   },
   "angularCompilerOptions": {

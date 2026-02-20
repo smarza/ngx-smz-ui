@@ -5,11 +5,11 @@ import { routes } from './app.routes';
 import ptBr from '@angular/common/locales/pt';
 import moment from 'moment';
 import { registerLocaleData } from '@angular/common';
-import { NewAthenaProviderModule, NgxSmzUiModule, buildState } from '@ngx-smz/core';
+import { NewAthenaProviderModule, NgxSmzUiModule, buildState, provideSmzEnvironment } from '@ngx-smz/core';
 import { UiBuilder } from '../globals/smz-ui-config-builder';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
-import { environment } from '@environments/environment';
+import { environment } from '../environments/environment';
 import { smzAthenaConfig } from '../globals/smz-layouts.config';
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { providePrimeNG } from 'primeng/config';
@@ -23,7 +23,12 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideAnimationsAsync(),
+    provideSmzEnvironment({
+      serverUrl: environment.serverUrl,
+      authenticationApi: environment.authenticationApi,
+      baseHref: environment.baseHref,
+      production: environment.production
+    }),
     providePrimeNG({
       theme: {
         preset: Aura,
