@@ -18,12 +18,12 @@ export interface ChartUseCase {
   snippet: string;
 }
 
-function fromModel() {
+function buildConfigFromModel() {
   return { model: VERTICAL_BAR_MODEL, cSharp: null };
 }
 
-function barChart() {
-  const data: NeutralDatePoint[] = [
+function buildBarChartConfig() {
+  const datePointData: NeutralDatePoint[] = [
     new NeutralDatePoint('Data 1', new Date(2021, 1, 1), 12, null),
     new NeutralDatePoint('Data 1', new Date(2021, 2, 1), 19, null),
     new NeutralDatePoint('Data 1', new Date(2021, 3, 1), 3, null),
@@ -31,11 +31,15 @@ function barChart() {
     new NeutralDatePoint('Data 1', new Date(2021, 5, 1), 2, null),
     new NeutralDatePoint('Data 1', new Date(2021, 6, 1), 3, null),
   ];
-  return CreateLinearChart<NeutralDatePoint>(data)
+  return CreateLinearChart<NeutralDatePoint>(datePointData)
     .prepareLinearDateData(GroupingType.Monthly)
-    .seriesFrom((x) => x.serieId)
-    .dateFrom((x) => x.date)
-    .valueFrom((x) => x.map((i) => i.value).reduce((a, b) => a + b, 0))
+    .seriesFrom((point) => point.serieId)
+    .dateFrom((point) => point.date)
+    .valueFrom((groupedPoints) =>
+      groupedPoints
+        .map((point) => point.value)
+        .reduce((accumulatedSum, currentValue) => accumulatedSum + currentValue, 0)
+    )
     .chart.ofType(ChartType.Bar)
     .withTooltips()
     .chart.withTitle('# of Votes')
@@ -48,8 +52,8 @@ function barChart() {
     .chart.build(true);
 }
 
-function lineBarChart() {
-  const durationData: NeutralDatePoint[] = [
+function buildLineChartConfig() {
+  const datePointData: NeutralDatePoint[] = [
     new NeutralDatePoint('Dataset 1', new Date(2021, 1, 1), 25, null),
     new NeutralDatePoint('Dataset 1', new Date(2021, 2, 1), 10, null),
     new NeutralDatePoint('Dataset 1', new Date(2021, 3, 1), 15, null),
@@ -63,11 +67,15 @@ function lineBarChart() {
     new NeutralDatePoint('Dataset 2', new Date(2021, 5, 1), 30, null),
     new NeutralDatePoint('Dataset 2', new Date(2021, 6, 1), 60, null),
   ];
-  return CreateLinearChart<NeutralDatePoint>(durationData)
+  return CreateLinearChart<NeutralDatePoint>(datePointData)
     .prepareLinearDateData(GroupingType.Monthly)
-    .seriesFrom((x) => x.serieId)
-    .dateFrom((x) => x.date)
-    .valueFrom((x) => x.map((i) => i.value).reduce((a, b) => a + b, 0))
+    .seriesFrom((point) => point.serieId)
+    .dateFrom((point) => point.date)
+    .valueFrom((groupedPoints) =>
+      groupedPoints
+        .map((point) => point.value)
+        .reduce((accumulatedSum, currentValue) => accumulatedSum + currentValue, 0)
+    )
     .chart.ofType(ChartType.Line)
     .withTitle('Line Chart')
     .chart.withTooltips()
@@ -84,8 +92,8 @@ function lineBarChart() {
     .chart.build(true);
 }
 
-function comboChart() {
-  const durationData: NeutralDatePoint[] = [
+function buildComboChartConfig() {
+  const datePointData: NeutralDatePoint[] = [
     new NeutralDatePoint('Dataset 2', new Date(2021, 1, 1), 7, null),
     new NeutralDatePoint('Dataset 2', new Date(2021, 2, 1), 45, null),
     new NeutralDatePoint('Dataset 2', new Date(2021, 3, 1), 55, null),
@@ -99,11 +107,15 @@ function comboChart() {
     new NeutralDatePoint('Dataset 1', new Date(2021, 5, 1), 75, null),
     new NeutralDatePoint('Dataset 1', new Date(2021, 6, 1), 45, null),
   ];
-  return CreateLinearChart<NeutralDatePoint>(durationData)
+  return CreateLinearChart<NeutralDatePoint>(datePointData)
     .prepareLinearDateData(GroupingType.Monthly)
-    .seriesFrom((x) => x.serieId)
-    .dateFrom((x) => x.date)
-    .valueFrom((x) => x.map((i) => i.value).reduce((a, b) => a + b, 0))
+    .seriesFrom((point) => point.serieId)
+    .dateFrom((point) => point.date)
+    .valueFrom((groupedPoints) =>
+      groupedPoints
+        .map((point) => point.value)
+        .reduce((accumulatedSum, currentValue) => accumulatedSum + currentValue, 0)
+    )
     .chart.ofType(ChartType.Mixed)
     .withTitle('Chart.js Combined Line/Bar Chart')
     .chart.withTooltips()
@@ -122,8 +134,8 @@ function comboChart() {
     .chart.build(true);
 }
 
-function verticalBarChart() {
-  const durationData: NeutralDatePoint[] = [
+function buildVerticalBarChartConfig() {
+  const datePointData: NeutralDatePoint[] = [
     new NeutralDatePoint('Data 1', new Date(2021, 1, 1), 5, null),
     new NeutralDatePoint('Data 1', new Date(2021, 2, 1), 10, null),
     new NeutralDatePoint('Data 1', new Date(2021, 3, 1), 15, null),
@@ -137,11 +149,15 @@ function verticalBarChart() {
     new NeutralDatePoint('Data 2', new Date(2021, 5, 1), 30, null),
     new NeutralDatePoint('Data 2', new Date(2021, 6, 1), 60, null),
   ];
-  return CreateLinearChart<NeutralDatePoint>(durationData)
+  return CreateLinearChart<NeutralDatePoint>(datePointData)
     .prepareLinearDateData(GroupingType.Monthly)
-    .seriesFrom((x) => x.serieId)
-    .dateFrom((x) => x.date)
-    .valueFrom((x) => x.map((i) => i.value).reduce((a, b) => a + b, 0))
+    .seriesFrom((point) => point.serieId)
+    .dateFrom((point) => point.date)
+    .valueFrom((groupedPoints) =>
+      groupedPoints
+        .map((point) => point.value)
+        .reduce((accumulatedSum, currentValue) => accumulatedSum + currentValue, 0)
+    )
     .chart.ofType(ChartType.Bar)
     .withTooltips()
     .chart.withLegend()
@@ -157,8 +173,8 @@ function verticalBarChart() {
     .chart.build(true);
 }
 
-function roundedBarChart() {
-  const durationData: NeutralDatePoint[] = [
+function buildRoundedBarChartConfig() {
+  const datePointData: NeutralDatePoint[] = [
     new NeutralDatePoint('Data 1', new Date(2021, 1, 1), 5, null),
     new NeutralDatePoint('Data 1', new Date(2021, 2, 1), 10, null),
     new NeutralDatePoint('Data 1', new Date(2021, 3, 1), 15, null),
@@ -172,11 +188,15 @@ function roundedBarChart() {
     new NeutralDatePoint('Data 2', new Date(2021, 5, 1), 30, null),
     new NeutralDatePoint('Data 2', new Date(2021, 6, 1), 60, null),
   ];
-  return CreateLinearChart<NeutralDatePoint>(durationData)
+  return CreateLinearChart<NeutralDatePoint>(datePointData)
     .prepareLinearDateData(GroupingType.Monthly)
-    .seriesFrom((x) => x.serieId)
-    .dateFrom((x) => x.date)
-    .valueFrom((x) => x.map((i) => i.value).reduce((a, b) => a + b, 0))
+    .seriesFrom((point) => point.serieId)
+    .dateFrom((point) => point.date)
+    .valueFrom((groupedPoints) =>
+      groupedPoints
+        .map((point) => point.value)
+        .reduce((accumulatedSum, currentValue) => accumulatedSum + currentValue, 0)
+    )
     .chart.ofType(ChartType.Bar)
     .withTooltips()
     .chart.withLegend()
@@ -194,8 +214,8 @@ function roundedBarChart() {
     .chart.build(true);
 }
 
-function stackedBarChart() {
-  const durationData: NeutralDatePoint[] = [
+function buildStackedBarChartConfig() {
+  const datePointData: NeutralDatePoint[] = [
     new NeutralDatePoint('Data 1', new Date(2021, 1, 1), 5, null),
     new NeutralDatePoint('Data 1', new Date(2021, 2, 1), 10, null),
     new NeutralDatePoint('Data 1', new Date(2021, 3, 1), 15, null),
@@ -215,11 +235,15 @@ function stackedBarChart() {
     new NeutralDatePoint('Data 3', new Date(2021, 5, 1), 30, null),
     new NeutralDatePoint('Data 3', new Date(2021, 6, 1), 10, null),
   ];
-  return CreateLinearChart<NeutralDatePoint>(durationData)
+  return CreateLinearChart<NeutralDatePoint>(datePointData)
     .prepareLinearDateData(GroupingType.Monthly)
-    .seriesFrom((x) => x.serieId)
-    .dateFrom((x) => x.date)
-    .valueFrom((x) => x.map((i) => i.value).reduce((a, b) => a + b, 0))
+    .seriesFrom((point) => point.serieId)
+    .dateFrom((point) => point.date)
+    .valueFrom((groupedPoints) =>
+      groupedPoints
+        .map((point) => point.value)
+        .reduce((accumulatedSum, currentValue) => accumulatedSum + currentValue, 0)
+    )
     .chart.ofType(ChartType.StackedBar)
     .withTitle('Bar Chart - Stacked')
     .chart.withTooltips()
@@ -237,15 +261,15 @@ function stackedBarChart() {
     .chart.build(true);
 }
 
-function doughnutChart() {
-  const data: NeutralCategoryPoint[] = [
+function buildDoughnutChartConfig() {
+  const categoryPointData: NeutralCategoryPoint[] = [
     new NeutralCategoryPoint('Red', 5, null),
     new NeutralCategoryPoint('Orange', 15, null),
     new NeutralCategoryPoint('Yellow', 5, null),
     new NeutralCategoryPoint('Green', 25, null),
     new NeutralCategoryPoint('Blue', 20, null),
   ];
-  return CreateRadialChart(data)
+  return CreateRadialChart(categoryPointData)
     .ofType(ChartType.Doughnut)
     .colors(['#4dc9f6', '#f67019', '#f53794', '#537bc4', '#acc236'])
     .withTooltips()
@@ -254,15 +278,15 @@ function doughnutChart() {
     .chart.build(true);
 }
 
-function pieChart() {
-  const data: NeutralCategoryPoint[] = [
+function buildPieChartConfig() {
+  const categoryPointData: NeutralCategoryPoint[] = [
     new NeutralCategoryPoint('Red', 5, null),
     new NeutralCategoryPoint('Orange', 15, null),
     new NeutralCategoryPoint('Yellow', 5, null),
     new NeutralCategoryPoint('Green', 25, null),
     new NeutralCategoryPoint('Blue', 20, null),
   ];
-  return CreateRadialChart(data)
+  return CreateRadialChart(categoryPointData)
     .ofType(ChartType.Pie)
     .colors(['#4dc9f6', '#f67019', '#f53794', '#537bc4', '#acc236'])
     .withTooltips()
@@ -271,15 +295,15 @@ function pieChart() {
     .chart.build(true);
 }
 
-function polarAreaChart() {
-  const data: NeutralCategoryPoint[] = [
+function buildPolarAreaChartConfig() {
+  const categoryPointData: NeutralCategoryPoint[] = [
     new NeutralCategoryPoint('Red', 5, null),
     new NeutralCategoryPoint('Orange', 15, null),
     new NeutralCategoryPoint('Yellow', 5, null),
     new NeutralCategoryPoint('Green', 25, null),
     new NeutralCategoryPoint('Blue', 20, null),
   ];
-  return CreateRadialChart(data)
+  return CreateRadialChart(categoryPointData)
     .ofType(ChartType.PolarArea)
     .colors(['#4dc9f6', '#f67019', '#f53794', '#537bc4', '#acc236'], '44')
     .withTooltips()
@@ -288,8 +312,8 @@ function polarAreaChart() {
     .chart.build(true);
 }
 
-function sprintsChart1() {
-  const durationData: SpeedSeries[] = [
+function buildSprintsChartWithMultipleSeriesConfig() {
+  const speedSeriesData: SpeedSeries[] = [
     new SpeedSeries('done', 'Sprint88', 50),
     new SpeedSeries('extra', 'Sprint88', 5),
     new SpeedSeries('done', 'Sprint89', 75),
@@ -299,11 +323,15 @@ function sprintsChart1() {
     new SpeedSeries('done', 'Sprint91', 95),
     new SpeedSeries('extra', 'Sprint91', 0),
   ];
-  return CreateLinearChart<SpeedSeries>(durationData)
+  return CreateLinearChart<SpeedSeries>(speedSeriesData)
     .prepareLinearCategoryData()
-    .seriesFrom((x) => x.serieId)
-    .categoryFrom((x) => x.sprintName)
-    .valueFrom((x) => x.map((i) => i.value).reduce((a, b) => a + b, 0))
+    .seriesFrom((point) => point.serieId)
+    .categoryFrom((point) => point.sprintName)
+    .valueFrom((groupedPoints) =>
+      groupedPoints
+        .map((point) => point.value)
+        .reduce((accumulatedSum, currentValue) => accumulatedSum + currentValue, 0)
+    )
     .chart.responsive()
     .ofType(ChartType.Bar)
     .theme([ColorPallete.Spring1])
@@ -311,8 +339,8 @@ function sprintsChart1() {
     .chart.build(true);
 }
 
-function sprintsChart2() {
-  const durationData: SpeedSeries[] = [
+function buildSprintsChartWithSingleSeriesConfig() {
+  const speedSeriesData: SpeedSeries[] = [
     new SpeedSeries('done', 'Sprint88', 50),
     new SpeedSeries('extra', 'Sprint88', 5),
     new SpeedSeries('done', 'Sprint89', 75),
@@ -322,11 +350,15 @@ function sprintsChart2() {
     new SpeedSeries('done', 'Sprint91', 95),
     new SpeedSeries('extra', 'Sprint91', 0),
   ];
-  return CreateLinearChart<SpeedSeries>(durationData)
+  return CreateLinearChart<SpeedSeries>(speedSeriesData)
     .prepareLinearCategoryData()
     .singleSerie()
-    .categoryFrom((x) => x.sprintName)
-    .valueFrom((x) => x.map((i) => i.value).reduce((a, b) => a + b, 0))
+    .categoryFrom((point) => point.sprintName)
+    .valueFrom((groupedPoints) =>
+      groupedPoints
+        .map((point) => point.value)
+        .reduce((accumulatedSum, currentValue) => accumulatedSum + currentValue, 0)
+    )
     .chart.responsive()
     .ofType(ChartType.Bar)
     .theme([ColorPallete.Spring1])
@@ -360,16 +392,66 @@ const SNIPPET_SPRINTS = `CreateLinearChart<SpeedSeries>(data).prepareLinearCateg
   .chart.responsive().ofType(ChartType.Bar).theme([ColorPallete.Spring1]).withLegend().chart.build(true);`;
 
 export const CHART_USE_CASES: ChartUseCase[] = [
-  { id: 'from-model', title: 'From model', getConfig: fromModel, snippet: SNIPPET_FROM_MODEL },
-  { id: 'bar', title: 'Bar', getConfig: barChart, snippet: SNIPPET_BAR },
-  { id: 'line', title: 'Line', getConfig: lineBarChart, snippet: SNIPPET_LINE },
-  { id: 'combo', title: 'Combo (Line + Bar)', getConfig: comboChart, snippet: SNIPPET_COMBO },
-  { id: 'vertical-bar', title: 'Vertical Bar', getConfig: verticalBarChart, snippet: SNIPPET_BAR },
-  { id: 'rounded-bar', title: 'Rounded Bar', getConfig: roundedBarChart, snippet: SNIPPET_BAR },
-  { id: 'stacked-bar', title: 'Stacked Bar', getConfig: stackedBarChart, snippet: SNIPPET_BAR },
-  { id: 'doughnut', title: 'Doughnut', getConfig: doughnutChart, snippet: SNIPPET_RADIAL },
-  { id: 'pie', title: 'Pie', getConfig: pieChart, snippet: SNIPPET_RADIAL },
-  { id: 'polar-area', title: 'Polar Area', getConfig: polarAreaChart, snippet: SNIPPET_RADIAL },
-  { id: 'sprints-1', title: 'Sprints (múltiplas séries)', getConfig: sprintsChart1, snippet: SNIPPET_SPRINTS },
-  { id: 'sprints-2', title: 'Sprints (série única)', getConfig: sprintsChart2, snippet: SNIPPET_SPRINTS },
+  {
+    id: 'from-model',
+    title: 'From model',
+    getConfig: buildConfigFromModel,
+    snippet: SNIPPET_FROM_MODEL,
+  },
+  { id: 'bar', title: 'Bar', getConfig: buildBarChartConfig, snippet: SNIPPET_BAR },
+  { id: 'line', title: 'Line', getConfig: buildLineChartConfig, snippet: SNIPPET_LINE },
+  {
+    id: 'combo',
+    title: 'Combo (Line + Bar)',
+    getConfig: buildComboChartConfig,
+    snippet: SNIPPET_COMBO,
+  },
+  {
+    id: 'vertical-bar',
+    title: 'Vertical Bar',
+    getConfig: buildVerticalBarChartConfig,
+    snippet: SNIPPET_BAR,
+  },
+  {
+    id: 'rounded-bar',
+    title: 'Rounded Bar',
+    getConfig: buildRoundedBarChartConfig,
+    snippet: SNIPPET_BAR,
+  },
+  {
+    id: 'stacked-bar',
+    title: 'Stacked Bar',
+    getConfig: buildStackedBarChartConfig,
+    snippet: SNIPPET_BAR,
+  },
+  {
+    id: 'doughnut',
+    title: 'Doughnut',
+    getConfig: buildDoughnutChartConfig,
+    snippet: SNIPPET_RADIAL,
+  },
+  {
+    id: 'pie',
+    title: 'Pie',
+    getConfig: buildPieChartConfig,
+    snippet: SNIPPET_RADIAL,
+  },
+  {
+    id: 'polar-area',
+    title: 'Polar Area',
+    getConfig: buildPolarAreaChartConfig,
+    snippet: SNIPPET_RADIAL,
+  },
+  {
+    id: 'sprints-1',
+    title: 'Sprints (múltiplas séries)',
+    getConfig: buildSprintsChartWithMultipleSeriesConfig,
+    snippet: SNIPPET_SPRINTS,
+  },
+  {
+    id: 'sprints-2',
+    title: 'Sprints (série única)',
+    getConfig: buildSprintsChartWithSingleSeriesConfig,
+    snippet: SNIPPET_SPRINTS,
+  },
 ];

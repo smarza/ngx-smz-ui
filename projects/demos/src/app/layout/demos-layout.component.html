@@ -1,22 +1,37 @@
 <div class="demos-layout">
   <header class="demos-header">
     <a routerLink="/" class="demos-header__brand">ngx-smz-ui</a>
+
     <div class="demos-header__search">
       <span class="demos-header__search-placeholder">Search (Ctrl+K)</span>
     </div>
+
     <div class="demos-header__actions">
-      <a href="https://github.com" target="_blank" rel="noopener" class="demos-header__icon" aria-label="GitHub">GH</a>
+      <a
+        href="https://github.com"
+        target="_blank"
+        rel="noopener"
+        class="demos-header__icon"
+        aria-label="GitHub"
+      >
+        GH
+      </a>
     </div>
   </header>
 
   <div class="demos-body">
     <aside class="demos-sidebar demos-sidebar--left">
       <nav class="demos-nav">
+
         @for (section of navSections; track section.id) {
+
           <div class="demos-nav__section">
             <h3 class="demos-nav__section-title">{{ section.label }}</h3>
+
             <ul class="demos-nav__list">
+
               @for (item of section.items; track item.path || item.label) {
+
                 <li>
                   <a
                     [routerLink]="item.path ? ['/', item.path] : ['/']"
@@ -41,22 +56,30 @@
     <aside class="demos-sidebar demos-sidebar--right">
       <div class="demos-toc">
         <h3 class="demos-toc__title">On this page</h3>
+
         @if (toc.items().length > 0) {
+
           <nav class="demos-toc__nav" aria-label="On this page">
             <ul class="demos-toc__list">
+
               @for (item of toc.items(); track item.id) {
+
                 <li class="demos-toc__item">
                   <a
                     [routerLink]="currentPath"
                     [fragment]="item.id"
                     class="demos-toc__link"
                     [class.demos-toc__link--active]="item.id === toc.activeId()"
-                  >{{ item.label }}</a>
+                  >
+                    {{ item.label }}
+                  </a>
                 </li>
               }
             </ul>
           </nav>
-        } @else {
+        }
+        @else {
+
           <p class="demos-toc__placeholder">Os títulos da página aparecerão aqui.</p>
         }
       </div>
