@@ -1,0 +1,73 @@
+/* Variáveis do tema (light only) */
+:root {
+  --demos-bg: #ffffff;
+  --demos-header-bg: #f8fafc;
+  --demos-text: #0f172a;
+  --demos-muted: #64748b;
+  --demos-border: #e2e8f0;
+  --demos-hover: #f1f5f9;
+  --demos-input-bg: #f1f5f9;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* Classes utilitárias para conteúdo das páginas de demo */
+.demos-page-title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+}
+
+.demos-page-lead {
+  font-size: 1.125rem;
+  color: var(--demos-muted);
+  margin: 0 0 1rem;
+}
+
+.demos-main h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 2rem 0 0.75rem;
+  padding-bottom: 0.25rem;
+}
+
+.demos-main h3 {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  margin: 1.5rem 0 0.5rem;
+}
+
+.demos-main p {
+  margin: 0 0 1rem;
+}
+
+.demos-main code {
+  font-size: 0.875em;
+  padding: 0.15em 0.4em;
+  border-radius: 0.25rem;
+  background: var(--demos-input-bg);
+}
+
+.demos-main pre {
+  margin: 1rem 0;
+  padding: 1rem;
+  border-radius: 0.375rem;
+  background: var(--demos-input-bg);
+  overflow-x: auto;
+}
+
+.demos-main pre code {
+  padding: 0;
+  background: none;
+}

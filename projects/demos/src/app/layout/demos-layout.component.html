@@ -1,0 +1,48 @@
+<div class="demos-layout">
+  <header class="demos-header">
+    <a routerLink="/" class="demos-header__brand">ngx-smz-ui</a>
+    <div class="demos-header__search">
+      <span class="demos-header__search-placeholder">Search (Ctrl+K)</span>
+    </div>
+    <div class="demos-header__actions">
+      <a href="https://github.com" target="_blank" rel="noopener" class="demos-header__icon" aria-label="GitHub">GH</a>
+    </div>
+  </header>
+
+  <div class="demos-body">
+    <aside class="demos-sidebar demos-sidebar--left">
+      <nav class="demos-nav">
+        @for (section of navSections; track section.id) {
+          <div class="demos-nav__section">
+            <h3 class="demos-nav__section-title">{{ section.label }}</h3>
+            <ul class="demos-nav__list">
+              @for (item of section.items; track item.path || item.label) {
+                <li>
+                  <a
+                    [routerLink]="item.path ? ['/', item.path] : ['/']"
+                    routerLinkActive="demos-nav__link--active"
+                    [routerLinkActiveOptions]="{ exact: item.path === '' }"
+                    class="demos-nav__link"
+                  >
+                    {{ item.label }}
+                  </a>
+                </li>
+              }
+            </ul>
+          </div>
+        }
+      </nav>
+    </aside>
+
+    <main class="demos-main">
+      <router-outlet />
+    </main>
+
+    <aside class="demos-sidebar demos-sidebar--right">
+      <div class="demos-toc">
+        <h3 class="demos-toc__title">On this page</h3>
+        <p class="demos-toc__placeholder">Os títulos da página aparecerão aqui.</p>
+      </div>
+    </aside>
+  </div>
+</div>
