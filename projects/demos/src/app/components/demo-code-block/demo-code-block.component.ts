@@ -1,10 +1,12 @@
-import { Component, Input, signal } from '@angular/core';
+import { Component, Input, signal, ViewEncapsulation } from '@angular/core';
 import { HighlightModule } from 'ngx-highlightjs';
 
 @Component({
   selector: 'app-demo-code-block',
   standalone: true,
   imports: [HighlightModule],
+  encapsulation: ViewEncapsulation.None,
+  host: { class: 'app-demo-code-block' },
   template: `
     <div class="demos-code-block-wrapper">
       <div class="demos-code-block-header">
@@ -26,21 +28,22 @@ import { HighlightModule } from 'ngx-highlightjs';
   `,
   styles: [
     `
-      .demos-code-block-wrapper {
+      .app-demo-code-block .demos-code-block-wrapper {
         position: relative;
         border-radius: 0.375rem;
         background: var(--demos-code-bg, #1e293b);
         overflow: hidden;
       }
 
-      .demos-code-block-header {
+      .app-demo-code-block .demos-code-block-header {
         display: flex;
         justify-content: flex-end;
         padding: 0.25rem 0.5rem;
         border-bottom: 1px solid var(--demos-code-border, #334155);
       }
 
-      .demos-code-block-copy {
+      .app-demo-code-block .demos-code-block-copy {
+        margin: 1em;
         padding: 0.25rem 0.5rem;
         font-size: 0.75rem;
         border-radius: 0.25rem;
@@ -50,11 +53,11 @@ import { HighlightModule } from 'ngx-highlightjs';
         cursor: pointer;
       }
 
-      .demos-code-block-copy:hover {
+      .app-demo-code-block .demos-code-block-copy:hover {
         background: var(--demos-code-btn-hover, #475569);
       }
 
-      .demos-code-block {
+      .app-demo-code-block .demos-code-block {
         margin: 0;
         padding: 1rem;
         overflow-x: auto;
@@ -63,7 +66,7 @@ import { HighlightModule } from 'ngx-highlightjs';
         background: var(--demos-code-bg, #1e293b);
       }
 
-      .demos-code-block code {
+      .app-demo-code-block .demos-code-block code {
         font-family: ui-monospace, monospace;
         background: transparent !important;
         padding: 0;

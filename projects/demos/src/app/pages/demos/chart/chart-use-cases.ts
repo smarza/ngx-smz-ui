@@ -33,23 +33,28 @@ function buildBarChartConfig() {
   ];
   return CreateLinearChart<NeutralDatePoint>(datePointData)
     .prepareLinearDateData(GroupingType.Monthly)
-    .seriesFrom((point) => point.serieId)
-    .dateFrom((point) => point.date)
-    .valueFrom((groupedPoints) =>
-      groupedPoints
-        .map((point) => point.value)
-        .reduce((accumulatedSum, currentValue) => accumulatedSum + currentValue, 0)
-    )
-    .chart.ofType(ChartType.Bar)
-    .withTooltips()
-    .chart.withTitle('# of Votes')
-    .chart.withLegend()
-    .at('top')
-    .chart.setupDataset('Data 1')
-    .label('Dataset 1')
-    .color('#FF0000', '33')
-    .thickness(0)
-    .chart.build(true);
+      .seriesFrom((point) => point.serieId)
+      .dateFrom((point) => point.date)
+      .valueFrom((groupedPoints) =>
+        groupedPoints
+          .map((point) => point.value)
+          .reduce((accumulatedSum, currentValue) => accumulatedSum + currentValue, 0)
+      )
+      .chart
+    .ofType(ChartType.Bar)
+      .withTooltips()
+      .chart
+    .withTitle('# of Votes')
+      .chart
+    .withLegend()
+      .at('top')
+      .chart
+    .setupDataset('Data 1')
+      .label('Dataset 1')
+      .color('#FF0000', '33')
+      .thickness(0)
+      .chart
+    .build(true);
 }
 
 function buildLineChartConfig() {
@@ -69,27 +74,33 @@ function buildLineChartConfig() {
   ];
   return CreateLinearChart<NeutralDatePoint>(datePointData)
     .prepareLinearDateData(GroupingType.Monthly)
-    .seriesFrom((point) => point.serieId)
-    .dateFrom((point) => point.date)
-    .valueFrom((groupedPoints) =>
-      groupedPoints
-        .map((point) => point.value)
-        .reduce((accumulatedSum, currentValue) => accumulatedSum + currentValue, 0)
-    )
-    .chart.ofType(ChartType.Line)
-    .withTitle('Line Chart')
-    .chart.withTooltips()
-    .chart.withLegend()
-    .at('top')
-    .chart.setupDataset('Dataset 1')
-    .ofType(DatasetType.Line)
-    .label('Dataset 1')
-    .color('#FF0000', '77')
-    .chart.setupDataset('Dataset 2')
-    .ofType(DatasetType.Line)
-    .label('Dataset 2')
-    .color('#5500FF', '77')
-    .chart.build(true);
+      .seriesFrom((point) => point.serieId)
+      .dateFrom((point) => point.date)
+      .valueFrom((groupedPoints) =>
+        groupedPoints
+          .map((point) => point.value)
+          .reduce((accumulatedSum, currentValue) => accumulatedSum + currentValue, 0)
+      )
+      .chart
+    .ofType(ChartType.Line)
+      .withTitle('Line Chart')
+      .chart
+    .withTooltips()
+      .chart
+    .withLegend()
+      .at('top')
+      .chart
+    .setupDataset('Dataset 1')
+      .ofType(DatasetType.Line)
+      .label('Dataset 1')
+      .color('#FF0000', '77')
+      .chart
+    .setupDataset('Dataset 2')
+      .ofType(DatasetType.Line)
+      .label('Dataset 2')
+      .color('#5500FF', '77')
+      .chart
+    .build(true);
 }
 
 function buildComboChartConfig() {
@@ -109,29 +120,35 @@ function buildComboChartConfig() {
   ];
   return CreateLinearChart<NeutralDatePoint>(datePointData)
     .prepareLinearDateData(GroupingType.Monthly)
-    .seriesFrom((point) => point.serieId)
-    .dateFrom((point) => point.date)
-    .valueFrom((groupedPoints) =>
-      groupedPoints
-        .map((point) => point.value)
-        .reduce((accumulatedSum, currentValue) => accumulatedSum + currentValue, 0)
-    )
-    .chart.ofType(ChartType.Mixed)
-    .withTitle('Chart.js Combined Line/Bar Chart')
-    .chart.withTooltips()
-    .chart.withLegend()
-    .at('top')
-    .chart.setupDataset('Dataset 1')
-    .ofType(DatasetType.Line)
-    .label('Dataset 1')
-    .color('#f53794')
-    .thickness(2)
-    .chart.setupDataset('Dataset 2')
-    .ofType(DatasetType.Bar)
-    .label('Dataset 2')
-    .color('#537bc4', '77')
-    .thickness(2)
-    .chart.build(true);
+      .seriesFrom((point) => point.serieId)
+      .dateFrom((point) => point.date)
+      .valueFrom((groupedPoints) =>
+        groupedPoints
+          .map((point) => point.value)
+          .reduce((accumulatedSum, currentValue) => accumulatedSum + currentValue, 0)
+      )
+      .chart
+    .ofType(ChartType.Mixed)
+      .withTitle('Chart.js Combined Line/Bar Chart')
+      .chart
+    .withTooltips()
+      .chart
+    .withLegend()
+      .at('top')
+      .chart
+    .setupDataset('Dataset 1')
+      .ofType(DatasetType.Line)
+      .label('Dataset 1')
+      .color('#f53794')
+      .thickness(2)
+      .chart
+    .setupDataset('Dataset 2')
+      .ofType(DatasetType.Bar)
+      .label('Dataset 2')
+      .color('#537bc4', '77')
+      .thickness(2)
+      .chart
+    .build(true);
 }
 
 function buildVerticalBarChartConfig() {
@@ -166,14 +183,16 @@ function buildVerticalBarChartConfig() {
       .at('top')
       .chart
     .setupDataset('Data 1')
-      .label('Dataset 1')
+      .label('Data 1')
       .color('#FF0000', '77')
-      .thickness(0)
+      .thickness(2)
+      .roundedBorders(5)
       .chart
     .setupDataset('Data 2')
-      .label('Dataset 2')
-      .color('#00FF00', '77')
-      .thickness(0)
+      .label('Data 2')
+      .color('#5500FF', '77')
+      .thickness(2)
+      .roundedBorders(5)
       .chart
     .build(true);
 }
@@ -193,33 +212,31 @@ function buildRoundedBarChartConfig() {
     new NeutralDatePoint('Data 2', new Date(2021, 5, 1), 30, null),
     new NeutralDatePoint('Data 2', new Date(2021, 6, 1), 60, null),
   ];
-  return CreateLinearChart<NeutralDatePoint>(datePointData)
+return CreateLinearChart<NeutralDatePoint>(datePointData)
     .prepareLinearDateData(GroupingType.Monthly)
       .seriesFrom((point) => point.serieId)
-    .dateFrom((point) => point.date)
-    .valueFrom((groupedPoints) =>
-      groupedPoints
-        .map((point) => point.value)
-        .reduce((accumulatedSum, currentValue) => accumulatedSum + currentValue, 0)
-    )
+      .dateFrom((point) => point.date)
+      .valueFrom((groupedPoints) =>
+        groupedPoints
+          .map((point) => point.value)
+          .reduce((accumulatedSum, currentValue) => accumulatedSum + currentValue, 0)
+      )
       .chart
-    .ofType(ChartType.Bar)
+    .ofType(ChartType.StackedBar)
+      .withTitle('Bar Chart - Stacked')
+      .chart
     .withTooltips()
       .chart
     .withLegend()
-    .at('top')
+      .at('top')
       .chart
     .setupDataset('Data 1')
-    .label('Data 1')
-    .color('#FF0000', '77')
-    .thickness(2)
-    .roundedBorders(5)
+      .label('Dataset 1')
+      .color('#FF0000')
       .chart
     .setupDataset('Data 2')
-    .label('Data 2')
-    .color('#5500FF', '77')
-    .thickness(2)
-    .roundedBorders(5)
+      .label('Dataset 2')
+      .color('#0000FF')
       .chart
     .build(true);
 }
@@ -247,28 +264,35 @@ function buildStackedBarChartConfig() {
   ];
   return CreateLinearChart<NeutralDatePoint>(datePointData)
     .prepareLinearDateData(GroupingType.Monthly)
-    .seriesFrom((point) => point.serieId)
-    .dateFrom((point) => point.date)
-    .valueFrom((groupedPoints) =>
-      groupedPoints
-        .map((point) => point.value)
-        .reduce((accumulatedSum, currentValue) => accumulatedSum + currentValue, 0)
-    )
-    .chart.ofType(ChartType.StackedBar)
-    .withTitle('Bar Chart - Stacked')
-    .chart.withTooltips()
-    .chart.withLegend()
-    .at('top')
-    .chart.setupDataset('Data 1')
-    .label('Dataset 1')
-    .color('#FF0000')
-    .chart.setupDataset('Data 2')
-    .label('Dataset 2')
-    .color('#0000FF')
-    .chart.setupDataset('Data 3')
-    .label('Dataset 3')
-    .color('#00FF00')
-    .chart.build(true);
+      .seriesFrom((point) => point.serieId)
+      .dateFrom((point) => point.date)
+      .valueFrom((groupedPoints) =>
+        groupedPoints
+          .map((point) => point.value)
+          .reduce((accumulatedSum, currentValue) => accumulatedSum + currentValue, 0)
+      )
+      .chart
+    .ofType(ChartType.StackedBar)
+      .withTitle('Bar Chart - Stacked')
+      .chart
+    .withTooltips()
+      .chart
+    .withLegend()
+      .at('top')
+      .chart
+    .setupDataset('Data 1')
+      .label('Dataset 1')
+      .color('#FF0000')
+      .chart
+    .setupDataset('Data 2')
+      .label('Dataset 2')
+      .color('#0000FF')
+      .chart
+    .setupDataset('Data 3')
+      .label('Dataset 3')
+      .color('#00FF00')
+      .chart
+    .build(true);
 }
 
 function buildDoughnutChartConfig() {
@@ -283,9 +307,11 @@ function buildDoughnutChartConfig() {
     .ofType(ChartType.Doughnut)
     .colors(['#4dc9f6', '#f67019', '#f53794', '#537bc4', '#acc236'])
     .withTooltips()
-    .chart.withLegend()
-    .at('top')
-    .chart.build(true);
+      .chart
+    .withLegend()
+      .at('top')
+      .chart
+    .build(true);
 }
 
 function buildPieChartConfig() {
@@ -300,9 +326,11 @@ function buildPieChartConfig() {
     .ofType(ChartType.Pie)
     .colors(['#4dc9f6', '#f67019', '#f53794', '#537bc4', '#acc236'])
     .withTooltips()
-    .chart.withLegend()
-    .at('top')
-    .chart.build(true);
+      .chart
+    .withLegend()
+      .at('top')
+      .chart
+    .build(true);
 }
 
 function buildPolarAreaChartConfig() {
@@ -317,9 +345,11 @@ function buildPolarAreaChartConfig() {
     .ofType(ChartType.PolarArea)
     .colors(['#4dc9f6', '#f67019', '#f53794', '#537bc4', '#acc236'], '44')
     .withTooltips()
-    .chart.withLegend()
-    .at('top')
-    .chart.build(true);
+      .chart
+    .withLegend()
+      .at('top')
+      .chart
+    .build(true);
 }
 
 function buildSprintsChartWithMultipleSeriesConfig() {
@@ -335,18 +365,20 @@ function buildSprintsChartWithMultipleSeriesConfig() {
   ];
   return CreateLinearChart<SpeedSeries>(speedSeriesData)
     .prepareLinearCategoryData()
-    .seriesFrom((point) => point.serieId)
-    .categoryFrom((point) => point.sprintName)
-    .valueFrom((groupedPoints) =>
-      groupedPoints
-        .map((point) => point.value)
-        .reduce((accumulatedSum, currentValue) => accumulatedSum + currentValue, 0)
-    )
-    .chart.responsive()
+      .seriesFrom((point) => point.serieId)
+      .categoryFrom((point) => point.sprintName)
+      .valueFrom((groupedPoints) =>
+        groupedPoints
+          .map((point) => point.value)
+          .reduce((accumulatedSum, currentValue) => accumulatedSum + currentValue, 0)
+      )
+      .chart
+    .responsive()
     .ofType(ChartType.Bar)
     .theme([ColorPallete.Spring1])
     .withLegend()
-    .chart.build(true);
+      .chart
+    .build(true);
 }
 
 function buildSprintsChartWithSingleSeriesConfig() {
@@ -369,11 +401,13 @@ function buildSprintsChartWithSingleSeriesConfig() {
         .map((point) => point.value)
         .reduce((accumulatedSum, currentValue) => accumulatedSum + currentValue, 0)
     )
-    .chart.responsive()
+      .chart
+    .responsive()
     .ofType(ChartType.Bar)
     .theme([ColorPallete.Spring1])
     .withLegend()
-    .chart.build(true);
+      .chart
+    .build(true);
 }
 
 // Snippets: guias de implementação com indentação e padrão real para cada caso de uso.
