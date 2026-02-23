@@ -1,0 +1,24 @@
+<h1 class="demos-page-title">Forms</h1>
+
+<p class="demos-page-lead">
+  Formulários com <code>SmzFormBuilder</code> e componente <code>smz-form-group</code>.
+</p>
+
+@for (useCase of useCases; track useCase.id) {
+
+  <section class="demos-demo-section">
+    <h2 id="{{ useCase.id }}">{{ useCase.title }}</h2>
+
+    <div class="demos-demo-section__example">
+      @if (getConfigForUseCase(useCase); as config) {
+        <div class="demos-demo-section__form">
+          <smz-form-group [config]="config" />
+        </div>
+      }
+    </div>
+
+    <h3>Código</h3>
+
+    <app-demo-code-block [code]="useCase.snippet" />
+  </section>
+}

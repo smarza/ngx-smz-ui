@@ -13,6 +13,11 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./pages/demos/chart/chart-demo.component').then((m) => m.ChartDemoComponent),
       },
+      {
+        path: 'forms',
+        loadComponent: () =>
+          import('./pages/demos/forms/forms-demo.component').then((m) => m.FormsDemoComponent),
+      },
     ],
   },
 ];

@@ -31,7 +31,7 @@ export const DEMO_NAV_SECTIONS: DemoNavSection[] = [
       // { path: 'multi-tables', label: 'Multi Tables' },
       // { path: 'tree', label: 'Tree' },
       // { path: 'tree-with-details', label: 'Tree With Details' },
-      // { path: 'forms', label: 'Forms' },
+      { path: 'forms', label: 'Forms' },
       // { path: 'dialogs', label: 'Dialogs' },
       // { path: 'toast', label: 'Toast' },
       { path: 'chart', label: 'Chart' },
