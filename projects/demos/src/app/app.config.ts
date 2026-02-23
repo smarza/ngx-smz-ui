@@ -5,6 +5,7 @@ import { NgxsModule } from '@ngxs/store';
 import { NgxSmzUiModule, buildState } from '@ngx-smz/core';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
+import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
 import { routes } from './app.routes';
 import { UiBuilder } from './globals/smz-ui-config-builder';
@@ -23,5 +24,14 @@ export const appConfig: ApplicationConfig = {
       NgxSmzUiModule.forRoot(UiBuilder),
       NgxsModule.forRoot(buildState(), { developmentMode: true })
     ),
+    {
+      provide: HIGHLIGHT_OPTIONS,
+      useValue: {
+        coreLibraryLoader: () => import('highlight.js/lib/core'),
+        languages: {
+          typescript: () => import('highlight.js/lib/languages/typescript'),
+        },
+      },
+    },
   ],
 };

@@ -151,26 +151,31 @@ function buildVerticalBarChartConfig() {
   ];
   return CreateLinearChart<NeutralDatePoint>(datePointData)
     .prepareLinearDateData(GroupingType.Monthly)
-    .seriesFrom((point) => point.serieId)
-    .dateFrom((point) => point.date)
-    .valueFrom((groupedPoints) =>
-      groupedPoints
-        .map((point) => point.value)
-        .reduce((accumulatedSum, currentValue) => accumulatedSum + currentValue, 0)
-    )
-    .chart.ofType(ChartType.Bar)
-    .withTooltips()
-    .chart.withLegend()
-    .at('top')
-    .chart.setupDataset('Data 1')
-    .label('Dataset 1')
-    .color('#FF0000', '77')
-    .thickness(0)
-    .chart.setupDataset('Data 2')
-    .label('Dataset 2')
-    .color('#00FF00', '77')
-    .thickness(0)
-    .chart.build(true);
+      .seriesFrom((point) => point.serieId)
+      .dateFrom((point) => point.date)
+      .valueFrom((groupedPoints) =>
+        groupedPoints
+          .map((point) => point.value)
+          .reduce((accumulatedSum, currentValue) => accumulatedSum + currentValue, 0)
+      )
+      .chart
+    .ofType(ChartType.Bar)
+      .withTooltips()
+      .chart
+    .withLegend()
+      .at('top')
+      .chart
+    .setupDataset('Data 1')
+      .label('Dataset 1')
+      .color('#FF0000', '77')
+      .thickness(0)
+      .chart
+    .setupDataset('Data 2')
+      .label('Dataset 2')
+      .color('#00FF00', '77')
+      .thickness(0)
+      .chart
+    .build(true);
 }
 
 function buildRoundedBarChartConfig() {
@@ -190,28 +195,33 @@ function buildRoundedBarChartConfig() {
   ];
   return CreateLinearChart<NeutralDatePoint>(datePointData)
     .prepareLinearDateData(GroupingType.Monthly)
-    .seriesFrom((point) => point.serieId)
+      .seriesFrom((point) => point.serieId)
     .dateFrom((point) => point.date)
     .valueFrom((groupedPoints) =>
       groupedPoints
         .map((point) => point.value)
         .reduce((accumulatedSum, currentValue) => accumulatedSum + currentValue, 0)
     )
-    .chart.ofType(ChartType.Bar)
+      .chart
+    .ofType(ChartType.Bar)
     .withTooltips()
-    .chart.withLegend()
+      .chart
+    .withLegend()
     .at('top')
-    .chart.setupDataset('Data 1')
+      .chart
+    .setupDataset('Data 1')
     .label('Data 1')
     .color('#FF0000', '77')
     .thickness(2)
     .roundedBorders(5)
-    .chart.setupDataset('Data 2')
+      .chart
+    .setupDataset('Data 2')
     .label('Data 2')
     .color('#5500FF', '77')
     .thickness(2)
     .roundedBorders(5)
-    .chart.build(true);
+      .chart
+    .build(true);
 }
 
 function buildStackedBarChartConfig() {
@@ -366,30 +376,235 @@ function buildSprintsChartWithSingleSeriesConfig() {
     .chart.build(true);
 }
 
-const SNIPPET_FROM_MODEL = `const model = { type: 'bar', data: { ... }, config: { ... } };
+// Snippets: guias de implementação com indentação e padrão real para cada caso de uso.
+
+const SNIPPET_FROM_MODEL = `// Modelo com type, data e config (ex.: vindo do backend).
+const model = {
+  type: 'bar',
+  data: { labels: [], datasets: [] },
+  config: { responsive: true }
+};
+
+// No template:
 // <smz-ui-chart [type]="model.type" [data]="model.data" [options]="model.config" />`;
 
-const SNIPPET_BAR = `CreateLinearChart(data).prepareLinearDateData(GroupingType.Monthly)
-  .seriesFrom(x => x.serieId).dateFrom(x => x.date).valueFrom(...)
-  .chart.ofType(ChartType.Bar).withTooltips().withTitle('# of Votes')
-  .withLegend().at('top').setupDataset('Data 1').label('Dataset 1').color('#FF0000','33').chart.build();`;
+const SNIPPET_BAR = `// Dados: array de pontos com serieId, date e value.
+const datePointData: NeutralDatePoint[] = [
+  new NeutralDatePoint('Data 1', new Date(2021, 1, 1), 12, null),
+  new NeutralDatePoint('Data 1', new Date(2021, 2, 1), 19, null),
+  // ...
+];
 
-const SNIPPET_LINE = `CreateLinearChart(durationData).prepareLinearDateData(GroupingType.Monthly)
+const chart = CreateLinearChart<NeutralDatePoint>(datePointData)
+  .prepareLinearDateData(GroupingType.Monthly)
+  .seriesFrom((point) => point.serieId)
+  .dateFrom((point) => point.date)
+  .valueFrom((groupedPoints) =>
+    groupedPoints
+      .map((point) => point.value)
+      .reduce((sum, value) => sum + value, 0)
+  )
+  .chart.ofType(ChartType.Bar)
+  .withTooltips()
+  .chart.withTitle('# of Votes')
+  .chart.withLegend()
+  .at('top')
+  .chart.setupDataset('Data 1')
+  .label('Dataset 1')
+  .color('#FF0000', '33')
+  .thickness(0)
+  .chart.build(true);`;
+
+const SNIPPET_LINE = `// Múltiplas séries (Dataset 1, Dataset 2) por mês.
+const datePointData: NeutralDatePoint[] = [ /* serieId, date, value */ ];
+
+const chart = CreateLinearChart<NeutralDatePoint>(datePointData)
+  .prepareLinearDateData(GroupingType.Monthly)
+  .seriesFrom((point) => point.serieId)
+  .dateFrom((point) => point.date)
+  .valueFrom((groupedPoints) =>
+    groupedPoints.map((p) => p.value).reduce((a, b) => a + b, 0)
+  )
   .chart.ofType(ChartType.Line)
-  .setupDataset('Dataset 1').ofType(DatasetType.Line).color('#FF0000','77')
-  .setupDataset('Dataset 2').ofType(DatasetType.Line).color('#5500FF','77').chart.build(true);`;
+  .withTitle('Line Chart')
+  .chart.withTooltips()
+  .chart.withLegend()
+  .at('top')
+  .chart.setupDataset('Dataset 1')
+  .ofType(DatasetType.Line)
+  .label('Dataset 1')
+  .color('#FF0000', '77')
+  .chart.setupDataset('Dataset 2')
+  .ofType(DatasetType.Line)
+  .label('Dataset 2')
+  .color('#5500FF', '77')
+  .chart.build(true);`;
 
-const SNIPPET_COMBO = `CreateLinearChart(data).prepareLinearDateData(GroupingType.Monthly)
+const SNIPPET_COMBO = `// Um dataset como Line e outro como Bar no mesmo gráfico.
+const chart = CreateLinearChart<NeutralDatePoint>(datePointData)
+  .prepareLinearDateData(GroupingType.Monthly)
+  .seriesFrom((point) => point.serieId)
+  .dateFrom((point) => point.date)
+  .valueFrom((groupedPoints) =>
+    groupedPoints.map((p) => p.value).reduce((a, b) => a + b, 0)
+  )
   .chart.ofType(ChartType.Mixed)
-  .setupDataset('Dataset 1').ofType(DatasetType.Line).color('#f53794')
-  .setupDataset('Dataset 2').ofType(DatasetType.Bar).color('#537bc4','77').chart.build(true);`;
+  .withTitle('Chart.js Combined Line/Bar Chart')
+  .chart.withTooltips()
+  .chart.withLegend()
+  .at('top')
+  .chart.setupDataset('Dataset 1')
+  .ofType(DatasetType.Line)
+  .label('Dataset 1')
+  .color('#f53794')
+  .thickness(2)
+  .chart.setupDataset('Dataset 2')
+  .ofType(DatasetType.Bar)
+  .label('Dataset 2')
+  .color('#537bc4', '77')
+  .thickness(2)
+  .chart.build(true);`;
 
-const SNIPPET_RADIAL = `CreateRadialChart(data).ofType(ChartType.Doughnut)
-  .colors(['#4dc9f6', '#f67019', ...]).withTooltips().chart.withLegend().at('top').chart.build(true);`;
+const SNIPPET_VERTICAL_BAR = `// Barras verticais com duas séries (Data 1, Data 2).
+const chart = CreateLinearChart<NeutralDatePoint>(datePointData)
+  .prepareLinearDateData(GroupingType.Monthly)
+  .seriesFrom((point) => point.serieId)
+  .dateFrom((point) => point.date)
+  .valueFrom((groupedPoints) =>
+    groupedPoints.map((p) => p.value).reduce((a, b) => a + b, 0)
+  )
+  .chart.ofType(ChartType.Bar)
+  .withTooltips()
+  .chart.withLegend()
+  .at('top')
+  .chart.setupDataset('Data 1')
+  .label('Dataset 1')
+  .color('#FF0000', '77')
+  .thickness(0)
+  .chart.setupDataset('Data 2')
+  .label('Dataset 2')
+  .color('#00FF00', '77')
+  .thickness(0)
+  .chart.build(true);`;
 
-const SNIPPET_SPRINTS = `CreateLinearChart<SpeedSeries>(data).prepareLinearCategoryData()
-  .seriesFrom(x => x.serieId).categoryFrom(x => x.sprintName).valueFrom(...)
-  .chart.responsive().ofType(ChartType.Bar).theme([ColorPallete.Spring1]).withLegend().chart.build(true);`;
+const SNIPPET_ROUNDED_BAR = `// Barras com bordas arredondadas: .roundedBorders(raio).
+const chart = CreateLinearChart<NeutralDatePoint>(datePointData)
+  .prepareLinearDateData(GroupingType.Monthly)
+  .seriesFrom((point) => point.serieId)
+  .dateFrom((point) => point.date)
+  .valueFrom((groupedPoints) =>
+    groupedPoints.map((p) => p.value).reduce((a, b) => a + b, 0)
+  )
+  .chart.ofType(ChartType.Bar)
+  .withTooltips()
+  .chart.withLegend()
+  .at('top')
+  .chart.setupDataset('Data 1')
+  .label('Data 1')
+  .color('#FF0000', '77')
+  .thickness(2)
+  .roundedBorders(5)
+  .chart.setupDataset('Data 2')
+  .label('Data 2')
+  .color('#5500FF', '77')
+  .thickness(2)
+  .roundedBorders(5)
+  .chart.build(true);`;
+
+const SNIPPET_STACKED_BAR = `// Barras empilhadas: use ChartType.StackedBar e um dataset por série.
+const chart = CreateLinearChart<NeutralDatePoint>(datePointData)
+  .prepareLinearDateData(GroupingType.Monthly)
+  .seriesFrom((point) => point.serieId)
+  .dateFrom((point) => point.date)
+  .valueFrom((groupedPoints) =>
+    groupedPoints.map((p) => p.value).reduce((a, b) => a + b, 0)
+  )
+  .chart.ofType(ChartType.StackedBar)
+  .withTitle('Bar Chart - Stacked')
+  .chart.withTooltips()
+  .chart.withLegend()
+  .at('top')
+  .chart.setupDataset('Data 1')
+  .label('Dataset 1')
+  .color('#FF0000')
+  .chart.setupDataset('Data 2')
+  .label('Dataset 2')
+  .color('#0000FF')
+  .chart.setupDataset('Data 3')
+  .label('Dataset 3')
+  .color('#00FF00')
+  .chart.build(true);`;
+
+const SNIPPET_DOUGHNUT = `// Gráfico radial: array de { category, value }. Doughnut com cores por fatia.
+const categoryPointData: NeutralCategoryPoint[] = [
+  new NeutralCategoryPoint('Red', 5, null),
+  new NeutralCategoryPoint('Orange', 15, null),
+  new NeutralCategoryPoint('Yellow', 5, null),
+  new NeutralCategoryPoint('Green', 25, null),
+  new NeutralCategoryPoint('Blue', 20, null),
+];
+
+const chart = CreateRadialChart(categoryPointData)
+  .ofType(ChartType.Doughnut)
+  .colors(['#4dc9f6', '#f67019', '#f53794', '#537bc4', '#acc236'])
+  .withTooltips()
+  .chart.withLegend()
+  .at('top')
+  .chart.build(true);`;
+
+const SNIPPET_PIE = `// Mesmo padrão do Doughnut; apenas mude o tipo para Pie.
+const categoryPointData: NeutralCategoryPoint[] = [ /* category, value */ ];
+
+const chart = CreateRadialChart(categoryPointData)
+  .ofType(ChartType.Pie)
+  .colors(['#4dc9f6', '#f67019', '#f53794', '#537bc4', '#acc236'])
+  .withTooltips()
+  .chart.withLegend()
+  .at('top')
+  .chart.build(true);`;
+
+const SNIPPET_POLAR_AREA = `// Polar Area: cores com opacidade no segundo argumento de .colors().
+const chart = CreateRadialChart(categoryPointData)
+  .ofType(ChartType.PolarArea)
+  .colors(['#4dc9f6', '#f67019', '#f53794', '#537bc4', '#acc236'], '44')
+  .withTooltips()
+  .chart.withLegend()
+  .at('top')
+  .chart.build(true);`;
+
+const SNIPPET_SPRINTS_MULTIPLE = `// Gráfico por categoria (ex.: sprints) com múltiplas séries (done, extra).
+const speedSeriesData: SpeedSeries[] = [
+  new SpeedSeries('done', 'Sprint88', 50),
+  new SpeedSeries('extra', 'Sprint88', 5),
+  // ...
+];
+
+const chart = CreateLinearChart<SpeedSeries>(speedSeriesData)
+  .prepareLinearCategoryData()
+  .seriesFrom((point) => point.serieId)
+  .categoryFrom((point) => point.sprintName)
+  .valueFrom((groupedPoints) =>
+    groupedPoints.map((p) => p.value).reduce((a, b) => a + b, 0)
+  )
+  .chart.responsive()
+  .ofType(ChartType.Bar)
+  .theme([ColorPallete.Spring1])
+  .withLegend()
+  .chart.build(true);`;
+
+const SNIPPET_SPRINTS_SINGLE = `// Mesma base por categoria, mas uma única série (soma por sprint).
+const chart = CreateLinearChart<SpeedSeries>(speedSeriesData)
+  .prepareLinearCategoryData()
+  .singleSerie()
+  .categoryFrom((point) => point.sprintName)
+  .valueFrom((groupedPoints) =>
+    groupedPoints.map((p) => p.value).reduce((a, b) => a + b, 0)
+  )
+  .chart.responsive()
+  .ofType(ChartType.Bar)
+  .theme([ColorPallete.Spring1])
+  .withLegend()
+  .chart.build(true);`;
 
 export const CHART_USE_CASES: ChartUseCase[] = [
   {
@@ -410,48 +625,48 @@ export const CHART_USE_CASES: ChartUseCase[] = [
     id: 'vertical-bar',
     title: 'Vertical Bar',
     getConfig: buildVerticalBarChartConfig,
-    snippet: SNIPPET_BAR,
+    snippet: SNIPPET_VERTICAL_BAR,
   },
   {
     id: 'rounded-bar',
     title: 'Rounded Bar',
     getConfig: buildRoundedBarChartConfig,
-    snippet: SNIPPET_BAR,
+    snippet: SNIPPET_ROUNDED_BAR,
   },
   {
     id: 'stacked-bar',
     title: 'Stacked Bar',
     getConfig: buildStackedBarChartConfig,
-    snippet: SNIPPET_BAR,
+    snippet: SNIPPET_STACKED_BAR,
   },
   {
     id: 'doughnut',
     title: 'Doughnut',
     getConfig: buildDoughnutChartConfig,
-    snippet: SNIPPET_RADIAL,
+    snippet: SNIPPET_DOUGHNUT,
   },
   {
     id: 'pie',
     title: 'Pie',
     getConfig: buildPieChartConfig,
-    snippet: SNIPPET_RADIAL,
+    snippet: SNIPPET_PIE,
   },
   {
     id: 'polar-area',
     title: 'Polar Area',
     getConfig: buildPolarAreaChartConfig,
-    snippet: SNIPPET_RADIAL,
+    snippet: SNIPPET_POLAR_AREA,
   },
   {
     id: 'sprints-1',
     title: 'Sprints (múltiplas séries)',
     getConfig: buildSprintsChartWithMultipleSeriesConfig,
-    snippet: SNIPPET_SPRINTS,
+    snippet: SNIPPET_SPRINTS_MULTIPLE,
   },
   {
     id: 'sprints-2',
     title: 'Sprints (série única)',
     getConfig: buildSprintsChartWithSingleSeriesConfig,
-    snippet: SNIPPET_SPRINTS,
+    snippet: SNIPPET_SPRINTS_SINGLE,
   },
 ];
