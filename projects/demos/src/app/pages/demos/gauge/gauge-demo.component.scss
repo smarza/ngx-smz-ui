@@ -1,0 +1,13 @@
+:host {
+  display: block;
+}
+
+.demos-demo-section {
+  margin-bottom: 2.5rem;
+
+  .demos-demo-section__example {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+}

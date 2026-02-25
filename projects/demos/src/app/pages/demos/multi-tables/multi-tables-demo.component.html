@@ -1,0 +1,22 @@
+<h1 class="demos-page-title">Multi Tables</h1>
+
+<p class="demos-page-lead">
+  Múltiplas tabelas em abas com <code>SmzMultiTablesBuilder</code> e componente <code>smz-ui-multi-tables</code>.
+</p>
+
+@for (cached of cachedUseCases; track cached.useCase.id) {
+
+  <section class="demos-demo-section">
+    <h2 id="{{ cached.useCase.id }}">{{ cached.useCase.title }}</h2>
+
+    <div class="demos-demo-section__example">
+      <div class="demos-demo-section__multi-tables">
+        <smz-ui-multi-tables [state]="cached.state" />
+      </div>
+    </div>
+
+    <h3>Código</h3>
+
+    <app-demo-code-block [code]="cached.useCase.snippet" />
+  </section>
+}

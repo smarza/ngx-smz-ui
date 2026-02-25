@@ -43,6 +43,21 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./pages/demos/timeline/timeline-demo.component').then((m) => m.TimelineDemoComponent),
       },
+      {
+        path: 'gauge',
+        loadComponent: () =>
+          import('./pages/demos/gauge/gauge-demo.component').then((m) => m.GaugeDemoComponent),
+      },
+      {
+        path: 'multi-tables',
+        loadComponent: () =>
+          import('./pages/demos/multi-tables/multi-tables-demo.component').then((m) => m.MultiTablesDemoComponent),
+      },
+      {
+        path: 'document',
+        loadComponent: () =>
+          import('./pages/demos/document/document-demo.component').then((m) => m.DocumentDemoComponent),
+      },
     ],
   },
 ];
