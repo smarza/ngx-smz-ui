@@ -6,7 +6,7 @@
     [showLabel]="input.hideLabel != true"
     [warning]="input.warning">
   </smz-label>
-  <div class="col-12 flex flex-row gap-2">
+  <div class="col-12 flex justify-start items-center gap-1 flex-gap-1">
     @for (option of input.options; track option) {
       <p-radioButton
         class="smz__input_value"

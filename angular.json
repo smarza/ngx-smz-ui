@@ -329,6 +329,11 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
+            "stylePreprocessorOptions": {
+              "sass": {
+                "silenceDeprecations": ["color-functions", "global-builtin", "import", "mixed-decls"]
+              }
+            },
             "browser": "projects/demos/src/main.ts",
             "tsConfig": "projects/demos/tsconfig.app.json",
             "inlineStyleLanguage": "scss",

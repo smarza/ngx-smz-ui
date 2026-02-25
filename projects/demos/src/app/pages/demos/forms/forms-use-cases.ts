@@ -326,7 +326,6 @@ function buildText() {
     .setLayout('EXTRA_SMALL', 'col-12')
     .text('input1', "I'm not required")
     .group.text('input2', "I'm required", 'sample')
-    .autoFocus()
     .validators()
     .required()
     .input.group.form.build();

@@ -1,3 +1,8 @@
+// @use 'primeicons/primeicons.css';
+@use './tailwind.css';
+@use '../../ngx-smz-ui/resources/assets/scss/fontawesome-free.scss';
+@use '../../ngx-smz-ui/resources/assets/scss/styles.scss';
+
 /* Variáveis do tema (light only) */
 :root {
   --demos-bg: #ffffff;
