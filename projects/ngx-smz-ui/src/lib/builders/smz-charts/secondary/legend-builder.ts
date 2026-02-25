@@ -1,4 +1,4 @@
-﻿import { LayoutPosition } from 'chart.js';
+import { LayoutPosition } from 'chart.js';
 import { BaseChartBuilder } from '../base-chart-builder';
 
 export class LegendBuilder<TFactory extends BaseChartBuilder<TFactory, TData>, TData>
@@ -6,7 +6,10 @@ export class LegendBuilder<TFactory extends BaseChartBuilder<TFactory, TData>, T
 
     constructor(private _builder: TFactory)
     {
-
+        const opts = (this._builder as any)._chart?.config?.options ?? {};
+        if (opts.plugins == null) opts.plugins = {};
+        if (opts.plugins.legend == null) opts.plugins.legend = {};
+        opts.plugins.legend.display = true;
     }
 
     public align(align: 'start' | 'center' | 'end'): LegendBuilder<TFactory, TData> {
@@ -14,6 +17,8 @@ export class LegendBuilder<TFactory extends BaseChartBuilder<TFactory, TData>, T
     }
 
     public at(position: LayoutPosition): LegendBuilder<TFactory, TData> {
+        const opts = (this._builder as any)._chart?.config?.options ?? {};
+        if (opts.plugins?.legend) opts.plugins.legend.position = position;
         return this;
     }
 

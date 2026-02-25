@@ -1,4 +1,4 @@
-﻿import { Color } from 'chart.js';
+import { Color } from 'chart.js';
 import { BaseChartBuilder } from '../base-chart-builder';
 
 export class TooltipBuilder<TFactory extends BaseChartBuilder<TFactory, TData>, TData>
@@ -6,7 +6,10 @@ export class TooltipBuilder<TFactory extends BaseChartBuilder<TFactory, TData>, 
 
     constructor(private _builder: TFactory)
     {
-
+        const opts = (this._builder as any)._chart?.config?.options ?? {};
+        if (opts.plugins == null) opts.plugins = {};
+        if (opts.plugins.tooltip == null) opts.plugins.tooltip = {};
+        opts.plugins.tooltip.enabled = true;
     }
 
     public backgroundColor(color: Color): TooltipBuilder<TFactory, TData> {

@@ -1,4 +1,4 @@
-import { environment } from '@environments/environment';
+import { environment } from '../../../../../environments/environment';
 
 export function NavigateToExternalSsoUrl(tenant: string): void {
   const successfulUrl = `${window.location.href}?tenant=${tenant}`;

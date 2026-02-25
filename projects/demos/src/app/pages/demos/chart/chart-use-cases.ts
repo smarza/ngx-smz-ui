@@ -1,0 +1,764 @@
+import {
+  ChartType,
+  ColorPallete,
+  CreateLinearChart,
+  CreateRadialChart,
+  GroupingType,
+  DatasetType,
+} from '@ngx-smz/core';
+import { VERTICAL_BAR_MODEL } from './data/chart-data';
+import { NeutralDatePoint } from './data/neutral-date-point';
+import { NeutralCategoryPoint } from './data/neutral-category-point';
+import { SpeedSeries } from './data/speed-series';
+
+export interface ChartUseCase {
+  id: string;
+  title: string;
+  getConfig: () => any;
+  snippet: string;
+}
+
+function buildConfigFromModel() {
+  return { model: VERTICAL_BAR_MODEL, cSharp: null };
+}
+
+function buildBarChartConfig() {
+  const datePointData: NeutralDatePoint[] = [
+    new NeutralDatePoint('Data 1', new Date(2021, 1, 1), 12, null),
+    new NeutralDatePoint('Data 1', new Date(2021, 2, 1), 19, null),
+    new NeutralDatePoint('Data 1', new Date(2021, 3, 1), 3, null),
+    new NeutralDatePoint('Data 1', new Date(2021, 4, 1), 5, null),
+    new NeutralDatePoint('Data 1', new Date(2021, 5, 1), 2, null),
+    new NeutralDatePoint('Data 1', new Date(2021, 6, 1), 3, null),
+  ];
+  return CreateLinearChart<NeutralDatePoint>(datePointData)
+    .prepareLinearDateData(GroupingType.Monthly)
+      .seriesFrom((point) => point.serieId)
+      .dateFrom((point) => point.date)
+      .valueFrom((groupedPoints) =>
+        groupedPoints
+          .map((point) => point.value)
+          .reduce((accumulatedSum, currentValue) => accumulatedSum + currentValue, 0)
+      )
+      .chart
+    .ofType(ChartType.Bar)
+      .withTooltips()
+      .chart
+    .withTitle('# of Votes')
+      .chart
+    .withLegend()
+      .at('top')
+      .chart
+    .setupDataset('Data 1')
+      .label('Dataset 1')
+      .color('#FF0000', '33')
+      .thickness(0)
+      .chart
+    .build(true);
+}
+
+function buildLineChartConfig() {
+  const datePointData: NeutralDatePoint[] = [
+    new NeutralDatePoint('Dataset 1', new Date(2021, 1, 1), 25, null),
+    new NeutralDatePoint('Dataset 1', new Date(2021, 2, 1), 10, null),
+    new NeutralDatePoint('Dataset 1', new Date(2021, 3, 1), 15, null),
+    new NeutralDatePoint('Dataset 1', new Date(2021, 4, 1), 50, null),
+    new NeutralDatePoint('Dataset 1', new Date(2021, 5, 1), 75, null),
+    new NeutralDatePoint('Dataset 1', new Date(2021, 6, 1), 45, null),
+    new NeutralDatePoint('Dataset 2', new Date(2021, 1, 1), 7, null),
+    new NeutralDatePoint('Dataset 2', new Date(2021, 2, 1), 45, null),
+    new NeutralDatePoint('Dataset 2', new Date(2021, 3, 1), 55, null),
+    new NeutralDatePoint('Dataset 2', new Date(2021, 4, 1), 60, null),
+    new NeutralDatePoint('Dataset 2', new Date(2021, 5, 1), 30, null),
+    new NeutralDatePoint('Dataset 2', new Date(2021, 6, 1), 60, null),
+  ];
+  return CreateLinearChart<NeutralDatePoint>(datePointData)
+    .prepareLinearDateData(GroupingType.Monthly)
+      .seriesFrom((point) => point.serieId)
+      .dateFrom((point) => point.date)
+      .valueFrom((groupedPoints) =>
+        groupedPoints
+          .map((point) => point.value)
+          .reduce((accumulatedSum, currentValue) => accumulatedSum + currentValue, 0)
+      )
+      .chart
+    .ofType(ChartType.Line)
+      .withTitle('Line Chart')
+      .chart
+    .withTooltips()
+      .chart
+    .withLegend()
+      .at('top')
+      .chart
+    .setupDataset('Dataset 1')
+      .ofType(DatasetType.Line)
+      .label('Dataset 1')
+      .color('#FF0000', '77')
+      .chart
+    .setupDataset('Dataset 2')
+      .ofType(DatasetType.Line)
+      .label('Dataset 2')
+      .color('#5500FF', '77')
+      .chart
+    .build(true);
+}
+
+function buildComboChartConfig() {
+  const datePointData: NeutralDatePoint[] = [
+    new NeutralDatePoint('Dataset 2', new Date(2021, 1, 1), 7, null),
+    new NeutralDatePoint('Dataset 2', new Date(2021, 2, 1), 45, null),
+    new NeutralDatePoint('Dataset 2', new Date(2021, 3, 1), 55, null),
+    new NeutralDatePoint('Dataset 2', new Date(2021, 4, 1), 60, null),
+    new NeutralDatePoint('Dataset 2', new Date(2021, 5, 1), 30, null),
+    new NeutralDatePoint('Dataset 2', new Date(2021, 6, 1), 60, null),
+    new NeutralDatePoint('Dataset 1', new Date(2021, 1, 1), 25, null),
+    new NeutralDatePoint('Dataset 1', new Date(2021, 2, 1), 10, null),
+    new NeutralDatePoint('Dataset 1', new Date(2021, 3, 1), 15, null),
+    new NeutralDatePoint('Dataset 1', new Date(2021, 4, 1), 50, null),
+    new NeutralDatePoint('Dataset 1', new Date(2021, 5, 1), 75, null),
+    new NeutralDatePoint('Dataset 1', new Date(2021, 6, 1), 45, null),
+  ];
+  return CreateLinearChart<NeutralDatePoint>(datePointData)
+    .prepareLinearDateData(GroupingType.Monthly)
+      .seriesFrom((point) => point.serieId)
+      .dateFrom((point) => point.date)
+      .valueFrom((groupedPoints) =>
+        groupedPoints
+          .map((point) => point.value)
+          .reduce((accumulatedSum, currentValue) => accumulatedSum + currentValue, 0)
+      )
+      .chart
+    .ofType(ChartType.Mixed)
+      .withTitle('Chart.js Combined Line/Bar Chart')
+      .chart
+    .withTooltips()
+      .chart
+    .withLegend()
+      .at('top')
+      .chart
+    .setupDataset('Dataset 1')
+      .ofType(DatasetType.Line)
+      .label('Dataset 1')
+      .color('#f53794')
+      .thickness(2)
+      .chart
+    .setupDataset('Dataset 2')
+      .ofType(DatasetType.Bar)
+      .label('Dataset 2')
+      .color('#537bc4', '77')
+      .thickness(2)
+      .chart
+    .build(true);
+}
+
+function buildVerticalBarChartConfig() {
+  const datePointData: NeutralDatePoint[] = [
+    new NeutralDatePoint('Data 1', new Date(2021, 1, 1), 5, null),
+    new NeutralDatePoint('Data 1', new Date(2021, 2, 1), 10, null),
+    new NeutralDatePoint('Data 1', new Date(2021, 3, 1), 15, null),
+    new NeutralDatePoint('Data 1', new Date(2021, 4, 1), 50, null),
+    new NeutralDatePoint('Data 1', new Date(2021, 5, 1), 75, null),
+    new NeutralDatePoint('Data 1', new Date(2021, 6, 1), 45, null),
+    new NeutralDatePoint('Data 2', new Date(2021, 1, 1), 7, null),
+    new NeutralDatePoint('Data 2', new Date(2021, 2, 1), 7, null),
+    new NeutralDatePoint('Data 2', new Date(2021, 3, 1), 10, null),
+    new NeutralDatePoint('Data 2', new Date(2021, 4, 1), 60, null),
+    new NeutralDatePoint('Data 2', new Date(2021, 5, 1), 30, null),
+    new NeutralDatePoint('Data 2', new Date(2021, 6, 1), 60, null),
+  ];
+  return CreateLinearChart<NeutralDatePoint>(datePointData)
+    .prepareLinearDateData(GroupingType.Monthly)
+      .seriesFrom((point) => point.serieId)
+      .dateFrom((point) => point.date)
+      .valueFrom((groupedPoints) =>
+        groupedPoints
+          .map((point) => point.value)
+          .reduce((accumulatedSum, currentValue) => accumulatedSum + currentValue, 0)
+      )
+      .chart
+    .ofType(ChartType.Bar)
+      .withTooltips()
+      .chart
+    .withLegend()
+      .at('top')
+      .chart
+    .setupDataset('Data 1')
+      .label('Data 1')
+      .color('#FF0000', '77')
+      .thickness(2)
+      .roundedBorders(5)
+      .chart
+    .setupDataset('Data 2')
+      .label('Data 2')
+      .color('#5500FF', '77')
+      .thickness(2)
+      .roundedBorders(5)
+      .chart
+    .build(true);
+}
+
+function buildRoundedBarChartConfig() {
+  const datePointData: NeutralDatePoint[] = [
+    new NeutralDatePoint('Data 1', new Date(2021, 1, 1), 5, null),
+    new NeutralDatePoint('Data 1', new Date(2021, 2, 1), 10, null),
+    new NeutralDatePoint('Data 1', new Date(2021, 3, 1), 15, null),
+    new NeutralDatePoint('Data 1', new Date(2021, 4, 1), 50, null),
+    new NeutralDatePoint('Data 1', new Date(2021, 5, 1), 75, null),
+    new NeutralDatePoint('Data 1', new Date(2021, 6, 1), 45, null),
+    new NeutralDatePoint('Data 2', new Date(2021, 1, 1), 7, null),
+    new NeutralDatePoint('Data 2', new Date(2021, 2, 1), 7, null),
+    new NeutralDatePoint('Data 2', new Date(2021, 3, 1), 10, null),
+    new NeutralDatePoint('Data 2', new Date(2021, 4, 1), 60, null),
+    new NeutralDatePoint('Data 2', new Date(2021, 5, 1), 30, null),
+    new NeutralDatePoint('Data 2', new Date(2021, 6, 1), 60, null),
+  ];
+return CreateLinearChart<NeutralDatePoint>(datePointData)
+    .prepareLinearDateData(GroupingType.Monthly)
+      .seriesFrom((point) => point.serieId)
+      .dateFrom((point) => point.date)
+      .valueFrom((groupedPoints) =>
+        groupedPoints
+          .map((point) => point.value)
+          .reduce((accumulatedSum, currentValue) => accumulatedSum + currentValue, 0)
+      )
+      .chart
+    .ofType(ChartType.StackedBar)
+      .withTitle('Bar Chart - Stacked')
+      .chart
+    .withTooltips()
+      .chart
+    .withLegend()
+      .at('top')
+      .chart
+    .setupDataset('Data 1')
+      .label('Dataset 1')
+      .color('#FF0000')
+      .chart
+    .setupDataset('Data 2')
+      .label('Dataset 2')
+      .color('#0000FF')
+      .chart
+    .build(true);
+}
+
+function buildStackedBarChartConfig() {
+  const datePointData: NeutralDatePoint[] = [
+    new NeutralDatePoint('Data 1', new Date(2021, 1, 1), 5, null),
+    new NeutralDatePoint('Data 1', new Date(2021, 2, 1), 10, null),
+    new NeutralDatePoint('Data 1', new Date(2021, 3, 1), 15, null),
+    new NeutralDatePoint('Data 1', new Date(2021, 4, 1), 50, null),
+    new NeutralDatePoint('Data 1', new Date(2021, 5, 1), 75, null),
+    new NeutralDatePoint('Data 1', new Date(2021, 6, 1), 45, null),
+    new NeutralDatePoint('Data 2', new Date(2021, 1, 1), 7, null),
+    new NeutralDatePoint('Data 2', new Date(2021, 2, 1), 7, null),
+    new NeutralDatePoint('Data 2', new Date(2021, 3, 1), 10, null),
+    new NeutralDatePoint('Data 2', new Date(2021, 4, 1), 60, null),
+    new NeutralDatePoint('Data 2', new Date(2021, 5, 1), 30, null),
+    new NeutralDatePoint('Data 2', new Date(2021, 6, 1), 60, null),
+    new NeutralDatePoint('Data 3', new Date(2021, 1, 1), 2, null),
+    new NeutralDatePoint('Data 3', new Date(2021, 2, 1), 15, null),
+    new NeutralDatePoint('Data 3', new Date(2021, 3, 1), 5, null),
+    new NeutralDatePoint('Data 3', new Date(2021, 4, 1), 30, null),
+    new NeutralDatePoint('Data 3', new Date(2021, 5, 1), 30, null),
+    new NeutralDatePoint('Data 3', new Date(2021, 6, 1), 10, null),
+  ];
+  return CreateLinearChart<NeutralDatePoint>(datePointData)
+    .prepareLinearDateData(GroupingType.Monthly)
+      .seriesFrom((point) => point.serieId)
+      .dateFrom((point) => point.date)
+      .valueFrom((groupedPoints) =>
+        groupedPoints
+          .map((point) => point.value)
+          .reduce((accumulatedSum, currentValue) => accumulatedSum + currentValue, 0)
+      )
+      .chart
+    .ofType(ChartType.StackedBar)
+      .withTitle('Bar Chart - Stacked')
+      .chart
+    .withTooltips()
+      .chart
+    .withLegend()
+      .at('top')
+      .chart
+    .setupDataset('Data 1')
+      .label('Dataset 1')
+      .color('#FF0000')
+      .chart
+    .setupDataset('Data 2')
+      .label('Dataset 2')
+      .color('#0000FF')
+      .chart
+    .setupDataset('Data 3')
+      .label('Dataset 3')
+      .color('#00FF00')
+      .chart
+    .build(true);
+}
+
+function buildDoughnutChartConfig() {
+  const categoryPointData: NeutralCategoryPoint[] = [
+    new NeutralCategoryPoint('Red', 5, null),
+    new NeutralCategoryPoint('Orange', 15, null),
+    new NeutralCategoryPoint('Yellow', 5, null),
+    new NeutralCategoryPoint('Green', 25, null),
+    new NeutralCategoryPoint('Blue', 20, null),
+  ];
+  return CreateRadialChart(categoryPointData)
+    .ofType(ChartType.Doughnut)
+    .colors(['#4dc9f6', '#f67019', '#f53794', '#537bc4', '#acc236'])
+    .withTooltips()
+      .chart
+    .withLegend()
+      .at('top')
+      .chart
+    .build(true);
+}
+
+function buildPieChartConfig() {
+  const categoryPointData: NeutralCategoryPoint[] = [
+    new NeutralCategoryPoint('Red', 5, null),
+    new NeutralCategoryPoint('Orange', 15, null),
+    new NeutralCategoryPoint('Yellow', 5, null),
+    new NeutralCategoryPoint('Green', 25, null),
+    new NeutralCategoryPoint('Blue', 20, null),
+  ];
+  return CreateRadialChart(categoryPointData)
+    .ofType(ChartType.Pie)
+    .colors(['#4dc9f6', '#f67019', '#f53794', '#537bc4', '#acc236'])
+    .withTooltips()
+      .chart
+    .withLegend()
+      .at('top')
+      .chart
+    .build(true);
+}
+
+function buildPolarAreaChartConfig() {
+  const categoryPointData: NeutralCategoryPoint[] = [
+    new NeutralCategoryPoint('Red', 5, null),
+    new NeutralCategoryPoint('Orange', 15, null),
+    new NeutralCategoryPoint('Yellow', 5, null),
+    new NeutralCategoryPoint('Green', 25, null),
+    new NeutralCategoryPoint('Blue', 20, null),
+  ];
+  return CreateRadialChart(categoryPointData)
+    .ofType(ChartType.PolarArea)
+    .colors(['#4dc9f6', '#f67019', '#f53794', '#537bc4', '#acc236'], '44')
+    .withTooltips()
+      .chart
+    .withLegend()
+      .at('top')
+      .chart
+    .build(true);
+}
+
+function buildSprintsChartWithMultipleSeriesConfig() {
+  const speedSeriesData: SpeedSeries[] = [
+    new SpeedSeries('done', 'Sprint88', 50),
+    new SpeedSeries('extra', 'Sprint88', 5),
+    new SpeedSeries('done', 'Sprint89', 75),
+    new SpeedSeries('extra', 'Sprint89', 3),
+    new SpeedSeries('done', 'Sprint90', 63),
+    new SpeedSeries('extra', 'Sprint90', 9),
+    new SpeedSeries('done', 'Sprint91', 95),
+    new SpeedSeries('extra', 'Sprint91', 0),
+  ];
+  return CreateLinearChart<SpeedSeries>(speedSeriesData)
+    .prepareLinearCategoryData()
+      .seriesFrom((point) => point.serieId)
+      .categoryFrom((point) => point.sprintName)
+      .valueFrom((groupedPoints) =>
+        groupedPoints
+          .map((point) => point.value)
+          .reduce((accumulatedSum, currentValue) => accumulatedSum + currentValue, 0)
+      )
+      .chart
+    .responsive()
+    .ofType(ChartType.Bar)
+    .theme([ColorPallete.Spring1])
+    .withLegend()
+      .chart
+    .build(true);
+}
+
+function buildSprintsChartWithSingleSeriesConfig() {
+  const speedSeriesData: SpeedSeries[] = [
+    new SpeedSeries('done', 'Sprint88', 50),
+    new SpeedSeries('extra', 'Sprint88', 5),
+    new SpeedSeries('done', 'Sprint89', 75),
+    new SpeedSeries('extra', 'Sprint89', 3),
+    new SpeedSeries('done', 'Sprint90', 63),
+    new SpeedSeries('extra', 'Sprint90', 9),
+    new SpeedSeries('done', 'Sprint91', 95),
+    new SpeedSeries('extra', 'Sprint91', 0),
+  ];
+  return CreateLinearChart<SpeedSeries>(speedSeriesData)
+    .prepareLinearCategoryData()
+    .singleSerie()
+    .categoryFrom((point) => point.sprintName)
+    .valueFrom((groupedPoints) =>
+      groupedPoints
+        .map((point) => point.value)
+        .reduce((accumulatedSum, currentValue) => accumulatedSum + currentValue, 0)
+    )
+      .chart
+    .responsive()
+    .ofType(ChartType.Bar)
+    .theme([ColorPallete.Spring1])
+    .withLegend()
+      .chart
+    .build(true);
+}
+
+// Snippets: guias de implementação com indentação e padrão real para cada caso de uso.
+
+const SNIPPET_FROM_MODEL = `// Modelo com type, data e config (ex.: vindo do backend).
+const model = {
+  type: 'bar',
+  data: { labels: [], datasets: [] },
+  config: { responsive: true }
+};
+
+// No template:
+// <smz-ui-chart [type]="model.type" [data]="model.data" [options]="model.config" />`;
+
+const SNIPPET_BAR = `// Dados: array de pontos com serieId, date e value.
+const datePointData: NeutralDatePoint[] = [
+  new NeutralDatePoint('Data 1', new Date(2021, 1, 1), 12, null),
+  new NeutralDatePoint('Data 1', new Date(2021, 2, 1), 19, null),
+  // ...
+];
+
+const chart = CreateLinearChart<NeutralDatePoint>(datePointData)
+  .prepareLinearDateData(GroupingType.Monthly)
+    .seriesFrom((point) => point.serieId)
+    .dateFrom((point) => point.date)
+    .valueFrom((groupedPoints) =>
+      groupedPoints
+        .map((point) => point.value)
+        .reduce((accumulatedSum, currentValue) => accumulatedSum + currentValue, 0)
+    )
+    .chart
+  .ofType(ChartType.Bar)
+    .withTooltips()
+    .chart
+  .withTitle('# of Votes')
+    .chart
+  .withLegend()
+    .at('top')
+    .chart
+  .setupDataset('Data 1')
+    .label('Dataset 1')
+    .color('#FF0000', '33')
+    .thickness(0)
+    .chart
+  .build(true);`;
+
+const SNIPPET_LINE = `// Múltiplas séries (Dataset 1, Dataset 2) por mês.
+const datePointData: NeutralDatePoint[] = [ /* serieId, date, value */ ];
+
+const chart = CreateLinearChart<NeutralDatePoint>(datePointData)
+  .prepareLinearDateData(GroupingType.Monthly)
+    .seriesFrom((point) => point.serieId)
+    .dateFrom((point) => point.date)
+    .valueFrom((groupedPoints) =>
+      groupedPoints
+        .map((point) => point.value)
+        .reduce((accumulatedSum, currentValue) => accumulatedSum + currentValue, 0)
+    )
+    .chart
+  .ofType(ChartType.Line)
+    .withTitle('Line Chart')
+    .chart
+  .withTooltips()
+    .chart
+  .withLegend()
+    .at('top')
+    .chart
+  .setupDataset('Dataset 1')
+    .ofType(DatasetType.Line)
+    .label('Dataset 1')
+    .color('#FF0000', '77')
+    .chart
+  .setupDataset('Dataset 2')
+    .ofType(DatasetType.Line)
+    .label('Dataset 2')
+    .color('#5500FF', '77')
+    .chart
+  .build(true);`;
+
+const SNIPPET_COMBO = `// Um dataset como Line e outro como Bar no mesmo gráfico.
+const chart = CreateLinearChart<NeutralDatePoint>(datePointData)
+  .prepareLinearDateData(GroupingType.Monthly)
+    .seriesFrom((point) => point.serieId)
+    .dateFrom((point) => point.date)
+    .valueFrom((groupedPoints) =>
+      groupedPoints
+        .map((point) => point.value)
+        .reduce((accumulatedSum, currentValue) => accumulatedSum + currentValue, 0)
+    )
+    .chart
+  .ofType(ChartType.Mixed)
+    .withTitle('Chart.js Combined Line/Bar Chart')
+    .chart
+  .withTooltips()
+    .chart
+  .withLegend()
+    .at('top')
+    .chart
+  .setupDataset('Dataset 1')
+    .ofType(DatasetType.Line)
+    .label('Dataset 1')
+    .color('#f53794')
+    .thickness(2)
+    .chart
+  .setupDataset('Dataset 2')
+    .ofType(DatasetType.Bar)
+    .label('Dataset 2')
+    .color('#537bc4', '77')
+    .thickness(2)
+    .chart
+  .build(true);`;
+
+const SNIPPET_VERTICAL_BAR = `// Barras verticais com duas séries (Data 1, Data 2).
+const chart = CreateLinearChart<NeutralDatePoint>(datePointData)
+  .prepareLinearDateData(GroupingType.Monthly)
+    .seriesFrom((point) => point.serieId)
+    .dateFrom((point) => point.date)
+    .valueFrom((groupedPoints) =>
+      groupedPoints
+        .map((point) => point.value)
+        .reduce((accumulatedSum, currentValue) => accumulatedSum + currentValue, 0)
+    )
+    .chart
+  .ofType(ChartType.Bar)
+    .withTooltips()
+    .chart
+  .withLegend()
+    .at('top')
+    .chart
+  .setupDataset('Data 1')
+    .label('Data 1')
+    .color('#FF0000', '77')
+    .thickness(2)
+    .roundedBorders(5)
+    .chart
+  .setupDataset('Data 2')
+    .label('Data 2')
+    .color('#5500FF', '77')
+    .thickness(2)
+    .roundedBorders(5)
+    .chart
+  .build(true);`;
+
+const SNIPPET_ROUNDED_BAR = `// Barras empilhadas (StackedBar) com Dataset 1, 2.
+const chart = CreateLinearChart<NeutralDatePoint>(datePointData)
+  .prepareLinearDateData(GroupingType.Monthly)
+    .seriesFrom((point) => point.serieId)
+    .dateFrom((point) => point.date)
+    .valueFrom((groupedPoints) =>
+      groupedPoints
+        .map((point) => point.value)
+        .reduce((accumulatedSum, currentValue) => accumulatedSum + currentValue, 0)
+    )
+    .chart
+  .ofType(ChartType.StackedBar)
+    .withTitle('Bar Chart - Stacked')
+    .chart
+  .withTooltips()
+    .chart
+  .withLegend()
+    .at('top')
+    .chart
+  .setupDataset('Data 1')
+    .label('Dataset 1')
+    .color('#FF0000')
+    .chart
+  .setupDataset('Data 2')
+    .label('Dataset 2')
+    .color('#0000FF')
+    .chart
+  .build(true);`;
+
+const SNIPPET_STACKED_BAR = `// Barras empilhadas: use ChartType.StackedBar e um dataset por série.
+const chart = CreateLinearChart<NeutralDatePoint>(datePointData)
+  .prepareLinearDateData(GroupingType.Monthly)
+    .seriesFrom((point) => point.serieId)
+    .dateFrom((point) => point.date)
+    .valueFrom((groupedPoints) =>
+      groupedPoints
+        .map((point) => point.value)
+        .reduce((accumulatedSum, currentValue) => accumulatedSum + currentValue, 0)
+    )
+    .chart
+  .ofType(ChartType.StackedBar)
+    .withTitle('Bar Chart - Stacked')
+    .chart
+  .withTooltips()
+    .chart
+  .withLegend()
+    .at('top')
+    .chart
+  .setupDataset('Data 1')
+    .label('Dataset 1')
+    .color('#FF0000')
+    .chart
+  .setupDataset('Data 2')
+    .label('Dataset 2')
+    .color('#0000FF')
+    .chart
+  .setupDataset('Data 3')
+    .label('Dataset 3')
+    .color('#00FF00')
+    .chart
+  .build(true);`;
+
+const SNIPPET_DOUGHNUT = `// Gráfico radial: array de { category, value }. Doughnut com cores por fatia.
+const categoryPointData: NeutralCategoryPoint[] = [
+  new NeutralCategoryPoint('Red', 5, null),
+  new NeutralCategoryPoint('Orange', 15, null),
+  new NeutralCategoryPoint('Yellow', 5, null),
+  new NeutralCategoryPoint('Green', 25, null),
+  new NeutralCategoryPoint('Blue', 20, null),
+];
+
+const chart = CreateRadialChart(categoryPointData)
+  .ofType(ChartType.Doughnut)
+  .colors(['#4dc9f6', '#f67019', '#f53794', '#537bc4', '#acc236'])
+  .withTooltips()
+    .chart
+  .withLegend()
+    .at('top')
+    .chart
+  .build(true);`;
+
+const SNIPPET_PIE = `// Mesmo padrão do Doughnut; apenas mude o tipo para Pie.
+const categoryPointData: NeutralCategoryPoint[] = [ /* category, value */ ];
+
+const chart = CreateRadialChart(categoryPointData)
+  .ofType(ChartType.Pie)
+  .colors(['#4dc9f6', '#f67019', '#f53794', '#537bc4', '#acc236'])
+  .withTooltips()
+    .chart
+  .withLegend()
+    .at('top')
+    .chart
+  .build(true);`;
+
+const SNIPPET_POLAR_AREA = `// Polar Area: cores com opacidade no segundo argumento de .colors().
+const chart = CreateRadialChart(categoryPointData)
+  .ofType(ChartType.PolarArea)
+  .colors(['#4dc9f6', '#f67019', '#f53794', '#537bc4', '#acc236'], '44')
+  .withTooltips()
+    .chart
+  .withLegend()
+    .at('top')
+    .chart
+  .build(true);`;
+
+const SNIPPET_SPRINTS_MULTIPLE = `// Gráfico por categoria (ex.: sprints) com múltiplas séries (done, extra).
+const speedSeriesData: SpeedSeries[] = [
+  new SpeedSeries('done', 'Sprint88', 50),
+  new SpeedSeries('extra', 'Sprint88', 5),
+  // ...
+];
+
+const chart = CreateLinearChart<SpeedSeries>(speedSeriesData)
+  .prepareLinearCategoryData()
+    .seriesFrom((point) => point.serieId)
+    .categoryFrom((point) => point.sprintName)
+    .valueFrom((groupedPoints) =>
+      groupedPoints
+        .map((point) => point.value)
+        .reduce((accumulatedSum, currentValue) => accumulatedSum + currentValue, 0)
+    )
+    .chart
+  .responsive()
+  .ofType(ChartType.Bar)
+  .theme([ColorPallete.Spring1])
+  .withLegend()
+    .chart
+  .build(true);`;
+
+const SNIPPET_SPRINTS_SINGLE = `// Mesma base por categoria, mas uma única série (soma por sprint).
+const chart = CreateLinearChart<SpeedSeries>(speedSeriesData)
+  .prepareLinearCategoryData()
+  .singleSerie()
+  .categoryFrom((point) => point.sprintName)
+  .valueFrom((groupedPoints) =>
+    groupedPoints
+      .map((point) => point.value)
+      .reduce((accumulatedSum, currentValue) => accumulatedSum + currentValue, 0)
+  )
+    .chart
+  .responsive()
+  .ofType(ChartType.Bar)
+  .theme([ColorPallete.Spring1])
+  .withLegend()
+    .chart
+  .build(true);`;
+
+export const CHART_USE_CASES: ChartUseCase[] = [
+  {
+    id: 'from-model',
+    title: 'From model',
+    getConfig: buildConfigFromModel,
+    snippet: SNIPPET_FROM_MODEL,
+  },
+  { id: 'bar', title: 'Bar', getConfig: buildBarChartConfig, snippet: SNIPPET_BAR },
+  { id: 'line', title: 'Line', getConfig: buildLineChartConfig, snippet: SNIPPET_LINE },
+  {
+    id: 'combo',
+    title: 'Combo (Line + Bar)',
+    getConfig: buildComboChartConfig,
+    snippet: SNIPPET_COMBO,
+  },
+  {
+    id: 'vertical-bar',
+    title: 'Vertical Bar',
+    getConfig: buildVerticalBarChartConfig,
+    snippet: SNIPPET_VERTICAL_BAR,
+  },
+  {
+    id: 'rounded-bar',
+    title: 'Rounded Bar',
+    getConfig: buildRoundedBarChartConfig,
+    snippet: SNIPPET_ROUNDED_BAR,
+  },
+  {
+    id: 'stacked-bar',
+    title: 'Stacked Bar',
+    getConfig: buildStackedBarChartConfig,
+    snippet: SNIPPET_STACKED_BAR,
+  },
+  {
+    id: 'doughnut',
+    title: 'Doughnut',
+    getConfig: buildDoughnutChartConfig,
+    snippet: SNIPPET_DOUGHNUT,
+  },
+  {
+    id: 'pie',
+    title: 'Pie',
+    getConfig: buildPieChartConfig,
+    snippet: SNIPPET_PIE,
+  },
+  {
+    id: 'polar-area',
+    title: 'Polar Area',
+    getConfig: buildPolarAreaChartConfig,
+    snippet: SNIPPET_POLAR_AREA,
+  },
+  {
+    id: 'sprints-1',
+    title: 'Sprints (múltiplas séries)',
+    getConfig: buildSprintsChartWithMultipleSeriesConfig,
+    snippet: SNIPPET_SPRINTS_MULTIPLE,
+  },
+  {
+    id: 'sprints-2',
+    title: 'Sprints (série única)',
+    getConfig: buildSprintsChartWithSingleSeriesConfig,
+    snippet: SNIPPET_SPRINTS_SINGLE,
+  },
+];
