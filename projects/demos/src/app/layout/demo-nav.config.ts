@@ -25,8 +25,7 @@ export const DEMO_NAV_SECTIONS: DemoNavSection[] = [
     id: 'components',
     label: 'Componentes',
     items: [
-      // Lista completa em COMPONENTS_LIST.md — descomente ao criar cada demo.
-      // { path: 'table', label: 'Table' },
+      { path: 'table', label: 'Table' },
       // { path: 'easy-table', label: 'Easy Table' },
       // { path: 'multi-tables', label: 'Multi Tables' },
       // { path: 'tree', label: 'Tree' },
