@@ -1,0 +1,25 @@
+<h1 class="demos-page-title">Table</h1>
+
+<p class="demos-page-lead">
+  Tabelas com <code>SmzTableBuilder</code> e componente <code>smz-ui-table</code>.
+</p>
+
+@for (useCase of useCases; track useCase.id) {
+
+  <section class="demos-demo-section">
+    <h2 id="{{ useCase.id }}">{{ useCase.title }}</h2>
+
+    <div class="demos-demo-section__example">
+      <div class="demos-demo-section__table">
+        <smz-ui-table
+          [state]="useCase.getConfig()"
+          [items]="useCase.getData()"
+        />
+      </div>
+    </div>
+
+    <h3>Código</h3>
+
+    <app-demo-code-block [code]="useCase.snippet" />
+  </section>
+}
