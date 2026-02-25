@@ -4,22 +4,22 @@
   Tabelas com <code>SmzTableBuilder</code> e componente <code>smz-ui-table</code>.
 </p>
 
-@for (useCase of useCases; track useCase.id) {
+@for (cached of cachedUseCases; track cached.useCase.id) {
 
   <section class="demos-demo-section">
-    <h2 id="{{ useCase.id }}">{{ useCase.title }}</h2>
+    <h2 id="{{ cached.useCase.id }}">{{ cached.useCase.title }}</h2>
 
     <div class="demos-demo-section__example">
       <div class="demos-demo-section__table">
         <smz-ui-table
-          [state]="useCase.getConfig()"
-          [items]="useCase.getData()"
+          [state]="cached.state"
+          [items]="cached.data"
         />
       </div>
     </div>
 
     <h3>Código</h3>
 
-    <app-demo-code-block [code]="useCase.snippet" />
+    <app-demo-code-block [code]="cached.useCase.snippet" />
   </section>
 }
