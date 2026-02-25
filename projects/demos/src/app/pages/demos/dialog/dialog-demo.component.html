@@ -1,0 +1,33 @@
+<h1 class="demos-page-title">Dialogs</h1>
+
+<p class="demos-page-lead">
+  Diálogos com <code>SmzDialogBuilder</code> e serviço <code>SmzDialogsService</code>.
+  Clique nos botões para abrir cada variação.
+</p>
+
+@for (section of sections; track section.id) {
+
+  <h2 class="demos-section-title">{{ section.label }}</h2>
+
+  @for (useCase of section.useCases; track useCase.id) {
+
+    <section class="demos-demo-section">
+      <h3 id="{{ useCase.id }}">{{ useCase.title }}</h3>
+
+      <p class="demos-demo-description">{{ useCase.description }}</p>
+
+      <div class="demos-demo-section__example">
+        <button
+          class="demos-open-button"
+          (click)="openDialog(useCase.open)"
+        >
+          Abrir dialog
+        </button>
+      </div>
+
+      <h4>Código</h4>
+
+      <app-demo-code-block [code]="useCase.snippet" />
+    </section>
+  }
+}

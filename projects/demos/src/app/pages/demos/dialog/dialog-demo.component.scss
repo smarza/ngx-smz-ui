@@ -1,0 +1,46 @@
+:host {
+  display: block;
+}
+
+.demos-section-title {
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  border-bottom: 1px solid var(--demos-border, #e2e8f0);
+  padding-bottom: 0.5rem;
+}
+
+.demos-demo-description {
+  color: var(--demos-muted, #64748b);
+  margin-bottom: 0.75rem;
+}
+
+.demos-demo-section {
+  margin-bottom: 2rem;
+
+  .demos-demo-section__example {
+    margin-bottom: 1rem;
+  }
+}
+
+.demos-open-button {
+  padding: 0.5rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 0.375rem;
+  border: 1px solid var(--demos-btn-border, #cbd5e1);
+  background: var(--demos-btn-bg, #ffffff);
+  color: var(--demos-btn-text, #334155);
+  cursor: pointer;
+  transition: all 0.15s ease;
+
+  &:hover {
+    background: var(--demos-btn-hover-bg, #f1f5f9);
+    border-color: var(--demos-btn-hover-border, #94a3b8);
+  }
+
+  &:active {
+    background: var(--demos-btn-active-bg, #e2e8f0);
+  }
+}
