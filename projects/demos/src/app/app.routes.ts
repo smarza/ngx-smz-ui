@@ -28,6 +28,21 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./pages/demos/dialog/dialog-demo.component').then((m) => m.DialogDemoComponent),
       },
+      {
+        path: 'tree',
+        loadComponent: () =>
+          import('./pages/demos/tree/tree-demo.component').then((m) => m.TreeDemoComponent),
+      },
+      {
+        path: 'cards',
+        loadComponent: () =>
+          import('./pages/demos/cards/cards-demo.component').then((m) => m.CardsDemoComponent),
+      },
+      {
+        path: 'timeline',
+        loadComponent: () =>
+          import('./pages/demos/timeline/timeline-demo.component').then((m) => m.TimelineDemoComponent),
+      },
     ],
   },
 ];
