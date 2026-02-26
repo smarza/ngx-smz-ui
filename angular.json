@@ -337,7 +337,7 @@
             "browser": "projects/demos/src/main.ts",
             "tsConfig": "projects/demos/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "allowedCommonJsDependencies": ["chart.js"],
+            "allowedCommonJsDependencies": ["chart.js", "html2pdf.js"],
             "assets": [
               {
                 "glob": "**/*",
@@ -346,6 +346,9 @@
             ],
             "styles": [
               "projects/demos/src/styles.scss"
+            ],
+            "scripts": [
+              "node_modules/html2pdf.js/dist/html2pdf.bundle.js"
             ]
           },
           "configurations": {
@@ -353,8 +356,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "5MB",
+                  "maximumError": "10MB"
                 },
                 {
                   "type": "anyComponentStyle",
