@@ -15,7 +15,10 @@
     "build-watch:smz-ui-layout": "ng build ngx-smz-ui-layout --watch --configuration development",
     "build-prod-smz-ui": "ng build ngx-smz-ui --configuration=production",
     "build-prod-smz-ui-layout": "ng build ngx-smz-ui-layout --configuration=production",
-    "windows:delete-node-modules": "npx rimraf ./**/node_modules"
+    "windows:delete-node-modules": "npx rimraf ./**/node_modules",
+    "lint:smz-ui": "npx eslint projects/ngx-smz-ui/src/**/*.ts",
+    "lint:smz-ui-layout": "npx eslint projects/ngx-smz-ui-layout/src/**/*.ts",
+    "lint:demos": "npx eslint projects/demos/src/**/*.ts"
   },
   "private": true,
   "dependencies": {
