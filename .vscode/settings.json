@@ -1,25 +1,13 @@
 {
-    "javascript.preferences.importModuleSpecifier": "auto",
-    "typescript.preferences.importModuleSpecifier": "auto",
-    "javascript.preferences.quoteStyle": "single",
-    "typescript.preferences.quoteStyle": "single",
-
-    "eslint.validate": [
-        "javascript",
-        "typescript",
-    ],
-
-    "files.autoSave": "off",
-    "files.trimTrailingWhitespace": true,
-
-    "editor.detectIndentation": true,
-    "editor.minimap.enabled": true,
-    "editor.tabSize": 2,
-    "javascript.format.placeOpenBraceOnNewLineForFunctions": false,
-    "typescript.format.placeOpenBraceOnNewLineForFunctions": false,
-    "javascript.format.placeOpenBraceOnNewLineForControlBlocks": false,
-    "typescript.format.placeOpenBraceOnNewLineForControlBlocks": false,
-    "typescript.updateImportsOnFileMove.enabled": "never",
-    "dart.updateImportsOnRename": false,
-    "javascript.updateImportsOnFileMove.enabled": "never"
+    "chat.promptFilesRecommendations": {
+        "speckit.constitution": true,
+        "speckit.specify": true,
+        "speckit.plan": true,
+        "speckit.tasks": true,
+        "speckit.implement": true
+    },
+    "chat.tools.terminal.autoApprove": {
+        ".specify/scripts/bash/": true,
+        ".specify/scripts/powershell/": true
+    }
 }
