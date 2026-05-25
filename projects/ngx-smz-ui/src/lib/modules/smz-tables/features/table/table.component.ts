@@ -59,6 +59,7 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
   public showSkeleton = false;
   public documentClickListener = null;
   private isViewInit = false;
+  private isRestoringViewport = false;
   public contentTypes = {
     currency: SmzContentType.CURRENCY,
     calendar: SmzContentType.CALENDAR,
@@ -202,21 +203,34 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
 
     this.editableService.setupAccess();
 
+    if (this.state.viewport?.state?.isEnabled && this.state.viewport.state.data?.pagination != null && this.state.pagination?.isVisible) {
+      setTimeout(() => {
+        this.applyPersistedPagination(this.state.viewport.state.data);
+        this.cdr.markForCheck();
+      }, 0);
+    }
+
     this.isViewInit = true;
     this.cdr.markForCheck();
-
   }
 
   public extractViewportStateData(): SmzTableViewportStateData {
 
     const results: SmzTableViewportStateData = {
       filters: this.table.filters,
-      visibility: this.state.columns.map(x => {
-        const selectedColumn = this.selectedColumns.find(s => s.field === x.field);
-        return { key: x.field, isVisible: selectedColumn != null };
-      }),
+      visibility: this.state.columns.map(x => ({
+        key: x.field,
+        isVisible: x.isVisible,
+      })),
       sort: { mode: 'single', field: this.table.sortField, order: this.table.sortOrder }
     };
+
+    if (this.state.pagination?.isVisible) {
+      results.pagination = {
+        first: this.state.pagination.state.first,
+        rows: this.state.pagination.state.rows,
+      };
+    }
 
     return results;
   }
@@ -254,7 +268,7 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
     // Popular a variavel contendo as colunas visiveis
     this.populateColumnVisibility(this.state);
 
-    if (state.data.sort != null) {
+    if (state.data.sort != null && state.data.sort.field != null) {
 
       this.table.sortMode = 'single';
       this.table.sortField = state.data.sort.field;
@@ -265,14 +279,54 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
         this.table.firstChange.emit(this.table.first);
 
         if (this.table.scrollable) {
-            this.table.resetScrollTop();
+          this.table.resetScrollTop();
         }
-    }
+      }
 
       this.table.sortSingle();
 
     }
 
+    this.applyPersistedPagination(state.data);
+
+  }
+
+  private applyPersistedPagination(viewportData: SmzTableViewportStateData): void {
+    if (!this.state.pagination?.isVisible) {
+      return;
+    }
+
+    if (viewportData.pagination != null) {
+      this.state.pagination.state = {
+        first: viewportData.pagination.first,
+        rows: viewportData.pagination.rows,
+      };
+      this.state.pagination.rows = viewportData.pagination.rows;
+    }
+    else {
+      this.state.pagination.state = {
+        first: 0,
+        rows: this.state.pagination.rows,
+      };
+    }
+
+    this.syncPaginationToTable();
+  }
+
+  private syncPaginationToTable(): void {
+    if (this.table == null) {
+      return;
+    }
+
+    this.isRestoringViewport = true;
+    this.table.first = this.state.pagination.state.first;
+    this.table.rows = this.state.pagination.state.rows;
+
+    if (this.table.onPageChange != null) {
+      this.table.onPageChange(this.state.pagination.state);
+    }
+
+    this.isRestoringViewport = false;
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
@@ -307,7 +361,7 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
       setTimeout(() => {
         if (this.table != null && this.table.onPageChange != null) {
           // ATUALIZAR PAGINA ATUAL NO PAGINADOR DO PRIME
-          this.table.onPageChange(this.state.pagination.state);
+          this.syncPaginationToTable();
 
           // PROPAGAR ALTERAÇÕES
           this.cdr.markForCheck();
@@ -613,6 +667,11 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
 
   public onPage(event: { first: number, rows: number }): void {
     this.state.pagination.state = event;
+    this.state.pagination.rows = event.rows;
+
+    if (!this.isRestoringViewport) {
+      this.viewportChange();
+    }
   }
 
   public emitSelection(event: any[]): void {

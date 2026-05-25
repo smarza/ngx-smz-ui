@@ -5,6 +5,11 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
+[17.3.4] - 2026-05-25
+
+### Melhorias
+- Persistência de viewport passa a incluir **paginação** (página atual e tamanho de página)
+
 [17.3.3] - 2025-10-31
 
 - Exposição do componente de arvore do prime (dt) a partir do nosso SmzTreeComponent

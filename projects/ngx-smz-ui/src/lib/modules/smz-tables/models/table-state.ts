@@ -579,4 +579,5 @@ export interface SmzTableViewportStateData {
   visibility: { key: string, isVisible: boolean }[];
   sort: { mode: 'single', field: string, order: any };
   filters: { [s: string]: FilterMetadata | FilterMetadata[] | undefined };
+  pagination?: { first: number, rows: number };
 }

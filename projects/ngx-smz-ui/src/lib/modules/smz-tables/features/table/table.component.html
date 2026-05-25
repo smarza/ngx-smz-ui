@@ -29,6 +29,7 @@
             [styleClass]="'p-datatable-smz-ui-table' + (context.state.styles.striped ? ' p-datatable-striped' : '') + (context.state.styles.showGrid ? ' p-datatable-show-grid' : '') + (context.state.styles.size === 'extra-small' ? ' p-datatable-xs' : '') + (context.state.styles.size === 'small' ? ' p-datatable-sm' : '') + (context.state.styles.size === 'large' ? ' p-datatable-lg' : '')"
             [rowHover]="context.state.actions.rowBehavior.hoverable"
             [rows]="context.state.pagination.rows"
+            [first]="context.state.pagination.state.first"
             [showCurrentPageReport]="context.state.pagination.pageReport.isVisible"
             [rowsPerPageOptions]="context.state.pagination.rowsPerPageOptions"
             [loading]="loading"

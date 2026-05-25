@@ -900,7 +900,22 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
       { name: 'name 2', company: 'company A' },
       { name: 'name 2', company: 'company B' },
       { name: 'name 2', company: 'company C' },
-      { name: 'name 3', company: 'company E' }
+      { name: 'name 3', company: 'company E' },
+      { name: 'name 4', company: 'company F' },
+      { name: 'name 5', company: 'company G' },
+      { name: 'name 6', company: 'company H' },
+      { name: 'name 7', company: 'company I' },
+      { name: 'name 8', company: 'company J' },
+      { name: 'name 9', company: 'company K' },
+      { name: 'name 10', company: 'company L' },
+      { name: 'name 11', company: 'company M' },
+      { name: 'name 12', company: 'company N' },
+      { name: 'name 13', company: 'company O' },
+      { name: 'name 14', company: 'company P' },
+      { name: 'name 15', company: 'company Q' },
+      { name: 'name 16', company: 'company R' },
+      { name: 'name 17', company: 'company S' },
+      { name: 'name 18', company: 'company T' },
     ]),
     // items$: of([]),
     code: () => {
@@ -908,6 +923,8 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
       .setTitle('Filter Persistence')
       .enableClearFilters()
       .enableColumnVisibility()
+      .usePagination()
+      .setPaginationDefaultRows(2)
       .enableGlobalFilter()
       .useTableEmptyMessage()
       .useGridStyle()

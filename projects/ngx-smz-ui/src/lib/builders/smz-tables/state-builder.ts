@@ -975,6 +975,19 @@ export class SmzTableBuilder<TData> extends SmzBuilderUtilities<SmzTableBuilder<
 
     });
 
+    if (this._state.viewport.state.persistance !== 'none'
+      && this._state.viewport.state.data != null
+      && this._state.pagination?.isVisible) {
+
+      if (this._state.viewport.state.data.pagination != null) {
+        this._state.pagination.state = {
+          first: this._state.viewport.state.data.pagination.first,
+          rows: this._state.viewport.state.data.pagination.rows,
+        };
+        this._state.pagination.rows = this._state.viewport.state.data.pagination.rows;
+      }
+    }
+
     const selectionWidth = this._state.caption.rowSelection.columnWidth;
     this._state.caption.rowSelection.ngStyle = applyTableContentNgStyle(this._state, null, selectionWidth);
 
