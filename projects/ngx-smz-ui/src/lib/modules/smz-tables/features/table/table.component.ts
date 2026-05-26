@@ -60,6 +60,7 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
   public documentClickListener = null;
   private isViewInit = false;
   private isRestoringViewport = false;
+  public isViewportInitializing = false;
   public contentTypes = {
     currency: SmzContentType.CURRENCY,
     calendar: SmzContentType.CALENDAR,
@@ -102,6 +103,56 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
   }
 
   public ngOnInit(): void {
+    if (!this.shouldRestorePersistedViewport()) {
+      return;
+    }
+
+    this.isViewportInitializing = true;
+    this.hydratePersistedViewportPreview(this.state.viewport.state.data);
+  }
+
+  private shouldRestorePersistedViewport(): boolean {
+    const viewportState = this.state?.viewport?.state;
+
+    if (viewportState?.isEnabled !== true || viewportState.persistance === 'none') {
+      return false;
+    }
+
+    if (viewportState.data != null) {
+      return true;
+    }
+
+    if (viewportState.persistance === 'auto') {
+      return localStorage.getItem(viewportState.auto.key) != null;
+    }
+
+    if (viewportState.persistance === 'manual') {
+      return true;
+    }
+
+    return false;
+  }
+
+  private hydratePersistedViewportPreview(viewportData: SmzTableViewportStateData | null | undefined): void {
+    if (viewportData == null || this.state == null) {
+      return;
+    }
+
+    const globalFilter = viewportData.filters?.['global'] as FilterMetadata;
+
+    if (globalFilter != null) {
+      this.globalSearchInput = globalFilter.value;
+    }
+
+    this.state.columns.forEach(column => {
+      const visibilityData = viewportData.visibility?.find(x => x.key === column.field);
+
+      if (visibilityData != null) {
+        column.isVisible = visibilityData.isVisible;
+      }
+    });
+
+    this.populateColumnVisibility(this.state);
   }
 
   public hasFilters(): boolean {
@@ -161,11 +212,8 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
     this.selectedColumns = this.selectedColumns.filter(x => x.field !== column.field);
   }
 
-  public ngAfterViewInit(): void
-  {
-    setTimeout(() => {
-      this.initializeState();
-    }, 0);
+  public ngAfterViewInit(): void {
+    this.initializeState();
   }
 
   public initializeState(): void {
@@ -203,11 +251,19 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
 
     this.editableService.setupAccess();
 
-    if (this.state.viewport?.state?.isEnabled && this.state.viewport.state.data?.pagination != null && this.state.pagination?.isVisible) {
+    const needsDeferredPaginationSync = this.state.viewport?.state?.isEnabled
+      && this.state.viewport.state.data?.pagination != null
+      && this.state.pagination?.isVisible;
+
+    if (needsDeferredPaginationSync) {
       setTimeout(() => {
         this.applyPersistedPagination(this.state.viewport.state.data);
+        this.isViewportInitializing = false;
         this.cdr.markForCheck();
       }, 0);
+    }
+    else {
+      this.isViewportInitializing = false;
     }
 
     this.isViewInit = true;
@@ -356,9 +412,13 @@ export class SmzTableComponent implements OnInit, AfterViewInit, AfterContentIni
       this.cdr.markForCheck();
     }
 
-    if (changes.items != null) {
+    if (changes['items'] != null) {
 
       setTimeout(() => {
+        if (this.isViewportInitializing) {
+          return;
+        }
+
         if (this.table != null && this.table.onPageChange != null) {
           // ATUALIZAR PAGINA ATUAL NO PAGINADOR DO PRIME
           this.syncPaginationToTable();

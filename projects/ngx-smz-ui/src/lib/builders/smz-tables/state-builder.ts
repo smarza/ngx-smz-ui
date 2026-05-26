@@ -988,6 +988,14 @@ export class SmzTableBuilder<TData> extends SmzBuilderUtilities<SmzTableBuilder<
       }
     }
 
+    if (this._state.viewport.state.persistance !== 'none'
+      && this._state.viewport.state.data != null
+      && this._state.viewport.state.data.sort?.field != null) {
+
+      this._state.sort.field = this._state.viewport.state.data.sort.field;
+      this._state.sort.order = this._state.viewport.state.data.sort.order;
+    }
+
     const selectionWidth = this._state.caption.rowSelection.columnWidth;
     this._state.caption.rowSelection.ngStyle = applyTableContentNgStyle(this._state, null, selectionWidth);
 

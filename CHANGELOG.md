@@ -5,6 +5,13 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
+[17.3.5] - 2026-05-25
+
+### Melhorias
+- Persistência de viewport passa a restaurar também a **ordenação** (campo e direção)
+- Pré-carregamento do estado persistido da viewport (filtro global e visibilidade de colunas) para evitar flicker na inicialização da tabela
+- Indicador de loading e ocultação temporária da tabela enquanto a viewport persistida é aplicada
+
 [17.3.4] - 2026-05-25
 
 ### Melhorias
