@@ -1082,6 +1082,13 @@ export const TreeDemoData: DemoTreeNode[] = [
         key: DemoKeys.TABLE_EXPORT_EXCEL.toString()
       },
       {
+        label: 'Products List', icon: 'fa-solid fa-code', type: 'Demo',
+        demoType: 'table',
+        notes: '',
+        data: TablesDemo[DemoKeys.TABLE_PRODUCTS_LIST],
+        key: DemoKeys.TABLE_PRODUCTS_LIST.toString()
+      },
+      {
         label: 'Editable', icon: 'fa-solid fa-code', type: 'Demo',
         demoType: 'table',
         notes: '',

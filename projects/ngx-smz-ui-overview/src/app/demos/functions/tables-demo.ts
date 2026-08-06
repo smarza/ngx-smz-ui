@@ -649,10 +649,8 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
           .columns
         .text('name', 'Name', '20em')
           .columns
-        .custom('status.name', 'Status', '10em')
+        .custom('status.name', 'Status 2', '10em')
           .setFilter(SmzFilterType.MULTI_SELECT)
-          .exportAs(SmzExportableContentType.TEXT)
-          .setExportTransform(x => x.name)
           .columns
         .text('country.name', 'Country')
           .setFilter(SmzFilterType.MULTI_SELECT)
@@ -669,6 +667,24 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
           .columns
         .text('htmls', 'Links')
           .exportAs(SmzExportableContentType.AUTODETECT)
+          .columns
+        .table
+      .build()
+    }
+  },
+  //
+  [DemoKeys.TABLE_PRODUCTS_LIST]: {
+    items$: store.select(DemoFeatureSelectors.productsList),
+    code: () => {
+    return new SmzTableBuilder()
+      .setTitle('Products List')
+      .enableGlobalFilter()
+      .useTableEmptyMessage()
+      .usePagination()
+      .useStrippedStyle()
+      .columns()
+        .custom('status.name', 'Status', '12em')
+          .setFilter(SmzFilterType.MULTI_SELECT)
           .columns
         .table
       .build()

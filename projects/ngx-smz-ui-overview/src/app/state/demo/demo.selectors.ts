@@ -149,8 +149,13 @@ export class DemoFeatureSelectors {
     for (let index = 0; index < 5; index++) {
       finalResults.push(...cloneDeep(results));
     }
-
+    console.log(finalResults);
     return finalResults;
+  }
+
+  @Selector([DemoFeatureState])
+  public static productsList(state: DemoFeatureStateModel): any[] {
+    return state.productsList;
   }
 
   public static nested(state: DemoFeatureStateModel): Plant[] {

@@ -79,4 +79,8 @@ export class DemoDataService {
   public getTree(): Observable<TreeNode[]> {
     return this.http.get<{ data: TreeNode[] }>('assets/files_temp.json').pipe(map(response => response.data));
   }
+
+  public getProductsList(): Observable<any[]> {
+    return this.http.get<any[]>('assets/products_list.json');
+  }
 }

@@ -19,6 +19,7 @@ export interface DemoFeatureStateModel {
   tree: TreeNode[];
   currentRouteKey: string;
   searchResults: string[];
+  productsList: any[];
 }
 
 export const getFtDemoInitialState = (): DemoFeatureStateModel => ({
@@ -26,7 +27,8 @@ export const getFtDemoInitialState = (): DemoFeatureStateModel => ({
   items: null,
   tree: null,
   currentRouteKey: null,
-  searchResults: null
+  searchResults: null,
+  productsList: null
 });
 
 @State<DemoFeatureStateModel>({
@@ -40,6 +42,7 @@ export class DemoFeatureState {
 
   @Action(DemoFeatureActions.LoadAll)
   public onLoad$(ctx: StateContext<DemoFeatureStateModel>): Observable<DemoItem[]> {
+    ctx.dispatch(new DemoFeatureActions.LoadProductsList());
     return this.apiService.getAll().pipe(
       tap(results => {
         ctx.patchState({
@@ -56,6 +59,17 @@ export class DemoFeatureState {
       tap(results => {
         ctx.patchState({
           tree: results
+        });
+      })
+    );
+  }
+
+  @Action(DemoFeatureActions.LoadProductsList)
+  public onLoadProductsList$(ctx: StateContext<DemoFeatureStateModel>): Observable<any[]> {
+    return this.apiService.getProductsList().pipe(
+      tap(results => {
+        ctx.patchState({
+          productsList: results
         });
       })
     );

@@ -2,6 +2,11 @@ import { DemoCreationData, DemoItem, DemoUpdateData } from '../../models/demo';
 
 export namespace DemoFeatureActions {
 
+  export class LoadProductsList {
+    public static readonly type = '[DEMO] Load Products List';
+    constructor() {}
+  }
+
   export class LoadAll {
     public static readonly type = '[DEMO] Load All';
     constructor() {}
