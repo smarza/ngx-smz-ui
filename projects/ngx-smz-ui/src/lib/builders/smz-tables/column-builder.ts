@@ -346,13 +346,49 @@ export class SmzCustomColumnBuilder<TData> extends SmzBaseColumnBuilder<SmzCusto
       throw new Error(`You need to overrideGlobalFilter after calling setFilter for the field ${this._column.field}`);
     }
 
-    if (type === SmzFilterType.DATE_TIME) {
-      this._column.filter.showTime = true;
-      this._column.filter.type = SmzFilterType.DATE;
+    if ((this._column.content.data as SmzCustomContent).getFilterableData != null) {
+      throw new Error(`You need to setFilterableData after setFilter for the field ${this._column.field}`);
     }
 
-    this._column.filterField = `_filterable_${this._column.field}`;
-    this._column.globalFilterField = `_filterable_${this._column.field}`;
+    if (this._column.filterField.startsWith('_filterable_')) {
+      throw new Error(`You need to call setFilter before other filter methods for the field ${this._column.field}`);
+    }
+
+    if (type === SmzFilterType.MULTI_SELECT_ARRAY) {
+      this._column.globalFilterDataType = 'array';
+    }
+
+    switch (type) {
+      case SmzFilterType.MULTI_SELECT_ARRAY:
+        this._column.filterField = this._column.field;
+        break;
+
+      case SmzFilterType.MULTI_SELECT:
+        this._column.filterField = this._column.field;
+        break;
+
+      case SmzFilterType.MULTI_SELECT_STRING:
+        this._column.filterField = this._column.field;
+        break;
+
+      case SmzFilterType.DROPDOWN:
+        this._column.filterField = this._column.field;
+        break;
+
+      case SmzFilterType.DATE:
+        this._column.filterField = this._column.field;
+        break;
+
+      case SmzFilterType.DATE_TIME:
+        this._column.filter.type = SmzFilterType.DATE;
+        this._column.filterField = this._column.field;
+        this._column.filter.showTime = true;
+        break;
+
+      default:
+        this._column.filterField = `_filterable_${this._column.field}`;
+        this._column.globalFilterField = `_filterable_${this._column.field}`;
+    }
 
     return this;
   }
@@ -407,8 +443,49 @@ export class SmzIconColumnBuilder<TData> extends SmzBaseColumnBuilder<SmzIconCol
       throw new Error(`You need to overrideGlobalFilter after calling setFilter for the field ${this._column.field}`);
     }
 
-    this._column.filterField = `_filterable_${this._column.field}`;
-    this._column.globalFilterField = `_filterable_${this._column.field}`;
+    if ((this._column.content.data as SmzIconContent).getFilterableData != null) {
+      throw new Error(`You need to setFilterableData after setFilter for the field ${this._column.field}`);
+    }
+
+    if (this._column.filterField.startsWith('_filterable_')) {
+      throw new Error(`You need to call setFilter before other filter methods for the field ${this._column.field}`);
+    }
+
+    if (type === SmzFilterType.MULTI_SELECT_ARRAY) {
+      this._column.globalFilterDataType = 'array';
+    }
+
+    switch (type) {
+      case SmzFilterType.MULTI_SELECT_ARRAY:
+        this._column.filterField = this._column.field;
+        break;
+
+      case SmzFilterType.MULTI_SELECT:
+        this._column.filterField = this._column.field;
+        break;
+
+      case SmzFilterType.MULTI_SELECT_STRING:
+        this._column.filterField = this._column.field;
+        break;
+
+      case SmzFilterType.DROPDOWN:
+        this._column.filterField = this._column.field;
+        break;
+
+      case SmzFilterType.DATE:
+        this._column.filterField = this._column.field;
+        break;
+
+      case SmzFilterType.DATE_TIME:
+        this._column.filter.type = SmzFilterType.DATE;
+        this._column.filterField = this._column.field;
+        this._column.filter.showTime = true;
+        break;
+
+      default:
+        this._column.filterField = `_filterable_${this._column.field}`;
+        this._column.globalFilterField = `_filterable_${this._column.field}`;
+    }
 
     return this;
   }

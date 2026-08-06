@@ -45,14 +45,14 @@ const data: any = {
   appArea: 'home',
   clearReusableRoutes: true,
   // requiredStates: [UI_DEFINITIONS_STATE_NAME, CountriesDbName],
-  // requiredFeatureStates: [DemoFeatureName]
+  requiredFeatureStates: [DemoFeatureName]
 };
 
 const routes: Routes = [
   {
     path: '',
-    canActivate: [RbkAuthGuard],
-    // canActivate: [RbkAuthGuard, RbkDatabaseStateGuard, RbkFeatureStateGuard],
+    // canActivate: [RbkAuthGuard],
+    canActivate: [RbkAuthGuard, RbkDatabaseStateGuard, RbkFeatureStateGuard],
     component: HomeComponent,
     data
   },

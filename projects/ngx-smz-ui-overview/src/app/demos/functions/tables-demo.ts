@@ -117,8 +117,6 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
         .date('date', 'Data', '200px')
           .columns
         .custom('country.name', 'Country')
-          .overrideGlobalFilter('country.name')
-          .overrideFilter('country')
           .setFilter(SmzFilterType.MULTI_SELECT)
           .disableSort()
           .columns
@@ -652,7 +650,7 @@ export const TablesDemo: { [key: string]: { items$: Observable<any[]>, code: () 
         .text('name', 'Name', '20em')
           .columns
         .custom('status.name', 'Status', '10em')
-          .setFilter(SmzFilterType.TEXT)
+          .setFilter(SmzFilterType.MULTI_SELECT)
           .exportAs(SmzExportableContentType.TEXT)
           .setExportTransform(x => x.name)
           .columns

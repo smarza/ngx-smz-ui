@@ -5,6 +5,12 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado no [Keep a Changelog](https://keepachangelog.com),
 e este projeto adere ao [Versionamento Semântico](https://semver.org).
 
+[17.3.6] - 2026-08-06
+
+### Corrigido
+- Corrige o problema onde filtros multi-select das colunas **custom** e **icon** da tabela não funcionavam corretamente
+- Corrige a preparação dos dados filtráveis em colunas custom e icon, permitindo que filtros e busca global operem sobre o valor exibido na célula
+
 [17.3.5] - 2026-05-25
 
 ### Melhorias

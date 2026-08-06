@@ -32,7 +32,18 @@ export class SmzCloneTableItemsPipe implements PipeTransform {
     else {
       clonedItems = cloneDeep(items)
 
-      if (context.columns.some(x => x.content.type == SmzContentType.DATA_TRANSFORM)) {
+      const shouldIncludeTransformedData = context.columns.some(column => {
+        const contentType = column.content.type;
+        const isDataTransform = contentType === SmzContentType.DATA_TRANSFORM;
+        const hasCustomFilterableData = contentType === SmzContentType.CUSTOM
+          && (column.content.data as SmzCustomContent)?.getFilterableData != null;
+        const hasIconFilterableData = contentType === SmzContentType.ICON
+          && (column.content.data as SmzIconContent)?.getFilterableData != null;
+
+        return isDataTransform || hasCustomFilterableData || hasIconFilterableData;
+      });
+
+      if (shouldIncludeTransformedData) {
         clonedItems = this.includeTransformedData(clonedItems, context);
       }
     }
